@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+/**
+ * Dear maintainer:
+ *
+ * When i wrote this code, only I and God
+ * knew what it was.
+ * Now, only God knows!
+ *
+ * So if you are done trying to 'optimize'
+ * this program (and failed),
+ * please increment the following counter
+ * as a warning
+ * to the next guy:
+ *
+ * total_hours_wasted_here = 50
+ */
+'use strict';
+
+// requires
+require('module-alias/register');
+require('colors');
+
+const _ = require('lodash');
+
+// core application
+const { printHelp, evaluate } = require('@core');
+
+/**
+ * Parses the given arguments
+ */
+const init_qualweb = async () => {
+  const commands = {};
+  const args = process.argv;
+
+  // prints help menu if the number of arguments is less than 3 or if the argument '-h' is given
+  if (_.size(args) < 3 || _.includes(args, '-h')) {
+    await printHelp();
+    process.exit(0);
+  }
+
+  // checks if the first argument is a command, if not, an error is given
+  if (!_.startsWith(args[2], '-')) {
+    console.log('First argument is not a command');
+    process.exit(1);
+  }
+
+  // cycles through the arguments and parses them. all information is saved to the 'check' object
+  // each command argument can only have at most one value argument
+  const size = _.size(args);
+  for (let i = 2 ; i < size ; i++) {
+
+    // checks if there are two value arguments followed 
+    if (!_.startsWith(args[i], '-') || _.size(args[i]) < 2) {
+      console.log(`The argument "${args[i]}" is not a command`.yellow);
+      continue;
+    }
+
+    // checks if the command is not duplicated
+    if (commands[args[i]] === undefined) {
+
+      // saves the command argument with the his respective value
+      if (args[i+1] === undefined || _.startsWith(args[i+1], '-')) {
+        commands[args[i]] = '';
+      } else {
+        commands[args[i]] = args[i+1];
+        i++;
+      }
+    } else {
+      console.log(`Duplicate command "${args[i]}"`.yellow);
+
+      // ignores the value of the duplicated command
+      if (!_.startsWith(args[i+1], '-')) {
+        i++;
+      }
+    }
+  }
+
+  // starts core after all arguments are parsed
+  await evaluate(commands);
+}
+
+/**
+ * Initializes the majestic QUALWEB
+ */
+(async () => {
+  await init_qualweb();
+  process.exit(0);
+})();
