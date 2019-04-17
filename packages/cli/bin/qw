@@ -1,0 +1,3 @@
+#!/bin/sh
+
+"node" "C:\Users\afons\Projects\@qualweb\cli\bin\qw.js" "$@"
