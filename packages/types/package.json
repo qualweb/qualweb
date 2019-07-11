@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/types",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "Type definitions for qualweb core and modules",
   "main": "./",
   "keywords": [
