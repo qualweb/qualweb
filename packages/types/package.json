@@ -1,0 +1,12 @@
+{
+  "name": "@qualweb/types",
+  "version": "0.0.1",
+  "description": "Type definitions for qualweb core and modules",
+  "main": "./",
+  "keywords": [
+    "qualweb",
+    "types"
+  ],
+  "author": "João Afonso Vicente",
+  "license": "ISC"
+}
