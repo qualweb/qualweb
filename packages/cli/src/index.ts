@@ -1,12 +1,11 @@
 'use strict';
 
-const fs = require('fs');
-const _ = require('lodash');
+import _ from 'lodash';
 
-const parse_arguments = require('./lib/parser.js');
+//import parse_arguments from './lib/parser.js';
 
-module.exports.init = async args => {
-  await parse_arguments(args);
+async function init(args: any): Promise<void> {
+  //await parse_arguments(args);
   
   const cwd = process.cwd();
 
@@ -20,3 +19,5 @@ module.exports.init = async args => {
   }
   console.log(cwd);
 }
+
+export = init;

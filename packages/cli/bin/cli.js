@@ -10,6 +10,7 @@
     process.title = 'qw';
   }
 
-  const cli = require('../cli');
-  await cli.init(args);
+  const cli = require('../dist/index.js');
+  await cli(args);
+  process.exit();
 })();
