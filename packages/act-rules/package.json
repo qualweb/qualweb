@@ -1,0 +1,32 @@
+{
+  "name": "@qualweb/act-rules",
+  "version": "0.0.11",
+  "description": "ACT-R module for qualweb accessibility evaluator",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "build": "tsc --build"
+  },
+  "keywords": [
+    "a11y",
+    "act",
+    "accessibility",
+    "qualweb",
+    "evaluator",
+    "rule"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@qualweb/types": "0.0.11",
+    "@types/htmlparser2": "^3.10.0",
+    "@types/lodash": "^4.14.135",
+    "@types/node": "^12.0.12",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "htmlparser-to-html": "0.0.6",
+    "lodash": "^4.17.11",
+    "stew-select": "0.0.5"
+  }
+}
