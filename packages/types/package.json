@@ -1,12 +1,17 @@
 {
   "name": "@qualweb/types",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "description": "Type definitions for qualweb core and modules",
-  "main": "./",
+  "main": "./index.d.ts",
+  "types": "./index.d.ts",
   "keywords": [
     "qualweb",
     "types"
   ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/qualweb/types.git"
+  },
   "author": "João Afonso Vicente",
   "license": "ISC"
 }

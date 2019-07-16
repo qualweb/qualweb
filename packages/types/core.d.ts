@@ -5,6 +5,7 @@ declare module '@qualweb/core' {
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
   interface QualwebOptions {
+    [option: string]: any;
     url?: string;
     urls?: string[];
     file?: string;
@@ -19,12 +20,12 @@ declare module '@qualweb/core' {
   }
 
   interface Url {
-    inputUrl: string;
-    protocol: string;
-    domainName: string;
-    domain: string;
-    uri: string;
-    completeUrl: string;
+    readonly inputUrl: string;
+    readonly protocol: string;
+    readonly domainName: string;
+    readonly domain: string;
+    readonly uri: string;
+    readonly completeUrl: string;
   }
 
   interface EvaluationReport {
@@ -35,8 +36,8 @@ declare module '@qualweb/core' {
       homepage: string;
       date: string;
       hash: string;
-      url: Url;
-      dom: Dom;
+      url?: Url;
+      dom?: Dom;
     };
     modules: {
       wappalyzer?: WappalyzerReport;
@@ -50,6 +51,7 @@ declare module '@qualweb/core' {
   export {
     QualwebOptions,
     EvaluationReport,
+    Url,
     evaluate,
     generateEarlReport
   };

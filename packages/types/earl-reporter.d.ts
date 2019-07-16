@@ -59,6 +59,11 @@ declare module '@qualweb/earl-reporter' {
   export {
     EarlOptions,
     EarlReport,
+    Assertor,
+    Assertion,
+    ResultSource,
+    TestResult,
+    TestSubject,
     generateSingleReport,
     generateAggregatedReport
   };
