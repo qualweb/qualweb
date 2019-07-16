@@ -1,8 +1,9 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
+  "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
     "build": "tsc --build"
@@ -15,10 +16,14 @@
     "evaluator",
     "rule"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qualweb/act-rules.git"
+  },
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.0.11",
+    "@qualweb/types": "0.0.12",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.135",
     "@types/node": "^12.0.12",

@@ -7,30 +7,28 @@ import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 const stew = new(require('stew-select')).Stew();
 
-import * as R9 from './rules/R9';
-import * as R16 from './rules/R16';
+import mapping from './rules/mapping.json';
 
-const mapping = {
-  pre: {
-    meta: ['R16']
-  },
-  post: {
-    title: ['R9']
-  }
-};
+import * as R11 from './rules/R11';
+import * as R12 from './rules/R12';
+import * as R13 from './rules/R13';
+import * as R23 from './rules/R23';
+import * as R28 from './rules/R28';
 
 const rules = {
-  'R9': R9,
-  'R16': R16
+  'R11': R11,
+  'R12': R12,
+  'R13': R13,
+  'R23': R23,
+  'R28': R28
 };
 
-const rules_to_execute = {
-  'R9': true,
-  'R16': true
-};
+const rules_to_execute = {};
 
 function configure(options: ACTROptions): void {
   for (const rule of Object.keys(rules) || []) {
+    rules_to_execute[rule] = true;
+    
     if (options.principles && options.principles.length !== 0) {
       if (options.levels && options.levels.length !== 0) {
         if (!rules[rule].hasPrincipleAndLevels(options.principles, options.levels)) {

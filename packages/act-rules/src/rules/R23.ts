@@ -8,11 +8,11 @@ import { ACTRule, ACTResult } from '@qualweb/act-rules';
 import {
   getElementSelector,
   transform_element_into_html
-} from './../util';
+} from '../util';
 
 const rule: ACTRule = {
   'name': 'Meta-refresh no delay',
-  'code': 'R16',
+  'code': 'R23',
   'description': 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
   'metadata': {
     'target': {
@@ -61,7 +61,7 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
     return;
   }
 
-   const evaluation: ACTResult = {
+  const evaluation: ACTResult = {
     verdict: '',
     description: '',
     code: '',

@@ -8,11 +8,11 @@ import { ACTRule, ACTResult } from '@qualweb/act-rules';
 import {
   getElementSelector,
   transform_element_into_html
-} from './../util';
+} from '../util';
 
 const rule: ACTRule = {
   'name': 'HTML Page has a title',
-  'code': 'R9',
+  'code': 'R11',
   'description': 'This rule checks that the HTML page has a title.',
   'metadata': {
     'target': {
