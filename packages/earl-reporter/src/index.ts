@@ -58,6 +58,8 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
   if (report.modules['css-techniques']) {
     testSubject.assertions = [...testSubject.assertions, ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))];
   }
+
+  earlReport.graph.push(testSubject);
   
   return earlReport;
 }
