@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.0.121",
+  "version": "0.0.122",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -21,8 +21,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "0.0.121",
-    "@qualweb/earl-reporter": "0.0.11",
+    "@qualweb/act-rules": "0.0.122",
+    "@qualweb/earl-reporter": "0.0.121",
     "@qualweb/get-dom-puppeteer": "0.0.12",
     "@qualweb/wappalyzer": "0.0.11",
     "dget": "^1.0.0",
