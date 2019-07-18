@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import { EvaluationReport } from '@qualweb/core';
 import {
   Report,
@@ -38,8 +39,7 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
     title: report.system.name,
     description: report.system.description,
     hasVersion: report.system.version,
-    homepage: report.system.homepage,
-
+    homepage: report.system.homepage
   };
 
   const testSubject: TestSubject = {
@@ -59,7 +59,7 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
     testSubject.assertions = [...testSubject.assertions, ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))];
   }
 
-  earlReport.graph.push(testSubject);
+  earlReport.graph.push(_.cloneDeep(testSubject));
   
   return earlReport;
 }
@@ -71,8 +71,8 @@ async function generateAggregatedEarlReport(reports: EvaluationReport[]): Promis
   };
 
   for (const report of reports || []) {
-    const earlReport = <EarlReport> await generateSingleEarlReport(report);
-    aggregatedReport.graph.push(earlReport.graph[0]);
+    const earlReport = await generateSingleEarlReport(report);
+    aggregatedReport.graph.push(_.cloneDeep(earlReport.graph[0]));
   }
 
   return aggregatedReport;
