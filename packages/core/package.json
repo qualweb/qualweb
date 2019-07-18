@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.0.1",
+  "version": "0.0.12",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -14,11 +14,17 @@
     "web",
     "accessibility"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qualweb/core.git"
+  },
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
     "@qualweb/act-rules": "0.0.12",
+    "@qualweb/earl-reporter": "0.0.11",
     "@qualweb/get-dom-puppeteer": "0.0.12",
+    "@qualweb/wappalyzer": "0.0.11",
     "dget": "^1.0.0",
     "dset": "^2.0.1",
     "lodash": "^4.17.11",
@@ -26,11 +32,11 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.0.12",
-    "@types/htmlparser2": "^3.10.0",
+    "@qualweb/types": "0.0.141",
+    "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.135",
-    "@types/node": "^12.0.10",
-    "@types/request": "^2.48.1",
+    "@types/node": "^12.6.8",
+    "@types/request": "^2.48.2",
     "typescript": "^3.5.2"
   }
 }
