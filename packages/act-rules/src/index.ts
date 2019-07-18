@@ -60,7 +60,10 @@ function configure(options: ACTROptions): void {
 
 async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport> {
   
-  const report: ACTRulesReport = {};
+  const report: ACTRulesReport = {
+    type: 'act-rules',
+    rules: {}
+  };
 
   const preRules = mapping['pre'];
   const preSelectors = Object.keys(preRules);
@@ -76,7 +79,7 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
         } else {
           await rules[rule].execute(undefined, sourceHTML);
         }
-        report[rule] = rules[rule].getFinalResults();
+        report.rules[rule] = rules[rule].getFinalResults();
         rules[rule].reset();
       }
     }
@@ -96,8 +99,8 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
         } else {
           await rules[rule].execute(undefined, processedHTML);
         }
-        report[rule] = rules[rule].getFinalResults();
-        //rules[rule].reset();
+        report.rules[rule] = rules[rule].getFinalResults();
+        rules[rule].reset();
       }
     }
   }

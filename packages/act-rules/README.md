@@ -5,11 +5,16 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 ## How to install
 
 ```shell
-  $ npm i @qualweb/get-dom-puppeteer --save
   $ npm i @qualweb/act-rules --save
 ```
 
 ## How to run
+
+### Additional packages
+
+```shell
+  $ npm i @qualweb/get-dom-puppeteer --save
+```
 
 ```javascript
   'use strict';
