@@ -45,7 +45,10 @@ declare module '@qualweb/css-techniques' {
   }
 
   interface CSSTechniquesReport {
-    [rule: string]: CSSRule;
+    type: 'css-techniques';
+    techniques: {
+      [technique: string]: CSSTechnique;
+    };
   }
 
   function configure(options: CSSTOptions): void;

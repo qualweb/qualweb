@@ -1,6 +1,11 @@
 //import { EvaluationReport } from '@qualweb/core';
 
 declare module '@qualweb/earl-reporter' {
+  import { EvaluationReport } from '@qualweb/core';
+  import { ACTRulesReport } from '@qualweb/act-rules';
+  import { HTMLTechniquesReport } from '@qualweb/html-techniques';
+  import { CSSTechniquesReport } from '@qualweb/css-techniques';
+
   interface EarlOptions {
     [option: string]: any;
   }
@@ -29,7 +34,7 @@ declare module '@qualweb/earl-reporter' {
   interface ResultSource {
     result: {
       outcome: string;
-      pointer: string;
+      pointer?: string;
     };
   }
 
@@ -53,18 +58,22 @@ declare module '@qualweb/earl-reporter' {
     graph: TestSubject[];
   }
 
-  function generateSingleReport(report: any): Promise<EarlReport>;
-  function generateAggregatedReport(reports: any[]): Promise<EarlReport>;
+  type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport;
+
+  function generateEarlAssertions(report: Report): Promise<Assertion[]>;
+  function generateSingleEarlReport(report: EvaluationReport): Promise<EarlReport>;
+  function generateAggregatedEarlReport(reports: EvaluationReport[]): Promise<EarlReport>;
 
   export {
     EarlOptions,
+    Report,
     EarlReport,
     Assertor,
     Assertion,
     ResultSource,
     TestResult,
     TestSubject,
-    generateSingleReport,
-    generateAggregatedReport
+    generateSingleEarlReport,
+    generateAggregatedEarlReport
   };
 }

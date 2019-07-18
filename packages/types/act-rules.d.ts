@@ -45,7 +45,10 @@ declare module '@qualweb/act-rules' {
   }
 
   interface ACTRulesReport {
-    [rule: string]: ACTRule;
+    type: 'act-rules'; 
+    rules: {
+      [rule: string]: ACTRule;
+    };
   }
 
   function configure(options: ACTROptions): void;

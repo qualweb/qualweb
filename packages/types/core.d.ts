@@ -2,6 +2,8 @@ declare module '@qualweb/core' {
   import { Dom } from '@qualweb/get-dom-puppeteer';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
+  import { CSSTechniquesReport } from '@qualweb/css-techniques';
+  import { HTMLTechniquesReport } from '@qualweb/html-techniques';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
   interface QualwebOptions {
@@ -15,7 +17,7 @@ declare module '@qualweb/core' {
       width?: number;
       height?: number;
     };
-    wappalyzer?: boolean | WappalyzerOptions;
+    'wappalyzer'?: boolean | WappalyzerOptions;
     'act-rules'?: ACTROptions;
   }
 
@@ -29,6 +31,7 @@ declare module '@qualweb/core' {
   }
 
   interface EvaluationReport {
+    type: 'evaluation';
     system: {
       name: string;
       description: string;
@@ -36,12 +39,14 @@ declare module '@qualweb/core' {
       homepage: string;
       date: string;
       hash: string;
-      url?: Url;
+      url: Url;
       dom?: Dom;
     };
     modules: {
-      wappalyzer?: WappalyzerReport;
+      'wappalyzer'?: WappalyzerReport;
       'act-rules'?: ACTRulesReport;
+      'html-techniques'?: HTMLTechniquesReport;
+      'css-techniques'?: CSSTechniquesReport;
     };
   }
 

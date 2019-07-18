@@ -31,8 +31,8 @@ declare module '@qualweb/wappalyzer' {
   }
 
   interface WappalyzerOptions {
-    'cms'?: string[];
-    'apps'?: string[];
+    cms?: string[];
+    apps?: string[];
   }
 
   interface WappalyzerReport {

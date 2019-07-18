@@ -12,9 +12,9 @@ declare module '@qualweb/get-dom-puppeteer' {
   }
 
   interface Html {
-    html: string;
-    title?: string;
-    elementCount?: number;
+    readonly html?: string;
+    readonly title?: string;
+    readonly elementCount?: number;
   }
 
   interface Dom {

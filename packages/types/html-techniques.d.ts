@@ -45,7 +45,10 @@ declare module '@qualweb/html-techniques' {
   }
 
   interface HTMLTechniquesReport {
-    [rule: string]: HTMLRule;
+    type: 'html-techniques';
+    techniques: {
+      [technique: string]: HTMLTechnique;
+    };
   }
 
   function configure(options: HTMLTOptions): void;
