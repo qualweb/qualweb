@@ -23,11 +23,16 @@ const rules = {
   'R28': R28
 };
 
-const rules_to_execute = {};
+const rules_to_execute = {
+  'R11': true,
+  'R12': true,
+  'R13': true,
+  'R23': true,
+  'R28': true
+};
 
 function configure(options: ACTROptions): void {
   for (const rule of Object.keys(rules) || []) {
-    rules_to_execute[rule] = true;
     
     if (options.principles && options.principles.length !== 0) {
       if (options.levels && options.levels.length !== 0) {

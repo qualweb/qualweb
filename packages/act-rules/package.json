@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.0.121",
+  "version": "0.0.122",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
