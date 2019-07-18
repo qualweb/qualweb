@@ -27,12 +27,12 @@ async function cli(args: string[]): Promise<void> {
     if (options['r']) {
       if (options['r'] === 'earl') {
         const earlReport = await generateEarlReport();
-        await save_report(earlReport);
+        await save_report(options['u'], earlReport);
       } else {
         throw new Error('Invalid reporter format');
       } 
     } else {
-      await save_report(report);
+      await save_report(options['u'], report);
     }
   } catch (err) {
     console.error(err);
