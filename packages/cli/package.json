@@ -1,7 +1,7 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.0.12",
-  "description": "QualWeb client",
+  "version": "0.0.121",
+  "description": "QualWeb evaluator cli",
   "main": "dist/index.js",
   "bin": {
     "qw": "./bin/cli.js"
@@ -13,25 +13,27 @@
   },
   "keywords": [
     "qualweb",
-    "client",
-    "web",
+    "cli",
+    "a11y",
     "accessibility"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/qualweb/cli.git"
+    "type": "git",
+    "url": "https://github.com/qualweb/cli.git"
   },
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
+    "@qualweb/core": "0.0.121",
     "ansi": "^0.3.1",
+    "commander": "^2.20.0",
     "lodash": "^4.17.14"
   },
   "devDependencies": {
-    "@qualweb/types": "0.0.12",
-    "@types/htmlparser2": "^3.10.0",
+    "@qualweb/types": "0.0.141",
+    "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.136",
-    "@types/node": "^12.6.2",
+    "@types/node": "^12.6.8",
     "typescript": "^3.5.3"
   }
 }

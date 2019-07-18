@@ -1,23 +1,42 @@
 'use strict';
 
-import _ from 'lodash';
+import { parse_arguments } from './lib/parser';
+/*import { validate_options } from './lib/validator';
+import { print_version } from './lib/version';
+import { print_help } from './lib/help';*/
+import { save_report } from './lib/save';
 
-//import parse_arguments from './lib/parser.js';
+import { evaluate, generateEarlReport } from '@qualweb/core';
 
-async function init(args: any): Promise<void> {
-  //await parse_arguments(args);
-  
-  const cwd = process.cwd();
+async function cli(args: string[]): Promise<void> {
+  try {
+    const options = await parse_arguments(args);
+    /*await validate_options(options);
 
-  if (_.includes(cwd, '@qualweb\\core')) {
-    if (_.includes(args, '-g')) {
-      
+    if (args.includes('-v') || args.includes('--version')) {
+      await print_version();
+    } else if (args.includes('-h') || args.includes('--help')) {
+      await print_help();
+    } else {
+      const report = await evaluate(options);
+      await save_report(report);
+    }*/
+
+    const report = await evaluate({ url: options['u'] });
+
+    if (options['r']) {
+      if (options['r'] === 'earl') {
+        const earlReport = await generateEarlReport();
+        await save_report(earlReport);
+      } else {
+        throw new Error('Invalid reporter format');
+      } 
+    } else {
+      await save_report(report);
     }
-    console.log('yey');
-  } else {
-    console.error('ERROR: Wrong directory');
+  } catch (err) {
+    console.error(err);
   }
-  console.log(cwd);
 }
 
-export = init;
+export = cli;
