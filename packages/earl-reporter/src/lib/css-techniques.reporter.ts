@@ -20,7 +20,7 @@ async function CSSTechniquesReportToEARL(report: CSSTechniquesReport, date?: str
           const source: ResultSource = {
             result: {
               pointer: result.pointer,
-              outcome: result.verdict
+              outcome: 'earl:' + result.verdict
             }
           };
 
@@ -38,6 +38,8 @@ async function CSSTechniquesReportToEARL(report: CSSTechniquesReport, date?: str
         const assertion: Assertion = {
           '@type': 'Assertion',
           test: {
+            '@id': typeof technique.metadata.url === 'string' ? technique.metadata.url : 'fix later', //TODO: FIX
+            '@type': 'TestCase',
             title: technique.name,
             description: technique.description
           },

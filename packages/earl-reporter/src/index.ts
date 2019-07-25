@@ -29,7 +29,7 @@ async function generateEarlAssertions(report: Report, date?: string): Promise<As
 async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlReport> {
 
   const earlReport: EarlReport = {
-    context: 'https://act-rules.github.io/earl-context.json', //TODO: change context
+    context: 'https://act-rules.github.io/earl-context.json',
     graph: new Array<TestSubject>()
   };
 
@@ -66,7 +66,7 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
 
 async function generateAggregatedEarlReport(reports: EvaluationReport[]): Promise<EarlReport> {
   const aggregatedReport: EarlReport = {
-    context: 'https://act-rules.github.io/earl-context.json', //TODO: change context
+    context: 'https://act-rules.github.io/earl-context.json',
     graph: new Array<TestSubject>()
   };
 

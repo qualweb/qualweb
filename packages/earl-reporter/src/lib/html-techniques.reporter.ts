@@ -20,7 +20,7 @@ async function HTMLTechniquesReportToEARL(report: HTMLTechniquesReport, date?: s
           const source: ResultSource = {
             result: {
               pointer: result.pointer,
-              outcome: result.verdict
+              outcome: 'earl:' + result.verdict
             }
           };
 
@@ -38,6 +38,8 @@ async function HTMLTechniquesReportToEARL(report: HTMLTechniquesReport, date?: s
         const assertion: Assertion = {
           '@type': 'Assertion',
           test: {
+            '@id': technique.metadata.url,
+            '@type': 'TestCase',
             title: technique.name,
             description: technique.description
           },
