@@ -19,26 +19,31 @@ declare module '@qualweb/css-techniques' {
       principle: string;
     }[];
     related: string[];
-    url: string;
+    url: string | {
+      [technique: string]: string;
+    };
     passed: number;
+    warning: number;
     failed: number;
-    notApplicable: number;
+    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'warning' | 'notApplicable' | '';
+    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string;
   }
 
   interface CSSResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'notApplicable' | '';
-    description: string;
+    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
+    description: string | '';
     pointer?: string;
-    code?: string;
+    code?: string | string[];
+    attributes?: string | string[];
   }
 
   interface CSSTechnique {
     name: string;
     code: string;
+    mapping: string;
     description: string;
     metadata: CSSMetadata;
     results: CSSResult[];

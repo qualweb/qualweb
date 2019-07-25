@@ -9,6 +9,8 @@ declare module '@qualweb/html-techniques' {
 
   interface HTMLMetadata {
     target: {
+      'parent-sibling'?: string;
+      parent?: string;
       element?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
@@ -21,24 +23,27 @@ declare module '@qualweb/html-techniques' {
     related: string[];
     url: string;
     passed: number;
+    warning: number;
     failed: number;
-    notApplicable: number;
+    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'warning' | 'notApplicable' | '';
+    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string;
   }
 
   interface HTMLResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'notApplicable' | '';
-    description: string;
+    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
+    description: string | '';
     pointer?: string;
-    code?: string;
+    code?: string | string[];
+    attributes?: string | string[];
   }
 
   interface HTMLTechnique {
     name: string;
     code: string;
+    mapping: string;
     description: string;
     metadata: HTMLMetadata;
     results: HTMLResult[];

@@ -2,8 +2,8 @@ declare module '@qualweb/core' {
   import { Dom } from '@qualweb/get-dom-puppeteer';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
-  import { CSSTechniquesReport } from '@qualweb/css-techniques';
-  import { HTMLTechniquesReport } from '@qualweb/html-techniques';
+  import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
+  import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
   interface QualwebOptions {
@@ -19,6 +19,8 @@ declare module '@qualweb/core' {
     };
     'wappalyzer'?: boolean | WappalyzerOptions;
     'act-rules'?: ACTROptions;
+    'html-techniques'?: HTMLTOptions;
+    'css-techniques'?: CSSTOptions;
   }
 
   interface Url {

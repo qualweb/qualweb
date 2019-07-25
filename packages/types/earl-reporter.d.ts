@@ -7,7 +7,7 @@ declare module '@qualweb/earl-reporter' {
   import { CSSTechniquesReport } from '@qualweb/css-techniques';
 
   interface EarlOptions {
-    [option: string]: any;
+    aggregated: boolean;
   }
 
   interface Assertor {
@@ -24,6 +24,8 @@ declare module '@qualweb/earl-reporter' {
   interface Assertion {
     '@type': string;
     test: {
+      '@id': string;
+      '@type': 'TestCase';
       title: string;
       description: string;
     };

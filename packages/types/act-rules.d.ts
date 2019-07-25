@@ -22,23 +22,25 @@ declare module '@qualweb/act-rules' {
     url: string;
     passed: number;
     failed: number;
-    notApplicable: number;
+    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'notApplicable' | '';
+    outcome: 'passed' | 'failed' | 'inapplicable' | '';
     description: string;
   }
 
   interface ACTResult {
-    verdict: 'passed' | 'failed' | 'notApplicable' | '';
-    description: string;
+    verdict: 'passed' | 'failed' | 'inapplicable' | '';
+    description: string | '';
     pointer?: string;
     code?: string;
+    attributes?: string | string[];
   }
 
   interface ACTRule {
     name: string;
     code: string;
+    mapping: string;
     description: string;
     metadata: ACTMetadata;
     results: ACTResult[];
