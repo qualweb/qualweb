@@ -2,7 +2,7 @@
 
 import { QualwebOptions } from '@qualweb/core';
 
-async function parse_arguments(args: string[]): Promise<QualwebOptions> {
+async function parse_arguments(args: string[]): Promise<any> {
   const options: any = {};
 
   if (args.length === 0) {
