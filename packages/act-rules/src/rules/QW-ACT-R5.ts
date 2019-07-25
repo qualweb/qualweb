@@ -13,32 +13,36 @@ import {
 import languages from './language.json';
 
 const rule: ACTRule = {
-  'name': 'Validity of HTML Lang attribute',
-  'code': 'R28',
-  'description': 'This rule checks the lang or xml:lang attribute has a valid language subtag.',
-  'metadata': {
-    'target': {
-      'element': 'html',
-      'attributes': 'lang, xml:lang'
+  name: 'Validity of HTML Lang attribute',
+  code: 'QW-ACT-R5',
+  mapping: 'bf051a',
+  description: 'This rule checks the lang or xml:lang attribute has a valid language subtag.',
+  metadata: {
+    target: {
+      element: 'html',
+      attributes: ['lang', 'xml:lang']
     },
     'success-criteria': [{
-      'name': '3.1.1',
-      'level': 'A',
-      'principle': 'Understandable'
+      name: '3.1.1',
+      level: 'A',
+      principle: 'Understandable'
     }],
-    'related': [],
-    'url': 
-    'https://auto-wcag.github.io/auto-wcag/rules/SC3-1-1-html-lang-valid.html',
-    'passed': 0,
-    'notApplicable': 0,
-    'failed': 0,
-    'type': ['ACTRule', 'TestCase'],
-    'a11yReq': ['WCAG21:language'],
-    'outcome': '',
-    'description': ''
+    related: [],
+    url: 'https://act-rules.github.io/rules/bf051a',
+    passed: 0,
+    inapplicable: 0,
+    failed: 0,
+    type: ['ACTRule', 'TestCase'],
+    a11yReq: ['WCAG21:language'],
+    outcome: '',
+    description: ''
   },
-  'results': new Array<ACTResult>()
+  results: new Array<ACTResult>()
 };
+
+function getRuleMapping(): string {
+  return rule.mapping;
+}
 
 function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
   let has = false;
@@ -53,9 +57,7 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
 async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
   const evaluation: ACTResult = {
     verdict: '',
-    description: '',
-    code: '',
-    pointer: ''
+    description: ''
   };
 
   let url = rule.metadata['url'];
@@ -63,17 +65,17 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
 
 
   if (element === undefined) { // if the element doesn't exist, there's nothing to test
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = `html element doesn't exist`;
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.parent !== null) {
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'html element is not the root element of the page';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.attribs === undefined) {
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = `html element doesn't have attributes`;
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else {
     let isLangNotEmpty = element.attribs['lang'] !== undefined && element.attribs['lang'] !== '';
     let isXMLLangNotEmpty = element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'] !== '';
@@ -109,9 +111,9 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
         rule.metadata.failed++;
       }
     } else {
-      evaluation.verdict = 'notApplicable';
+      evaluation.verdict = 'inapplicable';
       evaluation.description = 'lang and xml:lang element are empty or don\'t exist';
-      rule.metadata.notApplicable++;
+      rule.metadata.inapplicable++;
     }
   }
 
@@ -131,7 +133,7 @@ function getFinalResults() {
 function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
-  rule.metadata.notApplicable = 0;
+  rule.metadata.inapplicable = 0;
   rule.results = new Array<ACTResult>();
 }
 
@@ -141,7 +143,7 @@ function outcomeRule(): void {
   } else if (rule.metadata.passed > 0) {
     rule.metadata.outcome = 'passed';
   } else {
-    rule.metadata.outcome = 'notApplicable';
+    rule.metadata.outcome = 'inapplicable';
   }
 
   if (rule.results.length > 0) {
@@ -170,6 +172,7 @@ function isSubTagValid(subtag: string) {
 }
 
 export {
+  getRuleMapping,
   hasPrincipleAndLevels,
   execute,
   getFinalResults,

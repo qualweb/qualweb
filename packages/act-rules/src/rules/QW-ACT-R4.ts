@@ -11,39 +11,45 @@ import {
 } from '../util';
 
 const rule: ACTRule = {
-  'name': 'Meta-refresh no delay',
-  'code': 'R23',
-  'description': 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
-  'metadata': {
-    'target': {
-      'element': 'meta'
+  name: 'Meta-refresh no delay',
+  code: 'QW-ACT-R4',
+  mapping: 'bc659a',
+  description: 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
+  metadata: {
+    target: {
+      element: 'meta'
     },
     'success-criteria': [{
-        'name': '2.1.1',
-        'level': 'A',
-        'principle': 'Operable'
+        name: '2.1.1',
+        level: 'A',
+        principle: 'Operable'
       },
       {
-        'name': '2.2.4',
-        'level': 'AAA',
-        'principle': 'Operable'
+        name: '2.2.4',
+        level: 'AAA',
+        principle: 'Operable'
       },
       {
-        'name': '3.2.5',
-        'level': 'AAA',
-        'principle': 'Understandable'
+        name: '3.2.5',
+        level: 'AAA',
+        principle: 'Understandable'
       }
     ],
-    'related': ['H76', 'F40', 'F41'],
-    'url': 'https://auto-wcag.github.io/auto-wcag/rules/SC2-2-1+SC2-2-4-meta-refresh.html',
-    'passed': 0,
-    'failed': 0,
-    'notApplicable': 0,
-    'outcome': '',
-    'description': ''
+    related: ['H76', 'F40', 'F41'],
+    url: 'https://act-rules.github.io/rules/bc659a',
+    passed: 0,
+    failed: 0,
+    inapplicable: 0,
+    type: ['ACTRule', 'TestCase'],
+    outcome: '',
+    description: ''
   },
-  'results': new Array<ACTResult>()
+  results: new Array<ACTResult>()
 };
+
+function getRuleMapping(): string {
+  return rule.mapping;
+}
 
 function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
   let has = false;
@@ -63,31 +69,29 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
 
   const evaluation: ACTResult = {
     verdict: '',
-    description: '',
-    code: '',
-    pointer: ''
+    description: ''
   };
 
   if (rule.metadata.passed === 1 || rule.metadata.failed === 1) { // only one meta needs to pass or fail, others will be discarded
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'Already exists one valid or invalid <meta> above';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.attribs === undefined) { // not applicable
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attributes "content" and "http-equiv"';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.attribs.content === undefined) { // not applicable
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attribute "content"';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.attribs['http-equiv'] === undefined) { // not applicable
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attribute "http-equiv"';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else if (element.attribs.content === '') { // not applicable
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = 'Attribute "content" is empty';
-    rule.metadata.notApplicable++;
+    rule.metadata.inapplicable++;
   } else {
     let content = element.attribs.content;
 
@@ -97,9 +101,9 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
       if (checkIfIsNumber(content) && _.isInteger(parseInt(content, 0))) {
         let n = Number(content);
         if (n < 0) { // not applicable
-          evaluation.verdict = 'notApplicable';
+          evaluation.verdict = 'inapplicable';
           evaluation.description = `Time value can't be negative`;
-          rule.metadata.notApplicable++;
+          rule.metadata.inapplicable++;
         } else if (n === 0) { // passes because the time is 0
           evaluation.verdict = 'passed';
           evaluation.description = 'Refreshes immediately';
@@ -114,27 +118,27 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
           rule.metadata.failed++;
         }
       } else { // not applicable
-        evaluation.verdict = 'notApplicable';
+        evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid';
-        rule.metadata.notApplicable++;
+        rule.metadata.inapplicable++;
       }
     } else { // if is a redirect
       let split = content.split(';');
 
       if (split.length > 2) { // not applicable
-        evaluation.verdict = 'notApplicable';
+        evaluation.verdict = 'inapplicable';
         evaluation.description = 'Malformated "Content" attribute';
-        rule.metadata.notApplicable++;
+        rule.metadata.inapplicable++;
       } else if (split[0].trim() === '' || split[1].trim() === '') { // not applicable
-        evaluation.verdict = 'notApplicable';
+        evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid';
-        rule.metadata.notApplicable++;
+        rule.metadata.inapplicable++;
       } else if (checkIfIsNumber(split[0]) && _.isInteger(parseInt(split[0], 0))) {
         let n = Number(split[0]);
         if (n < 0) { // not applicable
-          evaluation.verdict = 'notApplicable';
+          evaluation.verdict = 'inapplicable';
           evaluation.description = `Time value can't be negative`;
-          rule.metadata.notApplicable++;
+          rule.metadata.inapplicable++;
         }
 
         if (content[indexOf + 1] === ' ') { // verifies if the url is well formated
@@ -161,19 +165,19 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
               rule.metadata.failed++;
             }
           } else { // not applicable
-            evaluation.verdict = 'notApplicable';
+            evaluation.verdict = 'inapplicable';
             evaluation.description = 'Url is not valid';
-            rule.metadata.notApplicable++;
+            rule.metadata.inapplicable++;
           }
         } else { // not applicable
-          evaluation.verdict = 'notApplicable';
+          evaluation.verdict = 'inapplicable';
           evaluation.description = 'Url is malformated';
-          rule.metadata.notApplicable++;
+          rule.metadata.inapplicable++;
         }
       } else { // not applicable
-        evaluation.verdict = 'notApplicable';
+        evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid"';
-        rule.metadata.notApplicable++;
+        rule.metadata.inapplicable++;
       }
     }
   }
@@ -192,7 +196,7 @@ function getFinalResults() {
 function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
-  rule.metadata.notApplicable = 0;
+  rule.metadata.inapplicable = 0;
   rule.results = new Array<ACTResult>();
 }
 
@@ -202,7 +206,7 @@ function outcomeRule(): void {
   } else if (rule.metadata.passed > 0) {
     rule.metadata.outcome = 'passed';
   } else {
-    rule.metadata.outcome = 'notApplicable';
+    rule.metadata.outcome = 'inapplicable';
   }
 
   if (rule.results.length > 0) {
@@ -242,6 +246,7 @@ function checkIfIsNumber(num: string): boolean {
 };
 
 export {
+  getRuleMapping,
   hasPrincipleAndLevels,
   execute,
   getFinalResults,

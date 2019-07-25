@@ -9,29 +9,41 @@ const stew = new(require('stew-select')).Stew();
 
 import mapping from './rules/mapping.json';
 
-import * as R11 from './rules/R11';
-import * as R12 from './rules/R12';
-import * as R13 from './rules/R13';
-import * as R23 from './rules/R23';
-import * as R28 from './rules/R28';
+import * as QW_ACT_R1 from './rules/QW-ACT-R1';
+import * as QW_ACT_R2 from './rules/QW-ACT-R2';
+import * as QW_ACT_R3 from './rules/QW-ACT-R3';
+import * as QW_ACT_R4 from './rules/QW-ACT-R4';
+import * as QW_ACT_R5 from './rules/QW-ACT-R5';
 
 const rules = {
-  'R11': R11,
-  'R12': R12,
-  'R13': R13,
-  'R23': R23,
-  'R28': R28
+  'QW-ACT-R1': QW_ACT_R1,
+  'QW-ACT-R2': QW_ACT_R2,
+  'QW-ACT-R3': QW_ACT_R3,
+  'QW-ACT-R4': QW_ACT_R4,
+  'QW-ACT-R5': QW_ACT_R5
 };
 
 const rules_to_execute = {
-  'R11': true,
-  'R12': true,
-  'R13': true,
-  'R23': true,
-  'R28': true
+  'QW-ACT-R1': true,
+  'QW-ACT-R2': true,
+  'QW-ACT-R3': true,
+  'QW-ACT-R4': true,
+  'QW-ACT-R5': true
 };
 
 function configure(options: ACTROptions): void {
+  if (options.principles) {
+    options.principles = options.principles.map(p => (p.charAt(0).toUpperCase() + p.slice(1)).trim());
+  }
+  if (options.levels) {
+    options.levels = options.levels.map(l => l.toUpperCase().trim());
+  }
+  if (options.rules) {
+    options.rules = options.rules.map(r => {
+      return r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim();
+    });
+  }
+
   for (const rule of Object.keys(rules) || []) {
     
     if (options.principles && options.principles.length !== 0) {
@@ -49,13 +61,13 @@ function configure(options: ACTROptions): void {
     }
     if (!options.principles && !options.levels) {
       if (options.rules && options.rules.length !== 0) {
-        if (!options.rules.includes(rule)) {
+        if (!options.rules.includes(rule) && !options.rules.includes(rules[rule].getRuleMapping())) {
           rules_to_execute[rule] = false;
         }
       }
     } else {
       if (options.rules && options.rules.length !== 0) {
-        if (options.rules.includes(rule)) {
+        if (options.rules.includes(rule) || options.rules.includes(rules[rule].getRuleMapping())) {
           rules_to_execute[rule] = true;
         }
       }

@@ -24,30 +24,36 @@ import {
  * @type {Object}
  */
 const rule: ACTRule = {
-  'name': 'HTML has lang attribute',
-  'code': 'R12',
-  'description': 'This rule checks that the html element has a non-empty lang or xml:lang attribute.',
-  'metadata': {
-    'target': {
-      'element': 'lang, xml:lang'
+  name: 'HTML has lang attribute',
+  code: 'QW-ACT-R2',
+  mapping: 'b5c3f8',
+  description: 'This rule checks that the html element has a non-empty lang or xml:lang attribute.',
+  metadata: {
+    target: {
+      element: 'html',
+      attributes: ['lang', 'xml:lang']
     },
     'success-criteria': [{
-      'name': '3.1.1',
-      'level': 'A',
-      'principle': 'Understandable'
+      name: '3.1.1',
+      level: 'A',
+      principle: 'Understandable'
     }],
-    'related': [],
-    'url': 'https://auto-wcag.github.io/auto-wcag/rules/SC3-1-1-html-has-lang.html',
-    'passed': 0,
-    'notApplicable': 0,
-    'failed': 0,
-    'type': ['ACTRule', 'TestCase'],
-    'a11yReq': ['WCAG21:language'],
-    'outcome': '',
-    'description': ''
+    related: [],
+    url: 'https://act-rules.github.io/rules/b5c3f8',
+    passed: 0,
+    inapplicable: 0,
+    failed: 0,
+    type: ['ACTRule', 'TestCase'],
+    a11yReq: ['WCAG21:language'],
+    outcome: '',
+    description: ''
   },
-  'results': new Array<ACTResult>()
+  results: new Array<ACTResult>()
 };
+
+function getRuleMapping(): string {
+  return rule.mapping;
+}
 
 function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
   let has = false;
@@ -69,39 +75,34 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
 async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
   const evaluation: ACTResult = {
     verdict: '',
-    description: '',
-    code: '',
-    pointer: ''
+    description: ''
   };
 
-  let url = rule.metadata['url'];
-  evaluation['test'] = url;
-
   if (element === undefined) { // if the element doesn't exist, there's nothing to test
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = `There is no <html> element`;
-    rule.metadata.notApplicable = 1;
+    rule.metadata.inapplicable++;
 
   } else if (element.parent !== null) {
-    evaluation.verdict = 'notApplicable';
+    evaluation.verdict = 'inapplicable';
     evaluation.description = `The <html> element is not the root element of the page`;
-    rule.metadata.notApplicable = 1;
+    rule.metadata.inapplicable++;
   } else if (element.attribs && element.attribs['xml:lang'] !== '' && element.attribs['xml:lang'] !== undefined) { // passed
     evaluation.verdict = 'passed';
     evaluation.description = `The xml:lang attribute has a value`;
-    rule.metadata.passed = 1;
+    rule.metadata.passed++;
   } else if (element.attribs && element.attribs['lang'] !== '' && element.attribs['lang'] !== undefined) { // passed
     evaluation.verdict = 'passed';
     evaluation.description = `The lang attribute has a value `;
-    rule.metadata.passed = 1;
+    rule.metadata.passed++;
   } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
     evaluation.verdict = 'failed';
     evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-    rule.metadata.failed = 1;
+    rule.metadata.failed++;
   } else if ((element.attribs && element.attribs['lang'] === '') || (element.attribs && element.attribs['xml:lang'] === '')) { // failed
     evaluation.verdict = 'failed';
     evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-    rule.metadata.failed = 1;
+    rule.metadata.failed++;
   }
 
   if (element !== undefined) {
@@ -120,7 +121,7 @@ function getFinalResults() {
 function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
-  rule.metadata.notApplicable = 0;
+  rule.metadata.inapplicable = 0;
   rule.results = new Array<ACTResult>();
 }
 
@@ -130,7 +131,7 @@ function outcomeRule(): void {
   } else if (rule.metadata.passed > 0) {
     rule.metadata.outcome = 'passed';
   } else {
-    rule.metadata.outcome = 'notApplicable';
+    rule.metadata.outcome = 'inapplicable';
   }
 
   if (rule.results.length > 0) {
@@ -148,6 +149,7 @@ function addDescription(): void {
 }
 
 export {
+  getRuleMapping,
   hasPrincipleAndLevels,
   execute,
   getFinalResults,

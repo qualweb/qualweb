@@ -11,30 +11,35 @@ import {
 } from '../util';
 
 const rule: ACTRule = {
-  'name': 'HTML Page has a title',
-  'code': 'R11',
-  'description': 'This rule checks that the HTML page has a title.',
-  'metadata': {
-    'target': {
-      'element': 'title'
+  name: 'HTML Page has a title',
+  code: 'QW-ACT-R1',
+  mapping: '2779a5',
+  description: 'This rule checks that the HTML page has a title.',
+  metadata: {
+    target: {
+      element: 'title'
     },
     'success-criteria': [{
-      'name': '2.4.2',
-      'level': 'A',
-      'principle': 'Operable'
+      name: '2.4.2',
+      level: 'A',
+      principle: 'Operable'
     }],
-    'related': [],
-    'url': 'https://auto-wcag.github.io/auto-wcag/rules/SC2-4-2-page-has-title.html',
-    'passed': 0,
-    'notApplicable': 0,
-    'failed': 0,
-    'type': ['ACTRule', 'TestCase'],
-    'a11yReq': ['WCAG21:title'],
-    'outcome': '',
-    'description': ''
+    related: [],
+    url: 'https://act-rules.github.io/rules/2779a5',
+    passed: 0,
+    inapplicable: 0,
+    failed: 0,
+    type: ['ACTRule', 'TestCase'],
+    a11yReq: ['WCAG21:title'],
+    outcome: '',
+    description: ''
   },
-  'results': new Array<ACTResult>()
+  results: new Array<ACTResult>()
 };
+
+function getRuleMapping(): string {
+  return rule.mapping;
+}
 
 function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
   let has = false;
@@ -49,14 +54,12 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
 async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
   const evaluation: ACTResult = {
     verdict: '',
-    description: '',
-    code: '',
-    pointer: ''
+    description: ''
   };
   let rootElem: DomElement | undefined = undefined;
 
   //the first title element was already tested
-  if (rule['metadata']['notApplicable'] > 0 || rule['metadata']['passed'] > 0 || rule['metadata']['failed'] > 0) {
+  if (rule['metadata']['inapplicable'] > 0 || rule['metadata']['passed'] > 0 || rule['metadata']['failed'] > 0) {
     return;
   }
   // the first title element was not tested yet
@@ -77,7 +80,7 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
         rule.metadata.failed++;
       }
       //the title element is empty
-      else if (element.children && element.children.length === 0) {
+      else if (element.children && (element.children.length === 0 || element.children[0].data.trim() === '')) {
         evaluation.verdict = 'failed';
         evaluation.description = 'Title element is empty';
         rule.metadata.failed++;
@@ -92,9 +95,9 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
     }
     //the root element is not a html element
     else {
-      evaluation.verdict = 'notApplicable';
+      evaluation.verdict = 'inapplicable';
       evaluation.description = 'The root element is not a html element';
-      rule.metadata.notApplicable++;
+      rule.metadata.inapplicable++;
     }
   }
 
@@ -113,7 +116,7 @@ function getFinalResults() {
 function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
-  rule.metadata.notApplicable = 0;
+  rule.metadata.inapplicable = 0;
   rule.results = new Array<ACTResult>();
 }
 
@@ -123,7 +126,7 @@ function outcomeRule(): void {
   } else if (rule.metadata.passed > 0) {
     rule.metadata.outcome = 'passed';
   } else {
-    rule.metadata.outcome = 'notApplicable';
+    rule.metadata.outcome = 'inapplicable';
   }
 
   if (rule.results.length > 0) {
@@ -141,6 +144,7 @@ function addDescription(): void {
 }
 
 export {
+  getRuleMapping,
   hasPrincipleAndLevels,
   execute,
   getFinalResults,
