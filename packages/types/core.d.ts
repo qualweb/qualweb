@@ -32,6 +32,13 @@ declare module '@qualweb/core' {
     readonly completeUrl: string;
   }
 
+  interface Metadata {
+    passed: number;
+    warning: number;
+    failed: number;
+    inapplicable: number;
+  }
+
   interface EvaluationReport {
     type: 'evaluation';
     system: {
@@ -44,6 +51,7 @@ declare module '@qualweb/core' {
       url: Url;
       dom?: Dom;
     };
+    metadata: Metadata;
     modules: {
       'wappalyzer'?: WappalyzerReport;
       'act-rules'?: ACTRulesReport;

@@ -7,7 +7,7 @@ declare module '@qualweb/css-techniques' {
     principles?: string[];
   }
 
-  interface CSSMetadata {
+  interface CSSTechniqueMetadata {
     target: {
       element?: string | string[];
       attributes?: string | string[];
@@ -32,7 +32,7 @@ declare module '@qualweb/css-techniques' {
     description: string;
   }
 
-  interface CSSResult {
+  interface CSSTechniqueResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     pointer?: string;
@@ -40,17 +40,25 @@ declare module '@qualweb/css-techniques' {
     attributes?: string | string[];
   }
 
+  interface CSSMetadata {
+    passed: number;
+    warning: number;
+    failed: number;
+    inapplicable: number;
+  }
+
   interface CSSTechnique {
     name: string;
     code: string;
     mapping: string;
     description: string;
-    metadata: CSSMetadata;
-    results: CSSResult[];
+    metadata: CSSTechniqueMetadata;
+    results: CSSTechniqueResult[];
   }
 
   interface CSSTechniquesReport {
     type: 'css-techniques';
+    metadata: CSSMetadata;
     techniques: {
       [technique: string]: CSSTechnique;
     };
@@ -61,8 +69,9 @@ declare module '@qualweb/css-techniques' {
 
   export {
     CSSTOptions,
+    CSSTechniqueMetadata,
+    CSSTechniqueResult,
     CSSMetadata,
-    CSSResult,
     CSSTechnique,
     CSSTechniquesReport,
     configure,

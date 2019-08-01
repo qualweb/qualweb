@@ -4,8 +4,20 @@ declare module '@qualweb/accessibility-tree' {
   interface AccessibleElement {
     name: string;
     role: string;
-    id: string;
-    children: AccessibleElement[];
+    'aria-label'?: string;
+
+    id?: string;
+    reference?: string;
+    nameFrom: {
+      type: 'element' | 'attribute' | 'text';
+      attribute?: string;
+      element?: string;
+      elementId?: string;
+      elementReference?: string;
+    };
+    element: string;
+    nElements: number;
+    children?: AccessibleElement[];
   }
 
   interface AccessibilityTree {

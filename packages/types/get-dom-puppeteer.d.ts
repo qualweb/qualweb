@@ -9,6 +9,7 @@ declare module '@qualweb/get-dom-puppeteer' {
     };
     computedStyle?: boolean;
     elementsPosition?: boolean;
+    generateIds?: boolean;
   }
 
   interface Html {

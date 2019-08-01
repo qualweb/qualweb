@@ -7,7 +7,7 @@ declare module '@qualweb/act-rules' {
     principles?: string[];
   }
 
-  interface ACTMetadata {
+  interface ACTRuleMetadata {
     target: {
       element?: string | string[];
       attributes?: string | string[];
@@ -29,7 +29,7 @@ declare module '@qualweb/act-rules' {
     description: string;
   }
 
-  interface ACTResult {
+  interface ACTRuleResult {
     verdict: 'passed' | 'failed' | 'inapplicable' | '';
     description: string | '';
     pointer?: string;
@@ -42,12 +42,19 @@ declare module '@qualweb/act-rules' {
     code: string;
     mapping: string;
     description: string;
-    metadata: ACTMetadata;
-    results: ACTResult[];
+    metadata: ACTRuleMetadata;
+    results: ACTRuleResult[];
+  }
+
+  interface ACTMetadata {
+    passed: number;
+    failed: number;
+    inapplicable: number;
   }
 
   interface ACTRulesReport {
-    type: 'act-rules'; 
+    type: 'act-rules';
+    metadata: ACTMetadata;
     rules: {
       [rule: string]: ACTRule;
     };
@@ -58,9 +65,10 @@ declare module '@qualweb/act-rules' {
 
   export {
     ACTROptions,
-    ACTMetadata,
-    ACTResult,
+    ACTRuleMetadata,
+    ACTRuleResult,
     ACTRule,
+    ACTMetadata,
     ACTRulesReport,
     configure,
     executeACTR

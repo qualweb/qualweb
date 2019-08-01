@@ -1,0 +1,16 @@
+# Changelog
+
+## [0.0.3] - 01/08/2019
+
+### Added
+ - interface ACTMetadata on file act-rules.d.ts
+ - interface HTMLMetadata on file html-techniques.d.ts
+ - interface CSSMetadata on file css-techniques.d.ts
+
+### Changed
+ - interface ACTResult to ACTRuleResult on file act-rules.d.ts
+ - interface ACTMetadata to ACTRuleMetadata on file act-rules.d.ts
+ - interface HTMLResult to HTMLTechniqueResult on file html-techniques.d.ts
+ - interface HTMLMetadata to HTMLTechniqueMetadata on file html-techniques.d.ts
+ - interface CSSResult to CSSTechniqueResult on file css-techniques.d.ts
+ - interface CSSMetadata to CSSTechniqueMetadata on file css-techniques.d.ts

@@ -7,7 +7,7 @@ declare module '@qualweb/html-techniques' {
     principles?: string[];
   }
 
-  interface HTMLMetadata {
+  interface HTMLTechniqueMetadata {
     target: {
       'parent-sibling'?: string;
       parent?: string;
@@ -32,7 +32,7 @@ declare module '@qualweb/html-techniques' {
     description: string;
   }
 
-  interface HTMLResult {
+  interface HTMLTechniqueResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     pointer?: string;
@@ -40,17 +40,25 @@ declare module '@qualweb/html-techniques' {
     attributes?: string | string[];
   }
 
+  interface HTMLMetadata {
+    passed: number;
+    warning: number;
+    failed: number;
+    inapplicable: number;
+  }
+
   interface HTMLTechnique {
     name: string;
     code: string;
     mapping: string;
     description: string;
-    metadata: HTMLMetadata;
-    results: HTMLResult[];
+    metadata: HTMLTechniqueMetadata;
+    results: HTMLTechniqueResult[];
   }
 
   interface HTMLTechniquesReport {
     type: 'html-techniques';
+    metadata: HTMLMetadata;
     techniques: {
       [technique: string]: HTMLTechnique;
     };
@@ -61,8 +69,9 @@ declare module '@qualweb/html-techniques' {
 
   export {
     HTMLTOptions,
+    HTMLTechniqueMetadata,
+    HTMLTechniqueResult,
     HTMLMetadata,
-    HTMLResult,
     HTMLTechnique,
     HTMLTechniquesReport,
     configure,
