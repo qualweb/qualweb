@@ -17,6 +17,7 @@ declare module '@qualweb/css-techniques' {
       name: string;
       level: string;
       principle: string;
+      url: string;
     }[];
     related: string[];
     url: string | {

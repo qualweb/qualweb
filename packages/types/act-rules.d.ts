@@ -17,6 +17,7 @@ declare module '@qualweb/act-rules' {
       name: string;
       level: string;
       principle: string;
+      url: string;
     }[];
     related: string[];
     url: string;
@@ -32,6 +33,7 @@ declare module '@qualweb/act-rules' {
   interface ACTRuleResult {
     verdict: 'passed' | 'failed' | 'inapplicable' | '';
     description: string | '';
+    resultCode: string | '';
     pointer?: string;
     code?: string;
     attributes?: string | string[];

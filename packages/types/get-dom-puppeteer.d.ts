@@ -1,4 +1,6 @@
 declare module '@qualweb/get-dom-puppeteer' {
+  import { DomElement } from 'htmlparser2';
+
   interface DomOptions {
     mobile?: boolean;
     landscape?: boolean;
@@ -13,17 +15,20 @@ declare module '@qualweb/get-dom-puppeteer' {
   }
 
   interface Html {
-    readonly html?: string;
+    readonly html: {
+      plain: string;
+      parsed: DomElement[];
+    };
     readonly title?: string;
     readonly elementCount?: number;
   }
 
   interface Dom {
-    sourceHTML: Html;
-    processedHTML: Html;
+    readonly source: Html;
+    readonly processed: Html;
   }
 
-  function getDom(url: string, options?: DomOptions): Promise<any>;
+  function getDom(url: string, options?: DomOptions): Promise<Dom>;
 
   export {
     DomOptions,
