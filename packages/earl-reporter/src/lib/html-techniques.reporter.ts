@@ -32,7 +32,7 @@ async function HTMLTechniquesReportToEARL(report: HTMLTechniquesReport, date?: s
           outcome: 'earl:' + (technique.metadata.outcome !== 'warning' ? technique.metadata.outcome : 'cantTell'),
           source: sources,
           description: technique.metadata.description,
-          date: date ? date : new Date().toISOString()
+          date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
         }
 
         const assertion: Assertion = {

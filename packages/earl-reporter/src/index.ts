@@ -50,17 +50,26 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
   };
 
   if (report.modules['act-rules']) {
-    testSubject.assertions = [...testSubject.assertions, ...(await generateEarlAssertions(report.modules['act-rules'], report.system.date))];
+    testSubject.assertions = [
+      ...testSubject.assertions, 
+      ...(await generateEarlAssertions(report.modules['act-rules'], report.system.date))
+    ];
   }
   if (report.modules['html-techniques']) {
-    testSubject.assertions = [...testSubject.assertions, ...(await generateEarlAssertions(report.modules['html-techniques'], report.system.date))];
+    testSubject.assertions = [
+      ...testSubject.assertions, 
+      ...(await generateEarlAssertions(report.modules['html-techniques'], report.system.date))
+    ];
   }
   if (report.modules['css-techniques']) {
-    testSubject.assertions = [...testSubject.assertions, ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))];
+    testSubject.assertions = [
+      ...testSubject.assertions, 
+      ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))
+    ];
   }
 
   earlReport.graph.push(_.cloneDeep(testSubject));
-  
+
   return earlReport;
 }
 

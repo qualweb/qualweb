@@ -32,7 +32,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
           outcome: 'earl:' + rule.metadata.outcome,
           source: sources,
           description: rule.metadata.description,
-          date: date ? date : new Date().toLocaleDateString('pt-PT')
+          date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
         }
 
         const assertion: Assertion = {
