@@ -30,7 +30,7 @@ import { configure, executeACTR } from '@qualweb/act-rules';
 let globalReports: EvaluationReport[] | undefined;
 
 async function run(url: string, options: QualwebOptions): Promise<EvaluationReport> {
-  const html = await getDom(url);
+  const dom = await getDom(url);
 
   if (options['act-rules']) {
     configure(options['act-rules']);
@@ -43,15 +43,32 @@ async function run(url: string, options: QualwebOptions): Promise<EvaluationRepo
       description: 'QualWeb is an automatic accessibility evaluator for webpages.',
       version: '3.0.0',
       homepage: 'http://www.qualweb.di.fc.ul.pt/',
-      date: new Date().toLocaleDateString('pt-PT'),
-      hash: crypto.randomBytes(20).toString('hex'),
+      date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+      hash: crypto.randomBytes(40).toString('hex'),
       url: parse_url(url)
     },
-    modules: {
-      wappalyzer: options.wappalyzer ? await executeWappalyzer(url): undefined,
-      'act-rules': await executeACTR(html.parsedSourceHTML, html.parsedProcessedHTML)
-    }
+    metadata: {
+      passed: 0,
+      warning: 0,
+      failed: 0,
+      inapplicable: 0
+    },
+    modules: {}
   };
+
+  if (options.wappalyzer) {
+    const wappalyzer = await executeWappalyzer(url);
+    report.modules['wappalyzer'] = _.cloneDeep(wappalyzer);
+  }
+
+  {
+    const actRules = await executeACTR(dom.source.html.parsed, dom.processed.html.parsed);
+    report.modules['act-rules'] = _.cloneDeep(actRules);
+
+    report.metadata.passed += actRules.metadata.passed;
+    report.metadata.failed += actRules.metadata.failed;
+    report.metadata.inapplicable += actRules.metadata.inapplicable;
+  }
 
   return report;
 }
@@ -99,9 +116,9 @@ async function generateEarlReport(options?: EarlOptions): Promise<EarlReport | E
         return _.cloneDeep(earlReports);
       }
     }
+  } else {
+    throw new Error('There are no evaluations to report');
   }
-
-  return null;
 }
 
 export {

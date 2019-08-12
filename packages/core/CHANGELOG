@@ -1,0 +1,17 @@
+# Changelog
+
+## [0.0.3] - 12/08/2019
+
+### Added
+ - "mocha" framework
+
+### Changed
+ - access to dom object from the @qualweb/get-dom-puppeteer module
+
+### Updated
+ - package @qualweb/types to version 0.0.32
+ - package @qualweb/get-dom-puppeteer to version 0.0.2
+ - package @qualweb/earl-reporter to version 0.0.3
+ - package @qualweb/act-rules to version 0.0.3
+ - package @qualweb/wappalyzer to version 0.0.2
+ - package @types/node to version 12.7.1
