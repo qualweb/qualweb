@@ -12,7 +12,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
-import { ACTRule, ACTResult } from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
   getElementSelector,
@@ -36,7 +36,8 @@ const rule: ACTRule = {
     'success-criteria': [{
       name: '3.1.1',
       level: 'A',
-      principle: 'Understandable'
+      principle: 'Understandable',
+      url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
     }],
     related: [],
     url: 'https://act-rules.github.io/rules/b5c3f8',
@@ -48,7 +49,7 @@ const rule: ACTRule = {
     outcome: '',
     description: ''
   },
-  results: new Array<ACTResult>()
+  results: new Array<ACTRuleResult>()
 };
 
 function getRuleMapping(): string {
@@ -72,36 +73,43 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
  * Evaluates the technique to the given element
  * @param  {object} elem
  */
-async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
-  const evaluation: ACTResult = {
+async function execute(element: DomElement | undefined): Promise<void> {
+  const evaluation: ACTRuleResult = {
     verdict: '',
-    description: ''
+    description: '',
+    resultCode: ''
   };
 
   if (element === undefined) { // if the element doesn't exist, there's nothing to test
     evaluation.verdict = 'inapplicable';
     evaluation.description = `There is no <html> element`;
+    evaluation.resultCode = 'RC1';
     rule.metadata.inapplicable++;
 
   } else if (element.parent !== null) {
     evaluation.verdict = 'inapplicable';
     evaluation.description = `The <html> element is not the root element of the page`;
+    evaluation.resultCode = 'RC2';
     rule.metadata.inapplicable++;
   } else if (element.attribs && element.attribs['xml:lang'] !== '' && element.attribs['xml:lang'] !== undefined) { // passed
     evaluation.verdict = 'passed';
     evaluation.description = `The xml:lang attribute has a value`;
+    evaluation.resultCode = 'RC3';
     rule.metadata.passed++;
   } else if (element.attribs && element.attribs['lang'] !== '' && element.attribs['lang'] !== undefined) { // passed
     evaluation.verdict = 'passed';
     evaluation.description = `The lang attribute has a value `;
+    evaluation.resultCode = 'RC4';
     rule.metadata.passed++;
   } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
     evaluation.verdict = 'failed';
     evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+    evaluation.resultCode = 'RC5';
     rule.metadata.failed++;
   } else if ((element.attribs && element.attribs['lang'] === '') || (element.attribs && element.attribs['xml:lang'] === '')) { // failed
     evaluation.verdict = 'failed';
     evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+    evaluation.resultCode = 'RC5';
     rule.metadata.failed++;
   }
 
@@ -122,7 +130,7 @@ function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
   rule.metadata.inapplicable = 0;
-  rule.results = new Array<ACTResult>();
+  rule.results = new Array<ACTRuleResult>();
 }
 
 function outcomeRule(): void {

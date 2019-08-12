@@ -3,7 +3,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
-import { ACTRule, ACTResult } from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
   getElementSelector,
@@ -22,17 +22,20 @@ const rule: ACTRule = {
     'success-criteria': [{
         name: '2.1.1',
         level: 'A',
-        principle: 'Operable'
+        principle: 'Operable',
+        url: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard'
       },
       {
         name: '2.2.4',
         level: 'AAA',
-        principle: 'Operable'
+        principle: 'Operable',
+        url: 'https://www.w3.org/WAI/WCAG21/Understanding/interruptions'
       },
       {
         name: '3.2.5',
         level: 'AAA',
-        principle: 'Understandable'
+        principle: 'Understandable',
+        url: 'https://www.w3.org/WAI/WCAG21/Understanding/change-on-request'
       }
     ],
     related: ['H76', 'F40', 'F41'],
@@ -44,7 +47,7 @@ const rule: ACTRule = {
     outcome: '',
     description: ''
   },
-  results: new Array<ACTResult>()
+  results: new Array<ACTRuleResult>()
 };
 
 function getRuleMapping(): string {
@@ -61,36 +64,42 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
   return has;
 }
 
-async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+async function execute(element: DomElement | undefined): Promise<void> {
   
   if (element === undefined) { // if the element doesn't exist, there's nothing to test
     return;
   }
 
-  const evaluation: ACTResult = {
+  const evaluation: ACTRuleResult = {
     verdict: '',
-    description: ''
+    description: '',
+    resultCode: ''
   };
 
   if (rule.metadata.passed === 1 || rule.metadata.failed === 1) { // only one meta needs to pass or fail, others will be discarded
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'Already exists one valid or invalid <meta> above';
+    evaluation.resultCode = 'RC1';
     rule.metadata.inapplicable++;
   } else if (element.attribs === undefined) { // not applicable
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attributes "content" and "http-equiv"';
+    evaluation.resultCode = 'RC2';
     rule.metadata.inapplicable++;
   } else if (element.attribs.content === undefined) { // not applicable
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attribute "content"';
+    evaluation.resultCode = 'RC3';
     rule.metadata.inapplicable++;
   } else if (element.attribs['http-equiv'] === undefined) { // not applicable
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'Inexistent attribute "http-equiv"';
+    evaluation.resultCode = 'RC4';
     rule.metadata.inapplicable++;
   } else if (element.attribs.content === '') { // not applicable
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'Attribute "content" is empty';
+    evaluation.resultCode = 'RC5';
     rule.metadata.inapplicable++;
   } else {
     let content = element.attribs.content;
@@ -103,23 +112,28 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
         if (n < 0) { // not applicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Time value can't be negative`;
+          evaluation.resultCode = 'RC6';
           rule.metadata.inapplicable++;
         } else if (n === 0) { // passes because the time is 0
           evaluation.verdict = 'passed';
           evaluation.description = 'Refreshes immediately';
+          evaluation.resultCode = 'RC7';
           rule.metadata.passed++;
         } else if (n > 72000) { // passes because the time is bigger than 72000
           evaluation.verdict = 'passed';
           evaluation.description = 'Refreshes after more than 20 hours';
+          evaluation.resultCode = 'RC8';
           rule.metadata.passed++;
         } else { // fails because the time is in between 0 and 72000
           evaluation.verdict = 'failed';
           evaluation.description = `Refreshes after ${n} seconds`;
+          evaluation.resultCode = 'RC9';
           rule.metadata.failed++;
         }
       } else { // not applicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid';
+        evaluation.resultCode = 'RC10';
         rule.metadata.inapplicable++;
       }
     } else { // if is a redirect
@@ -128,16 +142,19 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
       if (split.length > 2) { // not applicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'Malformated "Content" attribute';
+        evaluation.resultCode = 'RC11';
         rule.metadata.inapplicable++;
       } else if (split[0].trim() === '' || split[1].trim() === '') { // not applicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid';
+        evaluation.resultCode = 'RC10';
         rule.metadata.inapplicable++;
       } else if (checkIfIsNumber(split[0]) && _.isInteger(parseInt(split[0], 0))) {
         let n = Number(split[0]);
         if (n < 0) { // not applicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Time value can't be negative`;
+          evaluation.resultCode = 'RC6';
           rule.metadata.inapplicable++;
         }
 
@@ -154,29 +171,35 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
             if (n === 0) { // passes because the time is 0 and the url exists
               evaluation.verdict = 'passed';
               evaluation.description = 'Redirects immediately';
+              evaluation.resultCode = 'RC12';
               rule.metadata.passed++;
             } else if (n > 72000) { // passes because the time is bigger than 72000 and the url exists
               evaluation.verdict = 'passed';
               evaluation.description = 'Redirects after more than 20 hours';
+              evaluation.resultCode = 'RC13';
               rule.metadata.passed++;
             } else { // fails because the time is in between 0 and 72000, but the url exists
               evaluation.verdict = 'failed';
               evaluation.description = `Redirects after ${n} seconds`;
+              evaluation.resultCode = 'RC14';
               rule.metadata.failed++;
             }
           } else { // not applicable
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Url is not valid';
+            evaluation.resultCode = 'RC15';
             rule.metadata.inapplicable++;
           }
         } else { // not applicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Url is malformated';
+          evaluation.resultCode = 'RC16';
           rule.metadata.inapplicable++;
         }
       } else { // not applicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = '"Content" attribute is invalid"';
+        evaluation.resultCode = 'RC10';
         rule.metadata.inapplicable++;
       }
     }
@@ -197,7 +220,7 @@ function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
   rule.metadata.inapplicable = 0;
-  rule.results = new Array<ACTResult>();
+  rule.results = new Array<ACTRuleResult>();
 }
 
 function outcomeRule(): void {

@@ -3,7 +3,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
-import { ACTRule, ACTResult } from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
   getElementSelector,
@@ -22,7 +22,8 @@ const rule: ACTRule = {
     'success-criteria': [{
       name: '2.4.2',
       level: 'A',
-      principle: 'Operable'
+      principle: 'Operable',
+      url: 'https://www.w3.org/WAI/WCAG21/Understanding/page-titled'
     }],
     related: [],
     url: 'https://act-rules.github.io/rules/2779a5',
@@ -34,7 +35,7 @@ const rule: ACTRule = {
     outcome: '',
     description: ''
   },
-  results: new Array<ACTResult>()
+  results: new Array<ACTRuleResult>()
 };
 
 function getRuleMapping(): string {
@@ -52,9 +53,10 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
 }
 
 async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
-  const evaluation: ACTResult = {
+  const evaluation: ACTRuleResult = {
     verdict: '',
-    description: ''
+    description: '',
+    resultCode: ''
   };
   let rootElem: DomElement | undefined = undefined;
 
@@ -77,12 +79,14 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
       if (!element) {
         evaluation.verdict = 'failed';
         evaluation.description = `Title element doesn't exist`;
+        evaluation.resultCode = 'RC1';
         rule.metadata.failed++;
       }
       //the title element is empty
       else if (element.children && (element.children.length === 0 || element.children[0].data.trim() === '')) {
         evaluation.verdict = 'failed';
         evaluation.description = 'Title element is empty';
+        evaluation.resultCode = 'RC2';
         rule.metadata.failed++;
       }
 
@@ -90,6 +94,7 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
       else {
         evaluation.verdict = 'passed';
         evaluation.description = `Title element exists and it's not empty`;
+        evaluation.resultCode = 'RC3';
         rule.metadata.passed++;
       }
     }
@@ -97,6 +102,7 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
     else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The root element is not a html element';
+      evaluation.resultCode = 'RC4';
       rule.metadata.inapplicable++;
     }
   }
@@ -117,7 +123,7 @@ function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
   rule.metadata.inapplicable = 0;
-  rule.results = new Array<ACTResult>();
+  rule.results = new Array<ACTRuleResult>();
 }
 
 function outcomeRule(): void {

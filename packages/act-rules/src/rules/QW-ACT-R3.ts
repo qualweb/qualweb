@@ -3,7 +3,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
-import { ACTRule, ACTResult } from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
   getElementSelector,
@@ -25,7 +25,8 @@ const rule: ACTRule = {
     'success-criteria': [{
       name: '3.1.1',
       level: 'A',
-      principle: 'Understandable'
+      principle: 'Understandable',
+      url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
     }],
     related: [],
     url: 'https://act-rules.github.io/rules/5b7ae0',
@@ -37,7 +38,7 @@ const rule: ACTRule = {
     outcome: '',
     description: ''
   },
-  results: new Array<ACTResult>()
+  results: new Array<ACTRuleResult>()
 };
 
 function getRuleMapping(): string {
@@ -54,10 +55,11 @@ function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean 
   return has;
 }
 
-async function execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
-   const evaluation: ACTResult = {
+async function execute(element: DomElement | undefined): Promise<void> {
+   const evaluation: ACTRuleResult = {
     verdict: '',
-    description: ''
+    description: '',
+    resultCode: ''
   };
 
   let url = rule.metadata['url'];
@@ -66,23 +68,28 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
 
   if (element === undefined) { // if the element doesn't exist, there's nothing to test
     evaluation.verdict = 'inapplicable';
-    evaluation.description = 'html element doesn\'t exist';
+    evaluation.description = `html element doesn't exist`;
+    evaluation.resultCode = 'RC1';
     rule.metadata.inapplicable++;
   } else if (element.parent !== null) {
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'html element is not the root element of the page';
+    evaluation.resultCode = 'RC2';
     rule.metadata.inapplicable++;
   } else if (element.attribs === undefined) {
     evaluation.verdict = 'inapplicable';
     evaluation.description = `html element doesn't have attributes`;
+    evaluation.resultCode = 'RC3';
     rule.metadata.inapplicable++;
   } else if (element.attribs['lang'] === undefined || element.attribs['xml:lang'] === undefined) {
     evaluation.verdict = 'inapplicable';
     evaluation.description = `lang or xml:lang attribute doesn't exist in html element`;
+    evaluation.resultCode = 'RC4';
     rule.metadata.inapplicable++;
   } else if (element.attribs['lang'] === '' || element.attribs['xml:lang'] === '') {
     evaluation.verdict = 'inapplicable';
     evaluation.description = 'lang or xml:lang attribute is empty in html element';
+    evaluation.resultCode = 'RC5';
     rule.metadata.inapplicable++;
   }
 
@@ -96,21 +103,25 @@ async function execute(element: DomElement | undefined, processedHTML: DomElemen
     if (!validLang || !validXMLLang) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'lang or xml:lang element is not valid';
+      evaluation.resultCode = 'RC6';
       rule.metadata.inapplicable++;
     }
     // from now on, we know that both tags are valid
     else if (lang === xmllang) {
       evaluation.verdict = 'passed';
       evaluation.description = 'lang and xml:lang attributes have the same value';
+      evaluation.resultCode = 'RC7';
       rule.metadata.passed++;
     } else if (lang.toLowerCase() === xmllang.toLowerCase()) {
       evaluation.verdict = 'passed';
       evaluation.description = 'lang and xml:lang attributes have the same value';
+      evaluation.resultCode = 'RC7';
       rule.metadata.passed++;
     } else {
       // if lang and xml:lang are different
       evaluation.verdict = 'failed';
       evaluation.description = 'lang and xml:lang attributes do not have the same value';
+      evaluation.resultCode = 'RC8';
       rule.metadata.failed++;
     }
   }
@@ -132,7 +143,7 @@ function reset(): void {
   rule.metadata.passed = 0;
   rule.metadata.failed = 0;
   rule.metadata.inapplicable = 0;
-  rule.results = new Array<ACTResult>();
+  rule.results = new Array<ACTRuleResult>();
 }
 
 function outcomeRule(): void {

@@ -25,7 +25,7 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
   (async () => {
     const dom = await getDom('https://act-rules.github.io/pages/about/');
 
-    const report = await executeACTR(dom.parsedSourceHTML, dom.parsedProcessedHTML);
+    const report = await executeACTR(dom.source.html.parsed, dom.processed.html.parsed);
 
     // print rules executed
     console.log(Object.keys(report));
@@ -69,7 +69,7 @@ If you want you can configure the module to run only specific rules, or rules ba
 
     configure(options);
 
-    const report = await executeACTR(dom.parsedSourceHTML, dom.parsedProcessedHTML);
+    const report = await executeACTR(dom.source.html.parsed, dom.processed.html.parsed);
   })();
 ```
 

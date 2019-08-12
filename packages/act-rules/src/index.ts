@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 'use strict';
 
@@ -45,7 +45,6 @@ function configure(options: ACTROptions): void {
   }
 
   for (const rule of Object.keys(rules) || []) {
-    
     if (options.principles && options.principles.length !== 0) {
       if (options.levels && options.levels.length !== 0) {
         if (!rules[rule].hasPrincipleAndLevels(options.principles, options.levels)) {
@@ -75,10 +74,25 @@ function configure(options: ACTROptions): void {
   }
 }
 
+function resetConfiguration(): void {
+  for (const rule in rules_to_execute) {
+    rules_to_execute[rule] = true;
+  }
+}
+
 async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport> {
   
+  if (sourceHTML === null || sourceHTML === undefined) {
+    throw new Error('source html cant be null or undefined');
+  }
+
   const report: ACTRulesReport = {
     type: 'act-rules',
+    metadata: {
+      passed: 0,
+      failed: 0,
+      inapplicable: 0
+    },
     rules: {}
   };
 
@@ -87,7 +101,7 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
   
   for (const selector of preSelectors || []) {
     for (const rule of preRules[selector] || []) {
-      if (rules_to_execute[rule]) {        
+      if (rules_to_execute[rule]) {
         let elements = stew.select(sourceHTML, selector);
         if (elements.length > 0) {
           for (const elem of elements || []) {
@@ -97,6 +111,7 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
           await rules[rule].execute(undefined, sourceHTML);
         }
         report.rules[rule] = rules[rule].getFinalResults();
+        report.metadata[report.rules[rule].metadata.outcome]++;
         rules[rule].reset();
       }
     }
@@ -107,7 +122,7 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
   
   for (const selector of postSelectors || []) {
     for (const rule of postRules[selector] || []) {
-      if (rules_to_execute[rule]) {        
+      if (rules_to_execute[rule]) {
         let elements = stew.select(processedHTML, selector);
         if (elements.length > 0) {
           for (const elem of elements || []) {
@@ -117,12 +132,18 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
           await rules[rule].execute(undefined, processedHTML);
         }
         report.rules[rule] = rules[rule].getFinalResults();
+        report.metadata[report.rules[rule].metadata.outcome]++;
         rules[rule].reset();
       }
     }
   }
 
+  resetConfiguration();
+  
   return report;
 }
 
-export { configure, executeACTR };
+export {
+  configure,
+  executeACTR
+};
