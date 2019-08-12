@@ -1,7 +1,7 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.0.21",
-  "description": "QualWeb evaluator cli",
+  "version": "0.0.3",
+  "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
     "qw": "./bin/cli.js"
@@ -9,8 +9,10 @@
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
-    "build": "tsc --build",
-    "pub": "tsc --build && npm publish"
+    "test": "mocha",
+    "clean": "node clean.js",
+    "build": "npm run clean && tsc --build",
+    "pub": "npm run build && npm publish"
   },
   "keywords": [
     "qualweb",
@@ -25,18 +27,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "0.0.21",
+    "@qualweb/core": "0.0.3",
     "ansi": "^0.3.1",
-    "commander": "^2.20.0",
+    "commander": "^3.0.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@qualweb/types": "0.0.2",
+    "@qualweb/types": "0.0.32",
     "@types/fs-extra": "^8.0.0",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.136",
-    "@types/node": "^12.6.8",
+    "@types/node": "^12.7.1",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   }
 }
