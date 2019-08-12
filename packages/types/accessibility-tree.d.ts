@@ -8,27 +8,25 @@ declare module '@qualweb/accessibility-tree' {
 
     id?: string;
     reference?: string;
-    nameFrom: {
+    nameFrom?: {
       type: 'element' | 'attribute' | 'text';
       attribute?: string;
       element?: string;
       elementId?: string;
       elementReference?: string;
     };
-    element: string;
-    nElements: number;
+    element?: string;
+    nElements?: number;
     children?: AccessibleElement[];
   }
 
   interface AccessibilityTree {
     nElements: number;
-    containsIds: boolean;
     containsReferences: boolean;
-    tree: AccessibleElement;
+    tree: AccessibleElement | undefined;
   }
 
   interface AccessibilityTreeOptions {
-    setIds?: boolean;
     setReferences?: boolean;
   }
 
