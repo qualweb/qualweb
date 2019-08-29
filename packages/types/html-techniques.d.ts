@@ -35,9 +35,10 @@ declare module '@qualweb/html-techniques' {
 
   interface HTMLTechniqueResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
-    description: string | '';
+    description: string[] | string | '';
+    resultCode: string[] | string;
     pointer?: string;
-    code?: string | string[];
+    htmlCode?: string | string[];
     attributes?: string | string[];
   }
 
