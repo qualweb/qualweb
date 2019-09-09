@@ -83,7 +83,11 @@ async function executeRules(report: ACTRulesReport, html: DomElement[], selector
 async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport> {
   
   if (sourceHTML === null || sourceHTML === undefined) {
-    throw new Error('source html cant be null or undefined');
+    throw new Error(`Source html can't be null or undefined`);
+  }
+
+  if (processedHTML === null || processedHTML === undefined) {
+    throw new Error(`Processed html can't be null or undefined`);
   }
 
   const report: ACTRulesReport = {
@@ -96,15 +100,8 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
     rules: {}
   };
 
-  const preRules = mapping['pre'];
-  const preSelectors = Object.keys(preRules);
-
-  await executeRules(report, sourceHTML, preSelectors, preRules);
-
-  const postRules = mapping['post'];
-  const postSelectors = Object.keys(postRules);
-
-  await executeRules(report, processedHTML, postSelectors, postRules);
+  await executeRules(report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
+  await executeRules(report, processedHTML, Object.keys(mapping.post), mapping.post);
 
   resetConfiguration();
   

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5] - 09/09/2019
+
+### Added
+ - Rule.object.ts which has the main class to extended by the implemented rules
+
+### Changed
+ - all rules under src/rules/QW-ACT-R*.ts to extend the Rule abstract class
+
 ## [0.0.4] - 04/09/2019
 
 ### Changed

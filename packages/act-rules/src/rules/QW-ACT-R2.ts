@@ -13,6 +13,7 @@ import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import Rule from './Rule.object';
 
 import {
   getElementSelector,
@@ -52,114 +53,52 @@ const rule: ACTRule = {
   results: new Array<ACTRuleResult>()
 };
 
-function getRuleMapping(): string {
-  return rule.mapping;
-}
+class QW_ACT_R2 extends Rule {
 
-function hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
-  let has = false;
-  for (let sc of rule.metadata['success-criteria'] || []) {
-    if (principles.includes(sc.principle) && levels.includes(sc.level)) {
-      has = true;
+  constructor() {
+    super(rule);
+  }
+
+  async execute(element: DomElement | undefined): Promise<void> {
+    const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };
+
+    if (element === undefined) { // if the element doesn't exist, there's nothing to test
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `There is no <html> element`;
+      evaluation.resultCode = 'RC1';
+    } else if (element.parent !== null) {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The <html> element is not the root element of the page`;
+      evaluation.resultCode = 'RC2';
+    } else if (element.attribs && element.attribs['xml:lang'] !== '' && element.attribs['xml:lang'] !== undefined) { // passed
+      evaluation.verdict = 'passed';
+      evaluation.description = `The xml:lang attribute has a value`;
+      evaluation.resultCode = 'RC3';
+    } else if (element.attribs && element.attribs['lang'] !== '' && element.attribs['lang'] !== undefined) { // passed
+      evaluation.verdict = 'passed';
+      evaluation.description = `The lang attribute has a value `;
+      evaluation.resultCode = 'RC4';
+    } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
+      evaluation.verdict = 'failed';
+      evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+      evaluation.resultCode = 'RC5';
+    } else if ((element.attribs && element.attribs['lang'] === '') || (element.attribs && element.attribs['xml:lang'] === '')) { // failed
+      evaluation.verdict = 'failed';
+      evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+      evaluation.resultCode = 'RC5';
     }
-  }
-  return has;
-}
-
-/**
- * ver tag html
- * parent
- *
- * Evaluates the technique to the given element
- * @param  {object} elem
- */
-async function execute(element: DomElement | undefined): Promise<void> {
-  const evaluation: ACTRuleResult = {
-    verdict: '',
-    description: '',
-    resultCode: ''
-  };
-
-  if (element === undefined) { // if the element doesn't exist, there's nothing to test
-    evaluation.verdict = 'inapplicable';
-    evaluation.description = `There is no <html> element`;
-    evaluation.resultCode = 'RC1';
-    rule.metadata.inapplicable++;
-
-  } else if (element.parent !== null) {
-    evaluation.verdict = 'inapplicable';
-    evaluation.description = `The <html> element is not the root element of the page`;
-    evaluation.resultCode = 'RC2';
-    rule.metadata.inapplicable++;
-  } else if (element.attribs && element.attribs['xml:lang'] !== '' && element.attribs['xml:lang'] !== undefined) { // passed
-    evaluation.verdict = 'passed';
-    evaluation.description = `The xml:lang attribute has a value`;
-    evaluation.resultCode = 'RC3';
-    rule.metadata.passed++;
-  } else if (element.attribs && element.attribs['lang'] !== '' && element.attribs['lang'] !== undefined) { // passed
-    evaluation.verdict = 'passed';
-    evaluation.description = `The lang attribute has a value `;
-    evaluation.resultCode = 'RC4';
-    rule.metadata.passed++;
-  } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
-    evaluation.verdict = 'failed';
-    evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-    evaluation.resultCode = 'RC5';
-    rule.metadata.failed++;
-  } else if ((element.attribs && element.attribs['lang'] === '') || (element.attribs && element.attribs['xml:lang'] === '')) { // failed
-    evaluation.verdict = 'failed';
-    evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-    evaluation.resultCode = 'RC5';
-    rule.metadata.failed++;
-  }
-
-  if (element !== undefined) {
-    evaluation['code'] = transform_element_into_html(element);
-    evaluation['pointer'] = getElementSelector(element);
-  }
-
-  rule.results.push(_.clone(evaluation));
-};
-
-function getFinalResults() {
-  outcomeRule();
-  return _.cloneDeep(rule);
-}
-
-function reset(): void {
-  rule.metadata.passed = 0;
-  rule.metadata.failed = 0;
-  rule.metadata.inapplicable = 0;
-  rule.results = new Array<ACTRuleResult>();
-}
-
-function outcomeRule(): void {
-  if (rule.metadata.failed > 0) {
-    rule.metadata.outcome = 'failed';
-  } else if (rule.metadata.passed > 0) {
-    rule.metadata.outcome = 'passed';
-  } else {
-    rule.metadata.outcome = 'inapplicable';
-  }
-
-  if (rule.results.length > 0) {
-    addDescription();
-  }
-}
-
-function addDescription(): void {
-  for (const result of rule.results || []) {    
-    if (result.verdict === rule.metadata.outcome) {
-      rule.metadata.description = result.description;
-      break;
+    
+    if (element !== undefined) {
+      evaluation.code = transform_element_into_html(element);
+      evaluation.pointer = getElementSelector(element);
     }
+
+    super.addEvaluationResult(evaluation);
   }
 }
 
-export {
-  getRuleMapping,
-  hasPrincipleAndLevels,
-  execute,
-  getFinalResults,
-  reset
-};
+export = QW_ACT_R2;
