@@ -21,7 +21,7 @@ declare module '@qualweb/accessibility-tree' {
   }
 
   interface AccessibilityTree {
-    nElements: number;
+    nElements?: number;
     containsReferences: boolean;
     tree: AccessibleElement | undefined;
   }
