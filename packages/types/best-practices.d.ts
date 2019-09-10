@@ -35,7 +35,7 @@ declare module '@qualweb/best-practices' {
     attributes?: string | string[];
   }
 
-  interface BestPracticeGlobalMetadata {
+  interface BestPracticesGlobalMetadata {
     passed: number;
     warning: number;
     failed: number;
@@ -51,7 +51,7 @@ declare module '@qualweb/best-practices' {
     results: BestPracticeResult[];
   }
 
-  interface BestPracticeReport {
+  interface BestPracticesReport {
     type: 'best-practices';
     metadata: BestPracticeGlobalMetadata;
     'best-practices': {
@@ -64,9 +64,9 @@ declare module '@qualweb/best-practices' {
   export {
     BestPracticeMetadata,
     BestPracticeResult,
-    BestPracticeGlobalMetadata,
+    BestPracticesGlobalMetadata,
     BestPractice,
-    BestPracticeReport,
+    BestPracticesReport,
     executeBestPractice
   };
 }
