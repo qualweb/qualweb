@@ -4,6 +4,7 @@ import {BestPractice as BestPracticeType, BestPracticeResult} from '@qualweb/bes
 import BestPractice from './BestPractice.object';
 import {DomElement} from 'htmlparser2';
 import {getElementSelector, transform_element_into_html} from "../util";
+import * as _ from "lodash";
 
 const bestPractice: BestPracticeType = {
   name: 'Using h1-h6 to identify headings',
