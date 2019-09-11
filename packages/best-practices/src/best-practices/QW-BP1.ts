@@ -5,8 +5,6 @@ import BestPractice from './BestPractice.object';
 import {DomElement} from 'htmlparser2';
 import {getElementSelector, transform_element_into_html} from "../util";
 
-const stew = new (require('stew-select')).Stew();
-
 const bestPractice: BestPracticeType = {
   name: 'Using h1-h6 to identify headings',
   code: 'QW-BP1',
