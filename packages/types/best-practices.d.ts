@@ -53,13 +53,13 @@ declare module '@qualweb/best-practices' {
 
   interface BestPracticesReport {
     type: 'best-practices';
-    metadata: BestPracticeGlobalMetadata;
+    metadata: BestPracticesGlobalMetadata;
     'best-practices': {
       [bestPractice: string]: BestPractice;
     };
   }
 
-  function executeBestPractice(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<BestPracticeReport>;
+  function executeBestPractices(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<BestPracticesReport>;
 
   export {
     BestPracticeMetadata,
