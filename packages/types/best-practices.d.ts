@@ -67,6 +67,6 @@ declare module '@qualweb/best-practices' {
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
-    executeBestPractice
+    executeBestPractices
   };
 }
