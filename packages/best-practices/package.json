@@ -9,6 +9,7 @@
     "tsc": "tsc",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
+    "test-bp1": "mocha test/QW-BP1.spec.js",
     "pub": "npm run build && npm publish"
   },
   "repository": {
@@ -42,6 +43,7 @@
     "htmlparser-to-html": "0.0.6",
     "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",
-    "stew-select": "0.0.5"
+    "stew-select": "0.0.5",
+    "@qualweb/get-dom-puppeteer": "latest"
   }
 }
