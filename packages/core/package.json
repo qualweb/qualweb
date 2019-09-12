@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -39,11 +39,12 @@
     "@qualweb/types": "0.0.32",
     "@types/fs-extra": "^8.0.0",
     "@types/htmlparser2": "^3.10.1",
-    "@types/lodash": "^4.14.135",
-    "@types/node": "^12.7.1",
+    "@types/lodash": "^4.14.138",
+    "@types/node": "^12.7.2",
     "@types/request": "^2.48.2",
+    "chai": "^4.2.0",
     "mocha": "^6.2.0",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.2"
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
   }
 }

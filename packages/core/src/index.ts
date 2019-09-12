@@ -1,12 +1,3 @@
-/**
- * Author: João Afonso Vicente
- * 
- * Description: 
- *
- * Notes:
- *
- * Last modified: 22/02/2019
- */
 'use strict';
 
 import _ from 'lodash';
@@ -45,7 +36,8 @@ async function run(url: string, options: QualwebOptions): Promise<EvaluationRepo
       homepage: 'http://www.qualweb.di.fc.ul.pt/',
       date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       hash: crypto.randomBytes(40).toString('hex'),
-      url: parse_url(url)
+      url: parse_url(url),
+      dom: dom
     },
     metadata: {
       passed: 0,
@@ -68,6 +60,11 @@ async function run(url: string, options: QualwebOptions): Promise<EvaluationRepo
     report.metadata.passed += actRules.metadata.passed;
     report.metadata.failed += actRules.metadata.failed;
     report.metadata.inapplicable += actRules.metadata.inapplicable;
+  }
+
+  if (report.system.dom) {
+    delete report.system.dom.processed.html.parsed;
+    delete report.system.dom.source.html.parsed;
   }
 
   return report;
