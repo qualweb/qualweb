@@ -50,7 +50,7 @@ declare module '@qualweb/css-techniques' {
     property?: {
       name: string;
       value: string;
-      position: Position;
+      position?: Position;
     };
   }
 
