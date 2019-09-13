@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.8] - 13/09/2019
+
+### Added
+ - stylesheet interface to get-dom-puppeteer module
+
 ## [0.0.7] - 11/09/2019
 
 ### Fixed
