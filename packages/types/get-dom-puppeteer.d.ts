@@ -44,6 +44,7 @@ declare module '@qualweb/get-dom-puppeteer' {
     DomOptions,
     Html,
     Dom,
+    CSSStylesheet,
     getDom
   };
 }

@@ -1,5 +1,7 @@
 declare module '@qualweb/css-techniques' {
   import { DomElement } from 'htmlparser2';
+  import { Position } from 'css';
+  import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
 
   interface CSSTOptions {
     techniques?: string[];
@@ -37,8 +39,19 @@ declare module '@qualweb/css-techniques' {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     pointer?: string;
-    code?: string | string[];
+    htmlCode?: string | string[];
     attributes?: string | string[];
+    cssCode?: string;
+    stylesheetFile?: string;
+    selector?: {
+      value: string;
+      position: Position;
+    };
+    property?: {
+      name: string;
+      value: string;
+      position: Position;
+    };
   }
 
   interface CSSMetadata {
@@ -66,7 +79,7 @@ declare module '@qualweb/css-techniques' {
   }
 
   function configure(options: CSSTOptions): void;
-  function executeCSST(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<CSSTechniquesReport>;
+  function executeCSST(stylesheets: CSSStylesheet[]): Promise<CSSTechniquesReport>;
 
   export {
     CSSTOptions,

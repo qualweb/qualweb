@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/types",
-  "version": "0.0.8",
+  "version": "0.0.21",
   "description": "Type definitions for qualweb core and modules",
   "main": "./index.d.ts",
   "types": "./index.d.ts",
