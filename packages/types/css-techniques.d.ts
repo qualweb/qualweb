@@ -44,12 +44,12 @@ declare module '@qualweb/css-techniques' {
     cssCode?: string;
     stylesheetFile?: string;
     selector?: {
-      value: string;
-      position: Position;
+      value?: string;
+      position?: Position;
     };
     property?: {
-      name: string;
-      value: string;
+      name?: string;
+      value?: string;
       position?: Position;
     };
   }
