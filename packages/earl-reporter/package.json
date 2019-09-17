@@ -25,7 +25,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.0.23",
+    "@qualweb/types": "0.0.24",
+    "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.138",
     "@types/node": "^12.7.5",

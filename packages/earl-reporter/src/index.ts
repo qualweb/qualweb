@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { EvaluationReport } from '@qualweb/core';
 import {
   Report,
@@ -13,16 +13,20 @@ import {
 import ACTRulesReportToEARL from './lib/act-rules.reporter';
 import HTMLTechniquesReportToEARL from './lib/html-techniques.reporter';
 import CSSTechniquesReportToEARL from './lib/css-techniques.reporter';
+import BestPracticesReportToEARL from './lib/best-practices.reporter';
 
 async function generateEarlAssertions(report: Report, date?: string): Promise<Assertion[]> {
-  if (report.type === 'act-rules') {
-    return await ACTRulesReportToEARL(report, date);
-  } else if (report.type === 'html-techniques') {
-    return await HTMLTechniquesReportToEARL(report, date);
-  } else if (report.type === 'css-techniques') {
-    return await CSSTechniquesReportToEARL(report, date);
-  } else {
-    throw new Error('Invalid report type');
+  switch(report.type) {
+    case 'act-rules':
+      return await ACTRulesReportToEARL(report, date);
+    case 'html-techniques':
+      return await HTMLTechniquesReportToEARL(report, date);
+    case 'css-techniques':
+      return await CSSTechniquesReportToEARL(report, date);
+    case 'best-practices':
+      return await BestPracticesReportToEARL(report, date);
+    default:
+      throw new Error('Invalid report type');
   }
 }
 
@@ -67,8 +71,14 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
       ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))
     ];
   }
+   if (report.modules['best-practices']) {
+    testSubject.assertions = [
+      ...testSubject.assertions, 
+      ...(await generateEarlAssertions(report.modules['best-practices'], report.system.date))
+    ];
+  }
 
-  earlReport.graph.push(_.cloneDeep(testSubject));
+  earlReport.graph.push(cloneDeep(testSubject));
 
   return earlReport;
 }
@@ -81,7 +91,7 @@ async function generateAggregatedEarlReport(reports: EvaluationReport[]): Promis
 
   for (const report of reports || []) {
     const earlReport = await generateSingleEarlReport(report);
-    aggregatedReport.graph.push(_.cloneDeep(earlReport.graph[0]));
+    aggregatedReport.graph.push(cloneDeep(earlReport.graph[0]));
   }
 
   return aggregatedReport;
