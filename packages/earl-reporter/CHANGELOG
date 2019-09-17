@@ -1,6 +1,9 @@
 # Changelog
 
-## [0.0.31] - ?
+## [0.0.4] - 17/09/2019
+
+### Added
+ - best-practices module parser
 
 ### Changed
  - "how to run" section on the README.md file
