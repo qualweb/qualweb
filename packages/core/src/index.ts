@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { readFile } from 'fs-extra';
 import crypto from 'crypto';
 
@@ -16,7 +16,10 @@ import {
 
 import { getDom } from '@qualweb/get-dom-puppeteer';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
-import { configure, executeACTR } from '@qualweb/act-rules';
+import { executeACTR, configure as configureACTR } from '@qualweb/act-rules';
+import { executeHTMLT, configure as configureHTMLT } from '@qualweb/html-techniques';
+import { executeCSST, configure as configureCSST } from '@qualweb/css-techniques';
+import { executeBestPractices } from '@qualweb/best-practices';
 
 let globalReports: EvaluationReport[] | undefined;
 
@@ -24,7 +27,15 @@ async function run(url: string, options: QualwebOptions): Promise<EvaluationRepo
   const dom = await getDom(url);
 
   if (options['act-rules']) {
-    configure(options['act-rules']);
+    configureACTR(options['act-rules']);
+  }
+
+  if (options['html-techniques']) {
+    configureHTMLT(options['html-techniques']);
+  }
+
+  if (options['css-techniques']) {
+    configureCSST(options['css-techniques']);
   }
 
   const report: EvaluationReport = {
@@ -50,16 +61,46 @@ async function run(url: string, options: QualwebOptions): Promise<EvaluationRepo
 
   if (options.wappalyzer) {
     const wappalyzer = await executeWappalyzer(url);
-    report.modules['wappalyzer'] = _.cloneDeep(wappalyzer);
+    report.modules['wappalyzer'] = cloneDeep(wappalyzer);
   }
 
   {
     const actRules = await executeACTR(dom.source.html.parsed, dom.processed.html.parsed);
-    report.modules['act-rules'] = _.cloneDeep(actRules);
+    report.modules['act-rules'] = cloneDeep(actRules);
 
     report.metadata.passed += actRules.metadata.passed;
     report.metadata.failed += actRules.metadata.failed;
     report.metadata.inapplicable += actRules.metadata.inapplicable;
+  }
+
+  {
+    const htmlTechniques = await executeHTMLT(dom.source.html.parsed, dom.processed.html.parsed);
+    report.modules['html-techniques'] = cloneDeep(htmlTechniques);
+
+    report.metadata.passed += htmlTechniques.metadata.passed;
+    report.metadata.warning += htmlTechniques.metadata.warning;
+    report.metadata.failed += htmlTechniques.metadata.failed;
+    report.metadata.inapplicable += htmlTechniques.metadata.inapplicable;
+  }
+
+  if (dom.stylesheets) {
+    const cssTechniques = await executeCSST(dom.stylesheets);
+    report.modules['css-techniques'] = cloneDeep(cssTechniques);
+
+    report.metadata.passed += cssTechniques.metadata.passed;
+    report.metadata.warning += cssTechniques.metadata.warning;
+    report.metadata.failed += cssTechniques.metadata.failed;
+    report.metadata.inapplicable += cssTechniques.metadata.inapplicable;
+  }
+
+  {
+    const bestPractices = await executeBestPractices(dom.source.html.parsed, dom.processed.html.parsed);
+    report.modules['best-practices'] = cloneDeep(bestPractices);
+
+    report.metadata.passed += bestPractices.metadata.passed;
+    report.metadata.warning += bestPractices.metadata.warning;
+    report.metadata.failed += bestPractices.metadata.failed;
+    report.metadata.inapplicable += bestPractices.metadata.inapplicable;
   }
 
   if (report.system.dom) {
@@ -79,7 +120,7 @@ async function evaluate(options: QualwebOptions): Promise<EvaluationReport | Eva
 
   if (options.url) {
     const report = await run(options.url, options);
-    globalReports.push(_.cloneDeep(report));
+    globalReports.push(cloneDeep(report));
 
     return report;
   } else if (options.file) {
@@ -88,10 +129,10 @@ async function evaluate(options: QualwebOptions): Promise<EvaluationReport | Eva
 
     for (const url of urls || []) {
       const report = await run(url, options);
-      globalReports.push(_.cloneDeep(report));
+      globalReports.push(cloneDeep(report));
     }
 
-    return _.cloneDeep(globalReports);
+    return cloneDeep(globalReports);
   } else {
     throw new Error('Invalid input method');
   }
@@ -108,9 +149,9 @@ async function generateEarlReport(options?: EarlOptions): Promise<EarlReport | E
         const earlReports = new Array<EarlReport>();
         for (const report of globalReports || []) {
           const earlReport = await generateSingleEarlReport(report);
-          earlReports.push(_.cloneDeep(earlReport));
+          earlReports.push(cloneDeep(earlReport));
         }
-        return _.cloneDeep(earlReports);
+        return cloneDeep(earlReports);
       }
     }
   } else {
