@@ -4,6 +4,7 @@ declare module '@qualweb/core' {
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
   import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
   import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
+  import { BestPracticesReport } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
   interface QualwebOptions {
@@ -20,7 +21,7 @@ declare module '@qualweb/core' {
     'wappalyzer'?: boolean | WappalyzerOptions;
     'act-rules'?: ACTROptions;
     'html-techniques'?: HTMLTOptions;
-    'css-techniques'?: CSSTOptions;
+    'css-techniques'?: CSSTOptions; 
   }
 
   interface Url {
@@ -57,6 +58,7 @@ declare module '@qualweb/core' {
       'act-rules'?: ACTRulesReport;
       'html-techniques'?: HTMLTechniquesReport;
       'css-techniques'?: CSSTechniquesReport;
+      'best-practices'?: BestPracticesReport;
     };
   }
 

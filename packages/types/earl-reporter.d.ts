@@ -5,6 +5,7 @@ declare module '@qualweb/earl-reporter' {
   import { ACTRulesReport } from '@qualweb/act-rules';
   import { HTMLTechniquesReport } from '@qualweb/html-techniques';
   import { CSSTechniquesReport } from '@qualweb/css-techniques';
+  import { BestPracticesReport } from '@qualweb/best-practices';
 
   interface EarlOptions {
     aggregated: boolean;
@@ -60,7 +61,7 @@ declare module '@qualweb/earl-reporter' {
     graph: TestSubject[];
   }
 
-  type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport;
+  type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport | BestPracticesReport;
 
   function generateEarlAssertions(report: Report): Promise<Assertion[]>;
   function generateSingleEarlReport(report: EvaluationReport): Promise<EarlReport>;

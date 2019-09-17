@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.24] - 17/09/2019
+
+### Added
+ - best-practices report type to earl-reporter report interface
+ - best-practices module to core evaluation interface
+
 ## [0.0.23] - 16/09/2019
 
 ### Fixed
