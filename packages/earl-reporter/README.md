@@ -12,7 +12,6 @@ EARL reporter module for QualWeb.
 
 ### Additional packages
 
-
 ```shell
   $ npm i @qualweb/get-dom-puppeteer --save
   $ npm i @qualweb/act-rules --save
@@ -27,12 +26,12 @@ EARL reporter module for QualWeb.
 
   (async () => {
     // Generate EARL assertions in case of partial report is given
-    const dom = await getDom('https://act-rules.github.io/pages/about/');
-    const report = await executeACTR(dom.parsedSourceHTML, dom.parsedProcessedHTML);
+    const { source, processed } = await getDom('https://act-rules.github.io/pages/about/');
+    const report = await executeACTR(source.html.parsed, processed.html.parsed);
     const assertions = await reporter.generateEarlAssertions(report);
 
     console.log(assertions);
-    
+
     // Generate full single EARL report - based on only one test subject
     const dom = await getDom('https://act-rules.github.io/pages/about/');
 
@@ -61,7 +60,7 @@ EARL reporter module for QualWeb.
       }
     };
 
-    const earlReport = await report.generateSingleEarlReport(evaluationReport);
+    const earlReport = await reporter.generateSingleEarlReport(evaluationReport);
 
     console.log(earlReport);
 
