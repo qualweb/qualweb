@@ -67,7 +67,8 @@ declare module '@qualweb/html-techniques' {
   }
 
   function configure(options: HTMLTOptions): void;
-  function executeHTMLT(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<HTMLTechniquesReport>;
+  function resetConfiguration(): void;
+  function executeHTMLT(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<HTMLTechniquesReport>;
 
   export {
     HTMLTOptions,
@@ -77,6 +78,7 @@ declare module '@qualweb/html-techniques' {
     HTMLTechnique,
     HTMLTechniquesReport,
     configure,
+    resetConfiguration,
     executeHTMLT
   };
 }
