@@ -69,7 +69,7 @@ class QW_ACT_R4 extends Rule {
       resultCode: ''
     };
 
-    if (rule.metadata.passed === 1 || rule.metadata.failed === 1) { // only one meta needs to pass or fail, others will be discarded
+    if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Already exists one valid or invalid <meta> above';
       evaluation.resultCode = 'RC1';
