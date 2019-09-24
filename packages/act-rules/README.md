@@ -29,14 +29,14 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 
     // print rules executed
     console.log(Object.keys(report));
-    // ['R11', 'R12', 'R13', ...]
+    // ['QW-ACT-R1', 'QW-ACT-R2', 'QW-ACT-R3', ...]
 
     // print rule outcome
-    console.log(report['R11'].metadata.outcome);
+    console.log(report['QW-ACT-R1'].metadata.outcome);
     // 'passed' | 'failed' | 'notApplicable'
 
     // print rule results
-    console.log(report['R11'].results[0]);
+    console.log(report['QW-ACT-R1'].results[0]);
     // {
     //   verdict: 'passed'
     //   description: 'HTML page has title element'
@@ -60,12 +60,12 @@ If you want you can configure the module to run only specific rules, or rules ba
     const dom = await getDom('https://act-rules.github.io/pages/about/');
 
     const options = {
-      rules: ['R11', 'R12'], // will execute these rules regarding the other options given
+      rules: ['QW-ACT-R1', 'QW-ACT-R2'], // will execute these rules regarding the other options given
       principles: ['Understandable'], // will only execute rules that belong to the 'Understandable' principle
       levels: ['A', 'AA'] // will only execute rules that belong to the 'A' and 'AA' conform levels
     };
 
-    // In this case, with these options, all rules that belong to the 'Understandable' principle and the 'A' and 'AA' conform levels and rules 'R11' and 'R12' will be executed
+    // In this case, with these options, all rules that belong to the 'Understandable' principle and the 'A' and 'AA' conform levels and rules 'QW-ACT-R1' and 'QW-ACT-R2' will be executed
 
     configure(options);
 
