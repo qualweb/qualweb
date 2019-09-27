@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.5] - 27/09/2019
+
+### Fixed
+ - bug where a 'warning' result wasn't changed to 'cantTell' in all parsers
+
 ## [0.0.4] - 17/09/2019
 
 ### Added

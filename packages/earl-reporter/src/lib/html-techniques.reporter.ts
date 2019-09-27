@@ -20,7 +20,7 @@ async function HTMLTechniquesReportToEARL(report: HTMLTechniquesReport, date?: s
           const source: ResultSource = {
             result: {
               pointer: result.pointer,
-              outcome: 'earl:' + result.verdict
+              outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
             }
           };
 

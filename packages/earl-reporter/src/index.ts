@@ -71,7 +71,7 @@ async function generateSingleEarlReport(report: EvaluationReport): Promise<EarlR
       ...(await generateEarlAssertions(report.modules['css-techniques'], report.system.date))
     ];
   }
-   if (report.modules['best-practices']) {
+  if (report.modules['best-practices']) {
     testSubject.assertions = [
       ...testSubject.assertions, 
       ...(await generateEarlAssertions(report.modules['best-practices'], report.system.date))

@@ -20,7 +20,7 @@ async function BestPracticesReportToEARL(report: BestPracticesReport, date?: str
           const source: ResultSource = {
             result: {
               pointer: result.pointer,
-              outcome: 'earl:' + result.verdict
+              outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell') 
             }
           };
 
