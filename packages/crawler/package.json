@@ -1,0 +1,42 @@
+{
+  "name": "@qualweb/crawler",
+  "version": "0.0.1",
+  "description": "Webpage crawler for qualweb",
+  "main": "dist/index.js",
+  "types": "./node_modules/@qualweb/types",
+  "scripts": {
+    "test": "mocha",
+    "tsc": "tsc",
+    "clean": "node clean.js",
+    "build": "npm run clean && tsc --build",
+    "pub": "npm run build && npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/crawler.git"
+  },
+  "keywords": [
+    "ally",
+    "qualweb",
+    "crawler",
+    "webpage",
+    "accessibility"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qualweb/crawler/issues"
+  },
+  "dependencies": {
+    "simplecrawler": "^1.1.8"
+  },
+  "devDependencies": {
+    "@qualweb/types": "0.0.24",
+    "@types/css": "0.0.31",
+    "@types/htmlparser2": "^3.10.1",
+    "@types/node": "^12.7.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "typescript": "^3.6.3"
+  }
+}
