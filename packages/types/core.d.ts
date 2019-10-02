@@ -12,6 +12,7 @@ declare module '@qualweb/core' {
     url?: string;
     urls?: string[];
     file?: string;
+    crawl?: string;
     mobile?: boolean;
     landscape?: boolean;
     resolution?: {
@@ -69,6 +70,7 @@ declare module '@qualweb/core' {
     QualwebOptions,
     EvaluationReport,
     Url,
+    Metadata,
     evaluate,
     generateEarlReport
   };

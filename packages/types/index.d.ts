@@ -6,4 +6,5 @@
 /// <reference path="./best-practices.d.ts" />
 /// <reference path="./earl-reporter.d.ts" />
 /// <reference path="./accessibility-tree.d.ts" />
+/// <reference path="./crawler.d.ts" />
 /// <reference path="./core.d.ts" />

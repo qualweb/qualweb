@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.25] - 02/10/2019
+
+### Added
+ - Metadata interface in exports on the core module
+ - crawler module
+
 ## [0.0.24] - 17/09/2019
 
 ### Added
@@ -29,7 +35,7 @@
 ## [0.0.9] - 13/09/2019
 
 ### Fixed
- - stylesheet interface minor changess
+ - stylesheet interface minor changes
 
 ## [0.0.8] - 13/09/2019
 
