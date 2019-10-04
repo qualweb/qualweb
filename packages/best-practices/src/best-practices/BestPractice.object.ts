@@ -13,7 +13,7 @@ abstract class BestPractice {
     this.bestPractice = bestPractice;
   }
 
-  getBestPracticeMapping(): string {
+  public getBestPracticeMapping(): string {
     return this.bestPractice.mapping;
   }
 
@@ -34,14 +34,14 @@ abstract class BestPractice {
     this.bestPractice.metadata[result.verdict]++;
   }
 
-  abstract async execute(element: DomElement | undefined, dom: DomElement[]): Promise<void>;
+  public abstract async execute(element: DomElement | undefined, dom: DomElement[]): Promise<void>;
 
-  getFinalResults() {
+  public getFinalResults() {
     this.outcomeBestPractice();
     return cloneDeep(this.bestPractice);
   }
 
-  reset(): void {
+  public reset(): void {
     this.bestPractice.metadata.passed = 0;
     this.bestPractice.metadata.warning = 0;
     this.bestPractice.metadata.failed = 0;
