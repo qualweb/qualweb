@@ -10,7 +10,7 @@
     "test-bp1": "mocha test/QW-BP1.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
-    "pub": "npm run build && npm publish"
+    "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
     "type": "git",
