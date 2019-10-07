@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.6] - 07/10/2019
+
+### Changed
+ - core architecture
+
+### Updated
+ - act-rules module
+ - html-techniques module
+
 ## [0.0.5] - 17/09/2019
 
 ### Added

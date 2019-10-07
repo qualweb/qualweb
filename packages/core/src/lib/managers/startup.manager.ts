@@ -1,9 +1,20 @@
 'use strict';
 
-import { QualwebOptions } from '@qualweb/core';
+import Crawl from '@qualweb/crawler';
+import { readFile } from 'fs-extra';
 
-async function startup(options: QualwebOptions): Promise<void> {
-  console.log(options);
+async function getFileUrls(file: string): Promise<Array<string>> {
+  const content = await readFile(file);
+  return content.toString().split('\n').map(u => decodeURIComponent(u).trim());
 }
 
-export = startup;
+async function crawlDomain(domain: string): Promise<Array<string>> {
+  const crawler = new Crawl(domain);
+  await crawler.start();
+  return crawler.getResults();
+}
+
+export {
+  getFileUrls,
+  crawlDomain
+};

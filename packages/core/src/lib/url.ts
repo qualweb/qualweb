@@ -2,7 +2,7 @@
 
 import { Url } from '@qualweb/core';
 
-function get_corrected_url(url: string): string {
+function correctUrl(url: string): string {
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
     return 'http://' + url;
   }
@@ -10,13 +10,13 @@ function get_corrected_url(url: string): string {
   return url;
 }
 
-function parse_url(url: string): Url {
+function parseUrl(url: string): Url {
   let inputUrl = url;
   let protocol = null;
   let domainName = null;
   let domain = null;
   let uri = null;
-  let completeUrl = get_corrected_url(inputUrl);
+  let completeUrl = correctUrl(inputUrl);
 
   protocol = completeUrl.split('://')[0];
   domainName = completeUrl.split('/')[2];
@@ -25,7 +25,7 @@ function parse_url(url: string): Url {
   domain = tmp[tmp.length-1];
   uri = completeUrl.split('.' + domain)[1];
 
-  const parsedUrl: Url = {
+  const parsedUrl = {
     inputUrl,
     protocol,
     domainName,
@@ -34,7 +34,7 @@ function parse_url(url: string): Url {
     completeUrl
   };
 
-  return parsedUrl;
+  return <Url> parsedUrl;
 }
 
-export = parse_url;
+export = parseUrl;

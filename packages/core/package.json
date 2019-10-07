@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -24,11 +24,13 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "0.0.3",
+    "@qualweb/act-rules": "0.0.6",
+    "@qualweb/best-practices": "0.0.1",
+    "@qualweb/crawler": "0.0.1",
     "@qualweb/css-techniques": "0.0.2",
-    "@qualweb/earl-reporter": "0.0.4",
-    "@qualweb/get-dom-puppeteer": "0.0.4",
-    "@qualweb/html-techniques": "0.0.2",
+    "@qualweb/earl-reporter": "0.0.6",
+    "@qualweb/get-dom-puppeteer": "0.0.6",
+    "@qualweb/html-techniques": "0.0.6",
     "@qualweb/wappalyzer": "0.0.2",
     "dget": "^1.0.0",
     "dset": "^2.0.1",
@@ -38,15 +40,15 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.0.24",
+    "@qualweb/types": "0.0.27",
     "@types/css": "0.0.31",
     "@types/fs-extra": "^8.0.0",
     "@types/htmlparser2": "^3.10.1",
-    "@types/lodash": "^4.14.138",
+    "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.2",
     "@types/request": "^2.48.3",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.1",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
   }

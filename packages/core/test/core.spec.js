@@ -1,20 +1,21 @@
 const core = require('../dist/index');
 const { expect } = require('chai');
+const { writeFile } = require('fs-extra');
 
 describe('Core', function() {
-  it('Should print report', async function() {
-    this.timeout(10 * 1000);
+  it('Should evaluate', async function() {
+    this.timeout(10 * 10000);
 
     const report = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
-    console.log(report);
-    expect(report.type).to.be.equal('evaluation');
+    //console.log(report);
+    expect(report[0].type).to.be.equal('evaluation');
   });
-  it('EARL report should have assertions from all modules', async function() {
-    this.timeout(10 * 1000);
+  it.only('EARL report should have assertions from all modules', async function() {
+    this.timeout(10 * 10000);
 
-    await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
-    const earlReport = await core.generateEarlReport();
-    console.log(JSON.stringify(earlReport, null, 2));
-    expect(earlReport.graph.length).to.be.greaterThan(0);
+    const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
+    const earlReports = await core.generateEarlReport();
+    //await writeFile('report.json', JSON.stringify(reports, null, 2));
+    expect(earlReports[0].graph.length).to.be.greaterThan(0);
   });
 });
