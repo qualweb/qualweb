@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.27] - 07/10/2019
+
+### Changed
+ - @qualweb/earl-reporter module changes
+ - @qualweb/core module changes
+
 ## [0.0.26] - 07/10/2019
 
 ### Changed

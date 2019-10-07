@@ -63,8 +63,8 @@ declare module '@qualweb/core' {
     };
   }
 
-  function evaluate(options: QualwebOptions): Promise<EvaluationReport | EvaluationReport[]>;
-  function generateEarlReport(options?: EarlOptions): Promise<EarlReport | EarlReport[]>;
+  function evaluate(options: QualwebOptions): Promise<EvaluationReport[]>;
+  function generateEarlReport(options?: EarlOptions): Promise<EarlReport[]>;
 
   export {
     QualwebOptions,

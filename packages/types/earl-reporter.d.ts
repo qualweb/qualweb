@@ -69,9 +69,8 @@ declare module '@qualweb/earl-reporter' {
 
   type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport | BestPracticesReport;
 
-  function generateEarlAssertions(report: Report): Promise<Assertion[]>;
-  function generateSingleEarlReport(report: EvaluationReport): Promise<EarlReport>;
-  function generateAggregatedEarlReport(reports: EvaluationReport[]): Promise<EarlReport>;
+  function generateEARLAssertions(report: Report): Promise<Assertion[]>;
+  function generateEARLReport(reports: Array<EvaluationReport>, options?: EarlOptions): Promise<Array<EarlReport>>;
 
   export {
     EarlOptions,
@@ -82,7 +81,7 @@ declare module '@qualweb/earl-reporter' {
     ResultSource,
     TestResult,
     TestSubject,
-    generateSingleEarlReport,
-    generateAggregatedEarlReport
+    generateEARLAssertions,
+    generateEARLReport
   };
 }
