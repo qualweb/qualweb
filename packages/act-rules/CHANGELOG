@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.6] - 07/10/2019
+
+### Changed
+ - transform_element_into_html function to remove unnecessary element attributes
+
 ## [0.0.5] - 09/09/2019
 
 ### Added

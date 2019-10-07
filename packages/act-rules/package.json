@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -31,15 +31,15 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/get-dom-puppeteer": "0.0.2",
-    "@qualweb/types": "0.0.32",
+    "@qualweb/get-dom-puppeteer": "0.0.6",
+    "@qualweb/types": "0.0.27",
     "@types/htmlparser2": "^3.10.0",
-    "@types/lodash": "^4.14.138",
-    "@types/node": "^12.7.2",
+    "@types/lodash": "^4.14.141",
+    "@types/node": "^12.7.11",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "tslint": "^5.19.0",
-    "typescript": "^3.6.2"
+    "mocha": "^6.2.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "htmlparser-to-html": "0.0.6",

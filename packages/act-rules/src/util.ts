@@ -2,7 +2,7 @@
 
 import { DomElement } from 'htmlparser2';
 import html from 'htmlparser-to-html';
-import _ from 'lodash';
+import clone from 'lodash/clone';
 
 function getSelfLocationInParent(element: DomElement): string {
   let selector = '';
@@ -45,7 +45,7 @@ function getElementSelector(element: DomElement): string {
     parent = parent.parent;
   }
   
-  selector += _.join(parents, ' > ');
+  selector += parents.join(' > ');
   selector += ' > ' + getSelfLocationInParent(element);
 
   return selector;
@@ -57,28 +57,34 @@ function transform_element_into_html(element: DomElement, withText: boolean=true
     return '';
   }
 
-  let codeElement: DomElement = _.clone(element);
+  let codeElement: DomElement = clone(element);
 
   if (codeElement.attribs) {
     delete codeElement.attribs['computed-style'];
+    delete codeElement.attribs['computed-style-after'];
+    delete codeElement.attribs['computed-style-before'];
     delete codeElement.attribs['w-scrollx'];
     delete codeElement.attribs['w-scrolly'];
     delete codeElement.attribs['b-right'];
     delete codeElement.attribs['b-bottom'];
+    delete codeElement.attribs['window-inner-height'];
+    delete codeElement.attribs['window-inner-width'];
+    delete codeElement.attribs['document-client-height'];
+    delete codeElement.attribs['document-client-width'];
   }
 
-  if (codeElement.attribs && codeElement.attribs.id && _.startsWith(codeElement.attribs.id, 'qualweb_generated_id')) {
+  if (codeElement.attribs && codeElement.attribs.id && codeElement.attribs.id.startsWith('qw-generated-id')) {
     delete codeElement.attribs.id;
   }
 
   if (!fullElement) {
     if (withText) {
-      let children = _.clone(codeElement.children);
+      let children = clone(codeElement.children);
       codeElement.children = [];
 
       for (let child of children || []) {
         if (child.type === 'text') {
-          codeElement.children.push(_.clone(child));
+          codeElement.children.push(clone(child));
         }
       }
     } else {
