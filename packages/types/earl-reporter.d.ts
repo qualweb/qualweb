@@ -8,7 +8,13 @@ declare module '@qualweb/earl-reporter' {
   import { BestPracticesReport } from '@qualweb/best-practices';
 
   interface EarlOptions {
-    aggregated: boolean;
+    aggregated?: boolean;
+    modules?: {
+      act?: boolean;
+      html?: boolean;
+      css?: boolean;
+      'best-practices'?: boolean;
+    };
   }
 
   interface Assertor {
