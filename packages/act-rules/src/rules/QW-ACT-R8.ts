@@ -68,7 +68,7 @@ class QW_ACT_R8 extends Rule {
     };
 
     let accessName = 'Submit';
-    let isHidden = true;
+    let isHidden = false;
     let imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
     if (element === undefined || element.attribs === undefined) { // if the element doesn't exist, there's nothing to test

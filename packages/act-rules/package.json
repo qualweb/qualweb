@@ -11,6 +11,7 @@
     "test-r3": "mocha test/rules/QW-ACT-R3.spec.js",
     "test-r4": "mocha test/rules/QW-ACT-R4.spec.js",
     "test-r5": "mocha test/rules/QW-ACT-R5.spec.js",
+    "test-r8": "mocha test/rules/QW-ACT-R8.spec.js",
     "tsc": "tsc",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
