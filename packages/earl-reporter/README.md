@@ -28,7 +28,7 @@ EARL reporter module for QualWeb.
     // Generate EARL assertions in case of partial report is given
     const { source, processed } = await getDom('https://act-rules.github.io/pages/about/');
     const report = await executeACTR(source.html.parsed, processed.html.parsed);
-    const assertions = await reporter.generateEarlAssertions(report);
+    const assertions = await reporter.generateEARLAssertions(report);
 
     console.log(assertions);
 
@@ -60,15 +60,15 @@ EARL reporter module for QualWeb.
       }
     };
 
-    const earlReport = await reporter.generateSingleEarlReport(evaluationReport);
+    const earlReports = await reporter.generateEARLReport([evaluationReport]);
 
-    console.log(earlReport);
+    console.log(earlReports[0]);
 
     // Generate full aggregated EARL report - on report based on multiple test subjects
 
     const evaluations = [evaluationReport1, evaluationReport2, ...];
 
-    const aggregatedEarlReport = await reporter.generateAggregatedEarlReport(evaluations);
+    const aggregatedEarlReport = await reporter.generateEARLReport(evaluations, { aggregated: true });
 
     console.log(aggregatedEarlReport);
   })();
