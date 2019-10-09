@@ -4,6 +4,7 @@
   },
   "post": {
     "title": ["QW-ACT-R1"],
-    "html": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5"]
+    "html": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5"],
+    "img[src], input[type=\"image\"][src]": ["QW-ACT-R8"]
   }
 }
