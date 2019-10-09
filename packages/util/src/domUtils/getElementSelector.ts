@@ -3,6 +3,10 @@
 import { DomElement } from 'htmlparser2';
 
 function getSelfLocationInParent(element: DomElement): string {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+  
   let selector = '';
 
   if (element.name === 'body' || element.name === 'head') {

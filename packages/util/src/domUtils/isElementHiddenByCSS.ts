@@ -4,6 +4,10 @@ import { DomElement } from 'htmlparser2';
 import getElementStyleProperty from './getElementStyleProperty';
 
 function isElementHiddenByCSS(element: DomElement): boolean {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+  
   if (!element.attribs) {
     return false;
   }

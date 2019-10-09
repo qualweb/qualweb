@@ -3,6 +3,10 @@
 import { DomElement } from 'htmlparser2';
 
 function isElementFocusableByDefault(element: DomElement): boolean {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+  
   switch (element.name) {
     case 'a':
     case 'area':

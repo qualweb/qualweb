@@ -20,7 +20,7 @@ import clone from 'lodash/clone';
 function transformElementIntoHtml(element: DomElement, withText: boolean=true, fullElement: boolean=false): string {
 
   if (!element) {
-    throw new Error('Invalid element');
+    throw Error('Element is not defined');
   }
 
   let codeElement: DomElement = clone(element);

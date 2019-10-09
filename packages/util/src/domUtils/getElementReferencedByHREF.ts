@@ -4,6 +4,14 @@ import { DomElement } from 'htmlparser2';
 const stew = new (require('stew-select')).Stew();
 
 function getElementReferencedByHREF(processedHTML: DomElement[], element: DomElement): DomElement | null {
+  if (processedHTML === undefined) {
+    throw Error('ProcessedHTML is not defined');
+  }
+  
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+  
   if (!element.attribs) {
     return null;
   }
