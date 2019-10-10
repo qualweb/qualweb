@@ -94,8 +94,12 @@ function transform_element_into_html(element: DomElement, withText: boolean=true
   
   return html(codeElement);
 }
+function getContentHash(element: DomElement){
+
+}
 
 export {
   getElementSelector,
-  transform_element_into_html
+  transform_element_into_html,
+  getContentHash
 };
