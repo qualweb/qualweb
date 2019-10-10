@@ -55,9 +55,6 @@ class QW_ACT_R5 extends Rule {
       resultCode: ''
     };
 
-    //let url = rule.metadata['url'];
-    //evaluation['test'] = url;
-
     if (element === undefined) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `html element doesn't exist`;
@@ -72,10 +69,10 @@ class QW_ACT_R5 extends Rule {
       evaluation.resultCode = 'RC3';
     } else {
       let isLangNotEmpty = element.attribs['lang'] !== undefined && element.attribs['lang'] !== '';
-      let isXMLLangNotEmpty = element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'] !== '';
+      let isXMLLangNotEmpty = element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '';
 
       if (isLangNotEmpty && isXMLLangNotEmpty) { // passed
-        if (this.checkValidity(element.attribs['lang']) && this.checkValidity(element.attribs['xml:lang'])) {
+        if (this.checkValidity(element.attribs['lang']) || this.checkValidity(element.attribs['xml:lang'])) {
           evaluation.verdict = 'passed';
           evaluation.description = `The lang and xml:lang attributes have a valid value `;
           evaluation.resultCode = 'RC4';
@@ -119,14 +116,14 @@ class QW_ACT_R5 extends Rule {
     super.addEvaluationResult(evaluation);
   }
 
-  private checkValidity(element: string) {
+  private checkValidity(element: string): boolean {
     const split = element.split('-');
     const lang = split[0].toLocaleLowerCase();
 
     return this.isSubTagValid(lang) && split.length < 3;
   }
 
-  private isSubTagValid(subTag: string) {
+  private isSubTagValid(subTag: string): boolean {
     return languages.hasOwnProperty(subTag);
   }
 }
