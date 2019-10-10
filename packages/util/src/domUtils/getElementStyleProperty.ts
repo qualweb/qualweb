@@ -9,7 +9,12 @@ function getElementStyleProperty(element: DomElement, style: string, property: s
   
   try {
     if (element.attribs && element.attribs[style]) {
-      return element.attribs[style].split(property + ':')[1].split(';')[0].trim();
+      const parsedProperty = element.attribs[style].split(property + ':')[1];
+      if (parsedProperty.includes('&quot;')) {
+        return parsedProperty.split(';')[1].split('&')[0].trim();
+      } else {
+        return parsedProperty.split(';')[0].trim();
+      }
     } else {
       return undefined;
     }

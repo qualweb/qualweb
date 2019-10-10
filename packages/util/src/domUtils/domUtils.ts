@@ -13,6 +13,9 @@ import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import elementHasChildFunction from './elementHasChild';
 import getElementChildTextContentFunction from './getElementChildTextContent';
+import elementHasParentFunction from './elementHasParent';
+
+import ROLES_ATTR from './roles';
 
 /**
  * DOM Utilities namespace
@@ -31,6 +34,8 @@ namespace DomUtils {
   export const getElementReferencedByHREF = getElementReferencedByHREFFunction;
   export const elementHasChild = elementHasChildFunction;
   export const getElementChildTextContent = getElementChildTextContentFunction;
+  export const elementHasParent = elementHasParentFunction;
+  export const ROLES = ROLES_ATTR;
 }
 
 export = DomUtils;
