@@ -3,6 +3,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 import Rule from './Rule.object';
+const stew = new(require('stew-select')).Stew();
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
@@ -12,7 +13,6 @@ import {
   getContentHash
 } from '../util';
 
-import languages from './language.json';
 
 const rule: ACTRule = {
   name: 'Links with identical accessible names have equivalent purpose',
@@ -48,80 +48,96 @@ class QW_ACT_R9 extends Rule {
     super(rule);
   }
 
+
+
   async execute(element: DomElement | undefined): Promise<void> {
-    const evaluation: ACTRuleResult = {
+    let evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    if (element === undefined || element.previous === undefined) { // if the element doesn't exist, there's nothing to test
+
+    if (element === undefined) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `There are no consecutive links`;
+      evaluation.description = `body element doesn't exist`;
       evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation);
-    }
-    let previous = element.previous;
-    let isHiddenFirst = false;
-    let isHiddenSecond = false;
-    let aNameFirst = "";
-    let aNameSecond = "";
-
-    //let url = rule.metadata['url'];
-    //evaluation['test'] = url;
-
-    if (isHiddenFirst || isHiddenSecond) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'On of the links is not in the AT';
-      evaluation.resultCode = 'RC2';
-    } else if (aNameFirst !== aNameSecond) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The links dont have the same accessible name`;
-      evaluation.resultCode = 'RC3';
     } else {
-      let refFirst = this.getReferenceURl(element);
-      let refSecond =  this.getReferenceURl(previous);
-    
+      let links = stew.select( element,"a[href],[role=\"link\"]");
+      let accessibleNames: string[] = [];
 
+      for (let link of links) {
+        console.log(link.name);
+        accessibleNames.push("AN");//trim
+      }
 
-      if (refFirst && refSecond && refFirst === refSecond) { // passed
-          evaluation.verdict = 'passed';
-          evaluation.description = `The links have the same reference and accessible name `;
+      let counter = 0;
+      let hasEqualAn: number[];
+      let blacklist: number[] = [];
+      console.log(accessibleNames);
+      for (let accessibleName of accessibleNames) {
+        hasEqualAn = [];
+        if (accessibleName && accessibleName !== "" && !(blacklist.indexOf(counter) >= 0)) {
+          console.log(accessibleName);
+          hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
+          if (hasEqualAn.length > 0) {
+            blacklist.push(...hasEqualAn);
+            let result = true;
+            let resource = this.getReferenceURl(links[counter]);
+            let resourceHash = getContentHash(resource);//get resource hash do counter
+            console.log(resource);
+            console.log(resourceHash);
+            for (let index of hasEqualAn) {
+              let currentLinkUrl =this.getReferenceURl(links[index]);
+              if (result && (resource !== currentLinkUrl || getContentHash(currentLinkUrl) !== resourceHash)) {
+                result = false;
+              }
+            }
+            if (result) {//passed
+              evaluation.verdict = 'passed';
+              evaluation.description = `Links with the same accessible name have equal content`;
+              evaluation.resultCode = 'RC2';
+
+            } else { //failed
+              evaluation.verdict = 'failed';
+              evaluation.description = `Links with the same accessible name have different content`;
+              evaluation.resultCode = 'RC3';
+
+            }
+
+          } else {//inaplicable
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = `There is no link with same the same accessible name`;
+            evaluation.resultCode = 'RC4';
+          }
+        } else {//inaplicable
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = `link doesnt have accessible name`;
           evaluation.resultCode = 'RC4';
-        } else if(getContentHash(refFirst) === getContentHash(refSecond)){
-          evaluation.verdict = 'passed';
-          evaluation.description = `The links have diferent references to the same content and accessible name `;
-          evaluation.resultCode = 'RC4';
-
-        }else{
-          evaluation.verdict = 'failed';
-          evaluation.description = `The links have diferent references to the diferent content`;
-          evaluation.resultCode = 'RC5';
 
         }
+        evaluation.code = transform_element_into_html(links[counter]);
+        evaluation.pointer = getElementSelector(links[counter]);
+        super.addEvaluationResult(evaluation);
+        evaluation = {
+          verdict: '',
+          description: '',
+          resultCode: ''
+        };
+        counter++;
+      }
+
+
     }
 
-    if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
-    }
 
-    super.addEvaluationResult(evaluation);
   }
 
-  private checkValidity(element: string) {
-    const split = element.split('-');
-    const lang = split[0].toLocaleLowerCase();
-
-    return this.isSubTagValid(lang) && split.length < 3;
-  }
-
-  private isSubTagValid(subTag: string) {
-    return languages.hasOwnProperty(subTag);
-  }
   private getReferenceURl(element: DomElement) {
-    let hRef = element.attribs['href'];
-    let onClick = element.attribs['onclick'];
-    let onkeypress = element.attribs['onkeypress'];
+    if(!element.attribs)//fixme mudar para funcao do util
+      return "";
+    let hRef = element.attribs['href'];//fixme mudar para funcao do util
+    let onClick = element.attribs['onclick'];//fixme mudar para funcao do util
+    let onkeypress = element.attribs['onkeypress'];//fixme mudar para funcao do util
     let result;
 
     if (hRef)
@@ -130,6 +146,28 @@ class QW_ACT_R9 extends Rule {
       result = onClick;
     else if (onkeypress)
       result = onkeypress;
+
+    return result;
+  }
+
+  private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number) {
+    let counter = 0;
+    let result: number[] = [];
+    for (let accessibleNameToCompare of accessibleNames) {
+      if (accessibleNameToCompare === accessibleName && counter !== index) {
+        result.push(counter);
+      }
+    }
+
+    return result;
+  }
+
+  private getAboluteUrl(relativeUrl: string, baseUrl:string) {
+    let reg = new RegExp("^/");
+    let result = relativeUrl;
+    if(reg.test(relativeUrl)){
+      result = baseUrl + relativeUrl;
+    }
 
     return result;
   }
