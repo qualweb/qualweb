@@ -13,6 +13,7 @@ import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import elementHasChildFunction from './elementHasChild';
 import getElementChildTextContentFunction from './getElementChildTextContent';
+import getElementByIdFunction from './getElementById';
 
 /**
  * DOM Utilities namespace
@@ -31,6 +32,7 @@ namespace DomUtils {
   export const getElementReferencedByHREF = getElementReferencedByHREFFunction;
   export const elementHasChild = elementHasChildFunction;
   export const getElementChildTextContent = getElementChildTextContentFunction;
+  export const getElementById = getElementByIdFunction;
 }
 
 export = DomUtils;
