@@ -31,13 +31,13 @@
     "@qualweb/get-dom-puppeteer": "0.0.7",
     "@qualweb/types": "0.0.28",
     "@types/htmlparser2": "^3.10.1",
-    "@types/lodash": "^4.14.142",
+    "@types/lodash": "^4.14.144",
     "@types/node": "^12.7.5",
     "chai": "^4.2.0",
     "mocha": "^6.2.1",
     "stew-select": "0.0.5",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   },
   "dependencies": {
     "htmlparser-to-html": "0.0.6",
