@@ -29,7 +29,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], ref
     id = element.attribs["id"];
     title = element.attribs.title;
     ariaLabel = element.attribs["aria-label"];
-    ariaLabelBy = getElementById(element.attribs["aria-labelledby"], processedHTML) ? element.attribs["aria-labelledby"] : "";
+    ariaLabelBy = getElementById(element.attribs["aria-labelledby"], processedHTML).length > 0 ? element.attribs["aria-labelledby"] : "";
     isHidden = isElementHidden(element);
     nameFromContent = allowsNameFromContent(element);
     textAlternative = getTextAlternative(id, element, processedHTML);
