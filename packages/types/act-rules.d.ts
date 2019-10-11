@@ -1,5 +1,6 @@
 declare module '@qualweb/act-rules' {
   import { DomElement } from 'htmlparser2';
+  import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
 
   interface ACTROptions {
     rules?: string[];
@@ -64,7 +65,7 @@ declare module '@qualweb/act-rules' {
 
   function resetConfiguration(): void;
   function configure(options: ACTROptions): void;
-  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport>;
+  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet): Promise<ACTRulesReport>;
 
   export {
     ACTROptions,
