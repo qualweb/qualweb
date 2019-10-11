@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0] - 10/10/2019
+
+### Fixed
+ - bugs on rule QW-ACT-R2
+ - bugs on rule QW-ACT-R5
+
+### Changed
+ - tests file to automatically download test cases
+
 ## [0.0.6] - 07/10/2019
 
 ### Changed

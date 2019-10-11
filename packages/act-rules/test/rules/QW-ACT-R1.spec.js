@@ -6,6 +6,7 @@ const {
   getDom
 } = require('@qualweb/get-dom-puppeteer');
 const { expect } = require('chai');
+const request = require('request-promise');
 
 describe('Rule QW-ACT-R1', function () {
   
@@ -186,75 +187,34 @@ describe('Rule QW-ACT-R1', function () {
     });
   });
 
-  const tests = [
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/15b0afb2496c5e7bf5ff0409cb5b39a8d5ae234b.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/a41f13266a8e5ed73446344769c53d272c272fb6.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/bf1b811b607247364c2322dd45c047f2e3211229.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/2938f229ef636ed99cd23a3d1e8315131a1215cd.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/7c4ace0d67554bfb9917bce8965917de6c8a29f3.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/a49a08353a9370e068946b4089b5cdb51ff09a11.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/676e3ccf785aa2315dda455217694b55f9a279aa.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/c425dc0257c8b895f1821219e880823561ffef3d.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/a0fb39dac79555bc721c3cf0a5c586887ceebf54.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/d7c4202aa42aefe7f687247d289acd1b0ad44790.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/9619e9f28b767e8f5bd2fbf3e918df1f3859c9f4.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/2779a5/af48a346ab1ee73d2b043e6346cadfad60d36aa4.svg',
-      outcome: 'inapplicable'
-    }
-  ];
+  const ruleId = '2779a5';
+  let testCases = [];
 
-  let i = 0;
-  let lastOutcome = 'passed';
-  for (const test of tests || []) {
-    if (test.outcome !== lastOutcome) {
-      lastOutcome = test.outcome;
-      i = 0;
-    }
-    i++;
-    describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
-      it(`should have outcome="${test.outcome}"`, async function () {
-        this.timeout(10 * 1000);
-        const { source, processed } = await getDom(test.url);
-        configure({
-          rules: ['QW-ACT-R1']
+  before('Downloading tests cases', async function() {
+    const json = JSON.parse(await request('https://act-rules.github.io/testcases.json'));
+    testCases = json.testcases.filter(tc => tc.ruleId === ruleId);
+  });
+
+  setTimeout(function() {
+    let i = 0;
+    let lastOutcome = 'passed';
+    for (const test of testCases || []) {
+      if (test.expected !== lastOutcome) {
+        lastOutcome = test.expected;
+        i = 0;
+      }
+      i++;
+      describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
+        it(`should have outcome="${test.expected}"`, async function () {
+          this.timeout(10 * 1000);
+          const { source, processed } = await getDom(test.url);
+          configure({
+            rules: ['QW-ACT-R1']
+          });
+          const report = await executeACTR(source.html.parsed, processed.html.parsed);
+          expect(report.rules['QW-ACT-R1'].metadata.outcome).to.be.equal(test.expected);
         });
-        const report = await executeACTR(source.html.parsed, processed.html.parsed);
-        expect(report.rules['QW-ACT-R1'].metadata.outcome).to.be.equal(test.outcome);
       });
-    });
-  }
+    }
+  }, 5000);
 });

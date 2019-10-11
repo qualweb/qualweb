@@ -6,6 +6,7 @@ import Rule from './Rule.object';
 const stew = new (require('stew-select')).Stew();
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { AccessibilityTreeUtils} from '@qualweb/util';
 
 import {
   getElementSelector,
@@ -50,24 +51,28 @@ class QW_ACT_R9 extends Rule {
 
 
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void> {
     let evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
+    let splittedUrl = url.split("://");
+    let baseUrl ="http://"+splittedUrl[1].split("/")[0];
+
+
     if (element === undefined) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `body element doesn't exist`;
       evaluation.resultCode = 'RC1';
     } else {
-      let links = stew.select(element, "a[href],[role=\"link\"]");
+      let links = stew.select(element, 'a[href],[role="link"]');
       let accessibleNames: string[] = [];
 
       for (let link of links) {
-        console.log(link.name);
-        accessibleNames.push("AN");//trim
+
+        accessibleNames.push(AccessibilityTreeUtils.getAccessibleName(link, processedHTML,false));//trim
       }
 
       let counter = 0;
@@ -88,13 +93,12 @@ class QW_ACT_R9 extends Rule {
             console.log(hasEqualAn.length);
             blacklist.push(...hasEqualAn);
             let result = true;
-            let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]), 'https://act-rules.github.io');
+            let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]), baseUrl);
             let resourceHash = await getContentHash(resource);//get resource hash do counter
 
             for (let index of hasEqualAn) {
-              let currentLinkUrl = this.getAboluteUrl(this.getReferenceURl(links[index]), 'https://act-rules.github.io');
-              //console.log(resourceHash);
-             // console.log(await getContentHash(currentLinkUrl));
+              let currentLinkUrl = this.getAboluteUrl(this.getReferenceURl(links[index]), baseUrl);
+              console.log(currentLinkUrl);
               if (result && (resource !== currentLinkUrl && await getContentHash(currentLinkUrl) !== resourceHash)) {
                 result = false;
               }
@@ -155,16 +159,19 @@ class QW_ACT_R9 extends Rule {
       return "";
     let hRef = element.attribs['href'];//fixme mudar para funcao do util
     let onClick = element.attribs['onclick'];//fixme mudar para funcao do util
+  //  console.log('onClick:'+onClick);
     let onkeypress = element.attribs['onkeypress'];//fixme mudar para funcao do util
     let result;
 
     if (hRef)
       result = hRef;
-    else if (onClick)
-      result = onClick;
+    else if (onClick){
+      let splittedValue = onClick.replace("'","").split("location=");
+      result = splittedValue[1];
+    }
     else if (onkeypress)
       result = onkeypress;
-
+//console.log("part of url"+result);
     return result;
   }
 
@@ -182,6 +189,8 @@ class QW_ACT_R9 extends Rule {
   }
   //https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html
   private getAboluteUrl(relativeUrl: string, baseUrl: string) {
+    console.log("relative url"+relativeUrl);
+    console.log("base url"+baseUrl);
     let reg = new RegExp("^/");
     let result = relativeUrl;
     if (reg.test(relativeUrl)) {
