@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.0] - 11/10/2019
+
+### Added
+ - Accessibility tree utility functions
+
+## [0.0.4] - 10/10/2019
+
+### Fixed
+ - bugs and optimized code
+
 ## [0.0.3] - 10/10/2019
 
 ### Added
