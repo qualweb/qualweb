@@ -1,10 +1,12 @@
 'use strict';
 
-import {DomElement} from 'htmlparser2';
+import { DomElement } from 'htmlparser2';
 import html from 'htmlparser-to-html';
 import clone from 'lodash/clone';
-import request from 'request-promise';
+//import request from 'request-promise';
 import md5 from 'md5';
+const puppeteer = require('puppeteer');
+
 
 function getSelfLocationInParent(element: DomElement): string {
     let selector = '';
@@ -96,12 +98,31 @@ function transform_element_into_html(element: DomElement, withText: boolean = tr
 
     return html(codeElement);
 }
-
+/** 
 async function getContentHash(url: string) {
-    let content = await request(url);
-    console.log(url);
-    console.log("html content"+content);
-    return md5(content);
+
+    var options = {
+        url: url,
+        simple:false,
+        followRedirect: true
+
+    };
+  
+    let content = await request(url,options);
+    console.log(content);
+    return md5(content.replace(/\s|\r/g,""));
+}*/
+async function getContentHash(url: string) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url,{'waitUntil': 'networkidle0', timeout: 60000});
+    const content = await page.evaluate(() => {
+        return document.documentElement.innerHTML;
+      });
+    console.log(content);
+
+    await browser.close();
+    return md5(content.replace(/\s|\r/g,""));
 }
 
 export {

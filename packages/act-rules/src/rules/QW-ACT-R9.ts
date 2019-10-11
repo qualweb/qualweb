@@ -3,7 +3,7 @@
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 import Rule from './Rule.object';
-const stew = new(require('stew-select')).Stew();
+const stew = new (require('stew-select')).Stew();
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
@@ -62,7 +62,7 @@ class QW_ACT_R9 extends Rule {
       evaluation.description = `body element doesn't exist`;
       evaluation.resultCode = 'RC1';
     } else {
-      let links = stew.select( element,"a[href],[role=\"link\"]");
+      let links = stew.select(element, "a[href],[role=\"link\"]");
       let accessibleNames: string[] = [];
 
       for (let link of links) {
@@ -77,23 +77,28 @@ class QW_ACT_R9 extends Rule {
       for (let accessibleName of accessibleNames) {
         hasEqualAn = [];
         console.log(accessibleName);
-        if (accessibleName && accessibleName !== "" && !(blacklist.indexOf(counter) >= 0)) {
+        if(blacklist.indexOf(counter) >= 0){
+          //element already evaluated
+        }
+        else if (accessibleName && accessibleName !== "") {
           hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
           console.log(hasEqualAn);
-          console.log("index"+counter);
+          console.log("index" + counter);
           if (hasEqualAn.length > 0) {
-            console.log(hasEqualAn.length );
+            console.log(hasEqualAn.length);
             blacklist.push(...hasEqualAn);
             let result = true;
-            let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]),'https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html');
+            let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]), 'https://act-rules.github.io');
             let resourceHash = await getContentHash(resource);//get resource hash do counter
-            console.log(resource);
-            console.log(resourceHash);
+
             for (let index of hasEqualAn) {
-              let currentLinkUrl =this.getReferenceURl(links[index]);
-              if (result && (resource !== currentLinkUrl || await  getContentHash(currentLinkUrl) !== resourceHash)) {
+              let currentLinkUrl = this.getAboluteUrl(this.getReferenceURl(links[index]), 'https://act-rules.github.io');
+              //console.log(resourceHash);
+             // console.log(await getContentHash(currentLinkUrl));
+              if (result && (resource !== currentLinkUrl && await getContentHash(currentLinkUrl) !== resourceHash)) {
                 result = false;
               }
+              console.log(result);
             }
             if (result) {//passed
               evaluation.verdict = 'passed';
@@ -112,20 +117,30 @@ class QW_ACT_R9 extends Rule {
             evaluation.description = `There is no link with same the same accessible name`;
             evaluation.resultCode = 'RC4';
           }
+          evaluation.code = transform_element_into_html(links[counter]);
+          evaluation.pointer = getElementSelector(links[counter]);
+          super.addEvaluationResult(evaluation);
+          evaluation = {
+            verdict: '',
+            description: '',
+            resultCode: ''
+          };
         } else {//inaplicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = `link doesnt have accessible name`;
           evaluation.resultCode = 'RC4';
 
+          evaluation.code = transform_element_into_html(links[counter]);
+          evaluation.pointer = getElementSelector(links[counter]);
+          super.addEvaluationResult(evaluation);
+          evaluation = {
+            verdict: '',
+            description: '',
+            resultCode: ''
+          };
+
         }
-        evaluation.code = transform_element_into_html(links[counter]);
-        evaluation.pointer = getElementSelector(links[counter]);
-        super.addEvaluationResult(evaluation);
-        evaluation = {
-          verdict: '',
-          description: '',
-          resultCode: ''
-        };
+
         counter++;
       }
 
@@ -136,7 +151,7 @@ class QW_ACT_R9 extends Rule {
   }
 
   private getReferenceURl(element: DomElement) {
-    if(!element.attribs)//fixme mudar para funcao do util
+    if (!element.attribs)//fixme mudar para funcao do util
       return "";
     let hRef = element.attribs['href'];//fixme mudar para funcao do util
     let onClick = element.attribs['onclick'];//fixme mudar para funcao do util
@@ -165,11 +180,11 @@ class QW_ACT_R9 extends Rule {
 
     return result;
   }
-//https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html
-  private getAboluteUrl(relativeUrl: string, baseUrl:string) {
+  //https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html
+  private getAboluteUrl(relativeUrl: string, baseUrl: string) {
     let reg = new RegExp("^/");
     let result = relativeUrl;
-    if(reg.test(relativeUrl)){
+    if (reg.test(relativeUrl)) {
       result = baseUrl + relativeUrl;
     }
 

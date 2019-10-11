@@ -43,6 +43,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "follow-redirects": "^1.9.0",
     "htmlparser-to-html": "0.0.6",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
