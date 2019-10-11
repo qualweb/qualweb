@@ -40,19 +40,16 @@ const rule: ACTRule = {
   results: new Array<ACTRuleResult>()
 };
 
-
-
-
 class QW_ACT_R7 extends Rule {
 
-  rawMap: Object = {};
-  mediaMap: Object = {};
+  private rawMap: Object = {};
+  private mediaMap: Object = {};
 
   constructor() {
     super(rule);
   }
 
-  async unmappedExecute(styleSheets: CSSStylesheet[]): Promise<void> {
+  public async unmappedExecute(styleSheets: CSSStylesheet[]): Promise<void> {
 
     if(styleSheets.length === 0){
       this.fillEvaluation(
@@ -91,7 +88,7 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  analyseAST(cssObject: any, parentType?: string): void {
+  private analyseAST(cssObject: any, parentType?: string): void {
     if (
       cssObject === undefined ||
       cssObject["type"] === "comment" ||
@@ -131,7 +128,7 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  extractInfo(cssObject: any, parentType?: string): void {
+  private extractInfo(cssObject: any, parentType?: string): void {
     let declarations = cssObject["declarations"];
 
     if (declarations) {
@@ -180,7 +177,7 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  checkRotation(angle: number): void{
+  private checkRotation(angle: number): void{
     if(angle === 90 || angle === 270){
       this.fillEvaluation(
         "failed",
@@ -196,7 +193,7 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  parseDegrees(angle: string): number{
+  private parseDegrees(angle: string): number{
     angle = angle.toLowerCase()
     if(angle.includes("deg")){
       return parseFloat(angle.replace("deg", ""));
@@ -212,7 +209,7 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  calculateRotationDegree(matrix: number[]): number{
+  private calculateRotationDegree(matrix: number[]): number{
 
     var radians = Math.atan2(matrix[1], matrix[0]);
     var degrees = Math.round(radians * 180 / Math.PI);
@@ -222,7 +219,7 @@ class QW_ACT_R7 extends Rule {
     return Math.abs(degrees); // just ignore the abs
   }
 
-  fillEvaluation(
+  private fillEvaluation(
     verdict: "" | "passed" | "failed" | "inapplicable",
     description: string,
     resultCode: string
@@ -246,7 +243,7 @@ class QW_ACT_R7 extends Rule {
     );
   }
 
-  isVisible(cssObject: any): boolean {
+  private isVisible(cssObject: any): boolean {
     let declarations = cssObject["declarations"];
     if (declarations) {
       for (const declaration of declarations) {
