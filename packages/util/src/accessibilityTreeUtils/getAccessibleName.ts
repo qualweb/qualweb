@@ -12,8 +12,6 @@ import isElementReferencedByWidget from './isElementReferencedByWidget';
 import hasControlElementWithinLabel from './hasControlElementWithinLabel';
 import isElementChildOfDetails from './isElementChildOfDetails';
 import isElementReferencedByLabelOrAriaLabel from './isElementReferencedByLabelOrAriaLabel';
-import getAccessibleNameFromAriaLabelledBy from './getAccessibleNameFromAriaLabelledBy';
-import getAccessibleNameFromChildren from './getAccessibleNameFromChildren';
 import getTextFromCss from './getTextFromCss';
 import getValueFromLabelWithControl from './getValueFromLabelWithControl';
 
@@ -66,6 +64,34 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], ref
   } else {
     return undefined;
   }
+}
+function getAccessibleNameFromAriaLabelledBy(ariaLabelId: string, processedHTML: DomElement[]): string | undefined{
+  let ListIdRefs = ariaLabelId.split(" ");
+  let result: string | undefined;
+  let accessNameFromId: string | undefined;
+
+  for (let id of ListIdRefs) {
+    accessNameFromId = getAccessibleName(getElementById(id, processedHTML)[0], processedHTML, true);
+    if (accessNameFromId) {
+      if (result) {
+        result += accessNameFromId;
+      } else {
+        result = accessNameFromId;
+      }
+    }
+  }
+
+  return result;
+}
+
+function getAccessibleNameFromChildren(element: DomElement, processedHTML: DomElement[], accumulatedText: string): string {
+
+  if (element.children) {
+    for (let child of element.children) {
+      accumulatedText += getAccessibleName(child, processedHTML, false);
+    }
+  }
+  return accumulatedText;
 }
 
 export = getAccessibleName;
