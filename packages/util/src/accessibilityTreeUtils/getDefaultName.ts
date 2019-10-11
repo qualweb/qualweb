@@ -11,9 +11,9 @@ function getDefaultName(element: DomElement): string {
     type = element.attribs["type"];
   }
 
-  if (type === "image") {
+  /*if (type === "image") {
     result = "image";
-  } else if (type === "submit") {
+  } */ if (type === "submit") {
     result = "reset";
   } else if (type === "reset") {
     result = "reset";
