@@ -76,19 +76,22 @@ class QW_ACT_R9 extends Rule {
       console.log(accessibleNames);
       for (let accessibleName of accessibleNames) {
         hasEqualAn = [];
+        console.log(accessibleName);
         if (accessibleName && accessibleName !== "" && !(blacklist.indexOf(counter) >= 0)) {
-          console.log(accessibleName);
           hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
+          console.log(hasEqualAn);
+          console.log("index"+counter);
           if (hasEqualAn.length > 0) {
+            console.log(hasEqualAn.length );
             blacklist.push(...hasEqualAn);
             let result = true;
-            let resource = this.getReferenceURl(links[counter]);
-            let resourceHash = getContentHash(resource);//get resource hash do counter
+            let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]),'https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html');
+            let resourceHash = await getContentHash(resource);//get resource hash do counter
             console.log(resource);
             console.log(resourceHash);
             for (let index of hasEqualAn) {
               let currentLinkUrl =this.getReferenceURl(links[index]);
-              if (result && (resource !== currentLinkUrl || getContentHash(currentLinkUrl) !== resourceHash)) {
+              if (result && (resource !== currentLinkUrl || await  getContentHash(currentLinkUrl) !== resourceHash)) {
                 result = false;
               }
             }
@@ -157,11 +160,12 @@ class QW_ACT_R9 extends Rule {
       if (accessibleNameToCompare === accessibleName && counter !== index) {
         result.push(counter);
       }
+      counter++;
     }
 
     return result;
   }
-
+//https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html
   private getAboluteUrl(relativeUrl: string, baseUrl:string) {
     let reg = new RegExp("^/");
     let result = relativeUrl;

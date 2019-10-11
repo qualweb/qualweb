@@ -99,7 +99,8 @@ function transform_element_into_html(element: DomElement, withText: boolean = tr
 
 async function getContentHash(url: string) {
     let content = await request(url);
-    console.log(content);
+    console.log(url);
+    console.log("html content"+content);
     return md5(content);
 }
 
