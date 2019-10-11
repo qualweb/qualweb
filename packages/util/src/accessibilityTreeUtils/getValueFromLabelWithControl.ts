@@ -1,7 +1,8 @@
 'use strict';
 
 import {DomElement} from "htmlparser2";
-import getLabel = require("./getLabel");
+import getLabel from './getLabel';
+import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 
 function getValueFromLabelWithControl(id: string, element: DomElement, processedHTML: DomElement[]): string {
   let label = getLabel(id, element, processedHTML);
@@ -16,7 +17,7 @@ function getValueFromLabelWithControl(id: string, element: DomElement, processed
     if (child.type === 'text')
       value += child.data;
     else
-      value += getValueFromEmbededControl(child, processedHTML);
+      value += getValueFromEmbeddedControl(child, processedHTML);
   }
 
   return value;
