@@ -10,9 +10,9 @@
 'use strict';
 
 import {DomElement} from 'htmlparser2';
-import _ from 'lodash';
 
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
 import Rule from './Rule.object';
 
 import {
@@ -74,27 +74,30 @@ class QW_ACT_R6 extends Rule {
       resultCode: ''
     };
 
-    //todo fix this
-    let isHidden = false;
-    let accessName = 'Submit';
+    let isHidden;
+    let accessName;
 
     if (element === undefined) { // if the element doesn't exist
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There isn't an image button to test`;
       evaluation.resultCode = 'RC1';
-    } else if (isHidden) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `This image button is not included in the accessibiliy tree`;
-      evaluation.resultCode = 'RC2';
     } else {
-      if (accessName === '') {
-        evaluation.verdict = 'failed';
-        evaluation.description = `It's not possible to define the accessible name of this element`;
-        evaluation.resultCode = 'RC3';
+      isHidden = DomUtils.isElementHidden(element);
+      accessName = AccessibilityTreeUtils.getAccessibleName(element);
+      if (isHidden) {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `This image button is not included in the accessibiliy tree`;
+        evaluation.resultCode = 'RC2';
       } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `This image button has an accessible name`;
-        evaluation.resultCode = 'RC4';
+        if (accessName === undefined) {
+          evaluation.verdict = 'failed';
+          evaluation.description = `It's not possible to define the accessible name of this element`;
+          evaluation.resultCode = 'RC3';
+        } else {
+          evaluation.verdict = 'passed';
+          evaluation.description = `This image button has an accessible name`;
+          evaluation.resultCode = 'RC4';
+        }
       }
     }
 
