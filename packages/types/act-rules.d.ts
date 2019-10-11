@@ -62,6 +62,7 @@ declare module '@qualweb/act-rules' {
     };
   }
 
+  function resetConfiguration(): void;
   function configure(options: ACTROptions): void;
   function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport>;
 
@@ -73,6 +74,7 @@ declare module '@qualweb/act-rules' {
     ACTMetadata,
     ACTRulesReport,
     configure,
-    executeACTR
+    executeACTR,
+    resetConfiguration
   };
 } 
