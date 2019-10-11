@@ -63,7 +63,7 @@ declare module '@qualweb/act-rules' {
   }
 
   function configure(options: ACTROptions): void;
-  function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport>;
+  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport>;
 
   export {
     ACTROptions,
