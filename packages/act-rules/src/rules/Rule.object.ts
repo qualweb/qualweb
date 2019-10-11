@@ -41,7 +41,7 @@ abstract class Rule {
     this.rule.metadata[result.verdict]++;
   }
 
-  abstract async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void>;
+  abstract async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void>;
 
   getFinalResults(): any {
     this.outcomeRule();
