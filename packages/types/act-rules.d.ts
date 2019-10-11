@@ -27,12 +27,12 @@ declare module '@qualweb/act-rules' {
     inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'inapplicable' | '';
+    outcome: 'passed' | 'failed' | 'cantTell' | 'inapplicable' | '';
     description: string;
   }
 
   interface ACTRuleResult {
-    verdict: 'passed' | 'failed' | 'inapplicable' | '';
+    verdict: 'passed' | 'failed' | 'cantTell' | 'inapplicable' | '';
     description: string | '';
     resultCode: string | '';
     pointer?: string;
@@ -65,7 +65,7 @@ declare module '@qualweb/act-rules' {
 
   function resetConfiguration(): void;
   function configure(options: ACTROptions): void;
-  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet): Promise<ACTRulesReport>;
+  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet[]): Promise<ACTRulesReport>;
 
   export {
     ACTROptions,
