@@ -63,7 +63,7 @@ class QW_ACT_R10 extends Rule {
             evaluation.resultCode = 'RC1';
         } else {
            
-            let iframes = stew.select("iframe[src]", element);
+            let iframes = stew.select( element,"iframe[src]");
             let accessibleNames: string[] = [];
 
             for (let iframe of iframes) {
@@ -82,16 +82,18 @@ class QW_ACT_R10 extends Rule {
                 else if (accessibleName !== "") {
                     hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
                     if (hasEqualAn.length > 0) {
+                        console.log(hasEqualAn);
                         blacklist.push(...hasEqualAn);
                         let result = true;
                         let resource = this.getAboluteUrl(iframes[counter].attribs["src"], 'https://act-rules.github.io');
-                        let resourceHash = getContentHash(resource);//get resource hash do counter
+                        let resourceHash = await getContentHash(resource);//get resource hash do counter
                         for (let index of hasEqualAn) {
                             let currentIframe = iframes[index];
                             let src = this.getAboluteUrl(currentIframe.attribs["src"], 'https://act-rules.github.io');
-                            if (result && (resource !== src && getContentHash(currentIframe.attribs["src"]) !== resourceHash)) {
+                            if (result && (resource !== src && await getContentHash(src) !== resourceHash)) {
                                 result = false;
                             }
+                            console.log(result);
                         }
                         if (result) {//passed
                             evaluation.verdict = 'passed';
@@ -163,12 +165,13 @@ class QW_ACT_R10 extends Rule {
         let counter = 0;
         let result: number[] = [];
         for (let accessibleNameToCompare of accessibleNames) {
-            if (accessibleNameToCompare === accessibleName && counter !== index) {
-                result.push(counter);
-            }
+          if (accessibleNameToCompare === accessibleName && counter !== index) {
+            result.push(counter);
+          }
+          counter++;
         }
-
+    
         return result;
-    }
+      }
 }
 export = QW_ACT_R10;

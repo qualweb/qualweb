@@ -97,13 +97,14 @@ function transform_element_into_html(element: DomElement, withText: boolean=true
   return html(codeElement);
 }
 async function getContentHash(url: string) {
+    console.log(url);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url,{'waitUntil': 'networkidle0', timeout: 60000});
     const content = await page.evaluate(() => {
         return document.documentElement.innerHTML;
       });
-    console.log(content);
+    console.log(md5(content.replace(/\s|\r/g,"")));
 
     await browser.close();
     return md5(content.replace(/\s|\r/g,""));
