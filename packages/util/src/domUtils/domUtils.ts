@@ -14,6 +14,7 @@ import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import elementHasChildFunction from './elementHasChild';
 import getElementChildTextContentFunction from './getElementChildTextContent';
 import elementHasParentFunction from './elementHasParent';
+import getElementByIdFunction from './getElementById';
 
 import ROLES_ATTR from './roles';
 
@@ -35,6 +36,7 @@ namespace DomUtils {
   export const elementHasChild = elementHasChildFunction;
   export const getElementChildTextContent = getElementChildTextContentFunction;
   export const elementHasParent = elementHasParentFunction;
+  export const getElementById = getElementByIdFunction;
   export const ROLES = ROLES_ATTR;
 }
 
