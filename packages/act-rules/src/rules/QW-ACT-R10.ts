@@ -1,12 +1,12 @@
 'use strict';
 
-import {DomElement} from 'htmlparser2';
+import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 import Rule from './Rule.object';
 
 const stew = new (require('stew-select')).Stew();
 
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
     getElementSelector,
@@ -14,7 +14,6 @@ import {
     getContentHash
 } from '../util';
 
-import languages from './language.json';
 
 const rule: ACTRule = {
     name: '`iframe` elements with identical accessible names have equivalent purpose',
@@ -63,11 +62,12 @@ class QW_ACT_R10 extends Rule {
             evaluation.description = `body element doesn't exist`;
             evaluation.resultCode = 'RC1';
         } else {
-            const stew = new (require('stew-select')).Stew();
+           
             let iframes = stew.select("iframe[src]", element);
             let accessibleNames: string[] = [];
 
             for (let iframe of iframes) {
+                console.log(iframe.name);
                 accessibleNames.push("AN");//trim
             }
 
@@ -76,27 +76,30 @@ class QW_ACT_R10 extends Rule {
             let blacklist: number[] = [];
             for (let accessibleName of accessibleNames) {
                 hasEqualAn = [];
-                if (accessibleName !== "" && blacklist.indexOf(counter) >= 0) {
+                if (blacklist.indexOf(counter) >= 0) {
+                    //element already evaluated
+                }
+                else if (accessibleName !== "") {
                     hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
                     if (hasEqualAn.length > 0) {
                         blacklist.push(...hasEqualAn);
                         let result = true;
-                        let resource = iframes[counter].attribs["src"];
+                        let resource = this.getAboluteUrl(iframes[counter].attribs["src"], 'https://act-rules.github.io');
                         let resourceHash = getContentHash(resource);//get resource hash do counter
                         for (let index of hasEqualAn) {
                             let currentIframe = iframes[index];
-                            let src = currentIframe.attribs["src"];
-                            if (result && (resource !== src || getContentHash(currentIframe.attribs["src"]) !== resourceHash)) {
+                            let src = this.getAboluteUrl(currentIframe.attribs["src"], 'https://act-rules.github.io');
+                            if (result && (resource !== src && getContentHash(currentIframe.attribs["src"]) !== resourceHash)) {
                                 result = false;
                             }
                         }
                         if (result) {//passed
-                            evaluation.verdict = 'inapplicable';
+                            evaluation.verdict = 'passed';
                             evaluation.description = `Iframes with the same accessible name have equal content`;
                             evaluation.resultCode = 'RC2';
 
                         } else { //failed
-                            evaluation.verdict = 'inapplicable';
+                            evaluation.verdict = 'failed';
                             evaluation.description = `Iframes with the same accessible name have different content`;
                             evaluation.resultCode = 'RC3';
 
@@ -107,20 +110,29 @@ class QW_ACT_R10 extends Rule {
                         evaluation.description = `There is no iframe with same the same accessible name`;
                         evaluation.resultCode = 'RC4';
                     }
+
+                    evaluation.code = transform_element_into_html(iframes[counter]);
+                    evaluation.pointer = getElementSelector(iframes[counter]);
+                    super.addEvaluationResult(evaluation);
+                    evaluation = {
+                        verdict: '',
+                        description: '',
+                        resultCode: ''
+                    };
                 } else {//inaplicable
                     evaluation.verdict = 'inapplicable';
                     evaluation.description = `iframe doesnt have accessible name`;
                     evaluation.resultCode = 'RC4';
+                    evaluation.code = transform_element_into_html(iframes[counter]);
+                    evaluation.pointer = getElementSelector(iframes[counter]);
+                    super.addEvaluationResult(evaluation);
+                    evaluation = {
+                        verdict: '',
+                        description: '',
+                        resultCode: ''
+                    };
 
                 }
-                evaluation.code = transform_element_into_html(iframes[counter]);
-                evaluation.pointer = getElementSelector(iframes[counter]);
-                super.addEvaluationResult(evaluation);
-                evaluation = {
-                    verdict: '',
-                    description: '',
-                    resultCode: ''
-                };
                 counter++;
             }
 
@@ -136,18 +148,17 @@ class QW_ACT_R10 extends Rule {
         super.addEvaluationResult(evaluation);
     }
 
-    private checkValidity(element: string) {
-        const split = element.split('-');
-        const lang = split[0].toLocaleLowerCase();
+  
+    private getAboluteUrl(relativeUrl: string, baseUrl: string) {
+        let reg = new RegExp("^/");
+        let result = relativeUrl;
+        if (reg.test(relativeUrl)) {
+            result = baseUrl + relativeUrl;
+        }
 
-        return this.isSubTagValid(lang) && split.length < 3;
+        return result;
     }
-
-
-    private isSubTagValid(subTag: string) {
-        return languages.hasOwnProperty(subTag);
-    }
-
+   
     private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number) {
         let counter = 0;
         let result: number[] = [];
@@ -159,5 +170,5 @@ class QW_ACT_R10 extends Rule {
 
         return result;
     }
-
-    export = QW_ACT_R10;
+}
+export = QW_ACT_R10;

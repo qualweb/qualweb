@@ -44,6 +44,7 @@
   "dependencies": {
     "htmlparser-to-html": "0.0.6",
     "lodash": "^4.17.15",
+    "md5": "^2.2.1",
     "stew-select": "0.0.5"
   }
 }

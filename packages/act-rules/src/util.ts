@@ -3,6 +3,8 @@
 import { DomElement } from 'htmlparser2';
 import html from 'htmlparser-to-html';
 import clone from 'lodash/clone';
+import md5 from 'md5';
+const puppeteer = require('puppeteer');
 
 function getSelfLocationInParent(element: DomElement): string {
   let selector = '';
@@ -94,10 +96,18 @@ function transform_element_into_html(element: DomElement, withText: boolean=true
   
   return html(codeElement);
 }
-function getContentHash(element: DomElement){
+async function getContentHash(url: string) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url,{'waitUntil': 'networkidle0', timeout: 60000});
+    const content = await page.evaluate(() => {
+        return document.documentElement.innerHTML;
+      });
+    console.log(content);
 
+    await browser.close();
+    return md5(content.replace(/\s|\r/g,""));
 }
-
 export {
   getElementSelector,
   transform_element_into_html,
