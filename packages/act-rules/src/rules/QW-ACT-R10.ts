@@ -5,6 +5,7 @@ import _ from 'lodash';
 import Rule from './Rule.object';
 
 const stew = new (require('stew-select')).Stew();
+import { AccessibilityTreeUtils} from '@qualweb/util';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
@@ -50,12 +51,15 @@ class QW_ACT_R10 extends Rule {
         super(rule);
     }
 
-    async execute(element: DomElement | undefined): Promise<void> {
+    async execute(element: DomElement | undefined,processedHTML: DomElement[], url: string): Promise<void> {
         let evaluation: ACTRuleResult = {
             verdict: '',
             description: '',
             resultCode: ''
         };
+
+        let splittedUrl = url.split("://");
+        let baseUrl ="http://"+splittedUrl[1].split("/")[0];
 
         if (element === undefined) { // if the element doesn't exist, there's nothing to test
             evaluation.verdict = 'inapplicable';
@@ -66,10 +70,14 @@ class QW_ACT_R10 extends Rule {
             let iframes = stew.select( element,"iframe[src]");
             let accessibleNames: string[] = [];
 
+
+
+
             for (let iframe of iframes) {
-                console.log(iframe.name);
-                accessibleNames.push("AN");//trim
+                accessibleNames.push(AccessibilityTreeUtils.getAccessibleName(iframe, processedHTML,false));
             }
+
+            console.log(accessibleNames);
 
             let counter = 0;
             let hasEqualAn: number[];
@@ -79,17 +87,17 @@ class QW_ACT_R10 extends Rule {
                 if (blacklist.indexOf(counter) >= 0) {
                     //element already evaluated
                 }
-                else if (accessibleName !== "") {
+                else if (accessibleName && accessibleName.trim() !== "") {
                     hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
                     if (hasEqualAn.length > 0) {
                         console.log(hasEqualAn);
                         blacklist.push(...hasEqualAn);
                         let result = true;
-                        let resource = this.getAboluteUrl(iframes[counter].attribs["src"], 'https://act-rules.github.io');
+                        let resource = this.getAboluteUrl(iframes[counter].attribs["src"], baseUrl);
                         let resourceHash = await getContentHash(resource);//get resource hash do counter
                         for (let index of hasEqualAn) {
                             let currentIframe = iframes[index];
-                            let src = this.getAboluteUrl(currentIframe.attribs["src"], 'https://act-rules.github.io');
+                            let src = this.getAboluteUrl(currentIframe.attribs["src"], baseUrl);
                             if (result && (resource !== src && await getContentHash(src) !== resourceHash)) {
                                 result = false;
                             }
@@ -138,16 +146,20 @@ class QW_ACT_R10 extends Rule {
                 counter++;
             }
 
+            if (iframes.length===0) {
+                evaluation.verdict = 'inapplicable';
+                evaluation.description = `iframe doesnt have accessible name`;
+                evaluation.resultCode = 'RC4';
+                super.addEvaluationResult(evaluation);
+            }
+
 
         }
 
 
-        if (element !== undefined) {
-            evaluation.code = transform_element_into_html(element);
-            evaluation.pointer = getElementSelector(element);
-        }
 
-        super.addEvaluationResult(evaluation);
+
+
     }
 
   
@@ -173,5 +185,7 @@ class QW_ACT_R10 extends Rule {
     
         return result;
       }
+
+
 }
 export = QW_ACT_R10;

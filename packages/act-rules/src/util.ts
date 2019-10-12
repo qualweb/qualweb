@@ -104,7 +104,7 @@ async function getContentHash(url: string) {
     const content = await page.evaluate(() => {
         return document.documentElement.innerHTML;
       });
-    console.log(md5(content.replace(/\s|\r/g,"")));
+    console.log(content);
 
     await browser.close();
     return md5(content.replace(/\s|\r/g,""));

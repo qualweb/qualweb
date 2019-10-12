@@ -5,6 +5,7 @@
 
 import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
+import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
 const stew = new(require('stew-select')).Stew();
 
 import mapping from './rules/mapping.json';
@@ -60,17 +61,17 @@ function resetConfiguration(): void {
   }
 }
 
-async function executeRules(report: ACTRulesReport, html: DomElement[], selectors: string[], mappedRules: any): Promise<void> {
+async function executeMappedRules(url: string, report: ACTRulesReport, html: DomElement[], selectors: string[], mappedRules: any): Promise<void> {
   for (const selector of selectors || []) {
     for (const rule of mappedRules[selector] || []) {
       if (rulesToExecute[rule]) {
-        let elements = stew.select(html, selector);
+        const elements = stew.select(html, selector);
         if (elements.length > 0) {
           for (const elem of elements || []) {
-            await rules[rule].execute(elem, html);
+            await rules[rule].execute(elem, html, url);
           }
         } else {
-          await rules[rule].execute(undefined, html);
+          await rules[rule].execute(undefined, html, url);
         }
         report.rules[rule] = rules[rule].getFinalResults();
         report.metadata[report.rules[rule].metadata.outcome]++;
@@ -80,7 +81,16 @@ async function executeRules(report: ACTRulesReport, html: DomElement[], selector
   }
 }
 
-async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<ACTRulesReport> {
+async function executeNotMappedRules(report: ACTRulesReport, stylesheets: CSSStylesheet[]): Promise<void> {
+  if (rulesToExecute['QW-ACT-R7']) {
+    await rules['QW-ACT-R7'].unmappedExecute(stylesheets);
+    report.rules['QW-ACT-R7'] = rules['QW-ACT-R7'].getFinalResults();
+    report.metadata[report.rules['QW-ACT-R7'].metadata.outcome]++;
+    rules['QW-ACT-R7'].reset();
+  }
+}
+
+async function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet[]): Promise<ACTRulesReport> {
   
   if (sourceHTML === null || sourceHTML === undefined) {
     throw new Error(`Source html can't be null or undefined`);
@@ -100,15 +110,16 @@ async function executeACTR(sourceHTML: DomElement[], processedHTML: DomElement[]
     rules: {}
   };
 
-  await executeRules(report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
-  await executeRules(report, processedHTML, Object.keys(mapping.post), mapping.post);
+  await executeMappedRules(url, report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
+  await executeMappedRules(url, report, processedHTML, Object.keys(mapping.post), mapping.post);
 
-  resetConfiguration();
-  
+  await executeNotMappedRules(report, stylesheets);
+
   return report;
 }
 
 export {
   configure,
-  executeACTR
+  executeACTR,
+  resetConfiguration
 };

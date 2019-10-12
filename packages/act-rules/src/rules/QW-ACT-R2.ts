@@ -74,13 +74,13 @@ class QW_ACT_R2 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs && element.attribs['xml:lang'] !== '' && element.attribs['xml:lang'] !== undefined) { // passed
+    } else if (element.attribs && element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '') { // passed
       evaluation.verdict = 'passed';
       evaluation.description = `The xml:lang attribute has a value`;
       evaluation.resultCode = 'RC3';
-    } else if (element.attribs && element.attribs['lang'] !== '' && element.attribs['lang'] !== undefined) { // passed
+    } else if (element.attribs && element.attribs['lang'] !== undefined && element.attribs['lang'].trim() !== '') { // passed
       evaluation.verdict = 'passed';
-      evaluation.description = `The lang attribute has a value `;
+      evaluation.description = `The lang attribute has a value`;
       evaluation.resultCode = 'RC4';
     } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
       evaluation.verdict = 'failed';
