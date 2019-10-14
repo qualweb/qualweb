@@ -8,7 +8,6 @@ declare module '@qualweb/core' {
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
   interface QualwebOptions {
-    [option: string]: any;
     url?: string;
     urls?: string[];
     file?: string;
@@ -19,7 +18,15 @@ declare module '@qualweb/core' {
       width?: number;
       height?: number;
     };
-    'wappalyzer'?: boolean | WappalyzerOptions;
+    force?: boolean;
+    execute?: {
+      wappalyzer?: boolean;
+      act?: boolean;
+      html?: boolean;
+      css?: boolean;
+      bp?: boolean;
+    };
+    'wappalyzer'?: WappalyzerOptions;
     'act-rules'?: ACTROptions;
     'html-techniques'?: HTMLTOptions;
     'css-techniques'?: CSSTOptions; 
