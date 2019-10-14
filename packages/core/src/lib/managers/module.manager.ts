@@ -12,18 +12,18 @@ import { executeBestPractices } from '@qualweb/best-practices';
 import parseUrl from '../url';
 import Evaluation from '../data/evaluation.object';
 
-async function evaluate(url: string, options: QualwebOptions): Promise<Evaluation> {
+async function evaluate(url: string, execute: any, options: QualwebOptions): Promise<Evaluation> {
   const dom = await getDom(url);
 
-  if (options['act-rules']) {
+  if (execute.act && options['act-rules']) {
     configureACTR(options['act-rules']);
   }
 
-  if (options['html-techniques']) {
+  if (execute.html && options['html-techniques']) {
     configureHTMLT(options['html-techniques']);
   }
 
-  if (options['css-techniques']) {
+  if (execute.css && options['css-techniques']) {
     configureCSST(options['css-techniques']);
   }
 
@@ -40,27 +40,27 @@ async function evaluate(url: string, options: QualwebOptions): Promise<Evaluatio
 
   const evaluation = new Evaluation(evaluator);
 
-  if (options.wappalyzer) {
+  if (execute.wappalyzer) {
     const wappalyzer = await executeWappalyzer(url);
     evaluation.addModuleEvaluation('wappalyzer', wappalyzer);
   }
 
-  {
-    const actRules = await executeACTR(dom.source.html.parsed, dom.processed.html.parsed);
+  if (execute.act) {
+    const actRules = await executeACTR(url, dom.source.html.parsed, dom.processed.html.parsed, dom.stylesheets);
     evaluation.addModuleEvaluation('act-rules', actRules);
   }
 
-  {
+  if (execute.html) {
     const htmlTechniques = await executeHTMLT(url, dom.source.html.parsed, dom.processed.html.parsed);
     evaluation.addModuleEvaluation('html-techniques', htmlTechniques);
   }
 
-  if (dom.stylesheets) {
+  if (execute.css) {
     const cssTechniques = await executeCSST(dom.stylesheets);
     evaluation.addModuleEvaluation('css-techniques', cssTechniques);
   }
 
-  {
+  if (execute.bp) {
     const bestPractices = await executeBestPractices(dom.source.html.parsed, dom.processed.html.parsed);
     evaluation.addModuleEvaluation('best-practices', bestPractices);
   }

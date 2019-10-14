@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.0] - 14/10/2019
+
+### Added
+ - options to run specific modules
+ - option to continue running evaluations even if any url fails to evaluate 
+
 ## [0.0.6] - 07/10/2019
 
 ### Changed

@@ -10,7 +10,7 @@ describe('Core', function() {
     //console.log(report);
     expect(report[0].type).to.be.equal('evaluation');
   });
-  it.only('EARL report should have assertions from all modules', async function() {
+  it('EARL report should have assertions from all modules', async function() {
     this.timeout(10 * 10000);
 
     const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
