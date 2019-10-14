@@ -1,9 +1,14 @@
 # Changelog
 
+## [0.1.2] - 14/10/2019
+
+### Fixed
+ - dependencies bugs
+
 ## [0.1.1] - 14/10/2019
 
 ### Fixed
- - a bug where two evaluations followed were giving incorrect results 
+ - a bug where two evaluations followed were giving incorrect results
 
 ## [0.1.0] - 14/10/2019
 

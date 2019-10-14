@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -32,6 +32,7 @@
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/html-techniques": "0.0.6",
     "@qualweb/wappalyzer": "0.0.2",
+    "fs-extra": "^8.1.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
@@ -43,7 +44,6 @@
     "@types/node": "^12.7.12",
     "@types/request": "^2.48.3",
     "chai": "^4.2.0",
-    "fs-extra": "^8.1.0",
     "mocha": "^6.2.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
