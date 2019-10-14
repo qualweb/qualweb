@@ -4,9 +4,9 @@ import crypto from 'crypto';
 import { QualwebOptions } from '@qualweb/core';
 import { getDom } from '@qualweb/get-dom-puppeteer';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
-import { executeACTR, configure as configureACTR } from '@qualweb/act-rules';
-import { executeHTMLT, configure as configureHTMLT } from '@qualweb/html-techniques';
-import { executeCSST, configure as configureCSST } from '@qualweb/css-techniques';
+import * as act from '@qualweb/act-rules';
+import * as html from '@qualweb/html-techniques';
+import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
 
 import parseUrl from '../url';
@@ -16,15 +16,15 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
   const dom = await getDom(url);
 
   if (execute.act && options['act-rules']) {
-    configureACTR(options['act-rules']);
+    act.configure(options['act-rules']);
   }
 
   if (execute.html && options['html-techniques']) {
-    configureHTMLT(options['html-techniques']);
+    html.configure(options['html-techniques']);
   }
 
   if (execute.css && options['css-techniques']) {
-    configureCSST(options['css-techniques']);
+    css.configure(options['css-techniques']);
   }
 
   const evaluator = {
@@ -46,17 +46,19 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
   }
 
   if (execute.act) {
-    const actRules = await executeACTR(url, dom.source.html.parsed, dom.processed.html.parsed, dom.stylesheets);
+    const actRules = await act.executeACTR(url, dom.source.html.parsed, dom.processed.html.parsed, dom.stylesheets);
+    act.resetConfiguration();
     evaluation.addModuleEvaluation('act-rules', actRules);
   }
 
   if (execute.html) {
-    const htmlTechniques = await executeHTMLT(url, dom.source.html.parsed, dom.processed.html.parsed);
+    const htmlTechniques = await html.executeHTMLT(url, dom.source.html.parsed, dom.processed.html.parsed);
+    html.resetConfiguration();
     evaluation.addModuleEvaluation('html-techniques', htmlTechniques);
   }
 
   if (execute.css) {
-    const cssTechniques = await executeCSST(dom.stylesheets);
+    const cssTechniques = await css.executeCSST(dom.stylesheets);
     evaluation.addModuleEvaluation('css-techniques', cssTechniques);
   }
 

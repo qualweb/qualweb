@@ -43,6 +43,8 @@ class System {
 
     if (options.force) {
       this.force = options.force;
+    } else {
+      this.force = false;
     }
 
     if (options.execute) {
@@ -51,6 +53,14 @@ class System {
       this.modulesToExecute.css = options.execute.css ? options.execute.css : false;
       this.modulesToExecute.bp = options.execute.bp ? options.execute.bp : false;
       this.modulesToExecute.wappalyzer = options.execute.wappalyzer ? options.execute.wappalyzer : false;
+    } else {
+      this.modulesToExecute = {
+        act: true,
+        html: true,
+        css: true,
+        bp: true,
+        wappalyzer: false
+      };
     }
   }
 

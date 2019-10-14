@@ -1,6 +1,5 @@
 const core = require('../dist/index');
 const { expect } = require('chai');
-const { writeFile } = require('fs-extra');
 
 describe('Core', function() {
   it('Should evaluate', async function() {
