@@ -15,6 +15,8 @@ import elementHasChildFunction from './elementHasChild';
 import getElementChildTextContentFunction from './getElementChildTextContent';
 import elementHasParentFunction from './elementHasParent';
 import getElementByIdFunction from './getElementById';
+import getContentComputedStylesAttributeFunction from './getContentComputedStylesAttribute';
+
 
 import ROLES_ATTR from './roles';
 
@@ -37,6 +39,7 @@ namespace DomUtils {
   export const getElementChildTextContent = getElementChildTextContentFunction;
   export const elementHasParent = elementHasParentFunction;
   export const getElementById = getElementByIdFunction;
+  export const getContentComputedStylesAttribute = getContentComputedStylesAttributeFunction;
   export const ROLES = ROLES_ATTR;
 }
 
