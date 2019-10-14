@@ -67,7 +67,7 @@ class QW_ACT_R6 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined,processedHTML: DomElement[]): Promise<void> {
+  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -83,7 +83,7 @@ class QW_ACT_R6 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       isHidden = DomUtils.isElementHidden(element);
-      accessName = AccessibilityTreeUtils.getAccessibleName(element,processedHTML,false);
+      accessName = AccessibilityTreeUtils.getAccessibleName(element, processedHTML, false);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This image button is not included in the accessibiliy tree`;
