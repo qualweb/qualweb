@@ -10,10 +10,10 @@
 'use strict';
 
 import {DomElement} from 'htmlparser2';
-
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
 import Rule from './Rule.object';
+import {trim} from 'lodash';
 
 import {
   getElementSelector,
@@ -89,7 +89,7 @@ class QW_ACT_R6 extends Rule {
         evaluation.description = `This image button is not included in the accessibiliy tree`;
         evaluation.resultCode = 'RC2';
       } else {
-        if (accessName === undefined) {
+        if (accessName === undefined || trim(accessName) === '') {
           evaluation.verdict = 'failed';
           evaluation.description = `It's not possible to define the accessible name of this element`;
           evaluation.resultCode = 'RC3';
