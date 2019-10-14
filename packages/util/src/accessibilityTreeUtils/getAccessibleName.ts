@@ -40,7 +40,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], ref
       AName = getFirstNotUndefined( title);
   } else if (element.name === "iframe") {
       AName = getFirstNotUndefined(title);
-  } else if (element.name === "img" || (element.name === "input" && attrType === "image")) {
+  } else if (element.name === "area" ||element.name === "img" || (element.name === "input" && attrType === "image")) {
       if (element.attribs) {
           alt = element.attribs["alt"];
       }
