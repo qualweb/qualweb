@@ -41,7 +41,7 @@ const rule: ACTRule = {
   results: new Array<ACTRuleResult>()
 };
 
-class QW_ACT_R1 extends Rule {
+class QW_ACT_R11 extends Rule {
 
   constructor() {
     super(rule);
@@ -89,4 +89,4 @@ class QW_ACT_R1 extends Rule {
   }
 }
 
-export = QW_ACT_R1;
+export = QW_ACT_R11;
