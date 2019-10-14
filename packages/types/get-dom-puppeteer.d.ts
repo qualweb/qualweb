@@ -35,7 +35,7 @@ declare module '@qualweb/get-dom-puppeteer' {
   interface Dom {
     readonly source: Html;
     readonly processed: Html;
-    readonly stylesheets?: CSSStylesheet[];
+    readonly stylesheets: CSSStylesheet[];
   }
 
   function getDom(url: string, options?: DomOptions): Promise<Dom>;
