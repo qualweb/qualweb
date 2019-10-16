@@ -29,9 +29,10 @@ declare module '@qualweb/best-practices' {
 
   interface BestPracticeResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
-    description: string | '';
+    description: string[] | string | '';
+    resultCode: string[] | string;
     pointer?: string;
-    code?: string | string[];
+    htmlCode?: string | string[];
     attributes?: string | string[];
   }
 
