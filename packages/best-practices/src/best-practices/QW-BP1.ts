@@ -43,7 +43,8 @@ class QW_BP1 extends BestPractice {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
-      description: ''
+      description: '',
+      resultCode: ''
     };
 
     if (!element) {
@@ -53,7 +54,7 @@ class QW_BP1 extends BestPractice {
       evaluation.verdict = 'warning';
       evaluation.description = 'Check that heading markup is used when content is a heading';
 
-      evaluation.code = transform_element_into_html(element);
+      evaluation.htmlCode = transform_element_into_html(element);
       evaluation.pointer = getElementSelector(element);
     }
     
