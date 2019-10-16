@@ -13,7 +13,7 @@ abstract class BestPractice {
     this.bestPractice = bestPractice;
   }
 
-  public getBestPracticeMapping(): string {
+  public getBestPracticeMapping(): string | undefined {
     return this.bestPractice.mapping;
   }
 
@@ -68,7 +68,7 @@ abstract class BestPractice {
   private addDescription(): void {
     for (const result of this.bestPractice.results || []) {
       if (result.verdict === this.bestPractice.metadata.outcome) {
-        this.bestPractice.metadata.description = result.description;
+        this.bestPractice.metadata.description = <string> result.description;
         break;
       }
     }
