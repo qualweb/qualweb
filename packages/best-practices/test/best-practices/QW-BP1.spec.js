@@ -2,7 +2,7 @@ const { executeBestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const { getDom } = require('@qualweb/get-dom-puppeteer');
 
-describe('Technique QW-BP1', function () {
+describe('Best practice QW-BP1', function () {
   const tests = [
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/warning1.html',

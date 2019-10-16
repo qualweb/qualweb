@@ -3,8 +3,7 @@
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
 import { DomElement } from 'htmlparser2';
-import { getElementSelector, transform_element_into_html } from '../util';
-import _ from 'lodash';
+import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
   name: 'Using h1-h6 to identify headings',
@@ -43,18 +42,20 @@ class QW_BP1 extends BestPractice {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
-      description: ''
+      description: '',
+      resultCode: ''
     };
 
     if (!element) {
       evaluation.verdict = 'failed';
       evaluation.description = `This page doesn't use headings`;
+      evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'warning';
       evaluation.description = 'Check that heading markup is used when content is a heading';
-
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.resultCode = 'RC2';
+      evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
+      evaluation.pointer = DomUtils.getElementSelector(element);
     }
     
     super.addEvaluationResult(evaluation);
