@@ -79,6 +79,7 @@ declare module '@qualweb/css-techniques' {
   }
 
   function configure(options: CSSTOptions): void;
+  function resetConfiguration(): void;
   function executeCSST(stylesheets: CSSStylesheet[]): Promise<CSSTechniquesReport>;
 
   export {
@@ -89,6 +90,7 @@ declare module '@qualweb/css-techniques' {
     CSSTechnique,
     CSSTechniquesReport,
     configure,
-    executeCSST
+    executeCSST,
+    resetConfiguration
   };
 }

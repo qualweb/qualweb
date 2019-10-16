@@ -9,14 +9,14 @@ declare module '@qualweb/best-practices' {
       attributes?: string | string[];
       css?: string | string[];
     };
-    'success-criteria': {
+    'success-criteria'?: {
       name: string;
       level: string;
       principle: string;
       url: string;
     }[];
-    related: string[];
-    url: string;
+    related?: string[];
+    url?: string;
     passed: number;
     warning: number;
     failed: number;
@@ -45,7 +45,7 @@ declare module '@qualweb/best-practices' {
   interface BestPractice {
     name: string;
     code: string;
-    mapping: string;
+    mapping?: string;
     description: string;
     metadata: BestPracticeMetadata;
     results: BestPracticeResult[];
