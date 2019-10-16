@@ -15,7 +15,7 @@ import {
 
 const bestPractice: BestPracticeType = {
   name: 'Link element with text content equal to the content of the title attribute',
-  code: 'QW-BP2',
+  code: 'QW-BP3',
   mapping: 'H33',
   description: 'The link element text content shouldn\'t be equal to the content of the title attribute',
   metadata: {
@@ -48,7 +48,7 @@ const bestPractice: BestPracticeType = {
   results: new Array < BestPracticeResult > ()
 };
 
-class QW_BP1 extends BestPractice {
+class QW_BP3 extends BestPractice {
 
   constructor() {
     super(bestPractice);
@@ -85,4 +85,4 @@ class QW_BP1 extends BestPractice {
   }
 }
 
-export = QW_BP1;
+export = QW_BP3;
