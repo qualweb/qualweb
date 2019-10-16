@@ -1,4 +1,4 @@
-# QualWeb HTML techniques
+# QualWeb utilities
 
 ## How to install
 
