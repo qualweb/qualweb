@@ -24,7 +24,7 @@ const bestPractice: BestPracticeType = {
   results: new Array<BestPracticeResult>()
 };
 
-class QW_BP1 extends BestPractice {
+class QW_BP2 extends BestPractice {
 
   constructor() {
     super(bestPractice);
@@ -65,4 +65,4 @@ class QW_BP1 extends BestPractice {
   }
 }
 
-export = QW_BP1;
+export = QW_BP2;
