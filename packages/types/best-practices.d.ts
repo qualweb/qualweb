@@ -60,7 +60,7 @@ declare module '@qualweb/best-practices' {
     };
   }
 
-  function executeBestPractices(sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<BestPracticesReport>;
+  function executeBestPractices(dom: DomElement[]): Promise<BestPracticesReport>;
 
   export {
     BestPracticeMetadata,

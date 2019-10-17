@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.8] - 17/10/2019
+
+### Changed
+ - best-practices module interface
+ - act-rules module interface
+
 ## [0.1.7] - 16/10/2019
 
 ### Changed

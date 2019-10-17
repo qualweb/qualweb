@@ -23,16 +23,17 @@ declare module '@qualweb/act-rules' {
     related: string[];
     url: string;
     passed: number;
+    warning: number;
     failed: number;
     inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'cantTell' | 'inapplicable' | '';
+    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string;
   }
 
   interface ACTRuleResult {
-    verdict: 'passed' | 'failed' | 'cantTell' | 'inapplicable' | '';
+    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     resultCode: string | '';
     pointer?: string;
@@ -51,6 +52,7 @@ declare module '@qualweb/act-rules' {
 
   interface ACTMetadata {
     passed: number;
+    warning: number;
     failed: number;
     inapplicable: number;
   }
