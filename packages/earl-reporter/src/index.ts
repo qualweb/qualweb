@@ -45,7 +45,7 @@ function reportModule(module: string, options?: EarlOptions): boolean {
       case 'best-practices':
         return !!options.modules['best-practices'];
       default:
-        return false   
+        return false;
     }
   }
 }

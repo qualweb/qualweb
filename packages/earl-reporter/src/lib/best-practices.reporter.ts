@@ -38,7 +38,7 @@ async function BestPracticesReportToEARL(report: BestPracticesReport, date?: str
         const assertion: Assertion = {
           '@type': 'Assertion',
           test: {
-            '@id': bestPractice.metadata.url,
+            '@id': bestPractice.metadata.url || bestPractice.name, //TODO: será que name dá?
             '@type': 'TestCase',
             title: bestPractice.name,
             description: bestPractice.description

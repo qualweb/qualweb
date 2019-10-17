@@ -20,7 +20,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
           const source: ResultSource = {
             result: {
               pointer: result.pointer,
-              outcome: 'earl:' + result.verdict
+              outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
             }
           };
 
@@ -29,7 +29,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
 
         const result: TestResult = {
           '@type': 'TestResult',
-          outcome: 'earl:' + rule.metadata.outcome,
+          outcome: 'earl:' + (rule.metadata.outcome !== 'warning' ? rule.metadata.outcome : 'cantTell'),
           source: sources,
           description: rule.metadata.description,
           date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
