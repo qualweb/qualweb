@@ -104,6 +104,7 @@ async function executeACTR(url: string, sourceHTML: DomElement[], processedHTML:
     type: 'act-rules',
     metadata: {
       passed: 0,
+      warning: 0,
       failed: 0,
       inapplicable: 0
     },
