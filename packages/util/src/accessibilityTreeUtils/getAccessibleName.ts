@@ -61,7 +61,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], rec
             value = element.attribs["value"];
         }
         AName = getFirstNotUndefined(value, getDefaultName(element), title);
-    } else if (formElements.indexOf(name) > 0 && !attrType) {
+    } else if (formElements.indexOf(name) >= 0 && !attrType) {
         AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title);
     } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0)) {
         if (element.attribs) {
