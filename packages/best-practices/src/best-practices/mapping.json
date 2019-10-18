@@ -1,3 +1,4 @@
 {
-  "h1, h2, h3, h4, h5, h6": ["QW-BP1"]
+  "h1, h2, h3, h4, h5, h6": ["QW-BP1"],
+  "b, blink, basefont, strike, vlink, link, center, font, i, s, strike, u": ["QW-BP10"]
 }
