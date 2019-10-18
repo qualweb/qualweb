@@ -1,6 +1,6 @@
 'use strict';
 
-import {DomElement, DomUtils} from "htmlparser2";
+import { DomElement, DomUtils } from "htmlparser2";
 const stew = new (require('stew-select')).Stew();
 
 function getValueFromEmbeddedControl(element: DomElement, processedHTML: DomElement[]): string {//stew
@@ -10,26 +10,23 @@ function getValueFromEmbeddedControl(element: DomElement, processedHTML: DomElem
   let role = element.attribs.role;
   let value = "";
 
-  if ((element.name === "textarea" || role === "textbox") && element.children !== undefined) {
-    value = DomUtils.getText(element);
-  } else if (element.name === "input" && element.attribs && element.attribs["type"] === "text") {
-    value = element.attribs["value"];
-  } else if ((element.name === "button" || role === "button") && element.children !== undefined) {
+
+  if ((role === "textbox") && element.children !== undefined) {
     value = DomUtils.getText(element);
   } else if (role === "combobox") {
-    let referencedByLabel = stew.select(element, `[aria-activedescendant]`);
-    let ariaDescendant, selectedElement;
-    if (referencedByLabel.length > 0) {
-      ariaDescendant = referencedByLabel[0].attribs["aria-activedescendant"];
-      selectedElement = stew.select(element, `[id="${ariaDescendant}"]`);
+    let refrencedByLabel = stew.select(element, `[aria-activedescendant]`);
+    let aria_descendendant, selectedElement;
+    if (refrencedByLabel.length > 0) {
+      aria_descendendant = refrencedByLabel[0].attribs["aria-activedescendant"];
+      selectedElement = stew.select(element, `[id="${aria_descendendant}"]`);
     }
 
     let aria_owns = element.attribs["aria-owns"];
-    let elementsToSelect = stew.select(processedHTML, `[id="${aria_owns}"]`);
+    let elementasToSelect = stew.select(processedHTML, `[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
-    if (elementsToSelect.length > 0)
-      elementWithAriaSelected = stew.select(elementsToSelect[0], `aria-selected="true"`);
+    if (elementasToSelect.length > 0)
+      elementWithAriaSelected = stew.select(elementasToSelect[0], `aria-selected="true"`);
 
 
     if (selectedElement.length > 0) {
