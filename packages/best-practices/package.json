@@ -31,7 +31,7 @@
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
-    "@qualweb/types": "^0.1.5",
+    "@qualweb/types": "^0.1.9",
     "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.138",
