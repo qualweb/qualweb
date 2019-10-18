@@ -1,8 +1,9 @@
 'use strict';
 
 import { QualwebOptions } from '@qualweb/core';
+import clone from 'lodash/clone';
 
-async function parse_arguments(args: string[]): Promise<any> {
+async function parseArguments(args: string[]): Promise<any> {
   const options: any = {};
 
   if (args.length === 0) {
@@ -18,12 +19,12 @@ async function parse_arguments(args: string[]): Promise<any> {
           continue;
         }
         // checks if the option is not duplicated
-        if (options[parse_option(args[i])] === undefined) {
+        if (options[parseOption(args[i])] === undefined) {
           // saves the option argument with it's respective value
           if (args[i+1] === undefined || args[i+1].startsWith('-')) {
-            options[parse_option(args[i])] = '';
+            options[parseOption(args[i])] = '';
           } else {
-            options[parse_option(args[i])] = args[i+1];
+            options[parseOption(args[i])] = args[i+1];
             i++;
           }
         } else {
@@ -40,16 +41,26 @@ async function parse_arguments(args: string[]): Promise<any> {
   return options;
 }
 
-async function create_module_options(module: string, options: QualwebOptions): Promise<any> {
-  console.log(module);
-  console.log(options);
+async function createModuleOptions(module: string, options: QualwebOptions): Promise<any> {
+  const mod = module.split('-')[0];
+  if (options[module] || options[`${mod}-principles`] || options[`${mod}-levels`]) {
+    const rulesTechniques = clone(options[module]);
+    const principles = clone(options[`${mod}-principles`]);
+    const levels = clone(options[`${mod}-levels`]);
+
+    options[module] = {
+      principles: principles ? principles.split(',') : undefined,
+      levels: levels ? levels.split(','): undefined
+    };
+    options[module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
+  }
 }
 
-function parse_option(option: string): string {
+function parseOption(option: string): string {
   return option.substring(1, option.length);
 }
 
 export {
-  parse_arguments,
-  create_module_options
+  parseArguments,
+  createModuleOptions
 };

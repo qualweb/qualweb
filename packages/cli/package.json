@@ -27,21 +27,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "0.0.3",
-    "ansi": "^0.3.1",
-    "commander": "^3.0.0",
+    "@qualweb/core": "0.0.5",
+    "commander": "^3.0.2",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@qualweb/types": "0.0.32",
+    "@qualweb/types": "0.0.25",
+    "@types/css": "0.0.31",
     "@types/fs-extra": "^8.0.0",
     "@types/htmlparser2": "^3.10.1",
-    "@types/lodash": "^4.14.136",
-    "@types/node": "^12.7.1",
+    "@types/lodash": "^4.14.141",
+    "@types/node": "^12.7.2",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "mocha": "^6.2.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
   }
 }

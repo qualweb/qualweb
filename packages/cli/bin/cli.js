@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const cli = require('../dist/index.js');
+const cli = require('../dist/index');
 
 (async () => {
   const args = Array.from(process.argv).slice(2);
