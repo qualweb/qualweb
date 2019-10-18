@@ -42,6 +42,7 @@ const rule: ACTRule = {
     related: ['H76', 'F40', 'F41'],
     url: 'https://act-rules.github.io/rules/bc659a',
     passed: 0,
+    warning: 0,
     failed: 0,
     inapplicable: 0,
     type: ['ACTRule', 'TestCase'],

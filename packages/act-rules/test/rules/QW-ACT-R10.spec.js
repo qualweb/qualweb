@@ -10,7 +10,7 @@ const { expect } = require('chai');
 describe('Rule QW-ACT-R10', function () {
 
   const tests = [
-    /*{
+    {
       url:'https://act-rules.github.io/testcases/4b1c6c/0d9ecd85172bbc610f6b3f6044ecc7abcf0dd4a9.html',
       outcome: 'passed'
     },
@@ -24,7 +24,7 @@ describe('Rule QW-ACT-R10', function () {
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/e05deb9fec0f9d9248cdd82f48a93444b5b01a6b.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/9b72ae9993b01aff166269587ddab682eda83968.html',
@@ -36,23 +36,23 @@ describe('Rule QW-ACT-R10', function () {
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/8d8853da7cc4c5edba3c7c01ca2902b6d63bb0e5.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/903659b4e50a42b17c6e31e10956fb500ab226a5.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/f219492e558617a2f90e9175241d0db999b409d6.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/85f3a632257d9636048a9cdc7b743b3f197b045f.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/43cbfc7d60b68f61f97603db6e9235a8ffa1a57a.html',
-      outcome: 'failed'
+      outcome: 'warning'
     },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/9e367d5040f04daf2a290dacd08ae064b0660a09.html',
@@ -89,7 +89,7 @@ describe('Rule QW-ACT-R10', function () {
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/b9a511b23e547d7a6e276b95ff42992dc31f23bb.html',
       outcome: 'inapplicable'
-    },*/
+    },
     {
       url:'https://act-rules.github.io/testcases/4b1c6c/b20b4c1fbf9161bf474d6425bf9296940db4310e.html',
       outcome: 'inapplicable'

@@ -32,6 +32,7 @@ const rule: ACTRule = {
     related: [],
     url: 'https://act-rules.github.io/rules/5b7ae0',
     passed: 0,
+    warning: 0,
     inapplicable: 0,
     failed: 0,
     type: ['ACTRule', 'TestCase'],

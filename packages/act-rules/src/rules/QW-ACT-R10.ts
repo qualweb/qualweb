@@ -37,6 +37,7 @@ const rule: ACTRule = {
         passed: 0,
         inapplicable: 0,
         failed: 0,
+        warning:0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
         outcome: '',
@@ -77,8 +78,6 @@ class QW_ACT_R10 extends Rule {
                 accessibleNames.push(AccessibilityTreeUtils.getAccessibleName(iframe, processedHTML,false));
             }
 
-            console.log(accessibleNames);
-
             let counter = 0;
             let hasEqualAn: number[];
             let blacklist: number[] = [];
@@ -90,7 +89,6 @@ class QW_ACT_R10 extends Rule {
                 else if (accessibleName && accessibleName.trim() !== "") {
                     hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
                     if (hasEqualAn.length > 0) {
-                        console.log(hasEqualAn);
                         blacklist.push(...hasEqualAn);
                         let result = true;
                         let resource = this.getAboluteUrl(iframes[counter].attribs["src"], baseUrl);
@@ -101,7 +99,6 @@ class QW_ACT_R10 extends Rule {
                             if (result && (resource !== src && await getContentHash(src) !== resourceHash)) {
                                 result = false;
                             }
-                            console.log(result);
                         }
                         if (result) {//passed
                             evaluation.verdict = 'passed';
@@ -109,7 +106,7 @@ class QW_ACT_R10 extends Rule {
                             evaluation.resultCode = 'RC2';
 
                         } else { //failed
-                            evaluation.verdict = 'failed';
+                            evaluation.verdict = 'warning';
                             evaluation.description = `Iframes with the same accessible name have different content`;
                             evaluation.resultCode = 'RC3';
 
