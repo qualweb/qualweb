@@ -35,6 +35,7 @@ const rule: ACTRule = {
     passed: 0,
     inapplicable: 0,
     failed: 0,
+    warning: 0,
     type: ['ACTRule', 'TestCase'],
     a11yReq: ['WCAG21:language'],
     outcome: '',
@@ -71,26 +72,21 @@ class QW_ACT_R9 extends Rule {
       let accessibleNames: string[] = [];
 
       for (let link of links) {
-
-        accessibleNames.push(AccessibilityTreeUtils.getAccessibleName(link, processedHTML,false));//trim
+        if(link.parent.name!== 'svg')
+          accessibleNames.push(AccessibilityTreeUtils.getAccessibleName(link, processedHTML,false));//trim
       }
 
       let counter = 0;
       let hasEqualAn: number[];
       let blacklist: number[] = [];
-      console.log(accessibleNames);
       for (let accessibleName of accessibleNames) {
         hasEqualAn = [];
-        console.log(accessibleName);
         if(blacklist.indexOf(counter) >= 0){
           //element already evaluated
         }
         else if (accessibleName && accessibleName !== "") {
           hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
-          console.log(hasEqualAn);
-          console.log("index" + counter);
           if (hasEqualAn.length > 0) {
-            console.log(hasEqualAn.length);
             blacklist.push(...hasEqualAn);
             let result = true;
             let resource = this.getAboluteUrl(this.getReferenceURl(links[counter]), baseUrl);
@@ -98,20 +94,18 @@ class QW_ACT_R9 extends Rule {
 
             for (let index of hasEqualAn) {
               let currentLinkUrl = this.getAboluteUrl(this.getReferenceURl(links[index]), baseUrl);
-              console.log(currentLinkUrl);
               if (result && (resource !== currentLinkUrl && await getContentHash(currentLinkUrl) !== resourceHash)) {
                 result = false;
               }
-              console.log(result);
             }
             if (result) {//passed
               evaluation.verdict = 'passed';
               evaluation.description = `Links with the same accessible name have equal content`;
               evaluation.resultCode = 'RC2';
 
-            } else { //failed
-              evaluation.verdict = 'failed';
-              evaluation.description = `Links with the same accessible name have different content`;
+            } else { //warning
+              evaluation.verdict = 'warning';
+              evaluation.description = `Links with the same accessible name have different content.Verify is the content is equivalent`;
               evaluation.resultCode = 'RC3';
 
             }
@@ -159,7 +153,6 @@ class QW_ACT_R9 extends Rule {
       return "";
     let hRef = element.attribs['href'];//fixme mudar para funcao do util
     let onClick = element.attribs['onclick'];//fixme mudar para funcao do util
-  //  console.log('onClick:'+onClick);
     let onkeypress = element.attribs['onkeypress'];//fixme mudar para funcao do util
     let result;
 
@@ -169,9 +162,10 @@ class QW_ACT_R9 extends Rule {
       let splittedValue = onClick.replace("'","").split("location=");
       result = splittedValue[1];
     }
-    else if (onkeypress)
-      result = onkeypress;
-//console.log("part of url"+result);
+    else if (onkeypress){
+      let splittedValue = onkeypress.replace("'","").split("location=");
+      result = splittedValue[1];
+    }
     return result;
   }
 
@@ -187,10 +181,8 @@ class QW_ACT_R9 extends Rule {
 
     return result;
   }
-  //https://act-rules.github.io/testcases/b20e66/6bcc6fc287d6294d5a2562c236c7a065f3bf6d70.html
+  
   private getAboluteUrl(relativeUrl: string, baseUrl: string) {
-    console.log("relative url"+relativeUrl);
-    console.log("base url"+baseUrl);
     let reg = new RegExp("^/");
     let result = relativeUrl;
     if (reg.test(relativeUrl)) {

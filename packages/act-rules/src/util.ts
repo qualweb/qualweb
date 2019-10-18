@@ -113,7 +113,6 @@ async function getContentHash(url: string) {
     return md5(content.replace(/\s|\r/g,""));
 }*/
 async function getContentHash(url: string) {
-    console.log("url:"+url);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url,{'waitUntil': 'networkidle0', timeout: 60000});
@@ -122,7 +121,6 @@ async function getContentHash(url: string) {
       });
 
     await browser.close();
-    console.log(content);
     return md5(content.replace(/\s|\r/g,""));
 }
 

@@ -28,6 +28,10 @@ abstract class Rule {
     return this.rule.metadata.passed;
   }
 
+  protected getNumberOfWarningResults(): number {
+    return this.rule.metadata.warning;
+  }
+
   protected getNumberOfFailedResults(): number {
     return this.rule.metadata.failed;
   }
@@ -50,6 +54,7 @@ abstract class Rule {
 
   reset(): void {
     this.rule.metadata.passed = 0;
+    this.rule.metadata.warning = 0;
     this.rule.metadata.failed = 0;
     this.rule.metadata.inapplicable = 0;
     this.rule.results = new Array<ACTRuleResult>();
@@ -58,6 +63,8 @@ abstract class Rule {
   private outcomeRule(): void {
     if (this.rule.metadata.failed > 0) {
       this.rule.metadata.outcome = 'failed';
+    } else if (this.rule.metadata.warning > 0) {
+      this.rule.metadata.outcome = 'warning';
     } else if (this.rule.metadata.passed > 0) {
       this.rule.metadata.outcome = 'passed';
     } else {
