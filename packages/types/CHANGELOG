@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.9] - 18/10/2019
+
+### Changed
+ - target options for html-techniques module
+ - target options for css-techniques module
+ - target options for act-rules module
+ - target options for best-practices module
+
 ## [0.1.8] - 17/10/2019
 
 ### Changed

@@ -11,7 +11,10 @@ declare module '@qualweb/css-techniques' {
 
   interface CSSTechniqueMetadata {
     target: {
+      'parent-sibling'?: string;
+      parent?: string | string[];
       element?: string | string[];
+      children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };

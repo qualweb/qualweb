@@ -4,8 +4,9 @@ declare module '@qualweb/best-practices' {
   interface BestPracticeMetadata {
     target: {
       'parent-sibling'?: string;
-      parent?: string;
+      parent?: string | string[];
       element?: string | string[];
+      children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };

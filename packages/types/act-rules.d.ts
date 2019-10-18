@@ -10,7 +10,10 @@ declare module '@qualweb/act-rules' {
 
   interface ACTRuleMetadata {
     target: {
+      'parent-sibling'?: string;
+      parent?: string | string[];
       element?: string | string[];
+      children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };

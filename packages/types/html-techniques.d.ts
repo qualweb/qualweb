@@ -10,8 +10,9 @@ declare module '@qualweb/html-techniques' {
   interface HTMLTechniqueMetadata {
     target: {
       'parent-sibling'?: string;
-      parent?: string;
+      parent?: string | string[];
       element?: string | string[];
+      children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };
