@@ -106,7 +106,7 @@ class QW_ACT_R13 extends Rule {
 }
 
 function isFocusableChildren(element: DomElement): boolean {
-  let result = false;
+  let result = isFocusableContent(element);
   if (element.children && element.children.length > 0) {
     for (let child of element.children) {
       if (isFocusableContent(child)) {
