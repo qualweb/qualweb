@@ -16,7 +16,7 @@ function isElementFocusableByDefault(element: DomElement): boolean {
       }
       break;
     case 'input':
-      return !!!(element.attribs && element.attribs['type'] !== 'hidden');
+      return !!!(element.attribs && element.attribs['type'] && element.attribs['type'] !== 'hidden');
     case 'summary':
       const parent = element.parent;
       return !!(parent && parent.name === 'details' && parent.children && parent.children[0] === element);
