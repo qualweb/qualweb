@@ -17,7 +17,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], rec
     let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
     let typesWithLabel = ["text", "password", "search", "tel", "email", "url"];
     let tabularElements = ["tr", "td", "th"];
-    let formElements = ["select", "option", "input", "datalist", "optgroup"];
+    let formElements = ["select", "option", "datalist", "optgroup"];
     // let isChildOfDetails = isElementChildOfDetails(element);
     // let isSummary = element.name === "summary";
     let type = element.type;
@@ -63,7 +63,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], rec
         AName = getFirstNotUndefined(value, getDefaultName(element), title);
     } else if (formElements.indexOf(name) >= 0 && !attrType) {
         AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title);
-    } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0)) {
+    } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0||!attrType)) {
         if (element.attribs) {
             placeholder = element.attribs["placeholder"];
         }
