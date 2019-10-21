@@ -72,7 +72,6 @@ class QW_ACT_R13 extends Rule {
     };
 
     if (element !== undefined) {
-      // todo deixar de verificar filhos se forem text, estah a dar bosta
       if (element.children && element.children.length > 0) {
         if (isFocusableChildren(element)) {
           evaluation.verdict = 'failed';
