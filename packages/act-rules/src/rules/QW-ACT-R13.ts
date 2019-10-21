@@ -5,7 +5,7 @@
  *
  * Notes:
  *
- * Last modified: 17/10/2019
+ * Last modified: 21/10/2019
  */
 
 'use strict';
@@ -95,7 +95,6 @@ class QW_ACT_R13 extends Rule {
         }
       }
     }
-    console.log(evaluation.description);
     if (element !== undefined) {
       evaluation.code = transform_element_into_html(element);
       evaluation.pointer = getElementSelector(element);
@@ -116,7 +115,6 @@ function isFocusableChildren(element: DomElement): boolean {
       }
     }
   }
-  console.log("result - " + result);
   return result;
 }
 
@@ -142,11 +140,6 @@ function isFocusableContent(element: DomElement): boolean {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
   }
-  console.log(element.name);
-  console.log(focusableByDefault + ", " + disabled + ", " + hidden + ", " + tabIndexLessThanZero);
-  console.log("tab - " + tabIndexExists);
-  console.log(!(disabled || hidden || (tabIndexExists && tabIndexLessThanZero)));
-  console.log(focusableByDefault ? (!(disabled || hidden || (tabIndexExists && tabIndexLessThanZero))) : (!tabIndexLessThanZero));
   if (focusableByDefault)
     return !(disabled || hidden || tabIndexLessThanZero);
   else
