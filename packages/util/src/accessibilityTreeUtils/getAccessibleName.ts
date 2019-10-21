@@ -13,7 +13,7 @@ import hasRolePresentationOrNone from './hasRolePresentationOrNone';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 
 
-function getAccessibleName(element: DomElement, processedHTML: DomElement[], recursion: boolean, isWidgete: boolean): string | undefined {
+function getAccessibleName(element: DomElement, processedHTML: DomElement[], recursion: boolean, isWidget: boolean): string | undefined {
     let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
     let typesWithLabel = ["text", "password", "search", "tel", "email", "url"];
     let tabularElements = ["tr", "td", "th"];
@@ -34,13 +34,13 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], rec
         role = element.attribs["role"];
         id = element.attribs["id"];
     }
-    let refrencedByAriaLabel = isElementReferencedByAriaLabel(id, processedHTML, element);
+    let referencedByAriaLabel = isElementReferencedByAriaLabel(id, processedHTML, element);
 
     if (isElementHidden(element) && !recursion) {
         //noAName
     } else if (type === "text") {
         AName = getTrimmedText(element);
-    } else if (ariaLabelBy && ariaLabelBy !== "" && !(refrencedByAriaLabel && recursion)) {
+    } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
         AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, processedHTML);
     } else if (ariaLabel && trim(ariaLabel) !== "") {
         AName = ariaLabel;
@@ -84,7 +84,7 @@ function getAccessibleName(element: DomElement, processedHTML: DomElement[], rec
         AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "caption", processedHTML), title);
     } else if (name === "fieldset") {
         AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "legend", processedHTML), title);
-    } else if (isWidgete && isRoleControl(element)) {
+    } else if (isWidget && isRoleControl(element)) {
         AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, processedHTML), title);
     } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
         AName = getFirstNotUndefined(getTextFromCss(element, processedHTML), title);
@@ -132,10 +132,10 @@ function getValueFromLabel(element: DomElement, id: string, processedHTML: DomEl
         refrencedByLabel.push(parent);
     }
     let result, accessNameFromLabel;
-    let isWidgete = isElementWidget(element);
+    let isWidget = isElementWidget(element);
 
     for (let label of refrencedByLabel) {
-        accessNameFromLabel = getAccessibleName(label, processedHTML, true, isWidgete);
+        accessNameFromLabel = getAccessibleName(label, processedHTML, true, isWidget);
         if (accessNameFromLabel) {
             if (result) {
                 result += accessNameFromLabel;
@@ -152,10 +152,10 @@ function getAccessibleNameFromAriaLabelledBy(element: DomElement, ariaLabelId: s
     let ListIdRefs = ariaLabelId.split(" ");
     let result: string | undefined;
     let accessNameFromId: string | undefined;
-    let isWidgete = isElementWidget(element);
+    let isWidget = isElementWidget(element);
 
     for (let id of ListIdRefs) {
-        accessNameFromId = getAccessibleName(getElementById(id, processedHTML)[0], processedHTML, true, isWidgete);
+        accessNameFromId = getAccessibleName(getElementById(id, processedHTML)[0], processedHTML, true, isWidget);
         if (accessNameFromId) {
             if (result) {
                 result += accessNameFromId;
@@ -184,12 +184,12 @@ function getTextFromCss(element: DomElement, processedHTML: DomElement[]): strin
 }
 
 function getAccessibleNameFromChildren(element: DomElement, processedHTML: DomElement[]): string {
-    let isWidgete = isElementWidget(element);
+    let isWidget = isElementWidget(element);
     let result, aName;
 
     if (element.children) {
         for (let child of element.children) {
-            aName = getAccessibleName(child, processedHTML, true, isWidgete);
+            aName = getAccessibleName(child, processedHTML, true, isWidget);
             if (aName) {
                 if (result) {
                     result += aName;
