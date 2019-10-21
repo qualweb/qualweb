@@ -1,10 +1,10 @@
 'use strict';
 
-import {DomElement} from 'htmlparser2';
+import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 import Rule from './Rule.object';
 
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import {
   getElementSelector,
@@ -54,49 +54,52 @@ class QW_ACT_R14 extends Rule {
       resultCode: ''
     };
 
-    if (element) {
-      if (element.attribs) {
-        if (element.attribs["name"] && _.toLower(element.attribs["name"]) === 'viewport') {
-          if (element.attribs["content"] !== undefined) {
-            let value: string[];
-            let maximumScale = '';
-            let userScalable = '';
-            let contentValues = _.split(element.attribs["content"], ",");
-            if (contentValues[0].length > 0) {
-              for (let valueItem of contentValues) {
-                value = _.split(_.trim(valueItem), "=");
-                if (value[0] === 'maximum-scale') {
-                  maximumScale = value[1];
-                } else if (value[0] === 'user-scalable') {
-                  userScalable = value[1];
-                }
+    if (element && element.attribs) {
+      if (element.attribs["name"] && _.toLower(element.attribs["name"]) === 'viewport') {
+        if (element.attribs["content"] !== undefined) {
+          let value: string[];
+          let maximumScale = '';
+          let userScalable = '';
+          let contentValues = _.split(element.attribs["content"], ",");
+          if (_.trim(contentValues[0]).length > 0) {
+            for (let valueItem of contentValues) {
+              value = _.split(_.trim(valueItem), "=");
+              if (value[0] === 'maximum-scale') {
+                maximumScale = value[1];
+              } else if (value[0] === 'user-scalable') {
+                userScalable = value[1];
               }
             }
-            if (!maximumScale && !userScalable) {
-              evaluation.verdict = 'passed';
-              evaluation.description = `The meta name="viewport" element does not define the maximum-scale and user-scalable values.`;
-              evaluation.resultCode = 'RC1';
-            } else if (userScalable === 'no' || maximumScale == 'yes' || parseFloat(maximumScale) < 2) {
-              evaluation.verdict = 'failed';
-              evaluation.description = `The meta name="viewport" element abolishes the user agent ability to zoom with user-scalable=no or maximum-scale < 2.`;
-              evaluation.resultCode = 'RC2';
-            } else {
-              evaluation.verdict = 'passed';
-              evaluation.description = `The meta name="viewport" element retains the user agent ability to zoom.`;
-              evaluation.resultCode = 'RC2';
-            }
-          } else {
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `The meta name="viewport" element does not have content attribute.`;
+          }
+          if (!maximumScale && !userScalable) {
+            evaluation.verdict = 'passed';
+            evaluation.description = `The meta name="viewport" element does not define the maximum-scale and user-scalable values.`;
+            evaluation.resultCode = 'RC1';
+          } else if (userScalable === 'no' || maximumScale == 'yes' || parseFloat(maximumScale) < 2) {
+            evaluation.verdict = 'failed';
+            evaluation.description = `The meta name="viewport" element abolishes the user agent ability to zoom with user-scalable=no or maximum-scale < 2.`;
             evaluation.resultCode = 'RC2';
+          } else {
+            evaluation.verdict = 'passed';
+            evaluation.description = `The meta name="viewport" element retains the user agent ability to zoom.`;
+            evaluation.resultCode = 'RC3';
           }
         } else {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `The meta name="viewport" element is not present within the page.`;
-          evaluation.resultCode = 'RC2';
+          evaluation.description = `The meta name="viewport" element does not have content attribute.`;
+          evaluation.resultCode = 'RC4';
         }
+      } else {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `The meta name="viewport" element is not present within the page.`;
+        evaluation.resultCode = 'RC5';
       }
+    } else {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The meta name="viewport" element is not present within the page.`;
+      evaluation.resultCode = 'RC6';
     }
+
 
     if (element) {
       evaluation.code = transform_element_into_html(element);
