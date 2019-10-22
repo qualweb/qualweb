@@ -6,6 +6,7 @@ import getAccessibleNameFunction from "./getAccessibleName";
 import getDefaultNameFunction from "./getDefaultName";
 import getLabelFunction from "./getLabel";
 import getTrimmedTextFunction from "./getTrimmedText";
+import isDataTableFunction from "./isDataTable";
 import isElementChildOfDetailsFunction from "./isElementChildOfDetails";
 import isElementControlFunction from "./isElementControl";
 import isElementWidgetFunction from "./isElementWidget";
@@ -20,6 +21,7 @@ namespace AccessibilityTreeUtils {
   export const getDefaultName = getDefaultNameFunction;
   export const getLabel = getLabelFunction;
   export const getTrimmedText = getTrimmedTextFunction;
+  export const isDataTable = isDataTableFunction;
   export const isElementChildOfDetails = isElementChildOfDetailsFunction;
   export const isElementControl = isElementControlFunction;
   export const isElementWidget = isElementWidgetFunction;
