@@ -6,14 +6,19 @@ import { DomElement } from 'htmlparser2';
 import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
+  //todo deixamos tudo isto em branco?
   name: 'Using table elements inside other table elements',
   code: 'QW-BP5',
+  mapping: '',
   description: 'It is not recommended to use table elements inside other table elements',
   metadata: {
     target: {
       element: 'table',
       parent: 'table'
     },
+    'success-criteria': [],
+    related: [],
+    url: '',
     passed: 0,
     warning: 0,
     failed: 0,
@@ -38,18 +43,17 @@ class QW_BP5 extends BestPractice {
       resultCode: ''
     };
 
-    if (!element) {
+    if (element === undefined) {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
-      evaluation.htmlCode = 'RC1';
+      evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'failed';
-      evaluation.description = 'It was found table elements inside other table elements';
-      evaluation.htmlCode = 'RC2';
+      evaluation.description = 'There are table elements inside other table elements';
+      evaluation.resultCode = 'RC2';
       evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
       evaluation.pointer = DomUtils.getElementSelector(element);
     }
-    
     super.addEvaluationResult(evaluation);
   }
 }
