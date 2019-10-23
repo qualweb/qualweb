@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
-    "@qualweb/get-dom-puppeteer": "0.0.5",
-    "@qualweb/types": "0.0.25",
+    "@qualweb/get-dom-puppeteer": "^0.1.1",
+    "@qualweb/types": "^0.1.7",
     "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.138",
@@ -39,9 +39,10 @@
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.4"
   },
   "dependencies": {
+    "@qualweb/util": "^0.1.2",
     "htmlparser-to-html": "0.0.6",
     "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",

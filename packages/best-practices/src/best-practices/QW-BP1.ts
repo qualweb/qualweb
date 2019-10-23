@@ -43,17 +43,20 @@ class QW_BP1 extends BestPractice {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
-      description: ''
+      description: '',
+      resultCode: ''
     };
 
     if (!element) {
       evaluation.verdict = 'failed';
       evaluation.description = `This page doesn't use headings`;
+      evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'warning';
       evaluation.description = 'Check that heading markup is used when content is a heading';
+      evaluation.resultCode = 'RC2';
 
-      evaluation.code = transform_element_into_html(element);
+      evaluation.htmlCode = transform_element_into_html(element);
       evaluation.pointer = getElementSelector(element);
     }
     
