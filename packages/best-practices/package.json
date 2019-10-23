@@ -7,7 +7,8 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha test/**/*",
-    "test-bp1": "mocha test/QW-BP1.spec.js",
+    "test-bp1": "mocha test/best-pratices/QW-BP1.spec.js",
+    "test-bp11": "mocha test/best-pratices/QW-BP11.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"

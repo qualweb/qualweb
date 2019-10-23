@@ -43,18 +43,20 @@ class QW_BP11 extends BestPractice {
     };
     let result = 0;
     let hasBr = false;
+    let type;
     for (let child of element.children) {
+      type = child.type;
       if (child && child.name === "br") {
         result++;
         hasBr = true;
-      } else {
+      } else if(type!=="text") {
         result = 0;
       }
     }
 
     if (result > 3) {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Br elements might be used as a list';
+      evaluation.verdict = 'failed';
+      evaluation.description = 'Br elements are being be used as a list';
       evaluation.resultCode = 'RC1';
     } else if (hasBr) {
       evaluation.verdict = 'passed';
