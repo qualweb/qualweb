@@ -1,10 +1,10 @@
 {
   "pre": {
-    "meta": ["QW-ACT-R4"],
-    "[id]": ["QW-ACT-R18"]
+    "meta": ["QW-ACT-R4"]
   },
   "post": {
     "title": ["QW-ACT-R1"],
-    "*": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5"]
+    "*": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5"],
+    "[id]": ["QW-ACT-R18"]
   }
 }

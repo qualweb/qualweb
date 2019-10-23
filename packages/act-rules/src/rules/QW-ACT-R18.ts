@@ -65,13 +65,13 @@ class QW_ACT_R18 extends Rule {
 
       let id = DomUtil.getElementAttribute(element, "id");
       let elementsWithSameId = stew.select(processedHTML, '[id="' + id + '"]');
-      //let genId = RegExp("qw-generated-id-");
+      let genId = RegExp("qw-generated-id-");
   
       if (elementsWithSameId.length > 1) {
         evaluation.verdict = 'failed';
         evaluation.description = "Several elements have identical id";
         evaluation.resultCode = 'RC2';
-      } else if (/*!genId.test(id)&&*/id!==undefined && id !== "") {
+      } else if (!genId.test(id)&&id!==undefined && id !== "") {
         evaluation.verdict = 'passed';
         evaluation.description = "This element has a unique id";
         evaluation.resultCode = 'RC3';
