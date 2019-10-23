@@ -4,6 +4,7 @@ import { DomElement } from 'htmlparser2';
 import html from 'htmlparser-to-html';
 import clone from 'lodash/clone';
 
+
 function getSelfLocationInParent(element: DomElement): string {
   let selector = '';
 

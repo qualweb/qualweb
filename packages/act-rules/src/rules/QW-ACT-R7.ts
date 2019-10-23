@@ -6,6 +6,7 @@ import * as Rematrix from 'rematrix';
 
 import Rule from './Rule.object';
 
+
 const rule: ACTRule = {
   name: 'Orientation of the page is not restricted using CSS transform property',
   code: 'QW-ACT-R7',
