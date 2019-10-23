@@ -42,9 +42,9 @@ class QW_BP2 extends BestPractice {
       resultCode: ''
     };
 
-    const altValue = DomUtils.getElementAttribute(element, 'alt');
+    const altValue = DomUtils.getElementAttribute(element, 'alt');   
 
-    if (!altValue) {
+    if (!altValue||altValue==="") {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The img alt text attribute is empty';
       evaluation.resultCode = 'RC1';
@@ -57,7 +57,7 @@ class QW_BP2 extends BestPractice {
       evaluation.description = 'The img alt text attribute has less than 100 characters';
       evaluation.resultCode = 'RC3';
     }
-
+    
     evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
     evaluation.pointer = DomUtils.getElementSelector(element);
     
