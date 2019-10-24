@@ -7,9 +7,9 @@ import { DomUtils } from '@qualweb/util';
 const stew = new(require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
-  name: 'Table element without headers has a caption',
+  name: 'Table element without header cells has a caption',
   code: 'QW-BP9',
-  description: 'At least one table without header elements has a caption element',
+  description: 'A table without th elements should have a caption element to describe it.',
   metadata: {
     target: {
       element: 'table'
@@ -49,16 +49,16 @@ class QW_BP9 extends BestPractice {
 
       if (caption.length !== 0) {
         evaluation.verdict = 'passed';
-        evaluation.description = `Table has no headers but has a caption`;
+        evaluation.description = `Table doesn't have header cells but has a caption`;
         evaluation.resultCode = 'RC1';
       } else {
         evaluation.verdict = 'failed';
-        evaluation.description = `Table has no headers and has no caption`;
+        evaluation.description = `Table doesn't have header cells or caption`;
         evaluation.resultCode = 'RC2';
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `Table has headers`;
+      evaluation.description = `Table has header cells`;
       evaluation.resultCode = 'RC3';
     }
     
