@@ -130,8 +130,6 @@ function isFocusableContent(element: DomElement): boolean {
 
   if (element.attribs) {
     disabled = element.attribs['disabled'] !== undefined;
-    //todo perguntar ao stor se basta por css ou por todos
-    //se for por todos, verificar se aria-hidden=true à parte
     hidden = DomUtil.isElementHiddenByCSS(element);
     focusableByDefault = DomUtil.isElementFocusableByDefault(element);
     let tabindex = element.attribs['tabindex'];
