@@ -2,6 +2,50 @@ const { executeBestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const { getDom } = require('@qualweb/get-dom-puppeteer');
 
-describe('Best practice QW-BP4', function () {
-  //TODO: best practice QW-BP4 unit tests
+describe('Best Practice QW-BP4', function () {
+  const tests = [
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/warning.html',
+      outcome: 'warning'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/warning2.html',
+      outcome: 'warning'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed2.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed3.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/inapplicable.html',
+      outcome: 'inapplicable'
+    }
+  ];
+
+  let i = 0;
+  let lastOutcome = 'warning';
+  for (const test of tests || []) {
+    if (test.outcome !== lastOutcome) {
+      lastOutcome = test.outcome;
+      i = 0;
+    }
+    i++;
+    describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
+      it(`should have outcome="${test.outcome}"`, async function () {
+        this.timeout(10 * 1000);
+        const { source, processed } = await getDom(test.url);
+
+        const report = await executeBestPractices(source.html.parsed, processed.html.parsed);
+        expect(report['best-practices']['QW-BP4'].metadata.outcome).to.be.equal(test.outcome);
+      });
+    });
+  }
 });

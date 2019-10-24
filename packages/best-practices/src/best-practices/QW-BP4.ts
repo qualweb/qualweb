@@ -8,7 +8,7 @@ import { DomUtils } from '@qualweb/util';
 const bestPractice: BestPracticeType = {
   name: 'Grouped links not within a nav element',
   code: 'QW-BP4',
-  mapping: 'H42',
+  mapping: '',
   description: 'Set of 10 or more links not grouped within a list (nav)',
   metadata: {
     target: {
@@ -49,6 +49,7 @@ class QW_BP4 extends BestPractice {
       if (nextSibling.type === 'tag' && nextSibling.name === 'a') {
         aCount++;
       }
+      nextSibling = nextSibling.next;
     }
 
     if (aCount >= 10) {
@@ -63,7 +64,7 @@ class QW_BP4 extends BestPractice {
 
     evaluation.htmlCode = DomUtils.transformElementIntoHtml(element.parent);
     evaluation.pointer = DomUtils.getElementSelector(element.parent);
-    
+
     super.addEvaluationResult(evaluation);
   }
 }
