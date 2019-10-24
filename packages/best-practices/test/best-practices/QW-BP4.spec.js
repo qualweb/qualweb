@@ -9,10 +9,6 @@ describe('Best Practice QW-BP4', function () {
       outcome: 'warning'
     },
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/warning2.html',
-      outcome: 'warning'
-    },
-    {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed.html',
       outcome: 'failed'
     },
@@ -22,6 +18,10 @@ describe('Best Practice QW-BP4', function () {
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed3.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed4.html',
       outcome: 'failed'
     },
     {
