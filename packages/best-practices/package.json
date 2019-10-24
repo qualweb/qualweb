@@ -7,7 +7,8 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha test/**/*",
-    "test-bp1": "mocha test/QW-BP1.spec.js",
+    "test-bp1": "mocha test/best-practices/QW-BP1.spec.js",
+    "test-bp8": "mocha test/best-practices/QW-BP8.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/types": "^0.1.9",
+    "@qualweb/util": "^0.1.5",
     "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.138",
