@@ -6,12 +6,12 @@ import { DomElement } from 'htmlparser2';
 import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
-  name: 'HTML elements used to control visual presentation of content',
+  name: 'HTML elements are used to control visual presentation of content',
   code: 'QW-BP10',
-  description: 'No HTML elements used to control the visual presentation of content',
+  description: 'No HTML elements are used to control the visual presentation of content',
   metadata: {
     target: {
-      element: ['b', 'blink', 'basefont', 'strike', 'vlink', 'link', 'center', 'font', 'i', 's', 'strike', 'u']
+      element: ['b', 'blink', 'blockquote', 'basefont', 'center', 'cite', 'em', 'font', 'i', 'link', 'mark', 'strong', 's', 'strike', 'u', 'vlink']
     },
     passed: 0,
     warning: 0,
@@ -37,7 +37,7 @@ class QW_BP10 extends BestPractice {
       resultCode: ''
     };
 
-    if (!element) {
+    if (element === undefined) {
       evaluation.verdict = 'passed';
       evaluation.description = `The webpage doesn't use elements to control the visual content presentation`;
       evaluation.resultCode = 'RC1';
@@ -46,6 +46,7 @@ class QW_BP10 extends BestPractice {
       evaluation.description = `The webpage uses the element ${element.name} to control the visual content presentation`;
       evaluation.resultCode = 'RC2';
 
+      evaluation.attributes = element.name;
       evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
       evaluation.pointer = DomUtils.getElementSelector(element);
     }

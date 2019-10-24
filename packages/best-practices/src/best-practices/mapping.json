@@ -1,4 +1,4 @@
 {
   "h1, h2, h3, h4, h5, h6": ["QW-BP1"],
-  "b, blink, basefont, strike, vlink, link, center, font, i, s, strike, u": ["QW-BP10"]
+  "b, blink, blockquote, basefont, center, cite, em, font, i, link, mark, strong, s, strike, u, vlink": ["QW-BP10"]
 }
