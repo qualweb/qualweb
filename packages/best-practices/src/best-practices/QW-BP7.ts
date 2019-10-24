@@ -42,13 +42,18 @@ class QW_BP7 extends BestPractice {
     };
 
     const titleValue = DomUtils.getText(element);
+    let regExConsecutiveSymbols = "[\\.\\,\\-\\;\\!\\? ][\\.\\,\\-\\;\\!\\? ]";
+    let regExAllowedSymbols = "^[a-zA-Z0-9\\.\\,\\-\\;\\!\\? ]*$";
+    let regExEllipsis = "\\.\\.\\.";
 
     if (/^[\x00-\x7F]*$/.test(titleValue)) {
       evaluation.verdict = 'passed';
       evaluation.description = `The title element doesn't contain ASCII art`;
+      evaluation.resultCode = `RC1`;
     } else {
       evaluation.verdict = 'failed';
       evaluation.description = `The title element contains ASCII art`;
+      evaluation.resultCode = `RC2`;
     }
 
     evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
