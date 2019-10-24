@@ -5,17 +5,41 @@ const { getDom } = require('@qualweb/get-dom-puppeteer');
 describe('Best Practice QW-BP8', function () {
   const tests = [
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/warning1.html',
-      outcome: 'warning'
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithText.html',
+      outcome: 'inapplicable'
     },
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/failed1.html',
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithoutText.html',
+      outcome: 'inapplicable'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithText.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAltWithText.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAlt.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAlts.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAltAndNoAlt.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html',
       outcome: 'failed'
     }
   ];
 
   let i = 0;
-  let lastOutcome = 'warning';
+  let lastOutcome = 'inapplicable';
   for (const test of tests || []) {
     if (test.outcome !== lastOutcome) {
       lastOutcome = test.outcome;

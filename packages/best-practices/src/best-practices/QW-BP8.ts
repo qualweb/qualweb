@@ -2,15 +2,15 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement, DomUtils } from 'htmlparser2';
-import { DomUtils as QWDomUtils } from '@qualweb/util';
+import { DomElement } from 'htmlparser2';
+import { DomUtils as QWDomUtils, AccessibilityTreeUtils } from '@qualweb/util';
 const stew = new(require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
-  name: 'Images as content only inside headers',
-  code: 'QW-BP1',
-  mapping: 'H42',
-  description: 'Header with an image without an alt text attribute as the only content',
+  name: 'Headings with images should have an accessible name',
+  code: 'QW-BP10',
+  mapping: '',
+  description: 'Headings with at least one image should have an accessible name',
   metadata: {
     target: {
       element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
@@ -48,34 +48,18 @@ class QW_BP8 extends BestPractice {
 
     if (images.length === 0) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `This header doesn't have images`;
+      evaluation.description = `This heading doesn't have images`;
       evaluation.resultCode = 'RC1';
     } else {
-      const headerText = DomUtils.getText(element);
-
-      if (headerText.trim() !== '') {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This header has an image, but also a text to describe it`;
-        evaluation.resultCode = 'RC2';
+      let aName = AccessibilityTreeUtils.getAccessibleName(element);
+      if(aName !== '' && aName !== undefined){
+        evaluation.verdict = 'passed';
+        evaluation.description = `This heading with at least one image has an accessible name`;
+        evaluation.resultCode = 'RC3';
       } else {
-        let hasAltTextValue = false;
-        for (const img of images || []) {
-          const altText = QWDomUtils.getElementAttribute(img, 'alt');
-          if (altText.trim() !== '') {
-            hasAltTextValue = true;
-            break;
-          }
-        }
-
-        if (hasAltTextValue) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `This header has only an image, and the image has an alt text to describe it`;
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = `This header has only an image, and the image doesn't have an alt text to describe it`;
-          evaluation.resultCode = 'RC4';
-        }
+        evaluation.verdict = 'failed';
+        evaluation.description = `This heading with at least one image does not have an accessible name`;
+        evaluation.resultCode = 'RC4';
       }
     }
     
