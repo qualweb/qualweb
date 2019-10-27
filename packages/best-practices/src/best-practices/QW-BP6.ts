@@ -8,15 +8,12 @@ import { DomUtils as QWDomUtils } from '@qualweb/util';
 const bestPractice: BestPracticeType = {
   name: 'title element is not too long (64 characters)',
   code: 'QW-BP6',
-  mapping: '',
   description: 'The webpage title element shouldn\'t have more than 64 characters',
   metadata: {
     target: {
       element: 'title'
     },
-    'success-criteria': [],
     related: [],
-    url: '',
     passed: 0,
     warning: 0,
     failed: 0,
@@ -45,10 +42,9 @@ class QW_BP6 extends BestPractice {
       resultCode: ''
     };
 
-    //todo eh suposto mesmo ser trimmed? os espaços nao contam?
     const titleValue = DomUtils.getText(element);
 
-    if (titleValue.trim().length > 64) {
+    if (titleValue.length > 64) {
       evaluation.verdict = 'failed';
       evaluation.description = `The page title has more than 64 characters`;
       evaluation.resultCode = 'RC1';
