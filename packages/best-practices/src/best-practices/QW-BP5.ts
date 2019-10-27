@@ -6,19 +6,15 @@ import { DomElement } from 'htmlparser2';
 import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
-  //todo deixamos tudo isto em branco?
   name: 'Using table elements inside other table elements',
   code: 'QW-BP5',
-  mapping: '',
   description: 'It is not recommended to use table elements inside other table elements',
   metadata: {
     target: {
       element: 'table',
       parent: 'table'
     },
-    'success-criteria': [],
     related: [],
-    url: '',
     passed: 0,
     warning: 0,
     failed: 0,
