@@ -83,9 +83,9 @@ describe('Rule QW-ACT-R6', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { source, processed } = await getDom(test.url);
+        const { source, processed , stylesheets} = await getDom(test.url);
         configure({ rules: ['QW-ACT-R6'] });
-        const report = await executeACTR(source.html.parsed, processed.html.parsed);
+        const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);
         expect(report.rules['QW-ACT-R6'].metadata.outcome).to.be.equal(test.outcome);
       });
     });

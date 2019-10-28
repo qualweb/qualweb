@@ -6,6 +6,7 @@ import clone from 'lodash/clone';
 import md5 from 'md5';
 const puppeteer = require('puppeteer');
 
+
 function getSelfLocationInParent(element: DomElement): string {
     let selector = '';
 

@@ -12,6 +12,7 @@
     "button, input[type=\"submit\"], input[type=\"reset\"], input[type=\"button\"], summary, [role=\"button\"]": ["QW-ACT-R11"],
     "a[href], area[href], [role=\"link\"]": ["QW-ACT-R12"],
     "[aria-hidden=\"true\"]": ["QW-ACT-R13"],
-    "meta[name]": ["QW-ACT-R14"]
+    "meta[name]": ["QW-ACT-R14"],
+    "[id]": ["QW-ACT-R18"]
   }
 }
