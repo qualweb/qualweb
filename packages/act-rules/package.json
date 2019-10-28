@@ -6,6 +6,7 @@
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "test": "mocha test/**/*",
+    "tsc": "tsc",
     "test-r1": "mocha test/rules/QW-ACT-R1.spec.js",
     "test-r2": "mocha test/rules/QW-ACT-R2.spec.js",
     "test-r3": "mocha test/rules/QW-ACT-R3.spec.js",
@@ -16,7 +17,7 @@
     "test-r8": "mocha test/rules/QW-ACT-R8.spec.js",
     "test-r9": "mocha test/rules/QW-ACT-R9.spec.js",
     "test-r10": "mocha test/rules/QW-ACT-R10.spec.js",
-    "tsc": "tsc",
+    "test-r11": "mocha test/rules/QW-ACT-R11.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"

@@ -8,7 +8,7 @@ import QW_ACT_R7 from './rules/QW-ACT-R7';
 import QW_ACT_R8 from './rules/QW-ACT-R8';
 import QW_ACT_R9 from './rules/QW-ACT-R9';
 import QW_ACT_R10 from './rules/QW-ACT-R10';
-
+import QW_ACT_R11 from './rules/QW-ACT-R11';
 
 const rules = {
   'QW-ACT-R1': new QW_ACT_R1(),
@@ -21,7 +21,7 @@ const rules = {
   'QW-ACT-R8': new QW_ACT_R8(),
   'QW-ACT-R9': new QW_ACT_R9(),
   'QW-ACT-R10': new QW_ACT_R10(),
-
+  'QW-ACT-R11': new QW_ACT_R11()
 };
 
 const rulesToExecute = {
@@ -34,7 +34,8 @@ const rulesToExecute = {
   'QW-ACT-R7': true,
   'QW-ACT-R8': true,
   'QW-ACT-R9': true,
-  'QW-ACT-R10': true
+  'QW-ACT-R10': true,
+  'QW-ACT-R11': true
 };
 
 export {
