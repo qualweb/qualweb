@@ -13,7 +13,27 @@ describe('Best Practice QW-BP7', function () {
       outcome: 'passed'
     },
     {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed3.html',
+      outcome: 'passed'
+    },
+    {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed2.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed3.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed4.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed5.html',
       outcome: 'failed'
     }
   ];

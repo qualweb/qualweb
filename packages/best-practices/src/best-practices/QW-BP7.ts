@@ -1,9 +1,9 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import {BestPractice as BestPracticeType, BestPracticeResult} from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement, DomUtils } from 'htmlparser2';
-import { DomUtils as QWDomUtils } from '@qualweb/util';
+import {DomElement, DomUtils} from 'htmlparser2';
+import {DomUtils as QWDomUtils} from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
   name: 'Title element contains ASCII-art',
@@ -13,6 +13,7 @@ const bestPractice: BestPracticeType = {
     target: {
       element: 'title'
     },
+    related: [],
     passed: 0,
     warning: 0,
     failed: 0,
@@ -42,23 +43,29 @@ class QW_BP7 extends BestPractice {
     };
 
     const titleValue = DomUtils.getText(element);
-    let regExConsecutiveSymbols = "[\\.\\,\\-\\;\\!\\? ][\\.\\,\\-\\;\\!\\? ]";
-    let regExAllowedSymbols = "^[a-zA-Z0-9\\.\\,\\-\\;\\!\\? ]*$";
-    let regExEllipsis = "\\.\\.\\.";
+    let regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
+    let regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;!?\' ]*$');
+    let regExConsecutiveDots = new RegExp('^[^.]*(\\.{2}(\\.{2,})?)[^.]*$');
+    let regExConsecutiveSpaces = new RegExp('[ ][ ]');
 
-    if (/^[\x00-\x7F]*$/.test(titleValue)) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The title element doesn't contain ASCII art`;
+    if (!regExAllowedSymbols.test(titleValue)) {
+      evaluation.verdict = 'failed';
+      evaluation.description = `The title element contains other symbols than .,;-!?`;
       evaluation.resultCode = `RC1`;
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The title element contains ASCII art`;
-      evaluation.resultCode = `RC2`;
+      if (regExConsecutiveDots.test(titleValue) || regExConsecutiveSymbols.test(titleValue) || regExConsecutiveSpaces.test(titleValue)) {
+        evaluation.verdict = 'failed';
+        evaluation.description = `The title element contains ASCII art`;
+        evaluation.resultCode = `RC2`;
+      } else {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The title element doesn't contain ASCII art`;
+        evaluation.resultCode = `RC3`;
+      }
     }
-
     evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
     evaluation.pointer = QWDomUtils.getElementSelector(element);
-    
+
     super.addEvaluationResult(evaluation);
   }
 }
