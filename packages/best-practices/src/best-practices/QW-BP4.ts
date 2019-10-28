@@ -8,7 +8,6 @@ import { DomUtils } from '@qualweb/util';
 const bestPractice: BestPracticeType = {
   name: 'Grouped links not within a nav element',
   code: 'QW-BP4',
-  mapping: '',
   description: 'Set of 10 or more links not grouped within a list (nav)',
   metadata: {
     target: {
