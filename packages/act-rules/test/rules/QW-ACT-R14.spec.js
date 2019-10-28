@@ -9,9 +9,9 @@ const {
 const {expect} = require('chai');
 const request = require('request-promise');
 
-describe('Rule QW-ACT-R7', async function () {
+describe('Rule QW-ACT-R14', async function () {
 
-  const ruleId = 'b33eff';
+  const ruleId = 'b4f0c3';
   let testCases = [];
 
   it("", async function () {
@@ -30,10 +30,10 @@ describe('Rule QW-ACT-R7', async function () {
           this.timeout(10 * 1000);
           const {source, processed, stylesheets} = await getDom(test.url);
           configure({
-            rules: ['QW-ACT-R7']
+            rules: ['QW-ACT-R14']
           });
           const report = await executeACTR(test.url, source.html.parsed, processed.html.parsed, stylesheets);
-          expect(report.rules['QW-ACT-R7'].metadata.outcome).to.be.equal(test.expected);
+          expect(report.rules['QW-ACT-R14'].metadata.outcome).to.be.equal(test.expected);
         });
       });
     }
