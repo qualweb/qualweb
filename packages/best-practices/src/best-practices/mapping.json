@@ -3,5 +3,6 @@
   "img[alt]": ["QW-BP2"],
   "a[title]": ["QW-BP3"],
   "* > a:first-child": ["QW-BP4"],
-  "table > table": ["QW-BP5"]
+  "table > table": ["QW-BP5"],
+  "title": ["QW-BP6"]
 }
