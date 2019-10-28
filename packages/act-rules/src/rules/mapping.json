@@ -6,6 +6,7 @@
     "title": ["QW-ACT-R1"],
     "input[type=\"image\"]": ["QW-ACT-R6"],
     "img[src], input[type=\"image\"][src]": ["QW-ACT-R8"],
-    "html": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5","QW-ACT-R9"]
+    "html": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5","QW-ACT-R9"],
+    "body": ["QW-ACT-R10"]
   }
 }

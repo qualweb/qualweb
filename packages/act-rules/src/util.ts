@@ -3,10 +3,8 @@
 import { DomElement } from 'htmlparser2';
 import html from 'htmlparser-to-html';
 import clone from 'lodash/clone';
-//import request from 'request-promise';
 import md5 from 'md5';
 const puppeteer = require('puppeteer');
-
 
 function getSelfLocationInParent(element: DomElement): string {
     let selector = '';
@@ -115,7 +113,7 @@ async function getContentHash(url: string) {
 async function getContentHash(url: string) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(url,{'waitUntil': 'networkidle0', timeout: 60000});
+    await page.goto(url,{'waitUntil': 'networkidle0', timeout: 6000});
     let content = await page.evaluate(() => {
         return document.documentElement.innerHTML;
       });
