@@ -13,6 +13,7 @@ const bestPractice: BestPracticeType = {
     target: {
       element: ['b', 'blink', 'blockquote', 'basefont', 'center', 'cite', 'em', 'font', 'i', 'link', 'mark', 'strong', 's', 'strike', 'u', 'vlink']
     },
+    related: [],
     passed: 0,
     warning: 0,
     failed: 0,
