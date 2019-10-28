@@ -14,6 +14,7 @@
     "test-bp5": "mocha test/best-practices/QW-BP5.spec.js",
     "test-bp6": "mocha test/best-practices/QW-BP6.spec.js",
     "test-bp7": "mocha test/best-practices/QW-BP7.spec.js",
+    "test-bp8": "mocha test/best-practices/QW-BP8.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
