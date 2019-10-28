@@ -30,6 +30,7 @@ async function executeBestPractices(dom: DomElement[]): Promise<BestPracticesRep
 
   for (const selector of Object.keys(mapping) || []) {
     for (const bestPractice of mapping[selector] || []) {
+      console.log(selector);
       let elements = stew.select(dom, selector);
       
       if (elements.length > 0) {
