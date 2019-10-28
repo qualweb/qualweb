@@ -14,6 +14,7 @@ const bestPractice: BestPracticeType = {
     target: {
       element: 'table'
     },
+    related: [],
     passed: 0,
     warning: 0,
     failed: 0,
