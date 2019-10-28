@@ -8,6 +8,7 @@
     "img[src], input[type=\"image\"][src]": ["QW-ACT-R8"],
     "html": ["QW-ACT-R2", "QW-ACT-R3", "QW-ACT-R5","QW-ACT-R9"],
     "body": ["QW-ACT-R10"],
-    "button, input[type=\"submit\"], input[type=\"reset\"], input[type=\"button\"], summary, [role=\"button\"]": ["QW-ACT-R11"]
+    "button, input[type=\"submit\"], input[type=\"reset\"], input[type=\"button\"], summary, [role=\"button\"]": ["QW-ACT-R11"],
+    "a[href], area[href], [role=\"link\"]": ["QW-ACT-R12"]
   }
 }

@@ -18,6 +18,7 @@
     "test-r9": "mocha test/rules/QW-ACT-R9.spec.js",
     "test-r10": "mocha test/rules/QW-ACT-R10.spec.js",
     "test-r11": "mocha test/rules/QW-ACT-R11.spec.js",
+    "test-r12": "mocha test/rules/QW-ACT-R12.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
