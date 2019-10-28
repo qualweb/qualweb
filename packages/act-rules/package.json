@@ -12,7 +12,12 @@
     "test-r3": "mocha test/rules/QW-ACT-R3.spec.js",
     "test-r4": "mocha test/rules/QW-ACT-R4.spec.js",
     "test-r5": "mocha test/rules/QW-ACT-R5.spec.js",
+<<<<<<< HEAD
     "test-r7": "mocha test/rules/QW-ACT-R7.spec.js",
+=======
+    "test-r6": "mocha test/rules/QW-ACT-R6.spec.js",
+    "tsc": "tsc",
+>>>>>>> feature/59796f-QW-ACT-R6
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
@@ -34,6 +39,7 @@
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/types": "^0.1.8",
+    "@qualweb/util": "^0.1.2",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.11",
