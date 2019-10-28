@@ -9,6 +9,7 @@ import QW_BP6 from './best-practices/QW-BP6';
 import QW_BP7 from './best-practices/QW-BP7';
 import QW_BP8 from './best-practices/QW-BP8';
 import QW_BP9 from './best-practices/QW-BP9';
+import QW_BP10 from './best-practices/QW-BP10';
 
 const bestPractices = {
   'QW-BP1': new QW_BP1(),
@@ -20,6 +21,7 @@ const bestPractices = {
   'QW-BP7': new QW_BP7(),
   'QW-BP8': new QW_BP8(),
   'QW-BP9': new QW_BP9(),
+  'QW-BP10': new QW_BP10(),
 };
 
 export {
