@@ -52,6 +52,7 @@ const rule: ACTRule = {
     url: 'https://act-rules.github.io/rules/59796f',
     passed: 0,
     inapplicable: 0,
+    warning: 0,
     failed: 0,
     type: ['ACTRule', 'TestCase'],
     a11yReq: ['WCAG21:language'],
