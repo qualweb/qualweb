@@ -40,7 +40,7 @@ class QW_BP3 extends BestPractice {
   }
 
   async execute(element: DomElement | undefined): Promise < void > {
-
+    
     if (!element) {
       return;
     }
@@ -62,7 +62,7 @@ class QW_BP3 extends BestPractice {
       evaluation.description = 'Link text content and title attribute value are not the same';
       evaluation.resultCode = 'RC2';
     }
-
+    console.log(evaluation);
     evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
     evaluation.pointer = QWDomUtils.getElementSelector(element);
 

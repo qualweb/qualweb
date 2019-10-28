@@ -1,11 +1,11 @@
 {
  "img[alt]": ["QW-BP2"],
   "a[title]": ["QW-BP3"],
-  "* > a:first-child": ["QW-BP4"],
+  "table": ["QW-BP9"],
   "table > table": ["QW-BP5"],
   "title": ["QW-BP6","QW-BP7"],
   "h1, h2, h3, h4, h5, h6": ["QW-BP1", "QW-BP8"],
-  "table": ["QW-BP9"],
   "b, blink, blockquote, basefont, center, cite, em, font, i, link, mark, strong, s, strike, u, vlink": ["QW-BP10"],
-  "*": ["QW-BP11"]
+  "*": ["QW-BP11"],
+  "a:first-child": ["QW-BP4"]
 }

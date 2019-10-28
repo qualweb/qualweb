@@ -32,7 +32,7 @@ class QW_BP4 extends BestPractice {
 
   async execute(element: DomElement | undefined): Promise<void> {
 
-    if (!element || DomUtils.elementHasParent(element, 'nav')) {
+    if (!element ||!element.parent || DomUtils.elementHasParent(element, 'nav')) {
       return;
     }
 
