@@ -39,7 +39,7 @@ class QW_BP5 extends BestPractice {
       resultCode: ''
     };
 
-    if (element === undefined) {
+    if (element === undefined||!element.parent||element.parent.name!=="table") {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
       evaluation.resultCode = 'RC1';
