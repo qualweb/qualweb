@@ -1,5 +1,6 @@
 {
   "h1, h2, h3, h4, h5, h6": ["QW-BP1"],
   "img[alt]": ["QW-BP2"],
-  "a[title]": ["QW-BP3"]
+  "a[title]": ["QW-BP3"],
+  "* > a:first-child": ["QW-BP4"]
 }
