@@ -13,6 +13,7 @@
     "test-bp4": "mocha test/best-practices/QW-BP4.spec.js",
     "test-bp5": "mocha test/best-practices/QW-BP5.spec.js",
     "test-bp6": "mocha test/best-practices/QW-BP6.spec.js",
+    "test-bp7": "mocha test/best-practices/QW-BP7.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
@@ -36,8 +37,8 @@
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
-    "@qualweb/types": "^0.1.7",
-    "@qualweb/util": "^0.1.5",
+    "@qualweb/util": "^0.1.6",
+    "@qualweb/types": "^0.1.9",
     "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.144",
