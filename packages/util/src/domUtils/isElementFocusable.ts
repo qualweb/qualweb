@@ -2,7 +2,7 @@
 
 import { DomElement } from 'htmlparser2';
 import isElementFocusableByDefault from './isElementFocusableByDefault';
-import isElementHidden from './isElementHidden';
+import isElementHiddenByCSSRecursive from './isElementHiddenByCSSRecursive';
 
 function isElementFocusable(element: DomElement): boolean {
   let disabled = false;
@@ -17,8 +17,8 @@ function isElementFocusable(element: DomElement): boolean {
 
   if (element.attribs) {
     disabled = element.attribs['disabled'] !== undefined;
-    hidden = DomUtil.isElementHiddenByCSS(element);
-    focusableByDefault = DomUtil.isElementFocusableByDefault(element);
+    hidden = isElementHiddenByCSSRecursive(element);
+    focusableByDefault = isElementFocusableByDefault(element);
     let tabindex = element.attribs['tabindex'];
     if (tabindex && !isNaN(parseInt(tabindex, 10))) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
