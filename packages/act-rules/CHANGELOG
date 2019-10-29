@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.5] - 29/10/2019
+
+### Fixed
+ - missing package @qualweb/util
+
 ## [0.1.4] - 29/10/2019
 
 ### Added
