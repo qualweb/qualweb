@@ -63,7 +63,7 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
   }
 
   if (execute.bp) {
-    const bestPractices = await executeBestPractices(dom.source.html.parsed, dom.processed.html.parsed);
+    const bestPractices = await executeBestPractices(dom.processed.html.parsed);
     evaluation.addModuleEvaluation('best-practices', bestPractices);
   }
 
