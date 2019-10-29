@@ -11,9 +11,11 @@
 
 import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
+const stew = new(require('stew-select')).Stew();
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
+
 
 import {
   getElementSelector,
@@ -60,14 +62,16 @@ class QW_ACT_R2 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (element === undefined) { // if the element doesn't exist, there's nothing to test
+    const mathElement = stew.select(processedHTML, 'math');
+
+    if (element === undefined || mathElement.length > 0) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There is no <html> element`;
       evaluation.resultCode = 'RC1';
@@ -75,7 +79,7 @@ class QW_ACT_R2 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs && element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '') { // passed
+    } else if (element.attribs && element.attribs['lang'] !== undefined && element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '') { // passed
       evaluation.verdict = 'passed';
       evaluation.description = `The xml:lang attribute has a value`;
       evaluation.resultCode = 'RC3';
