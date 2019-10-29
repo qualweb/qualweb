@@ -1,8 +1,18 @@
 # Changelog
 
+
+### Updated
+ - Added AName for SVG elements
+
+## [0.1.8] - 29/10/2019
+
+### Updated
+ - Accessibility tree utility functions
+
 ## [0.1.7] - 29/10/2019
 
-# Changelog
+### Updated
+ - Accessibility tree utility functions
 
 ## [0.1.6] - 26/10/2019
 

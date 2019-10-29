@@ -1,0 +1,24 @@
+'use strict';
+
+const puppeteer = require('puppeteer');
+
+async function getAcessibleNameSVG(url: string, selector: string) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url, { 'waitUntil': 'networkidle0', timeout: 60000 });
+  const hrefElement = await page.$(selector);
+
+  let options = {
+    root:hrefElement
+  }
+
+  const snapshot = await page.accessibility.snapshot(options);
+  let result;
+
+  if (snapshot && snapshot.name)
+      result = snapshot.name;
+
+  return result;
+}
+
+export = getAcessibleNameSVG;

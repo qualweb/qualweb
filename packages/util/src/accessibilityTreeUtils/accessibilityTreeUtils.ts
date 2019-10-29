@@ -4,6 +4,7 @@ import allowsNameFromContentFunction from "./allowsNameFromContent";
 import elementHasRoleNoneOrPresentationFunction from "./elementHasRoleNoneOrPresentation";
 import getAccessibleNameFunction from "./getAccessibleName";
 import getDefaultNameFunction from "./getDefaultName";
+import getAcessibleNameSVGFunction from "./getAcessibleNameSVG";
 import getLabelFunction from "./getLabel";
 import getTrimmedTextFunction from "./getTrimmedText";
 import isDataTableFunction from "./isDataTable";
@@ -19,6 +20,7 @@ namespace AccessibilityTreeUtils {
   export const elementHasRoleNoneOrPresentation = elementHasRoleNoneOrPresentationFunction;
   export const getAccessibleName = getAccessibleNameFunction;
   export const getDefaultName = getDefaultNameFunction;
+  export const getAcessibleNameSVG = getAcessibleNameSVGFunction;
   export const getLabel = getLabelFunction;
   export const getTrimmedText = getTrimmedTextFunction;
   export const isDataTable = isDataTableFunction;
