@@ -11,8 +11,7 @@ import mapping from './best-practices/mapping.json';
 
 import { bestPractices } from './best-practices';
 
-async function executeBestPractices(dom: DomElement[]): Promise<BestPracticesReport> {
-
+async function executeBestPractices(dom: DomElement[],url:string): Promise<BestPracticesReport> {
   if (!dom) {
     throw new Error(`Invalid dom`);
   }
@@ -34,7 +33,7 @@ async function executeBestPractices(dom: DomElement[]): Promise<BestPracticesRep
       
       if (elements.length > 0) {
         for (const elem of elements || []) {
-          await bestPractices[bestPractice].execute(elem, dom);
+          await bestPractices[bestPractice].execute(elem, dom,url);
         }
       } else {
         await bestPractices[bestPractice].execute(undefined, dom);
