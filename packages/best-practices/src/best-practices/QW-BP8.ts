@@ -8,14 +8,14 @@ const stew = new(require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
   name: 'Headings with images should have an accessible name',
-  code: 'QW-BP10',
+  code: 'QW-BP8',
   description: 'Headings with at least one image should have an accessible name',
   metadata: {
     target: {
       element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       children: 'img'
     },
-    related: [],
+    related: ['G130'],
     passed: 0,
     warning: 0,
     failed: 0,
