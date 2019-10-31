@@ -16,14 +16,13 @@ function isDataTable(element: DomElement, processedHTML: DomElement[]): boolean 
     let thElem = stew.select(element, 'th');
     let tdHeaders = stew.select(element, 'td[scope]');
     let tdWithHeaders = stew.select(element, 'td[headers]');
-    let idElem = stew.select(element, '[id]');
-    let notPresentation, describedBy;
+    let presentation, describedBy;
     if (element["attribs"]) {
-      notPresentation = element.attribs["role"] === undefined || element.attribs["role"] !== "presentation";
+      presentation = element.attribs["role"] === "presentation";
       describedBy = Boolean(element["attribs"]["aria-describedby"]);
     }
 
-    return (!!accessibleName || thElem.length > 0 || tdHeaders.length > 0 || tdWithHeaders.length > 0 || idElem.length > 0 || notPresentation || describedBy);
+    return presentation ? false : (!!accessibleName || thElem.length > 0 || tdHeaders.length > 0 || tdWithHeaders.length > 0 || describedBy);
 }
 
 export = isDataTable;
