@@ -1,21 +1,33 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import {DomElement} from 'htmlparser2';
 import isElementFocusableByDefault from './isElementFocusableByDefault';
-import isElementHidden from './isElementHidden';
+import isElementHiddenByCSS from './isElementHiddenByCSS';
 
 function isElementFocusable(element: DomElement): boolean {
-  if (!element) {
-    throw Error('Element is not defined');
+  let disabled = false;
+  let hidden = false;
+  let focusableByDefault = false;
+  let tabIndexLessThanZero = false;
+  let tabIndexExists = false;
+
+  if (element.attribs) {
+    tabIndexExists = element.attribs['tabindex'] !== undefined;
   }
 
-  if (element.attribs && (element.attribs['disabled'] !== undefined || isElementHidden(element))) {
-    return false;
-  } else if (isElementFocusableByDefault(element)) {
-    return true;
+  if (element.attribs) {
+    disabled = element.attribs['disabled'] !== undefined;
+    hidden = isElementHiddenByCSS(element);
+    focusableByDefault = isElementFocusableByDefault(element);
+    let tabindex = element.attribs['tabindex'];
+    if (tabindex && !isNaN(parseInt(tabindex, 10))) {
+      tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
+    }
   }
-  const tabIndex = element.attribs ? element.attribs['tabindex'] : undefined;
-  return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
+  if (focusableByDefault)
+    return !(disabled || hidden || tabIndexLessThanZero);
+  else
+    return tabIndexExists ? !tabIndexLessThanZero : false;
 }
 
 export = isElementFocusable;

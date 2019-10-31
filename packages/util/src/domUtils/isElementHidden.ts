@@ -1,16 +1,16 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import isElementHiddenByCSS from './isElementHiddenByCSS';
+import {DomElement} from 'htmlparser2';
+import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
 
 function isElementHidden(element: DomElement): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }
-  
+
   const ariaHidden = element.attribs ? element.attribs['aria-hidden'] === 'true' : false;
   const hidden = element.attribs ? element.attribs['hidden'] !== undefined : false;
-  const cssHidden = isElementHiddenByCSS(element);
+  const cssHidden = isElementHiddenByCSSAux(element);
   const parent = element.parent;
   let parentHidden = false;
 

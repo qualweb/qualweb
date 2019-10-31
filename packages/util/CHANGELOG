@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.1.9] - 31/10/2019
+
+### Updated
+ - Data Table Verification
+
+## [0.1.8] - 29/10/2019
+
+### Updated
+ - Added Accessible Name Calculation for SVG elements
+
+## [0.1.7] - 29/10/2019
+
+### Updated
+ - Accessibility tree utility functions
+
+## [0.1.6] - 26/10/2019
+
+### Updated
+ - Accessibility tree utility functions
+
+## [0.1.5] - 22/10/2019
+
+### Updated
+ - Accessibility tree utility functions
+
+## [0.1.4] - 22/10/2019
+
+### Updated
+ - Accessibility tree utility functions
+
 ## [0.1.3] - 17/10/2019
 
 ### Updated
