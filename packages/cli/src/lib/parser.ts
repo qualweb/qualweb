@@ -1,6 +1,5 @@
 'use strict';
 
-import { QualwebOptions } from '@qualweb/core';
 import clone from 'lodash/clone';
 
 async function parseArguments(args: string[]): Promise<any> {
@@ -41,7 +40,7 @@ async function parseArguments(args: string[]): Promise<any> {
   return options;
 }
 
-async function createModuleOptions(module: string, options: QualwebOptions): Promise<any> {
+async function createModuleOptions(module: string, options: any): Promise<any> {
   const mod = module.split('-')[0];
   if (options[module] || options[`${mod}-principles`] || options[`${mod}-levels`]) {
     const rulesTechniques = clone(options[module]);
