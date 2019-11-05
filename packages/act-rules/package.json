@@ -44,7 +44,7 @@
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/types": "^0.1.9",
-    "@qualweb/util": "^0.1.9",
+    "@qualweb/util": "^0.1.10",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.11",

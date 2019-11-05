@@ -74,12 +74,12 @@ class QW_ACT_R16 extends Rule {
           } else {
             evaluation.verdict = 'failed';
             evaluation.description = `This form field element has an empty or undefined accessible name`;
-            evaluation.resultCode = 'RC3';
+            evaluation.resultCode = 'RC2';
           }
         } else {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `This form field element has an not-empty accessible name but is hidden`;
-          evaluation.resultCode = 'RC2';
+          evaluation.resultCode = 'RC3';
         }
       } else {
         evaluation.verdict = 'inapplicable';
