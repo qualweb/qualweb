@@ -62,7 +62,9 @@ class QW_ACT_R16 extends Rule {
     let accessibleName;
 
     if (element === undefined) {
-      // if the element doesn't exist, there's nothing to test
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `There are no input, select, textarea or elements with role attribute in this web page.`;
+      evaluation.resultCode = 'RC1';
     } else {
       if ((element.attribs && !element.attribs["role"]) || (element.attribs && element.attribs["role"] && semanticRoles.includes(trim(element.attribs["role"])))) {
         if (!DomUtils.isElementHidden(element)) {
@@ -70,21 +72,21 @@ class QW_ACT_R16 extends Rule {
           if (accessibleName !== undefined && trim(accessibleName) !== '') {
             evaluation.verdict = 'passed';
             evaluation.description = `This form field element has an not-empty accessible name`;
-            evaluation.resultCode = 'RC1';
+            evaluation.resultCode = 'RC2';
           } else {
             evaluation.verdict = 'failed';
             evaluation.description = `This form field element has an empty or undefined accessible name`;
-            evaluation.resultCode = 'RC2';
+            evaluation.resultCode = 'RC3';
           }
         } else {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `This form field element has an not-empty accessible name but is hidden`;
-          evaluation.resultCode = 'RC3';
+          evaluation.resultCode = 'RC4';
         }
       } else {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `Role has explicitly been set to something that isn't a form field`;
-        evaluation.resultCode = 'RC4';
+        evaluation.resultCode = 'RC5';
       }
     }
 
