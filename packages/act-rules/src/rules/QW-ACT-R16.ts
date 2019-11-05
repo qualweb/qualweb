@@ -89,7 +89,6 @@ class QW_ACT_R16 extends Rule {
     }
 
     if (element !== undefined) {
-      console.log(evaluation.resultCode);
       evaluation.code = transform_element_into_html(element);
       evaluation.pointer = getElementSelector(element);
     }
