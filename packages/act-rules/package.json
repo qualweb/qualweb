@@ -43,6 +43,7 @@
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/types": "^0.1.9",
+    "@qualweb/util": "^0.1.9",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.11",
@@ -54,7 +55,6 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "@qualweb/util": "^0.1.6",
     "follow-redirects": "^1.9.0",
     "html-validator": "^4.1.1",
     "htmlparser-to-html": "0.0.6",
