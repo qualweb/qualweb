@@ -71,7 +71,11 @@ function getAccessibleNameRecursion(element: DomElement, processedHTML: DomEleme
     if (element.attribs) {
       placeholder = element.attribs["placeholder"];
     }
-    AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title, placeholder);
+     if (!recursion) {
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title, placeholder);
+    } else {
+      AName = getFirstNotUndefined(title, placeholder);
+    }
   } else if (name === "textarea") {
     if (element.attribs) {
 
