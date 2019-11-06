@@ -6,6 +6,6 @@
   "h1, h2, h3, h4, h5, h6": ["QW-BP1", "QW-BP8"],
   "b, blink, blockquote, basefont, center, cite, em, font, i, link, mark, strong, s, strike, u, vlink": ["QW-BP10"],
   "*": ["QW-BP11"],
-  "* > a": ["QW-BP13"],
+  "a > img": ["QW-BP13"],
   "a:first-child": ["QW-BP4"]
 }

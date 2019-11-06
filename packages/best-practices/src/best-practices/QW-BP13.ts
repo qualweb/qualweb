@@ -5,7 +5,6 @@ import { DomElement } from 'htmlparser2';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
-const stew = new (require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
   name: 'Using consecutive links with the same href and one contains an image',
@@ -32,63 +31,48 @@ class QW_BP13 extends BestPractice {
   }
 
   async execute(element: DomElement | undefined): Promise<void> {
+    console.log("teste");
 
-    if (!element || !element.children) {
+    if (!element || !element.parent) {
       return;
     }
 
-    let list: DomElement[] = [];
-    let consecutive = 0;
-    let href;
-    for (let child of element.children) {
-      if (child && child.name === "a" && consecutive > 0 && (DomUtils.getElementAttribute(child, "href") === href)) {
-        list.push(child);
-        consecutive++;
-      }
-      if (child && child.name === "a") {
-        href = DomUtils.getElementAttribute(child, "href");
-        if (href) {
-          list.push(child);
-          consecutive++;
-        }
-      } else if (consecutive >= 2) {
-        this.doEvaluation(list);
-        consecutive = 0;
-        list = [];
-      } else {
-        consecutive = 0;
-        list = [];
-      }
-    }
-
-
-  }
-
-  private doEvaluation(list: DomElement[]) {
+    let aWithImg: DomElement | undefined = element.parent;
+    let href = DomUtils.getElementAttribute(aWithImg, "href");
+    console.log(href);
+    console.log(DomUtils.getElementAttribute(aWithImg.next, "href"));
+    console.log(DomUtils.getElementAttribute(aWithImg.prev, "href"));
+    console.log(aWithImg.prev)
+    console.log(aWithImg.next)
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    let result = list.length;
-    let img = [];
-    for (let child of list) {
-      if (img.length === 0)
-        img = stew.select(child, "img");
-    }
-    if (result > 2 && img.length > 0) {
+
+    if (aWithImg && aWithImg.next && (DomUtils.getElementAttribute(aWithImg.next, "href") === href)) {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are consecutive links with the same href in which one of the links contained an image';
       evaluation.resultCode = 'RC1';
+
+    } else if (aWithImg && aWithImg.prev && (DomUtils.getElementAttribute(aWithImg.prev, "href") === href)) {
+      evaluation.verdict = 'failed';
+      evaluation.description = 'There are consecutive links with the same href in which one of the links contained an image';
+      evaluation.resultCode = 'RC1';
+
     } else {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are no consecutive links with the same href in which one of the links contained an image';
       evaluation.resultCode = 'RC2';
+
     }
 
+    console.log(evaluation.resultCode);
 
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(list[0]);
-    evaluation.pointer = DomUtils.getElementSelector(list[0]);
+    if (aWithImg) {
+      evaluation.htmlCode = DomUtils.transformElementIntoHtml(aWithImg.parent);
+      evaluation.pointer = DomUtils.getElementSelector(aWithImg.parent);
+    }
 
     super.addEvaluationResult(evaluation);
 
