@@ -31,7 +31,6 @@ class QW_BP13 extends BestPractice {
   }
 
   async execute(element: DomElement | undefined): Promise<void> {
-    console.log("teste");
 
     if (!element || !element.parent) {
       return;
@@ -39,11 +38,6 @@ class QW_BP13 extends BestPractice {
 
     let aWithImg: DomElement | undefined = element.parent;
     let href = DomUtils.getElementAttribute(aWithImg, "href");
-    console.log(href);
-    console.log(DomUtils.getElementAttribute(aWithImg.next, "href"));
-    console.log(DomUtils.getElementAttribute(aWithImg.prev, "href"));
-    console.log(aWithImg.prev)
-    console.log(aWithImg.next)
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
@@ -66,8 +60,6 @@ class QW_BP13 extends BestPractice {
       evaluation.resultCode = 'RC2';
 
     }
-
-    console.log(evaluation.resultCode);
 
     if (aWithImg) {
       evaluation.htmlCode = DomUtils.transformElementIntoHtml(aWithImg.parent);
