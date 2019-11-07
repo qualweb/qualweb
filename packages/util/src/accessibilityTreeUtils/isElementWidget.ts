@@ -4,7 +4,7 @@ import {DomElement} from "htmlparser2";
 
 function isElementWidget(element: DomElement): boolean {
 
-  let widgetElements = ['a', 'button', 'hr', 'input', 'meter', 'output', 'progress', 'select', 'td', 'textarea', 'menuitem', 'listitem', 'option'];
+  let widgetElements = ['a', 'button', 'input', 'meter', 'output', 'progress', 'select', 'td', 'textarea', 'li', 'option'];
   let widgetRoles = ["button", "checkbox", "gridcell", "link", "menuitem", "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "scrollbar", "searchbox", "separator", "slider", "spinbutton", "switch", "tab", "tabpanel", "textbox", "treeitem"];
 
   if (element.attribs === undefined)
