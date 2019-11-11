@@ -12,6 +12,7 @@
     "a[href], area[href], [role=\"link\"]": ["QW-ACT-R12"],
     "[aria-hidden=\"true\"]": ["QW-ACT-R13"],
     "meta[name]": ["QW-ACT-R14"],
-    "[id]": ["QW-ACT-R18"]
+    "[id]": ["QW-ACT-R18"],
+    "svg": ["QW-ACT-R21"]
   }
 }
