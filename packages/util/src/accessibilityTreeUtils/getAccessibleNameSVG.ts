@@ -17,6 +17,8 @@ async function getAccessibleNameSVG(url: string, selector: string) {
 
   if (snapshot && snapshot.name)
     result = snapshot.name;
+  
+  browser.close();
 
   return result;
 }
