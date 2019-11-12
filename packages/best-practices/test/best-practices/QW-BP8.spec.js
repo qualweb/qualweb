@@ -35,6 +35,14 @@ describe('Best Practice QW-BP8', function () {
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html',
       outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithAccessibleName.html',
+      outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithoutAccessibleName.html',
+      outcome: 'failed'
     }
   ];
 
@@ -50,8 +58,7 @@ describe('Best Practice QW-BP8', function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
         const { source, processed } = await getDom(test.url);
-
-        const report = await executeBestPractices(source.html.parsed, processed.html.parsed);
+        const report = await executeBestPractices( processed.html.parsed,test.url);
         expect(report['best-practices']['QW-BP8'].metadata.outcome).to.be.equal(test.outcome);
       });
     });

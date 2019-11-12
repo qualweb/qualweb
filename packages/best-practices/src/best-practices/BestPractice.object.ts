@@ -34,7 +34,7 @@ abstract class BestPractice {
     this.bestPractice.metadata[result.verdict]++;
   }
 
-  public abstract async execute(element: DomElement | undefined, dom: DomElement[]): Promise<void>;
+  public abstract async execute(element: DomElement | undefined, dom: DomElement[],url?:string): Promise<void>;
 
   public getFinalResults() {
     this.outcomeBestPractice();

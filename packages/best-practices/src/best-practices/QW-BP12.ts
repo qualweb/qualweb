@@ -48,11 +48,11 @@ class QW_BP12 extends BestPractice {
     if (rows.length > 0) {
       firstRowChildren = rows[0].children;
 
-      let i,scope;
+      let i, scope;
       let scopeCole = true;
 
       for (i = 1; i < firstRowChildren.length; i++) {
-        if (firstRowChildren[i].name === "td" || firstRowChildren[i].name === "th"&&scopeCole) {
+        if (firstRowChildren[i].name === "td" || firstRowChildren[i].name === "th" && scopeCole) {
           scope = DomUtils.getElementAttribute(firstRowChildren[i], "scope");
           scopeCole = scope === "col"
         }
@@ -61,11 +61,13 @@ class QW_BP12 extends BestPractice {
       let row;
 
       for (i = 1; i < rows.length; i++) {
-        if (rows[i].children.length > 0&&scopeRow) {
+        if (rows[i].children.length > 0 && scopeRow) {
           row = rows[i];
           let cells = stew.select(row, "td");
-          scope = DomUtils.getElementAttribute(cells[0], "scope");
-          scopeRow = scope === "row";
+          if (cells.length > 0) {
+            scope = DomUtils.getElementAttribute(cells[0], "scope");
+            scopeRow = scope === "row";
+          }
         }
       }
 
