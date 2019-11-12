@@ -13,6 +13,7 @@ import QW_ACT_R12 from './rules/QW-ACT-R12';
 import QW_ACT_R13 from './rules/QW-ACT-R13';
 import QW_ACT_R14 from './rules/QW-ACT-R14';
 import QW_ACT_R18 from './rules/QW-ACT-R18';
+import QW_ACT_R22 from './rules/QW-ACT-R22';
 
 const rules = {
   'QW-ACT-R1': new QW_ACT_R1(),
@@ -29,7 +30,8 @@ const rules = {
   'QW-ACT-R12': new QW_ACT_R12(),
   'QW-ACT-R13': new QW_ACT_R13(),
   'QW-ACT-R14': new QW_ACT_R14(),
-  'QW-ACT-R18': new QW_ACT_R18()
+  'QW-ACT-R18': new QW_ACT_R18(),
+  'QW-ACT-R22': new QW_ACT_R22(),
 };
 
 const rulesToExecute = {
@@ -47,7 +49,8 @@ const rulesToExecute = {
   'QW-ACT-R12': true,
   'QW-ACT-R13': true,
   'QW-ACT-R14': true,
-  'QW-ACT-R18': true
+  'QW-ACT-R18': true,
+  'QW-ACT-R22': true
 };
 
 export {
