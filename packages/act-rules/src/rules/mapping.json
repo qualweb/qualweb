@@ -13,6 +13,7 @@
     "[aria-hidden=\"true\"]": ["QW-ACT-R13"],
     "meta[name]": ["QW-ACT-R14"],
     "[id]": ["QW-ACT-R18"],
-    "svg": ["QW-ACT-R21"]
+    "svg": ["QW-ACT-R21"],
+    "body [lang]": ["QW-ACT-R22"]
   }
 }
