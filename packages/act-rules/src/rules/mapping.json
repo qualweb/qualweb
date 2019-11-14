@@ -15,6 +15,7 @@
     "[id]": ["QW-ACT-R18"],
     "svg": ["QW-ACT-R21"],
     "body [lang]": ["QW-ACT-R22"],
-    "input, select, textarea, [role]": ["QW-ACT-R16"]
+    "input, select, textarea, [role]": ["QW-ACT-R16"],
+    "[role]": ["QW-ACT-R20"]
   }
 }

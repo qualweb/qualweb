@@ -297,12 +297,14 @@ describe('Rule QW-ACT-R4', function () {
       i++;
       describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
         it(`should have outcome="${test.expected}"`, async function () {
-          this.timeout(10 * 10000);
+          this.timeout(500 * 10000);
+          console.log(test.url);
           const {
             source,
             processed,
             stylesheets
           } = await getDom(test.url);
+
           configure({
             rules: ['QW-ACT-R4']
           });

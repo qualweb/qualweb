@@ -85,14 +85,6 @@ describe('Rule QW-ACT-R9', function () {
     {
       url:'https://act-rules.github.io/testcases/b20e66/7f72b0d0296a28a282502899f325830ca8487833.html',
       outcome: 'inapplicable'
-    },
-    {
-      url:'https://act-rules.github.io/testcases/b20e66/bcf462011b40e3472e9c5c1804a407c5895331dd.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url:'https://act-rules.github.io/testcases/b20e66/dd2c660e8b2c4d5af852805708703691e1887b30.html',
-      outcome: 'inapplicable'
     }
   ];
 
@@ -107,6 +99,7 @@ describe('Rule QW-ACT-R9', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(100 * 1000);
+        console.log(test.url);
         const { source, processed, stylesheets } = await getDom(test.url);
         configure({ rules: ['QW-ACT-R9'] });
         const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);

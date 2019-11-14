@@ -62,11 +62,8 @@ class QW_ACT_R18 extends Rule {
       evaluation.description = "No elements with lang";
       evaluation.resultCode = 'RC1';
     } else {
-      console.log(element.type);
       let lang = DomUtil.getElementAttribute(element, "lang").split("-");
-      console.log(lang);
       let subtag = lang[0];
-      console.log(subtag);
 
       if (trim(subtag)==="") {
         evaluation.verdict = 'inapplicable';
