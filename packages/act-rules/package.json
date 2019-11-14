@@ -21,6 +21,7 @@
     "test-r12": "mocha test/rules/QW-ACT-R12.spec.js",
     "test-r13": "mocha test/rules/QW-ACT-R13.spec.js",
     "test-r14": "mocha test/rules/QW-ACT-R14.spec.js",
+    "test-r16": "mocha test/rules/QW-ACT-R16.spec.js",
     "test-r18": "mocha test/rules/QW-ACT-R18.spec.js",
     "test-r21": "mocha test/rules/QW-ACT-R21.spec.js",
     "test-r22": "mocha test/rules/QW-ACT-R22.spec.js",
@@ -45,7 +46,7 @@
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
     "@qualweb/types": "^0.1.9",
-    "@qualweb/util": "^0.1.9",
+    "@qualweb/util": "^0.1.10",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.11",

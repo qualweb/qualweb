@@ -14,6 +14,7 @@
     "meta[name]": ["QW-ACT-R14"],
     "[id]": ["QW-ACT-R18"],
     "svg": ["QW-ACT-R21"],
-    "body [lang]": ["QW-ACT-R22"]
+    "body [lang]": ["QW-ACT-R22"],
+    "input, select, textarea, [role]": ["QW-ACT-R16"]
   }
 }
