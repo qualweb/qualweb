@@ -114,7 +114,7 @@ async function getContentHash(url: string) {
 async function getContentHash(url: string) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(url,{'waitUntil': 'networkidle0', timeout: 6000});
+    await page.goto(url,{'waitUntil': 'networkidle2', timeout: 20000});
     let content = await page.evaluate(() => {
         return document.documentElement.innerHTML;
       });
