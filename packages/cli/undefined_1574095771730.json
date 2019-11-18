@@ -1,0 +1,43 @@
+{
+  "context": "https://act-rules.github.io/earl-context.json",
+  "graph": [
+    {
+      "@type": "TestSubject",
+      "source": "https://www.accessibility.nl/wai-tools/validation-test-sites/cimot-melden/",
+      "assertor": {
+        "@id": "QualWeb",
+        "@type": "Software",
+        "title": "QualWeb",
+        "description": "QualWeb is an automatic accessibility evaluator for webpages.",
+        "hasVersion": "3.0.0",
+        "homepage": "http://www.qualweb.di.fc.ul.pt/"
+      },
+      "assertions": [
+        {
+          "@type": "Assertion",
+          "test": {
+            "@id": "https://act-rules.github.io/rules/9eb3f6",
+            "@type": "TestCase",
+            "title": "Image filename is accessible name for image",
+            "description": "This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user."
+          },
+          "mode": "earl:automatic",
+          "result": {
+            "@type": "TestResult",
+            "outcome": "earl:inapplicable",
+            "source": [
+              {
+                "result": {
+                  "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > img:nth-of-type(1)",
+                  "outcome": "earl:inapplicable"
+                }
+              }
+            ],
+            "description": "This element's accessible name is not equivalent to the file name specified in the src attribute.",
+            "date": "2019-11-18 16:49:31"
+          }
+        }
+      ]
+    }
+  ]
+}

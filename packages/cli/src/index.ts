@@ -15,7 +15,7 @@ async function cli(args: string[]): Promise<void> {
     createModuleOptions('html-techniques', options);
     createModuleOptions('css-techniques', options);
 
-    if (Object.keys(options).length > 1) {
+    if (Object.keys(options).length >= 1) {
       if (options.u) {
         options.url = options.u;
         delete options.u;
