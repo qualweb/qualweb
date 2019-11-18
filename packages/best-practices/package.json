@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "QualWeb best practices",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -44,7 +44,6 @@
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
     "@qualweb/get-dom-puppeteer": "^0.1.1",
-    "@qualweb/util": "^0.1.6",
     "@qualweb/types": "^0.1.5",
     "@types/css": "0.0.31",
     "@types/htmlparser2": "^3.10.1",
@@ -56,6 +55,7 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "@qualweb/util": "^0.1.11",
     "htmlparser-to-html": "0.0.6",
     "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",
