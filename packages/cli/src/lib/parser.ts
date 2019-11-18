@@ -51,7 +51,7 @@ async function createModuleOptions(module: string, options: any): Promise<any> {
       principles: principles ? principles.split(',') : undefined,
       levels: levels ? levels.split(','): undefined
     };
-    options[module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
+    options[module][module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
   }
 }
 

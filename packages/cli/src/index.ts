@@ -10,6 +10,7 @@ async function cli(args: string[]): Promise<void> {
   try {
     const options = await parseArguments(args);
 
+
     createModuleOptions('act-rules', options);
     createModuleOptions('html-techniques', options);
     createModuleOptions('css-techniques', options);
@@ -28,6 +29,7 @@ async function cli(args: string[]): Promise<void> {
     }
 
     if (options.m) {
+      options.execute=[];
       if (options.m.includes(',')) {
         const modules = options.m.split(',');
         for (const mod of modules || []) {
@@ -55,6 +57,7 @@ async function cli(args: string[]): Promise<void> {
           earlOptions.modules.css = !!options.execute.css;
           earlOptions.modules['best-practices'] = !!options.execute.bp;
         }
+
         const earlReports = await generateEarlReport(earlOptions);
         await saveReport('aggregated_' + options.crawl ? options.crawl : earlReports[0].graph[0].source, earlReports[0]);
       } else {
