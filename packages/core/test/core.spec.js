@@ -18,3 +18,14 @@ describe('Core', function() {
     expect(earlReports[0].graph.length).to.be.greaterThan(0);
   });
 });
+
+const URL = 'https://ciencias.ulisboa.pt';
+
+describe('Testing plain html', function() {
+  it.only('should run', async function() {
+    this.timeout(1000 * 1000);
+    const report = await core.evaluate({ url: URL });
+    console.warn(report.system.dom.processed.html.plain);
+    expect(report.system.dom.processed.html.plain).to.not.be.undefined;
+  });
+});
