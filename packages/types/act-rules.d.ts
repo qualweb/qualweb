@@ -40,7 +40,7 @@ declare module '@qualweb/act-rules' {
     description: string | '';
     resultCode: string | '';
     pointer?: string;
-    code?: string;
+    htmlCode?: string;
     attributes?: string | string[];
   }
 
