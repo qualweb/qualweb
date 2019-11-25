@@ -1,7 +1,7 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
-import Rule from './Rule.object';
+import { DomElement } from 'htmlparser2';
+import Rule from './Rule2.object';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
@@ -54,7 +54,7 @@ class QW_ACT_R4 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: DomElement | undefined): Promise<void> {
   
     if (!element) { // if the element doesn't exist, there's nothing to test
       return;
@@ -66,25 +66,26 @@ class QW_ACT_R4 extends Rule {
       resultCode: ''
     };
 
-    const content = await DomUtils.getElementAttribute(element, 'content');
+    const content = DomUtils.getElementAttribute2(element, 'content');
+    const httpEquiv = DomUtils.getElementAttribute2(element, 'http-equiv');
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Already exists one valid or invalid <meta> above';
       evaluation.resultCode = 'RC1';
-    } else if (element.attribs === undefined) { // not applicable
+    } else if (!element.attribs) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attributes "content" and "http-equiv"';
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs.content === undefined) { // not applicable
+    } else if (content === null) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attribute "content"';
       evaluation.resultCode = 'RC3';
-    } else if (element.attribs['http-equiv'] === undefined) { // not applicable
+    } else if (httpEquiv === null) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attribute "http-equiv"';
       evaluation.resultCode = 'RC4';
-    } else if (element.attribs.content === '') { // not applicable
+    } else if (content.trim() === '') { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Attribute "content" is empty';
       evaluation.resultCode = 'RC5';
@@ -92,7 +93,7 @@ class QW_ACT_R4 extends Rule {
       const indexOf = content.indexOf(';');
 
       if (indexOf === -1) { // if is a refresh
-        if (this.checkIfIsNumber(content) && _.isInteger(parseInt(content, 0))) {
+        if (this.checkIfIsNumber(content) && Number.isInteger(parseInt(content, 0))) {
           const n = Number(content);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
@@ -127,7 +128,7 @@ class QW_ACT_R4 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = '"Content" attribute is invalid';
           evaluation.resultCode = 'RC10';
-        } else if (this.checkIfIsNumber(split[0]) && _.isInteger(parseInt(split[0], 0))) {
+        } else if (this.checkIfIsNumber(split[0]) && Number.isInteger(parseInt(split[0], 0))) {
           const n = Number(split[0]);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
@@ -176,8 +177,8 @@ class QW_ACT_R4 extends Rule {
       }
     }
 
-    evaluation.code = await DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
+    //evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    //evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }

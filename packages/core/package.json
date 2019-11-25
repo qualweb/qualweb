@@ -32,9 +32,13 @@
     "@qualweb/get-dom-puppeteer": "^0.1.2",
     "@qualweb/html-techniques": "^0.1.1",
     "@qualweb/wappalyzer": "0.0.2",
+    "css": "^2.2.4",
     "fs-extra": "^8.1.0",
+    "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^2.0.0",
+    "rematrix": "^0.4.1",
+    "stew-select": "0.0.5"
   },
   "devDependencies": {
     "@qualweb/types": "^0.1.10",

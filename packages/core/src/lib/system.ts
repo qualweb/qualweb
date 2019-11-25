@@ -1,10 +1,25 @@
 'use strict';
 
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser, Page, Viewport } from 'puppeteer';
+import { Parser, DomElement, DomHandler, DomUtils } from 'htmlparser2';
+import request from 'request';
+const stew = new(require('stew-select')).Stew();
 import { EvaluationReport, QualwebOptions } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './managers/startup.manager';
 import { evaluate2 } from './managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
+import { DomOptions, Html } from '@qualweb/get-dom-puppeteer';
+import clone from 'lodash/clone';
+import css from 'css';
+
+import {
+  DEFAULT_DESKTOP_USER_AGENT,
+  DEFAULT_MOBILE_USER_AGENT,
+  DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
+  DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
+  DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH,
+  DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
+} from './constants';
 
 class System {
 
@@ -74,10 +89,26 @@ class System {
       for (const url of this.urls || []) {
         try {
           const page = await this.browser.newPage();
-          await page.goto(url, {
-            waitUntil: 'networkidle2'
+          await this.setPageViewport(page);
+
+          const plainStylesheets: any = {};
+          page.on('response', async response => {
+            if(response.request().resourceType() === 'stylesheet') {
+              const url = response.url();
+              const content = await response.text();
+              plainStylesheets[url] = content;
+            }
           });
-          const evaluation = await evaluate2(page, this.modulesToExecute, options);
+
+          await page.goto(url, {
+            waitUntil: ['networkidle2', 'domcontentloaded']
+          });
+
+          const stylesheets = await this.parseStylesheets(plainStylesheets);
+
+          const sourceHtml = await this.getSourceHTML(url);
+
+          const evaluation = await evaluate2(sourceHtml, page, stylesheets, this.modulesToExecute, options);
           //const evaluation = await evaluate(url, this.modulesToExecute, options);
           this.evaluations.push(evaluation.getFinalReport());
           await page.close();
@@ -103,6 +134,128 @@ class System {
     if (this.browser) {
       await this.browser.close();
     }
+  }
+
+  private async setPageViewport(page: Page, options?: DomOptions): Promise<void> {
+    if (options) {
+      if (options.userAgent) {
+        await page.setUserAgent(options.userAgent);
+      } else if (options.mobile) {
+        await page.setUserAgent(DEFAULT_MOBILE_USER_AGENT);
+      } else {
+        await page.setUserAgent(DEFAULT_DESKTOP_USER_AGENT);
+      }
+
+      const viewPort: Viewport = {
+        width: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH : DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
+        height: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT : DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT
+      };
+      if (options.resolution) {
+        if (options.resolution.width) {
+          viewPort.width = options.resolution.width;
+        }
+        if (options.resolution.height) {
+          viewPort.height = options.resolution.height;
+        }
+      }
+      viewPort.isMobile = !!options.mobile;
+      viewPort.isLandscape = options.landscape !== undefined ? options.landscape : viewPort.width > viewPort.height;
+      viewPort.hasTouch = !!options.mobile;
+
+      await page.setViewport(viewPort);
+    } else {
+      await page.setViewport({
+        width: DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
+        height: DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
+        isMobile: false,
+        hasTouch: false,
+        isLandscape: true
+      });
+    }
+  }
+
+  private async parseStylesheets(plainStylesheets: any): Promise<any[]> {
+    const stylesheets = new Array<any>();
+    for (const file in plainStylesheets || {}){
+      const stylesheet: any = {file, content: {}};
+      if (stylesheet.content) {
+        stylesheet.content.plain = plainStylesheets[file];
+        stylesheet.content.parsed = css.parse(plainStylesheets[file], { silent: true }); //doesn't throw errors
+        stylesheets.push(clone(stylesheet));
+      }
+    }
+
+    return stylesheets;
+  }
+
+  private async getRequestData(headers: (request.UrlOptions & request.CoreOptions)): Promise<any> {
+    return new Promise((resolve: any, reject: any) => {
+      request(headers, (error: any, response: request.Response, body: string) => {
+        if (error) {
+          reject(error);
+        } else if (!response || response.statusCode !== 200) {
+          reject(response.statusCode);
+        } else {
+          resolve({ response, body });
+        }
+      });
+    });
+  }
+
+  private async getSourceHTML(url: string, options?: DomOptions): Promise<Html> {
+    const headers = {
+      'url': url,
+      'headers': {
+        'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
+      }
+    };
+
+    const data: any = await this.getRequestData(headers);
+    const sourceHTML: string = data.body.toString().trim();
+
+    const parsedHTML = this.parseHTML(sourceHTML);
+    const elements = stew.select(parsedHTML, '*');
+
+    let title = '';
+
+    const titleElement = stew.select(parsedHTML, 'title');
+
+    if (titleElement.length > 0) {
+      title = DomUtils.getText(titleElement[0]);
+    }
+
+    const source: Html = {
+      html: {
+        plain: sourceHTML,
+        parsed: parsedHTML
+      },
+      elementCount: elements.length,
+      title: title !== '' ? title : undefined
+    }
+
+    return source;
+  }
+
+  private parseHTML(html: string): DomElement[] {
+    let parsed: DomElement[] | undefined = undefined;
+
+    const handler = new DomHandler((error, dom) => {
+      if (error) {
+        throw error;
+      } else {
+        parsed = dom;
+      }
+    });
+
+    const parser = new Parser(handler);
+    parser.write(html.replace(/(\r\n|\n|\r|\t)/gm, ''));
+    parser.end();
+
+    if (!parsed) {
+      throw new Error('Failed to parse html');
+    }
+
+    return parsed;
   }
 }
 

@@ -9,6 +9,7 @@ import * as act from '@qualweb/act-rules';
 import * as html from '@qualweb/html-techniques';
 import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
+import { Html } from '@qualweb/get-dom-puppeteer';
 import * as act2 from './modules/act-rules/index'
 
 import parseUrl from '../url';
@@ -72,7 +73,7 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
   return evaluation;
 }
 
-async function evaluate2(page: Page, execute: any, options: QualwebOptions): Promise<Evaluation> {
+async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execute: any, options: QualwebOptions): Promise<Evaluation> {
   if (execute.act && options['act-rules']) {
     act2.configure(options['act-rules']);
   }
@@ -103,7 +104,7 @@ async function evaluate2(page: Page, execute: any, options: QualwebOptions): Pro
   const evaluation = new Evaluation(evaluator);
 
   if (execute.act) {
-    const actRules = await act2.executeACTR(page);
+    const actRules = await act2.executeACTR(sourceHtml, page, stylesheets);
     act2.resetConfiguration();
     evaluation.addModuleEvaluation('act-rules', actRules);
   }
