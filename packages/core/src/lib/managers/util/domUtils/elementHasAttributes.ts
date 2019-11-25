@@ -1,8 +1,8 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'htmlparser2';
 
-function elementHasAttributes(element: DomElement): boolean {
+function elementHasAttributes(element: ElementHandle): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }

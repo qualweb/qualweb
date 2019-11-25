@@ -1,10 +1,10 @@
 'use strict';
 
 import {
-  DomElement
+  ElementHandle
 } from 'htmlparser2';
 
-function elementHasChild(element: DomElement, childName: string): boolean {
+function elementHasChild(element: ElementHandle, childName: string): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }

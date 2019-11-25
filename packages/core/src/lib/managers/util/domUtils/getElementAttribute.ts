@@ -6,7 +6,6 @@ async function getElementAttribute(element: ElementHandle, attribute: string): P
   if (!element) {
     throw Error('Element is not defined');
   }
-  
   return element.evaluate((elem, attribute) => {
     return elem.getAttribute(attribute);
   }, attribute);
