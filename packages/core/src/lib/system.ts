@@ -1,8 +1,9 @@
 'use strict';
 
+import puppeteer, { Browser } from 'puppeteer';
 import { EvaluationReport, QualwebOptions } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './managers/startup.manager';
-import { evaluate } from './managers/module.manager';
+import { evaluate2 } from './managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 
 class System {
@@ -11,6 +12,8 @@ class System {
   private evaluations: Array<EvaluationReport>;
   private force: boolean;
   private modulesToExecute: any;
+
+  private browser: Browser | null = null;
 
   constructor() {
     this.urls = new Array<string>();
@@ -62,17 +65,27 @@ class System {
         wappalyzer: false
       };
     }
+
+    this.browser = await puppeteer.launch();
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
-    for (const url of this.urls || []) {
-      try {
-        const evaluation = await evaluate(url, this.modulesToExecute, options);
-        this.evaluations.push(evaluation.getFinalReport());
-      } catch(err) {
-        if (!this.force) {
-          console.error(err);
-          break;
+    if (this.browser) {
+      for (const url of this.urls || []) {
+        try {
+          const page = await this.browser.newPage();
+          await page.goto(url, {
+            waitUntil: 'networkidle2'
+          });
+          const evaluation = await evaluate2(page, this.modulesToExecute, options);
+          //const evaluation = await evaluate(url, this.modulesToExecute, options);
+          this.evaluations.push(evaluation.getFinalReport());
+          await page.close();
+        } catch(err) {
+          if (!this.force) {
+            console.error(err);
+            break;
+          }
         }
       }
     }
@@ -83,6 +96,12 @@ class System {
       return generateEARLReport(this.evaluations, options);
     } else {
       return this.evaluations;
+    }
+  }
+
+  public async close(): Promise<void> {
+    if (this.browser) {
+      await this.browser.close();
     }
   }
 }

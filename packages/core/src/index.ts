@@ -9,7 +9,8 @@ const system = new System();
 async function evaluate(options: QualwebOptions): Promise<EvaluationReport | Array<EvaluationReport>> {
   await system.startup(options);
   await system.execute(options);
-  return <EvaluationReport | Array<EvaluationReport>> await system.report(false);
+  await system.close();
+  return <Array<EvaluationReport>> await system.report(false);
 }
 
 async function generateEarlReport(options?: EarlOptions): Promise<Array<EarlReport>> {

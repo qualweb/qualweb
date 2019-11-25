@@ -24,7 +24,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.1.10",
+    "@qualweb/act-rules": "^0.1.12",
     "@qualweb/best-practices": "^0.1.2",
     "@qualweb/crawler": "0.0.1",
     "@qualweb/css-techniques": "0.0.2",
@@ -33,15 +33,17 @@
     "@qualweb/html-techniques": "^0.1.1",
     "@qualweb/wappalyzer": "0.0.2",
     "fs-extra": "^8.1.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "puppeteer": "^2.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.1.9",
+    "@qualweb/types": "^0.1.10",
     "@types/css": "0.0.31",
     "@types/fs-extra": "^8.0.1",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.11",
+    "@types/puppeteer": "^2.0.0",
     "@types/request": "^2.48.3",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",

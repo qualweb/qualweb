@@ -29,9 +29,9 @@ class Evaluation {
   }
 
   public getFinalReport(): EvaluationReport {
-    delete this.evaluator.dom.processed.html.parsed;
-    delete this.evaluator.dom.source.html.parsed;
-    delete this.evaluator.dom.stylesheets;
+    //delete this.evaluator.dom.processed.html.parsed;
+    //delete this.evaluator.dom.source.html.parsed;
+    //delete this.evaluator.dom.stylesheets;
 
     return clone({
       type: this.type,

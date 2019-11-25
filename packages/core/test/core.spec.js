@@ -1,7 +1,7 @@
 const core = require('../dist/index');
 const { expect } = require('chai');
 
-describe('Core', function() {
+/*describe('Core', function() {
   it('Should evaluate', async function() {
     this.timeout(10 * 10000);
 
@@ -27,5 +27,17 @@ describe('Testing plain html', function() {
     const report = await core.evaluate({ url: URL });
     console.warn(report.system.dom.processed.html.plain);
     expect(report.system.dom.processed.html.plain).to.not.be.undefined;
+  });
+});*/
+
+const URL = 'https://ciencias.ulisboa.pt';
+const URL2 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/video/';
+const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
+
+describe('Testing new architecture', function() {
+  it('should do something', async function() {
+    this.timeout(100 * 1000);
+    const reports = await core.evaluate({ url: URL });
+    console.log(JSON.stringify(reports, null, 2));
   });
 });

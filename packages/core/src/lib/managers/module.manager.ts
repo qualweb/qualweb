@@ -1,5 +1,6 @@
 'use strict';
 
+import { Page } from 'puppeteer';
 import crypto from 'crypto';
 import { QualwebOptions } from '@qualweb/core';
 import { getDom } from '@qualweb/get-dom-puppeteer';
@@ -8,6 +9,7 @@ import * as act from '@qualweb/act-rules';
 import * as html from '@qualweb/html-techniques';
 import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
+import * as act2 from './modules/act-rules/index'
 
 import parseUrl from '../url';
 import Evaluation from '../data/evaluation.object';
@@ -34,7 +36,7 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
     homepage: 'http://www.qualweb.di.fc.ul.pt/',
     date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
     hash: crypto.randomBytes(40).toString('hex'),
-    url: parseUrl(url),
+    //url: parseUrl(url),
     dom: dom
   };
 
@@ -70,6 +72,46 @@ async function evaluate(url: string, execute: any, options: QualwebOptions): Pro
   return evaluation;
 }
 
+async function evaluate2(page: Page, execute: any, options: QualwebOptions): Promise<Evaluation> {
+  if (execute.act && options['act-rules']) {
+    act2.configure(options['act-rules']);
+  }
+
+  if (execute.html && options['html-techniques']) {
+    html.configure(options['html-techniques']);
+  }
+
+  if (execute.css && options['css-techniques']) {
+    css.configure(options['css-techniques']);
+  }
+
+  const url = await page.evaluate(() => {
+    return location.href;
+  })
+
+  const evaluator = {
+    name: 'QualWeb',
+    description: 'QualWeb is an automatic accessibility evaluator for webpages.',
+    version: '3.0.0',
+    homepage: 'http://www.qualweb.di.fc.ul.pt/',
+    date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+    hash: crypto.randomBytes(40).toString('hex'),
+    url: parseUrl(url),
+    //dom: dom
+  };
+
+  const evaluation = new Evaluation(evaluator);
+
+  if (execute.act) {
+    const actRules = await act2.executeACTR(page);
+    act2.resetConfiguration();
+    evaluation.addModuleEvaluation('act-rules', actRules);
+  }
+
+  return evaluation;
+}
+
 export {
-  evaluate
+  evaluate,
+  evaluate2
 };
