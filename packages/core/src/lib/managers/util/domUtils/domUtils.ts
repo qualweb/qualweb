@@ -15,7 +15,8 @@ import getElementByIdFunction from './getElementById';
 import getContentComputedStylesAttributeFunction from './getContentComputedStylesAttribute';
 import getElementTextFunction from './getElementText';
 import getElementParentFunction from './getElementParent';
-
+import getElementTagNameFunction from './getElementTagName';
+import getElementTypeFunction from './getElementType';
 
 import ROLES_ATTR from './roles';
 
@@ -38,6 +39,8 @@ namespace DomUtils {
   export const getContentComputedStylesAttribute = getContentComputedStylesAttributeFunction;
   export const getElementText = getElementTextFunction;
   export const getElementParent = getElementParentFunction;
+  export const getElementTagName = getElementTagNameFunction;
+  export const getElementType = getElementTypeFunction;
   export const ROLES = ROLES_ATTR;
 }
 

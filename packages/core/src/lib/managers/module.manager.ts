@@ -10,7 +10,8 @@ import * as html from '@qualweb/html-techniques';
 import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
 import { Html } from '@qualweb/get-dom-puppeteer';
-import * as act2 from './modules/act-rules/index'
+import * as act2 from './modules/act-rules/index';
+import * as bp2 from './modules/best-practices/index';
 
 import parseUrl from '../url';
 import Evaluation from '../data/evaluation.object';
@@ -107,6 +108,11 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
     const actRules = await act2.executeACTR(sourceHtml, page, stylesheets);
     act2.resetConfiguration();
     evaluation.addModuleEvaluation('act-rules', actRules);
+  }
+
+  if (execute.bp) {
+    const bestPractices = await bp2.executeBestPractices(page);
+    evaluation.addModuleEvaluation('best-practices', bestPractices);
   }
 
   return evaluation;
