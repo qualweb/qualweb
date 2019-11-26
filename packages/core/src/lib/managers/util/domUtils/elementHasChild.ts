@@ -1,20 +1,22 @@
 'use strict';
 
 import {
-  DomElement
-} from 'htmlparser2';
+  ElementHandle
+} from 'puppeteer';
 
-function elementHasChild(element: DomElement, childName: string): boolean {
+async function elementHasChild(element: ElementHandle, childName: string): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  for (const child of element.children || []) {
-    if (child !== undefined && child.name === childName) {
-      return true;
+  return element.evaluate((elem, childName) => {
+    for (const child of elem.children) {
+      if (child.tagName.toLowerCase() === childName.toLowerCase()) {
+        return true;
+      }
     }
-  }
-  return false;
+    return false;
+  }, childName);
 }
 
 export = elementHasChild;

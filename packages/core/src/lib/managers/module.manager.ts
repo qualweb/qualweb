@@ -11,6 +11,7 @@ import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
 import { Html } from '@qualweb/get-dom-puppeteer';
 import * as act2 from './modules/act-rules/index';
+import * as html2 from './modules/html-techniques/index';
 import * as bp2 from './modules/best-practices/index';
 
 import parseUrl from '../url';
@@ -80,7 +81,7 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
   }
 
   if (execute.html && options['html-techniques']) {
-    html.configure(options['html-techniques']);
+    html2.configure(options['html-techniques']);
   }
 
   if (execute.css && options['css-techniques']) {
@@ -108,6 +109,12 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
     const actRules = await act2.executeACTR(sourceHtml, page, stylesheets);
     act2.resetConfiguration();
     evaluation.addModuleEvaluation('act-rules', actRules);
+  }
+
+  if (execute.html) {
+    const htmlTechniques = await html2.executeHTMLT(page);
+    html2.resetConfiguration();
+    evaluation.addModuleEvaluation('html-techniques', htmlTechniques);
   }
 
   if (execute.bp) {
