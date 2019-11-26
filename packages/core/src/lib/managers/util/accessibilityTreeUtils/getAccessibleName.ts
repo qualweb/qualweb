@@ -16,16 +16,16 @@ import { controlRoles, formElements, typesWithLabel, sectionAndGrouping } from '
 import getElementName from '../domUtils/getElementName';
 import getElementAttribute from '../domUtils/getElementAttribute';
 
-function getAccessibleName(element: ElementHandle, processedHTML: ElementHandle[]): string | undefined {
+function getAccessibleName(element: Element, processedHTML: ElementHandle[]): string | undefined {
   return getAccessibleNameRecursion(element, processedHTML, false, false);
 }
 
-async function getAccessibleNameRecursion(element: ElementHandle, processedHTML: ElementHandle[], recursion: boolean, isWidget: boolean): Promise<string | undefined> {
+async function getAccessibleNameRecursion(element: Element, processedHTML: ElementHandle[], recursion: boolean, isWidget: boolean): Promise<string | undefined> {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
   // let isChildOfDetails = isElementChildOfDetails(element);
   // let isSummary = element.name === "summary";
   let type = element.type;//fixme 
-  let name = await getElementName(element);
+  let name = element.tagName;
 
   let allowNameFromContent = allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
