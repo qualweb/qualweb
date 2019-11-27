@@ -1,10 +1,13 @@
 'use strict';
 
-import {ElementHandle, DomUtils} from "htmlparser2";
-import {trim} from 'lodash';
+import { trim } from 'lodash';
 
-function getTrimmedText(element: ElementHandle): string {
-  return trim(DomUtils.getText(element));
+function getTrimmedText(element: Element): string {
+  let text = "";
+  let content = element.textContent;
+  if (content)
+    text = content
+  return trim(text);
 }
 
 export = getTrimmedText;

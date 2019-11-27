@@ -11,6 +11,7 @@ import isDataTableFunction from "./isDataTable";
 import isElementChildOfDetailsFunction from "./isElementChildOfDetails";
 import isElementControlFunction from "./isElementControl";
 import isElementWidgetFunction from "./isElementWidget";
+import isElementWidgetDocumentFunction from "./isElementWidgetDocument"
 
 /**
  * Accessibility Tree Utilities namespace
@@ -27,6 +28,7 @@ namespace AccessibilityTreeUtils {
   export const isElementChildOfDetails = isElementChildOfDetailsFunction;
   export const isElementControl = isElementControlFunction;
   export const isElementWidget = isElementWidgetFunction;
+  export const isElementWidgetDocument = isElementWidgetDocumentFunction;
 }
 
 export = AccessibilityTreeUtils;

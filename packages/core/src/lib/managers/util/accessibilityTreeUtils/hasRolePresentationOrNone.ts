@@ -1,9 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import getElementAttributeDocument = require("../domUtils/getElementAttributeDocument");
 
-function hasRolePresentationOrNone(element: ElementHandle): boolean {
-  return !!element.attribs && (element.attribs["role"] === "none" || element.attribs["role"] === "presentation");
+function hasRolePresentationOrNone(element: Element): boolean {
+  let role = getElementAttributeDocument(element, "role");
+  return  role === "none" ||role === "presentation";
 }
 
 export = hasRolePresentationOrNone;

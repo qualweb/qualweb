@@ -1,17 +1,16 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { nameFromContentRoles, nameFromContentElements } from "./constants";
-import getElementName = require('../domUtils/getElementName');
-import getElementAttribute = require('../domUtils/getElementAttribute');
+import getElementNameDocument = require('../domUtils/getElementNameDocument');
+import getElementAttributeDocument = require("../domUtils/getElementAttributeDocument");
 
 
-function allowsNameFromContent(element: ElementHandle): boolean {
+function allowsNameFromContent(element: Element): boolean {
 
   let role, name;
-  name = await getElementName(element);
+  name = getElementNameDocument(element);
 
-  role = await getElementAttribute(element,"role"):
+  role = getElementAttributeDocument(element,"role");
 
 
   return nameFromContentRoles.indexOf(role) >= 0 || nameFromContentElements.indexOf(name) >= 0;
