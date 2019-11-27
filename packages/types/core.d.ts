@@ -18,6 +18,7 @@ declare module '@qualweb/core' {
       width?: number;
       height?: number;
     };
+    maxParallelEvaluations?: number;
     force?: boolean;
     execute?: {
       wappalyzer?: boolean;

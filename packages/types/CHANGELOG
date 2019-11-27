@@ -1,7 +1,11 @@
 # Changelog
 
-## [0.1.10] - 21/11/2019
+## [0.1.11] - 27/11/2019
 
+### Added
+ - maxParallelEvaluations option to QualwebOptions interface from core module
+
+## [0.1.10] - 21/11/2019
 
 ### Changed
  - act-rules module interface
