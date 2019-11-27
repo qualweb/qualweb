@@ -4,7 +4,6 @@ import { DomUtils } from "htmlparser2";
 import getElementAttributeDocument = require("../domUtils/getElementAttributeDocument");
 import getTrimmedText = require("./getTrimmedText");
 import getElementNameDocument = require("../domUtils/getElementNameDocument");
-const stew = new (require('stew-select')).Stew();
 
 function getValueFromEmbeddedControl(element: Element, document: Document): string {//stew
 

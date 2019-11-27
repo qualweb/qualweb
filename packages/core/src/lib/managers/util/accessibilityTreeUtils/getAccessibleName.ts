@@ -1,14 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { trim } from 'lodash';
-
-const stew = new (require('stew-select')).Stew();
-import { getElementById, getContentComputedStylesAttribute, getElementNameDocument, getElementParentDocument, getElementStylePropertyDocument } from "../domUtils/domUtils";
+import { getElementById, getElementNameDocument, getElementParentDocument, getElementStylePropertyDocument } from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
-import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import hasRolePresentationOrNone from './hasRolePresentationOrNone';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';

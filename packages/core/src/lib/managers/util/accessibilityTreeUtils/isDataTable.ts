@@ -1,19 +1,20 @@
 'use strict';
 
-import {ElementHandle} from 'htmlparser2';
-import getAccessibleName from './getAccessibleName';
+import {Element} from 'htmlparser2';
+//import getAccessibleName from './getAccessibleName';
 
 const stew = new (require('stew-select')).Stew();
 
-function isDataTable(element: ElementHandle, processedHTML: ElementHandle[]): boolean {
+function isDataTable(element: Element, processedHTML: Element[]): boolean {
   if (!element) {
-    throw Error('Element is not defined');
+    throw Error('Element is not defined'+processedHTML);
   }
   // based on https://www.w3.org/TR/WCAG20-TECHS/H43.html
   // and https://fae.disability.illinois.edu/rulesets/TABLE_5/
   // it is considered that this element is already a <table> element
 
-  let accessibleName = getAccessibleName(element, processedHTML);
+ // let accessibleName = getAccessibleName(element, processedHTML);
+ let accessibleName = "getAccessibleName(element, processedHTML)";
   let thElem = stew.select(element, 'th');
   let tdHeaders = stew.select(element, 'td[scope]');
   let tdWithHeaders = stew.select(element, 'td[headers]');

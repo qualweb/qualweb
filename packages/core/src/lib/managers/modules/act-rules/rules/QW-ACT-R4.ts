@@ -65,7 +65,7 @@ class QW_ACT_R4 extends Rule {
       description: '',
       resultCode: ''
     };
-
+/*
     const content = await DomUtils.getElementAttribute(element, 'content');
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
@@ -174,14 +174,14 @@ class QW_ACT_R4 extends Rule {
           evaluation.resultCode = 'RC10';
         }
       }
-    }
+    }*/
 
     evaluation.code = await DomUtils.getElementHtmlCode(element);
     evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }
-
+/*
   private validURL(url: string): boolean {
     var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -202,7 +202,7 @@ class QW_ACT_R4 extends Rule {
     }
 
     return success;
-  }
+  }*/
 }
 
 export = QW_ACT_R4;

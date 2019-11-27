@@ -1,9 +1,9 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { Element } from 'htmlparser2';
 import {controlRoles } from "./constants";
 
-function isElementControl(element: ElementHandle): boolean {
+function isElementControl(element: Element): boolean {
 
   if (element.attribs === undefined)
     return false;

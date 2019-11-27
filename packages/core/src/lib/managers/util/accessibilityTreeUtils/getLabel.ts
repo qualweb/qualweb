@@ -1,9 +1,9 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { Element} from 'htmlparser2';
 const stew = new (require('stew-select')).Stew();
 
-function getLabel(id: string, element: ElementHandle, processedHTML: ElementHandle[]): ElementHandle {
+function getLabel(id: string, element: Element, processedHTML: Element[]): Element {
 
   let referencedByLabel = stew.select(processedHTML, `label[for="${id}"]`);
   let parent = element.parent;

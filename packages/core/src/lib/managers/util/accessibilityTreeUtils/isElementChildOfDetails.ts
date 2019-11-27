@@ -1,8 +1,8 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { Element } from 'htmlparser2';
 
-function isElementChildOfDetails(element: ElementHandle): boolean {
+function isElementChildOfDetails(element: Element): boolean {
   return !!element.parent && element.parent.name === "details";
 }
 

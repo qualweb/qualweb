@@ -1,9 +1,9 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { Element } from 'htmlparser2';
 import { widgetRoles, widgetElements } from "./constants";
 
-function isElementWidget(element: ElementHandle): boolean {
+function isElementWidget(element: Element): boolean {
 
 
 

@@ -58,7 +58,7 @@ class QW_ACT_R2 extends Rule {
     if (element === undefined || mathElement.length > 0) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There is no <html> element`;
-      evaluation.resultCode = 'RC1';doctype
+      evaluation.resultCode = 'RC1';
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
     } else {

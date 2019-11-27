@@ -1,20 +1,21 @@
 'use strict';
 import { ElementHandle } from 'puppeteer';
-import {isElementHidden, getElementById,getElementChildTextContent,getElementAttribute} from "../domUtils/domUtils";
+/*import {isElementHidden, getElementById,getElementChildTextContent,getElementAttribute} from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getAccessibleName from './getAccessibleName';
 import {trim} from 'lodash';
-import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml } from "./constants";
+import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml } from "./constants";*/
 
 function getAccessibleNameSVG(element: ElementHandle, processedHTML: ElementHandle[]): string | undefined {
-  return getAccessibleNameSVGRecursion(element, processedHTML, false);
+  //return getAccessibleNameSVGRecursion(element, processedHTML, false);
+  return element.toString()+ processedHTML;
 }
 //elementos q sao usados para outros: desc(descricao),title
 ////let specialElements = ["circle","elipse","line","path","polygon","polyline","rect","use","g","image","mesh","textPath","tspan","foreignObject"];//https://www.w3.org/TR/svg-aam-1.0/#include_elements
 //link role if the element has a valid href or xlink:href attribute. For a elements that are not links, use the mapping for tspan if the a element is a descendent of text, or the mapping for g otherwise.
-function getAccessibleNameSVGRecursion(element: ElementHandle, processedHTML: ElementHandle[], recursion: boolean): string | undefined {
-  let AName, ariaLabelBy, ariaLabel, id, tag;
+//function getAccessibleNameSVGRecursion(element: ElementHandle, processedHTML: ElementHandle[], recursion: boolean): string | undefined {}
+/*  let AName, ariaLabelBy, ariaLabel, id, tag;
 
   tag = element.name;
   let regex = new RegExp('^fe[a-zA-Z]+');
@@ -77,12 +78,7 @@ function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaLabelId
   }
 
   return result;
-}
-
-/*async function getAccessibleNameSVG(url: string, selector: string) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(url, {'waitUntil': 'networkidle0', timeout: 60000});
+}ltworkidle0', timeout: 60000});
   const hrefElement = await page.$(selector);
 
   let options = {
