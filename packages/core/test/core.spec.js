@@ -38,6 +38,6 @@ describe('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(100 * 1000);
     const reports = await core.evaluate({ url: URL });
-    console.log(JSON.stringify(reports, null, 2));
+    //console.log(JSON.stringify(reports, null, 2));
   });
 });

@@ -12,9 +12,14 @@ import { controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabular
 import getElementAttributeDocument from '../domUtils/getElementAttributeDocument';
 import isElementHiddenDocument from '../domUtils/isElementHiddenDocument';
 import isElementWidgetDocument from './isElementWidgetDocument';
+import { ElementHandle } from 'puppeteer';
 
-function getAccessibleName(element: Element, document: Document): string | undefined {
-  return getAccessibleNameRecursion(element, document, false, false);
+async function getAccessibleName(element: ElementHandle): Promise<string | undefined> {
+  return element.evaluate((elem) => {
+    return getAccessibleNameRecursion(elem, document, false, false);
+  });
+
+
 }
 function getAccessibleNameRecursion(element: Element, document: Document, recursion: boolean, isWidget: boolean): string | undefined {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;

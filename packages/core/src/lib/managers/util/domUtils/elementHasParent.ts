@@ -1,13 +1,16 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 
-function elementHasParent(element: DomElement, parent: string): boolean {
+async function elementHasParent(element: ElementHandle, parent: string): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  return !!(element.parent && element.parent.name === parent);
+  return element.evaluate((elem, parent) => {
+    const parentElement = elem['parentElement'];
+    return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
+  }, parent);
 }
 
 export = elementHasParent;

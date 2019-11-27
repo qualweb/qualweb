@@ -5,8 +5,8 @@
 
 //import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
-//import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
-//const stew = new(require('stew-select')).Stew();
+import {  Html } from '@qualweb/get-dom-puppeteer';
+const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
 
 import mapping from './rules/mapping.json';
@@ -62,7 +62,27 @@ function resetConfiguration(): void {
   }
 }
 
-async function executeMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any): Promise<void> {
+async function executeSourceHtmlMappedRules(report: ACTRulesReport, html: Html, selectors: string[], mappedRules: any): Promise<void> {
+  for (const selector of selectors || []) {
+    for (const rule of mappedRules[selector] || []) {
+      if (rulesToExecute[rule]) {
+        const elements = stew.select(html.html.parsed, selector);
+        if (elements.length > 0) {
+          for (const elem of elements || []) {
+            await rules[rule].execute(elem, html);
+          }
+        } else {
+          await rules[rule].execute(undefined, html);
+        }
+        report.rules[rule] = rules[rule].getFinalResults();
+        report.metadata[report.rules[rule].metadata.outcome]++;
+        rules[rule].reset();
+      }
+    }
+  }
+}
+
+async function executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any): Promise<void> {
   for (const selector of selectors || []) {
     for (const rule of mappedRules[selector] || []) {
       if (rulesToExecute[rule]) {
@@ -83,16 +103,16 @@ async function executeMappedRules(report: ACTRulesReport, page: Page, selectors:
   }
 }
 
-/*async function executeNotMappedRules(report: ACTRulesReport, stylesheets: CSSStylesheet[]): Promise<void> {
+async function executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void> {
   if (rulesToExecute['QW-ACT-R7']) {
     await rules['QW-ACT-R7'].unmappedExecute(stylesheets);
     report.rules['QW-ACT-R7'] = rules['QW-ACT-R7'].getFinalResults();
     report.metadata[report.rules['QW-ACT-R7'].metadata.outcome]++;
     rules['QW-ACT-R7'].reset();
   }
-}*/
+}
 
-async function executeACTR(page: Page): Promise<ACTRulesReport> {
+async function executeACTR(sourceHtml: Html, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
 
   const report: ACTRulesReport = {
     type: 'act-rules',
@@ -105,10 +125,10 @@ async function executeACTR(page: Page): Promise<ACTRulesReport> {
     rules: {}
   };
 
-  //await executeMappedRules(url, report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
-  await executeMappedRules(report, page, Object.keys(mapping.post), mapping.post);
+  await executeSourceHtmlMappedRules(report, sourceHtml, Object.keys(mapping.pre), mapping.pre);
+  await executePageMappedRules(report, page, Object.keys(mapping.post), mapping.post);
 
-  //await executeNotMappedRules(report, stylesheets);
+  await executeNotMappedRules(report, stylesheets);
   
   return report;
 }

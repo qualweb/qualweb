@@ -1,13 +1,15 @@
 'use strict';
 
-import { Element } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 
-function elementHasAttributes(element: Element): boolean {
+function elementHasAttributes(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  return element.attribs !== undefined;
+  return element.evaluate(elem => {
+    return elem.getAttributeNames().length > 0;
+  });
 }
 
 export = elementHasAttributes;
