@@ -86,7 +86,7 @@ async function executeMappedTechniques(report: HTMLTechniquesReport, page: Page,
   await Promise.all(promises);
 }
 
-/*async function executeNotMappedTechniques(report: HTMLTechniquesReport, page: Page): Promise<void> {
+async function executeNotMappedTechniques(report: HTMLTechniquesReport, page: Page): Promise<void> {
   if (techniquesToExecute['QW-HTML-T20']) {
     await techniques['QW-HTML-T20'].validate(page);
     report.techniques['QW-HTML-T20'] = techniques['QW-HTML-T20'].getFinalResults();
@@ -94,13 +94,13 @@ async function executeMappedTechniques(report: HTMLTechniquesReport, page: Page,
     techniques['QW-HTML-T20'].reset();
   }
 
-  if (techniquesToExecute['QW-HTML-T35']) {
+  /*if (techniquesToExecute['QW-HTML-T35']) {
     await techniques['QW-HTML-T35'].validate(page);
     report.techniques['QW-HTML-T35'] = techniques['QW-HTML-T35'].getFinalResults();
     report.metadata[report.techniques['QW-HTML-T35'].metadata.outcome]++;
     techniques['QW-HTML-T35'].reset();
-  }
-}*/
+  }*/
+}
 
 async function executeHTMLT(page: Page): Promise<HTMLTechniquesReport> {
 
@@ -118,7 +118,7 @@ async function executeHTMLT(page: Page): Promise<HTMLTechniquesReport> {
   //await executeMappedTechniques(url,report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
   await executeMappedTechniques(report, page, Object.keys(mapping.post), mapping.post);
 
-  //await executeNotMappedTechniques(report, page);
+  await executeNotMappedTechniques(report, page);
 
   resetConfiguration();
 

@@ -18,6 +18,10 @@ import getElementParentFunction from './getElementParent';
 import getElementTagNameFunction from './getElementTagName';
 import getElementTypeFunction from './getElementType';
 import elementHasChildrenFunction from './elementHasChildren';
+import getElementChildrenFunction from './getElementChildren';
+import getElementAttributesNameFunction from './getElementAttributesName';
+import getElementNextSiblingFunction from './getElementNextSibling';
+import getElementPreviousSiblingFunction from './getElementPreviousSibling';
 
 import ROLES_ATTR from './roles';
 
@@ -43,6 +47,10 @@ namespace DomUtils {
   export const getElementTagName = getElementTagNameFunction;
   export const getElementType = getElementTypeFunction;
   export const elementHasChildren = elementHasChildrenFunction;
+  export const getElementChildren = getElementChildrenFunction;
+  export const getElementAttributesName = getElementAttributesNameFunction;
+  export const getElementNextSibling = getElementNextSiblingFunction;
+  export const getElementPreviousSibling = getElementPreviousSiblingFunction;
   export const ROLES = ROLES_ATTR;
 }
 

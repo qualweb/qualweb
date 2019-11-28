@@ -34,6 +34,7 @@
     "@qualweb/wappalyzer": "0.0.2",
     "css": "^2.2.4",
     "fs-extra": "^8.1.0",
+    "html-validator": "^5.0.0",
     "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",
     "puppeteer": "^2.0.0",
