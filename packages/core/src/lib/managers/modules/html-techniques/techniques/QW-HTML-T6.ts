@@ -60,7 +60,7 @@ class QW_HTML_T6 extends Technique {
     };
 
     const hasOnmousedown = await DomUtils.elementHasAttribute(element, 'onmousedown');
-    const onmouedown = await DomUtils.getElementAttribute(element, 'onmousedown');
+    const onmousedown = await DomUtils.getElementAttribute(element, 'onmousedown');
     const onkeydown = await DomUtils.getElementAttribute(element, 'onkeydown');
 
     const hasOnmouseup = await DomUtils.elementHasAttribute(element, 'onmouseup');

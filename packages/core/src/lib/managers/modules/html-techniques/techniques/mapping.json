@@ -1,37 +1,17 @@
 {
   "pre": {
-    "meta[http-equiv=\"refresh\"][content]": ["QW-HTML-T12"]
   },
   "post": {
-    "a[href]": ["QW-HTML-T37"],
     "img + map > area": ["QW-HTML-T1"],
     "fieldset": ["QW-HTML-T3"],
-    "body, body *": ["QW-HTML-T40"],
+    "title": ["QW-HTML-T13"],
     "body": ["QW-HTML-T9"],
-    "img,svg": ["QW-HTML-T39"],
-    "applet": ["QW-HTML-T14"],
-    "frame, iframe": ["QW-HTML-T10"],
-    "title": ["QW-HTML-T13","QW-HTML-T24"],
-    "form": ["QW-HTML-T32"],
-    "a": ["QW-HTML-T11","QW-HTML-T34","QW-HTML-T33"],
     "input[type=\"image\"]": ["QW-HTML-T5"],
-    "table": ["QW-HTML-T30","QW-HTML-T2","QW-HTML-T4","QW-HTML-T15","QW-HTML-T17"],
-    "th, td[scope]": ["QW-HTML-T41"],
-    "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout], *[keydown], *[keyup], *[keypress], *[focus], *[blur]": [ "QW-HTML-T42"],
-    "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout]": ["QW-HTML-T6", "QW-HTML-T29"],
-    "abbr": ["QW-HTML-T7"],
-    "blink": ["QW-HTML-T16"],
-    "meta[http-equiv=\"refresh\"][content]": ["QW-HTML-T18"],
-    "link": ["QW-HTML-T19"],
-    "[text], [vlink], [alink], [link]": ["QW-HTML-T22"],
-    "a[href], area[href]": ["QW-HTML-T23"],
-    "input": ["QW-HTML-T25"],
-    "head > title": ["QW-HTML-T26"],
-    "h1, h2, h3, h4, h5, h6": ["QW-HTML-T27"],
-    "ol,ul,dl": ["QW-HTML-T28"],
-    "img": ["QW-HTML-T31"],
-    "[alt]": ["QW-HTML-T8"],
-    "p, div, h1, h2, h3, h4, h5, h6, col, colgroup, tbody, thead, tfoot, tr, th, td": ["QW-HTML-T43"]
+    "frame, iframe": ["QW-HTML-T10"],
+    "table": ["QW-HTML-T2","QW-HTML-T4"],
+    "a": ["QW-HTML-T11"],
+    "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout]": ["QW-HTML-T6"],
+    "abbr": ["QW-HTML-T7"]
   }
 }
 

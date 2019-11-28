@@ -5,14 +5,14 @@ import {
   HTMLTechniqueResult
 } from '@qualweb/html-techniques';
 import {
-  DomElement
-} from 'htmlparser2';
+  ElementHandle
+} from 'puppeteer';
 
 import {
   DomUtils
-} from '@qualweb/util';
+} from '../../../util/index';
 
-import Technique from "./Technique.object";
+import Technique from './Technique.object';
 
 const technique: HTMLTechnique = {
   name: 'Using the title attribute of the frame and iframe elements',
@@ -54,7 +54,7 @@ class QW_HTML_T10 extends Technique {
     super(technique);
   }
 
-  async execute(element: DomElement | undefined): Promise < void > {
+  async execute(element: ElementHandle | undefined): Promise < void > {
 
     if (!element) {
       return;
@@ -69,8 +69,10 @@ class QW_HTML_T10 extends Technique {
     //1. Check each frame and iframe element in the HTML or XHTML
     //source code for the presence of a title attribute.
     // 2. Check that the title attribute contains text that identifies the frame.
-    if (DomUtils.elementHasAttribute(element, 'title')) {
-      if (DomUtils.getElementAttribute(element, 'title').trim() !== '') {
+    const hasTitle = await DomUtils.elementHasAttribute(element, 'title');
+    const title = await DomUtils.getElementAttribute(element, 'title');
+    if (hasTitle) {
+      if (title && title.trim() !== '') {
         evaluation.verdict = 'warning';
         evaluation.description = 'Verify if title attribute contains text that identifies the frame';
         evaluation.resultCode = 'RC1';
@@ -85,8 +87,8 @@ class QW_HTML_T10 extends Technique {
       evaluation.resultCode = 'RC3';
     }
 
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = DomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }

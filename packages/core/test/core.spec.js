@@ -1,5 +1,6 @@
 const core = require('../dist/index');
 const { expect } = require('chai');
+const fs = require('fs');
 
 /*describe('Core', function() {
   it('Should evaluate', async function() {
@@ -36,8 +37,10 @@ const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
 
 describe('Testing new architecture', function() {
   it('should do something', async function() {
-    this.timeout(100 * 1000);
-    const reports = await core.evaluate({ url: URL });
-    //console.log(JSON.stringify(reports, null, 2));
+    this.timeout(1000 * 1000);
+    //const reports = await core.evaluate({ url: URL2 });
+    const reports = await core.evaluate({ file: 'test/urls2.txt', maxParallelEvaluations: 10 });
+    console.log(reports.length);
+    fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
 });

@@ -10,7 +10,7 @@ import {
 
 import {
   DomUtils
-} from '../../../index/util';
+} from '../../../util/index';
 
 import Technique from './Technique.object';
 
@@ -72,7 +72,7 @@ class QW_HTML_T4 extends Technique {
       evaluation.verdict = 'failed';
       evaluation.description = 'The summary is empty';
       evaluation.resultCode = 'RC2';
-    } else if (caption && summary.trim() === caption.trim()) {
+    } else if (caption && summary && summary.trim() === caption.trim()) {
       evaluation.verdict = 'failed';
       evaluation.description = 'The caption is a duplicate of the summary';
       evaluation.resultCode = 'RC3';

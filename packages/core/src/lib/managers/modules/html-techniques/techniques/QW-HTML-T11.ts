@@ -5,17 +5,14 @@ import {
   HTMLTechniqueResult
 } from '@qualweb/html-techniques';
 import {
-  DomElement,
-  DomUtils
-} from 'htmlparser2';
+  ElementHandle 
+} from 'puppeteer';
 
 import {
-  DomUtils as QWDomUtils
-} from '@qualweb/util';
+  DomUtils
+} from '../../../util/index';
 
 import Technique from './Technique.object';
-
-const stew = new (require('stew-select')).Stew();
 
 const technique: HTMLTechnique = {
   name: 'Combining adjacent image and text links for the same resource',
@@ -63,7 +60,7 @@ class QW_HTML_T11 extends Technique {
     super(technique);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     if (!element) {
       return;
@@ -75,7 +72,7 @@ class QW_HTML_T11 extends Technique {
       resultCode: ''
     };
 
-    const images = stew.select(element, 'img');
+    const images = await element.$$('img');
 
     const hasImage = images.length > 0;
     let hasNonEmptyAlt = false;
@@ -83,16 +80,17 @@ class QW_HTML_T11 extends Technique {
     let equalAltText = false;
 
     for (const img of images || []) { // fails if the element doesn't contain an alt attribute
-      if (QWDomUtils.elementHasAttribute(img, 'alt') && !hasNonEmptyAlt && !equalAltText) {
+      if ((await DomUtils.elementHasAttribute(img, 'alt')) && !hasNonEmptyAlt && !equalAltText) {
         hasAlt = true;
-        hasNonEmptyAlt = QWDomUtils.getElementAttribute(img, 'alt').trim() !== '';
-        equalAltText = QWDomUtils.getElementAttribute(img, 'alt') === DomUtils.getText(element);
+        const alt = await DomUtils.getElementAttribute(img, 'alt');
+        if (alt !== null) { 
+          hasNonEmptyAlt = alt.trim() !== '';
+          equalAltText = alt === await DomUtils.getElementText(element);
+        }
       }
     }
 
-    if (!hasImage) {
-      //inapplicable
-    } else if (!hasAlt) {
+    if (!hasImage || !hasAlt) {
       //inapplicable
     } else if (!hasNonEmptyAlt) {
       evaluation.verdict = 'passed';
@@ -108,8 +106,8 @@ class QW_HTML_T11 extends Technique {
       evaluation.resultCode = 'RC3';
     }
 
-    evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = QWDomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }

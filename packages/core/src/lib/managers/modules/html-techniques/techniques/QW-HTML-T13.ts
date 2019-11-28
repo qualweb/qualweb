@@ -5,14 +5,14 @@ import {
   HTMLTechniqueResult
 } from '@qualweb/html-techniques';
 import {
-  DomElement,DomUtils as HtmlDomUtils
-} from 'htmlparser2';
+  ElementHandle
+} from 'puppeteer';
 
 import {
   DomUtils
-} from '@qualweb/util';
+} from '../../../util/index';
 
-import Technique from "./Technique.object";
+import Technique from './Technique.object';
 
 const technique: HTMLTechnique = {
   name: 'Providing a title using the title element',
@@ -47,7 +47,7 @@ class QW_HTML_T13 extends Technique {
     super(technique);
   }
 
-  async execute(element: DomElement | undefined): Promise < void > {
+  async execute(element: ElementHandle | undefined): Promise < void > {
 
     const evaluation: HTMLTechniqueResult = {
       verdict: '',
@@ -56,9 +56,9 @@ class QW_HTML_T13 extends Technique {
     };
 
     if (element) {
-      if (element.children) {
-        const text = HtmlDomUtils.getText(element);
-        if (text && text!== "") { // the title text exists and needs to be verified
+      if (await DomUtils.elementHasChildren(element)) {
+        const text = await DomUtils.getElementText(element);
+        if (text && text !== '') { // the title text exists and needs to be verified
           evaluation.verdict = 'warning';
           evaluation.description = `Please verify the title text correlates to the page's content`;
           evaluation.resultCode = 'RC1';
@@ -73,8 +73,8 @@ class QW_HTML_T13 extends Technique {
         evaluation.resultCode = 'RC3';
       }
 
-      evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-      evaluation.pointer = DomUtils.getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
 
     } else { // fails if title element doesn't exist
       evaluation.verdict = 'failed';

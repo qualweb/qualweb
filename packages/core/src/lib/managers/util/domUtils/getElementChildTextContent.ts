@@ -12,7 +12,7 @@ async function getElementChildTextContent(element: ElementHandle, childName: str
   return element.evaluate((elem, childName) => {
     for (const child of elem.children) {
       if (child.tagName.toLowerCase() === childName.toLowerCase()) {
-        return child.text;
+        return child['text'];
       }
     }
   }, childName);

@@ -82,25 +82,31 @@ async function executeSourceHtmlMappedRules(report: ACTRulesReport, html: Html, 
   }
 }
 
+async function executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport): Promise<void> {
+  const elements = await page.$$(selector);
+  if (elements.length > 0) {
+    for (const elem of elements || []) {
+      await rules[rule].execute(elem, page);
+      await elem.dispose();
+    }
+  } else {
+    await rules[rule].execute(undefined, page);
+  }
+  report.rules[rule] = rules[rule].getFinalResults();
+  report.metadata[report.rules[rule].metadata.outcome]++;
+  rules[rule].reset();
+}
+
 async function executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any): Promise<void> {
+  const promises = new Array<any>();
   for (const selector of selectors || []) {
     for (const rule of mappedRules[selector] || []) {
       if (rulesToExecute[rule]) {
-        const elements = await page.$$(selector);
-        if (elements.length > 0) {
-          for (const elem of elements || []) {
-            await rules[rule].execute(elem, page);
-            await elem.dispose();
-          }
-        } else {
-          await rules[rule].execute(undefined, page);
-        }
-        report.rules[rule] = rules[rule].getFinalResults();
-        report.metadata[report.rules[rule].metadata.outcome]++;
-        rules[rule].reset();
+        promises.push(executeRule(rule, selector, page, report));
       }
     }
   }
+  await Promise.all(promises);
 }
 
 async function executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void> {

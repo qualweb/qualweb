@@ -105,21 +105,35 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
 
   const evaluation = new Evaluation(evaluator);
 
+  const promises = new Array<any>();
+
   if (execute.act) {
-    const actRules = await act2.executeACTR(sourceHtml, page, stylesheets);
-    act2.resetConfiguration();
-    evaluation.addModuleEvaluation('act-rules', actRules);
+    const actRules = act2.executeACTR(sourceHtml, page, stylesheets);
+    promises.push(actRules);
   }
 
   if (execute.html) {
-    const htmlTechniques = await html2.executeHTMLT(page);
-    html2.resetConfiguration();
-    evaluation.addModuleEvaluation('html-techniques', htmlTechniques);
+    const htmlTechniques = html2.executeHTMLT(page);
+    promises.push(htmlTechniques);
   }
 
   if (execute.bp) {
-    const bestPractices = await bp2.executeBestPractices(page);
-    evaluation.addModuleEvaluation('best-practices', bestPractices);
+    const bestPractices = bp2.executeBestPractices(page);
+    promises.push(bestPractices);
+  }
+
+  const modulesReports = await Promise.all(promises);
+
+  for (const mr of modulesReports || []) {
+    if (mr.type === 'act-rules') {
+      act2.resetConfiguration();
+      evaluation.addModuleEvaluation('act-rules', mr);
+    } else if (mr.type === 'html-techniques') {
+      html2.resetConfiguration();
+      evaluation.addModuleEvaluation('html-techniques', mr);
+    } else if (mr.type === 'best-practices') {
+      evaluation.addModuleEvaluation('best-practices', mr);
+    }
   }
 
   return evaluation;

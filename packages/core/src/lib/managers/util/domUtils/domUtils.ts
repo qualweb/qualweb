@@ -17,6 +17,7 @@ import getElementTextFunction from './getElementText';
 import getElementParentFunction from './getElementParent';
 import getElementTagNameFunction from './getElementTagName';
 import getElementTypeFunction from './getElementType';
+import elementHasChildrenFunction from './elementHasChildren';
 
 import ROLES_ATTR from './roles';
 
@@ -41,6 +42,7 @@ namespace DomUtils {
   export const getElementParent = getElementParentFunction;
   export const getElementTagName = getElementTagNameFunction;
   export const getElementType = getElementTypeFunction;
+  export const elementHasChildren = elementHasChildrenFunction;
   export const ROLES = ROLES_ATTR;
 }
 
