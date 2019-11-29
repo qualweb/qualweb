@@ -71,6 +71,42 @@ declare module '@qualweb/core' {
     };
   }
 
+  interface DomOptions {
+    mobile?: boolean;
+    landscape?: boolean;
+    userAgent?: string;
+    resolution?: {
+      width?: number;
+      height?: number;
+    };
+    computedStyle?: boolean;
+    elementsPosition?: boolean;
+    generateIds?: boolean;
+  }
+
+  interface Html {
+    readonly html: {
+      plain: string;
+      parsed: DomElement[];
+    };
+    readonly title?: string;
+    readonly elementCount?: number;
+  }
+
+  interface CSSStylesheet {
+    readonly file: string;
+    readonly content?: {
+      plain?: string;
+      parsed?: StyleSheet;
+    };
+  }
+
+  interface Dom {
+    readonly source: Html;
+    readonly processed: Html;
+    readonly stylesheets: CSSStylesheet[];
+  }
+
   function evaluate(options: QualwebOptions): Promise<EvaluationReport[]>;
   function generateEarlReport(options?: EarlOptions): Promise<EarlReport[]>;
 
@@ -79,6 +115,10 @@ declare module '@qualweb/core' {
     EvaluationReport,
     Url,
     Metadata,
+    DomOptions,
+    Html,
+    Dom,
+    CSSStylesheet,
     evaluate,
     generateEarlReport
   };

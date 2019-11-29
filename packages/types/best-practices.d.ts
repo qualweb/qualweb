@@ -1,6 +1,10 @@
 declare module '@qualweb/best-practices' {
   import { DomElement } from 'htmlparser2';
 
+  interface BPOptions {
+    bestPractices?: string[];
+  }
+
   interface BestPracticeMetadata {
     target: {
       'parent-sibling'?: string;
@@ -64,6 +68,7 @@ declare module '@qualweb/best-practices' {
   function executeBestPractices(dom: DomElement[]): Promise<BestPracticesReport>;
 
   export {
+    BPOptions,
     BestPracticeMetadata,
     BestPracticeResult,
     BestPracticesGlobalMetadata,

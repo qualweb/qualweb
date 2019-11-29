@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0] - 29/11/2019
+
+### Changed
+ - interfaces from get-dom-puppeteer to core module
+
+### Deleted
+ - get-dom-puppeteer module
+
+## [0.1.13] - 29/11/2019
+
+### Fixed
+ - a bug in the BPOptions interface to best-practices module
+
+## [0.1.12] - 29/11/2019
+
+### Added
+ - BPOptions interface to best-practices module
+
 ## [0.1.11] - 27/11/2019
 
 ### Added
