@@ -1,4 +1,6 @@
 declare module '@qualweb/core' {
+  import { DomElement } from 'htmlparser2';
+  import { Stylesheet } from 'css';
   import { Dom } from '@qualweb/get-dom-puppeteer';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
@@ -59,7 +61,7 @@ declare module '@qualweb/core' {
       date: string;
       hash: string;
       url: Url;
-      dom?: Dom;
+      dom: Dom;
     };
     metadata: Metadata;
     modules: {
@@ -84,10 +86,18 @@ declare module '@qualweb/core' {
     generateIds?: boolean;
   }
 
-  interface Html {
+  interface SourceHtml {
     readonly html: {
       plain: string;
       parsed: DomElement[];
+    };
+    readonly title?: string;
+    readonly elementCount?: number;
+  }
+
+  interface ProcessedHtml {
+    readonly html: {
+      plain: string;
     };
     readonly title?: string;
     readonly elementCount?: number;
@@ -102,8 +112,8 @@ declare module '@qualweb/core' {
   }
 
   interface Dom {
-    readonly source: Html;
-    readonly processed: Html;
+    readonly source: SourceHtml;
+    readonly processed: ProcessedHtml;
     readonly stylesheets: CSSStylesheet[];
   }
 
@@ -116,7 +126,8 @@ declare module '@qualweb/core' {
     Url,
     Metadata,
     DomOptions,
-    Html,
+    SourceHtml,
+    ProcessedHtml,
     Dom,
     CSSStylesheet,
     evaluate,
