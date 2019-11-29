@@ -1,14 +1,13 @@
 'use strict';
 
-import {DomElement} from 'htmlparser2';
-const stew = new (require('stew-select')).Stew();
+import { Page, ElementHandle } from 'puppeteer';
 
-function getElementById(id: string | undefined, processedHTML: DomElement[]): DomElement[] {
-  let element = [];
-  if (id)
-    element = stew.select(processedHTML, '[id="' + id + '"]');
+async function getElementById(page: Page, id: string): Promise<ElementHandle | null> {
+  if (!id) {
+    throw new Error('Invalid id');
+  }
 
-  return element;
+  return page.$(`#${id}`);
 }
 
 export = getElementById;
