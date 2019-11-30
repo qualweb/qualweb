@@ -46,10 +46,6 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   id = await getElementAttribute(element, "id");
 
   let referencedByAriaLabel = isElementReferencedByAriaLabel(id, page);
-
-  console.log(type);
-  console.log(name);
-  console.log(await isElementHidden(element));
   if (await isElementHidden(element) && !recursion) {
     //noAName
   } else if (type === "text") {

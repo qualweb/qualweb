@@ -16,9 +16,6 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
   const cssHidden = await isElementHiddenByCSSAux(element);
   const parent = await getElementParent(element);
   let parentHidden = false;
-  console.log(ariaHidden+"aria");
-  console.log(hidden+"hidden")
-  console.log(cssHidden+"css");
   if (parent) {
     parentHidden = await isElementHidden(parent);
   }

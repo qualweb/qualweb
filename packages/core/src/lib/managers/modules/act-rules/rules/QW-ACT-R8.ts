@@ -14,12 +14,7 @@ import { DomUtils } from '../../../util/index';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import Rule from './Rule.object';
 import {ElementHandle, Page} from 'puppeteer';
-import getElementAttribute from '../../../util/domUtils/getElementAttribute';
-import getElementParent from '../../../util/domUtils/getElementParent';
-import getElementTagName from '../../../util/domUtils/getElementTagName';
-import getElementText from '../../../util/domUtils/getElementText';
 import {getAccessibleName} from "../../../util/accessibilityTreeUtils/accessibilityTreeUtils";
-import {isElementHidden} from "../../../util/domUtils/domUtils";
 
 
 /**
@@ -78,28 +73,28 @@ class QW_ACT_R8 extends Rule {
     } else {
       let accessName = await getAccessibleName(element,page);
       console.log("aname "+accessName);
-      let isHidden = await isElementHidden(element);
+      let isHidden = await DomUtils.isElementHidden(element);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element is not included in the accessibility tree`;
         evaluation.resultCode = 'RC2';
-      } else if (await getElementAttribute(element,"role") !== 'img') {
+      } else if (await DomUtils.getElementAttribute(element,"role") !== 'img') {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element doesn't have the semantic role of image`;
         evaluation.resultCode = 'RC3';
       } else {
-        let src = await getElementAttribute(element,"src");
+        let src = await DomUtils.getElementAttribute(element,"src");
         if(src){
         let filepath = src.split('/');
         let filenameWithExtension = filepath[filepath.length - 1];
-        let parent = await getElementParent(element);
+        let parent = await DomUtils.getElementParent(element);
 
         if (filenameWithExtension === accessName) {
           if (imageFile.test(filenameWithExtension)) {
-            if (parent && await getElementTagName(parent) && await getElementText(parent)){
+            if (parent && await DomUtils.getElementTagName(parent) && await DomUtils.getElementText(parent)){
               evaluation.verdict = 'passed';
               evaluation.description = `This element's accessible name includes the filename but, with the text content of the a element, the image is accurately described`;
-              evaluation.resultCode = 'RC4';
+              evaluation.resultCode = 'RC4';DomUtils
             } else {
               evaluation.verdict = 'failed';
               evaluation.description = `The presence of the file extension in the accessible name doesn't accurately describe the image`;

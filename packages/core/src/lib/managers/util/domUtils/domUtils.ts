@@ -29,6 +29,8 @@ import getElementChildrenFunction from './getElementChildren';
 import getElementAttributesNameFunction from './getElementAttributesName';
 import getElementNextSiblingFunction from './getElementNextSibling';
 import getElementPreviousSiblingFunction from './getElementPreviousSibling';
+import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
+import isElementFocusableByDefaultFunction from './isElementFocusableByDefault'
 
 import ROLES_ATTR from './roles';
 
@@ -65,6 +67,8 @@ namespace DomUtils {
   export const getElementAttributesName = getElementAttributesNameFunction;
   export const getElementNextSibling = getElementNextSiblingFunction;
   export const getElementPreviousSibling = getElementPreviousSiblingFunction;
+  export const isElementHiddenByCSS = isElementHiddenByCSSFunction;
+  export  const isElementFocusableByDefault = isElementFocusableByDefaultFunction;
   export const ROLES = ROLES_ATTR;
 }
 
