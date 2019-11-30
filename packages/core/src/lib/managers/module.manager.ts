@@ -11,6 +11,7 @@ import * as css from '@qualweb/css-techniques';
 import { executeBestPractices } from '@qualweb/best-practices';
 import { Html } from '@qualweb/get-dom-puppeteer';
 import * as act2 from './modules/act-rules/index';
+import * as html2 from './modules/html-techniques/index';
 import * as bp2 from './modules/best-practices/index';
 
 import parseUrl from '../url';
@@ -80,7 +81,7 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
   }
 
   if (execute.html && options['html-techniques']) {
-    html.configure(options['html-techniques']);
+    html2.configure(options['html-techniques']);
   }
 
   if (execute.css && options['css-techniques']) {
@@ -104,15 +105,35 @@ async function evaluate2(sourceHtml: Html, page: Page, stylesheets: any[], execu
 
   const evaluation = new Evaluation(evaluator);
 
+  const promises = new Array<any>();
+
   if (execute.act) {
-    const actRules = await act2.executeACTR(sourceHtml, page, stylesheets);
-    act2.resetConfiguration();
-    evaluation.addModuleEvaluation('act-rules', actRules);
+    const actRules = act2.executeACTR(sourceHtml, page, stylesheets);
+    promises.push(actRules);
+  }
+
+  if (execute.html) {
+    const htmlTechniques = html2.executeHTMLT(page);
+    promises.push(htmlTechniques);
   }
 
   if (execute.bp) {
-    const bestPractices = await bp2.executeBestPractices(page);
-    evaluation.addModuleEvaluation('best-practices', bestPractices);
+    const bestPractices = bp2.executeBestPractices(page);
+    promises.push(bestPractices);
+  }
+
+  const modulesReports = await Promise.all(promises);
+
+  for (const mr of modulesReports || []) {
+    if (mr.type === 'act-rules') {
+      act2.resetConfiguration();
+      evaluation.addModuleEvaluation('act-rules', mr);
+    } else if (mr.type === 'html-techniques') {
+      html2.resetConfiguration();
+      evaluation.addModuleEvaluation('html-techniques', mr);
+    } else if (mr.type === 'best-practices') {
+      evaluation.addModuleEvaluation('best-practices', mr);
+    }
   }
 
   return evaluation;

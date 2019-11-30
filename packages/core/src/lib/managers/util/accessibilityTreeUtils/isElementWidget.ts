@@ -1,21 +1,15 @@
 'use strict';
 
-import { Element } from 'htmlparser2';
 import { widgetRoles, widgetElements } from "./constants";
+import {ElementHandle} from "puppeteer";
+import {getElementAttribute, getElementName} from "../domUtils/domUtils";
 
-function isElementWidget(element: Element): boolean {
+async function isElementWidget(element: ElementHandle): Promise<boolean> {
 
+  let role = await  getElementAttribute(element,"role");
+  let name = await  getElementName(element);
 
-
-  if (element.attribs === undefined)
-    return false;
-
-  let name = '';
-  let role = element.attribs["role"];
-  if (element.name)
-    name = element.name;
-
-  return widgetRoles.indexOf(role) >= 0 || widgetElements.indexOf(name) >= 0;
+  return role!==null && (widgetRoles.indexOf(role) >= 0) || name!== null && (widgetElements.indexOf(name) >= 0);
 }
 
 export = isElementWidget;

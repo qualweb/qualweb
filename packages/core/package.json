@@ -34,6 +34,7 @@
     "@qualweb/wappalyzer": "0.0.2",
     "css": "^2.2.4",
     "fs-extra": "^8.1.0",
+    "html-validator": "^5.0.0",
     "htmlparser2": "^3.10.1",
     "lodash": "^4.17.15",
     "puppeteer": "^2.0.0",
@@ -41,12 +42,12 @@
     "stew-select": "0.0.5"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.1.10",
+    "@qualweb/types": "^0.1.11",
     "@types/css": "0.0.31",
     "@types/fs-extra": "^8.0.1",
     "@types/htmlparser2": "^3.10.1",
     "@types/lodash": "^4.14.149",
-    "@types/node": "^12.12.11",
+    "@types/node": "^12.12.14",
     "@types/puppeteer": "^2.0.0",
     "@types/request": "^2.48.3",
     "chai": "^4.2.0",

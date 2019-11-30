@@ -1,21 +1,21 @@
 'use strict';
 
 import {
-  DomElement,
-  DomUtils
-} from 'htmlparser2';
+  ElementHandle
+} from 'puppeteer';
 
-function getElementChildTextContent(element: DomElement, childName: string): string | null {
+async function getElementChildTextContent(element: ElementHandle, childName: string): Promise<string | undefined> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  for (const child of element.children || []) {
-    if (child && child.name === childName) {
-      return DomUtils.getText(child);
+  return element.evaluate((elem, childName) => {
+    for (const child of elem.children) {
+      if (child.tagName.toLowerCase() === childName.toLowerCase()) {
+        return child['text'];
+      }
     }
-  }
-  return null;
+  }, childName);
 }
 
 export = getElementChildTextContent;

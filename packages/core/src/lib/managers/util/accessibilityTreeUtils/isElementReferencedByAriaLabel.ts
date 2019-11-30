@@ -1,8 +1,10 @@
 'use strict';
 
-function isElementReferencedByAriaLabel(id: string, document:Document): boolean {
-  let refrencedByAriaLabel = document.querySelector(`[aria-labelledby="${id}"]`);
-  return refrencedByAriaLabel!== null;
+import {Page} from "puppeteer";
+
+function isElementReferencedByAriaLabel(id: string, page:Page): boolean {
+  let referencedByAriaLabel = page.$$(`[aria-labelledby="${id}"]`);
+  return referencedByAriaLabel!== null;
 }
 
 export = isElementReferencedByAriaLabel;

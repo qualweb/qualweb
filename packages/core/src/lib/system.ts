@@ -26,6 +26,7 @@ class System {
   private urls: Array<string>;
   private evaluations: Array<EvaluationReport>;
   private force: boolean;
+  private numberOfParallelEvaluations = 1;
   private modulesToExecute: any;
 
   private browser: Browser | null = null;
@@ -59,6 +60,17 @@ class System {
       throw new Error('Invalid input method');
     }
 
+    if (options.maxParallelEvaluations !== undefined) {
+      this.numberOfParallelEvaluations = options.maxParallelEvaluations;
+      if (!Number.isInteger(this.numberOfParallelEvaluations) || this.numberOfParallelEvaluations < 1) {
+        throw new Error('Invalid MaxParallelEvaluations value');
+      }
+    }
+
+    if (this.urls.length < this.numberOfParallelEvaluations) {
+      this.numberOfParallelEvaluations = this.urls.length;
+    }
+
     if (options.force) {
       this.force = options.force;
     } else {
@@ -85,40 +97,12 @@ class System {
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
-    if (this.browser) {
-      for (const url of this.urls || []) {
-        try {
-          const page = await this.browser.newPage();
-          await this.setPageViewport(page);
-
-          const plainStylesheets: any = {};
-          page.on('response', async response => {
-            if(response.request().resourceType() === 'stylesheet') {
-              const url = response.url();
-              const content = await response.text();
-              plainStylesheets[url] = content;
-            }
-          });
-
-          await page.goto(url, {
-            waitUntil: ['networkidle2', 'domcontentloaded']
-          });
-
-          const stylesheets = await this.parseStylesheets(plainStylesheets);
-
-          const sourceHtml = await this.getSourceHTML(url);
-
-          const evaluation = await evaluate2(sourceHtml, page, stylesheets, this.modulesToExecute, options);
-          //const evaluation = await evaluate(url, this.modulesToExecute, options);
-          this.evaluations.push(evaluation.getFinalReport());
-          await page.close();
-        } catch(err) {
-          if (!this.force) {
-            console.error(err);
-            break;
-          }
-        }
+    for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
+      const promises = new Array<any>();
+      for (let j = 0 ; j < this.numberOfParallelEvaluations && i + j < this.urls.length ; j++) {
+        promises.push(this.runModules(this.urls[i + j], options));
       }
+      await Promise.all(promises);
     }
   }
 
@@ -133,6 +117,43 @@ class System {
   public async close(): Promise<void> {
     if (this.browser) {
       await this.browser.close();
+    }
+  }
+
+  private async runModules(url: string, options: QualwebOptions): Promise<void> {
+    if (this.browser) {
+      try {
+        const page = await this.browser.newPage();
+        await this.setPageViewport(page);
+
+        const plainStylesheets: any = {};
+        page.on('response', async response => {
+          if(response.request().resourceType() === 'stylesheet') {
+            const url = response.url();
+            const content = await response.text();
+            plainStylesheets[url] = content;
+          }
+        });
+
+        await page.goto(url, {
+          waitUntil: ['networkidle2', 'domcontentloaded']
+        });
+
+        const stylesheets = await this.parseStylesheets(plainStylesheets);
+
+        const sourceHtml = await this.getSourceHTML(url);
+
+        const evaluation = await evaluate2(sourceHtml, page, stylesheets, this.modulesToExecute, options);
+        //const evaluation = await evaluate(url, this.modulesToExecute, options);
+        this.evaluations.push(evaluation.getFinalReport());
+        await page.close();
+      } catch(err) {
+        if (!this.force) {
+          console.warn('-> ' + url);
+          console.error(err);
+          return;
+        }
+      }
     }
   }
 

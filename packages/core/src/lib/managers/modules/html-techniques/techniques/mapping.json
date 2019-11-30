@@ -1,0 +1,23 @@
+{
+  "pre": {
+  },
+  "post": {
+    "img + map > area": ["QW-HTML-T1"],
+    "fieldset": ["QW-HTML-T3"],
+    "title": ["QW-HTML-T13", "QW-HTML-T24"],
+    "body": ["QW-HTML-T9"],
+    "input[type=\"image\"]": ["QW-HTML-T5"],
+    "frame, iframe": ["QW-HTML-T10"],
+    "applet": ["QW-HTML-T14"],
+    "table": ["QW-HTML-T2", "QW-HTML-T4", "QW-HTML-T15"],
+    "a": ["QW-HTML-T11"],
+    "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout]": ["QW-HTML-T6"],
+    "abbr": ["QW-HTML-T7"],
+    "link": ["QW-HTML-T19"],
+    "[text], [vlink], [alink], [link]": ["QW-HTML-T22"],
+    "a[href], area[href]": ["QW-HTML-T23"],
+    "blink": ["QW-HTML-T16"],
+    "input": ["QW-HTML-T25"],
+  }
+}
+

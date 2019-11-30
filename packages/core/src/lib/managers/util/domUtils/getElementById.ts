@@ -1,9 +1,11 @@
 'use strict';
 
-function getElementById(id: string | null, document:Document): Element|null {
+import {Page} from "puppeteer";
+
+async function getElementById(id: string | null, page:Page): Promise<Element|null> {
   let element;
   if (id)
-    element = document.getElementById("id");
+    element = page.$(`#${id}`)
 
   return element;
 }

@@ -1,17 +1,16 @@
 'use strict';
-
-import getElementAttributeDocument = require("../domUtils/getElementAttributeDocument");
-import getElementNameDocument = require("../domUtils/getElementNameDocument");
-
+import {ElementHandle} from "puppeteer";
+import {getElementAttribute, getElementName} from "../domUtils/domUtils";
 
 
-function getDefaultName(element: Element): string {
-  let name = getElementNameDocument(element);
+
+async function getDefaultName(element: ElementHandle): string {
+  let name =  await getElementName(element);
   let type;
   let result = "";
 
   if ( name === "input") {
-    type = getElementAttributeDocument(element, "type");;
+    type =  await getElementAttribute(element, "type");;
   }
 
   /*if (type === "image") {
