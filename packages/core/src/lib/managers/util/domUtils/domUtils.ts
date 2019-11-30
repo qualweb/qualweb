@@ -22,7 +22,6 @@ import getElementAttributeDocumentFunction from './getElementAttributeDocument';
 import getElementParentDocumentFunction from './getElementParentDocument';
 import getElementStylePropertyDocumentFunction from './getElementStylePropertyDocument'
 import isElementHiddenDocumentFunction from './isElementHiddenDocument';
-
 import getElementTagNameFunction from './getElementTagName';
 import getElementTypeFunction from './getElementType';
 import elementHasChildrenFunction from './elementHasChildren';

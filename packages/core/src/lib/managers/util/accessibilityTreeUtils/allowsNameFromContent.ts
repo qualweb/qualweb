@@ -1,12 +1,11 @@
 'use strict';
 
 import { nameFromContentRoles, nameFromContentElements } from "./constants";
-import getElementAttributeDocument = require("../domUtils/getElementAttributeDocument");
 import {getElementAttribute, getElementName} from "../domUtils/domUtils";
 import {ElementHandle} from "puppeteer";
 
 
-async function allowsNameFromContent(element: ElementHandle): boolean {
+async function allowsNameFromContent(element: ElementHandle): Promise<boolean> {
 
   let role, name;
   name = await getElementName(element);

@@ -3,7 +3,7 @@
 import { trim } from 'lodash';
 import {ElementHandle} from "puppeteer";
 
-async function getTrimmedText(element: ElementHandle): string {
+async function getTrimmedText(element: ElementHandle): Promise<string> {
   if (!element) {
     throw Error('Element is not defined');
   }
