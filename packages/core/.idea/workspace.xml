@@ -2,54 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04353b49-245d-487a-9065-e34b204d3262" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T1.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T10.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T11.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T13.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T14.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T15.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T16.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T19.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T2.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T20.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T22.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T23.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T24.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T25.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T3.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T4.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T5.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T6.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T7.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T9.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/Technique.object.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/util.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasChildren.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementAttributesName.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementChildren.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementNextSibling.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementPreviousSibling.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/urls.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/urls2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/module.manager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/module.manager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/allowsNameFromContent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/allowsNameFromContent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getTrimmedText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getTrimmedText.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementReferencedByAriaLabel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementReferencedByAriaLabel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementWidget.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasChild.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasChild.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementChildTextContent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementChildTextContent.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/system.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHiddenByCSSAux.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHiddenByCSSAux.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/core.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/core.spec.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,23 +22,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2520">
-              <caret line="168" column="136" selection-start-line="168" selection-start-column="136" selection-end-line="168" selection-end-column="136" />
-              <folding>
-                <element signature="e#15#57#0" expanded="true" />
-                <element signature="e#142#262#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="345">
+              <caret line="48" column="2" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="13" selection-start-column="13" selection-end-column="13" />
+            <state relative-caret-position="585">
+              <caret line="45" column="50" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="50" />
               <folding>
-                <element signature="e#16#56#0" expanded="true" />
+                <element signature="e#113#160#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,48 +53,71 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementAttributesName.ts">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="82" selection-start-line="4" selection-start-column="82" selection-end-line="4" selection-end-column="82" />
+            <state relative-caret-position="300">
+              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+              <folding>
+                <element signature="e#15#57#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasParent.ts">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getContentComputedStylesAttribute.ts">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementName.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHiddenByCSSAux.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="29" />
+            <state relative-caret-position="120">
+              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementText.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R7.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+            <state relative-caret-position="-2205" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R5.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R1.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="44" column="50" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="62" />
+              <folding>
+                <element signature="e#15#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -163,12 +141,7 @@
         <option value="$PROJECT_DIR$/node_modules/@qualweb/act-rules/dist/util.js" />
         <option value="$PROJECT_DIR$/node_modules/@qualweb/act-rules/package.json" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts" />
-        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" />
         <option value="$PROJECT_DIR$/dist/lib/managers/util/accessibilityTreeUtils/getAccessibleName.js" />
-        <option value="$PROJECT_DIR$/test/core.spec.js" />
-        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts" />
-        <option value="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/accessibilityTreeUtils.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasChild.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementReferencedByAriaLabel.ts" />
@@ -177,6 +150,12 @@
         <option value="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementWidget.ts" />
+        <option value="$PROJECT_DIR$/test/core.spec.js" />
+        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts" />
+        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" />
+        <option value="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts" />
+        <option value="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHiddenByCSSAux.ts" />
+        <option value="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts" />
       </list>
     </option>
@@ -192,6 +171,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -287,7 +267,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -332,24 +311,24 @@
       <workItem from="1574160740433" duration="599000" />
       <workItem from="1574345318900" duration="599000" />
       <workItem from="1574950119675" duration="11553000" />
+      <workItem from="1575137788081" duration="1506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16895000" />
+    <option name="totallyTimeSpent" value="18401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1922" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26307365" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26627535" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -362,6 +341,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.2497332" />
@@ -437,69 +417,7 @@
         <state relative-caret-position="-1440" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1243" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R5.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R1.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="44" column="50" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="62" />
-          <folding>
-            <element signature="e#15#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/core.spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="21" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/lib/managers/util/accessibilityTreeUtils/getAccessibleName.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="64" column="31" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/lib/managers/util/accessibilityTreeUtils/getAccessibleName.js" />
     <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/hasRolePresentationOrNone.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17">
@@ -536,16 +454,6 @@
           <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
           <folding>
             <element signature="e#15#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -587,6 +495,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+          <folding>
+            <element signature="e#16#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementAttributesName.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="82" selection-start-line="4" selection-start-column="82" selection-end-line="4" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/elementHasParent.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -603,27 +534,66 @@
     <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementText.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getDefaultName.ts">
+    <entry file="file://$PROJECT_DIR$/test/core.spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        <state relative-caret-position="90">
+          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
           <folding>
-            <element signature="e#16#56#0" expanded="true" />
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementAttributesName.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts">
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R1.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="82" selection-start-line="4" selection-start-column="82" selection-end-line="4" selection-end-column="82" />
+        <state relative-caret-position="525">
+          <caret line="44" column="50" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="62" />
+          <folding>
+            <element signature="e#15#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R7.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2205" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R5.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R8.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="45" column="50" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="50" />
+          <folding>
+            <element signature="e#113#160#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -637,17 +607,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHiddenByCSSAux.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding>
+            <element signature="e#15#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2520">
-          <caret line="168" column="136" selection-start-line="168" selection-start-column="136" selection-end-line="168" selection-end-column="136" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
-            <element signature="e#142#262#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="345">
+          <caret line="48" column="2" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
         </state>
       </provider>
     </entry>

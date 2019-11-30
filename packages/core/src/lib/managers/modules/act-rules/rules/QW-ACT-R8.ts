@@ -8,15 +8,19 @@
  * Last modified: 07/10/2019
  */
 
+
 'use strict';
-import {DomUtils as DomUtil, AccessibilityTreeUtils} from '@qualweb/util';
+import { DomUtils } from '../../../util/index';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import Rule from './Rule.object';
-import { ElementHandle } from 'puppeteer';
+import {ElementHandle, Page} from 'puppeteer';
 import getElementAttribute from '../../../util/domUtils/getElementAttribute';
 import getElementParent from '../../../util/domUtils/getElementParent';
 import getElementTagName from '../../../util/domUtils/getElementTagName';
 import getElementText from '../../../util/domUtils/getElementText';
+import {getAccessibleName} from "../../../util/accessibilityTreeUtils/accessibilityTreeUtils";
+import {isElementHidden} from "../../../util/domUtils/domUtils";
+
 
 /**
  * Technique information
@@ -58,7 +62,7 @@ class QW_ACT_R8 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -72,8 +76,9 @@ class QW_ACT_R8 extends Rule {
       evaluation.description = `There are no HTML elements with semantic role of image`;
       evaluation.resultCode = 'RC1';
     } else {
-      let accessName = AccessibilityTreeUtils.getAccessibleName(element);
-      let isHidden = DomUtil.isElementHidden(element);
+      let accessName = await getAccessibleName(element,page);
+      console.log("aname "+accessName);
+      let isHidden = await isElementHidden(element);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element is not included in the accessibility tree`;
@@ -117,10 +122,10 @@ class QW_ACT_R8 extends Rule {
       }
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtil.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtil.getElementSelector(element);
-    }
+      if (element !== undefined) {
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+        evaluation.pointer = await DomUtils.getElementSelector(element);
+      }
 
     super.addEvaluationResult(evaluation);
   }

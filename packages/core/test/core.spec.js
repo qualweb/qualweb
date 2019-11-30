@@ -38,7 +38,7 @@ const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
 describe('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
-    const reports = await core.evaluate({ url: URL3 });
+    const reports = await core.evaluate({ url: "https://act-rules.github.io/testcases/9eb3f6/cfff293d583d51b90968a15ff490738f20b2f3e3.html"});
     //const reports = await core.evaluate({ file: 'test/urls2.txt', maxParallelEvaluations: 10 });
     console.log(reports.length);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));

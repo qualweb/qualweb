@@ -2,8 +2,9 @@
 
 import { ElementHandle } from 'puppeteer';
 import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
-import { getElementParent } from './domUtils';
+
 import getElementAttribute from './getElementAttribute';
+import getElementParent = require("./getElementParent");
 
 async function isElementHidden(element: ElementHandle): Promise<boolean> {
   if (!element) {
@@ -11,11 +12,13 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
   }
 
   const ariaHidden = await getElementAttribute(element,'aria-hidden')==='true';
-  const hidden = await getElementAttribute(element,'aria-hidden') !== undefined;
+  const hidden = await getElementAttribute(element,'aria-hidden') !== null;
   const cssHidden = await isElementHiddenByCSSAux(element);
   const parent = await getElementParent(element);
   let parentHidden = false;
-
+  console.log(ariaHidden+"aria");
+  console.log(hidden+"hidden")
+  console.log(cssHidden+"css");
   if (parent) {
     parentHidden = await isElementHidden(parent);
   }

@@ -9,12 +9,13 @@ async function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean>
     throw Error('Element is not defined');
   }
 
-  let visibility = false;
-  let displayNone = false;
+  let visibility;
+  let displayNone;
   const display = await getElementStyleProperty(element, '', 'display');
   displayNone = display ? trim(display) === 'none' : false;
   const visibilityATT = await getElementStyleProperty(element, '', 'visibility');
   visibility = visibilityATT ? trim(visibilityATT) === 'collapse' || visibilityATT.trim() === 'hidden' : false;
+
 
 return visibility || displayNone;
 }

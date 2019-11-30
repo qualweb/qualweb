@@ -18,8 +18,9 @@ import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import {controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements} from './constants';
 import getElementName from '../domUtils/getElementName';
 import getElementAttribute from '../domUtils/getElementAttribute';
-import {elementHasRoleNoneOrPresentation} from "./accessibilityTreeUtils";
+
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
+import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
 async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
   return await getAccessibleNameRecursion(element, page, false, false);
 }
@@ -30,6 +31,8 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let isSummary = element.name === "summary";
   let type = await getElementType(element);
   let name = await getElementName(element);
+  if(name)
+    name = name.toLocaleLowerCase();
   let allowNameFromContent = allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
@@ -41,10 +44,12 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   title = await getElementAttribute(element, "title");
   role = await getElementAttribute(element, "role");
   id = await getElementAttribute(element, "id");
-  ;
 
   let referencedByAriaLabel = isElementReferencedByAriaLabel(id, page);
 
+  console.log(type);
+  console.log(name);
+  console.log(await isElementHidden(element));
   if (await isElementHidden(element) && !recursion) {
     //noAName
   } else if (type === "text") {
