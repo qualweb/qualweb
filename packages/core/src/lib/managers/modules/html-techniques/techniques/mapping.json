@@ -9,7 +9,7 @@
     "input[type=\"image\"]": ["QW-HTML-T5"],
     "frame, iframe": ["QW-HTML-T10"],
     "applet": ["QW-HTML-T14"],
-    "table": ["QW-HTML-T2", "QW-HTML-T4", "QW-HTML-T15", "QW-HTML-T30"],
+    "table": ["QW-HTML-T2", "QW-HTML-T4", "QW-HTML-T15","QW-HTML-T17", "QW-HTML-T30"],
     "a": ["QW-HTML-T11","QW-HTML-T34","QW-HTML-T33"],
     "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout]": ["QW-HTML-T6", "QW-HTML-T29"],
     "abbr": ["QW-HTML-T7"],
