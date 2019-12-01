@@ -2,57 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04353b49-245d-487a-9065-e34b204d3262" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T1.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T2.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T3.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T4.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T5.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/QW-CSS-T6.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/css-techniques/techniques/Technique.object.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T26.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T27.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T28.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T29.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T30.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T31.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T32.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T35.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T37.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T41.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T43.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/browserUtils/browserUtils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/browserUtils/detectIfUnwantedTabWasOpened.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementByAttributeName.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementFocusable.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isFocusableBrowser.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/videoElementHasAudio.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/module.manager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/module.manager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/mapping.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/best-practices.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/best-practices.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/best-practices/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T20.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T20.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/util.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleNameSVG.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/getAccessibleNameSVG.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementById.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementReferencedByHREF.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/getElementReferencedByHREF.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementFocusableByDefault.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementFocusableByDefault.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementHidden.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/managers/util/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/util/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/core.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/core.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,57 +14,52 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T8.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="58" column="18" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
+            <state relative-caret-position="729">
+              <caret line="67" column="15" selection-start-line="67" selection-start-column="15" selection-end-line="67" selection-end-column="15" />
               <folding>
-                <element signature="e#15#97#0" expanded="true" />
+                <element signature="e#15#77#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T33.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="57" selection-start-line="57" selection-end-line="57" selection-end-column="71" />
-              <folding>
-                <element signature="e#15#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="444">
+              <caret line="73" column="29" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T32.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/index.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="74" column="3" selection-start-line="74" selection-start-column="3" selection-end-line="76" />
-              <folding>
-                <element signature="e#15#97#0" expanded="true" />
-              </folding>
-            </state>
+            <state relative-caret-position="-315" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T29.ts">
+        <entry file="file://$PROJECT_DIR$/dist/lib/managers/modules/html-techniques/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="54" column="67" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="67" />
-            </state>
+            <state relative-caret-position="-180" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T34.ts">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/Technique.object.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="66" column="3" selection-start-line="66" selection-start-column="3" selection-end-line="68" selection-end-column="5" />
+            <state relative-caret-position="122">
+              <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
               <folding>
-                <element signature="e#15#43#0" expanded="true" />
+                <element signature="e#1#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,37 +89,18 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="555">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/accessibilityTreeUtils.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="58" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="58" />
-              <folding>
-                <element signature="e#15#83#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-              <folding>
-                <element signature="e#15#57#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementFocusable.ts">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -186,6 +113,9 @@
       <find>domUti</find>
       <find>presen</find>
       <find>css</find>
+      <find>T8</find>
+      <find>isElementFocusable</find>
+      <find>isElementFocusable</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -235,6 +165,8 @@
         <option value="$PROJECT_DIR$/src/lib/managers/util/accessibilityTreeUtils/isElementControl.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T42.ts" />
         <option value="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json" />
+        <option value="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts" />
+        <option value="$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts" />
       </list>
     </option>
   </component>
@@ -256,6 +188,41 @@
             <path>
               <item name="core" type="b2602c69:ProjectViewProjectNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="managers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="managers" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="core" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="managers" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="html-techniques" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="core" type="b2602c69:ProjectViewProjectNode" />
@@ -350,7 +317,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575239718317" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575239922715" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -390,12 +357,12 @@
       <workItem from="1574345318900" duration="599000" />
       <workItem from="1574950119675" duration="11553000" />
       <workItem from="1575137788081" duration="6532000" />
-      <workItem from="1575225376870" duration="8706000" />
+      <workItem from="1575225376870" duration="9122000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32133000" />
+    <option name="totallyTimeSpent" value="32549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1922" height="1056" extended-state="6" />
@@ -467,60 +434,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R5.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="82" column="1" selection-start-line="82" selection-start-column="1" selection-end-line="85" selection-end-column="5" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R14.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R7.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2430" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R6.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="632">
-          <caret line="101" column="3" lean-forward="true" selection-start-line="101" selection-start-column="3" selection-end-line="104" selection-end-column="5" />
-          <folding>
-            <element signature="e#113#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/Rule.object.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R11.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="5" selection-end-column="70" />
-          <folding>
-            <element signature="e#14#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/act-rules/rules/QW-ACT-R16.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -684,13 +597,6 @@
           <folding>
             <element signature="e#15#110#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-73">
-          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -887,7 +793,50 @@
     <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/mapping.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/isElementFocusable.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/util/domUtils/domUtils.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="729">
+          <caret line="67" column="15" selection-start-line="67" selection-start-column="15" selection-end-line="67" selection-end-column="15" />
+          <folding>
+            <element signature="e#15#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/QW-HTML-T40.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="73" column="29" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/lib/managers/modules/html-techniques/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques/Technique.object.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/managers/modules/html-techniques/techniques.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
+          <folding>
+            <element signature="e#1#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
