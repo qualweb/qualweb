@@ -1,10 +1,10 @@
 'use strict';
 
-import {ElementHandle} from 'puppeteer';
+import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import {trim} from 'lodash';
-import {DomUtils} from '../../../util/index';
+import {AccessibilityTreeUtils, DomUtils} from '../../../util/index';
 
 const rule: ACTRule = {
   name: 'svg element with explicit role has accessible name',
@@ -43,7 +43,7 @@ class QW_ACT_R21 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
 
     const roleList = ["img", "graphics-document", "graphics-symbol"];
     let evaluation: ACTRuleResult = {
@@ -64,7 +64,7 @@ class QW_ACT_R21 extends Rule {
       for (let elem of elementsToEvaluate) {
         let role = await DomUtils.getElementAttribute(elem, "role");
         let isHidden = await DomUtils.isElementHidden(elem);
-        let AName = "";// await AccessibilityTreeUtils.getAccessibleNameSVG(url, getElementSelector(elem));
+        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(element,page);
 
         if (!role || role && roleList.indexOf(role) < 0 || isHidden) {
           evaluation.verdict = 'inapplicable';

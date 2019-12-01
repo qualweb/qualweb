@@ -9,11 +9,10 @@
  */
 
 'use strict';
-import {ElementHandle, Page} from 'puppeteer';
+import {ElementHandle} from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import {trim} from 'lodash';
-import { DomUtils,AccessibilityTreeUtils } from '../../../util/index';
+import { DomUtils } from '../../../util/index';
 
 /**
  * Technique information
@@ -60,7 +59,7 @@ class QW_ACT_R13 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -70,7 +69,7 @@ class QW_ACT_R13 extends Rule {
     if (element !== undefined) {
       let children = await DomUtils.getElementChildren(element);
       if (children && children.length > 0) {
-        if (isFocusableChildren(element)) {
+        if (await isFocusableChildren(element)) {
           evaluation.verdict = 'failed';
           evaluation.description = `This element has focusable children.`;
           evaluation.resultCode = 'RC1';
@@ -80,7 +79,7 @@ class QW_ACT_R13 extends Rule {
           evaluation.resultCode = 'RC2';
         }
       } else {
-        if (isFocusableContent(element)) {
+        if (await isFocusableContent(element)) {
           evaluation.verdict = 'failed';
           evaluation.description = `This element is still focusable.`;
           evaluation.resultCode = 'RC3';
@@ -101,11 +100,11 @@ class QW_ACT_R13 extends Rule {
 }
 
 async function isFocusableChildren(element: ElementHandle): Promise<boolean> {
-  let result = isFocusableContent(element);
+  let result = await isFocusableContent(element);
   let children = await DomUtils.getElementChildren(element);
   if (children && children.length > 0) {
     for (let child of children) {
-      if (isFocusableContent(child)) {
+      if (await isFocusableContent(child)) {
         result = true;
       } else {
         result = result || await isFocusableChildren(child);
@@ -115,7 +114,7 @@ async function isFocusableChildren(element: ElementHandle): Promise<boolean> {
   return result;
 }
 
-async function isFocusableContent(element: ElementHandle): boolean {
+async function isFocusableContent(element: ElementHandle): Promise<boolean> {
   let disabled = false;
   let hidden = false;
   let focusableByDefault = false;

@@ -17,11 +17,6 @@ import getContentComputedStylesAttributeFunction from './getContentComputedStyle
 import getElementTextFunction from './getElementText';
 import getElementParentFunction from './getElementParent';
 import isElementHiddenFunction from './isElementHidden';
-import getElementNameDocumentFunction from './getElementNameDocument';
-import getElementAttributeDocumentFunction from './getElementAttributeDocument';
-import getElementParentDocumentFunction from './getElementParentDocument';
-import getElementStylePropertyDocumentFunction from './getElementStylePropertyDocument'
-import isElementHiddenDocumentFunction from './isElementHiddenDocument';
 import getElementTagNameFunction from './getElementTagName';
 import getElementTypeFunction from './getElementType';
 import elementHasChildrenFunction from './elementHasChildren';
@@ -55,11 +50,6 @@ namespace DomUtils {
   export const getElementText = getElementTextFunction;
   export const getElementParent = getElementParentFunction;
   export const isElementHidden = isElementHiddenFunction;
-  export const getElementNameDocument = getElementNameDocumentFunction;
-  export const getElementAttributeDocument = getElementAttributeDocumentFunction;
-  export const getElementParentDocument = getElementParentDocumentFunction;
-  export const getElementStylePropertyDocument = getElementStylePropertyDocumentFunction;
-  export const isElementHiddenDocument = isElementHiddenDocumentFunction;
   export const getElementTagName = getElementTagNameFunction;
   export const getElementType = getElementTypeFunction;
   export const elementHasChildren = elementHasChildrenFunction;

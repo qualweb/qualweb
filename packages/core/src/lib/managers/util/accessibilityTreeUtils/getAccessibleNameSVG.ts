@@ -1,41 +1,55 @@
 'use strict';
-import { ElementHandle } from 'puppeteer';
-/*import {isElementHidden, getElementById,getElementChildTextContent,getElementAttribute} from "../domUtils/domUtils";
+import {ElementHandle, Page} from 'puppeteer';
+import {trim} from 'lodash';
+import {
+  isElementHidden,
+  getElementById,
+  getElementParent
+} from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
-import getAccessibleName from './getAccessibleName';
-import {trim} from 'lodash';
-import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml } from "./constants";*/
+import {
+  noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml
+} from './constants';
+import getElementName from '../domUtils/getElementName';
+import getElementAttribute from '../domUtils/getElementAttribute';
+import getAccessibleName = require("./getAccessibleName");
+import getElementChildTextContent = require("../domUtils/getElementChildTextContent");
 
-function getAccessibleNameSVG(element: ElementHandle, processedHTML: ElementHandle[]): string | undefined {
+async function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise<string | undefined> {
   //return getAccessibleNameSVGRecursion(element, processedHTML, false);
-  return element.toString()+ processedHTML;
+  return await getAccessibleNameSVGRecursion(element, page, false);
 }
+
 //elementos q sao usados para outros: desc(descricao),title
 ////let specialElements = ["circle","elipse","line","path","polygon","polyline","rect","use","g","image","mesh","textPath","tspan","foreignObject"];//https://www.w3.org/TR/svg-aam-1.0/#include_elements
 //link role if the element has a valid href or xlink:href attribute. For a elements that are not links, use the mapping for tspan if the a element is a descendent of text, or the mapping for g otherwise.
-//function getAccessibleNameSVGRecursion(element: ElementHandle, processedHTML: ElementHandle[], recursion: boolean): string | undefined {}
-/*  let AName, ariaLabelBy, ariaLabel, id, tag;
+async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page, recursion: boolean): Promise<string | undefined> {
+  let AName, ariaLabelBy, ariaLabel, id, tag;
 
-  tag = element.name;
+  tag = await getElementName(element);
   let regex = new RegExp('^fe[a-zA-Z]+');
-  if (element.attribs) {
-    ariaLabelBy = getElementById(element.attribs["aria-labelledby"], processedHTML).length > 0 ? element.attribs["aria-labelledby"] : "";
-    ariaLabel = element.attribs["aria-label"];
-    id = element.attribs["id"];
+  ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
+  if (!ariaLabelBy && await getElementById(ariaLabelBy, page) === null) {
+    ariaLabelBy = "";
   }
-  let referencedByAriaLabel = isElementReferencedByAriaLabel(id, processedHTML, element);
-  let title = getElementChildTextContent(element, "title");
-  let titleAtt = getElementAttribute(element, "xlink:title");//tem de ser a
-  let href = getElementAttribute(element, "href");;
+  ariaLabel = await getElementAttribute(element, "aria-label");
+  id = await getElementAttribute(element, "id");
 
-  //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if (isElementHidden(element) && !recursion || hasParentOfName(element,noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
+
+  let referencedByAriaLabel = await isElementReferencedByAriaLabel(id, page);
+  let title = await getElementChildTextContent(element, "title");
+  let titleAtt = await getElementAttribute(element, "xlink:title");//tem de ser a
+  let href = getElementAttribute(element, "href");
+  ;
+
+//console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
+  if (isElementHidden(element) && !recursion || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, processedHTML);
+    AName = await getAccessibleNameFromAriaLabelledBy( page, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
-    AName = getAccessibleName(element, processedHTML);
+    AName = getAccessibleName(element, page);
   } else if (ariaLabel && trim(ariaLabel) !== "") {
     AName = ariaLabel;
   } else if (title && trim(title) !== "") {
@@ -50,24 +64,28 @@ function getAccessibleNameSVG(element: ElementHandle, processedHTML: ElementHand
 }
 
 
-function hasParentOfName(element: ElementHandle, name: string[]) {
+async function hasParentOfName(element: ElementHandle, name: string[]) {
 
-  let parent = element.parent;
-  if (parent && parent.name) {
-    return name.indexOf(parent.name)>=0 || hasParentOfName(parent, name);
+  let parent = await getElementParent(element);
+  if (parent) {
+    let parentName = await getElementName(element);
+    return parentName && name.indexOf(parentName) >= 0 || hasParentOfName(parent, name);
   } else {
     return false;
-   }
+  }
 }
 
 
-function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaLabelId: string, processedHTML: ElementHandle[]): string | undefined {
+async function getAccessibleNameFromAriaLabelledBy( page: Page, ariaLabelId: string): Promise <string|undefined> {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
+  let elem;
 
   for (let id of ListIdRefs) {
-    accessNameFromId = getAccessibleNameSVGRecursion(getElementById(id, processedHTML)[0], processedHTML, true);
+    elem = await getElementById(id, page);
+    if (elem)
+      accessNameFromId = await getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId;
@@ -78,22 +96,6 @@ function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaLabelId
   }
 
   return result;
-}ltworkidle0', timeout: 60000});
-  const hrefElement = await page.$(selector);
-
-  let options = {
-    root: hrefElement
-  };
-
-  const snapshot = await page.accessibility.snapshot(options);
-  let result;
-
-  if (snapshot && snapshot.name)
-    result = snapshot.name;
-  
-  browser.close();
-
-  return result;
-}*/
+}
 
 export = getAccessibleNameSVG;
