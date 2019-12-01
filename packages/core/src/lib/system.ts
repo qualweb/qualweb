@@ -4,11 +4,10 @@ import puppeteer, { Browser, Page, Viewport } from 'puppeteer';
 import { Parser, DomElement, DomHandler, DomUtils } from 'htmlparser2';
 import request from 'request';
 const stew = new(require('stew-select')).Stew();
-import { EvaluationReport, QualwebOptions } from '@qualweb/core';
+import { EvaluationReport, QualwebOptions, DomOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './managers/startup.manager';
-import { evaluate2 } from './managers/module.manager';
+import { evaluate } from './managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
-import { DomOptions, Html } from '@qualweb/get-dom-puppeteer';
 import clone from 'lodash/clone';
 import css from 'css';
 
@@ -94,6 +93,7 @@ class System {
     }
 
     this.browser = await puppeteer.launch();
+    await (await this.browser.pages())[0].close();
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
@@ -143,8 +143,8 @@ class System {
 
         const sourceHtml = await this.getSourceHTML(url);
 
-        const evaluation = await evaluate2(sourceHtml, page, stylesheets, this.modulesToExecute, options);
-        //const evaluation = await evaluate(url, this.modulesToExecute, options);
+        const evaluation = await evaluate(sourceHtml, page, stylesheets, this.modulesToExecute, options);
+        
         this.evaluations.push(evaluation.getFinalReport());
         await page.close();
       } catch(err) {
@@ -223,7 +223,7 @@ class System {
     });
   }
 
-  private async getSourceHTML(url: string, options?: DomOptions): Promise<Html> {
+  private async getSourceHTML(url: string, options?: DomOptions): Promise<SourceHtml> {
     const headers = {
       'url': url,
       'headers': {
@@ -245,7 +245,7 @@ class System {
       title = DomUtils.getText(titleElement[0]);
     }
 
-    const source: Html = {
+    const source: SourceHtml = {
       html: {
         plain: sourceHTML,
         parsed: parsedHTML

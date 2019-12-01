@@ -1,16 +1,16 @@
 'use strict';
 
-import { Element } from 'htmlparser2';
 import {controlRoles } from "./constants";
+import {ElementHandle} from "puppeteer";
+import getElementAttribute = require("../domUtils/getElementAttribute");
 
-function isElementControl(element: Element): boolean {
+async function isElementControl(element: ElementHandle): Promise<boolean> {
 
-  if (element.attribs === undefined)
-    return false;
 
-  let role = element.attribs["role"];
 
-  return controlRoles.indexOf(role) >= 0;
+  let role = await getElementAttribute(element,"role");
+
+  return role!==null && controlRoles.indexOf(role) >= 0;
 }
 
 export = isElementControl;

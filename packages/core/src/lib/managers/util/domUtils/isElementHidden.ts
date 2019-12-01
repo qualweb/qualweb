@@ -2,7 +2,6 @@
 
 import { ElementHandle } from 'puppeteer';
 import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
-
 import getElementAttribute from './getElementAttribute';
 import getElementParent = require("./getElementParent");
 

@@ -87,7 +87,7 @@ async function executeRule(rule: string, selector: string, page: Page, report: A
   if (elements.length > 0) {
     for (const elem of elements || []) {
       await rules[rule].execute(elem, page);
-      await elem.dispose();
+      //await elem.dispose();
     }
   } else {
     await rules[rule].execute(undefined, page);

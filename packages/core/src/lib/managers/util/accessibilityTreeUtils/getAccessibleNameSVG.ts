@@ -30,7 +30,7 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   tag = await getElementName(element);
   let regex = new RegExp('^fe[a-zA-Z]+');
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
-  if (!ariaLabelBy && await getElementById(ariaLabelBy, page) === null) {
+  if (!ariaLabelBy && await getElementById(page,ariaLabelBy) === null) {
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
@@ -83,7 +83,7 @@ async function getAccessibleNameFromAriaLabelledBy( page: Page, ariaLabelId: str
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = await getElementById(id, page);
+    elem = await getElementById( page,id);
     if (elem)
       accessNameFromId = await getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {

@@ -1,29 +1,43 @@
+
 'use strict';
 
-import {ElementHandle} from "puppeteer";
-import getElementName = require("./getElementName");
-import getElementAttribute = require("./getElementAttribute");
-import getElementParent = require("./getElementParent");
-import getElementChildren = require("./getElementChildren");
+import { ElementHandle } from 'puppeteer';
+import getElementTagName from './getElementTagName';
+import elementHasAttribute from './elementHasAttribute';
+import getElementAttribute from './getElementAttribute';
+import getElementParent from './getElementParent';
+import getElementChildren from './getElementChildren';
 
 async function isElementFocusableByDefault(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  switch (await getElementName(element)) {
+  const elementName = await getElementTagName(element);
+  const hasHref = await elementHasAttribute(element, 'href');
+  const elementAttributeType = await getElementAttribute(element, 'type');
+
+  const parent = await getElementParent(element);
+  let parentName;
+  let parentChildren;
+
+  if (parent) {
+    parentName = await getElementTagName(parent);
+    parentChildren = await getElementChildren(parent);
+  }
+
+  switch (elementName) {
     case 'a':
     case 'area':
     case 'link':
-      if (await  getElementAttribute(element,'href')) {
+      if (hasHref) {
         return true;
       }
       break;
     case 'input':
-      return !(await  getElementAttribute(element,'type') !== 'hidden');
+      return !!!(elementAttributeType && elementAttributeType !== 'hidden');
     case 'summary':
-      const parent = await getElementParent(element);
-      return !!(parent && await getElementName(parent)=== 'details' && await getElementChildren(element) && await getElementChildren(element)[0] === element);
+      return !!(parent && parentName === 'details' && parentChildren && parentChildren[0] === element);
     case 'textarea':
     case 'select':
     case 'button':
