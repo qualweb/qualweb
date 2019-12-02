@@ -1,7 +1,6 @@
 declare module '@qualweb/core' {
   import { DomElement } from 'htmlparser2';
   import { Stylesheet } from 'css';
-  import { Dom } from '@qualweb/get-dom-puppeteer';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
   import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';

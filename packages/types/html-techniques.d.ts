@@ -1,5 +1,5 @@
 declare module '@qualweb/html-techniques' {
-  import { DomElement } from 'htmlparser2';
+  import { Page } from 'puppeteer';
 
   interface HTMLTOptions {
     techniques?: string[];
@@ -69,7 +69,7 @@ declare module '@qualweb/html-techniques' {
 
   function configure(options: HTMLTOptions): void;
   function resetConfiguration(): void;
-  function executeHTMLT(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<HTMLTechniquesReport>;
+  function executeHTMLT(page: Page): Promise<HTMLTechniquesReport>;
 
   export {
     HTMLTOptions,

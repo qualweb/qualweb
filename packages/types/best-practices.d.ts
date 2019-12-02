@@ -1,5 +1,5 @@
 declare module '@qualweb/best-practices' {
-  import { DomElement } from 'htmlparser2';
+  import { Page } from 'puppeteer';
 
   interface BPOptions {
     bestPractices?: string[];
@@ -65,7 +65,9 @@ declare module '@qualweb/best-practices' {
     };
   }
 
-  function executeBestPractices(dom: DomElement[]): Promise<BestPracticesReport>;
+  function resetConfiguration(): void;
+  function configure(options: BPOptions): void;
+  function executeBestPractices(page: Page): Promise<BestPracticesReport>;
 
   export {
     BPOptions,
@@ -74,6 +76,8 @@ declare module '@qualweb/best-practices' {
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
+    resetConfiguration, 
+    configure,
     executeBestPractices
   };
 }

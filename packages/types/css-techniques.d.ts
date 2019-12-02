@@ -1,7 +1,6 @@
 declare module '@qualweb/css-techniques' {
-  import { DomElement } from 'htmlparser2';
   import { Position } from 'css';
-  import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
+  import { CSSStylesheet } from '@qualweb/core';
 
   interface CSSTOptions {
     techniques?: string[];
