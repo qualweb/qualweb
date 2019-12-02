@@ -113,7 +113,7 @@ declare module '@qualweb/core' {
   interface Dom {
     readonly source: SourceHtml;
     readonly processed: ProcessedHtml;
-    readonly stylesheets: CSSStylesheet[];
+    stylesheets: CSSStylesheet[];
   }
 
   function evaluate(options: QualwebOptions): Promise<EvaluationReport[]>;
