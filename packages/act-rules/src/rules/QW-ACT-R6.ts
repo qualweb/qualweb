@@ -7,18 +7,15 @@
  *
  * Last modified: 7/10/2019
  */
+
+
 'use strict';
 
-import {DomElement} from 'htmlparser2';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
-import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
+import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import {trim} from 'lodash';
-
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils,AccessibilityTreeUtils } from '@qualweb/util';
 
 /**
  * Technique information
@@ -68,7 +65,7 @@ class QW_ACT_R6 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -84,7 +81,7 @@ class QW_ACT_R6 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       isHidden = DomUtils.isElementHidden(element);
-      accessName = AccessibilityTreeUtils.getAccessibleName(element, processedHTML, false);
+      accessName = AccessibilityTreeUtils.getAccessibleName(element, page);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This image button is not included in the accessibiliy tree`;
@@ -103,10 +100,9 @@ class QW_ACT_R6 extends Rule {
     }
 
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
-
     super.addEvaluationResult(evaluation);
   }
 }

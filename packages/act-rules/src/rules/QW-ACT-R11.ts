@@ -1,16 +1,9 @@
 'use strict';
-
-import {DomElement} from 'htmlparser2';
-import _ from 'lodash';
+import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
-import {DomUtils as DomUtil, AccessibilityTreeUtils} from '@qualweb/util';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import {trim} from 'lodash';
-
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils,AccessibilityTreeUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: 'Button has accessible name',
@@ -47,8 +40,8 @@ class QW_ACT_R11 extends Rule {
   constructor() {
     super(rule);
   }
-  
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+
+  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -60,14 +53,13 @@ class QW_ACT_R11 extends Rule {
       evaluation.description = 'There are no elements with the semantic role of button.';
       evaluation.resultCode = 'RC1';
     } else {
-      let isHidden = DomUtil.isElementHidden(element);
-      let accessName = AccessibilityTreeUtils.getAccessibleName(element, processedHTML, false);
+      let isHidden = await DomUtils.isElementHidden(element);
+      let accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
       if(isHidden){
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'This element is not included in the accessibility tree.';
         evaluation.resultCode = 'RC2';
-      } else if (element.name === 'button' && element.attribs
-        && element.attribs["role"] && element.attribs["role"] !== 'button'){
+      } else if (await  DomUtils.getElementName(element) === 'button' && await DomUtils.getElementAttribute(element,"role") !== 'button'){
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This button's role is overriden.`;
         evaluation.resultCode = 'RC3';
@@ -82,9 +74,9 @@ class QW_ACT_R11 extends Rule {
       }
     }
 
-    if (element) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+    if (element !== undefined) {
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
   }

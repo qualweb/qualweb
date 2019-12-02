@@ -9,16 +9,10 @@
  */
 
 'use strict';
-
-import {DomElement} from 'htmlparser2';
-import {DomUtils as DomUtil} from '@qualweb/util';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import {ElementHandle} from 'puppeteer';
 import Rule from './Rule.object';
-
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils } from '@qualweb/util';
 
 /**
  * Technique information
@@ -65,7 +59,7 @@ class QW_ACT_R13 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -73,8 +67,9 @@ class QW_ACT_R13 extends Rule {
     };
 
     if (element !== undefined) {
-      if (element.children && element.children.length > 0) {
-        if (isFocusableChildren(element)) {
+      let children = await DomUtils.getElementChildren(element);
+      if (children && children.length > 0) {
+        if (await isFocusableChildren(element)) {
           evaluation.verdict = 'failed';
           evaluation.description = `This element has focusable children.`;
           evaluation.resultCode = 'RC1';
@@ -84,7 +79,7 @@ class QW_ACT_R13 extends Rule {
           evaluation.resultCode = 'RC2';
         }
       } else {
-        if (isFocusableContent(element)) {
+        if (await isFocusableContent(element)) {
           evaluation.verdict = 'failed';
           evaluation.description = `This element is still focusable.`;
           evaluation.resultCode = 'RC3';
@@ -96,48 +91,43 @@ class QW_ACT_R13 extends Rule {
       }
     }
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
 
     super.addEvaluationResult(evaluation);
   }
 }
 
-function isFocusableChildren(element: DomElement): boolean {
-  let result = isFocusableContent(element);
-  if (element.children && element.children.length > 0) {
-    for (let child of element.children) {
-      if (isFocusableContent(child)) {
+async function isFocusableChildren(element: ElementHandle): Promise<boolean> {
+  let result = await isFocusableContent(element);
+  let children = await DomUtils.getElementChildren(element);
+  if (children && children.length > 0) {
+    for (let child of children) {
+      if (await isFocusableContent(child)) {
         result = true;
       } else {
-        result = result || isFocusableChildren(child);
+        result = result || await isFocusableChildren(child);
       }
     }
   }
   return result;
 }
 
-function isFocusableContent(element: DomElement): boolean {
+async function isFocusableContent(element: ElementHandle): Promise<boolean> {
   let disabled = false;
   let hidden = false;
   let focusableByDefault = false;
   let tabIndexLessThanZero = false;
-  let tabIndexExists = false;
-
-  if(element.attribs){
-    tabIndexExists = element.attribs['tabindex'] !== undefined;
+  let tabIndexExists = await DomUtils.getElementAttribute(element, "tabIndex") !== null;
+  disabled = await DomUtils.getElementAttribute(element, "disabled") !== null;
+  hidden = await DomUtils.isElementHiddenByCSS(element);
+  focusableByDefault = await DomUtils.isElementFocusableByDefault(element);
+  let tabindex = await DomUtils.getElementAttribute(element, "tabIndex");
+  if (tabindex && !isNaN(parseInt(tabindex, 10))) {
+    tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
   }
 
-  if (element.attribs) {
-    disabled = element.attribs['disabled'] !== undefined;
-    hidden = DomUtil.isElementHiddenByCSS(element);
-    focusableByDefault = DomUtil.isElementFocusableByDefault(element);
-    let tabindex = element.attribs['tabindex'];
-    if (tabindex && !isNaN(parseInt(tabindex, 10))) {
-      tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
-    }
-  }
   if (focusableByDefault)
     return !(disabled || hidden || tabIndexLessThanZero);
   else

@@ -1,18 +1,13 @@
 'use strict';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomElement } from 'htmlparser2';
-import { DomUtils as DomUtil, AccessibilityTreeUtils } from '@qualweb/util';
+import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
-import { trim } from 'lodash';
-const stew = new (require('stew-select')).Stew();
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import {trim} from 'lodash';
+import {AccessibilityTreeUtils, DomUtils} from '@qualweb/util';
 
 const rule: ACTRule = {
-  name: '`id` attribute value is unique',
+  name: 'svg element with explicit role has accessible name',
   code: 'QW-ACT-R21',
   mapping: '7d6734',
   description: 'This rule checks that each SVG image element that is explicitly included in the accessibility tree has an accessible name.',
@@ -48,7 +43,7 @@ class QW_ACT_R21 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void> {
+  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
 
     const roleList = ["img", "graphics-document", "graphics-symbol"];
     let evaluation: ACTRuleResult = {
@@ -64,14 +59,14 @@ class QW_ACT_R21 extends Rule {
       evaluation.resultCode = 'RC1';
       super.addEvaluationResult(evaluation);
     } else {
-      let elementsToEvaluate = stew.select(element, "svg *");
+      let elementsToEvaluate = await element.$$("svg *");
       elementsToEvaluate.push(element);
       for (let elem of elementsToEvaluate) {
-        let role = DomUtil.getElementAttribute(elem, "role");
-        let isHidden = DomUtil.isElementHidden(elem);
-        let AName = await AccessibilityTreeUtils.getAccessibleNameSVG(url, getElementSelector(elem));
+        let role = await DomUtils.getElementAttribute(elem, "role");
+        let isHidden = await DomUtils.isElementHidden(elem);
+        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(element,page);
 
-        if (roleList.indexOf(role) < 0||isHidden) {
+        if (!role || role && roleList.indexOf(role) < 0 || isHidden) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = "No svg elements with this specifique roles in the accessibility tree";
           evaluation.resultCode = 'RC2';
@@ -84,17 +79,15 @@ class QW_ACT_R21 extends Rule {
           evaluation.description = "This element doesnt have an accessible name";
           evaluation.resultCode = 'RC4';
         }
-        evaluation.code = transform_element_into_html(element);
-        evaluation.pointer = getElementSelector(element);
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+        evaluation.pointer = await DomUtils.getElementSelector(element);
         super.addEvaluationResult(evaluation);
-        
+
         evaluation.verdict = '';
         evaluation.description = "";
         evaluation.resultCode = '';
       }
     }
-
-
 
 
   }

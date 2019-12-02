@@ -1,5 +1,5 @@
+import { Page, ElementHandle } from 'puppeteer';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomElement } from 'htmlparser2';
 import _ from 'lodash';
 
 abstract class Rule {
@@ -45,7 +45,7 @@ abstract class Rule {
     this.rule.metadata[result.verdict]++;
   }
 
-  abstract async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void>;
+  abstract async execute(element: ElementHandle | undefined, page: Page): Promise<void>;
 
   getFinalResults(): any {
     this.outcomeRule();

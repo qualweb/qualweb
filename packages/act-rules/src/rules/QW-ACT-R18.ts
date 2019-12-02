@@ -1,14 +1,11 @@
 'use strict';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomElement } from 'htmlparser2';
-import { DomUtils as DomUtil } from '@qualweb/util';
-const stew = new (require('stew-select')).Stew();
+import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+
+import { DomUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: '`id` attribute value is unique',
@@ -47,8 +44,7 @@ class QW_ACT_R18 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void> {
-
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -58,34 +54,35 @@ class QW_ACT_R18 extends Rule {
 
     if (element === undefined) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "No elements with id";
+      evaluation.description = 'No elements with id';
       evaluation.resultCode = 'RC1';
     } else {
-
-
-      let id = DomUtil.getElementAttribute(element, "id");
-      let elementsWithSameId = stew.select(processedHTML, '[id="' + id + '"]');
-      let genId = RegExp("qw-generated-id-");
-  
-      if (elementsWithSameId.length > 1) {
-        evaluation.verdict = 'failed';
-        evaluation.description = "Several elements have identical id";
-        evaluation.resultCode = 'RC2';
-      } else if (!genId.test(id)&&id!==undefined && id !== "") {
-        evaluation.verdict = 'passed';
-        evaluation.description = "This element has a unique id";
-        evaluation.resultCode = 'RC3';
-      } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = "Element doesnt have a non empty id";
-        evaluation.resultCode = 'RC4';
+      const id = await DomUtils.getElementAttribute(element, 'id');
+      if (id) {
+        const elementsWithSameId = await page.$$('#' + id);
+        const genId = RegExp('qw-generated-id-');
+    
+        if (elementsWithSameId.length > 1) {
+          evaluation.verdict = 'failed';
+          evaluation.description = 'Several elements have identical id';
+          evaluation.resultCode = 'RC2';
+        } else if (!genId.test(id) && id !== undefined && id !== '') {
+          evaluation.verdict = 'passed';
+          evaluation.description = 'This element has a unique id';
+          evaluation.resultCode = 'RC3';
+        } else {
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = 'Element doesnt have a non empty id';
+          evaluation.resultCode = 'RC4';
+        }
       }
     }
 
     if (element) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
+
     super.addEvaluationResult(evaluation);
   }
 }

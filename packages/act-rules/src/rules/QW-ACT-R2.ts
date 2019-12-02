@@ -1,26 +1,10 @@
-/**
- * Author: António Estriga
- *
- * Description:
- *
- * Notes:
- *
- * Last modified: 12/11/2011
- */
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import _ from 'lodash';
-const stew = new(require('stew-select')).Stew();
-
+import { Page, ElementHandle } from 'puppeteer';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
 
-
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils } from '@qualweb/util';
 
 /**
  * Technique information
@@ -62,44 +46,48 @@ class QW_ACT_R2 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const mathElement = stew.select(processedHTML, 'math');
+    const mathElement = await page.$$('math');
 
     if (element === undefined || mathElement.length > 0) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There is no <html> element`;
       evaluation.resultCode = 'RC1';
-    } else if (element.parent !== null) {
-      evaluation.verdict = 'inapplicable';
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs && element.attribs['lang'] !== undefined && element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '') { // passed
-      evaluation.verdict = 'passed';
-      evaluation.description = `The xml:lang attribute has a value`;
-      evaluation.resultCode = 'RC3';
-    } else if (element.attribs && element.attribs['lang'] !== undefined && element.attribs['lang'].trim() !== '') { // passed
-      evaluation.verdict = 'passed';
-      evaluation.description = `The lang attribute has a value`;
-      evaluation.resultCode = 'RC4';
-    } else if ((element.attribs && element.attribs['lang'] === undefined) || (element.attribs && element.attribs['xml:lang'] === undefined)) { // failed
-      evaluation.verdict = 'failed';
-      evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-      evaluation.resultCode = 'RC5';
-    } else if ((element.attribs && element.attribs['lang'] === '') || (element.attribs && element.attribs['xml:lang'] === '')) { // failed
-      evaluation.verdict = 'failed';
-      evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-      evaluation.resultCode = 'RC5';
+    } else {
+      
+      const lang = await DomUtils.getElementAttribute(element, 'lang');
+      const xmlLang = await DomUtils.getElementAttribute(element, 'xml:lang');
+
+      if (lang !== null && xmlLang !== null && xmlLang.trim() !== '') { // passed
+        evaluation.verdict = 'passed';
+        evaluation.description = `The xml:lang attribute has a value`;
+        evaluation.resultCode = 'RC3';
+      } else if (lang !== null && lang.trim() !== '') { // passed
+        evaluation.verdict = 'passed';
+        evaluation.description = `The lang attribute has a value`;
+        evaluation.resultCode = 'RC4';
+      } else if (lang === null || xmlLang === null) { // failed
+        evaluation.verdict = 'failed';
+        evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+        evaluation.resultCode = 'RC5';
+      } else if (lang.trim() === '' || xmlLang.trim() === '') { // failed
+        evaluation.verdict = 'failed';
+        evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
+        evaluation.resultCode = 'RC5';
+      }
     }
     
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
 
     super.addEvaluationResult(evaluation);

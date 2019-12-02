@@ -1,12 +1,10 @@
 'use strict';
 
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
-
+import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
-import {DomElement} from "domhandler";
-import {getElementSelector, transform_element_into_html} from "../util";
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import {trim} from 'lodash';
-import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
+import { DomUtils,AccessibilityTreeUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: 'Form control has accessible name',
@@ -51,7 +49,7 @@ class QW_ACT_R16 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -66,9 +64,10 @@ class QW_ACT_R16 extends Rule {
       evaluation.description = `There are no input, select, textarea or elements with role attribute in this web page.`;
       evaluation.resultCode = 'RC1';
     } else {
-      if ((element.attribs && !element.attribs["role"]) || (element.attribs && element.attribs["role"] && semanticRoles.includes(trim(element.attribs["role"])))) {
-        if (!DomUtils.isElementHidden(element)) {
-          accessibleName = AccessibilityTreeUtils.getAccessibleName(element, processedHTML);
+      let role = await DomUtils.getElementAttribute(element,"role");
+      if (!role|| ( semanticRoles.includes(trim(role)))) {
+        if (!await DomUtils.isElementHidden(element)) {
+          accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
           if (accessibleName !== undefined && trim(accessibleName) !== '') {
             evaluation.verdict = 'passed';
             evaluation.description = `This form field element has an not-empty accessible name`;
@@ -91,8 +90,8 @@ class QW_ACT_R16 extends Rule {
     }
 
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
 
     super.addEvaluationResult(evaluation);

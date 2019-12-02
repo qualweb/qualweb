@@ -1,15 +1,11 @@
 'use strict';
 
 import { DomElement } from 'htmlparser2';
-import _ from 'lodash';
-import Rule from './Rule.object';
+import Rule from './Rule2.object';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: 'Meta-refresh no delay',
@@ -60,7 +56,7 @@ class QW_ACT_R4 extends Rule {
 
   async execute(element: DomElement | undefined): Promise<void> {
   
-    if (element === undefined) { // if the element doesn't exist, there's nothing to test
+    if (!element) { // if the element doesn't exist, there's nothing to test
       return;
     }
 
@@ -70,34 +66,35 @@ class QW_ACT_R4 extends Rule {
       resultCode: ''
     };
 
+    const content = DomUtils.getElementAttribute2(element, 'content');
+    const httpEquiv = DomUtils.getElementAttribute2(element, 'http-equiv');
+
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Already exists one valid or invalid <meta> above';
       evaluation.resultCode = 'RC1';
-    } else if (element.attribs === undefined) { // not applicable
+    } else if (!element.attribs) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attributes "content" and "http-equiv"';
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs.content === undefined) { // not applicable
+    } else if (content === null) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attribute "content"';
       evaluation.resultCode = 'RC3';
-    } else if (element.attribs['http-equiv'] === undefined) { // not applicable
+    } else if (httpEquiv === null) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Inexistent attribute "http-equiv"';
       evaluation.resultCode = 'RC4';
-    } else if (element.attribs.content === '') { // not applicable
+    } else if (content.trim() === '') { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Attribute "content" is empty';
       evaluation.resultCode = 'RC5';
     } else {
-      let content = element.attribs.content;
-
-      let indexOf = content.indexOf(';');
+      const indexOf = content.indexOf(';');
 
       if (indexOf === -1) { // if is a refresh
-        if (this.checkIfIsNumber(content) && _.isInteger(parseInt(content, 0))) {
-          let n = Number(content);
+        if (this.checkIfIsNumber(content) && Number.isInteger(parseInt(content, 0))) {
+          const n = Number(content);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
             evaluation.description = `Time value can't be negative`;
@@ -121,7 +118,7 @@ class QW_ACT_R4 extends Rule {
           evaluation.resultCode = 'RC10';
         }
       } else { // if is a redirect
-        let split = content.split(';');
+        const split = content.split(';');
 
         if (split.length > 2) { // not applicable
           evaluation.verdict = 'inapplicable';
@@ -131,8 +128,8 @@ class QW_ACT_R4 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = '"Content" attribute is invalid';
           evaluation.resultCode = 'RC10';
-        } else if (this.checkIfIsNumber(split[0]) && _.isInteger(parseInt(split[0], 0))) {
-          let n = Number(split[0]);
+        } else if (this.checkIfIsNumber(split[0]) && Number.isInteger(parseInt(split[0], 0))) {
+          const n = Number(split[0]);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
             evaluation.description = `Time value can't be negative`;
@@ -148,7 +145,7 @@ class QW_ACT_R4 extends Rule {
               url = split[1].trim();
             }
 
-            if (this.validURL(url)) {
+            if (url && this.validURL(url)) {
               if (n === 0) { // passes because the time is 0 and the url exists
                 evaluation.verdict = 'passed';
                 evaluation.description = 'Redirects immediately';
@@ -180,8 +177,8 @@ class QW_ACT_R4 extends Rule {
       }
     }
 
-    evaluation.code = transform_element_into_html(element);
-    evaluation.pointer = getElementSelector(element);
+    //evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    //evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }
