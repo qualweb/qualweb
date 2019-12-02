@@ -50,6 +50,8 @@ class QW_ACT_R1 extends Rule {
     };
     let rootElem: ElementHandle | null = null;
 
+
+
     //the first title element was already tested
     if (super.getNumberOfInapplicableResults() > 0 || super.getNumberOfPassedResults() > 0 || super.getNumberOfFailedResults() > 0) {
       return;

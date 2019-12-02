@@ -71,7 +71,7 @@ class QW_HTML_T40 extends Technique {
       resultCode: ''
     };
 
-    const isFocusable = DomUtils.isElementFocusable(element);
+    const isFocusable =await DomUtils.isElementFocusable(element);
     let keepsFocus;
 
     if(isFocusable){

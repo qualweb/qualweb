@@ -59,11 +59,17 @@ class QW_ACT_R2 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There is no <html> element`;
       evaluation.resultCode = 'RC1';
-    } else if ((await DomUtils.getElementParent(element)) !== null) {
-      evaluation.verdict = 'inapplicable';
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
     } else {
+      let teste = await page.evaluate(() => {
+        return document.contentType+" "+document.documentElement.childNodes.length;
+      });
+      console.log(teste);
+      let banana = await element.evaluate(() => {
+        return document.contentType+" "+document.documentElement.childNodes.length;
+      });
+      console.log(banana);
       const lang = await DomUtils.getElementAttribute(element, 'lang');
       const xmlLang = await DomUtils.getElementAttribute(element, 'xml:lang');
 

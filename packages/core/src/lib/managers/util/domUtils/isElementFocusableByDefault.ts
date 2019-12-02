@@ -1,3 +1,4 @@
+
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
@@ -24,7 +25,7 @@ async function isElementFocusableByDefault(element: ElementHandle): Promise<bool
     parentName = await getElementTagName(parent);
     parentChildren = await getElementChildren(parent);
   }
-  
+
   switch (elementName) {
     case 'a':
     case 'area':
