@@ -3,10 +3,11 @@
  */
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+//import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
-import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
+import { SourceHtml } from '@qualweb/core';
 const stew = new(require('stew-select')).Stew();
+import { Page } from 'puppeteer';
 
 import mapping from './rules/mapping.json';
 
@@ -61,17 +62,17 @@ function resetConfiguration(): void {
   }
 }
 
-async function executeMappedRules(url: string, report: ACTRulesReport, html: DomElement[], selectors: string[], mappedRules: any): Promise<void> {
+async function executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): Promise<void> {
   for (const selector of selectors || []) {
     for (const rule of mappedRules[selector] || []) {
       if (rulesToExecute[rule]) {
-        const elements = stew.select(html, selector);
+        const elements = stew.select(html.html.parsed, selector);
         if (elements.length > 0) {
           for (const elem of elements || []) {
-            await rules[rule].execute(elem, html, url);
+            await rules[rule].execute(elem, html);
           }
         } else {
-          await rules[rule].execute(undefined, html, url);
+          await rules[rule].execute(undefined, html);
         }
         report.rules[rule] = rules[rule].getFinalResults();
         report.metadata[report.rules[rule].metadata.outcome]++;
@@ -81,7 +82,34 @@ async function executeMappedRules(url: string, report: ACTRulesReport, html: Dom
   }
 }
 
-async function executeNotMappedRules(report: ACTRulesReport, stylesheets: CSSStylesheet[]): Promise<void> {
+async function executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport): Promise<void> {
+  const elements = await page.$$(selector);
+  if (elements.length > 0) {
+    for (const elem of elements || []) {
+      await rules[rule].execute(elem, page);
+      //await elem.dispose();
+    }
+  } else {
+    await rules[rule].execute(undefined, page);
+  }
+  report.rules[rule] = rules[rule].getFinalResults();
+  report.metadata[report.rules[rule].metadata.outcome]++;
+  rules[rule].reset();
+}
+
+async function executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any): Promise<void> {
+  const promises = new Array<any>();
+  for (const selector of selectors || []) {
+    for (const rule of mappedRules[selector] || []) {
+      if (rulesToExecute[rule]) {
+        promises.push(executeRule(rule, selector, page, report));
+      }
+    }
+  }
+  await Promise.all(promises);
+}
+
+async function executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void> {
   if (rulesToExecute['QW-ACT-R7']) {
     await rules['QW-ACT-R7'].unmappedExecute(stylesheets);
     report.rules['QW-ACT-R7'] = rules['QW-ACT-R7'].getFinalResults();
@@ -90,15 +118,7 @@ async function executeNotMappedRules(report: ACTRulesReport, stylesheets: CSSSty
   }
 }
 
-async function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet[]): Promise<ACTRulesReport> {
-  
-  if (sourceHTML === null || sourceHTML === undefined) {
-    throw new Error(`Source html can't be null or undefined`);
-  }
-
-  if (processedHTML === null || processedHTML === undefined) {
-    throw new Error(`Processed html can't be null or undefined`);
-  }
+async function executeACTR(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
 
   const report: ACTRulesReport = {
     type: 'act-rules',
@@ -111,11 +131,11 @@ async function executeACTR(url: string, sourceHTML: DomElement[], processedHTML:
     rules: {}
   };
 
-  await executeMappedRules(url, report, sourceHTML, Object.keys(mapping.pre), mapping.pre);
-  await executeMappedRules(url, report, processedHTML, Object.keys(mapping.post), mapping.post);
+  await executeSourceHtmlMappedRules(report, sourceHtml, Object.keys(mapping.pre), mapping.pre);
+  await executePageMappedRules(report, page, Object.keys(mapping.post), mapping.post);
 
   await executeNotMappedRules(report, stylesheets);
-
+  
   return report;
 }
 

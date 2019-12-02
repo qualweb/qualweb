@@ -1,11 +1,9 @@
 'use strict';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
 import * as Rematrix from 'rematrix';
 
 import Rule from './Rule.object';
-
 
 const rule: ACTRule = {
   name: 'Orientation of the page is not restricted using CSS transform property',
@@ -48,7 +46,7 @@ class QW_ACT_R7 extends Rule {
     super(rule);
   }
 
-  public async unmappedExecute(styleSheets: CSSStylesheet[]): Promise<void> {
+  public async unmappedExecute(styleSheets: any[]): Promise<void> {
 
     if(styleSheets.length === 0) {
       this.fillEvaluation(

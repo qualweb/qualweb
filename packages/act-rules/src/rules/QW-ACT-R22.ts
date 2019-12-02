@@ -1,15 +1,11 @@
 'use strict';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomElement } from 'htmlparser2';
-import { DomUtils as DomUtil } from '@qualweb/util';
+import {ElementHandle} from 'puppeteer';
 import Rule from './Rule.object';
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
-import languages from './language.json';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import {trim} from 'lodash';
+import { DomUtils } from '@qualweb/util';
+import languages from './language.json';
 
 const rule: ACTRule = {
   name: 'Element within body has valid lang attribute',
@@ -42,13 +38,13 @@ const rule: ACTRule = {
   results: new Array<ACTRuleResult>()
 };
 
-class QW_ACT_R18 extends Rule {
+class QW_ACT_R22 extends Rule {
 
   constructor() {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[], url: string): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
 
     const evaluation: ACTRuleResult = {
@@ -62,15 +58,21 @@ class QW_ACT_R18 extends Rule {
       evaluation.description = "No elements with lang";
       evaluation.resultCode = 'RC1';
     } else {
-      let lang = DomUtil.getElementAttribute(element, "lang").split("-");
-      let subtag = lang[0];
+      let lang = await DomUtils.getElementAttribute(element, "lang");
+      let subtag="";
+      let splittedlang:string[] = [];
+      if(lang){
+        splittedlang = lang.split("-");
+        subtag = splittedlang[0];
+      }
+
 
       if (trim(subtag)==="") {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "Lang is empty";
         evaluation.resultCode = 'RC2';
       }
-      else if (this.isSubTagValid(subtag)&&lang.length<=2) {
+      else if (this.isSubTagValid(subtag)&&splittedlang.length<=2) {
         evaluation.verdict = 'passed';
         evaluation.description = "This element has a valid lang attribute";
         evaluation.resultCode = 'RC3';
@@ -82,9 +84,9 @@ class QW_ACT_R18 extends Rule {
       }
     }
 
-    if (element) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+    if (element !== undefined) {
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
   }
@@ -94,4 +96,4 @@ class QW_ACT_R18 extends Rule {
   }
 }
 
-export = QW_ACT_R18;
+export = QW_ACT_R22;

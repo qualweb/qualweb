@@ -1,15 +1,11 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import _ from 'lodash';
+import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils } from '@qualweb/util';
 
 import languages from './language.json';
 
@@ -21,7 +17,7 @@ const rule: ACTRule = {
   metadata: {
     target: {
       element: 'html',
-      attributes: ['lang', 'xml:lang']
+      attributes: ['lang']
     },
     'success-criteria': [{
       name: '3.1.1',
@@ -49,7 +45,7 @@ class QW_ACT_R5 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -60,68 +56,46 @@ class QW_ACT_R5 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `html element doesn't exist`;
       evaluation.resultCode = 'RC1';
-    } else if (element.parent !== null) {
+    } else if ((await DomUtils.getElementParent(element)) !== null) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'html element is not the root element of the page';
       evaluation.resultCode = 'RC2';
-    } else if (element.attribs === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `html element doesn't have attributes`;
-      evaluation.resultCode = 'RC3';
     } else {
-      let isLangNotEmpty = element.attribs['lang'] !== undefined && element.attribs['lang'] !== '';
-      let isXMLLangNotEmpty = element.attribs['xml:lang'] !== undefined && element.attribs['xml:lang'].trim() !== '';
+      const lang = await DomUtils.getElementAttribute(element, 'lang');
 
-      if (isLangNotEmpty && isXMLLangNotEmpty) { // passed
-        if (this.checkValidity(element.attribs['lang']) || this.checkValidity(element.attribs['xml:lang'])) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The lang and xml:lang attributes have a valid value `;
-          evaluation.resultCode = 'RC4';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'lang or xml:lang not valid';
-          evaluation.resultCode = 'RC5';
-        }
-      } else if (isLangNotEmpty) { // passed
-        if (this.checkValidity(element.attribs['lang'])) {
+      if (lang !== null && lang.trim() !== '') { // passed
+        if (this.checkValidity(lang)) {
           evaluation.verdict = 'passed';
           evaluation.description = `The lang attribute has a valid value `;
-          evaluation.resultCode = 'RC6';
+          evaluation.resultCode = 'RC3';
         } else {
           evaluation.verdict = 'failed';
-          evaluation.description = 'lang or xml:lang not valid';
-          evaluation.resultCode = 'RC5';
-        }
-      } else if (isXMLLangNotEmpty && element && element.attribs) { // passed
-        if (this.checkValidity(element.attribs['xml:lang'])) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The xml:lang attribute has a valid value`;
-          evaluation.resultCode = 'RC7';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'lang or xml:lang not valid';
-          evaluation.resultCode = 'RC5';
+          evaluation.description = 'The lang attribute is not valid';
+          evaluation.resultCode = 'RC4';
         }
       } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `lang and xml:lang element are empty or don't exist`;
-        evaluation.resultCode = 'RC8';
+        evaluation.description = `The lang attribute is empty or doesn't exist`;
+        evaluation.resultCode = 'RC5';
       }
     }
 
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
 
     super.addEvaluationResult(evaluation);
   }
 
-  private checkValidity(element: string): boolean {
-    const split = element.split('-');
-    const lang = split[0].toLocaleLowerCase();
+  private checkValidity(lang: string): boolean {
+    const subLangs = lang.split('-');
+    
+    if (subLangs.length > 2) {
+      return false;
+    }
 
-    return this.isSubTagValid(lang) && split.length < 3;
+    return this.isSubTagValid(subLangs[0]) && this.isSubTagValid(subLangs[1]);
   }
 
   private isSubTagValid(subTag: string): boolean {

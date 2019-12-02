@@ -1,15 +1,11 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import _ from 'lodash';
+import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: 'HTML Page has a title',
@@ -46,13 +42,15 @@ class QW_ACT_R1 extends Rule {
     super(rule);
   }
   
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    let rootElem: DomElement | undefined = undefined;
+    let rootElem: ElementHandle | null = null;
+
+
 
     //the first title element was already tested
     if (super.getNumberOfInapplicableResults() > 0 || super.getNumberOfPassedResults() > 0 || super.getNumberOfFailedResults() > 0) {
@@ -61,12 +59,7 @@ class QW_ACT_R1 extends Rule {
     // the first title element was not tested yet
     else {
       //the root is not a html element
-      for (const e of processedHTML || []) {
-        if (e.name === 'html') {
-          rootElem = _.clone(e);
-          break;
-        }
-      }
+      rootElem = await page.$('html');
       //the root element is a html element
       if (rootElem) {
         //the title element does not exit
@@ -76,12 +69,11 @@ class QW_ACT_R1 extends Rule {
           evaluation.resultCode = 'RC1';
         }
         //the title element is empty
-        else if (element.children && (element.children.length === 0 || element.children[0].data.trim() === '')) {
+        else if ((await DomUtils.getElementText(element)).trim() === '') {
           evaluation.verdict = 'failed';
           evaluation.description = 'Title element is empty';
           evaluation.resultCode = 'RC2';
         }
-
         //the title element exists and it's not empty
         else {
           evaluation.verdict = 'passed';
@@ -98,8 +90,8 @@ class QW_ACT_R1 extends Rule {
     }
 
     if (rootElem && element) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
   }

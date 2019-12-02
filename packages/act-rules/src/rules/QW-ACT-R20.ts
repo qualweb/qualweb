@@ -9,15 +9,10 @@
  */
 'use strict';
 
-import {DomElement} from 'htmlparser2';
+import {ElementHandle} from 'puppeteer';
+import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import {DomUtils} from '@qualweb/util';
-import Rule from './Rule.object';
-
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
 
 /**
  * Technique information
@@ -61,7 +56,7 @@ class QW_ACT_R20 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -76,43 +71,40 @@ class QW_ACT_R20 extends Rule {
       evaluation.description = `There isn't an element with role attribute to test`;
       evaluation.resultCode = 'RC1';
     } else {
-      if (element.attribs) {
-        let roleAttr = element.attribs["role"];
-        if (roleAttr) {
-          if (!DomUtils.isElementHidden(element)) {
-            let roles = roleAttr.split(' ');
-            for (let role of roles) {
-              if (validRoleValues.includes(role)) {
-                validRolesFound++;
-              }
+      let roleAttr = await DomUtils.getElementAttribute(element,"role");
+      if (roleAttr) {
+        if (!await DomUtils.isElementHidden(element)) {
+          let roles = roleAttr.split(' ');
+          for (let role of roles) {
+            if (validRoleValues.includes(role)) {
+              validRolesFound++;
             }
-            if (validRolesFound > 0) {
-              evaluation.verdict = 'passed';
-              evaluation.description = `This element has a valid role attribute`;
-              evaluation.resultCode = 'RC2';
-            } else {
-              evaluation.verdict = 'failed';
-              evaluation.description = `This element has an invalid role attribute`;
-              evaluation.resultCode = 'RC3';
-            }
+          }
+          if (validRolesFound > 0) {
+            evaluation.verdict = 'passed';
+            evaluation.description = `This element has a valid role attribute`;
+            evaluation.resultCode = 'RC2';
           } else {
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `This element is not included in the accessibility tree`;
-            evaluation.resultCode = 'RC4';
+            evaluation.verdict = 'failed';
+            evaluation.description = `This element has an invalid role attribute`;
+            evaluation.resultCode = 'RC3';
           }
         } else {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `This role attribute is empty or null`;
-          evaluation.resultCode = 'RC5';
+          evaluation.description = `This element is not included in the accessibility tree`;
+          evaluation.resultCode = 'RC4';
         }
       } else {
-        // doesnt happen, there is always at least the role attribute
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `This role attribute is empty or null`;
+        evaluation.resultCode = 'RC5';
       }
     }
 
+
     if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
 
     super.addEvaluationResult(evaluation);

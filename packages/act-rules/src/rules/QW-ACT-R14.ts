@@ -1,15 +1,11 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import _ from 'lodash';
+import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils } from '@qualweb/util';
 
 const rule: ACTRule = {
   name: 'meta viewport does not prevent zoom',
@@ -47,23 +43,24 @@ class QW_ACT_R14 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (element && element.attribs) {
-      if (element.attribs["name"] && _.toLower(element.attribs["name"]) === 'viewport') {
-        if (element.attribs["content"] !== undefined) {
-          let value: string[];
+    if (element) {
+      const name = await DomUtils.getElementAttribute(element, 'name');
+      if (name !== null && name.toLowerCase() === 'viewport') {
+        const content = await DomUtils.getElementAttribute(element, 'content');
+        if (content !== null) {
           let maximumScale = '';
           let userScalable = '';
-          let contentValues = _.split(element.attribs["content"], ",");
-          if (_.trim(contentValues[0]).length > 0) {
-            for (let valueItem of contentValues) {
-              value = _.split(_.trim(valueItem), "=");
+          let contentValues = content.split(',');
+          if (contentValues[0].trim().length > 0) {
+            for (const valueItem of contentValues || []) {
+              const value = valueItem.trim().split('=');
               if (value[0] === 'maximum-scale') {
                 maximumScale = value[1];
               } else if (value[0] === 'user-scalable') {
@@ -100,11 +97,11 @@ class QW_ACT_R14 extends Rule {
       evaluation.resultCode = 'RC6';
     }
 
-
     if (element) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
+
     super.addEvaluationResult(evaluation);
   }
 }

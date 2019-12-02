@@ -1,24 +1,10 @@
-/**
- * Author: Bruno Andrade
- *
- * Description:
- *
- * Notes:
- *
- * Last modified: 07/10/2019
- */
-
 'use strict';
 
-import {DomElement, DomUtils} from 'htmlparser2';
-import {DomUtils as DomUtil, AccessibilityTreeUtils} from '@qualweb/util';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import Rule from './Rule.object';
+import {ElementHandle, Page} from 'puppeteer';
 
-import {
-  getElementSelector,
-  transform_element_into_html
-} from '../util';
+import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
 
 /**
  * Technique information
@@ -60,7 +46,7 @@ class QW_ACT_R8 extends Rule {
     super(rule);
   }
 
-  async execute(element: DomElement | undefined, processedHTML: DomElement[]): Promise<void> {
+  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -69,33 +55,34 @@ class QW_ACT_R8 extends Rule {
 
     let imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
-    if (element === undefined || element.attribs === undefined) { // if the element doesn't exist, there's nothing to test
+    if (element === undefined ) { // if the element doesn't exist, there's nothing to test
       evaluation.verdict = 'inapplicable';
       evaluation.description = `There are no HTML elements with semantic role of image`;
       evaluation.resultCode = 'RC1';
     } else {
-      let accessName = AccessibilityTreeUtils.getAccessibleName(element, processedHTML, false);
-      let isHidden = DomUtil.isElementHidden(element);
+      let accessName = await AccessibilityTreeUtils.getAccessibleName(element,page);
+      let isHidden = await DomUtils.isElementHidden(element);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element is not included in the accessibility tree`;
         evaluation.resultCode = 'RC2';
-      } else if (element.attribs && element.attribs['role'] && element.attribs['role'] !== 'img') {
+      } else if (await DomUtils.getElementAttribute(element,"role") !== 'img') {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element doesn't have the semantic role of image`;
         evaluation.resultCode = 'RC3';
       } else {
-
-        let filepath = element.attribs['src'].split('/');
+        let src = await DomUtils.getElementAttribute(element,"src");
+        if(src){
+        let filepath = src.split('/');
         let filenameWithExtension = filepath[filepath.length - 1];
-        let parent = element.parent;
+        let parent = await DomUtils.getElementParent(element);
 
         if (filenameWithExtension === accessName) {
           if (imageFile.test(filenameWithExtension)) {
-            if (parent && parent.name === 'a' && DomUtils.getText(parent)){
+            if (parent && await DomUtils.getElementTagName(parent) && await DomUtils.getElementText(parent)){
               evaluation.verdict = 'passed';
               evaluation.description = `This element's accessible name includes the filename but, with the text content of the a element, the image is accurately described`;
-              evaluation.resultCode = 'RC4';
+              evaluation.resultCode = 'RC4';DomUtils
             } else {
               evaluation.verdict = 'failed';
               evaluation.description = `The presence of the file extension in the accessible name doesn't accurately describe the image`;
@@ -111,16 +98,20 @@ class QW_ACT_R8 extends Rule {
           evaluation.description = `This element's accessible name is not equivalent to the file name specified in the src attribute.`;
           evaluation.resultCode = 'RC7';
         }
+      }else {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `This element's accessible name is not equivalent to the file name specified in the src attribute.`;
+        evaluation.resultCode = 'RC8';
       }
     }
 
-    if (element !== undefined) {
-      evaluation.code = transform_element_into_html(element);
-      evaluation.pointer = getElementSelector(element);
-    }
+      if (element !== undefined) {
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+        evaluation.pointer = await DomUtils.getElementSelector(element);
+      }
 
     super.addEvaluationResult(evaluation);
   }
-}
+}}
 
 export = QW_ACT_R8;
