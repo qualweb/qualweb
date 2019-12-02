@@ -4,10 +4,10 @@ import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { QualwebOptions, Dom, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
-import * as act from './modules/act-rules/index';
-import * as html from './modules/html-techniques/index';
-import * as css from './modules/css-techniques/index';
-import * as bp from './modules/best-practices/index';
+import * as act from '@qualweb/act-rules';
+import * as html from '@qualweb/html-techniques';
+import * as css from '@qualweb/css-techniques';
+import * as bp from '@qualweb/best-practices';
 
 import parseUrl from '../url';
 import Evaluation from '../data/evaluation.object';
