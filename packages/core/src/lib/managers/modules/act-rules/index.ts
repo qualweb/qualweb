@@ -5,7 +5,7 @@
 
 //import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
-import {  Html } from '@qualweb/get-dom-puppeteer';
+import { SourceHtml } from '@qualweb/core';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
 
@@ -118,7 +118,7 @@ async function executeNotMappedRules(report: ACTRulesReport, stylesheets: any[])
   }
 }
 
-async function executeACTR(sourceHtml: Html, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
+async function executeACTR(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
 
   const report: ACTRulesReport = {
     type: 'act-rules',

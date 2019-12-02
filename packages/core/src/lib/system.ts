@@ -93,7 +93,8 @@ class System {
     }
 
     this.browser = await puppeteer.launch();
-    await (await this.browser.pages())[0].close();
+    this.browser.pages().then(pages => pages[0].close());
+    //(await this.browser.pages())[0].close();
   }
 
   public async execute(options: QualwebOptions): Promise<void> {

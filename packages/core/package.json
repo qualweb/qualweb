@@ -42,7 +42,7 @@
     "stew-select": "0.0.5"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.2.3",
+    "@qualweb/types": "^0.2.5",
     "@types/css": "0.0.31",
     "@types/fs-extra": "^8.0.1",
     "@types/htmlparser2": "^3.10.1",
