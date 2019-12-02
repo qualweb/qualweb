@@ -41,17 +41,21 @@ async function parseArguments(args: string[]): Promise<any> {
 }
 
 async function createModuleOptions(module: string, options: any): Promise<any> {
-  const mod = module.split('-')[0];
-  if (options[module] || options[`${mod}-principles`] || options[`${mod}-levels`]) {
-    const rulesTechniques = clone(options[module]);
-    const principles = clone(options[`${mod}-principles`]);
-    const levels = clone(options[`${mod}-levels`]);
+  if (module === 'best-practices' && options[module]) {
+    options[module]['bestPractices'] = clone(options[module]);
+  } else {
+    const mod = module.split('-')[0];
+    if (options[module] || options[`${mod}-principles`] || options[`${mod}-levels`]) {
+      const rulesTechniques = clone(options[module]);
+      const principles = clone(options[`${mod}-principles`]);
+      const levels = clone(options[`${mod}-levels`]);
 
-    options[module] = {
-      principles: principles ? principles.split(',') : undefined,
-      levels: levels ? levels.split(','): undefined
-    };
-    options[module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
+      options[module] = {
+        principles: principles ? principles.split(',') : undefined,
+        levels: levels ? levels.split(','): undefined
+      };
+      options[module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
+    }
   }
 }
 
