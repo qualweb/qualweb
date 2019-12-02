@@ -1,26 +1,23 @@
 'use strict';
+import {trim} from 'lodash';
 
-import {DomElement} from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import getElementStyleProperty from './getElementStyleProperty';
 
-function isElementHiddenByCSSAux(element: DomElement): boolean {
+async function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  if (!element.attribs) {
-    return false;
-  }
-  let visibility = false;
-  let displayNone = false;
+  let visibility;
+  let displayNone;
+  const display = await getElementStyleProperty(element, '', 'display');
+  displayNone = display ? trim(display) === 'none' : false;
+  const visibilityATT = await getElementStyleProperty(element, '', 'visibility');
+  visibility = visibilityATT ? trim(visibilityATT) === 'collapse' || visibilityATT.trim() === 'hidden' : false;
 
-  if (element.attribs['computed-style']) {
-    const display = getElementStyleProperty(element, 'computed-style', 'display');
-    displayNone = display ? display.trim() === 'none' : false;
-    const visibilityATT = getElementStyleProperty(element, 'computed-style', 'visibility');
-    visibility = visibilityATT ? visibilityATT.trim() === 'collapse' || visibilityATT.trim() === 'hidden' : false;
-  }
-  return visibility || displayNone;
+
+return visibility || displayNone;
 }
 
 export = isElementHiddenByCSSAux;

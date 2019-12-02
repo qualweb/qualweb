@@ -1,8 +1,8 @@
 'use strict';
 
-import {DomElement} from "htmlparser2";
+import { Element } from 'htmlparser2';
 
-function isElementChildOfDetails(element: DomElement): boolean {
+function isElementChildOfDetails(element: Element): boolean {
   return !!element.parent && element.parent.name === "details";
 }
 

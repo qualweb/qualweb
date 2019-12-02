@@ -1,102 +1,98 @@
 'use strict';
 
-import {DomElement} from 'htmlparser2';
+import {ElementHandle, Page} from 'puppeteer';
 import {trim} from 'lodash';
-
-const stew = new (require('stew-select')).Stew();
-import {isElementHidden, getElementById, getContentComputedStylesAttribute} from "../domUtils/domUtils";
+import {
+  isElementHidden,
+  getElementById,
+  getElementType,
+  getElementParent,
+  getElementChildren
+} from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
-import hasRolePresentationOrNone from './hasRolePresentationOrNone';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
+import {controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements} from './constants';
+import getElementName from '../domUtils/getElementName';
+import getElementAttribute from '../domUtils/getElementAttribute';
 
-function getAccessibleName(element: DomElement, processedHTML: DomElement[]): string | undefined {
-  return getAccessibleNameRecursion(element, processedHTML, false, false);
+import getElementStyleProperty from '../domUtils/getElementStyleProperty';
+import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
+async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
+  return await getAccessibleNameRecursion(element, page, false, false);
 }
 
-function getAccessibleNameRecursion(element: DomElement, processedHTML: DomElement[], recursion: boolean, isWidget: boolean): string | undefined {
+async function getAccessibleNameRecursion(element: ElementHandle, page: Page, recursion: boolean, isWidget: boolean): Promise<string | undefined> {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
-  let typesWithLabel = ["text", "password", "search", "tel", "email", "url"];
-  let tabularElements = ["tr", "td", "th"];
-  let formElements = ["select", "option", "datalist", "optgroup"];
   // let isChildOfDetails = isElementChildOfDetails(element);
   // let isSummary = element.name === "summary";
-  let type = element.type;
-  let name = String(element.name);
-  let sectionAndGrouping = ["span", "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "p", "hr"
-    , "blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "dd", "dt", "dl", "figcaption"];
+  let type = await getElementType(element);
+  let name = await getElementName(element);
+  if(name)
+    name = name.toLocaleLowerCase();
   let allowNameFromContent = allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
-  if (element.attribs) {
-    ariaLabelBy = getElementById(element.attribs["aria-labelledby"], processedHTML).length > 0 ? element.attribs["aria-labelledby"] : "";
-    ariaLabel = element.attribs["aria-label"];
-    attrType = element.attribs["type"];
-    title = element.attribs["title"];
-    role = element.attribs["role"];
-    id = element.attribs["id"];
+  ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
+  
+  if (!ariaLabelBy /*&& (await getElementById(page,ariaLabelBy)) === null*/) {
+    ariaLabelBy = "";
   }
-  let referencedByAriaLabel = isElementReferencedByAriaLabel(id, processedHTML, element);
+  ariaLabel = await getElementAttribute(element, "aria-label");
+  attrType = await getElementAttribute(element, "type");
+  title = await getElementAttribute(element, "title");
+  role = await getElementAttribute(element, "role");
+  id = await getElementAttribute(element, "id");
 
-  if (isElementHidden(element) && !recursion) {
+  let referencedByAriaLabel = isElementReferencedByAriaLabel(id, page);
+  if (await isElementHidden(element) && !recursion) {
     //noAName
   } else if (type === "text") {
-    AName = getTrimmedText(element);
+    AName =  await getTrimmedText(element);
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, processedHTML);
+    AName = await getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel && trim(ariaLabel) !== "") {
     AName = ariaLabel;
   } else if (name === "area" || (name === "input" && attrType === "image")) {
-    if (element.attribs) {
-      alt = element.attribs["alt"];
-    }
+    alt = await getElementAttribute(element, "alt");
     AName = getFirstNotUndefined(alt, title);
   } else if (name === "img") {
-    if (element.attribs) {
-      alt = element.attribs["alt"];
-    }
-    if (!hasRolePresentationOrNone(element)) {
+    alt = await getElementAttribute(element, "alt");
+    if (!(await elementHasRoleNoneOrPresentation(element))) {
       AName = getFirstNotUndefined(alt, title);
     }
   } else if (name === "input" && (attrType === "button" || attrType === "submit" || attrType === "reset")) {
-    if (element.attribs) {
-      value = element.attribs["value"];
-    }
+    value = await getElementAttribute(element, "value");
     AName = getFirstNotUndefined(value, getDefaultName(element), title);
-  } else if (formElements.indexOf(name) >= 0 && !attrType) {
-    AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title);
+  } else if (name && formElements.indexOf(name) >= 0 && !attrType) {
+    AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title);
   } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0 || !attrType)) {
-    if (element.attribs) {
-      placeholder = element.attribs["placeholder"];
-    }
-     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title, placeholder);
+      placeholder = await getElementAttribute(element,"placeholder");
+    if (!recursion) {
+      AName = getFirstNotUndefined(await getValueFromLabel(element, id, page), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name === "textarea") {
-    if (element.attribs) {
-
-      placeholder = element.attribs["placeholder"];
-    }
+    placeholder = await getElementAttribute(element,"placeholder");
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, processedHTML), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
     } else {
-      AName = getFirstNotUndefined(getTextFromCss(element, processedHTML), title, placeholder);
+      AName = getFirstNotUndefined(getTextFromCss(element, page), title, placeholder);
     }
   } else if (name === "figure") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "figcaption", processedHTML), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "figcaption", page), title);
   } else if (name === "table") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "caption", processedHTML), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "caption", page), title);
   } else if (name === "fieldset") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "legend", processedHTML), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page), title);
   } else if (isWidget && isRoleControl(element)) {
-    AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, processedHTML), title);
+    AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
-    AName = getFirstNotUndefined(getTextFromCss(element, processedHTML), title);
-  } else if (sectionAndGrouping.indexOf(String(element.name)) >= 0 || element.name === "iframe" || tabularElements.indexOf(String(name)) >= 0) {
+    AName = getFirstNotUndefined(await getTextFromCss(element, page), title);
+  } else if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) {
     AName = getFirstNotUndefined(title);
   }
 
@@ -123,28 +119,32 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-function getValueFromSpecialLabel(element: DomElement, label: string, processedHTML: DomElement[]): string {
-  let labelElement = stew.select(element, label);
+async function getValueFromSpecialLabel(element: ElementHandle, label: string,page:Page): Promise<string> {
+  let labelElement =  await element.$(label);
   let accessNameFromLabel;
 
-  if (labelElement.length > 0)
-    accessNameFromLabel = getAccessibleNameRecursion(labelElement[0], processedHTML, true, false);
+  if (labelElement)
+    accessNameFromLabel = await getAccessibleNameRecursion(labelElement, page, true, false);
 
   return accessNameFromLabel;
 }
 
-function getValueFromLabel(element: DomElement, id: string, processedHTML: DomElement[]): string {
-  let referencedByLabel = stew.select(processedHTML, `label[for="${id}"]`);
-  let parent = element.parent;
+async function getValueFromLabel(element: ElementHandle, id: string, page:Page): Promise<string> {
+  let referencedByLabelList:ElementHandle[] = [];
+  let referencedByLabel = await page.$(`label[for="${id}"]`);
+  if(referencedByLabel){
+    referencedByLabelList.push(referencedByLabel);
+  }
+  let parent = await getElementParent(element);
   let result, accessNameFromLabel;
-  let isWidget = isElementWidget(element);
+  let isWidget = await isElementWidget(element);
 
-  if (parent && parent.name === "label") {
-    referencedByLabel.push(parent);
+  if (parent && await getElementName(parent)=== "label") {
+    referencedByLabelList.push(parent);
   }
 
-  for (let label of referencedByLabel) {
-    accessNameFromLabel = getAccessibleNameRecursion(label, processedHTML, true, isWidget);
+  for (let label of referencedByLabelList) {
+    accessNameFromLabel = await getAccessibleNameRecursion(label, page, true, isWidget);
     if (accessNameFromLabel) {
       if (result) {
         result += accessNameFromLabel;
@@ -158,14 +158,16 @@ function getValueFromLabel(element: DomElement, id: string, processedHTML: DomEl
 }
 
 
-function getAccessibleNameFromAriaLabelledBy(element: DomElement, ariaLabelId: string, processedHTML: DomElement[]): string | undefined {
+async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaLabelId: string, page: Page): Promise<string | undefined> {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
-  let isWidget = isElementWidget(element);
+  let isWidget = await isElementWidget(element);
+  let elem;
 
   for (let id of ListIdRefs) {
-    accessNameFromId = getAccessibleNameRecursion(getElementById(id, processedHTML)[0], processedHTML, true, isWidget);
+    elem = await getElementById( page,id);
+    accessNameFromId = await getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId;
@@ -174,14 +176,13 @@ function getAccessibleNameFromAriaLabelledBy(element: DomElement, ariaLabelId: s
       }
     }
   }
-
   return result;
 }
 
-function getTextFromCss(element: DomElement, processedHTML: DomElement[]): string {
-  let before = getContentComputedStylesAttribute(element, "computed-style-before", "^ content: &quot");
-  let after = getContentComputedStylesAttribute(element, "computed-style-after", "^ content: &quot");
-  let aNameChildren = getAccessibleNameFromChildren(element, processedHTML);
+async function getTextFromCss(element: ElementHandle, page:Page): Promise<string> {
+  let before = await getElementStyleProperty(element, ":before", "content:");
+  let after = await getElementStyleProperty(element, ":after", "content:");
+  let aNameChildren = await getAccessibleNameFromChildren(element, page);
 
   if (!aNameChildren) {
     aNameChildren = "";
@@ -190,13 +191,14 @@ function getTextFromCss(element: DomElement, processedHTML: DomElement[]): strin
   return before + aNameChildren + after;
 }
 
-function getAccessibleNameFromChildren(element: DomElement, processedHTML: DomElement[]): string {
-  let isWidget = isElementWidget(element);
+async function getAccessibleNameFromChildren(element: ElementHandle, page:Page): Promise<string> {
+  let isWidget = await isElementWidget(element);
   let result, aName;
+  let children = await getElementChildren(element);
 
-  if (element.children) {
-    for (let child of element.children) {
-      aName = getAccessibleNameRecursion(child, processedHTML, true, isWidget);
+  if (children) {
+    for (let child of children) {
+      aName = await getAccessibleNameRecursion(child, page, true, isWidget);
       if (aName) {
         if (result) {
           result += aName;
@@ -206,19 +208,12 @@ function getAccessibleNameFromChildren(element: DomElement, processedHTML: DomEl
       }
     }
   }
-
   return result;
 }
 
-function isRoleControl(element: DomElement): boolean {
-  let controlRoles = ["textbox", "button", "combobox", "listbox", "range", "progressbar", "scrollbar", "slider", "spinbutton"];
-
-  if (element.attribs === undefined)
-    return false;
-
-  let role = element.attribs["role"];
-
-  return controlRoles.indexOf(role) >= 0
+async function isRoleControl(element: ElementHandle): Promise<boolean> {
+  let role = await getElementAttribute(element,"role");
+  return role!== null && controlRoles.indexOf(role) >= 0
 }
 
 export = getAccessibleName;

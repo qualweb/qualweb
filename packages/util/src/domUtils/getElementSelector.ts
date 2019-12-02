@@ -1,54 +1,53 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 
-function getSelfLocationInParent(element: DomElement): string {
-  if (!element) {
-    throw Error('Element is not defined');
-  }
-  
-  let selector = '';
+async function getElementSelector(element: ElementHandle): Promise<string> {
 
-  if (element.name === 'body' || element.name === 'head') {
-    return element.name;
-  }
+  const selector = await element.evaluate(elem => {
+    function getSelfLocationInParent(element) {
+      let selector = '';
 
-  let sameEleCount = 0;
+      if (element.tagName.toLowerCase() === 'body' || element.tagName.toLowerCase() === 'head') {
+        return element.tagName.toLowerCase();
+      }
 
-  let prev = element.prev;
-  while(prev) {
-    if (prev.type === 'tag'&& prev.name === element.name) {
-      sameEleCount++;
+      let sameEleCount = 0;
+
+      let prev = element.previousElementSibling;
+      while (prev) {
+        if (prev.tagName.toLowerCase() === element.tagName.toLowerCase()) {
+          sameEleCount++;
+        }
+        prev = prev.previousElementSibling;
+      }
+
+      selector += `${element.tagName.toLowerCase()}:nth-of-type(${sameEleCount + 1})`;
+
+      return selector;
     }
-    prev = prev.prev;
-  }
 
-  selector += `${element.name}:nth-of-type(${sameEleCount+1})`;
+    if (elem.tagName.toLowerCase() === 'html') {
+      return 'html';
+    } else if (elem.tagName.toLowerCase() === 'head') {
+      return 'html > head';
+    } else if (elem.tagName.toLowerCase() === 'body') {
+      return 'html > body'; 
+    }
 
-  return selector;
-}
+    let selector = 'html > ';
+    let parents = new Array<string>();
+    let parent = elem['parentElement'];
+    while (parent && parent.tagName.toLowerCase() !== 'html') {
+      parents.unshift(getSelfLocationInParent(parent));
+      parent = parent['parentElement'];
+    }
 
-function getElementSelector(element: DomElement): string {
+    selector += parents.join(' > ');
+    selector += ' > ' + getSelfLocationInParent(elem);
 
-  if (element.name === 'html') {
-    return 'html';
-  } else if (element.name === 'head') {
-    return 'html > head';
-  } else if (element.name === 'body') {
-    return 'html > body';
-  }
-
-  let selector = 'html > ';
-
-  let parents = new Array<string>();
-  let parent = element.parent;
-  while (parent && parent.name !== 'html') {
-    parents.unshift(getSelfLocationInParent(parent));
-    parent = parent.parent;
-  }
-  
-  selector += parents.join(' > ');
-  selector += ' > ' + getSelfLocationInParent(element);
+    return selector;
+  });
 
   return selector;
 }

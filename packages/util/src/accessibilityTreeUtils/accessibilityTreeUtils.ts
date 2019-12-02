@@ -11,7 +11,6 @@ import isDataTableFunction from "./isDataTable";
 import isElementChildOfDetailsFunction from "./isElementChildOfDetails";
 import isElementControlFunction from "./isElementControl";
 import isElementWidgetFunction from "./isElementWidget";
-
 /**
  * Accessibility Tree Utilities namespace
  */

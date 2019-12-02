@@ -1,14 +1,10 @@
 'use strict';
 
-import {DomElement} from "htmlparser2";
-const stew = new (require('stew-select')).Stew();
+import {Page} from "puppeteer";
 
-function isElementReferencedByAriaLabel(id: string, processedHTML: DomElement[], element: DomElement): boolean {
-
-  let refrencedByAriaLabel = stew.select(processedHTML, `[aria-labelledby="${id}"]`);
-
-  return refrencedByAriaLabel.length !== 0;
-
+function isElementReferencedByAriaLabel(id: string, page:Page): boolean {
+  let referencedByAriaLabel = page.$$(`[aria-labelledby="${id}"]`);
+  return referencedByAriaLabel!== null;
 }
 
 export = isElementReferencedByAriaLabel;

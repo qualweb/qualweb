@@ -1,9 +1,11 @@
 'use strict';
 
-import {DomElement} from "htmlparser2";
+import { ElementHandle } from 'puppeteer';
+import getElementAttribute = require('../domUtils/getElementAttribute');
 
-function elementHasRoleNoneOrPresentation(element: DomElement): boolean {
-  return !!element.attribs && (element.attribs["role"] === "none" || element.attribs["role"] === "presentation");
+async function elementHasRoleNoneOrPresentation(element: ElementHandle): Promise<boolean> {
+  let role = await getElementAttribute(element,"role")
+  return !!role && (role === "none" ||role === "presentation");
 }
 
 export = elementHasRoleNoneOrPresentation;

@@ -1,10 +1,22 @@
 'use strict';
 
-import {DomElement, DomUtils} from "htmlparser2";
-import {trim} from 'lodash';
+import { trim } from 'lodash';
+import {ElementHandle} from "puppeteer";
 
-function getTrimmedText(element: DomElement): string {
-  return trim(DomUtils.getText(element));
+async function getTrimmedText(element: ElementHandle): Promise<string> {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+
+  let text = <string> await (await element.getProperty('text')).jsonValue();
+
+  if(text){
+    text=trim(text);
+  }else{
+    text = "";
+  }
+
+  return text;
 }
 
 export = getTrimmedText;

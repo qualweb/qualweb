@@ -1,69 +1,72 @@
 'use strict';
+import getElementAttribute = require("../domUtils/getElementAttribute");
+import getTrimmedText = require("./getTrimmedText");
+import { ElementHandle, Page } from "puppeteer";
+import { getElementName } from "../domUtils/domUtils";
 
-import { DomElement, DomUtils } from "htmlparser2";
-const stew = new (require('stew-select')).Stew();
+async function getValueFromEmbeddedControl(element: ElementHandle, page:Page): Promise<string> {//stew
 
-function getValueFromEmbeddedControl(element: DomElement, processedHTML: DomElement[]): string {//stew
-  if (!element.attribs)
-    return "";
-
-  let role = element.attribs.role;
+  let role = await getElementAttribute(element, "role");
+  let name = await getElementName(element);
   let value = "";
+  let text = await getTrimmedText(element);
 
 
-  if ((role === "textbox") && element.children !== undefined) {
-    value = DomUtils.getText(element);
+  if ((role === "textbox") && text) {
+    value = text;
   } else if (role === "combobox") {
-    let refrencedByLabel = stew.select(element, `[aria-activedescendant]`);
+    let refrencedByLabel = await element.$(`[aria-activedescendant]`);
     let aria_descendendant, selectedElement;
-    if (refrencedByLabel.length > 0) {
-      aria_descendendant = refrencedByLabel[0].attribs["aria-activedescendant"];
-      selectedElement = stew.select(element, `[id="${aria_descendendant}"]`);
+    if (refrencedByLabel !== null) {
+      aria_descendendant = await getElementAttribute(refrencedByLabel, "role");
+      selectedElement = await element.$(`[id="${aria_descendendant}"]`);
     }
 
-    let aria_owns = element.attribs["aria-owns"];
-    let elementasToSelect = stew.select(processedHTML, `[id="${aria_owns}"]`);
+    let aria_owns = await getElementAttribute(element, "aria-owns");
+    let elementasToSelect = await page.$(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
-    if (elementasToSelect.length > 0)
-      elementWithAriaSelected = stew.select(elementasToSelect[0], `aria-selected="true"`);
+    if (elementasToSelect !== null)
+      elementWithAriaSelected = elementasToSelect.$(`aria-selected="true"`);
 
 
     if (selectedElement.length > 0) {
-      value = DomUtils.getText(selectedElement[0]);
+      value = await getTrimmedText(selectedElement[0]);
     } else if (elementWithAriaSelected.length > 0) {
-      value = DomUtils.getText(elementWithAriaSelected[0]);
+      value = await getTrimmedText(elementWithAriaSelected[0]);
     }
 
-  } else if (role === "listbox" || element.name === 'select') {
-    let elementsWithId = stew.select(element, `[id]`);
-    let elementWithAriaSelected = stew.select(element, `aria-selected="true"`);
-    let selectedElement = [];
+  } else if (role === "listbox" || name === 'select') {
+    let elementsWithId =await element.$$(`[id]`);
+    let elementWithAriaSelected = await element.$(`aria-selected="true"`);
+    let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
-      if (selectedElement.length === 0) {
-        let id = elementWithId.attribs.id;
-        selectedElement = stew.select(element, `[aria-activedescendant="${id}"]`);
+      if (selectedElement!==null) {
+        let id = await getElementAttribute(elementWithId, "id");
+        selectedElement = await element.$(`[aria-activedescendant="${id}"]`);
       }
     }
 
-    if (element.name === 'select') {
-      optionSelected = stew.select(element, `[selected]`);
+    if (name === 'select') {
+      optionSelected = await element.$(`[selected]`);
     }
 
-    if (selectedElement.length > 0)
-      value = DomUtils.getText(elementsWithId[0]);
-    else if (elementWithAriaSelected.length > 0) {
-      value = DomUtils.getText(elementWithAriaSelected[0]);
-    } else if (optionSelected.length > 0) {
-      value = DomUtils.getText(optionSelected[0]);
+    if (selectedElement !== null)
+      value = await getTrimmedText(elementsWithId[0]);
+    else if (elementWithAriaSelected !== null) {
+      value = await getTrimmedText(elementWithAriaSelected);
+    } else if (optionSelected !== null) {
+      value = await getTrimmedText(optionSelected);
     }
-  } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
-    if (element.attribs["aria-valuetext"] !== undefined)
-      value = element.attribs["aria-valuetext"];
-    else if (element.attribs["aria-valuenow"] !== undefined)
-      value = element.attribs["aria-valuenow"];
+  } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton"){
+      let valueTextVar =  await getElementAttribute(element,"aria-valuetext");
+      let valuenowVar = await getElementAttribute(element,"aria-valuenow");
+    if (valueTextVar !== null)
+      value = valueTextVar;
+    else if (valuenowVar)
+      value = valuenowVar;
   }
 
   return value;

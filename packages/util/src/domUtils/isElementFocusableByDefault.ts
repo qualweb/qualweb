@@ -1,25 +1,43 @@
+
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
+import getElementTagName from './getElementTagName';
+import elementHasAttribute from './elementHasAttribute';
+import getElementAttribute from './getElementAttribute';
+import getElementParent from './getElementParent';
+import getElementChildren from './getElementChildren';
 
-function isElementFocusableByDefault(element: DomElement): boolean {
+async function isElementFocusableByDefault(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
-  
-  switch (element.name) {
+
+  const elementName = await getElementTagName(element);
+  const hasHref = await elementHasAttribute(element, 'href');
+  const elementAttributeType = await getElementAttribute(element, 'type');
+
+  const parent = await getElementParent(element);
+  let parentName;
+  let parentChildren;
+
+  if (parent) {
+    parentName = await getElementTagName(parent);
+    parentChildren = await getElementChildren(parent);
+  }
+
+  switch (elementName) {
     case 'a':
     case 'area':
     case 'link':
-      if (element.attribs && element.attribs['href']) {
+      if (hasHref) {
         return true;
       }
       break;
     case 'input':
-      return !!!(element.attribs && element.attribs['type'] && element.attribs['type'] !== 'hidden');
+      return !!!(elementAttributeType && elementAttributeType !== 'hidden');
     case 'summary':
-      const parent = element.parent;
-      return !!(parent && parent.name === 'details' && parent.children && parent.children[0] === element);
+      return !!(parent && parentName === 'details' && parentChildren && parentChildren[0] === element);
     case 'textarea':
     case 'select':
     case 'button':

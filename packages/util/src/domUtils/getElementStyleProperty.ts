@@ -1,23 +1,12 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 
-function getElementStyleProperty(element: DomElement, style: string, property: string): string | undefined {
-  if (!element) {
-    throw Error('Element is not defined');
-  }
-
-  try {
-    if (element.attribs && element.attribs[style]) {
-      const parsedProperty = element.attribs[style].split(property + ':')[1];
-      return parsedProperty.split(';')[0].trim();
-
-    } else {
-      return undefined;
-    }
-  } catch (err) {
-    return undefined;
-  }
+function getElementStyleProperty(element: ElementHandle, property: string, pseudoStyle: string | null = null): Promise<string> {
+  return element.evaluate((elem, property, pseudoStyle) => {
+    const styles = getComputedStyle(elem, pseudoStyle);
+    return styles.getPropertyValue(property);
+  }, property, pseudoStyle);
 }
 
 export = getElementStyleProperty;
