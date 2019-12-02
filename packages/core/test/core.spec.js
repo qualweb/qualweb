@@ -38,8 +38,8 @@ const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
 describe('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
-    const reports = await core.evaluate({ url:URL});
-    //const reports = await core.evaluate({ file: 'test/urls2.txt', maxParallelEvaluations: 10 });
+    const reports = await core.evaluate({ url: URL });
+    //const reports = await core.evaluate({ file: 'test/urls.txt', maxParallelEvaluations: 10 });
     console.log(reports.length);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });

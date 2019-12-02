@@ -28,8 +28,6 @@
     "p, div, h1, h2, h3, h4, h5, h6, col, colgroup, tbody, thead, tfoot, tr, th, td": ["QW-HTML-T43"],
     "img,svg": ["QW-HTML-T39"],
     "*[onmousedown], *[onmouseup], *[onclick], *[onmouseover], *[onmouseout], *[keydown], *[keyup], *[keypress], *[focus], *[blur]": [ "QW-HTML-T42"],
-    "meta[http-equiv=\"refresh\"][content]": ["QW-HTML-T18"],
-    "head > title": ["QW-HTML-T26"],
     "ol,ul,dl": ["QW-HTML-T28"],
     "[alt]": ["QW-HTML-T8"]
   }

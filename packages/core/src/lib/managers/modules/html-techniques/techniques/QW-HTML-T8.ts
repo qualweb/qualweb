@@ -75,13 +75,13 @@ class QW_HTML_T8 extends Technique {
     const pattern4 = new RegExp('^imagem/s[0-9]+');
 
     let altText = await AccessibilityTreeUtils.getAccessibleName(element, page);
-    if (!altText || altText === '' ){
+    if (!altText || altText === ''){
         evaluation.verdict = 'failed';
         evaluation.description = 'Text alternative is not actually a text alternative for the non-text content';
         evaluation.resultCode = 'RC1';
     }else{
       altText = altText.toLocaleLowerCase();
-      if(!pattern4.test(altText.toLocaleLowerCase()) && !pattern3.test(altText) && !pattern2.test(altText) && !pattern1.test(altText) && !pattern.test(altText) && !default_title.includes(altText)) {
+      if(!pattern4.test(altText) && !pattern3.test(altText) && !pattern2.test(altText) && !pattern1.test(altText) && !pattern.test(altText) && !default_title.includes(altText)) {
         evaluation.verdict = 'warning';
         evaluation.description = `Text alternative needs manual verification`;
         evaluation.resultCode = 'RC2';

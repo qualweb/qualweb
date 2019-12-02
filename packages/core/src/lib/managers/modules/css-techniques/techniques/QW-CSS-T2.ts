@@ -64,11 +64,11 @@ class QW_CSS_T2 extends Technique {
         this.loopDeclarations(cssObject, fileName)
     } else {
       if (cssObject['type'] === 'stylesheet') {
-        for (const key of cssObject['stylesheet']['rules']) {
+        for (const key of cssObject['stylesheet']['rules'] || []) {
           this.analyseAST(key, fileName);
         }
       } else {
-        for (const key of cssObject['rules']) {
+        for (const key of cssObject['rules'] || []) {
           this.analyseAST(key, fileName);
         }
       }
@@ -78,8 +78,8 @@ class QW_CSS_T2 extends Technique {
   private loopDeclarations(cssObject: any, fileName: string): void {
     let declarations = cssObject['declarations'];
     if(declarations){
-      for (const declaration of declarations) {
-        if (declaration['property'] && declaration['value'] ) {
+      for (const declaration of declarations || []) {
+        if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'text-align'){
             this.extractInfo(cssObject, declaration, fileName);
           }else{

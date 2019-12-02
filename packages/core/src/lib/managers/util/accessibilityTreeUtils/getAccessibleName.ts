@@ -36,7 +36,8 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   let allowNameFromContent = allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
-  if (!ariaLabelBy && await getElementById(page,ariaLabelBy) === null) {
+  
+  if (!ariaLabelBy /*&& (await getElementById(page,ariaLabelBy)) === null*/) {
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");

@@ -62,14 +62,7 @@ class QW_ACT_R2 extends Rule {
       evaluation.description = `The <html> element is not the root element of the page`;
       evaluation.resultCode = 'RC2';
     } else {
-      let teste = await page.evaluate(() => {
-        return document.contentType+" "+document.documentElement.childNodes.length;
-      });
-      console.log(teste);
-      let banana = await element.evaluate(() => {
-        return document.contentType+" "+document.documentElement.childNodes.length;
-      });
-      console.log(banana);
+      
       const lang = await DomUtils.getElementAttribute(element, 'lang');
       const xmlLang = await DomUtils.getElementAttribute(element, 'xml:lang');
 

@@ -103,8 +103,7 @@ class QW_HTML_T17 extends Technique {
 
     evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
     evaluation.pointer = await DomUtils.getElementSelector(element);
-
-    console.log(evaluation.resultCode);
+    
     super.addEvaluationResult(evaluation);
   }
 }

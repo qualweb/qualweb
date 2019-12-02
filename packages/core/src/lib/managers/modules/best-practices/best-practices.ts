@@ -7,7 +7,7 @@ import QW_BP4 from './best-practices/QW-BP4';
 import QW_BP5 from './best-practices/QW-BP5';
 import QW_BP6 from './best-practices/QW-BP6';
 import QW_BP7 from './best-practices/QW-BP7';
-//import QW_BP8 from './best-practices/QW-BP8';
+import QW_BP8 from './best-practices/QW-BP8';
 import QW_BP9 from './best-practices/QW-BP9';
 import QW_BP10 from './best-practices/QW-BP10';
 import QW_BP11 from './best-practices/QW-BP11';
@@ -22,7 +22,7 @@ const bestPractices = {
   'QW-BP5': new QW_BP5(),
   'QW-BP6': new QW_BP6(),
   'QW-BP7': new QW_BP7(),
-  //'QW-BP8': new QW_BP8(),
+  'QW-BP8': new QW_BP8(),
   'QW-BP9': new QW_BP9(),
   'QW-BP10': new QW_BP10(),
   'QW-BP11': new QW_BP11(),
@@ -38,7 +38,7 @@ const bestPracticesToExecute = {
   'QW-BP5': true,
   'QW-BP6': true,
   'QW-BP7': true,
-  //'QW-BP8': true,
+  'QW-BP8': true,
   'QW-BP9': true,
   'QW-BP10': true,
   'QW-BP11': true,

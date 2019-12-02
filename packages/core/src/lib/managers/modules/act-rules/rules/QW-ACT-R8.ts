@@ -72,7 +72,6 @@ class QW_ACT_R8 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       let accessName = await getAccessibleName(element,page);
-      console.log("aname "+accessName);
       let isHidden = await DomUtils.isElementHidden(element);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
