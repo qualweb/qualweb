@@ -1,7 +1,7 @@
 'use strict';
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
@@ -30,9 +30,17 @@ class QW_BP11 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
-    if (!element || !element.children) {
+    if (!element) {
+      return;
+    }
+
+    const children = await element.evaluate(elem => {
+      return elem.children.length;
+    })
+
+    if (children === 0) {
       return;
     }
 
@@ -41,18 +49,23 @@ class QW_BP11 extends BestPractice {
       description: '',
       resultCode: ''
     };
-    let result = 0;
-    let hasBr = false;
-    let type;
-    for (let child of element.children) {
-      type = child.type;
-      if (child && child.name === "br") {
-        result++;
-        hasBr = true;
-      } else if(type!=="text") {
-        result = 0;
+
+    const { result, hasBr } = await element.evaluate(elem => {
+      let result = 0;
+      let hasBr = false;
+
+      for (const child of elem.children || []) {
+        const type = child.nodeType;
+        if (child && child.tagName.toLowerCase() === 'br') {
+          result++;
+          hasBr = true;
+        } else if(type !== 3) {
+          result = 0;
+        }
       }
-    }
+
+      return { result, hasBr };
+    });
 
     if (result > 3) {
       evaluation.verdict = 'failed';
@@ -65,8 +78,8 @@ class QW_BP11 extends BestPractice {
     }
 
     if (hasBr) {
-      evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-      evaluation.pointer = DomUtils.getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
 
       super.addEvaluationResult(evaluation);
     }

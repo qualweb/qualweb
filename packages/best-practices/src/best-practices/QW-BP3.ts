@@ -5,13 +5,8 @@ import {
   BestPracticeResult
 } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import {
-  DomElement,
-  DomUtils
-} from 'htmlparser2';
-import {
-  DomUtils as QWDomUtils
-} from '@qualweb/util';
+import { ElementHandle } from 'puppeteer';
+import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
   name: 'Link element with text content equal to the content of the title attribute',
@@ -39,7 +34,7 @@ class QW_BP3 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise < void > {
+  async execute(element: ElementHandle | undefined): Promise < void > {
 
     if (!element) {
       return;
@@ -51,9 +46,10 @@ class QW_BP3 extends BestPractice {
       resultCode: ''
     };
 
-    const titleValue = QWDomUtils.getElementAttribute(element, 'title');
+    const titleValue = await DomUtils.getElementAttribute(element, 'title');
+    const text = await DomUtils.getElementText(element);
 
-    if (titleValue.trim().toLowerCase() === DomUtils.getText(element).trim().toLowerCase()) {
+    if (titleValue && titleValue.trim().toLowerCase() === text.trim().toLowerCase()) {
       evaluation.verdict = 'failed';
       evaluation.description = `Link text content and title attribute value are the same`;
       evaluation.resultCode = 'RC1';
@@ -63,8 +59,8 @@ class QW_BP3 extends BestPractice {
       evaluation.resultCode = 'RC2';
     }
 
-    evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = QWDomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }

@@ -2,7 +2,7 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
@@ -30,9 +30,9 @@ class QW_BP4 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
-    if (!element ||!element.parent || DomUtils.elementHasParent(element, 'nav')) {
+    if (!element || await DomUtils.elementHasParent(element, 'nav')) {
       return;
     }
 
@@ -42,15 +42,17 @@ class QW_BP4 extends BestPractice {
       resultCode: ''
     };
 
-    let aCount = 1;
-
-    let nextSibling = element.next;
-    while (nextSibling) {
-      if (nextSibling.type === 'tag' && nextSibling.name === 'a') {
-        aCount++;
+    const aCount = await element.evaluate(elem => {
+      let aCount = 1;
+      let nextSibling = elem['nextElementSibling'];
+      while (nextSibling) {
+        if (nextSibling['tagName'].toLowerCase() === 'a') {
+          aCount++;
+        }
+        nextSibling = nextSibling['nextElementSibling'];
       }
-      nextSibling = nextSibling.next;
-    }
+      return aCount;
+    });
 
     if (aCount >= 10) {
       evaluation.verdict = 'failed';
@@ -62,8 +64,11 @@ class QW_BP4 extends BestPractice {
       evaluation.resultCode = 'RC2';
     }
 
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(element.parent);
-    evaluation.pointer = DomUtils.getElementSelector(element.parent);
+    const parent = await DomUtils.getElementParent(element);
+    if (parent) {
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(parent);
+      evaluation.pointer = await DomUtils.getElementSelector(parent);
+    }
 
     super.addEvaluationResult(evaluation);
   }

@@ -1,11 +1,10 @@
 'use strict';
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
-const stew = new (require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
   name: 'Using scope col and row ',
@@ -31,9 +30,17 @@ class QW_BP12 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
-    if (!element || !element.children) {
+    if (!element) {
+      return;
+    }
+
+    const children = await element.evaluate(elem => {
+      return elem.children.length;
+    })
+
+    if (children === 0) {
       return;
     }
 
@@ -43,32 +50,35 @@ class QW_BP12 extends BestPractice {
       resultCode: ''
     };
 
-    let rows = stew.select(element, "tr");
-    let firstRowChildren: DomElement[] = [];
+    const rows = await element.$$('tr');
     if (rows.length > 0) {
-      firstRowChildren = rows[0].children;
+      let { scope, scopeCole } = await rows[0].evaluate(elem => {
+        let scope;
+        let scopeCole = true;
 
-      let i, scope;
-      let scopeCole = true;
-
-      for (i = 1; i < firstRowChildren.length; i++) {
-        if (firstRowChildren[i].name === "td" || firstRowChildren[i].name === "th" && scopeCole) {
-          scope = DomUtils.getElementAttribute(firstRowChildren[i], "scope");
-          scopeCole = scope === "col"
-        }
-      }
-      let scopeRow = true;
-      let row;
-
-      for (i = 1; i < rows.length; i++) {
-        if (rows[i].children.length > 0 && scopeRow) {
-          row = rows[i];
-          let cells = stew.select(row, "td");
-          if (cells.length > 0) {
-            scope = DomUtils.getElementAttribute(cells[0], "scope");
-            scopeRow = scope === "row";
+        for (const child of elem.children) {
+          if (child.tagName.toLowerCase() === 'td' || child.tagName.toLowerCase() === 'th' && scopeCole) {
+            scope = child.getAttribute('scope');
+            scopeCole = scope === 'col';
           }
         }
+
+        return { scope, scopeCole };
+      });
+
+      let scopeRow = true;
+
+      for (const row of rows || []) {
+        scopeRow = await row.evaluate((elem, scopeRow) => {
+          if (elem.children.length > 0 && scopeRow) {
+            const cells = elem.querySelectorAll('td');
+            if (cells.length > 0) {
+              scope = cells[0].getAttribute('scope');
+              scopeRow = scope === "row";
+            }
+          }
+          return scopeRow;
+        }, scopeRow);
       }
 
       if (scopeCole && scopeRow) {
@@ -84,10 +94,11 @@ class QW_BP12 extends BestPractice {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The table has no rows.';
       evaluation.resultCode = 'RC3';
-
     }
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = DomUtils.getElementSelector(element);
+
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
+    
     super.addEvaluationResult(evaluation);
   }
 

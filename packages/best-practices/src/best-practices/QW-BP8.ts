@@ -2,10 +2,9 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement } from 'htmlparser2';
 import { DomUtils as QWDomUtils, AccessibilityTreeUtils } from '@qualweb/util';
-const stew = new (require('stew-select')).Stew();
 import { trim } from 'lodash';
+import {ElementHandle, Page} from "puppeteer";
 
 const bestPractice: BestPracticeType = {
   name: 'Headings with images should have an accessible name',
@@ -33,7 +32,8 @@ class QW_BP8 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined, dom: DomElement[], url: string): Promise<void> {
+
+  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
 
     if (!element) {
       return;
@@ -45,8 +45,8 @@ class QW_BP8 extends BestPractice {
       resultCode: ''
     };
 
-    const images = stew.select(element, 'img');
-    const svgs = stew.select(element, 'svg');
+    const images = await element.$$( 'img');
+    const svgs = await element.$$( 'svg');
     let svgANames: string[] = [];
 
 
@@ -56,12 +56,12 @@ class QW_BP8 extends BestPractice {
       evaluation.resultCode = 'RC1';
     } else {
       for (let svg of svgs) {
-        let aName = await AccessibilityTreeUtils.getAcessibleNameSVG(url, QWDomUtils.getElementSelector(svg));
+        let aName = await AccessibilityTreeUtils.getAcessibleNameSVG(svg,page);
         if (aName && trim(aName) !== "")
           svgANames.push(aName)
       }
 
-      let aName = AccessibilityTreeUtils.getAccessibleName(element);
+      let aName = await AccessibilityTreeUtils.getAccessibleName(element,page);
       if (aName !== '' && aName !== undefined ||svgANames.length>0) {
         evaluation.verdict = 'passed';
         evaluation.description = `This heading with at least one image has an accessible name`;

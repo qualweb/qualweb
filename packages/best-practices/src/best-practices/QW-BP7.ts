@@ -1,9 +1,9 @@
 'use strict';
 
-import {BestPractice as BestPracticeType, BestPracticeResult} from '@qualweb/best-practices';
+import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import {DomElement, DomUtils} from 'htmlparser2';
-import {DomUtils as QWDomUtils} from '@qualweb/util';
+import { ElementHandle } from 'puppeteer';
+import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
   name: 'Title element contains ASCII-art',
@@ -30,7 +30,7 @@ class QW_BP7 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     if (!element) {
       return;
@@ -42,11 +42,11 @@ class QW_BP7 extends BestPractice {
       resultCode: ''
     };
 
-    const titleValue = DomUtils.getText(element);
-    let regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
-    let regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;!?\' ]*$');
-    let regExConsecutiveDots = new RegExp('^[^.]*(\\.{2}(\\.{2,})?)[^.]*$');
-    let regExConsecutiveSpaces = new RegExp('[ ][ ]');
+    const titleValue = await DomUtils.getElementText(element);
+    const regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
+    const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;!?\' ]*$');
+    const regExConsecutiveDots = new RegExp('^[^.]*(\\.{2}(\\.{2,})?)[^.]*$');
+    const regExConsecutiveSpaces = new RegExp('[ ][ ]');
 
     if (!regExAllowedSymbols.test(titleValue)) {
       evaluation.verdict = 'failed';
@@ -63,8 +63,8 @@ class QW_BP7 extends BestPractice {
         evaluation.resultCode = `RC3`;
       }
     }
-    evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = QWDomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }

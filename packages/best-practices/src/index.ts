@@ -3,19 +3,52 @@
  */
 'use strict';
 
-import { BestPracticesReport } from '@qualweb/best-practices';
-import { DomElement } from 'htmlparser2';
-const stew = new(require('stew-select')).Stew();
+import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
+import { Page } from 'puppeteer';
 
 import mapping from './best-practices/mapping.json';
 
-import { bestPractices } from './best-practices';
+import { 
+  bestPractices,
+  bestPracticesToExecute
+} from './best-practices';
 
-async function executeBestPractices(dom: DomElement[],url:string): Promise<BestPracticesReport> {
-  if (!dom) {
-    throw new Error(`Invalid dom`);
+function configure(options: BPOptions): void {
+  if (options.bestPractices) {
+    options.bestPractices = options.bestPractices.map(bp => {
+      return bp.toUpperCase().trim();
+    });
+    for (const bp of Object.keys(bestPractices) || []) {
+      if (options.bestPractices.includes(bp)) {
+        bestPracticesToExecute[bp] = true;
+      }
+    }
   }
+}
 
+function resetConfiguration(): void {
+  for (const bp in bestPracticesToExecute) {
+    bestPracticesToExecute[bp] = true;
+  }
+}
+
+async function executeBP(bestPractice: string, selector: string, page: Page, report: BestPracticesReport): Promise<void> {
+  const elements = await page.$$(selector);
+      
+  if (elements.length > 0) {
+    for (const elem of elements || []) {
+      await bestPractices[bestPractice].execute(elem, page);
+      //await elem.dispose();
+    }
+  } else {
+    await bestPractices[bestPractice].execute(undefined, page);
+  }
+  report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
+  report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
+  bestPractices[bestPractice].reset();
+}
+
+async function executeBestPractices(page: Page): Promise<BestPracticesReport> {
   const report: BestPracticesReport = {
     type: 'best-practices',
     metadata: {
@@ -27,25 +60,21 @@ async function executeBestPractices(dom: DomElement[],url:string): Promise<BestP
     'best-practices': {}
   };
 
+  const promises = new Array<any>();
+
   for (const selector of Object.keys(mapping) || []) {
     for (const bestPractice of mapping[selector] || []) {
-   
-      let elements = stew.select(dom, selector);
-      
-      if (elements.length > 0) {
-        for (const elem of elements || []) {
-          await bestPractices[bestPractice].execute(elem, dom,url);
-        }
-      } else {
-        await bestPractices[bestPractice].execute(undefined, dom);
-      }
-      report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
-      report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
-      bestPractices[bestPractice].reset();
+      promises.push(executeBP(bestPractice, selector, page, report));
     }
   }
+
+  await Promise.all(promises);
 
   return report;
 }
 
-export { executeBestPractices };
+export { 
+  configure,
+  resetConfiguration,
+  executeBestPractices 
+};

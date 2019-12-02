@@ -3,7 +3,7 @@
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
-import { DomElement } from 'htmlparser2';
+import { Page, ElementHandle } from 'puppeteer';
 
 abstract class BestPractice {
 
@@ -34,7 +34,7 @@ abstract class BestPractice {
     this.bestPractice.metadata[result.verdict]++;
   }
 
-  public abstract async execute(element: DomElement | undefined, dom: DomElement[],url?:string): Promise<void>;
+  public abstract async execute(element: ElementHandle | undefined, page: Page): Promise<void>;
 
   public getFinalResults() {
     this.outcomeBestPractice();

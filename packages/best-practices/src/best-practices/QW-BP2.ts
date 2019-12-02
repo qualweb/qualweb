@@ -1,7 +1,7 @@
 'use strict';
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
@@ -30,7 +30,7 @@ class QW_BP2 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     if (!element) {
       return;
@@ -42,9 +42,9 @@ class QW_BP2 extends BestPractice {
       resultCode: ''
     };
 
-    const altValue = DomUtils.getElementAttribute(element, 'alt');   
+    const altValue = await DomUtils.getElementAttribute(element, 'alt');   
 
-    if (!altValue||altValue==="") {
+    if (!altValue || altValue === '') {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The img alt text attribute is empty';
       evaluation.resultCode = 'RC1';
@@ -58,8 +58,8 @@ class QW_BP2 extends BestPractice {
       evaluation.resultCode = 'RC3';
     }
     
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = DomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);
   }

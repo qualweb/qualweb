@@ -2,7 +2,7 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
@@ -31,7 +31,7 @@ class QW_BP5 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -39,7 +39,13 @@ class QW_BP5 extends BestPractice {
       resultCode: ''
     };
 
-    if (element === undefined||!element.parent||element.parent.name!=="table") {
+    if (!element) {
+      return;
+    }
+
+    const parent = await DomUtils.getElementParent(element);
+
+    if (parent === null || (await parent.evaluate(elem => elem['tagName'])).trim().toLowerCase() !== 'table') {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
       evaluation.resultCode = 'RC1';
@@ -47,8 +53,8 @@ class QW_BP5 extends BestPractice {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-      evaluation.pointer = DomUtils.getElementSelector(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
   }

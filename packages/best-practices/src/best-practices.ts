@@ -11,8 +11,8 @@ import QW_BP8 from './best-practices/QW-BP8';
 import QW_BP9 from './best-practices/QW-BP9';
 import QW_BP10 from './best-practices/QW-BP10';
 import QW_BP11 from './best-practices/QW-BP11';
-import QW_BP13 from './best-practices/QW-BP13';
 import QW_BP12 from './best-practices/QW-BP12';
+import QW_BP13 from './best-practices/QW-BP13';
 
 const bestPractices = {
   'QW-BP1': new QW_BP1(),
@@ -26,10 +26,27 @@ const bestPractices = {
   'QW-BP9': new QW_BP9(),
   'QW-BP10': new QW_BP10(),
   'QW-BP11': new QW_BP11(),
-  'QW-BP13': new QW_BP13(),
-  'QW-BP12': new QW_BP12()
+  'QW-BP12': new QW_BP12(),
+  'QW-BP13': new QW_BP13()
 };
 
+const bestPracticesToExecute = {
+  'QW-BP1': true,
+  'QW-BP2': true,
+  'QW-BP3': true,
+  'QW-BP4': true,
+  'QW-BP5': true,
+  'QW-BP6': true,
+  'QW-BP7': true,
+  'QW-BP8': true,
+  'QW-BP9': true,
+  'QW-BP10': true,
+  'QW-BP11': true,
+  'QW-BP12': true,
+  'QW-BP13': true
+}
+
 export {
-  bestPractices
+  bestPractices,
+  bestPracticesToExecute
 };

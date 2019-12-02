@@ -2,13 +2,13 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement, DomUtils } from 'htmlparser2';
-import { DomUtils as QWDomUtils } from '@qualweb/util';
+import { ElementHandle } from 'puppeteer';
+import { DomUtils } from '@qualweb/util';
 
 const bestPractice: BestPracticeType = {
   name: 'title element is not too long (64 characters)',
   code: 'QW-BP6',
-  description: 'The webpage title element shouldn\'t have more than 64 characters',
+  description: `The webpage title element shouldn't have more than 64 characters`,
   metadata: {
     target: {
       element: 'title'
@@ -30,7 +30,7 @@ class QW_BP6 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     if (!element) {
       return;
@@ -42,7 +42,7 @@ class QW_BP6 extends BestPractice {
       resultCode: ''
     };
 
-    const titleValue = DomUtils.getText(element);
+    const titleValue = await DomUtils.getElementText(element);
 
     if (titleValue.length > 64) {
       evaluation.verdict = 'failed';
@@ -54,8 +54,8 @@ class QW_BP6 extends BestPractice {
       evaluation.resultCode = 'RC2';
     }
 
-    evaluation.htmlCode = QWDomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = QWDomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);
   }

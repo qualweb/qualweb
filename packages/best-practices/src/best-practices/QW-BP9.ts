@@ -2,9 +2,8 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomElement } from 'htmlparser2';
+import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
-const stew = new(require('stew-select')).Stew();
 
 const bestPractice: BestPracticeType = {
   name: 'Table element without header cells has a caption',
@@ -31,7 +30,7 @@ class QW_BP9 extends BestPractice {
     super(bestPractice);
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
     if (!element) {
       return;
@@ -43,10 +42,10 @@ class QW_BP9 extends BestPractice {
       resultCode: ''
     };
 
-    const headers = stew.select(element, 'th');
+    const headers = await element.$$('th');
 
     if (headers.length === 0) {
-      const caption = stew.select(element, 'caption');
+      const caption = await element.$$('caption');
 
       if (caption.length !== 0) {
         evaluation.verdict = 'passed';
@@ -63,8 +62,8 @@ class QW_BP9 extends BestPractice {
       evaluation.resultCode = 'RC3';
     }
     
-    evaluation.htmlCode = DomUtils.transformElementIntoHtml(element);
-    evaluation.pointer = DomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);
   }
