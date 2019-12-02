@@ -28,6 +28,7 @@ async function cli(args: string[]): Promise<void> {
     }
 
     if (options.m) {
+      options.execute = {};
       if (options.m.includes(',')) {
         const modules = options.m.split(',');
         for (const mod of modules || []) {
@@ -62,6 +63,8 @@ async function cli(args: string[]): Promise<void> {
       }
     } else {
       for (const report of reports || []) {
+        delete report.system.dom.source.html.parsed;
+        delete report.system.dom.stylesheets;
         await saveReport(report.system.url.completeUrl, report);
       }
     }

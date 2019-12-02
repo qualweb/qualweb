@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.2] - 02/12/2019
+
+### Fixed
+ - a bug when trying to save the reports
+
+## [0.2.1] - 02/12/2019
+
+### Fixed
+ - a bug when trying to run specific modules
+
 ## [0.2.0] - 02/12/2019
 
 ### Added
