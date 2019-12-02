@@ -60,7 +60,7 @@ class System {
     }
 
     if (options.maxParallelEvaluations !== undefined) {
-      this.numberOfParallelEvaluations = options.maxParallelEvaluations;
+      this.numberOfParallelEvaluations = parseInt(options.maxParallelEvaluations.toString(), 0);
       if (!Number.isInteger(this.numberOfParallelEvaluations) || this.numberOfParallelEvaluations < 1) {
         throw new Error('Invalid MaxParallelEvaluations value');
       }

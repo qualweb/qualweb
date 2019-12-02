@@ -1,5 +1,6 @@
 'use strict';
 
+import clone from 'lodash/clone';
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { QualwebOptions, Dom, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
@@ -33,9 +34,9 @@ async function evaluate(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStyl
 
   const processedHtml: ProcessedHtml = {
     html: {
-      plain: await page.evaluate(() => {
+      plain: clone(await page.evaluate(() => {
         return document['outerHTML'];
-      })
+      }))
     },
     title: await page.title(),
     elementCount: (await page.$$('*')).length
