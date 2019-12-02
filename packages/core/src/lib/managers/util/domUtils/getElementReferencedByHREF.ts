@@ -1,22 +1,21 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-const stew = new (require('stew-select')).Stew();
+import { Page, ElementHandle } from 'puppeteer';
+import elementHasAttributes from './elementHasAttributes';
+import getElementAttribute from './getElementAttribute';
+import getElementById from './getElementById';
+import getElementByAttributeName from './getElementByAttributeName';
 
-function getElementReferencedByHREF(processedHTML: DomElement[], element: DomElement): DomElement | null {
-  if (processedHTML === undefined) {
-    throw Error('ProcessedHTML is not defined');
-  }
-  
+async function getElementReferencedByHREF(page: Page, element: ElementHandle): Promise<ElementHandle | null> {  
   if (!element) {
     throw Error('Element is not defined');
   }
   
-  if (!element.attribs) {
+  if (!(await elementHasAttributes(element))) {
     return null;
   }
 
-  let href = element.attribs['href'];
+  let href = await getElementAttribute(element, 'href');
   if (!href) {
     return null;
   }
@@ -29,14 +28,16 @@ function getElementReferencedByHREF(processedHTML: DomElement[], element: DomEle
     return null;
   }
   
-  let result = stew.select_first(processedHTML, '#' + href);
+  let result = await getElementById(page, href);
   if (result) {
     return result;
   }
-  result = stew.select_first(processedHTML, '[name="' + href + '"]');
+
+  result = await getElementByAttributeName(page, href);
   if (result) {
     return result;
   }
+
   return null;
 }
 

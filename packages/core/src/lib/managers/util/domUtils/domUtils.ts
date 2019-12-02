@@ -22,6 +22,11 @@ import getElementChildrenFunction from './getElementChildren';
 import getElementAttributesNameFunction from './getElementAttributesName';
 import getElementNextSiblingFunction from './getElementNextSibling';
 import getElementPreviousSiblingFunction from './getElementPreviousSibling';
+import videoElementHasAudioFunction from './videoElementHasAudio';
+import getElementByAttributeNameFunction from './getElementByAttributeName';
+import isElementHiddenFunction from './isElementHidden';
+import isElementFocusableFunction from './isElementFocusable';
+import isFocusableBrowserFunction from './isFocusableBrowser';
 
 import ROLES_ATTR from './roles';
 
@@ -51,6 +56,11 @@ namespace DomUtils {
   export const getElementAttributesName = getElementAttributesNameFunction;
   export const getElementNextSibling = getElementNextSiblingFunction;
   export const getElementPreviousSibling = getElementPreviousSiblingFunction;
+  export const videoElementHasAudio = videoElementHasAudioFunction;
+  export const getElementByAttributeName = getElementByAttributeNameFunction;
+  export const isElementHidden = isElementHiddenFunction;
+  export const isElementFocusable = isElementFocusableFunction;
+  export const isFocusableBrowser = isFocusableBrowserFunction;
   export const ROLES = ROLES_ATTR;
 }
 

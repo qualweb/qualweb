@@ -30,6 +30,23 @@ const bestPractices = {
   'QW-BP13': new QW_BP13()
 };
 
+const bestPracticesToExecute = {
+  'QW-BP1': true,
+  'QW-BP2': true,
+  'QW-BP3': true,
+  'QW-BP4': true,
+  'QW-BP5': true,
+  'QW-BP6': true,
+  'QW-BP7': true,
+  //'QW-BP8': true,
+  'QW-BP9': true,
+  'QW-BP10': true,
+  'QW-BP11': true,
+  'QW-BP12': true,
+  'QW-BP13': true
+}
+
 export {
-  bestPractices
+  bestPractices,
+  bestPracticesToExecute
 };
