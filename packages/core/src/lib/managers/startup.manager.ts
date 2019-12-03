@@ -5,7 +5,7 @@ import { readFile } from 'fs-extra';
 
 async function getFileUrls(file: string): Promise<Array<string>> {
   const content = await readFile(file);
-  return content.toString().split('\n').map((url: string) => decodeURIComponent(url).trim());
+  return content.toString().split('\n').filter(url => url.trim() !== '').map((url: string) => decodeURIComponent(url).trim());
 }
 
 async function crawlDomain(domain: string): Promise<Array<string>> {

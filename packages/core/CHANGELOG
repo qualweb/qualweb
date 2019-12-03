@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.2] - 03/12/2019
+
+### Fixed
+ - a bug that counted and empty space ("") as an url when parsing a file with urls
+
 ## [0.2.1] - 02/12/2019
 
 ### Fixed
