@@ -4,6 +4,7 @@ import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import md5 from 'md5';
 
 
 const rule: ACTRule = {
@@ -56,17 +57,13 @@ class QW_ACT_R9 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       let links = await element.$$('a[href], [role="link"]');
-      console.log(links.length);
       let accessibleNames: string[] = [];
       let parent, aName;
 
       for (let link of links) {
         parent = await DomUtils.getElementParent(element);
-        console.log(await DomUtils.getElementName(parent))
         if (parent !== null && await DomUtils.getElementName(parent) !== 'SVG') {
-          console.log("aName calculation")
           aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
-          console.log("aName ="+aName);
           if (aName) {
             accessibleNames.push(aName);
           }
@@ -78,7 +75,6 @@ class QW_ACT_R9 extends Rule {
       let hasEqualAn: number[];
       let blacklist: number[] = [];
       let selector:string[] = [];
-      console.log(accessibleNames)
       for (let accessibleName of accessibleNames) {
         hasEqualAn = [];
         if (blacklist.indexOf(counter) >= 0) {
@@ -92,11 +88,8 @@ class QW_ACT_R9 extends Rule {
             for (let index of hasEqualAn) {
               selector.push( await DomUtils.getElementSelector(links[index]));
               }
-            console.log(selector)
             let hashArray = await this.getContentHash(selector,page);
-            console.log(hashArray.length);
             let firstHash = hashArray.pop();
-            console.log(hashArray.length);
 
             let result = true;
             for (let hash of hashArray) {
@@ -121,7 +114,6 @@ class QW_ACT_R9 extends Rule {
             evaluation.description = `There is no link with same the same accessible name`;
             evaluation.resultCode = 'RC4';
           }
-          console.log(evaluation.resultCode +counter)
           evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
           evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
           super.addEvaluationResult(evaluation);
@@ -134,7 +126,6 @@ class QW_ACT_R9 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `link doesnt have accessible name`;
           evaluation.resultCode = 'RC4';
-          console.log(evaluation.resultCode +counter)
 
           evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
           evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
@@ -154,7 +145,6 @@ class QW_ACT_R9 extends Rule {
 
 
     }
-    console.log(evaluation.resultCode);
 
 
   }
@@ -174,9 +164,8 @@ class QW_ACT_R9 extends Rule {
         htmlContent = await newPage.evaluate(() => {
           return document.documentElement.innerHTML;
         });
-        console.log("htmlConten"+htmlContent)
         if(htmlContent){
-          hash = htmlContent;//fixme md5
+          hash = md5(htmlContent);
         }
         content.push(hash);
       }

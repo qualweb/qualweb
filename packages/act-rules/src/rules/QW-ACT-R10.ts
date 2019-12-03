@@ -4,6 +4,7 @@ import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import md5 from 'md5';
 
 
 const rule: ACTRule = {
@@ -87,12 +88,8 @@ class QW_ACT_R10 extends Rule {
                         for (let index of hasEqualAn) {
                             elements.push(links[index]);
                         }
-                        //console.log(elements)
                         let hashArray = await this.getContentHash(elements, page);
-                        //console.log(hashArray.length);
                         let firstHash = hashArray.pop();
-                        //console.log(hashArray.length);
-
                         let result = true;
                         for (let hash of hashArray) {
                             if (!firstHash || !hashArray || hash !== firstHash) {
@@ -162,9 +159,8 @@ class QW_ACT_R10 extends Rule {
             for (let element of elements) {
                 htmlContent = await element.contentFrame();
                 if (htmlContent) {
-                    hash = await htmlContent.content();//fixme md5
+                    hash =md5(await htmlContent.content());//fixme md5
                 }
-                console.log(hash)
                 content.push(hash);
             }
         } catch (e) {

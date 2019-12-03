@@ -10,7 +10,7 @@ const {
 } = require('../getDom');
 
 
-describe('Rule QW-ACT-R10', function () {
+describe('Rule QW-ACT-R10',async function () {
 
   const tests = [
     {
@@ -98,7 +98,10 @@ describe('Rule QW-ACT-R10', function () {
       outcome: 'inapplicable'
     }
   ];
-
+  let browser;
+  it("", async function () {
+    browser = await puppeteer.launch();
+  });
   let i = 0;
   let lastOutcome = 'passed';
   for (const test of tests || []) {
@@ -110,13 +113,16 @@ describe('Rule QW-ACT-R10', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const browser = await puppeteer.launch();
         const { sourceHtml, page, stylesheets } = await getDom(browser,test.url);
         configure({ rules: ['QW-ACT-R10'] });
         const report = await executeACTR(sourceHtml, page, stylesheets );
-        await browser.close();
         expect(report.rules['QW-ACT-R10'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
+  describe(``,  function () {
+    it(``, async function () {
+      await browser.close();
+    });
+  });
 });
