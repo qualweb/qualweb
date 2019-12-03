@@ -2,9 +2,7 @@ const {
   configure,
   executeACTR
 } = require('../../dist/index');
-const {
-  getDom
-} = require('@qualweb/get-dom-puppeteer');
+
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
 const {
