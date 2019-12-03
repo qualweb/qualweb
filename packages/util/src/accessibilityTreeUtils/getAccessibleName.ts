@@ -33,7 +33,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   let name = await getElementName(element);
   if(name)
     name = name.toLocaleLowerCase();
-  let allowNameFromContent = allowsNameFromContent(element);
+  let allowNameFromContent = await allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
   
@@ -46,7 +46,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   role = await getElementAttribute(element, "role");
   id = await getElementAttribute(element, "id");
 
-  let referencedByAriaLabel = isElementReferencedByAriaLabel(id, page);
+  let referencedByAriaLabel = await isElementReferencedByAriaLabel(id, page);
   if (await isElementHidden(element) && !recursion) {
     //noAName
   } else if (type === "text") {
@@ -180,15 +180,16 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
 }
 
 async function getTextFromCss(element: ElementHandle, page:Page): Promise<string> {
-  let before = await getElementStyleProperty(element, ":before", "content:");
-  let after = await getElementStyleProperty(element, ":after", "content:");
+  let before = await getElementStyleProperty(element, "content",":before");
+  let after = await getElementStyleProperty(element, "content",":after");
   let aNameChildren = await getAccessibleNameFromChildren(element, page);
+  let textValue = await getTrimmedText(element);
 
   if (!aNameChildren) {
     aNameChildren = "";
   }
 
-  return before + aNameChildren + after;
+  return before + textValue+aNameChildren + after;
 }
 
 async function getAccessibleNameFromChildren(element: ElementHandle, page:Page): Promise<string> {

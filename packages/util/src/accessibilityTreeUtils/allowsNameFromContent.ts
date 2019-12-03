@@ -9,6 +9,8 @@ async function allowsNameFromContent(element: ElementHandle): Promise<boolean> {
 
   let role, name;
   name = await getElementName(element);
+  if(name)
+    name = name.toLocaleLowerCase();
   role = await getElementAttribute(element,"role");
 
 
