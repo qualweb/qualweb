@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.3] - 03/12/2019
+
+### Fixed
+ - processed html not being added to the final report
+
 ## [0.2.2] - 03/12/2019
 
 ### Fixed
