@@ -2,10 +2,12 @@ const {
   configure,
   executeACTR
 } = require('../../dist/index');
+
+const { expect } = require('chai');
+const puppeteer = require('puppeteer');
 const {
   getDom
-} = require('@qualweb/get-dom-puppeteer');
-const { expect } = require('chai');
+} = require('../getDom');
 
 describe('Rule QW-ACT-R9', function () {
 
@@ -100,11 +102,36 @@ describe('Rule QW-ACT-R9', function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(100 * 1000);
         console.log(test.url);
-        const { source, processed, stylesheets } = await getDom(test.url);
+        const browser = await puppeteer.launch();
+        const { sourceHtml, page, stylesheets } = await getDom(browser,test.url);
         configure({ rules: ['QW-ACT-R9'] });
-        const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);
+        const report = await executeACTR(sourceHtml, page, stylesheets );
+        await browser.close();
         expect(report.rules['QW-ACT-R9'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
 });
+
+/**
+ *      const browser = await puppeteer.launch();
+ *      const page = await this.browser.newPage();
+        await this.setPageViewport(page);
+
+        const plainStylesheets: any = {};
+        page.on('response', async response => {
+          if(response.request().resourceType() === 'stylesheet') {
+            const url = response.url();
+            const content = await response.text();
+            plainStylesheets[url] = content;
+          }
+        });
+
+        await page.goto(url, {
+          waitUntil: ['networkidle2', 'domcontentloaded']
+        });
+
+        const stylesheets = await this.parseStylesheets(plainStylesheets);
+
+        const sourceHtml = await this.getSourceHTML(url);
+ */

@@ -6,6 +6,11 @@ const {
   getDom
 } = require('@qualweb/get-dom-puppeteer');
 const { expect } = require('chai');
+const puppeteer = require('puppeteer');
+const {
+  getDom
+} = require('../getDom');
+
 
 describe('Rule QW-ACT-R10', function () {
 
@@ -107,9 +112,11 @@ describe('Rule QW-ACT-R10', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { source, processed,stylesheets } = await getDom(test.url);
+        const browser = await puppeteer.launch();
+        const { sourceHtml, page, stylesheets } = await getDom(browser,test.url);
         configure({ rules: ['QW-ACT-R10'] });
-        const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);
+        const report = await executeACTR(sourceHtml, page, stylesheets );
+        await browser.close();
         expect(report.rules['QW-ACT-R10'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
