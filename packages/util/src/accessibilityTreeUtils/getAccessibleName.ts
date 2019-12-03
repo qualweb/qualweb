@@ -1,7 +1,7 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
-import {trim} from 'lodash';
+import { ElementHandle, Page } from 'puppeteer';
+import { trim } from 'lodash';
 import {
   isElementHidden,
   getElementById,
@@ -15,7 +15,7 @@ import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
-import {controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements} from './constants';
+import { controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
 import getElementName from '../domUtils/getElementName';
 import getElementAttribute from '../domUtils/getElementAttribute';
 
@@ -31,12 +31,12 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let isSummary = element.name === "summary";
   let type = await getElementType(element);
   let name = await getElementName(element);
-  if(name)
+  if (name)
     name = name.toLocaleLowerCase();
   let allowNameFromContent = await allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
-  
+
   if (!ariaLabelBy /*&& (await getElementById(page,ariaLabelBy)) === null*/) {
     ariaLabelBy = "";
   }
@@ -50,7 +50,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   if (await isElementHidden(element) && !recursion) {
     //noAName
   } else if (type === "text") {
-    AName =  await getTrimmedText(element);
+    AName = await getTrimmedText(element);
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = await getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel && trim(ariaLabel) !== "") {
@@ -69,14 +69,14 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   } else if (name && formElements.indexOf(name) >= 0 && !attrType) {
     AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title);
   } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0 || !attrType)) {
-      placeholder = await getElementAttribute(element,"placeholder");
+    placeholder = await getElementAttribute(element, "placeholder");
     if (!recursion) {
       AName = getFirstNotUndefined(await getValueFromLabel(element, id, page), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name === "textarea") {
-    placeholder = await getElementAttribute(element,"placeholder");
+    placeholder = await getElementAttribute(element, "placeholder");
     if (!recursion) {
       AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
     } else {
@@ -119,8 +119,8 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-async function getValueFromSpecialLabel(element: ElementHandle, label: string,page:Page): Promise<string> {
-  let labelElement =  await element.$(label);
+async function getValueFromSpecialLabel(element: ElementHandle, label: string, page: Page): Promise<string> {
+  let labelElement = await element.$(label);
   let accessNameFromLabel;
 
   if (labelElement)
@@ -129,17 +129,17 @@ async function getValueFromSpecialLabel(element: ElementHandle, label: string,pa
   return accessNameFromLabel;
 }
 
-async function getValueFromLabel(element: ElementHandle, id: string, page:Page): Promise<string> {
-  let referencedByLabelList:ElementHandle[] = [];
+async function getValueFromLabel(element: ElementHandle, id: string, page: Page): Promise<string> {
+  let referencedByLabelList: ElementHandle[] = [];
   let referencedByLabel = await page.$(`label[for="${id}"]`);
-  if(referencedByLabel){
+  if (referencedByLabel) {
     referencedByLabelList.push(referencedByLabel);
   }
   let parent = await getElementParent(element);
   let result, accessNameFromLabel;
   let isWidget = await isElementWidget(element);
 
-  if (parent && await getElementName(parent)=== "label") {
+  if (parent && await getElementName(parent) === "label") {
     referencedByLabelList.push(parent);
   }
 
@@ -166,7 +166,7 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = await getElementById( page,id);
+    elem = await getElementById(page, id);
     accessNameFromId = await getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       if (result) {
@@ -179,20 +179,25 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
   return result;
 }
 
-async function getTextFromCss(element: ElementHandle, page:Page): Promise<string> {
-  let before = await getElementStyleProperty(element, "content",":before");
-  let after = await getElementStyleProperty(element, "content",":after");
+async function getTextFromCss(element: ElementHandle, page: Page): Promise<string> {
+  let before = await getElementStyleProperty(element, "content", ":before");
+  let after = await getElementStyleProperty(element, "content", ":after");
   let aNameChildren = await getAccessibleNameFromChildren(element, page);
   let textValue = await getTrimmedText(element);
+
+  if (!after)
+    after = "";
+  if (!before)
+    before = "";  
 
   if (!aNameChildren) {
     aNameChildren = "";
   }
 
-  return before + textValue+aNameChildren + after;
+  return before + textValue + aNameChildren + after;
 }
 
-async function getAccessibleNameFromChildren(element: ElementHandle, page:Page): Promise<string> {
+async function getAccessibleNameFromChildren(element: ElementHandle, page: Page): Promise<string> {
   let isWidget = await isElementWidget(element);
   let result, aName;
   let children = await getElementChildren(element);
@@ -213,8 +218,8 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page:Page):
 }
 
 async function isRoleControl(element: ElementHandle): Promise<boolean> {
-  let role = await getElementAttribute(element,"role");
-  return role!== null && controlRoles.indexOf(role) >= 0
+  let role = await getElementAttribute(element, "role");
+  return role !== null && controlRoles.indexOf(role) >= 0
 }
 
 export = getAccessibleName;
