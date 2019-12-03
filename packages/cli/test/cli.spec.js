@@ -5,6 +5,6 @@ describe('CLI', function() {
   it('should work', async function() {
     this.timeout(10 * 10000);
     
-    await cli(['-c', 'https://lodash.com']);
+    await cli(['-f', 'test/urls.txt', '-maxParallelEvaluations', '2', '-m', 'act']);
   });
 });

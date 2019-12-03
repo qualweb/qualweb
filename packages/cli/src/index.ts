@@ -13,6 +13,7 @@ async function cli(args: string[]): Promise<void> {
     createModuleOptions('act-rules', options);
     createModuleOptions('html-techniques', options);
     createModuleOptions('css-techniques', options);
+    createModuleOptions('best-practices', options);
 
     if (Object.keys(options).length > 1) {
       if (options.u) {
