@@ -4,10 +4,12 @@ import getTrimmedText = require("./getTrimmedText");
 import { ElementHandle, Page } from "puppeteer";
 import { getElementName } from "../domUtils/domUtils";
 
-async function getValueFromEmbeddedControl(element: ElementHandle, page:Page): Promise<string> {//stew
+async function getValueFromEmbeddedControl(element: ElementHandle, page: Page): Promise<string> {//stew
 
   let role = await getElementAttribute(element, "role");
   let name = await getElementName(element);
+  if (name)
+    name = name.toLocaleLowerCase();
   let value = "";
   let text = await getTrimmedText(element);
 
@@ -37,13 +39,13 @@ async function getValueFromEmbeddedControl(element: ElementHandle, page:Page): P
     }
 
   } else if (role === "listbox" || name === 'select') {
-    let elementsWithId =await element.$$(`[id]`);
+    let elementsWithId = await element.$$(`[id]`);
     let elementWithAriaSelected = await element.$(`aria-selected="true"`);
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
-      if (selectedElement!==null) {
+      if (selectedElement !== null) {
         let id = await getElementAttribute(elementWithId, "id");
         selectedElement = await element.$(`[aria-activedescendant="${id}"]`);
       }
@@ -60,9 +62,9 @@ async function getValueFromEmbeddedControl(element: ElementHandle, page:Page): P
     } else if (optionSelected !== null) {
       value = await getTrimmedText(optionSelected);
     }
-  } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton"){
-      let valueTextVar =  await getElementAttribute(element,"aria-valuetext");
-      let valuenowVar = await getElementAttribute(element,"aria-valuenow");
+  } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
+    let valueTextVar = await getElementAttribute(element, "aria-valuetext");
+    let valuenowVar = await getElementAttribute(element, "aria-valuenow");
     if (valueTextVar !== null)
       value = valueTextVar;
     else if (valuenowVar)

@@ -7,7 +7,7 @@ async function getElementText(element: ElementHandle): Promise<string> {
     throw Error('Element is not defined');
   }
   
-  const text = <string> await (await element.getProperty('text')).jsonValue();
+  const text = <string> await (await element.getProperty('innerText')).jsonValue();
   return text;
 }
 

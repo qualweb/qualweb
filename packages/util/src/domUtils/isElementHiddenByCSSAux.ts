@@ -11,9 +11,9 @@ async function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean>
 
   let visibility;
   let displayNone;
-  const display = await getElementStyleProperty(element, '', 'display');
+  const display = await getElementStyleProperty(element,  'display','');
   displayNone = display ? trim(display) === 'none' : false;
-  const visibilityATT = await getElementStyleProperty(element, '', 'visibility');
+  const visibilityATT = await getElementStyleProperty(element, 'visibility','');
   visibility = visibilityATT ? trim(visibilityATT) === 'collapse' || visibilityATT.trim() === 'hidden' : false;
 
 

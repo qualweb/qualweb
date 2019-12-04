@@ -1,16 +1,18 @@
 'use strict';
-import {ElementHandle} from "puppeteer";
-import {getElementAttribute, getElementName} from "../domUtils/domUtils";
+import { ElementHandle } from "puppeteer";
+import { getElementAttribute, getElementName } from "../domUtils/domUtils";
 
 
 
 async function getDefaultName(element: ElementHandle): Promise<string> {
-  let name =  await getElementName(element);
+  let name = await getElementName(element);
+  if (name)
+    name = name.toLocaleLowerCase();
   let type;
   let result = "";
 
-  if ( name === "input") {
-    type =  await getElementAttribute(element, "type");;
+  if (name === "input") {
+    type = await getElementAttribute(element, "type");;
   }
 
   /*if (type === "image") {

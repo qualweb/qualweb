@@ -1,6 +1,6 @@
 'use strict';
-import {ElementHandle, Page} from 'puppeteer';
-import {trim} from 'lodash';
+import { ElementHandle, Page } from 'puppeteer';
+import { trim } from 'lodash';
 import {
   isElementHidden,
   getElementById,
@@ -28,6 +28,8 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   let AName, ariaLabelBy, ariaLabel, id, tag;
 
   tag = await getElementName(element);
+  if (tag)
+    tag = tag.toLocaleLowerCase();
   let regex = new RegExp('^fe[a-zA-Z]+');
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
   if (!ariaLabelBy /*&& await getElementById(page,ariaLabelBy) === null*/) {
@@ -40,14 +42,14 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(id, page);
   let title = await getElementChildTextContent(element, "title");
   let titleAtt = await getElementAttribute(element, "xlink:title");//tem de ser a
-  let href = getElementAttribute(element, "href");
+  let href = await getElementAttribute(element, "href");
   ;
 
-//console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if (isElementHidden(element) && !recursion || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
+  //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
+  if (await isElementHidden(element) && !recursion ||await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = await getAccessibleNameFromAriaLabelledBy( page, ariaLabelBy);
+    AName = await getAccessibleNameFromAriaLabelledBy(page, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
     AName = getAccessibleName(element, page);
   } else if (ariaLabel && trim(ariaLabel) !== "") {
@@ -57,7 +59,7 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   } else if (titleAtt && trim(titleAtt) !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
   } else if (tag && tag === "text") {
-    AName = getTrimmedText(element);
+    AName = await getTrimmedText(element);
   }
 
   return AName;
@@ -76,14 +78,14 @@ async function hasParentOfName(element: ElementHandle, name: string[]) {
 }
 
 
-async function getAccessibleNameFromAriaLabelledBy( page: Page, ariaLabelId: string): Promise <string|undefined> {
+async function getAccessibleNameFromAriaLabelledBy(page: Page, ariaLabelId: string): Promise<string | undefined> {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = await getElementById( page,id);
+    elem = await getElementById(page, id);
     if (elem)
       accessNameFromId = await getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {
