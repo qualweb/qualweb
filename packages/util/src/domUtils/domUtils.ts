@@ -30,6 +30,7 @@ import getElementByAttributeNameFunction from './getElementByAttributeName';
 import isElementHiddenFunction from './isElementHidden';
 import isElementFocusableFunction from './isElementFocusable';
 import isFocusableBrowserFunction from './isFocusableBrowser';
+import getElementAttributesFunction from './getElementAttributes';
 
 import ROLES_ATTR from './roles';
 
@@ -67,6 +68,7 @@ namespace DomUtils {
   export const getElementByAttributeName = getElementByAttributeNameFunction;
   export const isElementFocusable = isElementFocusableFunction;
   export const isFocusableBrowser = isFocusableBrowserFunction;
+  export const getElementAttributes = getElementAttributesFunction;
   export const ROLES = ROLES_ATTR;
 }
 

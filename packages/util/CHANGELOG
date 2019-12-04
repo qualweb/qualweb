@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.1] - 04/12/2019
+
+### Added
+ - getElementAttributes function to DomUtils namespace
+
 ## [0.2.0] - 02/12/2019
 
 ### Changed
