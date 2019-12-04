@@ -2,12 +2,15 @@ const {
   configure,
   executeACTR
 } = require('../../dist/index');
+
+const { expect } = require('chai');
+const puppeteer = require('puppeteer');
 const {
   getDom
-} = require('@qualweb/get-dom-puppeteer');
-const { expect } = require('chai');
+} = require('../getDom');
 
-describe('Rule QW-ACT-R10', function () {
+
+describe('Rule QW-ACT-R10',async function () {
 
   const tests = [
     {
@@ -95,7 +98,10 @@ describe('Rule QW-ACT-R10', function () {
       outcome: 'inapplicable'
     }
   ];
-
+  let browser;
+  it("", async function () {
+    browser = await puppeteer.launch();
+  });
   let i = 0;
   let lastOutcome = 'passed';
   for (const test of tests || []) {
@@ -107,11 +113,16 @@ describe('Rule QW-ACT-R10', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { source, processed,stylesheets } = await getDom(test.url);
+        const { sourceHtml, page, stylesheets } = await getDom(browser,test.url);
         configure({ rules: ['QW-ACT-R10'] });
-        const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);
+        const report = await executeACTR(sourceHtml, page, stylesheets );
         expect(report.rules['QW-ACT-R10'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
+  describe(``,  function () {
+    it(``, async function () {
+      await browser.close();
+    });
+  });
 });
