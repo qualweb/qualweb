@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -22,7 +22,9 @@
     "test-r13": "mocha test/rules/QW-ACT-R13.spec.js",
     "test-r14": "mocha test/rules/QW-ACT-R14.spec.js",
     "test-r16": "mocha test/rules/QW-ACT-R16.spec.js",
+    "test-r17": "mocha test/rules/QW-ACT-R17.spec.js",
     "test-r18": "mocha test/rules/QW-ACT-R18.spec.js",
+    "test-r19": "mocha test/rules/QW-ACT-R19.spec.js",
     "test-r20": "mocha test/rules/QW-ACT-R20.spec.js",
     "test-r21": "mocha test/rules/QW-ACT-R21.spec.js",
     "test-r22": "mocha test/rules/QW-ACT-R22.spec.js",
@@ -45,7 +47,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.2.5",
+    "@qualweb/types": "^0.2.6",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
     "@types/node": "^12.7.11",
@@ -54,10 +56,10 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.0",
+    "@qualweb/util": "^0.2.3",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",
