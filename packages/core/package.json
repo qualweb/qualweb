@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -29,7 +29,7 @@
     "@qualweb/crawler": "0.0.1",
     "@qualweb/css-techniques": "^0.2.0",
     "@qualweb/earl-reporter": "^0.1.0",
-    "@qualweb/html-techniques": "^0.2.0",
+    "@qualweb/html-techniques": "^0.2.1",
     "@qualweb/wappalyzer": "0.0.2",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
