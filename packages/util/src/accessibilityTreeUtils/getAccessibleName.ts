@@ -37,7 +37,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
 
-  if (!ariaLabelBy /*&& (await getElementById(page,ariaLabelBy)) === null*/) {
+  if (ariaLabelBy !== null && (await getElementById(page,ariaLabelBy)) === null) {
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
@@ -185,10 +185,10 @@ async function getTextFromCss(element: ElementHandle, page: Page): Promise<strin
   let aNameChildren = await getAccessibleNameFromChildren(element, page);
   let textValue = await getTrimmedText(element);
 
-  if (!after)
+  if (after === "none")
     after = "";
-  if (!before)
-    before = "";  
+  if (before === "none")
+    before = "";
 
   if (!aNameChildren) {
     aNameChildren = "";
