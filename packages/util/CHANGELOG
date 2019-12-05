@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.5] - 05/12/2019
+
+### Added
+ - bug fix
+
+## [0.2.4] - 05/12/2019
+
+### Added
+ - isVisible and isOffScreen
+
 ## [0.2.3] - 04/12/2019
 
 ### Added
