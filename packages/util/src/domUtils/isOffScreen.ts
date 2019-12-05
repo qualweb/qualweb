@@ -2,7 +2,7 @@
 
 import { ElementHandle } from 'puppeteer';
 
-async function isElementHidden(element: ElementHandle): Promise<boolean> {
+async function isOffScreen(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -19,10 +19,7 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
       document.body.clientWidth, document.documentElement.clientHeight
     );
 
-    let bounding = element.getBoundingClientRect(); 
-
-    
-
+    let bounding = element.getBoundingClientRect();
     let left = bounding.left ;
     let right = bounding.right;
     let bottom = bounding.bottom;
@@ -30,12 +27,8 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
 
     let  noParentScrollTop= noParentScrolled(element, bottom)
 
-    return left>scrollWidth||right<0||bottom< 0&& noParentScrollTop||top>scrollHeight||right===0 && left ===0;
-  });
-
- 
-
-  
+    return left > scrollWidth||right < 0||bottom < 0 && noParentScrollTop || top > scrollHeight || right === 0 && left ===0;
+  });  
 }
 
 function noParentScrolled(element, offset) {
@@ -53,4 +46,4 @@ function noParentScrolled(element, offset) {
 }
 
 
-export = isElementHidden;
+export = isOffScreen;
