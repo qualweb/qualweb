@@ -13,7 +13,7 @@ async function isElemenVisible(element: ElementHandle): Promise<boolean> {
  
 
 
-  return offScreen || cssHidden;
+  return !(offScreen || cssHidden);
 }
 
 export = isElemenVisible;
