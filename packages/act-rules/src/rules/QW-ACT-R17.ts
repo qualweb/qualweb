@@ -21,7 +21,7 @@ const rule: ACTRule = {
     },
     'success-criteria': [],
     related: [],
-    url: 'https://act-rules.github.io/rules/2779a5',
+    url: 'https://act-rules.github.io/rules/23a2a8',
     passed: 0,
     warning: 0,
     failed: 0,
@@ -90,7 +90,6 @@ class QW_ACT_R17 extends Rule {
         if(isDecorative){
           evaluation.verdict = 'passed';
           evaluation.description = `The <img> element is decorative`;
-
           if (attribs.alt !== '') {
             evaluation.resultCode = 'RC5';
           } else {
@@ -98,8 +97,7 @@ class QW_ACT_R17 extends Rule {
           }
         }else{
           const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-          
-          if(accessibleName === undefined){
+          if(accessibleName === null || accessibleName === undefined ){
             evaluation.verdict = 'failed';
             evaluation.description = `The img element has no accessible name`;
             evaluation.resultCode = 'RC7';
