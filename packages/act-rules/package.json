@@ -21,6 +21,7 @@
     "test-r12": "mocha test/rules/QW-ACT-R12.spec.js",
     "test-r13": "mocha test/rules/QW-ACT-R13.spec.js",
     "test-r14": "mocha test/rules/QW-ACT-R14.spec.js",
+    "test-r15": "mocha test/rules/QW-ACT-R15.spec.js",
     "test-r16": "mocha test/rules/QW-ACT-R16.spec.js",
     "test-r18": "mocha test/rules/QW-ACT-R18.spec.js",
     "test-r20": "mocha test/rules/QW-ACT-R20.spec.js",

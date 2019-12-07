@@ -60,8 +60,11 @@ class QW_ACT_R15 extends Rule {
       let muted = await DomUtil.getElementAttribute(element, "muted");
       let srcATT = await DomUtil.getElementAttribute(element, "src");
       let childSrc = await element.$$("source[src]");
-      let duration = element.evaluate(elem => { return elem['duration']; });
+      let duration = await  element.evaluate(elem => { return elem['duration']; });
+      console.log(duration);
       let controls = await DomUtil.elementHasAttribute(element, "controls");
+      let hasSoundTrack = await DomUtil.videoElementHasAudio(element);
+      console.log(hasSoundTrack)
       let src: any[] = [];
 
       if (childSrc.length > 0) {
@@ -70,7 +73,7 @@ class QW_ACT_R15 extends Rule {
         }
       } else { src.push(srcATT) }
 
-      if (autoplay !== "true" || paused === "true" || muted === "true" || (!srcATT && childSrc.length === 0) || duration < 3) {
+      if (autoplay !== "true" || paused === "true" || muted === "true" || (!srcATT && childSrc.length === 0) || duration < 3||!hasSoundTrack) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'The element doesnt auto-play audio for 3 seconds';
         evaluation.resultCode = 'RC1';
@@ -93,8 +96,8 @@ class QW_ACT_R15 extends Rule {
 
 
       if (element !== undefined) {
-        evaluation.code = transform_element_into_html(element);
-        evaluation.pointer = getElementSelector(element);
+        evaluation.htmlCode = await DomUtil.getElementHtmlCode(element);
+        evaluation.pointer = await DomUtil.getElementSelector(element);
       }
 
       super.addEvaluationResult(evaluation);
