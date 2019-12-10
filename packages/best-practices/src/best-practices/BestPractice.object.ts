@@ -4,6 +4,7 @@ import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/b
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import { Page, ElementHandle } from 'puppeteer';
+import { CSSStylesheet } from '@qualweb/core';
 
 abstract class BestPractice {
 
@@ -34,7 +35,7 @@ abstract class BestPractice {
     this.bestPractice.metadata[result.verdict]++;
   }
 
-  public abstract async execute(element: ElementHandle | undefined, page: Page): Promise<void>;
+  public abstract async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void>;
 
   public getFinalResults() {
     this.outcomeBestPractice();

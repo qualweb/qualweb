@@ -5,6 +5,7 @@
 
 import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
 import { Page } from 'puppeteer';
+import { CSSStylesheet } from '@qualweb/core';
 
 import mapping from './best-practices/mapping.json';
 
@@ -32,23 +33,29 @@ function resetConfiguration(): void {
   }
 }
 
-async function executeBP(bestPractice: string, selector: string, page: Page, report: BestPracticesReport): Promise<void> {
-  const elements = await page.$$(selector);
-      
-  if (elements.length > 0) {
-    for (const elem of elements || []) {
-      await bestPractices[bestPractice].execute(elem, page);
-      //await elem.dispose();
+async function executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void> {
+  if(selector === ""){
+    await bestPractices[bestPractice].execute(undefined, undefined, styleSheets);
+    report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
+    report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
+    bestPractices[bestPractice].reset();
+  } else if(page) {
+    const elements = await page.$$(selector);
+    if (elements.length > 0) {
+      for (const elem of elements || []) {
+        await bestPractices[bestPractice].execute(elem, page);
+        //await elem.dispose();
+      }
+    } else {
+      await bestPractices[bestPractice].execute(undefined, page);
     }
-  } else {
-    await bestPractices[bestPractice].execute(undefined, page);
+    report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
+    report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
+    bestPractices[bestPractice].reset();
   }
-  report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
-  report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
-  bestPractices[bestPractice].reset();
 }
 
-async function executeBestPractices(page: Page): Promise<BestPracticesReport> {
+async function executeBestPractices(page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<BestPracticesReport> {
   const report: BestPracticesReport = {
     type: 'best-practices',
     metadata: {
@@ -64,7 +71,7 @@ async function executeBestPractices(page: Page): Promise<BestPracticesReport> {
 
   for (const selector of Object.keys(mapping) || []) {
     for (const bestPractice of mapping[selector] || []) {
-      promises.push(executeBP(bestPractice, selector, page, report));
+      promises.push(executeBP(bestPractice, selector, page, styleSheets, report));
     }
   }
 
