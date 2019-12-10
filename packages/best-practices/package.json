@@ -17,9 +17,11 @@
     "test-bp8": "mocha test/best-practices/QW-BP8.spec.js",
     "test-bp9": "mocha test/best-practices/QW-BP9.spec.js",
     "test-bp10": "mocha test/best-practices/QW-BP10.spec.js",
-    "test-bp11": "mocha test/best-pratices/QW-BP11.spec.js",
+    "test-bp11": "mocha test/best-practices/QW-BP11.spec.js",
     "test-bp12": "mocha test/best-practices/QW-BP12.spec.js",
     "test-bp13": "mocha test/best-practices/QW-BP13.spec.js",
+    "test-bp14": "mocha test/best-practices/QW-BP14.spec.js",
+    "test-bp15": "mocha test/best-practices/QW-BP15.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
@@ -49,7 +51,11 @@
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "puppeteer": "^2.0.0",
+    "request": "^2.88.0",
+    "stew-select": "0.0.5",
+    "css": "^2.2.4"
   },
   "dependencies": {
     "@qualweb/util": "^0.2.0",
