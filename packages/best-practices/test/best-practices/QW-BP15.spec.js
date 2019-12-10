@@ -1,9 +1,7 @@
 const { executeBestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
-const {
-  getDom
-} = require('../getDom');
+const { getDom } = require('../getDom');
 describe('Technique QW-BP15', function () {
   const tests = [
     {
