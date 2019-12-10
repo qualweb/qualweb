@@ -56,7 +56,7 @@ class QW_BP8 extends BestPractice {
       evaluation.resultCode = 'RC1';
     } else {
       for (let svg of svgs) {
-        let aName = await AccessibilityTreeUtils.getAcessibleNameSVG(svg,page);
+        let aName = await AccessibilityTreeUtils.getAccessibleNameSVG(svg,page);
         if (aName && trim(aName) !== "")
           svgANames.push(aName)
       }
