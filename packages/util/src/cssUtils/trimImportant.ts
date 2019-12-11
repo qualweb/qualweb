@@ -1,7 +1,7 @@
 'use strict';
 
-function trimImportant(value: string){
-  return value.replace("!important", "").trim();
+function trimImportant(value: string): string {
+  return value.replace('!important', '').trim();
 }
 
 export = trimImportant;
