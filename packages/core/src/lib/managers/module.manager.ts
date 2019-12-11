@@ -81,7 +81,7 @@ async function evaluate(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStyl
   }
 
   if (execute.bp) {
-    const bestPractices = bp.executeBestPractices(page);
+    const bestPractices = bp.executeBestPractices(page, stylesheets);
     promises.push(bestPractices);
   }
 
