@@ -7,9 +7,9 @@ import { DomUtils } from '@qualweb/util';
 import BestPractice from './BestPractice.object';
 
 const bestPractice: BestPracticeType = {
-  name: 'Using scope col and row ',
+  name: 'Using scope col and row',
   code: 'QW-BP12',
-  description: 'Using using scope col in the first row  (except first) and scope row in the first element of each row (except first)',
+  description: 'Using scope col in the first row  (except first) and scope row in the first element of each row (except first)',
   metadata: {
     target: {
       element: ['table', 'tr']
@@ -52,18 +52,19 @@ class QW_BP12 extends BestPractice {
 
     const rows = await element.$$('tr');
     if (rows.length > 0) {
-      let { scope, scopeCole } = await rows[0].evaluate(elem => {
-        let scope;
-        let scopeCole = true;
+      const scopeCol = await rows[0].evaluate(elem => {
+        let scopeCol = true;
 
-        for (const child of elem.children) {
-          if (child.tagName.toLowerCase() === 'td' || child.tagName.toLowerCase() === 'th' && scopeCole) {
-            scope = child.getAttribute('scope');
-            scopeCole = scope === 'col';
+        for (const child of elem.children || []) {
+          if (child.tagName.toLowerCase() === 'td' || child.tagName.toLowerCase() === 'th' && scopeCol) {
+            const scope = child.getAttribute('scope');
+            if (scope) {
+              scopeCol = scope === 'col';
+            }
           }
         }
 
-        return { scope, scopeCole };
+        return scopeCol;
       });
 
       let scopeRow = true;
@@ -73,15 +74,17 @@ class QW_BP12 extends BestPractice {
           if (elem.children.length > 0 && scopeRow) {
             const cells = elem.querySelectorAll('td');
             if (cells.length > 0) {
-              scope = cells[0].getAttribute('scope');
-              scopeRow = scope === "row";
+              const scope = cells[0].getAttribute('scope');
+              if (scope) {
+                scopeRow = scope === 'row';
+              }
             }
           }
           return scopeRow;
         }, scopeRow);
       }
 
-      if (scopeCole && scopeRow) {
+      if (scopeCol && scopeRow) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The scope attribute is correctly used.';
         evaluation.resultCode = 'RC1';
@@ -101,7 +104,6 @@ class QW_BP12 extends BestPractice {
     
     super.addEvaluationResult(evaluation);
   }
-
 }
 
 export = QW_BP12;

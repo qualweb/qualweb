@@ -15,14 +15,14 @@ import {
 } from './best-practices';
 
 function configure(options: BPOptions): void {
+  resetConfiguration();
+  
   if (options.bestPractices) {
     options.bestPractices = options.bestPractices.map(bp => {
       return bp.toUpperCase().trim();
     });
     for (const bp of Object.keys(bestPractices) || []) {
-      if (options.bestPractices.includes(bp)) {
-        bestPracticesToExecute[bp] = true;
-      }
+      bestPracticesToExecute[bp] = options.bestPractices.includes(bp);
     }
   }
 }
@@ -34,21 +34,23 @@ function resetConfiguration(): void {
 }
 
 async function executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void> {
-  if(selector === ""){
+  if(selector === ''){
     await bestPractices[bestPractice].execute(undefined, undefined, styleSheets);
     report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
     report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
     bestPractices[bestPractice].reset();
   } else if(page) {
     const elements = await page.$$(selector);
+    const promises = new Array<any>();
     if (elements.length > 0) {
       for (const elem of elements || []) {
-        await bestPractices[bestPractice].execute(elem, page);
-        //await elem.dispose();
+        promises.push(bestPractices[bestPractice].execute(elem, page));
       }
     } else {
-      await bestPractices[bestPractice].execute(undefined, page);
+      promises.push(bestPractices[bestPractice].execute(undefined, page));
     }
+    await Promise.all(promises);
+
     report['best-practices'][bestPractice] = bestPractices[bestPractice].getFinalResults();
     report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
     bestPractices[bestPractice].reset();

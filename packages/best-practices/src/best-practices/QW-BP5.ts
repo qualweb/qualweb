@@ -39,13 +39,9 @@ class QW_BP5 extends BestPractice {
       resultCode: ''
     };
 
+    //const parent = await DomUtils.getElementParent(element);
+
     if (!element) {
-      return;
-    }
-
-    const parent = await DomUtils.getElementParent(element);
-
-    if (parent === null || (await parent.evaluate(elem => elem['tagName'])).trim().toLowerCase() !== 'table') {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
       evaluation.resultCode = 'RC1';

@@ -1,4 +1,4 @@
-const { executeBestPractices } = require('../../dist/index');
+const { executeBestPractices, configure } = require('../../dist/index');
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
 const { getDom } = require('../getDom');
@@ -15,7 +15,7 @@ describe('Best practice QW-BP1', function () {
     }
   ];
   let browser;
-  it("pup open", async function () {
+  it('pup open', async function () {
     browser = await puppeteer.launch();
   });
   let i = 0;
@@ -30,6 +30,10 @@ describe('Best practice QW-BP1', function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
         const { page } = await getDom(browser,test.url);
+
+        configure({
+          bestPractices: ['QW-BP1']
+        });
 
         const report = await executeBestPractices(page);
         expect(report['best-practices']['QW-BP1'].metadata.outcome).to.be.equal(test.outcome);

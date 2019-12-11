@@ -50,11 +50,11 @@ class QW_BP13 extends BestPractice {
       resultCode: ''
     };
 
-    const aWithImgNext = await (await element.evaluateHandle(elem => {
+    const aWithImgNext = await (await aWithImg.evaluateHandle(elem => {
       return elem.nextElementSibling;
     })).asElement();
 
-    const aWithImgPrev = await (await element.evaluateHandle(elem => {
+    const aWithImgPrev = await (await aWithImg.evaluateHandle(elem => {
       return elem.previousElementSibling;
     })).asElement();
 

@@ -8,7 +8,7 @@ import {
   ElementHandle,
   Page
 } from 'puppeteer';
-// import { DomUtils } from '@qualweb/util';
+
 import {
   CSSStylesheet
 } from '@qualweb/core';
@@ -16,7 +16,7 @@ import BestPractice from './BestPractice.object';
 
 const bestPractice: BestPracticeType = {
   name: `At least one container's width has been specified using values expressed in px`,
-  code: 'QW-BP13',
+  code: 'QW-BP14',
   description: `At least one container's width has been specified using values expressed in px`,
   metadata: {
     target: {
@@ -34,7 +34,7 @@ const bestPractice: BestPracticeType = {
 
 class QW_BP14 extends BestPractice {
 
-  containers = ["span", "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "p", "hr", "blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "dd", "dt", "dl", "figcaption"]
+  containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
 
   constructor() {
     super(bestPractice);
@@ -84,7 +84,7 @@ class QW_BP14 extends BestPractice {
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
 
     let declarations = cssObject['declarations'];
-    if (declarations && this.containers.includes(cssObject["selectors"][0])) {
+    if (declarations && this.containers.includes(cssObject['selectors'][0])) {
       for (const declaration of declarations) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'width') {
@@ -95,7 +95,7 @@ class QW_BP14 extends BestPractice {
     }
   }
   private extractInfo(cssObject: any, declaration: any, fileName: string, evaluation: BestPracticeResult): void {
-    if (declaration['value'].endsWith("px")) {
+    if (declaration['value'].endsWith('px')) {
       evaluation.verdict = 'failed';
       evaluation.description = `At least one container's width has been specified using values expressed in px`;
       evaluation.resultCode = 'RC1';

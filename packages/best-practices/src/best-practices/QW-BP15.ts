@@ -2,7 +2,6 @@
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle, Page } from 'puppeteer';
-// import { DomUtils } from '@qualweb/util';
 import { CSSStylesheet } from '@qualweb/core';
 import BestPractice from './BestPractice.object';
 
@@ -26,8 +25,8 @@ const bestPractice: BestPracticeType = {
 
 class QW_BP15 extends BestPractice {
 
-  absoluteLengths = ["cm", "mm", "in", "px", "pt", "pc"];
-  relativeLengths = ["em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "%"];
+  absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
+  relativeLengths = ['em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%'];
 
   constructor() {
     super(bestPractice);
