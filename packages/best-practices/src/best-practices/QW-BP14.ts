@@ -83,8 +83,9 @@ class QW_BP14 extends BestPractice {
   }
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
 
+
     let declarations = cssObject['declarations'];
-    if (declarations && cssObject['selectors'] && this.containers.includes(cssObject['selectors'][0])) {
+    if (declarations && cssObject['selectors'] && this.selectorIsContainer(cssObject['selectors'])) {
       for (const declaration of declarations) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'width') {
@@ -93,6 +94,17 @@ class QW_BP14 extends BestPractice {
         }
       }
     }
+  }
+  private selectorIsContainer(selectors: Array<string>): boolean{
+
+    for(const selector of selectors){
+      let splitSelector = selector.split(" ");
+      for (const selector2 of splitSelector){
+        if(this.containers.includes(selector2))
+          return true;
+      }
+    }
+    return false
   }
   private extractInfo(cssObject: any, declaration: any, fileName: string, evaluation: BestPracticeResult): void {
     if (declaration['value'].endsWith('px')) {
