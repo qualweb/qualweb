@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.9] - 11/12/2019
+
+### Removed
+ - getLabel.ts
+
+
 ## [0.2.8] - 11/12/2019
 
 ### Added
