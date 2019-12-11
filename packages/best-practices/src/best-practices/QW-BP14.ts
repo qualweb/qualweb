@@ -84,7 +84,7 @@ class QW_BP14 extends BestPractice {
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
 
     let declarations = cssObject['declarations'];
-    if (declarations && this.containers.includes(cssObject['selectors'][0])) {
+    if (declarations && cssObject['selectors'] && this.containers.includes(cssObject['selectors'][0])) {
       for (const declaration of declarations) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'width') {

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "QualWeb best practices",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",

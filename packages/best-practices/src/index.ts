@@ -57,7 +57,7 @@ async function executeBP(bestPractice: string, selector: string, page: Page | un
   }
 }
 
-async function executeBestPractices(page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<BestPracticesReport> {
+async function executeBestPractices(page: Page, styleSheets: CSSStylesheet[]): Promise<BestPracticesReport> {
   const report: BestPracticesReport = {
     type: 'best-practices',
     metadata: {
