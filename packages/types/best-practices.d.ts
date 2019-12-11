@@ -1,5 +1,6 @@
 declare module '@qualweb/best-practices' {
   import { Page } from 'puppeteer';
+  import { CSSStylesheet } from '@qualweb/core';
 
   interface BPOptions {
     bestPractices?: string[];
@@ -67,7 +68,7 @@ declare module '@qualweb/best-practices' {
 
   function resetConfiguration(): void;
   function configure(options: BPOptions): void;
-  function executeBestPractices(page: Page): Promise<BestPracticesReport>;
+  function executeBestPractices(page: Page, stylesheets: CSSStylesheet[]): Promise<BestPracticesReport>;
 
   export {
     BPOptions,
