@@ -1,0 +1,210 @@
+{
+  "aria-activedescendant": [
+    "application",
+    "composite",
+    "group",
+    "textbox"
+  ],
+  "aria-atomic": [
+    "*"
+  ],
+  "aria-autocomplete": [
+    "combobox",
+    "textbox"
+  ],
+  "aria-busy": [
+    "*"
+  ],
+  "aria-checked": [
+    "checkbox",
+    "option",
+    "radio",
+    "switch"
+  ],
+  "aria-colcount": [
+    "grid",
+    "treegrid"
+  ],
+  "aria-colindex": [
+    "cell",
+    "row"
+  ],
+  "aria-colspan": [
+    "cell"
+  ],
+  "aria-controls": [
+    "*"
+  ],
+  "aria-current": [
+    "*"
+  ],
+  "aria-describedby": [
+    "*"
+  ],
+  "aria-details": [
+    "*"
+  ],
+  "aria-disabled": [
+    "*"
+  ],
+  "aria-dropeffect": [
+    "*"
+  ],
+  "aria-errormessage": [
+    "*"
+  ],
+  "aria-expanded": [
+    "button",
+    "combobox",
+    "document",
+    "link",
+    "section",
+    "sectionhead",
+    "window"
+  ],
+  "aria-flowto": [
+    "*"
+  ],
+  "aria-grabbed": [
+    "*"
+  ],
+  "aria-haspopup": [
+    "*"
+  ],
+  "aria-hidden": [
+    "*"
+  ],
+  "aria-invalid": [
+    "*"
+  ],
+  "aria-keyshortcuts": [
+    "*"
+  ],
+  "aria-label": [
+    "*"
+  ],
+  "aria-labelledby": [
+    "grid",
+    "heading",
+    "listitem",
+    "row",
+    "tablist"
+  ],
+  "aria-level": [
+    "*"
+  ],
+  "aria-live": [
+    "*"
+  ],
+  "aria-modal": [
+    "window"
+  ],
+  "aria-multiline": [
+    "textbox"
+  ],
+  "aria-multiselectable": [
+    "grid",
+    "listbox",
+    "tablist",
+    "tree"
+  ],
+  "aria-orientation": [
+    "scrollbar",
+    "select",
+    "separator",
+    "slider",
+    "tablist",
+    "toolbar"
+  ],
+  "aria-owns": [
+    "*"
+  ],
+  "aria-placeholder": [
+    "textbox"
+  ],
+  "aria-posinset": [
+    "article",
+    "listitem",
+    "menuitem",
+    "option",
+    "radio",
+    "tab"
+  ],
+  "aria-pressed": [
+    "button"
+  ],
+  "aria-readonly": [
+    "checkbox",
+    "combobox",
+    "grid",
+    "gridcell",
+    "listbox",
+    "radiogroup",
+    "slider",
+    "spinbutton",
+    "textbox"
+  ],
+  "aria-relevant": [
+    "*"
+  ],
+  "aria-required": [
+    ""
+  ],
+  "aria-roledescription": [
+    "*"
+  ],
+  "aria-rowcount": [
+    "grid",
+    "treegrid"
+  ],
+  "aria-rowindex": [
+    "cell",
+    "row"
+  ],
+  "aria-rowspan": [
+    "cell"
+  ],
+  "aria-selected": [
+    "gridcell",
+    "option",
+    "row",
+    "tab"
+  ],
+  "aria-setsize": [
+    "article",
+    "listitem",
+    "menuitem",
+    "option",
+    "radio",
+    "tab"
+  ],
+  "aria-sort": [
+    "columnheader",
+    "rowheader"
+  ],
+  "aria-valuemax": [
+    "range",
+    "scrollbar",
+    "separator",
+    "slider",
+    "spinbutton"
+  ],
+  "aria-valuemin": [
+    "range",
+    "scrollbar",
+    "separator",
+    "slider",
+    "spinbutton"
+  ],
+  "aria-valuenow": [
+    "range",
+    "scrollbar",
+    "separator",
+    "slider",
+    "spinbutton"
+  ],
+  "aria-valuetext": [
+    "range",
+    "separator"
+  ]
+}

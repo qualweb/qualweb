@@ -12,9 +12,9 @@ const {
 
 const request = require('request-promise');
 
-describe('Rule QW-ACT-R11', async function () {
+describe('Rule QW-ACT-R25', async function () {
 
-  const ruleId = '97a4e1';
+  const ruleId = '5c01ea';
   let testCases = [];
   let browser;
   let json;
@@ -37,10 +37,10 @@ describe('Rule QW-ACT-R11', async function () {
           this.timeout(10 * 1000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
           configure({
-            rules: ['QW-ACT-R11']
+            rules: ['QW-ACT-R25']
           });
           const report = await executeACTR(sourceHtml, page, stylesheets);
-          expect(report.rules['QW-ACT-R11'].metadata.outcome).to.be.equal(test.expected);
+          expect(report.rules['QW-ACT-R25'].metadata.outcome).to.be.equal(test.expected);
         });
       });
     }
