@@ -109,7 +109,7 @@ class QW_ACT_R25 extends Rule {
               //todo - is not working properly
               if (accessName !== '' && accessName !== undefined) {
                 // if valid aria attribute
-                if (ariaJSON[attrib][0] === '*' || (elemRole !== undefined && (rolesJSON[elemRole]['required'].includes(attrib) || rolesJSON[elemRole]['supported'].includes(attrib)))) {
+                if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== undefined && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
                   evaluation.verdict = 'passed';
                   evaluation.description = attrib + "property is supported or inherited by this element's role";
                   evaluation.resultCode = 'RC3';
