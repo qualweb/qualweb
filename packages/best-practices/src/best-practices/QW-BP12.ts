@@ -7,9 +7,9 @@ import { DomUtils } from '@qualweb/util';
 import BestPractice from './BestPractice.object';
 
 const bestPractice: BestPracticeType = {
-  name: 'Using scope col and row',
+  name: 'Using scope col and row ',
   code: 'QW-BP12',
-  description: 'Using scope col in the first row  (except first) and scope row in the first element of each row (except first)',
+  description: 'Using using scope col in the first row  (except first) and scope row in the first element of each row (except first)',
   metadata: {
     target: {
       element: ['table', 'tr']
@@ -36,55 +36,41 @@ class QW_BP12 extends BestPractice {
       return;
     }
 
-    const children = await element.evaluate(elem => {
-      return elem.children.length;
-    })
-
-    if (children === 0) {
-      return;
-    }
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const rows = await element.$$('tr');
+    let rows = await element.$$( "tr");
+    let firstRowChildren: ElementHandle[] = [];
     if (rows.length > 0) {
-      const scopeCol = await rows[0].evaluate(elem => {
-        let scopeCol = true;
+      firstRowChildren = await DomUtils.getElementChildren(rows[0]);
 
-        for (const child of elem.children || []) {
-          if (child.tagName.toLowerCase() === 'td' || child.tagName.toLowerCase() === 'th' && scopeCol) {
-            const scope = child.getAttribute('scope');
-            if (scope) {
-              scopeCol = scope === 'col';
-            }
+      let i, scope;
+      let scopeCole = true;
+
+      for (i = 1; i < firstRowChildren.length; i++) {
+        if (await DomUtils.getElementName(firstRowChildren[i]) === "td" || await DomUtils.getElementName(firstRowChildren[i]) === "th" && scopeCole) {
+          scope = await DomUtils.getElementAttribute(firstRowChildren[i], "scope");
+          scopeCole = scope === "col"
+        }
+      }
+      let scopeRow = true;
+      let row;
+
+      for (i = 1; i < rows.length; i++) {
+        if ( scopeRow) {
+          row = rows[i];
+          let cells = await row.$$( "td");
+          if (cells.length > 0) {
+            scope = await DomUtils.getElementAttribute(cells[0], "scope");
+            scopeRow = scope === "row";
           }
         }
-
-        return scopeCol;
-      });
-
-      let scopeRow = true;
-
-      for (const row of rows || []) {
-        scopeRow = await row.evaluate((elem, scopeRow) => {
-          if (elem.children.length > 0 && scopeRow) {
-            const cells = elem.querySelectorAll('td');
-            if (cells.length > 0) {
-              const scope = cells[0].getAttribute('scope');
-              if (scope) {
-                scopeRow = scope === 'row';
-              }
-            }
-          }
-          return scopeRow;
-        }, scopeRow);
       }
 
-      if (scopeCol && scopeRow) {
+      if (scopeCole && scopeRow) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The scope attribute is correctly used.';
         evaluation.resultCode = 'RC1';
@@ -97,13 +83,14 @@ class QW_BP12 extends BestPractice {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The table has no rows.';
       evaluation.resultCode = 'RC3';
-    }
 
+    }
     evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
     evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);
   }
+
 }
 
 export = QW_BP12;
