@@ -18,9 +18,7 @@ function configure(options: BPOptions): void {
   resetConfiguration();
   
   if (options.bestPractices) {
-    options.bestPractices = options.bestPractices.map(bp => {
-      return bp.toUpperCase().trim();
-    });
+    options.bestPractices = options.bestPractices.map(bp => bp.toUpperCase().trim());
     for (const bp of Object.keys(bestPractices) || []) {
       bestPracticesToExecute[bp] = options.bestPractices.includes(bp);
     }
@@ -73,7 +71,9 @@ async function executeBestPractices(page: Page, styleSheets: CSSStylesheet[]): P
 
   for (const selector of Object.keys(mapping) || []) {
     for (const bestPractice of mapping[selector] || []) {
-      promises.push(executeBP(bestPractice, selector, page, styleSheets, report));
+      if (bestPracticesToExecute[bestPractice]) {
+        promises.push(executeBP(bestPractice, selector, page, styleSheets, report));
+      }
     }
   }
 

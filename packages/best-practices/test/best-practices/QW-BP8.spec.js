@@ -34,12 +34,12 @@ describe('Best Practice QW-BP8', function () {
       outcome: 'passed'
     },
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html',
-      outcome: 'failed'
-    },
-    {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithAccessibleName.html',
       outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html',
+      outcome: 'failed'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithoutAccessibleName.html',

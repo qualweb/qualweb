@@ -6,12 +6,12 @@ const { getDom } = require('../getDom');
 describe('Technique QW-BP12', function () {
   const tests = [
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test1.html',
-      outcome: 'failed'
-    },
-    {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test2.html',
       outcome: 'passed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test1.html',
+      outcome: 'failed'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test3.html',
