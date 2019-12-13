@@ -1,241 +1,289 @@
 {
   "aria-activedescendant": {
     "global": "no",
+    "typeValue": "id",
     "values": "",
     "defaultValue": ""
   },
   "aria-atomic": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-autocomplete": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["inline", "list", "both", "none"],
+    "defaultValue": "none"
   },
   "aria-busy": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-checked": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "tristate",
+    "values": ["false", "mixed", "true", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-colcount": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-colindex": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-colspan": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-controls": {
     "global": "yes",
+    "typeValue": "idList",
     "values": "",
     "defaultValue": ""
   },
   "aria-current": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["page", "step", "location", "date", "time", "true", "false"],
+    "defaultValue": "false"
   },
   "aria-describedby": {
     "global": "yes",
+    "typeValue": "idList",
     "values": "",
     "defaultValue": ""
   },
   "aria-details": {
     "global": "yes",
+    "typeValue": "id",
     "values": "",
     "defaultValue": ""
   },
   "aria-disabled": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-dropeffect": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "tokenList",
+    "values": ["copy", "execute", "link", "move", "none", "popup"],
+    "defaultValue": "none"
   },
   "aria-errormessage": {
     "global": "yes",
+    "typeValue": "id",
     "values": "",
     "defaultValue": ""
   },
   "aria-expanded": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false/undefined",
+    "values": ["true", "false", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-flowto": {
     "global": "yes",
+    "typeValue": "idList",
     "values": "",
     "defaultValue": ""
   },
   "aria-grabbed": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false/undefined",
+    "values": ["true", "false", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-haspopup": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["false", "true", "menu", "listbox", "tree", "grid", "dialog"],
+    "defaultValue": "false"
   },
   "aria-hidden": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false/undefined",
+    "values": ["true", "false", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-invalid": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["grammar", "false", "spelling", "true"],
+    "defaultValue": "false"
   },
   "aria-keyshortcuts": {
     "global": "yes",
+    "typeValue": "string",
     "values": "",
     "defaultValue": ""
   },
   "aria-label": {
     "global": "yes",
+    "typeValue": "string",
     "values": "",
     "defaultValue": ""
   },
   "aria-labelledby": {
     "global": "no",
+    "typeValue": "idList",
     "values": "",
     "defaultValue": ""
   },
   "aria-level": {
     "global": "yes",
+    "typeValue": "",
     "values": "",
-    "defaultValue": ""
+    "defaultValue": "integer"
   },
   "aria-live": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["assertive", "off", "polite"],
+    "defaultValue": "off"
   },
   "aria-modal": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-multiline": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-multiselectable": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-orientation": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["horizontal", "undefined", "vertical"],
+    "defaultValue": "undefined"
   },
   "aria-owns": {
     "global": "yes",
+    "typeValue": "idList",
     "values": "",
     "defaultValue": ""
   },
   "aria-placeholder": {
     "global": "no",
+    "typeValue": "string",
     "values": "",
     "defaultValue": ""
   },
   "aria-posinset": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-pressed": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "tristate",
+    "values": ["false", "mixed", "true", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-readonly": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-relevant": {
     "global": "yes",
-    "values": "",
+    "typeValue": "tokenList",
+    "values": ["additions", "additions text", "all", "removals", "text"],
     "defaultValue": ""
   },
   "aria-required": {
     "global": "yes",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false",
+    "values": ["true", "false"],
+    "defaultValue": "false"
   },
   "aria-roledescription": {
     "global": "yes",
+    "typeValue": "string",
     "values": "",
     "defaultValue": ""
   },
   "aria-rowcount": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-rowindex": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-rowspan": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-selected": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "true/false/undefined",
+    "values": ["true", "false", "undefined"],
+    "defaultValue": "undefined"
   },
   "aria-setsize": {
     "global": "no",
+    "typeValue": "integer",
     "values": "",
     "defaultValue": ""
   },
   "aria-sort": {
     "global": "no",
-    "values": "",
-    "defaultValue": ""
+    "typeValue": "token",
+    "values": ["ascending", "descending", "none", "other"],
+    "defaultValue": "none"
   },
   "aria-valuemax": {
     "global": "no",
+    "typeValue": "number",
     "values": "",
     "defaultValue": ""
   },
   "aria-valuemin": {
     "global": "no",
+    "typeValue": "number",
     "values": "",
     "defaultValue": ""
   },
   "aria-valuenow": {
     "global": "no",
+    "typeValue": "number",
     "values": "",
     "defaultValue": ""
   },
   "aria-valuetext": {
     "global": "no",
+    "typeValue": "string",
     "values": "",
     "defaultValue": ""
   }
