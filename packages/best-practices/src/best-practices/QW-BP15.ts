@@ -44,17 +44,17 @@ class QW_BP15 extends BestPractice {
       resultCode: ''
     };
 
-    for (const styleSheet of styleSheets) {
-      if(styleSheet.content && styleSheet.content.plain){
-          this.analyseAST(styleSheet.content.parsed, styleSheet.file, evaluation);
+    for (const styleSheet of styleSheets || []) {
+      if(styleSheet.content && styleSheet.content.plain) {
+        this.analyseAST(styleSheet.content.parsed, styleSheet.file, evaluation);
       }
     }
 
     super.addEvaluationResult(evaluation);
   }
 
-  private lengthIsAbsolute(value: String){
-    for(const metric of this.absoluteLengths){
+  private lengthIsAbsolute(value: String): boolean {
+    for(const metric of this.absoluteLengths || []){
       if (value.includes(metric))
         return true
     }
@@ -72,18 +72,18 @@ class QW_BP15 extends BestPractice {
       this.loopDeclarations(cssObject, fileName, evaluation)
     } else {
       if (cssObject['type'] === 'stylesheet') {
-        for (const key of cssObject['stylesheet']['rules']) {
+        for (const key of cssObject['stylesheet']['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       } else {
-        for (const key of cssObject['rules']) {
+        for (const key of cssObject['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       }
     }
   }
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
     if(declarations){
       for (const declaration of declarations || []) {
         if (declaration['property'] && declaration['value'] ) {

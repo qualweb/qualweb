@@ -75,18 +75,16 @@ class QW_BP14 extends BestPractice {
           this.analyseAST(key, fileName, evaluation);
         }
       } else {
-        for (const key of cssObject['rules']) {
+        for (const key of cssObject['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       }
     }
   }
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
-
-
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
     if (declarations && cssObject['selectors'] && this.selectorIsContainer(cssObject['selectors'])) {
-      for (const declaration of declarations) {
+      for (const declaration of declarations || []) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'width') {
             this.extractInfo(cssObject, declaration, fileName, evaluation);
@@ -95,17 +93,18 @@ class QW_BP14 extends BestPractice {
       }
     }
   }
-  private selectorIsContainer(selectors: Array<string>): boolean{
-
-    for(const selector of selectors){
-      let splitSelector = selector.split(" ");
-      for (const selector2 of splitSelector){
-        if(this.containers.includes(selector2))
+  private selectorIsContainer(selectors: Array<string>): boolean {
+    for(const selector of selectors || []){
+      const splitSelector = selector.split(' ');
+      for (const selector2 of splitSelector || []) {
+        if(this.containers.includes(selector2)) {
           return true;
+        }
       }
     }
-    return false
+    return false;
   }
+
   private extractInfo(cssObject: any, declaration: any, fileName: string, evaluation: BestPracticeResult): void {
     if (declaration['value'].endsWith('px')) {
       evaluation.verdict = 'failed';
