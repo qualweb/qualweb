@@ -11,19 +11,41 @@
 ### Additional packages
 
 ```shell
-  $ npm i @qualweb/get-dom-puppeteer --save
+  $ npm i puppeteer css --save
 ```
 
 ```javascript
   'use strict';
 
-  const { getDom } = require('@qualweb/get-dom-puppeteer');
+  const puppeteer = require('puppeteer');
+  const css = require('css');
   const { executeBestPractices } = require('@qualweb/best-practices');
 
-  (async () => {
-    const dom = await getDom('https://act-rules.github.io/pages/about/');
+  async function parseStylesheets(plainStylesheets) {
+    const stylesheets = new Array();
+    for (const file in plainStylesheets || {}){
+      const stylesheet = { file, content: {} };
+      if (stylesheet.content) {
+        stylesheet.content.plain = plainStylesheets[file];
+        stylesheet.content.parsed = css.parse(plainStylesheets[file], { silent: true }); //doesn't throw errors
+        stylesheets.push(stylesheet);
+      }
+    }
 
-    const report = await executeBestPractices(dom.source.html.parsed, dom.processed.html.parsed);
+    return stylesheets;
+  }
+
+  (async () => {
+    const browser = await puppeteer.launch();
+    const page = await this.browser.newPage();
+
+    await page.goto('https://act-rules.github.io/pages/about/', {
+      waitUntil: ['networkidle2', 'domcontentloaded']
+    });
+    
+    const stylesheets = await parseStylesheets(plainStylesheets);
+
+    const report = await executeBestPractices(page, stylesheets);
 
     console.log(report);
   })();
