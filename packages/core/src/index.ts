@@ -2,14 +2,14 @@
 
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
+
 import System from './lib/system';
 
 const system = new System();
 
 async function evaluate(options: QualwebOptions): Promise<EvaluationReport | Array<EvaluationReport>> {
-  await system.startup(options);
+  await system.update(options);
   await system.execute(options);
-  await system.close();
   return <Array<EvaluationReport>> await system.report(false);
 }
 

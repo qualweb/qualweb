@@ -43,19 +43,24 @@ class System {
     };
   }
 
-  public async startup(options: QualwebOptions): Promise<void> {
+  public async update(options: QualwebOptions): Promise<void> {
     this.urls = new Array<string>();
     this.evaluations = new Array<EvaluationReport>();
     
     if (options.url) {
       this.urls.push(decodeURIComponent(options.url).trim());
-    } else if (options.urls) {
-      this.urls = options.urls.map((url: string) => decodeURIComponent(url).trim());
-    } else if (options.file) {
-      this.urls = await getFileUrls(options.file);
-    } else if (options.crawl) {
-      this.urls = await crawlDomain(options.crawl);
-    } else {
+    } 
+    if (options.urls) {
+      this.urls = this.urls.concat(options.urls.map((url: string) => decodeURIComponent(url).trim()));
+    } 
+    if (options.file) {
+      this.urls = this.urls.concat(await getFileUrls(options.file));
+    } 
+    if (options.crawl) {
+      this.urls = this.urls.concat(await crawlDomain(options.crawl));
+    } 
+    
+    if (this.urls.length === 0) {
       throw new Error('Invalid input method');
     }
 
@@ -71,7 +76,7 @@ class System {
     }
 
     if (options.force) {
-      this.force = options.force;
+      this.force = !!options.force;
     } else {
       this.force = false;
     }
@@ -94,7 +99,7 @@ class System {
 
     this.browser = await puppeteer.launch();
     this.browser.pages().then(pages => pages[0].close());
-    //(await this.browser.pages())[0].close();
+    (await this.browser.pages())[0].close();
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
@@ -105,6 +110,7 @@ class System {
       }
       await Promise.all(promises);
     }
+    await this.close();
   }
 
   public async report(earl: boolean, options?: EarlOptions): Promise<Array<EvaluationReport> | Array<EarlReport>> {
@@ -115,7 +121,7 @@ class System {
     }
   }
 
-  public async close(): Promise<void> {
+  private async close(): Promise<void> {
     if (this.browser) {
       await this.browser.close();
     }
@@ -199,7 +205,7 @@ class System {
   private async parseStylesheets(plainStylesheets: any): Promise<any[]> {
     const stylesheets = new Array<any>();
     for (const file in plainStylesheets || {}){
-      const stylesheet: any = {file, content: {}};
+      const stylesheet: any = { file, content: {} };
       if (stylesheet.content) {
         stylesheet.content.plain = plainStylesheets[file];
         stylesheet.content.parsed = css.parse(plainStylesheets[file], { silent: true }); //doesn't throw errors
