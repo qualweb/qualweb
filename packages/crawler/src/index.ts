@@ -21,7 +21,9 @@ class Crawl {
       }
 
       this.crawler.on('fetchcomplete', item => {
-        if (item['stateData']['contentType'].includes('text/html') && !this.urls.includes(item.url)) {
+        if (item && item['stateData'] && item['stateData']['contentType'] && 
+            item['stateData']['contentType'].includes('text/html') && 
+            !this.urls.includes(item.url)) {
           this.urls.push(item.url);
         }
       });
