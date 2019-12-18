@@ -55,7 +55,18 @@ declare module '@qualweb/core' {
       date: string;
       hash: string;
       url: Url;
-      dom: Dom;
+      page: {
+        viewport: {
+          mobile: boolean;
+          landscape: boolean;
+          userAgent: string;
+          resolution: {
+            width: number;
+            height: number;
+          };
+        };
+        dom: Dom;
+      };
     };
     metadata: Metadata;
     modules: {
