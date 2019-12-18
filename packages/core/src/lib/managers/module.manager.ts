@@ -2,17 +2,43 @@
 
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
-import { QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
+import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
 import * as act from '@qualweb/act-rules';
 import * as html from '@qualweb/html-techniques';
 import * as css from '@qualweb/css-techniques';
 import * as bp from '@qualweb/best-practices';
 
-import parseUrl from '../url';
 import Evaluation from '../data/evaluation.object';
 
-async function evaluate(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
+function parseUrl(url: string, pageUrl: string): Url {
+  let inputUrl = url;
+  let protocol;
+  let domainName;
+  let domain;
+  let uri;
+  let completeUrl = pageUrl;
+
+  protocol = completeUrl.split('://')[0];
+  domainName = completeUrl.split('/')[2];
+
+  const tmp = domainName.split('.');
+  domain = tmp[tmp.length-1];
+  uri = completeUrl.split('.' + domain)[1];
+
+  const parsedUrl = {
+    inputUrl,
+    protocol,
+    domainName,
+    domain,
+    uri,
+    completeUrl
+  };
+
+  return parsedUrl;
+}
+
+async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
   if (execute.act && options['act-rules']) {
     act.configure(options['act-rules']);
   }
@@ -31,7 +57,7 @@ async function evaluate(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStyl
 
   //const url = await page.url();
 
-  const [url, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
+  const [pageUrl, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
     page.url(),
     page.evaluate(() => {
       return document.documentElement.outerHTML;
@@ -68,7 +94,7 @@ async function evaluate(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStyl
     homepage: 'http://www.qualweb.di.fc.ul.pt/',
     date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
     hash: randomBytes(40).toString('hex'),
-    url: parseUrl(url),
+    url: parseUrl(url, pageUrl),
     page: {
       viewport: {
         mobile: viewport.isMobile,

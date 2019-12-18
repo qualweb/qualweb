@@ -3,7 +3,7 @@
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
-import System from './lib/system';
+import System from './system';
 
 const system = new System();
 

@@ -5,8 +5,8 @@ import { Parser, DomElement, DomHandler, DomUtils } from 'htmlparser2';
 import request from 'request';
 const stew = new(require('stew-select')).Stew();
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
-import { getFileUrls, crawlDomain } from './managers/startup.manager';
-import { evaluate } from './managers/module.manager';
+import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
+import { evaluate } from './lib/managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import clone from 'lodash/clone';
 import css from 'css';
@@ -18,7 +18,7 @@ import {
   DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
   DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH,
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
-} from './constants';
+} from './lib/constants';
 
 class System {
 
@@ -145,13 +145,18 @@ class System {
           }
         });
 
-        await page.goto(url, {
+        await page.goto(this.correctUrl(url), {
           waitUntil: ['networkidle2', 'domcontentloaded']
         });
 
-        const stylesheets = await this.parseStylesheets(plainStylesheets);
+        /*const stylesheets = await this.parseStylesheets(plainStylesheets);
 
-        const sourceHtml = await this.getSourceHTML(url);
+        const sourceHtml = await this.getSourceHTML(url);*/
+
+        const [stylesheets, sourceHtml] = await Promise.all([
+          this.parseStylesheets(plainStylesheets),
+          this.getSourceHTML(url)
+        ]);
 
         const mappedDOM = {};
         const cookedStew = await stew.select(sourceHtml.html.parsed, '*');
@@ -163,18 +168,25 @@ class System {
 
         await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
 
-        const evaluation = await evaluate(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+        const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
         
         this.evaluations.push(evaluation.getFinalReport());
-        await page.close();
+        page.close();
       } catch(err) {
         if (!this.force) {
-          console.warn('-> ' + url);
           console.error(err);
           return;
         }
       }
     }
+  }
+
+  private correctUrl(url: string): string {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return 'http://' + url;
+    }
+
+    return url;
   }
 
   private async setPageViewport(page: Page, options?: PageOptions): Promise<void> {

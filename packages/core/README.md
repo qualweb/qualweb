@@ -15,12 +15,12 @@
 
   (async () => {
     // QualWeb evaluation report
-    const report = await evaluate({ url: 'https://act-rules.github.io/pages/about/' });
+    const reports = await evaluate({ url: 'https://act-rules.github.io/pages/about/' });
 
-    console.log(report);
+    console.log(reports);
 
     // if you want an EARL report
-    const earlReport = await generateEarlReport();
+    const earlReports = await generateEarlReport();
 
     console.log(earlReport);
   })();

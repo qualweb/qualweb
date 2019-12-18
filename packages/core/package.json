@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -26,19 +26,17 @@
   "dependencies": {
     "@qualweb/act-rules": "^0.2.2",
     "@qualweb/best-practices": "^0.2.4",
-    "@qualweb/crawler": "0.0.1",
+    "@qualweb/crawler": "^0.1.0",
     "@qualweb/css-techniques": "^0.2.4",
     "@qualweb/earl-reporter": "^0.1.0",
     "@qualweb/html-techniques": "^0.2.3",
     "@qualweb/wappalyzer": "0.0.2",
-    "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "puppeteer": "^2.0.0",
     "stew-select": "0.0.5"
   },
   "devDependencies": {
     "@qualweb/types": "^0.2.10",
-    "@types/fs-extra": "^8.0.1",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.21",
     "@types/puppeteer": "^2.0.0",
