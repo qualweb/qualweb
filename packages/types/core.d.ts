@@ -13,12 +13,7 @@ declare module '@qualweb/core' {
     urls?: string[];
     file?: string;
     crawl?: string;
-    mobile?: boolean;
-    landscape?: boolean;
-    resolution?: {
-      width?: number;
-      height?: number;
-    };
+    viewport?: PageOptions;
     maxParallelEvaluations?: number;
     force?: boolean;
     execute?: {
@@ -35,12 +30,12 @@ declare module '@qualweb/core' {
   }
 
   interface Url {
-    readonly inputUrl: string;
-    readonly protocol: string;
-    readonly domainName: string;
-    readonly domain: string;
-    readonly uri: string;
-    readonly completeUrl: string;
+    inputUrl: string;
+    protocol: string;
+    domainName: string;
+    domain: string;
+    uri: string;
+    completeUrl: string;
   }
 
   interface Metadata {
@@ -72,7 +67,7 @@ declare module '@qualweb/core' {
     };
   }
 
-  interface DomOptions {
+  interface PageOptions {
     mobile?: boolean;
     landscape?: boolean;
     userAgent?: string;
@@ -80,39 +75,36 @@ declare module '@qualweb/core' {
       width?: number;
       height?: number;
     };
-    computedStyle?: boolean;
-    elementsPosition?: boolean;
-    generateIds?: boolean;
   }
 
   interface SourceHtml {
-    readonly html: {
+    html: {
       plain: string;
       parsed: DomElement[];
     };
-    readonly title?: string;
-    readonly elementCount?: number;
+    title?: string;
+    elementCount?: number;
   }
 
   interface ProcessedHtml {
-    readonly html: {
+    html: {
       plain: string;
     };
-    readonly title?: string;
-    readonly elementCount?: number;
+    title?: string;
+    elementCount?: number;
   }
 
   interface CSSStylesheet {
-    readonly file: string;
-    readonly content?: {
+    file: string;
+    content?: {
       plain?: string;
       parsed?: StyleSheet;
     };
   }
 
   interface Dom {
-    readonly source: SourceHtml;
-    readonly processed: ProcessedHtml;
+    source: SourceHtml;
+    processed: ProcessedHtml;
     stylesheets: CSSStylesheet[];
   }
 
@@ -124,7 +116,7 @@ declare module '@qualweb/core' {
     EvaluationReport,
     Url,
     Metadata,
-    DomOptions,
+    PageOptions,
     SourceHtml,
     ProcessedHtml,
     Dom,
