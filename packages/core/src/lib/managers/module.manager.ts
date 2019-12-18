@@ -67,16 +67,6 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
     page.browser().userAgent()
   ]);
 
-  /*const processedHtml: ProcessedHtml = {
-    html: {
-      plain: await page.evaluate(() => {
-        return document.documentElement.outerHTML;
-      })
-    },
-    title: await page.title(),
-    elementCount: (await page.$$('*')).length
-  };*/
-
   const processedHtml: ProcessedHtml = {
     html: {
       plain: plainHtml

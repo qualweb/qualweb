@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -15,7 +15,8 @@
     "qualweb",
     "evaluator",
     "web",
-    "accessibility"
+    "accessibility",
+    "a11y"
   ],
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "@qualweb/css-techniques": "^0.2.4",
     "@qualweb/earl-reporter": "^0.1.0",
     "@qualweb/html-techniques": "^0.2.3",
-    "@qualweb/wappalyzer": "0.0.2",
+    "@qualweb/wappalyzer": "^0.1.0",
     "lodash": "^4.17.15",
     "puppeteer": "^2.0.0",
     "stew-select": "0.0.5"

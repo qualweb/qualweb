@@ -149,10 +149,6 @@ class System {
           waitUntil: ['networkidle2', 'domcontentloaded']
         });
 
-        /*const stylesheets = await this.parseStylesheets(plainStylesheets);
-
-        const sourceHtml = await this.getSourceHTML(url);*/
-
         const [stylesheets, sourceHtml] = await Promise.all([
           this.parseStylesheets(plainStylesheets),
           this.getSourceHTML(url)
