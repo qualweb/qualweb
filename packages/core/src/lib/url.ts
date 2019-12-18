@@ -10,35 +10,31 @@ function correctUrl(url: string): string {
   return url;
 }
 
-function parseUrl(url: string | null): Url | null {
-  if(url) {
-    let inputUrl = url;
-    let protocol;
-    let domainName;
-    let domain;
-    let uri;
-    let completeUrl = correctUrl(inputUrl);
+function parseUrl(url: string): Url {
+  let inputUrl = url;
+  let protocol;
+  let domainName;
+  let domain;
+  let uri;
+  let completeUrl = correctUrl(inputUrl);
 
-    protocol = completeUrl.split('://')[0];
-    domainName = completeUrl.split('/')[2];
+  protocol = completeUrl.split('://')[0];
+  domainName = completeUrl.split('/')[2];
 
-    const tmp = domainName.split('.');
-    domain = tmp[tmp.length-1];
-    uri = completeUrl.split('.' + domain)[1];
+  const tmp = domainName.split('.');
+  domain = tmp[tmp.length-1];
+  uri = completeUrl.split('.' + domain)[1];
 
-    const parsedUrl = {
-      inputUrl,
-      protocol,
-      domainName,
-      domain,
-      uri,
-      completeUrl
-    };
+  const parsedUrl = {
+    inputUrl,
+    protocol,
+    domainName,
+    domain,
+    uri,
+    completeUrl
+  };
 
-    return <Url> parsedUrl;
-  } else {
-    return null;
-  }
+  return <Url> parsedUrl;
 }
 
 export = parseUrl;

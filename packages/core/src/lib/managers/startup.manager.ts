@@ -1,11 +1,22 @@
 'use strict';
 
 import Crawl from '@qualweb/crawler';
-import { readFile } from 'fs-extra';
+import fs from 'fs';
+
+function readFile(file: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, (err, data) => {
+      if (err) 
+        reject(err);
+      else 
+        resolve(data.toString());
+    });
+  });
+}
 
 async function getFileUrls(file: string): Promise<Array<string>> {
   const content = await readFile(file);
-  return content.toString().split('\n').filter(url => url.trim() !== '').map((url: string) => decodeURIComponent(url).trim());
+  return content.split('\n').filter((url: string) => url.trim() !== '').map((url: string) => decodeURIComponent(url).trim());
 }
 
 async function crawlDomain(domain: string): Promise<Array<string>> {

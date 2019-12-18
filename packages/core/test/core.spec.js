@@ -34,13 +34,22 @@ describe('Testing plain html', function() {
 const URL = 'https://ciencias.ulisboa.pt';
 const URL2 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/video/';
 const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
+const URL4 = 'http://www.visitilhavo.pt/';
 
-describe('Testing new architecture', function() {
+describe.only('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
-    const reports = await core.evaluate({ url: URL });
+    const reports = await core.evaluate({ url: URL, execute: { html: true }, 'html-techniques': { techniques: ['QW-HTML-T20'] } });
     //const reports = await core.evaluate({ file: 'test/urls.txt', maxParallelEvaluations: 2 });
     console.log(reports.length);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
+});
+
+describe('Testing crawler', function() {
+  it('Should execute', async function() {
+    this.timeout(1000 * 1000);
+    const reports = await core.evaluate({ crawl: 'https://ciencias.ulisboa.pt', maxParallelEvaluations: 5, execute: { act: true } });
+    console.log(reports.length);
+  })
 });

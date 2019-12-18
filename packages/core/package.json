@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -25,9 +25,9 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/act-rules": "^0.2.2",
-    "@qualweb/best-practices": "^0.2.3",
+    "@qualweb/best-practices": "^0.2.4",
     "@qualweb/crawler": "0.0.1",
-    "@qualweb/css-techniques": "^0.2.3",
+    "@qualweb/css-techniques": "^0.2.4",
     "@qualweb/earl-reporter": "^0.1.0",
     "@qualweb/html-techniques": "^0.2.3",
     "@qualweb/wappalyzer": "0.0.2",
@@ -37,12 +37,12 @@
     "stew-select": "0.0.5"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.2.7",
+    "@qualweb/types": "^0.2.10",
     "@types/fs-extra": "^8.0.1",
     "@types/lodash": "^4.14.149",
-    "@types/node": "^12.12.18",
+    "@types/node": "^12.12.21",
     "@types/puppeteer": "^2.0.0",
-    "@types/request": "^2.48.3",
+    "@types/request": "^2.48.4",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
     "request": "^2.88.0",

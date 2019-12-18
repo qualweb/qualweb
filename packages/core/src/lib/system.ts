@@ -4,7 +4,7 @@ import puppeteer, { Browser, Page, Viewport } from 'puppeteer';
 import { Parser, DomElement, DomHandler, DomUtils } from 'htmlparser2';
 import request from 'request';
 const stew = new(require('stew-select')).Stew();
-import { EvaluationReport, QualwebOptions, DomOptions, SourceHtml } from '@qualweb/core';
+import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './managers/startup.manager';
 import { evaluate } from './managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
@@ -97,9 +97,12 @@ class System {
       };
     }
 
-    this.browser = await puppeteer.launch();
+    this.browser = await puppeteer.launch({
+      ignoreHTTPSErrors: true,
+      headless: true
+    });
     this.browser.pages().then(pages => pages[0].close());
-    (await this.browser.pages())[0].close();
+    //(await this.browser.pages())[0].close();
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
@@ -131,7 +134,7 @@ class System {
     if (this.browser) {
       try {
         const page = await this.browser.newPage();
-        await this.setPageViewport(page);
+        await this.setPageViewport(page, options.viewport);
 
         const plainStylesheets: any = {};
         page.on('response', async response => {
@@ -150,7 +153,17 @@ class System {
 
         const sourceHtml = await this.getSourceHTML(url);
 
-        const evaluation = await evaluate(sourceHtml, page, stylesheets, this.modulesToExecute, options);
+        const mappedDOM = {};
+        const cookedStew = await stew.select(sourceHtml.html.parsed, '*');
+        if (cookedStew.length > 0) {
+          for (const item of cookedStew || []) {
+            mappedDOM[item['_stew_node_id']] = item;
+          }
+        }
+
+        await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
+
+        const evaluation = await evaluate(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
         
         this.evaluations.push(evaluation.getFinalReport());
         await page.close();
@@ -164,7 +177,7 @@ class System {
     }
   }
 
-  private async setPageViewport(page: Page, options?: DomOptions): Promise<void> {
+  private async setPageViewport(page: Page, options?: PageOptions): Promise<void> {
     if (options) {
       if (options.userAgent) {
         await page.setUserAgent(options.userAgent);
@@ -230,7 +243,7 @@ class System {
     });
   }
 
-  private async getSourceHTML(url: string, options?: DomOptions): Promise<SourceHtml> {
+  private async getSourceHTML(url: string, options?: PageOptions): Promise<SourceHtml> {
     const headers = {
       'url': url,
       'headers': {
@@ -284,6 +297,77 @@ class System {
     }
 
     return parsed;
+  }
+
+  private async mapCSSElements(dom: DomElement[], styleSheets: any, mappedDOM: any): Promise<void> {
+    for (const styleSheet of styleSheets || []) {
+      if (styleSheet.content && styleSheet.content.plain) {
+        this.analyseAST(dom, styleSheet.content.parsed, undefined, mappedDOM);
+      }
+    }
+  }
+
+  private analyseAST(dom: DomElement[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
+    if (cssObject === undefined ||
+      cssObject['type'] === 'comment' ||
+      cssObject['type'] === 'keyframes' ||
+      cssObject['type'] === 'import') {
+      return;
+    }
+    if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'page') {
+      this.loopDeclarations(dom, cssObject, parentType, mappedDOM);
+    } else {
+      if (cssObject['type'] === 'stylesheet') {
+        for (const key of cssObject['stylesheet']['rules'] || []) {
+          this.analyseAST(dom, key, undefined, mappedDOM);
+        }
+      } else {
+        for (const key of cssObject['rules'] || []) {
+          if (cssObject['type'] && cssObject['type'] === 'media') {
+            this.analyseAST(dom, key, cssObject[cssObject['type']], mappedDOM);
+          } else {
+            this.analyseAST(dom, key, undefined, mappedDOM);
+          }
+        }
+      }
+    }
+  }
+
+  private loopDeclarations(dom: DomElement[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
+    const declarations = cssObject['declarations'];
+    if (declarations && cssObject['selectors'] && !cssObject['selectors'].toString().includes('@-ms-viewport') && !(cssObject['selectors'].toString() === ':focus')) {
+      try {
+        let stewResult = stew.select(dom, cssObject['selectors'].toString());
+        if (stewResult.length > 0) {
+          for (const item of stewResult || []) {
+            for (const declaration of declarations || []) {
+              if (declaration['property'] && declaration['value']) {
+                if (!item['attribs']) {
+                  item['attribs'] = {};
+                }
+                if (!item['attribs']['css']) {
+                  item['attribs']['css'] = {};
+                }
+                if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
+                  item['attribs']['css'][declaration['property']]['value'].includes('!important')) {
+                  continue;
+                }
+                else {
+                  item['attribs']['css'][declaration['property']] = {};
+                  if (parentType) {
+                    item['attribs']['css'][declaration['property']]['media'] = parentType;
+                  }
+                  item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                }
+                mappedDOM[item['_stew_node_id']] = item;
+              }
+            }
+          }
+        }
+      }
+      catch (err) {
+      }
+    }
   }
 }
 
