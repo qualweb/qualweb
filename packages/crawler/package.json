@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@qualweb/types": "^0.2.10",
     "@types/node": "^12.7.7",
+    "@types/simplecrawler": "^1.1.1",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
     "typescript": "^3.6.3"

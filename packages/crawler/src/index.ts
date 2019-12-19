@@ -5,7 +5,7 @@ import Crawler from 'simplecrawler';
 class Crawl {
 
   private urls: Array<string>;
-  private crawler: any;
+  private crawler: Crawler;
 
   constructor(domain: string) {
     this.urls = new Array<string>();
@@ -13,14 +13,14 @@ class Crawl {
   }
 
   public async start(options?: any): Promise<void> {
-    return new Promise((resolve: any, reject: any) => {
+    return new Promise(resolve => {
       if (options) {
         this.crawler.maxConcurrency = 100;
         this.crawler.maxDepth = 0;
         this.crawler.stripQuerystring = true;
       }
 
-      this.crawler.on('fetchcomplete', item => {
+      this.crawler.on('fetchcomplete', (item: any) => {
         if (item && item['stateData'] && item['stateData']['contentType'] && 
             item['stateData']['contentType'].includes('text/html') && 
             !this.urls.includes(item.url)) {
