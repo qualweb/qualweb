@@ -134,11 +134,6 @@
   			"role": "checkbox"
   		},
   		{
-  			"attributes": [["type","email"], ["type","tel"], ["type","text"], ["type","url"]],
-  			"role": "textbox",
-  			"special": true
-  		},
-  		{
   			"attributes": [["type","number"]],
   			"role": "spinbutton"
   		},
@@ -149,11 +144,6 @@
   		{
   			"attributes": [["type","range"]],
   			"role": "slider"
-  		},
-  		{
-  			"attributes": [["type","search"]],
-  			"role": "searchbox",
-  			"special": true
   		},
   		{
   			"attributes": [["type","text"], ["type","search"], ["type","tel"], ["type","url"], ["type","email"]],
@@ -170,9 +160,8 @@
   	],
   	"link": [
   		{
-  			"attributes": [],
+  			"attributes": [["href",""]],
   			"role": "link",
-  			"special": true
   		}
   	],
   	"main": [

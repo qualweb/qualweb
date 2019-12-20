@@ -33,6 +33,7 @@ import isFocusableBrowserFunction from './isFocusableBrowser';
 import getElementAttributesFunction from './getElementAttributes';
 import isOffScreenFunction from './isOffScreen';
 import isElementVisibleFunction from './isElemenVisible'
+import isElementADescendantOfFunction from './isElementADescendantOf';
 
 import ROLES_ATTR from './roles';
 
@@ -73,6 +74,7 @@ namespace DomUtils {
   export const getElementAttributes = getElementAttributesFunction;
   export const isOffScreen = isOffScreenFunction;
   export const isElemenVisible = isElementVisibleFunction;
+  export const isElementADescendantOf = isElementADescendantOfFunction;
   export const ROLES = ROLES_ATTR;
 }
 
