@@ -64,39 +64,57 @@ class QW_ACT_R26 extends Rule {
         return elem['currentSrc'];
       });
       let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
+      console.log('http://194.117.20.242/video/' + encodeURIComponent(src));
       let durationVideo = await this.getStreamDuration(json, "video");
       let durationAudio = await this.getStreamDuration(json, "audio");
       let audioVolume = json["audio"]["maxVolume"];
-  
+      let error = json["metadata"]["error"];
+      console.log(error)
+      console.log(durationAudio)
+      console.log(durationVideo)
+      let duration = await element.evaluate(elem => { return elem['duration']; });
+      let hasSoundTrack = await DomUtils.videoElementHasAudio(element);
+      let hasPupeteerApplicableData = duration > 0 && hasSoundTrack;
+      let hasPupeteerData = duration >= 0 && hasSoundTrack;
+      let hasServiceData = durationVideo > 0 && durationAudio > 0 && audioVolume !== -91;
 
+      if (!((error===undefined) || (hasPupeteerData))) {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = "Cant colect data from the video element";
+        evaluation.resultCode = 'RC1';
+      }else if (isVisible && hasServiceData && error===undefined) {
+ 
+        if (track !== null) {
+          evaluation.verdict = 'warning';
+          evaluation.description = "Check if the track element correctly describes the auditive content of the video";
+          evaluation.resultCode = 'RC1';
+        }
+        else {
+          evaluation.verdict = 'warning';
+          evaluation.description = "Check if the video element auditive content has accessible alternative";
+          evaluation.resultCode = 'RC2';
+        }
+      } else if (isVisible && hasPupeteerApplicableData) {
+        evaluation.verdict = 'warning';
+        evaluation.description = "Video has a sound track but we can verify the volume.Check if the video has audio and if it does check if the video element auditive content has an accessible alternative";
+        evaluation.resultCode = 'RC3';
 
-
-      if (!(durationVideo > 0 && durationAudio > 0 && isVisible&&audioVolume!== -91)) {
+      }else{
         evaluation.verdict = 'inapplicable';
         evaluation.description = "The video element isn't a non-streaming video element that is visible, where the video contains audio.";
-        evaluation.resultCode = 'RC1';
+        evaluation.resultCode = 'RC4';
+      }}
+
+      if (element !== undefined) {
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+        evaluation.pointer = await DomUtils.getElementSelector(element);
       }
-      else if (track !== null) {
-        evaluation.verdict = 'warning';
-        evaluation.description = "Check if the track element correctly describes the auditive content of the video";
-        evaluation.resultCode = 'RC2';
-      }
-      else {
-        evaluation.verdict = 'warning';
-        evaluation.description = "Check if the video element auditive content has accessible alternative";
-        evaluation.resultCode = 'RC3';
-      }
+      console.log(evaluation.description)
+      super.addEvaluationResult(evaluation);
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-    super.addEvaluationResult(evaluation);
-  }
+  private async getStreamDuration(json, streamType: string) {
 
-  private async getStreamDuration(json,streamType: string) {
-    
     let streams = json["metadata"]["streams"];
     let duration = 0;
     if (streams) {

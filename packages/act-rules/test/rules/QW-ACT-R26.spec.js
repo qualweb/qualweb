@@ -40,7 +40,7 @@ describe('Rule QW-ACT-R26', async function () {
         it(`should have outcome="${test.expected}"`, async function () {
           this.timeout(10 * 1000);
           console.log(test.url)
-          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url); configure({
+          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url); configure({//
             rules: ['QW-ACT-R26']
           });
           const report = await executeACTR(sourceHtml, page, stylesheets);
