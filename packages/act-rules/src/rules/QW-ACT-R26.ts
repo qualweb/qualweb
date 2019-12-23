@@ -57,33 +57,18 @@ class QW_ACT_R26 extends Rule {
       evaluation.description = "No video element";
       evaluation.resultCode = 'RC1';
     } else {
-      console.log(await DomUtils.getElementName(element))
       let track = await element.$('track[kind="captions"]')
       let isVisible = await DomUtils.isElemenVisible(element);
-      let src = await element.evaluate(elem => {
-        return elem['currentSrc'];
-      });
-      let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
-      console.log('http://194.117.20.242/video/' + encodeURIComponent(src));
-      let durationVideo = await this.getStreamDuration(json, "video");
-      let durationAudio = await this.getStreamDuration(json, "audio");
-      let audioVolume = json["audio"]["maxVolume"];
-      let error = json["metadata"]["error"];
-      console.log(error)
-      console.log(durationAudio)
-      console.log(durationVideo)
-      let duration = await element.evaluate(elem => { return elem['duration']; });
-      let hasSoundTrack = await DomUtils.videoElementHasAudio(element);
-      let hasPupeteerApplicableData = duration > 0 && hasSoundTrack;
-      let hasPupeteerData = duration >= 0 && hasSoundTrack;
-      let hasServiceData = durationVideo > 0 && durationAudio > 0 && audioVolume !== -91;
+      let metadata = await this.getVideoMetadata(element);
+      let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
+      let applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
 
-      if (!((error===undefined) || (hasPupeteerData))) {
+      if (!((metadata.service.error) || (metadata.puppeteer.error))) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "Cant colect data from the video element";
         evaluation.resultCode = 'RC1';
-      }else if (isVisible && hasServiceData && error===undefined) {
- 
+      } else if (isVisible && applicableServiceData) {
+
         if (track !== null) {
           evaluation.verdict = 'warning';
           evaluation.description = "Check if the track element correctly describes the auditive content of the video";
@@ -99,21 +84,44 @@ class QW_ACT_R26 extends Rule {
         evaluation.description = "Video has a sound track but we can verify the volume.Check if the video has audio and if it does check if the video element auditive content has an accessible alternative";
         evaluation.resultCode = 'RC3';
 
-      }else{
+      } else {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "The video element isn't a non-streaming video element that is visible, where the video contains audio.";
         evaluation.resultCode = 'RC4';
-      }}
-
-      if (element !== undefined) {
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-        evaluation.pointer = await DomUtils.getElementSelector(element);
       }
-      console.log(evaluation.description)
-      super.addEvaluationResult(evaluation);
     }
 
+    if (element !== undefined) {
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.pointer = await DomUtils.getElementSelector(element);
+    }
+    super.addEvaluationResult(evaluation);
+  }
+
+  private async getVideoMetadata(element: ElementHandle) {
+    let src = await element.evaluate(elem => {
+      return elem['currentSrc'];
+    });
+    let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
+    let durationVideo = await this.getStreamDuration(json, "video");
+    let durationAudio = await this.getStreamDuration(json, "audio");
+    let audioVolume = json["audio"]["maxVolume"];
+    let error = json["metadata"]["error"];
+    let duration = await element.evaluate(elem => { return elem['duration']; });
+    let hasSoundTrack = await DomUtils.videoElementHasAudio(element);
+    let result = { service: { video: { duration: {} }, audio: { duration: {}, volume: {} }, error: {} }, puppeteer: { video: { duration: {} }, audio: { hasSoundTrack: {} }, error: {} } };
+    result.puppeteer.video.duration = duration;
+    result.service.video.duration = durationVideo;
+    result.puppeteer.audio.hasSoundTrack = hasSoundTrack;
+    result.service.audio.duration = durationAudio;
+    result.service.audio.volume = audioVolume
+    result.service.error = error !== undefined;
+    result.service.error = !(duration >= 0 && hasSoundTrack);
+    return result;
+  }
+
   private async getStreamDuration(json, streamType: string) {
+
 
     let streams = json["metadata"]["streams"];
     let duration = 0;
