@@ -1,9 +1,10 @@
 'use strict';
 
-import {ElementHandle} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
+const request = require('request-promise');
 
 const rule: ACTRule = {
   name: 'video element auditory content has accessible alternative',
@@ -42,7 +43,7 @@ class QW_ACT_R26 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
 
     const evaluation: ACTRuleResult = {
@@ -56,19 +57,26 @@ class QW_ACT_R26 extends Rule {
       evaluation.description = "No video element";
       evaluation.resultCode = 'RC1';
     } else {
-      let duration = await  element.evaluate(elem => { return elem['duration']; });
-      let hasSoundTrack = await DomUtils.videoElementHasAudio(element);
+      console.log(await DomUtils.getElementName(element))
       let track = await element.$('track[kind="captions"]')
-      let isVisible = await DomUtils.isVisible(element);
+      let isVisible = await DomUtils.isElemenVisible(element);
+      let src = await element.evaluate(elem => {
+        return elem['currentSrc'];
+      });
+      let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
+      let durationVideo = await this.getStreamDuration(json, "video");
+      let durationAudio = await this.getStreamDuration(json, "audio");
+      let audioVolume = json["audio"]["maxVolume"];
+  
 
 
 
-      if (!(duration > 0 && hasSoundTrack&&isVisible)) {
+      if (!(durationVideo > 0 && durationAudio > 0 && isVisible&&audioVolume!== -91)) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "The video element isn't a non-streaming video element that is visible, where the video contains audio.";
         evaluation.resultCode = 'RC1';
       }
-      else if (track!== null) {
+      else if (track !== null) {
         evaluation.verdict = 'warning';
         evaluation.description = "Check if the track element correctly describes the auditive content of the video";
         evaluation.resultCode = 'RC2';
@@ -85,6 +93,20 @@ class QW_ACT_R26 extends Rule {
       evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
+  }
+
+  private async getStreamDuration(json,streamType: string) {
+    
+    let streams = json["metadata"]["streams"];
+    let duration = 0;
+    if (streams) {
+      for (let stream of streams) {
+        if (stream["codec_type"] === streamType) {
+          duration = stream["duration"]
+        }
+      }
+    }
+    return duration;
   }
 
 
