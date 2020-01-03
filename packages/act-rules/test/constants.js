@@ -6,3 +6,26 @@ exports.DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH = 1366;
 exports.DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT = 768;
 exports.DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH = 1080;
 exports.DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT = 1920;
+exports.mapping = {
+  'QW-ACT-R1': '2779a5',
+  'QW-ACT-R2': 'b5c3f8',
+  'QW-ACT-R3': '5b7ae0',
+  'QW-ACT-R4': 'bc659a',
+  'QW-ACT-R5': 'bf051a',
+  'QW-ACT-R6': '59796f',
+  'QW-ACT-R7': 'b33eff',
+  'QW-ACT-R8': '9eb3f6',
+  'QW-ACT-R9': 'b20e66',
+  'QW-ACT-R10': '4b1c6c',
+  'QW-ACT-R11': '97a4e1',
+  'QW-ACT-R12': 'c487ae',
+  'QW-ACT-R13': '6cfa84',
+  'QW-ACT-R14': 'b4f0c3',
+  'QW-ACT-R16': 'e086e5',
+  'QW-ACT-R17': '23a2a8',
+  'QW-ACT-R18': '3ea0c8',
+  'QW-ACT-R19': 'cae760',
+  'QW-ACT-R20': '674b10',
+  'QW-ACT-R21': '7d6734',
+  'QW-ACT-R22': 'de46e4'
+};

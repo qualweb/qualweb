@@ -1,41 +1,40 @@
-const {
-  configure,
-  executeACTR,
-  resetConfiguration
-} = require('../../dist/index');
-const {
-  getDom
-} = require('@qualweb/get-dom-puppeteer');
-const {expect} = require('chai');
-const request = require('request-promise');
+const { expect } = require('chai');
+const puppeteer = require('puppeteer');
+const path = require('path');
 
-describe('Rule QW-ACT-R21', async function () {
+const { mapping } = require('../constants');
+const { getTestCases, getDom } = require('../getDom');
+const { configure, executeACTR } = require('../../dist/index');
 
-  const ruleId = '7d6734';
-  let testCases = [];
+const rule = path.basename(__filename).split('.')[0];
+const ruleId = mapping[rule];
 
-  it("", async function () {
-    const json = JSON.parse(await request('https://act-rules.github.io/testcases.json'));
-    testCases = json.testcases.filter(tc => tc.ruleId === ruleId);
-    let i = 0;
-    let lastOutcome = 'passed';
-    for (const test of testCases || []) {
-      if (test.expected !== lastOutcome) {
-        lastOutcome = test.expected;
-        i = 0;
-      }
-      i++;
-      describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
-        it(`should have outcome="${test.expected}"`, async function () {
-          this.timeout(10 * 1000);
-          const {source, processed, stylesheets} = await getDom(test.url);
-          configure({
-            rules: ['QW-ACT-R21']
-          });
-          const report = await executeACTR(test.url, source.html.parsed, processed.html.parsed, stylesheets);
-          expect(report.rules['QW-ACT-R21'].metadata.outcome).to.be.equal(test.expected);
+describe(`Rule ${rule}`, async function () {
+  
+  it('Starting testbench', async function () {
+    const browser = await puppeteer.launch();
+    const data = JSON.parse(await getTestCases());
+    const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
+      return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
+    });
+
+    describe('Running tests', function() {
+      for (const test of tests || []) {
+        it(test.title, async function() {
+          this.timeout(100 * 1000);
+          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+          configure({ rules: [rule] });
+          const report = await executeACTR(sourceHtml, page, stylesheets);
+
+          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
         });
+      }
+    });
+
+    describe(`Closing testbench`, async function () {
+      it(`closed`, async function () {
+        await browser.close();
       });
-    }
+    });
   });
 });

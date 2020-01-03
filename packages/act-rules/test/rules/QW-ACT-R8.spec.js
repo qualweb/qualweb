@@ -1,65 +1,40 @@
-const {
-  configure,
-  executeACTR
-} = require('../../dist/index');
-const {
-  getDom
-} = require('@qualweb/get-dom-puppeteer');
 const { expect } = require('chai');
+const puppeteer = require('puppeteer');
+const path = require('path');
 
-describe('Rule QW-ACT-R8', function () {
+const { mapping } = require('../constants');
+const { getTestCases, getDom } = require('../getDom');
+const { configure, executeACTR } = require('../../dist/index');
 
-  const tests = [
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/cfff293d583d51b90968a15ff490738f20b2f3e3.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/b59a4f8e74efb991834ccca17073145e005dd4df.html',
-      outcome: 'passed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/a95117f337e44cf426c3c5c4660b44ac8a29e6be.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/ca6974e4e54a97ad7229a0f71755676cf2181a91.html',
-      outcome: 'failed'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/2c2d8b081bc8908ee21605c2aa420a9e90a39307.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/f9b9dad23c0ad60bef126ac4bba8a01b17a2d42f.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/6e2edec42ae47953bf4281cbd9dc86e63107d36e.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url: 'https://act-rules.github.io/testcases/9eb3f6/f1b3be194f69c6f222f53cfd46cad299d94c8445.html',
-      outcome: 'inapplicable'
-    }
-  ];
+const rule = path.basename(__filename).split('.')[0];
+const ruleId = mapping[rule];
 
-  let i = 0;
-  let lastOutcome = 'passed';
-  for (const test of tests || []) {
-    if (test.outcome !== lastOutcome) {
-      lastOutcome = test.outcome;
-      i = 0;
-    }
-    i++;
-    describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
-      it(`should have outcome="${test.outcome}"`, async function () {
-        this.timeout(10 * 1000);
-        const { source, processed , stylesheets } = await getDom(test.url);
-        configure({ rules: ['QW-ACT-R8'] });
-        const report = await executeACTR(test.url,source.html.parsed, processed.html.parsed, stylesheets);
-        expect(report.rules['QW-ACT-R8'].metadata.outcome).to.be.equal(test.outcome);
+describe(`Rule ${rule}`, async function () {
+  
+  it('Starting testbench', async function () {
+    const browser = await puppeteer.launch();
+    const data = JSON.parse(await getTestCases());
+    const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
+      return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
+    });
+
+    describe('Running tests', function() {
+      for (const test of tests || []) {
+        it(test.title, async function() {
+          this.timeout(100 * 1000);
+          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+          configure({ rules: [rule] });
+          const report = await executeACTR(sourceHtml, page, stylesheets);
+
+          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
+        });
+      }
+    });
+
+    describe(`Closing testbench`, async function () {
+      it(`closed`, async function () {
+        await browser.close();
       });
     });
-  }
+  });
 });

@@ -38,21 +38,36 @@ async function parseStylesheets(plainStylesheets) {
     }
     return stylesheets;
 }
-async function getRequestData(headers) {
-    return new Promise((resolve, reject) => {
-        request(headers, (error, response, body) => {
-            if (error) {
-                reject(error);
-            }
-            else if (!response || response.statusCode !== 200) {
-                reject(response.statusCode);
-            }
-            else {
-                resolve({ response, body });
-            }
-        });
+function getRequestData(headers) {
+  return new Promise((resolve, reject) => {
+    request(headers, (error, response, body) => {
+      if (error) {
+        reject(error);
+      }
+      else if (!response || response.statusCode !== 200) {
+        reject(response.statusCode);
+      }
+      else {
+        resolve({ response, body });
+      }
     });
+  });
 }
+
+function getTestCases() {
+  return new Promise((resolve, reject) => {
+    request('https://act-rules.github.io/testcases.json', (error, response, body) => {
+      if (error) {
+        reject(error);
+      } else if (!response || response.statusCode !== 200) {
+        reject(response.statusCode);
+      } else {
+        resolve(body);
+      }
+    });
+  });
+}
+
 async function getSourceHTML(url, options) {
     const headers = {
         'url': url,
@@ -99,3 +114,4 @@ function parseHTML(html) {
 }
 
 module.exports.getDom = getDom;
+module.exports.getTestCases = getTestCases;

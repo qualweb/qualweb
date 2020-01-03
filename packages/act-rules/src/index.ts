@@ -3,13 +3,12 @@
  */
 'use strict';
 
-//import { DomElement } from 'htmlparser2';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
 
-import mapping from './rules/mapping.json';
+import mapping from './rules/mapping';
 
 import { rules, rulesToExecute } from './rules';
 
@@ -82,27 +81,35 @@ async function executeSourceHtmlMappedRules(report: ACTRulesReport, html: Source
   }
 }
 
-async function executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport): Promise<void> {
+async function executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport, concurrent: boolean): Promise<void> {
+  const promises = new Array<any>();
   const elements = await page.$$(selector);
   if (elements.length > 0) {
     for (const elem of elements || []) {
-      await rules[rule].execute(elem, page);
-      //await elem.dispose();
+      if (concurrent) {
+        promises.push(rules[rule].execute(elem, page));
+      } else {
+        await rules[rule].execute(elem, page);
+      }
     }
   } else {
     await rules[rule].execute(undefined, page);
   }
+  if (concurrent) {
+    await Promise.all(promises);
+  }
+
   report.rules[rule] = rules[rule].getFinalResults();
   report.metadata[report.rules[rule].metadata.outcome]++;
   rules[rule].reset();
 }
 
-async function executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any): Promise<void> {
+async function executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void> {
   const promises = new Array<any>();
   for (const selector of selectors || []) {
     for (const rule of mappedRules[selector] || []) {
       if (rulesToExecute[rule]) {
-        promises.push(executeRule(rule, selector, page, report));
+        promises.push(executeRule(rule, selector, page, report, concurrent));
       }
     }
   }
@@ -118,6 +125,20 @@ async function executeNotMappedRules(report: ACTRulesReport, stylesheets: any[])
   }
 }
 
+async function executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void> {
+  await Promise.all([
+    executeSourceHtmlMappedRules(report, html, Object.keys(mapping.non_concurrent.pre), mapping.non_concurrent.pre),
+    executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
+  ]);
+}
+
+async function executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void> {
+  await Promise.all([
+    executeSourceHtmlMappedRules(report, html, Object.keys(mapping.concurrent.pre), mapping.concurrent.pre),
+    executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
+  ]);
+}
+
 async function executeACTR(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
 
   const report: ACTRulesReport = {
@@ -131,10 +152,16 @@ async function executeACTR(sourceHtml: SourceHtml, page: Page, stylesheets: any[
     rules: {}
   };
 
-  await executeSourceHtmlMappedRules(report, sourceHtml, Object.keys(mapping.pre), mapping.pre);
-  await executePageMappedRules(report, page, Object.keys(mapping.post), mapping.post);
+  await Promise.all([
+    executeNonConcurrentRules(report, sourceHtml, page),
+    executeConcurrentRules(report, sourceHtml, page),
+    executeNotMappedRules(report, stylesheets)
+  ]);
 
-  await executeNotMappedRules(report, stylesheets);
+  //await executeSourceHtmlMappedRules(report, sourceHtml, Object.keys(mapping.pre), mapping.pre);
+  //await executePageMappedRules(report, page, Object.keys(mapping.post), mapping.post);
+
+  //await executeNotMappedRules(report, stylesheets);
   
   return report;
 }

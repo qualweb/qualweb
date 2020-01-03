@@ -3,7 +3,7 @@
 import { SourceHtml } from '@qualweb/core';
 import { DomElement } from 'htmlparser2';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import _ from 'lodash';
+import clone from 'lodash.clone';
 
 abstract class Rule {
 
@@ -44,7 +44,7 @@ abstract class Rule {
   }
 
   protected addEvaluationResult(result: ACTRuleResult): void {
-    this.rule.results.push(_.clone(result));
+    this.rule.results.push(clone(result));
     this.rule.metadata[result.verdict]++;
   }
 
@@ -52,7 +52,7 @@ abstract class Rule {
 
   getFinalResults(): any {
     this.outcomeRule();
-    return _.cloneDeep(this.rule);
+    return clone(this.rule);
   }
 
   reset(): void {
