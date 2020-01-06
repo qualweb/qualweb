@@ -62,11 +62,12 @@ class QW_ACT_R8 extends Rule {
     } else {
       let accessName = await AccessibilityTreeUtils.getAccessibleName(element,page);
       let isHidden = await DomUtils.isElementHidden(element);
+      let role = await DomUtils.getElementAttribute(element,"role");
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element is not included in the accessibility tree`;
         evaluation.resultCode = 'RC2';
-      } else if (await DomUtils.getElementAttribute(element,"role") !== 'img') {
+      } else if (role !== null &&await DomUtils.getElementAttribute(element,"role") !== 'img') {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This element doesn't have the semantic role of image`;
         evaluation.resultCode = 'RC3';

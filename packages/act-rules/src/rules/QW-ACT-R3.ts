@@ -72,8 +72,10 @@ class QW_ACT_R3 extends Rule {
         evaluation.description = 'lang or xml:lang attribute is empty in html element';
         evaluation.resultCode = 'RC4';
       } else {
-        const validLang = this.isSubTagValid(lang.toLowerCase());
-        const validXmlLang = this.isSubTagValid(xmlLang.toLowerCase());
+        let primaryLang = lang.split('-')[0];
+        let primaryXmlLang = xmlLang.split('-')[0];
+        const validLang = this.isSubTagValid(primaryLang.toLowerCase());
+        const validXmlLang = this.isSubTagValid(primaryXmlLang.toLowerCase());
 
         if (!validLang || !validXmlLang) {
           evaluation.verdict = 'inapplicable';
@@ -81,7 +83,7 @@ class QW_ACT_R3 extends Rule {
           evaluation.resultCode = 'RC5';
         }
         // from now on, we know that both tags are valid
-        else if (lang.toLowerCase() === xmlLang.toLowerCase()) {
+        else if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
           evaluation.verdict = 'passed';
           evaluation.description = 'lang and xml:lang attributes have the same value';
           evaluation.resultCode = 'RC6';
@@ -98,6 +100,7 @@ class QW_ACT_R3 extends Rule {
       evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
       evaluation.pointer = await DomUtils.getElementSelector(element);
     }
+ 
     
     super.addEvaluationResult(evaluation);
   }

@@ -23,6 +23,7 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function() {
           this.timeout(100 * 1000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+          console.log(test.url)
           configure({ rules: [rule] });
           const report = await executeACTR(sourceHtml, page, stylesheets);
 

@@ -80,8 +80,8 @@ class QW_ACT_R6 extends Rule {
       evaluation.description = `There isn't an image button to test`;
       evaluation.resultCode = 'RC1';
     } else {
-      isHidden = DomUtils.isElementHidden(element);
-      accessName = AccessibilityTreeUtils.getAccessibleName(element, page);
+      isHidden = await DomUtils.isElementHidden(element);
+      accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
       if (isHidden) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This image button is not included in the accessibiliy tree`;

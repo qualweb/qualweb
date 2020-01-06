@@ -56,11 +56,10 @@
     "puppeteer": "^2.0.0",
     "request": "^2.88.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.7.3",
-    "css": "^2.2.4"
+    "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.10",
+    "@qualweb/util": "^0.2.11",
     "@types/lodash.clone": "^4.5.6",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",

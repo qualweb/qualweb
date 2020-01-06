@@ -95,7 +95,7 @@ class QW_ACT_R5 extends Rule {
       return false;
     }
 
-    return this.isSubTagValid(subLangs[0]) && this.isSubTagValid(subLangs[1]);
+    return this.isSubTagValid(subLangs[0]);
   }
 
   private isSubTagValid(subTag: string): boolean {

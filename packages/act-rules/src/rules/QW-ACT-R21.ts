@@ -64,7 +64,7 @@ class QW_ACT_R21 extends Rule {
       for (let elem of elementsToEvaluate) {
         let role = await DomUtils.getElementAttribute(elem, "role");
         let isHidden = await DomUtils.isElementHidden(elem);
-        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(element,page);
+        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(elem,page);
 
         if (!role || role && roleList.indexOf(role) < 0 || isHidden) {
           evaluation.verdict = 'inapplicable';

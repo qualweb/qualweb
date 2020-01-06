@@ -55,11 +55,12 @@ class QW_ACT_R11 extends Rule {
     } else {
       let isHidden = await DomUtils.isElementHidden(element);
       let accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      let role = await DomUtils.getElementAttribute(element,"role");
       if(isHidden){
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'This element is not included in the accessibility tree.';
         evaluation.resultCode = 'RC2';
-      } else if (await  DomUtils.getElementName(element) === 'button' && await DomUtils.getElementAttribute(element,"role") !== 'button'){
+      } else if (role!==null && role !== 'button'){
         evaluation.verdict = 'inapplicable';
         evaluation.description = `This button's role is overriden.`;
         evaluation.resultCode = 'RC3';
