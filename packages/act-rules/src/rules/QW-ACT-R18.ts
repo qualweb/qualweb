@@ -58,8 +58,8 @@ class QW_ACT_R18 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       const id = await DomUtils.getElementAttribute(element, 'id');
-      if (id && id.trim()) {
-        const elementsWithSameId = await page.$$('#' + id.trim());
+      if (id) {
+        const elementsWithSameId = await page.$$(`[id="${id}"]`);
         const genId = RegExp('qw-generated-id-');
     
         if (elementsWithSameId.length > 1) {

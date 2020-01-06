@@ -47,8 +47,6 @@ class QW_ACT_R7 extends Rule {
   }
 
   public async unmappedExecute(styleSheets: any[]): Promise<void> {
-    console.log(styleSheets.length)
-
     if(styleSheets.length === 0) {
       this.fillEvaluation(
         'inapplicable',
@@ -227,7 +225,7 @@ class QW_ACT_R7 extends Rule {
       description: '',
       resultCode: ''
     };
-    console.log(resultCode)
+    
     evaluation.verdict = verdict;
     evaluation.description = description;
     evaluation.resultCode = resultCode;

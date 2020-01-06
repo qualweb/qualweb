@@ -17,6 +17,7 @@ async function getDom(browser,url) {
     });
 
     await page.goto(url, {
+        timeout: 0,
         waitUntil: ['networkidle2', 'domcontentloaded']
     });
 
