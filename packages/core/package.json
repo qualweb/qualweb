@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -25,21 +25,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.2.2",
+    "@qualweb/act-rules": "^0.2.5",
     "@qualweb/best-practices": "^0.2.4",
-    "@qualweb/crawler": "^0.1.0",
+    "@qualweb/crawler": "^0.1.1",
     "@qualweb/css-techniques": "^0.2.4",
     "@qualweb/earl-reporter": "^0.1.0",
     "@qualweb/html-techniques": "^0.2.3",
     "@qualweb/wappalyzer": "^0.1.0",
-    "lodash": "^4.17.15",
+    "@types/lodash.clone": "^4.5.6",
+    "lodash.clone": "^4.5.0",
     "puppeteer": "^2.0.0",
     "stew-select": "0.0.5"
   },
   "devDependencies": {
     "@qualweb/types": "^0.2.10",
-    "@types/lodash": "^4.14.149",
-    "@types/node": "^12.12.21",
+    "@types/node": "^12.12.24",
     "@types/puppeteer": "^2.0.0",
     "@types/request": "^2.48.4",
     "chai": "^4.2.0",
@@ -47,6 +47,6 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   }
 }

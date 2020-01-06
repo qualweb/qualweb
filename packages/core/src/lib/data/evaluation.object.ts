@@ -1,6 +1,6 @@
 'use strict';
 
-import clone from 'lodash/clone';
+import clone from 'lodash.clone';
 import { EvaluationReport } from '@qualweb/core';
 import Metadata from './metadata.object';
 

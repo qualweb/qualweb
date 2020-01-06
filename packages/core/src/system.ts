@@ -8,7 +8,7 @@ import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qual
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { evaluate } from './lib/managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
-import clone from 'lodash/clone';
+import clone from 'lodash.clone';
 import css from 'css';
 
 import {
@@ -146,6 +146,7 @@ class System {
         });
 
         await page.goto(this.correctUrl(url), {
+          timeout: 0,
           waitUntil: ['networkidle2', 'domcontentloaded']
         });
 
@@ -167,11 +168,10 @@ class System {
         const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
         
         this.evaluations.push(evaluation.getFinalReport());
-        page.close();
+        await page.close();
       } catch(err) {
         if (!this.force) {
           console.error(err);
-          return;
         }
       }
     }

@@ -1,6 +1,6 @@
 'use strict';
 
-import clone from 'lodash/clone';
+import clone from 'lodash.clone';
 
 class Metadata {
 
