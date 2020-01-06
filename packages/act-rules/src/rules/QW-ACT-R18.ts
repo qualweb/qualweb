@@ -58,8 +58,8 @@ class QW_ACT_R18 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       const id = await DomUtils.getElementAttribute(element, 'id');
-      if (id) {
-        const elementsWithSameId = await page.$$('#' + id);
+      if (id && id.trim()) {
+        const elementsWithSameId = await page.$$('#' + id.trim());
         const genId = RegExp('qw-generated-id-');
     
         if (elementsWithSameId.length > 1) {
@@ -72,7 +72,7 @@ class QW_ACT_R18 extends Rule {
           evaluation.resultCode = 'RC3';
         } else {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = 'Element doesnt have a non empty id';
+          evaluation.description = `Element doesn't have a non empty id`;
           evaluation.resultCode = 'RC4';
         }
       }
