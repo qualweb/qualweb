@@ -7,7 +7,8 @@ import {
   getElementById,
   getElementType,
   getElementParent,
-  getElementChildren
+  getElementChildren,
+  getElementTagName
 } from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
@@ -88,7 +89,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "caption", page), title);
   } else if (name === "fieldset") {
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page), title);
-  } else if (isWidget && isRoleControl(element)) {
+  } else if (isWidget && await isRoleControl(element)) {
     AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
     AName = getFirstNotUndefined(await getTextFromCss(element, page), title);
@@ -139,7 +140,7 @@ async function getValueFromLabel(element: ElementHandle, id: string, page: Page)
   let result, accessNameFromLabel;
   let isWidget = await isElementWidget(element);
 
-  if (parent && await getElementName(parent) === "label") {
+  if (parent && await getElementTagName(parent) === "label") {
     referencedByLabelList.push(parent);
   }
 

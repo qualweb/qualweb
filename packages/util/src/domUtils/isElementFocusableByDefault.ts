@@ -37,7 +37,7 @@ async function isElementFocusableByDefault(element: ElementHandle): Promise<bool
     case 'input':
       return !!!(elementAttributeType && elementAttributeType !== 'hidden');
     case 'summary':
-      return !!(parent && parentName === 'details' && parentChildren && parentChildren[0] === element);
+      return !!(parent && parentName === 'details' && parentChildren && await element.evaluate((e1, e2) => e1 === e2, parentChildren[0]));
     case 'textarea':
     case 'select':
     case 'button':

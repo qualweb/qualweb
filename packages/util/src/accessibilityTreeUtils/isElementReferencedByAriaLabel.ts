@@ -2,8 +2,8 @@
 
 import {Page} from "puppeteer";
 
-function isElementReferencedByAriaLabel(id: string, page:Page): boolean {
-  let referencedByAriaLabel = page.$$(`[aria-labelledby="${id}"]`);
+async function isElementReferencedByAriaLabel(id: string, page:Page): Promise<boolean> {
+  let referencedByAriaLabel =await page.$(`[aria-labelledby="${id}"]`);
   return referencedByAriaLabel!== null;
 }
 
