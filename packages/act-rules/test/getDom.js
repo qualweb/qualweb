@@ -27,7 +27,7 @@ async function getDom(browser,url) {
 }
 
 async function parseStylesheets(plainStylesheets) {
-  console.log(plainStylesheets)
+  
     const stylesheets = new Array();
     for (const file in plainStylesheets || {}) {
         const stylesheet = { file, content: {} };

@@ -49,14 +49,14 @@
   "devDependencies": {
     "@qualweb/types": "^0.2.10",
     "@types/htmlparser2": "^3.10.0",
-    "@types/node": "^12.12.21",
+    "@types/node": "^12.12.24",
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "mocha": "^6.2.1",
     "puppeteer": "^2.0.0",
     "request": "^2.88.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "@qualweb/util": "^0.2.11",
