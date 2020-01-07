@@ -60,11 +60,12 @@ class QW_ACT_R15 extends Rule {
       let muted = await DomUtil.getElementAttribute(element, "muted");
       let srcATT = await DomUtil.getElementAttribute(element, "src");
       let childSrc = await element.$$("source[src]");
-      let duration = await  element.evaluate(elem => { return elem['duration']; });
-      console.log(duration);
+  
       let controls = await DomUtil.elementHasAttribute(element, "controls");
-      let hasSoundTrack = await DomUtil.videoElementHasAudio(element);
-      console.log(hasSoundTrack)
+      let metadata = await DomUtil.getVideoMetadata(element);
+      let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 3000 && metadata.puppeteer.audio.hasSoundTrack;
+      let applicableServiceData = metadata.service.video.duration > 3000 && metadata.service.audio.duration > 3000 && metadata.service.audio.volume !== -91;
+
       let src: any[] = [];
 
       if (childSrc.length > 0) {
@@ -73,24 +74,35 @@ class QW_ACT_R15 extends Rule {
         }
       } else { src.push(srcATT) }
 
-      if (autoplay !== "true" || paused === "true" || muted === "true" || (!srcATT && childSrc.length === 0) || duration < 3||!hasSoundTrack) {
+     
+
+      if (autoplay !== "true" || paused === "true" || muted === "true" || (!srcATT && childSrc.length === 0)) {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = 'The element doesnt auto-play audio for 3 seconds';
+        evaluation.description = 'The element doesnt auto-play audio';
         evaluation.resultCode = 'RC1';
-      } else if (controls) {
+      } else if (!((metadata.service.error) || (metadata.puppeteer.error))) {
+        evaluation.verdict = 'warning';
+        evaluation.description = "Cant colect data from the video element";
+        evaluation.resultCode = 'RC2';
+      } else if(applicableServiceData||hasPupeteerApplicableData){
+        if (controls) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The auto-play element has a visible control mechanism';
-        evaluation.resultCode = 'RC2';
+        evaluation.resultCode = 'RC3';
       } else if (this.srcTimeIsLessThanThree(src)) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The auto-play element plays for 3 seconds or less';
-        evaluation.resultCode = 'RC3';
+        evaluation.resultCode = 'RC4';
       } else {
         evaluation.verdict = 'warning';
         evaluation.description = 'Check if auto-play has a visible control mechanism';
-        evaluation.resultCode = 'RC4';
+        evaluation.resultCode = 'RC5';
 
 
+      }}else{
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'The element doesnt auto-play audio for 3 seconds';
+        evaluation.resultCode = 'RC6';
       }
 
 
