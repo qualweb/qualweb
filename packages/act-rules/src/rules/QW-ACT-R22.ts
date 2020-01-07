@@ -1,47 +1,44 @@
 'use strict';
 
-import {ElementHandle} from 'puppeteer';
+import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import {trim} from 'lodash';
+import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import languages from './language.json';
-
-const rule: ACTRule = {
-  name: 'Element within body has valid lang attribute',
-  code: 'QW-ACT-R22',
-  mapping: 'de46e4',
-  description: 'This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.',
-  metadata: {
-    target: {
-      element: '[lang]'
-    },
-    'success-criteria': [
-      {
-        name: '3.1.2',
-        level: 'AA',
-        principle: 'Understandable ',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts'
-      }
-    ],
-    related: [],
-    url: 'https://act-rules.github.io/rules/de46e4',
-    passed: 0,
-    warning: 0,
-    inapplicable: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R22 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Element within body has valid lang attribute',
+      code: 'QW-ACT-R22',
+      mapping: 'de46e4',
+      description: 'This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.',
+      metadata: {
+        target: {
+          element: '[lang]'
+        },
+        'success-criteria': [
+          {
+            name: '3.1.2',
+            level: 'AA',
+            principle: 'Understandable ',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts'
+          }
+        ],
+        related: [],
+        url: 'https://act-rules.github.io/rules/de46e4',
+        passed: 0,
+        warning: 0,
+        inapplicable: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
@@ -67,7 +64,7 @@ class QW_ACT_R22 extends Rule {
       }
 
 
-      if (trim(subtag)==="") {
+      if (subtag.trim() === '') {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "Lang is empty";
         evaluation.resultCode = 'RC2';

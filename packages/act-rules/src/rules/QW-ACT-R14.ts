@@ -2,45 +2,41 @@
 
 import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-
+import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-
-const rule: ACTRule = {
-  name: 'meta viewport does not prevent zoom',
-  code: 'QW-ACT-R14',
-  mapping: 'b4f0c3',
-  description: 'This rule checks that the meta element retains the user agent ability to zoom.',
-  metadata: {
-    target: {
-      element: 'meta',
-      attributes: 'name="viewport"'
-    },
-    'success-criteria': [{
-      name: '1.4.4',
-      level: 'AA',
-      principle: 'Perceivable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/b4f0c3',
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:title'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R14 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'meta viewport does not prevent zoom',
+      code: 'QW-ACT-R14',
+      mapping: 'b4f0c3',
+      description: 'This rule checks that the meta element retains the user agent ability to zoom.',
+      metadata: {
+        target: {
+          element: 'meta',
+          attributes: 'name="viewport"'
+        },
+        'success-criteria': [{
+          name: '1.4.4',
+          level: 'AA',
+          principle: 'Perceivable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/b4f0c3',
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:title'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

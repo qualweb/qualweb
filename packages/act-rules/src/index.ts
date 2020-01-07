@@ -1,6 +1,3 @@
-/**
- *
- */
 'use strict';
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
@@ -36,29 +33,7 @@ import mapping from './rules/mapping';
 
 class ACTRules {
 
-  rules = {
-    'QW-ACT-R1': new QW_ACT_R1(),
-    'QW-ACT-R2': new QW_ACT_R2(),
-    'QW-ACT-R3': new QW_ACT_R3(),
-    'QW-ACT-R4': new QW_ACT_R4(),
-    'QW-ACT-R5': new QW_ACT_R5(),
-    'QW-ACT-R6': new QW_ACT_R6(),
-    'QW-ACT-R7': new QW_ACT_R7(),
-    'QW-ACT-R8': new QW_ACT_R8(),
-    'QW-ACT-R9': new QW_ACT_R9(),
-    'QW-ACT-R10': new QW_ACT_R10(),
-    'QW-ACT-R11': new QW_ACT_R11(),
-    'QW-ACT-R12': new QW_ACT_R12(),
-    'QW-ACT-R13': new QW_ACT_R13(),
-    'QW-ACT-R14': new QW_ACT_R14(),
-    'QW-ACT-R16': new QW_ACT_R16(),
-    'QW-ACT-R17': new QW_ACT_R17(),
-    'QW-ACT-R18': new QW_ACT_R18(),
-    'QW-ACT-R19': new QW_ACT_R19(),
-    'QW-ACT-R20': new QW_ACT_R20(),
-    'QW-ACT-R21': new QW_ACT_R21(),
-    'QW-ACT-R22': new QW_ACT_R22()
-  };
+  rules: any;
 
   rulesToExecute = {
     'QW-ACT-R1': true,
@@ -85,6 +60,30 @@ class ACTRules {
   };
 
   constructor(options?: ACTROptions) {
+    this.rules = {
+      'QW-ACT-R1': new QW_ACT_R1(),
+      'QW-ACT-R2': new QW_ACT_R2(),
+      'QW-ACT-R3': new QW_ACT_R3(),
+      'QW-ACT-R4': new QW_ACT_R4(),
+      'QW-ACT-R5': new QW_ACT_R5(),
+      'QW-ACT-R6': new QW_ACT_R6(),
+      'QW-ACT-R7': new QW_ACT_R7(),
+      'QW-ACT-R8': new QW_ACT_R8(),
+      'QW-ACT-R9': new QW_ACT_R9(),
+      'QW-ACT-R10': new QW_ACT_R10(),
+      'QW-ACT-R11': new QW_ACT_R11(),
+      'QW-ACT-R12': new QW_ACT_R12(),
+      'QW-ACT-R13': new QW_ACT_R13(),
+      'QW-ACT-R14': new QW_ACT_R14(),
+      'QW-ACT-R16': new QW_ACT_R16(),
+      'QW-ACT-R17': new QW_ACT_R17(),
+      'QW-ACT-R18': new QW_ACT_R18(),
+      'QW-ACT-R19': new QW_ACT_R19(),
+      'QW-ACT-R20': new QW_ACT_R20(),
+      'QW-ACT-R21': new QW_ACT_R21(),
+      'QW-ACT-R22': new QW_ACT_R22()
+    };
+
     if (options) {
       this.configure(options);
     }

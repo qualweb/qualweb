@@ -1,49 +1,43 @@
 'use strict';
 
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-import {ElementHandle, Page} from 'puppeteer';
+import { ACTRuleResult } from '@qualweb/act-rules';
 
 import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
-
-/**
- * Technique information
- * @type {Object}
- */
-const rule: ACTRule = {
-  name: 'Image filename is accessible name for image',
-  code: 'QW-ACT-R8',
-  mapping: '9eb3f6',
-  description: 'This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.',
-  metadata: {
-    target: {
-      element: ['img', 'input[type="image"]'],
-      attributes: ['src']
-    },
-    'success-criteria': [{
-      name: '1.1.1',
-      level: 'A',
-      principle: 'Perceivable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/9eb3f6',
-    passed: 0,
-    inapplicable: 0,
-    warning: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R8 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Image filename is accessible name for image',
+      code: 'QW-ACT-R8',
+      mapping: '9eb3f6',
+      description: 'This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.',
+      metadata: {
+        target: {
+          element: ['img', 'input[type="image"]'],
+          attributes: ['src']
+        },
+        'success-criteria': [{
+          name: '1.1.1',
+          level: 'A',
+          principle: 'Perceivable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/9eb3f6',
+        passed: 0,
+        inapplicable: 0,
+        warning: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined,page:Page): Promise<void> {

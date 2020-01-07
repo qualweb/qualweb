@@ -3,46 +3,44 @@
 import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { ACTRuleResult } from '@qualweb/act-rules';
 
 import { DomUtils } from '@qualweb/util';
 
 import languages from './language.json';
 
-const rule: ACTRule = {
-  name: 'Validity of HTML Lang attribute',
-  code: 'QW-ACT-R5',
-  mapping: 'bf051a',
-  description: 'This rule checks the lang or xml:lang attribute has a valid language subtag.',
-  metadata: {
-    target: {
-      element: 'html',
-      attributes: ['lang']
-    },
-    'success-criteria': [{
-      name: '3.1.1',
-      level: 'A',
-      principle: 'Understandable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/bf051a',
-    passed: 0,
-    warning: 0,
-    inapplicable: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
-
 class QW_ACT_R5 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Validity of HTML Lang attribute',
+      code: 'QW-ACT-R5',
+      mapping: 'bf051a',
+      description: 'This rule checks the lang or xml:lang attribute has a valid language subtag.',
+      metadata: {
+        target: {
+          element: 'html',
+          attributes: ['lang']
+        },
+        'success-criteria': [{
+          name: '3.1.1',
+          level: 'A',
+          principle: 'Understandable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/bf051a',
+        passed: 0,
+        warning: 0,
+        inapplicable: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

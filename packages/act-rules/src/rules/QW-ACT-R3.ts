@@ -1,47 +1,45 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
 
 import { DomUtils } from '@qualweb/util';
 
 import languages from './language.json';
 
-const rule: ACTRule = {
-  name: 'HTML lang and xml:lang match',
-  code: 'QW-ACT-R3',
-  mapping: '5b7ae0',
-  description: 'The rule checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.',
-  metadata: {
-    target: {
-      element: 'html',
-      attributes: ['lang', 'xml:lang']
-    },
-    'success-criteria': [{
-      name: '3.1.1',
-      level: 'A',
-      principle: 'Understandable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/5b7ae0',
-    passed: 0,
-    warning: 0,
-    inapplicable: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
-
 class QW_ACT_R3 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'HTML lang and xml:lang match',
+      code: 'QW-ACT-R3',
+      mapping: '5b7ae0',
+      description: 'The rule checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.',
+      metadata: {
+        target: {
+          element: 'html',
+          attributes: ['lang', 'xml:lang']
+        },
+        'success-criteria': [{
+          name: '3.1.1',
+          level: 'A',
+          principle: 'Understandable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/5b7ae0',
+        passed: 0,
+        warning: 0,
+        inapplicable: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

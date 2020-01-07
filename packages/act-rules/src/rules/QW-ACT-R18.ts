@@ -2,46 +2,42 @@
 
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-
+import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-
-const rule: ACTRule = {
-  name: '`id` attribute value is unique',
-  code: 'QW-ACT-R18',
-  mapping: '3ea0c8',
-  description: 'This rule checks that all id attribute values on a single page are unique.',
-  metadata: {
-    target: {
-      element: '*'
-    },
-    'success-criteria': [
-      {
-        name: '4.1.1',
-        level: 'A',
-        principle: 'Robust',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/parsing.html'
-      }
-    ],
-    related: [],
-    url: 'https://act-rules.github.io/rules/3ea0c8',
-    passed: 0,
-    warning: 0,
-    inapplicable: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R18 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: '`id` attribute value is unique',
+      code: 'QW-ACT-R18',
+      mapping: '3ea0c8',
+      description: 'This rule checks that all id attribute values on a single page are unique.',
+      metadata: {
+        target: {
+          element: '*'
+        },
+        'success-criteria': [
+          {
+            name: '4.1.1',
+            level: 'A',
+            principle: 'Robust',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/parsing.html'
+          }
+        ],
+        related: [],
+        url: 'https://act-rules.github.io/rules/3ea0c8',
+        passed: 0,
+        warning: 0,
+        inapplicable: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {

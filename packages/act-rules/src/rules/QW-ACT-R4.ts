@@ -3,55 +3,53 @@
 import { DomElement } from 'htmlparser2';
 import Rule from './Rule2.object';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { ACTRuleResult } from '@qualweb/act-rules';
 
 import { DomUtils } from '@qualweb/util';
-
-const rule: ACTRule = {
-  name: 'Meta-refresh no delay',
-  code: 'QW-ACT-R4',
-  mapping: 'bc659a',
-  description: 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
-  metadata: {
-    target: {
-      element: 'meta'
-    },
-    'success-criteria': [{
-        name: '2.1.1',
-        level: 'A',
-        principle: 'Operable',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard'
-      },
-      {
-        name: '2.2.4',
-        level: 'AAA',
-        principle: 'Operable',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/interruptions'
-      },
-      {
-        name: '3.2.5',
-        level: 'AAA',
-        principle: 'Understandable',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/change-on-request'
-      }
-    ],
-    related: ['H76', 'F40', 'F41'],
-    url: 'https://act-rules.github.io/rules/bc659a',
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    type: ['ACTRule', 'TestCase'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R4 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Meta-refresh no delay',
+      code: 'QW-ACT-R4',
+      mapping: 'bc659a',
+      description: 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
+      metadata: {
+        target: {
+          element: 'meta'
+        },
+        'success-criteria': [{
+            name: '2.1.1',
+            level: 'A',
+            principle: 'Operable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard'
+          },
+          {
+            name: '2.2.4',
+            level: 'AAA',
+            principle: 'Operable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/interruptions'
+          },
+          {
+            name: '3.2.5',
+            level: 'AAA',
+            principle: 'Understandable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/change-on-request'
+          }
+        ],
+        related: ['H76', 'F40', 'F41'],
+        url: 'https://act-rules.github.io/rules/bc659a',
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        type: ['ACTRule', 'TestCase'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: DomElement | undefined): Promise<void> {

@@ -1,71 +1,54 @@
-/**
- * Author: Bruno Andrade
- *
- * Description:
- *
- * Notes:
- *
- * Last modified: 7/10/2019
- */
-
-
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import {trim} from 'lodash';
-import { DomUtils,AccessibilityTreeUtils } from '@qualweb/util';
+import { ACTRuleResult } from '@qualweb/act-rules';
 
-/**
- * Technique information
- * @type {Object}
- */
-const rule: ACTRule = {
-  name: 'Image button has accessible name',
-  code: 'QW-ACT-R6',
-  mapping: '59796f',
-  description: 'This rule checks that each image button element has an accessible name.',
-  metadata: {
-    target: {
-      element: 'input',
-      attributes: ['type="image"']
-    },
-    'success-criteria': [
-      {
-        name: '1.1.1',
-        level: 'A',
-        principle: 'Perceivable',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content'
-      },
-      {
-        name: '4.1.2',
-        level: 'A',
-        principle: 'Robust',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-      }
-    ],
-    related: [],
-    url: 'https://act-rules.github.io/rules/59796f',
-    passed: 0,
-    inapplicable: 0,
-    warning: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
+import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
 
 class QW_ACT_R6 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Image button has accessible name',
+      code: 'QW-ACT-R6',
+      mapping: '59796f',
+      description: 'This rule checks that each image button element has an accessible name.',
+      metadata: {
+        target: {
+          element: 'input',
+          attributes: ['type="image"']
+        },
+        'success-criteria': [
+          {
+            name: '1.1.1',
+            level: 'A',
+            principle: 'Perceivable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content'
+          },
+          {
+            name: '4.1.2',
+            level: 'A',
+            principle: 'Robust',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
+          }
+        ],
+        related: [],
+        url: 'https://act-rules.github.io/rules/59796f',
+        passed: 0,
+        inapplicable: 0,
+        warning: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
-  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -87,7 +70,7 @@ class QW_ACT_R6 extends Rule {
         evaluation.description = `This image button is not included in the accessibiliy tree`;
         evaluation.resultCode = 'RC2';
       } else {
-        if (accessName === undefined || trim(accessName) === '') {
+        if (accessName === undefined || accessName.trim() === '') {
           evaluation.verdict = 'failed';
           evaluation.description = `It's not possible to define the accessible name of this element`;
           evaluation.resultCode = 'RC3';

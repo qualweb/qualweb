@@ -2,42 +2,35 @@
 
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-
-import {
-  DomUtils,
-  AccessibilityTreeUtils
-} from '@qualweb/util';
-
-const rule: ACTRule = {
-  name: 'Image has accessible name',
-  code: 'QW-ACT-R17',
-  mapping: '23a2a8',
-  description: 'This rule checks that each image that is not marked as decorative, has an accessible name.',
-  metadata: {
-    target: {
-      element: 'img'
-    },
-    'success-criteria': [],
-    related: [],
-    url: 'https://act-rules.github.io/rules/23a2a8',
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:title'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
 
 class QW_ACT_R17 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Image has accessible name',
+      code: 'QW-ACT-R17',
+      mapping: '23a2a8',
+      description: 'This rule checks that each image that is not marked as decorative, has an accessible name.',
+      metadata: {
+        target: {
+          element: 'img'
+        },
+        'success-criteria': [],
+        related: [],
+        url: 'https://act-rules.github.io/rules/23a2a8',
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:title'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {

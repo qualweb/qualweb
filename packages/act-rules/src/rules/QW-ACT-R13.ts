@@ -1,62 +1,47 @@
-/**
- * Author: Bruno Andrade
- *
- * Description:
- *
- * Notes:
- *
- * Last modified: 21/10/2019
- */
-
 'use strict';
-import {ElementHandle} from 'puppeteer';
-import Rule from './Rule.object';
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 
-/**
- * Technique information
- * @type {Object}
- */
-const rule: ACTRule = {
-  name: 'Element with `aria-hidden` has no focusable content',
-  code: 'QW-ACT-R13',
-  mapping: '6cfa84',
-  description: 'This rule checks that elements with an aria-hidden attribute do not contain focusable elements.',
-  metadata: {
-    target: {
-      element: '*',
-      attributes: ['aria-hidden="true"']
-    },
-    'success-criteria': [{
-      name: '1.3.1',
-      level: 'A',
-      principle: 'Perceivable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships'
-    }, {
-      name: '4.1.2',
-      level: 'A',
-      principle: 'Robust',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/6cfa84',
-    passed: 0,
-    inapplicable: 0,
-    warning: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
+import { ElementHandle } from 'puppeteer';
+import Rule from './Rule.object';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R13 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Element with `aria-hidden` has no focusable content',
+      code: 'QW-ACT-R13',
+      mapping: '6cfa84',
+      description: 'This rule checks that elements with an aria-hidden attribute do not contain focusable elements.',
+      metadata: {
+        target: {
+          element: '*',
+          attributes: ['aria-hidden="true"']
+        },
+        'success-criteria': [{
+          name: '1.3.1',
+          level: 'A',
+          principle: 'Perceivable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships'
+        }, {
+          name: '4.1.2',
+          level: 'A',
+          principle: 'Robust',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/6cfa84',
+        passed: 0,
+        inapplicable: 0,
+        warning: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

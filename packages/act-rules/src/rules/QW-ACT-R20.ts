@@ -1,59 +1,45 @@
-/**
- * Author: Bruno Andrade
- *
- * Description:
- *
- * Notes:
- *
- * Last modified: 7/11/2019
- */
+
 'use strict';
 
-import {ElementHandle} from 'puppeteer';
+import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
-import {DomUtils} from '@qualweb/util';
-
-/**
- * Technique information
- * @type {Object}
- */
-const rule: ACTRule = {
-  name: 'role attribute has valid value',
-  code: 'QW-ACT-R20',
-  mapping: '674b10',
-  description: 'This rule checks that each role attribute has a valid value.',
-  metadata: {
-    target: {
-      element: '*',
-      attributes: ['role']
-    },
-    'success-criteria': [
-      {
-        name: '4.1.2',
-        level: 'A',
-        principle: 'Robust',
-        url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-      }
-    ],
-    related: [],
-    url: 'https://act-rules.github.io/rules/674b10',
-    passed: 0,
-    inapplicable: 0,
-    warning: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R20 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'role attribute has valid value',
+      code: 'QW-ACT-R20',
+      mapping: '674b10',
+      description: 'This rule checks that each role attribute has a valid value.',
+      metadata: {
+        target: {
+          element: '*',
+          attributes: ['role']
+        },
+        'success-criteria': [
+          {
+            name: '4.1.2',
+            level: 'A',
+            principle: 'Robust',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
+          }
+        ],
+        related: [],
+        url: 'https://act-rules.github.io/rules/674b10',
+        passed: 0,
+        inapplicable: 0,
+        warning: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
