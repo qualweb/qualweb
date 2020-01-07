@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.6] - 07/01/2020
+
+### Fixed
+ - a bug where the report had incorrect values
+
 ## [0.2.5] - 06/01/2020
 
 ### Fixed
