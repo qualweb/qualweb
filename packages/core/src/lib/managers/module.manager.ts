@@ -5,7 +5,7 @@ import { randomBytes } from 'crypto';
 //import clone from 'lodash.clone';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
-import * as act from '@qualweb/act-rules';
+import { ACTRules } from '@qualweb/act-rules';
 import * as html from '@qualweb/html-techniques';
 import * as css from '@qualweb/css-techniques';
 import * as bp from '@qualweb/best-practices';
@@ -40,6 +40,8 @@ function parseUrl(url: string, pageUrl: string): Url {
 }
 
 async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
+  const act = new ACTRules();
+
   if (execute.act && options['act-rules']) {
     act.configure(options['act-rules']);
   }
@@ -55,8 +57,6 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
   if (execute.bp && options['best-practices']) {
     bp.configure(options['best-practices']);
   }
-
-  //const url = await page.url();
 
   const [pageUrl, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
     page.url(),
@@ -109,28 +109,23 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
   const promises = new Array<any>();
 
   if (execute.wappalyzer) {
-    const wappalyzer = executeWappalyzer(url);
-    promises.push(wappalyzer);
+    promises.push(executeWappalyzer(url));
   }
 
   if (execute.act) {
-    const actRules = act.executeACTR(sourceHtml, page, stylesheets);
-    promises.push(actRules);
+    promises.push(act.execute(sourceHtml, page, stylesheets));
   }
 
   if (execute.html) {
-    const htmlTechniques = html.executeHTMLT(page);
-    promises.push(htmlTechniques);
+    promises.push(html.executeHTMLT(page));
   }
 
   if (execute.css) {
-    const cssTechniques = css.executeCSST(stylesheets, mappedDOM);
-    promises.push(cssTechniques);
+    promises.push(css.executeCSST(stylesheets, mappedDOM));
   }
 
   if (execute.bp) {
-    const bestPractices = bp.executeBestPractices(page, stylesheets);
-    promises.push(bestPractices);
+    promises.push(bp.executeBestPractices(page, stylesheets));
   }
 
   const reports = await Promise.all(promises);
