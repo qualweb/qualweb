@@ -17,6 +17,7 @@ async function getDom(browser,url) {
     });
 
     await page.goto(url, {
+        timeout: 0,
         waitUntil: ['networkidle2', 'domcontentloaded']
     });
 
@@ -27,6 +28,7 @@ async function getDom(browser,url) {
 }
 
 async function parseStylesheets(plainStylesheets) {
+  
     const stylesheets = new Array();
     for (const file in plainStylesheets || {}) {
         const stylesheet = { file, content: {} };
@@ -38,21 +40,36 @@ async function parseStylesheets(plainStylesheets) {
     }
     return stylesheets;
 }
-async function getRequestData(headers) {
-    return new Promise((resolve, reject) => {
-        request(headers, (error, response, body) => {
-            if (error) {
-                reject(error);
-            }
-            else if (!response || response.statusCode !== 200) {
-                reject(response.statusCode);
-            }
-            else {
-                resolve({ response, body });
-            }
-        });
+function getRequestData(headers) {
+  return new Promise((resolve, reject) => {
+    request(headers, (error, response, body) => {
+      if (error) {
+        reject(error);
+      }
+      else if (!response || response.statusCode !== 200) {
+        reject(response.statusCode);
+      }
+      else {
+        resolve({ response, body });
+      }
     });
+  });
 }
+
+function getTestCases() {
+  return new Promise((resolve, reject) => {
+    request('https://act-rules.github.io/testcases.json', (error, response, body) => {
+      if (error) {
+        reject(error);
+      } else if (!response || response.statusCode !== 200) {
+        reject(response.statusCode);
+      } else {
+        resolve(body);
+      }
+    });
+  });
+}
+
 async function getSourceHTML(url, options) {
     const headers = {
         'url': url,
@@ -99,3 +116,4 @@ function parseHTML(html) {
 }
 
 module.exports.getDom = getDom;
+module.exports.getTestCases = getTestCases;

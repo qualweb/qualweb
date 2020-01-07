@@ -28,6 +28,8 @@
     "test-r20": "mocha test/rules/QW-ACT-R20.spec.js",
     "test-r21": "mocha test/rules/QW-ACT-R21.spec.js",
     "test-r22": "mocha test/rules/QW-ACT-R22.spec.js",
+    "test-r24": "mocha test/rules/QW-ACT-R24.spec.js",
+    "test-r30": "mocha test/rules/QW-ACT-R30.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
@@ -47,20 +49,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.2.6",
-    "puppeteer": "^2.0.0",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash": "^4.14.141",
-    "@types/node": "^12.7.11",
+    "@types/node": "^12.12.24",
     "chai": "^4.2.0",
     "mocha": "^6.2.1",
+    "puppeteer": "^2.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "tslint": "^5.20.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.3",
+    "@qualweb/get-dom-puppeteer": "^0.1.2",
+    "@qualweb/types": "^0.2.14",
+    "@qualweb/util": "^0.2.11",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",
