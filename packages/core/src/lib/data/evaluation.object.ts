@@ -30,7 +30,7 @@ class Evaluation {
   }
 
   public getFinalReport(): EvaluationReport {
-    return clone({
+    return cloneDeep({
       type: this.type,
       system: this.evaluator,
       metadata: this.metadata.getResults(),
