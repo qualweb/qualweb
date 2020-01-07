@@ -2,7 +2,7 @@ const constants = require('./constants')
 const clone = require("lodash/clone");
 const css = require("css");
 const htmlparser2 = require("htmlparser2");
-const request =require("request");
+const request = require("request");
 const stew = new (require('stew-select')).Stew();
 
 async function getDom(browser,url) {
