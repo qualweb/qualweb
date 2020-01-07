@@ -127,6 +127,8 @@ class QW_ACT_R7 extends Rule {
 
   private extractInfo(cssObject: any, parentType?: string): void {
 
+    if(cssObject.selectors === undefined)
+      return
 
     let declarations = cssObject['declarations'];
 
