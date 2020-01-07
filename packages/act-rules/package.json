@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -47,7 +47,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.2.10",
+    "@qualweb/types": "^0.2.14",
     "@types/htmlparser2": "^3.10.0",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^12.12.24",

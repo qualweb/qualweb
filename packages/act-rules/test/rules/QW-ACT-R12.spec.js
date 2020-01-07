@@ -4,7 +4,7 @@ const path = require('path');
 
 const { mapping } = require('../constants');
 const { getTestCases, getDom } = require('../getDom');
-const ACTRules = require('../../dist/index');
+const { ACTRules } = require('../../dist/index');
 
 const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];

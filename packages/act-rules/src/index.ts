@@ -12,7 +12,6 @@ import mapping from './rules/mapping';
 
 import { rules, rulesToExecute } from './rules';
 
-
 class ACTRules {
 
   constructor(options?: ACTROptions) {
@@ -176,4 +175,6 @@ class ACTRules {
   }
 }
 
-export = ACTRules;
+export {
+  ACTRules
+};
