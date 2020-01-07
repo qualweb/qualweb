@@ -42,7 +42,6 @@ const rules = {
   'QW-ACT-R20': new QW_ACT_R20(),
   'QW-ACT-R21': new QW_ACT_R21(),
   'QW-ACT-R22': new QW_ACT_R22()
-
 };
 
 const rulesToExecute = {

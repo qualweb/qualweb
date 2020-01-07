@@ -8,11 +8,81 @@ import { SourceHtml } from '@qualweb/core';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
 
+import QW_ACT_R1 from './rules/QW-ACT-R1';
+import QW_ACT_R2 from './rules/QW-ACT-R2';
+import QW_ACT_R3 from './rules/QW-ACT-R3';
+import QW_ACT_R4 from './rules/QW-ACT-R4';
+import QW_ACT_R5 from './rules/QW-ACT-R5';
+import QW_ACT_R6 from './rules/QW-ACT-R6';
+import QW_ACT_R7 from './rules/QW-ACT-R7';
+import QW_ACT_R8 from './rules/QW-ACT-R8';
+import QW_ACT_R9 from './rules/QW-ACT-R9';
+import QW_ACT_R10 from './rules/QW-ACT-R10';
+import QW_ACT_R11 from './rules/QW-ACT-R11';
+import QW_ACT_R12 from './rules/QW-ACT-R12';
+import QW_ACT_R13 from './rules/QW-ACT-R13';
+import QW_ACT_R14 from './rules/QW-ACT-R14';
+import QW_ACT_R16 from './rules/QW-ACT-R16';
+import QW_ACT_R17 from './rules/QW-ACT-R17';
+import QW_ACT_R18 from './rules/QW-ACT-R18';
+import QW_ACT_R19 from './rules/QW-ACT-R19';
+import QW_ACT_R20 from './rules/QW-ACT-R20';
+import QW_ACT_R21 from './rules/QW-ACT-R21';
+import QW_ACT_R22 from './rules/QW-ACT-R22';
+
 import mapping from './rules/mapping';
 
-import { rules, rulesToExecute } from './rules';
+//import { rules, rulesToExecute } from './rules';
 
 class ACTRules {
+
+  rules = {
+    'QW-ACT-R1': new QW_ACT_R1(),
+    'QW-ACT-R2': new QW_ACT_R2(),
+    'QW-ACT-R3': new QW_ACT_R3(),
+    'QW-ACT-R4': new QW_ACT_R4(),
+    'QW-ACT-R5': new QW_ACT_R5(),
+    'QW-ACT-R6': new QW_ACT_R6(),
+    'QW-ACT-R7': new QW_ACT_R7(),
+    'QW-ACT-R8': new QW_ACT_R8(),
+    'QW-ACT-R9': new QW_ACT_R9(),
+    'QW-ACT-R10': new QW_ACT_R10(),
+    'QW-ACT-R11': new QW_ACT_R11(),
+    'QW-ACT-R12': new QW_ACT_R12(),
+    'QW-ACT-R13': new QW_ACT_R13(),
+    'QW-ACT-R14': new QW_ACT_R14(),
+    'QW-ACT-R16': new QW_ACT_R16(),
+    'QW-ACT-R17': new QW_ACT_R17(),
+    'QW-ACT-R18': new QW_ACT_R18(),
+    'QW-ACT-R19': new QW_ACT_R19(),
+    'QW-ACT-R20': new QW_ACT_R20(),
+    'QW-ACT-R21': new QW_ACT_R21(),
+    'QW-ACT-R22': new QW_ACT_R22()
+  };
+
+  rulesToExecute = {
+    'QW-ACT-R1': true,
+    'QW-ACT-R2': true,
+    'QW-ACT-R3': true,
+    'QW-ACT-R4': true,
+    'QW-ACT-R5': true,
+    'QW-ACT-R6': true,
+    'QW-ACT-R7': true,
+    'QW-ACT-R8': true,
+    'QW-ACT-R9': true,
+    'QW-ACT-R10': true,
+    'QW-ACT-R11': true,
+    'QW-ACT-R12': true,
+    'QW-ACT-R13': true,
+    'QW-ACT-R14': true,
+    'QW-ACT-R16': true,
+    'QW-ACT-R17': true,
+    'QW-ACT-R18': true,
+    'QW-ACT-R19': true,
+    'QW-ACT-R20': true,
+    'QW-ACT-R21': true,
+    'QW-ACT-R22': true
+  };
 
   constructor(options?: ACTROptions) {
     if (options) {
@@ -33,30 +103,30 @@ class ACTRules {
       });
     }
 
-    for (const rule of Object.keys(rules) || []) {
+    for (const rule of Object.keys(this.rules) || []) {
       if (options.principles && options.principles.length !== 0) {
         if (options.levels && options.levels.length !== 0) {
-          if (!rules[rule].hasPrincipleAndLevels(options.principles, options.levels)) {
-            rulesToExecute[rule] = false;
+          if (!this.rules[rule].hasPrincipleAndLevels(options.principles, options.levels)) {
+            this.rulesToExecute[rule] = false;
           }
-        } else if (!rules[rule].hasPrincipleAndLevels(options.principles, ['A', 'AA', 'AAA'])) {
-          rulesToExecute[rule] = false;
+        } else if (!this.rules[rule].hasPrincipleAndLevels(options.principles, ['A', 'AA', 'AAA'])) {
+          this.rulesToExecute[rule] = false;
         }
       } else if (options.levels && options.levels.length !== 0) {
-        if (!rules[rule].hasPrincipleAndLevels(['Perceivable', 'Operable', 'Understandable', 'Robust'], options.levels)) {
-          rulesToExecute[rule] = false;
+        if (!this.rules[rule].hasPrincipleAndLevels(['Perceivable', 'Operable', 'Understandable', 'Robust'], options.levels)) {
+          this.rulesToExecute[rule] = false;
         }
       }
       if (!options.principles && !options.levels) {
         if (options.rules && options.rules.length !== 0) {
-          if (!options.rules.includes(rule) && !options.rules.includes(rules[rule].getRuleMapping())) {
-            rulesToExecute[rule] = false;
+          if (!options.rules.includes(rule) && !options.rules.includes(this.rules[rule].getRuleMapping())) {
+            this.rulesToExecute[rule] = false;
           }
         }
       } else {
         if (options.rules && options.rules.length !== 0) {
-          if (options.rules.includes(rule) || options.rules.includes(rules[rule].getRuleMapping())) {
-            rulesToExecute[rule] = true;
+          if (options.rules.includes(rule) || options.rules.includes(this.rules[rule].getRuleMapping())) {
+            this.rulesToExecute[rule] = true;
           }
         }
       }
@@ -64,26 +134,26 @@ class ACTRules {
   }
 
   public resetConfiguration(): void {
-    for (const rule in rulesToExecute) {
-      rulesToExecute[rule] = true;
+    for (const rule in this.rulesToExecute) {
+      this.rulesToExecute[rule] = true;
     }
   }
 
   private async executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): Promise<void> {
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
-        if (rulesToExecute[rule]) {
+        if (this.rulesToExecute[rule]) {
           const elements = stew.select(html.html.parsed, selector);
           if (elements.length > 0) {
             for (const elem of elements || []) {
-              await rules[rule].execute(elem, html);
+              await this.rules[rule].execute(elem, html);
             }
           } else {
-            await rules[rule].execute(undefined, html);
+            await this.rules[rule].execute(undefined, html);
           }
-          report.rules[rule] = rules[rule].getFinalResults();
+          report.rules[rule] = this.rules[rule].getFinalResults();
           report.metadata[report.rules[rule].metadata.outcome]++;
-          rules[rule].reset();
+          this.rules[rule].reset();
         }
       }
     }
@@ -95,28 +165,28 @@ class ACTRules {
     if (elements.length > 0) {
       for (const elem of elements || []) {
         if (concurrent) {
-          promises.push(rules[rule].execute(elem, page));
+          promises.push(this.rules[rule].execute(elem, page));
         } else {
-          await rules[rule].execute(elem, page);
+          await this.rules[rule].execute(elem, page);
         }
       }
     } else {
-      await rules[rule].execute(undefined, page);
+      await this.rules[rule].execute(undefined, page);
     }
     if (concurrent) {
       await Promise.all(promises);
     }
 
-    report.rules[rule] = rules[rule].getFinalResults();
+    report.rules[rule] = this.rules[rule].getFinalResults();
     report.metadata[report.rules[rule].metadata.outcome]++;
-    rules[rule].reset();
+    this.rules[rule].reset();
   }
 
   private async executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void> {
     const promises = new Array<any>();
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
-        if (rulesToExecute[rule]) {
+        if (this.rulesToExecute[rule]) {
           promises.push(this.executeRule(rule, selector, page, report, concurrent));
         }
       }
@@ -125,11 +195,11 @@ class ACTRules {
   }
 
   private async executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void> {
-    if (rulesToExecute['QW-ACT-R7']) {
-      await rules['QW-ACT-R7'].unmappedExecute(stylesheets);
-      report.rules['QW-ACT-R7'] = rules['QW-ACT-R7'].getFinalResults();
+    if (this.rulesToExecute['QW-ACT-R7']) {
+      await this.rules['QW-ACT-R7'].unmappedExecute(stylesheets);
+      report.rules['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();
       report.metadata[report.rules['QW-ACT-R7'].metadata.outcome]++;
-      rules['QW-ACT-R7'].reset();
+      this.rules['QW-ACT-R7'].reset();
     }
   }
 
