@@ -1,3 +1,4 @@
+
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
@@ -11,7 +12,7 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
   }
 
   const ariaHidden = await getElementAttribute(element,'aria-hidden')==='true';
-  const hidden = await getElementAttribute(element,'aria-hidden') !== null;
+  const hidden = await getElementAttribute(element,'hidden') !== null;
   const cssHidden = await isElementHiddenByCSSAux(element);
   const parent = await getElementParent(element);
   let parentHidden = false;

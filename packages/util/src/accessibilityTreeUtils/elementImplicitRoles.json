@@ -285,20 +285,13 @@
   	"th": [
   		{
   			"attributes": [],
-  			"role": "columnheader",
-  			"special": true
-  		},
-  		{
-  			"attributes": [],
-  			"role": "rowheader",
-  			"special": true
+  			"role": "columnheader"
   		}
   	],
   	"tr": [
   		{
   			"attributes": [],
-  			"role": "row",
-  			"special": true
+  			"role": "row"
   		}
   	],
   	"ul": [
