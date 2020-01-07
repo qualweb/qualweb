@@ -2,6 +2,7 @@
 
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
+//import clone from 'lodash.clone';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
 import { executeWappalyzer } from '@qualweb/wappalyzer';
 import * as act from '@qualweb/act-rules';
