@@ -38,8 +38,7 @@ describe('Rule QW-ACT-R26', async function () {
       i++;
       describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
         it(`should have outcome="${test.expected}"`, async function () {
-          this.timeout(10 * 1000);
-          console.log(test.url)
+          this.timeout(10 * 10000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url); configure({//
             rules: ['QW-ACT-R26']
           });

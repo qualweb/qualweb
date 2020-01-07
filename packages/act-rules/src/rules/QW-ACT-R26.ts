@@ -4,7 +4,6 @@ import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-const request = require('request-promise');
 
 const rule: ACTRule = {
   name: 'video element auditory content has accessible alternative',
@@ -59,7 +58,7 @@ class QW_ACT_R26 extends Rule {
     } else {
       let track = await element.$('track[kind="captions"]')
       let isVisible = await DomUtils.isElemenVisible(element);
-      let metadata = await this.getVideoMetadata(element);
+      let metadata = await DomUtils.getVideoMetadata(element);
       let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
       let applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
 
@@ -96,43 +95,6 @@ class QW_ACT_R26 extends Rule {
       evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);
-  }
-
-  private async getVideoMetadata(element: ElementHandle) {
-    let src = await element.evaluate(elem => {
-      return elem['currentSrc'];
-    });
-    let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
-    let durationVideo = await this.getStreamDuration(json, "video");
-    let durationAudio = await this.getStreamDuration(json, "audio");
-    let audioVolume = json["audio"]["maxVolume"];
-    let error = json["metadata"]["error"];
-    let duration = await element.evaluate(elem => { return elem['duration']; });
-    let hasSoundTrack = await DomUtils.videoElementHasAudio(element);
-    let result = { service: { video: { duration: {} }, audio: { duration: {}, volume: {} }, error: {} }, puppeteer: { video: { duration: {} }, audio: { hasSoundTrack: {} }, error: {} } };
-    result.puppeteer.video.duration = duration;
-    result.service.video.duration = durationVideo;
-    result.puppeteer.audio.hasSoundTrack = hasSoundTrack;
-    result.service.audio.duration = durationAudio;
-    result.service.audio.volume = audioVolume
-    result.service.error = error !== undefined;
-    result.service.error = !(duration >= 0 && hasSoundTrack);
-    return result;
-  }
-
-  private async getStreamDuration(json, streamType: string) {
-
-
-    let streams = json["metadata"]["streams"];
-    let duration = 0;
-    if (streams) {
-      for (let stream of streams) {
-        if (stream["codec_type"] === streamType) {
-          duration = stream["duration"]
-        }
-      }
-    }
-    return duration;
   }
 
 
