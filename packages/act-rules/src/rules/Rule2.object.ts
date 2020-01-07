@@ -4,6 +4,7 @@ import { SourceHtml } from '@qualweb/core';
 import { DomElement } from 'htmlparser2';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import clone from 'lodash.clone';
+import cloneDeep from 'lodash.clonedeep';
 
 abstract class Rule {
 
@@ -52,7 +53,7 @@ abstract class Rule {
 
   getFinalResults(): any {
     this.outcomeRule();
-    return clone(this.rule);
+    return cloneDeep(this.rule);
   }
 
   reset(): void {
