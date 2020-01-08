@@ -2,7 +2,18 @@
 
 import { EvaluationReport } from '@qualweb/core';
 import { EarlReport } from '@qualweb/earl-reporter';
-import { writeFile } from 'fs-extra';
+import fs from 'fs';
+
+function writeFile(file: string, data: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(file, data, (err) => {
+      if (err)
+        reject(err);
+      else 
+        resolve();
+    })
+  });
+}
 
 async function saveReport(url: string, report: EvaluationReport | EarlReport): Promise<void> {
   const path = process.cwd();

@@ -1,8 +1,8 @@
 'use strict';
 
-import clone from 'lodash/clone';
+import clone from 'lodash.clone';
 
-async function parseArguments(args: string[]): Promise<any> {
+function parseArguments(args: string[]): any {
   const options: any = {};
 
   if (args.length === 0) {
