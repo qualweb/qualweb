@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -49,6 +49,7 @@
   "devDependencies": {
     "@qualweb/types": "^0.2.14",
     "@types/htmlparser2": "^3.10.0",
+    "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^12.12.24",
     "chai": "^4.2.0",
@@ -61,7 +62,6 @@
   },
   "dependencies": {
     "@qualweb/util": "^0.2.11",
-    "@types/lodash.clone": "^4.5.6",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",

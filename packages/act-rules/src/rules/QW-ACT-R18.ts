@@ -54,22 +54,28 @@ class QW_ACT_R18 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       const id = await DomUtils.getElementAttribute(element, 'id');
-      if (id) {
-        const elementsWithSameId = await page.$$(`[id="${id}"]`);
-        const genId = RegExp('qw-generated-id-');
+      if (id && id.trim()) {
+        try {
+          const elementsWithSameId = await page.$$(`[id="${id.trim()}"]`);
+          const genId = RegExp('qw-generated-id-');
     
-        if (elementsWithSameId.length > 1) {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'Several elements have identical id';
-          evaluation.resultCode = 'RC2';
-        } else if (!genId.test(id) && id !== undefined && id !== '') {
-          evaluation.verdict = 'passed';
-          evaluation.description = 'This element has a unique id';
-          evaluation.resultCode = 'RC3';
-        } else {
+          if (elementsWithSameId.length > 1) {
+            evaluation.verdict = 'failed';
+            evaluation.description = 'Several elements have identical id';
+            evaluation.resultCode = 'RC2';
+          } else if (!genId.test(id)) {
+            evaluation.verdict = 'passed';
+            evaluation.description = 'This element has a unique id';
+            evaluation.resultCode = 'RC3';
+          } else {
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = `Element doesn't have a non empty id`;
+            evaluation.resultCode = 'RC4';
+          }
+        } catch (err) {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `Element doesn't have a non empty id`;
-          evaluation.resultCode = 'RC4';
+          evaluation.description = `Element id has a invalid value`;
+          evaluation.resultCode = 'RC5';
         }
       }
     }
