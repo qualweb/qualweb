@@ -13,4 +13,5 @@ const nameFromContentRoles = ["button", "cell", "checkbox", "columnheader", "gri
 let noAccessibleObjectOrChild = ["clipPath", "cursor", "defs", "desc", "metadata", "pattern"];
 let noAccessibleObject = ["animate", "animateMotion", "animateTransform", "discard", "filter", "hatch", "hatchPath", "linearGradient", "marker", "mask", "meshPatch", "meshRow", "mpath", "radialGradient", "script", "set", "solidColor", "stop", "style", "switch", "view", "title"];
 let elementsLikeHtml = ["canvas", "iframe", "source", "track", "video"];
-export{elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}
+let childPresentationalRole = ["button","checkbox","img","math","menuitemcheckbox","menuitemradio","option","progressbar","radio","scrollbar","separator","slider","switch","tab"];
+export{childPresentationalRole,elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}
