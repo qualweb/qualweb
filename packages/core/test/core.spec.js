@@ -38,17 +38,21 @@ const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
 const URL4 = 'http://www.visitilhavo.pt';
 const URL5 = 'http://www.cm-pesoregua.pt';
 
-describe('Testing new architecture', function() {
+describe.only('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
 
     const urls = [
-      'https://www.accessibility.nl/wai-tools/validation-test-sites/ns-international/',
-      'https://www.accessibility.nl/wai-tools/validation-test-sites/hp-a3-multifunction-printer-and-copier-hpr-official-site/'
+      'https://ciencias.ulisboa.pt',
+      'https://lodash.com',
+      'https://lasige.di.fc.ul.pt/',
+      'https://www.lasige.di.fc.ul.pt/',
+      'https://www.cgd.pt/Particulares/Pages/Particulares_v2.aspx',
+      'https://cgd.pt/Particulares/Pages/Particulares_v2.aspx'
     ];
 
     //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    const reports = await core.evaluate({ url: urls[0], execute: { act: true }, maxParallelEvaluations: 9 });
+    const reports = await core.evaluate({ url: urls[3], execute: { act: true }, maxParallelEvaluations: 9 });
     console.log(reports.length);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
@@ -62,7 +66,7 @@ describe('Testing crawler', function() {
   })
 });
 
-describe.only('Should do parallel evaluations', function() {
+describe('Should do parallel evaluations', function() {
   it('should have correct results', async function() {
     this.timeout(1000 * 1000);
     const testCases = JSON.parse(await request('https://act-rules.github.io/testcases.json'));

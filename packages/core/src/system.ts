@@ -99,7 +99,8 @@ class System {
 
     this.browser = await puppeteer.launch({
       ignoreHTTPSErrors: true,
-      headless: true
+      headless: true,
+      args: ['--disable-web-security', '--no-sandbox']
     });
     this.browser.pages().then(pages => pages[0].close());
     //(await this.browser.pages())[0].close();
@@ -139,16 +140,25 @@ class System {
         const plainStylesheets: any = {};
         page.on('response', async response => {
           if(response.request().resourceType() === 'stylesheet') {
-            const url = response.url();
+            const responseUrl = response.url();
             const content = await response.text();
-            plainStylesheets[url] = content;
+            plainStylesheets[responseUrl] = content;
           }
         });
 
-        await page.goto(this.correctUrl(url), {
-          timeout: 0,
-          waitUntil: ['networkidle2', 'domcontentloaded']
-        });
+        let reachedPage = false;
+
+        do {
+          try {
+            await page.goto(this.correctUrl(url), {
+              timeout: 0,
+              waitUntil: ['networkidle2', 'domcontentloaded']
+            });
+            reachedPage = true;
+          } catch (err) {
+            url = this.fixWWW(url);
+          }
+        } while(!reachedPage);
 
         const sourceHtml = await this.getSourceHTML(url)
         let styles = stew.select(sourceHtml.html.parsed, 'style');
@@ -186,6 +196,19 @@ class System {
     }
 
     return url;
+  }
+
+  private fixWWW(url: string): string {
+    url = url.replace('http://', '');
+    url = url.replace('https://', '');
+
+    if (url.startsWith('www.')) {
+      url = url.replace('www.', '');
+    } else {
+      url = 'www.' + url;
+    }
+
+    return 'http://' + url;
   }
 
   private async setPageViewport(page: Page, options?: PageOptions): Promise<void> {

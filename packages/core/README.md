@@ -54,7 +54,7 @@ The available options fot the **evaluate()** function are:
       }
     },
     "maxParallelEvaluations": "5", // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
-    "execute": { // choose witch modules to execute
+    "execute": { // choose which modules to execute
       "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
       "act": true, // act-rules module (https://github.com/qualweb/act-rules) - default value = true
       "html": true, // html-techniques module (https://github.com/qualweb/html-techniques) - default value = true
@@ -87,7 +87,7 @@ The available options fot the **generateEarlReport()** function are:
 ```jsonc
   {
     "aggregated": true, // default value = false
-    "modules": { // Choose witch modules to convert the report to earl, by default all modules are converted if they were executed
+    "modules": { // Choose which modules to convert the report to earl, by default all modules are converted if they were executed
       "act": true, // default value = true
       "html": false, // default value = true
       "css": false, // default value = true
