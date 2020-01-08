@@ -38,7 +38,7 @@ const URL3 = 'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/';
 const URL4 = 'http://www.visitilhavo.pt';
 const URL5 = 'http://www.cm-pesoregua.pt';
 
-describe.only('Testing new architecture', function() {
+describe('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
 
@@ -62,11 +62,11 @@ describe('Testing crawler', function() {
   })
 });
 
-describe('Should do parallel evaluations', function() {
+describe.only('Should do parallel evaluations', function() {
   it('should have correct results', async function() {
     this.timeout(1000 * 1000);
     const testCases = JSON.parse(await request('https://act-rules.github.io/testcases.json'));
-    const rule = '2779a5';
+    const rule = 'b33eff';
     const tcs = testCases.testcases.filter(tc => tc.ruleId === rule);
     const urls = tcs.map(tc => tc.url);
     
@@ -90,6 +90,7 @@ describe('Should do parallel evaluations', function() {
         const result = earlReport[0].graph.filter(r => r.source === tcs[i].url)[0];
         console.warn(result.source + '   ' + tcs[i].url);
         console.warn(result.assertions[0].result.outcome + '   earl:' + tcs[i].expected);
+        
         if (result.assertions[0].result.outcome !== 'earl:' + tcs[i].expected) {
           valid = false;
         }
