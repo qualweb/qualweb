@@ -21,9 +21,26 @@ async function getDom(browser,url) {
         waitUntil: ['networkidle2', 'domcontentloaded']
     });
 
-    const stylesheets = await parseStylesheets(plainStylesheets);
 
     const sourceHtml = await getSourceHTML(url);
+
+    let styles = stew.select(sourceHtml.html.parsed, 'style');
+    for (let i = 0; i < styles.length; i++) {
+        if (styles[i]['children'][0]) {
+            plainStylesheets['html' + i] = styles[i]['children'][0]['data'];
+        }
+    }
+
+    const stylesheets = await parseStylesheets(plainStylesheets);
+
+    const mappedDOM = {};
+    const cookedStew = await stew.select(sourceHtml.html.parsed, '*');
+    if (cookedStew.length > 0)
+        for (const item of cookedStew || [])
+            mappedDOM[item['_stew_node_id']] = item;
+
+    await mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
+
     return { sourceHtml, page, stylesheets };
 }
 
@@ -113,6 +130,72 @@ function parseHTML(html) {
         throw new Error('Failed to parse html');
     }
     return parsed;
+}
+
+async function mapCSSElements(dom, styleSheets, mappedDOM) {
+  for (const styleSheet of styleSheets || [])
+      if (styleSheet.content && styleSheet.content.plain)
+          analyseAST(dom, styleSheet.content.parsed, undefined, mappedDOM);
+}
+function analyseAST(dom, cssObject, parentType, mappedDOM) {
+  if (cssObject === undefined ||
+      cssObject['type'] === 'comment' ||
+      cssObject['type'] === 'keyframes' ||
+      cssObject['type'] === 'import') {
+      return;
+  }
+  if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'page') {
+      loopDeclarations(dom, cssObject, parentType, mappedDOM);
+  }
+  else {
+      if (cssObject['type'] === 'stylesheet') {
+          for (const key of cssObject['stylesheet']['rules'] || []) {
+              analyseAST(dom, key, undefined, mappedDOM);
+          }
+      }
+      else {
+          for (const key of cssObject['rules'] || []) {
+              if (cssObject['type'] && cssObject['type'] === 'media')
+                  analyseAST(dom, key, cssObject[cssObject['type']], mappedDOM);
+              else
+                  analyseAST(dom, key, undefined, mappedDOM);
+          }
+      }
+  }
+}
+function loopDeclarations(dom, cssObject, parentType, mappedDOM) {
+  let declarations = cssObject['declarations'];
+  if (declarations && cssObject['selectors'] && !cssObject['selectors'].toString().includes('@-ms-viewport') && !(cssObject['selectors'].toString() === ":focus")) {
+      try {
+          let stewResult = stew.select(dom, cssObject['selectors'].toString());
+          if (stewResult.length > 0) {
+              for (const item of stewResult || []) {
+                  for (const declaration of declarations || []) {
+                      if (declaration['property'] && declaration['value']) {
+                          if (!item['attribs'])
+                              item['attribs']={}
+                          if (!item['attribs']['css'])
+                              item['attribs']['css'] = {};
+                          if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
+                              item['attribs']['css'][declaration['property']]['value'].includes("!important")) {
+                              continue;
+                          }
+                          else {
+                              item['attribs']['css'][declaration['property']] = {};
+                              if (parentType) {
+                                  item['attribs']['css'][declaration['property']]['media'] = parentType;
+                              }
+                              item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                          }
+                          mappedDOM[item['_stew_node_id']] = item;
+                      }
+                  }
+              }
+          }
+      }
+      catch (err) {
+      }
+  }
 }
 
 module.exports.getDom = getDom;
