@@ -150,11 +150,14 @@ class System {
           waitUntil: ['networkidle2', 'domcontentloaded']
         });
 
-        const [stylesheets, sourceHtml] = await Promise.all([
-          this.parseStylesheets(plainStylesheets),
-          this.getSourceHTML(url)
-        ]);
-
+        const sourceHtml = await this.getSourceHTML(url)
+        let styles = stew.select(sourceHtml.html.parsed, 'style');
+        for (let i = 0; i < styles.length; i++) {
+            if (styles[i]['children'][0]) {
+                plainStylesheets['html' + i] = styles[i]['children'][0]['data'];
+            }
+        }
+        const stylesheets = await this.parseStylesheets(plainStylesheets);
         const mappedDOM = {};
         const cookedStew = await stew.select(sourceHtml.html.parsed, '*');
         if (cookedStew.length > 0) {
@@ -166,7 +169,7 @@ class System {
         await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
 
         const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
-        
+
         this.evaluations.push(evaluation.getFinalReport());
         await page.close();
       } catch(err) {
