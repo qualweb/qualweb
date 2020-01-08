@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.2.17",
+  "version": "0.3.0",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -22,10 +22,28 @@
     "type": "git",
     "url": "https://github.com/qualweb/core.git"
   },
-  "author": "João Vicente",
+  "author": {
+    "name": "João Vicente",
+    "email": "joao.vicente@campus.ul.pt"
+  },
+  "contributors": [
+    {
+      "name": "Carlos Duarte"
+    },
+    {
+      "name": "Bruno Andrade"
+    },
+    {
+      "name": "António Estriga"
+    },
+    {
+      "name": "André Santos",
+      "url": "https://arbsantos.github.io"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.3.1",
+    "@qualweb/act-rules": "^0.3.8",
     "@qualweb/best-practices": "^0.2.4",
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/css-techniques": "^0.2.4",

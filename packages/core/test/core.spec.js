@@ -1,6 +1,7 @@
 const core = require('../dist/index');
 const { expect } = require('chai');
 const fs = require('fs');
+const request = require('request-promise');
 
 /*describe('Core', function() {
   it('Should evaluate', async function() {
@@ -40,8 +41,14 @@ const URL5 = 'http://www.cm-pesoregua.pt';
 describe.only('Testing new architecture', function() {
   it('should do something', async function() {
     this.timeout(1000 * 1000);
-    const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    //const reports = await core.evaluate({ file: 'test/urls.txt', maxParallelEvaluations: 2 });
+
+    const urls = [
+      'https://www.accessibility.nl/wai-tools/validation-test-sites/ns-international/',
+      'https://www.accessibility.nl/wai-tools/validation-test-sites/hp-a3-multifunction-printer-and-copier-hpr-official-site/'
+    ];
+
+    //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
+    const reports = await core.evaluate({ url: urls[0], execute: { act: true }, maxParallelEvaluations: 9 });
     console.log(reports.length);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
@@ -54,3 +61,50 @@ describe('Testing crawler', function() {
     console.log(reports.length);
   })
 });
+
+describe('Should do parallel evaluations', function() {
+  it('should have correct results', async function() {
+    this.timeout(1000 * 1000);
+    const testCases = JSON.parse(await request('https://act-rules.github.io/testcases.json'));
+    const rule = '2779a5';
+    const tcs = testCases.testcases.filter(tc => tc.ruleId === rule);
+    const urls = tcs.map(tc => tc.url);
+    
+    const options = {
+      urls,
+      execute: {
+        act: true
+      },
+      'act-rules': {
+        rules: [rule]
+      },
+      maxParallelEvaluations: urls.length
+    };
+    
+    await core.evaluate(options);
+    const earlReport = await core.generateEarlReport({ aggregated: true, modules: { act: true }});
+    
+    let valid = true;
+    for (let i = 0 ; i < tcs.length ; i++) {
+      try {
+        const result = earlReport[0].graph.filter(r => r.source === tcs[i].url)[0];
+        console.warn(result.source + '   ' + tcs[i].url);
+        console.warn(result.assertions[0].result.outcome + '   earl:' + tcs[i].expected);
+        if (result.assertions[0].result.outcome !== 'earl:' + tcs[i].expected) {
+          valid = false;
+        }
+      } catch (err) {
+        valid = false;
+        console.error(err);
+      }
+    }
+
+    if (valid) {
+      console.warn('Test validation passed');
+    } else {
+      console.warn('Test validation failed');
+    }
+    expect(valid).to.be.true;
+  });
+});
+
