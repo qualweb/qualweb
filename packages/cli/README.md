@@ -54,7 +54,7 @@ This method will create an aggregated EARL report from all urls.
 | -f | `<path-to-file>` | File with urls to evaluate |
 | -c | `<domain>` | Domain to crawl |
 | -m | `act,html,css,bp` | Choose which modules to execute |
-| -r | `earl|earl-a` | Convert the evaluationto `earl` or `earl-a`, the latter stands for *earl-aggregated* | 
+| -r | `"earl" or  "earl-a"` | Convert the evaluation to `earl` or `earl-a` (*earl-aggregated*) | 
 | -maxParallelEvaluations | `<number>` | Evaluates multiples urls ate the same time |
 | -act-rules | `rule1,rule2,...,rule15` | Choose which act rules to execute |
 | -act-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
