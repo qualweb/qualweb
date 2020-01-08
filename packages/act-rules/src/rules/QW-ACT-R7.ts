@@ -1,41 +1,9 @@
 'use strict';
 
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { ACTRuleResult } from '@qualweb/act-rules';
 import * as Rematrix from 'rematrix';
 
 import Rule from './Rule.object';
-
-const rule: ACTRule = {
-  name: 'Orientation of the page is not restricted using CSS transform property',
-  code: 'QW-ACT-R7',
-  mapping: 'b33eff',
-  description: 'This rule checks that page content is not restricted to either landscape or portrait orientation using CSS transform property.',
-  metadata: {
-    target: {
-      element: '*',
-      attributes: 'transform'
-    },
-    'success-criteria': [
-      {
-        name: '1.3.4',
-        level: 'AA',
-        principle: 'Perceivable',
-        url: 'https://www.w3.org/TR/WCAG21/#orientation'
-      }
-    ],
-    related: [],
-    url: 'https://act-rules.github.io/rules/b33eff',
-    passed: 0,
-    warning: 0,
-    inapplicable: 0,
-    failed: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R7 extends Rule {
 
@@ -43,7 +11,37 @@ class QW_ACT_R7 extends Rule {
   private mediaMap: Object = {};
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Orientation of the page is not restricted using CSS transform property',
+      code: 'QW-ACT-R7',
+      mapping: 'b33eff',
+      description: 'This rule checks that page content is not restricted to either landscape or portrait orientation using CSS transform property.',
+      metadata: {
+        target: {
+          element: '*',
+          attributes: 'transform'
+        },
+        'success-criteria': [
+          {
+            name: '1.3.4',
+            level: 'AA',
+            principle: 'Perceivable',
+            url: 'https://www.w3.org/TR/WCAG21/#orientation'
+          }
+        ],
+        related: [],
+        url: 'https://act-rules.github.io/rules/b33eff',
+        passed: 0,
+        warning: 0,
+        inapplicable: 0,
+        failed: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
   public async unmappedExecute(styleSheets: any[]): Promise<void> {
@@ -128,7 +126,7 @@ class QW_ACT_R7 extends Rule {
   private extractInfo(cssObject: any, parentType?: string): void {
 
     if(cssObject.selectors === undefined)
-      return
+      return;
 
     let declarations = cssObject['declarations'];
 

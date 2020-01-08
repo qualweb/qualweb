@@ -35,7 +35,8 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
     // {
     //   verdict: 'passed'
     //   description: 'HTML page has title element'
-    //   code: '<title>Some title</title>'
+    //   resultCode: 'RC1'
+    //   htmlCode: '<title>Some title</title>'
     //   pointer: 'html > head > title'
     // }
   })();
