@@ -100,7 +100,7 @@ class System {
     this.browser = await puppeteer.launch({
       ignoreHTTPSErrors: true,
       headless: true,
-      args: ['--disable-web-security', '--no-sandbox']
+      //args: ['--disable-web-security', '--no-sandbox']
     });
     this.browser.pages().then(pages => pages[0].close());
     //(await this.browser.pages())[0].close();
@@ -135,6 +135,7 @@ class System {
     if (this.browser) {
       try {
         const page = await this.browser.newPage();
+        //await page.setBypassCSP(true);
         await this.setPageViewport(page, options.viewport);
 
         const plainStylesheets: any = {};
@@ -147,6 +148,7 @@ class System {
         });
 
         let reachedPage = false;
+        let failedAttempts = 0;
 
         do {
           try {
@@ -157,6 +159,11 @@ class System {
             reachedPage = true;
           } catch (err) {
             url = this.fixWWW(url);
+            if (failedAttempts === 1) {
+              reachedPage = true;
+            } else {
+              failedAttempts++;
+            }
           }
         } while(!reachedPage);
 
@@ -278,37 +285,58 @@ class System {
   }
 
   private async getSourceHTML(url: string, options?: PageOptions): Promise<SourceHtml> {
-    const headers = {
-      'url': url,
-      'headers': {
-        'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
+
+    let reachedPage = false;
+    let failedAttempts = 0;
+    let data;
+    do {
+      try {
+        const headers = {
+          'url': this.correctUrl(url),
+          'headers': {
+            'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
+          }
+        };
+
+        data = await this.getRequestData(headers);
+        reachedPage = true;
+      } catch (err) {
+        url = this.fixWWW(url);
+        if (failedAttempts === 1) {
+          reachedPage = true;
+        } else {
+          failedAttempts++;
+        }
       }
-    };
+    } while(!reachedPage);
 
-    const data: any = await this.getRequestData(headers);
-    const sourceHTML: string = data.body.toString().trim();
+    if (data) {
+      const sourceHTML: string = data.body.toString().trim();
 
-    const parsedHTML = this.parseHTML(sourceHTML);
-    const elements = stew.select(parsedHTML, '*');
+      const parsedHTML = this.parseHTML(sourceHTML);
+      const elements = stew.select(parsedHTML, '*');
 
-    let title = '';
+      let title = '';
 
-    const titleElement = stew.select(parsedHTML, 'title');
+      const titleElement = stew.select(parsedHTML, 'title');
 
-    if (titleElement.length > 0) {
-      title = DomUtils.getText(titleElement[0]);
+      if (titleElement.length > 0) {
+        title = DomUtils.getText(titleElement[0]);
+      }
+
+      const source: SourceHtml = {
+        html: {
+          plain: sourceHTML,
+          parsed: parsedHTML
+        },
+        elementCount: elements.length,
+        title: title !== '' ? title : undefined
+      }
+
+      return source;
+    } else {
+      throw new Error(`Can't reach webpage`);
     }
-
-    const source: SourceHtml = {
-      html: {
-        plain: sourceHTML,
-        parsed: parsedHTML
-      },
-      elementCount: elements.length,
-      title: title !== '' ? title : undefined
-    }
-
-    return source;
   }
 
   private parseHTML(html: string): DomElement[] {
