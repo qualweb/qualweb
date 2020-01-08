@@ -54,7 +54,14 @@ class QW_ACT_R30 extends Rule {
       resultCode: ''
     };
 
-    let isWidget = await AccessibilityTreeUtils.isElementWidget(element);
+    let tagName  = await DomUtils.getElementTagName(element);
+    let isWidget;
+
+    if(tagName === 'a'){
+      isWidget = await DomUtils.elementHasAttribute(element, "href")
+    }else{
+      isWidget = await AccessibilityTreeUtils.isElementWidget(element);
+    }
 
     if(!isWidget){
       evaluation.verdict = 'inapplicable';
@@ -69,18 +76,20 @@ class QW_ACT_R30 extends Rule {
       }else{
 
         let accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-				console.log("TCL: QW_ACT_R30 -> accessibleName", accessibleName)
         let elementText    = await AccessibilityTreeUtils.getTrimmedText(element);
-				console.log("TCL: QW_ACT_R30 -> elementText", elementText)
 
-        if(accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())){
+        if(elementText.length === 1){
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = `non-text content.`;
+          evaluation.resultCode = 'RC3';
+        }else if(accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())){
           evaluation.verdict = 'passed';
           evaluation.description = `the complete visible text content of the target element either matches or is contained within its accessible name.`;
-          evaluation.resultCode = 'RC3';
+          evaluation.resultCode = 'RC4';
         }else{
           evaluation.verdict = 'failed';
           evaluation.description = `the complete visible text content of the target element neither matches or is contained within its accessible name.`;
-          evaluation.resultCode = 'RC4';
+          evaluation.resultCode = 'RC5';
         }
       }
     }
