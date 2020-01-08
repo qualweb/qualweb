@@ -38,7 +38,7 @@
 
 The available options fot the **evaluate()** function are:
 
-```json
+```jsonc
   {
     "url": "https://act-rules.github.io/pages/about/", // url to evaluate
     "urls": ["https://act-rules.github.io/pages/about/", "https://act-rules.github.io/rules/"], // Array of urls
@@ -84,7 +84,7 @@ The available options fot the **evaluate()** function are:
 
 The available options fot the **generateEarlReport()** function are:
 
-```json
+```jsonc
   {
     "aggregated": true, // default value = false
     "modules": { // Choose witch modules to convert the report to earl, by default all modules are converted if they were executed
