@@ -21,6 +21,7 @@ export default {
       'meta[name]': ['QW-ACT-R14'],
       '[id]': ['QW-ACT-R18'],
       'svg': ['QW-ACT-R21'],
+      'video': ['QW-ACT-R31'],
       'body [lang]': ['QW-ACT-R22'],
       'body': ['QW-ACT-R9','QW-ACT-R10'],
       'input, select, textarea, [role]': ['QW-ACT-R16'],

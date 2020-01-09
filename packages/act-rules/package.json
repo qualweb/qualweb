@@ -30,6 +30,7 @@
     "test-r22": "mocha test/rules/QW-ACT-R22.spec.js",
     "test-r24": "mocha test/rules/QW-ACT-R24.spec.js",
     "test-r30": "mocha test/rules/QW-ACT-R30.spec.js",
+    "test-r31": "mocha test/rules/QW-ACT-R31.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
@@ -65,7 +66,7 @@
   },
   "dependencies": {
     "@qualweb/types": "^0.2.14",
-    "@qualweb/util": "^0.2.13",
+    "@qualweb/util": "^0.2.14",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",

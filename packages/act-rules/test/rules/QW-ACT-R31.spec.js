@@ -1,7 +1,4 @@
-const {
-  configure,
-  executeACTR
-} = require('../../dist/index');
+const { ACTRules } = require('../../dist/index');
 
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
@@ -31,8 +28,6 @@ describe('Rule QW-ACT-R31', async function () {
     testCases[5].expected='warning';
     testCases[6].expected='warning';
     testCases[7].expected='warning';
-    testCases[8].expected='warning';
-    testCases[9].expected='warning';
     let i = 0;
     let lastOutcome = 'passed';
  
@@ -45,10 +40,9 @@ describe('Rule QW-ACT-R31', async function () {
       describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
         it(`should have outcome="${test.expected}"`, async function () {
           this.timeout(10 * 10000);
-          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url); configure({//
-            rules: ['QW-ACT-R31']
-          });
-          const report = await executeACTR(sourceHtml, page, stylesheets);
+          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+          const actRules = new ACTRules({ rules: ['QW-ACT-R31'] });
+          const report = await actRules.execute(sourceHtml, page, stylesheets);
           expect(report.rules['QW-ACT-R31'].metadata.outcome).to.be.equal(test.expected);
         });
       });
