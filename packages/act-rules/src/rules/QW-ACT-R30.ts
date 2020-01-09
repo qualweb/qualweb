@@ -76,7 +76,11 @@ class QW_ACT_R30 extends Rule {
         let accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
         let elementText    = await AccessibilityTreeUtils.getTrimmedText(element);
 
-        if(elementText.length === 1){
+        if(accessibleName === undefined){
+          evaluation.verdict = 'failed';
+          evaluation.description = `no accessible name.`;
+          evaluation.resultCode = 'RC6';
+        }else if(elementText.length === 1){
           evaluation.verdict = 'inapplicable';
           evaluation.description = `non-text content.`;
           evaluation.resultCode = 'RC3';
