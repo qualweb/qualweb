@@ -7,7 +7,7 @@ import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 
 import { DomUtils as DomUtil } from '@qualweb/util';
 const rule: ACTRule = {
-  name: 'Video or audio has no auto-play audio',
+  name: 'audio or video has no audio that plays automatically',
   code: 'QW-ACT-R15',
   mapping: '80f0bf',
   description: 'This rule checks that auto-play audio does not last for more than 3 seconds, or the audio has a control mechanism to stop or mute it.',
@@ -63,8 +63,9 @@ class QW_ACT_R15 extends Rule {
   
       let controls = await DomUtil.elementHasAttribute(element, "controls");
       let metadata = await DomUtil.getVideoMetadata(element);
-      let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 3000 && metadata.puppeteer.audio.hasSoundTrack;
-      let applicableServiceData = metadata.service.video.duration > 3000 && metadata.service.audio.duration > 3000 && metadata.service.audio.volume !== -91;
+      console.log(metadata)
+      let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
+      let applicableServiceData = metadata.service.audio.duration > 3 && metadata.service.audio.volume !== -91;
 
       let src: any[] = [];
 
@@ -80,7 +81,7 @@ class QW_ACT_R15 extends Rule {
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'The element doesnt auto-play audio';
         evaluation.resultCode = 'RC1';
-      } else if (!((metadata.service.error) || (metadata.puppeteer.error))) {
+      } else if (metadata.service.error&&metadata.puppeteer.error) {
         evaluation.verdict = 'warning';
         evaluation.description = "Cant colect data from the video element";
         evaluation.resultCode = 'RC2';
@@ -105,7 +106,7 @@ class QW_ACT_R15 extends Rule {
         evaluation.resultCode = 'RC6';
       }
 
-
+      console.log(evaluation.resultCode)
 
       if (element !== undefined) {
         evaluation.htmlCode = await DomUtil.getElementHtmlCode(element);
