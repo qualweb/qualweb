@@ -32,6 +32,8 @@ describe('Rule QW-ACT-R23', async function () {
     testCases[5].expected='warning';
     testCases[6].expected='warning';
     testCases[7].expected='warning';
+    testCases[8].expected='warning';
+    testCases[9].expected='warning';
     let i = 0;
     let lastOutcome = 'passed';
  

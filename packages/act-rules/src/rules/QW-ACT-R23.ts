@@ -61,11 +61,10 @@ class QW_ACT_R23 extends Rule {
       let applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
       let track = await element.$('track[kind="descriptions"]')
       let isVisible = await DomUtils.isElemenVisible(element);
-      console.log(metadata)
 
 
-      if (!((metadata.service.error) || (metadata.puppeteer.error))) {
-        evaluation.verdict = 'inapplicable';
+      if (metadata.service.error && metadata.puppeteer.error) {
+        evaluation.verdict = 'warning';
         evaluation.description = "Cant colect data from the video element";
         evaluation.resultCode = 'RC1';
       } else if (isVisible && applicableServiceData) {
@@ -73,25 +72,25 @@ class QW_ACT_R23 extends Rule {
         if (track !== null) {
           evaluation.verdict = 'warning';
           evaluation.description = "Check if the track element correctly describes the auditive content of the video";
-          evaluation.resultCode = 'RC1';
+          evaluation.resultCode = 'RC2';
         }
         else {
           evaluation.verdict = 'warning';
           evaluation.description = "Check if the video element auditive content has accessible alternative";
-          evaluation.resultCode = 'RC2';
+          evaluation.resultCode = 'RC3';
         }
       } else if (isVisible && hasPupeteerApplicableData) {
         evaluation.verdict = 'warning';
         evaluation.description = "Video has a sound track but we cant verify the volume.Check if the video has audio and if it does check if the video element visual content has an accessible alternative";
-        evaluation.resultCode = 'RC3';
+        evaluation.resultCode = 'RC4';
 
       } else {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "The video element isn't a non-streaming video element that is visible, where the video contains audio.";
-        evaluation.resultCode = 'RC4';
+        evaluation.resultCode = 'RC5';
       }
     }
-    console.log(evaluation.resultCode)
+
     
 
     if (element !== undefined) {
