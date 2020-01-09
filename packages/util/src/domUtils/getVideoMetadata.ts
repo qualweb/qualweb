@@ -12,7 +12,7 @@ async function  getVideoMetadata(element: ElementHandle) {
   let durationVideo = getStreamDuration(json, "video");
   let durationAudio = getStreamDuration(json, "audio");
   let audioVolume = json["audio"]["maxVolume"];
-  let error = json["metadata"]["error"];
+  //let error = json["metadata"]["error"];
   let duration = await element.evaluate(elem => { return elem['duration']; });
   let hasSoundTrack = await videoElementHasAudio(element);
   let result = { service: { video: { duration: {} }, audio: { duration: {}, volume: {} }, error: {} }, puppeteer: { video: { duration: {} }, audio: { hasSoundTrack: {} }, error: {} } };
@@ -21,8 +21,8 @@ async function  getVideoMetadata(element: ElementHandle) {
   result.puppeteer.audio.hasSoundTrack = hasSoundTrack;
   result.service.audio.duration = durationAudio;
   result.service.audio.volume = audioVolume
-  result.service.error = error !== undefined;
-  result.service.error = !(duration >= 0 && hasSoundTrack);
+  result.service.error = durationVideo === undefined && durationAudio === undefined;
+  result.puppeteer.error = !(duration >= 0 && hasSoundTrack);
   return result;
 }
 
