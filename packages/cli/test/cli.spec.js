@@ -7,4 +7,10 @@ describe('CLI', function() {
     
     await cli(['-f', 'test/urls.txt', '-maxParallelEvaluations', '2', '-m', 'act']);
   });
+
+  it.only('should evaluate https://www.alta.kommune.no/', async function() {
+    this.timeout(10 * 10000);
+    
+    await cli(['-u', 'https://www.alta.kommune.no/', '-m', 'act']);
+  });
 });

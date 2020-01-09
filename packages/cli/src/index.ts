@@ -15,17 +15,15 @@ async function cli(args: string[]): Promise<void> {
     createModuleOptions('css-techniques', options);
     createModuleOptions('best-practices', options);
 
-    if (Object.keys(options).length > 1) {
-      if (options.u) {
-        options.url = options.u;
-        delete options.u;
-      } else if (options.f) {
-        options.file = options.f;
-        delete options.f;
-      } else if (options.c) {
-        options.crawl = options.c;
-        delete options.c;
-      }
+    if (options.u) {
+      options.url = options.u;
+      delete options.u;
+    } else if (options.f) {
+      options.file = options.f;
+      delete options.f;
+    } else if (options.c) {
+      options.crawl = options.c;
+      delete options.c;
     }
 
     if (options.m) {
