@@ -62,8 +62,8 @@ class QW_ACT_R26 extends Rule {
       let hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
       let applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
 
-      if (!((metadata.service.error) || (metadata.puppeteer.error))) {
-        evaluation.verdict = 'inapplicable';
+      if (metadata.service.error && metadata.puppeteer.error) {
+        evaluation.verdict = 'warning';
         evaluation.description = "Cant colect data from the video element";
         evaluation.resultCode = 'RC1';
       } else if (isVisible && applicableServiceData) {
