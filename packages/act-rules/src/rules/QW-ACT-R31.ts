@@ -68,12 +68,12 @@ class QW_ACT_R31 extends Rule {
 
         if (track !== null) {
           evaluation.verdict = 'warning';
-          evaluation.description = "Check if the track element correctly describes the auditive content of the video";
+          evaluation.description = "Check if the track element correctly describes the visual content of the video";
           evaluation.resultCode = 'RC2';
         }
         else {
           evaluation.verdict = 'warning';
-          evaluation.description = "Check if the video element auditive content has accessible alternative";
+          evaluation.description = "Check if the video element visual content has accessible alternative";
           evaluation.resultCode = 'RC3';
         }
       } else if (isVisible && hasPupeteerApplicableData) {
