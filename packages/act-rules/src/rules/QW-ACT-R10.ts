@@ -4,7 +4,7 @@ import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
 import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
-import md5 from 'md5';
+import { createHash } from 'crypto';
 
 
 const rule: ACTRule = {
@@ -159,7 +159,7 @@ class QW_ACT_R10 extends Rule {
             for (let element of elements) {
                 htmlContent = await element.contentFrame();
                 if (htmlContent) {
-                    hash =md5(await htmlContent.content());//fixme md5
+                    hash = createHash('md5').update(await htmlContent.content()).digest('hex');//fixme md5
                 }
                 content.push(hash);
             }

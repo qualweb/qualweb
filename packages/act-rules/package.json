@@ -60,7 +60,6 @@
     "css": "^2.2.4"
   },
   "dependencies": {
-    "md5": "^2.2.1",
     "@qualweb/util": "^0.2.14",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
