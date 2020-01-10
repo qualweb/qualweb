@@ -6,6 +6,7 @@ exports.DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH = 1366;
 exports.DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT = 768;
 exports.DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH = 1080;
 exports.DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT = 1920;
+
 exports.mapping = {
   'QW-ACT-R1': '2779a5',
   'QW-ACT-R2': 'b5c3f8',
@@ -28,5 +29,6 @@ exports.mapping = {
   'QW-ACT-R20': '674b10',
   'QW-ACT-R21': '7d6734',
   'QW-ACT-R22': 'de46e4',
+  'QW-ACT-R23': 'c5a4ea',
   'QW-ACT-R30': '2ee8b8'
 };
