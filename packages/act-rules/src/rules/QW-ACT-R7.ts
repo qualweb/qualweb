@@ -26,7 +26,7 @@ class QW_ACT_R7 extends Rule {
             name: '1.3.4',
             level: 'AA',
             principle: 'Perceivable',
-            url: 'https://www.w3.org/TR/WCAG21/#orientation'
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/orientation'
           }
         ],
         related: [],
