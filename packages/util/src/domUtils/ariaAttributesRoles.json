@@ -1,241 +1,241 @@
 {
   "aria-activedescendant": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-atomic": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-autocomplete": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-busy": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-checked": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-colcount": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-colindex": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-colspan": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-controls": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-current": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-describedby": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-details": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-disabled": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-dropeffect": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-errormessage": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-expanded": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-flowto": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-grabbed": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-haspopup": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-hidden": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-invalid": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-keyshortcuts": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-label": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-labelledby": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-level": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-live": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-modal": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-multiline": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-multiselectable": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-orientation": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-owns": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-placeholder": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-posinset": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-pressed": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-readonly": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-relevant": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-required": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-roledescription": {
-    "global": "yes",
+    "global": true,
     "values": "",
     "defaultValue": ""
   },
   "aria-rowcount": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-rowindex": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-rowspan": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-selected": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-setsize": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-sort": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-valuemax": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-valuemin": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-valuenow": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   },
   "aria-valuetext": {
-    "global": "no",
+    "global": false,
     "values": "",
     "defaultValue": ""
   }

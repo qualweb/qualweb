@@ -17,7 +17,7 @@ async function elementHasGlobalARIAPropertieOrAttribute(element: ElementHandle):
   let result = false;
   let i =0;
   while(!result && i< elemAttribs.length){
-    result = keyArray.includes(elemAttribs[i]);
+    result = keyArray.includes(elemAttribs[i])&& ariaJSON[elemAttribs[i]].global;
     i++;
   }
   return result;}
