@@ -1,14 +1,15 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import getElementAttribute = require('./getElementAttribute');
 import isElementFocusable = require('./isElementFocusable');
 import getElementParent = require('./getElementParent');
 import elementHasGlobalARIAPropertieOrAttribute = require('./elementHasGlobalARIAPropertieOrAttribute');
 import { childPresentationalRole } from '../accessibilityTreeUtils/constants';
+import getElementRole = require('../accessibilityTreeUtils/getElementRole');
 
 
-async function isElementPresentation(element: ElementHandle): Promise<boolean> {
+async function isElementPresentation(element: ElementHandle,page:Page): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -23,7 +24,7 @@ async function isElementPresentation(element: ElementHandle): Promise<boolean> {
 
   if (parent) {
     parentPresentation = await isElementParentPresentation(parent);
-    childPresentational = await isParentChildPresentational(parent);
+    childPresentational = await isParentChildPresentational(parent,page);
   }
 
   return ((presentationOrNone && !focusable && !hasGlobalARIA )  || childPresentational) && !parentPresentation;
@@ -49,23 +50,23 @@ async function isElementParentPresentation(element: ElementHandle): Promise<bool
   return presentation || parentPresentation;
 }
 
-async function isParentChildPresentational(element: ElementHandle): Promise<boolean> {
+async function isParentChildPresentational(element: ElementHandle,page:Page): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
 
-  const role = await getElementAttribute(element,'role')//FIXME mudar para outro metodo dos roles
+  const role = await getElementRole(element,page);
   let childPresentational;
   if(role!== null)
     childPresentational= childPresentationalRole.includes(role);//todo
   const parent = await getElementParent(element);
-  let isParentChildPresentational= false;
+  let isParentChildPresentationalVar= false;
 
   if (parent && !childPresentational) {
-    isParentChildPresentational = await isElementPresentationRecursion(parent);
+    isParentChildPresentationalVar = await isParentChildPresentational(parent,page);
   }
 
-  return childPresentational || isParentChildPresentational;
+  return childPresentational || isParentChildPresentationalVar;
 }
 
 export = isElementPresentation;
