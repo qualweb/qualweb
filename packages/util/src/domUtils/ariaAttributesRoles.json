@@ -1,0 +1,242 @@
+{
+  "aria-activedescendant": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-atomic": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-autocomplete": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-busy": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-checked": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-colcount": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-colindex": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-colspan": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-controls": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-current": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-describedby": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-details": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-disabled": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-dropeffect": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-errormessage": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-expanded": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-flowto": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-grabbed": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-haspopup": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-hidden": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-invalid": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-keyshortcuts": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-label": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-labelledby": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-level": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-live": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-modal": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-multiline": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-multiselectable": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-orientation": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-owns": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-placeholder": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-posinset": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-pressed": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-readonly": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-relevant": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-required": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-roledescription": {
+    "global": true,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-rowcount": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-rowindex": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-rowspan": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-selected": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-setsize": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-sort": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-valuemax": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-valuemin": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-valuenow": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  },
+  "aria-valuetext": {
+    "global": false,
+    "values": "",
+    "defaultValue": ""
+  }
+}

@@ -34,6 +34,9 @@ import getElementAttributesFunction from './getElementAttributes';
 import isOffScreenFunction from './isOffScreen';
 import isElementVisibleFunction from './isElemenVisible'
 import getVideoMetadataFunction from './getVideoMetadata'
+import elementHasGlobalARIAPropertieOrAttributeFunction from './elementHasGlobalARIAPropertieOrAttribute'
+import elementIDIsReferencedFunction from './elementIDIsReferenced';
+import isElementADescendantOfFunction from './isElementADescendantOf';
 
 import ROLES_ATTR from './roles';
 
@@ -75,6 +78,9 @@ namespace DomUtils {
   export const isOffScreen = isOffScreenFunction;
   export const isElemenVisible = isElementVisibleFunction;
   export const getVideoMetadata = getVideoMetadataFunction;
+  export const elementHasGlobalARIAPropertieOrAttribute = elementHasGlobalARIAPropertieOrAttributeFunction;
+  export const elementIDIsReferenced = elementIDIsReferencedFunction;
+  export const isElementADescendantOf = isElementADescendantOfFunction;
   export const ROLES = ROLES_ATTR;
 }
 

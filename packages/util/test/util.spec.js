@@ -1,17 +1,18 @@
-const { DomUtils } = require('../dist/index');
-const { getDom } = require('@qualweb/get-dom-puppeteer');
-const stew = new(require('stew-select')).Stew();
+const { AccessibilityTreeUtils } = require('../dist/index');
+const {
+  getDom
+} = require('./getDom');
+const puppeteer = require('puppeteer');
 const { expect } = require('chai');
 
 describe('DOM UTILITIES', function() {
   describe('Testing getElementStyleProperty function', function() {
     it('should work', async function() {
       this.timeout(10 * 1000);
-      
-      const dom = await getDom('https://ciencias.ulisboa.pt');
-      const img = stew.select_first(dom.processed.html.parsed, 'img');
-      
-      expect(DomUtils.getElementStyleProperty(img, 'computed-style', 'width')).to.be.equal('0px');
+      browser = await puppeteer.launch();
+      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.google.pt");
+      let element = await page.$('a');
+      expect(await AccessibilityTreeUtils.getElementRole(element)).to.be.equal('link');
     });
   });
 });

@@ -1,0 +1,303 @@
+{
+	"a": [
+	    {
+	      	"attributes": [["href",""]],
+	      	"role": "link"
+	    }
+  	],
+  	"area": [
+  		{
+  			"attributes": [["href",""]],
+  			"role": "link"
+  		}
+  	],
+  	"article": [
+  		{
+  			"attributes": [],
+  			"role": "article"
+  		}
+  	],
+  	"aside": [
+  		{
+  			"attributes": [],
+  			"role": "complementary"
+  		}
+  	],
+  	"body": [
+  		{
+  			"attributes": [],
+  			"role": "document"
+  		}
+  	],
+  	"button": [
+  		{
+  			"attributes": [],
+  			"role": "button"
+  		}
+  	],
+  	"datalist": [
+  		{
+  			"attributes": [],
+  			"role": "listbox"
+  		}
+  	],
+  	"dd": [
+  		{
+  			"attributes": [],
+  			"role": "definition"
+  		}
+  	],
+  	"dfn": [
+  		{
+  			"attributes": [],
+  			"role": "term"
+  		}
+  	],
+  	"details": [
+  		{
+  			"attributes": [],
+  			"role": "group"
+  		}
+  	],
+  	"dialog": [
+  		{
+  			"attributes": [],
+  			"role": "dialog"
+  		}
+  	],
+  	"dt": [
+  		{
+  			"attributes": [],
+  			"role": "term"
+  		}
+  	],
+  	"fieldset": [
+  		{
+  			"attributes": [],
+  			"role": "group"
+  		}
+  	],
+  	"figure": [
+  		{
+  			"attributes": [],
+  			"role": "figure"
+  		}
+  	],
+  	"footer": [
+  		{
+  			"attributes": [],
+  			"role": "",
+  			"special": true
+  		}
+  	],
+  	"form": [
+  		{
+  			"attributes": [],
+  			"role": "",
+  			"special": true
+  		}
+  	],
+  	"h1-h6": [
+  		{
+  			"attributes": [],
+  			"role": "",
+  			"special": true
+  		}
+  	],
+  	"header": [
+  		{
+  			"attributes": [],
+  			"role": "",
+  			"special": true
+  		}
+  	],
+  	"hr": [
+  		{
+  			"attributes": [],
+  			"role": "separator"
+  		}
+  	],
+  	"img":[
+  		{
+  			"attributes": [],
+  			"role": "",
+  			"special": true
+  		}
+  	],
+  	"input": [
+  		{
+  			"attributes": [["type","button"], ["type","image"], ["type", "reset"], ["type", "submit"]],
+  			"role": "button"
+  		},
+  		{
+  			"attributes": [["type","checkbox"]],
+  			"role": "checkbox"
+  		},
+  		{
+  			"attributes": [["type","number"]],
+  			"role": "spinbutton"
+  		},
+  		{
+  			"attributes": [["type","radio"]],
+  			"role": "radio"
+  		},
+  		{
+  			"attributes": [["type","range"]],
+  			"role": "slider"
+  		},
+  		{
+  			"attributes": [["type","text"], ["type","search"], ["type","tel"], ["type","url"], ["type","email"]],
+  			"role": "combobox",
+  			"special": true
+  		}
+  	],
+  	"li": [
+  		{
+  			"attributes": [],
+  			"role": "listitem",
+  			"special": true
+  		}
+  	],
+  	"link": [
+  		{
+  			"attributes": [["href",""]],
+  			"role": "link",
+  		}
+  	],
+  	"main": [
+  		{
+  			"attributes": [],
+  			"role": "main"
+  		}
+  	],
+  	"math": [
+  		{
+  			"attributes": [],
+  			"role": "math"
+  		}
+  	],
+  	"menu": [
+  		{
+  			"attributes": [],
+  			"role": "list"
+  		}
+  	],
+  	"nav": [
+  		{
+  			"attributes": [],
+  			"role": "navigation"
+  		}
+  	],
+  	"ol": [
+  		{
+  			"attributes": [],
+  			"role": "list",
+  			"special": "kinda"
+  		}
+  	],
+  	"optgroup": [
+  		{
+  			"attributes": [],
+  			"role": "group"
+  		}
+  	],
+  	"option": [
+  		{
+  			"attributes": [],
+  			"role": "option",
+  			"special": true
+  		}
+  	],
+  	"output": [
+  		{
+  			"attributes": [],
+  			"role": "status"
+  		}
+  	],
+  	"progress": [
+  		{
+  			"attributes": [],
+  			"role": "progressbar"
+  		}
+  	],
+  	"section": [
+  		{
+  			"attributes": [],
+  			"role": "region",
+  			"special": true
+  		}
+  	],
+  	"select": [
+  		{
+  			"attributes": [],
+  			"role": "combobox",
+  			"special": true
+  		},
+  		{
+  			"attributes": [],
+  			"role": "listbox",
+  			"special": true
+  		}
+  	],
+  	"summary": [
+  		{
+  			"attributes": [],
+  			"role": "button"
+  		}
+  	],
+  	"table": [
+  		{
+  			"attributes": [],
+  			"role": "table"
+  		}
+  	],
+  	"tbody": [
+  		{
+  			"attributes": [],
+  			"role": "rowgroup"
+  		}
+  	],
+  	"textarea": [
+  		{
+  			"attributes": [],
+  			"role": "textbox"
+  		}
+  	],
+  	"tfoot": [
+  		{
+  			"attributes": [],
+  			"role": "rowgroup"
+  		}
+  	],
+  	"thead": [
+  		{
+  			"attributes": [],
+  			"role": "rowgroup"
+  		}
+  	],
+  	"td": [
+  		{
+  			"attributes": [],
+  			"role": "cell",
+  			"special": true
+  		}
+  	],
+  	"th": [
+  		{
+  			"attributes": [],
+  			"role": "columnheader"
+  		}
+  	],
+  	"tr": [
+  		{
+  			"attributes": [],
+  			"role": "row"
+  		}
+  	],
+  	"ul": [
+  		{
+  			"attributes": [],
+  			"role": "list"
+  		}
+  	]
+}
