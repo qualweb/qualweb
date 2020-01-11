@@ -35,7 +35,7 @@ async function isElementParentPresentation(element: ElementHandle): Promise<bool
     throw Error('Element is not defined');
   }
 
-  const role = await getElementAttribute(element,'role')//FIXME mudar para outro metodo dos roles
+  const role = await getElementAttribute(element,'role')
   let presentationOrNone = role === 'presentation'|| role ==='none';
   const focusable = await isElementFocusable(element);
   const hasGlobalARIA = await elementHasGlobalARIAPropertieOrAttribute(element);
