@@ -7,11 +7,11 @@ import getElementParent from '../domUtils/getElementParent.js';
 
 
 
-async function getElementRole(element: ElementHandle, page: Page): Promise<string|null> {
+async function getElementRole(element: ElementHandle, page: Page): Promise<string | null> {
   let name = await getElementName(element);
   let explicitRole = await getElementAttribute(element, "role");
-  let attributes,role = explicitRole;
-  if (name && explicitRole=== null) {
+  let attributes, role = explicitRole;
+  if (name && explicitRole === null) {
     let roleValues = roles[name.toLocaleLowerCase()];
     for (let roleValue of roleValues) {
       let special = roleValue["special"];
@@ -21,11 +21,11 @@ async function getElementRole(element: ElementHandle, page: Page): Promise<strin
           role = roleValue["role"];
         } else {
           let heading = new RegExp("h*");
-          if (name === "footer"||name ==="header") {
-            if(await isElementADescendantOf(element,page,["article", "aside", "main", "nav","section"],["article", "complementary", "main", "navigation","region"])){
+          if (name === "footer" || name === "header") {
+            if (await isElementADescendantOf(element, page, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
               role = roleValue["role"];
             }
-          } else if (name === "form"|| name === "section") {
+          } else if (name === "form" || name === "section") {
             let aName = await getAccessibleName(element, page);
             if (aName !== undefined) {
               role = roleValue["role"];
@@ -48,33 +48,42 @@ async function getElementRole(element: ElementHandle, page: Page): Promise<strin
 
             if (list !== null) {
               role = roleValue["role"];
-            }else if(type === "search"){
+            } else if (type === "search") {
               role = "searchbox";
-            }else{
+            } else {
               role = "textbox";
             }
-          }else if(name === "li"){
+          } else if (name === "li") {
             let parent = await getElementParent(element);
-            let parentNames = ["ol","ul","menu"];
-            let parentName = await getElementName(parent);
+            let parentNames = ["ol", "ul", "menu"];
+            let parentName;
+            if (parent !== null)
+              parentName = await getElementName(parent);
 
-            if(parentName && parentNames.includes(parentName){
-              role =  roleValue["role"];
+            if (parentName && parentNames.includes(parentName)) {
+              role = roleValue["role"];
             }
 
-          }else if(name = "option"){
-            //TODO
-          }else if(name = "select"){
+          } else if (name = "option") {
+            let parent = await getElementParent(element);
+            let parentName;
+            if (parent !== null)
+              parentName = await getElementName(parent);
+
+            if (parentName === "datalist") {
+              role = roleValue["role"];
+            }
+          } else if (name = "select") {
             let size = await getElementAttribute(element, "size");
             let multiple = await getElementAttribute(element, "multiple");
 
-            if(multiple !== null && size !== null && parseInt(size,10)> 1){
-              role =  "listbox";
-            }else{
-              role =  roleValue["role"];
+            if (multiple !== null && size !== null && parseInt(size, 10) > 1) {
+              role = "listbox";
+            } else {
+              role = roleValue["role"];
             }
-          }else if(name === "td"){
-            if(await isElementADescendantOf(element,page,["table"],[])){
+          } else if (name === "td") {
+            if (await isElementADescendantOf(element, page, ["table"], [])) {
               role = roleValue["role"];
             }
           }
