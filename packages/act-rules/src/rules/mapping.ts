@@ -24,7 +24,7 @@ export default {
       'body [lang]': ['QW-ACT-R22'],
       'body': ['QW-ACT-R9','QW-ACT-R10'],
       'input, select, textarea, [role]': ['QW-ACT-R16'],
-      '[role]': ['QW-ACT-R20'],
+      '[role]': ['QW-ACT-R20','QW-ACT-R33'],
       'img, [role="img"]':  ['QW-ACT-R17'],
       'iframe': ['QW-ACT-R19'],
       '[aria-label], [aria-labelledby]': ['QW-ACT-R30']
