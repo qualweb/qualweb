@@ -1,7 +1,7 @@
 'use strict';
-import { getElementAttribute } from "../domUtils/domUtils";
 import { ElementHandle, Page } from 'puppeteer';
 import getImplicitRole from './getImplicitRole.js';
+import getElementAttribute from '../domUtils/getElementAttribute.js';
 
 async function getElementRole(element: ElementHandle, page: Page): Promise<string | null> {
   let explicitRole = await getElementAttribute(element, "role");

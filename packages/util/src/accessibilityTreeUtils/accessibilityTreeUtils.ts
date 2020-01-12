@@ -12,6 +12,9 @@ import isElementControlFunction from "./isElementControl";
 import isElementWidgetFunction from "./isElementWidget";
 import getElementRoleFunction from "./getElementRole";
 import getImplicitRoleFunction from "./getImplicitRole";
+import isElementInATFunction from "./isElementInAT";
+import elementHasValidRoleFunction from "./elementHasValidRole"
+
 
 
 
@@ -28,6 +31,8 @@ namespace AccessibilityTreeUtils {
   export const isElementWidget = isElementWidgetFunction;
   export const getElementRole = getElementRoleFunction;
   export const getImplicitRole = getImplicitRoleFunction;
+  export const isElementInAT = isElementInATFunction;
+  export const elementHasValidRole = elementHasValidRoleFunction;
 }
 
 export = AccessibilityTreeUtils;

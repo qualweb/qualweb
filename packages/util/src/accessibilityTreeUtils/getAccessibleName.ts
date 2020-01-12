@@ -2,14 +2,6 @@
 
 import { ElementHandle, Page } from 'puppeteer';
 import { trim } from 'lodash';
-import {
-  isElementHidden,
-  getElementById,
-  getElementType,
-  getElementParent,
-  getElementChildren,
-  getElementTagName
-} from "../domUtils/domUtils";
 import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
@@ -17,11 +9,15 @@ import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
-import getElementName from '../domUtils/getElementName';
 import getElementAttribute from '../domUtils/getElementAttribute';
-
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
 import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
+import getElementType from '../domUtils/getElementType';
+import getElementById from '../domUtils/getElementById';
+import isElementHidden from '../domUtils/isElementHidden';
+import getElementParent from '../domUtils/getElementParent';
+import getElementTagName from '../domUtils/getElementTagName';
+import getElementChildren from '../domUtils/getElementChildren';
 async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
   return await getAccessibleNameRecursion(element, page, false, false);
 }
@@ -31,9 +27,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let isChildOfDetails = isElementChildOfDetails(element);
   // let isSummary = element.name === "summary";
   let type = await getElementType(element);
-  let name = await getElementName(element);
-  if (name)
-    name = name.toLocaleLowerCase();
+  let name = await getElementTagName(element);
   let allowNameFromContent = await allowsNameFromContent(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");

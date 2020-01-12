@@ -10,7 +10,7 @@ import elementHasGlobalARIAPropertieOrAttribute = require("../domUtils/elementHa
 
 
 
-async function isElementInAt(element: ElementHandle, page: Page): Promise<boolean> {
+async function isElementInAT(element: ElementHandle, page: Page): Promise<boolean> {
   let isPresentation = await isElementPresentation(element, page);
   let isHidden = await isElementHidden(element);
   let result = false;
@@ -47,4 +47,4 @@ async function isElementInAt(element: ElementHandle, page: Page): Promise<boolea
   return result;
 }
 
-export = isElementInAt;
+export = isElementInAT;
