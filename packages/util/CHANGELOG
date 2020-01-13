@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.23] - 13/01/2020
+
+### Fixed
+ - a bug in the getDefaultName function
+
 ## [0.2.22] - 13/01/2020
 
 ### Fixed
