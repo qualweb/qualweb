@@ -145,9 +145,9 @@
   },
   "aria-level": {
     "global": "yes",
-    "typeValue": "",
+    "typeValue": "integer",
     "values": "",
-    "defaultValue": "integer"
+    "defaultValue": ""
   },
   "aria-live": {
     "global": "yes",

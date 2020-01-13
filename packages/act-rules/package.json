@@ -33,6 +33,7 @@
     "test-r24": "mocha test/rules/QW-ACT-R24.spec.js",
     "test-r25": "mocha test/rules/QW-ACT-R25.spec.js",
     "test-r26": "mocha test/rules/QW-ACT-R26.spec.js",
+    "test-r27": "mocha test/rules/QW-ACT-R27.spec.js",
     "test-r30": "mocha test/rules/QW-ACT-R30.spec.js",
     "test-r31": "mocha test/rules/QW-ACT-R31.spec.js",
     "clean": "node clean.js",
