@@ -37,6 +37,7 @@
     "test-r28": "mocha test/rules/QW-ACT-R28.spec.js",
     "test-r30": "mocha test/rules/QW-ACT-R30.spec.js",
     "test-r31": "mocha test/rules/QW-ACT-R31.spec.js",
+    "test-r34": "mocha test/rules/QW-ACT-R34.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
