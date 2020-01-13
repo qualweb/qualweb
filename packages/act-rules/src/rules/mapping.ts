@@ -22,7 +22,7 @@ export default {
       '[id]': ['QW-ACT-R18'],
       'svg': ['QW-ACT-R21'],
       'body [lang]': ['QW-ACT-R22'],
-      'body': ['QW-ACT-R9','QW-ACT-R10'],
+      'body': ['QW-ACT-R9','QW-ACT-R10', 'QW-ACT-R25'],
       'input, select, textarea, [role]': ['QW-ACT-R16'],
       '[role]': ['QW-ACT-R20'],
       'img, [role="img"]':  ['QW-ACT-R17'],

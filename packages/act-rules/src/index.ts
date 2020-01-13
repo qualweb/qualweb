@@ -28,6 +28,7 @@ import QW_ACT_R20 from './rules/QW-ACT-R20';
 import QW_ACT_R21 from './rules/QW-ACT-R21';
 import QW_ACT_R22 from './rules/QW-ACT-R22';
 import QW_ACT_R23 from './rules/QW-ACT-R23';
+import QW_ACT_R25 from './rules/QW-ACT-R25';
 import QW_ACT_R26 from './rules/QW-ACT-R26';
 import QW_ACT_R30 from './rules/QW-ACT-R30';
 import QW_ACT_R31 from './rules/QW-ACT-R31';
@@ -62,6 +63,7 @@ class ACTRules {
     'QW-ACT-R21': true,
     'QW-ACT-R22': true,
     'QW-ACT-R23': false,
+    'QW-ACT-R25': false,
     'QW-ACT-R26': false,
     'QW-ACT-R30': true,
     'QW-ACT-R31': false
@@ -92,6 +94,7 @@ class ACTRules {
       'QW-ACT-R21': new QW_ACT_R21(),
       'QW-ACT-R22': new QW_ACT_R22(),
       'QW-ACT-R23': new QW_ACT_R23(),
+      'QW-ACT-R25': new QW_ACT_R25(),
       'QW-ACT-R26': new QW_ACT_R26(),
       'QW-ACT-R30': new QW_ACT_R30(),
       'QW-ACT-R31': new QW_ACT_R31()
