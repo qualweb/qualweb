@@ -1,50 +1,38 @@
-const {
-  configure,
-  executeACTR
-} = require('../../dist/index');
-
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
-const {
-  getDom
-} = require('../getDom');
+const path = require('path');
 
-const request = require('request-promise');
+const { mapping } = require('../constants');
+const { getTestCases, getDom } = require('../getDom');
+const { configure, executeACTR } = require('../../dist/index');
 
-describe('Rule QW-ACT-R27', async function () {
+const rule = path.basename(__filename).split('.')[0];
+const ruleId = mapping[rule];
 
-  const ruleId = '5f99a7';
-  let testCases = [];
-  let browser;
-  let json;
+describe(`Rule ${rule}`, async function () {
+  
+  it('Starting testbench', async function () {
+    const browser = await puppeteer.launch();
+    const data = JSON.parse(await getTestCases());
+    const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
+      return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
+    });
 
-  it("", async function () {
-    json = JSON.parse(await request('https://act-rules.github.io/testcases.json'));
-    browser = await puppeteer.launch();
-
-    testCases = json.testcases.filter(tc => tc.ruleId === ruleId);
-    let i = 0;
-    let lastOutcome = 'passed';
-    for (const test of testCases || []) {
-      if (test.expected !== lastOutcome) {
-        lastOutcome = test.expected;
-        i = 0;
-      }
-      i++;
-      describe(`${test.expected.charAt(0).toUpperCase() + test.expected.slice(1)} example ${i}`, function () {
-        it(`should have outcome="${test.expected}"`, async function () {
-          this.timeout(10 * 1000);
+    describe('Running tests', function() {
+      for (const test of tests || []) {
+        it(test.title, async function() {
+          this.timeout(100 * 1000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
-          configure({
-            rules: ['QW-ACT-R27']
-          });
+          configure({ rules: [rule] });
           const report = await executeACTR(sourceHtml, page, stylesheets);
-          expect(report.rules['QW-ACT-R27'].metadata.outcome).to.be.equal(test.expected);
+
+          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
         });
-      });
-    }
-    describe(``, async function () {
-      it(``, async function () {
+      }
+    });
+
+    describe(`Closing testbench`, async function () {
+      it(`Closed`, async function () {
         await browser.close();
       });
     });
