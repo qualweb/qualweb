@@ -76,7 +76,6 @@ class QW_ACT_R34 extends Rule {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "No elements with WAI-ARIA state or property";
         evaluation.resultCode = 'RC2';
-        console.log(evaluation.resultCode);
         super.addEvaluationResult(evaluation);
         evaluation = {
           verdict: '',
@@ -104,19 +103,12 @@ class QW_ACT_R34 extends Rule {
                 evaluation.description = attrib + "property is empty";
                 evaluation.resultCode = 'RC3';
               } else if (isInAT) {
-
-                console.log(attrib)
-                console.log(attrValue)
-                console.log(values)
-                console.log(typeValue);
-
                 if (typeValue === "value") {
                   result = values.includes(attrValue);
                 } else if (typeValue === "string") {
                   result = values === "";
                 }
                 else if (typeValue === "number") {
-                  console.log("number" + isNaN(attrValue))
                   result = !isNaN(attrValue);
                 } else if (typeValue === "integer") {
                   let regex = new RegExp('^[0-9]+$');
@@ -133,7 +125,6 @@ class QW_ACT_R34 extends Rule {
 
                 } else if (typeValue === "id") {
                   let isRequired = requiredAriaList.includes(attrib);
-                  console.log("required" + isRequired)
                   if (isRequired)
                     result = await page.$("#" + attrValue) !== null;
                   else
@@ -169,7 +160,6 @@ class QW_ACT_R34 extends Rule {
                 evaluation.description = "This element is not included in the accessibility tree";
                 evaluation.resultCode = 'RC6';
               }
-              console.log(evaluation.resultCode);
               evaluation.htmlCode = await DomUtils.getElementHtmlCode(elem);
               evaluation.pointer = await DomUtils.getElementSelector(elem);
               super.addEvaluationResult(evaluation);
