@@ -28,6 +28,7 @@ import QW_ACT_R20 from './rules/QW-ACT-R20';
 import QW_ACT_R21 from './rules/QW-ACT-R21';
 import QW_ACT_R22 from './rules/QW-ACT-R22';
 import QW_ACT_R23 from './rules/QW-ACT-R23';
+import QW_ACT_R26 from './rules/QW-ACT-R26';
 import QW_ACT_R30 from './rules/QW-ACT-R30';
 
 import mapping from './rules/mapping';
@@ -60,6 +61,7 @@ class ACTRules {
     'QW-ACT-R21': true,
     'QW-ACT-R22': true,
     'QW-ACT-R23': false,
+    'QW-ACT-R26': false,
     'QW-ACT-R30': true
   };
 
@@ -88,6 +90,7 @@ class ACTRules {
       'QW-ACT-R21': new QW_ACT_R21(),
       'QW-ACT-R22': new QW_ACT_R22(),
       'QW-ACT-R23': new QW_ACT_R23(),
+      'QW-ACT-R26': new QW_ACT_R26(),
       'QW-ACT-R30': new QW_ACT_R30()
     };
 
@@ -127,6 +130,8 @@ class ACTRules {
         if (options.rules && options.rules.length !== 0) {
           if (!options.rules.includes(rule) && !options.rules.includes(this.rules[rule].getRuleMapping())) {
             this.rulesToExecute[rule] = false;
+          } else {
+            this.rulesToExecute[rule] = true;
           }
         }
       } else {
@@ -224,7 +229,7 @@ class ACTRules {
   }
 
   public async execute(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
-
+    
     const report: ACTRulesReport = {
       type: 'act-rules',
       metadata: {
