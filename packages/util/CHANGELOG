@@ -1,4 +1,9 @@
-# Changelog~
+# Changelog
+
+## [0.2.21] - 13/01/2020
+
+### Fixed
+ - a bug in the isElementWidget function
 
 ## [0.2.19] - 12/01/2020
 
