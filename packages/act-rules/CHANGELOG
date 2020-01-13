@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.11] - 13/01/2020
+
+### Added
+ - QW-ACT-R15 rule
+
+### Updated
+ - @qualweb/util module
+
 ## [0.3.10] - 09/01/2020
 
 ### Fixed

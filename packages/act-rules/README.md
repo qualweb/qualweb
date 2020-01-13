@@ -86,6 +86,7 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R12 | [c487ae](https://act-rules.github.io/rules/c487ae) | Link has accessible name |
 | QW-ACT-R13 | [6cfa84](https://act-rules.github.io/rules/6cfa84) | Element with `aria-hidden` has no focusable content |
 | QW-ACT-R14 | [b4f0c3](https://act-rules.github.io/rules/b4f0c3) | meta viewport does not prevent zoom |
+| QW-ACT-R15 | [80f0bf](https://act-rules.github.io/rules/80f0bf) | audio or video has no audio that plays automatically |
 | QW-ACT-R16 | [e086e5](https://act-rules.github.io/rules/e086e5) | Form control has accessible name |
 | QW-ACT-R17 | [23a2a8](https://act-rules.github.io/rules/23a2a8) | Image has accessible name |
 | QW-ACT-R18 | [3ea0c8](https://act-rules.github.io/rules/3ea0c8) | `id` attribute value is unique |
@@ -93,6 +94,7 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R20 | [674b10](https://act-rules.github.io/rules/674b10) | role attribute has valid value |
 | QW-ACT-R21 | [7d6734](https://act-rules.github.io/rules/7d6734) | svg element with explicit role has accessible name |
 | QW-ACT-R22 | [de46e4](https://act-rules.github.io/rules/de46e4) | Element within body has valid lang attribute |
+| QW-ACT-R23 | [c5a4ea](https://act-rules.github.io/rules/c5a4ea) | video element visual content has accessible alternative |
 | QW-ACT-R30 | [2ee8b8](https://act-rules.github.io/rules/2ee8b8) | Visible label is part of accessible name |
 
 # License
