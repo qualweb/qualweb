@@ -92,22 +92,15 @@ class QW_ACT_R25 extends Rule {
       } else {
         for (const elem of elementsWithAriaAttribs) {
 
-          let elemRole: string | undefined = undefined;
-          let options = {root: elem};
-          const snapshot = await page.accessibility.snapshot(options);
-
-          let accessName = await AccessibilityTreeUtils.getAccessibleName(elem, page);
-          console.log(accessName);
+          let elemRole = await AccessibilityTreeUtils.getElementRole(elem,page);
+          let isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
           let elemAttribs = await DomUtils.getElementAttributesName(elem);
-          if (snapshot) {
-            elemRole = snapshot['role'];
-          }
-
+        
           for (const attrib of elemAttribs) {
             if (keys(ariaJSON).includes(attrib)) {
               //if is in the accessibility tree
               //todo - is not working properly
-              if (accessName !== '' && accessName !== undefined) {
+              if (isInAT) {
                 // if valid aria attribute
                 if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== undefined && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
                   evaluation.verdict = 'passed';
