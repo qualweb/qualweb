@@ -121,8 +121,8 @@ class QW_ACT_R15 extends Rule {
   private srcTimeIsLessThanThree(src: any[]): boolean {
     let result = false;
     let values, separatedValues, value1, value2;
-    for (let child of src || []) {
-      if (child !== undefined) {
+    for (const child of src || []) {
+      if (child) {
         values = String(child).split('#t=')
         if (values.length > 1) {
           separatedValues = values[1].split(',');
@@ -134,12 +134,9 @@ class QW_ACT_R15 extends Rule {
           }
         }
       }
-
     }
     return result;
   }
-
-
 }
 
 export = QW_ACT_R15;
