@@ -30,6 +30,7 @@ import QW_ACT_R22 from './rules/QW-ACT-R22';
 import QW_ACT_R23 from './rules/QW-ACT-R23';
 import QW_ACT_R26 from './rules/QW-ACT-R26';
 import QW_ACT_R30 from './rules/QW-ACT-R30';
+import QW_ACT_R31 from './rules/QW-ACT-R31';
 
 import mapping from './rules/mapping';
 
@@ -62,7 +63,8 @@ class ACTRules {
     'QW-ACT-R22': true,
     'QW-ACT-R23': false,
     'QW-ACT-R26': false,
-    'QW-ACT-R30': true
+    'QW-ACT-R30': true,
+    'QW-ACT-R31': false
   };
 
   constructor(options?: ACTROptions) {
@@ -91,7 +93,8 @@ class ACTRules {
       'QW-ACT-R22': new QW_ACT_R22(),
       'QW-ACT-R23': new QW_ACT_R23(),
       'QW-ACT-R26': new QW_ACT_R26(),
-      'QW-ACT-R30': new QW_ACT_R30()
+      'QW-ACT-R30': new QW_ACT_R30(),
+      'QW-ACT-R31': new QW_ACT_R31()
     };
 
     if (options) {

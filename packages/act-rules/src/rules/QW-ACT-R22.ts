@@ -88,7 +88,7 @@ class QW_ACT_R22 extends Rule {
     super.addEvaluationResult(evaluation);
   }
 
-  private isSubTagValid(subTag: string) {
+  private isSubTagValid(subTag: string): boolean {
     return languages.hasOwnProperty(subTag);
   }
 }

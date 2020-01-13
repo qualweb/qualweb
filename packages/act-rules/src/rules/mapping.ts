@@ -28,7 +28,7 @@ export default {
       'img, [role="img"]':  ['QW-ACT-R17'],
       'iframe': ['QW-ACT-R19'],
       '[aria-label], [aria-labelledby]': ['QW-ACT-R30'],
-      'video': ['QW-ACT-R23', 'QW-ACT-R26'],
+      'video': ['QW-ACT-R23', 'QW-ACT-R26', 'QW-ACT-R31'],
       'audio, video': ['QW-ACT-R15']
     }
   }
