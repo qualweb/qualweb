@@ -2,12 +2,13 @@
 
 import { widgetRoles, widgetElements } from "./constants";
 import {ElementHandle} from "puppeteer";
-import DomUtils from "../domUtils/domUtils";
+import getElementAttribute from "../domUtils/getElementAttribute";
+import getElementName from '../domUtils/getElementName';
 
 async function isElementWidget(element: ElementHandle): Promise<boolean> {
 
-  let role = await DomUtils.getElementAttribute(element,"role");
-  let name = await DomUtils.getElementName(element);
+  let role = await getElementAttribute(element,"role");
+  let name = await getElementName(element);
   if(name)
     name = name.toLocaleLowerCase();
 

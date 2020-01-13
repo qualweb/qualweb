@@ -14,5 +14,8 @@ describe('DOM UTILITIES', function() {
       let element = await page.$('a');
       expect(await AccessibilityTreeUtils.getElementRole(element)).to.be.equal('link');
     });
+    it.only('isElementWidget', async function() {
+      AccessibilityTreeUtils.isElementWidget(null);
+    });
   });
 });
