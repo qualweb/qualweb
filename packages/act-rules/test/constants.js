@@ -38,6 +38,7 @@ exports.mapping = {
   'QW-ACT-R28': '4e8ab6',
   'QW-ACT-R30': '2ee8b8',
   'QW-ACT-R31': 'c3232f',
+  'QW-ACT-R32': '1ec09b',
   'QW-ACT-R33': 'ff89c9',
   'QW-ACT-R34': '6a7281'
 };
