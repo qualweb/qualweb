@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.12] - 14/01/2020
+
+### Added
+ - QW-ACT-R24 rule
+ - QW-ACT-R25 rule
+ - QW-ACT-R26 rule
+ - QW-ACT-R27 rule
+ - QW-ACT-R28 rule
+ - QW-ACT-R31 rule
+ - QW-ACT-R33 rule
+ - QW-ACT-R34 rule
+
+### Updated
+ - README.md
+
 ## [0.3.11] - 13/01/2020
 
 ### Added
