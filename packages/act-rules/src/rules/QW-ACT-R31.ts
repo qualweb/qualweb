@@ -15,7 +15,7 @@ class QW_ACT_R31 extends Rule {
     super({
       name: 'Video element visual-only content has accessible alternative',
       code: 'QW-ACT-R31',
-      mapping: '2ee8b8',
+      mapping: 'c3232f',
       description: 'This rule checks that video elements without audio have an alternative available.',
       metadata: {
         target: {
