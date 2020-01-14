@@ -26,7 +26,8 @@ export default {
       'input, select, textarea, [role]': ['QW-ACT-R16'],
       '[role]': ['QW-ACT-R20'],
       'img, [role="img"]':  ['QW-ACT-R17'],
-      'iframe': ['QW-ACT-R19']
+      'iframe': ['QW-ACT-R19'],
+      'input[autocomplete], select[autocomplete], textarea[autocomplete]' : ['QW-ACT-R24']
     }
   }
 };

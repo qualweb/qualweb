@@ -28,6 +28,7 @@
     "test-r20": "mocha test/rules/QW-ACT-R20.spec.js",
     "test-r21": "mocha test/rules/QW-ACT-R21.spec.js",
     "test-r22": "mocha test/rules/QW-ACT-R22.spec.js",
+    "test-r24": "mocha test/rules/QW-ACT-R24.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"

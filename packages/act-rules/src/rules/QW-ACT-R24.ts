@@ -218,22 +218,23 @@ class QW_ACT_R24 extends Rule {
 
   async execute(element: ElementHandle | undefined): Promise<void> {
 
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: "",
       description: "",
       resultCode: ""
     };
 
-    if (element === undefined) {//only for inapplicable test pass
-      evaluation.verdict = "inapplicable";
-      evaluation.description = `The element is not valid`;
-      evaluation.resultCode = "RC6";
-      super.addEvaluationResult(evaluation);
-      return;
-    };
+    const [htmlCode, pointer] = await Promise.all([
+      DomUtils.getElementHtmlCode(element),
+      DomUtils.getElementSelector(element)
+    ]);
 
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
+    evaluation.htmlCode = htmlCode;
+    evaluation.pointer = pointer;
 
     //check if is visible and not in accessibility tree
     let visible = await DomUtils.isElemenVisible(element);
@@ -316,7 +317,6 @@ class QW_ACT_R24 extends Rule {
         return;
       }
 
-      console.log("TCL: QW_ACT_R24 -> autoComplete", autoComplete);
       let correctAutocompleteField = await this.isCorrectAutocompleteField(element, autoComplete);
       if (!correctAutocompleteField) {
         evaluation.verdict = "failed";
@@ -417,7 +417,6 @@ class QW_ACT_R24 extends Rule {
     let tag = await DomUtils.getElementTagName(element);
     if (tag === "input") {
       let type = await DomUtils.getElementAttribute(element, "type");
-      console.log("TCL: QW_ACT_R24 -> type", type)
       if (type === null || type === "hidden" || type === "text" || type === "search" || type === "email")
         return true;
     } else if (tag === "textarea" || tag === "select")
@@ -476,7 +475,7 @@ class QW_ACT_R24 extends Rule {
 
   async isAppropriateFieldForTheFormControl(field: string, element: ElementHandle): Promise<boolean> {
     let fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
-    console.log("TCL: QW_ACT_R24 -> fieldControl", fieldControl)
+    
     switch (fieldControl) {
       case "text":
         return await this.isText(element);
