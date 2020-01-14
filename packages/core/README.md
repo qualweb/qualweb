@@ -127,7 +127,7 @@ The available options fot the **generateEarlReport()** function are:
 | QW-ACT-R27 | [5f99a7](https://act-rules.github.io/rules/5f99a7) | This rule checks that each aria- attribute specified is defined in ARIA 1.1. |
 | QW-ACT-R28 | [4e8ab6](https://act-rules.github.io/rules/4e8ab6) | Element with role attribute has required states and properties |
 | QW-ACT-R30 | [2ee8b8](https://act-rules.github.io/rules/2ee8b8) | Visible label is part of accessible name |
-| QW-ACT-R31 | [2ee8b8](https://act-rules.github.io/rules/2ee8b8) | Video element visual-only content has accessible alternative |
+| QW-ACT-R31 | [c3232f](https://act-rules.github.io/rules/c3232f) | Video element visual-only content has accessible alternative |
 | QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
 | QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
 
