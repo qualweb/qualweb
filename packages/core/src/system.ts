@@ -102,8 +102,12 @@ class System {
       headless: true,
       //args: ['--disable-web-security', '--no-sandbox']
     });
-    this.browser.pages().then(pages => pages[0].close());
-    //(await this.browser.pages())[0].close();
+    //this.browser.pages().then(pages => await pages[0].close());
+    //await (await this.browser.pages())[0].close();
+    const pages = await this.browser.pages();
+    for (const page of pages || []) {
+      await page.close();
+    }
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
