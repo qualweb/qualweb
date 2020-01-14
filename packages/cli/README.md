@@ -94,7 +94,15 @@ This method will create an aggregated EARL report from all urls.
 | QW-ACT-R21 | [7d6734](https://act-rules.github.io/rules/7d6734) | svg element with explicit role has accessible name |
 | QW-ACT-R22 | [de46e4](https://act-rules.github.io/rules/de46e4) | Element within body has valid lang attribute |
 | QW-ACT-R23 | [c5a4ea](https://act-rules.github.io/rules/c5a4ea) | video element visual content has accessible alternative |
+| QW-ACT-R24 | [73f2c2](https://act-rules.github.io/rules/73f2c2) | autocomplete attribute has valid value |
+| QW-ACT-R25 | [5c01ea](https://act-rules.github.io/rules/5c01ea) | ARIA state or property is permitted |
+| QW-ACT-R26 | [eac66b](https://act-rules.github.io/rules/eac66b) | video element auditory content has accessible alternative |
+| QW-ACT-R27 | [5f99a7](https://act-rules.github.io/rules/5f99a7) | This rule checks that each aria- attribute specified is defined in ARIA 1.1. |
+| QW-ACT-R28 | [4e8ab6](https://act-rules.github.io/rules/4e8ab6) | Element with role attribute has required states and properties |
 | QW-ACT-R30 | [2ee8b8](https://act-rules.github.io/rules/2ee8b8) | Visible label is part of accessible name |
+| QW-ACT-R31 | [c3232f](https://act-rules.github.io/rules/c3232f) | Video element visual-only content has accessible alternative |
+| QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
+| QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
 
 # License
 
