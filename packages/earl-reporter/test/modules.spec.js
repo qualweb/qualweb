@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const request = require('request-promise');
 const reporter = require('../dist/index');
 
 // https://ciencias.ulisboa.pt - 05/08/2019 15:31

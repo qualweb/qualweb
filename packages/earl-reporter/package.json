@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -25,10 +25,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.1.8",
-    "@types/css": "0.0.31",
-    "@types/htmlparser2": "^3.10.1",
-    "@types/lodash": "^4.14.144",
+    "@qualweb/types": "^0.2.15",
+    "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^12.11.1",
     "chai": "^4.2.0",
     "mocha": "^6.2.1",
@@ -38,6 +36,6 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash.clonedeep": "^4.5.0"
   }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash.clonedeep';
 import { EvaluationReport } from '@qualweb/core';
 import {
   Report,
@@ -117,17 +117,18 @@ async function generateAggregatedEarlReport(reports: EvaluationReport[], options
   return aggregatedReport;
 }
 
-async function generateEARLReport(reports: Array<EvaluationReport>, options?: EarlOptions): Promise<Array<EarlReport>> {
+async function generateEARLReport(reports: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{ [url: string]: EarlReport}> {
+  const earlReports: {[url: string]: EarlReport} = {};
   if (options && options.aggregated) {
-    return [await generateAggregatedEarlReport(reports, options)];
+    const firstUrl = Object.keys(reports)[0];
+    earlReports[options.aggregatedName || firstUrl] = await generateAggregatedEarlReport(Object.values(reports), options);
   } else {
-    const earlReports = new Array<EarlReport>();
-    for (const report of reports || []) {
-      const earlReport = await generateSingleEarlReport(report, options);
-      earlReports.push(cloneDeep(earlReport));
+    for (const url in reports || {}) {
+      const earlReport = await generateSingleEarlReport(reports[url], options);
+      earlReports[url] = cloneDeep(earlReport);
     }
-    return cloneDeep(earlReports);
   }
+  return cloneDeep(earlReports);
 }
 
 export {
