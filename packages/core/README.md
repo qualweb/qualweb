@@ -87,6 +87,7 @@ The available options fot the **generateEarlReport()** function are:
 ```jsonc
   {
     "aggregated": true, // default value = false
+    "aggregatedName": "websites.json", // The name to save the aggregated earl reports. default value = first url of the list
     "modules": { // Choose which modules to convert the report to earl, by default all modules are converted if they were executed
       "act": true, // default value = true
       "html": false, // default value = true
