@@ -24,7 +24,14 @@ class QW_ACT_R30 extends Rule {
         target: {
           element: '*'
         },
-        'success-criteria': [],
+        'success-criteria': [
+          {
+            name: '2.5.3',
+            level: 'A',
+            principle: 'Operable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html'
+          }
+        ],
         related: [],
         url: 'https://act-rules.github.io/rules/2ee8b8',
         passed: 0,

@@ -31,6 +31,16 @@ describe(`Rule ${rule}`, async function () {
       }
     });
 
+    describe('Custom test', function() {
+      it('should execute', async function() {
+        this.timeout(1000 * 1000);
+
+        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://ciencias.ulisboa.pt');
+        const actRules = new ACTRules({ rules: [rule] });
+        const report = await actRules.execute(sourceHtml, page, stylesheets);
+      });
+    });
+
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
         await browser.close();

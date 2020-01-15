@@ -21,7 +21,7 @@ class QW_ACT_R21 extends Rule {
           {
             name: '1.1.1',
             level: 'A',
-            principle: 'Perceivable ',
+            principle: 'Perceivable',
             url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html'
           }
         ],

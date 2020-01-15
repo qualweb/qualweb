@@ -21,7 +21,14 @@ class QW_ACT_R31 extends Rule {
         target: {
           element: 'video'
         },
-        'success-criteria': [],
+        'success-criteria': [
+          {
+            name: '1.2.1',
+            level: 'A',
+            principle: 'Perceivable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded'
+          }
+        ],
         related: [],
         url: 'https://act-rules.github.io/rules/c3232f',
         passed: 0,

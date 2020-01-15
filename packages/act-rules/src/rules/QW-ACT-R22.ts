@@ -22,7 +22,7 @@ class QW_ACT_R22 extends Rule {
           {
             name: '3.1.2',
             level: 'AA',
-            principle: 'Understandable ',
+            principle: 'Understandable',
             url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts'
           }
         ],

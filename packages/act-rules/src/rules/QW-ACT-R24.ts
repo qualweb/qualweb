@@ -193,14 +193,19 @@ class QW_ACT_R24 extends Rule {
       name: "autocomplete attribute has valid value",
       code: "QW-ACT-R24",
       mapping: "73f2c2",
-      description:
-        "This rule checks that the HTML autocomplete attribute has a correct value.",
+      description: "This rule checks that the HTML autocomplete attribute has a correct value.",
       metadata: {
         target: {
-          element:
-            "input[autocomplete], select[autocomplete], textarea[autocomplete]"
+          element: "input[autocomplete], select[autocomplete], textarea[autocomplete]"
         },
-        "success-criteria": [],
+        "success-criteria": [
+          {
+            name: '3.1.2',
+            level: 'AA',
+            principle: 'Understandable',
+            url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts'
+          }
+        ],
         related: [],
         url: "https://act-rules.github.io/rules/de46e4",
         passed: 0,
