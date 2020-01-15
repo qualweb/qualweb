@@ -4,8 +4,8 @@ import { ElementHandle, Page } from 'puppeteer';
 import getAccessibleName from './getAccessibleName';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
-import isElementADescendantOf from '../domUtils/isElementADescendantOf';
 import getElementAttribute from '../domUtils/getElementAttribute';
+import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole.js';
 
 async function getImplicitRole(element: ElementHandle, page: Page): Promise<string | null> {
   let name = await getElementTagName(element);
@@ -22,7 +22,7 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
           } else {
             let heading = new RegExp("h[1-6]");
             if (name === "footer" || name === "header") {
-              if (await isElementADescendantOf(element, page, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
+              if (await isElementADescendantOfExplicitRole(element, page, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
                 role = roleValue["role"];
               }
             } else if (name === "form" || name === "section") {
@@ -83,7 +83,7 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
                 role = roleValue["role"];
               }
             } else if (name === "td") {
-              if (await isElementADescendantOf(element, page, ["table"], [])) {
+              if (await isElementADescendantOfExplicitRole(element, page, ["table"], [])) {
                 role = roleValue["role"];
               }
             }

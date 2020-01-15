@@ -37,7 +37,7 @@ import getVideoMetadataFunction from './getVideoMetadata'
 import elementHasGlobalARIAPropertieOrAttributeFunction from './elementHasGlobalARIAPropertieOrAttribute'
 import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
-
+import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole' 
 import ROLES_ATTR from './roles';
 
 /**
@@ -81,6 +81,7 @@ namespace DomUtils {
   export const elementHasGlobalARIAPropertieOrAttribute = elementHasGlobalARIAPropertieOrAttributeFunction;
   export const elementIDIsReferenced = elementIDIsReferencedFunction;
   export const isElementADescendantOf = isElementADescendantOfFunction;
+  export const isElementADescendantOfExplicitRole =isElementADescendantOfExplicitRoleFunction;
   export const ROLES = ROLES_ATTR;
 }
 
