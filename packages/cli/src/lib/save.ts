@@ -15,9 +15,9 @@ function writeFile(file: string, data: string): Promise<void> {
   });
 }
 
-async function saveReport(url: string, report: EvaluationReport | EarlReport): Promise<void> {
+async function saveReport(name: string, report: EvaluationReport | EarlReport, overrideName: boolean = false): Promise<void> {
   const path = process.cwd();
-  const filename = `${encodeURIComponent(url)}_${new Date().getTime()}.json`;
+  const filename = overrideName ? name : `${encodeURIComponent(name)}_${new Date().getTime()}.json`;
 
   await writeFile(`${path}/${filename}`, JSON.stringify(report, null, 2));
 }

@@ -43,11 +43,11 @@ async function cli(args: string[]): Promise<void> {
     if (options.r) {
       if (options.r === 'earl') {
         const earlReports = await generateEarlReport();
-        for (const earlReport of earlReports || []) {
-          saveReport(earlReport.graph[0].source, earlReport);
+        for (const url in earlReports || {}) {
+          saveReport(url, earlReports[url]);
         }
       } else if (options.r === 'earl-a') {
-        const earlOptions: EarlOptions = { aggregated: true };
+        const earlOptions: EarlOptions = { aggregated: true, aggregatedName: options['save-name'] };
         if (options.m) {
           earlOptions.modules = {};
           earlOptions.modules.act = !!options.execute.act;
@@ -55,16 +55,17 @@ async function cli(args: string[]): Promise<void> {
           earlOptions.modules.css = !!options.execute.css;
           earlOptions.modules['best-practices'] = !!options.execute.bp;
         }
-        const earlReports = await generateEarlReport(earlOptions);
-        saveReport('aggregated_' + options.crawl ? options.crawl : earlReports[0].graph[0].source, earlReports[0]);
+        const earlReport = await generateEarlReport(earlOptions);
+        const name = Object.keys(earlReport)[0];
+        saveReport(name, earlReport[name], !!options['save-name']);
       } else {
         throw new Error('Invalid reporter format');
       }
     } else {
-      for (const report of reports || []) {
-        delete report.system.page.dom.source.html.parsed;
-        delete report.system.page.dom.stylesheets;
-        saveReport(report.system.url.completeUrl, report);
+      for (const url in reports || {}) {
+        delete reports[url].system.page.dom.source.html.parsed;
+        delete reports[url].system.page.dom.stylesheets;
+        saveReport(url, reports[url]);
       }
     }
   } catch (err) {
