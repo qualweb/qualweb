@@ -23,7 +23,7 @@ import {
 class System {
 
   private urls: Array<string>;
-  private evaluations: Array<EvaluationReport>;
+  private evaluations: {[url: string]: EvaluationReport};
   private force: boolean;
   private numberOfParallelEvaluations = 1;
   private modulesToExecute: any;
@@ -32,7 +32,7 @@ class System {
 
   constructor() {
     this.urls = new Array<string>();
-    this.evaluations = new Array<EvaluationReport>();
+    this.evaluations = {};
     this.force = false;
     this.modulesToExecute = {
       act: true,
@@ -45,7 +45,7 @@ class System {
 
   public async update(options: QualwebOptions): Promise<void> {
     this.urls = new Array<string>();
-    this.evaluations = new Array<EvaluationReport>();
+    this.evaluations = {};
     
     if (options.url) {
       this.urls.push(decodeURIComponent(options.url).trim());
@@ -121,7 +121,7 @@ class System {
     await this.close();
   }
 
-  public async report(earl: boolean, options?: EarlOptions): Promise<Array<EvaluationReport> | Array<EarlReport>> {
+  public async report(earl: boolean, options?: EarlOptions): Promise<{[url: string]: EvaluationReport} | {[url: string]: EarlReport}> {
     if (earl || options) {
       return generateEARLReport(this.evaluations, options);
     } else {
@@ -191,7 +191,7 @@ class System {
 
         const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
 
-        this.evaluations.push(evaluation.getFinalReport());
+        this.evaluations[url] = evaluation.getFinalReport();
         await page.close();
       } catch(err) {
         if (!this.force) {

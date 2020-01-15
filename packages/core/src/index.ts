@@ -7,14 +7,14 @@ import System from './system';
 
 const system = new System();
 
-async function evaluate(options: QualwebOptions): Promise<EvaluationReport | Array<EvaluationReport>> {
+async function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
   await system.update(options);
   await system.execute(options);
-  return <Array<EvaluationReport>> await system.report(false);
+  return <{[url: string]: EvaluationReport}> await system.report(false);
 }
 
-async function generateEarlReport(options?: EarlOptions): Promise<Array<EarlReport>> {
-  return <Array<EarlReport>> await system.report(true, options);
+async function generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}> {
+  return <{[url: string]: EarlReport}> await system.report(true, options);
 }
 
 export {
