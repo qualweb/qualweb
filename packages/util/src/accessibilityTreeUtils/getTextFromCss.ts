@@ -1,7 +1,7 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import {getElementStyleProperty} from "../domUtils/domUtils";
+import getElementStyleProperty from "../domUtils/getElementStyleProperty";
 
 function getTextFromCss(element: ElementHandle, textContent: string): string {
 

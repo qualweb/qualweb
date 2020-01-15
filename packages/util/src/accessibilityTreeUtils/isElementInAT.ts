@@ -1,13 +1,14 @@
 'use strict';
 import { ElementHandle, Page } from "puppeteer";
-import { getElementAttribute, getElementType, elementIDIsReferenced } from "../domUtils/domUtils";
-import isElementPresentation = require("../domUtils/isElementPresentation");
-import isElementHidden = require("../domUtils/isElementHidden");
-import isElementFocusable = require("../domUtils/isElementFocusable");
-import elementHasValidRole = require("./elementHasValidRole");
-import elementHasGlobalARIAPropertieOrAttribute = require("../domUtils/elementHasGlobalARIAPropertieOrAttribute");
+import getElementAttribute from "../domUtils/getElementAttribute";
+import getElementType from "../domUtils/getElementType";
+import elementIDIsReferenced from "../domUtils/elementIDIsReferenced";
 
-
+import isElementPresentation from "../domUtils/isElementPresentation";
+import isElementHidden from "../domUtils/isElementHidden";
+import isElementFocusable from "../domUtils/isElementFocusable";
+import elementHasValidRole from "./elementHasValidRole";
+import elementHasGlobalARIAPropertieOrAttribute from "../domUtils/elementHasGlobalARIAPropertieOrAttribute";
 
 
 async function isElementInAT(element: ElementHandle, page: Page): Promise<boolean> {

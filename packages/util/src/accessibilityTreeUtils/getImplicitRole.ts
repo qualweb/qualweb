@@ -1,13 +1,11 @@
 'use strict';
 import roles from './elementImplicitRoles.json';
 import { ElementHandle, Page } from 'puppeteer';
-import getAccessibleName from './getAccessibleName.js';
-import getElementParent from '../domUtils/getElementParent.js';
-import getElementTagName from '../domUtils/getElementTagName.js';
-import isElementADescendantOf from '../domUtils/isElementADescendantOf.js';
-import getElementAttribute from '../domUtils/getElementAttribute.js';
-
-
+import getAccessibleName from './getAccessibleName';
+import getElementParent from '../domUtils/getElementParent';
+import getElementTagName from '../domUtils/getElementTagName';
+import isElementADescendantOf from '../domUtils/isElementADescendantOf';
+import getElementAttribute from '../domUtils/getElementAttribute';
 
 async function getImplicitRole(element: ElementHandle, page: Page): Promise<string | null> {
   let name = await getElementTagName(element);

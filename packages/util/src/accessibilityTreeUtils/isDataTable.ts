@@ -1,8 +1,8 @@
 'use strict';
 
-import getAccessibleName = require("./getAccessibleName");
+import getAccessibleName from "./getAccessibleName";
 import {ElementHandle, Page} from "puppeteer";
-import getElementAttribute = require("../domUtils/getElementAttribute");
+import getElementAttribute from "../domUtils/getElementAttribute";
 
 async function isDataTable(element: ElementHandle, page: Page): Promise<boolean> {
   if (!element) {

@@ -1,12 +1,12 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import getElementAttribute = require('./getElementAttribute');
-import isElementFocusable = require('./isElementFocusable');
-import getElementParent = require('./getElementParent');
-import elementHasGlobalARIAPropertieOrAttribute = require('./elementHasGlobalARIAPropertieOrAttribute');
+import getElementAttribute from './getElementAttribute';
+import isElementFocusable from './isElementFocusable';
+import getElementParent from './getElementParent';
+import elementHasGlobalARIAPropertieOrAttribute from './elementHasGlobalARIAPropertieOrAttribute';
 import { childPresentationalRole } from '../accessibilityTreeUtils/constants';
-import getElementRole = require('../accessibilityTreeUtils/getElementRole');
+import getElementRole from '../accessibilityTreeUtils/getElementRole';
 
 
 async function isElementPresentation(element: ElementHandle,page:Page): Promise<boolean> {

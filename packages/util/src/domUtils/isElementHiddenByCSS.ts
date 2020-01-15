@@ -1,8 +1,8 @@
 'use strict';
 
-import isElementHiddenByCSSAux = require("./isElementHiddenByCSSAux");
+import isElementHiddenByCSSAux from "./isElementHiddenByCSSAux";
 import { ElementHandle } from 'puppeteer';
-import getElementParent = require("./getElementParent");
+import getElementParent from "./getElementParent";
 
 async function isElementHiddenByCSS(element: ElementHandle): Promise<boolean> {
   const parent = await getElementParent(element);

@@ -2,8 +2,8 @@
 
 import { nameFromContentRoles, nameFromContentElements } from "./constants";
 import {ElementHandle} from "puppeteer";
-import getElementTagName = require("../domUtils/getElementTagName");
-import getElementAttribute = require("../domUtils/getElementAttribute");
+import getElementTagName from "../domUtils/getElementTagName";
+import getElementAttribute from "../domUtils/getElementAttribute";
 
 
 async function allowsNameFromContent(element: ElementHandle): Promise<boolean> {

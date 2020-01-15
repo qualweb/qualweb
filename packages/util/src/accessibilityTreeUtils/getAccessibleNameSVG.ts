@@ -1,11 +1,9 @@
 'use strict';
 import { ElementHandle, Page } from 'puppeteer';
 import { trim } from 'lodash';
-import {
-  isElementHidden,
-  getElementById,
-  getElementParent
-} from "../domUtils/domUtils";
+import getElementById from '../domUtils/getElementById';
+import isElementHidden from '../domUtils/isElementHidden';
+import getElementParent from '../domUtils/getElementParent';
 import getTrimmedText from './getTrimmedText';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import {

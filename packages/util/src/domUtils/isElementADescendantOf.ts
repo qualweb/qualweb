@@ -1,9 +1,9 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import getElementParent = require('./getElementParent');
-import getElementName = require('./getElementName');
-import getElementRole = require('../accessibilityTreeUtils/getElementRole');
+import getElementParent from './getElementParent';
+import getElementName from './getElementName';
+import getElementRole from '../accessibilityTreeUtils/getElementRole';
 
 async function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean> {
   if (!element) {

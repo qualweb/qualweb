@@ -5,7 +5,7 @@ import {
 } from 'puppeteer';
 import {keys} from 'lodash';
 import ariaJSON from './ariaAttributesRoles.json';
-import getElementAttributesName from './getElementAttributesName.js';
+import getElementAttributesName from './getElementAttributesName';
 
 
 async function elementHasGlobalARIAPropertieOrAttribute(element: ElementHandle): Promise<boolean> {

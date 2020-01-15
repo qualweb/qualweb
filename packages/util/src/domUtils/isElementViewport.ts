@@ -4,7 +4,7 @@
 import { ElementHandle } from 'puppeteer';
 import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
 import getElementAttribute from './getElementAttribute';
-import getElementParent = require("./getElementParent");
+import getElementParent from "./getElementParent";
 
 async function isElementHidden(element: ElementHandle): Promise<boolean> {
   if (!element) {
