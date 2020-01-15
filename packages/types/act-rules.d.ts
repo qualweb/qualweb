@@ -68,9 +68,18 @@ declare module '@qualweb/act-rules' {
     };
   }
 
-  function resetConfiguration(): void;
-  function configure(options: ACTROptions): void;
-  function executeACTR(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport>;
+  class ACTRules {
+    constructor(options?: ACTROptions);
+    public configure(options: ACTROptions): void;
+    public resetConfiguration(): void;
+    private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): Promise<void>;
+    private executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport, concurrent: boolean): Promise<void>;
+    private executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void>;
+    private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void>;
+    private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void>;
+    private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void>;
+    public execute(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport>;
+  }
 
   export {
     ACTROptions,
@@ -79,8 +88,6 @@ declare module '@qualweb/act-rules' {
     ACTRule,
     ACTMetadata,
     ACTRulesReport,
-    configure,
-    executeACTR,
-    resetConfiguration
+    ACTRules
   };
 } 

@@ -9,6 +9,7 @@ declare module '@qualweb/earl-reporter' {
 
   interface EarlOptions {
     aggregated?: boolean;
+    aggregatedName?: string;
     modules?: {
       act?: boolean;
       html?: boolean;
@@ -70,7 +71,7 @@ declare module '@qualweb/earl-reporter' {
   type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport | BestPracticesReport;
 
   function generateEARLAssertions(report: Report): Promise<Assertion[]>;
-  function generateEARLReport(reports: Array<EvaluationReport>, options?: EarlOptions): Promise<Array<EarlReport>>;
+  function generateEARLReport(reports: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
   export {
     EarlOptions,
