@@ -54,8 +54,8 @@ describe.only('Testing new architecture', function() {
     ];
 
     //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    const reports = await core.evaluate({ url: urls[7], execute: { act: true }, maxParallelEvaluations: 1 });
-    console.log(reports.length);
+    const reports = await core.evaluate({ url: urls[0], execute: { act: true }, maxParallelEvaluations: 1 });
+    console.log(reports);
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
 });
