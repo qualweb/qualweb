@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R29 extends Rule {
 
@@ -56,8 +56,8 @@ class QW_ACT_R29 extends Rule {
       super.addEvaluationResult(evaluation);
     } else {
 
-      let [isInAT, isVisible, controls, autoPlay, metadata] = await Promise.all([
-        AccessibilityTreeUtils.isElementInAT(element, page),
+      let [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
+        DomUtils.isElementHidden(element, page),
         DomUtils.isElemenVisible(element, page),
         DomUtils.elementHasAttribute(element, "controls"),
         DomUtils.getElementAttribute(element, "autoplay"),
@@ -69,10 +69,10 @@ class QW_ACT_R29 extends Rule {
       console.log(duration)
       console.log(autoPlay)
       console.log(isVisible)
-      console.log(isInAT)
+      console.log(isHidden)
       console.log(controls);
 
-      if (duration > 0 && (isInAT && isVisible && controls || autoPlay)) {
+      if (duration > 0 && (!isHidden && isVisible && controls || autoPlay)) {
         evaluation.verdict = 'warning';
         evaluation.description = "Check if audio has text-alternative";
         evaluation.resultCode = 'RC2';
