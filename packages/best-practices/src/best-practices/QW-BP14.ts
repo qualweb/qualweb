@@ -1,43 +1,32 @@
 'use strict';
 
-import {
-  BestPractice as BestPracticeType,
-  BestPracticeResult
-} from '@qualweb/best-practices';
-import {
-  ElementHandle,
-  Page
-} from 'puppeteer';
-
-import {
-  CSSStylesheet
-} from '@qualweb/core';
+import { BestPracticeResult } from '@qualweb/best-practices';
+import { ElementHandle, Page } from 'puppeteer';
+import { CSSStylesheet } from '@qualweb/core';
 import BestPractice from './BestPractice.object';
-
-const bestPractice: BestPracticeType = {
-  name: `At least one container's width has been specified using values expressed in px`,
-  code: 'QW-BP14',
-  description: `At least one container's width has been specified using values expressed in px`,
-  metadata: {
-    target: {
-      element: 'span, article, section, nav, aside, hgroup, header, footer, address, p, hr, blockquote, div, h1, h2, h3, h4, h5, h6, li, ul, ol, dd, dt, dl, figcaption'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array < BestPracticeResult > ()
-};
 
 class QW_BP14 extends BestPractice {
 
-  containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
+  private containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: `At least one container's width has been specified using values expressed in px`,
+      code: 'QW-BP14',
+      description: `At least one container's width has been specified using values expressed in px`,
+      metadata: {
+        target: {
+          element: 'span, article, section, nav, aside, hgroup, header, footer, address, p, hr, blockquote, div, h1, h2, h3, h4, h5, h6, li, ul, ol, dd, dt, dl, figcaption'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array < BestPracticeResult > ()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise < void > {

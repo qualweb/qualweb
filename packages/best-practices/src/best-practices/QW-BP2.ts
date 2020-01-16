@@ -1,33 +1,31 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
 
-const bestPractice: BestPracticeType = {
-  name: 'Concise images alt text',
-  code: 'QW-BP2',
-  description: 'Image alt text attribute with more than 100 characters',
-  metadata: {
-    target: {
-      element: 'img'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP2 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Concise images alt text',
+      code: 'QW-BP2',
+      description: 'Image alt text attribute with more than 100 characters',
+      metadata: {
+        target: {
+          element: 'img'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

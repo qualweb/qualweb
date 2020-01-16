@@ -1,33 +1,31 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
 import BestPractice from './BestPractice.object';
 
-const bestPractice: BestPracticeType = {
-  name: 'Using consecutive links with the same href and one contains an image',
-  code: 'QW-BP13',
-  description: 'Using consecutive links with the same href in which one of the links contains an image',
-  metadata: {
-    target: {
-      element: 'a'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP13 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Using consecutive links with the same href and one contains an image',
+      code: 'QW-BP13',
+      description: 'Using consecutive links with the same href in which one of the links contains an image',
+      metadata: {
+        target: {
+          element: 'a'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

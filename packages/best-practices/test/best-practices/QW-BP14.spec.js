@@ -1,4 +1,4 @@
-const { executeBestPractices, configure } = require('../../dist/index');
+const { BestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
 const {
@@ -28,11 +28,11 @@ describe('Technique QW-BP14', function () {
         this.timeout(10 * 1000);
         const { stylesheets } = await getDom(browser,test.url);
 
-        configure({
+        const bestPractices = new BestPractices({
           bestPractices: ['QW-BP14']
         });
 
-        const report = await executeBestPractices(undefined, stylesheets);
+        const report = await bestPractices.execute(undefined, stylesheets);
         expect(report['best-practices']['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
       });
     });

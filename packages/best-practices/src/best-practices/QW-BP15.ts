@@ -1,35 +1,32 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle, Page } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
 import BestPractice from './BestPractice.object';
 
-const bestPractice: BestPracticeType = {
-  name: 'At least one width attribute of an HTML element is expressed in absolute values',
-  code: 'QW-BP15',
-  description: 'At least one width attribute of an HTML element is expressed in absolute values',
-  metadata: {
-    target: {
-      element: '*'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP15 extends BestPractice {
 
-  absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
-  relativeLengths = ['em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%'];
+  private absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'At least one width attribute of an HTML element is expressed in absolute values',
+      code: 'QW-BP15',
+      description: 'At least one width attribute of an HTML element is expressed in absolute values',
+      metadata: {
+        target: {
+          element: '*'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void> {
