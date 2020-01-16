@@ -42,9 +42,9 @@ import mapping from './rules/mapping';
 
 class ACTRules {
 
-  rules: any;
+  private rules: any;
 
-  rulesToExecute = {
+  private rulesToExecute = {
     'QW-ACT-R1': true,
     'QW-ACT-R2': true,
     'QW-ACT-R3': true,
@@ -121,6 +121,8 @@ class ACTRules {
   }
 
   public configure(options: ACTROptions): void {
+    this.resetConfiguration();
+
     if (options.principles) {
       options.principles = options.principles.map(p => (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim());
     }
@@ -267,11 +269,6 @@ class ACTRules {
       this.executeConcurrentRules(report, sourceHtml, page),
       this.executeNotMappedRules(report, stylesheets)
     ]);
-
-    //await executeSourceHtmlMappedRules(report, sourceHtml, Object.keys(mapping.pre), mapping.pre);
-    //await executePageMappedRules(report, page, Object.keys(mapping.post), mapping.post);
-
-    //await executeNotMappedRules(report, stylesheets);
     
     return report;
   }

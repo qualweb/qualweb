@@ -81,7 +81,7 @@ class QW_ACT_R34 extends Rule {
         let elemAttribs = await DomUtils.getElementAttributesName(elem);
         let role = await AccessibilityTreeUtils.getElementRole(elem, page);
         let requiredAriaList;
-        if (role !== null)
+        if (role !== null && !!rolesJSON[role])
           requiredAriaList = rolesJSON[role]['requiredAria'];
 
         for (const attrib of elemAttribs || []) {
