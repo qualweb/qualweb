@@ -50,12 +50,15 @@ describe.only('Testing new architecture', function() {
       'https://www.cgd.pt/Particulares/Pages/Particulares_v2.aspx',
       'https://cgd.pt/Particulares/Pages/Particulares_v2.aspx',
       'https://www.alta.kommune.no/',
-      'https://www.nav.no'
+      'https://www.nav.no',
+      'https://act-rules.github.io/testcases/bc659a/cbf6409b0df0b3b6437ab3409af341587b144969.html'
     ];
 
     //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    const reports = await core.evaluate({ url: urls[7], execute: { act: true }, maxParallelEvaluations: 1 });
+    const reports = await core.evaluate({ url: urls[8], execute: { act: true }, maxParallelEvaluations: 1, 'act-rules': { rules: ['bc659a'] } });
     console.log(reports);
+    const earlReports = await core.generateEarlReport();
+    console.log(JSON.stringify(earlReports, null, 2));
     //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
   });
 });
