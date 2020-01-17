@@ -7,8 +7,8 @@ import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@
 import { executeWappalyzer } from '@qualweb/wappalyzer';
 import { ACTRules } from '@qualweb/act-rules';
 import * as html from '@qualweb/html-techniques';
-import * as css from '@qualweb/css-techniques';
-import * as bp from '@qualweb/best-practices';
+import { CSSTechniques } from '@qualweb/css-techniques';
+import { BestPractices } from '@qualweb/best-practices';
 
 import Evaluation from '../data/evaluation.object';
 
@@ -41,6 +41,8 @@ function parseUrl(url: string, pageUrl: string): Url {
 
 async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
   const act = new ACTRules();
+  const css = new CSSTechniques();
+  const bp = new BestPractices();
 
   if (execute.act && options['act-rules']) {
     act.configure(options['act-rules']);
@@ -121,11 +123,11 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
   }
 
   if (execute.css) {
-    promises.push(css.executeCSST(stylesheets, mappedDOM));
+    promises.push(css.execute(stylesheets, mappedDOM));
   }
 
   if (execute.bp) {
-    promises.push(bp.executeBestPractices(page, stylesheets));
+    promises.push(bp.execute(page, stylesheets));
   }
 
   const reports = await Promise.all(promises);
