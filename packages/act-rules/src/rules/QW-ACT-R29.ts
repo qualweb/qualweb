@@ -44,7 +44,7 @@ class QW_ACT_R29 extends Rule {
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
     if (!element) {
-      return;run 
+      return;
     }
 
     const evaluation: ACTRuleResult = {
