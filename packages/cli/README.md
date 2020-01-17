@@ -70,7 +70,7 @@ This method will create an aggregated EARL report from all urls.
 
 **Note:** The module options above are only used if the correspondent module was set to be executed (command *-m*).
 
-## Implemente ACT Rules
+## Implemente ACT rules
 
 | QualWeb Rule ID | ACT Rule ID | ACT Rule Name |
 |---|---|---|
@@ -100,8 +100,10 @@ This method will create an aggregated EARL report from all urls.
 | QW-ACT-R26 | [eac66b](https://act-rules.github.io/rules/eac66b) | video element auditory content has accessible alternative |
 | QW-ACT-R27 | [5f99a7](https://act-rules.github.io/rules/5f99a7) | This rule checks that each aria- attribute specified is defined in ARIA 1.1. |
 | QW-ACT-R28 | [4e8ab6](https://act-rules.github.io/rules/4e8ab6) | Element with role attribute has required states and properties |
+| QW-ACT-R29 | [e7aa44](https://act-rules.github.io/rules/e7aa44) | Audio element content has text alternative |
 | QW-ACT-R30 | [2ee8b8](https://act-rules.github.io/rules/2ee8b8) | Visible label is part of accessible name |
 | QW-ACT-R31 | [c3232f](https://act-rules.github.io/rules/c3232f) | Video element visual-only content has accessible alternative |
+| QW-ACT-R32 | [1ec09b](https://act-rules.github.io/rules/1ec09b) | video element visual content has strict accessible alternative  |
 | QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
 | QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
 
