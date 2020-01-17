@@ -87,9 +87,9 @@ declare module '@qualweb/css-techniques' {
     constructor(options?: CSSTOptions);
     public configure(options: CSSTOptions): void;
     public resetConfiguration(): void;
-    private async executeTechnique(report: CSSTechniquesReport, technique: string, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
-    private async executeTechniques(report: CSSTechniquesReport, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
-    public async execute(styleSheets: CSSStylesheet[], mappedDOM: any): Promise<CSSTechniquesReport>;
+    private executeTechnique(report: CSSTechniquesReport, technique: string, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
+    private executeTechniques(report: CSSTechniquesReport, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
+    public execute(styleSheets: CSSStylesheet[], mappedDOM: any): Promise<CSSTechniquesReport>;
   }
 
   export {

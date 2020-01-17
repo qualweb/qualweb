@@ -74,8 +74,8 @@ declare module '@qualweb/best-practices' {
     constructor(options?: BPOptions);
     public configure(options: BPOptions): void;
     public resetConfiguration(): void;
-    private async executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void>;
-    public async execute(page: Page, styleSheets: CSSStylesheet[]): Promise<BestPracticesReport>;
+    private executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void>;
+    public execute(page: Page, styleSheets: CSSStylesheet[]): Promise<BestPracticesReport>;
   }
 
   export {
