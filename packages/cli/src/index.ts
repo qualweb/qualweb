@@ -36,6 +36,8 @@ async function cli(args: string[]): Promise<void> {
       } else {
         options.execute[options.m] = true;
       }
+      
+      delete options.m;
     }
 
     const reports = await evaluate(options);

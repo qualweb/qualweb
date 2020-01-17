@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.8] - 17/01/2020
+
+### Fixed
+ - a bug where the rules were not correctly parsed 
+
 ## [0.3.7] - 15/01/2020
 
 ### Added

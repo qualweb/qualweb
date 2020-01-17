@@ -42,7 +42,10 @@ function parseArguments(args: string[]): any {
 
 async function createModuleOptions(module: string, options: any): Promise<any> {
   if (module === 'best-practices' && options[module]) {
-    options[module]['bestPractices'] = clone(options[module]);
+    const bps = clone(options[module]);
+    options[module]= {
+      bestPractices: bps.split(',')
+    };
   } else {
     const mod = module.split('-')[0];
     if (options[module] || options[`${mod}-principles`] || options[`${mod}-levels`]) {
@@ -52,9 +55,9 @@ async function createModuleOptions(module: string, options: any): Promise<any> {
 
       options[module] = {
         principles: principles ? principles.split(',') : undefined,
-        levels: levels ? levels.split(','): undefined
+        levels: levels ? levels.split(',') : undefined
       };
-      options[module.endsWith('rules') ? 'rules' : 'techniques'] = rulesTechniques ? rulesTechniques.split(',') : undefined;
+      options[mod + '-' + (module.endsWith('rules') ? 'rules' : 'techniques')][(module.endsWith('rules') ? 'rules' : 'techniques')] = rulesTechniques ? rulesTechniques.split(',') : undefined;
     }
   }
 }
