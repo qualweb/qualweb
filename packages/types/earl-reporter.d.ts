@@ -59,13 +59,14 @@ declare module '@qualweb/earl-reporter' {
   interface TestSubject {
     '@type': string;
     source: string;
+    redirectedTo?: string;
     assertor: Assertor;
     assertions: Assertion[];
   }
 
   interface EarlReport {
-    context: string;
-    graph: TestSubject[];
+    '@context': string;
+    '@graph': TestSubject[];
   }
 
   type Report = ACTRulesReport | HTMLTechniquesReport | CSSTechniquesReport | BestPracticesReport;

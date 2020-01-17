@@ -80,9 +80,17 @@ declare module '@qualweb/css-techniques' {
     };
   }
 
-  function configure(options: CSSTOptions): void;
-  function resetConfiguration(): void;
-  function executeCSST(stylesheets: CSSStylesheet[], mappedDOM: any): Promise<CSSTechniquesReport>;
+  class CSSTechniques {
+    private techniques: any;
+    private techniquesToExecute: any;
+    
+    constructor(options?: CSSTOptions);
+    public configure(options: CSSTOptions): void;
+    public resetConfiguration(): void;
+    private async executeTechnique(report: CSSTechniquesReport, technique: string, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
+    private async executeTechniques(report: CSSTechniquesReport, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
+    public async execute(styleSheets: CSSStylesheet[], mappedDOM: any): Promise<CSSTechniquesReport>;
+  }
 
   export {
     CSSTOptions,
@@ -91,8 +99,6 @@ declare module '@qualweb/css-techniques' {
     CSSMetadata,
     CSSTechnique,
     CSSTechniquesReport,
-    configure,
-    executeCSST,
-    resetConfiguration
+    CSSTechniques
   };
 }

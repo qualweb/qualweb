@@ -66,9 +66,17 @@ declare module '@qualweb/best-practices' {
     };
   }
 
-  function resetConfiguration(): void;
-  function configure(options: BPOptions): void;
-  function executeBestPractices(page: Page, stylesheets: CSSStylesheet[]): Promise<BestPracticesReport>;
+  class BestPractices {
+
+    private bestPractices: any;
+    private bestPracticesToExecute: any;
+
+    constructor(options?: BPOptions);
+    public configure(options: BPOptions): void;
+    public resetConfiguration(): void;
+    private async executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void>;
+    public async execute(page: Page, styleSheets: CSSStylesheet[]): Promise<BestPracticesReport>;
+  }
 
   export {
     BPOptions,
@@ -77,8 +85,6 @@ declare module '@qualweb/best-practices' {
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
-    resetConfiguration, 
-    configure,
-    executeBestPractices
+    BestPractices
   };
 }

@@ -69,6 +69,9 @@ declare module '@qualweb/act-rules' {
   }
 
   class ACTRules {
+    private rules: any;
+    private rulesToExecute: any;
+
     constructor(options?: ACTROptions);
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
