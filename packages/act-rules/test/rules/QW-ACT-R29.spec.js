@@ -12,15 +12,12 @@ const ruleId = mapping[rule];
 describe(`Rule ${rule}`, async function () {
   
   it('Starting testbench', async function () {
+    this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
     const data = JSON.parse(await getTestCases());
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
-    tests[0].outcome = "warning";
-    tests[1].outcome = "warning";
-    tests[2].outcome = "warning";
-    tests[3].outcome = "warning";
 
     describe('Running tests', function() {
       for (const test of tests || []) {

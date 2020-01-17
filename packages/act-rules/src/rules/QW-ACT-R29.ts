@@ -43,55 +43,45 @@ class QW_ACT_R29 extends Rule {
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
+    if (!element) {
+      return;run 
+    }
 
-    let evaluation: ACTRuleResult = {
+    const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    if (element === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = "No audio element";
+
+    const [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
+      DomUtils.isElementHidden(element, page),
+      DomUtils.isElemenVisible(element, page),
+      DomUtils.elementHasAttribute(element, "controls"),
+      DomUtils.getElementAttribute(element, "autoplay"),
+      DomUtils.getVideoMetadata(element)
+    ]);
+
+    const duration = metadata["puppeteer"]["video"]["duration"];
+
+    if (duration > 0 && (!isHidden && isVisible && controls || autoPlay)) {
+      evaluation.verdict = 'warning';
+      evaluation.description = "Check if audio has text-alternative";
       evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation);
     } else {
-
-      let [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
-        DomUtils.isElementHidden(element, page),
-        DomUtils.isElemenVisible(element, page),
-        DomUtils.elementHasAttribute(element, "controls"),
-        DomUtils.getElementAttribute(element, "autoplay"),
-        DomUtils.getVideoMetadata(element)
-      ]);
-      let duration = metadata["puppeteer"]["video"]["duration"];
-
-      console.log(metadata);
-      console.log(duration)
-      console.log(autoPlay)
-      console.log(isVisible)
-      console.log(isHidden)
-      console.log(controls);
-
-      if (duration > 0 && (!isHidden && isVisible && controls || autoPlay)) {
-        evaluation.verdict = 'warning';
-        evaluation.description = "Check if audio has text-alternative";
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = "Element is not a non-streaming audio element with autoplay or a play button that is visisble and in the Acessiblility Tree";
-        evaluation.resultCode = 'RC3';
-      }
-
-
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element),
-        DomUtils.getElementSelector(element)
-      ]);
-      evaluation.htmlCode = htmlCode;
-      evaluation.pointer = pointer;
-
-      super.addEvaluationResult(evaluation);
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = "Element is not a non-streaming audio element with autoplay or a play button that is visisble and in the Acessiblility Tree";
+      evaluation.resultCode = 'RC2';
     }
+
+    const [htmlCode, pointer] = await Promise.all([
+      DomUtils.getElementHtmlCode(element),
+      DomUtils.getElementSelector(element)
+    ]);
+
+    evaluation.htmlCode = htmlCode;
+    evaluation.pointer = pointer;
+
+    super.addEvaluationResult(evaluation);
   }
 }
 
