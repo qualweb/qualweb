@@ -53,8 +53,8 @@ function reportModule(module: string, options?: EarlOptions): boolean {
 async function generateSingleEarlReport(report: EvaluationReport, options?: EarlOptions): Promise<EarlReport> {
 
   const earlReport: EarlReport = {
-    context: 'https://act-rules.github.io/earl-context.json',
-    graph: new Array<TestSubject>()
+    '@context': 'https://act-rules.github.io/earl-context.json',
+    '@graph': new Array<TestSubject>()
   };
 
   const assertor: Assertor = {
@@ -68,10 +68,14 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
 
   const testSubject: TestSubject = {
     '@type': 'TestSubject',
-    source: report.system.url.completeUrl,
+    source: report.system.url.inputUrl,
     assertor,
     assertions: new Array<Assertion>()
   };
+
+  if (report.system.url.inputUrl !== report.system.url.completeUrl) {
+    testSubject.redirectedTo = report.system.url.completeUrl;
+  }
 
   if (report.modules['act-rules'] && reportModule('act', options)) {
     testSubject.assertions = [
@@ -98,20 +102,20 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
     ];
   }
 
-  earlReport.graph.push(cloneDeep(testSubject));
+  earlReport['@graph'].push(cloneDeep(testSubject));
 
   return earlReport;
 }
 
 async function generateAggregatedEarlReport(reports: EvaluationReport[], options?: EarlOptions): Promise<EarlReport> {
   const aggregatedReport: EarlReport = {
-    context: 'https://act-rules.github.io/earl-context.json',
-    graph: new Array<TestSubject>()
+    '@context': 'https://act-rules.github.io/earl-context.json',
+    '@graph': new Array<TestSubject>()
   };
 
   for (const report of reports || []) {
     const earlReport = await generateSingleEarlReport(report, options);
-    aggregatedReport.graph.push(cloneDeep(earlReport.graph[0]));
+    aggregatedReport['@graph'].push(cloneDeep(earlReport['@graph'][0]));
   }
 
   return aggregatedReport;

@@ -271,16 +271,16 @@ describe('EARL report', function () {
   describe('"context" field', function () {
     it('should exist', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(Object.keys(earl[0])).to.be.an('array').and.to.include('context');
+      expect(Object.keys(earl[0])).to.be.an('array').and.to.include('@context');
     });
     it('should not be empty', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(earl[0].context.trim()).to.be.not.equal('');
+      expect(earl[0]['@context'].trim()).to.be.not.equal('');
     });
     it('should be valid', async function () {
       this.timeout(10 * 1000);
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      const contextUrl = earl[0].context.trim();
+      const contextUrl = earl[0]['@context'].trim();
       const options = {
         method: 'GET',
         uri: contextUrl,
@@ -295,351 +295,351 @@ describe('EARL report', function () {
   describe('"graph" field', function() {
     it('should exists', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(Object.keys(earl[0])).to.be.an('array').and.to.include('graph');
+      expect(Object.keys(earl[0])).to.be.an('array').and.to.include('@graph');
     });
     it('should be of type array', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(earl[0].graph).to.be.an('array');
+      expect(earl[0]['@graph']).to.be.an('array');
     });
     it('should not be empty', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(earl[0].graph.length).to.be.not.equal(0);
+      expect(earl[0]['@graph'].length).to.be.not.equal(0);
     });
     it('should have only one test subject', async function() {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(earl[0].graph.length).to.be.equal(1);
+      expect(earl[0]['@graph'].length).to.be.equal(1);
     });
     describe('"Test subject" field', function() {
       describe('"@type" field', function() {
         it('should exist', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(Object.keys(earl[0].graph[0])).to.be.an('array').and.to.include('@type');
+          expect(Object.keys(earl[0]['@graph'][0])).to.be.an('array').and.to.include('@type');
         });
         it('should be of type string', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0]['@type']).to.be.a('string');
+          expect(earl[0]['@graph'][0]['@type']).to.be.a('string');
         });
         it('should not be empty', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0]['@type'].trim()).to.not.be.equal('');
+          expect(earl[0]['@graph'][0]['@type'].trim()).to.not.be.equal('');
         });
         it('should be "TestSubject"', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0]['@type'].trim()).to.be.equal('TestSubject');
+          expect(earl[0]['@graph'][0]['@type'].trim()).to.be.equal('TestSubject');
         });
       });
       describe('"source" field', function() {
         it('should exist', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(Object.keys(earl[0].graph[0])).to.be.an('array').and.to.include('source');
+          expect(Object.keys(earl[0]['@graph'][0])).to.be.an('array').and.to.include('source');
         });
         it('should be of type string', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0]['source']).to.be.a('string');
+          expect(earl[0]['@graph'][0]['source']).to.be.a('string');
         });
         it('should not be empty', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0]['source'].trim()).to.not.be.equal('');
+          expect(earl[0]['@graph'][0]['source'].trim()).to.not.be.equal('');
         });
       });
       describe('"assertor" field', function() {
         it('should exist', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(Object.keys(earl[0].graph[0])).to.be.an('array').and.to.include('assertor');
+          expect(Object.keys(earl[0]['@graph'][0])).to.be.an('array').and.to.include('assertor');
         })
         describe('"@id" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('@id');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('@id');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['@id']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['@id']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['@id'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['@id'].trim()).to.not.be.equal('');
           });
         });
         describe('"@type" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('@type');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('@type');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['@type']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['@type']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['@type'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['@type'].trim()).to.not.be.equal('');
           });
           it('should be "Software"', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['@type'].trim()).to.be.equal('Software');
+            expect(earl[0]['@graph'][0].assertor['@type'].trim()).to.be.equal('Software');
           });
         });
         describe('"title" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('title');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('title');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['title']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['title']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['title'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['title'].trim()).to.not.be.equal('');
           });
         });
         describe('"description" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('description');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('description');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['description']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['description']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['description'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['description'].trim()).to.not.be.equal('');
           });
         });
         describe('"hasVersion" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('hasVersion');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('hasVersion');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['hasVersion']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['hasVersion']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['hasVersion'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['hasVersion'].trim()).to.not.be.equal('');
           });
         });
         describe('"homepage" field', function() {
           it('should exist', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(Object.keys(earl[0].graph[0].assertor)).to.be.an('array').and.to.include('homepage');
+            expect(Object.keys(earl[0]['@graph'][0].assertor)).to.be.an('array').and.to.include('homepage');
           });
           it('should be of type string', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['homepage']).to.be.a('string');
+            expect(earl[0]['@graph'][0].assertor['homepage']).to.be.a('string');
           });
           it('should not be empty', async function() {
             const earl = await reporter.generateEARLReport([evaluationReport]);
-            expect(earl[0].graph[0].assertor['homepage'].trim()).to.not.be.equal('');
+            expect(earl[0]['@graph'][0].assertor['homepage'].trim()).to.not.be.equal('');
           });
         });
       });
       describe('"assertions" field', function() {
         it('should exist', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(Object.keys(earl[0].graph[0])).to.be.an('array').and.to.include('assertions');
+          expect(Object.keys(earl[0]['@graph'][0])).to.be.an('array').and.to.include('assertions');
         });
         it('should be of type array', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0].assertions).to.be.an('array');
+          expect(earl[0]['@graph'][0].assertions).to.be.an('array');
         });
         it('should not be empty', async function() {
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0].assertions.length).to.not.be.equal(0);
+          expect(earl[0]['@graph'][0].assertions.length).to.not.be.equal(0);
         });
         it('should have number of assertions equal to the same amount of tests done', async function() {
           const nAssertions = Object.keys(evaluationReport.modules['act-rules'].rules).length +
             (evaluationReport.modules['html-techniques'] ? Object.keys(evaluationReport.modules['html-techniques'].techniques).length : 0) +
             (evaluationReport.modules['css-techniques'] ? Object.keys(evaluationReport.modules['css-techniques'].techniques).length : 0);
           const earl = await reporter.generateEARLReport([evaluationReport]);
-          expect(earl[0].graph[0].assertions.length).to.be.equal(nAssertions);
+          expect(earl[0]['@graph'][0].assertions.length).to.be.equal(nAssertions);
         });
         describe('"assertion" field', function() {
           describe('"@type" field', function() {
             it('should exist', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(Object.keys(earl[0].graph[0].assertions[0])).to.include('@type');
+              expect(Object.keys(earl[0]['@graph'][0].assertions[0])).to.include('@type');
             });
             it('should be of type string', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['@type']).to.be.a('string');
+              expect(earl[0]['@graph'][0].assertions[0]['@type']).to.be.a('string');
             });
             it('should not be empty', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['@type'].trim()).to.not.be.equal('');
+              expect(earl[0]['@graph'][0].assertions[0]['@type'].trim()).to.not.be.equal('');
             });
             it('should be "Assertion"', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['@type'].trim()).to.be.equal('Assertion');
+              expect(earl[0]['@graph'][0].assertions[0]['@type'].trim()).to.be.equal('Assertion');
             });
           });
           describe('"test" field', function() {
             it('should exist', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(Object.keys(earl[0].graph[0].assertions[0])).to.include('test');
+              expect(Object.keys(earl[0]['@graph'][0].assertions[0])).to.include('test');
             });
             describe('"@id" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].test)).to.include('@id');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].test)).to.include('@id');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['@id']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].test['@id']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['@id'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].test['@id'].trim()).to.not.be.equal('');
               });
             });
             describe('"@type" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].test)).to.include('@type');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].test)).to.include('@type');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['@type']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].test['@type']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['@type'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].test['@type'].trim()).to.not.be.equal('');
               });
               it('should be "TestCase"', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['@type'].trim()).to.be.equal('TestCase');
+                expect(earl[0]['@graph'][0].assertions[0].test['@type'].trim()).to.be.equal('TestCase');
               });
             });
             describe('"title" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].test)).to.include('title');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].test)).to.include('title');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['title']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].test['title']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['title'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].test['title'].trim()).to.not.be.equal('');
               });
             });
             describe('"description" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].test)).to.include('description');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].test)).to.include('description');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['description']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].test['description']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].test['description'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].test['description'].trim()).to.not.be.equal('');
               });
             });
           });
           describe('"mode" field', function() {
             it('should exist', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(Object.keys(earl[0].graph[0].assertions[0])).to.include('mode');
+              expect(Object.keys(earl[0]['@graph'][0].assertions[0])).to.include('mode');
             });
             it('should be of type string', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['mode']).to.be.a('string');
+              expect(earl[0]['@graph'][0].assertions[0]['mode']).to.be.a('string');
             });
             it('should not be empty', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['mode'].trim()).to.not.be.equal('');
+              expect(earl[0]['@graph'][0].assertions[0]['mode'].trim()).to.not.be.equal('');
             });
             it('should be "earl:automatic"', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(earl[0].graph[0].assertions[0]['mode'].trim()).to.be.equal('earl:automatic');
+              expect(earl[0]['@graph'][0].assertions[0]['mode'].trim()).to.be.equal('earl:automatic');
             });
           });
           describe('"result" field', function() {
             it('should exist', async function() {
               const earl = await reporter.generateEARLReport([evaluationReport]);
-              expect(Object.keys(earl[0].graph[0].assertions[0])).to.include('result');
+              expect(Object.keys(earl[0]['@graph'][0].assertions[0])).to.include('result');
             });
             describe('"@type" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].result)).to.include('@type');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].result)).to.include('@type');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['@type']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].result['@type']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['@type'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].result['@type'].trim()).to.not.be.equal('');
               });
               it('should be "TestCase"', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['@type'].trim()).to.be.equal('TestResult');
+                expect(earl[0]['@graph'][0].assertions[0].result['@type'].trim()).to.be.equal('TestResult');
               });
             });
             describe('"outcome" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].result)).to.include('outcome');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].result)).to.include('outcome');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['outcome']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].result['outcome']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['outcome'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].result['outcome'].trim()).to.not.be.equal('');
               });
               it('should be "earl:passed" or "earl:failed" or "earl:inapplicable"', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(['earl:passed', 'earl:failed', 'earl:inapplicable']).to.include(earl[0].graph[0].assertions[0].result['outcome'].trim());
+                expect(['earl:passed', 'earl:failed', 'earl:inapplicable']).to.include(earl[0]['@graph'][0].assertions[0].result['outcome'].trim());
               });
             });
             describe('"source" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].result)).to.include('source');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].result)).to.include('source');
               });
               describe('"result" field', function() {
                 it('should exist', async function() {
                   const earl = await reporter.generateEARLReport([evaluationReport]);
-                  expect(Object.keys(earl[0].graph[0].assertions[0].result.source[0])).to.include('result');
+                  expect(Object.keys(earl[0]['@graph'][0].assertions[0].result.source[0])).to.include('result');
                 });
                 describe('"pointer" field', function() {
                   it('should exist', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(Object.keys(earl[0].graph[0].assertions[0].result.source[0].result)).to.include('pointer');
+                    expect(Object.keys(earl[0]['@graph'][0].assertions[0].result.source[0].result)).to.include('pointer');
                   });
                   it('should be of type string', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(earl[0].graph[0].assertions[0].result.source[0].result.pointer).to.be.a('string');
+                    expect(earl[0]['@graph'][0].assertions[0].result.source[0].result.pointer).to.be.a('string');
                   });
                   it('should not be empty', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(earl[0].graph[0].assertions[0].result.source[0].result.pointer.trim()).to.not.be.equal('');
+                    expect(earl[0]['@graph'][0].assertions[0].result.source[0].result.pointer.trim()).to.not.be.equal('');
                   });
                 });
                 describe('"outcome" field', function() {
                   it('should exist', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(Object.keys(earl[0].graph[0].assertions[0].result.source[0].result)).to.include('outcome');
+                    expect(Object.keys(earl[0]['@graph'][0].assertions[0].result.source[0].result)).to.include('outcome');
                   });
                   it('should be of type string', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(earl[0].graph[0].assertions[0].result.source[0].result.outcome).to.be.a('string');
+                    expect(earl[0]['@graph'][0].assertions[0].result.source[0].result.outcome).to.be.a('string');
                   });
                   it('should not be empty', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(earl[0].graph[0].assertions[0].result.source[0].result.outcome.trim()).to.not.be.equal('');
+                    expect(earl[0]['@graph'][0].assertions[0].result.source[0].result.outcome.trim()).to.not.be.equal('');
                   });
                   it('should be "earl:passed" or "earl:failed" or "earl:inapplicable"', async function() {
                     const earl = await reporter.generateEARLReport([evaluationReport]);
-                    expect(['earl:passed', 'earl:failed', 'earl:inapplicable']).to.include(earl[0].graph[0].assertions[0].result.source[0].result.outcome.trim());
+                    expect(['earl:passed', 'earl:failed', 'earl:inapplicable']).to.include(earl[0]['@graph'][0].assertions[0].result.source[0].result.outcome.trim());
                   });
                 });
               });
@@ -647,29 +647,29 @@ describe('EARL report', function () {
             describe('"description" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].result)).to.include('description');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].result)).to.include('description');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['description']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].result['description']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['description'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].result['description'].trim()).to.not.be.equal('');
               });
             });
             describe('"date" field', function() {
               it('should exist', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(Object.keys(earl[0].graph[0].assertions[0].result)).to.include('date');
+                expect(Object.keys(earl[0]['@graph'][0].assertions[0].result)).to.include('date');
               });
               it('should be of type string', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['date']).to.be.a('string');
+                expect(earl[0]['@graph'][0].assertions[0].result['date']).to.be.a('string');
               });
               it('should not be empty', async function() {
                 const earl = await reporter.generateEARLReport([evaluationReport]);
-                expect(earl[0].graph[0].assertions[0].result['date'].trim()).to.not.be.equal('');
+                expect(earl[0]['@graph'][0].assertions[0].result['date'].trim()).to.not.be.equal('');
               });
             });
           });

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.1] - 17/01/2020
+
+### Added
+ - redirectedTo parameter to the Assertion interface
+
+### Changed
+ - context to @context
+ - graph to @graph
+
 ## [0.2.0] - 15/01/2020
 
 ### Changed

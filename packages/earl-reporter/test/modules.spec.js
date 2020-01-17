@@ -269,18 +269,18 @@ const evaluationReport = {
 describe('Testing report modules', function() {
   it('Should report act module', async function() {
     const earl = await reporter.generateEARLReport([evaluationReport], { modules: { act: true }});
-    expect(earl[0].graph[0].assertions.length).to.not.be.equal(0);
+    expect(earl[0]['@graph'][0].assertions.length).to.not.be.equal(0);
   });
   it('Should report act module 2', async function() {
     const earl = await reporter.generateEARLReport([evaluationReport], {});
-    expect(earl[0].graph[0].assertions.length).to.not.be.equal(0);
+    expect(earl[0]['@graph'][0].assertions.length).to.not.be.equal(0);
   });
   it('Should report act module 3', async function() {
     const earl = await reporter.generateEARLReport([evaluationReport]);
-    expect(earl[0].graph[0].assertions.length).to.not.be.equal(0);
+    expect(earl[0]['@graph'][0].assertions.length).to.not.be.equal(0);
   });
   it('Should not report act module', async function() {
     const earl = await reporter.generateEARLReport([evaluationReport], { modules: { act: false }});
-    expect(earl[0].graph[0].assertions.length).to.be.equal(0);
+    expect(earl[0]['@graph'][0].assertions.length).to.be.equal(0);
   });
 });
