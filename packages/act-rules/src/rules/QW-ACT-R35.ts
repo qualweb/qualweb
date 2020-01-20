@@ -52,33 +52,36 @@ class QW_ACT_R35 extends Rule {
       return;
     }
 
-    let evaluation: ACTRuleResult = {
+    const role = await AccessibilityTreeUtils.getElementRole(element, page);
+
+    if (role !== 'heading') {
+      return;
+    }
+
+    const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-
-    let isInAT = await AccessibilityTreeUtils.isElementInAT(element, page);
-    let role = await AccessibilityTreeUtils.getElementRole(element, page);
-
-    if (role === 'heading') {
-      if (isInAT) {
-        let accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-        if (accessibleName !== null && accessibleName !== '') {
-          evaluation.verdict = 'passed';
-          evaluation.description = "This element has a non-empty accessible name.";
-          evaluation.resultCode = 'RC1';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = "This element has a undefined or empty accessible name.";
-          evaluation.resultCode = 'RC2';
-        }
+    
+    const isInAT = await AccessibilityTreeUtils.isElementInAT(element, page);
+    if (isInAT) {
+      const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      if (accessibleName !== null && accessibleName !== '') {
+        evaluation.verdict = 'passed';
+        evaluation.description = "This element has a non-empty accessible name.";
+        evaluation.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = "This element is not included in the accessibility tree.";
-        evaluation.resultCode = 'RC3';
+        evaluation.verdict = 'failed';
+        evaluation.description = "This element has a undefined or empty accessible name.";
+        evaluation.resultCode = 'RC2';
       }
+    } else {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = "This element is not included in the accessibility tree.";
+      evaluation.resultCode = 'RC3';
     }
+
     const [htmlCode, pointer] = await Promise.all([
       DomUtils.getElementHtmlCode(element),
       DomUtils.getElementSelector(element)
