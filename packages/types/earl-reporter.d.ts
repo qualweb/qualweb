@@ -64,8 +64,43 @@ declare module '@qualweb/earl-reporter' {
     assertions: Assertion[];
   }
 
+  interface EarlContext {
+    '@context': {
+      '@vocab': 'http://www.w3.org/ns/earl#';
+      'earl': 'http://www.w3.org/ns/earl#';
+      'WCAG20': 'http://www.w3.org/TR/WCAG20/#';
+      'WCAG21': 'http://www.w3.org/TR/WCAG21/#';
+      'dct': 'http://purl.org/dc/terms/';
+      'sch': 'https://schema.org/';
+      'doap': 'http://usefulinc.com/ns/doap#';
+      'foaf': 'http://xmlns.com/foaf/0.1/';
+      'WebPage': 'sch:WebPage';
+      'url': 'dct:source';
+      'source': 'dct:source';
+      'redirectedTo': 'dct:source';
+      'assertions': {
+        '@reverse': 'subject';
+      };
+      'assertedBy': {
+        '@type': '@id';
+      };
+      'outcome': {
+        '@type': '@id';
+      };
+      'mode': {
+        '@type': '@id';
+      };
+      'pointer': {
+        '@type': 'ptr:CSSSelectorPointer';
+      };
+      'title': {
+        '@type': 'dct:title';
+      };
+    };
+  }
+
   interface EarlReport {
-    '@context': string;
+    '@context': EarlContext;
     '@graph': TestSubject[];
   }
 
@@ -75,6 +110,7 @@ declare module '@qualweb/earl-reporter' {
   function generateEARLReport(reports: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
   export {
+    EarlContext,
     EarlOptions,
     Report,
     EarlReport,

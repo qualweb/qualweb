@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.3.0] - 17/01/2020
+## [0.3.2] - 20/01/2020
+
+### Changed
+ - earl-reporter module interfaces
+
+## [0.3.1] - 17/01/2020
 
 ### Fixed
  - some bugs
