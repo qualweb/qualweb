@@ -5,7 +5,7 @@ import Rule from './Rule.object';
 import {ACTRuleResult} from '@qualweb/act-rules';
 import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
 
-class QW_ACT_R34 extends Rule {
+class QW_ACT_R35 extends Rule {
 
   constructor() {
     super({
@@ -15,7 +15,7 @@ class QW_ACT_R34 extends Rule {
       description: 'This rule applies to any HTML element with the semantic role of heading that is included in the accessibility tree.',
       metadata: {
         target: {
-          element: '*',
+          element: ['h1-h6', '*[role="heading"]'],
         },
         'success-criteria': [
           {
@@ -64,7 +64,7 @@ class QW_ACT_R34 extends Rule {
     if (role === 'heading') {
       if (isInAT) {
         let accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-        if (accessibleName !== undefined && accessibleName !== '') {
+        if (accessibleName !== null && accessibleName !== '') {
           evaluation.verdict = 'passed';
           evaluation.description = "This element has a non-empty accessible name.";
           evaluation.resultCode = 'RC1';
@@ -90,4 +90,4 @@ class QW_ACT_R34 extends Rule {
   }
 }
 
-export = QW_ACT_R34;
+export = QW_ACT_R35;

@@ -10,7 +10,7 @@ const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];
 
 describe(`Rule ${rule}`, async function () {
-  
+
   it('Starting testbench', async function () {
     const browser = await puppeteer.launch();
     const data = JSON.parse(await getTestCases());
