@@ -18,6 +18,8 @@ import isElementHidden from '../domUtils/isElementHidden';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementChildren from '../domUtils/getElementChildren';
+import { areElementsInTheSameTree } from '../shadowDomUtils/shadowDomUtils';
+import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
   return await getAccessibleNameRecursion(element, page, false, false);
 }
@@ -29,11 +31,16 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   let type = await getElementType(element);
   let name = await getElementTagName(element);
   let allowNameFromContent = await allowsNameFromContent(element);
+  let treeSelector = await getTreeSelector(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
 
-  if (ariaLabelBy !== null && (await getElementById(page,ariaLabelBy)) === null) {
-    ariaLabelBy = "";
+  if (ariaLabelBy !== null) {
+    let ariaLabelByElement = await getElementById(page,ariaLabelBy);
+    if(ariaLabelByElement!== null){
+      ariaLabelBy = await areElementsInTheSameTree([ariaLabelByElement,element])? ariaLabelBy:"";
+    }
+   
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
   attrType = await getElementAttribute(element, "type");
@@ -62,29 +69,29 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
     value = await getElementAttribute(element, "value");
     AName = getFirstNotUndefined(value, getDefaultName(element), title);
   } else if (name && formElements.indexOf(name) >= 0 && !attrType) {
-    AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title);
+    AName = getFirstNotUndefined(getValueFromLabel(element, id, page,treeSelector), title);
   } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0 || !attrType)) {
     placeholder = await getElementAttribute(element, "placeholder");
     if (!recursion) {
-      AName = getFirstNotUndefined(await getValueFromLabel(element, id, page), title, placeholder);
+      AName = getFirstNotUndefined(await getValueFromLabel(element, id, page,treeSelector), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name === "textarea") {
     placeholder = await getElementAttribute(element, "placeholder");
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page,treeSelector), title, placeholder);
     } else {
       AName = getFirstNotUndefined(getTextFromCss(element, page), title, placeholder);
     }
   } else if (name === "figure") {
-    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "figcaption", page), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "figcaption", page,treeSelector), title);
   } else if (name === "table") {
-    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "caption", page), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "caption", page,treeSelector), title);
   } else if (name === "fieldset") {
-    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page), title);
+    AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page,treeSelector), title);
   } else if (isWidget && await isRoleControl(element)) {
-    AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page), title);
+    AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page,treeSelector), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
     AName = getFirstNotUndefined(await getTextFromCss(element, page), title);
   } else if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) {
@@ -114,8 +121,8 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-async function getValueFromSpecialLabel(element: ElementHandle, label: string, page: Page): Promise<string> {
-  let labelElement = await element.$(label);
+async function getValueFromSpecialLabel(element: ElementHandle, label: string, page: Page,treeSelector:string): Promise<string> {
+  let labelElement = await element.$(label+treeSelector);
   let accessNameFromLabel;
 
   if (labelElement)
@@ -124,9 +131,9 @@ async function getValueFromSpecialLabel(element: ElementHandle, label: string, p
   return accessNameFromLabel;
 }
 
-async function getValueFromLabel(element: ElementHandle, id: string, page: Page): Promise<string> {
+async function getValueFromLabel(element: ElementHandle, id: string, page: Page,treeSelector:string): Promise<string> {
   let referencedByLabelList: ElementHandle[] = [];
-  let referencedByLabel = await page.$(`label[for="${id}"]`);
+  let referencedByLabel = await page.$(`label[for="${id}"]`+treeSelector);
   if (referencedByLabel) {
     referencedByLabelList.push(referencedByLabel);
   }

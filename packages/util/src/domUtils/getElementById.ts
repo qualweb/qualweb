@@ -2,12 +2,16 @@
 
 
 import { Page, ElementHandle } from 'puppeteer';
+import getElementAttribute = require('./getElementAttribute');
+import getTreeSelector = require('../shadowDomUtils/getTreeSelector');
 
-async function getElementById(page: Page, id: string): Promise<ElementHandle | null> {
-  if (!id) {
+async function getElementById(page: Page, element:ElementHandle): Promise<ElementHandle | null> {
+  if (!element) {
     throw new Error('Invalid id');
   }
-  return page.$(`#${id}`);
+  let treeSelector = await getTreeSelector(element);
+  let id = await getElementAttribute(element,"id");
+  return page.$(`#${id}`+treeSelector);
 }
 
 export = getElementById;

@@ -7,6 +7,7 @@ async function getElementByAttributeName(page: Page, name: string): Promise<Elem
     throw new Error('Invalid attribute name');
   }
 
+  
   return page.$(`[name="${name}"]`);
 }
 

@@ -4,7 +4,7 @@ import getTrimmedText = require("./getTrimmedText");
 import { ElementHandle, Page } from "puppeteer";
 import { getElementName } from "../domUtils/domUtils";
 
-async function getValueFromEmbeddedControl(element: ElementHandle, page: Page): Promise<string> {//stew
+async function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string> {//stew
 
   let role = await getElementAttribute(element, "role");
   let name = await getElementName(element);
@@ -17,19 +17,19 @@ async function getValueFromEmbeddedControl(element: ElementHandle, page: Page): 
   if ((role === "textbox") && text) {
     value = text;
   } else if (role === "combobox") {
-    let refrencedByLabel = await element.$(`[aria-activedescendant]`);
+    let refrencedByLabel = await element.$(`[aria-activedescendant]`+treeSelector);
     let aria_descendendant, selectedElement;
     if (refrencedByLabel !== null) {
       aria_descendendant = await getElementAttribute(refrencedByLabel, "role");
       selectedElement = await element.$(`[id="${aria_descendendant}"]`);
     }
 
-    let aria_owns = await getElementAttribute(element, "aria-owns");
+    let aria_owns = await getElementAttribute(element, "aria-owns"+treeSelector);
     let elementasToSelect = await page.$(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
     if (elementasToSelect !== null)
-      elementWithAriaSelected = elementasToSelect.$(`aria-selected="true"`);
+      elementWithAriaSelected = elementasToSelect.$(`aria-selected="true"`+treeSelector);
 
 
     if (selectedElement.length > 0) {
@@ -39,20 +39,20 @@ async function getValueFromEmbeddedControl(element: ElementHandle, page: Page): 
     }
 
   } else if (role === "listbox" || name === 'select') {
-    let elementsWithId = await element.$$(`[id]`);
-    let elementWithAriaSelected = await element.$(`aria-selected="true"`);
+    let elementsWithId = await element.$$(`[id]`+treeSelector);
+    let elementWithAriaSelected = await element.$(`aria-selected="true"`+treeSelector);
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
       if (selectedElement !== null) {
         let id = await getElementAttribute(elementWithId, "id");
-        selectedElement = await element.$(`[aria-activedescendant="${id}"]`);
+        selectedElement = await element.$(`[aria-activedescendant="${id}"]`+treeSelector);
       }
     }
 
     if (name === 'select') {
-      optionSelected = await element.$(`[selected]`);
+      optionSelected = await element.$(`[selected]`+treeSelector);
     }
 
     if (selectedElement !== null)

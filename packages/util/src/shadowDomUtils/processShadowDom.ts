@@ -1,6 +1,8 @@
 'use strict';
 
-import { Page } from 'puppeteer';
+import { Page, ElementHandle } from 'puppeteer';
+import getElementChildren = require('../domUtils/getElementChildren');
+import setElementAttribute = require('../domUtils/setElementAttribute');
 
 async function processShadowDom(page: Page): Promise<Page> {
   let selectors = await page.evaluate((elem) => {
@@ -64,14 +66,26 @@ async function processShadowDom(page: Page): Promise<Page> {
 
     return listOfSelectors;
   });
-  let shadowRoot;
+  let shadowCounter = 0;
+  let shadowRoot,children;
   for (let selector of selectors) { 
     shadowRoot = await page.$(selector);
+    children = await getElementChildren(shadowRoot);
+    await setShadowAttribute(children,shadowCounter);
+
   }
 
 
 
   return page;
+}
+
+ async function setShadowAttribute(elements:ElementHandle[],counter:number){
+  for(let element of elements){
+   await setElementAttribute(element,"shadowTree",counter+"")
+  }
+
+
 }
 
 export = processShadowDom;

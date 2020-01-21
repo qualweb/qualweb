@@ -3,10 +3,12 @@
 import { ElementHandle } from 'puppeteer';
 
 import getElementSelector from './getElementSelector';
+import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 
 async function getElementChildren(element: ElementHandle): Promise<ElementHandle[]> {
   const selector = await getElementSelector(element);
-  return element.$$(selector + ' > *');
+  let treeSelector = await getTreeSelector(element);
+  return element.$$(selector + ' > *'+treeSelector);
 }
 
 export = getElementChildren;

@@ -1,4 +1,4 @@
-const { AccessibilityTreeUtils } = require('../dist/index');
+const { ShadowDomUtils } = require('../dist/index');
 const {
   getDom
 } = require('./getDom');
@@ -10,12 +10,11 @@ describe('DOM UTILITIES', function() {
     it('should work', async function() {
       this.timeout(10 * 1000);
       browser = await puppeteer.launch();
-      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.google.pt");
-      let element = await page.$('a');
-      expect(await AccessibilityTreeUtils.getElementRole(element)).to.be.equal('link');
-    });
-    it.only('isElementWidget', async function() {
-      AccessibilityTreeUtils.isElementWidget(null);
+      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://act-rules.github.io/testcases/b20e66/b07430cf93197d7758985a59f8051756cf635f24.html");
+      let shadowPage = await ShadowDomUtils.processShadowDom(page);
+      let content =  await shadowPage.content();
+      console.log(content)
+      expect("").to.be.equal('');
     });
   });
 });
