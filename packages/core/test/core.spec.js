@@ -55,7 +55,7 @@ describe.only('Testing new architecture', function() {
     ];
 
     //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    const reports = await core.evaluate({ url: urls[8], execute: { act: true }, maxParallelEvaluations: 1, 'act-rules': { rules: ['bc659a'] } });
+    const reports = await core.evaluate({ url: urls[7], execute: { act: true }, maxParallelEvaluations: 1, 'act-rules': { rules: ['QW-ACT-R35'] } });
     console.log(reports);
     const earlReports = await core.generateEarlReport();
     console.log(JSON.stringify(earlReports, null, 2));
