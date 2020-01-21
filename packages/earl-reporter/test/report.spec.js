@@ -268,31 +268,18 @@ const evaluationReport = {
 };
 
 describe('EARL report', function () {
-  describe('"context" field', function () {
+  describe('"@context" field', function () {
     it('should exist', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
       expect(Object.keys(earl[0])).to.be.an('array').and.to.include('@context');
     });
     it('should not be empty', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
-      expect(earl[0]['@context'].trim()).to.be.not.equal('');
-    });
-    it('should be valid', async function () {
-      this.timeout(10 * 1000);
-      const earl = await reporter.generateEARLReport([evaluationReport]);
-      const contextUrl = earl[0]['@context'].trim();
-      const options = {
-        method: 'GET',
-        uri: contextUrl,
-        resolveWithFullResponse: true
-      };
-      const response = await request(options);
-      expect(response.statusCode).to.be.equal(200);
-      expect(response.body.trim()).to.be.not.equal('');
+      expect(earl[0]['@context']).to.be.not.equal({});
     });
   });
 
-  describe('"graph" field', function() {
+  describe('"@graph" field', function() {
     it('should exists', async function () {
       const earl = await reporter.generateEARLReport([evaluationReport]);
       expect(Object.keys(earl[0])).to.be.an('array').and.to.include('@graph');
