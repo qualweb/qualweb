@@ -4,7 +4,8 @@ import cloneDeep from 'lodash.clonedeep';
 import { EvaluationReport } from '@qualweb/core';
 import {
   Report,
-  EarlReport, 
+  EarlReport,
+  EarlContext,
   TestSubject, 
   Assertor, 
   Assertion,
@@ -15,6 +16,41 @@ import ACTRulesReportToEARL from './lib/act-rules.reporter';
 import HTMLTechniquesReportToEARL from './lib/html-techniques.reporter';
 import CSSTechniquesReportToEARL from './lib/css-techniques.reporter';
 import BestPracticesReportToEARL from './lib/best-practices.reporter';
+
+const context: EarlContext = {
+  '@context': {
+    '@vocab': 'http://www.w3.org/ns/earl#',
+    'earl': 'http://www.w3.org/ns/earl#',
+    'WCAG20': 'http://www.w3.org/TR/WCAG20/#',
+    'WCAG21': 'http://www.w3.org/TR/WCAG21/#',
+    'dct': 'http://purl.org/dc/terms/',
+    'sch': 'https://schema.org/',
+    'doap': 'http://usefulinc.com/ns/doap#',
+    'foaf': 'http://xmlns.com/foaf/0.1/',
+    'WebPage': 'sch:WebPage',
+    'url': 'dct:source',
+    'source': 'dct:source',
+    'redirectedTo': 'dct:source',
+    'assertions': {
+      '@reverse': 'subject'
+    },
+    'assertedBy': {
+      '@type': '@id'
+    },
+    'outcome': {
+      '@type': '@id'
+    },
+    'mode': {
+      '@type': '@id'
+    },
+    'pointer': {
+      '@type': 'ptr:CSSSelectorPointer'
+    },
+    'title': {
+      '@type': 'dct:title'
+    }
+  }
+};
 
 async function generateEARLAssertions(report: Report, date?: string): Promise<Assertion[]> {
   switch(report.type) {
@@ -53,7 +89,7 @@ function reportModule(module: string, options?: EarlOptions): boolean {
 async function generateSingleEarlReport(report: EvaluationReport, options?: EarlOptions): Promise<EarlReport> {
 
   const earlReport: EarlReport = {
-    '@context': 'https://act-rules.github.io/earl-context.json',
+    '@context': context,
     '@graph': new Array<TestSubject>()
   };
 
@@ -109,7 +145,7 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
 
 async function generateAggregatedEarlReport(reports: EvaluationReport[], options?: EarlOptions): Promise<EarlReport> {
   const aggregatedReport: EarlReport = {
-    '@context': 'https://act-rules.github.io/earl-context.json',
+    '@context': context,
     '@graph': new Array<TestSubject>()
   };
 
