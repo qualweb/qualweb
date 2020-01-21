@@ -29,14 +29,14 @@ async function isElementInAT(element: ElementHandle, page: Page): Promise<boolea
     let ariaLabelledby = false;
     let ariaOwns = false;
     if (id !== null) {
-      ariaActivedescendant = await elementIDIsReferenced(page, id, "aria-activedescendant");
-      ariaControls = await elementIDIsReferenced(page, id, " aria-controls");
-      ariaDescribedby = await elementIDIsReferenced(page, id, " aria-describedby");
-      ariaDetails = await elementIDIsReferenced(page, id, " aria-details");
-      ariaErrormessage = await elementIDIsReferenced(page, id, "aria-errormessage");
-      ariaFlowto = await elementIDIsReferenced(page, id, "aria-flowto");
-      ariaLabelledby = await elementIDIsReferenced(page, id, "aria-labelledby");
-      ariaOwns = await elementIDIsReferenced(page, id, "aria-owns");
+      ariaActivedescendant = await elementIDIsReferenced(page,element, id, "aria-activedescendant");
+      ariaControls = await elementIDIsReferenced(page,element, id, " aria-controls");
+      ariaDescribedby = await elementIDIsReferenced(page,element, id, " aria-describedby");
+      ariaDetails = await elementIDIsReferenced(page,element, id, " aria-details");
+      ariaErrormessage = await elementIDIsReferenced(page,element, id, "aria-errormessage");
+      ariaFlowto = await elementIDIsReferenced(page,element, id, "aria-flowto");
+      ariaLabelledby = await elementIDIsReferenced(page,element, id, "aria-labelledby");
+      ariaOwns = await elementIDIsReferenced(page,element, id, "aria-owns");
 
     }
     let role = await elementHasValidRole(element, page);

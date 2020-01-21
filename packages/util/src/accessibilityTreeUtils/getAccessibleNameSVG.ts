@@ -30,7 +30,7 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
     tag = tag.toLocaleLowerCase();
   let regex = new RegExp('^fe[a-zA-Z]+');
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
-  if (ariaLabelBy!== null && await getElementById(page,ariaLabelBy) === null) {
+  if (ariaLabelBy!== null && await getElementById(page,element,ariaLabelBy) === null) {
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
@@ -47,7 +47,7 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   if (await isElementHidden(element) && !recursion ||await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = await getAccessibleNameFromAriaLabelledBy(page, ariaLabelBy);
+    AName = await getAccessibleNameFromAriaLabelledBy(page,element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
     AName = getAccessibleName(element, page);
   } else if (ariaLabel && trim(ariaLabel) !== "") {
@@ -76,14 +76,14 @@ async function hasParentOfName(element: ElementHandle, name: string[]) {
 }
 
 
-async function getAccessibleNameFromAriaLabelledBy(page: Page, ariaLabelId: string): Promise<string | undefined> {
+async function getAccessibleNameFromAriaLabelledBy(page: Page, element:ElementHandle,ariaLabelId: string): Promise<string | undefined> {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = await getElementById(page, id);
+    elem = await getElementById(page,element, id);
     if (elem)
       accessNameFromId = await getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {

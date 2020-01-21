@@ -28,7 +28,7 @@ async function getElementReferencedByHREF(page: Page, element: ElementHandle): P
     return null;
   }
   
-  let result = await getElementById(page, href);
+  let result = await getElementById(page,element,href);
   if (result) {
     return result;
   }

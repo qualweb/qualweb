@@ -36,7 +36,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
 
   if (ariaLabelBy !== null) {
-    let ariaLabelByElement = await getElementById(page,ariaLabelBy);
+    let ariaLabelByElement = await getElementById(page,element,ariaLabelBy);
     if(ariaLabelByElement!== null){
       ariaLabelBy = await areElementsInTheSameTree([ariaLabelByElement,element])? ariaLabelBy:"";
     }
@@ -168,7 +168,7 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = await getElementById(page, id);
+    elem = await getElementById(page,element, id);
     accessNameFromId = await getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       if (result) {
