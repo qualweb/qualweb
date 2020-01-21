@@ -33,13 +33,13 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
 
             } else if (heading.test(name)) {
               let ariaLevel = await getElementAttribute(element, "aria-level");
-              if (ariaLevel !== null && parseInt(ariaLevel) > 0) {
-                role = "heading";
+              if (ariaLevel === null || parseInt(ariaLevel) > 0) {
+                role = roleValue["role"];
               }
             } else if (name === "img") {
               let alt = await getElementAttribute(element, "alt");
               if (alt !== "") {
-                role = "img";
+                role = roleValue["role"];
               }
             } else if (name === "input") {
 
@@ -64,7 +64,7 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
                 role = roleValue["role"];
               }
 
-            } else if (name = "option") {
+            } else if (name === "option") {
               let parent = await getElementParent(element);
               let parentName;
               if (parent !== null)
@@ -73,7 +73,7 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
               if (parentName === "datalist") {
                 role = roleValue["role"];
               }
-            } else if (name = "select") {
+            } else if (name === "select") {
               let size = await getElementAttribute(element, "size");
               let multiple = await getElementAttribute(element, "multiple");
 
