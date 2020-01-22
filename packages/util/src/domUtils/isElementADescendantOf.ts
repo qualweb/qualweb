@@ -2,7 +2,7 @@
 
 import { ElementHandle, Page } from 'puppeteer';
 import getElementParent from './getElementParent';
-import getElementName from './getElementName';
+import getElementTagName from './getElementTagName';
 import getElementRole from '../accessibilityTreeUtils/getElementRole';
 
 async function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean> {
@@ -14,7 +14,7 @@ async function isElementADescendantOf(element: ElementHandle, page: Page, names:
   let sameRole, sameName;
 
   if (parent !== null) {
-    let parentName = await getElementName(parent);
+    let parentName = await getElementTagName(parent);
     let parentRole = await getElementRole(parent, page);
 
 

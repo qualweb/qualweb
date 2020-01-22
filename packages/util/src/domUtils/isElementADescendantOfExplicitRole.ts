@@ -2,7 +2,7 @@
 
 import { ElementHandle, Page } from 'puppeteer';
 import getElementParent = require('./getElementParent');
-import getElementName = require('./getElementName');
+import getElementTagName = require('./getElementTagName');
 import getElementAttribute = require('./getElementAttribute');
 
 async function isElementADescendantOfExplicitRole(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean> {
@@ -14,7 +14,7 @@ async function isElementADescendantOfExplicitRole(element: ElementHandle, page: 
   let sameRole, sameName;
 
   if (parent !== null) {
-    let parentName = await getElementName(parent);
+    let parentName = await getElementTagName(parent);
     let parentRole = await getElementAttribute(parent, "role");
 
 
