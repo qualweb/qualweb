@@ -14,7 +14,7 @@ declare module '@qualweb/act-rules' {
     level: string;
     principle: string;
     url: string;
-  };
+  }
 
   interface ACTRuleMetadata {
     target: any;
