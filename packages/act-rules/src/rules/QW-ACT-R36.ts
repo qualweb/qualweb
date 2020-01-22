@@ -53,50 +53,54 @@ class QW_ACT_R36 extends Rule {
       resultCode: ''
     };
 
-    const parentTableElem = DomUtils.isElementADescendantOf(element, page, ['table'], []);
+    const parentTableElem = await getFirstAncestorElementByNameOrRoles(element, page, ['table'], []);
     if (parentTableElem === null) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = "The rule applies only to headers attribute within a table element.";
       evaluation.resultCode = 'RC1';
     } else {
-      let isInAT = AccessibilityTreeUtils.isElementInAt(parentTableElem, page);
+      let isInAT = await AccessibilityTreeUtils.isElementInAT(parentTableElem, page);
       if (!isInAT) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "This table is not included in the accessibility tree";
         evaluation.resultCode = 'RC2';
-        evaluation.htmlCode = DomUtils.getElementHtmlCode(parentTableElem);
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
       } else {
-        let isVisible = DomUtils.isElemenVisible(parentTableElem);
+        let isVisible = await DomUtils.isElemenVisible(parentTableElem);
         if (!isVisible) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = "This table is not visible in page";
           evaluation.resultCode = 'RC3';
-          evaluation.htmlCode = DomUtils.getElementHtmlCode(parentTableElem);
+          evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
         } else {
           let headerAttributes: string[] = [];
-          let headers = _.split(DomUtils.getElementAttribute(element, 'headers'), ' ');
+          let headers = _.split(await DomUtils.getElementAttribute(element, 'headers'), ' ');
           for (const header of headers) {
             if (_.indexOf(headerAttributes, header) < 0) {
               headerAttributes.push(header);
             }
           }
 
-          for (const h of headerAttributes) {
-            const idElem = await parentTableElem.$('[id="' + h + '"');
+          let i = 0;
+          let idElem, idElemRole;
+          while(evaluation.verdict !== 'failed' && i < headerAttributes.length) {
+            idElem = await getElementByIdInElement(parentTableElem, headerAttributes[i]);
             if (idElem === null) {
               evaluation.verdict = 'failed';
-              evaluation.description = "The headers attribute '" + h + "' refers to an ID that does not exist within the same table";
+              evaluation.description = "The headers attribute '" + headerAttributes[i] + "' refers to an ID that does not exist within the same table";
               evaluation.resultCode = 'RC5';
             } else {
-              const idElemRole = AccessibilityTreeUtils.getElementRole(element);
+              idElemRole = await AccessibilityTreeUtils.getElementRole(idElem);
               if (idElemRole !== 'rowheader' && idElemRole !== 'columnheader') {
                 evaluation.verdict = 'failed';
-                evaluation.description = "The headers attribute '" + h + "' refers to an element inside the same table which does not have a role of rowheader or columnheader";
+                evaluation.description = "The headers attribute '" + headerAttributes[i] + "' refers to an element inside the same table which does not have a role of rowheader or columnheader";
                 evaluation.resultCode = 'RC6';
               }
             }
+            i++;
           }
-          if (evaluation.verdict === '') {
+
+          if (evaluation.verdict !== 'failed') {
             evaluation.verdict = 'passed';
             evaluation.description = "All headers attributes refer to a cell with a semantic role of columnheader of rowheader within the same table";
             evaluation.resultCode = 'RC7';
@@ -104,7 +108,53 @@ class QW_ACT_R36 extends Rule {
         }
       }
     }
+
+    const [htmlCode, pointer] = await Promise.all([
+      DomUtils.getElementHtmlCode(element),
+      DomUtils.getElementSelector(element)
+    ]);
+    evaluation.htmlCode = htmlCode;
+    evaluation.pointer = pointer;
+
+    super.addEvaluationResult(evaluation);
   }
+}
+
+async function getFirstAncestorElementByNameOrRoles(element: ElementHandle, page: Page, names: string[], roles: string[]): Promise<ElementHandle | null> {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+
+  let parent = await DomUtils.getElementParent(element);
+  let result = false;
+  let sameRole, sameName;
+
+  if (parent !== null) {
+    let parentName = await DomUtils.getElementTagName(parent);
+    let parentRole = await AccessibilityTreeUtils.getElementRole(parent, page);
+
+    if (parentName !== null) {
+      sameName = names.includes(parentName);
+    }
+    if (parentRole !== null) {
+      sameRole = roles.includes(parentRole);
+    }
+    result = sameName || sameRole;
+    if (!result) {
+      return await getFirstAncestorElementByNameOrRoles(parent, page, names, roles);
+    } else {
+      return parent;
+    }
+  } else {
+    return null;
+  }
+}
+
+async function getElementByIdInElement(element: ElementHandle, id: string): Promise<ElementHandle | null> {
+  if (!id) {
+    throw new Error('Invalid id');
+  }
+  return element.$(`#${id}`);
 }
 
 export = QW_ACT_R36;
