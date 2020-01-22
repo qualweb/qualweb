@@ -1,6 +1,6 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
@@ -32,7 +32,6 @@ class QW_ACT_R5 extends Rule {
         url: 'https://act-rules.github.io/rules/bf051a',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -43,47 +42,44 @@ class QW_ACT_R5 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (element === undefined) { // if the element doesn't exist, there's nothing to test
+    const rootElement = (await DomUtils.getPageRootElement(page)) || '';
+    const rootElementTagName = await DomUtils.getElementTagName(rootElement);
+    const isMathDocument = await DomUtils.isMathDocument(await page.url());
+
+    const isHtmlDocument = rootElementTagName.trim().toLowerCase() === 'html' && !isMathDocument;
+
+    if (!element || !isHtmlDocument) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `html element doesn't exist`;
+      evaluation.description = `The root element is not an \`html\` element.`;
       evaluation.resultCode = 'RC1';
-    } else if ((await DomUtils.getElementParent(element)) !== null) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'html element is not the root element of the page';
-      evaluation.resultCode = 'RC2';
     } else {
       const lang = await DomUtils.getElementAttribute(element, 'lang');
 
-      if (lang !== null && lang.trim() !== '') { // passed
+      if (lang && lang.trim()) { // passed
         if (this.checkValidity(lang)) {
           evaluation.verdict = 'passed';
-          evaluation.description = `The lang attribute has a valid value `;
-          evaluation.resultCode = 'RC3';
+          evaluation.description = `The \`lang\´ attribute has a valid value.`;
+          evaluation.resultCode = 'RC2';
         } else {
           evaluation.verdict = 'failed';
-          evaluation.description = 'The lang attribute is not valid';
-          evaluation.resultCode = 'RC4';
+          evaluation.description = 'The \`lang\` attribute does not have a valid value.';
+          evaluation.resultCode = 'RC3';
         }
       } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `The lang attribute is empty or doesn't exist`;
-        evaluation.resultCode = 'RC5';
+        evaluation.description = `The \`lang\` attribute is empty or doesn't exist.`;
+        evaluation.resultCode = 'RC4';
       }
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 
   private checkValidity(lang: string): boolean {

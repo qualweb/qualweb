@@ -2,6 +2,7 @@
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
+import { DomUtils } from '@qualweb/util';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
 
@@ -84,6 +85,8 @@ class ACTRules {
     'QW-ACT-R34': false,
     'QW-ACT-R35': false
   };
+
+  private optimization = DomUtils.Optimization.Performance;
 
   constructor(options?: ACTROptions) {
     this.rules = {
@@ -174,10 +177,18 @@ class ACTRules {
         }
       }
     }
+
+    if (options.optimize) {
+      if (options.optimize.toLowerCase() === 'performance') {
+        this.optimization = DomUtils.Optimization.Performance;
+      } else if (options.optimize.toLowerCase() === 'error-detection') {
+        this.optimization = DomUtils.Optimization.ErrorDetecttion;
+      }
+    }
   }
 
   public resetConfiguration(): void {
-    for (const rule in this.rulesToExecute) {
+    for (const rule in this.rulesToExecute || {}) {
       this.rulesToExecute[rule] = true;
     }
   }
@@ -208,9 +219,9 @@ class ACTRules {
     if (elements.length > 0) {
       for (const elem of elements || []) {
         if (concurrent) {
-          promises.push(this.rules[rule].execute(elem, page));
+          promises.push(this.rules[rule].execute(elem, page, this.optimization));
         } else {
-          await this.rules[rule].execute(elem, page);
+          await this.rules[rule].execute(elem, page, this.optimization);
         }
       }
     } else {

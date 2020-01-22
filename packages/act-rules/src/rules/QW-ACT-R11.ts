@@ -27,7 +27,6 @@ class QW_ACT_R11 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/97a4e1',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],

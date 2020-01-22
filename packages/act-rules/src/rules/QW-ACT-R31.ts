@@ -34,7 +34,6 @@ class QW_ACT_R31 extends Rule {
         passed: 0,
         warning: 0,
         failed: 0,
-        inapplicable: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:title'],
         outcome: '',

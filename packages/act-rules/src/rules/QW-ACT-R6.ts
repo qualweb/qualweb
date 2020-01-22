@@ -36,7 +36,6 @@ class QW_ACT_R6 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/59796f',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
@@ -63,25 +62,22 @@ class QW_ACT_R6 extends Rule {
     const isHidden = await DomUtils.isElementHidden(element);
     if (isHidden) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `This image button is not included in the accessibiliy tree`;
+      evaluation.description = `The \`image button\` is not included in the accessibiliy tree.`;
       evaluation.resultCode = 'RC1';
     } else {
-      const accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      if (!accessName || accessName.trim() === '') {
-        evaluation.verdict = 'failed';
-        evaluation.description = `It's not possible to define the accessible name of this element`;
+      const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      if (accessibleName && accessibleName.trim()) {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The \`image button\` has an accessible name.`;
         evaluation.resultCode = 'RC2';
       } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `This image button has an accessible name`;
+        evaluation.verdict = 'failed';
+        evaluation.description = `The \`image button\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC3';
       }
     }
 
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

@@ -30,7 +30,6 @@ class QW_ACT_R20 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/674b10',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],

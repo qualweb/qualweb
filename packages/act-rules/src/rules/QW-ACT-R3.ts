@@ -1,6 +1,6 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
 
@@ -31,7 +31,6 @@ class QW_ACT_R3 extends Rule {
         url: 'https://act-rules.github.io/rules/5b7ae0',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -42,68 +41,64 @@ class QW_ACT_R3 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (element === undefined) { // if the element doesn't exist, there's nothing to test
+    const rootElement = (await DomUtils.getPageRootElement(page)) || '';
+    const rootElementTagName = await DomUtils.getElementTagName(rootElement);
+    const isMathDocument = await DomUtils.isMathDocument(await page.url());
+
+    const isHtmlDocument = rootElementTagName.trim().toLowerCase() === 'html' && !isMathDocument;
+
+    if (!element || !isHtmlDocument) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `html element doesn't exist`;
+      evaluation.description = `The root element is not an \`html\` element.`;
       evaluation.resultCode = 'RC1';
-    } else if ((await DomUtils.getElementParent(element)) !== null) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'html element is not the root element of the page';
-      evaluation.resultCode = 'RC2';
     } else {
       const lang = await DomUtils.getElementAttribute(element, 'lang');
       const xmlLang = await DomUtils.getElementAttribute(element, 'xml:lang');
 
       if (lang === null || xmlLang === null) {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `lang or xml:lang attribute doesn't exist in html element`;
-        evaluation.resultCode = 'RC3';
-      } else if (lang.trim() === '' || xmlLang.trim() === '') {
+        evaluation.description = `The \`lang\` or \`xml:lang\` attribute doesn't exist in the \`html\` element.`;
+        evaluation.resultCode = 'RC2';
+      } else if (!lang.trim() || !xmlLang.trim()) {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = 'lang or xml:lang attribute is empty in html element';
-        evaluation.resultCode = 'RC4';
+        evaluation.description = `The \`lang\` or \`xml:lang\` attribute is empty ("") in the \`html\` element.`;
+        evaluation.resultCode = 'RC3';
       } else {
-        let primaryLang = lang.split('-')[0];
-        let primaryXmlLang = xmlLang.split('-')[0];
+        const primaryLang = lang.split('-')[0];
+        const primaryXmlLang = xmlLang.split('-')[0];
         const validLang = this.isSubTagValid(primaryLang.toLowerCase());
         const validXmlLang = this.isSubTagValid(primaryXmlLang.toLowerCase());
 
         if (!validLang || !validXmlLang) {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = 'lang or xml:lang element is not valid';
+          evaluation.description = `The \`lang\` or \`xml:lang\` attribute doesn't have a valid value.`;
           evaluation.resultCode = 'RC5';
         }
         // from now on, we know that both tags are valid
         else if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
           evaluation.verdict = 'passed';
-          evaluation.description = 'lang and xml:lang attributes have the same value';
+          evaluation.description = `The \`lang\` and \`xml:lang\` attributes have the same value.`;
           evaluation.resultCode = 'RC6';
         } else {
           // if lang and xml:lang are different
           evaluation.verdict = 'failed';
-          evaluation.description = 'lang and xml:lang attributes do not have the same value';
+          evaluation.description = `The \`lang\` and \`xml:lang\` attributes don't have the same value.`;
           evaluation.resultCode = 'RC7';
         }
       }
     }
-
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
- 
     
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 
-  private isSubTagValid(subTag: string) {
+  private isSubTagValid(subTag: string): boolean {
     return languages.hasOwnProperty(subTag);
   }
 }

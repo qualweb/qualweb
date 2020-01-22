@@ -43,7 +43,6 @@ class QW_ACT_R4 extends Rule {
         passed: 0,
         warning: 0,
         failed: 0,
-        inapplicable: 0,
         type: ['ACTRule', 'TestCase'],
         outcome: '',
         description: ''

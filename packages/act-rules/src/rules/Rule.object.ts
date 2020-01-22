@@ -1,5 +1,6 @@
 import { Page, ElementHandle } from 'puppeteer';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -37,16 +38,24 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected getNumberOfInapplicableResults(): number {
-    return this.rule.metadata.inapplicable;
-  }
+  protected async addEvaluationResult(result: ACTRuleResult, element?: ElementHandle): Promise<void> {
+    if (element) {
+      const [htmlCode, pointer] = await Promise.all([
+        DomUtils.getElementHtmlCode(element),
+        DomUtils.getElementSelector(element)
+      ]);
+      result.htmlCode = htmlCode;
+      result.pointer = pointer;
+    }
 
-  protected addEvaluationResult(result: ACTRuleResult): void {
     this.rule.results.push(clone(result));
-    this.rule.metadata[result.verdict]++;
+
+    if (result.verdict !== 'inapplicable') {
+      this.rule.metadata[result.verdict]++;
+    }
   }
 
-  abstract async execute(element: ElementHandle | undefined, page: Page): Promise<void>;
+  abstract async execute(element: ElementHandle | undefined, page: Page, optimization: any): Promise<void>;
 
   getFinalResults(): any {
     this.outcomeRule();
@@ -57,7 +66,6 @@ abstract class Rule {
     this.rule.metadata.passed = 0;
     this.rule.metadata.warning = 0;
     this.rule.metadata.failed = 0;
-    this.rule.metadata.inapplicable = 0;
     this.rule.results = new Array<ACTRuleResult>();
   }
 
@@ -72,13 +80,15 @@ abstract class Rule {
       this.rule.metadata.outcome = 'inapplicable';
     }
 
-    if (this.rule.results.length > 0) {
+    if (this.rule.results.length > 0 && this.rule.metadata.outcome !== 'inapplicable') {
       this.addDescription();
+    } else {
+      this.rule.metadata.description = 'No test targets found.'
     }
   }
 
   private addDescription(): void {
-    for (const result of this.rule.results || []) {    
+    for (const result of this.rule.results || []) {
       if (result.verdict === this.rule.metadata.outcome) {
         this.rule.metadata.description = result.description;
         break;

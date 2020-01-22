@@ -40,13 +40,12 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected getNumberOfInapplicableResults(): number {
-    return this.rule.metadata.inapplicable;
-  }
-
   protected addEvaluationResult(result: ACTRuleResult): void {
     this.rule.results.push(clone(result));
-    this.rule.metadata[result.verdict]++;
+    
+    if (result.verdict !== 'inapplicable') {
+      this.rule.metadata[result.verdict]++;
+    }
   }
 
   abstract async execute(element: DomElement | undefined, html: SourceHtml): Promise<void>;
@@ -60,7 +59,6 @@ abstract class Rule {
     this.rule.metadata.passed = 0;
     this.rule.metadata.warning = 0;
     this.rule.metadata.failed = 0;
-    this.rule.metadata.inapplicable = 0;
     this.rule.results = new Array<ACTRuleResult>();
   }
 
@@ -75,8 +73,10 @@ abstract class Rule {
       this.rule.metadata.outcome = 'inapplicable';
     }
 
-    if (this.rule.results.length > 0) {
+    if (this.rule.results.length > 0 && this.rule.metadata.outcome !== 'inapplicable') {
       this.addDescription();
+    } else {
+      this.rule.metadata.description = 'No test targets found.'
     }
   }
 

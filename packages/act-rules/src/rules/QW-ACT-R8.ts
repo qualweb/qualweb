@@ -28,7 +28,6 @@ class QW_ACT_R8 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/9eb3f6',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
@@ -40,73 +39,79 @@ class QW_ACT_R8 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+    
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    let imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
+    const imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
-    if (element === undefined ) { // if the element doesn't exist, there's nothing to test
+    const [isHidden, role] = await Promise.all([
+      DomUtils.isElementHidden(element),
+      DomUtils.getElementAttribute(element, 'role')
+    ]);
+
+    if (isHidden) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `There are no HTML elements with semantic role of image`;
+      evaluation.description = `The test target is not included in the accessibility tree.`;
       evaluation.resultCode = 'RC1';
+    } else if (role && role !== 'img') {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The test target doesn't have the semantic role of image`;
+      evaluation.resultCode = 'RC2';
     } else {
-      let accessName = await AccessibilityTreeUtils.getAccessibleName(element,page);
-      let isHidden = await DomUtils.isElementHidden(element);
-      let role = await DomUtils.getElementAttribute(element,"role");
-      if (isHidden) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This element is not included in the accessibility tree`;
-        evaluation.resultCode = 'RC2';
-      } else if (role !== null &&await DomUtils.getElementAttribute(element,"role") !== 'img') {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This element doesn't have the semantic role of image`;
-        evaluation.resultCode = 'RC3';
-      } else {
-        let src = await DomUtils.getElementAttribute(element,"src");
-        if(src){
-        let filepath = src.split('/');
-        let filenameWithExtension = filepath[filepath.length - 1];
-        let parent = await DomUtils.getElementParent(element);
+      const src = await DomUtils.getElementAttribute(element, 'src');
+      if(src) {
+        const filepath = src.split('/');
+        const filenameWithExtension = filepath[filepath.length - 1];
 
-        if (filenameWithExtension === accessName) {
+        const [parent, accessibleName] = await Promise.all([
+          DomUtils.getElementParent(element),
+          AccessibilityTreeUtils.getAccessibleName(element, page)
+        ]);
+
+        if (filenameWithExtension === accessibleName) {
           if (imageFile.test(filenameWithExtension)) {
-            if (parent && await DomUtils.getElementTagName(parent) && await DomUtils.getElementText(parent)){
+            const [tagName, elementText] = await Promise.all([
+              DomUtils.getElementTagName(parent),
+              DomUtils.getElementText(parent)
+            ]);
+
+            if (parent && tagName && elementText){
               evaluation.verdict = 'passed';
-              evaluation.description = `This element's accessible name includes the filename but, with the text content of the a element, the image is accurately described`;
-              evaluation.resultCode = 'RC4';DomUtils
+              evaluation.description = `The test target accessible name includes the filename but with the text content of the \`a\` element, the image is accurately described.`;
+              evaluation.resultCode = 'RC3';DomUtils
             } else {
               evaluation.verdict = 'failed';
-              evaluation.description = `The presence of the file extension in the accessible name doesn't accurately describe the image`;
-              evaluation.resultCode = 'RC5';
+              evaluation.description = `The presence of the file extension in the accessible name doesn't accurately describe the image.`;
+              evaluation.resultCode = 'RC4';
             }
           } else {
             evaluation.verdict = 'passed';
-            evaluation.description = `This element's accessible name uses the filename which accurately describes the image`;
-            evaluation.resultCode = 'RC6';
+            evaluation.description = `This element's accessible name uses the filename which accurately describes the image.`;
+            evaluation.resultCode = 'RC5';
           }
         } else {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `This element's accessible name is not equivalent to the file name specified in the src attribute.`;
-          evaluation.resultCode = 'RC7';
+          evaluation.description = `The test target accessible name is not equivalent to the file name specified in the \`src\` attribute.`;
+          evaluation.resultCode = 'RC6';
         }
-      }else {
+      } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `This element's accessible name is not equivalent to the file name specified in the src attribute.`;
-        evaluation.resultCode = 'RC8';
+        evaluation.description = `The test target accessible name is not equivalent to the file name specified in the \`src\` attribute.`;
+        evaluation.resultCode = 'RC7';
       }
     }
-
-      if (element !== undefined) {
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-        evaluation.pointer = await DomUtils.getElementSelector(element);
-      }
-
-    super.addEvaluationResult(evaluation);
+    
+    await super.addEvaluationResult(evaluation, element);
   }
-}}
+}
 
 export = QW_ACT_R8;

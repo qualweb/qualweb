@@ -25,7 +25,6 @@ const rule: ACTRule = {
     related: [],
     url: 'https://act-rules.github.io/rules/b20e66',
     passed: 0,
-    inapplicable: 0,
     failed: 0,
     warning: 0,
     type: ['ACTRule', 'TestCase'],

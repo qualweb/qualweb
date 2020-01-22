@@ -30,7 +30,6 @@ class QW_ACT_R29 extends Rule {
         url: 'https://act-rules.github.io/rules/e7aa44',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
