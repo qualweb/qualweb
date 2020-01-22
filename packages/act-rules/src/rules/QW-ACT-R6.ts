@@ -49,43 +49,38 @@ class QW_ACT_R6 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
+
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    let isHidden;
-    let accessName;
-
-    if (element === undefined) { // if the element doesn't exist
+    const isHidden = await DomUtils.isElementHidden(element);
+    if (isHidden) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `There isn't an image button to test`;
+      evaluation.description = `This image button is not included in the accessibiliy tree`;
       evaluation.resultCode = 'RC1';
     } else {
-      isHidden = await DomUtils.isElementHidden(element);
-      accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      if (isHidden) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This image button is not included in the accessibiliy tree`;
+      const accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      if (!accessName || accessName.trim() === '') {
+        evaluation.verdict = 'failed';
+        evaluation.description = `It's not possible to define the accessible name of this element`;
         evaluation.resultCode = 'RC2';
       } else {
-        if (accessName === undefined || accessName.trim() === '') {
-          evaluation.verdict = 'failed';
-          evaluation.description = `It's not possible to define the accessible name of this element`;
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `This image button has an accessible name`;
-          evaluation.resultCode = 'RC4';
-        }
+        evaluation.verdict = 'passed';
+        evaluation.description = `This image button has an accessible name`;
+        evaluation.resultCode = 'RC3';
       }
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
+
     super.addEvaluationResult(evaluation);
   }
 }
