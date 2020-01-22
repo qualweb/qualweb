@@ -9,27 +9,21 @@ declare module '@qualweb/act-rules' {
     optimize?: 'performance' | 'error-detection';
   }
 
+  interface SuccessCriteria {
+    name: string;
+    level: string;
+    principle: string;
+    url: string;
+  };
+
   interface ACTRuleMetadata {
-    target: {
-      'parent-sibling'?: string;
-      parent?: string | string[];
-      element?: string | string[];
-      children?: string | string[];
-      attributes?: string | string[];
-      css?: string | string[];
-    };
-    'success-criteria': {
-      name: string;
-      level: string;
-      principle: string;
-      url: string;
-    }[];
+    target: any;
+    'success-criteria': SuccessCriteria[];
     related: string[];
     url: string;
     passed: number;
     warning: number;
     failed: number;
-    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
     outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
@@ -87,6 +81,7 @@ declare module '@qualweb/act-rules' {
 
   export {
     ACTROptions,
+    SuccessCriteria,
     ACTRuleMetadata,
     ACTRuleResult,
     ACTRule,
