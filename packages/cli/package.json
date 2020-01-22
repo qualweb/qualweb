@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
@@ -27,11 +27,11 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "^0.3.10",
+    "@qualweb/core": "^0.3.11",
     "lodash.clone": "^4.5.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.3.2",
+    "@qualweb/types": "^0.3.3",
     "@types/lodash.clone": "^4.5.6",
     "@types/node": "^12.12.25",
     "chai": "^4.2.0",
