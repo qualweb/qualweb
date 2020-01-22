@@ -6,6 +6,7 @@ declare module '@qualweb/act-rules' {
     rules?: string[];
     levels?: string[];
     principles?: string[];
+    optimize?: 'performance' | 'error-detection';
   }
 
   interface ACTRuleMetadata {
