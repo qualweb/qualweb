@@ -18,7 +18,6 @@ import isElementHidden from '../domUtils/isElementHidden';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementChildren from '../domUtils/getElementChildren';
-import { areElementsInTheSameTree } from '../shadowDomUtils/shadowDomUtils';
 import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
   return await getAccessibleNameRecursion(element, page, false, false);
