@@ -10,9 +10,7 @@ async function isElemenVisible(element: ElementHandle): Promise<boolean> {
   }
   const offScreen =  await isOffScreen(element);
   const cssHidden = await isElementHiddenByCSS(element);
- 
-
-
+  
   return !(offScreen || cssHidden);
 }
 
