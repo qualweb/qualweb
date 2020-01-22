@@ -65,6 +65,7 @@ class QW_ACT_R36 extends Rule {
         evaluation.description = "This table is not included in the accessibility tree";
         evaluation.resultCode = 'RC2';
         evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
+        evaluation.pointer = await DomUtils.getElementSelector(parentTableElem);
       } else {
         let isVisible = await DomUtils.isElemenVisible(parentTableElem);
         if (!isVisible) {
@@ -72,6 +73,7 @@ class QW_ACT_R36 extends Rule {
           evaluation.description = "This table is not visible in page";
           evaluation.resultCode = 'RC3';
           evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
+          evaluation.pointer = await DomUtils.getElementSelector(parentTableElem);
         } else {
           let headerAttributes: string[] = [];
           let headers = _.split(await DomUtils.getElementAttribute(element, 'headers'), ' ');
@@ -109,13 +111,14 @@ class QW_ACT_R36 extends Rule {
       }
     }
 
-    const [htmlCode, pointer] = await Promise.all([
-      DomUtils.getElementHtmlCode(element),
-      DomUtils.getElementSelector(element)
-    ]);
-    evaluation.htmlCode = htmlCode;
-    evaluation.pointer = pointer;
-
+    if(!evaluation.htmlCode) {
+      const [htmlCode, pointer] = await Promise.all([
+        DomUtils.getElementHtmlCode(element),
+        DomUtils.getElementSelector(element)
+      ]);
+      evaluation.htmlCode = htmlCode;
+      evaluation.pointer = pointer;
+    }
     super.addEvaluationResult(evaluation);
   }
 }
