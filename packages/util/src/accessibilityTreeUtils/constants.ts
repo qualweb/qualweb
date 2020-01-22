@@ -14,4 +14,5 @@ let noAccessibleObjectOrChild = ["clipPath", "cursor", "defs", "desc", "metadata
 let noAccessibleObject = ["animate", "animateMotion", "animateTransform", "discard", "filter", "hatch", "hatchPath", "linearGradient", "marker", "mask", "meshPatch", "meshRow", "mpath", "radialGradient", "script", "set", "solidColor", "stop", "style", "switch", "view", "title"];
 let elementsLikeHtml = ["canvas", "iframe", "source", "track", "video"];
 let childPresentationalRole = ["button","checkbox","img","math","menuitemcheckbox","menuitemradio","option","progressbar","radio","scrollbar","separator","slider","switch","tab"];
-export{childPresentationalRole,elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}
+let textContainer = ["a", "defs", "g", "marker", "mask", "missing-glyph", "pattern", "svg","switch","symbol"]
+export{textContainer,childPresentationalRole,elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}

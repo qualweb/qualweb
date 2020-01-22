@@ -7,12 +7,13 @@ import getElementParent from '../domUtils/getElementParent';
 import getTrimmedText from './getTrimmedText';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import {
-  noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml
+  noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer
 } from './constants';
 import getElementName from '../domUtils/getElementName';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getAccessibleName = require("./getAccessibleName");
 import getElementChildTextContent = require("../domUtils/getElementChildTextContent");
+import getElementChildren from '../domUtils/getElementChildren';
 
 async function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise<string | undefined> {
   //return getAccessibleNameSVGRecursion(element, processedHTML, false);
@@ -35,13 +36,10 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
   id = await getElementAttribute(element, "id");
-
-
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(id, page);
   let title = await getElementChildTextContent(element, "title");
   let titleAtt = await getElementAttribute(element, "xlink:title");//tem de ser a
   let href = await getElementAttribute(element, "href");
-  ;
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
   if (await isElementHidden(element) && !recursion ||await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
@@ -56,10 +54,11 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
     AName = title;
   } else if (titleAtt && trim(titleAtt) !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
+  } else if (textContainer.indexOf(tag)>=0) {
+    AName = await getAccessibleNameFromChildren(element, page);
   } else if (tag && tag === "text") {
     AName = await getTrimmedText(element);
   }
-
   return AName;
 }
 
@@ -95,6 +94,28 @@ async function getAccessibleNameFromAriaLabelledBy(page: Page, element:ElementHa
     }
   }
 
+  return result;
+}
+
+
+
+async function getAccessibleNameFromChildren(element: ElementHandle, page: Page): Promise<string> {
+
+  let result, aName;
+  let children = await getElementChildren(element);
+
+  if (children) {
+    for (let child of children) {
+      aName = await getAccessibleNameSVGRecursion(child, page, true);
+      if (aName) {
+        if (result) {
+          result += aName;
+        } else {
+          result = aName;
+        }
+      }
+    }
+  }
   return result;
 }
 
