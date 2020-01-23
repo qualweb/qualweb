@@ -75,7 +75,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.27",
+    "@qualweb/util": "^0.2.28",
     "follow-redirects": "^1.9.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",

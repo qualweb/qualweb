@@ -3,7 +3,7 @@
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
+import { DomUtils,ShadowDomUtils } from '@qualweb/util';
 
 class QW_ACT_R18 extends Rule {
 
@@ -53,10 +53,11 @@ class QW_ACT_R18 extends Rule {
       evaluation.description = 'No elements with id';
       evaluation.resultCode = 'RC1';
     } else {
+      let treeSelector = await ShadowDomUtils.getTreeSelector(element);
       const id = await DomUtils.getElementAttribute(element, 'id');
       if (id && id.trim()) {
         try {
-          const elementsWithSameId = await page.$$(`[id="${id.trim()}"]`);
+          const elementsWithSameId = await page.$$(`[id="${id.trim()}"]`+treeSelector);
           const genId = RegExp('qw-generated-id-');
     
           if (elementsWithSameId.length > 1) {

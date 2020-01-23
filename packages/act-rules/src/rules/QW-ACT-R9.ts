@@ -1,8 +1,8 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 
@@ -57,38 +57,50 @@ class QW_ACT_R9 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       let links = await element.$$('a[href], [role="link"]');
+      let iframes = await element.$$("iframe");
+      if (iframes !== null) {
+
+        for (let iframe of iframes) {
+          let frame = await iframe.contentFrame();
+          if (frame !== null)
+            links.push(...(await frame.$$('a[href], [role="link"]')));
+        }
+
+      }
+
       let accessibleNames: string[] = [];
-      let parent, aName;
+      let aName;
 
       for (let link of links) {
-        parent = await DomUtils.getElementParent(element);
-        if (parent !== null && await DomUtils.getElementName(parent) !== 'SVG') {
-          aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
-          if (aName) {
-            accessibleNames.push(aName);
-          }
-
+        aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
+        console.log(aName);
+        if (!!aName) {
+          accessibleNames.push(aName);
         }
+
       }
+      console.log(accessibleNames);
+
 
       let counter = 0;
       let hasEqualAn: number[];
       let blacklist: number[] = [];
-      let selector:string[] = [];
+      let selector: string[] = [];
       for (let accessibleName of accessibleNames) {
         hasEqualAn = [];
         if (blacklist.indexOf(counter) >= 0) {
           //element already evaluated
-        } else if (accessibleName && accessibleName !== "") {
+        } else if (!!accessibleName && accessibleName !== "") {
           hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
+          console.log(hasEqualAn);
           if (hasEqualAn.length > 0) {
             blacklist.push(...hasEqualAn);
             hasEqualAn.push(counter);
 
             for (let index of hasEqualAn) {
-              selector.push( await DomUtils.getElementSelector(links[index]));
-              }
-            let hashArray = await this.getContentHash(selector,page);
+              selector.push(await DomUtils.getElementSelector(links[index]));
+            }
+            let hashArray = await this.getContentHash(selector, page);
             let firstHash = hashArray.pop();
 
             let result = true;
@@ -110,12 +122,14 @@ class QW_ACT_R9 extends Rule {
             }
 
           } else {//inaplicable
+            console.log("inapplicable" + !!accessibleName);
             evaluation.verdict = 'inapplicable';
             evaluation.description = `There is no link with same the same accessible name`;
             evaluation.resultCode = 'RC4';
           }
           evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
           evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
+          console.log(evaluation.resultCode)
           super.addEvaluationResult(evaluation);
           evaluation = {
             verdict: '',
@@ -129,6 +143,7 @@ class QW_ACT_R9 extends Rule {
 
           evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
           evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
+          console.log(evaluation.resultCode)
           super.addEvaluationResult(evaluation);
           evaluation = {
             verdict: '',
@@ -156,15 +171,15 @@ class QW_ACT_R9 extends Rule {
     let hash, htmlContent;
     try {
       for (let selector of selectors) {
-        await newPage.goto(await page.url(), {'waitUntil': 'networkidle2'});
+        await newPage.goto(await page.url(), { 'waitUntil': 'networkidle2' });
         await Promise.all([
-          newPage.waitForNavigation({'waitUntil': 'networkidle0'}),
+          newPage.waitForNavigation({ 'waitUntil': 'networkidle0' }),
           newPage.click(selector)
         ]);
         htmlContent = await newPage.evaluate(() => {
           return document.documentElement.innerHTML;
         });
-        if(htmlContent){
+        if (htmlContent) {
           hash = createHash('md5').update(htmlContent).digest('hex');
         }
         content.push(hash);

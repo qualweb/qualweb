@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityTreeUtils,ShadowDomUtils } from '@qualweb/util';
 import ariaJSON from './ariaAttributesRoles.json';
 import rolesJSON from './roles.json';
 
@@ -77,6 +77,7 @@ class QW_ACT_R34 extends Rule {
       };
     } else {
       for (const elem of elementsWithAriaAttribs || []) {
+        let treeSelector = await ShadowDomUtils.getTreeSelector(element);
         let isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
         let elemAttribs = await DomUtils.getElementAttributesName(elem);
         let role = await AccessibilityTreeUtils.getElementRole(elem, page);
@@ -119,7 +120,7 @@ class QW_ACT_R34 extends Rule {
               } else if (typeValue === "id") {
                 let isRequired = requiredAriaList.includes(attrib);
                 if (isRequired)
-                  result = await page.$("#" + attrValue) !== null;
+                  result = await page.$("#" + attrValue+treeSelector) !== null;
                 else
                 result = !attrValue.includes(" ");
 
@@ -129,7 +130,7 @@ class QW_ACT_R34 extends Rule {
                 if(isRequired){
                 for (let id of list || []) {
                   if (!result )
-                    result = await page.$("#" + id) !== null;
+                    result = await page.$("#" + id+treeSelector) !== null;
                 }}
                 else{
                   result = true;

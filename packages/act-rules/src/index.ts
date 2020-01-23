@@ -57,7 +57,7 @@ class ACTRules {
     'QW-ACT-R6': true,
     'QW-ACT-R7': true,
     'QW-ACT-R8': true,
-    'QW-ACT-R9': false,
+    'QW-ACT-R9': true,
     'QW-ACT-R10': false,
     'QW-ACT-R11': true,
     'QW-ACT-R12': true,
