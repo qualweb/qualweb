@@ -4,7 +4,7 @@ import { ElementHandle } from 'puppeteer';
 import isElementHiddenByCSS from './isElementHiddenByCSS';
 import isOffScreen from './isOffScreen';
 
-async function isElemenVisible(element: ElementHandle): Promise<boolean> {
+async function isElementVisible(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -14,4 +14,4 @@ async function isElemenVisible(element: ElementHandle): Promise<boolean> {
   return !(offScreen || cssHidden);
 }
 
-export = isElemenVisible;
+export = isElementVisible;

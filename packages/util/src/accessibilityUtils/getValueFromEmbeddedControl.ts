@@ -1,15 +1,15 @@
 'use strict';
 import getElementAttribute = require("../domUtils/getElementAttribute");
+import getElementTagName = require("../domUtils/getElementTagName");
 import getTrimmedText = require("./getTrimmedText");
 import { ElementHandle, Page } from "puppeteer";
-import { getElementName } from "../domUtils/domUtils";
 
 async function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string> {//stew
 
   let role = await getElementAttribute(element, "role");
-  let name = await getElementName(element);
-  if (name)
-    name = name.toLocaleLowerCase();
+  let name = await getElementTagName(element);
+  if (!name)
+    name = '';
   let value = "";
   let text = await getTrimmedText(element);
 

@@ -18,7 +18,7 @@ import elementHasValidRoleFunction from "./elementHasValidRole"
 
 
 
-namespace AccessibilityTreeUtils {
+namespace AccessibilityUtils {
   export const allowsNameFromContent = allowsNameFromContentFunction;
   export const elementHasRoleNoneOrPresentation = elementHasRoleNoneOrPresentationFunction;
   export const getAccessibleName = getAccessibleNameFunction;
@@ -35,4 +35,4 @@ namespace AccessibilityTreeUtils {
   export const elementHasValidRole = elementHasValidRoleFunction;
 }
 
-export = AccessibilityTreeUtils;
+export = AccessibilityUtils;
