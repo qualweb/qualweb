@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from './roles.json';
 
 class QW_ACT_R28 extends Rule {
@@ -65,8 +65,8 @@ class QW_ACT_R28 extends Rule {
       for (const elem of allElements || []) {
         let elemRole = await DomUtils.getElementAttribute(elem, 'role');
         let elemAttribs = await DomUtils.getElementAttributesName(elem);
-        let implicitRole = await AccessibilityTreeUtils.getImplicitRole(elem, page);
-        let isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
+        let implicitRole = await AccessibilityUtils.getImplicitRole(elem, page);
+        let isInAT = await AccessibilityUtils.isElementInAT(elem, page);
 
         if (!isInAT) {
           evaluation.verdict = 'inapplicable';

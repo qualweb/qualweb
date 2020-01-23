@@ -3,7 +3,7 @@
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityTreeUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 class QW_ACT_R19 extends Rule {
 
@@ -61,7 +61,7 @@ class QW_ACT_R19 extends Rule {
       evaluation.description = `The test target is not included in the accessibility tree.`;
       evaluation.resultCode = 'RC1';
     } else {
-      const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
       if(accessibleName && accessibleName.trim()) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target has an accessible name.`;

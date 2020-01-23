@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 
 import ariaJSON from './ariaAttributesRoles.json';
 import rolesJSON from './roles.json';
@@ -66,8 +66,8 @@ class QW_ACT_R25 extends Rule {
     const elementsWithAriaAttribs = await element.$$(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const elemRole = await AccessibilityTreeUtils.getElementRole(elem,page);
-      const isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
+      const elemRole = await AccessibilityUtils.getElementRole(elem,page);
+      const isInAT = await AccessibilityUtils.isElementInAT(elem, page);
       const elemAttribs = await DomUtils.getElementAttributesName(elem);
     
       for (const attrib of elemAttribs || []) {

@@ -3,7 +3,7 @@
 import { ElementHandle } from "puppeteer";
 import Rule from "./Rule.object";
 import { ACTRuleResult } from "@qualweb/act-rules";
-import { DomUtils, AccessibilityTreeUtils } from "@qualweb/util";
+import { DomUtils, AccessibilityUtils } from "@qualweb/util";
 
 class QW_ACT_R24 extends Rule {
   autoCompleteTable = {
@@ -241,7 +241,7 @@ class QW_ACT_R24 extends Rule {
     evaluation.pointer = pointer;
 
     //check if is visible and not in accessibility tree
-    let visible = await DomUtils.isElemenVisible(element);
+    let visible = await DomUtils.isElementVisible(element);
     if (!visible) {
       evaluation.verdict = "inapplicable";
       evaluation.description = `The element is not visible, and not included in the accessibility tree`;
@@ -292,7 +292,7 @@ class QW_ACT_R24 extends Rule {
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      let widgetRole = await AccessibilityTreeUtils.isElementWidget(element);
+      let widgetRole = await AccessibilityUtils.isElementWidget(element);
       if (!widgetRole) {
         evaluation.verdict = "inapplicable";
         evaluation.description = `The element is not part of sequential focus navigation and has a semantic role that is not a widget role.`;

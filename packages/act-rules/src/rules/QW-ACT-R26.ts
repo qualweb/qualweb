@@ -53,7 +53,7 @@ class QW_ACT_R26 extends Rule {
 
     const [track, isVisible, metadata] = await Promise.all([
       element.$('track[kind="captions"]'),
-      DomUtils.isElemenVisible(element),
+      DomUtils.isElementVisible(element),
       DomUtils.getVideoMetadata(element)
     ]);
 

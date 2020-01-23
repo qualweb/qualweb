@@ -3,7 +3,7 @@
 import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 
 
@@ -61,8 +61,8 @@ class QW_ACT_R9 extends Rule {
 
       for (let link of links) {
         parent = await DomUtils.getElementParent(element);
-        if (parent !== null && await DomUtils.getElementName(parent) !== 'SVG') {
-          aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
+        if (parent !== null && await DomUtils.getElementTagName(parent) !== 'SVG') {
+          aName = await AccessibilityUtils.getAccessibleName(link, page);
           if (aName) {
             accessibleNames.push(aName);
           }

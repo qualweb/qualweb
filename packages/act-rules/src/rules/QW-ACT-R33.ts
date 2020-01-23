@@ -7,7 +7,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import rolesJSON from './roles.json';
 
 import {
-  AccessibilityTreeUtils,
+  AccessibilityUtils,
   DomUtils
 } from '@qualweb/util';
 
@@ -58,9 +58,9 @@ class QW_ACT_R33 extends Rule {
 
     const [explictiRole, implicitRole, isInAT, isValidRole] = await Promise.all([
       DomUtils.getElementAttribute(element, "role"),
-      AccessibilityTreeUtils.getImplicitRole(element, page),
-      AccessibilityTreeUtils.isElementInAT(element, page),
-      AccessibilityTreeUtils.elementHasValidRole(element, page)
+      AccessibilityUtils.getImplicitRole(element, page),
+      AccessibilityUtils.isElementInAT(element, page),
+      AccessibilityUtils.elementHasValidRole(element, page)
     ]);
 
     if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]["requiredContextRole"] !== "") {
@@ -69,7 +69,7 @@ class QW_ACT_R33 extends Rule {
       const ariaOwns = await page.$('[aria-owns' + `="${id}"]`);
 
       if (ariaOwns !== null) {
-        const ariaOwnsRole = await AccessibilityTreeUtils.getElementRole(ariaOwns, page);
+        const ariaOwnsRole = await AccessibilityUtils.getElementRole(ariaOwns, page);
         if (requiredContextRole.includes(ariaOwnsRole)) {
           evaluation.verdict = 'passed';
           evaluation.description = `Parent has required context role.`;
@@ -112,7 +112,7 @@ class QW_ACT_R33 extends Rule {
     let sameRole;
 
     if (parent !== null) {
-      const parentRole = await AccessibilityTreeUtils.getElementRole(parent, page);
+      const parentRole = await AccessibilityUtils.getElementRole(parent, page);
       if (parentRole !== null) {
         sameRole = roles.includes(parentRole);
       }

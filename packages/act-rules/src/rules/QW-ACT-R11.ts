@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R11 extends Rule {
 
@@ -52,7 +52,7 @@ class QW_ACT_R11 extends Rule {
 
     const [isHidden, accessibleName, role] = await Promise.all([
       DomUtils.isElementHidden(element),
-      AccessibilityTreeUtils.getAccessibleName(element, page),
+      AccessibilityUtils.getAccessibleName(element, page),
       DomUtils.getElementAttribute(element, 'role')
     ]);
 
