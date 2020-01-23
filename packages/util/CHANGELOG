@@ -1,10 +1,21 @@
 # Changelog
 
+## [0.2.31] - 23/01/2020
+
+### Fixed
+ - a bug in getAccessibleNameSVG function
+
+## [0.2.30] - 22/01/2020
+
+### Added
+ - isMathDocument function
+ - getPageRootElement function
+ - enum Optimization
 
 ## [0.2.29] - 22/01/2020
 
-### Updated
- - fixed AriaLabelledBy reference
+### Added
+ - shadow dom functions
 
 ## [0.2.28] - 22/01/2020
 

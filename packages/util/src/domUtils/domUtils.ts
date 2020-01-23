@@ -37,13 +37,20 @@ import getVideoMetadataFunction from './getVideoMetadata'
 import elementHasGlobalARIAPropertieOrAttributeFunction from './elementHasGlobalARIAPropertieOrAttribute'
 import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
-import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole' 
+import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
+import getPageRootElementFunction from './getPageRootElement';
+import isMathDocumentFunction from './isMathDocument';
 import ROLES_ATTR from './roles';
 
 /**
  * DOM Utilities namespace
  */
 namespace DomUtils {
+  export enum Optimization {
+    Performance = 1,
+    ErrorDetection = 2
+  };
+
   export const elementHasAttribute = elementHasAttributeFunction;
   export const elementHasAttributes = elementHasAttributesFunction;
   export const getElementAttribute = getElementAttributeFunction;
@@ -69,7 +76,7 @@ namespace DomUtils {
   export const getElementNextSibling = getElementNextSiblingFunction;
   export const getElementPreviousSibling = getElementPreviousSiblingFunction;
   export const isElementHiddenByCSS = isElementHiddenByCSSFunction;
-  export  const isElementFocusableByDefault = isElementFocusableByDefaultFunction;
+  export const isElementFocusableByDefault = isElementFocusableByDefaultFunction;
   export const videoElementHasAudio = videoElementHasAudioFunction;
   export const getElementByAttributeName = getElementByAttributeNameFunction;
   export const isElementFocusable = isElementFocusableFunction;
@@ -81,7 +88,9 @@ namespace DomUtils {
   export const elementHasGlobalARIAPropertieOrAttribute = elementHasGlobalARIAPropertieOrAttributeFunction;
   export const elementIDIsReferenced = elementIDIsReferencedFunction;
   export const isElementADescendantOf = isElementADescendantOfFunction;
-  export const isElementADescendantOfExplicitRole =isElementADescendantOfExplicitRoleFunction;
+  export const isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
+  export const getPageRootElement = getPageRootElementFunction;
+  export const isMathDocument = isMathDocumentFunction;
   export const ROLES = ROLES_ATTR;
 }
 
