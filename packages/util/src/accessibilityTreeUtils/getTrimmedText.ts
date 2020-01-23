@@ -8,8 +8,8 @@ async function getTrimmedText(element: ElementHandle): Promise<string> {
     throw Error('Element is not defined');
   }
 
-  let text = <string> await (await element.getProperty('innerText')).jsonValue();
-
+  let text = <string> await (await element.getProperty('textContent')).jsonValue();
+  
   if(text){
     text=trim(text);
   }else{
