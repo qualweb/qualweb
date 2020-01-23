@@ -4,7 +4,7 @@ import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R8 extends Rule {
 
@@ -54,7 +54,7 @@ class QW_ACT_R8 extends Rule {
       evaluation.description = `There are no HTML elements with semantic role of image`;
       evaluation.resultCode = 'RC1';
     } else {
-      let accessName = await AccessibilityTreeUtils.getAccessibleName(element,page);
+      let accessName = await AccessibilityUtils.getAccessibleName(element,page);
       let isHidden = await DomUtils.isElementHidden(element);
       let role = await DomUtils.getElementAttribute(element,"role");
       if (isHidden) {

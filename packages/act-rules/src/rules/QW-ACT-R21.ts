@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityTreeUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 class QW_ACT_R21 extends Rule {
 
@@ -61,7 +61,7 @@ class QW_ACT_R21 extends Rule {
       for (let elem of elementsToEvaluate) {
         let role = await DomUtils.getElementAttribute(elem, "role");
         let isHidden = await DomUtils.isElementHidden(elem);
-        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(elem,page);
+        let AName =  await AccessibilityUtils.getAccessibleNameSVG(elem,page);
 
         if (!role || role && roleList.indexOf(role) < 0 || isHidden) {
           evaluation.verdict = 'inapplicable';

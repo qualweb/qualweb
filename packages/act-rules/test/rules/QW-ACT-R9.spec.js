@@ -21,8 +21,6 @@ describe(`Rule ${rule}`, async function () {
     tests[3].outcome='warning';
     tests[5].outcome='warning';
     tests[6].outcome='warning';
-    tests[8].outcome='inapplicable';
-    tests[9].outcome='warning';
     tests[12].outcome='warning';
     tests[13].outcome='warning';
     tests[14].outcome='warning';
@@ -30,7 +28,7 @@ describe(`Rule ${rule}`, async function () {
     tests[16].outcome='warning';
     tests[17].outcome='warning';
 
-    tests = tests.slice(10,12);
+    //tests = tests.slice(16,tests.length);
 
     //TODO
     //failed 5 possivel bug no AName

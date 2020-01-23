@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 
 
@@ -69,13 +69,23 @@ class QW_ACT_R9 extends Rule {
       }
 
       let accessibleNames: string[] = [];
-      let aName;
+      let hrefList: string[] = [];
+      let aName, href;
 
       for (let link of links) {
-        aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
+        if (await DomUtils.isElementADescendantOf(link, page, ["svg"], [])) {
+          aName = await AccessibilityUtils.getAccessibleNameSVG(link, page);
+        }
+        else {
+          aName = await AccessibilityUtils.getAccessibleName(link, page);
+        }
+        href = await DomUtils.getElementAttribute(link, "href")
+
         console.log(aName);
         if (!!aName) {
+          hrefList.push(href);
           accessibleNames.push(aName);
+
         }
 
       }
@@ -95,18 +105,26 @@ class QW_ACT_R9 extends Rule {
           console.log(hasEqualAn);
           if (hasEqualAn.length > 0) {
             blacklist.push(...hasEqualAn);
-            hasEqualAn.push(counter);
-
+            let hasEqualHref = true;
             for (let index of hasEqualAn) {
-              selector.push(await DomUtils.getElementSelector(links[index]));
+              hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
             }
-            let hashArray = await this.getContentHash(selector, page);
-            let firstHash = hashArray.pop();
-
+            hasEqualAn.push(counter);
             let result = true;
-            for (let hash of hashArray) {
-              if (!firstHash || !hashArray || hash !== firstHash) {
-                result = false;
+
+            if (!hasEqualHref) {
+              for (let index of hasEqualAn) {
+                selector.push(await DomUtils.getElementSelector(links[index]));
+              }
+              let hashArray = await this.getContentHash(selector, page);
+              console.log(hashArray);
+              let firstHash = hashArray.pop();
+
+
+              for (let hash of hashArray) {
+                if (!firstHash || !hashArray || hash !== firstHash) {
+                  result = false;
+                }
               }
             }
             if (result) {//passed

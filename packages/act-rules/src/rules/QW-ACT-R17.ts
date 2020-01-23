@@ -3,7 +3,7 @@
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R17 extends Rule {
 
@@ -89,7 +89,7 @@ class QW_ACT_R17 extends Rule {
             evaluation.resultCode = 'RC6';
           }
         }else{
-          const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+          const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
           if(accessibleName === null || accessibleName === undefined ){
             evaluation.verdict = 'failed';
             evaluation.description = `The img element has no accessible name`;
