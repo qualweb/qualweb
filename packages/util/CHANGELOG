@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.32] - 23/01/2020
+
+### Fixed
+ - typo getElemenVisible
+ - typo elementHasGlobalARIAProportieOrAttribute
+ - AccessibilityTreeUtils to AccessibilityTreeUtils
+ - removed getElementName 
+ - changed getElementName to getElementTagName
+
 ## [0.2.31] - 23/01/2020
 
 ### Fixed
