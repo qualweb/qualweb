@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.31] - 23/01/2020
+
+### Fixed
+ - a bug in getAccessibleNameSVG function
+
 ## [0.2.30] - 22/01/2020
 
 ### Added

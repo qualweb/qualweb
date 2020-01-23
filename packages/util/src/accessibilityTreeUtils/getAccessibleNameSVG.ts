@@ -23,7 +23,7 @@ async function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise
 ////let specialElements = ["circle","elipse","line","path","polygon","polyline","rect","use","g","image","mesh","textPath","tspan","foreignObject"];//https://www.w3.org/TR/svg-aam-1.0/#include_elements
 //link role if the element has a valid href or xlink:href attribute. For a elements that are not links, use the mapping for tspan if the a element is a descendent of text, or the mapping for g otherwise.
 async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page, recursion: boolean): Promise<string | undefined> {
-  let AName, ariaLabelBy, ariaLabel, id, tag;
+  let AName, ariaLabelBy, ariaLabel, tag;
 
   tag = await getElementName(element);
   if (tag)
@@ -34,10 +34,8 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
-  id = await getElementAttribute(element, "id");
 
-
-  let referencedByAriaLabel = await isElementReferencedByAriaLabel(id, page);
+  let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
   let title = await getElementChildTextContent(element, "title");
   let titleAtt = await getElementAttribute(element, "xlink:title");//tem de ser a
   let href = await getElementAttribute(element, "href");
