@@ -58,25 +58,22 @@ class QW_ACT_R19 extends Rule {
     const hidden = await DomUtils.isElementHiddenByCSS(element);
     if(hidden){
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `iframe is not included in the accessibility tree.`;
+      evaluation.description = `The test target is not included in the accessibility tree.`;
       evaluation.resultCode = 'RC1';
-    }else{
+    } else {
       const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      if(accessibleName && accessibleName.trim() !== ''){
+      if(accessibleName && accessibleName.trim()) {
         evaluation.verdict = 'passed';
-        evaluation.description = `The iframe element has accessible name`;
-        evaluation.resultCode = 'RC6';
-      }else{
+        evaluation.description = `The test target has an accessible name.`;
+        evaluation.resultCode = 'RC2';
+      } else {
         evaluation.verdict = 'failed';
-        evaluation.description = `The iframe element hasn't accessible name`;
-        evaluation.resultCode = 'RC7';
+        evaluation.description = `The test target doesn't have an accessible name.`;
+        evaluation.resultCode = 'RC3';
       }
     }
 
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 export = QW_ACT_R19;

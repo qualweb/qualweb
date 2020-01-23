@@ -44,78 +44,78 @@ class QW_ACT_R13 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
+
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (element !== undefined) {
-      let children = await DomUtils.getElementChildren(element);
-      if (children && children.length > 0) {
-        if (await isFocusableChildren(element)) {
-          evaluation.verdict = 'failed';
-          evaluation.description = `This element has focusable children.`;
-          evaluation.resultCode = 'RC1';
-        } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `This element's children are unfocusable.`;
-          evaluation.resultCode = 'RC2';
-        }
+    const children = await DomUtils.getElementChildren(element);
+    if (children && children.length > 0) {
+      const focusable = await this.isFocusableChildren(element);
+      if (focusable) {
+        evaluation.verdict = 'failed';
+        evaluation.description = `The test target has focusable children.`;
+        evaluation.resultCode = 'RC1';
       } else {
-        if (await isFocusableContent(element)) {
-          evaluation.verdict = 'failed';
-          evaluation.description = `This element is still focusable.`;
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `This element is unfocusable.`;
-          evaluation.resultCode = 'RC4';
-        }
+        evaluation.verdict = 'passed';
+        evaluation.description = `The test target children are unfocusable.`;
+        evaluation.resultCode = 'RC2';
+      }
+    } else {
+      const focusable = await this.isFocusableContent(element);
+      if (focusable) {
+        evaluation.verdict = 'failed';
+        evaluation.description = `Thie test target is focusable.`;
+        evaluation.resultCode = 'RC3';
+      } else {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The test target is unfocusable.`;
+        evaluation.resultCode = 'RC4';
       }
     }
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
 
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
-}
 
-async function isFocusableChildren(element: ElementHandle): Promise<boolean> {
-  let result = await isFocusableContent(element);
-  let children = await DomUtils.getElementChildren(element);
-  if (children && children.length > 0) {
-    for (let child of children) {
-      if (await isFocusableContent(child)) {
+  private async isFocusableChildren(element: ElementHandle): Promise<boolean> {
+    let result = await this.isFocusableContent(element);
+    const children = await DomUtils.getElementChildren(element);
+    for (const child of children || []) {
+      const focusable = await this.isFocusableContent(child);
+      if (focusable) {
         result = true;
       } else {
-        result = result || await isFocusableChildren(child);
+        const childFocusable = await this.isFocusableChildren(child);
+        result = result || childFocusable;
       }
     }
-  }
-  return result;
-}
-
-async function isFocusableContent(element: ElementHandle): Promise<boolean> {
-  let disabled = false;
-  let hidden = false;
-  let focusableByDefault = false;
-  let tabIndexLessThanZero = false;
-  let tabIndexExists = await DomUtils.getElementAttribute(element, "tabIndex") !== null;
-  disabled = await DomUtils.getElementAttribute(element, "disabled") !== null;
-  hidden = await DomUtils.isElementHiddenByCSS(element);
-  focusableByDefault = await DomUtils.isElementFocusableByDefault(element);
-  let tabindex = await DomUtils.getElementAttribute(element, "tabIndex");
-  if (tabindex && !isNaN(parseInt(tabindex, 10))) {
-    tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
+    return result;
   }
 
-  if (focusableByDefault)
-    return !(disabled || hidden || tabIndexLessThanZero);
-  else
-    return tabIndexExists ? !tabIndexLessThanZero : false;
+  private async isFocusableContent(element: ElementHandle): Promise<boolean> {
+    const disabled = (await DomUtils.getElementAttribute(element, 'disabled')) !== null;
+    const hidden = await DomUtils.isElementHiddenByCSS(element);
+    const focusableByDefault = await DomUtils.isElementFocusableByDefault(element);
+    const tabIndexExists = (await DomUtils.getElementAttribute(element, 'tabIndex')) !== null;
+    const tabindex = await DomUtils.getElementAttribute(element, 'tabIndex');
+
+    let tabIndexLessThanZero = false;
+    if (tabindex && !isNaN(parseInt(tabindex, 10))) {
+      tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
+    }
+
+    if (focusableByDefault) {
+      return !(disabled || hidden || tabIndexLessThanZero);
+    } else {
+      return tabIndexExists ? !tabIndexLessThanZero : false;
+    }
+  }
 }
 
 export = QW_ACT_R13;

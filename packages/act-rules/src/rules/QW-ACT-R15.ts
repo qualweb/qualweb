@@ -78,55 +78,44 @@ class QW_ACT_R15 extends Rule {
 
     if (autoplay !== 'true' || paused === 'true' || muted === 'true' || (!srcATT && childSrc.length === 0)) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The element doesn't auto-play audio`;
+      evaluation.description = `The test target doesn't auto-play audio.`;
       evaluation.resultCode = 'RC1';
     } else if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
-      evaluation.description = `Can't colect data from the video element`;
+      evaluation.description = `Can't colect data from the test target element.`;
       evaluation.resultCode = 'RC2';
     } else if(applicableServiceData || hasPupeteerApplicableData){
       if (controls) {
         evaluation.verdict = 'passed';
-        evaluation.description = 'The auto-play element has a visible control mechanism';
+        evaluation.description = 'The test target has a visible control mechanism.';
         evaluation.resultCode = 'RC3';
       } else if (this.srcTimeIsLessThanThree(src)) {
         evaluation.verdict = 'passed';
-        evaluation.description = 'The auto-play element plays for 3 seconds or less';
+        evaluation.description = 'The test target plays for 3 seconds or less.';
         evaluation.resultCode = 'RC4';
       } else {
         evaluation.verdict = 'warning';
-        evaluation.description = 'Check if auto-play has a visible control mechanism';
+        evaluation.description = 'Check if test target has a visible control mechanism.';
         evaluation.resultCode = 'RC5';
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The element doesn't auto-play audio for 3 seconds`;
+      evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC6';
     }
 
-    if (element) {
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element),
-        DomUtils.getElementSelector(element)
-      ]);
-
-      evaluation.htmlCode = htmlCode;
-      evaluation.pointer = pointer;
-    }
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 
   private srcTimeIsLessThanThree(src: any[]): boolean {
     let result = false;
-    let values, separatedValues, value1, value2;
     for (const child of src || []) {
       if (child) {
-        values = String(child).split('#t=')
+        const values = String(child).split('#t=')
         if (values.length > 1) {
-          separatedValues = values[1].split(',');
-          value1 = Number(separatedValues[0]);
-          value2 = Number(separatedValues[1]);
+          const separatedValues = values[1].split(',');
+          const value1 = Number(separatedValues[0]);
+          const value2 = Number(separatedValues[1]);
           
           if (value1 && value2) {
             result = Math.abs(value1 - value2) <= 3;

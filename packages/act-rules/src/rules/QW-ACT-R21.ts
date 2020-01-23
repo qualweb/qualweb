@@ -39,53 +39,46 @@ class QW_ACT_R21 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined,page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
-    const roleList = ["img", "graphics-document", "graphics-symbol"];
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
-
-    if (element === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = "No svg elements";
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation);
-    } else {
-      let elementsToEvaluate = await element.$$("svg *");
-      elementsToEvaluate.push(element);
-      for (let elem of elementsToEvaluate) {
-        let role = await DomUtils.getElementAttribute(elem, "role");
-        let isHidden = await DomUtils.isElementHidden(elem);
-        let AName =  await AccessibilityTreeUtils.getAccessibleNameSVG(elem,page);
-
-        if (!role || role && roleList.indexOf(role) < 0 || isHidden) {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = "No svg elements with this specifique roles in the accessibility tree";
-          evaluation.resultCode = 'RC2';
-        } else if (AName && AName.trim() !== "") {
-          evaluation.verdict = 'passed';
-          evaluation.description = "This element has an accessible name";
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = "This element doesnt have an accessible name";
-          evaluation.resultCode = 'RC4';
-        }
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-        evaluation.pointer = await DomUtils.getElementSelector(element);
-        super.addEvaluationResult(evaluation);
-
-        evaluation.verdict = '';
-        evaluation.description = "";
-        evaluation.resultCode = '';
-      }
+    if (!element) {
+      return;
     }
 
+    const roleList = ['img', 'graphics-document', 'graphics-symbol'];
 
+    const elementsToEvaluate = await element.$$('svg *');
+    elementsToEvaluate.push(element);
+
+    for (const elem of elementsToEvaluate || []) {
+      const evaluation: ACTRuleResult = {
+        verdict: '',
+        description: '',
+        resultCode: ''
+      };
+
+      const [role, isHidden, accessibleName] = await Promise.all([
+        DomUtils.getElementAttribute(elem, 'role'),
+        DomUtils.isElementHidden(elem),
+        AccessibilityTreeUtils.getAccessibleNameSVG(elem, page)
+      ]);
+
+      if (!role || (role && roleList.indexOf(role) < 0) || isHidden) {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `No test target with this specific roles is included in the accessibility tree.`;
+        evaluation.resultCode = 'RC1';
+      } else if (accessibleName && accessibleName.trim()) {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The test target has an accessible name.`;
+        evaluation.resultCode = 'RC2';
+      } else {
+        evaluation.verdict = 'failed';
+        evaluation.description = `The test target doesn't have an accessible name.`;
+        evaluation.resultCode = 'RC3';
+      }
+      
+      await super.addEvaluationResult(evaluation, elem);
+    }
   }
 }
 
