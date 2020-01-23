@@ -3,16 +3,16 @@
 import { widgetRoles, widgetElements } from "./constants";
 import {ElementHandle} from "puppeteer";
 import getElementAttribute from "../domUtils/getElementAttribute";
-import getElementName from '../domUtils/getElementName';
+import getElementTagName from '../domUtils/getElementTagName';
 
 async function isElementWidget(element: ElementHandle): Promise<boolean> {
 
   let role = await getElementAttribute(element,"role");
-  let name = await getElementName(element);
-  if(name)
-    name = name.toLocaleLowerCase();
+  let name = await getElementTagName(element);
+  if(!name)
+    name = '';
 
-  return role!==null && (widgetRoles.indexOf(role) >= 0) || name!== null && (widgetElements.indexOf(name) >= 0);
+  return role!==null && (widgetRoles.indexOf(role) >= 0) || name !== '' && (widgetElements.indexOf(name) >= 0);
 }
 
 export = isElementWidget;

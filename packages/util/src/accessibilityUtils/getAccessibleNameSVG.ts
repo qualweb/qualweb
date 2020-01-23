@@ -9,7 +9,7 @@ import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import {
   noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml
 } from './constants';
-import getElementName from '../domUtils/getElementName';
+import getElementTagName from '../domUtils/getElementTagName';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getAccessibleName = require("./getAccessibleName");
 import getElementChildTextContent = require("../domUtils/getElementChildTextContent");
@@ -25,9 +25,9 @@ async function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise
 async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page, recursion: boolean): Promise<string | undefined> {
   let AName, ariaLabelBy, ariaLabel, id, tag;
 
-  tag = await getElementName(element);
-  if (tag)
-    tag = tag.toLocaleLowerCase();
+  tag = await getElementTagName(element);
+  if (!tag)
+    tag = '';
   let regex = new RegExp('^fe[a-zA-Z]+');
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
   if (ariaLabelBy!== null && await getElementById(page,element,ariaLabelBy) === null) {
@@ -68,7 +68,7 @@ async function hasParentOfName(element: ElementHandle, name: string[]) {
 
   let parent = await getElementParent(element);
   if (parent) {
-    let parentName = await getElementName(element);
+    let parentName = await getElementTagName(parent);
     return parentName && name.indexOf(parentName) >= 0 || hasParentOfName(parent, name);
   } else {
     return false;

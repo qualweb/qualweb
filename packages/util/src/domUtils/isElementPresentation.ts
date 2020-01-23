@@ -4,9 +4,9 @@ import { ElementHandle, Page } from 'puppeteer';
 import getElementAttribute from './getElementAttribute';
 import isElementFocusable from './isElementFocusable';
 import getElementParent from './getElementParent';
-import elementHasGlobalARIAPropertieOrAttribute from './elementHasGlobalARIAPropertieOrAttribute';
-import { childPresentationalRole } from '../accessibilityTreeUtils/constants';
-import getElementRole from '../accessibilityTreeUtils/getElementRole';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
+import { childPresentationalRole } from '../accessibilityUtils/constants';
+import getElementRole from '../accessibilityUtils/getElementRole';
 
 
 async function isElementPresentation(element: ElementHandle,page:Page): Promise<boolean> {
@@ -17,7 +17,7 @@ async function isElementPresentation(element: ElementHandle,page:Page): Promise<
   const role = await getElementAttribute(element,'role') 
   let presentationOrNone = role === 'presentation'|| role ==='none';
   const focusable = await isElementFocusable(element);
-  const hasGlobalARIA = await elementHasGlobalARIAPropertieOrAttribute(element);
+  const hasGlobalARIA = await elementHasGlobalARIAPropertyOrAttribute(element);
   const parent = await getElementParent(element);
   let parentPresentation= false;
   let childPresentational = false;
@@ -38,7 +38,7 @@ async function isElementParentPresentation(element: ElementHandle): Promise<bool
   const role = await getElementAttribute(element,'role')
   let presentationOrNone = role === 'presentation'|| role ==='none';
   const focusable = await isElementFocusable(element);
-  const hasGlobalARIA = await elementHasGlobalARIAPropertieOrAttribute(element);
+  const hasGlobalARIA = await elementHasGlobalARIAPropertyOrAttribute(element);
   const parent = await getElementParent(element);
   let parentPresentation= false;
   let presentation = presentationOrNone && !focusable && !hasGlobalARIA; 
@@ -58,7 +58,7 @@ async function isParentChildPresentational(element: ElementHandle,page:Page): Pr
   const role = await getElementRole(element,page);
   let childPresentational;
   if(role!== null)
-    childPresentational= childPresentationalRole.includes(role);//todo
+    childPresentational= childPresentationalRole.includes(role);
   const parent = await getElementParent(element);
   let isParentChildPresentationalVar= false;
 

@@ -8,7 +8,7 @@ import ariaJSON from './ariaAttributesRoles.json';
 import getElementAttributesName from './getElementAttributesName';
 
 
-async function elementHasGlobalARIAPropertieOrAttribute(element: ElementHandle): Promise<boolean> {
+async function elementHasGlobalARIAPropertyOrAttribute(element: ElementHandle): Promise<boolean> {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -22,4 +22,4 @@ async function elementHasGlobalARIAPropertieOrAttribute(element: ElementHandle):
   }
   return result;}
 
-export = elementHasGlobalARIAPropertieOrAttribute;
+export = elementHasGlobalARIAPropertyOrAttribute;

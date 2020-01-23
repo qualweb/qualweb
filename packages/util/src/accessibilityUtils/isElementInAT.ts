@@ -8,7 +8,7 @@ import isElementPresentation from "../domUtils/isElementPresentation";
 import isElementHidden from "../domUtils/isElementHidden";
 import isElementFocusable from "../domUtils/isElementFocusable";
 import elementHasValidRole from "./elementHasValidRole";
-import elementHasGlobalARIAPropertieOrAttribute from "../domUtils/elementHasGlobalARIAPropertieOrAttribute";
+import elementHasGlobalARIAPropertieOrAttribute from "../domUtils/elementHasGlobalARIAPropertyOrAttribute";
 
 
 async function isElementInAT(element: ElementHandle, page: Page): Promise<boolean> {
