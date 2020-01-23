@@ -36,7 +36,7 @@ class QW_BP11 extends BestPractice {
 
     const children = await element.evaluate(elem => {
       return elem.children.length;
-    })
+    });
 
     if (children === 0) {
       return;

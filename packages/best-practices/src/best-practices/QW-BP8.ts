@@ -2,7 +2,7 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import {ElementHandle, Page} from "puppeteer";
 
 class QW_BP8 extends BestPractice {
@@ -53,13 +53,13 @@ class QW_BP8 extends BestPractice {
       evaluation.resultCode = 'RC1';
     } else {
       for (const svg of svgs || []) {
-        const aName = await AccessibilityTreeUtils.getAccessibleNameSVG(svg, page);
+        const aName = await AccessibilityUtils.getAccessibleNameSVG(svg, page);
         if (aName && aName.trim() !== '') {
           svgANames.push(aName)
         }
       }
 
-      const aName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      const aName = await AccessibilityUtils.getAccessibleName(element, page);
       if (aName || svgANames.length > 0) {
         evaluation.verdict = 'passed';
         evaluation.description = `This heading with at least one image has an accessible name`;
