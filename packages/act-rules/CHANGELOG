@@ -1,9 +1,16 @@
 # Changelog
 
+## [0.3.19] - 23/01/2020
+
+### Updated
+ - refactored getElementName to getElementTagName
+ - refactored AccessibilityTreeUtils to AccessibilityUtils
+ - refactored getElemenVisible to getElementVisible
+
 ## [0.3.18] - 22/01/2020
 
 ### Updated
- - rule QW-ACT-R6 
+ - rule QW-ACT-R6
 
 ## [0.3.17] - 21/01/2020
 
