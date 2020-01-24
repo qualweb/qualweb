@@ -1,8 +1,8 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 
@@ -55,11 +55,20 @@ class QW_ACT_R10 extends Rule {
             evaluation.description = `body element doesn't exist`;
             evaluation.resultCode = 'RC1';
         } else {
-            let links = await element.$$('iframe[src]');
+            let iframes = await element.$$('iframe[src]');
+            let iframesAlll = await element.$$("iframe");
+            if (iframesAlll !== null) {
+
+                for (let iframe of iframesAlll) {
+                    let frame = await iframe.contentFrame();
+                    if (frame !== null)
+                        iframes.push(...(await frame.$$('iframe[src]')));
+                }
+            }
             let accessibleNames: string[] = [];
             let parent, aName;
-
-            for (let link of links) {
+            // add iframe contents
+            for (let link of iframes) {
                 parent = await DomUtils.getElementParent(element);
                 if (parent !== null && await DomUtils.getElementTagName(parent) !== 'svg') {
                     aName = await AccessibilityUtils.getAccessibleName(link, page);
@@ -86,7 +95,7 @@ class QW_ACT_R10 extends Rule {
                         hasEqualAn.push(counter);
 
                         for (let index of hasEqualAn) {
-                            elements.push(links[index]);
+                            elements.push(iframes[index]);
                         }
                         let hashArray = await this.getContentHash(elements, page);
                         let firstHash = hashArray.pop();
@@ -114,8 +123,8 @@ class QW_ACT_R10 extends Rule {
                         evaluation.resultCode = 'RC4';
                     }
 
-                    evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
-                    evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
+                    evaluation.htmlCode = await DomUtils.getElementHtmlCode(iframes[counter]);
+                    evaluation.pointer = await DomUtils.getElementSelector(iframes[counter]);
                     super.addEvaluationResult(evaluation);
                     evaluation = {
                         verdict: '',
@@ -126,8 +135,8 @@ class QW_ACT_R10 extends Rule {
                     evaluation.verdict = 'inapplicable';
                     evaluation.description = `iframe doesnt have accessible name`;
                     evaluation.resultCode = 'RC4';
-                    evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
-                    evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
+                    evaluation.htmlCode = await DomUtils.getElementHtmlCode(iframes[counter]);
+                    evaluation.pointer = await DomUtils.getElementSelector(iframes[counter]);
                     super.addEvaluationResult(evaluation);
                     evaluation = {
                         verdict: '',
@@ -140,7 +149,7 @@ class QW_ACT_R10 extends Rule {
                 hasEqualAn = [];
                 elements = [];
             }
-            if (links.length === 0) {
+            if (iframes.length === 0) {
                 evaluation.verdict = 'inapplicable';
                 evaluation.description = `iframe doesnt have accessible name`;
                 evaluation.resultCode = 'RC4';
