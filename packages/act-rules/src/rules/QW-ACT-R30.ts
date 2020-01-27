@@ -8,7 +8,7 @@ import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 
 import {
-  AccessibilityTreeUtils,
+  AccessibilityUtils,
   DomUtils
 } from '@qualweb/util';
 
@@ -64,7 +64,7 @@ class QW_ACT_R30 extends Rule {
     if(tagName === 'a'){
       isWidget = await DomUtils.elementHasAttribute(element, 'href');
     }else{
-      isWidget = await AccessibilityTreeUtils.isElementWidget(element);
+      isWidget = await AccessibilityUtils.isElementWidget(element);
     }
 
     if(!isWidget) {

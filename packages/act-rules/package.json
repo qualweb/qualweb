@@ -69,13 +69,13 @@
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "mocha": "^7.0.0",
-    "puppeteer": "^2.0.0",
+    "puppeteer": "^2.1.0",
     "request": "^2.88.0",
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.31",
-    "follow-redirects": "^1.9.0",
+    "@qualweb/util": "^0.2.32",
+    "follow-redirects": "^1.10.0",
     "html-validator": "^5.0.0",
     "htmlparser-to-html": "0.0.6",
     "lodash.clone": "^4.5.0",

@@ -5,6 +5,7 @@ import { SourceHtml } from '@qualweb/core';
 import { DomUtils } from '@qualweb/util';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
+import { ShadowDomUtils } from '@qualweb/util';
 
 import QW_ACT_R1 from './rules/QW-ACT-R1';
 import QW_ACT_R2 from './rules/QW-ACT-R2';
@@ -57,7 +58,7 @@ class ACTRules {
     'QW-ACT-R6': true,
     'QW-ACT-R7': true,
     'QW-ACT-R8': true,
-    'QW-ACT-R9': false,
+    'QW-ACT-R9': true,
     'QW-ACT-R10': false,
     'QW-ACT-R11': true,
     'QW-ACT-R12': true,
@@ -283,7 +284,7 @@ class ACTRules {
       },
       rules: {}
     };
-
+    page = await ShadowDomUtils.processShadowDom(page);
     await Promise.all([
       this.executeNonConcurrentRules(report, sourceHtml, page),
       this.executeConcurrentRules(report, sourceHtml, page),

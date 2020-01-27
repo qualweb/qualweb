@@ -21,7 +21,7 @@ describe(`Rule ${rule}`, async function () {
     describe('Running tests', function() {
       for (const test of tests || []) {
         it(test.title, async function() {
-          this.timeout(100 * 1000);
+          this.timeout(10 * 1000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
           const actRules = new ACTRules({ rules: [rule] });
           const report = await actRules.execute(sourceHtml, page, stylesheets);

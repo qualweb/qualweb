@@ -1,169 +1,157 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-import {ACTRule, ACTRuleResult} from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
-
-
-const rule: ACTRule = {
-  name: 'Links with identical accessible names have equivalent purpose',
-  code: 'QW-ACT-R9',
-  mapping: 'b20e66',
-  description: 'This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.',
-  metadata: {
-    target: {
-      element: 'a,[role="link"]'
-    },
-    'success-criteria': [{
-      name: '2.4.9',
-      level: 'AAA',
-      principle: 'Operable',
-      url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html'
-    }],
-    related: [],
-    url: 'https://act-rules.github.io/rules/b20e66',
-    passed: 0,
-    failed: 0,
-    warning: 0,
-    type: ['ACTRule', 'TestCase'],
-    a11yReq: ['WCAG21:language'],
-    outcome: '',
-    description: ''
-  },
-  results: new Array<ACTRuleResult>()
-};
 
 class QW_ACT_R9 extends Rule {
 
   constructor() {
-    super(rule);
+    super({
+      name: 'Links with identical accessible names have equivalent purpose',
+      code: 'QW-ACT-R9',
+      mapping: 'b20e66',
+      description: 'This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.',
+      metadata: {
+        target: {
+          element: 'a,[role="link"]'
+        },
+        'success-criteria': [{
+          name: '2.4.9',
+          level: 'AAA',
+          principle: 'Operable',
+          url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html'
+        }],
+        related: [],
+        url: 'https://act-rules.github.io/rules/b20e66',
+        passed: 0,
+        failed: 0,
+        warning: 0,
+        type: ['ACTRule', 'TestCase'],
+        a11yReq: ['WCAG21:language'],
+        outcome: '',
+        description: ''
+      },
+      results: new Array<ACTRuleResult>()
+    });
   }
 
-
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
 
+    if (!element) {
+      return;
+    }
 
-    if (element === undefined) { // if the element doesn't exist, there's nothing to test
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `body element doesn't exist`;
-      evaluation.resultCode = 'RC1';
-    } else {
-      let links = await element.$$('a[href], [role="link"]');
-      let accessibleNames: string[] = [];
-      let parent, aName;
+    const [links, iframes] = await Promise.all([
+      element.$$('a[href], [role="link"]'),
+      element.$$('iframe')
+    ]);
 
-      for (let link of links) {
-        parent = await DomUtils.getElementParent(element);
-        if (parent !== null && await DomUtils.getElementName(parent) !== 'SVG') {
-          aName = await AccessibilityTreeUtils.getAccessibleName(link, page);
-          if (aName) {
-            accessibleNames.push(aName);
-          }
-
-        }
+    for (const iframe of iframes || []) {
+      const frame = await iframe.contentFrame();
+      if (frame !== null) {
+        links.push(...(await frame.$$('a[href], [role="link"]')));
       }
+    }
 
-      let counter = 0;
-      let hasEqualAn: number[];
-      let blacklist: number[] = [];
-      let selector:string[] = [];
-      for (let accessibleName of accessibleNames) {
-        hasEqualAn = [];
-        if (blacklist.indexOf(counter) >= 0) {
-          //element already evaluated
-        } else if (accessibleName && accessibleName !== "") {
-          hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
-          if (hasEqualAn.length > 0) {
-            blacklist.push(...hasEqualAn);
-            hasEqualAn.push(counter);
+    const accessibleNames = new Array<string>();
+    const hrefList = new Array<string>();
 
-            for (let index of hasEqualAn) {
-              selector.push( await DomUtils.getElementSelector(links[index]));
-              }
-            let hashArray = await this.getContentHash(selector,page);
-            let firstHash = hashArray.pop();
+    for (const link of links || []) {
+      let aName, href;
+      if (await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
+        aName = await AccessibilityUtils.getAccessibleNameSVG(link, page);
+      } else {
+        aName = await AccessibilityUtils.getAccessibleName(link, page);
+      }
+      href = await DomUtils.getElementAttribute(link, 'href');
 
-            let result = true;
-            for (let hash of hashArray) {
+      if (!!aName) {
+        hrefList.push(href);
+        accessibleNames.push(aName);
+      }
+    }
+
+    let counter = 0;
+    const blacklist = new Array<number>();
+    for (const accessibleName of accessibleNames || []) {
+      const evaluation: ACTRuleResult = {
+        verdict: '',
+        description: '',
+        resultCode: ''
+      };
+
+      if (blacklist.indexOf(counter) >= 0) {
+        //element already evaluated
+      } else if (!!accessibleName && accessibleName !== '') {
+        const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
+        
+        if (hasEqualAn.length > 0) {
+          blacklist.push(...hasEqualAn);
+          let hasEqualHref = true;
+          for (let index of hasEqualAn) {
+            hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
+          }
+          hasEqualAn.push(counter);
+          let result = true;
+
+          if (!hasEqualHref) {
+            const selector = new Array<string>();
+            for (const index of hasEqualAn || []) {
+              selector.push(await DomUtils.getElementSelector(links[index]));
+            }
+            const hashArray = await this.getContentHash(selector, page);
+            const firstHash = hashArray.pop();
+
+            for (const hash of hashArray || []) {
               if (!firstHash || !hashArray || hash !== firstHash) {
                 result = false;
               }
             }
-            if (result) {//passed
-              evaluation.verdict = 'passed';
-              evaluation.description = `Links with the same accessible name have equal content`;
-              evaluation.resultCode = 'RC2';
-
-            } else { //warning
-              evaluation.verdict = 'warning';
-              evaluation.description = `Links with the same accessible name have different content.Verify is the content is equivalent`;
-              evaluation.resultCode = 'RC3';
-
-            }
-
-          } else {//inaplicable
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `There is no link with same the same accessible name`;
-            evaluation.resultCode = 'RC4';
           }
-          evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
-          evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
-          super.addEvaluationResult(evaluation);
-          evaluation = {
-            verdict: '',
-            description: '',
-            resultCode: ''
-          };
+          if (result) {//passed
+            evaluation.verdict = 'passed';
+            evaluation.description = `Links with the same accessible name have equal content`;
+            evaluation.resultCode = 'RC2';
+          } else { //warning
+            evaluation.verdict = 'warning';
+            evaluation.description = `Links with the same accessible name have different content.Verify is the content is equivalent`;
+            evaluation.resultCode = 'RC3';
+          }
         } else {//inaplicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `link doesnt have accessible name`;
+          evaluation.description = `There is no link with same the same accessible name`;
           evaluation.resultCode = 'RC4';
-
-          evaluation.htmlCode = await DomUtils.getElementHtmlCode(links[counter]);
-          evaluation.pointer = await DomUtils.getElementSelector(links[counter]);
-          super.addEvaluationResult(evaluation);
-          evaluation = {
-            verdict: '',
-            description: '',
-            resultCode: ''
-          };
-
         }
-        hasEqualAn = [];
-        selector = [];
-
-        counter++;
+      } else {//inaplicable
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = `link doesnt have accessible name`;
+        evaluation.resultCode = 'RC4';
       }
 
-
+      await super.addEvaluationResult(evaluation, links[counter]);
+      counter++;
     }
-
-
   }
 
-  private async getContentHash(selectors: string[], page: Page) {
-    let browser = await page.browser();
+  private async getContentHash(selectors: string[], page: Page): Promise<Array<string>> {
+    const browser = await page.browser();
     const newPage = await browser.newPage();
-    let content: string[] = [];
+    const content = new Array<string>();
     let hash, htmlContent;
     try {
-      for (let selector of selectors) {
-        await newPage.goto(await page.url(), {'waitUntil': 'networkidle2'});
+      for (const selector of selectors || []) {
+        await newPage.goto(await page.url(), { 'waitUntil': 'networkidle2' });
         await Promise.all([
-          newPage.waitForNavigation({'waitUntil': 'networkidle0'}),
+          newPage.waitForNavigation({ 'waitUntil': 'networkidle0' }),
           newPage.click(selector)
         ]);
         htmlContent = await newPage.evaluate(() => {
           return document.documentElement.innerHTML;
         });
-        if(htmlContent){
+        if (htmlContent) {
           hash = createHash('md5').update(htmlContent).digest('hex');
         }
         content.push(hash);
@@ -175,10 +163,11 @@ class QW_ACT_R9 extends Rule {
     return content;
   }
 
-  private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number) {
+  private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number): Array<number> {
+    const result = new Array<number>();
     let counter = 0;
-    let result: number[] = [];
-    for (let accessibleNameToCompare of accessibleNames) {
+
+    for (const accessibleNameToCompare of accessibleNames || []) {
       if (accessibleNameToCompare === accessibleName && counter !== index) {
         result.push(counter);
       }
@@ -187,7 +176,6 @@ class QW_ACT_R9 extends Rule {
 
     return result;
   }
-
 }
 
 export = QW_ACT_R9;
