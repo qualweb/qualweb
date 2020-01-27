@@ -55,32 +55,24 @@ class QW_ACT_R29 extends Rule {
     const [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
       DomUtils.isElementHidden(element, page),
       DomUtils.isElemenVisible(element, page),
-      DomUtils.elementHasAttribute(element, "controls"),
-      DomUtils.getElementAttribute(element, "autoplay"),
+      DomUtils.elementHasAttribute(element, 'controls'),
+      DomUtils.getElementAttribute(element, 'autoplay'),
       DomUtils.getVideoMetadata(element)
     ]);
 
-    const duration = metadata["puppeteer"]["video"]["duration"];
+    const duration = metadata['puppeteer']['video']['duration'];
 
     if (duration > 0 && (!isHidden && isVisible && controls || autoPlay)) {
       evaluation.verdict = 'warning';
-      evaluation.description = "Check if audio has text-alternative";
+      evaluation.description = 'Check if the test target audio has text-alternative.';
       evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "Element is not a non-streaming audio element with autoplay or a play button that is visisble and in the Acessiblility Tree";
+      evaluation.description = 'The test target is not a non-streaming `audio` element with autoplay or a play button that is visisble and in the acessiblility tree.';
       evaluation.resultCode = 'RC2';
     }
 
-    const [htmlCode, pointer] = await Promise.all([
-      DomUtils.getElementHtmlCode(element),
-      DomUtils.getElementSelector(element)
-    ]);
-
-    evaluation.htmlCode = htmlCode;
-    evaluation.pointer = pointer;
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

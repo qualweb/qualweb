@@ -47,88 +47,76 @@ class QW_ACT_R28 extends Rule {
       return;
     }
 
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
     // get all elements
-    let allElements = await element.$$('[role]');
+    const allElements = await element.$$('[role]');
 
-    if (allElements === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = "No elements with explicit semantic role";
-      evaluation.resultCode = 'RC2';
-      super.addEvaluationResult(evaluation);
-    } else {
-      for (const elem of allElements || []) {
-        let elemRole = await DomUtils.getElementAttribute(elem, 'role');
-        let elemAttribs = await DomUtils.getElementAttributesName(elem);
-        let implicitRole = await AccessibilityTreeUtils.getImplicitRole(elem, page);
-        let isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
+    for (const elem of allElements || []) {
+      const evaluation: ACTRuleResult = {
+        verdict: '',
+        description: '',
+        resultCode: ''
+      };
 
-        if (!isInAT) {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = "Element is not in Acessiblity Tree";
-          evaluation.resultCode = 'RC1';
-        } else if (implicitRole === elemRole) {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = "Explicit role equals implicit role";
-          evaluation.resultCode = 'RC2';
-        } else if (elemRole !== null && Object.keys(rolesJSON).includes(elemRole)) {
-          if (rolesJSON[elemRole]['requiredAria']) {
-            let implicitRoles: string[] = [];
-            let implicitValueRoles = rolesJSON[elemRole]['implicitValueRoles'];
-            for (const role of implicitValueRoles || []) {
-              if (role[0] !== '') {
-                implicitRoles.push(role[0]);
-              }
+      const [elemRole, elemAttribs, implicitRole, isInAT] = await Promise.all([
+        DomUtils.getElementAttribute(elem, 'role'),
+        DomUtils.getElementAttributesName(elem),
+        AccessibilityTreeUtils.getImplicitRole(elem, page),
+        AccessibilityTreeUtils.isElementInAT(elem, page)
+      ]);
+
+      if (!isInAT) {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'The test target is not in acessiblity tree.';
+        evaluation.resultCode = 'RC1';
+      } else if (implicitRole === elemRole) {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'The test target explicit role equals the implicit role.';
+        evaluation.resultCode = 'RC2';
+      } else if (elemRole !== null && Object.keys(rolesJSON).includes(elemRole)) {
+        if (rolesJSON[elemRole]['requiredAria']) {
+          const implicitRoles = new Array<string>();
+          const implicitValueRoles = rolesJSON[elemRole]['implicitValueRoles'];
+          for (const role of implicitValueRoles || []) {
+            if (role[0] !== '') {
+              implicitRoles.push(role[0]);
             }
-            let i = 0;
-            let requiredAriaList = rolesJSON[elemRole]['requiredAria'];
-            let result = true;// passed until it fails a requirement
-            let requiredAria;
+          }
+          let i = 0;
+          const requiredAriaList = rolesJSON[elemRole]['requiredAria'];
+          let result = true;// passed until it fails a requirement
+          let requiredAria;
 
-            while (i < requiredAriaList.length && result) {
-              requiredAria = requiredAriaList[i];
-              if (elemAttribs.includes(requiredAria) && !implicitRoles.includes(requiredAria)) {
-                let attrValue = (await DomUtils.getElementAttribute(elem, requiredAria)).trim();
-                result = attrValue !== '';
-              } else {
-                result = implicitRoles.includes(requiredAria);
-              }
-              i++;
-            }
-            if (result) {
-              evaluation.verdict = 'passed';
-              evaluation.description = "Required attibutes are listed";
-              evaluation.resultCode = 'RC3';
+          while (i < requiredAriaList.length && result) {
+            requiredAria = requiredAriaList[i];
+            if (elemAttribs.includes(requiredAria) && !implicitRoles.includes(requiredAria)) {
+              const attrValue = (await DomUtils.getElementAttribute(elem, requiredAria)).trim();
+              result = attrValue !== '';
             } else {
-              evaluation.verdict = 'failed';
-              evaluation.description = "Element does not list required " + requiredAria;
-              evaluation.resultCode = 'RC4';
+              result = implicitRoles.includes(requiredAria);
             }
+            i++;
+          }
+          if (result) {
+            evaluation.verdict = 'passed';
+            evaluation.description = 'The test target required attibutes are listed.';
+            evaluation.resultCode = 'RC3';
           } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = "This role does not have required state or property";
-          evaluation.resultCode = 'RC5';
+            evaluation.verdict = 'failed';
+            evaluation.description = `The test target doesn't list required ${requiredAria}.`;
+            evaluation.resultCode = 'RC4';
           }
         } else {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = "This role is not valid";
-          evaluation.resultCode = 'RC6';
+        evaluation.verdict = 'passed';
+        evaluation.description = `The test target \`role\` doesn't have required state or property`;
+        evaluation.resultCode = 'RC5';
         }
-
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(elem);
-        evaluation.pointer = await DomUtils.getElementSelector(elem);
-        super.addEvaluationResult(evaluation);
-        evaluation = {
-          verdict: '',
-          description: '',
-          resultCode: ''
-        };
+      } else {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'The test target `role` is not valid.';
+        evaluation.resultCode = 'RC6';
       }
+
+      await super.addEvaluationResult(evaluation, elem);
     }
   }
 }

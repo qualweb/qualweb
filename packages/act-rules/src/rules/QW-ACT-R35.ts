@@ -1,9 +1,9 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRuleResult} from '@qualweb/act-rules';
-import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
+import { AccessibilityTreeUtils } from '@qualweb/util';
 
 class QW_ACT_R35 extends Rule {
 
@@ -66,29 +66,22 @@ class QW_ACT_R35 extends Rule {
     const isInAT = await AccessibilityTreeUtils.isElementInAT(element, page);
     if (isInAT) {
       const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      if (accessibleName !== null && accessibleName !== '') {
+      if (accessibleName) {
         evaluation.verdict = 'passed';
-        evaluation.description = "This element has a non-empty accessible name.";
+        evaluation.description = 'The test target has a non-empty accessible name.';
         evaluation.resultCode = 'RC1';
       } else {
         evaluation.verdict = 'failed';
-        evaluation.description = "This element has a undefined or empty accessible name.";
+        evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
         evaluation.resultCode = 'RC2';
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "This element is not included in the accessibility tree.";
+      evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC3';
     }
 
-    const [htmlCode, pointer] = await Promise.all([
-      DomUtils.getElementHtmlCode(element),
-      DomUtils.getElementSelector(element)
-    ]);
-
-    evaluation.htmlCode = htmlCode;
-    evaluation.pointer = pointer;
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

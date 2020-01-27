@@ -51,47 +51,40 @@ class QW_ACT_R32 extends Rule {
       resultCode: ''
     };
 
-    const metadata = await DomUtils.getVideoMetadata(element);
+    const [metadata, track, isVisible] = await Promise.all([
+      DomUtils.getVideoMetadata(element),
+      element.$('track[kind="descriptions"]'),
+      DomUtils.isElemenVisible(element)
+    ]);
+
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
     const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
-    const track = await element.$('track[kind="descriptions"]')
-    const isVisible = await DomUtils.isElemenVisible(element);
 
     if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
-      evaluation.description = `Can't colect data from the video element`;
+      evaluation.description = `Can't colect data from the test target.`;
       evaluation.resultCode = 'RC1';
     } else if (isVisible && applicableServiceData) {
       if (track !== null) {
         evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the track element correctly describes the auditive content of the video';
+        evaluation.description = 'Check if the `track` element correctly describes the auditive content of the video.';
         evaluation.resultCode = 'RC2';
       } else {
         evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the video element auditive content has accessible alternative';
+        evaluation.description = 'Check if the test target auditive content has accessible alternative.';
         evaluation.resultCode = 'RC3';
       }
     } else if (isVisible && hasPupeteerApplicableData) {
       evaluation.verdict = 'warning';
-      evaluation.description = `Video has a sound track but we can't verify the volume. Check if the video has audio and if it does check if the video element visual content has an accessible alternative`;
+      evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if the visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC4';
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The video element isn't a non-streaming video element that is visible, where the video contains audio.`;
+      evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC5';
     }
-
-    if (element) {
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element),
-        DomUtils.getElementSelector(element)
-      ]);
-
-      evaluation.htmlCode = htmlCode;
-      evaluation.pointer = pointer
-    }
     
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

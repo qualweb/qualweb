@@ -47,60 +47,39 @@ class QW_ACT_R27 extends Rule {
       return;
     }
 
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
     const allElements = await element.$$('*');
-    let countAria = 0;
-    let failedAria = '';
+    for (const elem of allElements || []) {
+      const evaluation: ACTRuleResult = {
+        verdict: '',
+        description: '',
+        resultCode: ''
+      };
 
-    if (allElements === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = "No elements within the body element";
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation);
-    } else {
-      for (const elem of allElements || []) {
-        countAria = 0;
-        failedAria = '';
-        const elemAttribs = await DomUtils.getElementAttributesName(elem);
-        for (const attrib of elemAttribs || []) {
-          if(attrib.startsWith('aria-')) {
-            countAria++;
-            if (!Object.keys(ariaJSON).includes(attrib)) {
-              failedAria = failedAria.concat(', ', attrib);
-            }
+      let countAria = 0;
+      let failedAria = '';
+      const elemAttribs = await DomUtils.getElementAttributesName(elem);
+      for (const attrib of elemAttribs || []) {
+        if(attrib.startsWith('aria-')) {
+          countAria++;
+          if (!Object.keys(ariaJSON).includes(attrib)) {
+            failedAria = failedAria.concat(', ', attrib);
           }
         }
-        if(failedAria.length){
-          evaluation.verdict = 'failed';
-          evaluation.description = "The following aria-* attributes are not defined in ARIA 1.1: " + failedAria;
-          evaluation.resultCode = 'RC2';
-        } else if (countAria){
-          evaluation.verdict = 'passed';
-          evaluation.description = "All aria-* attributes in this element are defined in ARIA 1.1";
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = "This elements does not have aria-* attributes";
-          evaluation.resultCode = 'RC4';
-        }
-        const [htmlCode, pointer] = await Promise.all([
-          DomUtils.getElementHtmlCode(elem),
-          DomUtils.getElementSelector(elem)
-        ]);
-        evaluation.htmlCode = htmlCode;
-        evaluation.pointer = pointer;
-        super.addEvaluationResult(evaluation);
-        evaluation = {
-          verdict: '',
-          description: '',
-          resultCode: ''
-        };
       }
+       
+      if(failedAria.length) {
+        evaluation.verdict = 'failed';
+        evaluation.description = 'The following aria-* attributes are not defined in ARIA 1.1: ' + failedAria;
+        evaluation.resultCode = 'RC1';
+      } else if (countAria) {
+        evaluation.verdict = 'passed';
+        evaluation.description = 'All aria-* attributes in this element are defined in ARIA 1.1';
+        evaluation.resultCode = 'RC2';
+      } else {
+        continue;
+      }
+
+      await super.addEvaluationResult(evaluation, elem);
     }
   }
 }

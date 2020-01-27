@@ -66,7 +66,7 @@ class QW_ACT_R25 extends Rule {
     const elementsWithAriaAttribs = await element.$$(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const elemRole = await AccessibilityTreeUtils.getElementRole(elem,page);
+      const elemRole = await AccessibilityTreeUtils.getElementRole(elem, page);
       const isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
       const elemAttribs = await DomUtils.getElementAttributesName(elem);
     
@@ -83,21 +83,21 @@ class QW_ACT_R25 extends Rule {
             // if valid aria attribute
             if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== undefined && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
               evaluation.verdict = 'passed';
-              evaluation.description = attrib + "property is supported or inherited by this element's role";
-              evaluation.resultCode = 'RC2';
+              evaluation.description = `The \`${attrib}\` property is supported or inherited by the \`role\` ${elemRole}.`;
+              evaluation.resultCode = 'RC1';
             } else {
               evaluation.verdict = 'failed';
-              evaluation.description = attrib + "property is neither inherited nor supported by this role";
-              evaluation.resultCode = 'RC3';
+              evaluation.description = `The \`${attrib}\` property is neither inherited nor supported by the \`role\` ${elemRole}.`;
+              evaluation.resultCode = 'RC2';
             }
           } else {
             //if they are not in the accessibility tree
             evaluation.verdict = 'inapplicable';
-            evaluation.description = "This element is not included in the accessibility tree";
-            evaluation.resultCode = 'RC4';
+            evaluation.description = 'The test target is not included in the accessibility tree.';
+            evaluation.resultCode = 'RC3';
           }
 
-          super.addEvaluationResult(evaluation, elem);
+          await super.addEvaluationResult(evaluation, elem);
         }
       }
     }

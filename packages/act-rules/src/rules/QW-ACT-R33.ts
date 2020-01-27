@@ -57,56 +57,47 @@ class QW_ACT_R33 extends Rule {
     };
 
     const [explictiRole, implicitRole, isInAT, isValidRole] = await Promise.all([
-      DomUtils.getElementAttribute(element, "role"),
+      DomUtils.getElementAttribute(element, 'role'),
       AccessibilityTreeUtils.getImplicitRole(element, page),
       AccessibilityTreeUtils.isElementInAT(element, page),
       AccessibilityTreeUtils.elementHasValidRole(element, page)
     ]);
 
-    if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]["requiredContextRole"] !== "") {
-      const requiredContextRole = rolesJSON[explictiRole]["requiredContextRole"];
-      const id = await DomUtils.getElementAttribute(element, "id");
+    if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]['requiredContextRole'] !== '') {
+      const requiredContextRole = rolesJSON[explictiRole]['requiredContextRole'];
+      const id = await DomUtils.getElementAttribute(element, 'id');
       const ariaOwns = await page.$('[aria-owns' + `="${id}"]`);
 
       if (ariaOwns !== null) {
         const ariaOwnsRole = await AccessibilityTreeUtils.getElementRole(ariaOwns, page);
         if (requiredContextRole.includes(ariaOwnsRole)) {
           evaluation.verdict = 'passed';
-          evaluation.description = `Parent has required context role.`;
+          evaluation.description = `The test target parent has the required context \`role\`.`;
           evaluation.resultCode = 'RC1';
         } else {
           evaluation.verdict = 'failed';
-          evaluation.description = `Parent doesnt have required context role`;
+          evaluation.description = `The test target parent doesn't have the required context \`role\``;
           evaluation.resultCode = 'RC2';
         }
       } else if (await this.isElementADescendantOf(element, page, requiredContextRole)) {
         evaluation.verdict = 'passed';
-        evaluation.description = `Parent has required context role.`;
+        evaluation.description = `The test target parent has the required context \`role\`.`;
         evaluation.resultCode = 'RC1';
       } else {
         evaluation.verdict = 'failed';
-        evaluation.description = `Parent doesnt have required context role`;
+        evaluation.description = `The test target parent doesn't have the required context \`role\``;
         evaluation.resultCode = 'RC2';
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `Element is not in Acessiblity Tree or doesnt have an explicit role with required context role`;
+      evaluation.description = `The test target is not in the acessiblity tree or doesn't have an explicit \`role\` with the required context \`role\``;
       evaluation.resultCode = 'RC3';
     }
-    const [htmlCode, pointer] = await Promise.all([
-      DomUtils.getElementHtmlCode(element),
-      DomUtils.getElementSelector(element)
-    ]);
-    evaluation.htmlCode = htmlCode;
-    evaluation.pointer = pointer;
 
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 
   private async isElementADescendantOf(element: ElementHandle, page: Page, roles: string[]): Promise<boolean> {
-    if (!element) {
-      throw Error('Element is not defined');
-    }
     const parent = await DomUtils.getElementParent(element);
     let result = false;
     let sameRole;
@@ -117,7 +108,7 @@ class QW_ACT_R33 extends Rule {
         sameRole = roles.includes(parentRole);
       }
       result = sameRole;
-      if (parentRole === null || parentRole === "presentation" || parentRole === "none") {
+      if (parentRole === null || parentRole === 'presentation' || parentRole === 'none') {
         return await this.isElementADescendantOf(parent, page, roles);
       } else {
         return result;
