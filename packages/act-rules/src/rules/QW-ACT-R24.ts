@@ -208,7 +208,7 @@ class QW_ACT_R24 extends Rule {
           }
         ],
         related: [],
-        url: 'https://act-rules.github.io/rules/de46e4',
+        url: 'https://act-rules.github.io/rules/73f2c2',
         passed: 0,
         warning: 0,
         failed: 0,
@@ -285,19 +285,14 @@ class QW_ACT_R24 extends Rule {
       }
 
       //sequencial focus nav and has semantic role that is not widget role
+      const isFocusable = await DomUtils.isElementFocusable(element);
       const widgetRole = await AccessibilityUtils.isElementWidget(element);
-      if (!widgetRole) {
+      if (!isFocusable && !widgetRole) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not part of sequential focus navigation and has a semantic role that is not a widget role.`;
         evaluation.resultCode = 'RC5';
         await super.addEvaluationResult(evaluation, element);
         return;
-      }
-
-      //check the focus
-      const isFocusable = await DomUtils.isElementFocusable(element);
-      if (!isFocusable) {
-        //inapplicable
       }
 
       const autoComplete = (await DomUtils.getElementAttribute(
