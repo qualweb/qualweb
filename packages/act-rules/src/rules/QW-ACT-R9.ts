@@ -113,21 +113,21 @@ class QW_ACT_R9 extends Rule {
           }
           if (result) {//passed
             evaluation.verdict = 'passed';
-            evaluation.description = `Links with the same accessible name have equal content`;
+            evaluation.description = `The \`links\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
           } else { //warning
             evaluation.verdict = 'warning';
-            evaluation.description = `Links with the same accessible name have different content.Verify is the content is equivalent`;
+            evaluation.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
             evaluation.resultCode = 'RC3';
           }
         } else {//inaplicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `There is no link with same the same accessible name`;
+          evaluation.description = `Doesn't exist any other \`link\` with the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
       } else {//inaplicable
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `link doesnt have accessible name`;
+        evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
 
