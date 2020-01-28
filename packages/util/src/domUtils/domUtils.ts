@@ -1,11 +1,13 @@
 'use strict';
 
 import getElementSelectorFunction from './getElementSelector';
+import getSourceElementSelectorFunction from './getSourceElementSelector';
 import getElementHtmlCodeFunction from './getElementHtmlCode';
+import getSourceElementHtmlCodeFunction from './getSourceElementHtmlCode';
 import elementHasAttributeFunction from './elementHasAttribute';
 import elementHasAttributesFunction from './elementHasAttributes';
 import getElementAttributeFunction from './getElementAttribute';
-import getElementAttribute2Function from './getElementAttribute2';
+import getSourceElementAttributeFunction from './getSourceElementAttribute';
 import getElementStylePropertyFunction from './getElementStyleProperty';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import elementHasChildFunction from './elementHasChild';
@@ -53,10 +55,12 @@ namespace DomUtils {
   export const elementHasAttribute = elementHasAttributeFunction;
   export const elementHasAttributes = elementHasAttributesFunction;
   export const getElementAttribute = getElementAttributeFunction;
-  export const getElementAttribute2 = getElementAttribute2Function;
+  export const getSourceElementAttribute = getSourceElementAttributeFunction;
   export const getElementSelector = getElementSelectorFunction;
+  export const getSourceElementSelector = getSourceElementSelectorFunction;
   export const getElementStyleProperty = getElementStylePropertyFunction;
   export const getElementHtmlCode = getElementHtmlCodeFunction;
+  export const getSourceElementHtmlCode = getSourceElementHtmlCodeFunction;
   export const getElementReferencedByHREF = getElementReferencedByHREFFunction;
   export const elementHasChild = elementHasChildFunction;
   export const getElementChildTextContent = getElementChildTextContentFunction;

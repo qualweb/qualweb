@@ -2,7 +2,7 @@
 
 import { DomElement } from 'htmlparser2';
 
-function getElementAttribute(element: DomElement, attribute: string): string | null {
+function getSourceElementAttribute(element: DomElement, attribute: string): string | null {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -10,4 +10,4 @@ function getElementAttribute(element: DomElement, attribute: string): string | n
   return element.attribs ? element.attribs[attribute] ? element.attribs[attribute] : null : null;
 }
 
-export = getElementAttribute;
+export = getSourceElementAttribute;
