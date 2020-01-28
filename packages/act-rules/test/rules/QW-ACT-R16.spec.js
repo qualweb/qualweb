@@ -18,17 +18,15 @@ describe(`Rule ${rule}`, async function () {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
 
-    describe('Running tests', function() {
-      for (const test of tests || []) {
-        it(test.title, async function() {
-          this.timeout(100 * 1000);
-          const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
-          const actRules = new ACTRules({ rules: [rule] });
-          const report = await actRules.execute(sourceHtml, page, stylesheets);
+    describe('Custom test', function() {
+      it('should execute', async function() {
+        this.timeout(1000 * 1000);
 
-          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
-        });
-      }
+        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nkmal.no/kontakt');
+        const actRules = new ACTRules({ rules: [rule] });
+        const report = await actRules.execute(sourceHtml, page, stylesheets);
+        console.log(JSON.stringify(report, null, 2));
+      });
     });
 
     describe(`Closing testbench`, async function () {
