@@ -60,7 +60,7 @@ class QW_ACT_R21 extends Rule {
       const [role, isHidden, accessibleName] = await Promise.all([
         DomUtils.getElementAttribute(elem, 'role'),
         DomUtils.isElementHidden(elem),
-        AccessibilityTreeUtils.getAccessibleNameSVG(elem, page)
+        AccessibilityUtils.getAccessibleNameSVG(elem, page)
       ]);
 
       if (!role || (role && roleList.indexOf(role) < 0) || isHidden) {

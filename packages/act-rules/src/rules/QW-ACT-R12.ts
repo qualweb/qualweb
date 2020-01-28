@@ -64,7 +64,7 @@ class QW_ACT_R12 extends Rule {
 
     const [isHidden, accessibleName, role, tagName] = await Promise.all([
       DomUtils.isElementHidden(element),
-      AccessibilityTreeUtils.getAccessibleName(element, page),
+      AccessibilityUtils.getAccessibleName(element, page),
       DomUtils.getElementAttribute(element, 'role'),
       DomUtils.getElementTagName(element)
     ]);

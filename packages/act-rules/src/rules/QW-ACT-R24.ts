@@ -241,7 +241,7 @@ class QW_ACT_R24 extends Rule {
     evaluation.pointer = pointer;
 
     //check if is visible and not in accessibility tree
-    let visible = await DomUtils.isElemenVisible(element);
+    let visible = await DomUtils.isElementVisible(element);
     if (!visible) {
       evaluation.verdict = "inapplicable";
       evaluation.description = `The element is not visible, and not included in the accessibility tree`;

@@ -74,7 +74,7 @@ class QW_ACT_R8 extends Rule {
 
         const [parent, accessibleName] = await Promise.all([
           DomUtils.getElementParent(element),
-          AccessibilityTreeUtils.getAccessibleName(element, page)
+          AccessibilityUtils.getAccessibleName(element, page)
         ]);
 
         if (filenameWithExtension === accessibleName) {

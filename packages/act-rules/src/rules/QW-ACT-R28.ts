@@ -49,7 +49,6 @@ class QW_ACT_R28 extends Rule {
 
     // get all elements
     const allElements = await element.$$('[role]');
-
     for (const elem of allElements || []) {
       const evaluation: ACTRuleResult = {
         verdict: '',
@@ -60,8 +59,8 @@ class QW_ACT_R28 extends Rule {
       const [elemRole, elemAttribs, implicitRole, isInAT] = await Promise.all([
         DomUtils.getElementAttribute(elem, 'role'),
         DomUtils.getElementAttributesName(elem),
-        AccessibilityTreeUtils.getImplicitRole(elem, page),
-        AccessibilityTreeUtils.isElementInAT(elem, page)
+        AccessibilityUtils.getImplicitRole(elem, page),
+        AccessibilityUtils.isElementInAT(elem, page)
       ]);
 
       if (!isInAT) {

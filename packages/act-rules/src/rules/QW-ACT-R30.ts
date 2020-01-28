@@ -4,13 +4,8 @@
 
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-
-import {
-  AccessibilityUtils,
-  DomUtils
-} from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 class QW_ACT_R30 extends Rule {
 
@@ -72,15 +67,15 @@ class QW_ACT_R30 extends Rule {
       evaluation.description = `The test target is not a \`widget\`.`;
       evaluation.resultCode = 'RC1';
     } else {
-      const supportsNameFromContent = await AccessibilityTreeUtils.allowsNameFromContent(element);
+      const supportsNameFromContent = await AccessibilityUtils.allowsNameFromContent(element);
       if(!supportsNameFromContent){
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not a \`widget\` that supports name from content.`;
         evaluation.resultCode = 'RC2';
       } else {
         const [accessibleName, elementText] = await Promise.all([
-          AccessibilityTreeUtils.getAccessibleName(element, page),
-          AccessibilityTreeUtils.getTrimmedText(element)
+          AccessibilityUtils.getAccessibleName(element, page),
+          AccessibilityUtils.getTrimmedText(element)
         ]);
 
         if(accessibleName === undefined) {

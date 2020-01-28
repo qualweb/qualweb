@@ -65,7 +65,7 @@ class QW_ACT_R6 extends Rule {
       evaluation.description = `The \`image button\` is not included in the accessibiliy tree.`;
       evaluation.resultCode = 'RC1';
     } else {
-      const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName && accessibleName.trim()) {
         evaluation.verdict = 'passed';
         evaluation.description = `The \`image button\` has an accessible name.`;

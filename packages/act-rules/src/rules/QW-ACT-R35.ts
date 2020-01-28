@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityTreeUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R35 extends Rule {
 
@@ -65,7 +65,7 @@ class QW_ACT_R35 extends Rule {
     
     const isInAT = await AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
-      const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target has a non-empty accessible name.';

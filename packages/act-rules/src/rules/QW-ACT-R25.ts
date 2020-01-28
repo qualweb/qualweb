@@ -66,10 +66,12 @@ class QW_ACT_R25 extends Rule {
     const elementsWithAriaAttribs = await element.$$(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const elemRole = await AccessibilityTreeUtils.getElementRole(elem, page);
-      const isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
-      const elemAttribs = await DomUtils.getElementAttributesName(elem);
-    
+      const [elemRole, isInAT, elemAttribs] = await Promise.all([
+        AccessibilityUtils.getElementRole(elem,page),
+        AccessibilityUtils.isElementInAT(elem, page),
+        DomUtils.getElementAttributesName(elem)
+      ]);
+      
       for (const attrib of elemAttribs || []) {
         if (Object.keys(ariaJSON).includes(attrib)) {
           const evaluation: ACTRuleResult = {

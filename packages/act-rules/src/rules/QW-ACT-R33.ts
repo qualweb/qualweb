@@ -6,10 +6,7 @@ import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import rolesJSON from './roles.json';
 
-import {
-  AccessibilityUtils,
-  DomUtils
-} from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 class QW_ACT_R33 extends Rule {
 
@@ -58,9 +55,9 @@ class QW_ACT_R33 extends Rule {
 
     const [explictiRole, implicitRole, isInAT, isValidRole] = await Promise.all([
       DomUtils.getElementAttribute(element, 'role'),
-      AccessibilityTreeUtils.getImplicitRole(element, page),
-      AccessibilityTreeUtils.isElementInAT(element, page),
-      AccessibilityTreeUtils.elementHasValidRole(element, page)
+      AccessibilityUtils.getImplicitRole(element, page),
+      AccessibilityUtils.isElementInAT(element, page),
+      AccessibilityUtils.elementHasValidRole(element, page)
     ]);
 
     if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]['requiredContextRole'] !== '') {

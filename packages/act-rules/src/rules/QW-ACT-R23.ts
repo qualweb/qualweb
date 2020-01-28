@@ -55,7 +55,7 @@ class QW_ACT_R23 extends Rule {
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
     const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
     const track = await element.$('track[kind="descriptions"]')
-    const isVisible = await DomUtils.isElemenVisible(element);
+    const isVisible = await DomUtils.isElementVisible(element);
 
     if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';

@@ -82,7 +82,7 @@ class QW_ACT_R17 extends Rule {
             evaluation.resultCode = 'RC6';
           }
         } else {
-          const accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+          const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
           if(accessibleName === null || accessibleName === undefined ) {
             evaluation.verdict = 'failed';
             evaluation.description = `The test target doesn't have an accessible name.`;

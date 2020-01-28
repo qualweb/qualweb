@@ -58,7 +58,7 @@ class QW_ACT_R31 extends Rule {
     const [metadata, track, isVisible] = await Promise.all([
       DomUtils.getVideoMetadata(element),
       element.$('track[kind="descriptions"]'),
-      DomUtils.isElemenVisible(element)
+      DomUtils.isElementVisible(element)
     ]);
 
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0;
