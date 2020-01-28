@@ -6,7 +6,7 @@ import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import rolesJSON from './roles.json';
 
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils,ShadowDomUtils } from '@qualweb/util';
 
 class QW_ACT_R33 extends Rule {
 
@@ -63,7 +63,9 @@ class QW_ACT_R33 extends Rule {
     if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]['requiredContextRole'] !== '') {
       const requiredContextRole = rolesJSON[explictiRole]['requiredContextRole'];
       const id = await DomUtils.getElementAttribute(element, 'id');
-      const ariaOwns = await page.$('[aria-owns' + `="${id}"]`);
+      const treeSelector = await ShadowDomUtils.getTreeSelector(element);
+
+      const ariaOwns = await page.$('[aria-owns' + `="${id}"]`+ treeSelector);
 
       if (ariaOwns !== null) {
         const ariaOwnsRole = await AccessibilityUtils.getElementRole(ariaOwns, page);
