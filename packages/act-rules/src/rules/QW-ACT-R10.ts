@@ -102,24 +102,24 @@ class QW_ACT_R10 extends Rule {
           }
           if (result) { //passed
             evaluation.verdict = 'passed';
-            evaluation.description = `Iframes with the same accessible name have equal content`;
+            evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
           } else { //failed
             evaluation.verdict = 'warning';
-            evaluation.description = `Iframes with the same accessible name have different content`;
+            evaluation.description = `The \`iframes\` with the same accessible name have different content.`;
             evaluation.resultCode = 'RC3';
           }
         } else { //inaplicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `There is no iframe with same the same accessible name`;
+          evaluation.description = `Doesn't exist any other \`iframe\` with same the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
       } else { //inaplicable
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `iframe doesnt have accessible name`;
+        evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      super.addEvaluationResult(evaluation /*, iframes[counter]*/);
+      await super.addEvaluationResult(evaluation , iframes[counter]);
       counter++;
     }
     // Este if serve para que?
