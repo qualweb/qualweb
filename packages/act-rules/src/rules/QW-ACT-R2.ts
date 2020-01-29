@@ -3,7 +3,6 @@
 import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
-
 import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R2 extends Rule {

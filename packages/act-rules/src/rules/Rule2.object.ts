@@ -3,6 +3,7 @@
 import { SourceHtml } from '@qualweb/core';
 import { DomElement } from 'htmlparser2';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { DomUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -40,7 +41,12 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: DomElement): void {
+    if (element) {
+      result.htmlCode = DomUtils.getSourceElementHtmlCode(element);
+      result.pointer = DomUtils.getSourceElementSelector(element);
+    }
+
     this.rule.results.push(clone(result));
     
     if (result.verdict !== 'inapplicable') {

@@ -4,7 +4,6 @@ import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-
 import ariaJSON from './ariaAttributesRoles.json';
 import rolesJSON from './roles.json';
 

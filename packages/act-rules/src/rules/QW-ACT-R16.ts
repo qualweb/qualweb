@@ -70,7 +70,7 @@ class QW_ACT_R16 extends Rule {
           evaluation.resultCode = 'RC1';
         } else {
           evaluation.verdict = 'failed';
-          evaluation.description = `The test target doesn't exists or it's empty ("").`;
+          evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
           evaluation.resultCode = 'RC2';
         }
       } else {

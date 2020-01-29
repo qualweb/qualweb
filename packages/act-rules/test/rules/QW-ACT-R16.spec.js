@@ -31,6 +31,17 @@ describe(`Rule ${rule}`, async function () {
       }
     });
 
+    describe('Custom test', function() {
+      it('should execute', async function() {
+        this.timeout(1000 * 1000);
+
+        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nkmal.no/kontakt');
+        const actRules = new ACTRules({ rules: [rule] });
+        const report = await actRules.execute(sourceHtml, page, stylesheets);
+        console.log(JSON.stringify(report, null, 2));
+      });
+    });
+
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
         await browser.close();

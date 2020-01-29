@@ -2,11 +2,8 @@
 
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-
 import { DomUtils } from '@qualweb/util';
-
 import languages from './language.json';
 
 class QW_ACT_R5 extends Rule {

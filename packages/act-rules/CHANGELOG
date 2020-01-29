@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.21] - 29/01/2020
+
+### Updated
+ - rule QW-ACT-R9
+ - rule QW-ACT-R10
+ - rule QW-ACT-R33
+
+### Fixed
+ - rule QW-ACT-R16 outcomes
+
+### Removed
+ - unused dependencies
+
 ## [0.3.20] - 28/01/2020
 
 ### Updated

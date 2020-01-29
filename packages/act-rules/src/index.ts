@@ -47,8 +47,8 @@ import mapping from './rules/mapping';
 
 class ACTRules {
 
+  private optimization = DomUtils.Optimization.Performance;
   private rules: any;
-
   private rulesToExecute = {
     'QW-ACT-R1': true,
     'QW-ACT-R2': true,
@@ -86,8 +86,6 @@ class ACTRules {
     'QW-ACT-R34': false,
     'QW-ACT-R35': false
   };
-
-  private optimization = DomUtils.Optimization.Performance;
 
   constructor(options?: ACTROptions) {
     this.rules = {
@@ -284,7 +282,9 @@ class ACTRules {
       },
       rules: {}
     };
+
     page = await ShadowDomUtils.processShadowDom(page);
+    
     await Promise.all([
       this.executeNonConcurrentRules(report, sourceHtml, page),
       this.executeConcurrentRules(report, sourceHtml, page),

@@ -2,9 +2,7 @@
 
 import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-
 import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R15 extends Rule {
