@@ -1,10 +1,10 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import videoElementHasAudio = require('./videoElementHasAudio');
-const request = require('request-promise');
+import videoElementHasAudio from './videoElementHasAudio';
+import request from 'request-promise';
 
-async function  getVideoMetadata(element: ElementHandle) {
+async function getVideoMetadata(element: ElementHandle) {
   let src = await element.evaluate(elem => {
     return elem['currentSrc'];
   });
@@ -39,4 +39,4 @@ async function  getVideoMetadata(element: ElementHandle) {
   return duration;
 }
 
-export = getVideoMetadata;
+export default getVideoMetadata;

@@ -35,4 +35,4 @@ async function isElementADescendantOf(element: ElementHandle, page: Page, names:
   }
 }
 
-export = isElementADescendantOf;
+export default isElementADescendantOf;

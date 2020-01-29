@@ -46,4 +46,4 @@ async function isElementFocusableByDefault(element: ElementHandle): Promise<bool
   return false;
 }
 
-export = isElementFocusableByDefault;
+export default isElementFocusableByDefault;

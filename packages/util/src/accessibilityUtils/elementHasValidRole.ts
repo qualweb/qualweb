@@ -3,7 +3,7 @@ import { ElementHandle, Page } from "puppeteer";
 import roles from './roles.json';
 import getElementRole from "./getElementRole";
 
-async function elementHasValidRole(element: ElementHandle,page:Page): Promise<boolean> {
+async function elementHasValidRole(element: ElementHandle, page:Page): Promise<boolean> {
 
   let role = await getElementRole(element,page);
   let result = false;
@@ -13,4 +13,4 @@ async function elementHasValidRole(element: ElementHandle,page:Page): Promise<bo
   return result;
 }
 
-export = elementHasValidRole;
+export default elementHasValidRole;

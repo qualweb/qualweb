@@ -1,7 +1,7 @@
 'use strict';
 
 import {  ElementHandle } from 'puppeteer';
-import getElementAttribute = require('../domUtils/getElementAttribute');
+import getElementAttribute from '../domUtils/getElementAttribute';
 
 async function getTreeSelector(elements: ElementHandle): Promise<string> {
 
@@ -9,10 +9,9 @@ async function getTreeSelector(elements: ElementHandle): Promise<string> {
   let result = ":not([shadowTree])";
   if(atribute !== null){
     result = `[shadowTree="${atribute}"]`
-
   }
  
   return result;
 }
 
-export = getTreeSelector;
+export default getTreeSelector;

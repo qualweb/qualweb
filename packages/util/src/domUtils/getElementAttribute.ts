@@ -11,4 +11,4 @@ async function getElementAttribute(element: ElementHandle, attribute: string): P
   }, attribute);
 }
 
-export = getElementAttribute;
+export default getElementAttribute;

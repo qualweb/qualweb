@@ -12,4 +12,4 @@ function elementHasAttributes(element: ElementHandle): Promise<boolean> {
   });
 }
 
-export = elementHasAttributes;
+export default elementHasAttributes;

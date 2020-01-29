@@ -11,4 +11,4 @@ function getTextFromCss(element: ElementHandle, textContent: string): string {
   return before + textContent + after;
 }
 
-export = getTextFromCss;
+export default getTextFromCss;

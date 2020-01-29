@@ -48,4 +48,4 @@ async function isElementInAT(element: ElementHandle, page: Page): Promise<boolea
   return result;
 }
 
-export = isElementInAT;
+export default isElementInAT;

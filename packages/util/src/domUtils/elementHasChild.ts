@@ -19,4 +19,4 @@ async function elementHasChild(element: ElementHandle, childName: string): Promi
   }, childName);
 }
 
-export = elementHasChild;
+export default elementHasChild;

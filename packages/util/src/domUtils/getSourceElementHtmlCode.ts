@@ -30,4 +30,4 @@ function getSourceElementHtmlCode(element: DomElement, withText: boolean=true, f
   return html(codeElement);
 }
 
-export = getSourceElementHtmlCode;
+export default getSourceElementHtmlCode;

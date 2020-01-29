@@ -19,4 +19,4 @@ async function getTrimmedText(element: ElementHandle): Promise<string> {
   return text;
 }
 
-export = getTrimmedText;
+export default getTrimmedText;

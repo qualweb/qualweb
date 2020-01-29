@@ -8,4 +8,4 @@ async function getElementAttributesName(element: ElementHandle): Promise<Array<s
   });
 }
 
-export = getElementAttributesName;
+export default getElementAttributesName;

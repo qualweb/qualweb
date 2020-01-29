@@ -20,4 +20,4 @@ function getContentComputedStylesAttribute(element: DomElement, computedStyle: s
   return attributeContent.replace("&quot", "");
 }
 
-export = getContentComputedStylesAttribute;
+export default getContentComputedStylesAttribute;

@@ -10,4 +10,4 @@ async function isElementControl(element: ElementHandle): Promise<boolean> {
   return role!==null && controlRoles.indexOf(role) >= 0;
 }
 
-export = isElementControl;
+export default isElementControl;

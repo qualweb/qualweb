@@ -6,4 +6,4 @@ async function getElementNextSibling(element: ElementHandle): Promise<ElementHan
   return (await element.getProperty('nextElementSibling')).asElement();
 }
 
-export = getElementNextSibling;
+export default getElementNextSibling;

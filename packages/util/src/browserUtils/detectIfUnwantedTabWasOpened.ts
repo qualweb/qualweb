@@ -23,4 +23,4 @@ async function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Prom
   return wasOpen;
 }
 
-export = detectIfUnwantedTabWasOpened
+export default detectIfUnwantedTabWasOpened;

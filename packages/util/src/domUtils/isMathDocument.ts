@@ -7,4 +7,4 @@ async function isMathDocument(url: string): Promise<boolean> {
   return response.trim().startsWith('<math');
 }
 
-export = isMathDocument;
+export default isMathDocument;

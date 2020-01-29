@@ -12,4 +12,4 @@ async function getPageRootElement(page: Page): Promise<ElementHandle | null> {
   return documentElement ? documentElement.asElement() : null;
 }
 
-export = getPageRootElement;
+export default getPageRootElement;

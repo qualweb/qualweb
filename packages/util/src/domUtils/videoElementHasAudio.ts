@@ -8,4 +8,4 @@ async function videoElementHasAudio(element: ElementHandle): Promise<boolean> {
   });
 }
 
-export = videoElementHasAudio;
+export default videoElementHasAudio;

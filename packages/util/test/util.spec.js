@@ -20,7 +20,8 @@ describe('DOM UTILITIES', function() {
         console.log(await DomUtils.getElementTagName(elemt))
         console.log(await AccessibilityTreeUtils.getAccessibleNameSVG(elemt,page))
       }
-  
+      await browser.close();
+      
       expect("").to.be.equal('');
     });
     it('test getPageRootElement', async function() {
@@ -46,6 +47,9 @@ describe('DOM UTILITIES', function() {
       console.log(Optimization);
       console.log(Optimization.Performance === Optimization.ErrorDetection);
       console.log(Optimization.ErrorDetection);
+    });
+    it.only('print namespace', async function() {
+      console.log(DomUtils);
     });
   });
 });

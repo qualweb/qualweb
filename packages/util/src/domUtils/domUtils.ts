@@ -40,7 +40,6 @@ import isElementADescendantOfFunction from './isElementADescendantOf';
 import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
 import getPageRootElementFunction from './getPageRootElement';
 import isMathDocumentFunction from './isMathDocument';
-import ROLES_ATTR from './roles';
 
 /**
  * DOM Utilities namespace
@@ -86,7 +85,6 @@ namespace DomUtils {
   export const isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
   export const getPageRootElement = getPageRootElementFunction;
   export const isMathDocument = isMathDocumentFunction;
-  export const ROLES = ROLES_ATTR;
 }
 
-export = DomUtils;
+export default DomUtils;

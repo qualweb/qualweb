@@ -1,9 +1,9 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import getElementParent = require('./getElementParent');
-import getElementTagName = require('./getElementTagName');
-import getElementAttribute = require('./getElementAttribute');
+import getElementParent from './getElementParent';
+import getElementTagName from './getElementTagName';
+import getElementAttribute from './getElementAttribute';
 
 async function isElementADescendantOfExplicitRole(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean> {
   if (!element) {
@@ -35,4 +35,4 @@ async function isElementADescendantOfExplicitRole(element: ElementHandle, page: 
   }
 }
 
-export = isElementADescendantOfExplicitRole;
+export default isElementADescendantOfExplicitRole;

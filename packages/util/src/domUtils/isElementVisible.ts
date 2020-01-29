@@ -14,4 +14,4 @@ async function isElementVisible(element: ElementHandle): Promise<boolean> {
   return !(offScreen || cssHidden);
 }
 
-export = isElementVisible;
+export default isElementVisible;

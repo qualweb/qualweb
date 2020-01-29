@@ -10,4 +10,4 @@ namespace ShadowDomUtils {
   export const getTreeSelector = getTreeSelectorFunction;
 }
 
-export = ShadowDomUtils;
+export default ShadowDomUtils;

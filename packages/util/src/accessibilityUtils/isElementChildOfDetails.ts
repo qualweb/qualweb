@@ -6,4 +6,4 @@ function isElementChildOfDetails(element: Element): boolean {
   return !!element.parent && element.parent.name === "details";
 }
 
-export = isElementChildOfDetails;
+export default isElementChildOfDetails;

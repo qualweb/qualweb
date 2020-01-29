@@ -4,4 +4,4 @@ function trimImportant(value: string): string {
   return value.replace('!important', '').trim();
 }
 
-export = trimImportant;
+export default trimImportant;

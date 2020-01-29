@@ -25,4 +25,4 @@ async function getDefaultName(element: ElementHandle): Promise<string> {
   return result;
 }
 
-export = getDefaultName;
+export default getDefaultName;

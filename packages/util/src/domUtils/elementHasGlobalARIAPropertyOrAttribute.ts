@@ -22,4 +22,4 @@ async function elementHasGlobalARIAPropertyOrAttribute(element: ElementHandle): 
   }
   return result;}
 
-export = elementHasGlobalARIAPropertyOrAttribute;
+export default elementHasGlobalARIAPropertyOrAttribute;

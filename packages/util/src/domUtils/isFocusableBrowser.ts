@@ -8,4 +8,4 @@ async function isFocusableBrowser(page: Page, element: ElementHandle): Promise<b
   return snapshot && snapshot.focused !== undefined;
 }
 
-export = isFocusableBrowser;
+export default isFocusableBrowser;

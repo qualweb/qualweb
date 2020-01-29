@@ -1,9 +1,9 @@
 'use strict';
 
 import getAccessibleName from "./getAccessibleName";
-import {ElementHandle, Page} from "puppeteer";
+import { ElementHandle, Page } from "puppeteer";
 import getElementAttribute from "../domUtils/getElementAttribute";
-import { getTreeSelector } from "../shadowDomUtils/shadowDomUtils";
+import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
 async function isDataTable(element: ElementHandle, page: Page): Promise<boolean> {
   if (!element) {
@@ -25,4 +25,4 @@ async function isDataTable(element: ElementHandle, page: Page): Promise<boolean>
   return presentation ? false : (!!accessibleName || thElem.length > 0 || tdHeaders.length > 0 || tdWithHeaders.length > 0 || describedBy);
 }
 
-export = isDataTable;
+export default isDataTable;

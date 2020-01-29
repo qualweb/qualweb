@@ -11,7 +11,7 @@ import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
-import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
+import elementHasRoleNoneOrPresentation from "./elementHasRoleNoneOrPresentation";
 import getElementType from '../domUtils/getElementType';
 import getElementById from '../domUtils/getElementById';
 import isElementHidden from '../domUtils/isElementHidden';
@@ -219,4 +219,4 @@ async function isRoleControl(element: ElementHandle): Promise<boolean> {
   return role !== null && controlRoles.indexOf(role) >= 0
 }
 
-export = getAccessibleName;
+export default getAccessibleName;

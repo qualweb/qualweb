@@ -11,4 +11,4 @@ async function getElementByAttributeName(page: Page, name: string): Promise<Elem
   return page.$(`[name="${name}"]`);
 }
 
-export = getElementByAttributeName;
+export default getElementByAttributeName;

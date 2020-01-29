@@ -6,4 +6,4 @@ namespace CssUtils {
   export const trimImportant = trimImportantFunction;
 }
 
-export = CssUtils;
+export default CssUtils;

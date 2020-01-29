@@ -10,4 +10,4 @@ function getSourceElementAttribute(element: DomElement, attribute: string): stri
   return element.attribs ? element.attribs[attribute] ? element.attribs[attribute] : null : null;
 }
 
-export = getSourceElementAttribute;
+export default getSourceElementAttribute;

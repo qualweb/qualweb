@@ -13,4 +13,4 @@ async function elementHasParent(element: ElementHandle, parent: string): Promise
   }, parent);
 }
 
-export = elementHasParent;
+export default elementHasParent;

@@ -25,4 +25,4 @@ async function getElementHtmlCode(element: ElementHandle, withText: boolean = tr
   return htmlCode;
 }
 
-export = getElementHtmlCode;
+export default getElementHtmlCode;

@@ -5,7 +5,7 @@ import getAccessibleName from './getAccessibleName';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementAttribute from '../domUtils/getElementAttribute';
-import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole.js';
+import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole';
 
 async function getImplicitRole(element: ElementHandle, page: Page): Promise<string | null> {
   let name = await getElementTagName(element);
@@ -109,4 +109,4 @@ async function isInList(attributes, element: ElementHandle) {
   return result;
 }
 
-export = getImplicitRole;
+export default getImplicitRole;
