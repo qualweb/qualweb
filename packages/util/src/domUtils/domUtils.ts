@@ -34,7 +34,6 @@ import isFocusableBrowserFunction from './isFocusableBrowser';
 import getElementAttributesFunction from './getElementAttributes';
 import isOffScreenFunction from './isOffScreen';
 import isElementVisibleFunction from './isElementVisible'
-import getVideoMetadataFunction from './getVideoMetadata'
 import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalARIAPropertyOrAttribute'
 import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
@@ -81,7 +80,6 @@ namespace DomUtils {
   export const getElementAttributes = getElementAttributesFunction;
   export const isOffScreen = isOffScreenFunction;
   export const isElementVisible = isElementVisibleFunction;
-  export const getVideoMetadata = getVideoMetadataFunction;
   export const elementHasGlobalARIAPropertyOrAttribute = elementHasGlobalARIAPropertyOrAttributeFunction;
   export const elementIDIsReferenced = elementIDIsReferencedFunction;
   export const isElementADescendantOf = isElementADescendantOfFunction;
