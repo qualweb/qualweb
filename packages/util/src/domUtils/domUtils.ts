@@ -47,11 +47,6 @@ import ROLES_ATTR from './roles';
  * DOM Utilities namespace
  */
 namespace DomUtils {
-  export enum Optimization {
-    Performance = 1,
-    ErrorDetection = 2
-  };
-
   export const elementHasAttribute = elementHasAttributeFunction;
   export const elementHasAttributes = elementHasAttributesFunction;
   export const getElementAttribute = getElementAttributeFunction;
