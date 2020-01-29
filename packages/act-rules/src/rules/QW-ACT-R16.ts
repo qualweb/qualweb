@@ -60,8 +60,10 @@ class QW_ACT_R16 extends Rule {
     const semanticRoles = ['checkbox', 'combobox', 'listbox', 'menuitemcheckbox', 'menuitemradio', 'radio', 'searchbox', 'slider', 'spinbutton', 'switch', 'textbox'];
 
     const role = await DomUtils.getElementAttribute(element, 'role');
+
     if (!role || semanticRoles.includes(role.trim())) {
       const isHidden = await DomUtils.isElementHidden(element);
+      console.log(isHidden + await  DomUtils.getElementHtmlCode(element)+await DomUtils.getElementStyleProperty(element, 'display', ''));
       if (!isHidden) {
         const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
         if (accessibleName && accessibleName.trim()) {
