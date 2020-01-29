@@ -295,32 +295,35 @@ class QW_ACT_R24 extends Rule {
         return;
       }
 
-      const autoComplete = (await DomUtils.getElementAttribute(
+      let autoComplete = await DomUtils.getElementAttribute(
         element,
         'autoComplete'
-      )).trim();
+      );
 
-      if (autoComplete === '') {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target \`autocomplete\` attribute contains no tokens.`;
-        evaluation.resultCode = 'RC6';
-        await super.addEvaluationResult(evaluation, element);
-        return;
-      }
+      if (autoComplete) {
+        autoComplete = autoComplete.trim();
+        if (autoComplete === '') {
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = `The test target \`autocomplete\` attribute contains no tokens.`;
+          evaluation.resultCode = 'RC6';
+          await super.addEvaluationResult(evaluation, element);
+          return;
+        }
 
-      const correctAutocompleteField = await this.isCorrectAutocompleteField(element, autoComplete);
-      if (!correctAutocompleteField) {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The test target \`autocomplete\` attribute is not valid.`;
-        evaluation.resultCode = 'RC8';
-        await super.addEvaluationResult(evaluation, element);
-        return;
-      } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target has a valid \`autocomplete\` attribute.`;
-        evaluation.resultCode = 'RC9';
-        await super.addEvaluationResult(evaluation, element);
-        return;
+        const correctAutocompleteField = await this.isCorrectAutocompleteField(element, autoComplete);
+        if (!correctAutocompleteField) {
+          evaluation.verdict = 'failed';
+          evaluation.description = `The test target \`autocomplete\` attribute is not valid.`;
+          evaluation.resultCode = 'RC8';
+          await super.addEvaluationResult(evaluation, element);
+          return;
+        } else {
+          evaluation.verdict = 'passed';
+          evaluation.description = `The test target has a valid \`autocomplete\` attribute.`;
+          evaluation.resultCode = 'RC9';
+          await super.addEvaluationResult(evaluation, element);
+          return;
+        }
       }
     } else {
       evaluation.verdict = 'inapplicable';

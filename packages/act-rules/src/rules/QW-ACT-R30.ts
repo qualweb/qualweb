@@ -82,11 +82,11 @@ class QW_ACT_R30 extends Rule {
           evaluation.verdict = 'failed';
           evaluation.description = `The test target doesn't have an accessible name.`;
           evaluation.resultCode = 'RC6';
-        } else if(elementText.length === 1) {
+        } else if(elementText && elementText.length === 1) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target contains non-text content.`;
           evaluation.resultCode = 'RC3';
-        } else if(accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())) {
+        } else if(elementText && accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())) {
           evaluation.verdict = 'passed';
           evaluation.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
           evaluation.resultCode = 'RC4';

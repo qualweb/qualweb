@@ -87,13 +87,13 @@ class QW_ACT_R34 extends Rule {
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'The test target `' + attrib + '` attribute is empty.';
             evaluation.resultCode = 'RC2';
-          } else if (isInAT) {
+          } else if (attrValue && isInAT) {
             if (typeValue === 'value') {
               result = values.includes(attrValue);
             } else if (typeValue === 'string') {
               result = values === '';
             } else if (typeValue === 'number') {
-              result = !isNaN(attrValue);
+              result = !isNaN(Number(attrValue));
             } else if (typeValue === 'integer') {
               const regex = new RegExp('^[0-9]+$');
               result = regex.test(attrValue);

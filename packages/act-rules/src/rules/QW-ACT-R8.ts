@@ -77,13 +77,13 @@ class QW_ACT_R8 extends Rule {
         ]);
 
         if (filenameWithExtension === accessibleName) {
-          if (imageFile.test(filenameWithExtension)) {
+          if (parent && imageFile.test(filenameWithExtension)) {
             const [tagName, elementText] = await Promise.all([
               DomUtils.getElementTagName(parent),
               DomUtils.getElementText(parent)
             ]);
 
-            if (parent && tagName && elementText){
+            if (tagName && elementText){
               evaluation.verdict = 'passed';
               evaluation.description = `The test target accessible name includes the filename but with the text content of the \`a\` element, the image is accurately described.`;
               evaluation.resultCode = 'RC3';DomUtils

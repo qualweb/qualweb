@@ -46,8 +46,11 @@ class QW_ACT_R3 extends Rule {
       resultCode: ''
     };
 
-    const rootElement = (await DomUtils.getPageRootElement(page)) || '';
-    const rootElementTagName = await DomUtils.getElementTagName(rootElement);
+    const rootElement = await DomUtils.getPageRootElement(page);
+    let rootElementTagName; 
+    if (rootElement) {
+      rootElementTagName = await DomUtils.getElementTagName(rootElement);
+    }
     const isMathDocument = await DomUtils.isMathDocument(await page.url());
 
     const isHtmlDocument = rootElementTagName.trim().toLowerCase() === 'html' && !isMathDocument;

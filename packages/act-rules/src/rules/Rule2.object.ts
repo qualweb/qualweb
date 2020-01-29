@@ -43,7 +43,7 @@ abstract class Rule {
 
   protected addEvaluationResult(result: ACTRuleResult, element?: DomElement): void {
     if (element) {
-      result.htmlCode = DomUtils.getSourceElementHtmlCode(element);
+      result.htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
       result.pointer = DomUtils.getSourceElementSelector(element);
     }
 

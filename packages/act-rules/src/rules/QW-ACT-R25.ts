@@ -82,7 +82,7 @@ class QW_ACT_R25 extends Rule {
           //if is in the accessibility tree
           if (isInAT) {
             // if valid aria attribute
-            if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== undefined && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
+            if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== null && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
               evaluation.verdict = 'passed';
               evaluation.description = `The \`${attrib}\` property is supported or inherited by the \`role\` ${elemRole}.`;
               evaluation.resultCode = 'RC1';

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.22] - 29/01/2020
+
+### Updated
+ - @qualweb/util
+ - @qualweb/types
+
+### Fixed
+ - some rules bugs
+
 ## [0.3.21] - 29/01/2020
 
 ### Updated

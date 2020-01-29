@@ -87,9 +87,9 @@ class QW_ACT_R28 extends Rule {
 
           while (i < requiredAriaList.length && result) {
             requiredAria = requiredAriaList[i];
-            if (elemAttribs.includes(requiredAria) && !implicitRoles.includes(requiredAria)) {
-              const attrValue = (await DomUtils.getElementAttribute(elem, requiredAria)).trim();
-              result = attrValue !== '';
+            if (elemAttribs && elemAttribs.includes(requiredAria) && !implicitRoles.includes(requiredAria)) {
+              const attrValue = await DomUtils.getElementAttribute(elem, requiredAria);
+              result = (attrValue ? attrValue.trim() : '') !== '';
             } else {
               result = implicitRoles.includes(requiredAria);
             }

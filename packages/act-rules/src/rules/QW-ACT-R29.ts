@@ -53,8 +53,8 @@ class QW_ACT_R29 extends Rule {
     };
 
     const [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
-      DomUtils.isElementHidden(element, page),
-      DomUtils.isElementVisible(element, page),
+      DomUtils.isElementHidden(element),
+      DomUtils.isElementVisible(element),
       DomUtils.elementHasAttribute(element, 'controls'),
       DomUtils.getElementAttribute(element, 'autoplay'),
       DomUtils.getVideoMetadata(element)

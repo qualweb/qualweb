@@ -2,10 +2,9 @@
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
-import { DomUtils } from '@qualweb/util';
+import { ShadowDomUtils, Optimization } from '@qualweb/util';
 const stew = new(require('stew-select')).Stew();
 import { Page } from 'puppeteer';
-import { ShadowDomUtils } from '@qualweb/util';
 
 import QW_ACT_R1 from './rules/QW-ACT-R1';
 import QW_ACT_R2 from './rules/QW-ACT-R2';
@@ -47,7 +46,7 @@ import mapping from './rules/mapping';
 
 class ACTRules {
 
-  private optimization = DomUtils.Optimization.Performance;
+  private optimization = Optimization.Performance;
   private rules: any;
   private rulesToExecute = {
     'QW-ACT-R1': true,
@@ -179,9 +178,9 @@ class ACTRules {
 
     if (options.optimize) {
       if (options.optimize.toLowerCase() === 'performance') {
-        this.optimization = DomUtils.Optimization.Performance;
+        this.optimization = Optimization.Performance;
       } else if (options.optimize.toLowerCase() === 'error-detection') {
-        this.optimization = DomUtils.Optimization.ErrorDetecttion;
+        this.optimization = Optimization.ErrorDetection;
       }
     }
   }
