@@ -6,9 +6,9 @@ import AccessibilityUtils from './accessibilityUtils/accessibilityUtils';
 import CssUtils from './cssUtils/cssUtils';
 import ShadowDomUtils from './shadowDomUtils/shadowDomUtils';
 
-enum Optimization {
-  Performance = 1,
-  ErrorDetection = 2
+class Optimization {
+  public static Performance = 1;
+  public static ErrorDetection = 2;
 };
 
 export {

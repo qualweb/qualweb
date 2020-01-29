@@ -1,4 +1,4 @@
-const { AccessibilityTreeUtils ,DomUtils} = require('../dist/index');
+const { AccessibilityTreeUtils , DomUtils, Optimization} = require('../dist/index');
 const {
   getDom
 } = require('./getDom');
@@ -43,9 +43,9 @@ describe('DOM UTILITIES', function() {
       await browser.close();
     });
     it('test enum Optimization', async function() {
-      console.log(DomUtils.Optimization);
-      console.log(DomUtils.Optimization.Performance === DomUtils.Optimization.ErrorDetection);
-      console.log(DomUtils.Optimization.ErrorDetection);
+      console.log(Optimization);
+      console.log(Optimization.Performance === Optimization.ErrorDetection);
+      console.log(Optimization.ErrorDetection);
     });
   });
 });
