@@ -11,8 +11,8 @@ import {
 } from './constants';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementAttribute from '../domUtils/getElementAttribute';
-import getAccessibleName = require("./getAccessibleName");
-import getElementChildTextContent = require("../domUtils/getElementChildTextContent");
+import getAccessibleName from "./getAccessibleName";
+import getElementChildTextContent from "../domUtils/getElementChildTextContent";
 import getElementChildren from '../domUtils/getElementChildren';
 
 async function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise<string | undefined> {
@@ -118,4 +118,4 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page: Page)
   return result;
 }
 
-export = getAccessibleNameSVG;
+export default getAccessibleNameSVG;

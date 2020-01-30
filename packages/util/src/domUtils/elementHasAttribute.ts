@@ -12,4 +12,4 @@ async function elementHasAttribute(element: ElementHandle, attribute: string): P
   }, attribute);
 }
 
-export = elementHasAttribute;
+export default elementHasAttribute;

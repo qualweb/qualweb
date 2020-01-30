@@ -1,7 +1,7 @@
 'use strict';
 
 import {  ElementHandle } from 'puppeteer';
-import getElementAttribute = require('../domUtils/getElementAttribute');
+import getElementAttribute from '../domUtils/getElementAttribute';
 
 async function areElementsInTheSameTree(elements: ElementHandle []): Promise<boolean> {
 
@@ -15,4 +15,4 @@ async function areElementsInTheSameTree(elements: ElementHandle []): Promise<boo
   return result;
 }
 
-export = areElementsInTheSameTree;
+export default areElementsInTheSameTree;

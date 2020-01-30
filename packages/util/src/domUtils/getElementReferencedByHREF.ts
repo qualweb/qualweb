@@ -41,4 +41,4 @@ async function getElementReferencedByHREF(page: Page, element: ElementHandle): P
   return null;
 }
 
-export = getElementReferencedByHREF;
+export default getElementReferencedByHREF;

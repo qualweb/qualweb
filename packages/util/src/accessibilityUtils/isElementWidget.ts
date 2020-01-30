@@ -15,4 +15,4 @@ async function isElementWidget(element: ElementHandle): Promise<boolean> {
   return role!==null && (widgetRoles.indexOf(role) >= 0) || name !== '' && (widgetElements.indexOf(name) >= 0);
 }
 
-export = isElementWidget;
+export default isElementWidget;

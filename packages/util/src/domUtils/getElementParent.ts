@@ -10,4 +10,4 @@ async function getElementParent(element: ElementHandle): Promise<ElementHandle |
   return (await element.getProperty('parentElement')).asElement();
 }
 
-export = getElementParent;
+export default getElementParent;

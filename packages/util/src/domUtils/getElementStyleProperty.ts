@@ -9,4 +9,4 @@ function getElementStyleProperty(element: ElementHandle, property: string, pseud
   }, property, pseudoStyle);
 }
 
-export = getElementStyleProperty;
+export default getElementStyleProperty;

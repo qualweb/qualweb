@@ -23,4 +23,4 @@ async function isElementHidden(element: ElementHandle): Promise<boolean> {
   return cssHidden || hidden || ariaHidden || parentHidden;
 }
 
-export = isElementHidden;
+export default isElementHidden;

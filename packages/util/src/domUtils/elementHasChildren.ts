@@ -8,4 +8,4 @@ async function elementHasChidren(element: ElementHandle): Promise<boolean> {
   });
 }
 
-export = elementHasChidren;
+export default elementHasChidren;

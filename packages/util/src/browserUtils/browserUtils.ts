@@ -6,4 +6,4 @@ namespace BrowserUtils {
   export const detectIfUnwantedTabWasOpened = detectIfUnwantedTabWasOpenedFunction;
 }
 
-export = BrowserUtils;
+export default BrowserUtils;

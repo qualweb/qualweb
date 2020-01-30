@@ -1,7 +1,7 @@
 'use strict';
-import getElementAttribute = require("../domUtils/getElementAttribute");
-import getElementTagName = require("../domUtils/getElementTagName");
-import getTrimmedText = require("./getTrimmedText");
+import getElementAttribute from "../domUtils/getElementAttribute";
+import getElementTagName from "../domUtils/getElementTagName";
+import getTrimmedText from "./getTrimmedText";
 import { ElementHandle, Page } from "puppeteer";
 import getElementRoleAName = require("./getElementRoleAName");
 
@@ -75,4 +75,4 @@ async function getValueFromEmbeddedControl(element: ElementHandle, page: Page,tr
   return value;
 }
 
-export = getValueFromEmbeddedControl;
+export default getValueFromEmbeddedControl;

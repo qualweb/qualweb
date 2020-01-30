@@ -11,4 +11,4 @@ async function getElementText(element: ElementHandle): Promise<string> {
   return text;
 }
 
-export = getElementText;
+export default getElementText;

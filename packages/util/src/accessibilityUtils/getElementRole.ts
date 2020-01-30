@@ -10,4 +10,4 @@ async function getElementRole(element: ElementHandle, page: Page): Promise<strin
   return await getElementRoleAName(element,page,aName);
 }
 
-export = getElementRole;
+export default getElementRole;

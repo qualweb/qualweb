@@ -11,7 +11,7 @@ import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
-import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
+import elementHasRoleNoneOrPresentation from "./elementHasRoleNoneOrPresentation";
 import getElementType from '../domUtils/getElementType';
 import getElementById from '../domUtils/getElementById';
 import isElementHidden from '../domUtils/isElementHidden';
@@ -31,7 +31,6 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let isSummary = element.name === "summary";
   let type = await getElementType(element);
   let name = await getElementTagName(element);
-  console.log(name)
   let allowNameFromContent = await allowsNameFromContent(element);
   let treeSelector = await getTreeSelector(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
@@ -74,8 +73,6 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name && formElements.indexOf(name) >= 0) {
-    console.log("form")
-    console.log(recursion);
     if (!recursion) {
       AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title);
     } else {
@@ -235,5 +232,4 @@ async function verififyAriaLabel(ariaLabelBy:string,page:Page,element:ElementHan
   return result;
 }
 
-
-export = getAccessibleName;
+export default getAccessibleName;

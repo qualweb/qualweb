@@ -69,4 +69,4 @@ async function isParentChildPresentational(element: ElementHandle,page:Page): Pr
   return childPresentational || isParentChildPresentationalVar;
 }
 
-export = isElementPresentation;
+export default isElementPresentation;

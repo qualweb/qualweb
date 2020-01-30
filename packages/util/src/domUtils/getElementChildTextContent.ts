@@ -19,4 +19,4 @@ function getElementChildTextContent(element: ElementHandle, childName: string): 
   }, childName);
 }
 
-export = getElementChildTextContent;
+export default getElementChildTextContent;

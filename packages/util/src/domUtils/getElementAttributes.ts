@@ -15,4 +15,4 @@ async function getElementAttributes(element: ElementHandle): Promise<any> {
   });
 }
 
-export = getElementAttributes;
+export default getElementAttributes;

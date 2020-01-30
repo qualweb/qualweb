@@ -8,4 +8,4 @@ async function elementHasRoleNoneOrPresentation(element: ElementHandle): Promise
   return role!== null && (role === "none" ||role === "presentation");
 }
 
-export = elementHasRoleNoneOrPresentation;
+export default elementHasRoleNoneOrPresentation;

@@ -1,4 +1,4 @@
-onst { AccessibilityUtils} = require('../dist/index');
+const { AccessibilityUtils} = require('../dist/index');
 const {
   getDom
 } = require('./getDom');

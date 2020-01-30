@@ -49,4 +49,4 @@ function getSourceElementSelector(element: DomElement): string {
   return selector;
 }
 
-export = getSourceElementSelector;
+export default getSourceElementSelector;

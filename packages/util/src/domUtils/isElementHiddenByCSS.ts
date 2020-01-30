@@ -13,4 +13,4 @@ async function isElementHiddenByCSS(element: ElementHandle): Promise<boolean> {
   return isElementHiddenByCSSAux(element) || parentHidden;
 }
 
-export = isElementHiddenByCSS;
+export default isElementHiddenByCSS;

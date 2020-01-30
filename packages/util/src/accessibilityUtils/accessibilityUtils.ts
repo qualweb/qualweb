@@ -14,10 +14,7 @@ import getElementRoleFunction from "./getElementRole";
 import getElementRoleANameFunction from "./getElementRoleAName";
 import getImplicitRoleFunction from "./getImplicitRole";
 import isElementInATFunction from "./isElementInAT";
-import elementHasValidRoleFunction from "./elementHasValidRole"
-
-
-
+import elementHasValidRoleFunction from "./elementHasValidRole";
 
 namespace AccessibilityUtils {
   export const getElmentRoleAname = getElementRoleANameFunction;
@@ -37,4 +34,4 @@ namespace AccessibilityUtils {
   export const elementHasValidRole = elementHasValidRoleFunction;
 }
 
-export = AccessibilityUtils;
+export default AccessibilityUtils;

@@ -11,4 +11,4 @@ async function setElementAttribute(element: ElementHandle, attribute: string,val
   }, attribute,value);
 }
 
-export = setElementAttribute;
+export default setElementAttribute;

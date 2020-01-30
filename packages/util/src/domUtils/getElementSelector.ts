@@ -52,4 +52,4 @@ async function getElementSelector(element: ElementHandle): Promise<string> {
   return selector;
 }
 
-export = getElementSelector;
+export default getElementSelector;

@@ -20,4 +20,4 @@ async function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean>
 return visibility || displayNone;
 }
 
-export = isElementHiddenByCSSAux;
+export default isElementHiddenByCSSAux;

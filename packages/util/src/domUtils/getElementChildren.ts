@@ -11,4 +11,4 @@ async function getElementChildren(element: ElementHandle): Promise<ElementHandle
   return element.$$(selector + ' > *'+treeSelector);
 }
 
-export = getElementChildren;
+export default getElementChildren;

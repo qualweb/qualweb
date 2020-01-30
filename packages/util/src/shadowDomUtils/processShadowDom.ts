@@ -1,8 +1,8 @@
 'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
-import getElementChildren = require('../domUtils/getElementChildren');
-import setElementAttribute = require('../domUtils/setElementAttribute');
+import getElementChildren from '../domUtils/getElementChildren';
+import setElementAttribute from '../domUtils/setElementAttribute';
 
 async function processShadowDom(page: Page): Promise<Page> {
   let selectors = await page.evaluate((elem) => {
@@ -52,40 +52,42 @@ async function processShadowDom(page: Page): Promise<Page> {
       return selector;
     }
 
-    let listElements = document.querySelectorAll("*");
-    let listOfSelectors:string [] = [];
+    let listElements = document.querySelectorAll("*") || new Array();
+    let listOfSelectors = new Array<string>();
 
 
-    for (let element of listElements) {
+    /*for (let element of listElements || []) {
       if (element.shadowRoot !== null) {
-        element.innerHTML =element.shadowRoot.innerHTML;
+        element.innerHTML = element.shadowRoot.innerHTML;
         listOfSelectors.push(getElementSelector(element));
         
       }
-    }
+    }*/
+    listElements.forEach(element => {
+      if (element.shadowRoot !== null) {
+        element.innerHTML = element.shadowRoot.innerHTML;
+        listOfSelectors.push(getElementSelector(element));
+      }
+    });
 
     return listOfSelectors;
   });
+  
   let shadowCounter = 0;
   let shadowRoot,children;
   for (let selector of selectors) { 
     shadowRoot = await page.$(selector);
     children = await getElementChildren(shadowRoot);
     await setShadowAttribute(children,shadowCounter);
-
   }
-
-
 
   return page;
 }
 
- async function setShadowAttribute(elements:ElementHandle[],counter:number){
-  for(let element of elements){
-   await setElementAttribute(element,"shadowTree",counter+"")
+async function setShadowAttribute(elements: ElementHandle[], counter: number): Promise<void> {
+  for(const element of elements || []){
+    await setElementAttribute(element,"shadowTree",counter+"")
   }
-
-
 }
 
-export = processShadowDom;
+export default processShadowDom;

@@ -46,4 +46,4 @@ async function isOffScreen(element: ElementHandle): Promise<boolean> {
 }
 
 
-export = isOffScreen;
+export default isOffScreen;

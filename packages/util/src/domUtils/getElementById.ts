@@ -2,7 +2,7 @@
 
 
 import { Page, ElementHandle } from 'puppeteer';
-import getTreeSelector = require('../shadowDomUtils/getTreeSelector');
+import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 
 async function getElementById(page: Page, element:ElementHandle,id:string): Promise<ElementHandle | null> {
   if (!element) {
@@ -12,4 +12,4 @@ async function getElementById(page: Page, element:ElementHandle,id:string): Prom
   return page.$(`#${id}`+treeSelector);
 }
 
-export = getElementById;
+export default getElementById;

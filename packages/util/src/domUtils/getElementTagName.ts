@@ -8,4 +8,4 @@ async function getElementTagName(element: ElementHandle): Promise<string> {
   });
 }
 
-export = getElementTagName;
+export default getElementTagName;
