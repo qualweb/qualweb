@@ -8,7 +8,7 @@ import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
-import { controlRoles, formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
+import { formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
 import elementHasRoleNoneOrPresentation = require("./elementHasRoleNoneOrPresentation");
@@ -19,6 +19,8 @@ import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementChildren from '../domUtils/getElementChildren';
 import getTreeSelector from '../shadowDomUtils/getTreeSelector';
+import getElementRoleAName from './getElementRoleAName';
+import isElementControl from './isElementControl';
 async function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined> {
   return await getAccessibleNameRecursion(element, page, false, false);
 }
@@ -29,22 +31,23 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   // let isSummary = element.name === "summary";
   let type = await getElementType(element);
   let name = await getElementTagName(element);
+  console.log(name)
   let allowNameFromContent = await allowsNameFromContent(element);
   let treeSelector = await getTreeSelector(element);
   // let summaryCheck = ((isSummary && isChildOfDetails) || !isSummary);
   ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
 
-  if (ariaLabelBy !== null && await getElementById(page, element, ariaLabelBy) === null) {
+  if (ariaLabelBy !== null && !(await verififyAriaLabel(ariaLabelBy,page, element))) {
     ariaLabelBy = "";
   }
   ariaLabel = await getElementAttribute(element, "aria-label");
   attrType = await getElementAttribute(element, "type");
   title = await getElementAttribute(element, "title");
-  role = await getElementAttribute(element, "role");
+  role = await getElementRoleAName(element, page,"");
   id = await getElementAttribute(element, "id");
 
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
-  if (await isElementHidden(element) && !recursion) {
+  if (await isElementHidden(element) && !recursion ) {
     //noAName
   } else if (type === "text") {
     AName = await getTrimmedText(element);
@@ -63,14 +66,20 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   } else if (name === "input" && (attrType === "button" || attrType === "submit" || attrType === "reset")) {
     value = await getElementAttribute(element, "value");
     AName = getFirstNotUndefined(value, getDefaultName(element), title);
-  } else if (name && formElements.indexOf(name) >= 0 && !attrType) {
-    AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title);
   } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0 || !attrType)) {
     placeholder = await getElementAttribute(element, "placeholder");
     if (!recursion) {
       AName = getFirstNotUndefined(await getValueFromLabel(element, id, page, treeSelector), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
+    }
+  } else if (name && formElements.indexOf(name) >= 0) {
+    console.log("form")
+    console.log(recursion);
+    if (!recursion) {
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title);
+    } else {
+      AName = getFirstNotUndefined(title);
     }
   } else if (name === "textarea") {
     placeholder = await getElementAttribute(element, "placeholder");
@@ -85,7 +94,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "caption", page, treeSelector), title);
   } else if (name === "fieldset") {
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page, treeSelector), title);
-  } else if (isWidget && await isRoleControl(element)) {
+  } else if (isWidget && await isElementControl(element,page)) {
     AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page, treeSelector), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
     AName = getFirstNotUndefined(await getTextFromCss(element, page), title);
@@ -213,10 +222,18 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page: Page)
   }
   return result;
 }
+async function verififyAriaLabel(ariaLabelBy:string,page:Page,element:ElementHandle){
 
-async function isRoleControl(element: ElementHandle): Promise<boolean> {
-  let role = await getElementAttribute(element, "role");
-  return role !== null && controlRoles.indexOf(role) >= 0
+  let elementIds = ariaLabelBy.split(" ");
+  let result = false;
+  for(let id of elementIds){
+    if(!result){
+      result = await getElementById(page, element, id) !== null;
+    }
+  }
+
+  return result;
 }
+
 
 export = getAccessibleName;

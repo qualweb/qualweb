@@ -3,10 +3,11 @@ import getElementAttribute = require("../domUtils/getElementAttribute");
 import getElementTagName = require("../domUtils/getElementTagName");
 import getTrimmedText = require("./getTrimmedText");
 import { ElementHandle, Page } from "puppeteer";
+import getElementRoleAName = require("./getElementRoleAName");
 
 async function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string> {//stew
 
-  let role = await getElementAttribute(element, "role");
+  let role = await getElementRoleAName(element, page,"");
   let name = await getElementTagName(element);
   if (!name)
     name = '';

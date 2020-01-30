@@ -1,13 +1,12 @@
 'use strict';
 import roles from './elementImplicitRoles.json';
 import { ElementHandle, Page } from 'puppeteer';
-import getAccessibleName from './getAccessibleName';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementAttribute from '../domUtils/getElementAttribute';
 import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole.js';
 
-async function getImplicitRole(element: ElementHandle, page: Page): Promise<string | null> {
+async function getImplicitRole(element: ElementHandle, page: Page, acessibleName:string|undefined): Promise<string | null> {
   let name = await getElementTagName(element);
   let attributes, role;
   if (name) {
@@ -26,7 +25,7 @@ async function getImplicitRole(element: ElementHandle, page: Page): Promise<stri
                 role = roleValue["role"];
               }
             } else if (name === "form" || name === "section") {
-              let aName = await getAccessibleName(element, page);
+              let aName = acessibleName;
               if (aName !== undefined) {
                 role = roleValue["role"];
               }

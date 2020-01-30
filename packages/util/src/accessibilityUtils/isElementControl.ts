@@ -1,11 +1,11 @@
 'use strict';
 
 import {controlRoles } from "./constants";
-import {ElementHandle} from "puppeteer";
-import getElementAttribute from "../domUtils/getElementAttribute";
-async function isElementControl(element: ElementHandle): Promise<boolean> {
+import {ElementHandle, Page} from "puppeteer";
+import getElementRoleAName from "./getElementRoleAName";
+async function isElementControl(element: ElementHandle,page:Page): Promise<boolean> {
 
-  let role = await getElementAttribute(element,"role");
+  let role = await getElementRoleAName(element,page,"");
 
   return role!==null && controlRoles.indexOf(role) >= 0;
 }

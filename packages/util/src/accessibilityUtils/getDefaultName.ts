@@ -17,9 +17,9 @@ async function getDefaultName(element: ElementHandle): Promise<string> {
   /*if (type === "image") {
     result = "image";
   } */ if (type === "submit") {
-    result = "reset";
+    result = "Reset";
   } else if (type === "reset") {
-    result = "reset";
+    result = "Reset";
   }
 
   return result;

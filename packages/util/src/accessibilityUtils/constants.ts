@@ -1,7 +1,7 @@
 'use strict';
 const typesWithLabel = ["text", "password", "search", "tel", "email", "url"];
 const tabularElements = ["tr", "td", "th"];
-const formElements = ["select", "option", "datalist", "optgroup"];
+const formElements = ["form","select", "option", "datalist", "optgroup","input"];
 const sectionAndGrouping = ["span", "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "p", "hr"
 , "blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "dd", "dt", "dl", "figcaption"];
 const controlRoles = ["textbox", "button", "combobox", "listbox", "range", "progressbar", "scrollbar", "slider", "spinbutton"];

@@ -7,6 +7,7 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
+    "test-ANameTest": "mocha test/ANameTest.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
