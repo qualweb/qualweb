@@ -5,70 +5,76 @@ import getTrimmedText from "./getTrimmedText";
 import { ElementHandle, Page } from "puppeteer";
 import getElementRoleAName = require("./getElementRoleAName");
 
-async function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string> {//stew
+async function getValueFromEmbeddedControl(element: ElementHandle, page: Page, treeSelector: string): Promise<string> {//stew
 
-  let role = await getElementRoleAName(element, page,"");
+  let role = await getElementRoleAName(element, page, "");
   let name = await getElementTagName(element);
   if (!name)
     name = '';
   let value = "";
-  let text = await getTrimmedText(element);
 
 
-  if ((role === "textbox") && text) {
-    value = text;
+  if ((role === "textbox") ) {
+    let valueAT = await getElementAttribute(element,"value");
+    value = valueAT? valueAT : "";
   } else if (role === "combobox") {
-    let refrencedByLabel = await element.$(`[aria-activedescendant]`+treeSelector);
-    let aria_descendendant, selectedElement;
-    if (refrencedByLabel !== null) {
+    let refrencedByLabel = await element.$(`[aria-activedescendant]` + treeSelector);
+    let aria_descendendant, selectedElement, optionSelected;
+    if (!!refrencedByLabel) {
       aria_descendendant = await getElementAttribute(refrencedByLabel, "role");
       selectedElement = await element.$(`[id="${aria_descendendant}"]`);
     }
 
-    let aria_owns = await getElementAttribute(element, "aria-owns"+treeSelector);
+    if (name === 'select') {
+      optionSelected = await element.$(`[selected]` + treeSelector);
+    }
+
+    let aria_owns = await getElementAttribute(element, "[aria-owns]" + treeSelector);
     let elementasToSelect = await page.$(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
-    if (elementasToSelect !== null)
-      elementWithAriaSelected = elementasToSelect.$(`aria-selected="true"`+treeSelector);
+    if (!!elementasToSelect )
+      elementWithAriaSelected = elementasToSelect.$(`[aria-selected="true"]` + treeSelector);
 
-
-    if (selectedElement.length > 0) {
+    if (!!optionSelected) {
+      value = await getTrimmedText(optionSelected);
+    }
+    else if (!!selectedElement) {
       value = await getTrimmedText(selectedElement[0]);
-    } else if (elementWithAriaSelected.length > 0) {
+    } else if (!!elementWithAriaSelected) {
       value = await getTrimmedText(elementWithAriaSelected[0]);
     }
 
-  } else if (role === "listbox" || name === 'select') {
-    let elementsWithId = await element.$$(`[id]`+treeSelector);
-    let elementWithAriaSelected = await element.$(`aria-selected="true"`+treeSelector);
+  } else if (role === "listbox") {
+    let elementsWithId = await element.$$(`[id]` + treeSelector);
+    let elementWithAriaSelected = await element.$(`[aria-selected="true"]` + treeSelector);
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
-      if (selectedElement !== null) {
+      if (!!selectedElement) {
         let id = await getElementAttribute(elementWithId, "id");
-        selectedElement = await element.$(`[aria-activedescendant="${id}"]`+treeSelector);
+        selectedElement = await element.$(`[aria-activedescendant="${id}"]` + treeSelector);
       }
     }
 
     if (name === 'select') {
-      optionSelected = await element.$(`[selected]`+treeSelector);
+      optionSelected = await element.$(`[selected]` + treeSelector);
     }
 
-    if (selectedElement !== null)
+    if (!!selectedElement)
       value = await getTrimmedText(elementsWithId[0]);
-    else if (elementWithAriaSelected !== null) {
+    else if (!! elementWithAriaSelected) {
       value = await getTrimmedText(elementWithAriaSelected);
-    } else if (optionSelected !== null) {
+    } else if (!!optionSelected) {
       value = await getTrimmedText(optionSelected);
     }
   } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
     let valueTextVar = await getElementAttribute(element, "aria-valuetext");
     let valuenowVar = await getElementAttribute(element, "aria-valuenow");
-    if (valueTextVar !== null)
+    if (!!valueTextVar)
       value = valueTextVar;
-    else if (valuenowVar)
+    else if (!!valuenowVar)
       value = valuenowVar;
   }
 

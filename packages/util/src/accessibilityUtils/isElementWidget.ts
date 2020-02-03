@@ -1,18 +1,15 @@
 'use strict';
 
-import { widgetRoles, widgetElements } from "./constants";
-import {ElementHandle} from "puppeteer";
-import getElementAttribute from "../domUtils/getElementAttribute";
-import getElementTagName from '../domUtils/getElementTagName';
+import { widgetRoles } from "./constants";
+import {ElementHandle, Page} from "puppeteer";
+import getElementRoleAName = require("./getElementRoleAName");
 
-async function isElementWidget(element: ElementHandle): Promise<boolean> {
+async function isElementWidget(element: ElementHandle,page:Page): Promise<boolean> {
 
-  let role = await getElementAttribute(element,"role");
-  let name = await getElementTagName(element);
-  if(!name)
-    name = '';
+  let role = await getElementRoleAName(element,page,"");
 
-  return role!==null && (widgetRoles.indexOf(role) >= 0) || name !== '' && (widgetElements.indexOf(name) >= 0);
+
+  return role!==null && (widgetRoles.indexOf(role) >= 0);
 }
 
 export default isElementWidget;
