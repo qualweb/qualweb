@@ -3,7 +3,7 @@
 import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRuleResult} from '@qualweb/act-rules';
-import {AccessibilityTreeUtils, AccessibilityUtils, DomUtils} from '@qualweb/util';
+import {AccessibilityUtils, DomUtils} from '@qualweb/util';
 
 class QW_ACT_R39 extends Rule {
 
