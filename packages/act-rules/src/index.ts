@@ -223,7 +223,7 @@ class ACTRules {
         }
       }
     } else {
-      await this.rules[rule].execute(undefined, page);
+      await this.rules[rule].execute(undefined, page, this.optimization);
     }
     if (concurrent) {
       await Promise.all(promises);
