@@ -1,10 +1,10 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
+import {Page, ElementHandle} from 'puppeteer';
 import Rule from './Rule.object';
-import { ACTRuleResult } from '@qualweb/act-rules';
+import {ACTRuleResult} from '@qualweb/act-rules';
 import rolesJSON from './roles.json';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import {AccessibilityUtils, DomUtils} from '@qualweb/util';
 
 class QW_ACT_R33 extends Rule {
 
@@ -58,13 +58,14 @@ class QW_ACT_R33 extends Rule {
         DomUtils.getElementAttribute(validElement, 'role'),
         AccessibilityUtils.getImplicitRole(validElement, page),
         AccessibilityUtils.isElementInAT(validElement, page)]);
-      let ariaBusy = await this.isElementADescendantOfAriaBusy(validElement, page) || await DomUtils.getElementAttribute(validElement,"aria-busy");
+
+      let ariaBusy = await this.isElementADescendantOfAriaBusy(validElement, page) || await DomUtils.getElementAttribute(validElement, "aria-busy");
+
       if (explictiRole !== null && explictiRole !== implicitRole && isInAT && explictiRole !== "combobox" && !ariaBusy) {
         let ariaOwns = await DomUtils.getElementAttribute(validElement, "aria-owns");
-  
         let ariaOwnsElement;
         if (!!ariaOwns)
-          ariaOwnsElement = await DomUtils.getElementById(page,validElement,ariaOwns);
+          ariaOwnsElement = await DomUtils.getElementById(page, validElement, ariaOwns);
         let children = await DomUtils.getElementChildren(validElement);
 
         if (!!ariaOwnsElement)
@@ -83,23 +84,17 @@ class QW_ACT_R33 extends Rule {
 
       } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not in the acessiblity tree or doesn't have an explicit \`role\`  diferent from the implicit role or has the role 'combobox' or has an Acessiblity Tree ancestor with 'aria-busy' `;
+        evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` different from the implicit role or has the role 'combobox' or has an accessibility tree ancestor with 'aria-busy'`;
         evaluation.resultCode = 'RC3';
       }
 
       await super.addEvaluationResult(evaluation, validElement);
-
-
       evaluation = {
         verdict: '',
         description: '',
         resultCode: ''
       };
-
-
     }
-
-
   }
 
 
