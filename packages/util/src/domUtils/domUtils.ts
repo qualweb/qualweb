@@ -37,6 +37,7 @@ import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalA
 import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
 import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
+import getVideoMetadataFunction from './getVideoMetadata';
 import getPageRootElementFunction from './getPageRootElement';
 import isMathDocumentFunction from './isMathDocument';
 
@@ -81,6 +82,7 @@ namespace DomUtils {
   export const elementIDIsReferenced = elementIDIsReferencedFunction;
   export const isElementADescendantOf = isElementADescendantOfFunction;
   export const isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
+  export const getVideoMetadata = getVideoMetadataFunction;
   export const getPageRootElement = getPageRootElementFunction;
   export const isMathDocument = isMathDocumentFunction;
 }
