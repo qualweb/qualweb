@@ -3,7 +3,7 @@
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
 import { ShadowDomUtils, Optimization } from '@qualweb/util';
-const stew = new(require('stew-select')).Stew();
+import CSSselect from 'css-select';
 import { Page } from 'puppeteer';
 
 import QW_ACT_R1 from './rules/QW-ACT-R1';
@@ -198,7 +198,7 @@ class ACTRules {
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
         if (this.rulesToExecute[rule]) {
-          const elements = stew.select(html.html.parsed, selector);
+          const elements = CSSselect(selector, html.html.parsed);
           if (elements.length > 0) {
             for (const elem of elements || []) {
               await this.rules[rule].execute(elem, html);
@@ -226,7 +226,7 @@ class ACTRules {
         }
       }
     } else {
-      await this.rules[rule].execute(undefined, page);
+      await this.rules[rule].execute(undefined, page, this.optimization);
     }
     if (concurrent) {
       await Promise.all(promises);

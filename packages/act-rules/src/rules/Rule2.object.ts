@@ -1,7 +1,7 @@
 'use strict';
 
 import { SourceHtml } from '@qualweb/core';
-import { DomElement } from 'htmlparser2';
+import { Node } from 'domhandler';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
@@ -41,7 +41,7 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: DomElement): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: Node): void {
     if (element) {
       result.htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
       result.pointer = DomUtils.getSourceElementSelector(element);
@@ -54,7 +54,7 @@ abstract class Rule {
     }
   }
 
-  abstract async execute(element: DomElement | undefined, html: SourceHtml): Promise<void>;
+  abstract async execute(element: Node | undefined, html: SourceHtml): Promise<void>;
 
   getFinalResults(): any {
     this.outcomeRule();

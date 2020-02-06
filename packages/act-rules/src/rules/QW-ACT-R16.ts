@@ -45,7 +45,7 @@ class QW_ACT_R16 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
     if (!element) {
       return;
@@ -63,7 +63,6 @@ class QW_ACT_R16 extends Rule {
 
     if (!role || semanticRoles.includes(role.trim())) {
       const isHidden = await DomUtils.isElementHidden(element);
-      console.log(isHidden + await  DomUtils.getElementHtmlCode(element, true, false)+await DomUtils.getElementStyleProperty(element, 'display', ''));
       if (!isHidden) {
         const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
         if (accessibleName && accessibleName.trim()) {

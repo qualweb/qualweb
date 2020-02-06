@@ -5,7 +5,7 @@
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R30 extends Rule {
 
@@ -53,15 +53,7 @@ class QW_ACT_R30 extends Rule {
       resultCode: ''
     };
 
-    const tagName  = await DomUtils.getElementTagName(element);
-    let isWidget;
-
-    if(tagName === 'a'){
-      isWidget = await DomUtils.elementHasAttribute(element, 'href');
-    }else{
-      isWidget = await AccessibilityUtils.isElementWidget(element);
-    }
-
+    const isWidget = await AccessibilityUtils.isElementWidget(element);
     if(!isWidget) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not a \`widget\`.`;

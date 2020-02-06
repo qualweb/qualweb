@@ -38,7 +38,7 @@ describe(`Rule ${rule}`, async function () {
         const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nkmal.no/kontakt');
         const actRules = new ACTRules({ rules: [rule] });
         const report = await actRules.execute(sourceHtml, page, stylesheets);
-        console.log(JSON.stringify(report, null, 2));
+        //console.log(JSON.stringify(report, null, 2));
       });
     });
 
