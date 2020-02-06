@@ -85,7 +85,7 @@ class ACTRules {
     'QW-ACT-R33': false,
     'QW-ACT-R34': false,
     'QW-ACT-R35': false,
-    'QW-ACT-R39': true
+    'QW-ACT-R39': false
   };
 
   constructor(options?: ACTROptions) {
