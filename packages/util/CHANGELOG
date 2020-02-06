@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.43] - 06/02/2020
+
+### Updated
+ - dependencies
+ - DomUtils.getSourceElementAttribute function
+ - DomUtils.getSourceElementHtmlCode function
+ - DomUtils.getSourceElementSelector function
+
 ## [0.2.42] - 29/01/2020
 
 ### Updated
