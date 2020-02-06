@@ -1,7 +1,6 @@
 'use strict';
 
-import { trim } from 'lodash';
-import {ElementHandle} from "puppeteer";
+import { ElementHandle } from "puppeteer";
 
 async function getTrimmedText(element: ElementHandle): Promise<string> {
   if (!element) {
@@ -19,7 +18,7 @@ async function getTrimmedText(element: ElementHandle): Promise<string> {
     return result });
   
   if(text){
-    text=trim(text);
+    text = text.trim();
   }else{
     text = "";
   }

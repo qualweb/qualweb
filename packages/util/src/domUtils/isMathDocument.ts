@@ -5,7 +5,7 @@ import request from 'request';
 function getRequestContent(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
-      if (error || response.status !== 200) {
+      if (error || response.statusCode !== 200) {
         reject(error || response);
       } else {
         resolve(body);
@@ -15,8 +15,8 @@ function getRequestContent(url: string): Promise<string> {
 }
 
 async function isMathDocument(url: string): Promise<boolean> {
-  const response = await getRequestContent(url);
-  return response.trim().startsWith('<math');
+  const content = await getRequestContent(url);
+  return content.trim().startsWith('<math');
 }
 
 export default isMathDocument;
