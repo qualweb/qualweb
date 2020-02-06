@@ -1,5 +1,5 @@
 declare module '@qualweb/core' {
-  import { DomElement } from 'htmlparser2';
+  import { Node } from 'domhandler';
   import { Stylesheet } from 'css';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
@@ -91,7 +91,7 @@ declare module '@qualweb/core' {
   interface SourceHtml {
     html: {
       plain: string;
-      parsed: DomElement[];
+      parsed: Node[];
     };
     title?: string;
     elementCount?: number;
@@ -109,7 +109,7 @@ declare module '@qualweb/core' {
     file: string;
     content?: {
       plain?: string;
-      parsed?: StyleSheet;
+      parsed?: Stylesheet;
     };
   }
 

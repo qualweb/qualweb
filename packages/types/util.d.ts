@@ -1,6 +1,6 @@
 declare module '@qualweb/util' {
   import { ElementHandle, Page, Browser } from 'puppeteer';
-  import { DomElement } from 'htmlparser2';
+  import { Node } from 'domhandler';
 
   namespace DomUtils {
     export function elementHasAttribute(element: ElementHandle, attribute: string): Promise<boolean>;
@@ -10,7 +10,7 @@ declare module '@qualweb/util' {
     export function elementHasGlobalARIAPropertyOrAttribute(element: ElementHandle): Promise<boolean>;
     export function elementHasParent(element: ElementHandle, parent: string): Promise<boolean>;
     export function elementIDIsReferenced(page:Page,element: ElementHandle,id:string,atrribute:string): Promise<boolean>;
-    export function getContentComputedStylesAttribute(element: DomElement, computedStyle: string, attribute: string): string;
+    export function getContentComputedStylesAttribute(element: Node, computedStyle: string, attribute: string): string;
     export function getElementAttribute(element: ElementHandle, attribute: string): Promise<string | null>;
     export function getElementAttributes(element: ElementHandle): Promise<any>;
     export function getElementAttributesName(element: ElementHandle): Promise<Array<string>>;
@@ -29,9 +29,9 @@ declare module '@qualweb/util' {
     export function getElementText(element: ElementHandle): Promise<string>;
     export function getElementType(element: ElementHandle): Promise<string>;
     export function getPageRootElement(page: Page): Promise<ElementHandle | null>;
-    export function getSourceElementAttribute(element: DomElement, attribute: string): string | null;
-    export function getSourceElementHtmlCode(element: DomElement, withText: boolean, fullElement: boolean): string;
-    export function getSourceElementSelector(element: DomElement): string;
+    export function getSourceElementAttribute(element: Node, attribute: string): string | null;
+    export function getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
+    export function getSourceElementSelector(element: Node): string;
     export function getVideoMetadata(element: ElementHandle);
     export function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
     export function isElementADescendantOfExplicitRole(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
@@ -66,7 +66,7 @@ declare module '@qualweb/util' {
     export function getTrimmedText(element: ElementHandle): Promise<string>;
     export function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string>;
     export function isDataTable(element: ElementHandle, page: Page): Promise<boolean>;
-    export function isElementChildOfDetails(element: Element): boolean;
+    export function isElementChildOfDetails(element: Node): boolean;
     export function isElementControl(element: ElementHandle): Promise<boolean>;
     export function isElementInAT(element: ElementHandle, page: Page): Promise<boolean>;
     export function isElementReferencedByAriaLabel(element:ElementHandle, page:Page): Promise<boolean>;

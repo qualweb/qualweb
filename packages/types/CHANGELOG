@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.18] - 05/02/2020
+
+### Updated 
+ - dependencies
+
+## [0.3.17] - 05/02/2020
+
+### Deleted 
+ - accessibility-tree.d.ts
+
+## [0.3.16] - 05/02/2020
+
+### Changed 
+ - DomElement to Node
+
 ## [0.3.15] - 29/01/2020
 
 ### Updated
@@ -146,7 +161,7 @@
 ## [0.2.4] - 02/12/2019
 
 ### Fixed
- - dependecncies bugs
+ - dependencies bugs
 
 ## [0.2.3] - 29/11/2019
 
