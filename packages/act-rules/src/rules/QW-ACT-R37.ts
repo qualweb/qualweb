@@ -54,7 +54,8 @@ class QW_ACT_R37 extends Rule {
     }
 
     let tagName  = await DomUtils.getElementTagName(element);
-    if(tagName === 'head' || tagName === 'body' || tagName === 'html')
+    if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
+    tagName === 'script' || tagName === 'style' || tagName === 'meta')
       return;
 
     const evaluation: ACTRuleResult = {
@@ -64,8 +65,7 @@ class QW_ACT_R37 extends Rule {
     };
 
     let visible = await DomUtils.isElementVisible(element);
-    let hidden = await DomUtils.isElementHidden(element);
-    if(!visible || hidden){
+    if(!visible){
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Element is not visible.';
       evaluation.resultCode = 'RC1';
@@ -74,7 +74,7 @@ class QW_ACT_R37 extends Rule {
     }
 
     let hasTextNode = await this.elementHasTextNode(element);
-    let elementText = await DomUtils.getElementText(element);
+    let elementText = await AccessibilityUtils.getTrimmedText(element);
 		console.log("TCL: QW_ACT_R37 -> hasTextNode", hasTextNode)
 		console.log("TCL: QW_ACT_R37 -> elementText", elementText)
 
@@ -97,14 +97,7 @@ class QW_ACT_R37 extends Rule {
 
 		console.log("TCL: QW_ACT_R37 -> tagName", tagName)
 		console.log("TCL: QW_ACT_R37 -> visible", visible)
-		console.log("TCL: QW_ACT_R37 -> hidden", hidden)
-    let isWidget;
-    if(tagName === 'a'){
-      isWidget = await DomUtils.elementHasAttribute(element, 'href');
-    }else{
-      isWidget = await AccessibilityUtils.isElementWidget(element);
-    }
-    isWidget = isWidget || await DomUtils.isElementADescendantOfExplicitRole(element, page, [], ['widget']);
+    let isWidget = await DomUtils.isElementADescendantOfExplicitRole(element, page, [], ['widget']);
     if(isWidget){
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Element has a semantic role that inherits from widget.';
@@ -135,6 +128,10 @@ class QW_ACT_R37 extends Rule {
 
     // TODO is used in the accessible name of a widget that is disabled
 
+    let isInAT = AccessibilityUtils.isElementInAT(element, page);
+    if(isInAT){
+      
+    }
     if(tagName === "label"){
       let isReferencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
       if(isReferencedByAriaLabel){
@@ -300,13 +297,13 @@ class QW_ACT_R37 extends Rule {
 
 
   flattenColors(fgColor, bgColor): any {
-    let alpha = fgColor["alpha"];
-    let r = (1 - alpha) * bgColor["red"] + alpha * fgColor["red"];
-    let g = (1 - alpha) * bgColor["green"] + alpha * fgColor["green"];
-    let b = (1 - alpha) * bgColor["blue"] + alpha * fgColor["blue"];
-    let a = fgColor["alpha"] + bgColor["alpha"] * (1 - fgColor["alpha"]);
+    let fgAlpha = fgColor["alpha"];
+    let red = (1 - fgAlpha) * bgColor["red"] + fgAlpha * fgColor["red"];
+    let green = (1 - fgAlpha) * bgColor["green"] + fgAlpha * fgColor["green"];
+    let blue = (1 - fgAlpha) * bgColor["blue"] + fgAlpha * fgColor["blue"];
+    let alpha = fgColor["alpha"] + bgColor["alpha"] * (1 - fgColor["alpha"]);
 
-    return {"red": r, "green": g, "blue": b, "alpha": a};
+    return {"red": red, "green": green, "blue": blue, "alpha": alpha};
   };
 
 

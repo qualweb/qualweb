@@ -1,6 +1,6 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { Node } from 'domhandler';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from './Rule2.object';
@@ -49,7 +49,7 @@ class QW_ACT_R4 extends Rule {
     });
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: Node | undefined): Promise<void> {
   
     if (!element) {
       return;
@@ -68,7 +68,7 @@ class QW_ACT_R4 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Already exists one valid or invalid test target.';
       evaluation.resultCode = 'RC1';
-    } else if (!element.attribs) { // not applicable
+    } else if (!element['attribs']) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't have the attributes \`content\` and \`http-equiv\`.`;
       evaluation.resultCode = 'RC2';
