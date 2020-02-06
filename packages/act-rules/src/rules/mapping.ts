@@ -9,7 +9,6 @@ export default {
   },
   'concurrent': {
     'pre': {
-      
     },
     'post': {
       'html': ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5'],
@@ -32,7 +31,8 @@ export default {
       'video': ['QW-ACT-R23', 'QW-ACT-R26', 'QW-ACT-R31', 'QW-ACT-R32'],
       'audio, video': ['QW-ACT-R15'],
       'input[autocomplete], select[autocomplete], textarea[autocomplete]' : ['QW-ACT-R24'],
-      'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35']
+      'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35'],
+      '*': ['QW-ACT-R37'],
     }
   }
 };
