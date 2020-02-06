@@ -65,7 +65,6 @@ class QW_ACT_R16 extends Rule {
       const isHidden = await DomUtils.isElementHidden(element);
       if (!isHidden) {
         const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
-        console.log(accessibleName);
         if (accessibleName && accessibleName.trim()) {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has an accessible name.`;
