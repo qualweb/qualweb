@@ -143,7 +143,7 @@ async function getValueFromLabel(element: ElementHandle, id: string, page: Page,
   let result, accessNameFromLabel;
   let isWidget = await isElementWidget(element,page);
 
-  if (parent && await getElementTagName(parent) === "label" && !isElementPresent(parent,referencedByLabelList)) {
+  if (parent && await getElementTagName(parent) === "label" && !(await isElementPresent(parent,referencedByLabelList))) {
     referencedByLabelList.push(parent);
   }
 
