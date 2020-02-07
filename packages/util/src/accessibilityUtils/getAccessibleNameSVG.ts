@@ -1,6 +1,5 @@
 'use strict';
 import { ElementHandle, Page } from 'puppeteer';
-import { trim } from 'lodash';
 import getElementById from '../domUtils/getElementById';
 import isElementHidden from '../domUtils/isElementHidden';
 import getElementParent from '../domUtils/getElementParent';
@@ -47,11 +46,11 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
     AName = await getAccessibleNameFromAriaLabelledBy(page,element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
     AName = getAccessibleName(element, page);
-  } else if (ariaLabel && trim(ariaLabel) !== "") {
+  } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;
-  } else if (title && trim(title) !== "") {
+  } else if (title && title.trim() !== "") {
     AName = title;
-  } else if (titleAtt && trim(titleAtt) !== "" && tag === "a" && href !== undefined) {//check if link
+  } else if (titleAtt && titleAtt.trim() !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
   } else if (textContainer.indexOf(tag)>=0) {
     AName = await getAccessibleNameFromChildren(element, page);

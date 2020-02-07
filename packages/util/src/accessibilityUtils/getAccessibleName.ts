@@ -1,7 +1,6 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import { trim } from 'lodash';
 import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
@@ -53,7 +52,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
     AName = await getTrimmedText(element);
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = await getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
-  } else if (ariaLabel && trim(ariaLabel) !== "") {
+  } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;
   } else if (isWidget && await isElementControl(element, page)) {
     AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page, treeSelector), title);
@@ -113,7 +112,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
     arg = args[i];
     if (arg !== undefined && arg !== null) {
       result = arg;
-      if (trim(String(arg)) !== "") {
+      if (String(arg).trim() !== "") {
         end = true;
       }
     }

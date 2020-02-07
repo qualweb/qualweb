@@ -1,36 +1,36 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
+import { Node } from 'domhandler';
 
-function getSelfLocationInParent(element: DomElement): string {
+function getSelfLocationInParent(element: Node): string {
   let selector = '';
 
-  if (element.name === 'body' || element.name === 'head') {
-    return element.name;
+  if (element['name'] === 'body' || element['name'] === 'head') {
+    return element['name'];
   }
 
   let sameEleCount = 0;
 
   let prev = element.prev;
   while(prev) {
-    if (prev.type === 'tag'&& prev.name === element.name) {
+    if (prev.type === 'tag'&& prev['name'] === element['name']) {
       sameEleCount++;
     }
     prev = prev.prev;
   }
 
-  selector += `${element.name}:nth-of-type(${sameEleCount+1})`;
+  selector += `${element['name']}:nth-of-type(${sameEleCount+1})`;
 
   return selector;
 }
 
-function getSourceElementSelector(element: DomElement): string {
+function getSourceElementSelector(element: Node): string {
 
-  if (element.name === 'html') {
+  if (element['name'] === 'html') {
     return 'html';
-  } else if (element.name === 'head') {
+  } else if (element['name'] === 'head') {
     return 'html > head';
-  } else if (element.name === 'body') {
+  } else if (element['name'] === 'body') {
     return 'html > body';
   }
 
@@ -38,7 +38,7 @@ function getSourceElementSelector(element: DomElement): string {
 
   let parents = new Array<string>();
   let parent = element.parent;
-  while (parent && parent.name !== 'html') {
+  while (parent && parent['name'] !== 'html') {
     parents.unshift(getSelfLocationInParent(parent));
     parent = parent.parent;
   }

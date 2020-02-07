@@ -2,13 +2,25 @@
 
 import { ElementHandle } from 'puppeteer';
 import videoElementHasAudio from './videoElementHasAudio';
-import request from 'request-promise';
+import request from 'request';
+
+function getRequestContent(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || response);
+      } else {
+        resolve(body);
+      }
+    })
+  });
+}
 
 async function getVideoMetadata(element: ElementHandle) {
   let src = await element.evaluate(elem => {
     return elem['currentSrc'];
   });
-  let json = JSON.parse(await request('http://194.117.20.242/video/' + encodeURIComponent(src)));
+  let json = JSON.parse(await getRequestContent('http://194.117.20.242/video/' + encodeURIComponent(src)));
   let durationVideo = getStreamDuration(json, "video");
   let durationAudio = getStreamDuration(json, "audio");
   let audioVolume = json["audio"]["maxVolume"];

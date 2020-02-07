@@ -1,5 +1,4 @@
 'use strict';
-import {trim} from 'lodash';
 
 import { ElementHandle } from 'puppeteer';
 import getElementStyleProperty from './getElementStyleProperty';
@@ -12,9 +11,9 @@ async function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean>
   let visibility;
   let displayNone;
   const display = await getElementStyleProperty(element,  'display','');
-  displayNone = display ? trim(display) === 'none' : false;
+  displayNone = display ? display.trim() === 'none' : false;
   const visibilityATT = await getElementStyleProperty(element, 'visibility','');
-  visibility = visibilityATT ? trim(visibilityATT) === 'collapse' || visibilityATT.trim() === 'hidden' : false;
+  visibility = visibilityATT ? visibilityATT.trim() === 'collapse' || visibilityATT.trim() === 'hidden' : false;
 
 
 return visibility || displayNone;

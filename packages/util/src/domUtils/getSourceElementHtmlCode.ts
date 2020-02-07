@@ -1,10 +1,10 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import html from 'htmlparser-to-html';
-import clone from 'lodash/clone';
+import { Node } from 'domhandler';
+import * as DomUtils from 'domutils';
+import clone from 'lodash.clone';
 
-function getSourceElementHtmlCode(element: DomElement, withText: boolean=true, fullElement: boolean=false): string {
+function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullElement: boolean=false): string {
 
   if (!element) {
     throw new Error('Invalid element');
@@ -27,7 +27,7 @@ function getSourceElementHtmlCode(element: DomElement, withText: boolean=true, f
     }
   }
 
-  return html(codeElement);
+  return DomUtils.getOuterHTML(codeElement);
 }
 
 export default getSourceElementHtmlCode;
