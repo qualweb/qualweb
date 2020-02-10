@@ -109,6 +109,8 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
 | QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
 | QW-ACT-R35 | [ffd0e9](https://act-rules.github.io/rules/ffd0e9) | Heading has accessible name |
+| QW-ACT-R38 | [bc4a75](https://act-rules.github.io/rules/bc4a75) | ARIA required owned elements |
+| QW-ACT-R39 | [d0f69e](https://act-rules.github.io/rules/d0f69e) | All table header cells have assigned data cells |
 
 # License
 
