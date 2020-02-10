@@ -3,7 +3,7 @@
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
 import { ShadowDomUtils, Optimization } from '@qualweb/util';
-const stew = new(require('stew-select')).Stew();
+import CSSselect from 'css-select';
 import { Page } from 'puppeteer';
 
 import QW_ACT_R1 from './rules/QW-ACT-R1';
@@ -42,6 +42,7 @@ import QW_ACT_R33 from './rules/QW-ACT-R33';
 import QW_ACT_R34 from './rules/QW-ACT-R34';
 import QW_ACT_R35 from './rules/QW-ACT-R35';
 import QW_ACT_R38 from './rules/QW-ACT-R38';
+import QW_ACT_R39 from './rules/QW-ACT-R39';
 
 import mapping from './rules/mapping';
 
@@ -85,7 +86,8 @@ class ACTRules {
     'QW-ACT-R33': false,
     'QW-ACT-R34': false,
     'QW-ACT-R35': false,
-    'QW-ACT-R38': false
+    'QW-ACT-R38': false,
+    'QW-ACT-R39': false
   };
 
   constructor(options?: ACTROptions) {
@@ -125,7 +127,8 @@ class ACTRules {
       'QW-ACT-R33': new QW_ACT_R33(),
       'QW-ACT-R34': new QW_ACT_R34(),
       'QW-ACT-R35': new QW_ACT_R35(),
-      'QW-ACT-R38': new QW_ACT_R38()
+      'QW-ACT-R38': new QW_ACT_R38(),
+      'QW-ACT-R39': new QW_ACT_R39()
     };
 
     if (options) {
@@ -198,7 +201,7 @@ class ACTRules {
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
         if (this.rulesToExecute[rule]) {
-          const elements = stew.select(html.html.parsed, selector);
+          const elements = CSSselect(selector, html.html.parsed);
           if (elements.length > 0) {
             for (const elem of elements || []) {
               await this.rules[rule].execute(elem, html);
@@ -226,7 +229,7 @@ class ACTRules {
         }
       }
     } else {
-      await this.rules[rule].execute(undefined, page);
+      await this.rules[rule].execute(undefined, page, this.optimization);
     }
     if (concurrent) {
       await Promise.all(promises);

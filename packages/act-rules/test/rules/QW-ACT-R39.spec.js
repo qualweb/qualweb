@@ -10,8 +10,9 @@ const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];
 
 describe(`Rule ${rule}`, async function () {
-  
+
   it('Starting testbench', async function () {
+    this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
     const data = JSON.parse(await getTestCases());
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
@@ -35,10 +36,9 @@ describe(`Rule ${rule}`, async function () {
       it('should execute', async function() {
         this.timeout(1000 * 1000);
 
-        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nkmal.no/kontakt');
+        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://ciencias.ulisboa.pt');
         const actRules = new ACTRules({ rules: [rule] });
         const report = await actRules.execute(sourceHtml, page, stylesheets);
-        //console.log(JSON.stringify(report, null, 2));
       });
     });
 

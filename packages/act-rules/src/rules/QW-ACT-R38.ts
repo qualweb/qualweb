@@ -6,7 +6,7 @@ import {ACTRuleResult} from '@qualweb/act-rules';
 import rolesJSON from './roles.json';
 import {AccessibilityUtils, DomUtils} from '@qualweb/util';
 
-class QW_ACT_R33 extends Rule {
+class QW_ACT_R38 extends Rule {
 
   constructor() {
     super({
@@ -44,33 +44,39 @@ class QW_ACT_R33 extends Rule {
     if (!element) {
       return;
     }
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+
     const selector = '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]';
 
-    let elementOfValidRole = await element.$$(selector.substr(0, selector.length - 1));
-    for (let validElement of elementOfValidRole) {
+    const elementOfValidRole = await element.$$(selector.substr(0, selector.length - 1));
+    for (const validElement of elementOfValidRole || []) {
+      const evaluation: ACTRuleResult = {
+        verdict: '',
+        description: '',
+        resultCode: ''
+      };
 
       const [explictiRole, implicitRole, isInAT] = await Promise.all([
         DomUtils.getElementAttribute(validElement, 'role'),
         AccessibilityUtils.getImplicitRole(validElement, page),
-        AccessibilityUtils.isElementInAT(validElement, page)]);
+        AccessibilityUtils.isElementInAT(validElement, page)
+      ]);
 
-      let ariaBusy = await this.isElementADescendantOfAriaBusy(validElement, page) || await DomUtils.getElementAttribute(validElement, "aria-busy");
+      const ariaBusy = await this.isElementADescendantOfAriaBusy(validElement, page) || await DomUtils.getElementAttribute(validElement, "aria-busy");
 
       if (explictiRole !== null && explictiRole !== implicitRole && isInAT && explictiRole !== "combobox" && !ariaBusy) {
-        let ariaOwns = await DomUtils.getElementAttribute(validElement, "aria-owns");
+        const ariaOwns = await DomUtils.getElementAttribute(validElement, "aria-owns");
         let ariaOwnsElement;
-        if (!!ariaOwns)
+        if (!!ariaOwns) {
           ariaOwnsElement = await DomUtils.getElementById(page, validElement, ariaOwns);
-        let children = await DomUtils.getElementChildren(validElement);
+        }
 
-        if (!!ariaOwnsElement)
+        const children = await DomUtils.getElementChildren(validElement);
+
+        if (!!ariaOwnsElement) {
           children.push(ariaOwnsElement);
-        let result = await this.checkOwnedElementsRole(rolesJSON[explictiRole]['requiredOwnedElements'], children, page);
+        }
+
+        const result = await this.checkOwnedElementsRole(rolesJSON[explictiRole]['requiredOwnedElements'], children, page);
 
         if (result) {
           evaluation.verdict = 'passed';
@@ -81,7 +87,6 @@ class QW_ACT_R33 extends Rule {
           evaluation.description = `The test target owns elements that doesn't have the correct role`;
           evaluation.resultCode = 'RC2';
         }
-
       } else {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` different from the implicit role or has the role 'combobox' or has an accessibility tree ancestor with 'aria-busy'`;
@@ -89,27 +94,18 @@ class QW_ACT_R33 extends Rule {
       }
 
       await super.addEvaluationResult(evaluation, validElement);
-      evaluation = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
     }
   }
 
-
-  private async checkOwnedElementsRole(ownedRoles: string[][], elements: ElementHandle[], page: Page) {
-    let result = false;
-    let end = false;
-    let i = 0;
-    let j = 0;
-    let hasOwnedRole, currentElement, currentOwnedRole, role;
+  private async checkOwnedElementsRole(ownedRoles: string[][], elements: ElementHandle[], page: Page): Promise<boolean> {
+    let result = false, end = false;
+    let i = 0, j = 0;
+    let hasOwnedRole, currentElement, currentOwnedRole;
     while (i < elements.length && !end) {
       hasOwnedRole = false;
       currentElement = elements[i];
       if (await AccessibilityUtils.isElementInAT(currentElement, page)) {
-        role = await AccessibilityUtils.getElementRole(currentElement, page);
-
+        const role = await AccessibilityUtils.getElementRole(currentElement, page);
         while (j < ownedRoles.length && !hasOwnedRole) {
           currentOwnedRole = ownedRoles[j];
           if (currentOwnedRole.length === 1) {
@@ -119,14 +115,13 @@ class QW_ACT_R33 extends Rule {
           }
           j++;
         }
-
         result = hasOwnedRole;
-
       }
       j = 0;
       i++;
-      if (result)
+      if (result) {
         end = true;
+      }
     }
 
     return result;
@@ -152,4 +147,4 @@ class QW_ACT_R33 extends Rule {
   }
 }
 
-export = QW_ACT_R33;
+export = QW_ACT_R38;
