@@ -1,6 +1,5 @@
 'use strict';
 
-'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';

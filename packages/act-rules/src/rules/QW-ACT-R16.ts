@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R16 extends Rule {
 
@@ -59,11 +59,11 @@ class QW_ACT_R16 extends Rule {
 
     const semanticRoles = ['checkbox', 'combobox', 'listbox', 'menuitemcheckbox', 'menuitemradio', 'radio', 'searchbox', 'slider', 'spinbutton', 'switch', 'textbox'];
 
-    const role = await DomUtils.getElementAttribute(element, 'role');
+    const role = await AccessibilityUtils.getElementRole(element,page);
 
-    if (!role || semanticRoles.includes(role.trim())) {
-      const isHidden = await DomUtils.isElementHidden(element);
-      if (!isHidden) {
+    if (!!role && semanticRoles.includes(role)) {
+      const inAt = await AccessibilityUtils.isElementInAT(element, page);
+      if (inAt) {
         const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
         if (accessibleName && accessibleName.trim()) {
           evaluation.verdict = 'passed';
