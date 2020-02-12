@@ -10,28 +10,25 @@ async function isElementFocusable(element: ElementHandle): Promise<boolean> {
   let hidden = false;
   let focusableByDefault = false;
   let tabIndexLessThanZero = false;
-  let tabIndexExists = false;
+  let tabIndexExistsAndIsNumber = false;
 
   const hasAttributes = await elementHasAttributes(element);
   const tabindex = await getElementAttribute(element, 'tabindex');
 
   if (hasAttributes) {
-    tabIndexExists = tabindex !== null;
-  }
-
-  if (hasAttributes) {
+    tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
     disabled = (await getElementAttribute(element, 'disabled')) !== null;
     hidden = (await element.boundingBox()) === null;
     focusableByDefault = await isElementFocusableByDefault(element);
 
-    if (tabindex && !isNaN(parseInt(tabindex, 10))) {
+    if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
   }
   if (focusableByDefault) {
-    return !(disabled || hidden || tabIndexLessThanZero);
+    return !(disabled && hidden && tabIndexLessThanZero);
   } else {
-    return tabIndexExists ? !tabIndexLessThanZero : false;
+    return tabIndexExistsAndIsNumber ? !tabIndexLessThanZero : false;
   }
 }
 
