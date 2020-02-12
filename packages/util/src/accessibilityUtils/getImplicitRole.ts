@@ -102,7 +102,7 @@ async function isInList(attributes, element: ElementHandle) {
     let key = attribute[0];
     let value = attribute[1];
     let roleSpecificATT = await getElementAttribute(element, key);
-    if (roleSpecificATT === value || value === "")
+    if (roleSpecificATT === value || (value === ""&&roleSpecificATT!==null))
       result = true;
   }
   return result;
