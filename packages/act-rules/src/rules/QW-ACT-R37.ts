@@ -4,7 +4,9 @@ import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util'
-const LanguageDetect = require('languagedetect');
+import LanguageDetect from 'languagedetect';
+import pixelWidth from 'string-pixel-width';
+
 const detector = new LanguageDetect();
 
 class QW_ACT_R37 extends Rule {
@@ -75,8 +77,6 @@ class QW_ACT_R37 extends Rule {
 
     let hasTextNode = await this.elementHasTextNode(element);
     let elementText = await AccessibilityUtils.getTrimmedText(element);
-		console.log("TCL: QW_ACT_R37 -> hasTextNode", hasTextNode)
-		console.log("TCL: QW_ACT_R37 -> elementText", elementText)
 
     if(!hasTextNode && elementText === ''){
       evaluation.verdict = 'inapplicable';
@@ -95,8 +95,6 @@ class QW_ACT_R37 extends Rule {
       return;
     }
 
-		console.log("TCL: QW_ACT_R37 -> tagName", tagName)
-		console.log("TCL: QW_ACT_R37 -> visible", visible)
     let isWidget = await DomUtils.isElementADescendantOfExplicitRole(element, page, [], ['widget']);
     if(isWidget){
       evaluation.verdict = 'inapplicable';
@@ -128,21 +126,8 @@ class QW_ACT_R37 extends Rule {
 
     // TODO is used in the accessible name of a widget that is disabled
 
-    let isInAT = AccessibilityUtils.isElementInAT(element, page);
-    if(isInAT){
-      
-    }
-    if(tagName === "label"){
-      let isReferencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
-      if(isReferencedByAriaLabel){
-          //need to get the element that uses reference
-      }else{
-
-      }
-    }
-
     role = await AccessibilityUtils.getElementRole(element, page);
-		console.log("TCL: QW_ACT_R37 -> role", role)
+
     if(role === 'group'){
       if(await DomUtils.elementHasAttribute(element, 'disabled')){
         evaluation.verdict = 'inapplicable';
@@ -158,15 +143,36 @@ class QW_ACT_R37 extends Rule {
     const opacity = parseFloat(await DomUtils.getElementStyleProperty(element, "opacity", null));
     const fontSize = await DomUtils.getElementStyleProperty(element, "font-size", null);
     const fontWeight = await DomUtils.getElementStyleProperty(element, "font-weight", null);
+    const fontFamily = await DomUtils.getElementStyleProperty(element, "font-family", null);
+    const fontStyle = await DomUtils.getElementStyleProperty(element, "font-style", null);
+
+    if(bgColor.includes("jpeg") || bgColor.includes("jpg") || bgColor.includes("png") || bgColor.includes("svg")){
+      evaluation.verdict = 'failed';
+      evaluation.description = 'Element has an image on background.';
+      evaluation.resultCode = 'RC11';
+      return
+    }
 
     if(bgColor.includes("linear-gradient")){
       if(this.isHumanLanguage(elementText)){
         let colors = this.parseGradientString(bgColor.substring(bgColor.indexOf("linear-gradient"), bgColor.lastIndexOf(")")+1), opacity);
         let isValid = true;
         let contrastRatio;
-        for(let color of colors){
-          contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
+        let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
+        if(textSize !== -1){
+          let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
+          let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
+          let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
+
+          contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
           isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+          contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+        }else{
+          for(let color of colors){
+            contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
+            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+          }
         }
 
         if(isValid){
@@ -206,7 +212,6 @@ class QW_ACT_R37 extends Rule {
             evaluation.resultCode = 'RC10';
           }
         }else{
-          console.log(elementText);
           evaluation.verdict = 'passed';
           evaluation.description = `Element doesn't have human language text.`;
           evaluation.resultCode = 'RC8';
@@ -295,7 +300,6 @@ class QW_ACT_R37 extends Rule {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   };
 
-
   flattenColors(fgColor, bgColor): any {
     let fgAlpha = fgColor["alpha"];
     let red = (1 - fgAlpha) * bgColor["red"] + fgAlpha * fgColor["red"];
@@ -305,7 +309,6 @@ class QW_ACT_R37 extends Rule {
 
     return {"red": red, "green": green, "blue": blue, "alpha": alpha};
   };
-
 
   getContrast(bgColor, fgColor): number {
 
@@ -328,6 +331,27 @@ class QW_ACT_R37 extends Rule {
 
     return contrast > expectedContrastRatio;
   };
+
+  getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, string: string): number{
+    try {
+      const width = pixelWidth(string, { font: font, size: fontSize, bold: bold, italic: italic });
+      return width;
+    } catch (error) {
+			console.log(error)
+      return -1;
+    }
+
+  }
+
+  getColorInGradient(fromColor: any, toColor: any, ratio: number): any{
+
+    let red = fromColor['red'] + ((toColor['red'] - fromColor['red']) * ratio);
+    let green = fromColor['green'] + ((toColor['green'] - fromColor['green']) * ratio);
+    let blue = fromColor['blue'] + ((toColor['blue'] - fromColor['blue']) * ratio);
+
+    return {"red": red, "green": green, "blue": blue, "alpha": 1};
+
+  }
 }
 
 export = QW_ACT_R37;
