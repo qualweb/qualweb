@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.3.11",
+  "version": "0.3.13",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -43,30 +43,29 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.3.17",
+    "@qualweb/act-rules": "^0.3.26",
     "@qualweb/best-practices": "^0.3.1",
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/css-techniques": "^0.3.2",
     "@qualweb/earl-reporter": "^0.2.3",
     "@qualweb/html-techniques": "^0.2.3",
     "@qualweb/wappalyzer": "^0.1.0",
+    "css-select": "^2.1.0",
+    "domhandler": "^3.0.0",
+    "domutils": "^2.0.0",
+    "htmlparser2": "^4.0.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
-    "puppeteer": "^2.0.0",
-    "stew-select": "0.0.5"
+    "puppeteer": "^2.1.1"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.3.3",
-    "@types/lodash.clone": "^4.5.6",
-    "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^12.12.25",
+    "@qualweb/types": "^0.3.18",
+    "@types/node": "^12.12.27",
     "@types/puppeteer": "^2.0.0",
-    "@types/request": "^2.48.4",
     "chai": "^4.2.0",
-    "mocha": "^6.2.2",
-    "request": "^2.88.0",
+    "mocha": "^7.0.1",
+    "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "tslint": "^5.20.1",
     "typescript": "^3.7.5"
   }
 }

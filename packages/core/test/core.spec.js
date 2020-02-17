@@ -43,6 +43,7 @@ describe.only('Testing new architecture', function() {
     this.timeout(1000 * 1000);
 
     const urls = [
+      'http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/',
       'https://ciencias.ulisboa.pt',
       'https://lodash.com',
       'https://lasige.di.fc.ul.pt/',
@@ -51,15 +52,18 @@ describe.only('Testing new architecture', function() {
       'https://cgd.pt/Particulares/Pages/Particulares_v2.aspx',
       'https://www.alta.kommune.no/',
       'https://www.nav.no',
-      'https://act-rules.github.io/testcases/bc659a/cbf6409b0df0b3b6437ab3409af341587b144969.html'
+      'https://act-rules.github.io/testcases/bc659a/cbf6409b0df0b3b6437ab3409af341587b144969.html',
+      'https://nkmal.no/kontakt'
     ];
 
     //const reports = await core.evaluate({ urls: [URL3, URL2] , execute: { act: true }, 'act-rules': { rules: ['QW-ACT-R1'] }, maxParallelEvaluations: 2});
-    const reports = await core.evaluate({ url: urls[7], execute: { act: true }, maxParallelEvaluations: 1, 'act-rules': { rules: ['QW-ACT-R35'] } });
-    console.log(reports);
-    const earlReports = await core.generateEarlReport();
-    console.log(JSON.stringify(earlReports, null, 2));
-    //fs.writeFileSync('test/reports.json', JSON.stringify(reports, null, 2));
+    const reports = await core.evaluate({ url: urls[1], execute: { act: true }, maxParallelEvaluations: 1 });
+    //console.log(reports);
+    //const earlReports = await core.generateEarlReport();
+    //console.log(JSON.stringify(earlReports, null, 2));
+    //delete reports['https://nkmal.no/kontakt'].system.page.dom.source.html.parsed;
+    //delete reports['https://nkmal.no/kontakt'].system.page.dom.stylesheets;
+    //fs.writeFileSync('test/reports.json', JSON.stringify(reports['https://nkmal.no/kontakt'], null, 2));
   });
 });
 

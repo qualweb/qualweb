@@ -1,9 +1,11 @@
 'use strict';
 
 import puppeteer, { Browser, Page, Viewport } from 'puppeteer';
-import { Parser, DomElement, DomHandler, DomUtils } from 'htmlparser2';
+import { Parser } from 'htmlparser2';
+import DomHandler, { Node } from 'domhandler';
+import * as DomUtils from 'domutils';
+import CSSselect from 'css-select';
 import request from 'request';
-const stew = new(require('stew-select')).Stew();
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { evaluate } from './lib/managers/module.manager';
@@ -171,19 +173,21 @@ class System {
           }
         } while(!reachedPage);
 
-        const sourceHtml = await this.getSourceHTML(url)
-        let styles = stew.select(sourceHtml.html.parsed, 'style');
-        for (let i = 0; i < styles.length; i++) {
-            if (styles[i]['children'][0]) {
-                plainStylesheets['html' + i] = styles[i]['children'][0]['data'];
-            }
+        const sourceHtml = await this.getSourceHTML(url);
+        const styles = CSSselect('style', sourceHtml.html.parsed);
+        let k = 0;
+        for (const style of styles || []) {
+          if (style['children'] && style['children'][0]) {
+            plainStylesheets['html' + k] = style['children'][0]['data'];
+          }
+          k++;
         }
         const stylesheets = await this.parseStylesheets(plainStylesheets);
         const mappedDOM = {};
-        const cookedStew = await stew.select(sourceHtml.html.parsed, '*');
+        const cookedStew = await CSSselect('*', sourceHtml.html.parsed);
         if (cookedStew.length > 0) {
           for (const item of cookedStew || []) {
-            mappedDOM[item['_stew_node_id']] = item;
+            mappedDOM[item['_node_id']] = item;
           }
         }
 
@@ -318,14 +322,15 @@ class System {
       const sourceHTML: string = data.body.toString().trim();
 
       const parsedHTML = this.parseHTML(sourceHTML);
-      const elements = stew.select(parsedHTML, '*');
+
+      const elements = CSSselect('*', parsedHTML);
 
       let title = '';
 
-      const titleElement = stew.select(parsedHTML, 'title');
+      const titles = CSSselect('title', parsedHTML);
 
-      if (titleElement.length > 0) {
-        title = DomUtils.getText(titleElement[0]);
+      if (titles.length > 0) {
+        title = DomUtils.getText(titles[0]);
       }
 
       const source: SourceHtml = {
@@ -343,29 +348,16 @@ class System {
     }
   }
 
-  private parseHTML(html: string): DomElement[] {
-    let parsed: DomElement[] | undefined = undefined;
-
-    const handler = new DomHandler((error, dom) => {
-      if (error) {
-        throw error;
-      } else {
-        parsed = dom;
-      }
-    });
-
+  private parseHTML(html: string): Node[] {
+    const handler = new DomHandler();
     const parser = new Parser(handler);
     parser.write(html.replace(/(\r\n|\n|\r|\t)/gm, ''));
     parser.end();
 
-    if (!parsed) {
-      throw new Error('Failed to parse html');
-    }
-
-    return parsed;
+    return handler.dom;
   }
 
-  private async mapCSSElements(dom: DomElement[], styleSheets: any, mappedDOM: any): Promise<void> {
+  private async mapCSSElements(dom: Node[], styleSheets: any, mappedDOM: any): Promise<void> {
     for (const styleSheet of styleSheets || []) {
       if (styleSheet.content && styleSheet.content.plain) {
         this.analyseAST(dom, styleSheet.content.parsed, undefined, mappedDOM);
@@ -373,7 +365,7 @@ class System {
     }
   }
 
-  private analyseAST(dom: DomElement[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
+  private analyseAST(dom: Node[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
     if (cssObject === undefined ||
       cssObject['type'] === 'comment' ||
       cssObject['type'] === 'keyframes' ||
@@ -399,11 +391,11 @@ class System {
     }
   }
 
-  private loopDeclarations(dom: DomElement[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
+  private loopDeclarations(dom: Node[], cssObject: any, parentType: string | undefined, mappedDOM: any): void {
     const declarations = cssObject['declarations'];
     if (declarations && cssObject['selectors'] && !cssObject['selectors'].toString().includes('@-ms-viewport') && !(cssObject['selectors'].toString() === ':focus')) {
       try {
-        let stewResult = stew.select(dom, cssObject['selectors'].toString());
+        let stewResult = CSSselect(cssObject['selectors'].toString(), dom);
         if (stewResult.length > 0) {
           for (const item of stewResult || []) {
             for (const declaration of declarations || []) {
@@ -425,7 +417,7 @@ class System {
                   }
                   item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
                 }
-                mappedDOM[item['_stew_node_id']] = item;
+                mappedDOM[item['_node_id']] = item;
               }
             }
           }
