@@ -32,7 +32,7 @@ declare module '@qualweb/util' {
     export function getSourceElementAttribute(element: Node, attribute: string): string | null;
     export function getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
     export function getSourceElementSelector(element: Node): string;
-    export function getVideoMetadata(element: ElementHandle);
+    export function getVideoMetadata(element: ElementHandle): Promise<any>;
     export function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
     export function isElementADescendantOfExplicitRole(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
     export function isElementFocusable(element: ElementHandle): Promise<boolean>;
