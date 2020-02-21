@@ -50,13 +50,13 @@ class QW_ACT_R11 extends Rule {
       resultCode: ''
     };
 
-    const [isHidden, accessibleName, role] = await Promise.all([
-      DomUtils.isElementHidden(element),
+    const [inAT, accessibleName, role] = await Promise.all([
+      AccessibilityUtils.isElementInAT(element,page),
       AccessibilityUtils.getAccessibleName(element, page),
       DomUtils.getElementAttribute(element, 'role')
     ]);
 
-    if(isHidden) {
+    if(!inAT) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC1';

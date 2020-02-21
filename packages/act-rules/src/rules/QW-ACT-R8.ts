@@ -52,12 +52,12 @@ class QW_ACT_R8 extends Rule {
 
     const imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
-    const [isHidden, role] = await Promise.all([
-      DomUtils.isElementHidden(element),
+    const [isInAT, role] = await Promise.all([
+      AccessibilityUtils.isElementInAT(element,page),
       DomUtils.getElementAttribute(element, 'role')
     ]);
 
-    if (isHidden) {
+    if (!isInAT) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not included in the accessibility tree.`;
       evaluation.resultCode = 'RC1';

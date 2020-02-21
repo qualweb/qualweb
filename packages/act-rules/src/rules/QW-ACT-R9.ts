@@ -63,7 +63,7 @@ class QW_ACT_R9 extends Rule {
       let aName, href;
       if (await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
         aName = await AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else {
+      } else if(await AccessibilityUtils.isElementInAT(link, page)){
         aName = await AccessibilityUtils.getAccessibleName(link, page);
       }
       href = await DomUtils.getElementAttribute(link, 'href');
@@ -110,6 +110,9 @@ class QW_ACT_R9 extends Rule {
                 result = false;
               }
             }
+            if(hashArray.length=== 0){
+              result = false;
+              }
           }
           if (result) {//passed
             evaluation.verdict = 'passed';

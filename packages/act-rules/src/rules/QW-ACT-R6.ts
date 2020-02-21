@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R6 extends Rule {
 
@@ -58,8 +58,8 @@ class QW_ACT_R6 extends Rule {
       resultCode: ''
     };
 
-    const isHidden = await DomUtils.isElementHidden(element);
-    if (isHidden) {
+    const isInAT = await AccessibilityUtils.isElementInAT(element,page);
+    if (!isInAT) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The \`image button\` is not included in the accessibiliy tree.`;
       evaluation.resultCode = 'RC1';

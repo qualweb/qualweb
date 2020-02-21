@@ -75,7 +75,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.50",
+    "@qualweb/util": "^0.2.51",
     "css-select": "^2.1.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
