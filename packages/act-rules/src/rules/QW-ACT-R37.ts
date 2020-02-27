@@ -104,10 +104,13 @@ class QW_ACT_R37 extends Rule {
       return;
     }
 
+    const elementSelectors = await DomUtils.getElementSelector(element)
+		console.log("TCL: QW_ACT_R37 -> elementSelectors", elementSelectors)
     let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
     for (let disableWidget of disabledWidgets){
-      const accessibleName = await AccessibilityUtils.getAccessibleName(disableWidget, page);
-      if(elementText === accessibleName){
+      let selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+
+      if(selectors && selectors.includes(elementSelectors)){
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'This text is part of a label of a disabled widget.';
         evaluation.resultCode = 'RC5';
