@@ -16,6 +16,7 @@ import getImplicitRoleFunction from "./getImplicitRole";
 import isElementInATFunction from "./isElementInAT";
 import elementHasValidRoleFunction from "./elementHasValidRole";
 import isElementReferencedByAriaLabelFunction from './isElementReferencedByAriaLabel';
+import getDisabledWidgetsFunction from './getDisabledWidgets';
 
 namespace AccessibilityUtils {
   export const getElmentRoleAname = getElementRoleANameFunction;
@@ -34,6 +35,7 @@ namespace AccessibilityUtils {
   export const isElementInAT = isElementInATFunction;
   export const elementHasValidRole = elementHasValidRoleFunction;
   export const isElementReferencedByAriaLabel = isElementReferencedByAriaLabelFunction;
+  export const getDisabledWidgets = getDisabledWidgetsFunction;
 }
 
 export default AccessibilityUtils;
