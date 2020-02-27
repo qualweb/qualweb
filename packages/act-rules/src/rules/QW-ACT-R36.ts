@@ -3,7 +3,7 @@
 import {ElementHandle, Page} from 'puppeteer';
 import Rule from './Rule.object';
 import {ACTRuleResult} from '@qualweb/act-rules';
-import {DomUtils, AccessibilityTreeUtils} from '@qualweb/util';
+import {DomUtils, AccessibilityUtils} from '@qualweb/util';
 import _ from 'lodash';
 
 class QW_ACT_R36 extends Rule {
@@ -30,7 +30,6 @@ class QW_ACT_R36 extends Rule {
         url: 'https://act-rules.github.io/rules/a25f45',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -59,24 +58,25 @@ class QW_ACT_R36 extends Rule {
       evaluation.description = "The rule applies only to headers attribute within a table element.";
       evaluation.resultCode = 'RC1';
     } else {
-      let isInAT = await AccessibilityTreeUtils.isElementInAT(parentTableElem, page);
+      let isInAT = await AccessibilityUtils.isElementInAT(parentTableElem, page);
       if (!isInAT) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "This table is not included in the accessibility tree";
         evaluation.resultCode = 'RC2';
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem, true, true);
         evaluation.pointer = await DomUtils.getElementSelector(parentTableElem);
       } else {
-        let isVisible = await DomUtils.isElemenVisible(parentTableElem);
+        let isVisible = await DomUtils.isElementVisible(parentTableElem);
         if (!isVisible) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = "This table is not visible in page";
           evaluation.resultCode = 'RC3';
-          evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem);
+          evaluation.htmlCode = await DomUtils.getElementHtmlCode(parentTableElem, true, true);
           evaluation.pointer = await DomUtils.getElementSelector(parentTableElem);
         } else {
           let headerAttributes: string[] = [];
-          let headers = _.split(await DomUtils.getElementAttribute(element, 'headers'), ' ');
+          let elementHeaders = await DomUtils.getElementAttribute(element, 'headers');
+          let headers = _.split(elementHeaders ? elementHeaders : "", " ");
           for (const header of headers) {
             if (_.indexOf(headerAttributes, header) < 0) {
               headerAttributes.push(header);
@@ -92,7 +92,7 @@ class QW_ACT_R36 extends Rule {
               evaluation.description = "The headers attribute '" + headerAttributes[i] + "' refers to an ID that does not exist within the same table";
               evaluation.resultCode = 'RC5';
             } else {
-              idElemRole = await AccessibilityTreeUtils.getElementRole(idElem);
+              idElemRole = await AccessibilityUtils.getElementRole(idElem, page);
               if (idElemRole !== 'rowheader' && idElemRole !== 'columnheader') {
                 evaluation.verdict = 'failed';
                 evaluation.description = "The headers attribute '" + headerAttributes[i] + "' refers to an element inside the same table which does not have a role of rowheader or columnheader";
@@ -113,7 +113,7 @@ class QW_ACT_R36 extends Rule {
 
     if(!evaluation.htmlCode) {
       const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element),
+        DomUtils.getElementHtmlCode(element, true, true),
         DomUtils.getElementSelector(element)
       ]);
       evaluation.htmlCode = htmlCode;
@@ -134,7 +134,7 @@ async function getFirstAncestorElementByNameOrRoles(element: ElementHandle, page
 
   if (parent !== null) {
     let parentName = await DomUtils.getElementTagName(parent);
-    let parentRole = await AccessibilityTreeUtils.getElementRole(parent, page);
+    let parentRole = await AccessibilityUtils.getElementRole(parent, page);
 
     if (parentName !== null) {
       sameName = names.includes(parentName);

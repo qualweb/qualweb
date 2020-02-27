@@ -42,7 +42,7 @@
     "test-r33": "mocha test/rules/QW-ACT-R33.spec.js",
     "test-r34": "mocha test/rules/QW-ACT-R34.spec.js",
     "test-r35": "mocha test/rules/QW-ACT-R35.spec.js",
-    "test-r36": "npm run build && mocha test/rules/QW-ACT-R36.spec.js",
+    "test-r36": "mocha test/rules/QW-ACT-R36.spec.js",
     "test-r38": "mocha test/rules/QW-ACT-R38.spec.js",
     "test-r39": "mocha test/rules/QW-ACT-R39.spec.js",
     "clean": "node clean.js",
