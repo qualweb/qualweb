@@ -3,7 +3,6 @@
 import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from './Rule.object';
-
 import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R2 extends Rule {
@@ -17,7 +16,7 @@ class QW_ACT_R2 extends Rule {
       metadata: {
         target: {
           element: 'html',
-          attributes: ['lang', 'xml:lang']
+          attributes: 'lang'
         },
         'success-criteria': [{
           name: '3.1.1',
@@ -29,7 +28,6 @@ class QW_ACT_R2 extends Rule {
         url: 'https://act-rules.github.io/rules/b5c3f8',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -47,44 +45,34 @@ class QW_ACT_R2 extends Rule {
       resultCode: ''
     };
 
-    const mathElement = await page.$$('math');
+    const rootElement = await DomUtils.getPageRootElement(page);
+    let rootElementTagName; 
+    if (rootElement) {
+      rootElementTagName = await DomUtils.getElementTagName(rootElement);
+    }
+    const isMathDocument = await DomUtils.isMathDocument(await page.url());
 
-    if (element === undefined || mathElement.length > 0) { // if the element doesn't exist, there's nothing to test
+    const isHtmlDocument = rootElementTagName.trim().toLowerCase() === 'html' && !isMathDocument;
+
+    if (!element || !isHtmlDocument) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `There is no <html> element`;
+      evaluation.description = `The root element is not an \`html\` element.`;
       evaluation.resultCode = 'RC1';
-      evaluation.description = `The <html> element is not the root element of the page`;
-      evaluation.resultCode = 'RC2';
     } else {
-      
       const lang = await DomUtils.getElementAttribute(element, 'lang');
-      const xmlLang = await DomUtils.getElementAttribute(element, 'xml:lang');
 
-      if (lang !== null && xmlLang !== null && xmlLang.trim() !== '') { // passed
+      if (lang && lang.trim()) {
         evaluation.verdict = 'passed';
-        evaluation.description = `The xml:lang attribute has a value`;
+        evaluation.description = `The \`lang\` attribute exists and has a value`;
+        evaluation.resultCode = 'RC2';
+      } else {
+        evaluation.verdict = 'failed';
+        evaluation.description = `The \`lang\` attribute doesn't exist or is empty ("")`;
         evaluation.resultCode = 'RC3';
-      } else if (lang !== null && lang.trim() !== '') { // passed
-        evaluation.verdict = 'passed';
-        evaluation.description = `The lang attribute has a value`;
-        evaluation.resultCode = 'RC4';
-      } else if (lang === null || xmlLang === null) { // failed
-        evaluation.verdict = 'failed';
-        evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-        evaluation.resultCode = 'RC5';
-      } else if (lang.trim() === '' || xmlLang.trim() === '') { // failed
-        evaluation.verdict = 'failed';
-        evaluation.description = `The lang and xml:lang attributes are empty or undefined`;
-        evaluation.resultCode = 'RC5';
       }
     }
-    
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
 
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

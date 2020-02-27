@@ -2,7 +2,8 @@
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
-const stew = new(require('stew-select')).Stew();
+import { ShadowDomUtils, Optimization } from '@qualweb/util';
+import CSSselect from 'css-select';
 import { Page } from 'puppeteer';
 
 import QW_ACT_R1 from './rules/QW-ACT-R1';
@@ -39,14 +40,17 @@ import QW_ACT_R31 from './rules/QW-ACT-R31';
 import QW_ACT_R32 from './rules/QW-ACT-R32';
 import QW_ACT_R33 from './rules/QW-ACT-R33';
 import QW_ACT_R34 from './rules/QW-ACT-R34';
+import QW_ACT_R35 from './rules/QW-ACT-R35';
 import QW_ACT_R36 from './rules/QW-ACT-R36';
+import QW_ACT_R38 from './rules/QW-ACT-R38';
+import QW_ACT_R39 from './rules/QW-ACT-R39';
 
 import mapping from './rules/mapping';
 
 class ACTRules {
 
+  private optimization = Optimization.Performance;
   private rules: any;
-
   private rulesToExecute = {
     'QW-ACT-R1': true,
     'QW-ACT-R2': true,
@@ -56,7 +60,7 @@ class ACTRules {
     'QW-ACT-R6': true,
     'QW-ACT-R7': true,
     'QW-ACT-R8': true,
-    'QW-ACT-R9': false,
+    'QW-ACT-R9': true,
     'QW-ACT-R10': false,
     'QW-ACT-R11': true,
     'QW-ACT-R12': true,
@@ -76,13 +80,16 @@ class ACTRules {
     'QW-ACT-R26': false,
     'QW-ACT-R27': false,
     'QW-ACT-R28': false,
-    'QW-ACT-R29': true,
+    'QW-ACT-R29': false,
     'QW-ACT-R30': true,
     'QW-ACT-R31': false,
     'QW-ACT-R32': false,
     'QW-ACT-R33': false,
     'QW-ACT-R34': false,
-    'QW-ACT-R36': true
+    'QW-ACT-R35': false,
+    'QW-ACT-R36': true,
+    'QW-ACT-R38': false,
+    'QW-ACT-R39': false
   };
 
   constructor(options?: ACTROptions) {
@@ -121,7 +128,10 @@ class ACTRules {
       'QW-ACT-R32': new QW_ACT_R32(),
       'QW-ACT-R33': new QW_ACT_R33(),
       'QW-ACT-R34': new QW_ACT_R34(),
-      'QW-ACT-R36': new QW_ACT_R36()
+      'QW-ACT-R35': new QW_ACT_R35(),
+      'QW-ACT-R36': new QW_ACT_R36(),
+      'QW-ACT-R38': new QW_ACT_R38(),
+      'QW-ACT-R39': new QW_ACT_R39()
     };
 
     if (options) {
@@ -174,10 +184,18 @@ class ACTRules {
         }
       }
     }
+
+    if (options.optimize) {
+      if (options.optimize.toLowerCase() === 'performance') {
+        this.optimization = Optimization.Performance;
+      } else if (options.optimize.toLowerCase() === 'error-detection') {
+        this.optimization = Optimization.ErrorDetection;
+      }
+    }
   }
 
   public resetConfiguration(): void {
-    for (const rule in this.rulesToExecute) {
+    for (const rule in this.rulesToExecute || {}) {
       this.rulesToExecute[rule] = true;
     }
   }
@@ -186,7 +204,7 @@ class ACTRules {
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
         if (this.rulesToExecute[rule]) {
-          const elements = stew.select(html.html.parsed, selector);
+          const elements = CSSselect(selector, html.html.parsed);
           if (elements.length > 0) {
             for (const elem of elements || []) {
               await this.rules[rule].execute(elem, html);
@@ -208,13 +226,13 @@ class ACTRules {
     if (elements.length > 0) {
       for (const elem of elements || []) {
         if (concurrent) {
-          promises.push(this.rules[rule].execute(elem, page));
+          promises.push(this.rules[rule].execute(elem, page, this.optimization));
         } else {
-          await this.rules[rule].execute(elem, page);
+          await this.rules[rule].execute(elem, page, this.optimization);
         }
       }
     } else {
-      await this.rules[rule].execute(undefined, page);
+      await this.rules[rule].execute(undefined, page, this.optimization);
     }
     if (concurrent) {
       await Promise.all(promises);
@@ -273,6 +291,8 @@ class ACTRules {
       rules: {}
     };
 
+    page = await ShadowDomUtils.processShadowDom(page);
+    
     await Promise.all([
       this.executeNonConcurrentRules(report, sourceHtml, page),
       this.executeConcurrentRules(report, sourceHtml, page),

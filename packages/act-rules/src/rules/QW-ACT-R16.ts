@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R16 extends Rule {
 
@@ -35,7 +35,6 @@ class QW_ACT_R16 extends Rule {
         url: 'https://act-rules.github.io/rules/e086e5',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -46,52 +45,47 @@ class QW_ACT_R16 extends Rule {
     });
   }
 
-  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
+
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    let semanticRoles = ['checkbox', 'combobox', 'listbox', 'menuitemcheckbox', 'menuitemradio', 'radio', 'searchbox', 'slider', 'spinbutton', 'switch', 'textbox'];
-    let accessibleName;
+    const semanticRoles = ['checkbox', 'combobox', 'listbox', 'menuitemcheckbox', 'menuitemradio', 'radio', 'searchbox', 'slider', 'spinbutton', 'switch', 'textbox'];
 
-    if (element === undefined) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `There are no input, select, textarea or elements with role attribute in this web page.`;
-      evaluation.resultCode = 'RC1';
-    } else {
-      let role = await DomUtils.getElementAttribute(element,"role");
-      if (!role|| ( semanticRoles.includes(role.trim()))) {
-        if (!await DomUtils.isElementHidden(element)) {
-          accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-          if (accessibleName !== undefined && accessibleName.trim() !== '') {
-            evaluation.verdict = 'passed';
-            evaluation.description = `This form field element has an not-empty accessible name`;
-            evaluation.resultCode = 'RC2';
-          } else {
-            evaluation.verdict = 'failed';
-            evaluation.description = `This form field element has an empty or undefined accessible name`;
-            evaluation.resultCode = 'RC3';
-          }
+    const role = await AccessibilityUtils.getElementRole(element,page);
+
+    if (!!role && semanticRoles.includes(role)) {
+      const inAt = await AccessibilityUtils.isElementInAT(element, page);
+      if (inAt) {
+        const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+        if (accessibleName && accessibleName.trim()) {
+          evaluation.verdict = 'passed';
+          evaluation.description = `The test target has an accessible name.`;
+          evaluation.resultCode = 'RC1';
         } else {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `This form field element has an not-empty accessible name but is hidden`;
-          evaluation.resultCode = 'RC4';
+          evaluation.verdict = 'failed';
+          evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
+          evaluation.resultCode = 'RC2';
         }
       } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `Role has explicitly been set to something that isn't a form field`;
-        evaluation.resultCode = 'RC5';
+        evaluation.description = `The test target has an accessible name but it's hidden.`;
+        evaluation.resultCode = 'RC3';
       }
+    } else {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The \`role\` has explicitly been set to something that isn't a form field.`;
+      evaluation.resultCode = 'RC4';
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

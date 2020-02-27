@@ -16,7 +16,8 @@ class QW_ACT_R22 extends Rule {
       description: 'This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.',
       metadata: {
         target: {
-          element: '[lang]'
+          element: 'body *',
+          attribute: ['lang']
         },
         'success-criteria': [
           {
@@ -30,7 +31,6 @@ class QW_ACT_R22 extends Rule {
         url: 'https://act-rules.github.io/rules/de46e4',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -43,6 +43,9 @@ class QW_ACT_R22 extends Rule {
 
   async execute(element: ElementHandle | undefined): Promise<void> {
 
+    if (!element) {
+      return;
+    }
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -50,42 +53,30 @@ class QW_ACT_R22 extends Rule {
       resultCode: ''
     };
 
-    if (element === undefined) {
+    const lang = await DomUtils.getElementAttribute(element, 'lang');
+
+    let subtag = '';
+    let splittedlang = new Array<string>();
+    if(lang){
+      splittedlang = lang.split('-');
+      subtag = splittedlang[0];
+    }
+
+    if (!subtag.trim()) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "No elements with lang";
+      evaluation.description = 'The test target `lang` attribute is empty ("").';
       evaluation.resultCode = 'RC1';
+    } else if (this.isSubTagValid(subtag) && splittedlang.length <= 2) {
+      evaluation.verdict = 'passed';
+      evaluation.description = 'The test target has a valid `lang` attribute.';
+      evaluation.resultCode = 'RC2';
     } else {
-      let lang = await DomUtils.getElementAttribute(element, "lang");
-      let subtag="";
-      let splittedlang:string[] = [];
-      if(lang){
-        splittedlang = lang.split("-");
-        subtag = splittedlang[0];
-      }
-
-
-      if (subtag.trim() === '') {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = "Lang is empty";
-        evaluation.resultCode = 'RC2';
-      }
-      else if (this.isSubTagValid(subtag)&&splittedlang.length<=2) {
-        evaluation.verdict = 'passed';
-        evaluation.description = "This element has a valid lang attribute";
-        evaluation.resultCode = 'RC3';
-      }
-      else {
-        evaluation.verdict = 'failed';
-        evaluation.description = "This element has an invalid lang attribute";
-        evaluation.resultCode = 'RC4';
-      }
+      evaluation.verdict = 'failed';
+      evaluation.description = 'The test target has an invalid `lang` attribute.';
+      evaluation.resultCode = 'RC3';
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 
   private isSubTagValid(subTag: string): boolean {

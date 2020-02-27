@@ -3,8 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
-
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from './ariaAttributesRoles.json';
 import rolesJSON from './roles.json';
 
@@ -39,7 +38,6 @@ class QW_ACT_R25 extends Rule {
         url: 'https://act-rules.github.io/rules/5c01ea',
         passed: 0,
         warning: 0,
-        inapplicable: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:language'],
@@ -51,16 +49,10 @@ class QW_ACT_R25 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
+    
     if (!element) {
       return;
     }
-
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
 
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';
@@ -72,52 +64,41 @@ class QW_ACT_R25 extends Rule {
     // get all elements that are using aria attributes
     const elementsWithAriaAttribs = await element.$$(ariaSelector);
 
-    if (!elementsWithAriaAttribs) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = "No elements withWAI-ARIA state or property";
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation);
-    } else {
-      for (const elem of elementsWithAriaAttribs || []) {
-        const elemRole = await AccessibilityTreeUtils.getElementRole(elem,page);
-        const isInAT = await AccessibilityTreeUtils.isElementInAT(elem, page);
-        const elemAttribs = await DomUtils.getElementAttributesName(elem);
+    for (const elem of elementsWithAriaAttribs || []) {
+      const [elemRole, isInAT, elemAttribs] = await Promise.all([
+        AccessibilityUtils.getElementRole(elem,page),
+        AccessibilityUtils.isElementInAT(elem, page),
+        DomUtils.getElementAttributesName(elem)
+      ]);
       
-        for (const attrib of elemAttribs || []) {
-          if (Object.keys(ariaJSON).includes(attrib)) {
-            //if is in the accessibility tree
-            //todo - is not working properly
-            if (isInAT) {
-              // if valid aria attribute
-              if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== undefined && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
-                evaluation.verdict = 'passed';
-                evaluation.description = attrib + "property is supported or inherited by this element's role";
-                evaluation.resultCode = 'RC2';
-              } else {
-                evaluation.verdict = 'failed';
-                evaluation.description = attrib + "property is neither inherited nor supported by this role";
-                evaluation.resultCode = 'RC3';
-              }
+      for (const attrib of elemAttribs || []) {
+        if (Object.keys(ariaJSON).includes(attrib)) {
+          const evaluation: ACTRuleResult = {
+            verdict: '',
+            description: '',
+            resultCode: ''
+          };
+
+          //if is in the accessibility tree
+          if (isInAT) {
+            // if valid aria attribute
+            if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== null && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
+              evaluation.verdict = 'passed';
+              evaluation.description = `The \`${attrib}\` property is supported or inherited by the \`role\` ${elemRole}.`;
+              evaluation.resultCode = 'RC1';
             } else {
-              //if they are not in the accessibility tree
-              evaluation.verdict = 'inapplicable';
-              evaluation.description = "This element is not included in the accessibility tree";
-              evaluation.resultCode = 'RC4';
+              evaluation.verdict = 'failed';
+              evaluation.description = `The \`${attrib}\` property is neither inherited nor supported by the \`role\` ${elemRole}.`;
+              evaluation.resultCode = 'RC2';
             }
-            
-            const [htmlCode, pointer] = await Promise.all([
-              DomUtils.getElementHtmlCode(elem),
-              DomUtils.getElementSelector(elem)
-            ]);
-            evaluation.htmlCode = htmlCode;
-            evaluation.pointer = pointer;
-            super.addEvaluationResult(evaluation);
-            evaluation = {
-              verdict: '',
-              description: '',
-              resultCode: ''
-            };
+          } else {
+            //if they are not in the accessibility tree
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = 'The test target is not included in the accessibility tree.';
+            evaluation.resultCode = 'RC3';
           }
+
+          await super.addEvaluationResult(evaluation, elem);
         }
       }
     }

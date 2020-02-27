@@ -3,7 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R11 extends Rule {
 
@@ -27,7 +27,6 @@ class QW_ACT_R11 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/97a4e1',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
@@ -40,44 +39,42 @@ class QW_ACT_R11 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
+    
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if(element === undefined){
+    const [inAT, accessibleName, role] = await Promise.all([
+      AccessibilityUtils.isElementInAT(element,page),
+      AccessibilityUtils.getAccessibleName(element, page),
+      DomUtils.getElementAttribute(element, 'role')
+    ]);
+
+    if(!inAT) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'There are no elements with the semantic role of button.';
+      evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC1';
+    } else if (role && role !== 'button'){
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The test target role is overriden.`;
+      evaluation.resultCode = 'RC3';
+    } else if(!accessibleName || !accessibleName.trim()) {
+      evaluation.verdict = 'failed';
+      evaluation.description = `The test target doesn't have an accessible name, or it's empty ("").`;
+      evaluation.resultCode = 'RC4';
     } else {
-      const isHidden = await DomUtils.isElementHidden(element);
-      const accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      const role = await DomUtils.getElementAttribute(element, 'role');
-      if(isHidden){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'This element is not included in the accessibility tree.';
-        evaluation.resultCode = 'RC2';
-      } else if (role!==null && role !== 'button'){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This button's role is overriden.`;
-        evaluation.resultCode = 'RC3';
-      } else if(accessName === undefined || accessName.trim() === '') {
-        evaluation.verdict = 'failed';
-        evaluation.description = `This element doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC4';
-      } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `This element has a valid accessible name.`;
-        evaluation.resultCode = 'RC5';
-      }
+      evaluation.verdict = 'passed';
+      evaluation.description = `The test target has a valid accessible name.`;
+      evaluation.resultCode = 'RC5';
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

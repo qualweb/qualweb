@@ -2,12 +2,8 @@
 
 import { ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-
-import {
-  DomUtils
-} from '@qualweb/util';
+import { DomUtils } from '@qualweb/util';
 
 class QW_ACT_R31 extends Rule {
 
@@ -34,7 +30,6 @@ class QW_ACT_R31 extends Rule {
         passed: 0,
         warning: 0,
         failed: 0,
-        inapplicable: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:title'],
         outcome: '',
@@ -59,7 +54,7 @@ class QW_ACT_R31 extends Rule {
     const [metadata, track, isVisible] = await Promise.all([
       DomUtils.getVideoMetadata(element),
       element.$('track[kind="descriptions"]'),
-      DomUtils.isElemenVisible(element)
+      DomUtils.isElementVisible(element)
     ]);
 
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0;
@@ -67,43 +62,34 @@ class QW_ACT_R31 extends Rule {
 
     if (!isVisible) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "The pause button is not visible";
+      evaluation.description = 'The pause button is not visible';
       evaluation.resultCode = 'RC1';
     } else if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
-      evaluation.description = "Cant colect data from the video element";
+      evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';
     } else if (applicableServiceData) {
       if (track !== null) {
         evaluation.verdict = 'warning';
-        evaluation.description = "Check if the track element correctly describes the visual content of the video";
+        evaluation.description = 'Check if the `track` element correctly describes the visual content of the video.';
         evaluation.resultCode = 'RC3';
       } else {
         evaluation.verdict = 'warning';
-        evaluation.description = "Check if the video element visual content has accessible alternative";
+        evaluation.description = 'Check if the test target visual content has accessible alternative.';
         evaluation.resultCode = 'RC4';
       }
     } else if (hasPupeteerApplicableData) {
       evaluation.verdict = 'warning';
-      evaluation.description = "Video has a sound track but we cant verify the volume.Check if the video has audio and if it does check if the video element visual content has an accessible alternative";
+      evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC5';
 
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = "The video element isn't a non-streaming video element that is visible, where the video contains audio.";
+      evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC6';
     }
-
-    if (element) {
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element),
-        DomUtils.getElementSelector(element)
-      ]);
-      evaluation.htmlCode = htmlCode;
-      evaluation.pointer = pointer;
-    }
     
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

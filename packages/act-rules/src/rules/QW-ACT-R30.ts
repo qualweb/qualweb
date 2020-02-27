@@ -1,16 +1,10 @@
 'use strict';
 
-'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
 import Rule from './Rule.object';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-
-import {
-  AccessibilityTreeUtils,
-  DomUtils
-} from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R30 extends Rule {
 
@@ -37,7 +31,6 @@ class QW_ACT_R30 extends Rule {
         passed: 0,
         warning: 0,
         failed: 0,
-        inapplicable: 0,
         type: ['ACTRule', 'TestCase'],
         a11yReq: ['WCAG21:title'],
         outcome: '',
@@ -59,53 +52,44 @@ class QW_ACT_R30 extends Rule {
       resultCode: ''
     };
 
-    let tagName  = await DomUtils.getElementTagName(element);
-    let isWidget;
-
-    if(tagName === 'a'){
-      isWidget = await DomUtils.elementHasAttribute(element, "href")
-    }else{
-      isWidget = await AccessibilityTreeUtils.isElementWidget(element);
-    }
-
-    if(!isWidget){
+    const isWidget = await AccessibilityUtils.isElementWidget(element);
+    if(!isWidget) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `not a widget`;
+      evaluation.description = `The test target is not a \`widget\`.`;
       evaluation.resultCode = 'RC1';
-    }else{
-      let supportsNameFromContent = await AccessibilityTreeUtils.allowsNameFromContent(element);
+    } else {
+      const supportsNameFromContent = await AccessibilityUtils.allowsNameFromContent(element);
       if(!supportsNameFromContent){
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `not a widget that supports name from content.`;
+        evaluation.description = `The test target is not a \`widget\` that supports name from content.`;
         evaluation.resultCode = 'RC2';
-      }else{
+      } else {
+        const [accessibleName, elementText] = await Promise.all([
+          AccessibilityUtils.getAccessibleName(element, page),
+          AccessibilityUtils.getTrimmedText(element)
+        ]);
 
-        let accessibleName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-        let elementText    = await AccessibilityTreeUtils.getTrimmedText(element);
-
-        if(accessibleName === undefined){
+        if(accessibleName === undefined) {
           evaluation.verdict = 'failed';
-          evaluation.description = `no accessible name.`;
+          evaluation.description = `The test target doesn't have an accessible name.`;
           evaluation.resultCode = 'RC6';
-        }else if(elementText.length === 1){
+        } else if(elementText && elementText.length === 1) {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `non-text content.`;
+          evaluation.description = `The test target contains non-text content.`;
           evaluation.resultCode = 'RC3';
-        }else if(accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())){
+        } else if(elementText && accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())) {
           evaluation.verdict = 'passed';
-          evaluation.description = `the complete visible text content of the target element either matches or is contained within its accessible name.`;
+          evaluation.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
           evaluation.resultCode = 'RC4';
-        }else{
+        } else {
           evaluation.verdict = 'failed';
-          evaluation.description = `the complete visible text content of the target element neither matches or is contained within its accessible name.`;
+          evaluation.description = `The complete visible text content of the test target neither matches or is contained within its accessible name.`;
           evaluation.resultCode = 'RC5';
         }
       }
     }
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
 
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

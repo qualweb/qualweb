@@ -82,6 +82,8 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R6 | [59796f](https://act-rules.github.io/rules/59796f) | Image button has accessible name |
 | QW-ACT-R7 | [b33eff](https://act-rules.github.io/rules/b33eff) | Orientation of the page is not restricted using CSS transform property |
 | QW-ACT-R8 | [9eb3f6](https://act-rules.github.io/rules/9eb3f6) | Image filename is accessible name for image |
+| QW-ACT-R9 | [b20e66](https://act-rules.github.io/rules/b20e66) | Links with identical accessible names have equivalent purpose |
+| QW-ACT-R10 | [4b1c6c](https://act-rules.github.io/rules/4b1c6c) | `iframe` elements with identical accessible names have equivalent purpose |
 | QW-ACT-R11 | [97a4e1](https://act-rules.github.io/rules/97a4e1) | Button has accessible name |
 | QW-ACT-R12 | [c487ae](https://act-rules.github.io/rules/c487ae) | Link has accessible name |
 | QW-ACT-R13 | [6cfa84](https://act-rules.github.io/rules/6cfa84) | Element with `aria-hidden` has no focusable content |
@@ -106,6 +108,9 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R32 | [1ec09b](https://act-rules.github.io/rules/1ec09b) | video element visual content has strict accessible alternative  |
 | QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
 | QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
+| QW-ACT-R35 | [ffd0e9](https://act-rules.github.io/rules/ffd0e9) | Heading has accessible name |
+| QW-ACT-R38 | [bc4a75](https://act-rules.github.io/rules/bc4a75) | ARIA required owned elements |
+| QW-ACT-R39 | [d0f69e](https://act-rules.github.io/rules/d0f69e) | All table header cells have assigned data cells |
 
 # License
 

@@ -3,8 +3,7 @@
 import { ElementHandle, Page } from 'puppeteer';
 import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 
 class QW_ACT_R6 extends Rule {
 
@@ -36,7 +35,6 @@ class QW_ACT_R6 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/59796f',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
@@ -49,44 +47,36 @@ class QW_ACT_R6 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
+
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    let isHidden;
-    let accessName;
-
-    if (element === undefined) { // if the element doesn't exist
+    const isInAT = await AccessibilityUtils.isElementInAT(element,page);
+    if (!isInAT) {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `There isn't an image button to test`;
+      evaluation.description = `The \`image button\` is not included in the accessibiliy tree.`;
       evaluation.resultCode = 'RC1';
     } else {
-      isHidden = await DomUtils.isElementHidden(element);
-      accessName = await AccessibilityTreeUtils.getAccessibleName(element, page);
-      if (isHidden) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This image button is not included in the accessibiliy tree`;
+      const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+      if (accessibleName && accessibleName.trim()) {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The \`image button\` has an accessible name.`;
         evaluation.resultCode = 'RC2';
       } else {
-        if (accessName === undefined || accessName.trim() === '') {
-          evaluation.verdict = 'failed';
-          evaluation.description = `It's not possible to define the accessible name of this element`;
-          evaluation.resultCode = 'RC3';
-        } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `This image button has an accessible name`;
-          evaluation.resultCode = 'RC4';
-        }
+        evaluation.verdict = 'failed';
+        evaluation.description = `The \`image button\` doesn't have an accessible name.`;
+        evaluation.resultCode = 'RC3';
       }
     }
 
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

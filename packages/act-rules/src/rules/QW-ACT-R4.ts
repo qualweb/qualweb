@@ -1,11 +1,9 @@
 'use strict';
 
-import { DomElement } from 'htmlparser2';
-import Rule from './Rule2.object';
-
+import { Node } from 'domhandler';
 import { ACTRuleResult } from '@qualweb/act-rules';
-
 import { DomUtils } from '@qualweb/util';
+import Rule from './Rule2.object';
 
 class QW_ACT_R4 extends Rule {
 
@@ -43,7 +41,6 @@ class QW_ACT_R4 extends Rule {
         passed: 0,
         warning: 0,
         failed: 0,
-        inapplicable: 0,
         type: ['ACTRule', 'TestCase'],
         outcome: '',
         description: ''
@@ -52,9 +49,9 @@ class QW_ACT_R4 extends Rule {
     });
   }
 
-  async execute(element: DomElement | undefined): Promise<void> {
+  async execute(element: Node | undefined): Promise<void> {
   
-    if (!element) { // if the element doesn't exist, there's nothing to test
+    if (!element) {
       return;
     }
 
@@ -64,55 +61,54 @@ class QW_ACT_R4 extends Rule {
       resultCode: ''
     };
 
-    const content = DomUtils.getElementAttribute2(element, 'content');
-    const httpEquiv = DomUtils.getElementAttribute2(element, 'http-equiv');
+    const content = DomUtils.getSourceElementAttribute(element, 'content');
+    const httpEquiv = DomUtils.getSourceElementAttribute(element, 'http-equiv');
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Already exists one valid or invalid <meta> above';
+      evaluation.description = 'Already exists one valid or invalid test target.';
       evaluation.resultCode = 'RC1';
-    } else if (!element.attribs) { // not applicable
+    } else if (!element['attribs']) { // not applicable
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Inexistent attributes "content" and "http-equiv"';
+      evaluation.description = `The test target doesn't have the attributes \`content\` and \`http-equiv\`.`;
       evaluation.resultCode = 'RC2';
     } else if (content === null) { // not applicable
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Inexistent attribute "content"';
+      evaluation.description = `The test target doesn't have the attribute \`content\`.`;
       evaluation.resultCode = 'RC3';
     } else if (httpEquiv === null) { // not applicable
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Inexistent attribute "http-equiv"';
+      evaluation.description = `The test target doesn't have the attribute \`http-equiv\`.`;
       evaluation.resultCode = 'RC4';
     } else if (content.trim() === '') { // not applicable
       evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Attribute "content" is empty';
+      evaluation.description = `The test target \`content\` attribute is empty ("").`;
       evaluation.resultCode = 'RC5';
     } else {
       const indexOf = content.indexOf(';');
-
       if (indexOf === -1) { // if is a refresh
         if (this.checkIfIsNumber(content) && Number.isInteger(parseInt(content, 0))) {
           const n = Number(content);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
-            evaluation.description = `Time value can't be negative`;
+            evaluation.description = `The test target \`content\` attribute is invalid.`;
             evaluation.resultCode = 'RC6';
           } else if (n === 0) { // passes because the time is 0
             evaluation.verdict = 'passed';
-            evaluation.description = 'Refreshes immediately';
+            evaluation.description = 'The test target refreshes immediately.';
             evaluation.resultCode = 'RC7';
           } else if (n > 72000) { // passes because the time is bigger than 72000
             evaluation.verdict = 'passed';
-            evaluation.description = 'Refreshes after more than 20 hours';
+            evaluation.description = 'The test target refreshes after more than 20 hours.';
             evaluation.resultCode = 'RC8';
           } else { // fails because the time is in between 0 and 72000
             evaluation.verdict = 'failed';
-            evaluation.description = `Refreshes after ${n} seconds`;
+            evaluation.description = `The test target refreshes after ${n} seconds.`;
             evaluation.resultCode = 'RC9';
           }
         } else { // not applicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = '"Content" attribute is invalid';
+          evaluation.description = `The test target \`content\` attribute is invalid.`;
           evaluation.resultCode = 'RC10';
         }
       } else { // if is a redirect
@@ -120,17 +116,17 @@ class QW_ACT_R4 extends Rule {
 
         if (split.length > 2) { // not applicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = 'Malformated "Content" attribute';
+          evaluation.description = `The test target \`content\` attribute is invalid.`;
           evaluation.resultCode = 'RC11';
         } else if (split[0].trim() === '' || split[1].trim() === '') { // not applicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = '"Content" attribute is invalid';
+          evaluation.description = `The test target \`content\` attribute is invalid.`;
           evaluation.resultCode = 'RC10';
         } else if (this.checkIfIsNumber(split[0]) && Number.isInteger(parseInt(split[0], 0))) {
           const n = Number(split[0]);
           if (n < 0) { // not applicable
             evaluation.verdict = 'inapplicable';
-            evaluation.description = `Time value can't be negative`;
+            evaluation.description = `The test target \`content\` attribute is invalid.`;
             evaluation.resultCode = 'RC6';
           }
 
@@ -146,39 +142,36 @@ class QW_ACT_R4 extends Rule {
             if (url && this.validURL(url)) {
               if (n === 0) { // passes because the time is 0 and the url exists
                 evaluation.verdict = 'passed';
-                evaluation.description = 'Redirects immediately';
+                evaluation.description = 'The test target redirects immediately.';
                 evaluation.resultCode = 'RC12';
               } else if (n > 72000) { // passes because the time is bigger than 72000 and the url exists
                 evaluation.verdict = 'passed';
-                evaluation.description = 'Redirects after more than 20 hours';
+                evaluation.description = 'The test target redirects after more than 20 hours.';
                 evaluation.resultCode = 'RC13';
               } else { // fails because the time is in between 0 and 72000, but the url exists
                 evaluation.verdict = 'failed';
-                evaluation.description = `Redirects after ${n} seconds`;
+                evaluation.description = `The test target redirects after ${n} seconds.`;
                 evaluation.resultCode = 'RC14';
               }
             } else { // not applicable
               evaluation.verdict = 'inapplicable';
-              evaluation.description = 'Url is not valid';
+              evaluation.description = 'The test target `content` attribute has an url that is valid.';
               evaluation.resultCode = 'RC15';
             }
           } else { // not applicable
             evaluation.verdict = 'inapplicable';
-            evaluation.description = 'Url is malformated';
+            evaluation.description = `The test target \`content\` attribute has an url that isn't well formed.`;
             evaluation.resultCode = 'RC16';
           }
         } else { // not applicable
           evaluation.verdict = 'inapplicable';
-          evaluation.description = '"Content" attribute is invalid"';
+          evaluation.description = 'The test target `content` attribute is invalid.';
           evaluation.resultCode = 'RC10';
         }
       }
     }
 
-    //evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-    //evaluation.pointer = await DomUtils.getElementSelector(element);
-
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation, element);
   }
 
   private validURL(url: string): boolean {
@@ -193,7 +186,7 @@ class QW_ACT_R4 extends Rule {
 
   private checkIfIsNumber(num: string): boolean {
     let success = true;
-    for (let n of num) {
+    for (const n of num || []) {
       if (isNaN(parseInt(n, 0))) {
         success = false;
         break;

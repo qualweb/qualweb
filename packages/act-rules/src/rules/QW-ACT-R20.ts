@@ -30,7 +30,6 @@ class QW_ACT_R20 extends Rule {
         related: [],
         url: 'https://act-rules.github.io/rules/674b10',
         passed: 0,
-        inapplicable: 0,
         warning: 0,
         failed: 0,
         type: ['ACTRule', 'TestCase'],
@@ -43,57 +42,51 @@ class QW_ACT_R20 extends Rule {
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
+
+    if (!element) {
+      return;
+    }
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    let validRoleValues = ['button', 'checkbox', 'gridcell', 'link', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'scrollbar', 'searchbox', 'separator', 'slider', 'spinbutton', 'switch', 'tab', 'tabpanel', 'textbox', 'treeitem', 'combobox', 'grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid', 'application', 'article', 'cell', 'collumnheader', 'definition', 'directory', 'document', 'feed', 'figure', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'none', 'note', 'presentation', 'row', 'rowgroup', 'rowheader', 'separator', 'table', 'term', 'toolbar', 'tooltip', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'region', 'search', 'alert', 'log', 'marquee', 'status', 'timer'];
-    let validRolesFound = 0;
-
-    if (element === undefined) { // if the element doesn't exist
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `There isn't an element with role attribute to test`;
-      evaluation.resultCode = 'RC1';
-    } else {
-      let roleAttr = await DomUtils.getElementAttribute(element,"role");
-      if (roleAttr) {
-        if (!await DomUtils.isElementHidden(element)) {
-          let roles = roleAttr.split(' ');
-          for (let role of roles) {
-            if (validRoleValues.includes(role)) {
-              validRolesFound++;
-            }
+    const validRoleValues = ['button', 'checkbox', 'gridcell', 'link', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'scrollbar', 'searchbox', 'separator', 'slider', 'spinbutton', 'switch', 'tab', 'tabpanel', 'textbox', 'treeitem', 'combobox', 'grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid', 'application', 'article', 'cell', 'collumnheader', 'definition', 'directory', 'document', 'feed', 'figure', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'none', 'note', 'presentation', 'row', 'rowgroup', 'rowheader', 'separator', 'table', 'term', 'toolbar', 'tooltip', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'region', 'search', 'alert', 'log', 'marquee', 'status', 'timer'];
+    const roleAttr = await DomUtils.getElementAttribute(element, 'role');
+    
+    if (roleAttr) {
+      const isHidden = await DomUtils.isElementHidden(element);
+      if (!isHidden) {
+        let validRolesFound = 0;
+        const roles = roleAttr.split(' ');
+        for (const role of roles || []) {
+          if (validRoleValues.includes(role)) {
+            validRolesFound++;
           }
-          if (validRolesFound > 0) {
-            evaluation.verdict = 'passed';
-            evaluation.description = `This element has a valid role attribute`;
-            evaluation.resultCode = 'RC2';
-          } else {
-            evaluation.verdict = 'failed';
-            evaluation.description = `This element has an invalid role attribute`;
-            evaluation.resultCode = 'RC3';
-          }
+        }
+        if (validRolesFound > 0) {
+          evaluation.verdict = 'passed';
+          evaluation.description = `The test target has a valid \`role\` attribute.`;
+          evaluation.resultCode = 'RC1';
         } else {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `This element is not included in the accessibility tree`;
-          evaluation.resultCode = 'RC4';
+          evaluation.verdict = 'failed';
+          evaluation.description = `The test target has an invalid \`role\` attribute.`;
+          evaluation.resultCode = 'RC2';
         }
       } else {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = `This role attribute is empty or null`;
-        evaluation.resultCode = 'RC5';
+        evaluation.description = `The test target is not included in the accessibility tree.`;
+        evaluation.resultCode = 'RC3';
       }
+    } else {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The \`role\` attribute doesn't exits or is empty ("").`;
+      evaluation.resultCode = 'RC4';
     }
 
-
-    if (element !== undefined) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-    }
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 
