@@ -78,7 +78,7 @@ class QW_ACT_R37 extends Rule {
     let hasTextNode = await this.elementHasTextNode(element);
     let elementText = await AccessibilityUtils.getTrimmedText(element);
 
-    if(!hasTextNode && elementText === ''){
+    if(!hasTextNode || elementText === ''){
       evaluation.verdict = 'inapplicable';
       evaluation.description = `Element doesn't have text.`;
       evaluation.resultCode = 'RC2';
@@ -95,7 +95,7 @@ class QW_ACT_R37 extends Rule {
       return;
     }
 
-    let isWidget = await DomUtils.isElementADescendantOfExplicitRole(element, page, [], ['widget']);
+    let isWidget = await AccessibilityUtils.isElementWidget(element);
     if(isWidget){
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Element has a semantic role that inherits from widget.';
@@ -104,35 +104,25 @@ class QW_ACT_R37 extends Rule {
       return;
     }
 
-    let children = await DomUtils.getElementChildren(element);
-    let role;
-    for(let child of children || []){
-      tagName  = await DomUtils.getElementTagName(child);
-      if(tagName === 'a'){
-        isWidget = await DomUtils.elementHasAttribute(child, 'href');
-      }else{
-        isWidget = await AccessibilityUtils.isElementWidget(child);
-      }
-      if(isWidget){
-        if(await DomUtils.elementHasAttribute(child, 'disabled')){
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = 'This text is part of a label of a disabled widget.';
-          evaluation.resultCode = 'RC5';
-          await super.addEvaluationResult(evaluation, element);
-          return;
-        }
+    let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
+    for (let disableWidget of disabledWidgets){
+      const accessibleName = await AccessibilityUtils.getAccessibleName(disableWidget, page);
+      if(elementText === accessibleName){
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'This text is part of a label of a disabled widget.';
+        evaluation.resultCode = 'RC5';
+        await super.addEvaluationResult(evaluation, element);
+        return;
       }
     }
 
-    // TODO is used in the accessible name of a widget that is disabled
-
-    role = await AccessibilityUtils.getElementRole(element, page);
+    let role = await AccessibilityUtils.getElementRole(element, page);
 
     if(role === 'group'){
       if(await DomUtils.elementHasAttribute(element, 'disabled')){
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'Element has a semantic role of group and is disabled.';
-        evaluation.resultCode = 'RC5';
+        evaluation.resultCode = 'RC6';
         await super.addEvaluationResult(evaluation, element);
         return;
       }
@@ -146,13 +136,17 @@ class QW_ACT_R37 extends Rule {
     const fontFamily = await DomUtils.getElementStyleProperty(element, "font-family", null);
     const fontStyle = await DomUtils.getElementStyleProperty(element, "font-style", null);
 
-    if(bgColor.includes("jpeg") || bgColor.includes("jpg") || bgColor.includes("png") || bgColor.includes("svg")){
-      evaluation.verdict = 'failed';
+    if(bgColor.toLowerCase().includes("jpeg") || bgColor.toLowerCase().includes("jpg") || bgColor.toLowerCase().includes("png") || bgColor.toLowerCase().includes("svg")){
+      evaluation.verdict = 'warning';
       evaluation.description = 'Element has an image on background.';
-      evaluation.resultCode = 'RC11';
+      evaluation.resultCode = 'RC12';
+      await super.addEvaluationResult(evaluation, element);
       return
     }
 
+    //TODO check left to right and right to left
+    //TODO check char to char
+    //TODO check if there is more colors
     if(bgColor.includes("linear-gradient")){
       if(this.isHumanLanguage(elementText)){
         let colors = this.parseGradientString(bgColor.substring(bgColor.indexOf("linear-gradient"), bgColor.lastIndexOf(")")+1), opacity);
@@ -178,16 +172,16 @@ class QW_ACT_R37 extends Rule {
         if(isValid){
           evaluation.verdict = 'passed';
           evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
-          evaluation.resultCode = 'RC7';
+          evaluation.resultCode = 'RC8';
         }else{
           evaluation.verdict = 'failed';
           evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
-          evaluation.resultCode = 'RC9';
+          evaluation.resultCode = 'RC10';
         }
       }else{
         evaluation.verdict = 'passed';
         evaluation.description = `Element doesn't have human language text.`;
-        evaluation.resultCode = 'RC8';
+        evaluation.resultCode = 'RC9';
       }
 
     }else{
@@ -197,7 +191,7 @@ class QW_ACT_R37 extends Rule {
       if(this.equals(parsedBG, parsedFG)){
         evaluation.verdict = 'inapplicable';
         evaluation.description = 'Colors are equal.';
-        evaluation.resultCode = 'RC6';
+        evaluation.resultCode = 'RC7';
       }else{
         if(this.isHumanLanguage(elementText)){
           let contrastRatio = this.getContrast(parsedBG, parsedFG);
@@ -205,16 +199,16 @@ class QW_ACT_R37 extends Rule {
           if(isValid){
             evaluation.verdict = 'passed';
             evaluation.description = 'Element has contrast ratio higher than minimum.';
-            evaluation.resultCode = 'RC8';
+            evaluation.resultCode = 'RC9';
           }else{
             evaluation.verdict = 'failed';
             evaluation.description = 'Element has contrast ratio lower than minimum.';
-            evaluation.resultCode = 'RC10';
+            evaluation.resultCode = 'RC11';
           }
         }else{
           evaluation.verdict = 'passed';
           evaluation.description = `Element doesn't have human language text.`;
-          evaluation.resultCode = 'RC8';
+          evaluation.resultCode = 'RC9';
         }
       }
     }
