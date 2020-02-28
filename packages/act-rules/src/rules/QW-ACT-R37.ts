@@ -19,7 +19,7 @@ class QW_ACT_R37 extends Rule {
       description: 'This rule checks that the highest possible contrast of every text character with its background meets the minimal contrast requirement.',
       metadata: {
         target: {
-          element: ['p'],
+          element: ['*'],
         },
         'success-criteria': [
           {
@@ -105,7 +105,6 @@ class QW_ACT_R37 extends Rule {
     }
 
     const elementSelectors = await DomUtils.getElementSelector(element)
-		console.log("TCL: QW_ACT_R37 -> elementSelectors", elementSelectors)
     let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
     for (let disableWidget of disabledWidgets){
       let selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
@@ -147,39 +146,60 @@ class QW_ACT_R37 extends Rule {
       return
     }
 
-    //TODO check left to right and right to left
     //TODO check char to char
     //TODO check if there is more colors
-    if(bgColor.includes("linear-gradient")){
+    //TODO account for margin and padding
+
+    const regexGradient = /((\w-?)*gradient.*)/gm;
+    let regexGradientMatches = bgColor.match(regexGradient);
+    if(regexGradientMatches){
       if(this.isHumanLanguage(elementText)){
-        let colors = this.parseGradientString(bgColor.substring(bgColor.indexOf("linear-gradient"), bgColor.lastIndexOf(")")+1), opacity);
-        let isValid = true;
-        let contrastRatio;
-        let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
-        if(textSize !== -1){
-          let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
-          let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
-          let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
-
-          contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-          contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-        }else{
-          for(let color of colors){
-            contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
-            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+        let parsedGradientString = regexGradientMatches[0];
+        if(parsedGradientString.startsWith("linear-gradient")){
+          let gradientDirection = this.getGradientDirection(parsedGradientString);
+          if(gradientDirection === 'to right'){
+            let colors = this.parseGradientString(parsedGradientString, opacity);
+            let isValid = true;
+            let contrastRatio;
+            let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
+            if(textSize !== -1){
+              let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
+              let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
+              let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
+              contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
+              isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+              contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
+              isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+            }else{
+              for(let color of colors){
+                contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
+                isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+              }
+            }
+            if(isValid){
+              evaluation.verdict = 'passed';
+              evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
+              evaluation.resultCode = 'RC8';
+            }else{
+              evaluation.verdict = 'failed';
+              evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
+              evaluation.resultCode = 'RC10';
+            }
+          }else if(gradientDirection === 'to left'){
+            //TODO
+          }else{
+            evaluation.verdict = 'warning';
+            evaluation.description = 'Element has an gradient that we cant verify.';
+            evaluation.resultCode = 'RC13';
+            await super.addEvaluationResult(evaluation, element);
+            return
           }
-        }
-
-        if(isValid){
-          evaluation.verdict = 'passed';
-          evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
-          evaluation.resultCode = 'RC8';
         }else{
-          evaluation.verdict = 'failed';
-          evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
-          evaluation.resultCode = 'RC10';
+          evaluation.verdict = 'warning';
+          evaluation.description = 'Element has an gradient that we cant verify.';
+          evaluation.resultCode = 'RC13';
+          await super.addEvaluationResult(evaluation, element);
+          return
         }
       }else{
         evaluation.verdict = 'passed';
@@ -239,6 +259,22 @@ class QW_ACT_R37 extends Rule {
 
   equals(color1, color2): boolean{
     return color1.red === color2.red && color1.green === color2.green && color1.blue === color2.blue && color1.alpha === color2.alpha;
+  }
+
+  getGradientDirection(gradient: string): string | undefined{
+    const regex = /(?<=linear-gradient\()(.*?)(?=,)/gm;
+    let directionMatch = gradient.match(regex);
+    if(directionMatch){
+      let direction = directionMatch[0];
+      if(direction === '90deg')
+        return 'to right'
+      if(direction === '-90deg')
+        return 'to left'
+
+      return direction
+    }
+
+    return undefined;
   }
 
   parseGradientString(gradient: string, opacity: number): any{
