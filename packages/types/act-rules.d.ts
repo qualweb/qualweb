@@ -1,6 +1,6 @@
 declare module '@qualweb/act-rules' {
   import { Page } from 'puppeteer';
-  import { CSSStylesheet, SourceHtml } from '@qualweb/core';
+  import { SourceHtml } from '@qualweb/core';
 
   interface ACTROptions {
     rules?: string[];

@@ -27,7 +27,6 @@ declare module '@qualweb/html-techniques' {
     passed: number;
     warning: number;
     failed: number;
-    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
     outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';

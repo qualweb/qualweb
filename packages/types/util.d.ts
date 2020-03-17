@@ -6,10 +6,10 @@ declare module '@qualweb/util' {
     export function elementHasAttribute(element: ElementHandle, attribute: string): Promise<boolean>;
     export function elementHasAttributes(element: ElementHandle): Promise<boolean>;
     export function elementHasChild(element: ElementHandle, childName: string): Promise<boolean>;
-    export function elementHasChidren(element: ElementHandle): Promise<boolean>;
+    export function elementHasChildren(element: ElementHandle): Promise<boolean>;
     export function elementHasGlobalARIAPropertyOrAttribute(element: ElementHandle): Promise<boolean>;
     export function elementHasParent(element: ElementHandle, parent: string): Promise<boolean>;
-    export function elementIDIsReferenced(page:Page,element: ElementHandle,id:string,atrribute:string): Promise<boolean>;
+    export function elementIDIsReferenced(page: Page, element: ElementHandle, id: string, attribute: string): Promise<boolean>;
     export function getContentComputedStylesAttribute(element: Node, computedStyle: string, attribute: string): string;
     export function getElementAttribute(element: ElementHandle, attribute: string): Promise<string | null>;
     export function getElementAttributes(element: ElementHandle): Promise<any>;
@@ -78,7 +78,7 @@ declare module '@qualweb/util' {
   }
 
   namespace ShadowDomUtils {
-    export function areElementsInTheSameTree(elements: ElementHandle []): Promise<boolean>;
+    export function areElementsInTheSameTree(elements: ElementHandle[]): Promise<boolean>;
     export function getTreeSelector(elements: ElementHandle): Promise<string>;
     export function processShadowDom(page: Page): Promise<Page>;
   }
