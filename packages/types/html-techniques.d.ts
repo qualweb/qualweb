@@ -1,10 +1,12 @@
 declare module '@qualweb/html-techniques' {
   import { Page } from 'puppeteer';
+  import { Optimization } from '@qualweb/util';
 
   interface HTMLTOptions {
     techniques?: string[];
     levels?: string[];
     principles?: string[];
+    optimize?: 'performance' | 'error-detection';
   }
 
   interface HTMLTechniqueMetadata {
@@ -70,6 +72,20 @@ declare module '@qualweb/html-techniques' {
   function resetConfiguration(): void;
   function executeHTMLT(page: Page): Promise<HTMLTechniquesReport>;
 
+  class HTMLTechniques {
+    private optimization: Optimization;
+    private techniques: any;
+    private techniquesToExecute: any;
+
+    constructor(options?: HTMLTOptions);
+    public configure(options: HTMLTOptions): void;
+    public resetConfiguration(): void;
+    private executeTechnique(technique: string, selector: string, page: Page, report: HTMLTechniquesReport): Promise<void>;
+    private executeMappedTechniques(report: HTMLTechniquesReport, page: Page, selectors: string[], mappedTechniques: any): Promise<void>;
+    private executeNotMappedTechniques(report: HTMLTechniquesReport, page: Page): Promise<void>;
+    public execute(page: Page): Promise<HTMLTechniquesReport>;
+  }
+
   export {
     HTMLTOptions,
     HTMLTechniqueMetadata,
@@ -77,8 +93,6 @@ declare module '@qualweb/html-techniques' {
     HTMLMetadata,
     HTMLTechnique,
     HTMLTechniquesReport,
-    configure,
-    resetConfiguration,
-    executeHTMLT
+    HTMLTechniques
   };
 }

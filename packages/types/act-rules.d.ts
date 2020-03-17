@@ -1,6 +1,7 @@
 declare module '@qualweb/act-rules' {
   import { Page } from 'puppeteer';
   import { SourceHtml } from '@qualweb/core';
+  import { Optimization } from '@qualweb/util';
 
   interface ACTROptions {
     rules?: string[];
@@ -64,6 +65,7 @@ declare module '@qualweb/act-rules' {
   }
 
   class ACTRules {
+    private optimization: Optimization;
     private rules: any;
     private rulesToExecute: any;
 
