@@ -1,4 +1,4 @@
-const { AccessibilityTreeUtils , DomUtils, Optimization} = require('../dist/index');
+const { AccessibilityUtils , DomUtils, Optimization} = require('../dist/index');
 const {
   getDom
 } = require('./getDom');
@@ -48,8 +48,8 @@ describe('DOM UTILITIES', function() {
       console.log(Optimization.Performance === Optimization.ErrorDetection);
       console.log(Optimization.ErrorDetection);
     });
-    it('print namespace', async function() {
-      console.log(DomUtils);
+    it.only('print namespace', async function() {
+      console.log(AccessibilityUtils);
     });
   });
 });
