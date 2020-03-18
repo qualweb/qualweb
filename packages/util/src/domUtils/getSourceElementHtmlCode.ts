@@ -1,8 +1,8 @@
 'use strict';
 
 import { Node } from 'domhandler';
-import * as DomUtils from 'domutils';
-//import clone from 'lodash.clone';
+import clone from 'lodash.clone';
+import html from 'htmlparser-to-html';
 
 function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullElement: boolean=false): string {
 
@@ -10,7 +10,9 @@ function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullEle
     throw new Error('Invalid element');
   }
 
-  /*const codeElement = clone(element);
+  const codeElement = clone(element);
+
+  delete codeElement.attribs.css;
 
   if (!fullElement) {
     if (withText) {
@@ -25,9 +27,9 @@ function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullEle
     } else {
       codeElement.children = [];
     }
-  }*/
+  }
 
-  return DomUtils.getOuterHTML(element);
+  return html(codeElement);
 }
 
 export default getSourceElementHtmlCode;

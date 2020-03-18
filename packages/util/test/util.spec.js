@@ -3,6 +3,7 @@ const {
   getDom
 } = require('./getDom');
 const puppeteer = require('puppeteer');
+const CSSselect = require('css-select');
 const { expect } = require('chai');
 
 describe('DOM UTILITIES', function() {
@@ -34,7 +35,7 @@ describe('DOM UTILITIES', function() {
       console.log(tagName);
       await browser.close();
     });
-    it.only('test isMathDocument', async function() {
+    it('test isMathDocument', async function() {
       this.timeout(1000 * 1000);
       browser = await puppeteer.launch();
       const { sourceHtml, page, stylesheets } = await getDom(browser, "https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml");
@@ -48,8 +49,17 @@ describe('DOM UTILITIES', function() {
       console.log(Optimization.Performance === Optimization.ErrorDetection);
       console.log(Optimization.ErrorDetection);
     });
-    it.only('print namespace', async function() {
+    it('print namespace', async function() {
       console.log(AccessibilityUtils);
+    });
+    it.only('getSourceElementHtmlCode', async function() {
+      this.timeout(100 * 1000);
+      browser = await puppeteer.launch();
+      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nav.no');
+      const metas = CSSselect('meta', sourceHtml.html.parsed);
+      const html = DomUtils.getSourceElementHtmlCode(metas[0]);
+      console.log(html);
+      await browser.close();
     });
   });
 });
