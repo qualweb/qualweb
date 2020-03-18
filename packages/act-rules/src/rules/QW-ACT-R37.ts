@@ -104,7 +104,8 @@ class QW_ACT_R37 extends Rule {
       return;
     }
 
-    const elementSelectors = await DomUtils.getElementSelector(element)
+    const elementSelectors = await DomUtils.getElementSelector(element);
+    
     let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
     for (let disableWidget of disabledWidgets){
       let selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
