@@ -71,6 +71,8 @@ declare module '@qualweb/util' {
     export function isElementInAT(element: ElementHandle, page: Page): Promise<boolean>;
     export function isElementReferencedByAriaLabel(element:ElementHandle, page:Page): Promise<boolean>;
     export function isElementWidget(element: ElementHandle): Promise<boolean>;
+    export function getDisabledWidgets(page:Page): Promise<ElementHandle[]>;
+    export function getAccessibleNameRecursion(element: ElementHandle, page: Page, recursion: boolean, isWidget: boolean): Promise<string []| undefined>;
   }
 
   namespace CssUtils {
