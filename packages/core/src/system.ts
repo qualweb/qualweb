@@ -184,13 +184,17 @@ class System {
         }
         const stylesheets = await this.parseStylesheets(plainStylesheets);
         const mappedDOM = {};
-        const cookedStew = await CSSselect('*', sourceHtml.html.parsed);
+        const cookedStew = CSSselect('*', sourceHtml.html.parsed);
+        
         if (cookedStew.length > 0) {
           for (const item of cookedStew || []) {
-            mappedDOM[item['_node_id']] = item;
+            //console.log(item);
+            if (item['startIndex']) {
+              mappedDOM[item['startIndex']] = item;
+            }
           }
         }
-
+        
         await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
 
         const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
@@ -349,7 +353,7 @@ class System {
   }
 
   private parseHTML(html: string): Node[] {
-    const handler = new DomHandler();
+    const handler = new DomHandler(() => {}, { withStartIndices: true, withEndIndices: true });
     const parser = new Parser(handler);
     parser.write(html.replace(/(\r\n|\n|\r|\t)/gm, ''));
     parser.end();
@@ -398,32 +402,35 @@ class System {
         let stewResult = CSSselect(cssObject['selectors'].toString(), dom);
         if (stewResult.length > 0) {
           for (const item of stewResult || []) {
-            for (const declaration of declarations || []) {
-              if (declaration['property'] && declaration['value']) {
-                if (!item['attribs']) {
-                  item['attribs'] = {};
-                }
-                if (!item['attribs']['css']) {
-                  item['attribs']['css'] = {};
-                }
-                if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
-                  item['attribs']['css'][declaration['property']]['value'].includes('!important')) {
-                  continue;
-                }
-                else {
-                  item['attribs']['css'][declaration['property']] = {};
-                  if (parentType) {
-                    item['attribs']['css'][declaration['property']]['media'] = parentType;
+            if (item['startIndex']) {
+              for (const declaration of declarations || []) {
+                if (declaration['property'] && declaration['value']) {
+                  if (!item['attribs']) {
+                    item['attribs'] = {};
                   }
-                  item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                  if (!item['attribs']['css']) {
+                    item['attribs']['css'] = {};
+                  }
+                  if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
+                    item['attribs']['css'][declaration['property']]['value'].includes('!important')) {
+                    continue;
+                  }
+                  else {
+                    item['attribs']['css'][declaration['property']] = {};
+                    if (parentType) {
+                      item['attribs']['css'][declaration['property']]['media'] = parentType;
+                    }
+                    item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                  }
+                  mappedDOM[item['startIndex']] = item;
                 }
-                mappedDOM[item['_node_id']] = item;
               }
             }
           }
         }
       }
       catch (err) {
+        
       }
     }
   }
