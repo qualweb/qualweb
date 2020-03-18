@@ -42,6 +42,7 @@ import QW_ACT_R33 from './rules/QW-ACT-R33';
 import QW_ACT_R34 from './rules/QW-ACT-R34';
 import QW_ACT_R35 from './rules/QW-ACT-R35';
 import QW_ACT_R36 from './rules/QW-ACT-R36';
+import QW_ACT_R37 from './rules/QW-ACT-R37';
 import QW_ACT_R38 from './rules/QW-ACT-R38';
 import QW_ACT_R39 from './rules/QW-ACT-R39';
 
@@ -88,6 +89,7 @@ class ACTRules {
     'QW-ACT-R34': true,
     'QW-ACT-R35': true,
     'QW-ACT-R36': true,
+    'QW-ACT-R37': true,
     'QW-ACT-R38': true,
     'QW-ACT-R39': true
   };
@@ -130,6 +132,7 @@ class ACTRules {
       'QW-ACT-R34': new QW_ACT_R34(),
       'QW-ACT-R35': new QW_ACT_R35(),
       'QW-ACT-R36': new QW_ACT_R36(),
+      'QW-ACT-R37': new QW_ACT_R37(),
       'QW-ACT-R38': new QW_ACT_R38(),
       'QW-ACT-R39': new QW_ACT_R39()
     };

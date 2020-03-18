@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.3.27",
+  "version": "0.3.28",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -43,6 +43,7 @@
     "test-r34": "mocha test/rules/QW-ACT-R34.spec.js",
     "test-r35": "mocha test/rules/QW-ACT-R35.spec.js",
     "test-r36": "mocha test/rules/QW-ACT-R36.spec.js",
+    "test-r37": "mocha test/rules/QW-ACT-R37.spec.js",
     "test-r38": "mocha test/rules/QW-ACT-R38.spec.js",
     "test-r39": "mocha test/rules/QW-ACT-R39.spec.js",
     "clean": "node clean.js",
@@ -64,7 +65,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.3.20",
+    "@qualweb/types": "^0.3.22",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^13.9.1",
     "chai": "^4.2.0",
@@ -76,10 +77,12 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.51",
+    "@qualweb/util": "^0.2.52",
     "css-select": "^2.1.0",
+    "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
-    "rematrix": "^0.5.0"
+    "rematrix": "^0.5.0",
+    "string-pixel-width": "^1.10.0"
   }
 }

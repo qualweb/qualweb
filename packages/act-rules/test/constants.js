@@ -44,6 +44,7 @@ exports.mapping = {
   'QW-ACT-R34': '6a7281',
   'QW-ACT-R35': 'ffd0e9',
   'QW-ACT-R36': 'a25f45',
+  'QW-ACT-R37': 'afw4f7',
   'QW-ACT-R38': 'bc4a75',
   'QW-ACT-R39': 'd0f69e'
 };
