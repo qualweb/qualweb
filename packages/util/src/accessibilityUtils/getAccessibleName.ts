@@ -1,7 +1,6 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import getTrimmedText from './getTrimmedText';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
@@ -11,9 +10,7 @@ import { formElements, typesWithLabel, sectionAndGrouping, tabularElements } fro
 import getElementAttribute from '../domUtils/getElementAttribute';
 import getElementStyleProperty from '../domUtils/getElementStyleProperty';
 import elementHasRoleNoneOrPresentation from "./elementHasRoleNoneOrPresentation";
-import getElementType from '../domUtils/getElementType';
 import getElementById from '../domUtils/getElementById';
-import isElementHidden from '../domUtils/isElementHidden';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementChildren from '../domUtils/getElementChildren';
@@ -29,7 +26,6 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
   // let isChildOfDetails = isElementChildOfDetails(element);
   // let isSummary = element.name === "summary";
-  let type = await getElementType(element);
   let name = await getElementTagName(element);
   let allowNameFromContent = await allowsNameFromContent(element);
   let treeSelector = await getTreeSelector(element);
@@ -46,17 +42,13 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   id = await getElementAttribute(element, "id");
 
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
-  if (await isElementHidden(element) && !recursion) {
-    //noAName
-  } else if (type === "text") {
-    AName = await getTrimmedText(element);
-  } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
+  if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = await getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;
   } else if (isWidget && await isElementControl(element, page)) {
     AName = getFirstNotUndefined(getValueFromEmbeddedControl(element, page, treeSelector), title);
-  }else if (name === "area" || (name === "input" && attrType === "image")) {
+  } else if (name === "area" || (name === "input" && attrType === "image")) {
     alt = await getElementAttribute(element, "alt");
     AName = getFirstNotUndefined(alt, title);
   } else if (name === "img") {
@@ -85,7 +77,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
     if (!recursion) {
       AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title, placeholder);
     } else {
-      AName = getFirstNotUndefined(getTextFromCss(element, page,isWidget), title, placeholder);
+      AName = getFirstNotUndefined(getTextFromCss(element, page, isWidget), title, placeholder);
     }
   } else if (name === "figure") {
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "figcaption", page, treeSelector), title);
@@ -94,7 +86,7 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   } else if (name === "fieldset") {
     AName = getFirstNotUndefined(await getValueFromSpecialLabel(element, "legend", page, treeSelector), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
-    AName = getFirstNotUndefined(await getTextFromCss(element, page,isWidget), title);
+    AName = getFirstNotUndefined(await getTextFromCss(element, page, isWidget), title);
   } else if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) {
     AName = getFirstNotUndefined(title);
   }
@@ -140,9 +132,9 @@ async function getValueFromLabel(element: ElementHandle, id: string, page: Page,
   }
   let parent = await getElementParent(element);
   let result, accessNameFromLabel;
-  let isWidget = await isElementWidget(element,page);
+  let isWidget = await isElementWidget(element, page);
 
-  if (parent && await getElementTagName(parent) === "label" && !(await isElementPresent(parent,referencedByLabelList))) {
+  if (parent && await getElementTagName(parent) === "label" && !(await isElementPresent(parent, referencedByLabelList))) {
     referencedByLabelList.push(parent);
   }
 
@@ -159,15 +151,15 @@ async function getValueFromLabel(element: ElementHandle, id: string, page: Page,
 
   return result;
 }
-async function isElementPresent(element: ElementHandle,listElement:ElementHandle[]) : Promise<boolean> {
+async function isElementPresent(element: ElementHandle, listElement: ElementHandle[]): Promise<boolean> {
   let result = false;
   let i = 0;
-  let elementSelector = await  DomUtils.getElementSelector(element);
-  while(i< listElement.length && !result){
-    result = elementSelector === await  DomUtils.getElementSelector(listElement[i]);
+  let elementSelector = await DomUtils.getElementSelector(element);
+  while (i < listElement.length && !result) {
+    result = elementSelector === await DomUtils.getElementSelector(listElement[i]);
   }
   return result;
- 
+
 }
 
 
@@ -176,7 +168,7 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
-  let isWidget = await isElementWidget(element,page);
+  let isWidget = await isElementWidget(element, page);
   let elem;
 
   for (let id of ListIdRefs) {
@@ -190,13 +182,13 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
       }
     }
   }
-  return !!result? result.trim():result;
+  return !!result ? result.trim() : result;
 }
 
-async function getTextFromCss(element: ElementHandle, page: Page,isWidget:boolean): Promise<string> {
+async function getTextFromCss(element: ElementHandle, page: Page, isWidget: boolean): Promise<string> {
   let before = await getElementStyleProperty(element, "content", ":before");
   let after = await getElementStyleProperty(element, "content", ":after");
-  let aNameList = await getAccessibleNameFromChildren(element, page,isWidget);
+  let aNameList = await getAccessibleNameFromChildren(element, page, isWidget);
   let textValue = await getConcatentedText(element, aNameList);
 
   if (after === "none")
@@ -204,7 +196,7 @@ async function getTextFromCss(element: ElementHandle, page: Page,isWidget:boolea
   if (before === "none")
     before = "";
 
-  return before.replace(/["']/g,'') + textValue + after.replace(/["']/g,'');
+  return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
 
 async function getConcatentedText(element: ElementHandle, aNames: string[]): Promise<string> {
@@ -219,13 +211,13 @@ async function getConcatentedText(element: ElementHandle, aNames: string[]): Pro
     let counter = 0;
     for (let child of chidlren) {
       textContent = child.textContent
-      if (child.nodeType === 3 && !!textContent && textContent.trim()!== "") {
-        result = result+(counter === 0? "" : " ") + textContent.trim();
-        counter ++;
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
+        result = result + (counter === 0 ? "" : " ") + textContent.trim();
+        counter++;
       } else if (child.nodeType === 1) {
-        result = result +(counter > 0 && !!aNames[i] ? " " : "")+ aNames[i];
+        result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
         i++;
-      } 
+      }
 
     }
     return result
@@ -239,10 +231,10 @@ async function getConcatentedText(element: ElementHandle, aNames: string[]): Pro
 }
 //adicionar texto entre ANames
 //usar funcao get Trimmed text com texto dos ANames entre os text values
-async function getAccessibleNameFromChildren(element: ElementHandle, page: Page,isWidget:boolean): Promise<string[]> {
-  if(!isWidget){
-    isWidget = await isElementWidget(element,page);
-  } 
+async function getAccessibleNameFromChildren(element: ElementHandle, page: Page, isWidget: boolean): Promise<string[]> {
+  if (!isWidget) {
+    isWidget = await isElementWidget(element, page);
+  }
   let aName;
   let children = await getElementChildren(element);
   let elementAnames: string[] = [];

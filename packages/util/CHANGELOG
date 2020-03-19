@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.51] - 20/02/2020
+
+### Fixed
+ - getAccessibleName
+
 ## [0.2.50] - 12/02/2020
 
 ### Fixed
