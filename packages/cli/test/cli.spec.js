@@ -9,8 +9,8 @@ describe('CLI', function() {
   });
 
   it.only('should evaluate https://www.nav.no/', async function() {
-    this.timeout(10 * 10000);
+    this.timeout(1000 * 10000);
     
-    await cli(['-u', 'https://www.nav.no/', '-m', 'act', '-r', 'earl', '-act-rules', 'QW-ACT-R35']);
+    await cli(['-u', 'https://www.nav.no/']);
   });
 });
