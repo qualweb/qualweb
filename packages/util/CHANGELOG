@@ -3,6 +3,11 @@
 ## [0.2.54] - 18/03/2020
 
 ### Fixed
+ - getAccessibleName bug
+
+## [0.2.54] - 18/03/2020
+
+### Fixed
  - getSourceElementHtmlCode bug
 
 ## [0.2.53] - 18/03/2020
