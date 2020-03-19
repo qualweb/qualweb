@@ -1,8 +1,8 @@
 'use strict';
 
 import { Node } from 'domhandler';
-import * as DomUtils from 'domutils';
 import clone from 'lodash.clone';
+import html from 'htmlparser-to-html';
 
 function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullElement: boolean=false): string {
 
@@ -11,6 +11,8 @@ function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullEle
   }
 
   const codeElement = clone(element);
+
+  delete codeElement.attribs.css;
 
   if (!fullElement) {
     if (withText) {
@@ -27,7 +29,7 @@ function getSourceElementHtmlCode(element: Node, withText: boolean=true, fullEle
     }
   }
 
-  return DomUtils.getOuterHTML(codeElement);
+  return html(codeElement);
 }
 
 export default getSourceElementHtmlCode;
