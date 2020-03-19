@@ -1,12 +1,13 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.3.30",
+  "version": "0.3.31",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "test": "mocha --recursive",
     "tsc": "tsc",
+    "test:all": "mocha test/act-rules.spec.js",
     "test-r1": "mocha test/rules/QW-ACT-R1.spec.js",
     "test-r2": "mocha test/rules/QW-ACT-R2.spec.js",
     "test-r3": "mocha test/rules/QW-ACT-R3.spec.js",
@@ -67,7 +68,7 @@
   "devDependencies": {
     "@qualweb/types": "^0.3.22",
     "@types/domhandler": "^2.4.1",
-    "@types/node": "^13.9.1",
+    "@types/node": "^13.9.2",
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "htmlparser2": "^4.0.0",
@@ -77,7 +78,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.54",
+    "@qualweb/util": "^0.2.55",
     "css-select": "^2.1.0",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
