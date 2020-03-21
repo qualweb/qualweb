@@ -1,42 +1,17 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-import languages from './language.json';
+import Rule from '../lib/Rule.object';
+import { ACTRule } from '../lib/decorator';
+import languages from '../lib/language.json';
 
+@ACTRule
 class QW_ACT_R5 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Validity of HTML Lang attribute',
-      code: 'QW-ACT-R5',
-      mapping: 'bf051a',
-      description: 'This rule checks the lang or xml:lang attribute has a valid language subtag.',
-      metadata: {
-        target: {
-          element: 'html',
-          attributes: ['lang']
-        },
-        'success-criteria': [{
-          name: '3.1.1',
-          level: 'A',
-          principle: 'Understandable',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/bf051a',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {

@@ -1,11 +1,11 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from './Rule.object';
+import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import ariaJSON from './ariaAttributesRoles.json';
-import rolesJSON from './roles.json';
+import ariaJSON from '../lib/ariaAttributesRoles.json';
+import rolesJSON from '../lib/roles.json';
 
 class QW_ACT_R34 extends Rule {
 

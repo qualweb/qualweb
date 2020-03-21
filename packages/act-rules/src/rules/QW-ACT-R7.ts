@@ -2,7 +2,7 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import * as Rematrix from 'rematrix';
-import Rule from './Rule.object';
+import Rule from '../lib/Rule.object';
 
 class QW_ACT_R7 extends Rule {
 

@@ -1,0 +1,122 @@
+{
+  "QW_ACT_R1": {
+    "name": "HTML Page has a title",
+    "code": "QW-ACT-R1",
+    "mapping": "2779a5",
+    "description": "This rule checks that the HTML page has a title.",
+    "metadata": {
+      "target": {
+        "element": "title"
+      },
+      "success-criteria": [{
+        "name": "2.4.2",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/2779a5",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"],
+    }
+  },
+  "QW_ACT_R2": {
+    "name": "HTML has lang attribute",
+    "code": "QW-ACT-R2",
+    "mapping": "b5c3f8",
+    "description": "This rule checks that the html element has a non-empty lang or xml:lang attribute.",
+    "metadata": {
+      "target": {
+        "element": "html",
+        "attributes": "lang"
+      },
+      "success-criteria": [{
+        "name": "3.1.1",
+        "level": "A",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/b5c3f8",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"],
+    }
+  },
+  "QW-ACT-R3": {
+    "name": "HTML lang and xml:lang match",
+    "code": "QW-ACT-R3",
+    "mapping": "5b7ae0",
+    "description": "The rule checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.",
+    "metadata": {
+      "target": {
+        "element": "html",
+        "attributes": ["lang", "xml:lang"]
+      },
+      "success-criteria": [{
+        "name": "3.1.1",
+        "level": "A",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/5b7ae0",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"],
+    }
+  },
+  "QW_ACT_R4": {
+    "name": "Meta-refresh no delay",
+    "code": "QW-ACT-R4",
+    "mapping": "bc659a",
+    "description": "This rule checks that the meta element is not used for delayed redirecting or refreshing.",
+    "metadata": {
+      "target": {
+        "element": "meta"
+      },
+      "success-criteria": [{
+          "name": "2.1.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
+        },
+        {
+          "name": "2.2.4",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/interruptions"
+        },
+        {
+          "name": "3.2.5",
+          "level": "AAA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
+        }
+      ],
+      "related": ["H76", "F40", "F41"],
+      "url": "https://act-rules.github.io/rules/bc659a",
+      "type": ["ACTRule", "TestCase"],
+    }
+  },
+  "QW_ACT_R5": {
+    "name": "Validity of HTML Lang attribute",
+    "code": "QW-ACT-R5",
+    "mapping": "bf051a",
+    "description": "This rule checks the lang or xml:lang attribute has a valid language subtag.",
+    "metadata": {
+      "target": {
+        "element": "html",
+        "attributes": ["lang"]
+      },
+      "success-criteria": [{
+        "name": "3.1.1",
+        "level": "A",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/bf051a",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"],
+    }
+  }
+}

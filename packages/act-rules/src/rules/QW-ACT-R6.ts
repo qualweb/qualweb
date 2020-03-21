@@ -1,7 +1,7 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from './Rule.object';
+import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import {  AccessibilityUtils } from '@qualweb/util';
 

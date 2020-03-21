@@ -1,40 +1,16 @@
 'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
-import Rule from './Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R1 extends Rule {
 
-  constructor() {
-    super({
-      name: 'HTML Page has a title',
-      code: 'QW-ACT-R1',
-      mapping: '2779a5',
-      description: 'This rule checks that the HTML page has a title.',
-      metadata: {
-        target: {
-          element: 'title'
-        },
-        'success-criteria': [{
-          name: '2.4.2',
-          level: 'A',
-          principle: 'Operable',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/page-titled'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/2779a5',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
   
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {

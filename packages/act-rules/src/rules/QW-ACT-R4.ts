@@ -3,58 +3,19 @@
 import { Node } from 'domhandler';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-import Rule from './Rule2.object';
+import Rule from '../lib/Rule2.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R4 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Meta-refresh no delay',
-      code: 'QW-ACT-R4',
-      mapping: 'bc659a',
-      description: 'This rule checks that the meta element is not used for delayed redirecting or refreshing.',
-      metadata: {
-        target: {
-          element: 'meta'
-        },
-        'success-criteria': [{
-            name: '2.1.1',
-            level: 'A',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard'
-          },
-          {
-            name: '2.2.4',
-            level: 'AAA',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/interruptions'
-          },
-          {
-            name: '3.2.5',
-            level: 'AAA',
-            principle: 'Understandable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/change-on-request'
-          }
-        ],
-        related: ['H76', 'F40', 'F41'],
-        url: 'https://act-rules.github.io/rules/bc659a',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: Node | undefined): Promise<void> {
-  
-    if (!element) {
-      return;
-    }
-
+  @ElementExists
+  async execute(element: Node): Promise<void> {
+    
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',

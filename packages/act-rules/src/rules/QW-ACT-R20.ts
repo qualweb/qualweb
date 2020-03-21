@@ -2,7 +2,7 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from './Rule.object';
+import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 

@@ -48,7 +48,8 @@
     "test-r38": "mocha test/rules/QW-ACT-R38.spec.js",
     "test-r39": "mocha test/rules/QW-ACT-R39.spec.js",
     "clean": "node clean.js",
-    "build": "npm run clean && tsc --build",
+    "compile:rules": "node compile-rules.js",
+    "build": "npm run compile:rules && npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
   },
   "keywords": [
