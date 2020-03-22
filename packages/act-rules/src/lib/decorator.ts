@@ -2,7 +2,8 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import rules from './rules.json';
-import { DomUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import languages from './language.json';
 
 function ACTRule<T extends { new (...args: any[]): {} }>(constructor: T) {
   const rule = rules[constructor.name];
@@ -30,8 +31,6 @@ function ElementExists(target: any, propertyKey: string, descriptor: PropertyDes
   descriptor.value = function() {
     if (arguments[0]) {
       return method.apply(this, arguments);
-    } else {
-      return;
     }
   };
 }
@@ -42,10 +41,104 @@ function ElementHasAttributes(target: any, propertyKey: string, descriptor: Prop
     const hasAttributes = await DomUtils.elementHasAttributes(arguments[0]);
     if (hasAttributes) {
       return method.apply(this, arguments);
-    } else {
-      return;
     }
   };
 }
 
-export { ACTRule, ElementExists, ElementHasAttributes };
+function ElementHasAttribute(attribute: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const attr = await DomUtils.elementHasAttribute(arguments[0], attribute);
+      if (attr) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
+function ElementHasNonEmptyAttribute(attribute: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);
+      if (attr && attr.trim()) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
+function ElementIsInAccessibilityTree(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = async function() {
+    const isInAT = await AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
+    if (isInAT) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementIsVisible(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = async function() {
+    const isVisible = await DomUtils.isElementVisible(arguments[0]);
+    if (isVisible) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function IsDocument(document: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const rootElement = await DomUtils.getPageRootElement(arguments[1]);
+      if(rootElement) {
+        const tagName = await DomUtils.getElementTagName(rootElement);
+        if (tagName === document) {
+          return method.apply(this, arguments);
+        }
+      }
+    };
+  };
+}
+
+function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = async function() {
+    const isMathDocument = await DomUtils.isMathDocument(arguments[1].url());
+    if (!isMathDocument) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function IsLangSubTagValid(attribute: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);
+      if (attr && isSubTagValid(attr.split('-')[0])) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
+function isSubTagValid(subTag: string): boolean {
+  return languages.hasOwnProperty(subTag);
+}
+
+export { 
+  ACTRule, 
+  ElementExists, 
+  ElementHasAttributes,
+  ElementHasAttribute,
+  ElementHasNonEmptyAttribute,
+  ElementIsInAccessibilityTree,
+  ElementIsVisible,
+  IsDocument,
+  IsNotMathDocument,
+  IsLangSubTagValid
+};
