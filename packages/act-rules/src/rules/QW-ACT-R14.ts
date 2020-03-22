@@ -1,48 +1,20 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R14 extends Rule {
 
-  constructor() {
-    super({
-      name: 'meta viewport does not prevent zoom',
-      code: 'QW-ACT-R14',
-      mapping: 'b4f0c3',
-      description: 'This rule checks that the meta element retains the user agent ability to zoom.',
-      metadata: {
-        target: {
-          element: 'meta',
-          attributes: 'name="viewport"'
-        },
-        'success-criteria': [{
-          name: '1.4.4',
-          level: 'AA',
-          principle: 'Perceivable',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/b4f0c3',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

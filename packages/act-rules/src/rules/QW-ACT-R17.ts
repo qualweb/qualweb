@@ -1,42 +1,20 @@
 'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R17 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Image has accessible name',
-      code: 'QW-ACT-R17',
-      mapping: '23a2a8',
-      description: 'This rule checks that each image that is not marked as decorative, has an accessible name.',
-      metadata: {
-        target: {
-          element: 'img'
-        },
-        'success-criteria': [],
-        related: [],
-        url: 'https://act-rules.github.io/rules/23a2a8',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

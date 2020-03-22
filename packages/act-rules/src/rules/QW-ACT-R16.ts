@@ -1,55 +1,20 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import {  AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R16 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Form control has accessible name',
-      code: 'QW-ACT-R16',
-      mapping: 'e086e5',
-      description: 'Form control has accessible name',
-      metadata: {
-        target: {
-          element: ['input', 'select', 'textarea', '*[role]'],
-        },
-        'success-criteria': [
-          {
-            name: '3.3.2',
-            level: 'A',
-            principle: 'Understandable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions'
-          },
-          {
-            name: '4.1.2',
-            level: 'A',
-            principle: 'Robust',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/e086e5',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

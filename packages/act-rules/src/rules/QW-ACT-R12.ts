@@ -1,60 +1,20 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R12 extends Rule {
 
-  constructor() {
-    super( {
-      name: 'Link has accessible name',
-      code: 'QW-ACT-R12',
-      mapping: 'c487ae',
-      description: 'This rule checks that each link has an accessible name.',
-      metadata: {
-        target: {
-          element: ['a[href]', 'area[href]'],
-          attributes: ['role="link"']
-        },
-        'success-criteria': [
-          {
-            name: '2.4.4',
-            level: 'A',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context'
-          },{
-            name: '2.4.9',
-            level: 'AAA',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only'
-          },{
-            name: '4.1.2',
-            level: 'A',
-            principle: 'Robust',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/c487ae',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

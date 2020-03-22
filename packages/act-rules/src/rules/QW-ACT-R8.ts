@@ -1,48 +1,20 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R8 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Image filename is accessible name for image',
-      code: 'QW-ACT-R8',
-      mapping: '9eb3f6',
-      description: 'This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.',
-      metadata: {
-        target: {
-          element: ['img', 'input[type="image"]'],
-          attributes: ['src']
-        },
-        'success-criteria': [{
-          name: '1.1.1',
-          level: 'A',
-          principle: 'Perceivable',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/9eb3f6',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page:Page): Promise<void> {
-    
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page:Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

@@ -1,49 +1,21 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R10 extends Rule {
 
-  constructor() {
-    super({
-      name: '`iframe` elements with identical accessible names have equivalent purpose',
-      code: 'QW-ACT-R10',
-      mapping: '4b1c6c',
-      description: 'This rule checks that iframe elements with identical accessible names embed the same resource or equivalent resources.',
-      metadata: {
-        target: {
-          element: 'iframe',
-          attributes: ['src']
-        },
-        'success-criteria': [{
-          name: '4.1.2',
-          level: 'A',
-          principle: 'Robust',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/4b1c6c',
-        passed: 0,
-        failed: 0,
-        warning: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array < ACTRuleResult > ()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise < void > {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const [iframes, iframesAll] = await Promise.all([
       element.$$('iframe[src]'),
@@ -131,7 +103,7 @@ class QW_ACT_R10 extends Rule {
   }
 
   private async getContentHash(elements: ElementHandle[], page: Page): Promise<Array<string>> {
-    const browser = await page.browser();
+    const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();
     let hash;

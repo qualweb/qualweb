@@ -1,48 +1,21 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R9 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Links with identical accessible names have equivalent purpose',
-      code: 'QW-ACT-R9',
-      mapping: 'b20e66',
-      description: 'This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.',
-      metadata: {
-        target: {
-          element: 'a,[role="link"]'
-        },
-        'success-criteria': [{
-          name: '2.4.9',
-          level: 'AAA',
-          principle: 'Operable',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html'
-        }],
-        related: [],
-        url: 'https://act-rules.github.io/rules/b20e66',
-        passed: 0,
-        failed: 0,
-        warning: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const [links, iframes] = await Promise.all([
       element.$$('a[href], [role="link"]'),
@@ -140,13 +113,14 @@ class QW_ACT_R9 extends Rule {
   }
 
   private async getContentHash(selectors: string[], page: Page): Promise<Array<string>> {
-    const browser = await page.browser();
+    const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();
-    let hash, htmlContent;
+    let hash: any;
+    let htmlContent: string;
     try {
       for (const selector of selectors || []) {
-        await newPage.goto(await page.url(), { 'waitUntil': 'networkidle2' });
+        await newPage.goto(page.url(), { 'waitUntil': 'networkidle2' });
         await Promise.all([
           newPage.waitForNavigation({ 'waitUntil': 'networkidle0' }),
           newPage.click(selector)

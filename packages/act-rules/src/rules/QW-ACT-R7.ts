@@ -3,43 +3,16 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import * as Rematrix from 'rematrix';
 import Rule from '../lib/Rule.object';
+import { ACTRule } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R7 extends Rule {
 
   private rawMap: Object = {};
   private mediaMap: Object = {};
 
-  constructor() {
-    super({
-      name: 'Orientation of the page is not restricted using CSS transform property',
-      code: 'QW-ACT-R7',
-      mapping: 'b33eff',
-      description: 'This rule checks that page content is not restricted to either landscape or portrait orientation using CSS transform property.',
-      metadata: {
-        target: {
-          element: '*',
-          attributes: 'transform'
-        },
-        'success-criteria': [
-          {
-            name: '1.3.4',
-            level: 'AA',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/orientation'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/b33eff',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
   public async unmappedExecute(styleSheets: any[]): Promise<void> {
