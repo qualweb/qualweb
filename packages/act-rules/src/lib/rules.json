@@ -42,7 +42,7 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW-ACT-R3": {
+  "QW_ACT_R3": {
     "name": "HTML lang and xml:lang match",
     "code": "QW-ACT-R3",
     "mapping": "5b7ae0",
