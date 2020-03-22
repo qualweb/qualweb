@@ -1,49 +1,20 @@
 'use strict';
 
-import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import {ACTRuleResult} from '@qualweb/act-rules';
-import {AccessibilityUtils, DomUtils} from '@qualweb/util';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R39 extends Rule {
 
-  constructor() {
-    super({
-      name: 'All table header cells have assigned data cells',
-      code: 'QW-ACT-R39',
-      mapping: 'd0f69e',
-      description: 'This rule checks that each table header has assigned data cells in a table element.',
-      metadata: {
-        target: {
-          element: ['th', '*[role="columnheader"]', '*[role="rowheader"]'],
-        },
-        'success-criteria': [
-          {
-            name: '1.3.1',
-            level: 'A',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/d0f69e',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-    
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const role = await AccessibilityUtils.getElementRole(element, page);
 

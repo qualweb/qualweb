@@ -1,51 +1,21 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import languages from '../lib/language.json';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R22 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Element within body has valid lang attribute',
-      code: 'QW-ACT-R22',
-      mapping: 'de46e4',
-      description: 'This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.',
-      metadata: {
-        target: {
-          element: 'body *',
-          attribute: ['lang']
-        },
-        'success-criteria': [
-          {
-            name: '3.1.2',
-            level: 'AA',
-            principle: 'Understandable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/de46e4',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

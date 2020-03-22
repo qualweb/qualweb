@@ -1,49 +1,20 @@
 'use strict';
 
 import { Page, ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, ShadowDomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R18 extends Rule {
 
-  constructor() {
-    super({
-      name: '`id` attribute value is unique',
-      code: 'QW-ACT-R18',
-      mapping: '3ea0c8',
-      description: 'This rule checks that all id attribute values on a single page are unique.',
-      metadata: {
-        target: {
-          element: '*'
-        },
-        'success-criteria': [
-          {
-            name: '4.1.1',
-            level: 'A',
-            principle: 'Robust',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/parsing.html'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/3ea0c8',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

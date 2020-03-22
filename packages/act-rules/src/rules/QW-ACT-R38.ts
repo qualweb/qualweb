@@ -1,49 +1,21 @@
 'use strict';
 
-import {Page, ElementHandle} from 'puppeteer';
-import Rule from '../lib/Rule.object';
-import {ACTRuleResult} from '@qualweb/act-rules';
+import { Page, ElementHandle } from 'puppeteer';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
-import {AccessibilityUtils, DomUtils} from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R38 extends Rule {
 
-  constructor() {
-    super({
-      name: 'ARIA required owned elements',
-      code: 'QW-ACT-R38',
-      mapping: 'bc4a75',
-      description: 'This rule checks that an element with an explicit semantic role has at least one of its required owned elements.',
-      metadata: {
-        target: {
-          element: '*',
-          attributes: 'role'
-        },
-        'success-criteria': [{
-          name: '1.3.1',
-          level: 'A',
-          principle: 'Perceivable ',
-          url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html'
-        }],
-        related: [],
-        url: 'https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/aria-required-owned-element-bc4a75.md',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const selector = '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]';
 

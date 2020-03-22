@@ -2,50 +2,20 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R20 extends Rule {
 
-  constructor() {
-    super({
-      name: 'role attribute has valid value',
-      code: 'QW-ACT-R20',
-      mapping: '674b10',
-      description: 'This rule checks that each role attribute has a valid value.',
-      metadata: {
-        target: {
-          element: '*',
-          attributes: ['role']
-        },
-        'success-criteria': [
-          {
-            name: '4.1.2',
-            level: 'A',
-            principle: 'Robust',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/674b10',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

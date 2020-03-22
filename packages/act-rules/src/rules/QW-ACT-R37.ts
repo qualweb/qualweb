@@ -1,60 +1,25 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util'
 import LanguageDetect from 'languagedetect';
 import pixelWidth from 'string-pixel-width';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
 const detector = new LanguageDetect();
 
+@ACTRule
 class QW_ACT_R37 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Text has minimum contrast',
-      code: 'QW-ACT-R37',
-      mapping: 'afw4f7',
-      description: 'This rule checks that the highest possible contrast of every text character with its background meets the minimal contrast requirement.',
-      metadata: {
-        target: {
-          element: ['*'],
-        },
-        'success-criteria': [
-          {
-            name: '1.4.3',
-            level: 'A',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html'
-          },
-          {
-            name: '1.4.6',
-            level: 'AA',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html'
-          },
-        ],
-        related: ['G18, G145', 'F83'],
-        url: 'https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/text-contrast-afw4f7.md',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
-
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
+    
     let tagName  = await DomUtils.getElementTagName(element);
     if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
     tagName === 'script' || tagName === 'style' || tagName === 'meta')

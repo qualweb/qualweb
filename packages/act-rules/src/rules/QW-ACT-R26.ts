@@ -1,49 +1,20 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R26 extends Rule {
 
-  constructor() {
-    super({
-      name: 'video element auditory content has accessible alternative',
-      code: 'QW-ACT-R26',
-      mapping: 'eac66b',
-      description: 'This rule checks that video elements have an alternative for information conveyed through audio.',
-      metadata: {
-        target: {
-          element: 'video'
-        },
-        'success-criteria': [
-          {
-            name: '1.2.2',
-            level: 'A',
-            principle: 'Perceivable ',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded.html'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/eac66b',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

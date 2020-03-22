@@ -1,52 +1,22 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R34 extends Rule {
 
-  constructor() {
-    super({
-      name: 'ARIA state or property has valid value',
-      code: 'QW-ACT-R34',
-      mapping: '6a7281',
-      description: 'This rule checks that each ARIA state or property has a valid value.',
-      metadata: {
-        target: {
-          element: '*',
-          attributes: 'aria-*'
-        },
-        'success-criteria': [
-          {
-            name: '4.1.2',
-            level: 'AA',
-            principle: 'Robust',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-          },
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/6a7281',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';

@@ -2,49 +2,20 @@
 
 
 import { Page, ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R30 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Visible label is part of accessible name',
-      code: 'QW-ACT-R30',
-      mapping: '2ee8b8',
-      description: 'This rule checks that interactive elements labeled through their content have their visible label as part of their accessible name.',
-      metadata: {
-        target: {
-          element: '*'
-        },
-        'success-criteria': [
-          {
-            name: '2.5.3',
-            level: 'A',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/2ee8b8',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:title'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

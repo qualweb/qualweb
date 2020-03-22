@@ -1,51 +1,21 @@
 'use strict';
 
 import { ElementHandle } from 'puppeteer';
-import Rule from '../lib/Rule.object';
-import {  ACTRuleResult } from '@qualweb/act-rules';
+import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R27 extends Rule {
 
-  constructor() {
-    super({
-      name: 'aria-* attribute is defined in WAI-ARIA',
-      code: 'QW-ACT-R27',
-      mapping: '5f99a7',
-      description: 'This rule checks that each aria- attribute specified is defined in ARIA 1.1.',
-      metadata: {
-        target: {
-          element: '*',
-          attributes: 'aria-*'
-        },
-        'success-criteria': [
-          {
-            name: '4.1.2',
-            level: 'A',
-            principle: 'Robust ',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/5f99a7',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const allElements = await element.$$('*');
     for (const elem of allElements || []) {

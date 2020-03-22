@@ -1,49 +1,20 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R21 extends Rule {
 
-  constructor() {
-    super({
-      name: 'svg element with explicit role has accessible name',
-      code: 'QW-ACT-R21',
-      mapping: '7d6734',
-      description: 'This rule checks that each SVG image element that is explicitly included in the accessibility tree has an accessible name.',
-      metadata: {
-        target: {
-          element: '*'
-        },
-        'success-criteria': [
-          {
-            name: '1.1.1',
-            level: 'A',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html'
-          }
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/7d6734',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const roleList = ['img', 'graphics-document', 'graphics-symbol'];
 

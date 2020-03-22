@@ -1,55 +1,20 @@
 'use strict';
 
 import { ElementHandle, Page } from 'puppeteer';
-import Rule from '../lib/Rule.object';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/Rule.object';
+import { ACTRule, ElementExists } from '../lib/decorator';
 
+@ACTRule
 class QW_ACT_R35 extends Rule {
 
-  constructor() {
-    super({
-      name: 'Heading has accessible name',
-      code: 'QW-ACT-R35',
-      mapping: 'ffd0e9',
-      description: 'This rule applies to any HTML element with the semantic role of heading that is included in the accessibility tree.',
-      metadata: {
-        target: {
-          element: ['h1-h6', '*[role="heading"]'],
-        },
-        'success-criteria': [
-          {
-            name: '1.3.1',
-            level: 'A',
-            principle: 'Perceivable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html'
-          },
-          {
-            name: '4.1.2',
-            level: 'AA',
-            principle: 'Operable',
-            url: 'https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels'
-          },
-        ],
-        related: [],
-        url: 'https://act-rules.github.io/rules/ffd0e9',
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        type: ['ACTRule', 'TestCase'],
-        a11yReq: ['WCAG21:language'],
-        outcome: '',
-        description: ''
-      },
-      results: new Array<ACTRuleResult>()
-    });
+  constructor(rule?: any) {
+    super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const role = await AccessibilityUtils.getElementRole(element, page);
 

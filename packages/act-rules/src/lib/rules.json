@@ -127,7 +127,7 @@
     "metadata": {
       "target": {
         "element": "input",
-        "attributes": ["type="image""]
+        "attributes": ["type='image'"]
       },
       "success-criteria": [
         {
@@ -180,7 +180,7 @@
     "description": "This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.",
     "metadata": {
       "target": {
-        "element": ["img", "input[type="image"]"],
+        "element": ["img", "input[type='image']"],
         "attributes": ["src"]
       },
       "success-criteria": [{
@@ -202,7 +202,7 @@
     "description": "This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.",
     "metadata": {
       "target": {
-        "element": "a, [role="link"]"
+        "element": "a, [role='link']"
       },
       "success-criteria": [{
         "name": "2.4.9",
@@ -246,7 +246,7 @@
     "metadata": {
       "target": {
         "element":  ["button", "input", "summary"],
-        "attributes": ["role="button""]
+        "attributes": ["role='button'"]
       },
       "success-criteria": [{
         "name": "4.1.2",
@@ -268,7 +268,7 @@
     "metadata": {
       "target": {
         "element": ["a[href]", "area[href]"],
-        "attributes": ["role="link""]
+        "attributes": ["role='link'"]
       },
       "success-criteria": [
         {
@@ -302,7 +302,7 @@
     "metadata": {
       "target": {
         "element": "*",
-        "attributes": ["aria-hidden="true""]
+        "attributes": ["aria-hidden='true'"]
       },
       "success-criteria": [{
         "name": "1.3.1",
@@ -329,7 +329,7 @@
     "metadata": {
       "target": {
         "element": "meta",
-        "attributes": "name="viewport""
+        "attributes": "name='viewport'"
       },
       "success-criteria": [{
         "name": "1.4.4",
@@ -409,6 +409,539 @@
       "url": "https://act-rules.github.io/rules/23a2a8",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R18": {
+    "name": "`id` attribute value is unique",
+    "code": "QW-ACT-R18",
+    "mapping": "3ea0c8",
+    "description": "This rule checks that all id attribute values on a single page are unique.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.1",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/3ea0c8",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R19": {
+    "name": "iframe element has accessible name",
+    "code": "QW-ACT-R19",
+    "mapping": "cae760",
+    "description": "This rule checks that each iframe element has an accessible name.",
+    "metadata": {
+      "target": {
+        "element": "iframe"
+      },
+      "success-criteria": [{
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html"
+        },
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
+        }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/cae760",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R20": {
+    "name": "role attribute has valid value",
+    "code": "QW-ACT-R20",
+    "mapping": "674b10",
+    "description": "This rule checks that each role attribute has a valid value.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": ["role"]
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/674b10",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R21": {
+    "name": "svg element with explicit role has accessible name",
+    "code": "QW-ACT-R21",
+    "mapping": "7d6734",
+    "description": "This rule checks that each SVG image element that is explicitly included in the accessibility tree has an accessible name.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/7d6734",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R22": {
+    "name": "Element within body has valid lang attribute",
+    "code": "QW-ACT-R22",
+    "mapping": "de46e4",
+    "description": "This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.",
+    "metadata": {
+      "target": {
+        "element": "body *",
+        "attribute": ["lang"]
+      },
+      "success-criteria": [
+        {
+          "name": "3.1.2",
+          "level": "AA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/de46e4",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R23": {
+    "name": "video element visual content has accessible alternative",
+    "code": "QW-ACT-R23",
+    "mapping": "c5a4ea",
+    "description": "This rule checks that video elements with audio have an alternative for the video content as audio or as text.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [
+        {
+          "name": "1.2.3",
+          "level": "A",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/c5a4ea",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R24": {
+    "name": "autocomplete attribute has valid value",
+    "code": "QW-ACT-R24",
+    "mapping": "73f2c2",
+    "description": "This rule checks that the HTML autocomplete attribute has a correct value.",
+    "metadata": {
+      "target": {
+        "element": "input[autocomplete], select[autocomplete], textarea[autocomplete]"
+      },
+      "success-criteria": [
+        {
+          "name": "3.1.2",
+          "level": "AA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/73f2c2",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R25": {
+    "name": "ARIA state or property is permitted",
+    "code": "QW-ACT-R25",
+    "mapping": "5c01ea",
+    "description": "This rule checks that WAI-ARIA states or properties are allowed for the element they are specified on.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "aria-*"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.1",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing.html"
+        },
+        {
+          "name": "4.1.2",
+          "level": "AA",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/5c01ea",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R26": {
+    "name": "video element auditory content has accessible alternative",
+    "code": "QW-ACT-R26",
+    "mapping": "eac66b",
+    "description": "This rule checks that video elements have an alternative for information conveyed through audio.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [
+        {
+          "name": "1.2.2",
+          "level": "A",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/eac66b",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R27": {
+    "name": "aria-* attribute is defined in WAI-ARIA",
+    "code": "QW-ACT-R27",
+    "mapping": "5f99a7",
+    "description": "This rule checks that each aria- attribute specified is defined in ARIA 1.1.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "aria-*"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/5f99a7",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R28": {
+    "name": "Element with role attribute has required states and properties",
+    "code": "QW-ACT-R28",
+    "mapping": "4e8ab6",
+    "description": "This rule checks that elements that have an explicit role also specify all required states and properties.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "role"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/4e8ab6",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R29": {
+    "name": "Audio element content has text alternative",
+    "code": "QW-ACT-R29",
+    "mapping": "e7aa44",
+    "description": "This rule checks if audio only elements have a text alternative available.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "role"
+      },
+      "success-criteria": [
+        {
+          "name": "1.2.1",
+          "level": "A",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/e7aa44",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R30": {
+    "name": "Visible label is part of accessible name",
+    "code": "QW-ACT-R30",
+    "mapping": "2ee8b8",
+    "description": "This rule checks that interactive elements labeled through their content have their visible label as part of their accessible name.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "2.5.3",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/2ee8b8",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R31": {
+    "name": "Video element visual-only content has accessible alternative",
+    "code": "QW-ACT-R31",
+    "mapping": "c3232f",
+    "description": "This rule checks that video elements without audio have an alternative available.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [
+        {
+          "name": "1.2.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/c3232f",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R32": {
+    "name": "video element visual content has strict accessible alternative",
+    "code": "QW-ACT-R32",
+    "mapping": "1ec09b",
+    "description": "This rule checks that video elements with audio have audio description.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [
+        {
+          "name": "1.2.5",
+          "level": "AA",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/1ec09b",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R33": {
+    "name": "ARIA required context role",
+    "code": "QW-ACT-R33",
+    "mapping": "ff89c9",
+    "description": "This rule checks that an element with an explicit semantic role exists inside its required context.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "role"
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable ",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ff89c9",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R34": {
+    "name": "ARIA state or property has valid value",
+    "code": "QW-ACT-R34",
+    "mapping": "6a7281",
+    "description": "This rule checks that each ARIA state or property has a valid value.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "aria-*"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2",
+          "level": "AA",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/6a7281",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R35": {
+    "name": "Heading has accessible name",
+    "code": "QW-ACT-R35",
+    "mapping": "ffd0e9",
+    "description": "This rule applies to any HTML element with the semantic role of heading that is included in the accessibility tree.",
+    "metadata": {
+      "target": {
+        "element": ["h1-h6", "*[role='heading']"]
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        },
+        {
+          "name": "4.1.2",
+          "level": "AA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ffd0e9",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R36": {
+    "name": "Headers attribute specified on a cell refers to cells in the same table element",
+    "code": "QW-ACT-R36",
+    "mapping": "a25f45",
+    "description": "This rule checks that the headers attribute on a cell refer to other cells in the same table element with a semantic role of columnheader or rowheader.",
+    "metadata": {
+      "target": {
+        "element": "table",
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/a25f45",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R37": {
+    "name": "Text has minimum contrast",
+    "code": "QW-ACT-R37",
+    "mapping": "afw4f7",
+    "description": "This rule checks that the highest possible contrast of every text character with its background meets the minimal contrast requirement.",
+    "metadata": {
+      "target": {
+        "element": ["*"]
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.3",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html"
+        },
+        {
+          "name": "1.4.6",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html"
+        }
+      ],
+      "related": ["G18, G145", "F83"],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/text-contrast-afw4f7.md",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
+  },
+  "QW_ACT_R38": {
+    "name": "ARIA required owned elements",
+    "code": "QW-ACT-R38",
+    "mapping": "bc4a75",
+    "description": "This rule checks that an element with an explicit semantic role has at least one of its required owned elements.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "role"
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable ",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+      }],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/aria-required-owned-element-bc4a75.md",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  },
+  "QW_ACT_R39": {
+    "name": "All table header cells have assigned data cells",
+    "code": "QW-ACT-R39",
+    "mapping": "d0f69e",
+    "description": "This rule checks that each table header has assigned data cells in a table element.",
+    "metadata": {
+      "target": {
+        "element": ["th", "*[role='columnheader']", "*[role='rowheader']"]
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/d0f69e",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   }
 }
