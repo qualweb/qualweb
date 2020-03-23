@@ -4,6 +4,7 @@ import { ElementHandle } from 'puppeteer';
 import isElementFocusableByDefault from './isElementFocusableByDefault';
 import elementHasAttributes from './elementHasAttributes';
 import getElementAttribute from './getElementAttribute';
+import isElementHiddenByCSS from './isElementHiddenByCSS';
 
 async function isElementFocusable(element: ElementHandle): Promise<boolean> {
   let disabled = false;
@@ -18,7 +19,7 @@ async function isElementFocusable(element: ElementHandle): Promise<boolean> {
   if (hasAttributes) {
     tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
     disabled = (await getElementAttribute(element, 'disabled')) !== null;
-    hidden = (await element.boundingBox()) === null;
+    hidden = await isElementHiddenByCSS(element);
     focusableByDefault = await isElementFocusableByDefault(element);
 
     if (tabindex && tabIndexExistsAndIsNumber) {
