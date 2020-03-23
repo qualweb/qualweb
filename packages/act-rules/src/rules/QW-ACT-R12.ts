@@ -2,9 +2,14 @@
 
 import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { 
+  ACTRule, 
+  ElementExists,
+  ElementIsInAccessibilityTree,
+  IfElementHasTagNameMustHaveAttributeRole
+} from '../lib/decorator';
 
 @ACTRule
 class QW_ACT_R12 extends Rule {
@@ -14,6 +19,8 @@ class QW_ACT_R12 extends Rule {
   }
 
   @ElementExists
+  @ElementIsInAccessibilityTree
+  @IfElementHasTagNameMustHaveAttributeRole('a', 'link')
   async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
@@ -22,29 +29,16 @@ class QW_ACT_R12 extends Rule {
       resultCode: ''
     };
 
-    const [isInAT, accessibleName, role, tagName] = await Promise.all([
-      AccessibilityUtils.isElementInAT(element,page),
-      AccessibilityUtils.getAccessibleName(element, page),
-      DomUtils.getElementAttribute(element, 'role'),
-      DomUtils.getElementTagName(element)
-    ]);
-
-    if(!isInAT){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The test target is not included in the accessibility tree.';
-      evaluation.resultCode = 'RC1';
-    } else if (tagName === 'a' && role && role !== 'link'){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target role is overriden.`;
-      evaluation.resultCode = 'RC2';
-    } else if(!accessibleName || !accessibleName.trim()) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The test target doesn't have an accessible name, or it's empty ("").`;
-      evaluation.resultCode = 'RC3';
-    } else {
+    const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+    
+    if(accessibleName && accessibleName.trim()) {
       evaluation.verdict = 'passed';
       evaluation.description = `The test target has a valid accessible name.`;
       evaluation.resultCode = 'RC4';
+    } else {
+      evaluation.verdict = 'failed';
+      evaluation.description = `The test target doesn't have an accessible name, or it's empty ("").`;
+      evaluation.resultCode = 'RC3';
     }
 
     await super.addEvaluationResult(evaluation, element);

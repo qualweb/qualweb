@@ -69,12 +69,59 @@ function ElementHasNonEmptyAttribute(attribute: string) {
   };
 }
 
+function ElementHasAttributeRole(role: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const _role = await DomUtils.getElementAttribute(arguments[0], 'role');//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+      if (!_role || _role === role) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
+function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const _tagName = await DomUtils.getElementTagName(arguments[0]);
+      if (_tagName === tagName) {
+        const _role = await DomUtils.getElementAttribute(arguments[0], 'role');//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+        if (!_role || _role === role) {
+          return method.apply(this, arguments);
+        }
+      } else {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 function ElementIsInAccessibilityTree(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = async function() {
     const isInAT = await AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
     if (isInAT) {
       return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = async function() {
+    const src = await DomUtils.getElementAttribute(arguments[0], 'src');
+
+    if (src) {
+      const filePath = src.split('/');
+      const filenameWithExtension = filePath[filePath.length - 1];
+
+      const accessibleName = await AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
+
+      if (filenameWithExtension === accessibleName) {
+        return method.apply(this, arguments);
+      }
     }
   };
 }
@@ -135,8 +182,11 @@ export {
   ElementExists, 
   ElementHasAttributes,
   ElementHasAttribute,
+  ElementHasAttributeRole,
+  IfElementHasTagNameMustHaveAttributeRole,
   ElementHasNonEmptyAttribute,
   ElementIsInAccessibilityTree,
+  ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
   IsDocument,
   IsNotMathDocument,
