@@ -42,7 +42,9 @@ async function getAccessibleNameRecursion(element: ElementHandle, page: Page, re
   id = await getElementAttribute(element, "id");
 
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
-  if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
+  if (name === "svg") {
+    AName = await getAccessibleNameSVGRecursion(element, page, recursion)
+  } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = await getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;

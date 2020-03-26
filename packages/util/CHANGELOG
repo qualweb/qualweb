@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.2.54] - 18/03/2020
+## [0.2.56] - 23/03/2020
+
+### Fixed
+ - isElementFocusable bug
+
+## [0.2.55] - 18/03/2020
 
 ### Fixed
  - getAccessibleName bug

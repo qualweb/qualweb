@@ -117,4 +117,5 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page: Page)
   return result;
 }
 
-export default getAccessibleNameSVG;
+export default {getAccessibleNameSVG,getAccessibleNameSVGRecursion};
+
