@@ -14,6 +14,7 @@ import getElementById from '../domUtils/getElementById';
 import getElementParent from '../domUtils/getElementParent';
 import getElementTagName from '../domUtils/getElementTagName';
 import getElementChildren from '../domUtils/getElementChildren';
+import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion'
 import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 import getElementRoleAName from './getElementRoleAName';
 import isElementControl from './isElementControl';
