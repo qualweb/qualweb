@@ -13,37 +13,43 @@ async function isElementFocusableByDefault(element: ElementHandle): Promise<bool
     throw Error('Element is not defined');
   }
 
-  const elementName = await getElementTagName(element);
-  const hasHref = await elementHasAttribute(element, 'href');
-  const elementAttributeType = await getElementAttribute(element, 'type');
+  const draggableAttribute = await getElementAttribute(element, 'draggable');
 
-  const parent = await getElementParent(element);
-  let parentName;
-  let parentChildren;
+  if(draggableAttribute && draggableAttribute === 'true'){
+    return true;
+  } else {
+    const elementName = await getElementTagName(element);
+    const hasHref = await elementHasAttribute(element, 'href');
+    const elementAttributeType = await getElementAttribute(element, 'type');
 
-  if (parent) {
-    parentName = await getElementTagName(parent);
-    parentChildren = await getElementChildren(parent);
-  }
+    const parent = await getElementParent(element);
+    let parentName;
+    let parentChildren;
 
-  switch (elementName) {
-    case 'a':
-    case 'area':
-    case 'link':
-      if (hasHref) {
+    if (parent) {
+      parentName = await getElementTagName(parent);
+      parentChildren = await getElementChildren(parent);
+    }
+
+    switch (elementName) {
+      case 'a':
+      case 'area':
+      case 'link':
+        if (hasHref) {
+          return true;
+        }
+        break;
+      case 'input':
+        return !(elementAttributeType && elementAttributeType !== 'hidden');
+      case 'summary':
+        return !!(parent && parentName === 'details' && parentChildren && await element.evaluate((e1, e2) => e1 === e2, parentChildren[0]));
+      case 'textarea':
+      case 'select':
+      case 'button':
         return true;
-      }
-      break;
-    case 'input':
-      return !!!(elementAttributeType && elementAttributeType !== 'hidden');
-    case 'summary':
-      return !!(parent && parentName === 'details' && parentChildren && await element.evaluate((e1, e2) => e1 === e2, parentChildren[0]));
-    case 'textarea':
-    case 'select':
-    case 'button':
-      return true;
+    }
+    return false;
   }
-  return false;
 }
 
 export default isElementFocusableByDefault;
