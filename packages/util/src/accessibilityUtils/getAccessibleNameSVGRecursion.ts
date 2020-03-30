@@ -13,12 +13,14 @@ import getElementAttribute from '../domUtils/getElementAttribute';
 import getAccessibleName from "./getAccessibleName";
 import getElementChildTextContent from "../domUtils/getElementChildTextContent";
 import getElementChildren from '../domUtils/getElementChildren';
+import getElementStyleProperty from '../domUtils/getElementStyleProperty';
 
 
 async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page, recursion: boolean): Promise<string | undefined> {
   let AName, ariaLabelBy, ariaLabel, tag;
 
   tag = await getElementTagName(element);
+  console.log(tag);
   if (!tag)
     tag = '';
   let regex = new RegExp('^fe[a-zA-Z]+');
@@ -33,7 +35,7 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   let href = await getElementAttribute(element, "href");
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if (await isElementHidden(element) && !recursion ||await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) {
+  if ((await isElementHidden(element) ||await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = await getAccessibleNameFromAriaLabelledBy(page,element, ariaLabelBy);
@@ -45,8 +47,8 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
     AName = title;
   } else if (titleAtt && titleAtt.trim() !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
-  } else if (textContainer.indexOf(tag)>=0) {
-    AName = await getAccessibleNameFromChildren(element, page);
+  } else if (textContainer.indexOf(tag)>=0|| recursion) {
+    AName = await getTextFromCss(element, page);
   } else if (tag && tag === "text") {
     AName = await getTrimmedText(element);
   }
@@ -90,24 +92,69 @@ async function getAccessibleNameFromAriaLabelledBy(page: Page, element:ElementHa
 
 
 
-async function getAccessibleNameFromChildren(element: ElementHandle, page: Page): Promise<string> {
 
-  let result, aName;
+async function getAccessibleNameFromChildren(element: ElementHandle, page: Page): Promise<string[]> {
+ 
+  let aName;
   let children = await getElementChildren(element);
+  let elementAnames: string[] = [];
 
   if (children) {
     for (let child of children) {
       aName = await getAccessibleNameSVGRecursion(child, page, true);
-      if (aName) {
-        if (result) {
-          result += aName;
-        } else {
-          result = aName;
-        }
+      if (!!aName) {
+        elementAnames.push(aName);
+      } else {
+        elementAnames.push("");
       }
     }
   }
-  return result;
+  return elementAnames;
+}
+
+async function getTextFromCss(element: ElementHandle, page: Page): Promise<string> {
+  let before = await getElementStyleProperty(element, "content", ":before");
+  let after = await getElementStyleProperty(element, "content", ":after");
+  let aNameList = await getAccessibleNameFromChildren(element, page);
+  let textValue = await getConcatentedText(element, aNameList);
+
+  if (after === "none")
+    after = "";
+  if (before === "none")
+    before = "";
+
+  return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
+}
+
+async function getConcatentedText(element: ElementHandle, aNames: string[]): Promise<string> {
+  if (!element) {
+    throw Error('Element is not defined');
+  }
+  let text = await element.evaluate((element, aNames) => {
+    let chidlren = element.childNodes;
+    let result = "";
+    let textContent;
+    let i = 0;
+    let counter = 0;
+    for (let child of chidlren) {
+      textContent = child.textContent
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
+        result = result + (counter === 0 ? "" : " ") + textContent.trim();
+        counter++;
+      } else if (child.nodeType === 1) {
+        result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
+        i++;
+      }
+
+    }
+    return result
+  }, aNames);
+
+  if (!text) {
+    text = "";
+  }
+
+  return text;
 }
 
 export default getAccessibleNameSVGRecursion;
