@@ -79,7 +79,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.55",
+    "@qualweb/util": "^0.2.57",
     "css-select": "^2.1.0",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
