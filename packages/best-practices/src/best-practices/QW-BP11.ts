@@ -76,7 +76,7 @@ class QW_BP11 extends BestPractice {
     }
 
     if (hasBr) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
       evaluation.pointer = await DomUtils.getElementSelector(element);
 
       super.addEvaluationResult(evaluation);

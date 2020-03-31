@@ -44,22 +44,23 @@
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.3.1",
+    "@qualweb/types": "^0.3.22",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^12.12.25",
-    "@types/puppeteer": "^2.0.0",
+    "@types/puppeteer": "^2.0.1",
     "chai": "^4.2.0",
     "css": "^2.2.4",
-    "mocha": "^6.2.2",
-    "puppeteer": "^2.0.0",
-    "request": "^2.88.0",
+    "mocha": "^6.2.3",
+    "puppeteer": "^2.1.1",
+    "request": "^2.88.2",
     "stew-select": "0.0.5",
-    "tslint": "^5.20.0",
+    "tslint": "^5.20.1",
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@qualweb/util": "^0.2.32",
+    "@qualweb/util": "^0.2.46",
+    "htmlparser2": "^4.1.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0"
   }

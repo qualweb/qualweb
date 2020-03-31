@@ -73,7 +73,7 @@ class QW_BP13 extends BestPractice {
     if (aWithImg) {
       const aWithImgParent = await DomUtils.getElementParent(aWithImg);
       if (aWithImgParent) {
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(aWithImgParent);
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(aWithImgParent, true, true);
         evaluation.pointer = await DomUtils.getElementSelector(aWithImgParent);
       }
     }

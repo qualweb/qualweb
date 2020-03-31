@@ -49,7 +49,7 @@ class QW_BP12 extends BestPractice {
       let scopeCole = true;
 
       for (i = 1; i < firstRowChildren.length; i++) {
-        if (await DomUtils.getElementName(firstRowChildren[i]) === "td" || await DomUtils.getElementName(firstRowChildren[i]) === "th" && scopeCole) {
+        if (await DomUtils.getElementTagName(firstRowChildren[i]) === "td" || await DomUtils.getElementTagName(firstRowChildren[i]) === "th" && scopeCole) {
           scope = await DomUtils.getElementAttribute(firstRowChildren[i], "scope");
           scopeCole = scope === "col"
         }
@@ -83,7 +83,7 @@ class QW_BP12 extends BestPractice {
       evaluation.resultCode = 'RC3';
 
     }
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
     evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);

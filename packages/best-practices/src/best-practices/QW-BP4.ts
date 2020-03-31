@@ -64,7 +64,7 @@ class QW_BP4 extends BestPractice {
 
     const parent = await DomUtils.getElementParent(element);
     if (parent) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(parent);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(parent, true, true);
       evaluation.pointer = await DomUtils.getElementSelector(parent);
     }
 

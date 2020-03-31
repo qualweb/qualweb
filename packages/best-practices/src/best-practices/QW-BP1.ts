@@ -52,7 +52,7 @@ class QW_BP1 extends BestPractice {
       evaluation.verdict = 'warning';
       evaluation.description = 'Check that heading markup is used when content is a heading';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
       evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     

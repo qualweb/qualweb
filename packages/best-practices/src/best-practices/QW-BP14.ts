@@ -16,7 +16,7 @@ class QW_BP14 extends BestPractice {
       description: `At least one container's width has been specified using values expressed in px`,
       metadata: {
         target: {
-          element: 'span, article, section, nav, aside, hgroup, header, footer, address, p, hr, blockquote, div, h1, h2, h3, h4, h5, h6, li, ul, ol, dd, dt, dl, figcaption'
+          element: ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
         },
         passed: 0,
         warning: 0,

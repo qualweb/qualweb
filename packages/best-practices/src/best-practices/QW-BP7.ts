@@ -58,7 +58,6 @@ class QW_BP7 extends BestPractice {
         allDone = true;
       }
     }
-    console.log(titleValueWithoutBrackets);
 
     if (!regExAllowedSymbols.test(titleValueWithoutBrackets)) {
       evaluation.verdict = 'failed';
@@ -75,7 +74,7 @@ class QW_BP7 extends BestPractice {
         evaluation.resultCode = `RC3`;
       }
     }
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
     evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);

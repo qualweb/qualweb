@@ -56,7 +56,7 @@ class QW_BP2 extends BestPractice {
       evaluation.resultCode = 'RC3';
     }
     
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
     evaluation.pointer = await DomUtils.getElementSelector(element);
     
     super.addEvaluationResult(evaluation);

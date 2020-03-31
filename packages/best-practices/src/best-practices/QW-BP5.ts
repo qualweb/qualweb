@@ -47,7 +47,7 @@ class QW_BP5 extends BestPractice {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element);
+      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
       evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     super.addEvaluationResult(evaluation);

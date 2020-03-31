@@ -71,8 +71,8 @@ class QW_BP8 extends BestPractice {
       }
     }
 
-    evaluation.htmlCode = DomUtils.getElementHtmlCode(element);
-    evaluation.pointer = DomUtils.getElementSelector(element);
+    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
+    evaluation.pointer = await DomUtils.getElementSelector(element);
 
     super.addEvaluationResult(evaluation);
   }
