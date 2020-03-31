@@ -6,9 +6,17 @@ const { getDom } = require('../getDom');
 describe('Best Practice QW-BP7', function () {
   const tests = [
     {
+    url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste.html',
+    outcome: 'failed'
+    },
+    {
+    url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste1.html',
+    outcome: 'passed'
+    },
+    {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed.html',
       outcome: 'passed'
-    },
+    }/*,
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed2.html',
       outcome: 'passed'
@@ -36,7 +44,7 @@ describe('Best Practice QW-BP7', function () {
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed5.html',
       outcome: 'failed'
-    }
+    }*/
   ];
   let browser;
   it("pup open", async function () {

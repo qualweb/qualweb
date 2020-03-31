@@ -44,13 +44,27 @@ class QW_BP7 extends BestPractice {
 
     const titleValue = await DomUtils.getElementText(element);
     const regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
-    const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;!?\' ]*$');
+    const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;:!? ]*$');
+    const regExAllowBracketsWithText = new RegExp(/(\([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\))|(\[[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\])|(\{[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\})|(\"[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\")|(\'[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\')/);
     const regExConsecutiveDots = new RegExp('^[^.]*(\\.{2}(\\.{2,})?)[^.]*$');
     const regExConsecutiveSpaces = new RegExp('[ ][ ]');
 
-    if (!regExAllowedSymbols.test(titleValue)) {
+    let titleValueWithoutBrackets = titleValue;
+    let occurrence;
+    let allDone = false;
+    while (regExAllowBracketsWithText.test(titleValueWithoutBrackets) && !allDone){
+      occurrence = regExAllowBracketsWithText.exec(titleValueWithoutBrackets);
+      if(occurrence) {
+        titleValueWithoutBrackets = titleValueWithoutBrackets.replace(occurrence[0], '');
+      } else {
+        allDone = true;
+      }
+    }
+    console.log(titleValueWithoutBrackets);
+
+    if (!regExAllowedSymbols.test(titleValueWithoutBrackets)) {
       evaluation.verdict = 'failed';
-      evaluation.description = `The title element contains other symbols than .,;-!?`;
+      evaluation.description = `The title element contains other symbols than .,;-!? and ()[]{}"' with text in between`;
       evaluation.resultCode = `RC1`;
     } else {
       if (regExConsecutiveDots.test(titleValue) || regExConsecutiveSymbols.test(titleValue) || regExConsecutiveSpaces.test(titleValue)) {

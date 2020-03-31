@@ -13,7 +13,7 @@
     "test-bp4": "mocha test/best-practices/QW-BP4.spec.js",
     "test-bp5": "mocha test/best-practices/QW-BP5.spec.js",
     "test-bp6": "mocha test/best-practices/QW-BP6.spec.js",
-    "test-bp7": "mocha test/best-practices/QW-BP7.spec.js",
+    "test-bp7": "npm run build && mocha test/best-practices/QW-BP7.spec.js",
     "test-bp8": "mocha test/best-practices/QW-BP8.spec.js",
     "test-bp9": "mocha test/best-practices/QW-BP9.spec.js",
     "test-bp10": "mocha test/best-practices/QW-BP10.spec.js",
