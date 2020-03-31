@@ -1,37 +1,32 @@
 'use strict';
 
-import {
-  BestPractice as BestPracticeType,
-  BestPracticeResult
-} from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
-const bestPractice: BestPracticeType = {
-  name: 'Link element with text content equal to the content of the title attribute',
-  code: 'QW-BP3',
-  description: 'The link element text content shouldn\'t be equal to the content of the title attribute',
-  metadata: {
-    target: {
-      element: 'a',
-      attributes: 'title'
-    },
-    related: ['H33'],
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array < BestPracticeResult > ()
-};
-
 class QW_BP3 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Link element with text content equal to the content of the title attribute',
+      code: 'QW-BP3',
+      description: 'The link element text content shouldn\'t be equal to the content of the title attribute',
+      metadata: {
+        target: {
+          element: 'a',
+          attributes: 'title'
+        },
+        related: ['H33'],
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array < BestPracticeResult > ()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise < void > {

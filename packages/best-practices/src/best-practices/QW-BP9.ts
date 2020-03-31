@@ -1,33 +1,31 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
-const bestPractice: BestPracticeType = {
-  name: 'Table element without header cells has a caption',
-  code: 'QW-BP9',
-  description: 'A table without th elements should have a caption element to describe it.',
-  metadata: {
-    target: {
-      element: 'table'
-    },
-    related: [],
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP9 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Table element without header cells has a caption',
+      code: 'QW-BP9',
+      description: 'A table without th elements should have a caption element to describe it.',
+      metadata: {
+        target: {
+          element: 'table'
+        },
+        related: [],
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

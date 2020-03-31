@@ -1,43 +1,32 @@
 'use strict';
 
-import {
-  BestPractice as BestPracticeType,
-  BestPracticeResult
-} from '@qualweb/best-practices';
-import {
-  ElementHandle,
-  Page
-} from 'puppeteer';
-
-import {
-  CSSStylesheet
-} from '@qualweb/core';
+import { BestPracticeResult } from '@qualweb/best-practices';
+import { ElementHandle, Page } from 'puppeteer';
+import { CSSStylesheet } from '@qualweb/core';
 import BestPractice from './BestPractice.object';
-
-const bestPractice: BestPracticeType = {
-  name: `At least one container's width has been specified using values expressed in px`,
-  code: 'QW-BP14',
-  description: `At least one container's width has been specified using values expressed in px`,
-  metadata: {
-    target: {
-      element: 'span, article, section, nav, aside, hgroup, header, footer, address, p, hr, blockquote, div, h1, h2, h3, h4, h5, h6, li, ul, ol, dd, dt, dl, figcaption'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array < BestPracticeResult > ()
-};
 
 class QW_BP14 extends BestPractice {
 
-  containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
+  private containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: `At least one container's width has been specified using values expressed in px`,
+      code: 'QW-BP14',
+      description: `At least one container's width has been specified using values expressed in px`,
+      metadata: {
+        target: {
+          element: 'span, article, section, nav, aside, hgroup, header, footer, address, p, hr, blockquote, div, h1, h2, h3, h4, h5, h6, li, ul, ol, dd, dt, dl, figcaption'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array < BestPracticeResult > ()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise < void > {
@@ -75,18 +64,16 @@ class QW_BP14 extends BestPractice {
           this.analyseAST(key, fileName, evaluation);
         }
       } else {
-        for (const key of cssObject['rules']) {
+        for (const key of cssObject['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       }
     }
   }
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
-
-
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
     if (declarations && cssObject['selectors'] && this.selectorIsContainer(cssObject['selectors'])) {
-      for (const declaration of declarations) {
+      for (const declaration of declarations || []) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'width') {
             this.extractInfo(cssObject, declaration, fileName, evaluation);
@@ -95,17 +82,18 @@ class QW_BP14 extends BestPractice {
       }
     }
   }
-  private selectorIsContainer(selectors: Array<string>): boolean{
-
-    for(const selector of selectors){
-      let splitSelector = selector.split(" ");
-      for (const selector2 of splitSelector){
-        if(this.containers.includes(selector2))
+  private selectorIsContainer(selectors: Array<string>): boolean {
+    for(const selector of selectors || []){
+      const splitSelector = selector.split(' ');
+      for (const selector2 of splitSelector || []) {
+        if(this.containers.includes(selector2)) {
           return true;
+        }
       }
     }
-    return false
+    return false;
   }
+
   private extractInfo(cssObject: any, declaration: any, fileName: string, evaluation: BestPracticeResult): void {
     if (declaration['value'].endsWith('px')) {
       evaluation.verdict = 'failed';

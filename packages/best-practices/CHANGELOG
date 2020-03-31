@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.3.1] - 17/01/2020
+
+### Updated
+ - dependencies
+
+## [0.3.0] - 16/01/2020
+
+### Updated
+ - module architecture
+
+## [0.2.4] - 16/12/2019
+
+### Fixed
+ - QW-BP14 and QW-BP15 bugs
+
+## [0.2.3] - 16/12/2019
+
+### Updated
+ - README.md
+
+### Fixed
+ - some best practices with errors and some tests
+
 ## [0.2.2] - 11/12/2019
 
 ### Fixed

@@ -1,8 +1,8 @@
 'use strict';
 
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
-import clone from 'lodash/clone';
-import cloneDeep from 'lodash/cloneDeep';
+import clone from 'lodash.clone';
+import cloneDeep from 'lodash.clonedeep';
 import { Page, ElementHandle } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
 

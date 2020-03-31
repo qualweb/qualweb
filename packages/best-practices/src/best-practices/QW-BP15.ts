@@ -1,35 +1,32 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle, Page } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
 import BestPractice from './BestPractice.object';
 
-const bestPractice: BestPracticeType = {
-  name: 'At least one width attribute of an HTML element is expressed in absolute values',
-  code: 'QW-BP15',
-  description: 'At least one width attribute of an HTML element is expressed in absolute values',
-  metadata: {
-    target: {
-      element: '*'
-    },
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP15 extends BestPractice {
 
-  absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
-  relativeLengths = ['em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%'];
+  private absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'At least one width attribute of an HTML element is expressed in absolute values',
+      code: 'QW-BP15',
+      description: 'At least one width attribute of an HTML element is expressed in absolute values',
+      metadata: {
+        target: {
+          element: '*'
+        },
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void> {
@@ -44,17 +41,17 @@ class QW_BP15 extends BestPractice {
       resultCode: ''
     };
 
-    for (const styleSheet of styleSheets) {
-      if(styleSheet.content && styleSheet.content.plain){
-          this.analyseAST(styleSheet.content.parsed, styleSheet.file, evaluation);
+    for (const styleSheet of styleSheets || []) {
+      if(styleSheet.content && styleSheet.content.plain) {
+        this.analyseAST(styleSheet.content.parsed, styleSheet.file, evaluation);
       }
     }
 
     super.addEvaluationResult(evaluation);
   }
 
-  private lengthIsAbsolute(value: String){
-    for(const metric of this.absoluteLengths){
+  private lengthIsAbsolute(value: String): boolean {
+    for(const metric of this.absoluteLengths || []){
       if (value.includes(metric))
         return true
     }
@@ -72,20 +69,20 @@ class QW_BP15 extends BestPractice {
       this.loopDeclarations(cssObject, fileName, evaluation)
     } else {
       if (cssObject['type'] === 'stylesheet') {
-        for (const key of cssObject['stylesheet']['rules']) {
+        for (const key of cssObject['stylesheet']['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       } else {
-        for (const key of cssObject['rules']) {
+        for (const key of cssObject['rules'] || []) {
           this.analyseAST(key, fileName, evaluation);
         }
       }
     }
   }
   private loopDeclarations(cssObject: any, fileName: string, evaluation: BestPracticeResult): void {
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
     if(declarations){
-      for (const declaration of declarations) {
+      for (const declaration of declarations || []) {
         if (declaration['property'] && declaration['value'] ) {
           if (declaration['property'] === 'width'){
             this.extractInfo(cssObject, declaration, fileName, evaluation);

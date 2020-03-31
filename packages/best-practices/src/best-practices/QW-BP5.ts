@@ -1,34 +1,32 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
 
-const bestPractice: BestPracticeType = {
-  name: 'Using table elements inside other table elements',
-  code: 'QW-BP5',
-  description: 'It is not recommended to use table elements inside other table elements',
-  metadata: {
-    target: {
-      element: 'table',
-      parent: 'table'
-    },
-    related: [],
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
-
 class QW_BP5 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Using table elements inside other table elements',
+      code: 'QW-BP5',
+      description: 'It is not recommended to use table elements inside other table elements',
+      metadata: {
+        target: {
+          element: 'table',
+          parent: 'table'
+        },
+        related: [],
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {

@@ -1,34 +1,32 @@
 'use strict';
 
-import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPractice from './BestPractice.object';
-import { DomUtils, AccessibilityTreeUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import {ElementHandle, Page} from "puppeteer";
-
-const bestPractice: BestPracticeType = {
-  name: 'Headings with images should have an accessible name',
-  code: 'QW-BP8',
-  description: 'Headings with at least one image should have an accessible name',
-  metadata: {
-    target: {
-      element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      children: 'img'
-    },
-    related: ['G130'],
-    passed: 0,
-    warning: 0,
-    failed: 0,
-    inapplicable: 0,
-    outcome: '',
-    description: ''
-  },
-  results: new Array<BestPracticeResult>()
-};
 
 class QW_BP8 extends BestPractice {
 
   constructor() {
-    super(bestPractice);
+    super({
+      name: 'Headings with images should have an accessible name',
+      code: 'QW-BP8',
+      description: 'Headings with at least one image should have an accessible name',
+      metadata: {
+        target: {
+          element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+          children: 'img'
+        },
+        related: ['G130'],
+        passed: 0,
+        warning: 0,
+        failed: 0,
+        inapplicable: 0,
+        outcome: '',
+        description: ''
+      },
+      results: new Array<BestPracticeResult>()
+    });
   }
 
 
@@ -55,13 +53,13 @@ class QW_BP8 extends BestPractice {
       evaluation.resultCode = 'RC1';
     } else {
       for (const svg of svgs || []) {
-        const aName = await AccessibilityTreeUtils.getAccessibleNameSVG(svg, page);
+        const aName = await AccessibilityUtils.getAccessibleNameSVG(svg, page);
         if (aName && aName.trim() !== '') {
           svgANames.push(aName)
         }
       }
 
-      const aName = await AccessibilityTreeUtils.getAccessibleName(element, page);
+      const aName = await AccessibilityUtils.getAccessibleName(element, page);
       if (aName || svgANames.length > 0) {
         evaluation.verdict = 'passed';
         evaluation.description = `This heading with at least one image has an accessible name`;
