@@ -56,10 +56,8 @@ class QW_BP4 extends BestPractice {
       evaluation.verdict = 'failed';
       evaluation.description = `It was found a group of 10 or more links not grouped within a nav element`;
       evaluation.resultCode = 'RC1';
-    } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = `Verify if the links represent a menu and if they should be inside a nav element`;
-      evaluation.resultCode = 'RC2';
+    } else  {
+      return;
     }
 
     const parent = await DomUtils.getElementParent(element);

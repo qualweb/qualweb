@@ -45,13 +45,14 @@ describe('Best Practice QW-BP4', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { page } = await getDom(browser, test.url);
+        const { page } = await getDom(browser, "https://ciencias.ulisboa.pt/");
 
         const bestPractices = new BestPractices({
           bestPractices: ['QW-BP4']
         });
 
         const report = await bestPractices.execute(page);
+        console.log(report);
         expect(report['best-practices']['QW-BP4'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
