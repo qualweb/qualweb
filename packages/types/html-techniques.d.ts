@@ -7,6 +7,7 @@ declare module '@qualweb/html-techniques' {
     levels?: string[];
     principles?: string[];
     optimize?: 'performance' | 'error-detection';
+    htmlValidatorEndpoint?: string;
   }
 
   interface HTMLTechniqueMetadata {

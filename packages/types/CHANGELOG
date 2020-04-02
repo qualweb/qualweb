@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.24] - 02/04/2020
+
+### Added
+ - htmlValidatorEndpoint option to html-techniques module options interface
+
+### Removed
+ - htmlValidatorEndpoint option to act-rules module options interface
+
 ## [0.3.23] - 02/04/2020
 
 ### Added
