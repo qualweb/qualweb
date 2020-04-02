@@ -12,7 +12,7 @@ class QW_BP12 extends BestPractice {
     super({
       name: 'Using scope col and row ',
       code: 'QW-BP12',
-      description: 'Using using scope col in the first row  (except first) and scope row in the first element of each row (except first)',
+      description: 'Using scope col in the first row (except first) and scope row in the first element of each row (except first)',
       metadata: {
         target: {
           element: ['table', 'tr']
