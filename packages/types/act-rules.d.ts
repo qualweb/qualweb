@@ -8,6 +8,7 @@ declare module '@qualweb/act-rules' {
     levels?: string[];
     principles?: string[];
     optimize?: 'performance' | 'error-detection';
+    htmlValidatorEndpoint?: string;
   }
 
   interface SuccessCriteria {

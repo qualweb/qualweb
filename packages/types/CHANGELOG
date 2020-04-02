@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.23] - 02/04/2020
+
+### Added
+ - htmlValidatorEndpoint option to act-rules module options interface
+
 ## [0.3.22] - 18/03/2020
 
 ### Updated 
