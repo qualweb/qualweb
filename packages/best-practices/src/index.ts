@@ -21,6 +21,7 @@ import QW_BP12 from './best-practices/QW-BP12';
 import QW_BP13 from './best-practices/QW-BP13';
 import QW_BP14 from './best-practices/QW-BP14';
 import QW_BP15 from './best-practices/QW-BP15';
+import QW_BP16 from './best-practices/QW-BP16';
 
 class BestPractices {
 
@@ -41,7 +42,8 @@ class BestPractices {
     'QW-BP12': true,
     'QW-BP13': true,
     'QW-BP14': true,
-    'QW-BP15': true
+    'QW-BP15': true,
+    'QW-BP16': true
   };
 
   constructor(options?: BPOptions) {
@@ -60,7 +62,8 @@ class BestPractices {
       'QW-BP12': new QW_BP12(),
       'QW-BP13': new QW_BP13(),
       'QW-BP14': new QW_BP14(),
-      'QW-BP15': new QW_BP15()
+      'QW-BP15': new QW_BP15(),
+      'QW-BP16': new QW_BP16()
     };
 
     if (options) {
@@ -87,7 +90,7 @@ class BestPractices {
 
   private async executeBP(bestPractice: string, selector: string, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined, report: BestPracticesReport): Promise<void> {
     if(selector === ''){
-      await this.bestPractices[bestPractice].execute(undefined, undefined, styleSheets);
+      await this.bestPractices[bestPractice].execute(undefined, page, styleSheets);
       report['best-practices'][bestPractice] = this.bestPractices[bestPractice].getFinalResults();
       report.metadata[report['best-practices'][bestPractice].metadata.outcome]++;
       this.bestPractices[bestPractice].reset();
