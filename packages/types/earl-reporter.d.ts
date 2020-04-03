@@ -75,7 +75,6 @@ declare module '@qualweb/earl-reporter' {
   function generateEARLReport(reports: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
   export {
-    EarlContext,
     EarlOptions,
     Report,
     EarlReport,
