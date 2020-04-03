@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -27,13 +27,10 @@
   "devDependencies": {
     "@qualweb/types": "^0.3.3",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^12.12.25",
+    "@types/node": "^13.11.0",
     "chai": "^4.2.0",
-    "mocha": "^6.2.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "tslint": "^5.20.0",
-    "typescript": "^3.7.5"
+    "mocha": "^7.1.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
