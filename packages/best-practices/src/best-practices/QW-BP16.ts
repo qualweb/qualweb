@@ -1,12 +1,11 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import { ElementHandle, Page } from 'puppeteer';
-import { CSSStylesheet } from '@qualweb/core';
+import { ElementHandle } from 'puppeteer';
+import { DomUtils } from '@qualweb/util';
 import BestPractice from './BestPractice.object';
 
 class QW_BP16 extends BestPractice {
-
 
   constructor() {
     super({
@@ -28,30 +27,42 @@ class QW_BP16 extends BestPractice {
     });
   }
 
-  async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
 
-    if(!page)
+    if(!element) {
       return;
+    }
 
-    const evaluation: BestPracticeResult = {
+    let evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const a = await page.$$("a");
+    const aElements = await element.$$('a');
 
-    if(a.length === 0){
+    if(aElements.length === 0){
       evaluation.verdict = 'failed';
-      evaluation.description = 'Page does not have <a>';
+      evaluation.description = 'Page does not have any <a> elements.';
       evaluation.resultCode = 'RC1';
-    }else{
-      evaluation.verdict = 'passed';
-      evaluation.description = 'Page has '+a.length+' <a>';
-      evaluation.resultCode = 'RC2';
-    }
+    } else {
+      for (const a of aElements || []) {
+        evaluation = {
+          verdict: '',
+          description: '',
+          resultCode: ''
+        };
 
-    super.addEvaluationResult(evaluation);
+        evaluation.verdict = 'passed';
+        evaluation.description = 'Page has the element <a>.';
+        evaluation.resultCode = 'RC2';
+
+        evaluation.htmlCode = await DomUtils.getElementHtmlCode(a, true, true);
+        evaluation.pointer = await DomUtils.getElementSelector(a);
+
+        super.addEvaluationResult(evaluation);
+      }
+    }
   }
 
 }
