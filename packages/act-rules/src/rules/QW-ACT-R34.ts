@@ -78,7 +78,7 @@ class QW_ACT_R34 extends Rule {
               }
 
             } else if (typeValue === 'id') {
-              const isRequired = requiredAriaList.includes(attrib);
+              const isRequired = requiredAriaList && requiredAriaList.includes(attrib);
               if (isRequired)
                 result = await page.$('#' + attrValue) !== null;
               else
@@ -86,7 +86,7 @@ class QW_ACT_R34 extends Rule {
 
             } else {//if (typeValue === 'idList')
               const list = attrValue.split(' ');
-              const isRequired = requiredAriaList.includes(attrib);
+              const isRequired = requiredAriaList &&  requiredAriaList.includes(attrib);
               if(isRequired) {
                 for (const id of list || []) {
                   if (!result) {

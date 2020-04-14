@@ -23,13 +23,15 @@ class QW_ACT_R19 extends Rule {
     };
 
     const hidden = await DomUtils.isElementHiddenByCSS(element);
-    if(hidden){
+    const tabIndex = await DomUtils.getElementAttribute(element, "tabindex");
+    const presentation = await DomUtils.isElementPresentation(element, page);
+    if (hidden || (presentation && tabIndex && parseInt(tabIndex) < 0)) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not included in the accessibility tree.`;
       evaluation.resultCode = 'RC1';
     } else {
       const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
-      if(accessibleName && accessibleName.trim()) {
+      if (accessibleName && accessibleName.trim()) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target has an accessible name.`;
         evaluation.resultCode = 'RC2';

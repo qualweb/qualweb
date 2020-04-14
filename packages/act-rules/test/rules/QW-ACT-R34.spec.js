@@ -18,7 +18,7 @@ describe(`Rule ${rule}`, async function () {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
 
-    describe('Running tests', function() {
+    /*describe('Running tests', function() {
       for (const test of tests || []) {
         it(test.title, async function() {
           this.timeout(100 * 1000);
@@ -29,15 +29,16 @@ describe(`Rule ${rule}`, async function () {
           expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
-    });
+    });*/
 
     describe('Custom test', function() {
       it('should execute', async function() {
         this.timeout(1000 * 1000);
 
-        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://ciencias.ulisboa.pt');
-        const actRules = new ACTRules({ rules: [rule] });
+        const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.twitch.com/');
+        const actRules = new ACTRules({rules: [rule] });
         const report = await actRules.execute(sourceHtml, page, stylesheets);
+        console.log(report);
       });
     });
 
