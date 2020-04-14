@@ -1,6 +1,6 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
+import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -14,7 +14,7 @@ class QW_ACT_R1 extends Rule {
   }
   
   @IsDocument('html')
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
+  async execute(element: ElementHandle | undefined): Promise<void> {
     
     const evaluation: ACTRuleResult = {
       verdict: '',

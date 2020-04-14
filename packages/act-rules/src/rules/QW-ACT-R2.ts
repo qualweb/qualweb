@@ -22,7 +22,7 @@ class QW_ACT_R2 extends Rule {
       verdict: '',
       description: '',
       resultCode: ''
-    }
+    };
 
     const lang = await DomUtils.getElementAttribute(element, 'lang');
 

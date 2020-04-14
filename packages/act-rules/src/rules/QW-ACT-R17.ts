@@ -41,7 +41,7 @@ class QW_ACT_R17 extends Rule {
             evaluation.verdict = 'inapplicable';
             evaluation.description = `The test target is not included in the accessibility tree.`;
             evaluation.resultCode = 'RC3';
-          } else if (attribs.role && attribs.role !=='img'){
+          } else if (attribs.role && attribs.role !== 'img'){
             evaluation.verdict = 'inapplicable';
             evaluation.description = `The test target doesn't have the semantic role of img.`;
             evaluation.resultCode = 'RC4';
@@ -61,13 +61,13 @@ class QW_ACT_R17 extends Rule {
           }
         } else {
           const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
-          if(accessibleName === null || accessibleName === undefined ) {
+          if(accessibleName === null || accessibleName === undefined) {
             evaluation.verdict = 'failed';
             evaluation.description = `The test target doesn't have an accessible name.`;
             evaluation.resultCode = 'RC7';
           } else if(!accessibleName.replace(/\s/g, '').length) {//check if string has more than whitespaces
             evaluation.verdict = 'failed';
-            evaluation.description = `The test target accessible name is mepty ("").`;
+            evaluation.description = `The test target accessible name is empty ("").`;
             evaluation.resultCode = 'RC8';
           } else {
             evaluation.verdict = 'passed';

@@ -81,6 +81,18 @@ function ElementHasAttributeRole(role: string) {
   };
 }
 
+function ElementHasAttributeValue(attribute: string, value: string) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+      if (attr && attr === value) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -136,6 +148,18 @@ function ElementIsVisible(target: any, propertyKey: string, descriptor: Property
   };
 }
 
+function ElementHasOneOfTheFollowingRoles(roles: string[]) {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function() {
+      const role = await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+      if (!!role && roles.includes(role)) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 function IsDocument(document: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -183,11 +207,13 @@ export {
   ElementHasAttributes,
   ElementHasAttribute,
   ElementHasAttributeRole,
+  ElementHasAttributeValue,
   IfElementHasTagNameMustHaveAttributeRole,
   ElementHasNonEmptyAttribute,
   ElementIsInAccessibilityTree,
   ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
+  ElementHasOneOfTheFollowingRoles,
   IsDocument,
   IsNotMathDocument,
   IsLangSubTagValid

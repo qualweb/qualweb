@@ -2,7 +2,7 @@ const constants = require('./constants')
 const clone = require("lodash/clone");
 const css = require("css");
 const htmlparser2 = require("htmlparser2");
-const request = require("request");
+const fetch = require("node-fetch");
 const CSSselect = require('css-select');
 
 async function getDom(browser,url) {
@@ -34,7 +34,7 @@ async function getDom(browser,url) {
     const stylesheets = await parseStylesheets(plainStylesheets);
 
     const mappedDOM = {};
-    const cookedStew = await CSSselect('*', sourceHtml.html.parsed);
+    const cookedStew = CSSselect('*', sourceHtml.html.parsed);
     if (cookedStew.length > 0)
         for (const item of cookedStew || [])
             mappedDOM[item['_node_id']] = item;
@@ -57,45 +57,22 @@ async function parseStylesheets(plainStylesheets) {
     }
     return stylesheets;
 }
-function getRequestData(headers) {
-  return new Promise((resolve, reject) => {
-    request(headers, (error, response, body) => {
-      if (error) {
-        reject(error);
-      }
-      else if (!response || response.statusCode !== 200) {
-        reject(response.statusCode);
-      }
-      else {
-        resolve({ response, body });
-      }
-    });
-  });
-}
 
-function getTestCases() {
-  return new Promise((resolve, reject) => {
-    request('https://act-rules.github.io/testcases.json', (error, response, body) => {
-      if (error) {
-        reject(error);
-      } else if (!response || response.statusCode !== 200) {
-        reject(response.statusCode);
-      } else {
-        resolve(body);
-      }
-    });
-  });
+
+async function getTestCases() {
+  const response = await fetch('https://act-rules.github.io/testcases.json');
+  return JSON.parse(await response.json());
 }
 
 async function getSourceHTML(url, options) {
-    const headers = {
-        'url': url,
+    const fetchOptions = {
         'headers': {
             'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? constants.DEFAULT_MOBILE_USER_AGENT : constants.DEFAULT_DESKTOP_USER_AGENT : constants.DEFAULT_DESKTOP_USER_AGENT
         }
     };
-    const data = await getRequestData(headers);
-    const sourceHTML = data.body.toString().trim();
+    const response = await fetch(url, fetchOptions);
+    //const data = await response.text();
+    const sourceHTML = (await response.text()).trim();
     const parsedHTML = parseHTML(sourceHTML);
     const elements = CSSselect('*', parsedHTML);
     let title = '';

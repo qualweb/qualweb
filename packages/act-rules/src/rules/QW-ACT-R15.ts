@@ -51,7 +51,7 @@ class QW_ACT_R15 extends Rule {
       evaluation.resultCode = 'RC1';
     } else if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
-      evaluation.description = `Can't colect data from the test target element.`;
+      evaluation.description = `Can't collect data from the test target element.`;
       evaluation.resultCode = 'RC2';
     } else if(applicableServiceData || hasPupeteerApplicableData){
       if (controls) {
