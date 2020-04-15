@@ -4,7 +4,8 @@ export default {
       'meta': ['QW-ACT-R4']
     },
     'post': {
-      'title': ['QW-ACT-R1']
+      'title': ['QW-ACT-R1'],
+      '*': ['QW-ACT-R37']
     }
   },
   'concurrent': {
@@ -32,7 +33,6 @@ export default {
       'audio, video': ['QW-ACT-R15'],
       'input[autocomplete], select[autocomplete], textarea[autocomplete]' : ['QW-ACT-R24'],
       'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35'],
-      '*': ['QW-ACT-R37'],
     }
   }
 };
