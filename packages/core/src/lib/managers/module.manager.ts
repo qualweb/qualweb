@@ -3,7 +3,6 @@
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
-import { executeWappalyzer } from '@qualweb/wappalyzer';
 import { ACTRules } from '@qualweb/act-rules';
 import { HTMLTechniques } from '@qualweb/html-techniques';
 import { CSSTechniques } from '@qualweb/css-techniques';
@@ -94,10 +93,6 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
   const html = new HTMLTechniques();
   const css = new CSSTechniques();
   const bp = new BestPractices();
-
-  if (execute.wappalyzer) {
-    promises.push(executeWappalyzer(url));
-  }
 
   if (execute.act) {
     if (options['act-rules']) {

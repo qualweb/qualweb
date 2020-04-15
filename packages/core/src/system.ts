@@ -5,7 +5,7 @@ import { Parser } from 'htmlparser2';
 import DomHandler, { Node } from 'domhandler';
 import * as DomUtils from 'domutils';
 import CSSselect from 'css-select';
-import request from 'request';
+import fetch from 'node-fetch';
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { evaluate } from './lib/managers/module.manager';
@@ -43,6 +43,14 @@ class System {
       bp: true,
       wappalyzer: false
     };
+  }
+
+  public async start(): Promise<void> {
+    this.browser = await puppeteer.launch({
+      ignoreHTTPSErrors: true,
+      headless: true,
+      args: ['--no-sandbox']
+    });
   }
 
   public async update(options: QualwebOptions): Promise<void> {
@@ -98,21 +106,19 @@ class System {
         wappalyzer: false
       };
     }
+  }
 
-    this.browser = await puppeteer.launch({
-      ignoreHTTPSErrors: true,
-      headless: true,
-      args: ['--no-sandbox']
-    });
-    //this.browser.pages().then(pages => await pages[0].close());
-    //await (await this.browser.pages())[0].close();
-    /*const pages = await this.browser.pages();
-    for (const page of pages || []) {
-      await page.close();
-    }*/
+  private async closePagesBeforeNewExecuteCall(): Promise<void> {
+    if (this.browser) {
+      const pages = await this.browser.pages();
+      for (const page of pages || []) {
+        await page.close();
+      }
+    }
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
+
     for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
       const promises = new Array<any>();
       for (let j = 0 ; j < this.numberOfParallelEvaluations && i + j < this.urls.length ; j++) {
@@ -120,7 +126,6 @@ class System {
       }
       await Promise.all(promises);
     }
-    await this.close();
   }
 
   public async report(earl: boolean, options?: EarlOptions): Promise<{[url: string]: EvaluationReport} | {[url: string]: EarlReport}> {
@@ -131,7 +136,7 @@ class System {
     }
   }
 
-  private async close(): Promise<void> {
+  public async close(): Promise<void> {
     if (this.browser) {
       await this.browser.close();
     }
@@ -139,8 +144,9 @@ class System {
 
   private async runModules(url: string, options: QualwebOptions): Promise<void> {
     if (this.browser) {
+      let page: Page | undefined = undefined;
       try {
-        const page = await this.browser.newPage();
+        page = await this.browser.newPage();
         //await page.setBypassCSP(true);
         await this.setPageViewport(page, options.viewport);
 
@@ -200,10 +206,13 @@ class System {
         const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
 
         this.evaluations[url] = evaluation.getFinalReport();
-        await page.close();
       } catch(err) {
         if (!this.force) {
           console.error(err);
+        }
+      } finally {
+        if (page) {
+          await page.close();
         }
       }
     }
@@ -282,20 +291,6 @@ class System {
     return stylesheets;
   }
 
-  private async getRequestData(headers: (request.UrlOptions & request.CoreOptions)): Promise<any> {
-    return new Promise((resolve: any, reject: any) => {
-      request(headers, (error: any, response: request.Response, body: string) => {
-        if (error) {
-          reject(error);
-        } else if (!response || response.statusCode !== 200) {
-          reject(response.statusCode);
-        } else {
-          resolve({ response, body });
-        }
-      });
-    });
-  }
-
   private async getSourceHTML(url: string, options?: PageOptions): Promise<SourceHtml> {
 
     let reachedPage = false;
@@ -303,15 +298,16 @@ class System {
     let data;
     do {
       try {
-        const headers = {
-          'url': this.correctUrl(url),
+        const fetchOptions = {
           'headers': {
             'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
           }
         };
-
-        data = await this.getRequestData(headers);
-        reachedPage = true;
+        const response = await fetch(this.correctUrl(url), fetchOptions);
+        if (response && response.status === 200) {
+          data = await response.text();
+          reachedPage = true;
+        }
       } catch (err) {
         url = this.fixWWW(url);
         if (failedAttempts === 1) {
@@ -323,7 +319,7 @@ class System {
     } while(!reachedPage);
 
     if (data) {
-      const sourceHTML: string = data.body.toString().trim();
+      const sourceHTML: string = data.trim();
 
       const parsedHTML = this.parseHTML(sourceHTML);
 

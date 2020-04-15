@@ -7,6 +7,14 @@ import System from './system';
 
 const system = new System();
 
+async function start(): Promise<void> {
+  await system.start();
+}
+
+async function close(): Promise<void> {
+  await system.close();
+}
+
 async function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
   await system.update(options);
   await system.execute(options);
@@ -18,6 +26,8 @@ async function generateEarlReport(options?: EarlOptions): Promise<{[url: string]
 }
 
 export {
+  start,
+  close,
   evaluate,
   generateEarlReport
 };
