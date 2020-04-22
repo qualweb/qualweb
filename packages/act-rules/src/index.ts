@@ -115,18 +115,23 @@ class ACTRules {
 
   private async executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport, concurrent: boolean): Promise<void> {
     const promises = new Array<any>();
-    const elements = await page.$$(selector);
-    if (elements.length > 0) {
-      for (const elem of elements || []) {
-        if (concurrent) {
-          promises.push(this.rules[rule].execute(elem, page, this.optimization));
-        } else {
-          await this.rules[rule].execute(elem, page, this.optimization);
-        }
-      }
-    } else {
+    if(rule === 'QW-ACT-R37'){
       await this.rules[rule].execute(undefined, page, this.optimization);
+    }else{
+      const elements = await page.$$(selector);
+      if (elements.length > 0) {
+        for (const elem of elements || []) {
+          if (concurrent) {
+            promises.push(this.rules[rule].execute(elem, page, this.optimization));
+          } else {
+            await this.rules[rule].execute(elem, page, this.optimization);
+          }
+        }
+      } else {
+        await this.rules[rule].execute(undefined, page, this.optimization);
+      }
     }
+
     if (concurrent) {
       await Promise.all(promises);
     }
@@ -172,7 +177,7 @@ class ACTRules {
   }
 
   public async execute(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
-    
+
     const report: ACTRulesReport = {
       type: 'act-rules',
       metadata: {
@@ -185,13 +190,13 @@ class ACTRules {
     };
 
     page = await ShadowDomUtils.processShadowDom(page);
-    
+
     await Promise.all([
       this.executeNonConcurrentRules(report, sourceHtml, page),
       this.executeConcurrentRules(report, sourceHtml, page),
       this.executeNotMappedRules(report, stylesheets)
     ]);
-    
+
     return report;
   }
 }

@@ -6,7 +6,7 @@ import { AccessibilityUtils, DomUtils } from '@qualweb/util'
 import LanguageDetect from 'languagedetect';
 import pixelWidth from 'string-pixel-width';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRule } from '../lib/decorator';
 
 const detector = new LanguageDetect();
 
@@ -17,191 +17,200 @@ class QW_ACT_R37 extends Rule {
     super(rule);
   }
 
-  @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
-    
-    let tagName  = await DomUtils.getElementTagName(element);
-    if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
-    tagName === 'script' || tagName === 'style' || tagName === 'meta')
-      return;
+  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
-    let visible = await DomUtils.isElementVisible(element);
-    if(!visible){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element is not visible.';
-      evaluation.resultCode = 'RC1';
-      await super.addEvaluationResult(evaluation, element);
-      return;
-    }
-
-    let hasTextNode = await this.elementHasTextNode(element);
-    let elementText = await AccessibilityUtils.getTrimmedText(element);
-
-    if(!hasTextNode || elementText === ''){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `Element doesn't have text.`;
-      evaluation.resultCode = 'RC2';
-      await super.addEvaluationResult(evaluation, element);
-      return;
-    }
-
-    let isHTML = await this.isElementHTMLElement(element);
-		if(!isHTML){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element is not an HTML element.';
-      evaluation.resultCode = 'RC3';
-      await super.addEvaluationResult(evaluation, element);
-      return;
-    }
-
-    let isWidget = await AccessibilityUtils.isElementWidget(element);
-    if(isWidget){
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element has a semantic role that inherits from widget.';
-      evaluation.resultCode = 'RC4';
-      await super.addEvaluationResult(evaluation, element);
-      return;
-    }
-
-    const elementSelectors = await DomUtils.getElementSelector(element);
-    
     let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
-    for (let disableWidget of disabledWidgets){
-      let selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+    const elements = await page.$$('*');
+    if (elements.length > 0) {
+      for (const element of elements || []) {
+        let tagName  = await DomUtils.getElementTagName(element);
+        if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
+          tagName === 'script' || tagName === 'style' || tagName === 'meta')
+            continue;
 
-      if(selectors && selectors.includes(elementSelectors)){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'This text is part of a label of a disabled widget.';
-        evaluation.resultCode = 'RC5';
-        await super.addEvaluationResult(evaluation, element);
-        return;
-      }
-    }
+        const evaluation: ACTRuleResult = {
+          verdict: '',
+          description: '',
+          resultCode: ''
+        };
 
-    let role = await AccessibilityUtils.getElementRole(element, page);
-
-    if(role === 'group'){
-      if(await DomUtils.elementHasAttribute(element, 'disabled')){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'Element has a semantic role of group and is disabled.';
-        evaluation.resultCode = 'RC6';
-        await super.addEvaluationResult(evaluation, element);
-        return;
-      }
-    }
-
-    const fgColor = await DomUtils.getElementStyleProperty(element, "color", null);
-    const bgColor = await DomUtils.getElementStyleProperty(element, "background", null);
-    const opacity = parseFloat(await DomUtils.getElementStyleProperty(element, "opacity", null));
-    const fontSize = await DomUtils.getElementStyleProperty(element, "font-size", null);
-    const fontWeight = await DomUtils.getElementStyleProperty(element, "font-weight", null);
-    const fontFamily = await DomUtils.getElementStyleProperty(element, "font-family", null);
-    const fontStyle = await DomUtils.getElementStyleProperty(element, "font-style", null);
-
-    if(bgColor.toLowerCase().includes("jpeg") || bgColor.toLowerCase().includes("jpg") || bgColor.toLowerCase().includes("png") || bgColor.toLowerCase().includes("svg")){
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Element has an image on background.';
-      evaluation.resultCode = 'RC12';
-      await super.addEvaluationResult(evaluation, element);
-      return
-    }
-
-    //TODO check char to char
-    //TODO check if there is more colors
-    //TODO account for margin and padding
-
-    const regexGradient = /((\w-?)*gradient.*)/gm;
-    let regexGradientMatches = bgColor.match(regexGradient);
-    if(regexGradientMatches){
-      if(this.isHumanLanguage(elementText)){
-        let parsedGradientString = regexGradientMatches[0];
-        if(parsedGradientString.startsWith("linear-gradient")){
-          let gradientDirection = this.getGradientDirection(parsedGradientString);
-          if(gradientDirection === 'to right'){
-            let colors = this.parseGradientString(parsedGradientString, opacity);
-            let isValid = true;
-            let contrastRatio;
-            let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
-            if(textSize !== -1){
-              let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
-              let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
-              let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
-              contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
-              isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-              contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
-              isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-            }else{
-              for(let color of colors){
-                contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
-                isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-              }
-            }
-            if(isValid){
-              evaluation.verdict = 'passed';
-              evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
-              evaluation.resultCode = 'RC8';
-            }else{
-              evaluation.verdict = 'failed';
-              evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
-              evaluation.resultCode = 'RC10';
-            }
-          }else if(gradientDirection === 'to left'){
-            //TODO
-          }else{
-            evaluation.verdict = 'warning';
-            evaluation.description = 'Element has an gradient that we cant verify.';
-            evaluation.resultCode = 'RC13';
-            await super.addEvaluationResult(evaluation, element);
-            return
-          }
-        }else{
-          evaluation.verdict = 'warning';
-          evaluation.description = 'Element has an gradient that we cant verify.';
-          evaluation.resultCode = 'RC13';
+        let visible = await DomUtils.isElementVisible(element);
+        if(!visible){
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = 'Element is not visible.';
+          evaluation.resultCode = 'RC1';
           await super.addEvaluationResult(evaluation, element);
-          return
+          continue;
         }
-      }else{
-        evaluation.verdict = 'passed';
-        evaluation.description = `Element doesn't have human language text.`;
-        evaluation.resultCode = 'RC9';
-      }
 
-    }else{
-      let parsedBG = this.parseRgbString(bgColor, opacity);
-      let parsedFG = this.parseRgbString(fgColor, opacity);
+        let hasTextNode = await this.elementHasTextNode(element);
+        let elementText = await AccessibilityUtils.getTrimmedText(element);
 
-      if(this.equals(parsedBG, parsedFG)){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'Colors are equal.';
-        evaluation.resultCode = 'RC7';
-      }else{
-        if(this.isHumanLanguage(elementText)){
-          let contrastRatio = this.getContrast(parsedBG, parsedFG);
-          let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
-          if(isValid){
-            evaluation.verdict = 'passed';
-            evaluation.description = 'Element has contrast ratio higher than minimum.';
-            evaluation.resultCode = 'RC9';
-          }else{
-            evaluation.verdict = 'failed';
-            evaluation.description = 'Element has contrast ratio lower than minimum.';
-            evaluation.resultCode = 'RC11';
+        if(!hasTextNode || elementText === ''){
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = `Element doesn't have text.`;
+          evaluation.resultCode = 'RC2';
+          await super.addEvaluationResult(evaluation, element);
+          continue;
+        }
+
+        let isHTML = await this.isElementHTMLElement(element);
+        if(!isHTML){
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = 'Element is not an HTML element.';
+          evaluation.resultCode = 'RC3';
+          await super.addEvaluationResult(evaluation, element);
+          continue;
+        }
+
+        let isWidget = await AccessibilityUtils.isElementWidget(element);
+        if(isWidget){
+          evaluation.verdict = 'inapplicable';
+          evaluation.description = 'Element has a semantic role that inherits from widget.';
+          evaluation.resultCode = 'RC4';
+          await super.addEvaluationResult(evaluation, element);
+          continue;
+        }
+
+        const elementSelectors = await DomUtils.getElementSelector(element);
+        let selectors;
+        let shouldContinue = false;
+        for (let disableWidget of disabledWidgets){
+          selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+
+          if(selectors && selectors.includes(elementSelectors)){
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = 'This text is part of a label of a disabled widget.';
+            evaluation.resultCode = 'RC5';
+            await super.addEvaluationResult(evaluation, element);
+            shouldContinue = true;
+            break;
           }
-        }else{
-          evaluation.verdict = 'passed';
-          evaluation.description = `Element doesn't have human language text.`;
-          evaluation.resultCode = 'RC9';
         }
+
+        if(shouldContinue)
+          continue;
+
+        let role = await AccessibilityUtils.getElementRole(element, page);
+
+        if(role === 'group'){
+          if(await DomUtils.elementHasAttribute(element, 'disabled')){
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = 'Element has a semantic role of group and is disabled.';
+            evaluation.resultCode = 'RC6';
+            await super.addEvaluationResult(evaluation, element);
+            continue;
+          }
+        }
+
+        const fgColor = await DomUtils.getElementStyleProperty(element, "color", null);
+        const bgColor = await DomUtils.getElementStyleProperty(element, "background", null);
+        const opacity = parseFloat(await DomUtils.getElementStyleProperty(element, "opacity", null));
+        const fontSize = await DomUtils.getElementStyleProperty(element, "font-size", null);
+        const fontWeight = await DomUtils.getElementStyleProperty(element, "font-weight", null);
+        const fontFamily = await DomUtils.getElementStyleProperty(element, "font-family", null);
+        const fontStyle = await DomUtils.getElementStyleProperty(element, "font-style", null);
+
+        if(bgColor.toLowerCase().includes("jpeg") || bgColor.toLowerCase().includes("jpg") || bgColor.toLowerCase().includes("png") || bgColor.toLowerCase().includes("svg")){
+          evaluation.verdict = 'warning';
+          evaluation.description = 'Element has an image on background.';
+          evaluation.resultCode = 'RC12';
+          await super.addEvaluationResult(evaluation, element);
+          continue
+        }
+
+        //TODO check char to char
+        //TODO check if there is more colors
+        //TODO account for margin and padding
+
+        const regexGradient = /((\w-?)*gradient.*)/gm;
+        let regexGradientMatches = bgColor.match(regexGradient);
+        if(regexGradientMatches){
+          if(this.isHumanLanguage(elementText)){
+            let parsedGradientString = regexGradientMatches[0];
+            if(parsedGradientString.startsWith("linear-gradient")){
+              let gradientDirection = this.getGradientDirection(parsedGradientString);
+              if(gradientDirection === 'to right'){
+                let colors = this.parseGradientString(parsedGradientString, opacity);
+                let isValid = true;
+                let contrastRatio;
+                let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
+                if(textSize !== -1){
+                  let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
+                  let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
+                  let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
+                  contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
+                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                  contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
+                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                }else{
+                  for(let color of colors){
+                    contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
+                    isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                  }
+                }
+                if(isValid){
+                  evaluation.verdict = 'passed';
+                  evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
+                  evaluation.resultCode = 'RC8';
+                }else{
+                  evaluation.verdict = 'failed';
+                  evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
+                  evaluation.resultCode = 'RC10';
+                }
+              }else if(gradientDirection === 'to left'){
+                //TODO
+              }else{
+                evaluation.verdict = 'warning';
+                evaluation.description = 'Element has an gradient that we cant verify.';
+                evaluation.resultCode = 'RC13';
+                await super.addEvaluationResult(evaluation, element);
+                continue
+              }
+            }else{
+              evaluation.verdict = 'warning';
+              evaluation.description = 'Element has an gradient that we cant verify.';
+              evaluation.resultCode = 'RC13';
+              await super.addEvaluationResult(evaluation, element);
+              continue
+            }
+          }else{
+            evaluation.verdict = 'passed';
+            evaluation.description = `Element doesn't have human language text.`;
+            evaluation.resultCode = 'RC9';
+          }
+
+        }else{
+          let parsedBG = this.parseRgbString(bgColor, opacity);
+          let parsedFG = this.parseRgbString(fgColor, opacity);
+
+          if(this.equals(parsedBG, parsedFG)){
+            evaluation.verdict = 'inapplicable';
+            evaluation.description = 'Colors are equal.';
+            evaluation.resultCode = 'RC7';
+          }else{
+            if(this.isHumanLanguage(elementText)){
+              let contrastRatio = this.getContrast(parsedBG, parsedFG);
+              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+              if(isValid){
+                evaluation.verdict = 'passed';
+                evaluation.description = 'Element has contrast ratio higher than minimum.';
+                evaluation.resultCode = 'RC9';
+              }else{
+                evaluation.verdict = 'failed';
+                evaluation.description = 'Element has contrast ratio lower than minimum.';
+                evaluation.resultCode = 'RC11';
+              }
+            }else{
+              evaluation.verdict = 'passed';
+              evaluation.description = `Element doesn't have human language text.`;
+              evaluation.resultCode = 'RC9';
+            }
+          }
+        }
+        await super.addEvaluationResult(evaluation, element);
       }
     }
-    await super.addEvaluationResult(evaluation, element);
   }
 
   isHumanLanguage(string): boolean{
@@ -244,7 +253,7 @@ class QW_ACT_R37 extends Rule {
   }
 
   parseGradientString(gradient: string, opacity: number): any{
-		const regex = /rgb(a?)\((\d+), (\d+), (\d+)+(, +(\d)+)?\)/gm;
+    const regex = /rgb(a?)\((\d+), (\d+), (\d+)+(, +(\d)+)?\)/gm;
     let colorsMatch = gradient.match(regex);
     let colors: any = []
     for(let stringColor of colorsMatch || []){
@@ -254,7 +263,6 @@ class QW_ACT_R37 extends Rule {
     return colors;
   }
 
-  //from axe_core
   parseRgbString(colorString: string, opacity: number): any {
 
     let rgbRegex = /^rgb\((\d+), (\d+), (\d+)\)/;
@@ -336,7 +344,6 @@ class QW_ACT_R37 extends Rule {
       const width = pixelWidth(string, { font: font, size: fontSize, bold: bold, italic: italic });
       return width;
     } catch (error) {
-			console.log(error)
       return -1;
     }
 

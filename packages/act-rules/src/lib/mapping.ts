@@ -4,7 +4,8 @@ export default {
       'meta': ['QW-ACT-R4']
     },
     'post': {
-      'title': ['QW-ACT-R1']
+      'title': ['QW-ACT-R1'],
+      '*': ['QW-ACT-R37']
     }
   },
   'concurrent': {
@@ -34,7 +35,6 @@ export default {
       'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35'],
       '[headers]': ['QW-ACT-R36'],
       'th,[role="rowheader"],[role="columnheader"]': ['QW-ACT-R39'],
-      '*': ['QW-ACT-R37'],
     }
   }
 };
