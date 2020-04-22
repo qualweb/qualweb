@@ -14,7 +14,7 @@ class Crawl {
   constructor(domain: string) {
     this.urls = new Array<string>();
     this.crawler = new Crawler(domain);
-    this.crawledURLS = 1;
+    this.crawledURLS = 0;
   }
 
   public async start(options?: any): Promise<void> {
