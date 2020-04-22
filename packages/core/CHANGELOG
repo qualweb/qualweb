@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.3.16] - 22/03/2020
+
+### Updated
+ - act-rules module
+ - puppeteer to version 3
+ - the way qualweb obtains the page source html
+
+## [0.3.16] - 19/03/2020
+
+### Updated
+ - act-rules module
+
+## [0.3.15] - 18/03/2020
+
+### Updated
+ - act-rules module
+ - html-techniques module
+
 ## [0.3.14] - 21/02/2020
 
 ### Updated

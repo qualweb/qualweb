@@ -3,9 +3,8 @@
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
-import { executeWappalyzer } from '@qualweb/wappalyzer';
 import { ACTRules } from '@qualweb/act-rules';
-import * as html from '@qualweb/html-techniques';
+import { HTMLTechniques } from '@qualweb/html-techniques';
 import { CSSTechniques } from '@qualweb/css-techniques';
 import { BestPractices } from '@qualweb/best-practices';
 
@@ -39,26 +38,7 @@ function parseUrl(url: string, pageUrl: string): Url {
 }
 
 async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
-  const act = new ACTRules();
-  const css = new CSSTechniques();
-  const bp = new BestPractices();
-
-  if (execute.act && options['act-rules']) {
-    act.configure(options['act-rules']);
-  }
-
-  if (execute.html && options['html-techniques']) {
-    html.configure(options['html-techniques']);
-  }
-
-  if (execute.css && options['css-techniques']) {
-    css.configure(options['css-techniques']);
-  }
-
-  if (execute.bp && options['best-practices']) {
-    bp.configure(options['best-practices']);
-  }
-
+  
   const [pageUrl, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
     page.url(),
     page.evaluate(() => {
@@ -109,23 +89,36 @@ async function evaluate(url: string, sourceHtml: SourceHtml, page: Page, stylesh
 
   const promises = new Array<any>();
 
-  if (execute.wappalyzer) {
-    promises.push(executeWappalyzer(url));
-  }
+  const act = new ACTRules();
+  const html = new HTMLTechniques();
+  const css = new CSSTechniques();
+  const bp = new BestPractices();
 
   if (execute.act) {
+    if (options['act-rules']) {
+      act.configure(options['act-rules']);
+    }
     promises.push(act.execute(sourceHtml, page, stylesheets));
   }
 
   if (execute.html) {
-    promises.push(html.executeHTMLT(page));
+    if (options['html-techniques']) {
+      html.configure(options['html-techniques']);
+    }
+    promises.push(html.execute(page));
   }
 
   if (execute.css) {
+    if (options['css-techniques']) {
+      css.configure(options['css-techniques']);
+    }
     promises.push(css.execute(stylesheets, mappedDOM));
   }
 
   if (execute.bp) {
+    if (options['best-practices']) {
+      bp.configure(options['best-practices']);
+    }
     promises.push(bp.execute(page, stylesheets));
   }
 

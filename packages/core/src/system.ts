@@ -5,7 +5,6 @@ import { Parser } from 'htmlparser2';
 import DomHandler, { Node } from 'domhandler';
 import * as DomUtils from 'domutils';
 import CSSselect from 'css-select';
-import request from 'request';
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { evaluate } from './lib/managers/module.manager';
@@ -43,6 +42,14 @@ class System {
       bp: true,
       wappalyzer: false
     };
+  }
+
+  public async start(): Promise<void> {
+    this.browser = await puppeteer.launch({
+      ignoreHTTPSErrors: true,
+      headless: true,
+      args: ['--no-sandbox']
+    });
   }
 
   public async update(options: QualwebOptions): Promise<void> {
@@ -98,21 +105,10 @@ class System {
         wappalyzer: false
       };
     }
-
-    this.browser = await puppeteer.launch({
-      ignoreHTTPSErrors: true,
-      headless: true,
-      //args: ['--disable-web-security', '--no-sandbox']
-    });
-    //this.browser.pages().then(pages => await pages[0].close());
-    //await (await this.browser.pages())[0].close();
-    const pages = await this.browser.pages();
-    for (const page of pages || []) {
-      await page.close();
-    }
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
+
     for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
       const promises = new Array<any>();
       for (let j = 0 ; j < this.numberOfParallelEvaluations && i + j < this.urls.length ; j++) {
@@ -120,7 +116,6 @@ class System {
       }
       await Promise.all(promises);
     }
-    await this.close();
   }
 
   public async report(earl: boolean, options?: EarlOptions): Promise<{[url: string]: EvaluationReport} | {[url: string]: EarlReport}> {
@@ -131,7 +126,7 @@ class System {
     }
   }
 
-  private async close(): Promise<void> {
+  public async close(): Promise<void> {
     if (this.browser) {
       await this.browser.close();
     }
@@ -139,8 +134,9 @@ class System {
 
   private async runModules(url: string, options: QualwebOptions): Promise<void> {
     if (this.browser) {
+      let page: Page | undefined = undefined;
       try {
-        const page = await this.browser.newPage();
+        page = await this.browser.newPage();
         //await page.setBypassCSP(true);
         await this.setPageViewport(page, options.viewport);
 
@@ -153,77 +149,51 @@ class System {
           }
         });
 
-        let reachedPage = false;
-        let failedAttempts = 0;
+        const response = await page.goto(url, {
+          timeout: 0,
+          waitUntil: ['networkidle2', 'domcontentloaded']
+        });
 
-        do {
-          try {
-            await page.goto(this.correctUrl(url), {
-              timeout: 0,
-              waitUntil: ['networkidle2', 'domcontentloaded']
-            });
-            reachedPage = true;
-          } catch (err) {
-            url = this.fixWWW(url);
-            if (failedAttempts === 1) {
-              reachedPage = true;
-            } else {
-              failedAttempts++;
+        if (response) {
+          const sourceHtml = await this.parseSourceHTML(await response.text());
+          const styles = CSSselect('style', sourceHtml.html.parsed);
+          let k = 0;
+          for (const style of styles || []) {
+            if (style['children'] && style['children'][0]) {
+              plainStylesheets['html' + k] = style['children'][0]['data'];
+            }
+            k++;
+          }
+          const stylesheets = await this.parseStylesheets(plainStylesheets);
+          const mappedDOM = {};
+          const cookedStew = CSSselect('*', sourceHtml.html.parsed);
+          
+          if (cookedStew.length > 0) {
+            for (const item of cookedStew || []) {
+              if (item['startIndex']) {
+                mappedDOM[item['startIndex']] = item;
+              }
             }
           }
-        } while(!reachedPage);
+          
+          await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
 
-        const sourceHtml = await this.getSourceHTML(url);
-        const styles = CSSselect('style', sourceHtml.html.parsed);
-        let k = 0;
-        for (const style of styles || []) {
-          if (style['children'] && style['children'][0]) {
-            plainStylesheets['html' + k] = style['children'][0]['data'];
-          }
-          k++;
+          const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+
+          this.evaluations[url] = evaluation.getFinalReport();
+        } else {
+          throw new Error('Error trying to reach webpage.');
         }
-        const stylesheets = await this.parseStylesheets(plainStylesheets);
-        const mappedDOM = {};
-        const cookedStew = await CSSselect('*', sourceHtml.html.parsed);
-        if (cookedStew.length > 0) {
-          for (const item of cookedStew || []) {
-            mappedDOM[item['_node_id']] = item;
-          }
-        }
-
-        await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
-
-        const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
-
-        this.evaluations[url] = evaluation.getFinalReport();
-        await page.close();
       } catch(err) {
         if (!this.force) {
           console.error(err);
         }
+      } finally {
+        if (page) {
+          await page.close();
+        }
       }
     }
-  }
-
-  private correctUrl(url: string): string {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return 'http://' + url;
-    }
-
-    return url;
-  }
-
-  private fixWWW(url: string): string {
-    url = url.replace('http://', '');
-    url = url.replace('https://', '');
-
-    if (url.startsWith('www.')) {
-      url = url.replace('www.', '');
-    } else {
-      url = 'www.' + url;
-    }
-
-    return 'http://' + url;
   }
 
   private async setPageViewport(page: Page, options?: PageOptions): Promise<void> {
@@ -278,78 +248,36 @@ class System {
     return stylesheets;
   }
 
-  private async getRequestData(headers: (request.UrlOptions & request.CoreOptions)): Promise<any> {
-    return new Promise((resolve: any, reject: any) => {
-      request(headers, (error: any, response: request.Response, body: string) => {
-        if (error) {
-          reject(error);
-        } else if (!response || response.statusCode !== 200) {
-          reject(response.statusCode);
-        } else {
-          resolve({ response, body });
-        }
-      });
-    });
-  }
+  private async parseSourceHTML(html: string): Promise<SourceHtml> {
+    
+    const sourceHTML: string = html.trim();
 
-  private async getSourceHTML(url: string, options?: PageOptions): Promise<SourceHtml> {
+    const parsedHTML = this.parseHTML(sourceHTML);
 
-    let reachedPage = false;
-    let failedAttempts = 0;
-    let data;
-    do {
-      try {
-        const headers = {
-          'url': this.correctUrl(url),
-          'headers': {
-            'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
-          }
-        };
+    const elements = CSSselect('*', parsedHTML);
 
-        data = await this.getRequestData(headers);
-        reachedPage = true;
-      } catch (err) {
-        url = this.fixWWW(url);
-        if (failedAttempts === 1) {
-          reachedPage = true;
-        } else {
-          failedAttempts++;
-        }
-      }
-    } while(!reachedPage);
+    let title = '';
 
-    if (data) {
-      const sourceHTML: string = data.body.toString().trim();
+    const titles = CSSselect('title', parsedHTML);
 
-      const parsedHTML = this.parseHTML(sourceHTML);
-
-      const elements = CSSselect('*', parsedHTML);
-
-      let title = '';
-
-      const titles = CSSselect('title', parsedHTML);
-
-      if (titles.length > 0) {
-        title = DomUtils.getText(titles[0]);
-      }
-
-      const source: SourceHtml = {
-        html: {
-          plain: sourceHTML,
-          parsed: parsedHTML
-        },
-        elementCount: elements.length,
-        title: title !== '' ? title : undefined
-      }
-
-      return source;
-    } else {
-      throw new Error(`Can't reach webpage`);
+    if (titles.length > 0) {
+      title = DomUtils.getText(titles[0]);
     }
+
+    const source: SourceHtml = {
+      html: {
+        plain: sourceHTML,
+        parsed: parsedHTML
+      },
+      elementCount: elements.length,
+      title: title !== '' ? title : undefined
+    }
+
+    return source;
   }
 
   private parseHTML(html: string): Node[] {
-    const handler = new DomHandler();
+    const handler = new DomHandler(() => {}, { withStartIndices: true, withEndIndices: true });
     const parser = new Parser(handler);
     parser.write(html.replace(/(\r\n|\n|\r|\t)/gm, ''));
     parser.end();
@@ -398,32 +326,35 @@ class System {
         let stewResult = CSSselect(cssObject['selectors'].toString(), dom);
         if (stewResult.length > 0) {
           for (const item of stewResult || []) {
-            for (const declaration of declarations || []) {
-              if (declaration['property'] && declaration['value']) {
-                if (!item['attribs']) {
-                  item['attribs'] = {};
-                }
-                if (!item['attribs']['css']) {
-                  item['attribs']['css'] = {};
-                }
-                if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
-                  item['attribs']['css'][declaration['property']]['value'].includes('!important')) {
-                  continue;
-                }
-                else {
-                  item['attribs']['css'][declaration['property']] = {};
-                  if (parentType) {
-                    item['attribs']['css'][declaration['property']]['media'] = parentType;
+            if (item['startIndex']) {
+              for (const declaration of declarations || []) {
+                if (declaration['property'] && declaration['value']) {
+                  if (!item['attribs']) {
+                    item['attribs'] = {};
                   }
-                  item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                  if (!item['attribs']['css']) {
+                    item['attribs']['css'] = {};
+                  }
+                  if (item['attribs']['css'][declaration['property']] && item['attribs']['css'][declaration['property']]['value'] &&
+                    item['attribs']['css'][declaration['property']]['value'].includes('!important')) {
+                    continue;
+                  }
+                  else {
+                    item['attribs']['css'][declaration['property']] = {};
+                    if (parentType) {
+                      item['attribs']['css'][declaration['property']]['media'] = parentType;
+                    }
+                    item['attribs']['css'][declaration['property']]['value'] = declaration['value'];
+                  }
+                  mappedDOM[item['startIndex']] = item;
                 }
-                mappedDOM[item['_node_id']] = item;
               }
             }
           }
         }
       }
       catch (err) {
+        
       }
     }
   }
