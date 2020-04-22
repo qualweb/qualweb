@@ -19,18 +19,15 @@ function parse(){
   if(mainOptions._unknown)
     printHelp();
 
-  if (mainOptions.url){
-    options['url'] = mainOptions.url;
-    console.log('Starting evaluation ...');
-  }
-  if (mainOptions.file){
-    options['file'] = mainOptions.file;
-    console.log('Starting evaluation ...');
-  }
-  if (mainOptions.crawl){
-    options['crawl'] = mainOptions.crawl;
-    console.log('Starting crawler ...');
-  }
+  if (mainOptions.url)
+    options["url"] = mainOptions.url;
+
+  if (mainOptions.file)
+    options["file"] = mainOptions.file;
+
+  if (mainOptions.crawl)
+    options["crawl"] = mainOptions.crawl;
+
   if(mainOptions.module){
     let modules;
     options['execute'] = {};
@@ -46,7 +43,6 @@ function parse(){
 
   if(mainOptions['report-type'])
     options['r'] = mainOptions['report-type'];
-
 
   //////////////////////////////////////////////////////////////////////////////////
   // ACT ///////////////////////////////////////////////////////////////////////////
