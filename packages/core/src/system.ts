@@ -5,7 +5,6 @@ import { Parser } from 'htmlparser2';
 import DomHandler, { Node } from 'domhandler';
 import * as DomUtils from 'domutils';
 import CSSselect from 'css-select';
-import fetch from 'node-fetch';
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { evaluate } from './lib/managers/module.manager';
@@ -108,15 +107,6 @@ class System {
     }
   }
 
-  private async closePagesBeforeNewExecuteCall(): Promise<void> {
-    if (this.browser) {
-      const pages = await this.browser.pages();
-      for (const page of pages || []) {
-        await page.close();
-      }
-    }
-  }
-
   public async execute(options: QualwebOptions): Promise<void> {
 
     for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
@@ -159,53 +149,41 @@ class System {
           }
         });
 
-        let reachedPage = false;
-        let failedAttempts = 0;
+        const response = await page.goto(url, {
+          timeout: 0,
+          waitUntil: ['networkidle2', 'domcontentloaded']
+        });
 
-        do {
-          try {
-            await page.goto(this.correctUrl(url), {
-              timeout: 0,
-              waitUntil: ['networkidle2', 'domcontentloaded']
-            });
-            reachedPage = true;
-          } catch (err) {
-            url = this.fixWWW(url);
-            if (failedAttempts === 1) {
-              reachedPage = true;
-            } else {
-              failedAttempts++;
+        if (response) {
+          const sourceHtml = await this.parseSourceHTML(await response.text());
+          const styles = CSSselect('style', sourceHtml.html.parsed);
+          let k = 0;
+          for (const style of styles || []) {
+            if (style['children'] && style['children'][0]) {
+              plainStylesheets['html' + k] = style['children'][0]['data'];
+            }
+            k++;
+          }
+          const stylesheets = await this.parseStylesheets(plainStylesheets);
+          const mappedDOM = {};
+          const cookedStew = CSSselect('*', sourceHtml.html.parsed);
+          
+          if (cookedStew.length > 0) {
+            for (const item of cookedStew || []) {
+              if (item['startIndex']) {
+                mappedDOM[item['startIndex']] = item;
+              }
             }
           }
-        } while(!reachedPage);
+          
+          await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
 
-        const sourceHtml = await this.getSourceHTML(url);
-        const styles = CSSselect('style', sourceHtml.html.parsed);
-        let k = 0;
-        for (const style of styles || []) {
-          if (style['children'] && style['children'][0]) {
-            plainStylesheets['html' + k] = style['children'][0]['data'];
-          }
-          k++;
+          const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+
+          this.evaluations[url] = evaluation.getFinalReport();
+        } else {
+          throw new Error('Error trying to reach webpage.');
         }
-        const stylesheets = await this.parseStylesheets(plainStylesheets);
-        const mappedDOM = {};
-        const cookedStew = CSSselect('*', sourceHtml.html.parsed);
-        
-        if (cookedStew.length > 0) {
-          for (const item of cookedStew || []) {
-            //console.log(item);
-            if (item['startIndex']) {
-              mappedDOM[item['startIndex']] = item;
-            }
-          }
-        }
-        
-        await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
-
-        const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
-
-        this.evaluations[url] = evaluation.getFinalReport();
       } catch(err) {
         if (!this.force) {
           console.error(err);
@@ -216,27 +194,6 @@ class System {
         }
       }
     }
-  }
-
-  private correctUrl(url: string): string {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return 'http://' + url;
-    }
-
-    return url;
-  }
-
-  private fixWWW(url: string): string {
-    url = url.replace('http://', '');
-    url = url.replace('https://', '');
-
-    if (url.startsWith('www.')) {
-      url = url.replace('www.', '');
-    } else {
-      url = 'www.' + url;
-    }
-
-    return 'http://' + url;
   }
 
   private async setPageViewport(page: Page, options?: PageOptions): Promise<void> {
@@ -291,61 +248,32 @@ class System {
     return stylesheets;
   }
 
-  private async getSourceHTML(url: string, options?: PageOptions): Promise<SourceHtml> {
+  private async parseSourceHTML(html: string): Promise<SourceHtml> {
+    
+    const sourceHTML: string = html.trim();
 
-    let reachedPage = false;
-    let failedAttempts = 0;
-    let data;
-    do {
-      try {
-        const fetchOptions = {
-          'headers': {
-            'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
-          }
-        };
-        const response = await fetch(this.correctUrl(url), fetchOptions);
-        if (response && response.status === 200) {
-          data = await response.text();
-          reachedPage = true;
-        }
-      } catch (err) {
-        url = this.fixWWW(url);
-        if (failedAttempts === 1) {
-          reachedPage = true;
-        } else {
-          failedAttempts++;
-        }
-      }
-    } while(!reachedPage);
+    const parsedHTML = this.parseHTML(sourceHTML);
 
-    if (data) {
-      const sourceHTML: string = data.trim();
+    const elements = CSSselect('*', parsedHTML);
 
-      const parsedHTML = this.parseHTML(sourceHTML);
+    let title = '';
 
-      const elements = CSSselect('*', parsedHTML);
+    const titles = CSSselect('title', parsedHTML);
 
-      let title = '';
-
-      const titles = CSSselect('title', parsedHTML);
-
-      if (titles.length > 0) {
-        title = DomUtils.getText(titles[0]);
-      }
-
-      const source: SourceHtml = {
-        html: {
-          plain: sourceHTML,
-          parsed: parsedHTML
-        },
-        elementCount: elements.length,
-        title: title !== '' ? title : undefined
-      }
-
-      return source;
-    } else {
-      throw new Error(`Can't reach webpage`);
+    if (titles.length > 0) {
+      title = DomUtils.getText(titles[0]);
     }
+
+    const source: SourceHtml = {
+      html: {
+        plain: sourceHTML,
+        parsed: parsedHTML
+      },
+      elementCount: elements.length,
+      title: title !== '' ? title : undefined
+    }
+
+    return source;
   }
 
   private parseHTML(html: string): Node[] {

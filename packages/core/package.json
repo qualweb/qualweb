@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.3.16",
+  "version": "0.3.17",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -43,7 +43,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.3.32",
+    "@qualweb/act-rules": "^0.3.33",
     "@qualweb/best-practices": "^0.3.2",
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/css-techniques": "^0.3.5",
@@ -55,11 +55,11 @@
     "htmlparser2": "^4.1.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
-    "puppeteer": "^2.1.1"
+    "puppeteer": "^3.0.1"
   },
   "devDependencies": {
     "@qualweb/types": "^0.3.26",
-    "@types/node": "^13.11.1",
+    "@types/node": "^13.13.2",
     "@types/puppeteer": "^2.0.1",
     "chai": "^4.2.0",
     "mocha": "^7.1.1",
