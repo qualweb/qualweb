@@ -119,6 +119,8 @@ declare module '@qualweb/core' {
     stylesheets: CSSStylesheet[];
   }
 
+  function start(): Promise<void>;
+  function close(): Promise<void>;
   function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
   function generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
@@ -132,6 +134,8 @@ declare module '@qualweb/core' {
     ProcessedHtml,
     Dom,
     CSSStylesheet,
+    start,
+    close,
     evaluate,
     generateEarlReport
   };
