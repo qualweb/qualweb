@@ -21,15 +21,12 @@ function parse(){
 
   if (mainOptions.url){
     options["url"] = mainOptions.url;
-    console.log("Starting evaluation ...");
   }
   if (mainOptions.file){
     options["file"] = mainOptions.file;
-    console.log("Starting evaluation ...");
   }
   if (mainOptions.crawl){
     options["crawl"] = mainOptions.crawl;
-    console.log("Starting crawler ...");
   }
   if(mainOptions.module){
     let modules;
@@ -46,7 +43,6 @@ function parse(){
 
   if(mainOptions["report-type"])
     options["r"] = mainOptions["report-type"];
-
 
   //////////////////////////////////////////////////////////////////////////////////
   // ACT ///////////////////////////////////////////////////////////////////////////
