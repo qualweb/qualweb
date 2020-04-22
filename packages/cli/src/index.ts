@@ -10,10 +10,11 @@ async function cli(): Promise<void> {
   try {
 
     const options = parse();
-    console.log(options)
+
     await core.start();
     const reports = await core.evaluate(options);
     await core.close();
+    
     if (options['r']) {
       if (options['r'] === 'earl') {
         const earlReports = await core.generateEarlReport();
