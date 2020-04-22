@@ -28,6 +28,7 @@
     "url": "https://github.com/qualweb/crawler/issues"
   },
   "dependencies": {
+    "log-update": "^4.0.0",
     "simplecrawler": "^1.1.8"
   },
   "devDependencies": {
