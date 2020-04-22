@@ -1,6 +1,6 @@
 'use strict';
 
-import { evaluate, generateEarlReport } from '@qualweb/core';
+import * as core from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
 import { parse, printHelp } from './lib/parser';
@@ -10,12 +10,13 @@ async function cli(): Promise<void> {
   try {
 
     const options = parse();
-
-    const reports = await evaluate(options);
-
+    console.log(options)
+    await core.start();
+    const reports = await core.evaluate(options);
+    await core.close();
     if (options['r']) {
       if (options['r'] === 'earl') {
-        const earlReports = await generateEarlReport();
+        const earlReports = await core.generateEarlReport();
         for (const url in earlReports || {}) {
           saveReport(url, earlReports[url]);
         }
@@ -28,7 +29,7 @@ async function cli(): Promise<void> {
           earlOptions.modules.css = !!options['execute'].css;
           earlOptions.modules['best-practices'] = !!options['execute'].bp;
         }
-        const earlReport = await generateEarlReport(earlOptions);
+        const earlReport = await core.generateEarlReport(earlOptions);
         const name = Object.keys(earlReport)[0];
         saveReport(name, earlReport[name], !!options['save-name']);
       } else {
