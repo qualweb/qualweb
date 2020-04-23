@@ -20,7 +20,6 @@ async function getAccessibleNameSVGRecursion(element: ElementHandle, page: Page,
   let AName, ariaLabelBy, ariaLabel, tag;
 
   tag = await getElementTagName(element);
-  console.log(tag);
   if (!tag)
     tag = '';
   let regex = new RegExp('^fe[a-zA-Z]+');

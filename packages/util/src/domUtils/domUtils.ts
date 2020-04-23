@@ -40,6 +40,7 @@ import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOf
 import getVideoMetadataFunction from './getVideoMetadata';
 import getPageRootElementFunction from './getPageRootElement';
 import isMathDocumentFunction from './isMathDocument';
+import isElementPresentationFunction from './isElementPresentation';
 
 /**
  * DOM Utilities namespace
@@ -85,6 +86,7 @@ namespace DomUtils {
   export const getVideoMetadata = getVideoMetadataFunction;
   export const getPageRootElement = getPageRootElementFunction;
   export const isMathDocument = isMathDocumentFunction;
+  export const isElementPresentation = isElementPresentationFunction;
 }
 
 export default DomUtils;
