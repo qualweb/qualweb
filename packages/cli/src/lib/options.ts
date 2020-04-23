@@ -70,7 +70,7 @@ const optionList = [
     typeLabel: '[ r1 ... r'+rules.length + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which act rules to execute.'
+    description: 'Choose which ACT rules to execute.'
   },
   {
     name: 'act-levels',

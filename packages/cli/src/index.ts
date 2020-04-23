@@ -10,7 +10,7 @@ async function cli(): Promise<void> {
   try {
 
     const options = parse();
-
+    
     await core.start();
     const reports = await core.evaluate(options);
     await core.close();

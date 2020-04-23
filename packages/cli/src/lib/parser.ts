@@ -3,8 +3,9 @@
 import clone from 'lodash.clone';
 import { optionList, sections } from './options';
 
-const commandLineUsage = require('command-line-usage');
-const commandLineArgs = require('command-line-args');
+import commandLineUsage from 'command-line-usage';
+import commandLineArgs from 'command-line-args';
+
 const usage = commandLineUsage(sections);
 
 function printHelp(){
@@ -12,142 +13,151 @@ function printHelp(){
   process.exit(0);
 }
 
-function parse(){
-  const mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true })
+function parse() {
+  const mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
+  
   const options = {};
 
-  if(mainOptions._unknown)
+  if(mainOptions._unknown) {
     printHelp();
+  }
 
-  if (mainOptions.url)
-    options["url"] = mainOptions.url;
+  if (mainOptions.url) {
+    options['url'] = mainOptions.url;
+  }
 
-  if (mainOptions.file)
-    options["file"] = mainOptions.file;
+  if (mainOptions.file) {
+    options['file'] = mainOptions.file;
+  }
 
-  if (mainOptions.crawl)
-    options["crawl"] = mainOptions.crawl;
+  if (mainOptions.crawl) {
+    options['crawl'] = mainOptions.crawl;
+  }
 
   if(mainOptions.module){
-    let modules;
     options['execute'] = {};
-    modules = mainOptions.module;
+    const modules = mainOptions.module;
 
-    for(let module of modules){
+    for(const module of modules || []){
       options['execute'][module.replace(',','').trim()] = true;
     }
   }
 
-  if(mainOptions.maxParallelEvaluations)
+  if(mainOptions.maxParallelEvaluations) {
     options['maxParallelEvaluations'] = mainOptions.maxParallelEvaluations;
+  }
 
-  if(mainOptions['report-type'])
+  if(mainOptions['report-type']) {
     options['r'] = mainOptions['report-type'];
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
   // ACT ///////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
-  if(mainOptions['act-rules']){
-    if(mainOptions.module && !options['execute']['act'])
-      printHelp();
 
-    options['act-rules'] = {
-      'rules': clone(mainOptions['act-rules'].map(x => x.replace('r', 'QW-ACT-R')))
-    };
+  options['act-rules'] = {}
+
+  if(mainOptions['act-rules']){
+    if(mainOptions.module && !options['execute']['act']) {
+      printHelp();
+    }
+
+    options['act-rules']['rules'] = clone(mainOptions['act-rules']);
   }
 
   if(mainOptions['act-levels']){
-    if(mainOptions.module && !options['execute']['act'])
+    if(mainOptions.module && !options['execute']['act']) {
       printHelp();
+    }
 
-    options['act-rules'] = {
-      'levels' : clone(mainOptions['act-levels'])
-    };
+    options['act-rules']['levels'] = clone(mainOptions['act-levels']);
   }
 
   if(mainOptions['act-principles']){
-    if(mainOptions.module && !options['execute']['act'])
+    if(mainOptions.module && !options['execute']['act']) {
       printHelp();
+    }
 
-    options['act-rules'] = {
-      'principles' : clone(mainOptions['act-principles'])
-    };
+    options['act-rules']['principles'] = clone(mainOptions['act-principles']);
   }
 
   //////////////////////////////////////////////////////////////////////////////////
   // HTML //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
-  if(mainOptions['html-techniques']){
-    if(mainOptions.module && !options['execute']['html'])
-      printHelp();
 
-    options['html-techniques'] = {
-      'techniques' : clone(mainOptions['html-techniques'].map(x => x.replace('t', 'QW-HTML-T')))
-    };
+  options['html-techniques'] = {};
+
+  if(mainOptions['html-techniques']){
+    if(mainOptions.module && !options['execute']['html']) {
+      printHelp();
+    }
+
+    options['html-techniques']['techniques'] = clone(mainOptions['html-techniques']);
   }
 
   if(mainOptions['html-levels']){
-    if(mainOptions.module && !options['execute']['html'])
+    if(mainOptions.module && !options['execute']['html']) {
       printHelp();
+    }
 
-    options['html-techniques'] = {
-      'levels' : clone(mainOptions['html-levels'])
-    };
+    options['html-techniques']['levels'] = clone(mainOptions['html-levels']);
   }
 
   if(mainOptions['html-principles']){
-    if(mainOptions.module && !options['execute']['html'])
+    if(mainOptions.module && !options['execute']['html']) {
       printHelp();
+    }
 
-    options['html-techniques'] = {
-      'principles' : clone(mainOptions['html-principles'])
-    };
+    options['html-techniques']['principles'] = clone(mainOptions['html-principles']);
   }
 
   //////////////////////////////////////////////////////////////////////////////////
   // CSS ///////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
-  if(mainOptions['css-techniques']){
-    if(mainOptions.module && !options['execute']['css'])
-      printHelp();
 
-    options['css-techniques'] = {
-      'techniques' : clone(mainOptions['css-techniques'].map(x => x.replace('t', 'QW-CSS-T')))
-    };
+  options['css-techniques'] = {};
+
+  if(mainOptions['css-techniques']){
+    if(mainOptions.module && !options['execute']['css']) {
+      printHelp();
+    }
+
+    options['css-techniques']['techniques'] = clone(mainOptions['css-techniques']);
   }
 
   if(mainOptions['css-levels']){
-    if(mainOptions.module && !options['execute']['css'])
+    if(mainOptions.module && !options['execute']['css']) {
       printHelp();
+    }
 
-    options['css-techniques'] = {
-      'levels' : clone(mainOptions['css-levels'])
-    };
+    options['css-techniques']['levels'] = clone(mainOptions['css-levels']);
   }
 
   if(mainOptions['css-principles']){
-    if(mainOptions.module && !options['execute']['css'])
+    if(mainOptions.module && !options['execute']['css']) {
       printHelp();
+    }
 
-    options['css-techniques'] = {
-      'principles' : clone(mainOptions['css-principles'])
-    };
+    options['css-techniques']['principles'] = clone(mainOptions['css-principles']);
   }
 
   //////////////////////////////////////////////////////////////////////////////////
   // BP ////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
-  if(mainOptions['best-practices']){
-    if(mainOptions.module && !options['execute']['bp'])
-      printHelp();
 
-      options['best-practices'] = {
-        'bestPractices' : clone(mainOptions['best-practices'].map(x => x.replace('t', 'QW-BP')))
-      };
+  options['best-practices'] = {};
+
+  if(mainOptions['best-practices']) {
+    if(mainOptions.module && !options['execute']['bp']) {
+      printHelp();
+    }
+
+    options['best-practices']['bestPractices'] = clone(mainOptions['best-practices']);
   }
 
-  if (mainOptions.help)
+  if (mainOptions.help) {
     printHelp();
+  }
 
   return options;
 }
@@ -155,4 +165,4 @@ function parse(){
 export {
   parse,
   printHelp
-};
+}
