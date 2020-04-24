@@ -1,7 +1,8 @@
 'use strict';
 
 import Crawler from 'simplecrawler';
-const logUpdate = require('log-update');
+import logUpdate from 'log-update';
+import ioHook from 'iohook';
 
 class Crawl {
 
@@ -19,7 +20,7 @@ class Crawl {
 
   public async start(options?: any): Promise<void> {
     return new Promise(resolve => {
-      console.log("Starting crawler...")
+      console.log('Starting crawler... Press CTRL+X to stop the crawling process at any time');
       if (options) {
         this.crawler.maxConcurrency = 100;
         this.crawler.maxDepth = 0;
@@ -44,8 +45,18 @@ class Crawl {
         clearInterval(interval);
         this.stop();
         resolve();
-        console.log("Crawler done!");
+        console.log('\nCrawler done!');
       });
+
+      ioHook.on('keydown', event => {
+        if (event && event.ctrlKey && event.keycode === 45) {
+          
+          this.crawler.emit('complete');
+          ioHook.stop();
+        }
+      });
+      
+      ioHook.start();
 
       this.crawler.start();
     });
