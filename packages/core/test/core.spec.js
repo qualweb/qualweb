@@ -73,8 +73,8 @@ describe.only('Testing file with R37', function() {
   it('Should not have a heap memory', async function() {
     this.timeout(1000 * 1000);
 
-    const urls = fs.readFileSync('/home/javicente/Downloads/urls4.txt');
-
+    const urls = fs.readFileSync('/home/javicente/Downloads/urls4.txt').toString().split('\n').map(u => u.trim());
+    
     const reports = [];
 
     await core.start();

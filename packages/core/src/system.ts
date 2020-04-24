@@ -108,7 +108,6 @@ class System {
   }
 
   public async execute(options: QualwebOptions): Promise<void> {
-
     for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
       const promises = new Array<any>();
       for (let j = 0 ; j < this.numberOfParallelEvaluations && i + j < this.urls.length ; j++) {
