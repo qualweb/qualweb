@@ -38,10 +38,10 @@ class Crawl {
         if (item && item['stateData'] && item['stateData']['contentType'] && 
             item['stateData']['contentType'].includes('text/html') && 
             !this.urls.includes(item.url)) {
-          this.urls.push(item.url);
-          const frame = this.frames[this.i = ++this.i % this.frames.length];
 
           if (isRunning) {
+            this.urls.push(item.url);
+            const frame = this.frames[this.i = ++this.i % this.frames.length];
             logUpdate('Crawled ' + this.crawledURLS++ + ' pages ' + `${frame}`);
           }
         }
