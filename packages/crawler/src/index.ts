@@ -27,6 +27,8 @@ class Crawl {
         this.crawler.stripQuerystring = true;
       }
 
+      let isRunning = true;
+
       let interval = setInterval(() => {
         const frame = this.frames[this.i = ++this.i % this.frames.length];
         logUpdate('Crawled ' + this.crawledURLS + ' pages ' + `${frame}` );
@@ -38,11 +40,14 @@ class Crawl {
             !this.urls.includes(item.url)) {
           this.urls.push(item.url);
           const frame = this.frames[this.i = ++this.i % this.frames.length];
-          logUpdate('Crawled ' + this.crawledURLS++ + ' pages ' + `${frame}`);
+
+          if (isRunning) {
+            logUpdate('Crawled ' + this.crawledURLS++ + ' pages ' + `${frame}`);
+          }
         }
       });
+      
       this.crawler.on('complete', () => {
-        clearInterval(interval);
         this.stop();
         resolve();
         console.log('\nCrawler done!');
@@ -50,7 +55,8 @@ class Crawl {
 
       ioHook.on('keydown', event => {
         if (event && event.ctrlKey && event.keycode === 45) {
-          
+          isRunning = false;
+          clearInterval(interval);
           this.crawler.emit('complete');
           ioHook.stop();
         }
