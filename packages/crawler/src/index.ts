@@ -26,7 +26,7 @@ class Crawl {
         this.crawler.stripQuerystring = true;
       }
 
-      setInterval(() => {
+      let interval = setInterval(() => {
         const frame = this.frames[this.i = ++this.i % this.frames.length];
         logUpdate('Crawled ' + this.crawledURLS + ' pages ' + `${frame}` );
       }, 100);
@@ -40,8 +40,8 @@ class Crawl {
           logUpdate('Crawled ' + this.crawledURLS++ + ' pages ' + `${frame}`);
         }
       });
-
       this.crawler.on('complete', () => {
+        clearInterval(interval);
         this.stop();
         resolve();
         console.log("Crawler done!");
