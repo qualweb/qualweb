@@ -1,0 +1,37 @@
+{
+  "url": "https://act-rules.github.io/pages/about/",
+  "file": "test_url.txt",
+  "crawl": "https://act-rules.github.io",
+  "viewport": {
+    "mobile": false,
+    "orientation": "landscape",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0', default value for mobile = 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+    "width": 1920,
+    "height": 1080
+  },
+  "maxParallelEvaluations": "5",
+  "modules": {
+    "act": true,
+    "html": true,
+    "css": true,
+    "bp": true
+  },
+  "act-rules": {
+    "rules": ["QW-ACT-R1"],
+    "levels": ["A", "AA", "AAA"],
+    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
+  },
+  "html-techniques": {
+    "rules": ["QW-HTML-T1"],
+    "levels": ["A", "AA", "AAA"],
+    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
+  },
+  "css-techniques": {
+    "rules": ["QW-CSS-T1"],
+    "levels": ["A", "AA", "AAA"],
+    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
+  },
+  "best-practices": {
+    "bestPractices": ["QW-BP1"]
+  }
+}

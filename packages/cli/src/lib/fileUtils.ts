@@ -9,7 +9,7 @@ function writeFile(file: string, data: string): Promise<void> {
     fs.writeFile(file, data, (err) => {
       if (err)
         reject(err);
-      else 
+      else
         resolve();
     })
   });
@@ -22,6 +22,29 @@ async function saveReport(name: string, report: EvaluationReport | EarlReport, o
   await writeFile(`${path}/${filename}`, JSON.stringify(report, null, 2));
 }
 
+function readJsonFile(filePath): Promise<void> {
+  const fs = require('fs');
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, (err, data) => {
+      if (err) reject(err);
+      resolve(JSON.parse(data));
+    });
+  });
+}
+
+function fileExists(filePath): Promise<boolean> {
+  const fs = require('fs');
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(fs.existsSync(filePath));
+    } catch(err) {
+      reject(err);
+    }
+  });
+}
+
 export {
-  saveReport
+  readJsonFile,
+  saveReport,
+  fileExists
 };

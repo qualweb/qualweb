@@ -14,7 +14,114 @@ const cssTechniques = ['t1', 't2', 't3', 't4', 't5', 't6', 't7'];
 const bps = ['bp1', 'bp2', 'bp3', 'bp4', 'bp5', 'bp6', 'bp7', 'bp8', 'bp9', 'bp10', 'bp11', 'bp12', 'bp13', 'bp14', 'bp15', 'bp16'];
 const levels = ['A', 'AA', 'AAA'];
 const principles = ['Perceivable', 'Operable', 'Understandable', 'Robust']
-const optionList = [
+const viewport = [
+  {
+    name: 'viewport',
+    alias: 'v',
+    description: 'Use custom viewport.',
+    type: Boolean
+  },
+  {
+    name: 'mobile',
+    description: 'Use mobile mode.',
+    type: Boolean
+  },
+  {
+    name: 'orientation',
+    description: 'Orientation of the screen.',
+    typeLabel: '{underline portrait or landscape}',
+    type: String
+  },
+  {
+    name: 'user-agent',
+    description: 'User agent for the execution.',
+    typeLabel: '{underline user agent string}',
+    type: Boolean
+  },
+  {
+    name: 'width',
+    description: 'Width of the viewport.',
+    type: Number
+  },
+  {
+    name: 'height',
+    description: 'Height of the viewport.',
+    type: Number
+  }
+];
+const moduleFilters = [
+  {
+    name: 'act-rules',
+    typeLabel: '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R'+rules.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which ACT rules to execute.'
+  },
+  {
+    name: 'act-levels',
+    typeLabel: '[ ' + levels.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which conform levels to evaluate. Can be multiple.'
+  },
+  {
+    name: 'act-principles',
+    typeLabel: '[ ' + principles.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which principles to evaluate. Can be multiple.'
+  },
+  {
+    name: 'html-techniques',
+    typeLabel: '{underline file-path} or [ QW-HTML-T1 ... QW-HTML-T'+htmlTechniques.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which html technique to execute. Can be multiple.'
+  },
+  {
+    name: 'html-levels',
+    typeLabel: '[ ' + levels.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which conform levels to evaluate. Can be multiple.'
+  },
+  {
+    name: 'html-principles',
+    typeLabel: '[ ' + principles.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which principles to evaluate. Can be multiple.'
+  },
+  {
+    name: 'css-techniques',
+    typeLabel: '{underline file-path} or [ QW-CSS-T1 ... QW-CSS-T'+cssTechniques.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which css technique to execute. Can be multiple.'
+  },
+  {
+    name: 'css-levels',
+    typeLabel: '[ ' + levels.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which conform levels to evaluate. Can be multiple.'
+  },
+  {
+    name: 'css-principles',
+    typeLabel: '[ ' + principles.join(' | ') + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which principles to evaluate. Can be multiple.'
+  },
+  {
+    name: 'best-practices',
+    typeLabel: '{underline file-path} or [ QW-BP1 ... QW-BP'+bps.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which best-practices to execute. Can be multiple.'
+  }
+];
+const options = [
   {
     name: 'url',
     alias: 'u',
@@ -66,74 +173,11 @@ const optionList = [
     description: 'Evaluates multiples urls at the same time.'
   },
   {
-    name: 'act-rules',
-    typeLabel: '[ r1 ... r'+rules.length + ' ]',
+    name: 'json',
+    alias: 'j',
     type: String,
-    multiple: true,
-    description: 'Choose which ACT rules to execute.'
-  },
-  {
-    name: 'act-levels',
-    typeLabel: '[ ' + levels.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
-  },
-  {
-    name: 'act-principles',
-    typeLabel: '[ ' + principles.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
-  },
-  {
-    name: 'html-techniques',
-    typeLabel: '[ t1 ... t'+htmlTechniques.length + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which html technique to execute. Can be multiple.'
-  },
-  {
-    name: 'html-levels',
-    typeLabel: '[ ' + levels.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
-  },
-  {
-    name: 'html-principles',
-    typeLabel: '[ ' + principles.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
-  },
-  {
-    name: 'css-techniques',
-    typeLabel: '[ t1 ... t'+cssTechniques.length + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which css technique to execute. Can be multiple.'
-  },
-  {
-    name: 'css-levels',
-    typeLabel: '[ ' + levels.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
-  },
-  {
-    name: 'css-principles',
-    typeLabel: '[ ' + principles.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
-  },
-  {
-    name: 'best-practices',
-    typeLabel: '[ bp1 ... bp'+bps.length + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which best-practices to execute. Can be multiple.'
+    typeLabel: '{underline path-to-json}',
+    description: 'Loads a json file with the configs to execute.'
   },
   {
     name: 'help',
@@ -164,10 +208,19 @@ const sections = [
   },
   {
     header: 'Options',
-    optionList: optionList
+    optionList: options
+  },
+  {
+    header: 'Viewport Options',
+    optionList: viewport
+  },
+  {
+    header: 'Module Filters',
+    optionList: moduleFilters
   }
 ]
 
+const optionList = [...options, ...viewport, ...moduleFilters];
 
 export {
   optionList,
