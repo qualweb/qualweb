@@ -3,14 +3,14 @@
 import * as core from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
-import { parse, printHelp } from './lib/parser';
+import { parse } from './lib/parser';
 import { saveReport } from './lib/fileUtils';
+import { printHelp } from './lib/parserUtils';
 
 async function cli(): Promise<void> {
   try {
 
     const options = await parse();
-		console.log("TCL: options", options)
 
     await core.start();
     const reports = await core.evaluate(options);
