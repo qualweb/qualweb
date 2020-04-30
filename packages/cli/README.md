@@ -55,18 +55,18 @@ This method will create an aggregated EARL report from all urls.
 | -c | `<domain>` | Domain to crawl |
 | -m | `act,html,css,bp` | Choose which modules to execute |
 | -r | `"earl" or  "earl-a"` | Convert the evaluation to `earl` or `earl-a` (*earl-aggregated*) |
-| -save-name | `<name>` | The name to save the aggregated earl reports (*earl-a*) |
-| -maxParallelEvaluations | `<number>` | Evaluates multiples urls ate the same time |
-| -act-rules | `rule1,rule2,...,rule15` | Choose which act rules to execute |
-| -act-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
-| -act-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
-| -html-techniques | `technique1,technique2,...,technique15` | Choose which html technique to execute |
-| -html-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
-| -html-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
-| -css-techniques | `technique1,technique2,...,technique15` | Choose which css technique to execute |
-| -css-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
-| -css-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
-| -best-practices | `bestpractice1,bestpractice2,...,bestpractice15` | Choose which best-practices to execute |
+| --save-name | `<name>` | The name to save the aggregated earl reports (*earl-a*) |
+| --maxParallelEvaluations | `<number>` | Evaluates multiples urls ate the same time |
+| --act-rules | `rule1,rule2,...,rule15` | Choose which act rules to execute |
+| --act-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
+| --act-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
+| --html-techniques | `technique1,technique2,...,technique15` | Choose which html technique to execute |
+| --html-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
+| --html-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
+| --css-techniques | `technique1,technique2,...,technique15` | Choose which css technique to execute |
+| --css-levels | `A,AA,AAA` | Choose which conform levels to evaluate |
+| --css-principles | `Perceivable,Operable,Understandable,Robust` | Choose which principles to evaluate |
+| --best-practices | `bestpractice1,bestpractice2,...,bestpractice15` | Choose which best-practices to execute |
 
 **Note:** The module options above are only used if the correspondent module was set to be executed (command *-m*).
 
