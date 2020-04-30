@@ -1,0 +1,7 @@
+{
+  "html-techniques": {
+    "rules": ["QW-HTML-T1"],
+    "levels": ["A", "AA", "AAA"],
+    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
+  }
+}
