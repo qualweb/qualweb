@@ -10,7 +10,6 @@ async function cli(): Promise<void> {
   try {
 
     const options = await parse();
-		console.log("TCL: options", options)
 
     await core.start();
     const reports = await core.evaluate(options);
