@@ -2,75 +2,11 @@
 
 Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 
-## How to install
+## How to use
 
-```shell
-  $ npm i @qualweb/act-rules --save
-```
+**This is an internal module of QualWeb. To use it please check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
 
-## How to run
-
-```javascript
-  'use strict';
-
-  const { ACTRules } = require('@qualweb/act-rules');
-
-  (async () => {
-    const dom = await getDom('https://act-rules.github.io/pages/about/');
-
-    const actRules = new ACTRules();
-
-    const report = await actRules.execute(sourceHtml, page, stylesheets);
-
-    // print rules executed
-    console.log(Object.keys(report));
-    // ['QW-ACT-R1', 'QW-ACT-R2', 'QW-ACT-R3', ...]
-
-    // print rule outcome
-    console.log(report['QW-ACT-R1'].metadata.outcome);
-    // 'passed' | 'failed' | 'inapplicable'
-
-    // print rule results
-    console.log(report['QW-ACT-R1'].results[0]);
-    // {
-    //   verdict: 'passed'
-    //   description: 'HTML page has title element'
-    //   resultCode: 'RC1'
-    //   htmlCode: '<title>Some title</title>'
-    //   pointer: 'html > head > title'
-    // }
-  })();
-```
-
-## Configure
-
-If you want you can configure the module to run only specific rules, or rules based on their principles and conform levels.
-
-```javascript
-'use strict';
-
-  const { getDom } = require('@qualweb/get-dom-puppeteer');
-  const { ACTRules } = require('@qualweb/act-rules');
-
-  (async () => {
-    const options = {
-      rules: ['QW-ACT-R1', 'QW-ACT-R2', 'bf051a'], // will execute these rules regarding the other options given
-      principles: ['Understandable'], // will only execute rules that belong to the 'Understandable' principle
-      levels: ['A', 'AA'] // will only execute rules that belong to the 'A' and 'AA' conform levels
-    };
-
-    const actRules = new ACTRules(options);
-    // OR
-    const actRules = new ACTRules();
-    actRules.configure(options);
-
-    // In this case, with these options, all rules that belong to the 'Understandable' principle and the 'A' and 'AA' conform levels and rules 'QW-ACT-R1' and 'QW-ACT-R2' and 'bf051a' will be executed
-
-    const report = await actRules.execute(sourceHtml, page, stylesheets);
-  })();
-```
-
-## Implemente rules
+## Implemented rules
 
 | QualWeb Rule ID | ACT Rule ID | ACT Rule Name |
 |---|---|---|
@@ -109,6 +45,8 @@ If you want you can configure the module to run only specific rules, or rules ba
 | QW-ACT-R33 | [ff89c9](https://act-rules.github.io/rules/ff89c9) | ARIA required context role |
 | QW-ACT-R34 | [6a7281](https://act-rules.github.io/rules/6a7281) | ARIA state or property has valid value |
 | QW-ACT-R35 | [ffd0e9](https://act-rules.github.io/rules/ffd0e9) | Heading has accessible name |
+| QW-ACT-R36 | [a25f45](https://act-rules.github.io/rules/a25f45) | Headers attribute specified on a cell refers to cells in the same table element |
+| QW-ACT-R37 | [afw4f7](https://act-rules.github.io/rules/afw4f7) | Text has minimum contrast |
 | QW-ACT-R38 | [bc4a75](https://act-rules.github.io/rules/bc4a75) | ARIA required owned elements |
 | QW-ACT-R39 | [d0f69e](https://act-rules.github.io/rules/d0f69e) | All table header cells have assigned data cells |
 
