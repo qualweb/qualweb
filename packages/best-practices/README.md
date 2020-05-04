@@ -1,66 +1,31 @@
 # QualWeb best practices
 
-## How to install
+Implementation of the accessibility best practices for web pages.
 
-```shell
-  $ npm i @qualweb/best-practices --save
-```
+## How to use
 
-## How to run
+**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
 
-### Additional packages
+## Implemented best practices
 
-```shell
-  $ npm i puppeteer css --save
-```
-
-```javascript
-  'use strict';
-
-  const puppeteer = require('puppeteer');
-  const css = require('css');
-  const { BestPractices } = require('@qualweb/best-practices');
-
-  async function parseStylesheets(plainStylesheets) {
-    const stylesheets = new Array();
-    for (const file in plainStylesheets || {}){
-      const stylesheet = { file, content: {} };
-      if (stylesheet.content) {
-        stylesheet.content.plain = plainStylesheets[file];
-        stylesheet.content.parsed = css.parse(plainStylesheets[file], { silent: true }); //doesn't throw errors
-        stylesheets.push(stylesheet);
-      }
-    }
-
-    return stylesheets;
-  }
-
-  (async () => {
-    const browser = await puppeteer.launch();
-    const page = await this.browser.newPage();
-
-    const plainStylesheets: any = {};
-    page.on('response', async response => {
-      if(response.request().resourceType() === 'stylesheet') {
-        const url = response.url();
-        const content = await response.text();
-        plainStylesheets[url] = content;
-      }
-    });
-
-    await page.goto('https://act-rules.github.io/pages/about/', {
-      waitUntil: ['networkidle2', 'domcontentloaded']
-    });
-    
-    const stylesheets = await parseStylesheets(plainStylesheets);
-
-    const bestPractices = new BestPractices();
-
-    const report = await bestPractices.execute(page, stylesheets);
-
-    console.log(report);
-  })();
-```
+| QualWeb best practice ID | Related to | Best practice Name |
+|---|---|---|
+| QW-BP1 | HTML | Using h1-h6 to identify headings |
+| QW-BP2 | HTML | Concise images alt text |
+| QW-BP3 | HTML | Link element with text content equal to the content of the title attribute |
+| QW-BP4 | HTML | Grouped links not within a nav element |
+| QW-BP5 | HTML | Using table elements inside other table elements |
+| QW-BP6 | HTML | title element is not too long (64 characters) |
+| QW-BP7 | HTML | Title element contains ASCII-art |
+| QW-BP8 | HTML | Headings with images should have an accessible name |
+| QW-BP9 | HTML | Table element without header cells has a caption |
+| QW-BP10 | HTML | HTML elements are used to control visual presentation of content |
+| QW-BP11 | HTML | Using br to make a list |
+| QW-BP12 | HTML | Using scope col and row |
+| QW-BP13 | HTML | Using consecutive links with the same href and one contains an image |
+| QW-BP14 | CSS | At least one container's width has been specified using values expressed in px |
+| QW-BP15 | CSS | At least one width attribute of an HTML element is expressed in absolute values |
+| QW-BP16 | HTML | Verify if page has links |
 
 # License
 
