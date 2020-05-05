@@ -1,39 +1,143 @@
 # Changelog
 
-## [0.1.6] - 21/11/2019
+## [0.3.17] - 23/04/2020
+
+### Fixed
+ - some bugs
+
+## [0.3.16] - 22/04/2020
+
+### Fixed
+ - a bug
+
+## [0.3.15] - 22/04/2020
 
 ### Updated
- - fix version
+ - @qualweb/core
+ - CLI interface
+ - @qualweb/types
 
-## [0.1.5] - 21/11/2019
-
-### Updated
- - fix version
-
-## [0.1.4] - 21/11/2019
+## [0.3.14] - 19/03/2020
 
 ### Updated
- - core updated
+ - @qualweb/core
 
-## [0.1.3] - 18/11/2019
-
-### Updated
- - fixed example one
-
-## [0.1.2] - 07/11/2019
+## [0.3.13] - 18/03/2020
 
 ### Updated
- - deleted prints
+ - @qualweb/core
 
-## [0.1.2] - 07/11/2019
-
-### Updated
- - deleted prints
-
-## [0.1.1] - 07/11/2019
+## [0.3.12] - 21/02/2020
 
 ### Updated
- - fixed parsing bugs
+ - @qualweb/core
+
+## [0.3.12] - 17/02/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.11] - 22/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.10] - 21/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.9] - 17/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.8] - 17/01/2020
+
+### Fixed
+ - a bug where the rules were not correctly parsed 
+
+## [0.3.7] - 15/01/2020
+
+### Added
+ - option to change the name of th file of the aggregated earl reports
+
+### Updated
+ - @qualweb/core
+ - README.md
+
+## [0.3.6] - 14/01/2020
+
+### Updated
+ - @qualweb/core
+ - README.md
+
+## [0.3.5] - 13/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.4] - 09/01/2020
+
+### Updated
+ - @qualweb/core
+
+### Fixed
+ - some bugs
+
+## [0.3.3] - 08/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.2] - 08/01/2020
+
+### Fixed
+ - dependencies
+
+## [0.3.1] - 08/01/2020
+
+### Updated
+ - @qualweb/core
+
+## [0.3.0] - 08/01/2020
+
+### Updated
+ - @qualweb/core
+ - README.md
+
+## [0.2.5] - 03/12/2019
+
+### Removed
+ - unnecessary files
+
+## [0.2.4] - 03/12/2019
+
+### Update
+ - core engine
+
+## [0.2.3] - 02/12/2019
+
+### Update
+ - core engine
+
+## [0.2.2] - 02/12/2019
+
+### Fixed
+ - a bug when trying to save the reports
+
+## [0.2.1] - 02/12/2019
+
+### Fixed
+ - a bug when trying to run specific modules
+
+## [0.2.0] - 02/12/2019
+
+### Added
+ - best-practices modules configuration options
+
+### Updated
+ - core engine
 
 ## [0.1.0] - 04/11/2019
 

@@ -1,0 +1,7 @@
+{
+  "act-rules": {
+    "rules": ["QW-ACT-R1"],
+    "levels": ["A", "AA", "AAA"],
+    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
+  }
+}
