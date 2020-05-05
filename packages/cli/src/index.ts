@@ -3,12 +3,12 @@
 import * as core from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
-import { parse, printHelp } from './lib/parser';
+import { parse } from './lib/parser';
 import { saveReport } from './lib/fileUtils';
+import { printHelp } from './lib/parserUtils';
 
 async function cli(): Promise<void> {
   try {
-
     const options = await parse();
 
     await core.start();
@@ -30,6 +30,7 @@ async function cli(): Promise<void> {
           earlOptions.modules.css = !!options['execute'].css;
           earlOptions.modules['best-practices'] = !!options['execute'].bp;
         }
+
         const earlReport = await core.generateEarlReport(earlOptions);
         const name = Object.keys(earlReport)[0];
         saveReport(name, earlReport[name], !!options['save-name']);

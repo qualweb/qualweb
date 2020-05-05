@@ -1,7 +1,0 @@
-{
-  "css-techniques": {
-    "rules": ["QW-CSS-T1"],
-    "levels": ["A", "AA", "AAA"],
-    "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
-  }
-}
