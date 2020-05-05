@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.28] - 05/05/2020
+
+### Added
+ - accessibleName attribute to HTMLTechniqueResult and ACTRuleResult
+
+### Updated
+ - evaluation modules - normalized rules/techniques/bestPractices to assertions
+
 ## [0.3.27] - 22/04/2020
 
 ### Updated

@@ -61,7 +61,7 @@ declare module '@qualweb/best-practices' {
   interface BestPracticesReport {
     type: 'best-practices';
     metadata: BestPracticesGlobalMetadata;
-    'best-practices': {
+    assertions: {
       [bestPractice: string]: BestPractice;
     };
   }

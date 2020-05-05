@@ -43,6 +43,7 @@ declare module '@qualweb/html-techniques' {
     pointer?: string;
     htmlCode?: string | string[];
     attributes?: string | string[];
+    accessibleName?: string;
   }
 
   interface HTMLMetadata {
@@ -64,7 +65,7 @@ declare module '@qualweb/html-techniques' {
   interface HTMLTechniquesReport {
     type: 'html-techniques';
     metadata: HTMLMetadata;
-    techniques: {
+    assertions: {
       [technique: string]: HTMLTechnique;
     };
   }

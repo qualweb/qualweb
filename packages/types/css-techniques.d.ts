@@ -75,7 +75,7 @@ declare module '@qualweb/css-techniques' {
   interface CSSTechniquesReport {
     type: 'css-techniques';
     metadata: CSSMetadata;
-    techniques: {
+    assertions: {
       [technique: string]: CSSTechnique;
     };
   }
