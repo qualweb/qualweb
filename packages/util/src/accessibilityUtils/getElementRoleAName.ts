@@ -1,13 +1,14 @@
 'use strict';
-import { ElementHandle, Page } from 'puppeteer';
+import { QWElement,QWPage } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
 import getImplicitRole from './getImplicitRole';
-import getElementAttribute from '../domUtils/getElementAttribute';
 
-async function getElementRoleAName(element: ElementHandle, page: Page,aName:string|undefined): Promise<string | null> {
-  let explicitRole = await getElementAttribute(element, "role");
+
+async function getElementRoleAName(elementQW: QWElement, pageQW:QWPage,aName:string|undefined): Promise<string | null> {
+  let explicitRole = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "role");
   let role = explicitRole;
   if (explicitRole === null) {
-    role = await getImplicitRole(element,page,aName);
+    role = await getImplicitRole(elementQW,pageQW,aName);
     }
   return role;
 }

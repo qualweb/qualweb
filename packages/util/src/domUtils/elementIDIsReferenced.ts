@@ -1,11 +1,18 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
-import getTreeSelector from '../shadowDomUtils/getTreeSelector';
+import { QWElement } from "../qwElement";
+import { QWPage } from "../qwPage";
 
-async function elementIDIsReferenced(page:Page,element: ElementHandle,id:string,atrribute:string): Promise<boolean> {
-  let treeSelector = await getTreeSelector(element);
-  return(await page.$('['+atrribute+`="${id}"]`+treeSelector))!== null;
+
+//import getTreeSelector from '../shadowDomUtils/getTreeSelector';
+
+ async function elementIDIsReferenced(pageQW:QWPage,elementQW: QWElement,id:string,atrribute:string): Promise<boolean> {
+  if (!elementQW.elementHtml||!pageQW.document) {
+    throw Error('Element is not defined');
+  }
+  //let treeSelector =  getTreeSelector(element);
+  let document = pageQW.document;
+  return (document.querySelector('['+atrribute+`="${id}"]`/*+treeSelector*/))!== null;
 }
 
 export default elementIDIsReferenced;

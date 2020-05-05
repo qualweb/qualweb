@@ -1,28 +1,28 @@
 
 'use strict';
-
-import { ElementHandle } from 'puppeteer';
 import getElementTagName from './getElementTagName';
 import elementHasAttribute from './elementHasAttribute';
 import getElementAttribute from './getElementAttribute';
 import getElementParent from './getElementParent';
 import getElementChildren from './getElementChildren';
+import { QWElement } from "../qwElement";
 
-async function isElementFocusableByDefault(element: ElementHandle): Promise<boolean> {
-  if (!element) {
+async function isElementFocusableByDefault(elementQW: QWElement): Promise<boolean> {
+  if (!elementQW.elementHtml) {
     throw Error('Element is not defined');
   }
+  let element = elementQW.elementHtml;
 
-  const draggableAttribute = await getElementAttribute(element, 'draggable');
+  const draggableAttribute = await getElementAttribute(elementQW, 'draggable');
 
-  if(draggableAttribute && draggableAttribute === 'true'){
+  if (draggableAttribute && draggableAttribute === 'true') {
     return true;
   } else {
-    const elementName = await getElementTagName(element);
-    const hasHref = await elementHasAttribute(element, 'href');
-    const elementAttributeType = await getElementAttribute(element, 'type');
+    const elementName = await getElementTagName(elementQW);
+    const hasHref = await elementHasAttribute(elementQW, 'href');
+    const elementAttributeType = await getElementAttribute(elementQW, 'type');
 
-    const parent = await getElementParent(element);
+    const parent = await getElementParent(elementQW);
     let parentName;
     let parentChildren;
 
@@ -42,7 +42,7 @@ async function isElementFocusableByDefault(element: ElementHandle): Promise<bool
       case 'input':
         return !(elementAttributeType && elementAttributeType !== 'hidden');
       case 'summary':
-        return !!(parent && parentName === 'details' && parentChildren && await element.evaluate((e1, e2) => e1 === e2, parentChildren[0]));
+        return !!(parent && parentName === 'details' && parentChildren && element === parentChildren[0]);
       case 'textarea':
       case 'select':
       case 'button':

@@ -1,25 +1,19 @@
 'use strict';
-import { ElementHandle, Page } from "puppeteer";
-import getElementAttribute from "../domUtils/getElementAttribute";
-import getElementType from "../domUtils/getElementType";
-import elementIDIsReferenced from "../domUtils/elementIDIsReferenced";
-
-import isElementPresentation from "../domUtils/isElementPresentation";
-import isElementHidden from "../domUtils/isElementHidden";
-import isElementFocusable from "../domUtils/isElementFocusable";
+import { QWElement,QWPage } from '@qualweb/html-util';
 import elementHasValidRole from "./elementHasValidRole";
-import elementHasGlobalARIAPropertieOrAttribute from "../domUtils/elementHasGlobalARIAPropertyOrAttribute";
+import { AccessibilityUtils } from "..";
 
 
-async function isElementInAT(element: ElementHandle, page: Page): Promise<boolean> {
-  let isPresentation = await isElementPresentation(element, page);
-  let isHidden = await isElementHidden(element);
+
+async function isElementInAT(elementQW: QWElement,  pageQW:QWPage): Promise<boolean>{
+  let isPresentation = await AccessibilityUtils.domUtils.isElementPresentation(elementQW, pageQW);
+  let isHidden = await AccessibilityUtils.domUtils.isElementHidden(elementQW);
   let result = false;
 
   if (!isHidden && !isPresentation) {
-    let type = await getElementType(element);
-    let focusable = await isElementFocusable(element);
-    let id = await getElementAttribute(element, "id");
+    let type = await AccessibilityUtils.domUtils.getElementType(elementQW);
+    let focusable = await AccessibilityUtils.domUtils.isElementFocusable(elementQW);
+    let id = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "id");
     let ariaActivedescendant = false;
     let ariaControls = false;
     let ariaDescribedby = false;
@@ -29,18 +23,18 @@ async function isElementInAT(element: ElementHandle, page: Page): Promise<boolea
     let ariaLabelledby = false;
     let ariaOwns = false;
     if (id !== null) {
-      ariaActivedescendant = await elementIDIsReferenced(page,element, id, "aria-activedescendant");
-      ariaControls = await elementIDIsReferenced(page,element, id, " aria-controls");
-      ariaDescribedby = await elementIDIsReferenced(page,element, id, " aria-describedby");
-      ariaDetails = await elementIDIsReferenced(page,element, id, " aria-details");
-      ariaErrormessage = await elementIDIsReferenced(page,element, id, "aria-errormessage");
-      ariaFlowto = await elementIDIsReferenced(page,element, id, "aria-flowto");
-      ariaLabelledby = await elementIDIsReferenced(page,element, id, "aria-labelledby");
-      ariaOwns = await elementIDIsReferenced(page,element, id, "aria-owns");
+      ariaActivedescendant = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-activedescendant");
+      ariaControls = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW,id, " aria-controls");
+      ariaDescribedby = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, " aria-describedby");
+      ariaDetails = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, " aria-details");
+      ariaErrormessage = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-errormessage");
+      ariaFlowto = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-flowto");
+      ariaLabelledby = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-labelledby");
+      ariaOwns = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-owns");
 
     }
-    let role = await elementHasValidRole(element, page);
-    let globalWaiARIA = await elementHasGlobalARIAPropertieOrAttribute(element);
+    let role = await elementHasValidRole(elementQW,pageQW);
+    let globalWaiARIA = await AccessibilityUtils.domUtils.elementHasGlobalARIAPropertieOrAttribute(elementQW);
 
     result = type === "text"||focusable||ariaActivedescendant||ariaControls||ariaDescribedby||ariaDetails||ariaErrormessage||ariaFlowto||ariaLabelledby||ariaOwns||role||globalWaiARIA;
   }

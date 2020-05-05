@@ -1,21 +1,21 @@
 'use strict';
-
-import { Page, ElementHandle } from 'puppeteer';
 import elementHasAttributes from './elementHasAttributes';
 import getElementAttribute from './getElementAttribute';
 import getElementById from './getElementById';
 import getElementByAttributeName from './getElementByAttributeName';
+import { QWPage } from '../qwPage';
+import { QWElement } from '../qwElement';
 
-async function getElementReferencedByHREF(page: Page, element: ElementHandle): Promise<ElementHandle | null> {  
-  if (!element) {
+async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, ): Promise<QWElement | null> {
+  if (!elementQW.elementHtml && pageQW.document) {
     throw Error('Element is not defined');
   }
-  
-  if (!(await elementHasAttributes(element))) {
+
+  if (!(await elementHasAttributes(elementQW))) {
     return null;
   }
 
-  let href = await getElementAttribute(element, 'href');
+  let href =await getElementAttribute(elementQW, 'href');
   if (!href) {
     return null;
   }
@@ -27,13 +27,13 @@ async function getElementReferencedByHREF(page: Page, element: ElementHandle): P
   } else {
     return null;
   }
-  
-  let result = await getElementById(page,element,href);
+
+  let result = getElementById(pageQW, elementQW, href);
   if (result) {
     return result;
   }
 
-  result = await getElementByAttributeName(page, href);
+  result = getElementByAttributeName(pageQW, href);
   if (result) {
     return result;
   }

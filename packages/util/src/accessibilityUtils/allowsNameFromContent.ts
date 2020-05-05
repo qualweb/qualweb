@@ -1,16 +1,14 @@
 'use strict';
 
 import { nameFromContentRoles, nameFromContentElements } from "./constants";
-import {ElementHandle} from "puppeteer";
-import getElementTagName from "../domUtils/getElementTagName";
-import getElementAttribute from "../domUtils/getElementAttribute";
+import { QWElement } from "@qualweb/qw-element";
 
 
-async function allowsNameFromContent(element: ElementHandle): Promise<boolean> {
+async function allowsNameFromContent(element: QWElement): Promise<boolean> {
 
   let role, name;
-  name = await getElementTagName(element);
-  role = await getElementAttribute(element,"role");
+  name = element.getElementTagName();
+  role = element.getElementAttribute("role");
 
 
   return role && nameFromContentRoles.indexOf(role) >= 0 || name && nameFromContentElements.indexOf(name) >= 0;

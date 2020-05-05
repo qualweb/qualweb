@@ -1,16 +1,16 @@
 'use strict';
 
 import isElementHiddenByCSSAux from "./isElementHiddenByCSSAux";
-import { ElementHandle } from 'puppeteer';
 import getElementParent from "./getElementParent";
+import { QWElement } from "../qwElement";
 
-async function isElementHiddenByCSS(element: ElementHandle): Promise<boolean> {
-  const parent = await getElementParent(element);
+async function isElementHiddenByCSS(elementQW: QWElement): Promise<boolean> {
+  const parent = await getElementParent(elementQW);
   let parentHidden = false;
   if (parent) {
     parentHidden = await isElementHiddenByCSS(parent);
   }
-  return isElementHiddenByCSSAux(element) || parentHidden;
+  return isElementHiddenByCSSAux(elementQW) || parentHidden;
 }
 
 export default isElementHiddenByCSS;

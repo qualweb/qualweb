@@ -8,6 +8,7 @@
     "tsc": "tsc",
     "test": "mocha",
     "test-ANameTest": "mocha test/ANameTest.spec.js",
+    "test-ANameTestWiki": "mocha test/ANameTestWiki.spec.js",
     "test-svg": "mocha test/ANameSVGTest.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
@@ -43,6 +44,9 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@qualweb/types": "file:../types",
+    "@qualweb/qw-element": "file:../qw-element",
+    "@qualweb/qw-page": "file:../QWPage",
     "domutils": "^2.0.0",
     "htmlparser-to-html": "0.0.6",
     "lodash.clone": "^4.5.0",

@@ -1,45 +1,40 @@
 'use strict';
-
-import { ElementHandle, Page } from 'puppeteer';
 import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
-import getElementAttribute from '../domUtils/getElementAttribute';
-import getElementType from '../domUtils/getElementType';
-import getElementById from '../domUtils/getElementById';
-import getElementParent from '../domUtils/getElementParent';
-import getElementTagName from '../domUtils/getElementTagName';
-import getElementChildren from '../domUtils/getElementChildren';
-import getTreeSelector from '../shadowDomUtils/getTreeSelector';
+//import getTreeSelector from '../shadowDomUtils/getTreeSelector';
 import getElementRoleAName from './getElementRoleAName';
 import isElementControl from './isElementControl';
-import getElementSelector from '../domUtils/getElementSelector';
-async function getAccessibleNameSelector(element: ElementHandle, page: Page): Promise<string[] | undefined> {
-  return await getAccessibleNameRecursion(element, page, false, false);
+
+import { QWElement,QWPage } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
+
+async function getAccessibleNameSelector(elementQW: QWElement,  pageQW:QWPage): Promise<string[] | undefined> {
+  return await getAccessibleNameRecursion(elementQW, pageQW, false, false);
 }
 
-async function getAccessibleNameRecursion(element: ElementHandle, page: Page, recursion: boolean, isWidget: boolean): Promise<string []| undefined> {
+async function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): Promise<string []| undefined> {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id,defaultName;
-  let elementSelector = await getElementType(element);
-  let name = await getElementTagName(element);
+  let elementSelector = await AccessibilityUtils.domUtils.getElementSelector(element);
+  let name = await AccessibilityUtils.domUtils.getElementTagName(element);
   let allowNameFromContent = await allowsNameFromContent(element);
-  let treeSelector = await getTreeSelector(element);
-  ariaLabelBy = await getElementAttribute(element, "aria-labelledby");
+  let treeSelector = "";//await getTreeSelector(element);
+  ariaLabelBy = await AccessibilityUtils.domUtils.getElementAttribute(element, "aria-labelledby");
 
   if (ariaLabelBy !== null && !(await verififyAriaLabel(ariaLabelBy, page, element))) {
     ariaLabelBy = "";
   }
-  ariaLabel = !!(await getElementAttribute(element, "aria-label")) ? [elementSelector] : null;
-  attrType = await getElementAttribute(element, "type");
-  title = !!(await getElementAttribute(element, "title")) ? [elementSelector] : null;
-  alt = !!(await getElementAttribute(element, "alt")) ? [elementSelector] : null;
-  value = !!(await getElementAttribute(element, "value")) ? [elementSelector] : null;
-  placeholder = await getElementAttribute(element, "placeholder") ? [elementSelector] : null;
+  ariaLabel = !!(await AccessibilityUtils.domUtils.getElementAttribute(element, "aria-label")) ? [elementSelector] : null;
+  attrType = await AccessibilityUtils.domUtils.getElementAttribute(element, "type");
+  title = !!(await AccessibilityUtils.domUtils.getElementAttribute(element, "title")) ? [elementSelector] : null;
+  alt = !!(await AccessibilityUtils.domUtils.getElementAttribute(element, "alt")) ? [elementSelector] : null;
+  value = !!(await AccessibilityUtils.domUtils.getElementAttribute(element, "value")) ? [elementSelector] : null;
+  placeholder = await AccessibilityUtils.domUtils.getElementAttribute(element, "placeholder") ? [elementSelector] : null;
   role = await getElementRoleAName(element, page, "");
-  id = await getElementAttribute(element, "id");
+  id = await AccessibilityUtils.domUtils.getElementAttribute(element, "id");
   defaultName = !!(await getDefaultName(element))?["default"]:null;
 
   let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
@@ -109,49 +104,49 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-async function getValueFromSpecialLabel(element: ElementHandle, label: string, page: Page, treeSelector: string): Promise<string> {
-  let labelElement = await element.$(label + treeSelector);
+async function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage, treeSelector: string): Promise<string> {
+  let labelElement = await AccessibilityUtils.domUtils.getElementInsideElement(element,label + treeSelector);
   let accessNameFromLabel, result;
 
   if (labelElement)
     accessNameFromLabel = await getAccessibleNameRecursion(labelElement, page, true, false);
 
   if (!!accessNameFromLabel)
-    result = [await getElementSelector(element)];
+    result = [await AccessibilityUtils.domUtils.getElementSelector(element)];
 
   return result;
 }
 
-async function getValueFromLabel(element: ElementHandle, id: string, page: Page, treeSelector: string): Promise<string[]> {
-  let referencedByLabelList: ElementHandle[] = [];
-  let referencedByLabel = await page.$$(`label[for="${id}"]` + treeSelector);
+async function getValueFromLabel(element: QWElement, id: string, page: QWPage, treeSelector: string): Promise<string[]> {
+  let referencedByLabelList: QWElement[] = [];
+  let referencedByLabel = await AccessibilityUtils.domUtils.getElementsInsideDocument(page,`label[for="${id}"]` + treeSelector);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
   }
-  let parent = await getElementParent(element);
+  let parent = await AccessibilityUtils.domUtils.getElementParent(element);
   let result: string[] = [], accessNameFromLabel;
   let isWidget = await isElementWidget(element, page);
 
-  if (parent && await getElementTagName(parent) === "label" && !(await isElementPresent(parent, referencedByLabelList))) {
+  if (parent && await AccessibilityUtils.domUtils.getElementTagName(parent) === "label" && !(await isElementPresent(parent, referencedByLabelList))) {
     referencedByLabelList.push(parent);
   }
 
   for (let label of referencedByLabelList) {
     accessNameFromLabel = await getAccessibleNameRecursion(label, page, true, isWidget);
     if (accessNameFromLabel) {
-      result.push(await getElementSelector(label))
+      result.push(await AccessibilityUtils.domUtils.getElementSelector(label))
     }
 
   }
 
   return result;
 }
-async function isElementPresent(element: ElementHandle, listElement: ElementHandle[]): Promise<boolean> {
+async function isElementPresent(element: QWElement, listElement: QWElement[]): Promise<boolean> {
   let result = false;
   let i = 0;
-  let elementSelector = await getElementSelector(element);
+  let elementSelector = await AccessibilityUtils.domUtils.getElementSelector(element);
   while (i < listElement.length && !result) {
-    result = elementSelector === await getElementSelector(listElement[i]);
+    result = elementSelector === await AccessibilityUtils.domUtils.getElementSelector(listElement[i]);
   }
   return result;
 
@@ -159,7 +154,7 @@ async function isElementPresent(element: ElementHandle, listElement: ElementHand
 
 
 
-async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaLabelId: string, page: Page): Promise<string[]> {
+async function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: string, page: QWPage): Promise<string[]> {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string[] = [];
   let accessNameFromId;
@@ -168,18 +163,18 @@ async function getAccessibleNameFromAriaLabelledBy(element: ElementHandle, ariaL
 
 
   for (let id of ListIdRefs) {
-    elem = await getElementById(page, element, id);
+    elem = await AccessibilityUtils.domUtils.getElementById(page, element, id);
     accessNameFromId = await getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
-      result.push(await getElementSelector(elem));
+      result.push(await AccessibilityUtils.domUtils.getElementSelector(elem));
     }
   }
   return result;
 }
 
-async function getTextFromCss(element: ElementHandle, page: Page, isWidget: boolean): Promise<string[]> {
+async function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): Promise<string[]> {
   let aNameList = await getAccessibleNameFromChildren(element, page, isWidget);
-  let textValue = !!(await getConcatentedText(element, [])) ? await getElementSelector(element) : null;
+  let textValue = !!(await getConcatentedText(element, [])) ? await AccessibilityUtils.domUtils.getElementSelector(element) : null;
 
   if (!!textValue)
     aNameList.push(textValue);
@@ -189,7 +184,7 @@ async function getTextFromCss(element: ElementHandle, page: Page, isWidget: bool
   return aNameList;
 }
 
-async function getConcatentedText(element: ElementHandle, aNames: string[]): Promise<string> {
+async function getConcatentedText(element: QWElement, aNames: string[]): Promise<string> {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -220,11 +215,11 @@ async function getConcatentedText(element: ElementHandle, aNames: string[]): Pro
   return text;
 }
 
-async function getAccessibleNameFromChildren(element: ElementHandle, page: Page, isWidget: boolean): Promise<string[]> {
+async function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): Promise<string[]> {
   if (!isWidget) {
     isWidget = await isElementWidget(element, page);
   }
-  let children = await getElementChildren(element);
+  let children = await AccessibilityUtils.domUtils.getElementChildren(element);
   let result: string[] = [];
   let aName;
 
@@ -232,7 +227,7 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page: Page,
     for (let child of children) {
       aName = await getAccessibleNameRecursion(child, page, true, isWidget);
       if (aName) {
-        result.push(await getElementSelector(child));
+        result.push(await AccessibilityUtils.domUtils.getElementSelector(child));
       }
     }
   }
@@ -241,13 +236,13 @@ async function getAccessibleNameFromChildren(element: ElementHandle, page: Page,
 
 
 
-async function verififyAriaLabel(ariaLabelBy: string, page: Page, element: ElementHandle) {
+async function verififyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
 
   let elementIds = ariaLabelBy.split(" ");
   let result = false;
   for (let id of elementIds) {
     if (!result) {
-      result = await getElementById(page, element, id) !== null;
+      result = await AccessibilityUtils.domUtils.getElementById(page, element, id) !== null;
     }
   }
 

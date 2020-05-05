@@ -1,21 +1,21 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import getElementParent from './getElementParent';
 import getElementTagName from './getElementTagName';
-import getElementRole from '../accessibilityUtils/getElementRole';
+import { QWElement } from '../qwElement';
+import { QWPage } from '../qwPage';
 
-async function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean> {
-  if (!element) {
+async function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): Promise<boolean> {
+  if (!elementQW.elementHtml || !pageQW.document) {
     throw Error('Element is not defined');
   }
-  let parent = await getElementParent(element);
+  let parent = await getElementParent(elementQW);
   let result = false;
   let sameRole, sameName;
 
   if (parent !== null) {
     let parentName = await getElementTagName(parent);
-    let parentRole = await getElementRole(parent, page);
+    let parentRole =  ""//Fixme await getElementRole(parent, page);
 
 
     if (parentName !== null) {
@@ -26,7 +26,7 @@ async function isElementADescendantOf(element: ElementHandle, page: Page, names:
     }
     result = sameName || sameRole;
     if (!result) {
-      return await isElementADescendantOf(parent, page, names, roles);
+      return await isElementADescendantOf(parent, pageQW, names, roles);
     } else {
       return result;
     }

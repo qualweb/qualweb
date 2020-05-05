@@ -1,13 +1,11 @@
 'use strict';
 import roles from './elementImplicitRoles.json';
-import { ElementHandle, Page } from 'puppeteer';
-import getElementParent from '../domUtils/getElementParent';
-import getElementTagName from '../domUtils/getElementTagName';
-import getElementAttribute from '../domUtils/getElementAttribute';
-import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole';
+import { QWElement,QWPage } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
 
-async function getImplicitRole(element: ElementHandle, page: Page, acessibleName:string|undefined): Promise<string | null> {
-  let name = await getElementTagName(element);
+
+async function getImplicitRole(elementQW: QWElement, pageQW:QWPage, acessibleName:string|undefined): Promise<string | null> {
+  let name = await AccessibilityUtils.domUtils.getElementTagName(elementQW);
   let attributes, role;
   if (name) {
     let roleValues = roles[name.toLocaleLowerCase()];
@@ -15,13 +13,13 @@ async function getImplicitRole(element: ElementHandle, page: Page, acessibleName
       for (let roleValue of roleValues) {
         let special = roleValue["special"];
         attributes = roleValue["attributes"];
-        if (attributes.length === 0 || await isInList(attributes, element)) {
+        if (attributes.length === 0 || await isInList(attributes, elementQW)) {
           if (!special) {
             role = roleValue["role"];
           } else {
             let heading = new RegExp("h[1-6]");
             if (name === "footer" || name === "header") {
-              if (await isElementADescendantOfExplicitRole(element, page, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
+              if (await AccessibilityUtils.domUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
                 role = roleValue["role"];
               }
             } else if (name === "form" || name === "section") {
@@ -31,19 +29,19 @@ async function getImplicitRole(element: ElementHandle, page: Page, acessibleName
               }
 
             } else if (heading.test(name)) {
-              let ariaLevel = await getElementAttribute(element, "aria-level");
+              let ariaLevel = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "aria-level");
               if (ariaLevel === null || parseInt(ariaLevel) > 0) {
                 role = roleValue["role"];
               }
             } else if (name === "img") {
-              let alt = await getElementAttribute(element, "alt");
+              let alt = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "alt");
               if (alt !== "") {
                 role = roleValue["role"];
               }
             } else if (name === "input") {
 
-              let list = await getElementAttribute(element, "list");
-              let type = await getElementAttribute(element, "type");
+              let list = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "list");
+              let type = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "type");
 
               if (list !== null) {
                 role = roleValue["role"];
@@ -53,28 +51,28 @@ async function getImplicitRole(element: ElementHandle, page: Page, acessibleName
                 role = "textbox";
               }
             } else if (name === "li") {
-              let parent = await getElementParent(element);
+              let parent = await AccessibilityUtils.domUtils.getElementParent(elementQW);
               let parentNames = ["ol", "ul", "menu"];
               let parentName;
               if (parent !== null)
-                parentName = await getElementTagName(parent);
+                parentName = await AccessibilityUtils.domUtils.getElementTagName(parent);
 
               if (parentName !== null && parentNames.includes(parentName)) {
                 role = roleValue["role"];
               }
 
             } else if (name === "option") {
-              let parent = await getElementParent(element);
+              let parent = await AccessibilityUtils.domUtils.getElementParent(elementQW);
               let parentName;
               if (parent !== null)
-                parentName = await getElementTagName(parent);
+                parentName = await AccessibilityUtils.domUtils.getElementTagName(parent);
 
               if (parentName === "datalist") {
                 role = roleValue["role"];
               }
             } else if (name === "select") {
-              let size = await getElementAttribute(element, "size");
-              let multiple = await getElementAttribute(element, "multiple");
+              let size = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "size");
+              let multiple = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "multiple");
 
               if (multiple !== null && size !== null && parseInt(size, 10) > 1) {
                 role = "listbox";
@@ -82,7 +80,7 @@ async function getImplicitRole(element: ElementHandle, page: Page, acessibleName
                 role = roleValue["role"];
               }
             } else if (name === "td") {
-              if (await isElementADescendantOfExplicitRole(element, page, ["table"], [])) {
+              if (await AccessibilityUtils.domUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["table"], [])) {
                 role = roleValue["role"];
               }
             }
@@ -95,13 +93,13 @@ async function getImplicitRole(element: ElementHandle, page: Page, acessibleName
 
   return role;
 }
-async function isInList(attributes, element: ElementHandle) {
+async function isInList(attributes, element: QWElement) {
   let result;
   for (let i = 0; i < attributes.length; i++) {
     let attribute = attributes[i];
     let key = attribute[0];
     let value = attribute[1];
-    let roleSpecificATT = await getElementAttribute(element, key);
+    let roleSpecificATT = await AccessibilityUtils.domUtils.getElementAttribute(element, key);
     if (roleSpecificATT === value || (value === ""&&roleSpecificATT!==null))
       result = true;
   }

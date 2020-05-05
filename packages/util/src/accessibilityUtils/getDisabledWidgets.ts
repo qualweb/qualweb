@@ -1,26 +1,26 @@
 'use strict';
 
-import {ElementHandle, Page} from "puppeteer";
+import { QWElement,QWPage } from '@qualweb/html-util';
 import isElementWidget from './isElementWidget';
-import getElementAttribute from '../domUtils/getElementAttribute';
-import getElementParent from '../domUtils/getElementParent'
-import getElementTagName from '../domUtils/getElementTagName'
+import { AccessibilityUtils } from "..";
 
-async function getDisabledWidgets(page:Page): Promise<ElementHandle[]> {
-  let elements = await page.$$('*');
-  let disabledElements:ElementHandle[] = [];
+
+
+async function getDisabledWidgets(pageQW:QWPage): Promise<QWElement[]> {
+  let elements = await AccessibilityUtils.domUtils.getElementsInsideDocument(pageQW,'*');
+  let disabledElements:QWElement[] = [];
   let isWidget, disable, ariaDisable, parent, parentTag;
   for(let element of elements){
-    isWidget = await isElementWidget(element,page);
-    disable = (await getElementAttribute(element, 'disabled')) !== null;
-    ariaDisable = (await getElementAttribute(element, 'aria-disabled')) !== null;
-    parent = await getElementParent(element);
+    isWidget = await isElementWidget(element,pageQW);
+    disable = (await AccessibilityUtils.domUtils.getElementAttribute(element, 'disabled')) !== null;
+    ariaDisable = (await AccessibilityUtils.domUtils.getElementAttribute(element, 'aria-disabled')) !== null;
+    parent = await AccessibilityUtils.domUtils.getElementParent(element);
     if(parent && !(disable || ariaDisable)){
-      parentTag = await getElementTagName(parent);
+      parentTag = await AccessibilityUtils.domUtils.getElementTagName(parent);
       if(parentTag === "label"){
-        parent = await getElementParent(parent);
-        disable = (await getElementAttribute(parent, 'disabled')) !== null;
-        ariaDisable = (await getElementAttribute(parent, 'aria-disabled')) !== null;
+        parent = await AccessibilityUtils.domUtils.getElementParent(parent);
+        disable = (await AccessibilityUtils.domUtils.getElementAttribute(parent, 'disabled')) !== null;
+        ariaDisable = (await AccessibilityUtils.domUtils.getElementAttribute(parent, 'aria-disabled')) !== null;
       }
     }
     if(isWidget && (disable || ariaDisable)){

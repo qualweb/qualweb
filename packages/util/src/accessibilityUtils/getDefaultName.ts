@@ -1,17 +1,18 @@
 'use strict';
-import { ElementHandle } from "puppeteer";
-import getElementAttribute from "../domUtils/getElementAttribute";
-import getElementTagName from '../domUtils/getElementTagName';
 
-async function getDefaultName(element: ElementHandle): Promise<string> {
-  let name = await getElementTagName(element);
+import { QWElement } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
+
+
+async function getDefaultName(elementQW: QWElement): Promise<string> {
+  let name = await AccessibilityUtils.domUtils.getElementTagName(elementQW);
   if (!name)
     name = '';
   let type;
   let result = "";
 
   if (name === "input") {
-    type = await getElementAttribute(element, "type");;
+    type = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "type");;
   }
 
   /*if (type === "image") {

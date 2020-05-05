@@ -1,10 +1,10 @@
 'use strict';
+import { QWElement } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
 
-import { ElementHandle } from 'puppeteer';
-import getElementAttribute from '../domUtils/getElementAttribute';
 
-async function elementHasRoleNoneOrPresentation(element: ElementHandle): Promise<boolean> {
-  let role = await getElementAttribute(element,"role")
+async function elementHasRoleNoneOrPresentation(elementQW: QWElement): Promise<boolean> {
+  let role = await AccessibilityUtils.domUtils.getElementAttribute(elementQW,"role")
   return role!== null && (role === "none" ||role === "presentation");
 }
 

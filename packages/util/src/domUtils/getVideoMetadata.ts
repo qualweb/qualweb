@@ -1,8 +1,9 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import videoElementHasAudio from './videoElementHasAudio';
 import request from 'request';
+import getElementProperty from './getElementProperty';
+import { QWElement } from "../qwElement";
 
 function getRequestContent(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -16,17 +17,15 @@ function getRequestContent(url: string): Promise<string> {
   });
 }
 
-async function getVideoMetadata(element: ElementHandle) {
-  let src = await element.evaluate(elem => {
-    return elem['currentSrc'];
-  });
+async function getVideoMetadata(elementQW: QWElement) {
+  let src = await getElementProperty(elementQW,'currentSrc');
   let json = JSON.parse(await getRequestContent('http://194.117.20.242/video/' + encodeURIComponent(src)));
   let durationVideo = getStreamDuration(json, "video");
   let durationAudio = getStreamDuration(json, "audio");
   let audioVolume = json["audio"]["maxVolume"];
   //let error = json["metadata"]["error"];
-  let duration = await element.evaluate(elem => { return elem['duration']; });
-  let hasSoundTrack = await videoElementHasAudio(element);
+  let duration = parseInt(await getElementProperty(elementQW,'duration'));
+  let hasSoundTrack = videoElementHasAudio(elementQW);
   let result = { service: { video: { duration: {} }, audio: { duration: {}, volume: {} }, error: {} }, puppeteer: { video: { duration: {} }, audio: { hasSoundTrack: {} }, error: {} } };
   result.puppeteer.video.duration = duration;
   result.service.video.duration = durationVideo;

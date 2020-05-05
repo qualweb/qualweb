@@ -1,11 +1,12 @@
 'use strict';
 
-import { ElementHandle } from "puppeteer";
+import { QWElement } from '@qualweb/html-util';
 
-async function getTrimmedText(element: ElementHandle): Promise<string> {
-  if (!element) {
+async function getTrimmedText(elementQW: QWElement): Promise<string> {
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
+  let element = elementQW.elementPupeteer;
 
   let text = await element.evaluate((element)=>{
     let chidlren =element.childNodes;

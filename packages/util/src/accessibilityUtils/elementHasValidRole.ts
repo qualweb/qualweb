@@ -1,11 +1,12 @@
 'use strict';
-import { ElementHandle, Page } from "puppeteer";
+import { QWElement,QWPage } from '@qualweb/html-util';
+
 import roles from './roles.json';
 import getElementRole from "./getElementRole";
 
-async function elementHasValidRole(element: ElementHandle, page:Page): Promise<boolean> {
+async function   elementHasValidRole(elementQW: QWElement, pageQW:QWPage): Promise<boolean> {
 
-  let role = await getElementRole(element,page);
+  let role = await getElementRole(elementQW,pageQW);
   let result = false;
   if (role !== null)
     result = Object.keys(roles).includes(role);

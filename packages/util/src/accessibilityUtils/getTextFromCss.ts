@@ -1,12 +1,13 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
-import getElementStyleProperty from "../domUtils/getElementStyleProperty";
+import { QWElement } from '@qualweb/html-util';
+import { AccessibilityUtils } from "..";
 
-function getTextFromCss(element: ElementHandle, textContent: string): string {
 
-  let before = getElementStyleProperty(element, "computed-style-before", "content");
-  let after = getElementStyleProperty(element, "computed-style-after", "content");
+async function getTextFromCss(elementQW: QWElement, textContent: string): Promise<string> {
+
+  let before = await AccessibilityUtils.domUtils.getElementStyleProperty(elementQW, "computed-style-before", "content");
+  let after = await AccessibilityUtils.domUtils.getElementStyleProperty(elementQW, "computed-style-after", "content");
 
   return before + textContent + after;
 }
