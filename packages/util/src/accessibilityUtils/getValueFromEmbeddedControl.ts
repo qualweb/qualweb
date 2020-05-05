@@ -1,78 +1,77 @@
 'use strict';
-import { QWElement,QWPage} from '@qualweb/html-util';
 import getElementRoleAName = require("./getElementRoleAName");
-import { AccessibilityUtils } from "..";
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
+import getTrimmedText from "./getTrimmedText";
 
 
- async function getValueFromEmbeddedControl(elementQW: QWElement,  pageQW:QWPage, treeSelector: string): Promise<string>{//stew
+ async function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelector: string): Promise<string>{//stew
 
-  let element = elementQW.elementPupeteer;
-  let page = pageQW.page;
-  let role = await getElementRoleAName(elementQW, pageQW, "");
-  let name = await AccessibilityUtils.domUtils.getElementTagName(elementQW);
+  let role = await getElementRoleAName(element, page, "");
+  let name = element.getElementTagName();
   if (!name)
     name = '';
   let value = "";
 
 
   if ((role === "textbox") ) {
-    let valueAT = await AccessibilityUtils.domUtils.getElementAttribute(elementQW,"value");
+    let valueAT = element.getElementAttribute("value");
     value = valueAT? valueAT : "";
   } else if (role === "combobox") {
-    let refrencedByLabel = await element.$(`[aria-activedescendant]` + treeSelector);
+    let refrencedByLabel = await element.getElement(`[aria-activedescendant]` + treeSelector);
     let aria_descendendant, selectedElement, optionSelected;
     if (!!refrencedByLabel) {
-      aria_descendendant = await AccessibilityUtils.domUtils.getElementAttribute(refrencedByLabel, "role");
-      selectedElement = await element.$(`[id="${aria_descendendant}"]`);
+      aria_descendendant = refrencedByLabel.getElementAttribute( "role");
+      selectedElement = await element.getElement(`[id="${aria_descendendant}"]`);
     }
 
     if (name === 'select') {
-      optionSelected = await element.$(`[selected]` + treeSelector);
+      optionSelected = await element.getElement(`[selected]` + treeSelector);
     }
 
-    let aria_owns = await AccessibilityUtils.domUtils.getElementAttribute(element, "[aria-owns]" + treeSelector);
-    let elementasToSelect = await page.$(`[id="${aria_owns}"]`);
+    let aria_owns = element.getElementAttribute( "[aria-owns]" + treeSelector);
+    let elementasToSelect = await page.getElement(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
     if (!!elementasToSelect )
-      elementWithAriaSelected = elementasToSelect.$(`[aria-selected="true"]` + treeSelector);
+      elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]` + treeSelector);
 
     if (!!optionSelected) {
-      value = await AccessibilityUtils.domUtils.getTrimmedText(optionSelected);
+      value = getTrimmedText(optionSelected);
     }
     else if (!!selectedElement) {
-      value = await AccessibilityUtils.domUtils.getTrimmedText(selectedElement[0]);
+      value = getTrimmedText(selectedElement[0]);
     } else if (!!elementWithAriaSelected) {
-      value = await AccessibilityUtils.domUtils.getTrimmedText(elementWithAriaSelected[0]);
+      value = getTrimmedText(elementWithAriaSelected[0]);
     }
 
   } else if (role === "listbox") {
-    let elementsWithId = await element.$$(`[id]` + treeSelector);
-    let elementWithAriaSelected = await element.$(`[aria-selected="true"]` + treeSelector);
+    let elementsWithId = await element.getElements(`[id]` + treeSelector);
+    let elementWithAriaSelected = await element.getElement(`[aria-selected="true"]` + treeSelector);
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
       if (!!selectedElement) {
-        let id = await AccessibilityUtils.domUtils.getElementAttribute(elementWithId, "id");
-        selectedElement = await element.$(`[aria-activedescendant="${id}"]` + treeSelector);
+        let id = elementWithId.getElementAttribute( "id");
+        selectedElement = await element.getElement(`[aria-activedescendant="${id}"]` + treeSelector);
       }
     }
 
     if (name === 'select') {
-      optionSelected = await element.$(`[selected]` + treeSelector);
+      optionSelected = await element.getElement(`[selected]` + treeSelector);
     }
 
     if (!!selectedElement)
-      value = await AccessibilityUtils.domUtils.getTrimmedText(elementsWithId[0]);
+      value = getTrimmedText(elementsWithId[0]);
     else if (!! elementWithAriaSelected) {
-      value = await AccessibilityUtils.domUtils.getTrimmedText(elementWithAriaSelected);
+      value = getTrimmedText(elementWithAriaSelected);
     } else if (!!optionSelected) {
-      value = await AccessibilityUtils.domUtils.getTrimmedText(optionSelected);
+      value = getTrimmedText(optionSelected);
     }
   } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
-    let valueTextVar = await AccessibilityUtils.domUtils.getElementAttribute(element, "aria-valuetext");
-    let valuenowVar = await AccessibilityUtils.domUtils.getElementAttribute(element, "aria-valuenow");
+    let valueTextVar = element.getElementAttribute( "aria-valuetext");
+    let valuenowVar = element.getElementAttribute( "aria-valuenow");
     if (!!valueTextVar)
       value = valueTextVar;
     else if (!!valuenowVar)

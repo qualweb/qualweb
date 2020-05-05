@@ -1,19 +1,20 @@
 'use strict';
-import { QWElement,QWPage } from '@qualweb/html-util';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 import elementHasValidRole from "./elementHasValidRole";
 import { AccessibilityUtils } from "..";
 
 
 
 async function isElementInAT(elementQW: QWElement,  pageQW:QWPage): Promise<boolean>{
-  let isPresentation = await AccessibilityUtils.domUtils.isElementPresentation(elementQW, pageQW);
-  let isHidden = await AccessibilityUtils.domUtils.isElementHidden(elementQW);
+  let isPresentation = awaitelementQWisElementPresentation(elementQW, pageQW);
+  let isHidden = awaitelementQWisElementHidden(elementQW);
   let result = false;
 
   if (!isHidden && !isPresentation) {
-    let type = await AccessibilityUtils.domUtils.getElementType(elementQW);
-    let focusable = await AccessibilityUtils.domUtils.isElementFocusable(elementQW);
-    let id = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "id");
+    let type = awaitelementQWgetElementType(elementQW);
+    let focusable = awaitelementQWisElementFocusable(elementQW);
+    let id = awaitelementQWgetElementAttribute(elementQW, "id");
     let ariaActivedescendant = false;
     let ariaControls = false;
     let ariaDescribedby = false;
@@ -23,18 +24,18 @@ async function isElementInAT(elementQW: QWElement,  pageQW:QWPage): Promise<bool
     let ariaLabelledby = false;
     let ariaOwns = false;
     if (id !== null) {
-      ariaActivedescendant = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-activedescendant");
-      ariaControls = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW,id, " aria-controls");
-      ariaDescribedby = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, " aria-describedby");
-      ariaDetails = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, " aria-details");
-      ariaErrormessage = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-errormessage");
-      ariaFlowto = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-flowto");
-      ariaLabelledby = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-labelledby");
-      ariaOwns = await AccessibilityUtils.domUtils.elementIDIsReferenced(pageQW,elementQW, id, "aria-owns");
+      ariaActivedescendant = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, "aria-activedescendant");
+      ariaControls = awaitelementQWelementIDIsReferenced(pageQW,elementQW,id, " aria-controls");
+      ariaDescribedby = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, " aria-describedby");
+      ariaDetails = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, " aria-details");
+      ariaErrormessage = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, "aria-errormessage");
+      ariaFlowto = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, "aria-flowto");
+      ariaLabelledby = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, "aria-labelledby");
+      ariaOwns = awaitelementQWelementIDIsReferenced(pageQW,elementQW, id, "aria-owns");
 
     }
     let role = await elementHasValidRole(elementQW,pageQW);
-    let globalWaiARIA = await AccessibilityUtils.domUtils.elementHasGlobalARIAPropertieOrAttribute(elementQW);
+    let globalWaiARIA = awaitelementQWelementHasGlobalARIAPropertieOrAttribute(elementQW);
 
     result = type === "text"||focusable||ariaActivedescendant||ariaControls||ariaDescribedby||ariaDetails||ariaErrormessage||ariaFlowto||ariaLabelledby||ariaOwns||role||globalWaiARIA;
   }

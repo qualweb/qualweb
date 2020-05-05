@@ -1,5 +1,6 @@
 'use strict';
-import { QWElement,QWPage } from '@qualweb/html-util';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
 
 async function getAccessibleNameSVG(element: QWElement, page: QWPage): Promise<string | undefined> {

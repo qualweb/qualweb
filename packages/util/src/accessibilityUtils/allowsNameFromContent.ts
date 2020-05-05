@@ -4,7 +4,7 @@ import { nameFromContentRoles, nameFromContentElements } from "./constants";
 import { QWElement } from "@qualweb/qw-element";
 
 
-async function allowsNameFromContent(element: QWElement): Promise<boolean> {
+ function allowsNameFromContent(element: QWElement): boolean {
 
   let role, name;
   name = element.getElementTagName();

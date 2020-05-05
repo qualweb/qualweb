@@ -1,7 +1,8 @@
 'use strict';
 
 import {controlRoles } from "./constants";
-import { QWElement,QWPage } from '@qualweb/html-util';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 import getElementRoleAName from "./getElementRoleAName";
 async function isElementControl(elementQW: QWElement,  pageQW:QWPage): Promise<boolean>{
   let role = await getElementRoleAName(elementQW,pageQW,"");

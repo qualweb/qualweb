@@ -1,29 +1,17 @@
 'use strict';
 
-import { QWElement } from '@qualweb/html-util';
-
-async function getTrimmedText(elementQW: QWElement): Promise<string> {
+import { QWElement } from '@qualweb/qw-element';
+function getTrimmedText(elementQW: QWElement): string {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  let element = elementQW.elementPupeteer;
+  let text = elementQW.getElementText();
 
-  let text = await element.evaluate((element)=>{
-    let chidlren =element.childNodes;
-    let result = "";
-    for(let child of chidlren){
-      if(child.nodeType=== 3){
-          result = result + child.textContent;
-      }
-    }
-    return result });
-  
-  if(text){
+  if (text) {
     text = text.trim();
-  }else{
+  } else {
     text = "";
   }
-
   return text;
 }
 

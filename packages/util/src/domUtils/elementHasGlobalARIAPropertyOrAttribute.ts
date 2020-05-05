@@ -1,14 +1,14 @@
 'use strict';
 
 import ariaJSON from './ariaAttributesRoles.json';
-import getElementAttributesName from './getElementAttributesName';
-import { QWElement } from '../qwElement.js';
+import { QWElement } from '@qualweb/qw-element';
 
- async function elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): Promise<boolean> {
-  if (!elementQW.elementHtml) {
+
+ function elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean {
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
-  let elemAttribs = await getElementAttributesName(elementQW);
+  let elemAttribs = elementQW.getElementAttributesName();
   let keyArray = Object.keys(ariaJSON);
   let result = false;
   let i = 0;

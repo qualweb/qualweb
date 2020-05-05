@@ -1,13 +1,12 @@
 'use strict';
 
-import { QWElement } from '@qualweb/html-util';
-import { AccessibilityUtils } from "..";
+import { QWElement } from '@qualweb/qw-element';
 
 
 async function getTextFromCss(elementQW: QWElement, textContent: string): Promise<string> {
 
-  let before = await AccessibilityUtils.domUtils.getElementStyleProperty(elementQW, "computed-style-before", "content");
-  let after = await AccessibilityUtils.domUtils.getElementStyleProperty(elementQW, "computed-style-after", "content");
+  let before = elementQW.getElementStyleProperty( "computed-style-before", "content");
+  let after = elementQW.getElementStyleProperty( "computed-style-after", "content");
 
   return before + textContent + after;
 }

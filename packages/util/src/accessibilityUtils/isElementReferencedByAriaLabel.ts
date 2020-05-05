@@ -1,20 +1,21 @@
 'use strict';
 
-import { QWElement,QWPage } from '@qualweb/html-util';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 import { AccessibilityUtils } from "..";
 
 //import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
 async function isElementReferencedByAriaLabel(elementQW: QWElement,  pageQW:QWPage): Promise<boolean> {
 
-  let id = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "id");
-  //let treeSelector = await getTreeSelector(elementQW);
+  let id = elementQW.getElementAttribute( "id");
+  let treeSelector = await elementQW.getTreeSelector();
   let result = false;
   if (id !== null) {
-    let referencedByAriaLabel = await AccessibilityUtils.domUtils.getElementsInsideDocument(pageQW,`[aria-labelledby*="${id}"]`/* + treeSelector*/);
+    let referencedByAriaLabel = pageQW.getElements(`[aria-labelledby*="${id}"]` + treeSelector);
     let i = 0;
     while(i < referencedByAriaLabel.length){
-      let ariaLabelBy = await AccessibilityUtils.domUtils.getElementAttribute(referencedByAriaLabel[i], "aria-labelledby");
+      let ariaLabelBy = referencedByAriaLabel[i].getElementAttribute( "aria-labelledby");
       if (ariaLabelBy !== null) {
         let ids = ariaLabelBy.split(" ");
         if (ids.includes(id)) {

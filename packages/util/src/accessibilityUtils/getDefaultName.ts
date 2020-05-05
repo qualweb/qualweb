@@ -1,18 +1,16 @@
 'use strict';
 
-import { QWElement } from '@qualweb/html-util';
-import { AccessibilityUtils } from "..";
-
+import { QWElement } from '@qualweb/qw-element';
 
 async function getDefaultName(elementQW: QWElement): Promise<string> {
-  let name = await AccessibilityUtils.domUtils.getElementTagName(elementQW);
+  let name = elementQW.getElementTagName();
   if (!name)
     name = '';
   let type;
   let result = "";
 
   if (name === "input") {
-    type = await AccessibilityUtils.domUtils.getElementAttribute(elementQW, "type");;
+    type = elementQW.getElementAttribute( "type");;
   }
 
   /*if (type === "image") {
