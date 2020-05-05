@@ -2,76 +2,66 @@
 
 EARL reporter module for QualWeb.
 
-## How to install
+## How to use
 
-```shell
-  $ npm i @qualweb/earl-reporter --save
-```
+**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
 
-## How to run
+## Report details
 
-### Additional packages
-
-```shell
-  $ npm i @qualweb/get-dom-puppeteer --save
-  $ npm i @qualweb/act-rules --save
-```
-
-```javascript
-  'use strict';
-
-  const { getDom } = require('@qualweb/get-dom-puppeteer');
-  const { executeACTR } = require('@qualweb/act-rules');
-  const reporter = require('@qualweb/earl-reporter');
-
-  (async () => {
-    // Generate EARL assertions in case of partial report is given
-    const { source, processed } = await getDom('https://act-rules.github.io/pages/about/');
-    const report = await executeACTR(source.html.parsed, processed.html.parsed);
-    const assertions = await reporter.generateEARLAssertions(report);
-
-    console.log(assertions);
-
-    // Generate full single EARL report - based on only one test subject
-    const dom = await getDom('https://act-rules.github.io/pages/about/');
-
-    // Example evaluation report
-    const evaluationReport = {
-      type: 'evaluation',
-      system: {
-        name: 'QualWeb',
-        description: 'Web accessibility evaluator',
-        version: '3.0.0',
-        homepage: 'http://qualweb.di.fc.ul.pt',
-        date: 'current date',
-        hash: 'some hash',
-        url: {
-          completeUrl: 'https://act-rules.github.io/pages/about/'
+```jsonc
+  {
+    "@context": "https://act-rules.github.io/earl-context.json",
+    "@graph": [
+      {
+        "@type": "TestSubject",
+        "source": "url of the tested webpage",
+        "redirectedTo": "final url after redirects (if any)",
+        "assertor": {
+          "@id": "QualWeb",
+          "@type": "Software",
+          "title": "QualWeb",
+          "description": "QualWeb is an automatic accessibility evaluator for webpages.",
+          "hasVersion": "QualWeb version",
+          "homepage": "http://www.qualweb.di.fc.ul.pt/"
         },
-        dom: {
-          title: 'some title',
-          elementCount: 456
-        }
+        "assertions": [
+          {
+            "@type": "Assertion",
+            "test": {
+              "@id": "url fo the rule/technique",
+              "@type": "TestCase",
+              "title": "rule/technique name",
+              "description": "rule/technique description"
+            },
+            "mode": "earl:automatic",
+            "result": {
+              "@type": "TestResult",
+              "outcome": "outcome of the rule/technique",
+              "source": [
+                {
+                  "result": {
+                    "pointer": "Pointer to the test target in CSS notation",
+                    "outcome": "outcome of the test"
+                  }
+                },
+                {
+                  ...
+                }
+              ],
+              "description": "Description of the outcome",
+              "date": "Date of the evaluation"
+            }
+          },
+          {
+            ...
+          }
+        ]
       },
-      modules: {
-        'act-rules': ACTRulesReport;
-        'html-techniques': HTMLTechniquesReport;
-        'css-techniques': CSSTechniquesReport;
+      {
+        ...
       }
-    };
-
-    const earlReports = await reporter.generateEARLReport([evaluationReport]);
-
-    console.log(earlReports[0]);
-
-    // Generate full aggregated EARL report - on report based on multiple test subjects
-
-    const evaluations = [evaluationReport1, evaluationReport2, ...];
-
-    const aggregatedEarlReport = await reporter.generateEARLReport(evaluations, { aggregated: true });
-
-    console.log(aggregatedEarlReport);
-  })();
+    ]
+  }
 ```
 
 # License
