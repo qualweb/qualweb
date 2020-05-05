@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {

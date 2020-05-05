@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.18] - 05/05/2020
+
+### Added
+ - viewport options
+ - possibility of using config files
+
+### Updated
+ - parser
+ - README.md
+
 ## [0.3.17] - 23/04/2020
 
 ### Fixed
