@@ -1,34 +1,28 @@
 
 'use strict';
-import getElementTagName from './getElementTagName';
-import elementHasAttribute from './elementHasAttribute';
-import getElementAttribute from './getElementAttribute';
-import getElementParent from './getElementParent';
-import getElementChildren from './getElementChildren';
-import { QWElement } from "../qwElement";
+import { QWElement } from '@qualweb/qw-element';
 
-async function isElementFocusableByDefault(elementQW: QWElement): Promise<boolean> {
-  if (!elementQW.elementHtml) {
+ function isElementFocusableByDefault(elementQW: QWElement): boolean{
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
-  let element = elementQW.elementHtml;
 
-  const draggableAttribute = await getElementAttribute(elementQW, 'draggable');
+  const draggableAttribute =  elementQW.getElementAttribute( 'draggable');
 
   if (draggableAttribute && draggableAttribute === 'true') {
     return true;
   } else {
-    const elementName = await getElementTagName(elementQW);
-    const hasHref = await elementHasAttribute(elementQW, 'href');
-    const elementAttributeType = await getElementAttribute(elementQW, 'type');
+    const elementName = elementQW.getElementTagName();
+    const hasHref = elementQW.elementHasAttribute('href');
+    const elementAttributeType = elementQW.getElementAttribute('type');
 
-    const parent = await getElementParent(elementQW);
+    const parent = elementQW.getElementParent();
     let parentName;
     let parentChildren;
 
     if (parent) {
-      parentName = await getElementTagName(parent);
-      parentChildren = await getElementChildren(parent);
+      parentName = parent.getElementTagName();
+      parentChildren = parent.getElementChildren();
     }
 
     switch (elementName) {
@@ -42,7 +36,7 @@ async function isElementFocusableByDefault(elementQW: QWElement): Promise<boolea
       case 'input':
         return !(elementAttributeType && elementAttributeType !== 'hidden');
       case 'summary':
-        return !!(parent && parentName === 'details' && parentChildren && element === parentChildren[0]);
+        return !!(parent && parentName === 'details' && parentChildren && elementQW.getElementSelector() === parentChildren[0].getElementSelector());
       case 'textarea':
       case 'select':
       case 'button':

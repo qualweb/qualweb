@@ -1,22 +1,20 @@
  
 'use strict';
 import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
-import getElementAttribute from './getElementAttribute';
-import getElementParent from "./getElementParent";
-import { QWElement } from "../qwElement";
+import { QWElement } from '@qualweb/qw-element';
 
-async function isElementHidden(elementQW: QWElement): Promise<boolean> {
-  if (!elementQW.elementHtml) {
+function isElementHidden(elementQW: QWElement): boolean {
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
 
-  const ariaHidden = await getElementAttribute(elementQW,'aria-hidden')==='true';
-  const hidden = await getElementAttribute(elementQW,'hidden') !== null;
-  const cssHidden = await isElementHiddenByCSSAux(elementQW);
-  const parent = await getElementParent(elementQW);
+  const ariaHidden = elementQW.getElementAttribute('aria-hidden')==='true';
+  const hidden = elementQW.getElementAttribute('hidden') !== null;
+  const cssHidden = isElementHiddenByCSSAux(elementQW);
+  const parent = elementQW.getElementParent();
   let parentHidden = false;
   if (parent) {
-    parentHidden = await isElementHidden(parent);
+    parentHidden = isElementHidden(parent);
   }
 
   return cssHidden || hidden || ariaHidden || parentHidden;

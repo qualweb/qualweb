@@ -5,10 +5,10 @@ import getAccessibleName from './getAccessibleName';
 import getElementRoleAName from './getElementRoleAName';
 
 
-async function getElementRole(elementQW: QWElement, pageQW: QWPage): Promise<string | null> {
-  let aName = await getAccessibleName(elementQW, pageQW);
+function getElementRole(elementQW: QWElement, pageQW: QWPage): string | null {
+  let aName = getAccessibleName(elementQW, pageQW);
 
-  return await getElementRoleAName(elementQW, pageQW, aName);
+  return getElementRoleAName(elementQW, pageQW, aName);
 }
 
 export default getElementRole;

@@ -1,14 +1,13 @@
 'use strict';
 
 import isElementHiddenByCSSAux from "./isElementHiddenByCSSAux";
-import getElementParent from "./getElementParent";
-import { QWElement } from "../qwElement";
+import { QWElement } from '@qualweb/qw-element';
 
-async function isElementHiddenByCSS(elementQW: QWElement): Promise<boolean> {
-  const parent = await getElementParent(elementQW);
+function isElementHiddenByCSS(elementQW: QWElement): boolean {
+  const parent = elementQW.getElementParent();
   let parentHidden = false;
   if (parent) {
-    parentHidden = await isElementHiddenByCSS(parent);
+    parentHidden = isElementHiddenByCSS(parent);
   }
   return isElementHiddenByCSSAux(elementQW) || parentHidden;
 }

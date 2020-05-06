@@ -1,21 +1,18 @@
 'use strict';
-import getElementParent from './getElementParent';
-import getElementTagName from './getElementTagName';
-import getElementAttribute from './getElementAttribute';
-import { QWElement } from '../qwElement';
-import { QWPage } from '../qwPage';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 async function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): Promise<boolean> {
-  if (!elementQW.elementHtml || !pageQW.document) {
+  if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
-  let parent = await getElementParent(elementQW);
+  let parent = elementQW.getElementParent();
   let result = false;
   let sameRole, sameName;
 
   if (parent !== null) {
-    let parentName = await getElementTagName(parent);
-    let parentRole = await getElementAttribute(parent, "role");
+    let parentName =  parent.getElementTagName();
+    let parentRole = parent.getElementAttribute( "role");
 
 
     if (parentName !== null) {

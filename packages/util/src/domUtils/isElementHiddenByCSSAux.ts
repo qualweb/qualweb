@@ -1,18 +1,16 @@
 'use strict';
+import { QWElement } from "@qualweb/qw-element";
 
-import getElementStyleProperty from './getElementStyleProperty';
-import { QWElement } from "../qwElement";
-
-async function isElementHiddenByCSSAux(elementQW: QWElement): Promise<boolean> {
-  if (!elementQW.elementHtml) {
+function isElementHiddenByCSSAux(elementQW: QWElement): boolean {
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
 
   let visibility;
   let displayNone;
-  const display = await getElementStyleProperty(elementQW,  'display','');
+  const display = elementQW.getElementStyleProperty( 'display','');
   displayNone = display ? display.trim() === 'none' : false;
-  const visibilityATT = await getElementStyleProperty(elementQW, 'visibility','');
+  const visibilityATT = elementQW.getElementStyleProperty('visibility','');
   visibility = visibilityATT ? visibilityATT.trim() === 'collapse' || visibilityATT.trim() === 'hidden' : false;
 
 

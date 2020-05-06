@@ -1,15 +1,14 @@
 'use strict';
 
 import isElementHiddenByCSS from './isElementHiddenByCSS';
-import isOffScreen from './isOffScreen';
-import { QWElement } from "../qwElement";
+import { QWElement } from '@qualweb/qw-element';
 
-async function isElementVisible(elementQW: QWElement): Promise<boolean> {
-  if (!elementQW.elementHtml) {
+function isElementVisible(elementQW: QWElement): boolean {
+  if (!elementQW) {
     throw Error('Element is not defined');
   }
-  const offScreen =  await isOffScreen(elementQW);
-  const cssHidden = await isElementHiddenByCSS(elementQW);
+  const offScreen =  elementQW.isOffScreen();
+  const cssHidden = isElementHiddenByCSS(elementQW);
   
   return !(offScreen || cssHidden);
 }

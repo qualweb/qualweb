@@ -1,10 +1,8 @@
 'use strict';
 
 import isElementFocusableByDefault from './isElementFocusableByDefault';
-import elementHasAttributes from './elementHasAttributes';
-import getElementAttribute from './getElementAttribute';
 import isElementHiddenByCSS from './isElementHiddenByCSS';
-import { QWElement } from "../qwElement";
+import { QWElement } from '@qualweb/qw-element';
 
  async function isElementFocusable(elementQW: QWElement): Promise<boolean> {
   let disabled = false;
@@ -13,12 +11,12 @@ import { QWElement } from "../qwElement";
   let tabIndexLessThanZero = false;
   let tabIndexExistsAndIsNumber = false;
 
-  const hasAttributes =  await elementHasAttributes(elementQW);
-  const tabindex = await getElementAttribute(elementQW, 'tabindex');
+  const hasAttributes =  elementQW.elementHasAttributes();
+  const tabindex = elementQW.getElementAttribute( 'tabindex');
 
   if (hasAttributes) {
     tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
-    disabled = (getElementAttribute(elementQW, 'disabled')) !== null;
+    disabled = (elementQW.getElementAttribute( 'disabled')) !== null;
     hidden = await isElementHiddenByCSS(elementQW);
     focusableByDefault = await isElementFocusableByDefault(elementQW);
 

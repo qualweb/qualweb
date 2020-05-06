@@ -1,21 +1,17 @@
 'use strict';
-import elementHasAttributes from './elementHasAttributes';
-import getElementAttribute from './getElementAttribute';
-import getElementById from './getElementById';
-import getElementByAttributeName from './getElementByAttributeName';
-import { QWPage } from '../qwPage';
-import { QWElement } from '../qwElement';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, ): Promise<QWElement | null> {
-  if (!elementQW.elementHtml && pageQW.document) {
+  if (!elementQW && pageQW) {
     throw Error('Element is not defined');
   }
 
-  if (!(await elementHasAttributes(elementQW))) {
+  if (!(elementQW.elementHasAttributes())) {
     return null;
   }
 
-  let href =await getElementAttribute(elementQW, 'href');
+  let href =await elementQW.getElementAttribute( 'href');
   if (!href) {
     return null;
   }
@@ -28,12 +24,12 @@ async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, 
     return null;
   }
 
-  let result = getElementById(pageQW, elementQW, href);
+  let result = pageQW.getElementByID( href,elementQW);
   if (result) {
     return result;
   }
 
-  result = getElementByAttributeName(pageQW, href);
+  result = pageQW.getElementByAttributeName( href);
   if (result) {
     return result;
   }

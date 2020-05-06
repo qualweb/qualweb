@@ -1,15 +1,16 @@
 'use strict';
 
-import {  ElementHandle } from 'puppeteer';
-import getElementAttribute from '../domUtils/getElementAttribute';
+import { QWElement } from "@qualweb/qw-element";
 
-async function areElementsInTheSameTree(elements: ElementHandle []): Promise<boolean> {
 
-  let atribute = await getElementAttribute(elements[0],"shadowTree");
-  let i= 1;
+
+function areElementsInTheSameTree(elements: QWElement[]): boolean {
+
+  let atribute = elements[0].getElementAttribute("shadowTree");
+  let i = 1;
   let result = true;
-  while(i<elements.length && result){
-    result = atribute === await getElementAttribute(elements[i],"shadowTree");
+  while (i < elements.length && result) {
+    result = atribute === elements[i].getElementAttribute("shadowTree");
   }
 
   return result;

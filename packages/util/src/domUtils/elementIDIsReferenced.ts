@@ -1,18 +1,13 @@
 'use strict';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
-import { QWElement } from "../qwElement";
-import { QWPage } from "../qwPage";
-
-
-//import getTreeSelector from '../shadowDomUtils/getTreeSelector';
-
- async function elementIDIsReferenced(pageQW:QWPage,elementQW: QWElement,id:string,atrribute:string): Promise<boolean> {
-  if (!elementQW.elementHtml||!pageQW.document) {
+ function elementIDIsReferenced(pageQW:QWPage,elementQW: QWElement,id:string,atrribute:string): boolean {
+  if (!elementQW||!pageQW) {
     throw Error('Element is not defined');
   }
-  //let treeSelector =  getTreeSelector(element);
-  let document = pageQW.document;
-  return (document.querySelector('['+atrribute+`="${id}"]`/*+treeSelector*/))!== null;
+  let treeSelector =  elementQW.getTreeSelector();
+  return (pageQW.getElement('['+atrribute+`="${id}"]`+treeSelector))!== null;
 }
 
 export default elementIDIsReferenced;

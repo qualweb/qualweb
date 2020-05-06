@@ -1,53 +1,18 @@
 'use strict';
 
 import videoElementHasAudio from './videoElementHasAudio';
-import request from 'request';
-import getElementProperty from './getElementProperty';
-import { QWElement } from "../qwElement";
-
-function getRequestContent(url: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    request(url, (error, response, body) => {
-      if (error || response.statusCode !== 200) {
-        reject(error || response);
-      } else {
-        resolve(body);
-      }
-    })
-  });
-}
+import { QWElement } from '@qualweb/qw-element';
 
 async function getVideoMetadata(elementQW: QWElement) {
-  let src = await getElementProperty(elementQW,'currentSrc');
-  let json = JSON.parse(await getRequestContent('http://194.117.20.242/video/' + encodeURIComponent(src)));
-  let durationVideo = getStreamDuration(json, "video");
-  let durationAudio = getStreamDuration(json, "audio");
-  let audioVolume = json["audio"]["maxVolume"];
-  //let error = json["metadata"]["error"];
-  let duration = parseInt(await getElementProperty(elementQW,'duration'));
+  //let src =elementQW.getElementProperty('currentSrc');
+  let duration = parseInt(elementQW.getElementProperty('duration'));
   let hasSoundTrack = videoElementHasAudio(elementQW);
   let result = { service: { video: { duration: {} }, audio: { duration: {}, volume: {} }, error: {} }, puppeteer: { video: { duration: {} }, audio: { hasSoundTrack: {} }, error: {} } };
   result.puppeteer.video.duration = duration;
-  result.service.video.duration = durationVideo;
   result.puppeteer.audio.hasSoundTrack = hasSoundTrack;
-  result.service.audio.duration = durationAudio;
-  result.service.audio.volume = audioVolume
-  result.service.error = durationVideo === undefined && durationAudio === undefined;
   result.puppeteer.error = !(duration >= 0 && hasSoundTrack);
   return result;
 }
 
- function  getStreamDuration(json, streamType: string) {
-  let streams = json["metadata"]["streams"];
-  let duration = 0;
-  if (streams) {
-    for (let stream of streams) {
-      if (stream["codec_type"] === streamType) {
-        duration = stream["duration"]
-      }
-    }
-  }
-  return duration;
-}
 
 export default getVideoMetadata;
