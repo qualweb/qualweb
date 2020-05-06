@@ -15,15 +15,19 @@
 
   (async () => {
     // Starts the QualWeb core engine - only needs to run once
-    await start();
+    const launchOptions = {
+      ... // check https://github.com/puppeteer/puppeteer/blob/v3.0.3/docs/api.md#puppeteerlaunchoptions
+      // in most of the cases there's no need to give additional options. Just leave the field undefined
+    };
+    await start(launchOptions);
 
     // QualWeb evaluation report
-    const options = { 
+    const evaluationOptions = { 
       url: 'https://act-rules.github.io/pages/about/' 
     };
 
     // Evaluates the given options - will only return after all urls have finished evaluating or resulted in an error
-    const reports = await evaluate(options);
+    const reports = await evaluate(evaluationOptions);
 
     console.log(reports);
     //  {
@@ -187,15 +191,15 @@ In this section it's explained the evaluation report in detail. For detailed ver
           "failed": "number of failed rules",
           "inapplicable": "number of inapplicable rules",
         },
-        "rules": {
+        "assertions": {
           "QW_ACT_R1": {
             "name": "Name of the rule",
             "code": "QualWeb rule code",
             "mapping": "ACT rule code mapping",
             "description": "Description of the rule",
             "metadata": {
-              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements"
-              "success-criteria": [
+              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
+              "success-criteria?": [
                 {
                   "name": "Name of the success criteria",
                   "level": "Level of conformance of the success criteria",
@@ -203,13 +207,13 @@ In this section it's explained the evaluation report in detail. For detailed ver
                   "url": "Url of the success criteria"
                 }
               ],
-              "related": [], // related WCAG 2.1 techniques
-              "url": "Url of the rule",
+              "related?": [], // related WCAG 2.1 techniques
+              "url?": "Url of the rule",
               "passed": "Number of passed results",
               "warning": "Number of warning results",
               "failed": "Number ff failed results",
-              "type": [], // usually "ACTRule" or "TestCase"
-              "a11yReq": [], // WCAG 2.1 relation - something like "WCAG21:language"
+              "type?": [], // usually "ACTRule" or "TestCase"
+              "a11yReq?": [], // WCAG 2.1 relation - something like "WCAG21:language"
               "outcome": "Outcome of the rule",
               "description": "Description of the outcome";
             },
@@ -218,9 +222,10 @@ In this section it's explained the evaluation report in detail. For detailed ver
                 "verdict": "Outcome of the test",
                 "description": "Description of the test",
                 "resultCode": "Test identifier",
-                "pointer": "Element pointer in CSS notation",
-                "htmlCode": "Element html code",
-                "attributes": "Attributes of the element" // if available
+                "pointer?": "Element pointer in CSS notation",
+                "htmlCode?": "Element html code",
+                "attributes?": "Attributes of the element",
+                "accessibleName?": "Accessible name of the test target"
               },
               { ... }
             ]
@@ -236,15 +241,15 @@ In this section it's explained the evaluation report in detail. For detailed ver
           "failed": "number of failed techniques",
           "inapplicable": "number of inapplicable techniques",
         },
-        "techniques": {
+        "assertions": {
           "QW_HTML_T1": {
             "name": "Name of the technique",
             "code": "QualWeb technique code",
             "mapping": "WCAG techniques code mapping",
             "description": "Description of the technique",
             "metadata": {
-              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements"
-              "success-criteria": [
+              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
+              "success-criteria?": [
                 {
                   "name": "Name of the success criteria",
                   "level": "Level of conformance of the success criteria",
@@ -252,13 +257,13 @@ In this section it's explained the evaluation report in detail. For detailed ver
                   "url": "Url of the success criteria"
                 }
               ],
-              "related": [], // related WCAG 2.1 techniques
-              "url": "Url of the technique",
+              "related?": [], // related WCAG 2.1 techniques
+              "url?": "Url of the technique",
               "passed": "Number of passed results",
               "warning": "Number of warning results",
               "failed": "Number ff failed results",
-              "type": [], // usually "ACTRule" or "TestCase"
-              "a11yReq": [], // WCAG 2.1 relation - something like "WCAG21:language"
+              "type?": [], // usually "ACTRule" or "TestCase"
+              "a11yReq?": [], // WCAG 2.1 relation - something like "WCAG21:language"
               "outcome": "Outcome of the technique",
               "description": "Description of the outcome";
             },
@@ -267,9 +272,9 @@ In this section it's explained the evaluation report in detail. For detailed ver
                 "verdict": "Outcome of the test",
                 "description": "Description of the test",
                 "resultCode": "Test identifier",
-                "pointer": "Element pointer in CSS notation",
-                "htmlCode": "Element html code",
-                "attributes": "Attributes of the element" // if available
+                "pointer?": "Element pointer in CSS notation",
+                "htmlCode?": "Element html code",
+                "attributes?": "Attributes of the element" // if available
               },
               { ... }
             ]
@@ -285,15 +290,15 @@ In this section it's explained the evaluation report in detail. For detailed ver
           "failed": "number of failed techniques",
           "inapplicable": "number of inapplicable techniques",
         },
-        "techniques": {
-          "QW_HTML_T1": {
+        "assertions": {
+          "QW_CSS_T1": {
             "name": "Name of the technique",
             "code": "QualWeb technique code",
             "mapping": "WCAG techniques code mapping",
             "description": "Description of the technique",
             "metadata": {
-              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements"
-              "success-criteria": [
+              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
+              "success-criteria?": [
                 {
                   "name": "Name of the success criteria",
                   "level": "Level of conformance of the success criteria",
@@ -301,13 +306,13 @@ In this section it's explained the evaluation report in detail. For detailed ver
                   "url": "Url of the success criteria"
                 }
               ],
-              "related": [], // related WCAG 2.1 techniques
-              "url": "Url of the technique",
+              "related?": [], // related WCAG 2.1 techniques
+              "url?": "Url of the technique",
               "passed": "Number of passed results",
               "warning": "Number of warning results",
               "failed": "Number ff failed results",
-              "type": [], // usually "ACTRule" or "TestCase"
-              "a11yReq": [], // WCAG 2.1 relation - something like "WCAG21:language"
+              "type?": [], // usually "ACTRule" or "TestCase"
+              "a11yReq?": [], // WCAG 2.1 relation - something like "WCAG21:language"
               "outcome": "Outcome of the technique",
               "description": "Description of the outcome";
             },
@@ -315,20 +320,19 @@ In this section it's explained the evaluation report in detail. For detailed ver
               {
                 "verdict": "Outcome of the test",
                 "description": "Description of the test",
-                "resultCode": "Test identifier",
-                "pointer": "Element pointer in CSS notation", // if available
-                "htmlCode": "Element html code", // if available
-                "attributes": "Attributes of the element", // if available,
-                "cssCode": "",
-                "stylesheetFile": "path to the stylesheet file",
-                "selector": {
-                  "value": "Value of the selector",
-                  "position": "Position of the selector",
+                "pointer?": "Element pointer in CSS notation", // if available
+                "htmlCode?": "Element html code", // if available
+                "attributes?": "Attributes of the element", // if available,
+                "cssCode?": "Element CSS code",
+                "stylesheetFile?": "path to the stylesheet file",
+                "selector?": {
+                  "value?": "Value of the selector",
+                  "position?": "Position of the selector",
                 },
-                "property": {
-                  "name": "CSS property name",
-                  "value": "CSS property value",
-                  "position": "CSS property position"
+                "property?": {
+                  "name?": "CSS property name",
+                  "value?": "CSS property value",
+                  "position?": "CSS property position"
                 }
               },
               { ... }
@@ -345,14 +349,14 @@ In this section it's explained the evaluation report in detail. For detailed ver
           "failed": "number of failed best practices",
           "inapplicable": "number of inapplicable best practices",
         },
-        "best-practices": {
+        "assertions": {
           "QW_BP1": {
             "name": "Name of the technique",
             "code": "QualWeb best practices code",
             "description": "Description of the best practices",
             "metadata": {
-              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements"
-              "success-criteria": [
+              "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
+              "success-criteria?": [
                 {
                   "name": "Name of the success criteria",
                   "level": "Level of conformance of the success criteria",
@@ -360,12 +364,12 @@ In this section it's explained the evaluation report in detail. For detailed ver
                   "url": "Url of the success criteria"
                 }
               ],
-              "related": [], // related WCAG 2.1 techniques
+              "related?": [], // related WCAG 2.1 techniques
               "passed": "Number of passed results",
               "warning": "Number of warning results",
               "failed": "Number ff failed results",
-              "type": [], // usually "ACTRule" or "TestCase"
-              "a11yReq": [], // WCAG 2.1 relation - something like "WCAG21:language"
+              "type?": [], // usually "ACTRule" or "TestCase"
+              "a11yReq?": [], // WCAG 2.1 relation - something like "WCAG21:language"
               "outcome": "Outcome of the best practices",
               "description": "Description of the outcome";
             },
@@ -374,9 +378,9 @@ In this section it's explained the evaluation report in detail. For detailed ver
                 "verdict": "Outcome of the test",
                 "description": "Description of the test",
                 "resultCode": "Test identifier",
-                "pointer": "Element pointer in CSS notation",
-                "htmlCode": "Element html code",
-                "attributes": "Attributes of the element" // if available
+                "pointer?": "Element pointer in CSS notation",
+                "htmlCode?": "Element html code",
+                "attributes?": "Attributes of the element" // if available
               },
               { ... }
             ]

@@ -1,6 +1,6 @@
 'use strict';
 
-import puppeteer, { Browser, Page, Viewport } from 'puppeteer';
+import puppeteer, { Browser, Page, Viewport, LaunchOptions } from 'puppeteer';
 import { Parser } from 'htmlparser2';
 import DomHandler, { Node } from 'domhandler';
 import * as DomUtils from 'domutils';
@@ -44,12 +44,8 @@ class System {
     };
   }
 
-  public async start(): Promise<void> {
-    this.browser = await puppeteer.launch({
-      ignoreHTTPSErrors: true,
-      headless: true,
-      args: ['--no-sandbox']
-    });
+  public async start(options?: LaunchOptions): Promise<void> {
+    this.browser = await puppeteer.launch(options);
   }
 
   public async update(options: QualwebOptions): Promise<void> {
@@ -136,7 +132,6 @@ class System {
       let page: Page | undefined = undefined;
       try {
         page = await this.browser.newPage();
-        //await page.setBypassCSP(true);
         await this.setPageViewport(page, options.viewport);
 
         const plainStylesheets: any = {};
@@ -176,7 +171,7 @@ class System {
           }
           
           await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
-
+          
           const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
 
           this.evaluations[url] = evaluation.getFinalReport();
