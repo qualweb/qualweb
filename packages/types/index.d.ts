@@ -7,3 +7,5 @@
 /// <reference path="./crawler.d.ts" />
 /// <reference path="./util.d.ts" />
 /// <reference path="./core.d.ts" />
+/// <reference path="./qwElement.d.ts" />
+/// <reference path="./qwPage.d.ts" />
