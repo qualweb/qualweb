@@ -31,10 +31,9 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.3.22",
+    "@qualweb/types": "file:../types",
     "@types/domhandler": "^2.4.1",
-    "@types/node": "^13.9.1",
-    "@types/puppeteer": "^2.0.0",
+    "@types/node": "^13.11.0",
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "css-select": "^2.1.0",
@@ -44,7 +43,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@qualweb/types": "file:../types",
     "@qualweb/qw-element": "file:../qw-element",
     "@qualweb/qw-page": "file:../QWPage",
     "domutils": "^2.0.0",

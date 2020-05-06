@@ -16,7 +16,6 @@ import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
 import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
 import getVideoMetadataFunction from './getVideoMetadata';
-import getPageRootElementFunction from './getPageRootElement';
 import isMathDocumentFunction from './isMathDocument';
 import isElementPresentationFunction from './isElementPresentation';
 
@@ -40,7 +39,6 @@ namespace DomUtils {
   export const isElementADescendantOf = isElementADescendantOfFunction;
   export const isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
   export const getVideoMetadata = getVideoMetadataFunction;
-  export const getPageRootElement = getPageRootElementFunction;
   export const isMathDocument = isMathDocumentFunction;
   export const isElementPresentation = isElementPresentationFunction;
 }
