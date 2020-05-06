@@ -1,6 +1,6 @@
 # QualWeb CLI
 
-QualWeb command line interface. It allows you perform accessibility evaluations from your terminal. It runs the [@qualweb/core](https://github.com/qualweb/core) that contains in 4 evaluation modules:
+QualWeb command line interface. It allows you to perform accessibility evaluations from the terminal. It uses the [@qualweb/core](https://github.com/qualweb/core) that contains 4 evaluation modules:
  - [@qualweb/act-rules](https://github.com/qualweb/act-rules)
  - [@qualweb/html-techniques](https://github.com/qualweb/html-techniques)
  - [@qualweb/css-techniques](https://github.com/qualweb/css-techniques)
