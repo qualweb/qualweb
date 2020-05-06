@@ -5,6 +5,7 @@ import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import { Page, ElementHandle } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
+import { DomUtils } from '@qualweb/util';
 
 abstract class BestPractice {
 
@@ -30,9 +31,21 @@ abstract class BestPractice {
     return this.bestPractice.metadata.inapplicable;
   }
 
-  protected addEvaluationResult(result: BestPracticeResult): void {
+  protected async addEvaluationResult(result: BestPracticeResult, element?: ElementHandle): Promise<void> {
+    if (element) {
+      const [htmlCode, pointer] = await Promise.all([
+        DomUtils.getElementHtmlCode(element, true, true),
+        DomUtils.getElementSelector(element)
+      ]);
+      result.htmlCode = htmlCode;
+      result.pointer = pointer;
+    }
+
     this.bestPractice.results.push(clone(result));
-    this.bestPractice.metadata[result.verdict]++;
+
+    if (result.verdict !== 'inapplicable') {
+      this.bestPractice.metadata[result.verdict]++;
+    }
   }
 
   public abstract async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void>;

@@ -1,0 +1,176 @@
+{
+  "QW_BP1": {
+    "name": "Using h1-h6 to identify headings",
+    "code": "QW-BP1",
+    "mapping": "H42",
+    "description": "It is recommended to use HTML and XHTML heading markup to provide semantic code for headings in the content",
+    "metadata": {
+      "target": {
+        "element": ["h1", "h2", "h3", "h4", "h5", "h6"]
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+      }],
+      "related": ["H69", "G141", "F2", "F43"],
+      "url": "https://www.w3.org/TR/WCAG20-TECHS/H42.html"
+    }
+  },
+  "QW_BP2": {
+    "name": "Concise images alt text",
+    "code": "QW-BP2",
+    "description": "Image alt text attribute with more than 100 characters",
+    "metadata": {
+      "target": {
+        "element": "img"
+      }
+    }
+  },
+  "QW_BP3": {
+    "name": "Link element with text content equal to the content of the title attribute",
+    "code": "QW-BP3",
+    "description": "The link element text content shouldn't be equal to the content of the title attribute",
+    "metadata": {
+      "target": {
+        "element": "a",
+        "attributes": "title"
+      },
+      "related": ["H33"]
+    }
+  },
+  "QW_BP4": {
+    "name": "Grouped links not within a nav element",
+    "code": "QW-BP4",
+    "description": "Set of 10 or more links not grouped within a list (nav)",
+    "metadata": {
+      "target": {
+        "element": "a"
+      }
+    }
+  },
+  "QW_BP5": {
+    "name": "Using table elements inside other table elements",
+    "code": "QW-BP5",
+    "description": "It is not recommended to use table elements inside other table elements",
+    "metadata": {
+      "target": {
+        "element": "table",
+        "parent": "table"
+      }
+    }
+  },
+  "QW_BP6": {
+    "name": "title element is not too long (64 characters)",
+    "code": "QW-BP6",
+    "description": "The webpage title element shouldn't have more than 64 characters",
+    "metadata": {
+      "target": {
+        "element": "title"
+      }
+    }
+  },
+  "QW_BP7": {
+    "name": "Title element contains ASCII-art",
+    "code": "QW-BP7",
+    "description": "Title element contains ASCII-art",
+    "metadata": {
+      "target": {
+        "element": "title"
+      }
+    }
+  },
+  "QW_BP8": {
+    "name": "Headings with images should have an accessible name",
+    "code": "QW-BP8",
+    "description": "Headings with at least one image should have an accessible name",
+    "metadata": {
+      "target": {
+        "element": ["h1", "h2", "h3", "h4", "h5", "h6"],
+        "children": "img"
+      },
+      "related": ["G130"]
+    }
+  },
+  "QW_BP9": {
+    "name": "Table element without header cells has a caption",
+    "code": "QW-BP9",
+    "description": "A table without th elements should have a caption element to describe it.",
+    "metadata": {
+      "target": {
+        "element": "table"
+      }
+    }
+  },
+  "QW_BP10": {
+    "name": "HTML elements are used to control visual presentation of content",
+    "code": "QW-BP10",
+    "description": "No HTML elements are used to control the visual presentation of content",
+    "metadata": {
+      "target": {
+        "element": ["b", "blink", "blockquote", "basefont", "center", "cite", "em", "font", "i", "link", "mark", "strong", "s", "strike", "u", "vlink"]
+      }
+    }
+  },
+  "QW_BP11": {
+    "name": "Using br to make a list",
+    "code": "QW-BP11",
+    "description": "Using 3 consecutive br elements",
+    "metadata": {
+      "target": {
+        "element": "br"
+      }
+    }
+  },
+  "QW_BP12": {
+    "name": "Using scope col and row",
+    "code": "QW-BP12",
+    "description": "Using scope col in the first row and scope row in the first element of each row",
+    "metadata": {
+      "target": {
+        "element": ["table", "tr"]
+      }
+    }
+  },
+  "QW_BP13": {
+    "name": "Using consecutive links with the same href and one contains an image",
+    "code": "QW-BP13",
+    "description": "Using consecutive links with the same href in which one of the links contains an image",
+    "metadata": {
+      "target": {
+        "element": "a"
+      }
+    }
+  },
+  "QW_BP14": {
+    "name": "At least one container's width has been specified using values expressed in px",
+    "code": "QW-BP14",
+    "description": "At least one container's width has been specified using values expressed in px",
+    "metadata": {
+      "target": {
+        "element": ["span", "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "p", "hr", "blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "dd", "dt", "dl", "figcaption"]
+      }
+    }
+  },
+  "QW_BP15": {
+    "name": "At least one width attribute of an HTML element is expressed in absolute values",
+    "code": "QW-BP15",
+    "description": "At least one width attribute of an HTML element is expressed in absolute values",
+    "metadata": {
+      "target": {
+        "element": "*"
+      }
+    }
+  },
+  "QW_BP16": {
+    "name": "Verify if page has links (<a>)",
+    "code": "QW-BP16",
+    "description": "At least one link <a> in the page",
+    "metadata": {
+      "target": {
+        "element": "body"
+      }
+    }
+  }
+}

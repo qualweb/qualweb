@@ -2,36 +2,18 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
+import { BestPractice, ElementExists } from '../lib/decorator';
 
-class QW_BP16 extends BestPractice {
+@BestPractice
+class QW_BP16 extends BestPracticeObject {
 
-  constructor() {
-    super({
-      name: 'Verify if page has links (<a>)',
-      code: 'QW-BP16',
-      description: 'At least one link <a> in the page',
-      metadata: {
-        target: {
-          element: 'body'
-        },
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if(!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     let evaluation: BestPracticeResult = {
       verdict: '',
@@ -45,6 +27,7 @@ class QW_BP16 extends BestPractice {
       evaluation.verdict = 'failed';
       evaluation.description = 'Page does not have any <a> elements.';
       evaluation.resultCode = 'RC1';
+      await super.addEvaluationResult(evaluation);
     } else {
       for (const a of aElements || []) {
         evaluation = {
@@ -57,14 +40,10 @@ class QW_BP16 extends BestPractice {
         evaluation.description = 'Page has the element <a>.';
         evaluation.resultCode = 'RC2';
 
-        evaluation.htmlCode = await DomUtils.getElementHtmlCode(a, true, true);
-        evaluation.pointer = await DomUtils.getElementSelector(a);
-
-        super.addEvaluationResult(evaluation);
+        await super.addEvaluationResult(evaluation, a);
       }
     }
   }
-
 }
 
 export = QW_BP16;

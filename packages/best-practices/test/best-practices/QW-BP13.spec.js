@@ -40,7 +40,7 @@ describe('Technique QW-BP13', function () {
         });
 
         const report = await bestPractices.execute(page);
-        expect(report['best-practices']['QW-BP13'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report.assertions['QW-BP13'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

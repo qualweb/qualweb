@@ -1,40 +1,21 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import BestPractice from './BestPractice.object';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import {ElementHandle, Page} from "puppeteer";
+import BestPracticeObject from '../lib/BestPractice.object';
+import { AccessibilityUtils } from '@qualweb/util';
+import { ElementHandle, Page } from 'puppeteer';
+import { BestPractice, ElementExists, ElementHasChild } from '../lib/decorator';
 
-class QW_BP8 extends BestPractice {
+@BestPractice
+class QW_BP8 extends BestPracticeObject {
 
-  constructor() {
-    super({
-      name: 'Headings with images should have an accessible name',
-      code: 'QW-BP8',
-      description: 'Headings with at least one image should have an accessible name',
-      metadata: {
-        target: {
-          element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-          children: 'img'
-        },
-        related: ['G130'],
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
-
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  @ElementHasChild('img, svg')
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -42,39 +23,28 @@ class QW_BP8 extends BestPractice {
       resultCode: ''
     };
 
-    const images = await element.$$('img');
     const svgs = await element.$$('svg');
     const svgANames = new Array<string>();
 
-
-    if (images.length + svgs.length === 0) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `This heading doesn't have images`;
-      evaluation.resultCode = 'RC1';
-    } else {
-      for (const svg of svgs || []) {
-        const aName = await AccessibilityUtils.getAccessibleNameSVG(svg, page);
-        if (aName && aName.trim() !== '') {
-          svgANames.push(aName)
-        }
-      }
-
-      const aName = await AccessibilityUtils.getAccessibleName(element, page);
-      if (aName || svgANames.length > 0) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `This heading with at least one image has an accessible name`;
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `This heading with at least one image does not have an accessible name`;
-        evaluation.resultCode = 'RC3';
+    for (const svg of svgs || []) {
+      const aName = await AccessibilityUtils.getAccessibleNameSVG(svg, page);
+      if (aName && aName.trim() !== '') {
+        svgANames.push(aName);
       }
     }
 
-    evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
-    evaluation.pointer = await DomUtils.getElementSelector(element);
+    const aName = await AccessibilityUtils.getAccessibleName(element, page);
+    if (aName || svgANames.length > 0) {
+      evaluation.verdict = 'passed';
+      evaluation.description = `This heading with at least one image has an accessible name`;
+      evaluation.resultCode = 'RC2';
+    } else {
+      evaluation.verdict = 'failed';
+      evaluation.description = `This heading with at least one image does not have an accessible name`;
+      evaluation.resultCode = 'RC3';
+    }
 
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

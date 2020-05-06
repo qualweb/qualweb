@@ -35,7 +35,7 @@ describe('Technique QW-BP15', function () {
         });
 
         const report = await bestPractices.execute(undefined, stylesheets);
-        expect(report['best-practices']['QW-BP15'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report.assertions['QW-BP15'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

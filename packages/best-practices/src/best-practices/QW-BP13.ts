@@ -3,36 +3,18 @@
 import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
+import BestPracticeObject from '../lib/BestPractice.object';
+import { BestPractice, ElementExists } from '../lib/decorator';
 
-import BestPractice from './BestPractice.object';
+@BestPractice
+class QW_BP13 extends BestPracticeObject {
 
-class QW_BP13 extends BestPractice {
-
-  constructor() {
-    super({
-      name: 'Using consecutive links with the same href and one contains an image',
-      code: 'QW-BP13',
-      description: 'Using consecutive links with the same href in which one of the links contains an image',
-      metadata: {
-        target: {
-          element: 'a'
-        },
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
+  @ElementExists
+  async execute(element: ElementHandle): Promise<void> {
 
     const aWithImg = await DomUtils.getElementParent(element);
 
@@ -48,11 +30,11 @@ class QW_BP13 extends BestPractice {
       resultCode: ''
     };
 
-    const aWithImgNext = await (await aWithImg.evaluateHandle(elem => {
+    const aWithImgNext = (await aWithImg.evaluateHandle(elem => {
       return elem.nextElementSibling;
     })).asElement();
 
-    const aWithImgPrev = await (await aWithImg.evaluateHandle(elem => {
+    const aWithImgPrev = (await aWithImg.evaluateHandle(elem => {
       return elem.previousElementSibling;
     })).asElement();
 
@@ -78,8 +60,7 @@ class QW_BP13 extends BestPractice {
       }
     }
 
-    super.addEvaluationResult(evaluation);
-
+    await super.addEvaluationResult(evaluation);
   }
 }
 

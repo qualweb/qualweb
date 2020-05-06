@@ -1,38 +1,21 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
+import { BestPractice, ElementExists, ElementIsNotChildOf } from '../lib/decorator';
 
-class QW_BP4 extends BestPractice {
+@BestPractice
+class QW_BP4 extends BestPracticeObject {
 
-  constructor() {
-    super({
-      name: 'Grouped links not within a nav element',
-      code: 'QW-BP4',
-      description: 'Set of 10 or more links not grouped within a list (nav)',
-      metadata: {
-        target: {
-          element: 'a'
-        },
-        related: [],
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element || await DomUtils.elementHasParent(element, 'nav')) {
-      return;
-    }
+  @ElementExists
+  @ElementIsNotChildOf('nav')
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -61,12 +44,7 @@ class QW_BP4 extends BestPractice {
     }
 
     const parent = await DomUtils.getElementParent(element);
-    if (parent) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(parent, true, true);
-      evaluation.pointer = await DomUtils.getElementSelector(parent);
-    }
-
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, parent || undefined);
   }
 }
 

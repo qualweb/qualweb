@@ -1,32 +1,15 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
 import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
+import { BestPractice } from '../lib/decorator';
 
-class QW_BP5 extends BestPractice {
+@BestPractice
+class QW_BP5 extends BestPracticeObject {
 
-  constructor() {
-    super({
-      name: 'Using table elements inside other table elements',
-      code: 'QW-BP5',
-      description: 'It is not recommended to use table elements inside other table elements',
-      metadata: {
-        target: {
-          element: 'table',
-          parent: 'table'
-        },
-        related: [],
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
@@ -37,8 +20,6 @@ class QW_BP5 extends BestPractice {
       resultCode: ''
     };
 
-    //const parent = await DomUtils.getElementParent(element);
-
     if (!element) {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
@@ -47,10 +28,9 @@ class QW_BP5 extends BestPractice {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
-    super.addEvaluationResult(evaluation);
+
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

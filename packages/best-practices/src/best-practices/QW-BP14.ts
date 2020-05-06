@@ -3,30 +3,16 @@
 import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle, Page } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
+import { BestPractice } from '../lib/decorator';
 
-class QW_BP14 extends BestPractice {
+@BestPractice
+class QW_BP14 extends BestPracticeObject {
 
   private containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
 
-  constructor() {
-    super({
-      name: `At least one container's width has been specified using values expressed in px`,
-      code: 'QW-BP14',
-      description: `At least one container's width has been specified using values expressed in px`,
-      metadata: {
-        target: {
-          element: ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption']
-        },
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array < BestPracticeResult > ()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise < void > {

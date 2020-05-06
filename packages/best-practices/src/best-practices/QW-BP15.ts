@@ -3,30 +3,16 @@
 import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle, Page } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
+import { BestPractice } from '../lib/decorator';
 
-class QW_BP15 extends BestPractice {
+@BestPractice
+class QW_BP15 extends BestPracticeObject {
 
   private absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
 
-  constructor() {
-    super({
-      name: 'At least one width attribute of an HTML element is expressed in absolute values',
-      code: 'QW-BP15',
-      description: 'At least one width attribute of an HTML element is expressed in absolute values',
-      metadata: {
-        target: {
-          element: '*'
-        },
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
   async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void> {

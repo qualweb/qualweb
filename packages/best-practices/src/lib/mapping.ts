@@ -5,7 +5,7 @@ export default {
   'table table': ['QW-BP5'],
   ':not(svg) > title': ['QW-BP6', 'QW-BP7'],
   'h1, h2, h3, h4, h5, h6': ['QW-BP1', 'QW-BP8'],
-  'b, blink, blockquote, basefont, center, cite, em, font, i,body link, mark, strong, s, strike, u, vlink': ['QW-BP10'],
+  'b, blink, blockquote, basefont, center, cite, em, font, i, body link, mark, strong, s, strike, u, vlink': ['QW-BP10'],
   'body, body *': ['QW-BP11'],
   'body': ['QW-BP16'],
   'a > img': ['QW-BP13'],

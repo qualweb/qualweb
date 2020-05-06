@@ -2,45 +2,19 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
+import BestPracticeObject from '../lib/BestPractice.object';
+import { BestPractice, ElementExists, ElementHasChild } from '../lib/decorator';
 
-import BestPractice from './BestPractice.object';
+@BestPractice
+class QW_BP11 extends BestPracticeObject {
 
-class QW_BP11 extends BestPractice {
-
-  constructor() {
-    super({
-      name: 'Using br to make a list',
-      code: 'QW-BP11',
-      description: 'Using 3 consecutive br elements',
-      metadata: {
-        target: {
-          element: 'br'
-        },
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
-
-    if (!element) {
-      return;
-    }
-
-    const children = await element.evaluate(elem => {
-      return elem.children.length;
-    });
-
-    if (children === 0) {
-      return;
-    }
+  @ElementExists
+  @ElementHasChild('*')
+  async execute(element: ElementHandle): Promise<void> {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -76,10 +50,7 @@ class QW_BP11 extends BestPractice {
     }
 
     if (hasBr) {
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
-
-      super.addEvaluationResult(evaluation);
+      await super.addEvaluationResult(evaluation, element);
     }
   }
 }

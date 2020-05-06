@@ -1,31 +1,16 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import BestPractice from './BestPractice.object';
+import BestPracticeObject from '../lib/BestPractice.object';
 import { ElementHandle } from 'puppeteer';
 import { DomUtils } from '@qualweb/util';
+import { BestPractice } from '../lib/decorator';
 
-class QW_BP10 extends BestPractice {
+@BestPractice
+class QW_BP10 extends BestPracticeObject {
 
-  constructor() {
-    super({
-      name: 'HTML elements are used to control visual presentation of content',
-      code: 'QW-BP10',
-      description: 'No HTML elements are used to control the visual presentation of content',
-      metadata: {
-        target: {
-          element: ['b', 'blink', 'blockquote', 'basefont', 'center', 'cite', 'em', 'font', 'i', 'link', 'mark', 'strong', 's', 'strike', 'u', 'vlink']
-        },
-        related: [],
-        passed: 0,
-        warning: 0,
-        failed: 0,
-        inapplicable: 0,
-        outcome: '',
-        description: ''
-      },
-      results: new Array<BestPracticeResult>()
-    });
+  constructor(bestPractice?: any) {
+    super(bestPractice);
   }
 
   async execute(element: ElementHandle | undefined): Promise<void> {
@@ -48,11 +33,9 @@ class QW_BP10 extends BestPractice {
       evaluation.resultCode = 'RC2';
 
       evaluation.attributes = name;
-      evaluation.htmlCode = await DomUtils.getElementHtmlCode(element, true, true);
-      evaluation.pointer = await DomUtils.getElementSelector(element);
     }
     
-    super.addEvaluationResult(evaluation);
+    await super.addEvaluationResult(evaluation, element);
   }
 }
 

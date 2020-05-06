@@ -40,7 +40,7 @@ describe('Best Practice QW-BP6', function () {
         });
 
         const report = await bestPractices.execute(page);
-        expect(report['best-practices']['QW-BP6'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report.assertions['QW-BP6'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
