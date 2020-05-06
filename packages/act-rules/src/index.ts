@@ -2,13 +2,12 @@
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { SourceHtml } from '@qualweb/core';
-import { ShadowDomUtils, Optimization } from '@qualweb/util';
+import {  Optimization } from '@qualweb/util';
 import CSSselect from 'css-select';
-import { Page } from 'puppeteer';
-
 import * as rules from './lib/rules';
 
 import mapping from './lib/mapping';
+import { QWPage } from '@qualweb/qw-page';
 
 class ACTRules {
 
@@ -21,7 +20,7 @@ class ACTRules {
     this.rulesToExecute = {};
     this.optimization = Optimization.Performance;
 
-    for(const rule of Object.keys(rules) || []) {
+    for (const rule of Object.keys(rules) || []) {
       const _rule = rule.replace(/_/g, '-');
       this.rules[_rule] = new rules[rule]();
       this.rulesToExecute[_rule] = true;
@@ -113,12 +112,12 @@ class ACTRules {
     }
   }
 
-  private async executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport, concurrent: boolean): Promise<void> {
+  private async executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): Promise<void> {
     const promises = new Array<any>();
-    if(rule === 'QW-ACT-R37'){
+    if (rule === 'QW-ACT-R37') {
       await this.rules[rule].execute(undefined, page, this.optimization);
-    }else{
-      const elements = await page.$$(selector);
+    } else {
+      const elements = await page.getElements(selector);
       if (elements.length > 0) {
         for (const elem of elements || []) {
           if (concurrent) {
@@ -141,7 +140,7 @@ class ACTRules {
     this.rules[rule].reset();
   }
 
-  private async executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void> {
+  private async executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void> {
     const promises = new Array<any>();
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
@@ -162,21 +161,21 @@ class ACTRules {
     }
   }
 
-  private async executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void> {
+  private async executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): Promise<void> {
     await Promise.all([
       this.executeSourceHtmlMappedRules(report, html, Object.keys(mapping.non_concurrent.pre), mapping.non_concurrent.pre),
       this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
     ]);
   }
 
-  private async executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void> {
+  private async executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): Promise<void> {
     await Promise.all([
       this.executeSourceHtmlMappedRules(report, html, Object.keys(mapping.concurrent.pre), mapping.concurrent.pre),
       this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
     ]);
   }
 
-  public async execute(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport> {
+  public async execute(sourceHtml: SourceHtml, page: QWPage, stylesheets: any[]): Promise<ACTRulesReport> {
 
     const report: ACTRulesReport = {
       type: 'act-rules',
@@ -189,7 +188,7 @@ class ACTRules {
       rules: {}
     };
 
-    page = await ShadowDomUtils.processShadowDom(page);
+    page.processShadowDom();
 
     await Promise.all([
       this.executeNonConcurrentRules(report, sourceHtml, page),

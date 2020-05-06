@@ -65,13 +65,13 @@ class QW_ACT_R39 extends Rule {
                   const cellIndexElementRole = cellIndexElement ? await AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
                   const cellHeadersAttribute = cellIndexElement ? await DomUtils.getElementAttribute(cellIndexElement, 'headers') : null;
                   // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
-                  found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? headerElementId ? cellHeadersAttribute.includes(headerElementId) : false : true);
+                  found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
                 } else {
                   // if there is not an element in the same index as header, we need to check all row children...
                   for (let cellElement of rowChildrenElements) {
                     if (!found) {
                       const cellElementRole = await AccessibilityUtils.getElementRole(cellElement, page);
-
+                      console.log(cellElementRole);
                       // verifying if it has a colspan attribute and it matches headerElement's index
                       const cellColspanAttribute = await DomUtils.getElementAttribute(cellElement, 'colspan');
                       const cellElementIndex = await getElementIndexOfParentChildren(cellElement);
@@ -91,6 +91,12 @@ class QW_ACT_R39 extends Rule {
               evaluation.description = `The column header element has at least one assigned cell`;
               evaluation.resultCode = 'RC1';
             } else {
+              console.log(await DomUtils.getElementHtmlCode(element, true, false)+"\n"+await DomUtils.getElementSelector(element));
+              if(elementParent)
+              console.log(await DomUtils.getElementHtmlCode(ancestorTableOrGrid, true, false)+"\n"+await DomUtils.getElementSelector(ancestorTableOrGrid));
+              console.log(await page.accessibility.snapshot({root:element}));
+              console.log(await DomUtils.isElementHidden(element));
+
               evaluation.verdict = 'failed';
               evaluation.description = `The column header element does not have at least one assigned cell`;
               evaluation.resultCode = 'RC2';

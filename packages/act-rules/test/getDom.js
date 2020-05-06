@@ -61,7 +61,7 @@ async function parseStylesheets(plainStylesheets) {
 
 async function getTestCases() {
   const response = await fetch('https://act-rules.github.io/testcases.json');
-  return JSON.parse(await response.json());
+  return await response.json();
 }
 
 async function getSourceHTML(url, options) {
