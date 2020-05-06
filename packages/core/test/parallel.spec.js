@@ -28,7 +28,7 @@ describe('Should do parallel evaluations', function() {
     await core.evaluate(options);
     const earlReport = await core.generateEarlReport({ aggregated: true, modules: { act: true }});
     
-    await core.stop();
+    await core.close();
 
     let valid = true;
     for (let i = 0 ; i < tcs.length ; i++) {

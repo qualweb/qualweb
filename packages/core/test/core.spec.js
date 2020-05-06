@@ -8,10 +8,10 @@ describe('Core', function() {
     this.timeout(1000 * 1000);
 
     await core.start();
-    const report = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
+    const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
     await core.stop();
 
-    expect(report[0].type).to.be.equal('evaluation');
+    expect(reports[url].type).to.be.equal('evaluation');
   });
 
   it('EARL report should have assertions from all modules', async function() {
@@ -22,7 +22,7 @@ describe('Core', function() {
     const earlReports = await core.generateEarlReport();
     await core.stop();
     
-    expect(earlReports[0].graph.length).to.be.greaterThan(0);
+    expect(earlReports[url].graph.length).to.be.greaterThan(0);
   });
 
 });

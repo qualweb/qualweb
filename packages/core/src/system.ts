@@ -7,7 +7,7 @@ import * as DomUtils from 'domutils';
 import CSSselect from 'css-select';
 import { EvaluationReport, QualwebOptions, PageOptions, SourceHtml } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
-import { evaluate } from './lib/managers/module.manager';
+import { evaluateUrl, evaluateHtml } from './lib/managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import clone from 'lodash.clone';
 import css from 'css';
@@ -24,6 +24,7 @@ import {
 class System {
 
   private urls: Array<string>;
+  private html: string | undefined;
   private evaluations: {[url: string]: EvaluationReport};
   private force: boolean;
   private numberOfParallelEvaluations = 1;
@@ -33,6 +34,7 @@ class System {
 
   constructor() {
     this.urls = new Array<string>();
+    this.html = undefined;
     this.evaluations = {};
     this.force = false;
     this.modulesToExecute = {
@@ -63,9 +65,13 @@ class System {
     } 
     if (options.crawl) {
       this.urls = this.urls.concat(await crawlDomain(options.crawl));
-    } 
+    }
+
+    if (options.html) {
+      this.html = options.html;
+    }
     
-    if (this.urls.length === 0) {
+    if (!this.html && this.urls.length === 0) {
       throw new Error('Invalid input method');
     }
 
@@ -107,14 +113,18 @@ class System {
     for (let i = 0 ; i < this.urls.length ; i += this.numberOfParallelEvaluations) {
       const promises = new Array<any>();
       for (let j = 0 ; j < this.numberOfParallelEvaluations && i + j < this.urls.length ; j++) {
-        promises.push(this.runModules(this.urls[i + j], options));
+        promises.push(this.runModulesUrl(this.urls[i + j], options));
       }
       await Promise.all(promises);
+    }
+
+    if (this.html) {
+      await this.runModulesHtml(options);
     }
   }
 
   public async report(earl: boolean, options?: EarlOptions): Promise<{[url: string]: EvaluationReport} | {[url: string]: EarlReport}> {
-    if (earl || options) {
+    if (!this.html && (earl || options)) {
       return generateEARLReport(this.evaluations, options);
     } else {
       return this.evaluations;
@@ -127,7 +137,7 @@ class System {
     }
   }
 
-  private async runModules(url: string, options: QualwebOptions): Promise<void> {
+  private async runModulesUrl(url: string, options: QualwebOptions): Promise<void> {
     if (this.browser) {
       let page: Page | undefined = undefined;
       try {
@@ -172,12 +182,71 @@ class System {
           
           await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
           
-          const evaluation = await evaluate(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+          const evaluation = await evaluateUrl(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
 
           this.evaluations[url] = evaluation.getFinalReport();
         } else {
           throw new Error('Error trying to reach webpage.');
         }
+      } catch(err) {
+        if (!this.force) {
+          console.error(err);
+        }
+      } finally {
+        if (page) {
+          await page.close();
+        }
+      }
+    }
+  }
+
+  private async runModulesHtml(options: QualwebOptions): Promise<void> {
+    if (this.browser && this.html) {
+      let page: Page | undefined = undefined;
+      try {
+        page = await this.browser.newPage();
+        await this.setPageViewport(page, options.viewport);
+
+        const plainStylesheets: any = {};
+        page.on('response', async response => {
+          if(response.request().resourceType() === 'stylesheet') {
+            const responseUrl = response.url();
+            const content = await response.text();
+            plainStylesheets[responseUrl] = content;
+          }
+        });
+
+        await page.setContent(this.html, {
+          timeout: 0,
+          waitUntil: ['networkidle2', 'domcontentloaded']
+        });
+
+        const sourceHtml = await this.parseSourceHTML(await page.content());
+        const styles = CSSselect('style', sourceHtml.html.parsed);
+        let k = 0;
+        for (const style of styles || []) {
+          if (style['children'] && style['children'][0]) {
+            plainStylesheets['html' + k] = style['children'][0]['data'];
+          }
+          k++;
+        }
+        const stylesheets = await this.parseStylesheets(plainStylesheets);
+        const mappedDOM = {};
+        const cookedStew = CSSselect('*', sourceHtml.html.parsed);
+        
+        if (cookedStew.length > 0) {
+          for (const item of cookedStew || []) {
+            if (item['startIndex']) {
+              mappedDOM[item['startIndex']] = item;
+            }
+          }
+        }
+        
+        await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
+
+        const evaluation = await evaluateHtml(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+
+        this.evaluations['customHtml'] = evaluation.getFinalReport();
       } catch(err) {
         if (!this.force) {
           console.error(err);
