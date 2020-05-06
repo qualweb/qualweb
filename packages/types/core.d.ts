@@ -14,6 +14,7 @@ declare module '@qualweb/core' {
     urls?: string[];
     file?: string;
     crawl?: string;
+    html?: string;
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
     force?: boolean;

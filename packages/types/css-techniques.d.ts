@@ -40,6 +40,7 @@ declare module '@qualweb/css-techniques' {
   interface CSSTechniqueResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
+    resultCode: string;
     pointer?: string;
     htmlCode?: string | string[];
     attributes?: string | string[];
