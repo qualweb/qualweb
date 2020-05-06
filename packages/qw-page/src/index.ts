@@ -23,14 +23,44 @@ class QWPage {
 
   }
 
-  public getElementByID(id: string,elementQW: QWElement):QWElement | null {
-     let treeSelector = elementQW.getTreeSelector();
-     let element = this.document.querySelector(`#${id}`+treeSelector);
+  public getElementByID(id: string, elementQW: QWElement): QWElement | null {
+    let treeSelector = elementQW.getTreeSelector();
+    let element = this.document.querySelector(`#${id}` + treeSelector);
     if (element)
       return new QWElement(element);
     else
       return null;
 
   }
+  public getElementByAttributeName(name: string): QWElement | null {
+    let element = this.document.querySelector(`[name="${name}"]`);
+    if (element)
+      return new QWElement(element);
+    else
+      return null;
+
+  }
+  public processShadowDom(): void {
+
+
+    let listElements = this.document.querySelectorAll("*") || new Array();
+    let elementsFromShadowDom;
+    let shadowCounter = 0;
+
+    listElements.forEach(element => {
+      if (element.shadowRoot !== null) {
+        element.innerHTML = element.shadowRoot.innerHTML;
+        elementsFromShadowDom = element.querySelectorAll("*");
+        this.setShadowAttribute(elementsFromShadowDom, shadowCounter);
+        shadowCounter++;
+      }
+    });
+  }
+
+  private setShadowAttribute(elements: NodeListOf<Element>, counter: number): void {
+    for (const element of elements || []) {
+      element.setAttribute("shadowTree", counter + "")
+    }
+  }
 }
-export{QWPage};
+export { QWPage };
