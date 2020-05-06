@@ -14,7 +14,7 @@ class QW_ACT_R4 extends Rule {
   }
 
   @ElementExists
-  async execute(element: Node): Promise<void> {
+  execute(element: Node): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',

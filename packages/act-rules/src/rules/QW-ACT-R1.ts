@@ -1,10 +1,9 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, IsDocument } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R1 extends Rule {
@@ -14,7 +13,7 @@ class QW_ACT_R1 extends Rule {
   }
   
   @IsDocument('html')
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  execute(element: QWElement | undefined): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -35,7 +34,7 @@ class QW_ACT_R1 extends Rule {
         evaluation.resultCode = 'RC1';
       }
       //the title element is empty
-      else if ((await DomUtils.getElementText(element)).trim() === '') {
+      else if (element.getElementText().trim() === '') {
         evaluation.verdict = 'failed';
         evaluation.description = 'The \`title\` element is empty ("").';
         evaluation.resultCode = 'RC2';
@@ -46,7 +45,7 @@ class QW_ACT_R1 extends Rule {
       }
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

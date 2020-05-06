@@ -1,8 +1,6 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { 
   ACTRule, 
@@ -12,6 +10,7 @@ import {
   ElementHasNonEmptyAttribute,
   IsLangSubTagValid
 } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R3 extends Rule {
@@ -27,7 +26,7 @@ class QW_ACT_R3 extends Rule {
   @ElementHasNonEmptyAttribute('xml:lang')
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -35,8 +34,8 @@ class QW_ACT_R3 extends Rule {
       resultCode: ''
     };
 
-    const lang = <string> await DomUtils.getElementAttribute(element, 'lang');
-    const xmlLang = <string> await DomUtils.getElementAttribute(element, 'xml:lang');
+    const lang = <string> element.getElementAttribute('lang');
+    const xmlLang = <string> element.getElementAttribute('xml:lang');
 
     const primaryLang = lang.split('-')[0];
     const primaryXmlLang = xmlLang.split('-')[0];
@@ -51,7 +50,7 @@ class QW_ACT_R3 extends Rule {
       evaluation.resultCode = 'RC2';
     }
     
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

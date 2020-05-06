@@ -1,10 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R31 extends Rule {
@@ -14,7 +14,7 @@ class QW_ACT_R31 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,13 +22,11 @@ class QW_ACT_R31 extends Rule {
       resultCode: ''
     };
 
-    const [metadata, track, isVisible] = await Promise.all([
-      DomUtils.getVideoMetadata(element),
-      element.$('track[kind="descriptions"]'),
-      DomUtils.isElementVisible(element)
-    ]);
+    const metadata = DomUtils.getVideoMetadata(element);
+    const track = element.getElement('track[kind="descriptions"]');
+    const isVisible = DomUtils.isElementVisible(element);
 
-    const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0;
+    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0;
     const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.volume === -91;
 
     if (!isVisible) {
@@ -49,7 +47,7 @@ class QW_ACT_R31 extends Rule {
         evaluation.description = 'Check if the test target visual content has accessible alternative.';
         evaluation.resultCode = 'RC4';
       }
-    } else if (hasPupeteerApplicableData) {
+    } else if (hasPuppeteerApplicableData) {
       evaluation.verdict = 'warning';
       evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC5';
@@ -60,7 +58,7 @@ class QW_ACT_R31 extends Rule {
       evaluation.resultCode = 'RC6';
     }
     
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

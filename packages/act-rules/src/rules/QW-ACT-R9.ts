@@ -1,11 +1,12 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R9 extends Rule {
@@ -15,17 +16,15 @@ class QW_ACT_R9 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
-    const [links, iframes] = await Promise.all([
-      element.$$('a[href], [role="link"]'),
-      element.$$('iframe')
-    ]);
+    const links = element.getElements('a[href], [role="link"]');
+    const iframes = element.getElements('iframe');
 
     for (const iframe of iframes || []) {
       const frame = await iframe.contentFrame();
       if (frame !== null) {
-        links.push(...(await frame.$$('a[href], [role="link"]')));
+        links.push(...(frame.getElements('a[href], [role="link"]')));
       }
     }
 
@@ -34,12 +33,12 @@ class QW_ACT_R9 extends Rule {
 
     for (const link of links || []) {
       let aName, href;
-      if (await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
-        aName = await AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else if(await AccessibilityUtils.isElementInAT(link, page)){
-        aName = await AccessibilityUtils.getAccessibleName(link, page);
+      if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
+        aName = AccessibilityUtils.getAccessibleNameSVG(link, page);
+      } else if(AccessibilityUtils.isElementInAT(link, page)){
+        aName = AccessibilityUtils.getAccessibleName(link, page);
       }
-      href = await DomUtils.getElementAttribute(link, 'href');
+      href = link.getElementAttribute('href');
 
       if (!!aName) {
         hrefList.push(href);
@@ -112,7 +111,7 @@ class QW_ACT_R9 extends Rule {
     }
   }
 
-  private async getContentHash(selectors: string[], page: Page): Promise<Array<string>> {
+  private async getContentHash(selectors: string[], page: QWPage): Promise<Array<string>> {
     const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();

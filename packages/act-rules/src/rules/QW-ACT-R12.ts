@@ -21,7 +21,7 @@ class QW_ACT_R12 extends Rule {
   @ElementExists
   @ElementIsInAccessibilityTree
   @IfElementHasTagNameMustHaveAttributeRole('a', 'link')
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: ElementHandle, page: Page): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -29,7 +29,7 @@ class QW_ACT_R12 extends Rule {
       resultCode: ''
     };
 
-    const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+    const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
     
     if(accessibleName && accessibleName.trim()) {
       evaluation.verdict = 'passed';
@@ -41,7 +41,7 @@ class QW_ACT_R12 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

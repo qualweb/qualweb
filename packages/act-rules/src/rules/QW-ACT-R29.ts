@@ -1,10 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R29 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R29 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,13 +23,11 @@ class QW_ACT_R29 extends Rule {
       resultCode: ''
     };
 
-    const [isHidden, isVisible, controls, autoPlay, metadata] = await Promise.all([
-      DomUtils.isElementHidden(element),
-      DomUtils.isElementVisible(element),
-      DomUtils.elementHasAttribute(element, 'controls'),
-      DomUtils.getElementAttribute(element, 'autoplay'),
-      DomUtils.getVideoMetadata(element)
-    ]);
+    const isHidden = DomUtils.isElementHidden(element);
+    const isVisible = DomUtils.isElementVisible(element);
+    const controls = element.elementHasAttribute('controls');
+    const autoPlay = element.getElementAttribute('autoplay');
+    const metadata = DomUtils.getVideoMetadata(element);
 
     const duration = metadata['puppeteer']['video']['duration'];
 
@@ -42,7 +41,7 @@ class QW_ACT_R29 extends Rule {
       evaluation.resultCode = 'RC2';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

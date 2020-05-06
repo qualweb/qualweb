@@ -54,7 +54,7 @@ abstract class Rule {
     }
   }
 
-  abstract async execute(element: Node | undefined, html: SourceHtml): Promise<void>;
+  abstract execute(element: Node | undefined, html: SourceHtml): void;
 
   getFinalResults(): any {
     this.outcomeRule();

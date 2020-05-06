@@ -1,11 +1,12 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { createHash } from 'crypto';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R10 extends Rule {
@@ -15,17 +16,15 @@ class QW_ACT_R10 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
-    const [iframes, iframesAll] = await Promise.all([
-      element.$$('iframe[src]'),
-      element.$$('iframe')
-    ]);
+    const iframes = element.getElements('iframe[src]');
+    const iframesAll = element.getElements('iframe');
 
     for (const iframe of iframesAll || []) {
       const frame = await iframe.contentFrame();
       if (frame !== null) {
-        iframes.push(...(await frame.$$('iframe[src]')));
+        iframes.push(...(frame.getElements('iframe[src]')));
       }
     }
 
@@ -33,8 +32,8 @@ class QW_ACT_R10 extends Rule {
 
     // add iframe contents
     for (const link of iframes || []) {
-      if (!(await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(await DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
-        const aName = await AccessibilityUtils.getAccessibleName(link, page);
+      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
+        const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);
         }
@@ -58,7 +57,7 @@ class QW_ACT_R10 extends Rule {
           blacklist.push(...hasEqualAn);
           hasEqualAn.push(counter);
 
-          const elements = new Array<ElementHandle>();
+          const elements = new Array<QWElement>();
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
@@ -102,7 +101,7 @@ class QW_ACT_R10 extends Rule {
     }*/
   }
 
-  private async getContentHash(elements: ElementHandle[], page: Page): Promise<Array<string>> {
+  private async getContentHash(elements: QWElement[], page: QWPage): Promise<Array<string>> {
     const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();

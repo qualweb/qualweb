@@ -1,11 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R27 extends Rule {
@@ -15,9 +14,9 @@ class QW_ACT_R27 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
-    const allElements = await element.$$('*');
+    const allElements = element.getElements('*');
     for (const elem of allElements || []) {
       const evaluation: ACTRuleResult = {
         verdict: '',
@@ -27,7 +26,7 @@ class QW_ACT_R27 extends Rule {
 
       let countAria = 0;
       let failedAria = '';
-      const elemAttribs = await DomUtils.getElementAttributesName(elem);
+      const elemAttribs = elem.getElementAttributesName();
       for (const attrib of elemAttribs || []) {
         if(attrib.startsWith('aria-')) {
           countAria++;
@@ -49,7 +48,7 @@ class QW_ACT_R27 extends Rule {
         continue;
       }
 
-      await super.addEvaluationResult(evaluation, elem);
+      super.addEvaluationResult(evaluation, elem);
     }
   }
 }

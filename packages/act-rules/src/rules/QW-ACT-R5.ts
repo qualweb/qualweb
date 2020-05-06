@@ -1,8 +1,6 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import languages from '../lib/language.json';
 import Rule from '../lib/Rule.object';
 import { 
@@ -12,6 +10,7 @@ import {
   IsDocument, 
   IsNotMathDocument 
 } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R5 extends Rule {
@@ -24,7 +23,7 @@ class QW_ACT_R5 extends Rule {
   @IsDocument('html')
   @IsNotMathDocument
   @ElementHasNonEmptyAttribute('lang')
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -32,11 +31,11 @@ class QW_ACT_R5 extends Rule {
       resultCode: ''
     };
 
-    const lang = <string> await DomUtils.getElementAttribute(element, 'lang');
+    const lang = <string> element.getElementAttribute('lang');
 
     if (this.checkValidity(lang)) {
       evaluation.verdict = 'passed';
-      evaluation.description = `The \`lang\´ attribute has a valid value.`;
+      evaluation.description = `The \`lang\` attribute has a valid value.`;
       evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'failed';
@@ -44,7 +43,7 @@ class QW_ACT_R5 extends Rule {
       evaluation.resultCode = 'RC2';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
   private checkValidity(lang: string): boolean {

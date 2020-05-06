@@ -1,11 +1,12 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R28 extends Rule {
@@ -15,10 +16,10 @@ class QW_ACT_R28 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     // get all elements
-    const allElements = await element.$$('[role]');
+    const allElements = element.getElements('[role]');
     for (const elem of allElements || []) {
       const evaluation: ACTRuleResult = {
         verdict: '',
@@ -26,16 +27,14 @@ class QW_ACT_R28 extends Rule {
         resultCode: ''
       };
 
-      const [elemRole, elemAttribs, implicitRole, isInAT] = await Promise.all([
-        DomUtils.getElementAttribute(elem, 'role'),
-        DomUtils.getElementAttributesName(elem),
-        AccessibilityUtils.getImplicitRole(elem, page),
-        AccessibilityUtils.isElementInAT(elem, page)
-      ]);
+      const elemRole = elem.getElementAttribute('role');
+      const elemAttribs = elem.getElementAttributesName();
+      const implicitRole = AccessibilityUtils.getImplicitRole(elem, page);
+      const isInAT = AccessibilityUtils.isElementInAT(elem, page);
 
       if (!isInAT) {
         evaluation.verdict = 'inapplicable';
-        evaluation.description = 'The test target is not in acessiblity tree.';
+        evaluation.description = 'The test target is not in accessibility tree.';
         evaluation.resultCode = 'RC1';
       } else if (implicitRole === elemRole) {
         evaluation.verdict = 'inapplicable';
@@ -58,7 +57,7 @@ class QW_ACT_R28 extends Rule {
           while (i < requiredAriaList.length && result) {
             requiredAria = requiredAriaList[i];
             if (elemAttribs && elemAttribs.includes(requiredAria) && !implicitRoles.includes(requiredAria)) {
-              const attrValue = await DomUtils.getElementAttribute(elem, requiredAria);
+              const attrValue = elem.getElementAttribute(requiredAria);
               result = (attrValue ? attrValue.trim() : '') !== '';
             } else {
               result = implicitRoles.includes(requiredAria);
@@ -67,7 +66,7 @@ class QW_ACT_R28 extends Rule {
           }
           if (result) {
             evaluation.verdict = 'passed';
-            evaluation.description = 'The test target required attibutes are listed.';
+            evaluation.description = 'The test target required attributes are listed.';
             evaluation.resultCode = 'RC3';
           } else {
             evaluation.verdict = 'failed';
@@ -75,9 +74,9 @@ class QW_ACT_R28 extends Rule {
             evaluation.resultCode = 'RC4';
           }
         } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target \`role\` doesn't have required state or property`;
-        evaluation.resultCode = 'RC5';
+          evaluation.verdict = 'passed';
+          evaluation.description = `The test target \`role\` doesn't have required state or property`;
+          evaluation.resultCode = 'RC5';
         }
       } else {
         evaluation.verdict = 'inapplicable';
@@ -85,7 +84,7 @@ class QW_ACT_R28 extends Rule {
         evaluation.resultCode = 'RC6';
       }
 
-      await super.addEvaluationResult(evaluation, elem);
+      super.addEvaluationResult(evaluation, elem);
     }
   }
 }
