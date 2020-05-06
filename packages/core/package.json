@@ -1,12 +1,13 @@
 {
   "name": "@qualweb/core",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha",
+    "test:core": "mocha test/core.spec.js",
+    "test:html": "mocha test/html.spec.js",
     "test:crawler": "mocha test/crawler.spec.js",
     "test:parallel": "mocha test/parallel.spec.js",
     "clean": "node clean.js",
@@ -45,7 +46,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.3.34",
+    "@qualweb/act-rules": "^0.3.36",
     "@qualweb/best-practices": "^0.3.3",
     "@qualweb/crawler": "^0.2.2",
     "@qualweb/css-techniques": "^0.3.6",
@@ -61,7 +62,7 @@
     "puppeteer": "^3.0.3"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.3.29",
+    "@qualweb/types": "^0.3.30",
     "@types/node": "^13.13.5",
     "@types/puppeteer": "^2.0.1",
     "chai": "^4.2.0",

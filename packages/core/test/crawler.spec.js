@@ -7,8 +7,8 @@ describe('Core input method: crawler', function() {
 
     await core.start();
     const reports = await core.evaluate({ crawl: 'https://ciencias.ulisboa.pt' });
-    await core.stop();
+    await core.close();
 
-    expect(reports.length).to.be.greaterThan(0);
+    expect(Object.keys(reports).length).to.be.greaterThan(0);
   });
 });
