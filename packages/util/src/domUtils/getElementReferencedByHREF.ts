@@ -2,7 +2,7 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
-async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, ): Promise<QWElement | null> {
+function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null {
   if (!elementQW && pageQW) {
     throw Error('Element is not defined');
   }
@@ -11,7 +11,7 @@ async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, 
     return null;
   }
 
-  let href =await elementQW.getElementAttribute( 'href');
+  let href = elementQW.getElementAttribute( 'href');
   if (!href) {
     return null;
   }
@@ -24,12 +24,12 @@ async function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement, 
     return null;
   }
 
-  let result = pageQW.getElementByID( href,elementQW);
+  let result = pageQW.getElementByID(href, elementQW);
   if (result) {
     return result;
   }
 
-  result = pageQW.getElementByAttributeName( href);
+  result = pageQW.getElementByAttributeName(href);
   if (result) {
     return result;
   }

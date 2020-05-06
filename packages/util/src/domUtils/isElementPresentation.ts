@@ -7,13 +7,13 @@ import { QWElement } from '@qualweb/qw-element';
 import isElementFocusable from './isElementFocusable';
 
 
-function isElementPresentation(elementQW: QWElement,pageQW:QWPage): boolean{
+function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
 
-  const role = elementQW.getElementAttribute('role') 
-  let presentationOrNone = role === 'presentation'|| role ==='none';
+  const role = elementQW.getElementAttribute('role');
+  let presentationOrNone = role === 'presentation'|| role === 'none';
   const focusable =  isElementFocusable(elementQW);
   const hasGlobalARIA =  elementHasGlobalARIAPropertyOrAttribute(elementQW);
   const parent = elementQW.getElementParent();

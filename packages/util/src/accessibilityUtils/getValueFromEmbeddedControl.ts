@@ -5,9 +5,9 @@ import { QWElement } from '@qualweb/qw-element';
 import getTrimmedText from "./getTrimmedText";
 
 
- async function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelector: string): Promise<string>{//stew
+function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelector: string): string{
 
-  let role = await getElementRoleAName(element, page, "");
+  let role = getElementRoleAName(element, page, "");
   let name = element.getElementTagName();
   if (!name)
     name = '';
@@ -18,19 +18,19 @@ import getTrimmedText from "./getTrimmedText";
     let valueAT = element.getElementAttribute("value");
     value = valueAT? valueAT : "";
   } else if (role === "combobox") {
-    let refrencedByLabel = await element.getElement(`[aria-activedescendant]` + treeSelector);
+    let refrencedByLabel = element.getElement(`[aria-activedescendant]` + treeSelector);
     let aria_descendendant, selectedElement, optionSelected;
     if (!!refrencedByLabel) {
       aria_descendendant = refrencedByLabel.getElementAttribute( "role");
-      selectedElement = await element.getElement(`[id="${aria_descendendant}"]`);
+      selectedElement = element.getElement(`[id="${aria_descendendant}"]`);
     }
 
     if (name === 'select') {
-      optionSelected = await element.getElement(`[selected]` + treeSelector);
+      optionSelected = element.getElement(`[selected]` + treeSelector);
     }
 
     let aria_owns = element.getElementAttribute( "[aria-owns]" + treeSelector);
-    let elementasToSelect = await page.getElement(`[id="${aria_owns}"]`);
+    let elementasToSelect = page.getElement(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
     if (!!elementasToSelect )
@@ -46,20 +46,20 @@ import getTrimmedText from "./getTrimmedText";
     }
 
   } else if (role === "listbox") {
-    let elementsWithId = await element.getElements(`[id]` + treeSelector);
-    let elementWithAriaSelected = await element.getElement(`[aria-selected="true"]` + treeSelector);
+    let elementsWithId = element.getElements(`[id]` + treeSelector);
+    let elementWithAriaSelected = element.getElement(`[aria-selected="true"]` + treeSelector);
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
       if (!!selectedElement) {
         let id = elementWithId.getElementAttribute( "id");
-        selectedElement = await element.getElement(`[aria-activedescendant="${id}"]` + treeSelector);
+        selectedElement = element.getElement(`[aria-activedescendant="${id}"]` + treeSelector);
       }
     }
 
     if (name === 'select') {
-      optionSelected = await element.getElement(`[selected]` + treeSelector);
+      optionSelected = element.getElement(`[selected]` + treeSelector);
     }
 
     if (!!selectedElement)

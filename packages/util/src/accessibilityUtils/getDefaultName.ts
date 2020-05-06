@@ -2,7 +2,7 @@
 
 import { QWElement } from '@qualweb/qw-element';
 
-async function getDefaultName(elementQW: QWElement): Promise<string> {
+function getDefaultName(elementQW: QWElement): string {
   let name = elementQW.getElementTagName();
   if (!name)
     name = '';
@@ -10,7 +10,7 @@ async function getDefaultName(elementQW: QWElement): Promise<string> {
   let result = "";
 
   if (name === "input") {
-    type = elementQW.getElementAttribute( "type");;
+    type = elementQW.getElementAttribute( "type");
   }
 
   /*if (type === "image") {

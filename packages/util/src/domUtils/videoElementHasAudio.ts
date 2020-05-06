@@ -2,11 +2,11 @@
 
 import { QWElement } from "@qualweb/qw-element";
 
-async function videoElementHasAudio(elementQW: QWElement): Promise<boolean> {
+function videoElementHasAudio(elementQW: QWElement): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  return Number.parseInt(elementQW.getElementProperty('webikitAudioDecodedByteCount')) > 0;
+  return Number.parseInt(elementQW.getElementProperty('webkitAudioDecodedByteCount')) > 0;
 }
 
 export default videoElementHasAudio;

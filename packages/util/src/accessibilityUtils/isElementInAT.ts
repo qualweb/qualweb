@@ -8,8 +8,7 @@ import isElementFocusable from '../domUtils/isElementFocusable';
 import elementIDIsReferenced from '../domUtils/elementIDIsReferenced';
 import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute';
 
-
-function isElementInAT(elementQW: QWElement,  pageQW:QWPage): boolean{
+function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
   let isPresentation = isElementPresentation(elementQW, pageQW);
   let isHidden = isElementHidden(elementQW);
   let result = false;
@@ -17,11 +16,11 @@ function isElementInAT(elementQW: QWElement,  pageQW:QWPage): boolean{
   if (!isHidden && !isPresentation) {
     let type = elementQW.getElementType();
     let focusable = isElementFocusable(elementQW);
-    let id = elementQW.getElementAttribute(elementQW, "id");
+    let id = elementQW.getElementAttribute("id");
     let ariaActivedescendant = false;
     let ariaControls = false;
     let ariaDescribedby = false;
-    let ariaDetails = false
+    let ariaDetails = false;
     let ariaErrormessage = false;
     let ariaFlowto = false;
     let ariaLabelledby = false;

@@ -2,7 +2,7 @@
 'use strict';
 import { QWElement } from '@qualweb/qw-element';
 
- function isElementFocusableByDefault(elementQW: QWElement): boolean{
+function isElementFocusableByDefault(elementQW: QWElement): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }

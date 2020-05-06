@@ -2,14 +2,13 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from "..";
 
 //import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
-async function isElementReferencedByAriaLabel(elementQW: QWElement,  pageQW:QWPage): Promise<boolean> {
+function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean {
 
   let id = elementQW.getElementAttribute( "id");
-  let treeSelector = await elementQW.getTreeSelector();
+  let treeSelector = elementQW.getTreeSelector();
   let result = false;
   if (id !== null) {
     let referencedByAriaLabel = pageQW.getElements(`[aria-labelledby*="${id}"]` + treeSelector);

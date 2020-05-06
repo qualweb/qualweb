@@ -2,7 +2,7 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
-async function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): Promise<boolean> {
+function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
@@ -23,7 +23,7 @@ async function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: 
     }
     result = sameName || sameRole;
     if (!result) {
-      return await isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
+      return isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
     } else {
       return result;
     }

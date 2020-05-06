@@ -8,7 +8,7 @@ function isElementHidden(elementQW: QWElement): boolean {
     throw Error('Element is not defined');
   }
   const name = elementQW.getElementTagName();
-  const type = elementQW.getElementAttribute( "type")
+  const type = elementQW.getElementAttribute( "type");
   let typeHidden = name === "input" && type === "hidden";
   const ariaHidden = elementQW.getElementAttribute( 'aria-hidden') === 'true';
   const hidden = elementQW.getElementAttribute( 'hidden') !== null;

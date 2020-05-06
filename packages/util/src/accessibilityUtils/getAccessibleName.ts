@@ -22,7 +22,7 @@ function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recurs
 
   ariaLabelBy = elementQW.getElementAttribute("aria-labelledby");
 
-  if (ariaLabelBy !== null && !(verififyAriaLabel(ariaLabelBy, pageQW, elementQW))) {
+  if (ariaLabelBy !== null && !(verifyAriaLabel(ariaLabelBy, pageQW, elementQW))) {
     ariaLabelBy = "";
   }
   ariaLabel = elementQW.getElementAttribute("aria-label");
@@ -191,7 +191,7 @@ function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): st
   return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
 
-async function getConcatentedText(elementQW: QWElement, aNames: string[]): Promise<string> {
+function getConcatentedText(elementQW: QWElement, aNames: string[]): string {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
@@ -221,7 +221,7 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
 
 
 
-function verififyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
+function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
 
   let elementIds = ariaLabelBy.split(" ");
   let result = false;

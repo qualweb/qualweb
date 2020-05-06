@@ -5,11 +5,12 @@ import {
   noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer
 } from './constants';
 import getAccessibleName from "./getAccessibleName";
-import { AccessibilityUtils } from "..";
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-async function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): Promise<string | undefined> {
+import isElementHidden from "../domUtils/isElementHidden";
+
+function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, ariaLabel, tag;
 
   tag = element.getElementTagName();
@@ -21,16 +22,16 @@ async function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, r
     ariaLabelBy = "";
   }
   ariaLabel = element.getElementAttribute("aria-label");
-  let referencedByAriaLabel = await isElementReferencedByAriaLabel(element, page);
+  let referencedByAriaLabel = isElementReferencedByAriaLabel(element, page);
   let title = element.getElementChildTextContent("title");
   let titleAtt = element.getElementAttribute("xlink:title");//tem de ser a
   let href = element.getElementAttribute("href");
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if ((element.isElementHidden(element) || await hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
+  if ((isElementHidden(element) || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = await getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
+    AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
     AName = getAccessibleName(element, page);
   } else if (ariaLabel && ariaLabel.trim() !== "") {
@@ -40,9 +41,9 @@ async function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, r
   } else if (titleAtt && titleAtt.trim() !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
   } else if (textContainer.indexOf(tag) >= 0 || recursion) {
-    AName = await getTextFromCss(element, page);
+    AName = getTextFromCss(element, page);
   } else if (tag && tag === "text") {
-    AName = await getTrimmedText(element);
+    AName = getTrimmedText(element);
   }
   return AName;
 }
@@ -82,10 +83,7 @@ async function getAccessibleNameFromAriaLabelledBy(page: QWPage, element: QWElem
   return result;
 }
 
-
-
-
-async function getAccessibleNameFromChildren(element: QWElement, page: QWPage): Promise<string[]> {
+function getAccessibleNameFromChildren(element: QWElement, page: QWPage): string[] {
 
   let aName;
   let children = element.getElementChildren();
@@ -93,7 +91,7 @@ async function getAccessibleNameFromChildren(element: QWElement, page: QWPage): 
 
   if (children) {
     for (let child of children) {
-      aName = await getAccessibleNameSVGRecursion(child, page, true);
+      aName = getAccessibleNameSVGRecursion(child, page, true);
       if (!!aName) {
         elementAnames.push(aName);
       } else {
@@ -104,11 +102,11 @@ async function getAccessibleNameFromChildren(element: QWElement, page: QWPage): 
   return elementAnames;
 }
 
-async function getTextFromCss(element: QWElement, page: QWPage): Promise<string> {
+function getTextFromCss(element: QWElement, page: QWPage): string {
   let before = element.getElementStyleProperty("content", ":before");
   let after = element.getElementStyleProperty("content", ":after");
-  let aNameList = await getAccessibleNameFromChildren(element, page);
-  let textValue = await getConcatentedText(element, aNameList);
+  let aNameList = getAccessibleNameFromChildren(element, page);
+  let textValue = getConcatentedText(element, aNameList);
 
   if (after === "none")
     after = "";
@@ -118,7 +116,7 @@ async function getTextFromCss(element: QWElement, page: QWPage): Promise<string>
   return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
 
-async function getConcatentedText(elementQW: QWElement, aNames: string[]): Promise<string> {
+function getConcatentedText(elementQW: QWElement, aNames: string[]): string {
   if (!elementQW) {
     throw Error('Element is not defined');
   }

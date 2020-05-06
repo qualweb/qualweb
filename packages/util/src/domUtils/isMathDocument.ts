@@ -12,7 +12,7 @@
     })
   });
 }*/
-
+//fixme
 function isMathDocument(url: string): boolean {
   //const content = await getRequestContent(url);
   return true;//content.trim().startsWith('<math');

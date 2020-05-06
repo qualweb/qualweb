@@ -4,7 +4,7 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import getElementRole from '../accessibilityUtils/getElementRole';
 
-async function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): Promise<boolean> {
+function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
@@ -25,7 +25,7 @@ async function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, name
     }
     result = sameName || sameRole;
     if (!result) {
-      return await isElementADescendantOf(parent, pageQW, names, roles);
+      return isElementADescendantOf(parent, pageQW, names, roles);
     } else {
       return result;
     }

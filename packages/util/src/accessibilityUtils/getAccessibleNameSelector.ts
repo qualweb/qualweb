@@ -11,11 +11,11 @@ import isElementControl from './isElementControl';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
- function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): Promise<string[] | undefined> {
+function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined {
   return getAccessibleNameRecursion(element, pageQW, false, false);
 }
 
- function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): Promise<string[] | undefined> {
+function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): string[] | undefined {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id, defaultName;
   let elementSelector = element.getElementSelector();
   let name = element.getElementTagName();
@@ -23,7 +23,7 @@ import { QWElement } from '@qualweb/qw-element';
   let treeSelector =  element.getTreeSelector();
   ariaLabelBy = element.getElementAttribute("aria-labelledby");
 
-  if (ariaLabelBy !== null && !(verififyAriaLabel(ariaLabelBy, page, element))) {
+  if (ariaLabelBy !== null && !(verifyAriaLabel(ariaLabelBy, page, element))) {
     ariaLabelBy = "";
   }
   ariaLabel = !!(element.getElementAttribute("aria-label")) ? [elementSelector] : null;
@@ -211,7 +211,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
 
 
 
- function verififyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
+ function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
 
   let elementIds = ariaLabelBy.split(" ");
   let result = false;

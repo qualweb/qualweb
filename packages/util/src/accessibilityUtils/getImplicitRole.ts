@@ -2,10 +2,9 @@
 import roles from './elementImplicitRoles.json';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from "..";
+import isElementADescendantOfExplicitRole from "../domUtils/isElementADescendantOfExplicitRole";
 
-
-function getImplicitRole(elementQW: QWElement, pageQW: QWPage, acessibleName: string | undefined): string | null {
+function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
   let name =elementQW.getElementTagName();
   let attributes, role;
   if (name) {
@@ -20,12 +19,11 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, acessibleName: st
           } else {
             let heading = new RegExp("h[1-6]");
             if (name === "footer" || name === "header") {
-              if (await AccessibilityUtils.domUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
+              if (isElementADescendantOfExplicitRole(elementQW, pageQW, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
                 role = roleValue["role"];
               }
             } else if (name === "form" || name === "section") {
-              let aName = acessibleName;
-              if (aName !== undefined) {
+              if (accessibleName !== undefined) {
                 role = roleValue["role"];
               }
 
@@ -81,7 +79,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, acessibleName: st
                 role = roleValue["role"];
               }
             } else if (name === "td") {
-              if (await AccessibilityUtils.domUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["table"], [])) {
+              if (isElementADescendantOfExplicitRole(elementQW, pageQW, ["table"], [])) {
                 role = roleValue["role"];
               }
             }
@@ -90,10 +88,9 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, acessibleName: st
       }
     }
   }
-
-
   return role;
 }
+
 function isInList(attributes, element: QWElement) {
   let result;
   for (let i = 0; i < attributes.length; i++) {

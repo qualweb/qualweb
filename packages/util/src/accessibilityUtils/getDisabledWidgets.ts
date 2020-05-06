@@ -4,14 +4,12 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementWidget from './isElementWidget';
 
-
-
-async function getDisabledWidgets(pageQW: QWPage): Promise<QWElement[]> {
+function getDisabledWidgets(pageQW: QWPage): QWElement[] {
   let elements = pageQW.getElements( '*');
   let disabledElements: QWElement[] = [];
   let isWidget, disable, ariaDisable, parent, parentTag;
   for (let element of elements) {
-    isWidget = await isElementWidget(element, pageQW);
+    isWidget = isElementWidget(element, pageQW);
     disable = (element.getElementAttribute( 'disabled')) !== null;
     ariaDisable = (element.getElementAttribute( 'aria-disabled')) !== null;
     parent = element.getElementParent();

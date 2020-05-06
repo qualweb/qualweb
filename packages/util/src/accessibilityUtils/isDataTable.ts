@@ -6,7 +6,7 @@ import { QWElement } from '@qualweb/qw-element';
 
 //import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
-async function isDataTable(element: QWElement,  pageQW:QWPage): Promise<boolean> {
+function isDataTable(element: QWElement, pageQW: QWPage): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -14,14 +14,13 @@ async function isDataTable(element: QWElement,  pageQW:QWPage): Promise<boolean>
   // and https://fae.disability.illinois.edu/rulesets/TABLE_5/
   // it is considered that AccessibilityUtils element is already a <table> element
   //let treeSelector = await getTreeSelector(element);
-  let accessibleName = await getAccessibleName(element, pageQW);
-  let thElem = await element.getElements('th'/*+treeSelector*/);
-  let tdHeaders = await element.getElements('td[scope]'/*+treeSelector*/);
-  let tdWithHeaders = await element.getElements('td[headers]'/*+treeSelector*/);
+  let accessibleName = getAccessibleName(element, pageQW);
+  let thElem = element.getElements('th'/*+treeSelector*/);
+  let tdHeaders = element.getElements('td[scope]'/*+treeSelector*/);
+  let tdWithHeaders = element.getElements('td[headers]'/*+treeSelector*/);
   let presentation, describedBy;
   presentation = element.getElementAttribute( "role") === "presentation";
   describedBy = Boolean(element.getElementAttribute( "aria-describedby"));
-
 
   return presentation ? false : (!!accessibleName || thElem.length > 0 || tdHeaders.length > 0 || tdWithHeaders.length > 0 || describedBy);
 }
