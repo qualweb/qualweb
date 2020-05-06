@@ -10,9 +10,9 @@ import { BestPracticesReport } from '@qualweb/best-practices';
 async function BestPracticesReportToEARL(report: BestPracticesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
 
-  for (const bpName in report['best-practices'] || {}) {
-    if (report['best-practices'][bpName]) {
-      const bestPractice = report['best-practices'][bpName];
+  for (const bpName in report.assertions || {}) {
+    if (report.assertions[bpName]) {
+      const bestPractice = report.assertions[bpName];
       if (bestPractice) {
         const sources = new Array<ResultSource>();
 
@@ -38,7 +38,7 @@ async function BestPracticesReportToEARL(report: BestPracticesReport, date?: str
         const assertion: Assertion = {
           '@type': 'Assertion',
           test: {
-            '@id': bestPractice.metadata.url || bestPractice.name, //TODO: será que name dá?
+            '@id': bestPractice.metadata.url || bestPractice.name,
             '@type': 'TestCase',
             title: bestPractice.name,
             description: bestPractice.description

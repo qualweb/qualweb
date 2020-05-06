@@ -10,9 +10,9 @@ import { HTMLTechniquesReport } from '@qualweb/html-techniques';
 async function HTMLTechniquesReportToEARL(report: HTMLTechniquesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
 
-  for (const techniqueName in report.techniques || {}) {
-    if (report.techniques[techniqueName]) {
-      const technique = report.techniques[techniqueName];
+  for (const techniqueName in report.assertions || {}) {
+    if (report.assertions[techniqueName]) {
+      const technique = report.assertions[techniqueName];
       if (technique) {
         const sources = new Array<ResultSource>();
 

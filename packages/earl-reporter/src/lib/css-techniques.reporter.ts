@@ -10,9 +10,9 @@ import { CSSTechniquesReport } from '@qualweb/css-techniques';
 async function CSSTechniquesReportToEARL(report: CSSTechniquesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
 
-  for (const techniqueName in report.techniques || {}) {
-    if (report.techniques[techniqueName]) {
-      const technique = report.techniques[techniqueName];
+  for (const techniqueName in report.assertions || {}) {
+    if (report.assertions[techniqueName]) {
+      const technique = report.assertions[techniqueName];
       if (technique) {
         const sources = new Array<ResultSource>();
 
@@ -38,7 +38,7 @@ async function CSSTechniquesReportToEARL(report: CSSTechniquesReport, date?: str
         const assertion: Assertion = {
           '@type': 'Assertion',
           test: {
-            '@id': typeof technique.metadata.url === 'string' ? technique.metadata.url : 'fix later', //TODO: FIX
+            '@id': typeof technique.metadata.url === 'string' ? technique.metadata.url : technique.metadata.url[0],
             '@type': 'TestCase',
             title: technique.name,
             description: technique.description

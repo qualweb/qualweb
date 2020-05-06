@@ -10,9 +10,9 @@ import {
 async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
 
-  for (const ruleName in report.rules || {}) {
-    if (report.rules[ruleName]) {
-      const rule = report.rules[ruleName];
+  for (const ruleName in report.assertions || {}) {
+    if (report.assertions[ruleName]) {
+      const rule = report.assertions[ruleName];
       if (rule) {
         const sources = new Array<ResultSource>();
 
