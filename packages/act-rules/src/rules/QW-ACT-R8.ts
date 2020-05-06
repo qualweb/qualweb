@@ -1,8 +1,8 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { 
   ACTRule, 
@@ -25,7 +25,7 @@ class QW_ACT_R8 extends Rule {
   @ElementHasAttributeRole('img')
   @ElementHasAttribute('src')
   @ElementSrcAttributeFilenameEqualsAccessibleName
-  async execute(element: ElementHandle): Promise<void> {
+  async execute(element: ElementHandle, page: Page): Promise<void> {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -62,6 +62,8 @@ class QW_ACT_R8 extends Rule {
       evaluation.description = `This element's accessible name uses the filename which accurately describes the image.`;
       evaluation.resultCode = 'RC3';
     }
+
+    evaluation.accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
     
     await super.addEvaluationResult(evaluation, element);
   }

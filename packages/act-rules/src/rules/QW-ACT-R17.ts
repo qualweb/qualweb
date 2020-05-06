@@ -74,6 +74,8 @@ class QW_ACT_R17 extends Rule {
             evaluation.description = `The test target has an accessible name.`;
             evaluation.resultCode = 'RC9';
           }
+
+          evaluation.accessibleName = accessibleName;
         }
       }
     } else {

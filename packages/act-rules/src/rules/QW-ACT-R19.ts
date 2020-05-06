@@ -40,6 +40,8 @@ class QW_ACT_R19 extends Rule {
         evaluation.description = `The test target doesn't have an accessible name.`;
         evaluation.resultCode = 'RC3';
       }
+
+      evaluation.accessibleName = accessibleName;
     }
 
     await super.addEvaluationResult(evaluation, element);

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.34] - 22/04/2020
+
+### Added
+ - accessible name result for rules R6, R8, R11, R12, R16, R17, R19, R21, R30, R35
+
+### Updated
+ - dependencies
+ - report interface
+ - tests
+
 ## [0.3.33] - 22/04/2020
 
 ### Updated

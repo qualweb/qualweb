@@ -41,6 +41,8 @@ class QW_ACT_R12 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
+    evaluation.accessibleName = accessibleName;
+
     await super.addEvaluationResult(evaluation, element);
   }
 }

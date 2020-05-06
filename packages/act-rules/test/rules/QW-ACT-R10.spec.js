@@ -42,7 +42,7 @@ describe(`Rule ${rule}`, async function () {
           const actRules = new ACTRules({ rules: [rule] });
           const report = await actRules.execute(sourceHtml, page, stylesheets);
 
-          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
+          expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
     });

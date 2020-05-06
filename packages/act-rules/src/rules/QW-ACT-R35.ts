@@ -40,6 +40,8 @@ class QW_ACT_R35 extends Rule {
         evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
         evaluation.resultCode = 'RC2';
       }
+
+      evaluation.accessibleName = accessibleName;
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target is not included in the accessibility tree.';

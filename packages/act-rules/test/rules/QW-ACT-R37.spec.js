@@ -26,7 +26,7 @@ describe(`Rule ${rule}`, async function () {
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
           const actRules = new ACTRules({ rules: [rule] });
           const report = await actRules.execute(sourceHtml, page, stylesheets);
-          expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
+          expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
     });
