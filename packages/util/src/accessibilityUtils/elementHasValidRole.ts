@@ -4,9 +4,9 @@ import { QWElement } from '@qualweb/qw-element';
 import roles from './roles.json';
 import getElementRole from "./getElementRole";
 
-async function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): Promise<boolean> {
+function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean {
 
-  let role = await getElementRole(elementQW, pageQW);
+  let role = getElementRole(elementQW, pageQW);
   let result = false;
   if (role !== null)
     result = Object.keys(roles).includes(role);
