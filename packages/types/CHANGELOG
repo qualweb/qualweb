@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.29] - 06/05/2020
+
+### Added
+ - LaunchOptions options to th start() function from core module
+
 ## [0.3.28] - 05/05/2020
 
 ### Added

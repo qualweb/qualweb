@@ -7,6 +7,7 @@ declare module '@qualweb/core' {
   import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
   import { BestPracticesReport } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
+  import { LaunchOptions } from 'puppeteer';
 
   interface QualwebOptions {
     url?: string;
@@ -119,7 +120,7 @@ declare module '@qualweb/core' {
     stylesheets: CSSStylesheet[];
   }
 
-  function start(): Promise<void>;
+  function start(options?: LaunchOptions): Promise<void>;
   function close(): Promise<void>;
   function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
   function generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
