@@ -179,8 +179,12 @@ function IsDocument(document: string) {
 function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = async function() {
-    const isMathDocument = false; //await DomUtils.isMathDocument(arguments[1].url());
-    if (!isMathDocument) {
+    try {
+      const isMathDocument = false; //await DomUtils.isMathDocument(arguments[1].url());
+      if (!isMathDocument) {
+        return method.apply(this, arguments);
+      }
+    } catch(err) {
       return method.apply(this, arguments);
     }
   };
