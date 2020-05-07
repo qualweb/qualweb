@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.20] - 07/05/2020
+
+### Downgraded
+ - @qualweb/crawler to version 0.1.1 before the keyboard event
+
 ## [0.3.19] - 06/05/2020
 
 ### Added
