@@ -3,7 +3,8 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists, IsDocument, IsNotMathDocument } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
+
 
 @ACTRule
 class QW_ACT_R2 extends Rule {

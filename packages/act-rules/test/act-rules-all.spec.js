@@ -3,29 +3,31 @@ const puppeteer = require('puppeteer');
 const { getDom } = require('./getDom');
 const { ACTRules } = require('../dist/index');
 
-describe('ACT-Rules module', function() {
-  it('Should evaluate www.nav.no', async function() {
+describe('ACT-Rules module', function () {
+  it('Should evaluate www.nav.no', async function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
-    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://ciencias.ulisboa.pt');
-    
+    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/');
+
     try {
       await page.addScriptTag({
         path: require.resolve('./act.js')
       })
       await page.addScriptTag({
-        path: require.resolve('./qwpage.js')
+        path: require.resolve('./qwPage.js')
       })
-      const report = await page.evaluate(async (sourceHtml,stylesheets) => {
-
+      sourceHtml.html.parsed = {};
+      const report = await page.evaluate((sourceHtml, stylesheets) => {
         const actRules = new ACTRules.ACTRules();
-      const report = actRules.execute(sourceHtml, new QWPage(document), stylesheets);
+        const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
         return report;
-      },sourceHtml,stylesheets);
-
-     
-
-      console.log(report);
+      }, sourceHtml, stylesheets);
+      const fs = require('fs')
+      // Write data in 'Output.txt' . 
+      fs.writeFile('Output.txt', JSON.stringify(report, null, 2), (err) => {
+        // In case of a error throw err. 
+        if (err) throw err;
+      })
     } catch (err) {
       console.error(err);
     } finally {

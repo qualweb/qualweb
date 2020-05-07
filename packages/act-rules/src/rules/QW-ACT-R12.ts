@@ -1,6 +1,5 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -10,6 +9,8 @@ import {
   ElementIsInAccessibilityTree,
   IfElementHasTagNameMustHaveAttributeRole
 } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R12 extends Rule {
@@ -21,7 +22,7 @@ class QW_ACT_R12 extends Rule {
   @ElementExists
   @ElementIsInAccessibilityTree
   @IfElementHasTagNameMustHaveAttributeRole('a', 'link')
-  execute(element: ElementHandle, page: Page): void {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

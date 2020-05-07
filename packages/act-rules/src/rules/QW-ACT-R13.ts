@@ -15,7 +15,7 @@ class QW_ACT_R13 extends Rule {
   }
 
   @ElementExists
-  execute(element: ElementHandle): void {
+  execute(element: QWElement): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',

@@ -8,6 +8,7 @@
     "test": "mocha --recursive",
     "tsc": "tsc",
     "test:all": "mocha test/act-rules.spec.js",
+    "test-all": "mocha test/act-rules-all.spec.js",
     "test-r1": "mocha test/rules/QW-ACT-R1.spec.js",
     "test-r2": "mocha test/rules/QW-ACT-R2.spec.js",
     "test-r3": "mocha test/rules/QW-ACT-R3.spec.js",
