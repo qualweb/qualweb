@@ -1,11 +1,12 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils, } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRule
 class QW_ACT_R38 extends Rule {
@@ -15,11 +16,11 @@ class QW_ACT_R38 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  async execute(element: QWElement, page: QWPage): Promise<void> {
 
     const selector = '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]';
 
-    const elementOfValidRole = await element.$$(selector.substr(0, selector.length - 1));
+    const elementOfValidRole =  element.getElements(selector.substr(0, selector.length - 1));
     for (const validElement of elementOfValidRole || []) {
       const evaluation: ACTRuleResult = {
         verdict: '',
@@ -27,28 +28,26 @@ class QW_ACT_R38 extends Rule {
         resultCode: ''
       };
 
-      const [explictiRole, implicitRole, isInAT] = await Promise.all([
-        DomUtils.getElementAttribute(validElement, 'role'),
-        AccessibilityUtils.getImplicitRole(validElement, page),
-        AccessibilityUtils.isElementInAT(validElement, page)
-      ]);
+      const explictiRole = validElement.getElementAttribute('role');
+      const implicitRole = AccessibilityUtils.getImplicitRole(validElement, page,"");//fixme 
+      const isInAT =AccessibilityUtils.isElementInAT(validElement, page);
 
-      const ariaBusy = await this.isElementADescendantOfAriaBusy(validElement, page) || await DomUtils.getElementAttribute(validElement, "aria-busy");
+      const ariaBusy =  this.isElementADescendantOfAriaBusy(validElement, page) ||  validElement.getElementAttribute( "aria-busy");
 
       if (explictiRole !== null && explictiRole !== implicitRole && isInAT && explictiRole !== "combobox" && !ariaBusy) {
-        const ariaOwns = await DomUtils.getElementAttribute(validElement, "aria-owns");
+        const ariaOwns =  validElement.getElementAttribute( "aria-owns");
         let ariaOwnsElement;
         if (!!ariaOwns) {
-          ariaOwnsElement = await DomUtils.getElementById(page, validElement, ariaOwns);
+          ariaOwnsElement = page.getElementByID( ariaOwns,validElement);
         }
 
-        const children = await DomUtils.getElementChildren(validElement);
+        const children = validElement.getElementChildren();
 
         if (!!ariaOwnsElement) {
           children.push(ariaOwnsElement);
         }
 
-        const result = await this.checkOwnedElementsRole(rolesJSON[explictiRole]['requiredOwnedElements'], children, page);
+        const result =  this.checkOwnedElementsRole(rolesJSON[explictiRole]['requiredOwnedElements'], children, page);
 
         if (result) {
           evaluation.verdict = 'passed';
@@ -65,25 +64,25 @@ class QW_ACT_R38 extends Rule {
         evaluation.resultCode = 'RC3';
       }
 
-      await super.addEvaluationResult(evaluation, validElement);
+       super.addEvaluationResult(evaluation, validElement);
     }
   }
 
-  private async checkOwnedElementsRole(ownedRoles: string[][], elements: ElementHandle[], page: Page): Promise<boolean> {
+  private async checkOwnedElementsRole(ownedRoles: string[][], elements: QWElement[],  page: QWPage): Promise<boolean> {
     let result = false, end = false;
     let i = 0, j = 0;
     let hasOwnedRole, currentElement, currentOwnedRole;
     while (i < elements.length && !end) {
       hasOwnedRole = false;
       currentElement = elements[i];
-      if (await AccessibilityUtils.isElementInAT(currentElement, page)) {
-        const role = await AccessibilityUtils.getElementRole(currentElement, page);
+      if ( AccessibilityUtils.isElementInAT(currentElement, page)) {
+        const role =  AccessibilityUtils.getElementRole(currentElement, page);
         while (j < ownedRoles.length && !hasOwnedRole) {
           currentOwnedRole = ownedRoles[j];
           if (currentOwnedRole.length === 1) {
             hasOwnedRole = role === currentOwnedRole[0]
           } else {
-            hasOwnedRole = role === currentOwnedRole[0] && await this.checkOwnedElementsRole([[currentOwnedRole[1]]], await DomUtils.getElementChildren(currentElement), page)
+            hasOwnedRole = role === currentOwnedRole[0] &&  this.checkOwnedElementsRole([[currentOwnedRole[1]]],  currentElement.getElementChildren(), page)
           }
           j++;
         }
@@ -99,17 +98,17 @@ class QW_ACT_R38 extends Rule {
     return result;
   }
 
-  private async isElementADescendantOfAriaBusy(element: ElementHandle, page: Page): Promise<boolean> {
-    const parent = await DomUtils.getElementParent(element);
+  private async isElementADescendantOfAriaBusy(element: QWElement, page: QWPage): Promise<boolean> {
+    const parent =  element.getElementParent();
     let result = false;
 
     if (parent !== null) {
-      const inAt = await AccessibilityUtils.isElementInAT(parent, page);
+      const inAt =  AccessibilityUtils.isElementInAT(parent, page);
       if (inAt) {
-        result = !!(await DomUtils.getElementAttribute(parent, "aria-busy"));
+        result = !!( parent.getElementAttribute( "aria-busy"));
       }
       if (!result) {
-        return await this.isElementADescendantOfAriaBusy(parent, page);
+        return  this.isElementADescendantOfAriaBusy(parent, page);
       } else {
         return result;
       }

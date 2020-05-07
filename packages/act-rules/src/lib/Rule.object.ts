@@ -54,7 +54,7 @@ abstract class Rule {
     }
   }
 
-  abstract async execute(element: QWElement | undefined, page: QWPage, optimization: Optimization): Promise<void>;
+  abstract execute(element: QWElement | undefined, page: QWPage, optimization: Optimization): void;
 
   getFinalResults(): any {
     this.outcomeRule();

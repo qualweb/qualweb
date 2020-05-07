@@ -1,12 +1,13 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util'
 import LanguageDetect from 'languagedetect';
 import pixelWidth from 'string-pixel-width';
 import Rule from '../lib/Rule.object';
 import { ACTRule } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 const detector = new LanguageDetect();
 
@@ -17,13 +18,13 @@ class QW_ACT_R37 extends Rule {
     super(rule);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
+  execute(element: QWElement | undefined, page: QWPage): void{
 
-    let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
-    const elements = await page.$$('*');
+    let disabledWidgets =  AccessibilityUtils.getDisabledWidgets(page);
+    const elements =  page.getElements('*');
     if (elements.length > 0) {
       for (const element of elements || []) {
-        let tagName  = await DomUtils.getElementTagName(element);
+        let tagName  =  element.getElementTagName();
         if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
           tagName === 'script' || tagName === 'style' || tagName === 'meta')
             continue;
@@ -34,55 +35,55 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-        let visible = await DomUtils.isElementVisible(element);
+        let visible =  DomUtils.isElementVisible(element);
         if(!visible){
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not visible.';
           evaluation.resultCode = 'RC1';
-          await super.addEvaluationResult(evaluation, element);
+           super.addEvaluationResult(evaluation, element);
           continue;
         }
 
-        let hasTextNode = await this.elementHasTextNode(element);
-        let elementText = await AccessibilityUtils.getTrimmedText(element);
+        let hasTextNode =  element.elementHasTextNode();
+        let elementText =  AccessibilityUtils.getTrimmedText(element);
 
         if(!hasTextNode || elementText === ''){
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Element doesn't have text.`;
           evaluation.resultCode = 'RC2';
-          await super.addEvaluationResult(evaluation, element);
+           super.addEvaluationResult(evaluation, element);
           continue;
         }
 
-        let isHTML = await this.isElementHTMLElement(element);
+        let isHTML =  element.isElementHTMLElement();
         if(!isHTML){
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not an HTML element.';
           evaluation.resultCode = 'RC3';
-          await super.addEvaluationResult(evaluation, element);
+           super.addEvaluationResult(evaluation, element);
           continue;
         }
 
-        let isWidget = await AccessibilityUtils.isElementWidget(element);
+        let isWidget =  AccessibilityUtils.isElementWidget(element,page);
         if(isWidget){
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element has a semantic role that inherits from widget.';
           evaluation.resultCode = 'RC4';
-          await super.addEvaluationResult(evaluation, element);
+           super.addEvaluationResult(evaluation, element);
           continue;
         }
 
-        const elementSelectors = await DomUtils.getElementSelector(element);
+        const elementSelectors =  element.getElementSelector();
         let selectors;
         let shouldContinue = false;
         for (let disableWidget of disabledWidgets){
-          selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+          selectors =  AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
 
           if(selectors && selectors.includes(elementSelectors)){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'This text is part of a label of a disabled widget.';
             evaluation.resultCode = 'RC5';
-            await super.addEvaluationResult(evaluation, element);
+             super.addEvaluationResult(evaluation, element);
             shouldContinue = true;
             break;
           }
@@ -91,31 +92,31 @@ class QW_ACT_R37 extends Rule {
         if(shouldContinue)
           continue;
 
-        let role = await AccessibilityUtils.getElementRole(element, page);
+        let role =  AccessibilityUtils.getElementRole(element, page);
 
         if(role === 'group'){
-          if(await DomUtils.elementHasAttribute(element, 'disabled')){
+          if( element.elementHasAttribute( 'disabled')){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Element has a semantic role of group and is disabled.';
             evaluation.resultCode = 'RC6';
-            await super.addEvaluationResult(evaluation, element);
+             super.addEvaluationResult(evaluation, element);
             continue;
           }
         }
 
-        const fgColor = await DomUtils.getElementStyleProperty(element, "color", null);
-        const bgColor = await DomUtils.getElementStyleProperty(element, "background", null);
-        const opacity = parseFloat(await DomUtils.getElementStyleProperty(element, "opacity", null));
-        const fontSize = await DomUtils.getElementStyleProperty(element, "font-size", null);
-        const fontWeight = await DomUtils.getElementStyleProperty(element, "font-weight", null);
-        const fontFamily = await DomUtils.getElementStyleProperty(element, "font-family", null);
-        const fontStyle = await DomUtils.getElementStyleProperty(element, "font-style", null);
+        const fgColor =  element.getElementStyleProperty( "color", null);
+        const bgColor =  element.getElementStyleProperty( "background", null);
+        const opacity = parseFloat( element.getElementStyleProperty( "opacity", null));
+        const fontSize =  element.getElementStyleProperty( "font-size", null);
+        const fontWeight =  element.getElementStyleProperty( "font-weight", null);
+        const fontFamily =  element.getElementStyleProperty( "font-family", null);
+        const fontStyle =  element.getElementStyleProperty( "font-style", null);
 
         if(bgColor.toLowerCase().includes("jpeg") || bgColor.toLowerCase().includes("jpg") || bgColor.toLowerCase().includes("png") || bgColor.toLowerCase().includes("svg")){
           evaluation.verdict = 'warning';
           evaluation.description = 'Element has an image on background.';
           evaluation.resultCode = 'RC12';
-          await super.addEvaluationResult(evaluation, element);
+           super.addEvaluationResult(evaluation, element);
           continue
         }
 
@@ -136,7 +137,7 @@ class QW_ACT_R37 extends Rule {
                 let contrastRatio;
                 let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
                 if(textSize !== -1){
-                  let elementWidth = await DomUtils.getElementStyleProperty(element, "width", null);
+                  let elementWidth =  element.getElementStyleProperty( "width", null);
                   let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
                   let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
                   contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
@@ -164,14 +165,14 @@ class QW_ACT_R37 extends Rule {
                 evaluation.verdict = 'warning';
                 evaluation.description = 'Element has an gradient that we cant verify.';
                 evaluation.resultCode = 'RC13';
-                await super.addEvaluationResult(evaluation, element);
+                 super.addEvaluationResult(evaluation, element);
                 continue
               }
             }else{
               evaluation.verdict = 'warning';
               evaluation.description = 'Element has an gradient that we cant verify.';
               evaluation.resultCode = 'RC13';
-              await super.addEvaluationResult(evaluation, element);
+               super.addEvaluationResult(evaluation, element);
               continue
             }
           }else{
@@ -208,28 +209,13 @@ class QW_ACT_R37 extends Rule {
             }
           }
         }
-        await super.addEvaluationResult(evaluation, element);
+         super.addEvaluationResult(evaluation, element);
       }
     }
   }
 
   isHumanLanguage(string): boolean{
     return detector.detect(string).length > 0;
-  }
-
-  isElementHTMLElement(element: ElementHandle): Promise<boolean>{
-    return element.evaluate((elem) => {
-      return elem instanceof HTMLElement;
-    });
-  }
-
-  elementHasTextNode(element: ElementHandle): Promise<boolean>{
-    return element.evaluate((el)  => {
-      if(el.firstChild !== null)
-        return el.firstChild.nodeType === 3;
-      else
-        return false;
-    });
   }
 
   equals(color1, color2): boolean{
