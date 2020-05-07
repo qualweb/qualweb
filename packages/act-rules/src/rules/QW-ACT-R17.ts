@@ -1,10 +1,11 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R17 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R17 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,10 +23,10 @@ class QW_ACT_R17 extends Rule {
       resultCode: ''
     };
 
-    const name = await DomUtils.getElementTagName(element);
+    const name = element.getElementTagName();
 
     if(name === 'img' || name === 'div'){
-      const attribs = await DomUtils.getElementAttributes(element);
+      const attribs = element.getElementAttributes();
 
       if(!attribs){
         evaluation.verdict = 'failed';
@@ -50,7 +51,7 @@ class QW_ACT_R17 extends Rule {
       }
 
       if(evaluation.verdict === '') {
-        const isDecorative = await this.isDecorative(name, attribs);
+        const isDecorative = this.isDecorative(name, attribs);
         if(isDecorative){
           evaluation.verdict = 'passed';
           evaluation.description = `The test target is decorative.`;
@@ -60,7 +61,7 @@ class QW_ACT_R17 extends Rule {
             evaluation.resultCode = 'RC6';
           }
         } else {
-          const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+          const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
           if(accessibleName === null || accessibleName === undefined) {
             evaluation.verdict = 'failed';
             evaluation.description = `The test target doesn't have an accessible name.`;
@@ -82,10 +83,10 @@ class QW_ACT_R17 extends Rule {
       evaluation.resultCode = 'RC10';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
-  private async isDecorative(name: string, attribs: any): Promise<boolean> {
+  private isDecorative(name: string, attribs: any): boolean {
     if(name === 'img') {
       if(attribs && attribs.role && (attribs.role === 'presentation' || attribs.role === 'none')) {
         return true;

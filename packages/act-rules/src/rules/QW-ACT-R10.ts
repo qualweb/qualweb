@@ -1,11 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import { createHash } from 'crypto';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R10 extends Rule {
@@ -15,26 +15,24 @@ class QW_ACT_R10 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
-    const [iframes, iframesAll] = await Promise.all([
-      element.$$('iframe[src]'),
-      element.$$('iframe')
-    ]);
-
+    const iframes = element.getElements('iframe[src]');
+   // const iframesAll = element.getElements('iframe');
+/*
     for (const iframe of iframesAll || []) {
       const frame = await iframe.contentFrame();
       if (frame !== null) {
-        iframes.push(...(await frame.$$('iframe[src]')));
+        iframes.push(...(frame.getElements('iframe[src]')));
       }
-    }
+    }*/
 
     const accessibleNames = new Array<string>();
 
     // add iframe contents
     for (const link of iframes || []) {
-      if (!(await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(await DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
-        const aName = await AccessibilityUtils.getAccessibleName(link, page);
+      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
+        const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);
         }
@@ -58,12 +56,12 @@ class QW_ACT_R10 extends Rule {
           blacklist.push(...hasEqualAn);
           hasEqualAn.push(counter);
 
-          const elements = new Array<ElementHandle>();
+          const elements = new Array<QWElement>();
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
 
-          const hashArray = await this.getContentHash(elements, page);
+          const hashArray =[] ;//await this.getContentHash(elements, page);
           const firstHash = hashArray.pop();
           let result = true;
           for (const hash of hashArray || []) {
@@ -90,10 +88,9 @@ class QW_ACT_R10 extends Rule {
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      await super.addEvaluationResult(evaluation , iframes[counter]);
+      super.addEvaluationResult(evaluation , iframes[counter]);
       counter++;
     }
-    // Este if serve para que?
     /*if (iframes.length === 0) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `iframe doesnt have accessible name`;
@@ -101,8 +98,8 @@ class QW_ACT_R10 extends Rule {
       super.addEvaluationResult(evaluation);
     }*/
   }
-
-  private async getContentHash(elements: ElementHandle[], page: Page): Promise<Array<string>> {
+/*
+  private async getContentHash(elements: QWElement[], page: QWPage): Promise<Array<string>> {
     const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();
@@ -119,7 +116,7 @@ class QW_ACT_R10 extends Rule {
 
     await newPage.close();
     return content;
-  }
+  }*/
 
   private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number): Array<number> {
     const result = new Array<number>();

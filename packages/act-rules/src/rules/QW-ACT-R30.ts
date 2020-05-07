@@ -1,11 +1,11 @@
 'use strict';
 
-
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R30 extends Rule {
@@ -15,7 +15,7 @@ class QW_ACT_R30 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,22 +23,20 @@ class QW_ACT_R30 extends Rule {
       resultCode: ''
     };
 
-    const isWidget = await AccessibilityUtils.isElementWidget(element);
+    const isWidget = AccessibilityUtils.isElementWidget(element, page);
     if(!isWidget) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not a \`widget\`.`;
       evaluation.resultCode = 'RC1';
     } else {
-      const supportsNameFromContent = await AccessibilityUtils.allowsNameFromContent(element);
+      const supportsNameFromContent = AccessibilityUtils.allowsNameFromContent(element);
       if(!supportsNameFromContent){
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not a \`widget\` that supports name from content.`;
         evaluation.resultCode = 'RC2';
       } else {
-        const [accessibleName, elementText] = await Promise.all([
-          AccessibilityUtils.getAccessibleName(element, page),
-          AccessibilityUtils.getTrimmedText(element)
-        ]);
+        const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+        const elementText = AccessibilityUtils.getTrimmedText(element);
 
         if(accessibleName === undefined) {
           evaluation.verdict = 'failed';
@@ -60,7 +58,7 @@ class QW_ACT_R30 extends Rule {
       }
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

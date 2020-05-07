@@ -1,11 +1,12 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils, ShadowDomUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R33 extends Rule {
@@ -15,7 +16,7 @@ class QW_ACT_R33 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,22 +24,20 @@ class QW_ACT_R33 extends Rule {
       resultCode: ''
     };
 
-    const [explictiRole, implicitRole, isInAT, isValidRole] = await Promise.all([
-      DomUtils.getElementAttribute(element, 'role'),
-      AccessibilityUtils.getImplicitRole(element, page),
-      AccessibilityUtils.isElementInAT(element, page),
-      AccessibilityUtils.elementHasValidRole(element, page)
-    ]);
+    const explicitRole = element.getElementAttribute('role');
+    const implicitRole = AccessibilityUtils.getImplicitRole(element, page,"");//FIXME
+    const isInAT = AccessibilityUtils.isElementInAT(element, page);
+    const isValidRole = AccessibilityUtils.elementHasValidRole(element, page);
 
-    if (explictiRole !== null && isValidRole && explictiRole !== implicitRole && isInAT && rolesJSON[explictiRole]['requiredContextRole'] !== '') {
-      const requiredContextRole = rolesJSON[explictiRole]['requiredContextRole'];
-      const id = await DomUtils.getElementAttribute(element, 'id');
-      const treeSelector = await ShadowDomUtils.getTreeSelector(element);
+    if (explicitRole !== null && isValidRole && explicitRole !== implicitRole && isInAT && rolesJSON[explicitRole]['requiredContextRole'] !== '') {
+      const requiredContextRole = rolesJSON[explicitRole]['requiredContextRole'];
+      const id = element.getElementAttribute('id');
+      const treeSelector = element.getTreeSelector();
 
-      const ariaOwns = await page.$('[aria-owns' + `="${id}"]`+ treeSelector);
+      const ariaOwns = page.getElement('[aria-owns' + `="${id}"]`+ treeSelector);
 
       if (ariaOwns !== null) {
-        const ariaOwnsRole = await AccessibilityUtils.getElementRole(ariaOwns, page);
+        const ariaOwnsRole = AccessibilityUtils.getElementRole(ariaOwns, page);
         if (requiredContextRole.includes(ariaOwnsRole)) {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target parent has the required context \`role\`.`;
@@ -48,7 +47,7 @@ class QW_ACT_R33 extends Rule {
           evaluation.description = `The test target parent doesn't have the required context \`role\``;
           evaluation.resultCode = 'RC2';
         }
-      } else if (await this.isElementADescendantOf(element, page, requiredContextRole)) {
+      } else if (this.isElementADescendantOf(element, page, requiredContextRole)) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target parent has the required context \`role\`.`;
         evaluation.resultCode = 'RC1';
@@ -63,22 +62,22 @@ class QW_ACT_R33 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
-  private async isElementADescendantOf(element: ElementHandle, page: Page, roles: string[]): Promise<boolean> {
-    const parent = await DomUtils.getElementParent(element);
+  private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
+    const parent = element.getElementParent();
     let result = false;
     let sameRole;
 
     if (parent !== null) {
-      const parentRole = await AccessibilityUtils.getElementRole(parent, page);
+      const parentRole = AccessibilityUtils.getElementRole(parent, page);
       if (parentRole !== null) {
         sameRole = roles.includes(parentRole);
       }
       result = sameRole;
       if (parentRole === null || parentRole === 'presentation' || parentRole === 'none') {
-        return await this.isElementADescendantOf(parent, page, roles);
+        return this.isElementADescendantOf(parent, page, roles);
       } else {
         return result;
       }

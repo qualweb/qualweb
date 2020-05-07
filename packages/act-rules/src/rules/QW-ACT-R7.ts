@@ -15,7 +15,7 @@ class QW_ACT_R7 extends Rule {
     super(rule);
   }
 
-  public async unmappedExecute(styleSheets: any[]): Promise<void> {
+  public unmappedExecute(styleSheets: any[]): void {
     if(styleSheets.length === 0) {
       this.fillEvaluation(
         'inapplicable',
@@ -206,7 +206,7 @@ class QW_ACT_R7 extends Rule {
     super.addEvaluationResult(evaluation);
   }
 
-  async execute(): Promise<void> {
+  execute(): void {
     throw new Error(
       'Not implemented, please use unmappedExecute(cssStyleSheets: CSSStylesheet[])'
     );

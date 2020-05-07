@@ -1,6 +1,5 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -10,6 +9,8 @@ import {
   ElementHasOneOfTheFollowingRoles,
   ElementIsInAccessibilityTree 
 } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R16 extends Rule {
@@ -21,7 +22,7 @@ class QW_ACT_R16 extends Rule {
   @ElementExists
   @ElementHasOneOfTheFollowingRoles(['checkbox', 'combobox', 'listbox', 'menuitemcheckbox', 'menuitemradio', 'radio', 'searchbox', 'slider', 'spinbutton', 'switch', 'textbox'])
   @ElementIsInAccessibilityTree
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -29,7 +30,7 @@ class QW_ACT_R16 extends Rule {
       resultCode: ''
     };
 
-    const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+    const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
     if (accessibleName && accessibleName.trim()) {
       evaluation.verdict = 'passed';
       evaluation.description = `The test target has an accessible name.`;
@@ -40,7 +41,7 @@ class QW_ACT_R16 extends Rule {
       evaluation.resultCode = 'RC2';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

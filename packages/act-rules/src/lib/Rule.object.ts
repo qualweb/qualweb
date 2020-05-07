@@ -39,7 +39,7 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected async addEvaluationResult(result: ACTRuleResult, element?: QWElement): Promise<void> {
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(true, false);
       const pointer = element.getElementSelector();
