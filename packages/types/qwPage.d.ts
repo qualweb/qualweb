@@ -10,6 +10,7 @@ declare module '@qualweb/qw-page' {
     public getElementByID(id: string, elementQW: QWElement): QWElement | null;
     public getElementByAttributeName(name: string): QWElement | null;
     public processShadowDom(): void;
+    public getPageRootElement(page: QWPage): QWElement | null;
 
   }
 

@@ -1,6 +1,7 @@
 declare module '@qualweb/html-techniques' {
-  import { Page } from 'puppeteer';
   import { Optimization } from '@qualweb/util';
+  import { QWPage } from "@qualweb/qw-page";
+
 
   interface HTMLTOptions {
     techniques?: string[];
@@ -64,14 +65,14 @@ declare module '@qualweb/html-techniques' {
   interface HTMLTechniquesReport {
     type: 'html-techniques';
     metadata: HTMLMetadata;
-    techniques: {
+    assertions: {
       [technique: string]: HTMLTechnique;
     };
   }
 
   function configure(options: HTMLTOptions): void;
   function resetConfiguration(): void;
-  function executeHTMLT(page: Page): Promise<HTMLTechniquesReport>;
+  function executeHTMLT(page: QWPage): Promise<HTMLTechniquesReport>;
 
   class HTMLTechniques {
     private optimization: Optimization;
@@ -81,10 +82,10 @@ declare module '@qualweb/html-techniques' {
     constructor(options?: HTMLTOptions);
     public configure(options: HTMLTOptions): void;
     public resetConfiguration(): void;
-    private executeTechnique(technique: string, selector: string, page: Page, report: HTMLTechniquesReport): Promise<void>;
-    private executeMappedTechniques(report: HTMLTechniquesReport, page: Page, selectors: string[], mappedTechniques: any): Promise<void>;
-    private executeNotMappedTechniques(report: HTMLTechniquesReport, page: Page): Promise<void>;
-    public execute(page: Page): Promise<HTMLTechniquesReport>;
+    private executeTechnique(technique: string, selector: string, page: QWPage, report: HTMLTechniquesReport): void;
+    private executeMappedTechniques(report: HTMLTechniquesReport, page: QWPage, selectors: string[], mappedTechniques: any): void;
+    private executeNotMappedTechniques(report: HTMLTechniquesReport, page: QWPage): void;
+    public execute(page: QWPage): HTMLTechniquesReport;
   }
 
   export {

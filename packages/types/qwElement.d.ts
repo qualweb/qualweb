@@ -30,6 +30,9 @@ declare module '@qualweb/qw-element' {
     public getTreeSelector(): string;
     public concatANames( aNames: string[]): string;
     public isOffScreen(): boolean;
+    public isElementHTMLElement(): boolean;
+    public elementHasTextNode(): boolean;
+
   }
 
   export {
