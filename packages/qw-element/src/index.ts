@@ -191,6 +191,77 @@ class QWElement {
   public setElementAttribute(attribute: string, value: string): void {
     this.element.setAttribute(attribute, value);
   }
+  public concatANames(aNames: string[]): string {
+    let chidlren = this.element.childNodes;
+    let result = "";
+    let textContent;
+    let i = 0;
+    let counter = 0;
+    for (let child of chidlren) {
+      textContent = child.textContent
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
+        result = result + (counter === 0 ? "" : " ") + textContent.trim();
+        counter++;
+      } else if (child.nodeType === 1) {
+        result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
+        i++;
+      }
+
+    }
+
+    if (!result) {
+      result = "";
+    }
+    return result;
+  }
+
+  public isOffScreen(): boolean {
+
+    let scrollHeight = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+    );
+
+    let scrollWidth = Math.max(
+      document.body.scrollWidth, document.documentElement.scrollWidth,
+      document.body.offsetWidth, document.documentElement.offsetWidth,
+      document.body.clientWidth, document.documentElement.clientHeight
+    );
+
+    let bounding = this.element.getBoundingClientRect();
+    let left = bounding.left;
+    let right = bounding.right;
+    let bottom = bounding.bottom;
+    let top = bounding.top;
+
+    let noParentScrollTop = this.noParentScrolled(this.element, bottom)
+
+    return left > scrollWidth || right < 0 || bottom < 0 && noParentScrollTop || top > scrollHeight || right === 0 && left === 0;
+  }
+
+  public isElementHTMLElement(): boolean {
+    return this.element instanceof HTMLElement;
+  }
+  public elementHasTextNode(): boolean {
+    if (this.element.firstChild !== null)
+      return this.element.firstChild.nodeType === 3;
+    else
+      return false;
+  }
+  private noParentScrolled(element, offset) {
+    element = element['parentElement'];
+    while (element && element.nodeName.toLowerCase() !== 'html') {
+      if (element.scrollTop) {
+        offset += element.scrollTop;
+        if (offset >= 0) {
+          return false;
+        }
+      }
+      element = element.parentElement;
+    }
+    return true;
+  };
 }
 
 export {
