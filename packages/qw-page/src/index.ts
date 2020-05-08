@@ -62,5 +62,10 @@ class QWPage {
       element.setAttribute("shadowTree", counter + "")
     }
   }
+  public getPageRootElement(): QWElement | null {
+    const documentElement = this.document.documentElement;
+    return documentElement ? new QWElement(documentElement) : null;
+  }
+  
 }
 export { QWPage };

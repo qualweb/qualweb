@@ -29,7 +29,7 @@
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
     "@types/domhandler": "^2.4.1",
-    "@types/node": "^13.9.1",
+    "@types/node": "^13.11.0",
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "css-select": "^2.1.0",

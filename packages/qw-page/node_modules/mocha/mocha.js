@@ -62,7 +62,7 @@ process.on = function(e, fn) {
   if (e === 'uncaughtException') {
     global.onerror = function(err, url, line) {
       fn(new Error(err + ' (' + url + ':' + line + ')'));
-      return !mocha.allowUncaught;
+      return !mocha.options.allowUncaught;
     };
     uncaughtExceptionHandlers.push(fn);
   }
@@ -131,7 +131,7 @@ mocha.setup = function(opts) {
     opts = {ui: opts};
   }
   for (var opt in opts) {
-    if (opts.hasOwnProperty(opt)) {
+    if (Object.prototype.hasOwnProperty.call(opts, opt)) {
       this[opt](opts[opt]);
     }
   }
@@ -1408,6 +1408,7 @@ var utils = require('./utils');
 var mocharc = require('./mocharc.json');
 var errors = require('./errors');
 var Suite = require('./suite');
+var esmUtils = utils.supportsEsModules() ? require('./esm-utils') : undefined;
 var createStatsCollector = require('./stats-collector');
 var createInvalidReporterError = errors.createInvalidReporterError;
 var createInvalidInterfaceError = errors.createInvalidInterfaceError;
@@ -1684,16 +1685,18 @@ Mocha.prototype.ui = function(ui) {
 };
 
 /**
- * Loads `files` prior to execution.
+ * Loads `files` prior to execution. Does not support ES Modules.
  *
  * @description
  * The implementation relies on Node's `require` to execute
  * the test interface functions and will be subject to its cache.
+ * Supports only CommonJS modules. To load ES modules, use Mocha#loadFilesAsync.
  *
  * @private
  * @see {@link Mocha#addFile}
  * @see {@link Mocha#run}
  * @see {@link Mocha#unloadFiles}
+ * @see {@link Mocha#loadFilesAsync}
  * @param {Function} [fn] - Callback invoked upon completion.
  */
 Mocha.prototype.loadFiles = function(fn) {
@@ -1706,6 +1709,49 @@ Mocha.prototype.loadFiles = function(fn) {
     suite.emit(EVENT_FILE_POST_REQUIRE, global, file, self);
   });
   fn && fn();
+};
+
+/**
+ * Loads `files` prior to execution. Supports Node ES Modules.
+ *
+ * @description
+ * The implementation relies on Node's `require` and `import` to execute
+ * the test interface functions and will be subject to its cache.
+ * Supports both CJS and ESM modules.
+ *
+ * @public
+ * @see {@link Mocha#addFile}
+ * @see {@link Mocha#run}
+ * @see {@link Mocha#unloadFiles}
+ * @returns {Promise}
+ * @example
+ *
+ * // loads ESM (and CJS) test files asynchronously, then runs root suite
+ * mocha.loadFilesAsync()
+ *   .then(() => mocha.run(failures => process.exitCode = failures ? 1 : 0))
+ *   .catch(() => process.exitCode = 1);
+ */
+Mocha.prototype.loadFilesAsync = function() {
+  var self = this;
+  var suite = this.suite;
+  this.loadAsync = true;
+
+  if (!esmUtils) {
+    return new Promise(function(resolve) {
+      self.loadFiles(resolve);
+    });
+  }
+
+  return esmUtils.loadFilesAsync(
+    this.files,
+    function(file) {
+      suite.emit(EVENT_FILE_PRE_REQUIRE, global, file, self);
+    },
+    function(file, resultModule) {
+      suite.emit(EVENT_FILE_REQUIRE, resultModule, file, self);
+      suite.emit(EVENT_FILE_POST_REQUIRE, global, file, self);
+    }
+  );
 };
 
 /**
@@ -1724,8 +1770,9 @@ Mocha.unloadFile = function(file) {
  * Unloads `files` from Node's `require` cache.
  *
  * @description
- * This allows files to be "freshly" reloaded, providing the ability
+ * This allows required files to be "freshly" reloaded, providing the ability
  * to reuse a Mocha instance programmatically.
+ * Note: does not clear ESM module files from the cache
  *
  * <strong>Intended for consumers &mdash; not used internally</strong>
  *
@@ -2236,10 +2283,14 @@ Object.defineProperty(Mocha.prototype, 'version', {
  * @see {@link Mocha#unloadFiles}
  * @see {@link Runner#run}
  * @param {DoneCB} [fn] - Callback invoked when test execution completed.
- * @return {Runner} runner instance
+ * @returns {Runner} runner instance
+ * @example
+ *
+ * // exit with non-zero status if there were test failures
+ * mocha.run(failures => process.exitCode = failures ? 1 : 0);
  */
 Mocha.prototype.run = function(fn) {
-  if (this.files.length) {
+  if (this.files.length && !this.loadAsync) {
     this.loadFiles();
   }
   var suite = this.suite;
@@ -2282,10 +2333,10 @@ Mocha.prototype.run = function(fn) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../package.json":90,"./context":5,"./errors":6,"./growl":2,"./hook":7,"./interfaces":11,"./mocharc.json":15,"./reporters":21,"./runnable":33,"./runner":34,"./stats-collector":35,"./suite":36,"./test":37,"./utils":38,"_process":69,"escape-string-regexp":49,"path":42}],15:[function(require,module,exports){
+},{"../package.json":90,"./context":5,"./errors":6,"./esm-utils":42,"./growl":2,"./hook":7,"./interfaces":11,"./mocharc.json":15,"./reporters":21,"./runnable":33,"./runner":34,"./stats-collector":35,"./suite":36,"./test":37,"./utils":38,"_process":69,"escape-string-regexp":49,"path":42}],15:[function(require,module,exports){
 module.exports={
   "diff": true,
-  "extension": ["js"],
+  "extension": ["js", "cjs", "mjs"],
   "opts": "./test/mocha.opts",
   "package": "./package.json",
   "reporter": "spec",
@@ -5260,31 +5311,6 @@ Runnable.prototype.clearTimeout = function() {
 };
 
 /**
- * Inspect the runnable void of private properties.
- *
- * @private
- * @return {string}
- */
-Runnable.prototype.inspect = function() {
-  return JSON.stringify(
-    this,
-    function(key, val) {
-      if (key[0] === '_') {
-        return;
-      }
-      if (key === 'parent') {
-        return '#<Suite>';
-      }
-      if (key === 'ctx') {
-        return '#<Context>';
-      }
-      return val;
-    },
-    2
-  );
-};
-
-/**
  * Reset the timeout.
  *
  * @private
@@ -5564,7 +5590,6 @@ var EVENT_ROOT_SUITE_RUN = Suite.constants.EVENT_ROOT_SUITE_RUN;
 var STATE_FAILED = Runnable.constants.STATE_FAILED;
 var STATE_PASSED = Runnable.constants.STATE_PASSED;
 var dQuote = utils.dQuote;
-var ngettext = utils.ngettext;
 var sQuote = utils.sQuote;
 var stackFilter = utils.stackTraceFilter();
 var stringify = utils.stringify;
@@ -5680,6 +5705,11 @@ function Runner(suite, delay) {
   this.total = suite.total();
   this.failures = 0;
   this.on(constants.EVENT_TEST_END, function(test) {
+    if (test.type === 'test' && test.retriedTest() && test.parent) {
+      var idx =
+        test.parent.tests && test.parent.tests.indexOf(test.retriedTest());
+      if (idx > -1) test.parent.tests[idx] = test;
+    }
     self.checkGlobals(test);
   });
   this.on(constants.EVENT_HOOK_END, function(hook) {
@@ -5811,12 +5841,8 @@ Runner.prototype.checkGlobals = function(test) {
   this._globals = this._globals.concat(leaks);
 
   if (leaks.length) {
-    var format = ngettext(
-      leaks.length,
-      'global leak detected: %s',
-      'global leaks detected: %s'
-    );
-    var error = new Error(util.format(format, leaks.map(sQuote).join(', ')));
+    var msg = 'global leak(s) detected: %s';
+    var error = new Error(util.format(msg, leaks.map(sQuote).join(', ')));
     this.fail(test, error);
   }
 };
@@ -6345,7 +6371,8 @@ Runner.prototype.uncaught = function(err) {
   if (err instanceof Pending) {
     return;
   }
-  if (this.allowUncaught) {
+  // browser does not exit script when throwing in global.onerror()
+  if (this.allowUncaught && !process.browser) {
     throw err;
   }
 
@@ -6478,7 +6505,9 @@ Runner.prototype.run = function(fn) {
     this.emit(constants.EVENT_DELAY_BEGIN, rootSuite);
     rootSuite.once(EVENT_ROOT_SUITE_RUN, start);
   } else {
-    start();
+    Runner.immediately(function() {
+      start();
+    });
   }
 
   return this;
@@ -7346,6 +7375,18 @@ function Test(title, fn) {
  */
 utils.inherits(Test, Runnable);
 
+/**
+ * Set or get retried test
+ *
+ * @private
+ */
+Test.prototype.retriedTest = function(n) {
+  if (!arguments.length) {
+    return this._retriedTest;
+  }
+  this._retriedTest = n;
+};
+
 Test.prototype.clone = function() {
   var test = new Test(this.title, this.fn);
   test.timeout(this.timeout());
@@ -7353,6 +7394,7 @@ Test.prototype.clone = function() {
   test.enableTimeouts(this.enableTimeouts());
   test.retries(this.retries());
   test.currentRetry(this.currentRetry());
+  test.retriedTest(this.retriedTest() || this);
   test.globals(this.globals());
   test.parent = this.parent;
   test.file = this.file;
@@ -8118,38 +8160,6 @@ exports.dQuote = function(str) {
 };
 
 /**
- * Provides simplistic message translation for dealing with plurality.
- *
- * @description
- * Use this to create messages which need to be singular or plural.
- * Some languages have several plural forms, so _complete_ message clauses
- * are preferable to generating the message on the fly.
- *
- * @private
- * @param {number} n - Non-negative integer
- * @param {string} msg1 - Message to be used in English for `n = 1`
- * @param {string} msg2 - Message to be used in English for `n = 0, 2, 3, ...`
- * @returns {string} message corresponding to value of `n`
- * @example
- * var sprintf = require('util').format;
- * var pkgs = ['one', 'two'];
- * var msg = sprintf(
- *   ngettext(
- *     pkgs.length,
- *     'cannot load package: %s',
- *     'cannot load packages: %s'
- *   ),
- *   pkgs.map(sQuote).join(', ')
- * );
- * console.log(msg); // => cannot load packages: 'one', 'two'
- */
-exports.ngettext = function(n, msg1, msg2) {
-  if (typeof n === 'number' && n >= 0) {
-    return n === 1 ? msg1 : msg2;
-  }
-};
-
-/**
  * It's a noop.
  * @public
  */
@@ -8194,6 +8204,28 @@ exports.defineConstants = function(obj) {
     throw new TypeError('Invalid argument; expected a non-empty object');
   }
   return Object.freeze(exports.createMap(obj));
+};
+
+/**
+ * Whether current version of Node support ES modules
+ *
+ * @description
+ * Versions prior to 10 did not support ES Modules, and version 10 has an old incompatibile version of ESM.
+ * This function returns whether Node.JS has ES Module supports that is compatible with Mocha's needs,
+ * which is version >=12.11.
+ *
+ * @returns {Boolean} whether the current version of Node.JS supports ES Modules in a way that is compatible with Mocha
+ */
+exports.supportsEsModules = function() {
+  if (!process.browser && process.versions && process.versions.node) {
+    var versionFields = process.versions.node.split('.');
+    var major = +versionFields[0];
+    var minor = +versionFields[1];
+
+    if (major >= 13 || (major === 12 && minor >= 11)) {
+      return true;
+    }
+  }
 };
 
 }).call(this,require('_process'),require("buffer").Buffer)
@@ -13746,7 +13778,6 @@ module.exports = Array.isArray || function (arr) {
 };
 
 },{}],59:[function(require,module,exports){
-(function (process){
 var path = require('path');
 var fs = require('fs');
 var _0777 = parseInt('0777', 8);
@@ -13766,7 +13797,7 @@ function mkdirP (p, opts, f, made) {
     var xfs = opts.fs || fs;
     
     if (mode === undefined) {
-        mode = _0777 & (~process.umask());
+        mode = _0777
     }
     if (!made) made = null;
     
@@ -13780,6 +13811,7 @@ function mkdirP (p, opts, f, made) {
         }
         switch (er.code) {
             case 'ENOENT':
+                if (path.dirname(p) === p) return cb(er);
                 mkdirP(path.dirname(p), opts, function (er, made) {
                     if (er) cb(er, made);
                     else mkdirP(p, opts, cb, made);
@@ -13810,7 +13842,7 @@ mkdirP.sync = function sync (p, opts, made) {
     var xfs = opts.fs || fs;
     
     if (mode === undefined) {
-        mode = _0777 & (~process.umask());
+        mode = _0777
     }
     if (!made) made = null;
 
@@ -13846,8 +13878,7 @@ mkdirP.sync = function sync (p, opts, made) {
     return made;
 };
 
-}).call(this,require('_process'))
-},{"_process":69,"fs":42,"path":42}],60:[function(require,module,exports){
+},{"fs":42,"path":42}],60:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -18077,7 +18108,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":88,"_process":69,"inherits":56}],90:[function(require,module,exports){
 module.exports={
   "name": "mocha",
-  "version": "7.0.1",
+  "version": "7.1.2",
   "homepage": "https://mochajs.org/",
   "notifyLogo": "https://ibin.co/4QuRuGjXvl36.png"
 }

@@ -4,10 +4,10 @@ const os = require('os')
 module.exports = {
   entry: './dist/index.js',
   output: {
-    filename: 'accUtil.js',
+    filename: 'qwPage.js',
     path: path.resolve(__dirname, 'distWebPack'),
     libraryTarget: 'var',
-    library: 'AccessibilityUtils'
+    library: 'QWPage'
   }, 
 target: 'node-webkit',
 
