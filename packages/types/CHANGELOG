@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.31] - 11/05/2020
+
+### Added
+ - resultCode to CSSTechniqueResult interface
+
+### Removed
+ - accessibility-tree.d.ts
+ - get-dom-puppeteer.d.ts
+
 ## [0.3.30] - 06/05/2020
 
 ### Added
