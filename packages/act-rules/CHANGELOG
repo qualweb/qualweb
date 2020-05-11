@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.37] - 07/05/2020
+
+### Fixed
+ - removed IsNotMathDocument decorator
+
 ## [0.3.36] - 06/05/2020
 
 ### Fixed
