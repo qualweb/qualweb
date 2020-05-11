@@ -10,10 +10,10 @@ const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];
 
 describe(`Rule ${rule}`, async function () {
-  
+
   it('Starting testbench', async function () {
     const browser = await puppeteer.launch();
-    const data = JSON.parse(await getTestCases());
+    const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
@@ -25,6 +25,7 @@ describe(`Rule ${rule}`, async function () {
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
           const actRules = new ACTRules({ rules: [rule] });
           const report = await actRules.execute(sourceHtml, page, stylesheets);
+					console.log("TCL: report", report.assertions[rule])
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

@@ -51,7 +51,8 @@ class QW_ACT_R17 extends Rule {
 
       if(evaluation.verdict === '') {
         const isDecorative = await this.isDecorative(name, attribs);
-        if(isDecorative){
+        const isFocusable = await DomUtils.isElementFocusable(element);
+        if(isDecorative && !isFocusable) {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target is decorative.`;
           if (attribs.alt !== '') {
