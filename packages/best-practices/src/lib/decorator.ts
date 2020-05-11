@@ -3,6 +3,7 @@
 import { BestPracticeResult } from '@qualweb/best-practices';
 import bestPractices from './bestPractices.json';
 import { DomUtils } from '@qualweb/util';
+import clone from 'lodash.clone';
 
 function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
   const bestPractice = bestPractices[constructor.name];
@@ -16,7 +17,7 @@ function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
   
   const newConstructor: any = function () {
     let func: any = function () {
-      return new constructor(bestPractice);
+      return new constructor(clone(bestPractice));
     }
     func.prototype = constructor.prototype;
     return new func();
