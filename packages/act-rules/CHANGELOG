@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.38] - 11/05/2020
+
+### Fixed
+ - maxParallelEvaluations bug
+ - QW-ACT-R17 bugs
+ - QW-ACT-R30 bugs
+
 ## [0.3.37] - 07/05/2020
 
 ### Fixed
