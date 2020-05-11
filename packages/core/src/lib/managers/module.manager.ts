@@ -48,7 +48,7 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
     page.$$('*'),
     page.browser().userAgent()
   ]);
-
+  
   const processedHtml: ProcessedHtml = {
     html: {
       plain: plainHtml
@@ -141,7 +141,7 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
       evaluation.addModuleEvaluation('best-practices', report);
     }
   }
-
+  
   return evaluation;
 }
 
