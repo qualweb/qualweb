@@ -3,10 +3,7 @@
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
-import { ACTRules } from '@qualweb/act-rules';
-import { HTMLTechniques } from '@qualweb/html-techniques';
 import { CSSTechniques } from '@qualweb/css-techniques';
-import { BestPractices } from '@qualweb/best-practices';
 
 import Evaluation from '../data/evaluation.object';
 
@@ -22,7 +19,7 @@ function parseUrl(url: string, pageUrl: string): Url {
   domainName = completeUrl.split('/')[2];
 
   const tmp = domainName.split('.');
-  domain = tmp[tmp.length-1];
+  domain = tmp[tmp.length - 1];
   uri = completeUrl.split('.' + domain)[1];
 
   const parsedUrl = {
@@ -38,7 +35,7 @@ function parseUrl(url: string, pageUrl: string): Url {
 }
 
 async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
-  
+
   const [pageUrl, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
     page.url(),
     page.evaluate(() => {
@@ -48,7 +45,7 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
     page.$$('*'),
     page.browser().userAgent()
   ]);
-  
+
   const processedHtml: ProcessedHtml = {
     html: {
       plain: plainHtml
@@ -87,66 +84,88 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
 
   const evaluation = new Evaluation(evaluator);
 
-  const promises = new Array<any>();
-
-  const act = new ACTRules();
-  const html = new HTMLTechniques();
+  const reports = new Array<any>();
   const css = new CSSTechniques();
-  const bp = new BestPractices();
+  await page.addScriptTag({
+    path: require.resolve('./qwPage.js')
+  })
 
   if (execute.act) {
-    if (options['act-rules']) {
-      act.configure(options['act-rules']);
-    }
-    promises.push(act.execute(sourceHtml, page, stylesheets));
+    await page.addScriptTag({
+      path: require.resolve('./act.js')
+    })
+    sourceHtml.html.parsed = [];
+    const actReport = await page.evaluate((sourceHtml, stylesheets, options) => {
+      // @ts-ignore 
+      const act = new ACTRules.ACTRules();
+      if (options)
+        act.configure(options);
+        // @ts-ignore 
+      const report = act.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+      return report;
+    }, sourceHtml, stylesheets, options['act-rules']);
+
+    reports.push(actReport);
   }
 
   if (execute.html) {
-    if (options['html-techniques']) {
-      html.configure(options['html-techniques']);
-    }
-    promises.push(html.execute(page));
+    await page.addScriptTag({
+      path: require.resolve('./html.js')
+    })
+    const htmlReport = await page.evaluate((options) => {
+      // @ts-ignore 
+      const html = new HTMLTechniques.HTMLTechniques();
+      html.configure(options)
+      // @ts-ignore 
+      const report = html.execute(new QWPage.QWPage(document), false, {});
+      return report;
+    }, options['html-techniques']);
+    reports.push(htmlReport);
   }
 
   if (execute.css) {
     if (options['css-techniques']) {
       css.configure(options['css-techniques']);
     }
-    promises.push(css.execute(stylesheets, mappedDOM));
+    reports.push(css.execute(stylesheets, mappedDOM));
   }
 
   if (execute.bp) {
-    if (options['best-practices']) {
-      bp.configure(options['best-practices']);
-    }
-    promises.push(bp.execute(page, stylesheets));
+    await page.addScriptTag({
+      path: require.resolve('./bp.js')
+    })
+    const bpReport = await page.evaluate((options) => {
+      // @ts-ignore 
+      const bp = new BestPractices.BestPractices();
+      bp.configure(options)
+      // @ts-ignore 
+      const report = bp.execute(new QWPage.QWPage(document));
+      return report;
+    }, options['best-practices']);
+    reports.push(bpReport);
   }
 
-  const reports = await Promise.all(promises);
 
   for (const report of reports || []) {
     if (report.type === 'wappalyzer') {
       evaluation.addModuleEvaluation('wappalyzer', report);
     } else if (report.type === 'act-rules') {
-      act.resetConfiguration();
       evaluation.addModuleEvaluation('act-rules', report);
     } else if (report.type === 'html-techniques') {
-      html.resetConfiguration();
       evaluation.addModuleEvaluation('html-techniques', report);
     } else if (report.type === 'css-techniques') {
       css.resetConfiguration();
       evaluation.addModuleEvaluation('css-techniques', report);
     } else if (report.type === 'best-practices') {
-      bp.resetConfiguration();
       evaluation.addModuleEvaluation('best-practices', report);
     }
   }
-  
+
   return evaluation;
 }
 
 async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
- 
+
   const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
     page.evaluate(() => {
       return document.documentElement.outerHTML;
@@ -192,58 +211,76 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
   };
 
   const evaluation = new Evaluation(evaluator);
-
-  const promises = new Array<any>();
-
-  const act = new ACTRules();
-  const html = new HTMLTechniques();
+  const reports = new Array<any>();
   const css = new CSSTechniques();
-  const bp = new BestPractices();
 
   if (execute.act) {
-    if (options['act-rules']) {
-      act.configure(options['act-rules']);
-    }
-    promises.push(act.execute(sourceHtml, page, stylesheets));
+    await page.addScriptTag({
+      path: require.resolve('./act.js')
+    })
+    sourceHtml.html.parsed = [];
+    const actReport = await page.evaluate((sourceHtml, stylesheets, options) => {
+      // @ts-ignore 
+      const act = new ACTRules.ACTRules();
+      if (options)
+        act.configure(options);
+        // @ts-ignore 
+      const report = act.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+      return report;
+    }, sourceHtml, stylesheets, options['act-rules']);
+
+    reports.push(actReport);
   }
 
   if (execute.html) {
-    if (options['html-techniques']) {
-      html.configure(options['html-techniques']);
-    }
-    promises.push(html.execute(page));
+    await page.addScriptTag({
+      path: require.resolve('./html.js')
+    })
+    const htmlReport = await page.evaluate((options) => {
+      // @ts-ignore 
+      const html = new HTMLTechniques.HTMLTechniques();
+      html.configure(options)
+      // @ts-ignore 
+      const report = html.execute(new QWPage.QWPage(document), false, {});
+      return report;
+    }, options['html-techniques']);
+    reports.push(htmlReport);
   }
 
   if (execute.css) {
     if (options['css-techniques']) {
       css.configure(options['css-techniques']);
     }
-    promises.push(css.execute(stylesheets, mappedDOM));
+    reports.push(css.execute(stylesheets, mappedDOM));
   }
 
   if (execute.bp) {
-    if (options['best-practices']) {
-      bp.configure(options['best-practices']);
-    }
-    promises.push(bp.execute(page, stylesheets));
+    await page.addScriptTag({
+      path: require.resolve('./bp.js')
+    })
+    const bpReport = await page.evaluate((options) => {
+      // @ts-ignore 
+      const bp = new BestPractices.BestPractices();
+      bp.configure(options);
+      // @ts-ignore 
+      const report = bp.execute(new QWPage.QWPage(document));
+      return report;
+    }, options['best-practices']);
+    reports.push(bpReport);
   }
 
-  const reports = await Promise.all(promises);
 
   for (const report of reports || []) {
     if (report.type === 'wappalyzer') {
       evaluation.addModuleEvaluation('wappalyzer', report);
     } else if (report.type === 'act-rules') {
-      act.resetConfiguration();
       evaluation.addModuleEvaluation('act-rules', report);
     } else if (report.type === 'html-techniques') {
-      html.resetConfiguration();
       evaluation.addModuleEvaluation('html-techniques', report);
     } else if (report.type === 'css-techniques') {
       css.resetConfiguration();
       evaluation.addModuleEvaluation('css-techniques', report);
     } else if (report.type === 'best-practices') {
-      bp.resetConfiguration();
       evaluation.addModuleEvaluation('best-practices', report);
     }
   }
