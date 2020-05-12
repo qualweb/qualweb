@@ -34,7 +34,7 @@ class QW_ACT_R1 extends Rule {
         evaluation.resultCode = 'RC1';
       }
       //the title element is empty
-      else if (element.getElementText().trim() === '') {
+      else if (!element.getElementText()||element.getElementText().trim() === '') {
         evaluation.verdict = 'failed';
         evaluation.description = 'The \`title\` element is empty ("").';
         evaluation.resultCode = 'RC2';
