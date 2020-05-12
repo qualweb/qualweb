@@ -16,7 +16,7 @@ class QW_ACT_R38 extends Rule {
   }
 
   @ElementExists
-  async execute(element: QWElement, page: QWPage): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const selector = '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]';
 
@@ -68,7 +68,7 @@ class QW_ACT_R38 extends Rule {
     }
   }
 
-  private async checkOwnedElementsRole(ownedRoles: string[][], elements: QWElement[],  page: QWPage): Promise<boolean> {
+  private checkOwnedElementsRole(ownedRoles: string[][], elements: QWElement[],  page: QWPage): boolean {
     let result = false, end = false;
     let i = 0, j = 0;
     let hasOwnedRole, currentElement, currentOwnedRole;
@@ -98,7 +98,7 @@ class QW_ACT_R38 extends Rule {
     return result;
   }
 
-  private async isElementADescendantOfAriaBusy(element: QWElement, page: QWPage): Promise<boolean> {
+  private isElementADescendantOfAriaBusy(element: QWElement, page: QWPage): boolean {
     const parent =  element.getElementParent();
     let result = false;
 

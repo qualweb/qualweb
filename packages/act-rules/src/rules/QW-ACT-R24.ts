@@ -450,7 +450,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isAppropriateFieldForTheFormControl(field: string, element: QWElement): Promise<boolean> {
+  private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean{
     const fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
     
     switch (fieldControl) {

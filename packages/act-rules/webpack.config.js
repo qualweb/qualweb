@@ -7,7 +7,7 @@ module.exports = {
     crypto: true,  },
   output: {
     filename: 'act.js',
-    path: path.resolve(__dirname, 'distWebPack'),
+    path: path.resolve(__dirname, 'test'),
     libraryTarget: 'var',
     library: 'ACTRules'
   }, 

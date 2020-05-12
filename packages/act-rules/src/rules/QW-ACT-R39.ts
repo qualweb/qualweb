@@ -15,7 +15,7 @@ class QW_ACT_R39 extends Rule {
   }
 
   @ElementExists
-  async execute(element: QWElement, page: QWPage): Promise<void> {
+   execute(element: QWElement, page: QWPage): void {
 
     const role =  AccessibilityUtils.getElementRole(element, page);
 
