@@ -49,7 +49,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
 }
 
 
-async function hasParentOfName(element: QWElement, name: string[]) {
+function hasParentOfName(element: QWElement, name: string[]) {
 
   let parent = element.getElementParent();
   if (parent) {
@@ -61,7 +61,7 @@ async function hasParentOfName(element: QWElement, name: string[]) {
 }
 
 
-async function getAccessibleNameFromAriaLabelledBy(page: QWPage, element: QWElement, ariaLabelId: string): Promise<string | undefined> {
+function getAccessibleNameFromAriaLabelledBy(page: QWPage, element: QWElement, ariaLabelId: string): string | undefined {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string | undefined;
   let accessNameFromId: string | undefined;
