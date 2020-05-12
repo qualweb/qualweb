@@ -13,7 +13,7 @@ describe(`Rule ${rule}`, async function () {
   
   it('Starting testbench', async function () {
     const browser = await puppeteer.launch();
-    const data = JSON.parse(await getTestCases());
+    const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
@@ -24,6 +24,8 @@ describe(`Rule ${rule}`, async function () {
           this.timeout(100 * 1000);
           const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
           console.log(test.url);
+          await page.evaluate(() => {
+          while (document.readyState !== "complete"){}});
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
