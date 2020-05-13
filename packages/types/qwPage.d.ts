@@ -11,6 +11,8 @@ declare module '@qualweb/qw-page' {
     public getElementByAttributeName(name: string): QWElement | null;
     public processShadowDom(): void;
     public getPageRootElement(page: QWPage): QWElement | null;
+    public getURL(): string;
+    public getHTMLContent(): string;
 
   }
 

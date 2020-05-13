@@ -32,6 +32,7 @@ declare module '@qualweb/qw-element' {
     public isOffScreen(): boolean;
     public isElementHTMLElement(): boolean;
     public elementHasTextNode(): boolean;
+    public getContentFrame(): Document | null;
 
   }
 

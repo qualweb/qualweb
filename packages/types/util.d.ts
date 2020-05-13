@@ -1,4 +1,6 @@
+
 declare module '@qualweb/util' {
+  import { Browser } from "puppeteer";
   import { QWElement } from "@qualweb/qw-element";
   import { QWPage } from "@qualweb/qw-page";
   import { Node } from 'domhandler';
@@ -21,13 +23,13 @@ declare module '@qualweb/util' {
     export function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean;
     export function isElementHidden(elementQW: QWElement): boolean;
     export function isElementVisible(elementQW: QWElement): boolean;
-    //export function isFocusableBrowser(page: QWPage, element: QWElement): boolean;
+    export function isFocusableBrowser(page: QWPage, element: QWElement): boolean;
     //export function isMathDocument(url: string): boolean;
     export function videoElementHasAudio(elementQW: QWElement): boolean;
   }
 
   namespace BrowserUtils {
-    //export function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
+    export function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
   }
 
   namespace AccessibilityUtils {
