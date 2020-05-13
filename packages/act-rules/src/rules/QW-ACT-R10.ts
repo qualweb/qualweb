@@ -40,6 +40,8 @@ class QW_ACT_R10 extends Rule {
         }
       }
     }
+    console.log(accessibleNames);
+
 
     let counter = 0;
     const blacklist = new Array<number>();
@@ -62,8 +64,9 @@ class QW_ACT_R10 extends Rule {
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
-
-          const hashArray = this.getContentHash(elements, page);
+          console.log(elements.length)
+          const hashArray = this.getContentHash(elements);
+          console.log(hashArray);
           const firstHash = hashArray.pop();
           let result = true;
           for (const hash of hashArray || []) {
@@ -75,7 +78,7 @@ class QW_ACT_R10 extends Rule {
             evaluation.verdict = 'passed';
             evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
-          } else { //failed
+          } else {
             evaluation.verdict = 'warning';
             evaluation.description = `The \`iframes\` with the same accessible name have different content.`;
             evaluation.resultCode = 'RC3';
@@ -90,29 +93,34 @@ class QW_ACT_R10 extends Rule {
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      super.addEvaluationResult(evaluation , iframes[counter]);
+      console.log(evaluation.resultCode);
+      super.addEvaluationResult(evaluation, iframes[counter]);
       counter++;
     }
-   /* if (iframes.length === 0) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `iframe doesnt have accessible name`;
-      evaluation.resultCode = 'RC4';
-      super.addEvaluationResult(evaluation);
-    }*/
+    /* if (iframes.length === 0) {
+       evaluation.verdict = 'inapplicable';
+       evaluation.description = `iframe doesnt have accessible name`;
+       evaluation.resultCode = 'RC4';
+       super.addEvaluationResult(evaluation);
+     }*/
   }
 
-  private getContentHash(elements: QWElement[], page: QWPage): Array<string> {
-    const content = new Array<string>();
-    let hash;
+  private getContentHash(elements: QWElement[]): Array<string> {
+    let content: string[] = [];
+    let htmlContent;
     try {
-      for (const element of elements || []) {
-        const htmlContent = element.getContentFrame()();
-        if (htmlContent) {
-          hash =  htmlContent.getHtmlContent(); //fixme md5
+      for (const element of elements) {
+        htmlContent = element.getContentFrame()
+        if (htmlContent!== null) {
+          let page = new QWPage(htmlContent)
+          content.push(page.getHTMLContent());
+          console.log(content)
         }
-        content.push(hash);
       }
-    } catch (e) {};
+    } catch (e) {
+      console.log("Erro");
+      return [];
+    };
     return content;
   }
 
