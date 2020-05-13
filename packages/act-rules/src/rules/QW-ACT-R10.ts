@@ -40,8 +40,6 @@ class QW_ACT_R10 extends Rule {
         }
       }
     }
-    console.log(accessibleNames);
-
 
     let counter = 0;
     const blacklist = new Array<number>();
@@ -64,9 +62,7 @@ class QW_ACT_R10 extends Rule {
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
-          console.log(elements.length)
           const hashArray = this.getContentHash(elements);
-          console.log(hashArray);
           const firstHash = hashArray.pop();
           let result = true;
           for (const hash of hashArray || []) {
@@ -93,7 +89,6 @@ class QW_ACT_R10 extends Rule {
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      console.log(evaluation.resultCode);
       super.addEvaluationResult(evaluation, iframes[counter]);
       counter++;
     }
@@ -114,12 +109,9 @@ class QW_ACT_R10 extends Rule {
         if (htmlContent!== null) {
           let page = new QWPage(htmlContent)
           content.push(page.getHTMLContent());
-          console.log(content)
         }
       }
     } catch (e) {
-      console.log("Erro");
-      return [];
     };
     return content;
   }

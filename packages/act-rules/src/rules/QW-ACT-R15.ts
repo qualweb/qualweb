@@ -31,8 +31,6 @@ class QW_ACT_R15 extends Rule {
     const metadata = DomUtils.getVideoMetadata(element);
     
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
-    const applicableServiceData = metadata.service.audio.duration > 3 && metadata.service.audio.volume !== -91;
-
     const src = new Array<any>();
 
     if (childSrc.length > 0) {
@@ -51,7 +49,7 @@ class QW_ACT_R15 extends Rule {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't collect data from the test target element.`;
       evaluation.resultCode = 'RC2';
-    } else if(applicableServiceData || hasPuppeteerApplicableData){
+    } else if( hasPuppeteerApplicableData){
       if (controls) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target has a visible control mechanism.';

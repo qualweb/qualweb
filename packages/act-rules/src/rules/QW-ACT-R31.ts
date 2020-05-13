@@ -23,11 +23,10 @@ class QW_ACT_R31 extends Rule {
     };
 
     const metadata = DomUtils.getVideoMetadata(element);
-    const track = element.getElement('track[kind="descriptions"]');
+   // const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element);
 
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0;
-    const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.volume === -91;
 
     if (!isVisible) {
       evaluation.verdict = 'inapplicable';
@@ -37,16 +36,6 @@ class QW_ACT_R31 extends Rule {
       evaluation.verdict = 'warning';
       evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';
-    } else if (applicableServiceData) {
-      if (track !== null) {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the `track` element correctly describes the visual content of the video.';
-        evaluation.resultCode = 'RC3';
-      } else {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the test target visual content has accessible alternative.';
-        evaluation.resultCode = 'RC4';
-      }
     } else if (hasPuppeteerApplicableData) {
       evaluation.verdict = 'warning';
       evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative.`;

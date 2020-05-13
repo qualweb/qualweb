@@ -27,13 +27,12 @@ class QW_ACT_R26 extends Rule {
     const metadata = DomUtils.getVideoMetadata(element);
 
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
-    const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
 
     if (metadata.service.error && metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect any data from the test target.`;
       evaluation.resultCode = 'RC1';
-    } else if (isVisible && applicableServiceData) {
+    } else if (isVisible ) {
       if (track !== null) {
         evaluation.verdict = 'warning';
         evaluation.description = 'Check if the \`track\` element correctly describes the auditive content of the video.';

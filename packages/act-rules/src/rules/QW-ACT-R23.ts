@@ -24,7 +24,6 @@ class QW_ACT_R23 extends Rule {
 
     const metadata = DomUtils.getVideoMetadata(element);
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
-    const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
     const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element);
 
@@ -32,7 +31,7 @@ class QW_ACT_R23 extends Rule {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect data from the test target.`;
       evaluation.resultCode = 'RC1';
-    } else if (isVisible && applicableServiceData) {
+    } else if (isVisible) {
       if (track !== null) {
         evaluation.verdict = 'warning';
         evaluation.description = 'Check if the `track` element correctly describes the auditive content of the video.';
