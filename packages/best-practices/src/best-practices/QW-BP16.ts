@@ -1,9 +1,9 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import { ElementHandle } from 'puppeteer';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPractice, ElementExists } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP16 extends BestPracticeObject {
@@ -13,7 +13,7 @@ class QW_BP16 extends BestPracticeObject {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+   execute(element: QWElement): void {
 
     let evaluation: BestPracticeResult = {
       verdict: '',
@@ -21,13 +21,13 @@ class QW_BP16 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const aElements = await element.$$('a');
+    const aElements = element.getElements('a');
 
     if(aElements.length === 0){
       evaluation.verdict = 'failed';
       evaluation.description = 'Page does not have any <a> elements.';
       evaluation.resultCode = 'RC1';
-      await super.addEvaluationResult(evaluation);
+      super.addEvaluationResult(evaluation);
     } else {
       for (const a of aElements || []) {
         evaluation = {
@@ -40,7 +40,7 @@ class QW_BP16 extends BestPracticeObject {
         evaluation.description = 'Page has the element <a>.';
         evaluation.resultCode = 'RC2';
 
-        await super.addEvaluationResult(evaluation, a);
+        super.addEvaluationResult(evaluation, a);
       }
     }
   }

@@ -66,7 +66,6 @@ class BestPractices {
       } else {
         promises.push(this.evaluateElement(bestPractice, undefined, page, styleSheets));
       }
-      await Promise.all(promises); 
     }
 
     report.assertions[bestPractice] = this.bestPractices[bestPractice].getFinalResults();
@@ -74,7 +73,7 @@ class BestPractices {
     this.bestPractices[bestPractice].reset();
   }
 
-  public async execute(page: Page, styleSheets: CSSStylesheet[]): Promise<BestPracticesReport> {
+  public execute(page: Page, styleSheets: CSSStylesheet[]): BestPracticesReport {
     const report: BestPracticesReport = {
       type: 'best-practices',
       metadata: {
@@ -96,7 +95,6 @@ class BestPractices {
       }
     }
 
-    await Promise.all(promises);
 
     return report;
   }

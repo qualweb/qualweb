@@ -2,8 +2,8 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { ElementHandle } from 'puppeteer';
 import { BestPractice } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP5 extends BestPracticeObject {
@@ -12,13 +12,15 @@ class QW_BP5 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined): Promise<void> {
+  execute(element: QWElement | undefined): void {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
+
+    //const parent = await DomUtils.getElementParent(element);
 
     if (!element) {
       evaluation.verdict = 'passed';
@@ -28,9 +30,10 @@ class QW_BP5 extends BestPracticeObject {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
+      evaluation.htmlCode = element.getElementHtmlCode( true, true);
+      evaluation.pointer =element.getElementSelector();
     }
-
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation);
   }
 }
 

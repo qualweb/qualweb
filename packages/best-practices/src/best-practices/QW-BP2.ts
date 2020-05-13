@@ -1,10 +1,9 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPractice, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP2 extends BestPracticeObject {
@@ -16,27 +15,37 @@ class QW_BP2 extends BestPracticeObject {
   @ElementExists
   @ElementHasAttribute('alt')
   @ElementHasNonEmptyAttribute('alt')
-  async execute(element: ElementHandle): Promise<void> {
+  async execute(element: QWElement | undefined): Promise<void> {
+
+    if (!element) {
+      return;
+    }
 
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
+    const altValue = element.getElementAttribute( 'alt');   
 
-    const altValue = <string> await DomUtils.getElementAttribute(element, 'alt');   
-
-    if (altValue.trim().length > 100) {
+    if (!altValue || altValue === '') {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = 'The img alt text attribute is empty';
+      evaluation.resultCode = 'RC1';
+    } else if (altValue.trim().length > 100) {
       evaluation.verdict = 'failed';
       evaluation.description = 'The img alt text attribute has more than 100 characters';
-      evaluation.resultCode = 'RC1';
+      evaluation.resultCode = 'RC2';
     } else {
       evaluation.verdict = 'passed';
       evaluation.description = 'The img alt text attribute has less than 100 characters';
-      evaluation.resultCode = 'RC2';
+      evaluation.resultCode = 'RC3';
     }
     
-    await super.addEvaluationResult(evaluation, element);
+    evaluation.htmlCode = element.getElementHtmlCode( true, true);
+    evaluation.pointer = element.getElementSelector();
+    
+    super.addEvaluationResult(evaluation);
   }
 }
 

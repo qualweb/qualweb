@@ -2,9 +2,8 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
 import { BestPractice, ElementExists } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP6 extends BestPracticeObject {
@@ -14,7 +13,11 @@ class QW_BP6 extends BestPracticeObject {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement | undefined): void {
+
+    if (!element) {
+      return;
+    }
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -22,7 +25,7 @@ class QW_BP6 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const titleValue = await DomUtils.getElementText(element);
+    const titleValue = element.getElementText();
 
     if (titleValue.length > 64) {
       evaluation.verdict = 'failed';
@@ -33,8 +36,11 @@ class QW_BP6 extends BestPracticeObject {
       evaluation.description = 'The page title has less than 64 characters';
       evaluation.resultCode = 'RC2';
     }
+
+    evaluation.htmlCode = element.getElementHtmlCode( true, true);
+    evaluation.pointer = element.getElementSelector();
     
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation);
   }
 }
 

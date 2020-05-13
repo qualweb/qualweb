@@ -1,10 +1,11 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import { ElementHandle, Page } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPractice } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @BestPractice
 class QW_BP14 extends BestPracticeObject {
@@ -15,7 +16,7 @@ class QW_BP14 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise < void > {
+  execute(element: QWElement | undefined, page: QWPage | undefined, styleSheets: CSSStylesheet[] | undefined):  void {
 
     if (!styleSheets) {
       return;
@@ -42,7 +43,7 @@ class QW_BP14 extends BestPracticeObject {
       cssObject['type'] === 'import') { // ignore
       return;
     }
-    if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'page') {
+    if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'QWPage') {
       this.loopDeclarations(cssObject, fileName, evaluation)
     } else {
       if (cssObject['type'] === 'stylesheet') {

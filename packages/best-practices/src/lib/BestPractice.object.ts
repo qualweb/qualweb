@@ -3,9 +3,9 @@
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
-import { Page, ElementHandle } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
-import { DomUtils } from '@qualweb/util';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 abstract class BestPractice {
 
@@ -31,12 +31,10 @@ abstract class BestPractice {
     return this.bestPractice.metadata.inapplicable;
   }
 
-  protected async addEvaluationResult(result: BestPracticeResult, element?: ElementHandle): Promise<void> {
+  protected addEvaluationResult(result: BestPracticeResult, element?: QWElement): void {
     if (element) {
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element, true, true),
-        DomUtils.getElementSelector(element)
-      ]);
+      const htmlCode= element.getElementHtmlCode(true, true);
+      const pointer= element.getElementSelector()
       result.htmlCode = htmlCode;
       result.pointer = pointer;
     }
@@ -48,7 +46,7 @@ abstract class BestPractice {
     }
   }
 
-  public abstract async execute(element: ElementHandle | undefined, page: Page | undefined, styleSheets: CSSStylesheet[] | undefined): Promise<void>;
+  public abstract execute(element: QWElement | undefined, page: QWPage | undefined, styleSheets: CSSStylesheet[] | undefined): void;
 
   public getFinalResults() {
     this.outcomeBestPractice();

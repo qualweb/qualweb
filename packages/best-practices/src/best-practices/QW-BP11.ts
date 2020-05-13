@@ -1,9 +1,9 @@
 'use strict';
 
 import { BestPracticeResult } from '@qualweb/best-practices';
-import { ElementHandle } from 'puppeteer';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPractice, ElementExists, ElementHasChild } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP11 extends BestPracticeObject {
@@ -14,7 +14,17 @@ class QW_BP11 extends BestPracticeObject {
 
   @ElementExists
   @ElementHasChild('*')
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement | undefined): void{
+
+    if (!element) {
+      return;
+    }
+
+    const children = element.getElementChildren().length;
+
+    if (children === 0) {
+      return;
+    }
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -22,22 +32,19 @@ class QW_BP11 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const { result, hasBr } = await element.evaluate(elem => {
       let result = 0;
       let hasBr = false;
 
-      for (const child of elem.children || []) {
-        const type = child.nodeType;
-        if (child && child.tagName.toLowerCase() === 'br') {
+      for (const child of element.getElementChildren() || []) {
+        const type = child.getElementType();
+        if (child && child.getElementTagName() === 'br') {
           result++;
           hasBr = true;
-        } else if(type !== 3) {
+        } else if(type !== "text") {
           result = 0;
         }
       }
 
-      return { result, hasBr };
-    });
 
     if (result > 3) {
       evaluation.verdict = 'failed';
@@ -50,7 +57,10 @@ class QW_BP11 extends BestPracticeObject {
     }
 
     if (hasBr) {
-      await super.addEvaluationResult(evaluation, element);
+      evaluation.htmlCode = element.getElementHtmlCode( true, true);
+      evaluation.pointer = element.getElementSelector();
+
+      super.addEvaluationResult(evaluation);
     }
   }
 }

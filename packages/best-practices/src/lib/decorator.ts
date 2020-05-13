@@ -2,7 +2,6 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import bestPractices from './bestPractices.json';
-import { DomUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
 
 function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -39,7 +38,7 @@ function ElementHasAttribute(attribute: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = async function() {
-      const attr = await DomUtils.elementHasAttribute(arguments[0], attribute);
+      const attr = arguments[0].elementHasAttribute( attribute);
       if (attr) {
         return method.apply(this, arguments);
       }
@@ -51,7 +50,7 @@ function ElementHasNonEmptyAttribute(attribute: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = async function() {
-      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);
+      const attr = arguments[0].getElementAttribute( attribute);
       if (attr && attr.trim()) {
         return method.apply(this, arguments);
       }
@@ -64,7 +63,7 @@ function ElementHasChild(child: string) {
     const method = descriptor.value;
     descriptor.value = async function() {
       if (arguments[0]) {
-        const children = await arguments[0].$$(child);
+        const children = arguments[0].getElements(child);
         if (children.length !== 0) {
           return method.apply(this, arguments);
         }
@@ -78,7 +77,7 @@ function ElementDoesNotHaveChild(child: string) {
     const method = descriptor.value;
     descriptor.value = async function() {
       if (arguments[0]) {
-        const children = await arguments[0].$$(child);
+        const children = arguments[0].getElements(child);
         if (children.length === 0) {
           return method.apply(this, arguments);
         }
@@ -91,7 +90,7 @@ function ElementHasParent(parent: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = async function() {
-      const element = await DomUtils.elementHasParent(arguments[0], parent);
+      const element = arguments[0].elementHasParent( parent);
       if (element) {
         return method.apply(this, arguments);
       }
@@ -103,7 +102,7 @@ function ElementIsNotChildOf(parent: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = async function() {
-      const hasParent = await DomUtils.elementHasParent(arguments[0], parent);
+      const hasParent = arguments[0].elementHasParent( parent);
       if (!hasParent) {
         return method.apply(this, arguments);
       }

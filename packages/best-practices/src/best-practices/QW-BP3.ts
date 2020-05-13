@@ -2,9 +2,8 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { ElementHandle } from 'puppeteer';
-import { DomUtils } from '@qualweb/util';
 import { BestPractice, ElementExists } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP3 extends BestPracticeObject {
@@ -14,7 +13,11 @@ class QW_BP3 extends BestPracticeObject {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement | undefined): void {
+
+    if (!element || element.elementHasParent('nav')) {
+      return;
+    }
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -22,20 +25,22 @@ class QW_BP3 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const titleValue = await DomUtils.getElementAttribute(element, 'title');
-    const text = await DomUtils.getElementText(element);
-
-    if (titleValue && titleValue.trim().toLowerCase() === text.trim().toLowerCase()) {
+    const aCount = element.getNumberOfSiblingsWithTheSameTag();
+    if (aCount >= 10) {
       evaluation.verdict = 'failed';
-      evaluation.description = `Link text content and title attribute value are the same`;
+      evaluation.description = `It was found a group of 10 or more links not grouped within a nav element`;
       evaluation.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'Link text content and title attribute value are not the same';
-      evaluation.resultCode = 'RC2';
+      return;
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    const parent = element.getElementParent();
+    if (parent) {
+      evaluation.htmlCode = parent.getElementHtmlCode(true, true);
+      evaluation.pointer = parent.getElementSelector();
+    }
+
+    super.addEvaluationResult(evaluation);
   }
 }
 
