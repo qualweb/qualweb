@@ -243,6 +243,18 @@ class QWElement {
   public isElementHTMLElement(): boolean {
     return this.element instanceof HTMLElement;
   }
+  public getContentFrame(): Document|null{
+    let page;
+    if(this.getElementTagName()==="iframe"){
+      let element =  <HTMLIFrameElement> this.element;
+      let contentWindow =element.contentWindow;
+      if(contentWindow){
+        page = contentWindow.document
+      }
+    }
+    return page;
+
+  }
   public elementHasTextNode(): boolean {
     if (this.element.firstChild !== null)
       return this.element.firstChild.nodeType === 3;
