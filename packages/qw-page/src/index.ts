@@ -5,6 +5,10 @@ class QWPage {
   constructor(document: Document) {
     this.document = document;
   }
+
+  public getURL(): string{
+    return this.document.URL;
+  }
   public getElement(selector: string): QWElement | null {
 
     let element = this.document.querySelector(selector)
@@ -65,6 +69,10 @@ class QWPage {
   public getPageRootElement(): QWElement | null {
     const documentElement = this.document.documentElement;
     return documentElement ? new QWElement(documentElement) : null;
+  }
+
+  public getHTMLContent(): string {
+    return this.document.documentElement.outerHTML;
   }
   
 }
