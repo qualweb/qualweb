@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.39] - 13/05/2020
+
+### Fixed
+ - maxParallelEvaluations bug
+
 ## [0.3.38] - 11/05/2020
 
 ### Fixed

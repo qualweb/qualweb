@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import rules from './rules.json';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import languages from './language.json';
-import clone from 'lodash.clone';
+import cloneDeep from 'lodash.clonedeep';
 
 function ACTRule<T extends { new (...args: any[]): {} }>(constructor: T) {
   const rule = rules[constructor.name];
@@ -18,7 +18,7 @@ function ACTRule<T extends { new (...args: any[]): {} }>(constructor: T) {
   
   const newConstructor: any = function () {
     let func: any = function () {
-      return new constructor(clone(rule));
+      return new constructor(cloneDeep(rule));
     }
     func.prototype = constructor.prototype;
     return new func();
