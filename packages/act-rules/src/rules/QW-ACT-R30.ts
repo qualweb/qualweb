@@ -6,6 +6,7 @@ import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 import {QWPage} from "@qualweb/qw-page";
+import LanguageDetect from "languagedetect";
 
 @ACTRule
 class QW_ACT_R30 extends Rule {
@@ -37,14 +38,17 @@ class QW_ACT_R30 extends Rule {
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         const elementText = AccessibilityUtils.getTrimmedText(element);
+        console.log(accessibleName);
+        console.log(elementText);
+        console.log(elementText.length);
 
         if(accessibleName === undefined) {
           evaluation.verdict = 'failed';
           evaluation.description = `The test target doesn't have an accessible name.`;
           evaluation.resultCode = 'RC6';
-        } else if(elementText && elementText.length === 1) {
+        } else if(elementText === '' || !this.isHumanLanguage(elementText)) {
           evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target contains non-text content.`;
+          evaluation.description = `The test target has no visible text content or contains non-text content.`;
           evaluation.resultCode = 'RC3';
         } else if(elementText && accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())) {
           evaluation.verdict = 'passed';
@@ -58,8 +62,16 @@ class QW_ACT_R30 extends Rule {
       }
     }
 
+    console.log(evaluation.resultCode);
+
     super.addEvaluationResult(evaluation, element);
   }
+
+  isHumanLanguage(string): boolean {
+    const detector = new LanguageDetect();
+    return detector.detect(string).length > 0;
+  }
 }
+
 
 export = QW_ACT_R30;
