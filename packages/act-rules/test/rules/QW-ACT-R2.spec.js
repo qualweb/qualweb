@@ -13,7 +13,7 @@ describe(`Rule ${rule}`, async function () {
   
   it('Starting testbench', async function () {
     const browser = await puppeteer.launch();
-    const data = JSON.parse(await getTestCases());
+    const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
