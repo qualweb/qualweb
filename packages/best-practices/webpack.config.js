@@ -4,8 +4,8 @@ const os = require('os')
 module.exports = {
   entry: './dist/index.js',
   output: {
-    filename: 'act.js',
-    path: path.resolve(__dirname, 'distWebPack'),
+    filename: 'bp.js',
+    path: path.resolve(__dirname, 'test'),
     libraryTarget: 'var',
     library: 'BestPractices'
   }, 

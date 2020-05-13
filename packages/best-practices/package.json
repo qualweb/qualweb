@@ -25,7 +25,7 @@
     "test:bp16": "mocha test/best-practices/QW-BP16.spec.js",
     "clean": "node clean.js",
     "compile:bps": "node compile-bps.js",
-    "build": "npm run compile:bps && npm run clean && tsc --build",
+    "build": "npm run compile:bps && npm run clean && tsc --build && webpack --mode development",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {

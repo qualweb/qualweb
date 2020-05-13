@@ -26,14 +26,20 @@ describe('Technique QW-BP14', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { stylesheets } = await getDom(browser,test.url);
+        const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+        await page.addScriptTag({
+          path: require.resolve('../qwPage.js')
+        })
+        await page.addScriptTag({
+          path: require.resolve('../bp.js')
+        })
+        const report = await page.evaluate(( rules) => {
+          const bp = new BestPractices.BestPractices(rules);
+          let report= bp.execute(new QWPage.QWPage(document));
+          return report;
+        }, {bestPractices: ['QW-BP14']});
 
-        const bestPractices = new BestPractices({
-          bestPractices: ['QW-BP14']
-        });
-
-        const report = await bestPractices.execute(undefined, stylesheets);
-        expect(report.assertions['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['best-practices']['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

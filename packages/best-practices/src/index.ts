@@ -1,12 +1,13 @@
 'use strict';
 
 import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
-import { Page, ElementHandle } from 'puppeteer';
 import { CSSStylesheet } from '@qualweb/core';
 
 import * as bestPractices from './lib/bestPractices';
 
 import mapping from './lib/mapping';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 class BestPractices {
 
@@ -45,19 +46,19 @@ class BestPractices {
     }
   }
 
-  private async evaluateElement(bestPractice: string, element: ElementHandle | undefined, page: Page, styleSheets: CSSStylesheet[]): Promise<void> {
+  private evaluateElement(bestPractice: string, element: QWElement | undefined, page: QWPage, styleSheets: CSSStylesheet[]): void {
     try {
-      await this.bestPractices[bestPractice].execute(element, page, styleSheets);
+      this.bestPractices[bestPractice].execute(element, page, styleSheets);
     } catch (err) {
       console.error(err);
     }
   }
 
-  private async executeBP(bestPractice: string, selector: string, page: Page, styleSheets: CSSStylesheet[], report: BestPracticesReport): Promise<void> {
+  private  executeBP(bestPractice: string, selector: string, page: QWPage, styleSheets: CSSStylesheet[], report: BestPracticesReport): void {
     if(selector === ''){
-      await this.evaluateElement(bestPractice, undefined, page, styleSheets);
+      this.evaluateElement(bestPractice, undefined, page, styleSheets);
     } else if(page) {
-      const elements = await page.$$(selector);
+      const elements = page.getElements(selector);
       const promises = new Array<any>();
       if (elements.length > 0) {
         for (const elem of elements || []) {
@@ -73,7 +74,7 @@ class BestPractices {
     this.bestPractices[bestPractice].reset();
   }
 
-  public execute(page: Page, styleSheets: CSSStylesheet[]): BestPracticesReport {
+  public execute(page: QWPage, styleSheets: CSSStylesheet[]): BestPracticesReport {
     const report: BestPracticesReport = {
       type: 'best-practices',
       metadata: {
