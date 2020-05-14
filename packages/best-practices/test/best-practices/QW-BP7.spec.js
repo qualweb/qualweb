@@ -74,7 +74,7 @@ describe('Best Practice QW-BP7', function () {
           return report;
         }, {bestPractices: ['QW-BP7']});
 
-        expect(report['best-practices']['QW-BP7'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP7'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

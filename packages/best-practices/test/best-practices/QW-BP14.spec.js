@@ -33,13 +33,13 @@ describe('Technique QW-BP14', function () {
         await page.addScriptTag({
           path: require.resolve('../bp.js')
         })
-        const report = await page.evaluate(( rules) => {
+        const report = await page.evaluate(( rules,stylesheets) => {
           const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document));
+          let report= bp.execute(new QWPage.QWPage(document),stylesheets);
           return report;
-        }, {bestPractices: ['QW-BP14']});
+        }, {bestPractices: ['QW-BP14']},stylesheets);
 
-        expect(report['best-practices']['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

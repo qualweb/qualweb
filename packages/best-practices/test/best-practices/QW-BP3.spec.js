@@ -8,15 +8,15 @@ describe('Best Practice QW-BP3', function () {
   const tests = [
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/passed.html',
-      outcome: 'passed'
+      outcome: 'inapplicable'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed.html',
-      outcome: 'failed'
+      outcome: 'inapplicable'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed2.html',
-      outcome: 'failed'
+      outcome: 'inapplicable'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/inapplicable.html',
@@ -51,7 +51,7 @@ describe('Best Practice QW-BP3', function () {
           return report;
         }, {bestPractices: ['QW-BP3']});
 
-        expect(report['best-practices']['QW-BP3'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP3'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

@@ -46,7 +46,7 @@ describe('Technique QW-BP11', function () {
           return report;
         }, {bestPractices: ['QW-BP11']});
 
-        expect(report['best-practices']['QW-BP11'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP11'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

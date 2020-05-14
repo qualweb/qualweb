@@ -58,7 +58,7 @@ describe('Best Practices QW-BP9', function () {
           return report;
         }, {bestPractices: ['QW-BP9']});
 
-        expect(report['best-practices']['QW-BP9'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP9'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

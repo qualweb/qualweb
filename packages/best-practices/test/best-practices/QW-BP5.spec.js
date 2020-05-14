@@ -50,7 +50,7 @@ describe('Best practice QW-BP5', function () {
           return report;
         }, {bestPractices: ['QW-BP5']});
 
-        expect(report['best-practices']['QW-BP5'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['assertions']['QW-BP5'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
