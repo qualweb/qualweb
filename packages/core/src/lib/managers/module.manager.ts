@@ -4,8 +4,12 @@ import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
 import { Url, QualwebOptions, ProcessedHtml, SourceHtml, CSSStylesheet } from '@qualweb/core';
 import { CSSTechniques } from '@qualweb/css-techniques';
+import fetch from 'node-fetch';
 
 import Evaluation from '../data/evaluation.object';
+import { BrowserUtils } from '@qualweb/util';
+let endpoint = 'http://194.117.20.242/validate/';
+
 
 function parseUrl(url: string, pageUrl: string): Url {
   let inputUrl = url;
@@ -87,12 +91,12 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
   const reports = new Array<any>();
   const css = new CSSTechniques();
   await page.addScriptTag({
-    path: require.resolve('./qwPage.js')
+    path: require.resolve('../../../node_modules/@qualweb/qw-page/dist/qwPage.js')
   })
 
   if (execute.act) {
     await page.addScriptTag({
-      path: require.resolve('./act.js')
+      path: require.resolve('../../../node_modules/@qualweb/act-rules/dist/act.js')
     })
     sourceHtml.html.parsed = [];
     const actReport = await page.evaluate((sourceHtml, stylesheets, options) => {
@@ -100,9 +104,10 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
       const act = new ACTRules.ACTRules();
       if (options)
         act.configure(options);
-        // @ts-ignore 
+      // @ts-ignore 
       const report = act.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
       return report;
+      // @ts-ignore 
     }, sourceHtml, stylesheets, options['act-rules']);
 
     reports.push(actReport);
@@ -110,16 +115,34 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
 
   if (execute.html) {
     await page.addScriptTag({
-      path: require.resolve('./html.js')
+      path: require.resolve('../../../node_modules/@qualweb/html-techniques/dist/html.js')
     })
-    const htmlReport = await page.evaluate((options) => {
+    const url = page.url();
+    const urlVal = await page.evaluate(() => {
+      return location.href;
+    });
+
+    const validationUrl = endpoint + encodeURIComponent(urlVal);
+
+    let response, validation;
+
+    try {
+      response = await fetch(validationUrl);
+    } catch (err) {
+      console.log(err);
+    }
+    if (response && response.status === 200)
+      validation = JSON.parse(await response.json());
+    const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
+    const htmlReport = await page.evaluate(( newTabWasOpen, validation) => {
       // @ts-ignore 
       const html = new HTMLTechniques.HTMLTechniques();
-      html.configure(options)
+     // html.configure(options)
       // @ts-ignore 
-      const report = html.execute(new QWPage.QWPage(document), false, {});
+      const report = html.execute(new QWPage.QWPage(document), newTabWasOpen, validation);
       return report;
-    }, options['html-techniques']);
+      // @ts-ignore 
+    },  newTabWasOpen, validation);
     reports.push(htmlReport);
   }
 
@@ -132,16 +155,16 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
 
   if (execute.bp) {
     await page.addScriptTag({
-      path: require.resolve('./bp.js')
+      path: require.resolve('../../../node_modules/@qualweb/best-practices/dist/bp.js')
     })
-    const bpReport = await page.evaluate((options) => {
+    const bpReport = await page.evaluate(() => {
       // @ts-ignore 
       const bp = new BestPractices.BestPractices();
-      bp.configure(options)
+     // bp.configure(options)
       // @ts-ignore 
       const report = bp.execute(new QWPage.QWPage(document));
       return report;
-    }, options['best-practices']);
+    },);
     reports.push(bpReport);
   }
 
@@ -214,6 +237,10 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
   const reports = new Array<any>();
   const css = new CSSTechniques();
 
+  await page.addScriptTag({
+    path: require.resolve('./qwPage.js')
+  })
+
   if (execute.act) {
     await page.addScriptTag({
       path: require.resolve('./act.js')
@@ -224,9 +251,10 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
       const act = new ACTRules.ACTRules();
       if (options)
         act.configure(options);
-        // @ts-ignore 
+      // @ts-ignore 
       const report = act.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
       return report;
+      // @ts-ignore 
     }, sourceHtml, stylesheets, options['act-rules']);
 
     reports.push(actReport);
@@ -236,14 +264,32 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
     await page.addScriptTag({
       path: require.resolve('./html.js')
     })
-    const htmlReport = await page.evaluate((options) => {
+    const url = page.url();
+    const urlVal = await page.evaluate(() => {
+      return location.href;
+    });
+
+    const validationUrl = endpoint + encodeURIComponent(urlVal);
+
+    let response, validation;
+
+    try {
+      response = await fetch(validationUrl);
+    } catch (err) {
+      console.log(err);
+    }
+    if (response && response.status === 200)
+      validation = JSON.parse(await response.json());
+    const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
+    const htmlReport = await page.evaluate((options, newTabWasOpen, validation) => {
       // @ts-ignore 
       const html = new HTMLTechniques.HTMLTechniques();
       html.configure(options)
       // @ts-ignore 
-      const report = html.execute(new QWPage.QWPage(document), false, {});
+      const report = html.execute(new QWPage.QWPage(document), newTabWasOpen, validation);
       return report;
-    }, options['html-techniques']);
+      // @ts-ignore 
+    }, options['html-techniques'], newTabWasOpen, validation);
     reports.push(htmlReport);
   }
 
@@ -261,14 +307,13 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
     const bpReport = await page.evaluate((options) => {
       // @ts-ignore 
       const bp = new BestPractices.BestPractices();
-      bp.configure(options);
+      bp.configure(options)
       // @ts-ignore 
       const report = bp.execute(new QWPage.QWPage(document));
       return report;
     }, options['best-practices']);
     reports.push(bpReport);
   }
-
 
   for (const report of reports || []) {
     if (report.type === 'wappalyzer') {

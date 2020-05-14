@@ -9,7 +9,8 @@ describe('Core', function() {
 
     await core.start();
     const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
-    await core.stop();
+    console.log(reports);
+    //await core.stop();
 
     expect(reports[url].type).to.be.equal('evaluation');
   });
