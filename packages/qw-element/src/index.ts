@@ -273,7 +273,12 @@ class QWElement {
       element = element.parentElement;
     }
     return true;
-  };
+  }
+  public focusElement():void{
+    let htmlElement = <HTMLElement> this.element;
+    htmlElement.focus();
+    
+  }
 }
 
 export {
