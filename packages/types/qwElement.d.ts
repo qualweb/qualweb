@@ -33,6 +33,8 @@ declare module '@qualweb/qw-element' {
     public isElementHTMLElement(): boolean;
     public elementHasTextNode(): boolean;
     public getContentFrame(): Document | null;
+    public focusElement(): void;
+
 
   }
 
