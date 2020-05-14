@@ -26,7 +26,7 @@ class QW_ACT_R20 extends Rule {
     const validRoleValues = ['button', 'checkbox', 'gridcell', 'link', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'scrollbar', 'searchbox', 'separator', 'slider', 'spinbutton', 'switch', 'tab', 'tabpanel', 'textbox', 'treeitem', 'combobox', 'grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid', 'application', 'article', 'cell', 'collumnheader', 'definition', 'directory', 'document', 'feed', 'figure', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'none', 'note', 'presentation', 'row', 'rowgroup', 'rowheader', 'separator', 'table', 'term', 'toolbar', 'tooltip', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'region', 'search', 'alert', 'log', 'marquee', 'status', 'timer'];
     const roleAttr = element.getElementAttribute('role');
     
-    if (roleAttr) {
+    if (roleAttr && roleAttr.trim().length > 0) {
       const isHidden = DomUtils.isElementHidden(element);
       if (!isHidden) {
         let validRolesFound = 0;
@@ -52,7 +52,7 @@ class QW_ACT_R20 extends Rule {
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The \`role\` attribute doesn't exits or is empty ("").`;
+      evaluation.description = `The \`role\` attribute doesn't exist or is empty ("").`;
       evaluation.resultCode = 'RC4';
     }
 

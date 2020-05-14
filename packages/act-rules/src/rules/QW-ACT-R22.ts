@@ -31,11 +31,11 @@ class QW_ACT_R22 extends Rule {
       subtag = splittedLang[0];
     }
 
-    if (!subtag.trim()) {
+    if (!subtag.length) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target `lang` attribute is empty ("").';
       evaluation.resultCode = 'RC1';
-    } else if (this.isSubTagValid(subtag) && splittedLang.length <= 2) {
+    } else if (this.isSubTagValid(subtag)) {
       evaluation.verdict = 'passed';
       evaluation.description = 'The test target has a valid `lang` attribute.';
       evaluation.resultCode = 'RC2';

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/act.js",
   "types": "./node_modules/@qualweb/types",
@@ -50,7 +50,7 @@
     "test-r39": "npm i && mocha test/rules/QW-ACT-R39.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
-    "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development --watch",
+    "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development",
     "pub": "npm run build && npm publish"
   },
   "keywords": [
@@ -68,7 +68,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "file:../types",
+    "@qualweb/types": "0.4.0",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^13.13.5",
     "chai": "^4.2.0",
@@ -77,12 +77,14 @@
     "mocha": "^7.0.1",
     "node-fetch": "^2.6.0",
     "puppeteer": "^2.1.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "4.41.5",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "@qualweb/qw-element": "file:../qw-element",
-    "@qualweb/qw-page": "file:../QWPage",
-    "@qualweb/util": "file:../util",
+    "@qualweb/qw-element": "0.1.1",
+    "@qualweb/qw-page": "0.1.2",
+    "@qualweb/util": "0.3.0",
     "css-select": "^2.1.0",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",

@@ -19,7 +19,7 @@ class QW_ACT_R14 extends Rule {
 
   @ElementExists
   @ElementHasAttribute('content')
-  @ElementHasAttributeValue('meta', 'viewport')
+  @ElementHasAttributeValue('name', 'viewport')
   execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {

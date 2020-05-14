@@ -82,7 +82,7 @@ class QW_ACT_R17 extends Rule {
       evaluation.description = `The test target doesn't have the semantic role of img.`;
       evaluation.resultCode = 'RC10';
     }
-
+    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 

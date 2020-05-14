@@ -1,6 +1,5 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -51,7 +50,7 @@ class QW_ACT_R13 extends Rule {
     super.addEvaluationResult(evaluation, element);
   }
 
-  private isFocusableChildren(element: ElementHandle): boolean {
+  private isFocusableChildren(element: QWElement): boolean {
     let result = this.isFocusableContent(element);
     const children = element.getElementChildren();
     for (const child of children || []) {

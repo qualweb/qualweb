@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
+import {AccessibilityUtils, DomUtils} from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
@@ -47,25 +47,25 @@ class QW_ACT_R33 extends Rule {
           evaluation.description = `The test target parent doesn't have the required context \`role\``;
           evaluation.resultCode = 'RC2';
         }
-      } else if (this.isElementADescendantOf(element, page, requiredContextRole)) {
+      } else if (DomUtils.isElementADescendantOf(element, page, [], requiredContextRole)) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target parent has the required context \`role\`.`;
-        evaluation.resultCode = 'RC1';
+        evaluation.resultCode = 'RC3';
       } else {
         evaluation.verdict = 'failed';
         evaluation.description = `The test target parent doesn't have the required context \`role\``;
-        evaluation.resultCode = 'RC2';
+        evaluation.resultCode = 'RC4';
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target is not in the acessiblity tree or doesn't have an explicit \`role\` with the required context \`role\``;
-      evaluation.resultCode = 'RC3';
+      evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` with the required context \`role\``;
+      evaluation.resultCode = 'RC5';
     }
 
     super.addEvaluationResult(evaluation, element);
   }
 
-  private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
+  /*private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
     const parent = element.getElementParent();
     let result = false;
     let sameRole;
@@ -84,7 +84,7 @@ class QW_ACT_R33 extends Rule {
     } else {
       return result;
     }
-  }
+  }*/
 }
 
 export = QW_ACT_R33;

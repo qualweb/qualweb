@@ -1,11 +1,11 @@
 'use strict';
 
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import {ACTRuleResult} from '@qualweb/act-rules';
+import {AccessibilityUtils, DomUtils} from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import {ACTRule, ElementExists} from '../lib/decorator';
+import {QWElement} from '@qualweb/qw-element';
+import {QWPage} from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R39 extends Rule {
@@ -15,9 +15,9 @@ class QW_ACT_R39 extends Rule {
   }
 
   @ElementExists
-   execute(element: QWElement, page: QWPage): void {
+  execute(element: QWElement, page: QWPage): void {
 
-    const role =  AccessibilityUtils.getElementRole(element, page);
+    const role = AccessibilityUtils.getElementRole(element, page);
 
     if (role !== 'columnheader' && role !== 'rowheader') {
       return;
@@ -29,56 +29,49 @@ class QW_ACT_R39 extends Rule {
       resultCode: ''
     };
 
-    const isInAT =  AccessibilityUtils.isElementInAT(element, page);
+    const isInAT = AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
-      const isVisible =  DomUtils.isElementVisible(element);
+      const isVisible = DomUtils.isElementVisible(element);
       if (isVisible) {
-        const ancestorTableOrGrid =  getFirstAncestorElementByNameOrRoles(element, page, [], ['grid', 'table']);
+        const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, page, [], ['grid', 'table']);
         if (ancestorTableOrGrid !== null) {
-          const isAncestorTableOrGridInAT =  AccessibilityUtils.isElementInAT(ancestorTableOrGrid, page);
+          const isAncestorTableOrGridInAT = AccessibilityUtils.isElementInAT(ancestorTableOrGrid, page);
           if (isAncestorTableOrGridInAT) {
-            /*const [rowElements, elementParent, headerElementIndex, headerElementId] =  Promise.all([
-              ancestorTableOrGrid.$$('tr, [role="row"]'),
-              DomUtils.getElementParent(element),
-              getElementIndexOfParentChildren(element),
-              DomUtils.getElementAttribute(element, 'id')
-            ]);*/
-
-            const rowElements =  ancestorTableOrGrid.getElements('tr, [role="row"]');
+            const rowElements = ancestorTableOrGrid.getElements('tr, [role="row"]');
             const elementParent = element.getElementParent();
-            const headerElementIndex =  getElementIndexOfParentChildren(element);
-            const headerElementId = element.getElementAttribute( 'id');
+            const headerElementIndex = getElementIndexOfParentChildren(element);
+            const headerElementId = element.getElementAttribute('id');
 
             let found = false;
             let index = 0;
             while (!found && index < rowElements.length) {
               // only searching rows where element is not included
-              if (elementParent &&  rowElements[index].getElementSelector() !==  elementParent.getElementSelector()) {
+              if (elementParent && rowElements[index].getElementSelector() !== elementParent.getElementSelector()) {
 
                 // all children of row
-                const rowChildrenElements =  rowElements[index].getElementChildren();
+                const rowChildrenElements = rowElements[index].getElementChildren();
 
                 // row element with same index as header
                 const cellIndexElement = rowChildrenElements[headerElementIndex];
 
                 // if there is an element in the same index as header...
                 if (cellIndexElement) {
-                  const cellIndexElementRole = cellIndexElement ?  AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
-                  const cellHeadersAttribute = cellIndexElement ?  cellIndexElement.getElementAttribute( 'headers') : null;
+                  const cellIndexElementRole = cellIndexElement ? AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
+                  const cellHeadersAttribute = cellIndexElement ? cellIndexElement.getElementAttribute('headers') : null;
                   // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
                   found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
                 } else {
                   // if there is not an element in the same index as header, we need to check all row children...
                   for (let cellElement of rowChildrenElements) {
                     if (!found) {
-                      const cellElementRole =  AccessibilityUtils.getElementRole(cellElement, page);
+                      const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
                       console.log(cellElementRole);
                       // verifying if it has a colspan attribute and it matches headerElement's index
-                      const cellColspanAttribute =  cellElement.getElementAttribute( 'colspan');
-                      const cellElementIndex =  getElementIndexOfParentChildren(cellElement);
+                      const cellColspanAttribute = cellElement.getElementAttribute('colspan');
+                      const cellElementIndex = getElementIndexOfParentChildren(cellElement);
 
                       // and verifying if it has a headers attribute that includes headerElement's id
-                      const headers =  cellElement.getElementAttribute('headers');
+                      const headers = cellElement.getElementAttribute('headers');
                       found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (headerElementId && headers && headers.includes(headerElementId) || (cellColspanAttribute ? cellElementIndex + +cellColspanAttribute - 1 <= headerElementIndex : false));
                     }
                   }
@@ -93,12 +86,12 @@ class QW_ACT_R39 extends Rule {
               evaluation.resultCode = 'RC1';
             } else {
               //console.log( element.getElementHtmlCode( true, false)+"\n"+ DomUtils.getElementSelector(element));
-              if(elementParent)
-            /*  console.log( ancestorTableOrGrid.getElementHtmlCode( true, false)+"\n"+ DomUtils.getElementSelector(ancestorTableOrGrid));
-              console.log( page.accessibility.snapshot({root:element}));
-              console.log( DomUtils.isElementHidden(element));*/
+              if (elementParent)
+                /*  console.log( ancestorTableOrGrid.getElementHtmlCode( true, false)+"\n"+ DomUtils.getElementSelector(ancestorTableOrGrid));
+                  console.log( page.accessibility.snapshot({root:element}));
+                  console.log( DomUtils.isElementHidden(element));*/
 
-              evaluation.verdict = 'failed';
+                evaluation.verdict = 'failed';
               evaluation.description = `The column header element does not have at least one assigned cell`;
               evaluation.resultCode = 'RC2';
             }
@@ -122,7 +115,7 @@ class QW_ACT_R39 extends Rule {
       evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC6';
     }
-     super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 
@@ -131,13 +124,13 @@ function getFirstAncestorElementByNameOrRoles(element: QWElement, page: QWPage, 
     throw Error('Element is not defined');
   }
 
-  const parent =  element.getElementParent();
+  const parent = element.getElementParent();
   let result = false;
   let sameRole, sameName;
 
   if (parent !== null) {
-    const parentName =  parent.getElementTagName();
-    const parentRole =  AccessibilityUtils.getElementRole(parent, page);
+    const parentName = parent.getElementTagName();
+    const parentRole = AccessibilityUtils.getElementRole(parent, page);
 
     if (parentName !== null) {
       sameName = names.includes(parentName);
@@ -147,7 +140,7 @@ function getFirstAncestorElementByNameOrRoles(element: QWElement, page: QWPage, 
     }
     result = sameName || sameRole;
     if (!result) {
-      return  getFirstAncestorElementByNameOrRoles(parent, page, names, roles);
+      return getFirstAncestorElementByNameOrRoles(parent, page, names, roles);
     } else {
       return parent;
     }
@@ -159,10 +152,10 @@ function getFirstAncestorElementByNameOrRoles(element: QWElement, page: QWPage, 
 function getElementIndexOfParentChildren(element: QWElement): number {
   let elementIndex = 0;
   let foundIndex = false;
-  const elementParent =  element.getElementParent();
-  const elementParentChildren = elementParent ?  elementParent.getElementChildren() : null;
+  const elementParent = element.getElementParent();
+  const elementParentChildren = elementParent ? elementParent.getElementChildren() : null;
   while (elementParentChildren && !foundIndex && elementIndex < elementParentChildren.length) {
-    if ( elementParentChildren[elementIndex].getElementSelector() !==  element.getElementSelector()) {
+    if (elementParentChildren[elementIndex].getElementSelector() !== element.getElementSelector()) {
       elementIndex++;
     } else {
       foundIndex = true;
