@@ -6,7 +6,7 @@ class QWPage {
     this.document = document;
   }
 
-  public getURL(): string{
+  public getURL(): string {
     return this.document.URL;
   }
   public getElement(selector: string): QWElement | null {
@@ -74,6 +74,15 @@ class QWPage {
   public getHTMLContent(): string {
     return this.document.documentElement.outerHTML;
   }
-  
+
+  public getFocusedElement(): QWElement | null {
+    let activeElement = this.document.activeElement;
+    let result;
+    if (activeElement)
+      result = new QWElement(activeElement);
+    return result;
+
+  }
+
 }
 export { QWPage };

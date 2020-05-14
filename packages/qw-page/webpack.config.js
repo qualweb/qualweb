@@ -5,7 +5,7 @@ module.exports = {
   entry: './dist/index.js',
   output: {
     filename: 'qwPage.js',
-    path: path.resolve(__dirname, 'distWebPack'),
+    path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'var',
     library: 'QWPage'
   }, 
