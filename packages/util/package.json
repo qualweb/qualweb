@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.2.58",
+  "version": "0.3.0",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "file:../types",
+    "@qualweb/types": "^0.4.0",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^13.11.0",
     "chai": "^4.2.0",
@@ -43,8 +43,8 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@qualweb/qw-element": "file:../qw-element",
-    "@qualweb/qw-page": "file:../QWPage",
+    "@qualweb/qw-element": "^0.1.1",
+    "@qualweb/qw-page": "^0.1.2",
     "domutils": "^2.0.0",
     "htmlparser-to-html": "0.0.6",
     "lodash.clone": "^4.5.0",

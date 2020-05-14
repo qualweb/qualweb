@@ -2,11 +2,10 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-//fixme
 function isFocusableBrowser(page: QWPage, element: QWElement): boolean {
-  //await element.focus();
-  //const snapshot = await page.accessibility.snapshot({ root: element });
-  return true;//snapshot && snapshot.focused !== undefined;
+  element.focusElement();
+  let focused = page.getFocusedElement();
+  return element.getElementSelector() === focused.getElementSelector();
 }
 
 export default isFocusableBrowser;
