@@ -1,8 +1,8 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.3.33",
+  "version": "0.4.0",
   "description": "ACT-R module for qualweb accessibility evaluator",
-  "main": "dist/index.js",
+  "main": "dist/act.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "test": "npm i && mocha --recursive",
