@@ -68,9 +68,10 @@ class System {
       this.urls = this.urls.concat(await crawlDomain(options.crawl));
     }
 
+    /*FIXME
     if (options.html) {
       this.html = options.html;
-    }
+    }*/
     
     if (!this.html && this.urls.length === 0) {
       throw new Error('Invalid input method');
