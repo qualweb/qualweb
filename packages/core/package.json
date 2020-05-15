@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",

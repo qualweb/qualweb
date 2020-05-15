@@ -86,12 +86,16 @@ async function evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, styl
     }
   };
 
+  // @ts-ignore
+  //const pathToModule = require.resolve('@qualweb/qw-page');;
+  //console.log(pathToModule.replace('index.js', 'qwPage.js'));
+
   const evaluation = new Evaluation(evaluator);
 
   const reports = new Array<any>();
   const css = new CSSTechniques();
   await page.addScriptTag({
-    path: require.resolve('../../../node_modules/@qualweb/qw-page/dist/qwPage.js')
+    path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
   })
 
   if (execute.act) {
@@ -235,13 +239,16 @@ async function evaluateHtml(sourceHtml: SourceHtml, page: Page, stylesheets: CSS
     }
   };
 
+  // @ts-ignore
+  const mainDir = require.main.path;
+
   const evaluation = new Evaluation(evaluator);
   const reports = new Array<any>();
   const css = new CSSTechniques();
 
   await page.addScriptTag({
-    path: require.resolve('../../../node_modules/@qualweb/qw-page/dist/qwPage.js')
-  })
+    path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+  });
 
   if (execute.act) {
     await page.addScriptTag({
