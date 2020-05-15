@@ -8,7 +8,7 @@ describe('Should do parallel evaluations', function() {
     
     const response = await fetch('https://act-rules.github.io/testcases.json')
     const testCases = await response.json();
-    const rule = 'bc659a';
+    const rule = '2779a5';
     const tcs = testCases.testcases.filter(tc => tc.ruleId === rule);
     const urls = tcs.map(tc => tc.url);
 
@@ -22,7 +22,7 @@ describe('Should do parallel evaluations', function() {
       'act-rules': {
         rules: [rule]
       },
-      maxParallelEvaluations: 1, //urls.length
+      maxParallelEvaluations: urls.length
     };
     
     await core.evaluate(options);
