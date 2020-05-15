@@ -10,9 +10,10 @@ const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];
 
 describe(`Rule ${rule}`, async function () {
+// chromium-browser --remote-debugging-port=9222
 
   it('Starting testbench', async function () {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -29,7 +30,7 @@ describe(`Rule ${rule}`, async function () {
             path: require.resolve('../qwPage.js')
           })
           await page.addScriptTag({
-            path: require.resolve('../act.js')
+            path: require.resolve('../../dist/act.js')
           })
           sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
@@ -45,7 +46,7 @@ describe(`Rule ${rule}`, async function () {
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        await browser.close();
+        //await browser.close();
       });
     });
   });

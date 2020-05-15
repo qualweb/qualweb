@@ -30,7 +30,7 @@ describe(`Rule ${rule}`, async function () {
             path: require.resolve('../qwPage.js')
           })
           await page.addScriptTag({
-            path: require.resolve('../act.js')
+            path: require.resolve('../../dist/act.js')
           })
           sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {

@@ -73,7 +73,7 @@ function ElementHasAttributeRole(role: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value =  function() {
-      const _role = arguments[0].getElementAttribute('role');// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+      const _role = AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (!_role || _role === role) {
         return method.apply(this, arguments);
       }
