@@ -4,14 +4,15 @@ const fs = require('fs');
 
 describe('Core', function() {
 
-  it('Should evaluate', async function() {
+  it.only('Should evaluate', async function() {
     this.timeout(1000 * 1000);
 
     await core.start();
     const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
-    await core.stop();
+    console.log(reports);
+    await core.close();
 
-    expect(reports[url].type).to.be.equal('evaluation');
+    expect(reports['http://ciencias.ulisboa.pt'].type).to.be.equal('evaluation');
   });
 
   it('EARL report should have assertions from all modules', async function() {

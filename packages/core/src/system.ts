@@ -11,6 +11,7 @@ import { evaluateUrl, evaluateHtml } from './lib/managers/module.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import clone from 'lodash.clone';
 import css from 'css';
+import fetch from 'node-fetch';
 
 import {
   DEFAULT_DESKTOP_USER_AGENT,
@@ -67,9 +68,10 @@ class System {
       this.urls = this.urls.concat(await crawlDomain(options.crawl));
     }
 
+    /*FIXME
     if (options.html) {
       this.html = options.html;
-    }
+    }*/
     
     if (!this.html && this.urls.length === 0) {
       throw new Error('Invalid input method');
@@ -153,13 +155,15 @@ class System {
           }
         });
 
-        const response = await page.goto(url, {
+        const _sourceHtml = await this.getSourceHtml(url);
+
+        await page.goto(url, {
           timeout: 0,
           waitUntil: ['networkidle2', 'domcontentloaded']
         });
 
-        if (response) {
-          const sourceHtml = await this.parseSourceHTML(await response.text());
+        if (_sourceHtml) {
+          const sourceHtml = await this.parseSourceHTML(_sourceHtml);
           const styles = CSSselect('style', sourceHtml.html.parsed);
           let k = 0;
           for (const style of styles || []) {
@@ -183,7 +187,6 @@ class System {
           await this.mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
           
           const evaluation = await evaluateUrl(url, sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
-
           this.evaluations[url] = evaluation.getFinalReport();
         } else {
           throw new Error('Error trying to reach webpage.');
@@ -295,6 +298,18 @@ class System {
         isLandscape: true
       });
     }
+  }
+
+  private async getSourceHtml(url: string, options?: any): Promise<string> {
+    const fetchOptions = {
+      'headers': {
+          'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
+      }
+    };
+    const response = await fetch(url, fetchOptions);
+    const sourceHTML = (await response.text()).trim();
+    
+    return sourceHTML;
   }
 
   private async parseStylesheets(plainStylesheets: any): Promise<any[]> {
