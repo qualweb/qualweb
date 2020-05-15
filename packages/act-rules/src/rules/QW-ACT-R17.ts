@@ -55,7 +55,7 @@ class QW_ACT_R17 extends Rule {
           evaluation.resultCode = 'RC4';
         }
       }
-    } else if (role === "img") {
+    } else if (name !== "svg" && role === "img") {
       if (!elementInAT) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not included in the accessibility tree.`;
@@ -74,7 +74,7 @@ class QW_ACT_R17 extends Rule {
       }
     } else {
       evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target doesn't have role img.`;
+      evaluation.description = `The test target is not an HTML element with role img.`;
       evaluation.resultCode = 'RC8';
     }
     console.log(evaluation.resultCode)
