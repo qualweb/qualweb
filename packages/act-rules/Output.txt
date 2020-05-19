@@ -133,7 +133,7 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 228,
+        "passed": 221,
         "warning": 1,
         "failed": 25,
         "outcome": "failed",
@@ -200,14 +200,14 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(2)"
         },
         {
@@ -13185,7 +13185,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<input name=\"form_key\" type=\"hidden\" value=\"sGcrekqJV8KTtPF5\">",
+          "htmlCode": "<input name=\"form_key\" type=\"hidden\" value=\"GgsyDGUYxyXSOT4W\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)"
         },
         {
@@ -13269,14 +13269,14 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<li data-target=\"#slider_carousel_id\" data-slide-to=\"7\" class=\"active\"></li>",
+          "htmlCode": "<li data-target=\"#slider_carousel_id\" data-slide-to=\"7\" class=\"\"></li>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ol:nth-of-type(1) > li:nth-of-type(8)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<li data-target=\"#slider_carousel_id\" data-slide-to=\"8\"></li>",
+          "htmlCode": "<li data-target=\"#slider_carousel_id\" data-slide-to=\"8\" class=\"active\"></li>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ol:nth-of-type(1) > li:nth-of-type(9)"
         },
         {
@@ -13456,43 +13456,43 @@
         },
         {
           "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "htmlCode": "<div class=\"carousel-item active\"></div>",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "htmlCode": "<div class=\"carousel-item\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8)"
         },
         {
           "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
           "htmlCode": "<a href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\">\n\t\t\t\t\t\t\n\t\t\t\t\t</a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
           "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/Skrey_Slideshow/Slide_Image/p/c/pcdiga__1170x300.jpg\" data-alias=\"teste\" class=\"d-block w-100\" alt=\"Motherboards ASUS Z490\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<div class=\"carousel-item \"></div>",
+          "description": "Element doesn't have text.",
+          "resultCode": "RC2",
+          "htmlCode": "<div class=\"carousel-item active\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(9)"
         },
         {
           "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
+          "description": "Element doesn't have text.",
+          "resultCode": "RC2",
           "htmlCode": "<a href=\"https://www.pcdiga.com/ipad-pro-2020?ref=Homepage_Big_Leaderboard&amp;campaign=iPadPro2020\">\n\t\t\t\t\t\t\n\t\t\t\t\t</a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(9) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
+          "description": "Element doesn't have text.",
+          "resultCode": "RC2",
           "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/Skrey_Slideshow/Slide_Image/i/p/ipadpro_desktop.jpg\" data-alias=\"teste\" class=\"d-block w-100\" alt=\"iPad Pro - O seu Próximo Computador, Não é um Computador.\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(9) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
@@ -13857,7 +13857,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_1140x50px.jpg\" width=\"1140\" height=\"50\" class=\"image1\">",
+          "htmlCode": "<img class=\"image1\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_1140x50px.jpg\" width=\"1140\" height=\"50\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
@@ -13885,7 +13885,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_360x103px.jpg\" width=\"360\" height=\"103\" class=\"image2\">",
+          "htmlCode": "<img class=\"image2\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_360x103px.jpg\" width=\"360\" height=\"103\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > p:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
@@ -28025,7 +28025,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28046,21 +28046,21 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_211_50_1_1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Portátil Lenovo Legion Y540 15.6&quot; Y540-15IRH-156\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_p019885_1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Portátil Lenovo IdeaPad L340 Gaming 15.6&quot; L340-15IRH-013\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"product-card--title\" title=\"Portátil Lenovo Legion Y540 15.6&quot; Y540-15IRH-156\"></div>",
+          "htmlCode": "<div class=\"product-card--title\" title=\"Portátil Lenovo IdeaPad L340 Gaming 15.6&quot; L340-15IRH-013\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        Portátil Lenovo Legion Y540 15.6\" Y540-15IRH-156\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        Portátil Lenovo IdeaPad L340 Gaming 15.6\" L340-15IRH-013\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -28081,7 +28081,7 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        Intel Core i5-9300HF | Free DOS | 8GB RAM | FHD 60Hz | GeForce GTX 1650 | SSD 256GB\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        Intel Core i5-9300HF | Free DOS | 8GB RAM | FHD 60Hz | GeForce GTX 1650 | SSD 256GB\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
@@ -28109,7 +28109,7 @@
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div id=\"product_calc_date_260170\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260169\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
@@ -28151,7 +28151,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024441\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024440\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -28165,14 +28165,14 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        \n\n    \n        \n\t\t\t749,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        \n\n    \n        \n\t\t\t649,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element doesn't have human language text.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260170\" data-price-box=\"product-id-260170\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260169\" data-price-box=\"product-id-260169\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -28228,7 +28228,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260170\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260170&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260169\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260169&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -28242,7 +28242,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260170\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260170,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260169\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260169,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
@@ -28291,7 +28291,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28312,21 +28312,21 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_261_2.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Motherboard ATX Biostar Racing Z490GTA + Oferta Teclado Mecânico Biostar Racing GK3\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/7/_/7_63_21.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"product-card--title\" title=\"Motherboard ATX Biostar Racing Z490GTA + Oferta Teclado Mecânico Biostar Racing GK3\"></div>",
+          "htmlCode": "<div class=\"product-card--title\" title=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        Motherboard ATX Biostar Racing Z490GTA + Oferta Teclado Mecânico Biostar Racing GK3\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -28347,7 +28347,7 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        Quando você entra no mundo dos jogos com a motherboard Racing Z490GTA da BIOSTAR, haverá a emoção da vitória.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        As limpezas em casa estão facilitadas com a ajuda do Mi Robot Vaccum-Mop, com mapeamento automático da casa, recarga automática e controlo completo pela APP.\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
@@ -28375,7 +28375,7 @@
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div id=\"product_calc_date_260516\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260176\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
@@ -28396,7 +28396,7 @@
           "verdict": "failed",
           "description": "Element has contrast ratio lower than minimum.",
           "resultCode": "RC11",
-          "htmlCode": "<p class=\"stock_message\" title=\"Entrega prevista a 22 de maio\"></p>",
+          "htmlCode": "<p class=\"stock_message\" title=\"Entrega prevista a 25 de maio\"></p>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(1) > p:nth-of-type(1)"
         },
         {
@@ -28417,7 +28417,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024775\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024447\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -28431,14 +28431,14 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        \n    \n        \n\t\t\t249,90€\n        \n    \n    \n        PVPR\n        \n\t\t\t269,90€\n\t\t\n    \n\n    \n        -19 €    \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\t\t\t249,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element doesn't have human language text.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260516\" data-price-box=\"product-id-260516\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260176\" data-price-box=\"product-id-260176\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -28463,60 +28463,11 @@
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > span:nth-of-type(1)"
         },
         {
-          "verdict": "passed",
-          "description": "Element doesn't have human language text.",
-          "resultCode": "RC9",
-          "htmlCode": "<div class=\"value--old-price\"></div>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element doesn't have human language text.",
-          "resultCode": "RC9",
-          "htmlCode": "<span class=\"price-to-public\"></span>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element doesn't have human language text.",
-          "resultCode": "RC9",
-          "htmlCode": "<p></p>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(1)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element doesn't have human language text.",
-          "resultCode": "RC9",
-          "htmlCode": "<span class=\"price\"></span>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(1) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element doesn't have human language text.",
-          "resultCode": "RC9",
-          "htmlCode": "<div class=\"value--price--label-discount\"></div>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element has contrast ratio higher than minimum.",
-          "resultCode": "RC9",
+          "verdict": "inapplicable",
+          "description": "Element doesn't have text.",
+          "resultCode": "RC2",
           "htmlCode": "<div class=\"product-card--label\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8)"
-        },
-        {
-          "verdict": "passed",
-          "description": "Element has contrast ratio higher than minimum.",
-          "resultCode": "RC9",
-          "htmlCode": "<div class=\"product-card--label-with-offer\"></div>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > div:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Colors are equal.",
-          "resultCode": "RC7",
-          "htmlCode": "<p></p>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > div:nth-of-type(1) > p:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
@@ -28529,7 +28480,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260516\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260516&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -28543,7 +28494,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260516\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260516,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
@@ -28571,7 +28522,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n            </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-msi-15-6-gf65-thin-9sexr-256xpt\">\n            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28585,7 +28536,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                \n                    \n                \n                </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-msi-15-6-gf65-thin-9sexr-256xpt\">\n                \n                    \n                \n                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28613,7 +28564,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                    \n                        Monitor LG 24BL650C-B IPS 23.8\" FHD 16:9 75Hz\n                    \n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-msi-15-6-gf65-thin-9sexr-256xpt\">\n                    \n                        Portátil MSI 15.6\" GF65 Thin 9SEXR-256XPT\n                    \n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28641,7 +28592,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-msi-15-6-gf65-thin-9sexr-256xpt\">\n                        </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28655,21 +28606,21 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        \n                            </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-msi-15-6-gf65-thin-9sexr-256xpt\">\n                        \n                            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"24px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024613\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"24px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P022780\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P024613\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P022780\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
         },
         {
@@ -28697,13 +28648,6 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<span></span>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(2) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
           "htmlCode": "<p></p>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(3)"
         },
@@ -28718,7 +28662,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_258_3.jpg\" alt=\"Monitor LG 24BL650C-B IPS 23.8\" fhd=\"\" 16:9=\"\" 75hz\"=\"\">",
+          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_242_36.jpg\" alt=\"Portátil MSI 15.6\" gf65=\"\" thin=\"\" 9sexr-256xpt\"=\"\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > img:nth-of-type(1)"
         },
         {
@@ -28753,7 +28697,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260350\" data-price-box=\"product-id-260350\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"258183\" data-price-box=\"product-id-258183\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -28795,7 +28739,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-asus-tuf-gaming-vg249q-ips-23-8-fhd-16-9-144hz-freesync\">\n            </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/tapete-de-rato-pcdiga-mousepad-extended-preto\">\n            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28809,7 +28753,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-asus-tuf-gaming-vg249q-ips-23-8-fhd-16-9-144hz-freesync\">\n                \n                    \n                \n                </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/tapete-de-rato-pcdiga-mousepad-extended-preto\">\n                \n                    \n                \n                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28837,7 +28781,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-asus-tuf-gaming-vg249q-ips-23-8-fhd-16-9-144hz-freesync\">\n                    \n                        Monitor Asus TUF Gaming VG249Q IPS 23.8\" FHD 16:9 144Hz FreeSync\n                    \n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/tapete-de-rato-pcdiga-mousepad-extended-preto\">\n                    \n                        Tapete PCDIGA Mousepad Extended Preto\n                    \n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28865,7 +28809,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-asus-tuf-gaming-vg249q-ips-23-8-fhd-16-9-144hz-freesync\">\n                        </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/tapete-de-rato-pcdiga-mousepad-extended-preto\">\n                        </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -28879,22 +28823,29 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-asus-tuf-gaming-vg249q-ips-23-8-fhd-16-9-144hz-freesync\">\n                        \n                            </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/tapete-de-rato-pcdiga-mousepad-extended-preto\">\n                        \n                            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"24px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P023689\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"24px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P021776\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P023689\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P021776\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/popup.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P021776\" style=\"position: absolute; z-index: 99; top: 25px; height: 202px; width: 180px; border-style: none; display: none; overflow: hidden;\"></iframe>",
+          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
@@ -28942,7 +28893,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/5/1579014398_1536225.jpg\" alt=\"Monitor Asus TUF Gaming VG249Q IPS 23.8\" fhd=\"\" 16:9=\"\" 144hz=\"\" freesync\"=\"\">",
+          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_p021776.jpg\" alt=\"Tapete PCDIGA Mousepad Extended Preto\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > img:nth-of-type(1)"
         },
         {
@@ -28977,7 +28928,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"259371\" data-price-box=\"product-id-259371\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"255660\" data-price-box=\"product-id-255660\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -29000,41 +28951,6 @@
           "resultCode": "RC1",
           "htmlCode": "<span class=\"price\"></span>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<div class=\"value--old-price\"></div>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<span class=\"price-to-public\"></span>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<p></p>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<span class=\"price\"></span>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(1) > span:nth-of-type(1)"
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
-          "htmlCode": "<div class=\"value--price--label-discount\"></div>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3)"
         },
         {
           "verdict": "passed",
@@ -29075,7 +28991,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -29096,21 +29012,21 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/h/e/headset_hyperx_gaming_cloud_stinger_core_7.1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Headset HyperX Gaming Cloud Stinger Core 7.1\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/0/1094-20190423165642.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Placa Gráfica PNY GeForce GTX 1650 XLR8 Gaming Overclocked Single Fan 4GB\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"product-card--title\" title=\"Headset HyperX Gaming Cloud Stinger Core 7.1\"></div>",
+          "htmlCode": "<div class=\"product-card--title\" title=\"Placa Gráfica PNY GeForce GTX 1650 XLR8 Gaming Overclocked Single Fan 4GB\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        Headset HyperX Gaming Cloud Stinger Core 7.1\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        Placa Gráfica PNY GeForce GTX 1650 XLR8 Gaming Overclocked Single Fan 4GB\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -29131,7 +29047,7 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        O HyperX Cloud Stinger Core ™ é o headset de nível básico perfeito para os jogadores de consola de videojogos que procuram um ótimo som a um ótimo preço.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        Clock Base: 1485MHz | Clock Boost: 1725MHz | Núcleos CUDA: 896 | Interface Memória: 192 Bits | TDP: 100W\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
@@ -29159,7 +29075,7 @@
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div id=\"product_calc_date_260294\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260229\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
@@ -29201,7 +29117,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024559\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024498\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -29215,14 +29131,14 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        \n\n    \n        \n\t\t\t59,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        \n\n    \n        \n\t\t\t148,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element doesn't have human language text.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260294\" data-price-box=\"product-id-260294\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260229\" data-price-box=\"product-id-260229\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -29264,7 +29180,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260294\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260294&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260229\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260229&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -29278,7 +29194,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260294\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260294,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260229\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260229,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
@@ -29327,7 +29243,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
@@ -29348,21 +29264,21 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/7/_/7_63_21.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_258_3.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Monitor LG 24BL650C-B IPS 23.8&quot; FHD 16:9 75Hz\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"product-card--title\" title=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\"></div>",
+          "htmlCode": "<div class=\"product-card--title\" title=\"Monitor LG 24BL650C-B IPS 23.8&quot; FHD 16:9 75Hz\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        Monitor LG 24BL650C-B IPS 23.8\" FHD 16:9 75Hz\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -29383,7 +29299,7 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        As limpezas em casa estão facilitadas com a ajuda do Mi Robot Vaccum-Mop, com mapeamento automático da casa, recarga automática e controlo completo pela APP.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        5ms | 1920x1080 | 250 cd/m² | 1xDisplayPort | 1xHDMI | 1xUSB-C | Jack 3.5mm\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
@@ -29411,7 +29327,7 @@
           "verdict": "passed",
           "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
-          "htmlCode": "<div id=\"product_calc_date_260176\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260350\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
@@ -29432,7 +29348,7 @@
           "verdict": "failed",
           "description": "Element has contrast ratio lower than minimum.",
           "resultCode": "RC11",
-          "htmlCode": "<p class=\"stock_message\" title=\"Entrega prevista a 25 de maio\"></p>",
+          "htmlCode": "<p class=\"stock_message\" title=\"Entrega prevista a 22 de maio\"></p>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(1) > p:nth-of-type(1)"
         },
         {
@@ -29453,7 +29369,7 @@
           "verdict": "inapplicable",
           "description": "Element doesn't have text.",
           "resultCode": "RC2",
-          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024447\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
+          "htmlCode": "<div class=\"trustpilot-widget\" data-locale=\"pt-PT\" data-template-id=\"54d39695764ea907c0f34825\" data-businessunit-id=\"595ae1d00000ff0005a5e7f4\" data-style-height=\"16px\" data-style-width=\"180px\" data-theme=\"light\" data-sku=\"P024613\" <a=\"\" href=\"https://pt.trustpilot.com/review/pcdiga.com\" target=\"_blank\" rel=\"noopener\" style=\"position: relative;\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -29467,14 +29383,14 @@
           "verdict": "inapplicable",
           "description": "Element has a semantic role that inherits from widget.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\t\t\t249,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        \n\n    \n        \n\t\t\t179,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "Element doesn't have human language text.",
           "resultCode": "RC9",
-          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260176\" data-price-box=\"product-id-260176\"></div>",
+          "htmlCode": "<div class=\"price-box price-final_price\" data-role=\"priceBox\" data-product-id=\"260350\" data-price-box=\"product-id-260350\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > div:nth-of-type(1)"
         },
         {
@@ -29516,7 +29432,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260350\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260350&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
@@ -29530,7 +29446,7 @@
           "verdict": "inapplicable",
           "description": "Element is not visible.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260350\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260350,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
@@ -32025,14 +31941,14 @@
           "verdict": "failed",
           "description": "The test target doesn't have an accessible name, or it's empty (\"\").",
           "resultCode": "RC3",
-          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(1)"
         },
         {
           "verdict": "failed",
           "description": "The test target doesn't have an accessible name, or it's empty (\"\").",
           "resultCode": "RC3",
-          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(2)"
         },
         {
@@ -32067,8 +31983,8 @@
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\">\n\t\t\t\t\t\t\n\t\t\t\t\t</a>",
-          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > a:nth-of-type(1)"
+          "htmlCode": "<a href=\"https://www.pcdiga.com/ipad-pro-2020?ref=Homepage_Big_Leaderboard&amp;campaign=iPadPro2020\">\n\t\t\t\t\t\t\n\t\t\t\t\t</a>",
+          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(9) > a:nth-of-type(1)"
         },
         {
           "verdict": "failed",
@@ -32466,112 +32382,112 @@
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        Portátil Lenovo Legion Y540 15.6\" Y540-15IRH-156\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        Portátil Lenovo IdeaPad L340 Gaming 15.6\" L340-15IRH-013\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        Intel Core i5-9300HF | Free DOS | 8GB RAM | FHD 60Hz | GeForce GTX 1650 | SSD 256GB\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        Intel Core i5-9300HF | Free DOS | 8GB RAM | FHD 60Hz | GeForce GTX 1650 | SSD 256GB\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-legion-y540-15-6-y540-15irh-156\">\n                        \n\n    \n        \n\t\t\t749,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/portatil-lenovo-ideapad-l340-gaming-15-6-l340-15irh-013\">\n                        \n\n    \n        \n\t\t\t649,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        Motherboard ATX Biostar Racing Z490GTA + Oferta Teclado Mecânico Biostar Racing GK3\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        Quando você entra no mundo dos jogos com a motherboard Racing Z490GTA da BIOSTAR, haverá a emoção da vitória.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        As limpezas em casa estão facilitadas com a ajuda do Mi Robot Vaccum-Mop, com mapeamento automático da casa, recarga automática e controlo completo pela APP.\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/motherboard-atx-biostar-racing-z490gta\">\n                        \n    \n        \n\t\t\t249,90€\n        \n    \n    \n        PVPR\n        \n\t\t\t269,90€\n\t\t\n    \n\n    \n        -19 €    \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\t\t\t249,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        Headset HyperX Gaming Cloud Stinger Core 7.1\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        Placa Gráfica PNY GeForce GTX 1650 XLR8 Gaming Overclocked Single Fan 4GB\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        O HyperX Cloud Stinger Core ™ é o headset de nível básico perfeito para os jogadores de consola de videojogos que procuram um ótimo som a um ótimo preço.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        Clock Base: 1485MHz | Clock Boost: 1725MHz | Núcleos CUDA: 896 | Interface Memória: 192 Bits | TDP: 100W\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/headset-hyperx-gaming-cloud-stinger-core-7-1\">\n                        \n\n    \n        \n\t\t\t59,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/placa-grafica-pny-geforce-gtx-1650-xlr8-gaming-overclocked-single-fan-4gb\">\n                        \n\n    \n        \n\t\t\t148,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        \n\n    \n        \n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        Monitor LG 24BL650C-B IPS 23.8\" FHD 16:9 75Hz\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        As limpezas em casa estão facilitadas com a ajuda do Mi Robot Vaccum-Mop, com mapeamento automático da casa, recarga automática e controlo completo pela APP.\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        5ms | 1920x1080 | 250 cd/m² | 1xDisplayPort | 1xHDMI | 1xUSB-C | Jack 3.5mm\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a valid accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a href=\"https://www.pcdiga.com/aspirador-robo-xiaomi-mi-robot-vacuum-mop-branco\">\n                        \n\n    \n        \n\t\t\t249,90€\n        \n    \n\n\n\n\n                    </a>",
+          "htmlCode": "<a href=\"https://www.pcdiga.com/monitor-lg-24bl650c-b-ips-23-8-fhd-16-9-75hz\">\n                        \n\n    \n        \n\t\t\t179,90€\n        \n    \n\n\n\n\n                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1)"
         },
         {
@@ -32730,9 +32646,9 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 113,
+        "passed": 111,
         "warning": 0,
-        "failed": 111,
+        "failed": 113,
         "outcome": "failed",
         "description": "Several elements have the same `id` attribute (svg-hover).",
         "": null
@@ -33985,9 +33901,9 @@
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ol:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
-          "verdict": "passed",
-          "description": "The test target has a unique `id` attribute.",
-          "resultCode": "RC2",
+          "verdict": "failed",
+          "description": "Several elements have the same `id` attribute (product_calc_date_260169).",
+          "resultCode": "RC1",
           "htmlCode": "<div id=\"product_calc_date_260169\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ol:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
@@ -34160,31 +34076,31 @@
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6)"
         },
         {
-          "verdict": "passed",
-          "description": "The test target has a unique `id` attribute.",
-          "resultCode": "RC2",
-          "htmlCode": "<div id=\"product_calc_date_260170\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "verdict": "failed",
+          "description": "Several elements have the same `id` attribute (product_calc_date_260169).",
+          "resultCode": "RC1",
+          "htmlCode": "<div id=\"product_calc_date_260169\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a unique `id` attribute.",
           "resultCode": "RC2",
-          "htmlCode": "<div id=\"product_calc_date_260516\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260176\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a unique `id` attribute.",
           "resultCode": "RC2",
-          "htmlCode": "<div id=\"product_calc_date_260294\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260229\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
           "verdict": "passed",
           "description": "The test target has a unique `id` attribute.",
           "resultCode": "RC2",
-          "htmlCode": "<div id=\"product_calc_date_260176\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
+          "htmlCode": "<div id=\"product_calc_date_260350\" class=\"product-card--order-message order-message--receive-tomorrow\"></div>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(5)"
         },
         {
@@ -34293,20 +34209,6 @@
           "pointer": "html > body > div:nth-of-type(5) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3)"
         },
         {
-          "verdict": "",
-          "description": "",
-          "resultCode": "",
-          "htmlCode": "<script type=\"text/javascript\" id=\"\" src=\"https://www.googletagmanager.com/gtag/js?id=AW-863670867\"></script>",
-          "pointer": "html > body > script:nth-of-type(15)"
-        },
-        {
-          "verdict": "",
-          "description": "",
-          "resultCode": "",
-          "htmlCode": "<script type=\"text/javascript\" id=\"\">window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag(\"js\",new Date);gtag(\"config\",\"AW-863670867\");</script>",
-          "pointer": "html > body > script:nth-of-type(16)"
-        },
-        {
           "verdict": "passed",
           "description": "The test target has a unique `id` attribute.",
           "resultCode": "RC2",
@@ -34319,6 +34221,20 @@
           "resultCode": "RC2",
           "htmlCode": "<div id=\"onesignal-bell-launcher\" class=\"onesignal-bell-launcher onesignal-bell-launcher-md onesignal-bell-launcher-bottom-right onesignal-bell-launcher-theme-default onesignal-bell-launcher-active\" style=\"bottom: 7px; right: 60px;\"></div>",
           "pointer": "html > body > div:nth-of-type(6) > div:nth-of-type(1)"
+        },
+        {
+          "verdict": "",
+          "description": "",
+          "resultCode": "",
+          "htmlCode": "<script type=\"text/javascript\" id=\"\" src=\"https://www.googletagmanager.com/gtag/js?id=AW-863670867\"></script>",
+          "pointer": "html > body > script:nth-of-type(15)"
+        },
+        {
+          "verdict": "",
+          "description": "",
+          "resultCode": "",
+          "htmlCode": "<script type=\"text/javascript\" id=\"\">window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag(\"js\",new Date);gtag(\"config\",\"AW-863670867\");</script>",
+          "pointer": "html > body > script:nth-of-type(16)"
         }
       ]
     },
@@ -36878,7 +36794,7 @@
           "WCAG21:language"
         ],
         "passed": 16,
-        "warning": 6,
+        "warning": 7,
         "failed": 0,
         "outcome": "warning",
         "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent.",
@@ -36889,14 +36805,14 @@
           "verdict": "inapplicable",
           "description": "Doesn't exist any other `link` with the same accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_left triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "Doesn't exist any other `link` with the same accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/?query=P024840%20P024841%20P024842%20P024843%20P024845%20P024846\"></a>",
+          "htmlCode": "<a class=\"takeover takeover_right triggerGAEvent\" data-type=\"takeover\" href=\"https://www.pcdiga.com/10-gen-intel-core-desktop-cpus?ref=Takeover&amp;campaign=10GenIntelCore\"></a>",
           "pointer": "html > body > a:nth-of-type(2)"
         },
         {
@@ -36977,9 +36893,9 @@
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
+          "verdict": "warning",
+          "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent.",
+          "resultCode": "RC3",
           "htmlCode": "<a href=\"/computadores/notebooks/computadores-portateis\" target=\"_parent\">Portáteis</a>",
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
         },
@@ -37355,9 +37271,9 @@
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
+          "verdict": "",
+          "description": "",
+          "resultCode": "",
           "htmlCode": "<a href=\"/catalogo-pcdiga/componentes/fontes-de-alimentacao?pwr_modular=5600\" target=\"_parent\">Semi Modulares</a>",
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
         },
@@ -37404,16 +37320,16 @@
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
+          "verdict": "",
+          "description": "",
+          "resultCode": "",
           "htmlCode": "<a href=\"/componentes/f-coolers-cpu/coolers-cpu\" class=\"i-link\" target=\"_parent\">\n                                                        Coolers CPU\n                                                        \n                                                                    \n                                                                        \n                                                                        \n                                                                    \n                                                                \n                                                    </a>",
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(1) > a:nth-of-type(1)"
         },
         {
-          "verdict": "",
-          "description": "",
-          "resultCode": "",
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
           "htmlCode": "<a href=\"/catalogo-pcdiga/componentes/f-coolers-cpu/coolers-cpu?tipo_cooler_cpu=6617\" target=\"_parent\">Air Cooling</a>",
           "pointer": "html > body > div:nth-of-type(5) > header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(2) > li:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
         },
@@ -38805,56 +38721,56 @@
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260170\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260170&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260169\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260169&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260170\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260170,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260169\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260169,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260516\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260516&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260516\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260516,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260294\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260294&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260229\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260229&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260294\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260294,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260229\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260229,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260350\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260350&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260350\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260350,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         }
       ]
@@ -40046,56 +39962,56 @@
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260170\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260170&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260169\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260169&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260170\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260170,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260169\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260169,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260516\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260516&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260516\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260516,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260294\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260294&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260229\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260229&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260294\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260294,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260229\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260229,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260350\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260350&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC3",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260350\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260350,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         }
       ]
@@ -40880,56 +40796,56 @@
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260170\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260170&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260169\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260169&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260170\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260170,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260169\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260169,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260516\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260516&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260516\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260516,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260294\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260294&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260229\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260229&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260294\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260294,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260229\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260229,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260176\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260176&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"compare\" class=\"tocompare-custom compare_product_260350\" data-request-compare=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/catalog\\/product_compare\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:&quot;260350&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\">\n                 Comparar            </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
           "resultCode": "RC5",
-          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260176\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260176,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
+          "htmlCode": "<a onclick=\"Pcdiga_Wishlist_Compare_Action(this);\" role=\"button\" data-type=\"wishlist\" class=\"towishlist-custom wishlist_product_260350\" data-request-wishlist=\"{&quot;action&quot;:&quot;https:\\/\\/www.pcdiga.com\\/wishlist\\/index\\/add\\/&quot;,&quot;data&quot;:{&quot;product&quot;:260350,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cucGNkaWdhLmNvbS8,&quot;}}\" data-status=\"false\">\n                     Favoritos                </a>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
         }
       ]
@@ -41101,16 +41017,16 @@
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(7) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
-          "verdict": "passed",
-          "description": "The test target has an accessible name.",
-          "resultCode": "RC3",
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC2",
           "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/Skrey_Slideshow/Slide_Image/p/c/pcdiga__1170x300.jpg\" data-alias=\"teste\" class=\"d-block w-100\" alt=\"Motherboards ASUS Z490\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(8) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
-          "verdict": "inapplicable",
-          "description": "The test target is not included in the accessibility tree.",
-          "resultCode": "RC2",
+          "verdict": "passed",
+          "description": "The test target has an accessible name.",
+          "resultCode": "RC3",
           "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/Skrey_Slideshow/Slide_Image/i/p/ipadpro_desktop.jpg\" data-alias=\"teste\" class=\"d-block w-100\" alt=\"iPad Pro - O seu Próximo Computador, Não é um Computador.\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(9) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
@@ -41209,14 +41125,14 @@
           "verdict": "failed",
           "description": "The test target doesn't have an accessible name.",
           "resultCode": "RC4",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_1140x50px.jpg\" width=\"1140\" height=\"50\" class=\"image1\">",
+          "htmlCode": "<img class=\"image1\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_1140x50px.jpg\" width=\"1140\" height=\"50\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC2",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_360x103px.jpg\" width=\"360\" height=\"103\" class=\"image2\">",
+          "htmlCode": "<img class=\"image2\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/paginas_estaticas/Landing_Page/Huawi-shop-in-shop/huawei_SiS_Banner_hOMEPAGE_360x103px.jpg\" width=\"360\" height=\"103\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > p:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
@@ -41566,14 +41482,14 @@
           "verdict": "passed",
           "description": "The test target has an accessible name.",
           "resultCode": "RC3",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_211_50_1_1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Portátil Lenovo Legion Y540 15.6&quot; Y540-15IRH-156\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_p019885_1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Portátil Lenovo IdeaPad L340 Gaming 15.6&quot; L340-15IRH-013\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has an accessible name.",
           "resultCode": "RC3",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_261_2.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Motherboard ATX Biostar Racing Z490GTA + Oferta Teclado Mecânico Biostar Racing GK3\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/7/_/7_63_21.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
@@ -41587,7 +41503,7 @@
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC2",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_258_3.jpg\" alt=\"Monitor LG 24BL650C-B IPS 23.8\" fhd=\"\" 16:9=\"\" 75hz\"=\"\">",
+          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_242_36.jpg\" alt=\"Portátil MSI 15.6\" gf65=\"\" thin=\"\" 9sexr-256xpt\"=\"\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > img:nth-of-type(1)"
         },
         {
@@ -41601,21 +41517,21 @@
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC2",
-          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/5/1579014398_1536225.jpg\" alt=\"Monitor Asus TUF Gaming VG249Q IPS 23.8\" fhd=\"\" 16:9=\"\" 144hz=\"\" freesync\"=\"\">",
+          "htmlCode": "<img src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/651540f476998aad85f035010170c10b/1/_/1_p021776.jpg\" alt=\"Tapete PCDIGA Mousepad Extended Preto\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has an accessible name.",
           "resultCode": "RC3",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/h/e/headset_hyperx_gaming_cloud_stinger_core_7.1_1.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Headset HyperX Gaming Cloud Stinger Core 7.1\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/0/1094-20190423165642.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Placa Gráfica PNY GeForce GTX 1650 XLR8 Gaming Overclocked Single Fan 4GB\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
           "verdict": "passed",
           "description": "The test target has an accessible name.",
           "resultCode": "RC3",
-          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/7/_/7_63_21.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Aspirador Robô Xiaomi Mi Robot Vacuum Mop Branco\">",
+          "htmlCode": "<img class=\"product-image-photo\" src=\"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/665290da477edde86991c2fe351dfdcb/1/_/1_258_3.jpg\" max-width=\"265\" max-height=\"265\" alt=\"Monitor LG 24BL650C-B IPS 23.8&quot; FHD 16:9 75Hz\">",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
         },
         {
@@ -41992,15 +41908,22 @@
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P024613\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P022780\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
         },
         {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC1",
-          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P023689\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/index.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P021776\" style=\"position: relative; height: 24px; width: 180px; border-style: none; display: block; overflow: hidden;\"></iframe>",
           "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC1",
+          "htmlCode": "<iframe frameborder=\"0\" scrolling=\"no\" title=\"Customer reviews powered by Trustpilot\" loading=\"auto\" src=\"https://widget.trustpilot.com/trustboxes/54d39695764ea907c0f34825/popup.html?templateId=54d39695764ea907c0f34825&amp;businessunitId=595ae1d00000ff0005a5e7f4#locale=pt-PT&amp;styleHeight=24px&amp;styleWidth=180px&amp;theme=light&amp;sku=P021776\" style=\"position: absolute; z-index: 99; top: 25px; height: 202px; width: 180px; border-style: none; display: none; overflow: hidden;\"></iframe>",
+          "pointer": "html > body > div:nth-of-type(5) > main:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(2)"
         },
         {
           "verdict": "passed",

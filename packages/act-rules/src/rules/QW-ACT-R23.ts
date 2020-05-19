@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R23 extends Rule {
@@ -15,7 +15,7 @@ class QW_ACT_R23 extends Rule {
 
   @ElementExists
   execute(element: QWElement): void {
-    
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -27,7 +27,7 @@ class QW_ACT_R23 extends Rule {
     const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element);
 
-    if (metadata.service.error && metadata.puppeteer.error) {
+    if (metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect data from the test target.`;
       evaluation.resultCode = 'RC1';
@@ -50,7 +50,7 @@ class QW_ACT_R23 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC5';
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

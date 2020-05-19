@@ -7,14 +7,14 @@ describe('ACT-Rules module', function () {
   it('Should evaluate www.nav.no', async function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
-    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');
+    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://idfc.patriarcado-lisboa.pt/moodle/');
 
     try {
       await page.addScriptTag({
         path: require.resolve('../dist/act.js')
       })
       await page.addScriptTag({
-        path: require.resolve('./qwPage.js')
+        path: require.resolve('../node_modules/@qualweb/qw-page/dist/qwPage.js')
       })
       sourceHtml.html.parsed = {};
       const report = await page.evaluate((sourceHtml, stylesheets) => {
