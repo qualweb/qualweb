@@ -19,14 +19,18 @@ class QW_ACT_R10 extends Rule {
 
     const iframes = element.getElements('iframe[src]');
     const iframesAll = element.getElements('iframe');
-    let iframeContent;
+    let iframeContent,frame;
 
     for (const iframe of iframesAll || []) {
-      const frame = iframe.getContentFrame();
-      if (frame !== null) {
+      try{
+      frame = iframe.getContentFrame();}
+      catch(e){
+      }
+      if (frame) {
         iframeContent = new QWPage(frame);
         iframes.push(...(iframeContent.getElements('iframe[src]')));
       }
+      frame = null;
     }
 
     const accessibleNames = new Array<string>();
