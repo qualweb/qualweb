@@ -32,7 +32,7 @@ class QW_ACT_R31 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The pause button is not visible';
       evaluation.resultCode = 'RC1';
-    } else if (metadata.service.error && metadata.puppeteer.error) {
+    } else if ( metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';

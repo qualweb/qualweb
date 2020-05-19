@@ -4,10 +4,10 @@ const { getDom } = require('./getDom');
 const { ACTRules } = require('../dist/index');
 
 describe('ACT-Rules module', function () {
-  it('Should evaluate www.nav.no', async function () {
+  it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
-    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://idfc.patriarcado-lisboa.pt/moodle/');
+    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.twitch.tv/");
 
     try {
       await page.addScriptTag({

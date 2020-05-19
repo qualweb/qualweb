@@ -45,7 +45,7 @@ class QW_ACT_R15 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio.`;
       evaluation.resultCode = 'RC1';
-    } else if (metadata.service.error && metadata.puppeteer.error) {
+    } else if ( metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't collect data from the test target element.`;
       evaluation.resultCode = 'RC2';

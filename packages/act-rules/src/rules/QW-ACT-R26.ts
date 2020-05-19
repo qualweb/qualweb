@@ -28,7 +28,7 @@ class QW_ACT_R26 extends Rule {
 
     const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
 
-    if (metadata.service.error && metadata.puppeteer.error) {
+    if (metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect any data from the test target.`;
       evaluation.resultCode = 'RC1';
