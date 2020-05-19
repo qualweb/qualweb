@@ -222,11 +222,10 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
 
 
 function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
-
   let elementIds = ariaLabelBy.split(" ");
   let result = false;
   for (let id of elementIds) {
-    if (!result) {
+    if (!result && id !== "" )  {
       result = page.getElementByID(id, element) !== null;
     }
   }

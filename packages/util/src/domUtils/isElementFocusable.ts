@@ -25,7 +25,7 @@ function isElementFocusable(elementQW: QWElement): boolean {
     }
   }
   if (focusableByDefault) {
-    return !(disabled && hidden && tabIndexLessThanZero);
+    return !(disabled || hidden || tabIndexLessThanZero);
   } else {
     return tabIndexExistsAndIsNumber ? !tabIndexLessThanZero : false;
   }
