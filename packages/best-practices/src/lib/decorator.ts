@@ -2,7 +2,7 @@
 
 import { BestPracticeResult } from '@qualweb/best-practices';
 import bestPractices from './bestPractices.json';
-import clone from 'lodash.clone';
+import cloneDeep from 'lodash.clonedeep';
 
 function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
   const bestPractice = bestPractices[constructor.name];
@@ -16,7 +16,7 @@ function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
   
   const newConstructor: any = function () {
     let func: any = function () {
-      return new constructor(clone(bestPractice));
+      return new constructor(cloneDeep(bestPractice));
     }
     func.prototype = constructor.prototype;
     return new func();
