@@ -1,10 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R23 extends Rule {
@@ -14,25 +14,24 @@ class QW_ACT_R23 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
-    
+  execute(element: QWElement): void {
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const metadata = await DomUtils.getVideoMetadata(element);
-    const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
-    const applicableServiceData = metadata.service.video.duration > 0 && metadata.service.audio.duration > 0 && metadata.service.audio.volume !== -91;
-    const track = await element.$('track[kind="descriptions"]')
-    const isVisible = await DomUtils.isElementVisible(element);
+    const metadata = DomUtils.getVideoMetadata(element);
+    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
+    const track = element.getElement('track[kind="descriptions"]');
+    const isVisible = DomUtils.isElementVisible(element);
 
-    if (metadata.service.error && metadata.puppeteer.error) {
+    if (metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect data from the test target.`;
       evaluation.resultCode = 'RC1';
-    } else if (isVisible && applicableServiceData) {
+    } else if (isVisible) {
       if (track !== null) {
         evaluation.verdict = 'warning';
         evaluation.description = 'Check if the `track` element correctly describes the auditive content of the video.';
@@ -42,7 +41,7 @@ class QW_ACT_R23 extends Rule {
         evaluation.description = 'Check if the test target auditive content has and accessible alternative.';
         evaluation.resultCode = 'RC3';
       }
-    } else if (isVisible && hasPupeteerApplicableData) {
+    } else if (isVisible && hasPuppeteerApplicableData) {
       evaluation.verdict = 'warning';
       evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does, check if the visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC4';
@@ -51,8 +50,8 @@ class QW_ACT_R23 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC5';
     }
-    
-    await super.addEvaluationResult(evaluation, element);
+
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

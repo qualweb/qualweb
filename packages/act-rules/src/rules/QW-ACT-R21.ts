@@ -1,10 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R21 extends Rule {
@@ -14,11 +15,11 @@ class QW_ACT_R21 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const roleList = ['img', 'graphics-document', 'graphics-symbol'];
 
-    const elementsToEvaluate = await element.$$('svg *');
+    const elementsToEvaluate = element.getElements('svg *');
     elementsToEvaluate.push(element);
 
     for (const elem of elementsToEvaluate || []) {
@@ -28,11 +29,9 @@ class QW_ACT_R21 extends Rule {
         resultCode: ''
       };
 
-      const [role, isHidden, accessibleName] = await Promise.all([
-        DomUtils.getElementAttribute(elem, 'role'),
-        DomUtils.isElementHidden(elem),
-        AccessibilityUtils.getAccessibleNameSVG(elem, page)
-      ]);
+      const role = elem.getElementAttribute('role');
+      const isHidden = DomUtils.isElementHidden(elem);
+      const accessibleName = AccessibilityUtils.getAccessibleNameSVG(elem, page);
 
       if (!role || (role && roleList.indexOf(role) < 0) || isHidden) {
         evaluation.verdict = 'inapplicable';
@@ -50,7 +49,7 @@ class QW_ACT_R21 extends Rule {
 
       evaluation.accessibleName = accessibleName || undefined;
       
-      await super.addEvaluationResult(evaluation, elem);
+      super.addEvaluationResult(evaluation, elem);
     }
   }
 }

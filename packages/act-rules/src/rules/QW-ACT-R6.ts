@@ -1,10 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists, ElementIsInAccessibilityTree } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R6 extends Rule {
@@ -15,7 +16,7 @@ class QW_ACT_R6 extends Rule {
 
   @ElementExists
   @ElementIsInAccessibilityTree
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,7 +24,7 @@ class QW_ACT_R6 extends Rule {
       resultCode: ''
     };
 
-    const accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+    const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
     if (accessibleName && accessibleName.trim()) {
       evaluation.verdict = 'passed';
       evaluation.description = `The \`image button\` has an accessible name.`;
@@ -33,10 +34,8 @@ class QW_ACT_R6 extends Rule {
       evaluation.description = `The \`image button\` doesn't have an accessible name.`;
       evaluation.resultCode = 'RC2';
     }
-
     evaluation.accessibleName = accessibleName;
-
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

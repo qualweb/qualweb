@@ -1,10 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R13 extends Rule {
@@ -14,7 +14,7 @@ class QW_ACT_R13 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,9 +22,9 @@ class QW_ACT_R13 extends Rule {
       resultCode: ''
     };
 
-    const children = await DomUtils.getElementChildren(element);
+    const children = element.getElementChildren();
     if (children && children.length > 0) {
-      const focusable = await this.isFocusableChildren(element);
+      const focusable = this.isFocusableChildren(element);
       if (focusable) {
         evaluation.verdict = 'failed';
         evaluation.description = `The test target has focusable children.`;
@@ -35,7 +35,7 @@ class QW_ACT_R13 extends Rule {
         evaluation.resultCode = 'RC2';
       }
     } else {
-      const focusable = await this.isFocusableContent(element);
+      const focusable = this.isFocusableContent(element);
       if (focusable) {
         evaluation.verdict = 'failed';
         evaluation.description = `Thie test target is focusable.`;
@@ -47,30 +47,30 @@ class QW_ACT_R13 extends Rule {
       }
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
-  private async isFocusableChildren(element: ElementHandle): Promise<boolean> {
-    let result = await this.isFocusableContent(element);
-    const children = await DomUtils.getElementChildren(element);
+  private isFocusableChildren(element: QWElement): boolean {
+    let result = this.isFocusableContent(element);
+    const children = element.getElementChildren();
     for (const child of children || []) {
-      const focusable = await this.isFocusableContent(child);
+      const focusable = this.isFocusableContent(child);
       if (focusable) {
         result = true;
       } else {
-        const childFocusable = await this.isFocusableChildren(child);
+        const childFocusable = this.isFocusableChildren(child);
         result = result || childFocusable;
       }
     }
     return result;
   }
 
-  private async isFocusableContent(element: ElementHandle): Promise<boolean> {
-    const disabled = (await DomUtils.getElementAttribute(element, 'disabled')) !== null;
-    const hidden = await DomUtils.isElementHiddenByCSS(element);
-    const focusableByDefault = await DomUtils.isElementFocusableByDefault(element);
-    const tabIndexExists = (await DomUtils.getElementAttribute(element, 'tabIndex')) !== null;
-    const tabindex = await DomUtils.getElementAttribute(element, 'tabIndex');
+  private isFocusableContent(element: QWElement): boolean {
+    const disabled = (element.getElementAttribute('disabled')) !== null;
+    const hidden = DomUtils.isElementHiddenByCSS(element);
+    const focusableByDefault = DomUtils.isElementFocusableByDefault(element);
+    const tabIndexExists = (element.getElementAttribute('tabIndex')) !== null;
+    const tabindex = element.getElementAttribute('tabIndex');
 
     let tabIndexLessThanZero = false;
     if (tabindex && !isNaN(parseInt(tabindex, 10))) {

@@ -1,8 +1,9 @@
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, Optimization } from '@qualweb/util';
+import { Optimization } from '@qualweb/util';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 abstract class Rule {
 
@@ -38,12 +39,10 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected async addEvaluationResult(result: ACTRuleResult, element?: ElementHandle): Promise<void> {
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement): void {
     if (element) {
-      const [htmlCode, pointer] = await Promise.all([
-        DomUtils.getElementHtmlCode(element, true, false),
-        DomUtils.getElementSelector(element)
-      ]);
+      const htmlCode = element.getElementHtmlCode(true, false);
+      const pointer = element.getElementSelector();
       result.htmlCode = htmlCode;
       result.pointer = pointer;
     }
@@ -55,7 +54,7 @@ abstract class Rule {
     }
   }
 
-  abstract async execute(element: ElementHandle | undefined, page: Page, optimization: Optimization): Promise<void>;
+  abstract execute(element: QWElement | undefined, page: QWPage, optimization: Optimization): void;
 
   getFinalResults(): any {
     this.outcomeRule();

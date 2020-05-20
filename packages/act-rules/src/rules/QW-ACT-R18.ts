@@ -1,10 +1,10 @@
 'use strict';
 
-import { Page, ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, ShadowDomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWPage} from "@qualweb/qw-page";
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R18 extends Rule {
@@ -14,7 +14,7 @@ class QW_ACT_R18 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,11 +22,11 @@ class QW_ACT_R18 extends Rule {
       resultCode: ''
     };
 
-    const treeSelector = await ShadowDomUtils.getTreeSelector(element);
-    const id = await DomUtils.getElementAttribute(element, 'id');
+    const treeSelector = element.getTreeSelector();
+    const id = element.getElementAttribute('id');
     if (id && id.trim()) {
       try {
-        const elementsWithSameId = await page.$$(`[id="${id.trim()}"]` + treeSelector);
+        const elementsWithSameId = page.getElements(`[id="${id.trim()}"]` + treeSelector);
         const genId = RegExp('qw-generated-id-');
   
         if (elementsWithSameId.length > 1) {
@@ -45,7 +45,7 @@ class QW_ACT_R18 extends Rule {
       }
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 
