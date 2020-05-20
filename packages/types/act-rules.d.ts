@@ -38,6 +38,7 @@ declare module '@qualweb/act-rules' {
     pointer?: string;
     htmlCode?: string;
     attributes?: string | string[];
+    accessibleName?: string;
   }
 
   interface ACTRule {
@@ -59,7 +60,7 @@ declare module '@qualweb/act-rules' {
   interface ACTRulesReport {
     type: 'act-rules';
     metadata: ACTMetadata;
-    rules: {
+    assertions: {
       [rule: string]: ACTRule;
     };
   }
