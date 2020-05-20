@@ -1,12 +1,13 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R34 extends Rule {
@@ -16,7 +17,7 @@ class QW_ACT_R34 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';
@@ -26,14 +27,13 @@ class QW_ACT_R34 extends Rule {
     ariaSelector = ariaSelector.substring(0, ariaSelector.length - 2);
 
     // get all elements that are using aria attributes
-    const elementsWithAriaAttribs = await element.$$(ariaSelector);
+    const elementsWithAriaAttribs = element.getElements(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const [isInAT, elemAttribs, role] = await Promise.all([
-        AccessibilityUtils.isElementInAT(elem, page),
-        DomUtils.getElementAttributesName(elem),
-        AccessibilityUtils.getElementRole(elem, page)
-      ]);
+
+      const isInAT = AccessibilityUtils.isElementInAT(elem, page);
+      const elemAttribs = elem.getElementAttributesName();
+      const role = AccessibilityUtils.getElementRole(elem, page);
 
       let requiredAriaList;
       if (role !== null && !!rolesJSON[role]) {
@@ -49,7 +49,7 @@ class QW_ACT_R34 extends Rule {
         if (Object.keys(ariaJSON).includes(attrib)) {
           //if is in the accessibility tree
           const values = ariaJSON[attrib]['values'];
-          const attrValue = await DomUtils.getElementAttribute(elem, attrib);
+          const attrValue = elem.getElementAttribute(attrib);
           const typeValue = ariaJSON[attrib]['typeValue'];
 
           let result = false;
@@ -80,7 +80,7 @@ class QW_ACT_R34 extends Rule {
             } else if (typeValue === 'id') {
               const isRequired = requiredAriaList && requiredAriaList.includes(attrib);
               if (isRequired)
-                result = await page.$('#' + attrValue) !== null;
+                result = page.getElement('#' + attrValue) !== null;
               else
               result = !attrValue.includes(' ');
 
@@ -90,7 +90,7 @@ class QW_ACT_R34 extends Rule {
               if(isRequired) {
                 for (const id of list || []) {
                   if (!result) {
-                    result = await page.$('#' + id) !== null;
+                    result = page.getElement('#' + id) !== null;
                   }
                 }
               } else{
@@ -114,7 +114,7 @@ class QW_ACT_R34 extends Rule {
             evaluation.resultCode = 'RC5';
           }
 
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
         }
       }
     }

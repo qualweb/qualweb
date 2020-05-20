@@ -38,8 +38,8 @@ function ElementExists(target: any, propertyKey: string, descriptor: PropertyDes
 
 function ElementHasAttributes(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = async function() {
-    const hasAttributes = await DomUtils.elementHasAttributes(arguments[0]);
+  descriptor.value =  function() {
+    const hasAttributes = arguments[0].elementHasAttributes();
     if (hasAttributes) {
       return method.apply(this, arguments);
     }
@@ -49,8 +49,8 @@ function ElementHasAttributes(target: any, propertyKey: string, descriptor: Prop
 function ElementHasAttribute(attribute: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = await DomUtils.elementHasAttribute(arguments[0], attribute);
+    descriptor.value =  function() {
+      const attr = arguments[0].elementHasAttribute( attribute);
       if (attr) {
         return method.apply(this, arguments);
       }
@@ -61,8 +61,8 @@ function ElementHasAttribute(attribute: string) {
 function ElementHasNonEmptyAttribute(attribute: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);
+    descriptor.value =  function() {
+      const attr = arguments[0].getElementAttribute( attribute);
       if (attr && attr.trim()) {
         return method.apply(this, arguments);
       }
@@ -73,8 +73,8 @@ function ElementHasNonEmptyAttribute(attribute: string) {
 function ElementHasAttributeRole(role: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const _role = await DomUtils.getElementAttribute(arguments[0], 'role');//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+    descriptor.value =  function() {
+      const _role = AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (!_role || _role === role) {
         return method.apply(this, arguments);
       }
@@ -85,8 +85,8 @@ function ElementHasAttributeRole(role: string) {
 function ElementHasAttributeValue(attribute: string, value: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+    descriptor.value =  function() {
+      const attr = arguments[0].getElementAttribute(attribute);// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (attr && attr === value) {
         return method.apply(this, arguments);
       }
@@ -97,10 +97,10 @@ function ElementHasAttributeValue(attribute: string, value: string) {
 function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const _tagName = await DomUtils.getElementTagName(arguments[0]);
+    descriptor.value =  function() {
+      const _tagName = arguments[0].getElementTagName();
       if (_tagName === tagName) {
-        const _role = await DomUtils.getElementAttribute(arguments[0], 'role');//await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+        const _role = arguments[0].getElementAttribute( 'role');// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
         if (!_role || _role === role) {
           return method.apply(this, arguments);
         }
@@ -113,8 +113,8 @@ function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string)
 
 function ElementIsInAccessibilityTree(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = async function() {
-    const isInAT = await AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
+  descriptor.value =  function() {
+    const isInAT =  AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
     if (isInAT) {
       return method.apply(this, arguments);
     }
@@ -123,14 +123,14 @@ function ElementIsInAccessibilityTree(target: any, propertyKey: string, descript
 
 function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = async function() {
-    const src = await DomUtils.getElementAttribute(arguments[0], 'src');
+  descriptor.value =  function() {
+    const src = arguments[0].getElementAttribute('src');
 
     if (src) {
       const filePath = src.split('/');
       const filenameWithExtension = filePath[filePath.length - 1];
 
-      const accessibleName = await AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
+      const accessibleName =  AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
 
       if (filenameWithExtension === accessibleName) {
         return method.apply(this, arguments);
@@ -141,8 +141,8 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
 
 function ElementIsVisible(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = async function() {
-    const isVisible = await DomUtils.isElementVisible(arguments[0]);
+  descriptor.value =  function() {
+    const isVisible =  DomUtils.isElementVisible(arguments[0]);
     if (isVisible) {
       return method.apply(this, arguments);
     }
@@ -152,8 +152,8 @@ function ElementIsVisible(target: any, propertyKey: string, descriptor: Property
 function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const role = await AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+    descriptor.value =  function() {
+      const role =  AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (!!role && roles.includes(role)) {
         return method.apply(this, arguments);
       }
@@ -164,10 +164,10 @@ function ElementHasOneOfTheFollowingRoles(roles: string[]) {
 function IsDocument(document: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const rootElement = await DomUtils.getPageRootElement(arguments[1]);
+    descriptor.value =  function() {
+      const rootElement = arguments[1].getPageRootElement();
       if(rootElement) {
-        const tagName = await DomUtils.getElementTagName(rootElement);
+        const tagName = rootElement.getElementTagName();
         if (tagName === document) {
           return method.apply(this, arguments);
         }
@@ -179,13 +179,9 @@ function IsDocument(document: string) {
 //fixme
 function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = async function() {
-    try {
-      const isMathDocument = false; //await DomUtils.isMathDocument(arguments[1].url());
-      if (!isMathDocument) {
-        return method.apply(this, arguments);
-      }
-    } catch(err) {
+  descriptor.value = function() {
+    const isMathDocument = false;//DomUtils.isMathDocument(arguments[1].url());
+    if (!isMathDocument) {
       return method.apply(this, arguments);
     }
   };
@@ -194,8 +190,8 @@ function IsNotMathDocument(target: any, propertyKey: string, descriptor: Propert
 function IsLangSubTagValid(attribute: string) {
   return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = await DomUtils.getElementAttribute(arguments[0], attribute);
+    descriptor.value =  function() {
+      const attr = arguments[0].getElementAttribute( attribute);
       if (attr && isSubTagValid(attr.split('-')[0])) {
         return method.apply(this, arguments);
       }

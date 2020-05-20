@@ -1,10 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists, IsDocument, IsNotMathDocument } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+
 
 @ACTRule
 class QW_ACT_R2 extends Rule {
@@ -16,7 +16,7 @@ class QW_ACT_R2 extends Rule {
   @ElementExists
   @IsDocument('html')
   @IsNotMathDocument
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -24,7 +24,7 @@ class QW_ACT_R2 extends Rule {
       resultCode: ''
     };
 
-    const lang = await DomUtils.getElementAttribute(element, 'lang');
+    const lang = element.getElementAttribute('lang');
 
     if (lang && lang.trim()) {
       evaluation.verdict = 'passed';
@@ -36,7 +36,7 @@ class QW_ACT_R2 extends Rule {
       evaluation.resultCode = 'RC2';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

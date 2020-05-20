@@ -1,11 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import languages from '../lib/language.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R22 extends Rule {
@@ -15,7 +14,7 @@ class QW_ACT_R22 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,20 +22,20 @@ class QW_ACT_R22 extends Rule {
       resultCode: ''
     };
 
-    const lang = await DomUtils.getElementAttribute(element, 'lang');
+    const lang = element.getElementAttribute('lang');
 
     let subtag = '';
-    let splittedlang = new Array<string>();
+    let splittedLang = new Array<string>();
     if(lang){
-      splittedlang = lang.split('-');
-      subtag = splittedlang[0];
+      splittedLang = lang.split('-');
+      subtag = splittedLang[0];
     }
 
-    if (!subtag.trim()) {
+    if (!subtag.length) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target `lang` attribute is empty ("").';
       evaluation.resultCode = 'RC1';
-    } else if (this.isSubTagValid(subtag) && splittedlang.length <= 2) {
+    } else if (this.isSubTagValid(subtag)) {
       evaluation.verdict = 'passed';
       evaluation.description = 'The test target has a valid `lang` attribute.';
       evaluation.resultCode = 'RC2';
@@ -46,7 +45,7 @@ class QW_ACT_R22 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
   private isSubTagValid(subTag: string): boolean {

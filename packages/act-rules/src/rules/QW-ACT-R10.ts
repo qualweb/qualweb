@@ -1,11 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import { createHash } from 'crypto';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R10 extends Rule {
@@ -15,26 +15,30 @@ class QW_ACT_R10 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
-    const [iframes, iframesAll] = await Promise.all([
-      element.$$('iframe[src]'),
-      element.$$('iframe')
-    ]);
+    const iframes = element.getElements('iframe[src]');
+    const iframesAll = element.getElements('iframe');
+    let iframeContent,frame;
 
     for (const iframe of iframesAll || []) {
-      const frame = await iframe.contentFrame();
-      if (frame !== null) {
-        iframes.push(...(await frame.$$('iframe[src]')));
+      try{
+      frame = iframe.getContentFrame();}
+      catch(e){
       }
+      if (frame) {
+        iframeContent = new QWPage(frame);
+        iframes.push(...(iframeContent.getElements('iframe[src]')));
+      }
+      frame = null;
     }
 
     const accessibleNames = new Array<string>();
 
     // add iframe contents
     for (const link of iframes || []) {
-      if (!(await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(await DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
-        const aName = await AccessibilityUtils.getAccessibleName(link, page);
+      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
+        const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);
         }
@@ -58,12 +62,11 @@ class QW_ACT_R10 extends Rule {
           blacklist.push(...hasEqualAn);
           hasEqualAn.push(counter);
 
-          const elements = new Array<ElementHandle>();
+          const elements = new Array<QWElement>();
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
-
-          const hashArray = await this.getContentHash(elements, page);
+          const hashArray = this.getContentHash(elements);
           const firstHash = hashArray.pop();
           let result = true;
           for (const hash of hashArray || []) {
@@ -75,7 +78,7 @@ class QW_ACT_R10 extends Rule {
             evaluation.verdict = 'passed';
             evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
-          } else { //failed
+          } else {
             evaluation.verdict = 'warning';
             evaluation.description = `The \`iframes\` with the same accessible name have different content.`;
             evaluation.resultCode = 'RC3';
@@ -90,34 +93,30 @@ class QW_ACT_R10 extends Rule {
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      await super.addEvaluationResult(evaluation , iframes[counter]);
+      super.addEvaluationResult(evaluation, iframes[counter]);
       counter++;
     }
-    // Este if serve para que?
-    /*if (iframes.length === 0) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `iframe doesnt have accessible name`;
-      evaluation.resultCode = 'RC4';
-      super.addEvaluationResult(evaluation);
-    }*/
+    /* if (iframes.length === 0) {
+       evaluation.verdict = 'inapplicable';
+       evaluation.description = `iframe doesnt have accessible name`;
+       evaluation.resultCode = 'RC4';
+       super.addEvaluationResult(evaluation);
+     }*/
   }
 
-  private async getContentHash(elements: ElementHandle[], page: Page): Promise<Array<string>> {
-    const browser = page.browser();
-    const newPage = await browser.newPage();
-    const content = new Array<string>();
-    let hash;
+  private getContentHash(elements: QWElement[]): Array<string> {
+    let content: string[] = [];
+    let htmlContent;
     try {
-      for (const element of elements || []) {
-        const htmlContent = await element.contentFrame();
-        if (htmlContent) {
-          hash = createHash('md5').update(await htmlContent.content()).digest('hex'); //fixme md5
+      for (const element of elements) {
+        htmlContent = element.getContentFrame()
+        if (htmlContent!== null) {
+          let page = new QWPage(htmlContent)
+          content.push(page.getHTMLContent());
         }
-        content.push(hash);
       }
-    } catch (e) {};
-
-    await newPage.close();
+    } catch (e) {
+    };
     return content;
   }
 

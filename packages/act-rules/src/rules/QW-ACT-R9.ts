@@ -1,11 +1,11 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import { createHash } from 'crypto';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R9 extends Rule {
@@ -15,31 +15,29 @@ class QW_ACT_R9 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
-    const [links, iframes] = await Promise.all([
-      element.$$('a[href], [role="link"]'),
-      element.$$('iframe')
-    ]);
+    const links = element.getElements('a[href], [role="link"]');
+   /* const iframes = element.getElements('iframe');
 
     for (const iframe of iframes || []) {
       const frame = await iframe.contentFrame();
       if (frame !== null) {
-        links.push(...(await frame.$$('a[href], [role="link"]')));
+        links.push(...(frame.getElements('a[href], [role="link"]')));
       }
-    }
+    }*/
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string>();
 
     for (const link of links || []) {
       let aName, href;
-      if (await DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
-        aName = await AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else if(await AccessibilityUtils.isElementInAT(link, page)){
-        aName = await AccessibilityUtils.getAccessibleName(link, page);
+      if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
+        aName = AccessibilityUtils.getAccessibleNameSVG(link, page);
+      } else if(AccessibilityUtils.isElementInAT(link, page)){
+        aName = AccessibilityUtils.getAccessibleName(link, page);
       }
-      href = await DomUtils.getElementAttribute(link, 'href');
+      href = link.getElementAttribute('href');
 
       if (!!aName) {
         hrefList.push(href);
@@ -68,14 +66,12 @@ class QW_ACT_R9 extends Rule {
             hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
           }
           hasEqualAn.push(counter);
-          let result = true;
-
           if (!hasEqualHref) {
-            const selector = new Array<string>();
+            /*const selector = new Array<string>();
             for (const index of hasEqualAn || []) {
-              selector.push(await DomUtils.getElementSelector(links[index]));
+              selector.push(links[index].getElementSelector());
             }
-            const hashArray = await this.getContentHash(selector, page);
+            const hashArray = this.getContentHash(selector, page);
             const firstHash = hashArray.pop();
 
             for (const hash of hashArray || []) {
@@ -85,9 +81,9 @@ class QW_ACT_R9 extends Rule {
             }
             if(hashArray.length=== 0){
               result = false;
-              }
+              }*/
           }
-          if (result) {//passed
+          if (hasEqualHref) {//passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`links\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
@@ -107,12 +103,12 @@ class QW_ACT_R9 extends Rule {
         evaluation.resultCode = 'RC4';
       }
 
-      await super.addEvaluationResult(evaluation, links[counter]);
+      super.addEvaluationResult(evaluation, links[counter]);
       counter++;
     }
   }
-
-  private async getContentHash(selectors: string[], page: Page): Promise<Array<string>> {
+/*
+  private async getContentHash(selectors: string[], page: QWPage): Promise<Array<string>> {
     const browser = page.browser();
     const newPage = await browser.newPage();
     const content = new Array<string>();
@@ -138,7 +134,7 @@ class QW_ACT_R9 extends Rule {
 
     await newPage.close();
     return content;
-  }
+  }*/
 
   private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number): Array<number> {
     const result = new Array<number>();

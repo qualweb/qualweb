@@ -1,12 +1,13 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R25 extends Rule {
@@ -16,7 +17,7 @@ class QW_ACT_R25 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';
@@ -26,14 +27,13 @@ class QW_ACT_R25 extends Rule {
     ariaSelector = ariaSelector.substring(0, ariaSelector.length - 2);
 
     // get all elements that are using aria attributes
-    const elementsWithAriaAttribs = await element.$$(ariaSelector);
+    const elementsWithAriaAttribs = element.getElements(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const [elemRole, isInAT, elemAttribs] = await Promise.all([
-        AccessibilityUtils.getElementRole(elem,page),
-        AccessibilityUtils.isElementInAT(elem, page),
-        DomUtils.getElementAttributesName(elem)
-      ]);
+
+      const elemRole = AccessibilityUtils.getElementRole(elem, page);
+      const isInAT = AccessibilityUtils.isElementInAT(elem, page);
+      const elemAttribs = elem.getElementAttributesName();
       
       for (const attrib of elemAttribs || []) {
         if (Object.keys(ariaJSON).includes(attrib)) {
@@ -46,7 +46,7 @@ class QW_ACT_R25 extends Rule {
           //if is in the accessibility tree
           if (isInAT) {
             // if valid aria attribute
-            if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== null && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
+            if (ariaJSON[attrib]['global'] === 'yes' || (elemRole !== null && rolesJSON[elemRole] && (rolesJSON[elemRole]['requiredAria'].includes(attrib) || rolesJSON[elemRole]['supportedAria'].includes(attrib)))) {
               evaluation.verdict = 'passed';
               evaluation.description = `The \`${attrib}\` property is supported or inherited by the \`role\` ${elemRole}.`;
               evaluation.resultCode = 'RC1';
@@ -62,7 +62,7 @@ class QW_ACT_R25 extends Rule {
             evaluation.resultCode = 'RC3';
           }
 
-          await super.addEvaluationResult(evaluation, elem);
+          super.addEvaluationResult(evaluation, elem);
         }
       }
     }

@@ -1,10 +1,11 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R24 extends Rule {
@@ -196,7 +197,7 @@ class QW_ACT_R24 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -205,27 +206,27 @@ class QW_ACT_R24 extends Rule {
     };
 
     //check if is visible and not in accessibility tree
-    const visible = await DomUtils.isElementVisible(element);
+    const visible = DomUtils.isElementVisible(element);
     if (!visible) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The element is not visible, and not included in the accessibility tree`;
       evaluation.resultCode = 'RC1';
-      await super.addEvaluationResult(evaluation, element);
+      super.addEvaluationResult(evaluation, element);
       return;
     }
 
     //if input type = hidden, button,submit or reset
-    const tag = await DomUtils.getElementTagName(element);
+    const tag = element.getElementTagName();
 
     if (tag === 'input' || tag === 'select' || tag === 'textarea') {
       if (tag === 'input') {
-        const type = await DomUtils.getElementAttribute(element, 'type');
-        const disabled = await DomUtils.elementHasAttribute(element, 'disabled');
+        const type = element.getElementAttribute('type');
+        const disabled = element.elementHasAttribute('disabled');
         if (disabled) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target is disabled.`;
           evaluation.resultCode = 'RC2';
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           return;
         }
         if (
@@ -237,40 +238,34 @@ class QW_ACT_R24 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target is an \`input\` element with a type property of \`hidden, button, submit or reset\`.`;
           evaluation.resultCode = 'RC3';
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           return;
         }
       }
       //aria-disable true
-      const ariaDisable = await DomUtils.getElementAttribute(
-        element,
-        'aria-disabled'
-      );
+      const ariaDisable = element.getElementAttribute('aria-disabled');
 
       if (ariaDisable === 'true') {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target has an \`aria-disabled='true'\` attribute.`;
         evaluation.resultCode = 'RC4';
-        await super.addEvaluationResult(evaluation);
+        super.addEvaluationResult(evaluation);
         return;
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = await DomUtils.isElementFocusable(element);
-      const widgetRole = await AccessibilityUtils.isElementWidget(element);
+      const isFocusable = DomUtils.isElementFocusable(element);
+      const widgetRole = AccessibilityUtils.isElementWidget(element, page);
 
       if (!isFocusable && !widgetRole) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not part of sequential focus navigation and has a semantic role that is not a widget role.`;
         evaluation.resultCode = 'RC5';
-        await super.addEvaluationResult(evaluation, element);
+        super.addEvaluationResult(evaluation, element);
         return;
       }
 
-      let autoComplete = await DomUtils.getElementAttribute(
-        element,
-        'autoComplete'
-      );
+      let autoComplete = element.getElementAttribute('autoComplete');
 
       if (autoComplete) {
         autoComplete = autoComplete.trim();
@@ -278,22 +273,22 @@ class QW_ACT_R24 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target \`autocomplete\` attribute contains no tokens.`;
           evaluation.resultCode = 'RC6';
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           return;
         }
 
-        const correctAutocompleteField = await this.isCorrectAutocompleteField(element, autoComplete);
+        const correctAutocompleteField = this.isCorrectAutocompleteField(element, autoComplete);
         if (!correctAutocompleteField) {
           evaluation.verdict = 'failed';
           evaluation.description = `The test target \`autocomplete\` attribute is not valid.`;
           evaluation.resultCode = 'RC8';
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           return;
         } else {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has a valid \`autocomplete\` attribute.`;
           evaluation.resultCode = 'RC9';
-          await super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           return;
         }
       }
@@ -301,7 +296,7 @@ class QW_ACT_R24 extends Rule {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not a \`input, select or textarea\`.`;
       evaluation.resultCode = 'RC7';
-      await super.addEvaluationResult(evaluation, element);
+      super.addEvaluationResult(evaluation, element);
       return;
     }
 
@@ -331,10 +326,10 @@ class QW_ACT_R24 extends Rule {
     }
   }
 
-  private async isText(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isText(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search') {
         return true;
       }
@@ -344,10 +339,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isMultiline(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isMultiline(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden') {
         return true;
       }
@@ -357,10 +352,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isPassword(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isPassword(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'password') {
         return true;
       }
@@ -371,10 +366,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isURL(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isURL(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'url') {
         return true;
       }
@@ -385,10 +380,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isEmail(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isEmail(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'email') {
         return true;
       }
@@ -399,10 +394,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isTel(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isTel(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'tel') {
         return true;
       }
@@ -413,10 +408,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isNumeric(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isNumeric(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'number') {
         return true;
       }
@@ -427,10 +422,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isMonth(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isMonth(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute( 'type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'month') {
         return true;
       }
@@ -441,10 +436,10 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isDate(element: ElementHandle): Promise<boolean> {
-    const tag = await DomUtils.getElementTagName(element);
+  private isDate(element: QWElement): boolean {
+    const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = await DomUtils.getElementAttribute(element, 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'date') {
         return true;
       }
@@ -455,34 +450,34 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private async isAppropriateFieldForTheFormControl(field: string, element: ElementHandle): Promise<boolean> {
+  private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean{
     const fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
     
     switch (fieldControl) {
       case 'text':
-        return await this.isText(element);
+        return this.isText(element);
       case 'multiline':
-        return await this.isMultiline(element);
+        return this.isMultiline(element);
       case 'password':
-        return await this.isPassword(element);
+        return this.isPassword(element);
       case 'url':
-        return await this.isURL(element);
+        return this.isURL(element);
       case 'email':
-        return await this.isEmail(element);
+        return this.isEmail(element);
       case 'tel':
-        return await this.isTel(element);
+        return this.isTel(element);
       case 'numeric':
-        return await this.isNumeric(element);
+        return this.isNumeric(element);
       case 'month':
-        return await this.isMonth(element);
+        return this.isMonth(element);
       case 'date':
-        return await this.isDate(element);
+        return this.isDate(element);
     }
 
     return false;
   }
 
-  private async isCorrectAutocompleteField(element: ElementHandle, autoCompleteField: string): Promise<boolean> {
+  private isCorrectAutocompleteField(element: QWElement, autoCompleteField: string): boolean {
     const fields = autoCompleteField.split(' ');
 
     if (fields[0].startsWith('section-'))
@@ -502,7 +497,7 @@ class QW_ACT_R24 extends Rule {
       } else if (!this.isAutoCompleteField(field)) {
         return false;
       } else {
-        let isAppropriate = await this.isAppropriateFieldForTheFormControl(field, element);
+        let isAppropriate = this.isAppropriateFieldForTheFormControl(field, element);
         if (!isAppropriate) {
           return false;
         }

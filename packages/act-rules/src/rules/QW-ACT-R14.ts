@@ -1,8 +1,6 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { 
   ACTRule,
@@ -10,6 +8,7 @@ import {
   ElementHasAttribute,
   ElementHasAttributeValue
 } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R14 extends Rule {
@@ -20,8 +19,8 @@ class QW_ACT_R14 extends Rule {
 
   @ElementExists
   @ElementHasAttribute('content')
-  @ElementHasAttributeValue('meta', 'viewport')
-  async execute(element: ElementHandle): Promise<void> {
+  @ElementHasAttributeValue('name', 'viewport')
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -29,7 +28,7 @@ class QW_ACT_R14 extends Rule {
       resultCode: ''
     };
 
-    const content = <string> await DomUtils.getElementAttribute(element, 'content');
+    const content = <string> element.getElementAttribute('content');
     let maximumScale = '';
     let userScalable = '';
     let contentValues = content.split(',');
@@ -59,7 +58,7 @@ class QW_ACT_R14 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

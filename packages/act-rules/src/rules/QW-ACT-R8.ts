@@ -1,8 +1,6 @@
 'use strict';
 
-import { ElementHandle, Page } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { 
   ACTRule, 
@@ -12,6 +10,9 @@ import {
   ElementHasAttribute,
   ElementSrcAttributeFilenameEqualsAccessibleName
 } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
+import { AccessibilityUtils } from '@qualweb/util';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R8 extends Rule {
@@ -25,7 +26,7 @@ class QW_ACT_R8 extends Rule {
   @ElementHasAttributeRole('img')
   @ElementHasAttribute('src')
   @ElementSrcAttributeFilenameEqualsAccessibleName
-  async execute(element: ElementHandle, page: Page): Promise<void> {
+  execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -35,18 +36,16 @@ class QW_ACT_R8 extends Rule {
 
     const imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
-    const src = <string> await DomUtils.getElementAttribute(element, 'src');
+    const src = <string> element.getElementAttribute('src');
 
     const filePath = src.split('/');
     const filenameWithExtension = filePath[filePath.length - 1];
 
-    const parent = await DomUtils.getElementParent(element);
+    const parent = element.getElementParent();
 
     if (parent && imageFile.test(filenameWithExtension)) {
-      const [tagName, elementText] = await Promise.all([
-        DomUtils.getElementTagName(parent),
-        DomUtils.getElementText(parent)
-      ]);
+      const tagName = element.getElementTagName();
+      const elementText = element.getElementText();
 
       if (tagName && elementText){
         evaluation.verdict = 'passed';
@@ -63,9 +62,9 @@ class QW_ACT_R8 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    evaluation.accessibleName = await AccessibilityUtils.getAccessibleName(element, page);
+    evaluation.accessibleName = AccessibilityUtils.getAccessibleName(element, page);
     
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

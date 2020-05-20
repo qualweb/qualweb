@@ -1,10 +1,10 @@
 'use strict';
 
-import { ElementHandle } from 'puppeteer';
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
+import {QWElement} from "@qualweb/qw-element";
 
 @ACTRule
 class QW_ACT_R15 extends Rule {
@@ -14,7 +14,7 @@ class QW_ACT_R15 extends Rule {
   }
 
   @ElementExists
-  async execute(element: ElementHandle): Promise<void> {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,38 +22,34 @@ class QW_ACT_R15 extends Rule {
       resultCode: ''
     };
 
-    const [autoplay, paused, muted, srcATT, childSrc, controls, metadata] = await Promise.all([
-      DomUtils.getElementAttribute(element, 'autoplay'),
-      DomUtils.getElementAttribute(element, 'paused'),
-      DomUtils.getElementAttribute(element, 'muted'),
-      DomUtils.getElementAttribute(element, 'src'),
-      element.$$('source[src]'),
-      DomUtils.elementHasAttribute(element, 'controls'),
-      DomUtils.getVideoMetadata(element)
-    ]);
+    const autoplay = element.getElementAttribute('autoplay');
+    const paused = element.getElementAttribute('paused');
+    const muted = element.getElementAttribute('muted');
+    const srcAttr = element.getElementAttribute('src');
+    const childSrc = element.getElements('source[src]');
+    const controls = element.elementHasAttribute('controls');
+    const metadata = DomUtils.getVideoMetadata(element);
     
-    const hasPupeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
-    const applicableServiceData = metadata.service.audio.duration > 3 && metadata.service.audio.volume !== -91;
-
+    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
     const src = new Array<any>();
 
     if (childSrc.length > 0) {
       for (let child of childSrc || []) {
-        src.push(DomUtils.getElementAttribute(child, 'src'));
+        src.push(child.getElementAttribute( 'src'));
       }
     } else { 
-      src.push(srcATT) ;
+      src.push(srcAttr) ;
     }
 
-    if (autoplay !== 'true' || paused === 'true' || muted === 'true' || (!srcATT && childSrc.length === 0)) {
+    if (autoplay !== 'true' || paused === 'true' || muted === 'true' || (!srcAttr && childSrc.length === 0)) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio.`;
       evaluation.resultCode = 'RC1';
-    } else if (metadata.service.error && metadata.puppeteer.error) {
+    } else if ( metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't collect data from the test target element.`;
       evaluation.resultCode = 'RC2';
-    } else if(applicableServiceData || hasPupeteerApplicableData){
+    } else if( hasPuppeteerApplicableData){
       if (controls) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target has a visible control mechanism.';
@@ -73,7 +69,7 @@ class QW_ACT_R15 extends Rule {
       evaluation.resultCode = 'RC6';
     }
 
-    await super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element);
   }
 
   private srcTimeIsLessThanThree(src: any[]): boolean {
