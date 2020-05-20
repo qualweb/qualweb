@@ -14,7 +14,7 @@ describe(`Rule ${rule}`, async function () {
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
-    const data = JSON.parse(await getTestCases());
+    const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
@@ -35,9 +35,10 @@ describe(`Rule ${rule}`, async function () {
     //  it('should execute', async function() {
     //    this.timeout(1000 * 1000 * 1000);
 
-    //    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/');
+    //    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.ctt.pt/particulares/index');
     //    const actRules = new ACTRules({ rules: [rule] });
     //    const report = await actRules.execute(sourceHtml, page, stylesheets);
+
     //  });
     // });
 

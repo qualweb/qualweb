@@ -20,10 +20,13 @@ class QW_ACT_R37 extends Rule {
   async execute(element: ElementHandle | undefined, page: Page): Promise<void> {
 
     let disabledWidgets = await AccessibilityUtils.getDisabledWidgets(page);
+
     const elements = await page.$$('*');
     if (elements.length > 0) {
       for (const element of elements || []) {
+
         let tagName  = await DomUtils.getElementTagName(element);
+
         if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
           tagName === 'script' || tagName === 'style' || tagName === 'meta')
             continue;
@@ -35,6 +38,7 @@ class QW_ACT_R37 extends Rule {
         };
 
         let visible = await DomUtils.isElementVisible(element);
+
         if(!visible){
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not visible.';
@@ -73,11 +77,12 @@ class QW_ACT_R37 extends Rule {
         }
 
         const elementSelectors = await DomUtils.getElementSelector(element);
+
         let selectors;
         let shouldContinue = false;
+
         for (let disableWidget of disabledWidgets){
           selectors = await AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
-
           if(selectors && selectors.includes(elementSelectors)){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'This text is part of a label of a disabled widget.';
@@ -91,8 +96,8 @@ class QW_ACT_R37 extends Rule {
         if(shouldContinue)
           continue;
 
-        let role = await AccessibilityUtils.getElementRole(element, page);
 
+        let role = await AccessibilityUtils.getElementRole(element, page);
         if(role === 'group'){
           if(await DomUtils.elementHasAttribute(element, 'disabled')){
             evaluation.verdict = 'inapplicable';
@@ -104,7 +109,7 @@ class QW_ACT_R37 extends Rule {
         }
 
         const fgColor = await DomUtils.getElementStyleProperty(element, "color", null);
-        const bgColor = await DomUtils.getElementStyleProperty(element, "background", null);
+        let bgColor = await DomUtils.getElementStyleProperty(element, "background", null);
         const opacity = parseFloat(await DomUtils.getElementStyleProperty(element, "opacity", null));
         const fontSize = await DomUtils.getElementStyleProperty(element, "font-size", null);
         const fontWeight = await DomUtils.getElementStyleProperty(element, "font-weight", null);
@@ -140,13 +145,13 @@ class QW_ACT_R37 extends Rule {
                   let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
                   let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
                   contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
-                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, colors[0], this.parseRgbString(fgColor, opacity));
                   contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
-                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, lastCharBgColor, this.parseRgbString(fgColor, opacity));
                 }else{
                   for(let color of colors){
                     contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
-                    isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+                    isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, color, this.parseRgbString(fgColor, opacity));
                   }
                 }
                 if(isValid){
@@ -181,7 +186,27 @@ class QW_ACT_R37 extends Rule {
           }
 
         }else{
+
           let parsedBG = this.parseRgbString(bgColor, opacity);
+          let elementAux = element;
+          let opacityAUX;
+          while(parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0){
+            let parent = await DomUtils.getElementParent(elementAux);
+            if(parent){
+              bgColor = await DomUtils.getElementStyleProperty(parent, "background", null);
+              opacityAUX = parseFloat(await DomUtils.getElementStyleProperty(parent, "opacity", null));
+              parsedBG = this.parseRgbString(await DomUtils.getElementStyleProperty(parent, "background", null), opacityAUX);
+              elementAux = parent;
+            }else{
+              break;
+            }
+          }
+
+          // if we cant find a bg color, we assume that is white (default bg page color)
+          if(parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0){
+            parsedBG = {"red": 255, "green": 255, "blue": 255, "alpha": 1}
+          }
+
           let parsedFG = this.parseRgbString(fgColor, opacity);
 
           if(this.equals(parsedBG, parsedFG)){
@@ -191,7 +216,7 @@ class QW_ACT_R37 extends Rule {
           }else{
             if(this.isHumanLanguage(elementText)){
               let contrastRatio = this.getContrast(parsedBG, parsedFG);
-              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
+              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, "BG " + bgColor, "FG " + fgColor);
               if(isValid){
                 evaluation.verdict = 'passed';
                 evaluation.description = 'Element has contrast ratio higher than minimum.';
@@ -209,6 +234,7 @@ class QW_ACT_R37 extends Rule {
           }
         }
         await super.addEvaluationResult(evaluation, element);
+
       }
     }
   }
@@ -280,15 +306,10 @@ class QW_ACT_R37 extends Rule {
 
     match = colorString.match(rgbaRegex);
     if (match) {
-      // alpha values can be between 0 and 1, with browsers having
-      // different floating point precision. for example,
-      // 'rgba(0,0,0,0.5)' results in 'rgba(0,0,0,0.498039)' in Safari
-      // when getting the computed style background-color property. to
-      // fix this, we'll round all alpha values to 2 decimal points.
-      if(match[1] === "0" && match[2] === "0" && match[3] === "0" && match[4] === "0")
-        return{"red": 255, "green": 255, "blue": 255, "alpha": 1};
-      else
-        return{"red": parseInt(match[1], 10), "green": parseInt(match[2], 10), "blue": parseInt(match[3], 10), "alpha": Math.round(parseFloat(match[4]) * 100) / 100};
+      // if(match[1] === "0" && match[2] === "0" && match[3] === "0" && match[4] === "0")
+      //   return{"red": 255, "green": 255, "blue": 255, "alpha": 1};
+      // else
+      return{"red": parseInt(match[1], 10), "green": parseInt(match[2], 10), "blue": parseInt(match[3], 10), "alpha": Math.round(parseFloat(match[4]) * 100) / 100};
     }
   };
 
@@ -329,7 +350,7 @@ class QW_ACT_R37 extends Rule {
     return (Math.max(fL, bL) + 0.05) / (Math.min(fL, bL) + 0.05);
   };
 
-  hasValidContrastRatio(contrast, fontSize, isBold) {
+  hasValidContrastRatio(contrast, fontSize, isBold, text, bg, fg) {
 
     let isSmallFont =
       (isBold && Math.ceil(fontSize * 72) / 96 < 14) ||
