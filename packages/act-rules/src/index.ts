@@ -104,8 +104,8 @@ class ACTRules {
           } else {
             this.rules[rule].execute(undefined, html);
           }
-          report.rules[rule] = this.rules[rule].getFinalResults();
-          report.metadata[report.rules[rule].metadata.outcome]++;
+          report.assertions[rule] = this.rules[rule].getFinalResults();
+          report.metadata[report.assertions[rule].metadata.outcome]++;
           this.rules[rule].reset();
         }
       }
@@ -133,8 +133,8 @@ class ACTRules {
 
 
 
-    report.rules[rule] = this.rules[rule].getFinalResults();
-    report.metadata[report.rules[rule].metadata.outcome]++;
+    report.assertions[rule] = this.rules[rule].getFinalResults();
+    report.metadata[report.assertions[rule].metadata.outcome]++;
     this.rules[rule].reset();
   }
 
@@ -152,8 +152,8 @@ class ACTRules {
   private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): void{
     if (this.rulesToExecute['QW-ACT-R7']) {
       this.rules['QW-ACT-R7'].unmappedExecute(stylesheets);
-      report.rules['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();
-      report.metadata[report.rules['QW-ACT-R7'].metadata.outcome]++;
+      report.assertions['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();
+      report.metadata[report.assertions['QW-ACT-R7'].metadata.outcome]++;
       this.rules['QW-ACT-R7'].reset();
     }
   }
@@ -178,7 +178,7 @@ class ACTRules {
         failed: 0,
         inapplicable: 0
       },
-      rules: {}
+      assertions: {}
     };
 
     page.processShadowDom();
