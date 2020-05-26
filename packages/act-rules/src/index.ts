@@ -1,9 +1,7 @@
 'use strict';
 
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
-import { SourceHtml } from '@qualweb/core';
 import { Optimization } from '@qualweb/util';
-import CSSselect from 'css-select';
 import * as rules from './lib/rules';
 
 import mapping from './lib/mapping';
@@ -92,25 +90,6 @@ class ACTRules {
     }
   }
 
-  private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): void {
-    for (const selector of selectors || []) {
-      for (const rule of mappedRules[selector] || []) {
-        if (this.rulesToExecute[rule]) {
-          const elements = CSSselect(selector, html.html.parsed);
-          if (elements.length > 0) {
-            for (const elem of elements || []) {
-              this.rules[rule].execute(elem, html);
-            }
-          } else {
-            this.rules[rule].execute(undefined, html);
-          }
-          report.assertions[rule] = this.rules[rule].getFinalResults();
-          report.metadata[report.assertions[rule].metadata.outcome]++;
-          this.rules[rule].reset();
-        }
-      }
-    }
-  }
 
   private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void {
     const promises = new Array<any>();
@@ -148,26 +127,36 @@ class ACTRules {
     }
   }
 
-  private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): void{
+  private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[], metaElements: any[]): void {
+    console.log("executing non mapped")
     if (this.rulesToExecute['QW-ACT-R7']) {
       this.rules['QW-ACT-R7'].unmappedExecute(stylesheets);
       report.assertions['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();
       report.metadata[report.assertions['QW-ACT-R7'].metadata.outcome]++;
       this.rules['QW-ACT-R7'].reset();
+    } if (this.rulesToExecute['QW-ACT-R4']) {
+      if (metaElements.length > 0) {
+        for (const elem of metaElements || []) {
+          this.rules['QW-ACT-R4'].execute(elem);
+        }
+      } else {
+        this.rules['QW-ACT-R4'].execute(undefined);
+      }
+      report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
+      report.metadata[report.assertions['QW-ACT-R4'].metadata.outcome]++;
+      this.rules['QW-ACT-R4'].reset();
     }
   }
 
-  private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void {
-    this.executeSourceHtmlMappedRules(report, html, Object.keys(mapping.non_concurrent.pre), mapping.non_concurrent.pre),
-      this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
+  private executeNonConcurrentRules(report: ACTRulesReport, page: QWPage): void {
+    this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
   }
 
-  private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void {
-    this.executeSourceHtmlMappedRules(report, html, Object.keys(mapping.concurrent.pre), mapping.concurrent.pre)
+  private executeConcurrentRules(report: ACTRulesReport, page: QWPage): void {
     this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
   }
 
-  public execute(sourceHtml: SourceHtml, page: QWPage, stylesheets: any[]): ACTRulesReport {
+  public execute(metaElements: any[], page: QWPage, stylesheets: any[]): ACTRulesReport {
 
     const report: ACTRulesReport = {
       type: 'act-rules',
@@ -182,9 +171,9 @@ class ACTRules {
 
     page.processShadowDom();
 
-    this.executeNonConcurrentRules(report, sourceHtml, page)
-    this.executeConcurrentRules(report, sourceHtml, page)
-    this.executeNotMappedRules(report, stylesheets)
+    this.executeNonConcurrentRules(report, page)
+    this.executeConcurrentRules(report, page)
+    this.executeNotMappedRules( report, stylesheets,metaElements)
 
     return report;
   }

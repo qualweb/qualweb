@@ -1,8 +1,6 @@
 'use strict';
 
-import { Node } from 'domhandler';
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule2.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 
@@ -14,7 +12,7 @@ class QW_ACT_R4 extends Rule {
   }
 
   @ElementExists
-  execute(element: Node): void {
+  execute(element: any): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -22,14 +20,16 @@ class QW_ACT_R4 extends Rule {
       resultCode: ''
     };
 
-    const content = DomUtils.getSourceElementAttribute(element, 'content');
-    const httpEquiv = DomUtils.getSourceElementAttribute(element, 'http-equiv');
+    const content =element.content;
+    const httpEquiv = element.httpEquiv;
+    console.log(content)
+    console.log(httpEquiv);
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'Already exists one valid or invalid test target.';
       evaluation.resultCode = 'RC1';
-    } else if (!element['attribs']) { // not applicable
+    } else if (content === null && httpEquiv === null) { // not applicable
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't have the attributes \`content\` and \`http-equiv\`.`;
       evaluation.resultCode = 'RC2';
@@ -131,7 +131,7 @@ class QW_ACT_R4 extends Rule {
         }
       }
     }
-
+    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 

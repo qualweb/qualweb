@@ -1,9 +1,7 @@
 'use strict';
 
 import { SourceHtml } from '@qualweb/core';
-import { Node } from 'domhandler';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -41,10 +39,10 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: Node): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: any): void {
     if (element) {
-      result.htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
-      result.pointer = DomUtils.getSourceElementSelector(element);
+      result.htmlCode =element.htmlCode;
+      result.pointer = element.selector;
     }
 
     this.rule.results.push(clone(result));
@@ -54,7 +52,7 @@ abstract class Rule {
     }
   }
 
-  abstract execute(element: Node | undefined, html: SourceHtml): void;
+  abstract execute(element: any | undefined, html: SourceHtml): void;
 
   getFinalResults(): any {
     this.outcomeRule();

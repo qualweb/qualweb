@@ -7,7 +7,7 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
-    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.twitch.tv/");
+    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.pcdiga.com/");
 
     try {
       await page.addScriptTag({
