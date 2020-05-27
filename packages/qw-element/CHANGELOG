@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.3] - 27/05/2020
+
+### Added
+ - getBoundingBox method
+
 ## [0.1.2] - 20/05/2020
 
 ### Fixed

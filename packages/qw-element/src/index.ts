@@ -279,6 +279,10 @@ class QWElement {
     htmlElement.focus();
     
   }
+
+  public getBoundingBox(): any {
+    return this.element.getBoundingClientRect();
+  }
 }
 
 export {
