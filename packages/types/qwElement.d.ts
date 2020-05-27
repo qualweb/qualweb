@@ -34,7 +34,7 @@ declare module '@qualweb/qw-element' {
     public elementHasTextNode(): boolean;
     public getContentFrame(): Document | null;
     public focusElement(): void;
-
+    public getBoundingBox(): any;
 
   }
 
