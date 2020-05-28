@@ -7,7 +7,7 @@ import {
   ACTRule, 
   ElementExists,
   ElementIsInAccessibilityTree,
-  IfElementHasTagNameMustHaveAttributeRole
+  ElementHasAttributeRole
 } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -21,7 +21,7 @@ class QW_ACT_R12 extends Rule {
 
   @ElementExists
   @ElementIsInAccessibilityTree
-  @IfElementHasTagNameMustHaveAttributeRole('a', 'link')
+  @ElementHasAttributeRole('link')
   execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
@@ -35,11 +35,11 @@ class QW_ACT_R12 extends Rule {
     if(accessibleName && accessibleName.trim()) {
       evaluation.verdict = 'passed';
       evaluation.description = `The test target has a valid accessible name.`;
-      evaluation.resultCode = 'RC4';
+      evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'failed';
       evaluation.description = `The test target doesn't have an accessible name, or it's empty ("").`;
-      evaluation.resultCode = 'RC3';
+      evaluation.resultCode = 'RC2';
     }
 
     evaluation.accessibleName = accessibleName;
