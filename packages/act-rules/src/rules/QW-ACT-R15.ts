@@ -22,12 +22,12 @@ class QW_ACT_R15 extends Rule {
       resultCode: ''
     };
 
-    const autoplay = element.getElementAttribute('autoplay');
-    const paused = element.getElementAttribute('paused');
-    const muted = element.getElementAttribute('muted');
+    const autoplay = element.getElementProperty('autoplay');
+    const paused = element.getElementProperty('paused');
+    const muted = element.getElementProperty('muted');
     const srcAttr = element.getElementAttribute('src');
     const childSrc = element.getElements('source[src]');
-    const controls = element.elementHasAttribute('controls');
+    const controls = element.getElementProperty('controls');
     const metadata = DomUtils.getVideoMetadata(element);
     
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
@@ -40,8 +40,11 @@ class QW_ACT_R15 extends Rule {
     } else { 
       src.push(srcAttr) ;
     }
+    console.log({autoplay,paused,muted,srcAttr,childSrc,controls})
+    
 
-    if (autoplay !== 'true' || paused === 'true' || muted === 'true' || (!srcAttr && childSrc.length === 0)) {
+
+    if (!autoplay || paused || muted || (!srcAttr && childSrc.length === 0)) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio.`;
       evaluation.resultCode = 'RC1';
@@ -68,7 +71,7 @@ class QW_ACT_R15 extends Rule {
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC6';
     }
-
+    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 
