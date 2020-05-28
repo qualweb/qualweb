@@ -44,7 +44,7 @@ class QW_ACT_R14 extends Rule {
       }
     }
 
-    if (!maximumScale && !userScalable) {
+    if ((!maximumScale || parseInt(maximumScale) < 0) && !userScalable) {
       evaluation.verdict = 'passed';
       evaluation.description = `The \`meta\` element with a \`name="viewport"\` attribute doesn't define the \`maximum-scale\` and \`user-scalable\` values.`;
       evaluation.resultCode = 'RC1';
@@ -57,6 +57,7 @@ class QW_ACT_R14 extends Rule {
       evaluation.description = `The \`meta\` element with a \`name="viewport"\` attribute retains the user agent ability to zoom.`;
       evaluation.resultCode = 'RC3';
     }
+
 
     super.addEvaluationResult(evaluation, element);
   }
