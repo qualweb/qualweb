@@ -1,34 +1,43 @@
 'use strict';
 
 class QWElement {
+
   private element: Element;
+
   constructor(element: Element) {
     this.element = element;
   }
+
   public elementHasAttribute(attribute: string) {
     return this.element.getAttributeNames().includes(attribute);
   }
+
   public elementHasAttributes(): boolean {
     return this.element.getAttributeNames().length > 0;
   }
+
   public elementHasChild(childName: string): boolean {
-    for (const child of this.element.children) {
+    for (const child of this.element.children || []) {
       if (child.tagName.toLowerCase() === childName.toLowerCase()) {
         return true;
       }
     }
     return false;
   }
-  public elementHasChidren(): boolean {
+
+  public elementHasChildren(): boolean {
     return this.element.children.length > 0;
   }
+
   public elementHasParent(parent: string): boolean {
     const parentElement = this.element['parentElement'];
     return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
   }
+
   public getElementAttribute(attribute: string): string | null {
     return this.element.getAttribute(attribute);
   }
+
   public getElementAttributes(): any {
     const attributes = {};
     for (const attr of this.element.getAttributeNames() || []) {
@@ -36,9 +45,11 @@ class QWElement {
     }
     return attributes;
   }
+
   public getElementAttributesName(): Array<string> {
     return this.element.getAttributeNames();
   }
+
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
     let treeSelector = this.getTreeSelector();
@@ -49,14 +60,16 @@ class QWElement {
     }
     return qwList;
   }
+
   public getTreeSelector(): string {
-    let atribute = this.getElementAttribute("shadowTree");
-    let result = ":not([shadowTree])";
-    if (atribute !== null) {
-      result = `[shadowTree="${atribute}"]`
+    const attribute = this.getElementAttribute('shadowTree');
+    let result = ':not([shadowTree])';
+    if (attribute !== null) {
+      result = `[shadowTree="${attribute}"]`
     }
     return result;
   }
+
   public getElementChildTextContent(childName: string): string | undefined {
     for (const child of this.element.children || []) {
       if (child.tagName.toLowerCase() === childName.toLowerCase()) {
@@ -65,8 +78,9 @@ class QWElement {
     }
     return undefined;
   }
+
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    const clonedElem = <Element>this.element.cloneNode(true);
+    const clonedElem = <Element> this.element.cloneNode(true);
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -78,40 +92,49 @@ class QWElement {
       return clonedElem.outerHTML;
     }
   }
+
   public getElement(selector: string): QWElement | null {
     let element = this.element.querySelector(selector);
 
-    return this.converElementToQWElement(element);
+    return this.convertElementToQWElement(element);
   }
-  private converElementToQWElement(element: Element | null): QWElement | null {
+
+  private convertElementToQWElement(element: Element | null): QWElement | null {
     if (element)
       return new QWElement(element);
     else
       return null;
   }
-  private converElementsToQWElement(elements: NodeListOf<Element>): Array<QWElement> {
+
+  private convertElementsToQWElement(elements: NodeListOf<Element>): Array<QWElement> {
     let qwList: Array<QWElement> = [];
     for (let element of elements) {
       qwList.push(new QWElement(element));
     }
     return qwList;
   }
+
   public getElements(selector: string): Array<QWElement> {
-    return this.converElementsToQWElement(this.element.querySelectorAll(selector));
+    return this.convertElementsToQWElement(this.element.querySelectorAll(selector));
   }
+
   public getElementNextSibling(): QWElement | null {
-    return this.converElementToQWElement(this.element.nextElementSibling);
+    return this.convertElementToQWElement(this.element.nextElementSibling);
   }
+
   public getElementParent(): QWElement | null {
-    return this.converElementToQWElement(this.element.parentElement);
+    return this.convertElementToQWElement(this.element.parentElement);
   }
+
   public getElementPreviousSibling(): QWElement | null {
-    return this.converElementToQWElement(this.element.previousElementSibling)
+    return this.convertElementToQWElement(this.element.previousElementSibling)
   }
+
   public getElementProperty(property: string): string {
     let propertyValue = this.element[property];
     return propertyValue === null ? "" : propertyValue;
   }
+
   public getElementSelector(): string {
 
     if (this.element.tagName.toLowerCase() === 'html') {
@@ -124,7 +147,8 @@ class QWElement {
 
     let selector = 'html > ';
     let parents = new Array<string>();
-    let parent = this.element['parentElement'];
+    let parent = this.element.parentElement;
+    
     while (parent && parent.tagName.toLowerCase() !== 'html') {
       parents.unshift(this.getSelfLocationInParent(parent));
       parent = parent['parentElement'];
@@ -134,10 +158,9 @@ class QWElement {
     selector += ' > ' + this.getSelfLocationInParent(this.element);
 
     return selector;
-
   }
 
-  private getSelfLocationInParent(element) {
+  private getSelfLocationInParent(element: Element): string {
     let selector = '';
 
     if (element.tagName.toLowerCase() === 'body' || element.tagName.toLowerCase() === 'head') {
@@ -158,46 +181,49 @@ class QWElement {
 
     return selector;
   }
+
   public getElementStyleProperty(property: string, pseudoStyle: string | null): string {
     const styles = getComputedStyle(this.element, pseudoStyle);
     return styles.getPropertyValue(property);
   }
+
   public getElementTagName(): string {
     return this.element['tagName'].toLowerCase();
   }
+
   public getElementText(): string {
-    let text = this.element.textContent;
-    if (text === null)
-      text = "";
-    return text;
-
+    return this.element.textContent || '';
   }
+
   public getElementType(): string {
-    return this.element['nodeType'] === 1 ? 'tag' : this.element['nodeType'] === 2 ? 'attribute' : this.element['nodeType'] === 3 ? 'text' : 'comment';
-
+    return this.element.nodeType === 1 ? 'tag' : this.element.nodeType === 2 ? 'attribute' : this.element.nodeType === 3 ? 'text' : 'comment';
   }
-  public getNumberOfSiblingsWithTheSameTag(): Number {
+
+  public getNumberOfSiblingsWithTheSameTag(): number {
     let aCount = 1;
-    let nextSibling = this.element['nextElementSibling'];
+    let nextSibling = this.element.nextElementSibling;
+
     while (nextSibling) {
-      if (nextSibling['tagName'].toLowerCase() === 'a') {
+      if (nextSibling.tagName.toLowerCase() === 'a') {
         aCount++;
       }
-      nextSibling = nextSibling['nextElementSibling'];
+      nextSibling = nextSibling.nextElementSibling;
     }
-    return aCount;
 
+    return aCount;
   }
+
   public setElementAttribute(attribute: string, value: string): void {
     this.element.setAttribute(attribute, value);
   }
+
   public concatANames(aNames: string[]): string {
-    let chidlren = this.element.childNodes;
-    let result = "";
-    let textContent;
+    const children = this.element.childNodes;
+    let result = '';
+    let textContent: string | null;
     let i = 0;
     let counter = 0;
-    for (let child of chidlren) {
+    for (const child of children || []) {
       textContent = child.textContent
       if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
         result = result + (counter === 0 ? "" : " ") + textContent.trim();
@@ -206,36 +232,35 @@ class QWElement {
         result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
         i++;
       }
-
     }
 
     if (!result) {
-      result = "";
+      result = '';
     }
+
     return result;
   }
 
   public isOffScreen(): boolean {
-
-    let scrollHeight = Math.max(
+    const scrollHeight = Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
       document.body.offsetHeight, document.documentElement.offsetHeight,
       document.body.clientHeight, document.documentElement.clientHeight
     );
 
-    let scrollWidth = Math.max(
+    const scrollWidth = Math.max(
       document.body.scrollWidth, document.documentElement.scrollWidth,
       document.body.offsetWidth, document.documentElement.offsetWidth,
       document.body.clientWidth, document.documentElement.clientHeight
     );
 
-    let bounding = this.element.getBoundingClientRect();
-    let left = bounding.left;
-    let right = bounding.right;
-    let bottom = bounding.bottom;
-    let top = bounding.top;
+    const bounding = this.element.getBoundingClientRect();
+    const left = bounding.left;
+    const right = bounding.right;
+    const bottom = bounding.bottom;
+    const top = bounding.top;
 
-    let noParentScrollTop = this.noParentScrolled(this.element, bottom)
+    const noParentScrollTop = this.noParentScrolled(bottom);
 
     return left > scrollWidth || right < 0 || bottom < 0 && noParentScrollTop || top > scrollHeight || right === 0 && left === 0;
   }
@@ -243,26 +268,32 @@ class QWElement {
   public isElementHTMLElement(): boolean {
     return this.element instanceof HTMLElement;
   }
-  public getContentFrame(): Document|null{
-    let page;
+
+  public getContentFrame(): Document | null{
+    let page: Document | null = null;
+
     if(this.getElementTagName()==="iframe"){
-      let element =  <HTMLIFrameElement> this.element;
-      let contentWindow =element.contentWindow;
-      if(contentWindow){
+      const element = <HTMLIFrameElement> this.element;
+      const contentWindow = element.contentWindow;
+
+      if(contentWindow) {
         page = contentWindow.document
       }
     }
-    return page;
 
+    return page;
   }
+
   public elementHasTextNode(): boolean {
-    if (this.element.firstChild !== null)
+    if (this.element.firstChild !== null) {
       return this.element.firstChild.nodeType === 3;
-    else
+    } else {
       return false;
+    }
   }
-  private noParentScrolled(element, offset) {
-    element = element['parentElement'];
+
+  private noParentScrolled(offset: number): boolean {
+    let element = this.element.parentElement;
     while (element && element.nodeName.toLowerCase() !== 'html') {
       if (element.scrollTop) {
         offset += element.scrollTop;
@@ -274,10 +305,10 @@ class QWElement {
     }
     return true;
   }
-  public focusElement():void{
-    let htmlElement = <HTMLElement> this.element;
+
+  public focusElement(): void {
+    const htmlElement = <HTMLElement> this.element;
     htmlElement.focus();
-    
   }
 
   public getBoundingBox(): any {
