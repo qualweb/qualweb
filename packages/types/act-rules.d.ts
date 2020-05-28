@@ -1,5 +1,5 @@
 declare module '@qualweb/act-rules' {
-  import { Page } from 'puppeteer';
+  import { QWPage } from "@qualweb/qw-page";
   import { SourceHtml } from '@qualweb/core';
   import { Optimization } from '@qualweb/util';
 
@@ -73,13 +73,13 @@ declare module '@qualweb/act-rules' {
     constructor(options?: ACTROptions);
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
-    private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): Promise<void>;
-    private executeRule(rule: string, selector: string, page: Page, report: ACTRulesReport, concurrent: boolean): Promise<void>;
-    private executePageMappedRules(report: ACTRulesReport, page: Page, selectors: string[], mappedRules: any, concurrent: boolean): Promise<void>;
-    private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): Promise<void>;
-    private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void>;
-    private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: Page): Promise<void>;
-    public execute(sourceHtml: SourceHtml, page: Page, stylesheets: any[]): Promise<ACTRulesReport>;
+    private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): void;
+    private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void;
+    private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): void;
+    private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): void;
+    private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
+    private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
+    public execute(sourceHtml: SourceHtml, page: QWPage, stylesheets: any[]): ACTRulesReport;
   }
 
   export {

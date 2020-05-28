@@ -1,52 +1,31 @@
+
 declare module '@qualweb/util' {
-  import { ElementHandle, Page, Browser } from 'puppeteer';
+  import { Browser } from "puppeteer";
+  import { QWElement } from "@qualweb/qw-element";
+  import { QWPage } from "@qualweb/qw-page";
   import { Node } from 'domhandler';
 
   namespace DomUtils {
-    export function elementHasAttribute(element: ElementHandle, attribute: string): Promise<boolean>;
-    export function elementHasAttributes(element: ElementHandle): Promise<boolean>;
-    export function elementHasChild(element: ElementHandle, childName: string): Promise<boolean>;
-    export function elementHasChildren(element: ElementHandle): Promise<boolean>;
-    export function elementHasGlobalARIAPropertyOrAttribute(element: ElementHandle): Promise<boolean>;
-    export function elementHasParent(element: ElementHandle, parent: string): Promise<boolean>;
-    export function elementIDIsReferenced(page: Page, element: ElementHandle, id: string, attribute: string): Promise<boolean>;
-    export function getContentComputedStylesAttribute(element: Node, computedStyle: string, attribute: string): string;
-    export function getElementAttribute(element: ElementHandle, attribute: string): Promise<string | null>;
-    export function getElementAttributes(element: ElementHandle): Promise<any>;
-    export function getElementAttributesName(element: ElementHandle): Promise<Array<string>>;
-    export function getElementByAttributeName(page: Page, name: string): Promise<ElementHandle | null>;
-    export function getElementById(page: Page, element:ElementHandle,id:string): Promise<ElementHandle | null>;
-    export function getElementChildren(element: ElementHandle): Promise<ElementHandle[]>;
-    export function getElementChildTextContent(element: ElementHandle, childName: string): Promise<string | undefined>;
-    export function getElementHtmlCode(element: ElementHandle, withText: boolean, fullElement: boolean): Promise<string>;
-    export function getElementNextSibling(element: ElementHandle): Promise<ElementHandle | null>;
-    export function getElementParent(element: ElementHandle): Promise<ElementHandle | null>;
-    export function getElementPreviousSibling(element: ElementHandle): Promise<ElementHandle | null>;
-    export function getElementReferencedByHREF(page: Page, element: ElementHandle): Promise<ElementHandle | null>;
-    export function getElementSelector(element: ElementHandle): Promise<string>;
-    export function getElementStyleProperty(element: ElementHandle, property: string, pseudoStyle: string | null): Promise<string>;
-    export function getElementTagName(element: ElementHandle): Promise<string>;
-    export function getElementText(element: ElementHandle): Promise<string>;
-    export function getElementType(element: ElementHandle): Promise<string>;
-    export function getPageRootElement(page: Page): Promise<ElementHandle | null>;
+    export function elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean;
+    export function elementIDIsReferenced(pageQW: QWPage, elementQW: QWElement, id: string, attribute: string): boolean;
+    export function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null;
     export function getSourceElementAttribute(element: Node, attribute: string): string | null;
     export function getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
     export function getSourceElementSelector(element: Node): string;
-    export function getVideoMetadata(element: ElementHandle): Promise<any>;
-    export function isElementADescendantOf(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
-    export function isElementADescendantOfExplicitRole(element: ElementHandle, page: Page, names: string [], roles: string[]): Promise<boolean>;
-    export function isElementFocusable(element: ElementHandle): Promise<boolean>;
-    export function isElementFocusableByDefault(element: ElementHandle): Promise<boolean>;
-    export function isElementHidden(element: ElementHandle): Promise<boolean>;
-    export function isElementHiddenByCSS(element: ElementHandle): Promise<boolean>;
-    export function isElementHiddenByCSSAux(element: ElementHandle): Promise<boolean>;
-    export function isElementPresentation(element: ElementHandle,page:Page): Promise<boolean>;
-    export function isElementVisible(element: ElementHandle): Promise<boolean>;
-    export function isFocusableBrowser(page: Page, element: ElementHandle): Promise<boolean>;
-    export function isMathDocument(url: string): Promise<boolean>;
-    export function isOffScreen(element: ElementHandle): Promise<boolean>;
-    export function setElementAttribute(element: ElementHandle, attribute: string,value:string): Promise<void>;
-    export function videoElementHasAudio(element: ElementHandle): Promise<boolean>;
+    export function getVideoMetadata(elementQW: QWElement): any;
+    export function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
+    export function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
+    export function isElementFocusable(elementQW: QWElement): boolean;
+    export function isElementFocusableByDefault(elementQW: QWElement): boolean;
+    export function isElementHidden(elementQW: QWElement): boolean;
+    export function isElementHiddenByCSS(elementQW: QWElement): boolean;
+    export function isElementHiddenByCSSAux(elementQW: QWElement): boolean;
+    export function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function isElementHidden(elementQW: QWElement): boolean;
+    export function isElementVisible(elementQW: QWElement): boolean;
+    export function isFocusableBrowser(page: QWPage, element: QWElement): boolean;
+    //export function isMathDocument(url: string): boolean;
+    export function videoElementHasAudio(elementQW: QWElement): boolean;
   }
 
   namespace BrowserUtils {
@@ -54,25 +33,27 @@ declare module '@qualweb/util' {
   }
 
   namespace AccessibilityUtils {
-    export function allowsNameFromContent(element: ElementHandle): Promise<boolean>;
-    export function elementHasRoleNoneOrPresentation(element: ElementHandle): Promise<boolean>;
-    export function elementHasValidRole(element: ElementHandle, page:Page): Promise<boolean>;
-    export function getAccessibleName(element: ElementHandle, page: Page): Promise<string | undefined>;
-    export function getAccessibleNameSVG(element: ElementHandle, page: Page): Promise<string | undefined>;
-    export function getDefaultName(element: ElementHandle): Promise<string>;
-    export function getElementRole(element: ElementHandle, page: Page): Promise<string | null>;
-    export function getImplicitRole(element: ElementHandle, page: Page): Promise<string | null>;
-    export function getTextFromCss(element: ElementHandle, textContent: string): string;
-    export function getTrimmedText(element: ElementHandle): Promise<string>;
-    export function getValueFromEmbeddedControl(element: ElementHandle, page: Page,treeSelector:string): Promise<string>;
-    export function isDataTable(element: ElementHandle, page: Page): Promise<boolean>;
+    export function allowsNameFromContent(element: QWElement): boolean;
+    export function elementHasRoleNoneOrPresentation(elementQW: QWElement): boolean;
+    export function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function getAccessibleName(elementQW: QWElement, pageQW: QWPage): string | undefined;
+    export function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined;
+    export function getAccessibleNameSVG(element: QWElement, page: QWPage): string | undefined;
+    export function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined;
+    export function getDefaultName(elementQW: QWElement): string;
+    export function getDisabledWidgets(pageQW: QWPage): QWElement[];
+    export function getElementRole(elementQW: QWElement, pageQW: QWPage): string | null;
+    export function getElementRoleAName(elementQW: QWElement, pageQW: QWPage, aName: string | undefined): string | null;
+    export function getTextFromCss(elementQW: QWElement, textContent: string): string;
+    export function getTrimmedText(elementQW: QWElement): string;
+    export function getValueFromEmbeddedControl(element: QWElement, page: QWPage, treeSelector: string);
+    export function isDataTable(element: QWElement, pageQW: QWPage): boolean;
     export function isElementChildOfDetails(element: Node): boolean;
-    export function isElementControl(element: ElementHandle): Promise<boolean>;
-    export function isElementInAT(element: ElementHandle, page: Page): Promise<boolean>;
-    export function isElementReferencedByAriaLabel(element:ElementHandle, page:Page): Promise<boolean>;
-    export function isElementWidget(element: ElementHandle): Promise<boolean>;
-    export function getDisabledWidgets(page:Page): Promise<ElementHandle[]>;
-    export function getAccessibleNameSelector(element: ElementHandle, page: Page): Promise<string[] | undefined>;
+    export function isElementControl(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean;
+    export function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
   }
 
   namespace CssUtils {
@@ -80,9 +61,7 @@ declare module '@qualweb/util' {
   }
 
   namespace ShadowDomUtils {
-    export function areElementsInTheSameTree(elements: ElementHandle[]): Promise<boolean>;
-    export function getTreeSelector(elements: ElementHandle): Promise<string>;
-    export function processShadowDom(page: Page): Promise<Page>;
+    export function areElementsInTheSameTree(elements: QWElement[]): boolean;
   }
 
   enum Optimization {
