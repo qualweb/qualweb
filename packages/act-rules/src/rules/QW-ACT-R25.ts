@@ -6,8 +6,8 @@ import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R25 extends Rule {
@@ -34,7 +34,8 @@ class QW_ACT_R25 extends Rule {
       const elemRole = AccessibilityUtils.getElementRole(elem, page);
       const isInAT = AccessibilityUtils.isElementInAT(elem, page);
       const elemAttribs = elem.getElementAttributesName();
-      
+      console.log(elemRole)
+
       for (const attrib of elemAttribs || []) {
         if (Object.keys(ariaJSON).includes(attrib)) {
           const evaluation: ACTRuleResult = {
