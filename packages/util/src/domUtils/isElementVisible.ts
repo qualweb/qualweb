@@ -2,6 +2,7 @@
 
 import isElementHiddenByCSS from './isElementHiddenByCSS';
 import { QWElement } from '@qualweb/qw-element';
+import textHasTheSameColorOfBackground from './textHasTheSameColorOfBackground';
 
 function isElementVisible(elementQW: QWElement): boolean {
   if (!elementQW) {
@@ -9,8 +10,9 @@ function isElementVisible(elementQW: QWElement): boolean {
   }
   const offScreen =  elementQW.isOffScreen();
   const cssHidden = isElementHiddenByCSS(elementQW);
+  const textHasTheSameColor = textHasTheSameColorOfBackground(elementQW);
   
-  return !(offScreen || cssHidden);
+  return !(offScreen || cssHidden||textHasTheSameColor);
 }
 
 export default isElementVisible;
