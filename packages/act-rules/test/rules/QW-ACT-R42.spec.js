@@ -63,32 +63,3 @@ describe(`Rule ${rule}`, async function () {
   });
 });
 
-/*
-<th scope="row" class="navbox-group" style="width:1%"></th>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(74) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > th:nth-of-type(1)
-<table class="nowraplinks hlist navbox-inner" style="border-spacing:0;background:transparent;color:inherit"></table>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(74) > table:nth-of-type(1)
-so na mesma row
-
-<th scope="col" class="navbox-title" colspan="2"></th>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(71) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > th:nth-of-type(1)
-<table class="nowraplinks collapsible autocollapse navbox-inner mw-collapsible mw-made-collapsible mw-collapsed" style="border-spacing:0;background:transparent;color:inherit"></table>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(71) > table:nth-of-type(1)
-so ths na mesma coluna
-
-
-<th scope="col" class="navbox-title" colspan="2"></th>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(72) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > th:nth-of-type(1)
-<table class="nowraplinks hlist collapsible autocollapse navbox-inner mw-collapsible mw-made-collapsible mw-collapsed" style="border-spacing:0;background:transparent;color:inherit"></table>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(72) > table:nth-of-type(1)
-so ths na mesma coluna
-
-
-<th scope="col" class="navbox-title" colspan="2"></th>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(73) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > th:nth-of-type(1)
-<table class="nowraplinks collapsible autocollapse navbox-inner mw-collapsible mw-made-collapsible mw-collapsed" style="border-spacing:0;background:transparent;color:inherit"></table>
-html > body > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(73) > table:nth-of-type(1)
-so ths na mesma coluna
-
-
-*/
