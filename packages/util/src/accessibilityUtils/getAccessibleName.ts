@@ -164,22 +164,25 @@ function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: st
   let elem;
 
   for (let id of ListIdRefs) {
-    elem = page.getElementByID( id,element);
-    accessNameFromId = getAccessibleNameRecursion(elem, page, true, isWidget);
+    if (id !== "")
+      elem = page.getElementByID(id, element);
+    if (elem)
+      accessNameFromId = getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId.trim() + " ";
       } else {
         result = accessNameFromId.trim() + " ";
       }
+      elem = null;
     }
   }
   return !!result ? result.trim() : result;
 }
 
 function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): string {
-  let before = element.getElementStyleProperty( "content", ":before");
-  let after = element.getElementStyleProperty( "content", ":after");
+  let before = element.getElementStyleProperty("content", ":before");
+  let after = element.getElementStyleProperty("content", ":after");
   let aNameList = getAccessibleNameFromChildren(element, page, isWidget);
   let textValue = getConcatentedText(element, aNameList);
 
@@ -225,7 +228,7 @@ function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) 
   let elementIds = ariaLabelBy.split(" ");
   let result = false;
   for (let id of elementIds) {
-    if (!result && id !== "" )  {
+    if (!result && id !== "") {
       result = page.getElementByID(id, element) !== null;
     }
   }
