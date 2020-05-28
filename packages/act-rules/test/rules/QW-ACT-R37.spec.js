@@ -13,12 +13,9 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
-<<<<<<< HEAD
-    const browser = await puppeteer.launch();
-=======
+   // const browser = await puppeteer.launch();
     //chromiumrowser --remote-debugging-port=9222
     const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
->>>>>>> master
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};

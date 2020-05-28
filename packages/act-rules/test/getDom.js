@@ -7,6 +7,7 @@ const CSSselect = require('css-select');
 
 async function getDom(browser,url) {
     const page = await browser.newPage();
+    await page.setBypassCSP(true);
     const plainStylesheets = {};
     page.on('response', async response => {
         if (response.request().resourceType() === 'stylesheet') {
@@ -23,6 +24,7 @@ async function getDom(browser,url) {
 
 
     const sourceHtml = await getSourceHTML(url);
+    //let stylesheets = [];
 
     let styles = CSSselect('style', sourceHtml.html.parsed);
     for (let i = 0; i < styles.length; i++) {

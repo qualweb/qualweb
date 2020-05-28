@@ -6,9 +6,10 @@ const { ACTRules } = require('../dist/index');
 describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
-    const browser = await puppeteer.launch();
-    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.pcdiga.com/");
-
+    //const browser = await puppeteer.launch();
+    const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://github.com/");
+    
     try {
       await page.addScriptTag({
         path: require.resolve('../dist/act.js')
@@ -21,7 +22,7 @@ describe('ACT-Rules module', function () {
         const actRules = new ACTRules.ACTRules();
         const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
         return report;
-      }, sourceHtml, stylesheets);
+      }, [], stylesheets);
       const fs = require('fs')
       // Write data in 'Output.txt' . 
       fs.writeFile('Output.txt', JSON.stringify(report, null, 2), (err) => {
@@ -31,7 +32,7 @@ describe('ACT-Rules module', function () {
     } catch (err) {
       console.error(err);
     } finally {
-      await browser.close();
+      //await browser.close();
     }
   })
 });
