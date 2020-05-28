@@ -154,7 +154,7 @@ class Evaluation {
 
     }
 
-    public async evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<Evaluation> {
+    public async evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<EvaluationReport> {
 
 
         let evaluator = await this.getEvaluator(url, page, sourceHtml, stylesheets);
