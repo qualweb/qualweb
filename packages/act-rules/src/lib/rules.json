@@ -943,5 +943,28 @@
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
+  },
+  "QW_ACT_R41": {
+    "name": "Error message describes invalid form field value",
+    "code": "QW-ACT-R41",
+    "mapping": "36b590",
+    "description": "This rule checks that text error messages provided when the user completes a form field with invalid values or using an invalid format, identify the cause of the error or how to fix the error.",
+    "metadata": {
+      "target": {
+        "element":  ["input", "select", "textarea", "*[role]"]
+      },
+      "success-criteria": [
+        {
+          "name": "3.3.1",
+          "level": "A",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/TR/WCAG21/#error-identification"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/36b590",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
   }
 }
