@@ -1,5 +1,5 @@
 declare module '@qualweb/evaluation' {
-  import { QualwebOptions, SourceHtml, CSSStylesheet, EvaluationReport } from "@qualweb/core";
+  import { QualwebOptions, SourceHtml, CSSStylesheet } from "@qualweb/core";
   import { Browser, Page } from "puppeteer";
 
   class Evaluation {
@@ -11,8 +11,15 @@ declare module '@qualweb/evaluation' {
     public executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: QualwebOptions)
     public getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string)
   }
+  class EvaluationRecord {
+  
+    constructor(evaluator: any);
+    public addModuleEvaluation(module: any, evaluation: any): void;
+    public getFinalReport(): EvaluationReport;
+  }
 
   export {
-    Evaluation
+    Evaluation,
+    EvaluationRecord
   };
 }
