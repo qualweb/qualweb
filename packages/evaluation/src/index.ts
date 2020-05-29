@@ -66,7 +66,7 @@ class Evaluation {
     }
     public async addQWPage(page: Page) {
         await page.addScriptTag({
-            path: require.resolve('../../../node_modules/@qualweb/qw-page/dist/qwPage.js')
+            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
         })
     }
 

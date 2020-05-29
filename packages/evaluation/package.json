@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "@qualweb/types": "0.4.8"
+    "@qualweb/types": "0.4.8",
+    "@qualweb/qw-page": "0.1.5"
   }
 }
