@@ -67,7 +67,7 @@ declare module '@qualweb/core' {
             height: number;
           };
         };
-        dom: Dom;
+        dom: DomData;
       };
     };
     metadata: Metadata;
@@ -115,7 +115,7 @@ declare module '@qualweb/core' {
     };
   }
 
-  interface Dom {
+  interface DomData {
     source: SourceHtml;
     processed: ProcessedHtml;
     stylesheets: CSSStylesheet[];
@@ -134,7 +134,7 @@ declare module '@qualweb/core' {
     PageOptions,
     SourceHtml,
     ProcessedHtml,
-    Dom,
+    DomData,
     CSSStylesheet,
     start,
     close,
