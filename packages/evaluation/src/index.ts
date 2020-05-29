@@ -11,9 +11,8 @@ let endpoint = 'http://194.117.20.242/validate/';
 
 class Evaluation {
 
-    public async getEvaluator(url: string, page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[]) {
-        const [pageUrl, plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
-            page.url(),
+    public async getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string) {
+        const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
             page.evaluate(() => {
                 return document.documentElement.outerHTML;
             }),
@@ -21,6 +20,11 @@ class Evaluation {
             page.$$('*'),
             page.browser().userAgent()
         ]);
+        let urlStruct;
+        if (url) {
+            let pageUrl = await page.url();
+            urlStruct = this.parseUrl(url, pageUrl)
+        }
 
         const processedHtml: ProcessedHtml = {
             html: {
@@ -39,7 +43,7 @@ class Evaluation {
             homepage: 'http://www.qualweb.di.fc.ul.pt/',
             date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
             hash: randomBytes(40).toString('hex'),
-            url: this.parseUrl(url, pageUrl),
+            url: urlStruct,
             page: {
                 viewport: {
                     mobile: viewport.isMobile,
@@ -57,6 +61,7 @@ class Evaluation {
                 }
             }
         };
+        return evaluator;
 
     }
     public async addQWPage(page: Page) {
@@ -154,10 +159,10 @@ class Evaluation {
 
     }
 
-    public async evaluateUrl(url: string, sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions): Promise<EvaluationReport> {
+    public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationReport> {
 
 
-        let evaluator = await this.getEvaluator(url, page, sourceHtml, stylesheets);
+        let evaluator = await this.getEvaluator(page, sourceHtml, stylesheets, url);
         const evaluation = new EvaluationReport(evaluator);
 
         const reports = new Array<any>();
@@ -222,3 +227,8 @@ class Evaluation {
         return parsedUrl;
     }
 }
+
+
+export { Evaluation }
+
+

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -28,8 +28,6 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@types/domhandler": "^2.4.1",
-    "@types/node": "^13.11.0",
     "chai": "^4.2.0",
     "css": "^2.2.4",
     "css-select": "^2.1.0",
@@ -39,7 +37,6 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "@qualweb/types": "0.4.2",
-    "@qualweb/qw-element": "0.1.2",
-    "domutils": "^2.0.0"  }
+    "@qualweb/types": "0.4.8"
+  }
 }
