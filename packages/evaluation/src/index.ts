@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 import { randomBytes } from 'crypto';
 import { CSSTechniques } from '@qualweb/css-techniques';
 import { BrowserUtils, DomUtils } from '@qualweb/util';
-import EvaluationReport from './evaluationReport.object';
+import EvaluationRecord from './evaluationRecord.object';
 let endpoint = 'http://194.117.20.242/validate/';
 
 
@@ -159,11 +159,11 @@ class Evaluation {
 
     }
 
-    public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationReport> {
+    public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
 
 
         let evaluator = await this.getEvaluator(page, sourceHtml, stylesheets, url);
-        const evaluation = new EvaluationReport(evaluator);
+        const evaluation = new EvaluationRecord(evaluator);
 
         const reports = new Array<any>();
         await this.addQWPage(page);
@@ -229,6 +229,6 @@ class Evaluation {
 }
 
 
-export { Evaluation }
+export { Evaluation ,EvaluationRecord}
 
 

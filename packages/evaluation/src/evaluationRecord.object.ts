@@ -3,8 +3,9 @@
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import Metadata from './metadata.object';
+import { EvaluationReport } from '@qualweb/core';
 
-class EvaluationReport {
+class EvaluationRecord {
   
   private type: 'evaluation';
   private evaluator: any;
@@ -38,4 +39,4 @@ class EvaluationReport {
   }
 }
 
-export = EvaluationReport;
+export = EvaluationRecord;
