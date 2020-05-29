@@ -47,6 +47,8 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/act-rules": "^0.4.1",
+    "@qualweb/dom": "^0.1.0",
+    "@qualweb/evaluation": "^0.1.0",
     "@qualweb/best-practices": "^0.4.1",
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/css-techniques": "^0.3.8",
@@ -63,8 +65,7 @@
   },
   "devDependencies": {
     "@types/node": "^13.13.6",
-    "@types/puppeteer": "^2.1.0",
-    "@qualweb/types": "^0.4.0",
+    "@qualweb/types": "^0.4.7",
     "chai": "^4.2.0",
     "mocha": "^7.1.2",
     "node-fetch": "^2.6.0",
