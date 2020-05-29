@@ -1,9 +1,9 @@
 declare module '@qualweb/evaluation' {
-  import { QualwebOptions, SourceHtml, CSSStylesheet } from "@qualweb/core";
+  import { QualwebOptions, SourceHtml, CSSStylesheet, EvaluationReport } from "@qualweb/core";
   import { Browser, Page } from "puppeteer";
 
   class Evaluation {
-    public evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationReport>
+    public evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord>
     public addQWPage(page: Page);
     public executeBP(page: Page, options: QualwebOptions)
     public executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: QualwebOptions)
