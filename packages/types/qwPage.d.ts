@@ -3,8 +3,7 @@ declare module '@qualweb/qw-page' {
   import { QWElement } from "@qualweb/qw-element";
 
   class QWPage {
-    private document: Document;
-    constructor(document: Document);
+    constructor(document: Document, window: Window);
     public getElement(selector: string): QWElement | null;
     public getElements(selector: string): Array<QWElement>;
     public getElementByID(id: string, elementQW: QWElement): QWElement | null;
@@ -14,7 +13,8 @@ declare module '@qualweb/qw-page' {
     public getURL(): string;
     public getHTMLContent(): string;
     public getFocusedElement(): QWElement; 
-
+    public changeToDefaultViewport(): void;
+    public changeViewport(width: number, height: number): void;
   }
 
   export {
