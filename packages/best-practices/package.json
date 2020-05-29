@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "QualWeb best practices",
   "main": "dist/bp.js",
   "types": "./node_modules/@qualweb/types",
@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "devDependencies": {
-    "@qualweb/types": "0.4.0",
+    "@qualweb/types": "0.4.10",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^13.13.4",
@@ -60,8 +60,8 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@qualweb/qw-element": "0.1.1",
-    "@qualweb/qw-page": "0.1.2",
+    "@qualweb/qw-element": "^0.1.5",
+    "@qualweb/qw-page": "^0.1.5",
     "@qualweb/util": "0.3.0",
     "htmlparser2": "^4.1.0",
     "lodash.clone": "^4.5.0",
