@@ -1,7 +1,7 @@
 'use strict';
 
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
-import { EvaluationReport, QualwebOptions } from '@qualweb/core';
+import {  QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
@@ -148,7 +148,7 @@ class System {
         let dom = new Dom();
         let { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, "", this.html);
         let evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options);
+        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options,"");
         dom.close();
         this.evaluations['customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
