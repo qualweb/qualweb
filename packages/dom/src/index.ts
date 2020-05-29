@@ -16,12 +16,13 @@ import {
     DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
 
-class DOM {
+class Dom {
     private page!: Page;
-    public async getDOM(url: string, browser: Browser, options: QualwebOptions) {
+    public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string) {
         let sourceHtml, mappedDOM, stylesheets;
         try {
             this.page = await browser.newPage();
+            await this.page.setBypassCSP(true);
             await this.setPageViewport(options.viewport);
 
             const plainStylesheets: any = {};
@@ -32,13 +33,21 @@ class DOM {
                     plainStylesheets[responseUrl] = content;
                 }
             });
+            let _sourceHtml;
+            if (url) {
+                _sourceHtml = await this.getSourceHtml(url);
 
-            const _sourceHtml = await this.getSourceHtml(url);
-
-            await this.page.goto(url, {
-                timeout: 0,
-                waitUntil: ['networkidle2', 'domcontentloaded']
-            });
+                await this.page.goto(url, {
+                    timeout: 0,
+                    waitUntil: ['networkidle2', 'domcontentloaded']
+                });
+            }else{
+                await this.page.setContent(html, {
+                    timeout: 0,
+                    waitUntil: ['networkidle2', 'domcontentloaded']
+                  });
+                  _sourceHtml = await this.page.content();
+            }
 
             if (_sourceHtml) {
                 sourceHtml = await this.parseSourceHTML(_sourceHtml);
@@ -315,3 +324,7 @@ class DOM {
         }
     }
 }
+
+export {
+    Dom
+  };
