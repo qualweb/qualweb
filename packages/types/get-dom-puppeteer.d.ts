@@ -20,8 +20,6 @@ declare module '@qualweb/get-dom-puppeteer' {
       plain: string;
       parsed: DomElement[];
     };
-    readonly title?: string;
-    readonly elementCount?: number;
   }
 
   interface CSSStylesheet {

@@ -44,6 +44,7 @@ declare module '@qualweb/html-techniques' {
     pointer?: string;
     htmlCode?: string | string[];
     attributes?: string | string[];
+    accessibleName?: string;
   }
 
   interface HTMLMetadata {
