@@ -89,7 +89,7 @@ class Evaluation {
             if (options)
                 act.configure(options);
             // @ts-ignore 
-            const report = act.execute(parsedMetaElements, new QWPage.QWPage(document), stylesheets);
+            const report = act.execute(parsedMetaElements, new QWPage.QWPage(document,window), stylesheets);
             return report;
             // @ts-ignore 
         }, parsedMetaElements, stylesheets, options['act-rules']);
@@ -125,7 +125,7 @@ class Evaluation {
             if (options)
                 html.configure(options)
             // @ts-ignore 
-            const report = html.execute(new QWPage.QWPage(document), newTabWasOpen, validation);
+            const report = html.execute(new QWPage.QWPage(document,window), newTabWasOpen, validation);
             return report;
             // @ts-ignore 
         }, newTabWasOpen, validation, options['html-techniques']);
@@ -152,7 +152,7 @@ class Evaluation {
             if (options)
                 bp.configure(options)
             // @ts-ignore 
-            const report = bp.execute(new QWPage.QWPage(document));
+            const report = bp.execute(new QWPage.QWPage(document,window));
             return report;
         }, options['best-practices']);
         return bpReport;
