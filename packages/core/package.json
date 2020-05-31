@@ -46,7 +46,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@qualweb/dom": "^0.1.1",
+    "@qualweb/dom": "^0.1.2",
     "@qualweb/evaluation": "^0.1.4",
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/earl-reporter": "^0.2.5",
