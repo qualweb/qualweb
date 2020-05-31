@@ -3,9 +3,12 @@ import { Page } from 'puppeteer';
 import { QualwebOptions, SourceHtml, PageOptions, CSSStylesheet, ProcessedHtml, Url } from "@qualweb/core";
 import fetch from 'node-fetch';
 import { randomBytes } from 'crypto';
-import { CSSTechniques } from '@qualweb/css-techniques';
+import { CSSTechniques, CSSTOptions } from '@qualweb/css-techniques';
 import { BrowserUtils, DomUtils } from '@qualweb/util';
 import EvaluationRecord from './evaluationRecord.object';
+import { ACTROptions } from '@qualweb/act-rules';
+import { BPOptions } from '@qualweb/best-practices';
+import { HTMLTOptions } from '@qualweb/html-techniques';
 let endpoint = 'http://194.117.20.242/validate/';
 
 
@@ -70,7 +73,7 @@ class Evaluation {
         })
     }
 
-    public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: QualwebOptions) {
+    public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: ACTROptions|undefined) {
         await page.addScriptTag({
             path: require.resolve('@qualweb/act-rules')
         })
@@ -92,13 +95,13 @@ class Evaluation {
             const report = act.execute(parsedMetaElements, new QWPage.QWPage(document,window), stylesheets);
             return report;
             // @ts-ignore 
-        }, parsedMetaElements, stylesheets, options['act-rules']);
+        }, parsedMetaElements, stylesheets, options);
 
         return actReport;
 
     }
 
-    public async executeHTML(page: Page, options: QualwebOptions) {
+    public async executeHTML(page: Page, options: HTMLTOptions|undefined) {
         await page.addScriptTag({
             path: require.resolve('@qualweb/html-techniques')
         })
@@ -128,21 +131,21 @@ class Evaluation {
             const report = html.execute(new QWPage.QWPage(document,window), newTabWasOpen, validation);
             return report;
             // @ts-ignore 
-        }, newTabWasOpen, validation, options['html-techniques']);
+        }, newTabWasOpen, validation, options);
         return htmlReport;
 
     }
-    public async executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: QualwebOptions) {
+    public async executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: CSSTOptions|undefined) {
         const css = new CSSTechniques();
-        if (options['css-techniques']) {
-            css.configure(options['css-techniques']);
+        if (options) {
+            css.configure(options);
         }
         let result = await css.execute(stylesheets, mappedDOM);
         css.resetConfiguration();
         return result;
     }
 
-    public async executeBP(page: Page, options: QualwebOptions) {
+    public async executeBP(page: Page, options: any) {
         await page.addScriptTag({
             path: require.resolve('@qualweb/best-practices')
         })
@@ -154,7 +157,7 @@ class Evaluation {
             // @ts-ignore 
             const report = bp.execute(new QWPage.QWPage(document,window));
             return report;
-        }, options['best-practices']);
+        }, options);
         return bpReport;
 
     }
@@ -170,17 +173,17 @@ class Evaluation {
 
 
         if (execute.act) {
-            reports.push(await this.executeACT(page, sourceHtml, stylesheets, options));
+            reports.push(await this.executeACT(page, sourceHtml, stylesheets, options['act-rules']));
         }
 
         if (execute.html) {
-            reports.push(await this.executeHTML(page, options));
+            reports.push(await this.executeHTML(page, options["html-techniques"]));
         }
         if (execute.css) {
-            reports.push(await this.executeCSS(stylesheets, mappedDOM, options));
+            reports.push(await this.executeCSS(stylesheets, mappedDOM, options["css-techniques"]));
         }
         if (execute.bp) {
-            reports.push(await this.executeBP(page, options));
+            reports.push(await this.executeBP(page, options['best-practices']));
         }
 
 
