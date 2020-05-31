@@ -19,7 +19,7 @@ import {
 class Dom {
     private page!: Page;
     public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string) {
-        let sourceHtml, mappedDOM, stylesheets;
+        let sourceHtml, mappedDOM = {}, stylesheets;
         try {
             this.page = await browser.newPage();
             await this.page.setBypassCSP(true);

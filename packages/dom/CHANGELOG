@@ -1,4 +1,7 @@
 # Changelog
+## [0.1.2] - 31/05/2020
+ - fixed variable initialization
+
 ## [0.1.1] - 29/05/2020
  - updated dependencies
 
