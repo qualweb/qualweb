@@ -18,6 +18,7 @@ import elementHasValidRoleFunction from "./elementHasValidRole";
 import isElementReferencedByAriaLabelFunction from './isElementReferencedByAriaLabel';
 import getDisabledWidgetsFunction from './getDisabledWidgets';
 import getAccessibleNameSelectorFunction from './getAccessibleNameSelector';
+import getLinkContextFunction from './getLinkContext';
 
 namespace AccessibilityUtils {
   export const getElmentRoleAname = getElementRoleANameFunction;
@@ -38,6 +39,7 @@ namespace AccessibilityUtils {
   export const isElementReferencedByAriaLabel = isElementReferencedByAriaLabelFunction;
   export const getDisabledWidgets = getDisabledWidgetsFunction;
   export const getAccessibleNameSelector = getAccessibleNameSelectorFunction;
+  export const getLinkContext = getLinkContextFunction;
 }
 
 export default AccessibilityUtils;
