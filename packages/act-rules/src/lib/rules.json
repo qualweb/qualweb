@@ -943,5 +943,28 @@
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
+  },
+  "QW_ACT_R43": {
+    "name": "Scrollable element is keyboard accessible",
+    "code": "QW-ACT-R43",
+    "mapping": "0ssw9k",
+    "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "2.1.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/0ssw9k",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
   }
 }
