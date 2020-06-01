@@ -943,5 +943,26 @@
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
+  },
+  "QW_ACT_R44": {
+    "name": "Links with identical accessible names and context serve equivalent purpose",
+    "code": "QW-ACT-R44",
+    "mapping": "fd3a94",
+    "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+    "metadata": {
+      "target": {
+        "element": "a, [role='link']"
+      },
+      "success-criteria": [{
+        "name": "2.4.9",
+        "level": "AAA",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/fd3a94",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
   }
 }
