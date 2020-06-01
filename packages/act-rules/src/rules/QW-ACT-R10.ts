@@ -27,7 +27,7 @@ class QW_ACT_R10 extends Rule {
       catch(e){
       }
       if (frame) {
-        iframeContent = new QWPage(frame);
+        iframeContent = new QWPage(frame, window);
         iframes.push(...(iframeContent.getElements('iframe[src]')));
       }
       frame = null;
@@ -111,7 +111,7 @@ class QW_ACT_R10 extends Rule {
       for (const element of elements) {
         htmlContent = element.getContentFrame()
         if (htmlContent!== null) {
-          let page = new QWPage(htmlContent)
+          let page = new QWPage(htmlContent, window);
           content.push(page.getHTMLContent());
         }
       }
