@@ -22,7 +22,7 @@ function getLinkContext(element: QWElement, page: QWPage): string[] {
     if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"||ariaDescribedBy.includes(id))){
       context.push(parent.getElementSelector())
     }
-    getLinkContextAux(element, page,ariaDescribedBy,context);
+    getLinkContextAux(parent, page,ariaDescribedBy,context);
   }
   return context;
 }
@@ -37,7 +37,7 @@ function getLinkContextAux(element: QWElement, page: QWPage,ariaDescribedBy:stri
     if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"||(id && ariaDescribedBy.includes(id)))){
       context.push(parent.getElementSelector())
     }
-    getLinkContextAux(element, page,ariaDescribedBy,context);
+    getLinkContextAux(parent, page,ariaDescribedBy,context);
   }
 }
 
