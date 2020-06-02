@@ -36,6 +36,8 @@ describe(`Rule ${rule}`, async function () {
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
 
+          await page.close();
+
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
