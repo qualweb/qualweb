@@ -76,7 +76,7 @@ function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion:
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "legend", page, treeSelector), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion) {
     AName = getFirstNotUndefined(getTextFromCss(element, page, isWidget), title);
-  } else if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) {
+  } else /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) and all other elements*/ {
     AName = getFirstNotUndefined(title);
   }
 
