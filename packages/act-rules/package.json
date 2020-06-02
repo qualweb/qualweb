@@ -85,7 +85,7 @@
     "htmlparser2": "^4.0.0",
     "@qualweb/qw-element": "^0.1.5",
     "@qualweb/qw-page": "^0.1.5",
-    "@qualweb/util": "0.3.6",
+    "@qualweb/util": "0.3.8",
     "css-select": "^2.1.0",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
