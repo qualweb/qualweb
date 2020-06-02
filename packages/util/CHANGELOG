@@ -1,4 +1,8 @@
 # Changelog
+
+## [0.3.9] - 02/06/2020
+### Fixed
+ - getAname for object element
 ## [0.3.8] - 02/06/2020
 ### Fixed
  - getImplicitRole and getLinkContext

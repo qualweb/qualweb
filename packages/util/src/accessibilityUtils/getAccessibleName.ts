@@ -79,7 +79,7 @@ function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recurs
     AName = getFirstNotUndefined(getValueFromSpecialLabel(elementQW, "legend", pageQW, treeSelector), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion || name === "label") {
     AName = getFirstNotUndefined(getTextFromCss(elementQW, pageQW, isWidget), title);
-  } else if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) {
+  } else /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0))*/ {
     AName = getFirstNotUndefined(title);
   }
 
