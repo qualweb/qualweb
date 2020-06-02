@@ -11,15 +11,15 @@ function getLinkContext(element: QWElement, page: QWPage): string[] {
   let context: string [] = [];
   let parent = element.getElementParent();
   let ariaDescribedByATT = element.getElementAttribute("aria-describedby");
-  let ariaDescribedBy;
+  let ariaDescribedBy: string[] = [];
   if(ariaDescribedByATT)
-    ariaDescribedBy = ariaDescribedBy.split(" ");
+    ariaDescribedBy = ariaDescribedByATT.split(" ");
   if (parent) {
     let role = getElementRole(parent, page);
     let inAT = !isElementPresentation(parent, page) && !isElementHidden(parent);//isElementInAT(when added html list)
     let tagName = parent.getElementTagName();
     let id = parent.getElementAttribute("id");
-    if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"||ariaDescribedBy.includes(id))){
+    if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell" || role === "listitem" || id && ariaDescribedBy.includes(id))){
       context.push(parent.getElementSelector())
     }
     getLinkContextAux(parent, page,ariaDescribedBy,context);
@@ -34,7 +34,7 @@ function getLinkContextAux(element: QWElement, page: QWPage,ariaDescribedBy:stri
     let inAT = !isElementPresentation(parent, page) && !isElementHidden(parent);//isElementInAT(when added html list)
     let tagName = parent.getElementTagName();
     let id = parent.getElementAttribute("id");
-    if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"||(id && ariaDescribedBy.includes(id)))){
+    if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"|| role === "listitem"||(id && ariaDescribedBy.includes(id)))){
       context.push(parent.getElementSelector())
     }
     getLinkContextAux(parent, page,ariaDescribedBy,context);

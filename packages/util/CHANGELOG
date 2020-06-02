@@ -1,4 +1,8 @@
 # Changelog
+## [0.3.8] - 02/06/2020
+### Fixed
+ - getImplicitRole and getLinkContext
+
 ## [0.3.7] - 01/06/2020
 ### Fixed
  - getLinkContext

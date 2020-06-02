@@ -54,7 +54,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
               let parentNames = ["ol", "ul", "menu"];
               let parentName;
               if (parent !== null)
-                parentName =elementQW.getElementTagName();
+                parentName =parent.getElementTagName();
 
               if (parentName !== null && parentNames.includes(parentName)) {
                 role = roleValue["role"];
