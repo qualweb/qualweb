@@ -4,7 +4,7 @@ import allowsNameFromContent from "./allowsNameFromContent";
 import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
-import { formElements, typesWithLabel, sectionAndGrouping, tabularElements } from './constants';
+import { formElements, typesWithLabel } from './constants';
 import getElementRoleAName from './getElementRoleAName';
 import isElementControl from './isElementControl';
 
