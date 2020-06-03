@@ -156,6 +156,20 @@ class ACTRules {
     this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
   }
 
+  public executeQW_ACT_R40(page: QWPage,): any {
+    const elements = page.getElements('body *');
+
+    if (elements.length > 0) {
+      for (const elem of elements || []) {
+        this.rules['QW-ACT-R40'].execute(elem, page, this.optimization);
+      }
+    } else {
+      this.rules['QW-ACT-R40'].execute(undefined, page, this.optimization);
+    }
+
+    return this.rules['QW-ACT-R40'].getFinalResults();
+  }
+
   public execute(metaElements: any[], page: QWPage, stylesheets: any[]): ACTRulesReport {
 
     const report: ACTRulesReport = {

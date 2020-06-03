@@ -19,12 +19,11 @@ describe(`Rule ${rule}`, async function () {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
 
-    /*describe('Running tests', function () {
+    describe('Running tests', function () {
       for (const test of tests || []) {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -42,8 +41,8 @@ describe(`Rule ${rule}`, async function () {
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
-    });*/
-
+    });
+/*
     describe('Custom test', function () {
       it('should execute', async function () {
         this.timeout(1000 * 1000);
@@ -62,7 +61,7 @@ describe(`Rule ${rule}`, async function () {
         }, sourceHtml, stylesheets, { rules: [rule] });
         console.log(report.assertions['QW-ACT-R39'].results)
       });
-    });
+    });*/
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {

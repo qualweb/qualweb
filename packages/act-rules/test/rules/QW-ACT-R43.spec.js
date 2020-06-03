@@ -4,7 +4,6 @@ const path = require('path');
 
 const {mapping} = require('../constants');
 const {getTestCases, getDom} = require('../getDom');
-const {ACTRules} = require('../../dist/index');
 
 const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];
@@ -23,9 +22,6 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          
-          await page.evaluate(() => {
-          while (document.readyState !== "complete"){}});
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -36,9 +32,11 @@ describe(`Rule ${rule}`, async function () {
           sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document, window), stylesheets);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
+
+          await page.close();
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

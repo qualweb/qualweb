@@ -17,18 +17,12 @@ describe(`Rule ${rule}`, async function () {
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
     });
-<<<<<<< HEAD
-    
-    describe('Running tests', function() {
-=======
 
-    describe('Running tests', function () {
->>>>>>> feature/html-version
+    describe('Running tests', function() {
       for (const test of tests || []) {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -47,30 +41,6 @@ describe(`Rule ${rule}`, async function () {
         });
       }
     });
-
-<<<<<<< HEAD
-    // describe('Running tests', function() {
-    //     it("boom", async function() {
-    //       this.timeout(100 * 1000);
-    //       const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.alta.kommune.no/");
-    //       const actRules = new ACTRules({ rules: [rule] });
-    //       const report = await actRules.execute(sourceHtml, page, stylesheets);
-
-    //       //expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
-    //     });
-    // });
-=======
-    /*describe('Running tests', function() {
-        it("boom", async function() {
-          this.timeout(100 * 1000);
-          const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.alta.kommune.no/");
-          const actRules = new ACTRules({ rules: [rule] });
-          const report = await actRules.execute(sourceHtml, page, stylesheets);
-
-          //expect(report.rules[rule].metadata.outcome).to.be.equal(test.outcome);
-        });
-    });*/
->>>>>>> feature/html-version
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {

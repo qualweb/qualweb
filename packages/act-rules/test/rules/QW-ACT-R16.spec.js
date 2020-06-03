@@ -24,7 +24,6 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -42,17 +41,6 @@ describe(`Rule ${rule}`, async function () {
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
-    });
-
-    describe('Custom test', function () {
-      it('should execute', async function () {
-        this.timeout(1000 * 1000);
-
-        const {sourceHtml, page, stylesheets} = await getDom(browser, 'https://nkmal.no/kontakt');
-        const actRules = new ACTRules({rules: [rule]});
-        const report = await actRules.execute(sourceHtml, page, stylesheets);
-        //console.log(JSON.stringify(report, null, 2));
-      });
     });
 
     describe(`Closing testbench`, async function () {

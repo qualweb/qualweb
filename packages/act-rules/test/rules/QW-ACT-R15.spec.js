@@ -24,7 +24,6 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -46,7 +45,7 @@ describe(`Rule ${rule}`, async function () {
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-       // await browser.close();
+        await browser.close();
       });
     });
   });

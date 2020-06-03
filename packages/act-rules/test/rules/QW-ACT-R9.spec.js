@@ -18,7 +18,7 @@ describe(`Rule ${rule}`, async function () {
     let tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
     });
-    tests[3].outcome = 'warning';
+    /*tests[3].outcome = 'warning';
     tests[5].outcome = 'warning';
     tests[6].outcome = 'warning';
     tests[12].outcome = 'warning';
@@ -26,7 +26,7 @@ describe(`Rule ${rule}`, async function () {
     tests[14].outcome = 'warning';
     tests[15].outcome = 'warning';
     tests[16].outcome = 'warning';
-    tests[17].outcome = 'warning';
+    tests[17].outcome = 'warning';*/
 
     //tests = tests.slice(16,tests.length);
 
@@ -39,7 +39,6 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')

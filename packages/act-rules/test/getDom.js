@@ -5,9 +5,15 @@ const htmlparser2 = require("htmlparser2");
 const fetch = require("node-fetch");
 const CSSselect = require('css-select');
 
-async function getDom(browser,url) {
+async function getDom(browser,url, viewport) {
     const page = await browser.newPage();
+
     await page.setBypassCSP(true);
+
+    if (viewport) {
+        await page.setViewport(viewport);
+    }
+
     const plainStylesheets = {};
     page.on('response', async response => {
         if (response.request().resourceType() === 'stylesheet') {
