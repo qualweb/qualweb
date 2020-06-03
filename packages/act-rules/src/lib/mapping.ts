@@ -5,7 +5,8 @@ export default {
     },
     'post': {
       'title': ['QW-ACT-R1'],
-      '*': ['QW-ACT-R37']
+      '*': ['QW-ACT-R37'],
+      'body *': ['QW-ACT-R43']
     }
   },
   'concurrent': {
