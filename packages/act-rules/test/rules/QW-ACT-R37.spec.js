@@ -13,9 +13,8 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
-   // const browser = await puppeteer.launch();
-    //chromiumrowser --remote-debugging-port=9222
-    const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+
+    const browser = await puppeteer.launch();
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -26,7 +25,6 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
-          console.log(test.url);
 
           await page.addScriptTag({
             path: require.resolve('../qwPage.js')
@@ -46,20 +44,9 @@ describe(`Rule ${rule}`, async function () {
       }
     });
 
-    // describe('Custom test wikipedia', function() {
-    //  it('should execute', async function() {
-    //    this.timeout(1000 * 1000 * 1000);
-
-    //    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.ctt.pt/particulares/index');
-    //    const actRules = new ACTRules({ rules: [rule] });
-    //    const report = await actRules.execute(sourceHtml, page, stylesheets);
-
-    //  });
-    // });
-
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        //await browser.close();
+        await browser.close();
       });
     });
   });
