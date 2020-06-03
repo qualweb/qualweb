@@ -1,11 +1,11 @@
 'use strict';
 
-import {ACTRuleResult} from '@qualweb/act-rules';
-import {AccessibilityUtils, DomUtils} from '@qualweb/util';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import {ACTRule, ElementExists} from '../lib/decorator';
-import {QWElement} from '@qualweb/qw-element';
-import {QWPage} from '@qualweb/qw-page';
+import { ACTRule, ElementExists } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R39 extends Rule {
@@ -39,27 +39,33 @@ class QW_ACT_R39 extends Rule {
           if (isAncestorTableOrGridInAT) {
             const rowElements = ancestorTableOrGrid.getElements('tr, [role="row"]');
             const elementParent = element.getElementParent();
+            const colspan = element.getElementAttribute("colspan");
             const headerElementIndex = getElementIndexOfParentChildren(element);
             const headerElementId = element.getElementAttribute('id');
 
             let found = false;
             let index = 0;
             while (!found && index < rowElements.length) {
-              // only searching rows where element is not included
+              // all children of row
+              const rowChildrenElements = rowElements[index].getElementChildren();
               if (elementParent && rowElements[index].getElementSelector() !== elementParent.getElementSelector()) {
-
-                // all children of row
-                const rowChildrenElements = rowElements[index].getElementChildren();
-
                 // row element with same index as header
-                const cellIndexElement = rowChildrenElements[headerElementIndex];
 
                 // if there is an element in the same index as header...
-                if (cellIndexElement) {
-                  const cellIndexElementRole = cellIndexElement ? AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
-                  const cellHeadersAttribute = cellIndexElement ? cellIndexElement.getElementAttribute('headers') : null;
-                  // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
-                  found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
+                if (rowChildrenElements.length > headerElementIndex) {
+                  const cellIndexElements = [rowChildrenElements[headerElementIndex]];
+                  if (colspan) {
+                    let i = headerElementIndex + 1;
+                    for (i; i < (headerElementIndex + parseInt(colspan)) && i < rowChildrenElements.length; i++) {
+                      cellIndexElements.push(rowChildrenElements[i])
+                    }
+                  }
+                  for (let cellIndexElement of cellIndexElements) {
+                    const cellIndexElementRole = cellIndexElement ? AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
+                    const cellHeadersAttribute = cellIndexElement ? cellIndexElement.getElementAttribute('headers') : null;
+                    // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
+                    found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
+                  }
                 } else {
                   // if there is not an element in the same index as header, we need to check all row children...
                   for (let cellElement of rowChildrenElements) {
@@ -72,10 +78,22 @@ class QW_ACT_R39 extends Rule {
 
                       // and verifying if it has a headers attribute that includes headerElement's id
                       const headers = cellElement.getElementAttribute('headers');
-                      found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (headerElementId && headers && headers.includes(headerElementId) || (cellColspanAttribute ? cellElementIndex + +cellColspanAttribute - 1 <= headerElementIndex : false));
+                      found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (!!headerElementId && !!headers && headers.includes(headerElementId) || (cellColspanAttribute ? cellElementIndex + +cellColspanAttribute - 1 <= headerElementIndex : false));
                     }
                   }
                 }
+              } else {
+                let elements = rowElements[index].getElements("td,[role='cell'],[role='gridcell']");
+                for (let cellElement of elements) {
+                  if (!found) {
+                    const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
+                    // and verifying if it has a headers attribute that includes headerElement's id
+                    const headers = cellElement.getElementAttribute('headers');
+                    found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (!headers || (!!headerElementId && !!headers && headers.includes(headerElementId)));
+                  }
+                }
+
+
               }
               index++;
             }
