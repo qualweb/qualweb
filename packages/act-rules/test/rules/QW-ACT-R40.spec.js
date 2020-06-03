@@ -1,0 +1,53 @@
+const {expect} = require('chai');
+const puppeteer = require('puppeteer');
+const path = require('path');
+const { Dom } = require('@qualweb/dom');
+
+const {mapping} = require('../constants');
+const {getTestCases, getDom} = require('../getDom');
+
+const rule = path.basename(__filename).split('.')[0];
+const ruleId = mapping[rule];
+
+describe(`Rule ${rule}`, async function () {
+
+  it('Starting testbench', async function () {
+    const browser = await puppeteer.launch();
+    const data = await getTestCases();
+    const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
+      return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
+    });
+
+    describe('Running tests', function () {
+      for (const test of tests || []) {
+        it(test.title, async function () {
+          this.timeout(100 * 1000);
+          const dom = new Dom();
+          const {sourceHtml, page, stylesheets} = await dom.getDOM(browser, {}, test.url, null);
+          await page.setViewport({ width: 640, height: 512 });
+
+          await page.addScriptTag({
+            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+          })
+          await page.addScriptTag({
+            path: require.resolve('../../dist/act.js')
+          })
+          sourceHtml.html.parsed = {};
+          const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
+            const actRules = new ACTRules.ACTRules(rules);
+            const report = actRules.executeQW_ACT_R40(new QWPage.QWPage(document, window));
+            return report;
+          }, sourceHtml, stylesheets, {rules: [rule]});
+
+          expect(report.metadata.outcome).to.be.equal(test.outcome);
+        });
+      }
+    });
+
+    describe(`Closing testbench`, async function () {
+      it(`Closed`, async function () {
+        await browser.close();
+      });
+    });
+  });
+});

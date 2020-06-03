@@ -944,6 +944,29 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
+  "QW_ACT_R40": {
+    "name": "Zoomed text node is not clipped with CSS overflow",
+    "code": "QW-ACT-R40",
+    "mapping": "59br37",
+    "description": "This rule checks that text nodes are not unintentionally clipped by overflow, when a page is zoomed to 200% on 1280 by 1024 viewport.",
+    "metadata": {
+      "target": {
+        "element": "*:text()"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.4",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/59br37",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
+  },
   "QW_ACT_R43": {
     "name": "Scrollable element is keyboard accessible",
     "code": "QW-ACT-R43",
