@@ -5,7 +5,7 @@ declare module '@qualweb/core' {
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
   import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
   import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
-  import { BestPracticesReport } from '@qualweb/best-practices';
+  import { BestPracticesReport, BPOptions } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
   import { LaunchOptions } from 'puppeteer';
 

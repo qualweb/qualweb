@@ -33,6 +33,7 @@ declare module '@qualweb/util' {
   }
 
   namespace AccessibilityUtils {
+    export function getLinkContext(element: QWElement, page: QWPage): string[] 
     export function allowsNameFromContent(element: QWElement): boolean;
     export function elementHasRoleNoneOrPresentation(elementQW: QWElement): boolean;
     export function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean;
