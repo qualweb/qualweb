@@ -36,6 +36,7 @@ export default {
       'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35'],
       '[headers]': ['QW-ACT-R36'],
       'th,[role="rowheader"],[role="columnheader"]': ['QW-ACT-R39'],
+      'object':["QW-ACT-R42"]
     }
   }
 };

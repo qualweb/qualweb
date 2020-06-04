@@ -1301,5 +1301,28 @@
         "WCAG21:language"
       ]
     }
+  },
+  "QW_ACT_R42": {
+    "name": "Object element has non-empty accessible name",
+    "code": "QW-ACT-R42",
+    "mapping": "8fc3b6",
+    "description": "This rule checks that each `object` element has a non-empty accessible name. ",
+    "metadata": {
+      "target": {
+        "element": ["object"]
+      },
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
+        }
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
+    }
   }
 }
