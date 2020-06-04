@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
@@ -26,15 +26,12 @@ class QW_ACT_R17 extends Rule {
     const name = element.getElementTagName();
     const elementInAT = AccessibilityUtils.isElementInAT(element, page);
     const role = AccessibilityUtils.getElementRole(element, page);
-    console.log(role);
-    console.log(name);
+    let hidden = DomUtils.isElementHidden(element);
 
     if (name === 'img') {
       const alt = element.getElementAttribute("alt");
-      console.log(alt);
-      console.log(alt === "" )
 
-      if (alt === ""|| role === "presentation" || role === "none") {
+      if (!hidden&&(alt === ""|| role === "presentation" || role === "none")) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target is decorative.`;
         evaluation.resultCode = 'RC1';
