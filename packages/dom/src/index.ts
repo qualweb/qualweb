@@ -36,17 +36,31 @@ class Dom {
             let _sourceHtml;
             if (url) {
                 _sourceHtml = await this.getSourceHtml(url);
+            }
 
-                await this.page.goto(url, {
+            if (url) {
+                let response = await this.page.goto(url, {
                     timeout: 0,
                     waitUntil: ['networkidle2', 'domcontentloaded']
                 });
-            }else{
+                let sourceHTMLPupeteer
+                if (response)
+                    sourceHTMLPupeteer = await response.text()
+
+                if (this.isSVGorMath(sourceHTMLPupeteer)) {
+                    await this.page.setContent('<!DOCTYPE html <html><body></body></html>', {
+                        timeout: 0,
+                        waitUntil: ['networkidle2', 'domcontentloaded']
+                    });
+                }
+
+
+            } else {
                 await this.page.setContent(html, {
                     timeout: 0,
                     waitUntil: ['networkidle2', 'domcontentloaded']
-                  });
-                  _sourceHtml = await this.page.content();
+                });
+                _sourceHtml = await this.page.content();
             }
 
             if (_sourceHtml) {
@@ -323,8 +337,11 @@ class Dom {
             }, "shadowTree", counter + "");
         }
     }
+    private async isSVGorMath(content: string) {
+        return content.trim().startsWith('<math') || content.trim().startsWith('<svg');
+    }
 }
 
 export {
     Dom
-  };
+};
