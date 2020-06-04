@@ -38,9 +38,6 @@ class QW_ACT_R30 extends Rule {
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         const elementText = AccessibilityUtils.getTrimmedText(element);
-        console.log(accessibleName);
-        console.log(elementText);
-        console.log(elementText.length);
 
         if(accessibleName === undefined) {
           evaluation.verdict = 'failed';

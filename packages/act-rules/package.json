@@ -49,6 +49,7 @@
     "test-r38": "mocha test/rules/QW-ACT-R38.spec.js",
     "test-r39": "mocha test/rules/QW-ACT-R39.spec.js",
     "test-r40": "mocha test/rules/QW-ACT-R40.spec.js",
+    "test-r41": "mocha test/rules/QW-ACT-R41.spec.js",
     "test-r42": "mocha test/rules/QW-ACT-R42.spec.js",
     "test-r43": "mocha test/rules/QW-ACT-R43.spec.js",
     "test-r44": "mocha test/rules/QW-ACT-R44.spec.js",
@@ -72,7 +73,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.4.10",
+    "@qualweb/types": "0.4.11",
     "@qualweb/dom": "^0.1.2",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^13.13.9",
