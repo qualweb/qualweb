@@ -73,7 +73,7 @@ class Evaluation {
         })
     }
 
-    public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: ACTROptions|undefined) {
+    public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: ACTROptions | undefined) {
         await page.addScriptTag({
             path: require.resolve('@qualweb/act-rules')
         })
@@ -92,16 +92,42 @@ class Evaluation {
             if (options)
                 act.configure(options);
             // @ts-ignore 
-            const report = act.execute(parsedMetaElements, new QWPage.QWPage(document,window), stylesheets);
+            const report = act.execute(parsedMetaElements, new QWPage.QWPage(document, window), stylesheets);
             return report;
             // @ts-ignore 
         }, parsedMetaElements, stylesheets, options);
+        let r40 = "QW-ACT-R40";
+        if (!options || !options["rules"] || options["rules"].includes("QW-ACT-R40")) {
+            const viewport = page.viewport();
+            await page.setViewport({ width: 640, height: 512 });
+
+            const actReportR40 = await page.evaluate((parsedMetaElements, stylesheets, options) => {
+                // @ts-ignore 
+                const act = new ACTRules.ACTRules();
+                if (options)
+                    act.configure(options);
+                // @ts-ignore 
+                const report = act.execute(parsedMetaElements, new QWPage.QWPage(document, window), stylesheets);
+                return report;
+                // @ts-ignore 
+            }, parsedMetaElements, stylesheets,  {rules: [r40]});
+
+            await page.setViewport({ width: viewport.width, height: viewport.height });
+            actReport.assertions[r40] = actReportR40.assertions[r40];
+            actReport.metadata.passed += actReportR40.metadata.passed;
+            actReport.metadata.failed += actReportR40.metadata.failed;
+            actReport.metadata.warning += actReportR40.metadata.warning;
+            actReport.metadata.inapplicable += actReportR40.metadata.inapplicable;
+
+
+        }
+
 
         return actReport;
 
     }
 
-    public async executeHTML(page: Page, options: HTMLTOptions|undefined) {
+    public async executeHTML(page: Page, options: HTMLTOptions | undefined) {
         await page.addScriptTag({
             path: require.resolve('@qualweb/html-techniques')
         })
@@ -128,14 +154,14 @@ class Evaluation {
             if (options)
                 html.configure(options)
             // @ts-ignore 
-            const report = html.execute(new QWPage.QWPage(document,window), newTabWasOpen, validation);
+            const report = html.execute(new QWPage.QWPage(document, window), newTabWasOpen, validation);
             return report;
             // @ts-ignore 
         }, newTabWasOpen, validation, options);
         return htmlReport;
 
     }
-    public async executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: CSSTOptions|undefined) {
+    public async executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: CSSTOptions | undefined) {
         const css = new CSSTechniques();
         if (options) {
             css.configure(options);
@@ -155,7 +181,7 @@ class Evaluation {
             if (options)
                 bp.configure(options)
             // @ts-ignore 
-            const report = bp.execute(new QWPage.QWPage(document,window));
+            const report = bp.execute(new QWPage.QWPage(document, window));
             return report;
         }, options);
         return bpReport;
@@ -232,6 +258,6 @@ class Evaluation {
 }
 
 
-export { Evaluation ,EvaluationRecord}
+export { Evaluation, EvaluationRecord }
 
 
