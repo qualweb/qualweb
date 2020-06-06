@@ -1,5 +1,7 @@
 # Changelog
-
+## [0.3.10] - 06/06/2020
+### Fixed
+ - isElementVisible
 ## [0.3.9] - 02/06/2020
 ### Fixed
  - getAname for object element
