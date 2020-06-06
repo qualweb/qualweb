@@ -13,8 +13,8 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
-    //const browser = await puppeteer.launch();
-    const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+    const browser = await puppeteer.launch();
+    //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -39,6 +39,7 @@ describe(`Rule ${rule}`, async function () {
             const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
+          console.log(report)
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
