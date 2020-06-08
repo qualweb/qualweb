@@ -1248,83 +1248,6 @@
       "a11yReq": []
     }
   },
-  "QW_ACT_R43": {
-    "name": "Scrollable element is keyboard accessible",
-    "code": "QW-ACT-R43",
-    "mapping": "0ssw9k",
-    "description": "This rule checks that scrollable elements can be scrolled by keyboard",
-    "metadata": {
-      "target": {
-        "element": "*"
-      },
-      "success-criteria": [
-        {
-          "name": "2.1.1",
-          "level": "A",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
-        }
-      ],
-      "related": [],
-      "url": "https://act-rules.github.io/rules/0ssw9k",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": []
-    }
-  },
-  "QW_ACT_R44": {
-    "name": "Links with identical accessible names and context serve equivalent purpose",
-    "code": "QW-ACT-R44",
-    "mapping": "fd3a94",
-    "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
-    "metadata": {
-      "target": {
-        "element": "a, [role='link']"
-      },
-      "success-criteria": [
-        {
-          "name": "2.4.9",
-          "level": "AAA",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
-        }
-      ],
-      "related": [],
-      "url": "https://act-rules.github.io/rules/fd3a94",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
-    }
-  },
-  "QW_ACT_R42": {
-    "name": "Object element has non-empty accessible name",
-    "code": "QW-ACT-R42",
-    "mapping": "8fc3b6",
-    "description": "This rule checks that each `object` element has a non-empty accessible name. ",
-    "metadata": {
-      "target": {
-        "element": ["object"]
-      },
-      "success-criteria": [
-        {
-          "name": "1.1.1",
-          "level": "A",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
-        }
-      ],
-      "related": [],
-      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R41": {
     "name": "Error message describes invalid form field value",
     "code": "QW-ACT-R41",
@@ -1332,7 +1255,12 @@
     "description": "This rule checks that text error messages provided when the user completes a form field with invalid values or using an invalid format, identify the cause of the error or how to fix the error.",
     "metadata": {
       "target": {
-        "element":  ["input", "select", "textarea", "*[role]"]
+        "element": [
+          "input",
+          "select",
+          "textarea",
+          "*[role]"
+        ]
       },
       "success-criteria": [
         {
@@ -1344,8 +1272,96 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/36b590",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }},
+    "QW_ACT_R42": {
+      "name": "Object element has non-empty accessible name",
+      "code": "QW-ACT-R42",
+      "mapping": "8fc3b6",
+      "description": "This rule checks that each `object` element has a non-empty accessible name. ",
+      "metadata": {
+        "target": {
+          "element": [
+            "object"
+          ]
+        },
+        "success-criteria": [
+          {
+            "name": "1.1.1",
+            "level": "A",
+            "principle": "Perceivable",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
+          }
+        ],
+        "related": [],
+        "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ]
+      }
+    },
+    "QW_ACT_R43": {
+      "name": "Scrollable element is keyboard accessible",
+      "code": "QW-ACT-R43",
+      "mapping": "0ssw9k",
+      "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+      "metadata": {
+        "target": {
+          "element": "*"
+        },
+        "success-criteria": [
+          {
+            "name": "2.1.1",
+            "level": "A",
+            "principle": "Operable",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+          }
+        ],
+        "related": [],
+        "url": "https://act-rules.github.io/rules/0ssw9k",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": []
+      }
+    },
+    "QW_ACT_R44": {
+      "name": "Links with identical accessible names and context serve equivalent purpose",
+      "code": "QW-ACT-R44",
+      "mapping": "fd3a94",
+      "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+      "metadata": {
+        "target": {
+          "element": "a, [role='link']"
+        },
+        "success-criteria": [
+          {
+            "name": "2.4.9",
+            "level": "AAA",
+            "principle": "Operable",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
+          }
+        ],
+        "related": [],
+        "url": "https://act-rules.github.io/rules/fd3a94",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ]
+      }
     }
   }
-}

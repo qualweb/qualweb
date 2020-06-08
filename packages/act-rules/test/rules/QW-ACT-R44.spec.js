@@ -39,7 +39,7 @@ describe(`Rule ${rule}`, async function () {
             const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
-          console.log(report)
+          console.log(report.assertions[rule])
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
