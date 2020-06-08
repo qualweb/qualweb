@@ -97,7 +97,6 @@ class Evaluation {
             // @ts-ignore 
         }, parsedMetaElements, stylesheets, options);
         let r40 = "QW-ACT-R40";
-        console.log(options)
         if (!options || !options["rules"] || options["rules"].includes(r40)||options["rules"].includes("59br37")) {
             const viewport = page.viewport();
             await page.setViewport({ width: 640, height: 512 });
