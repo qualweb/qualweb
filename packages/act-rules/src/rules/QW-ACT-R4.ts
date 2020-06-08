@@ -2,7 +2,7 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule2.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRule, ElementExists, IsHTMLDocument } from '../lib/decorator';
 
 @ACTRule
 class QW_ACT_R4 extends Rule {
@@ -12,6 +12,7 @@ class QW_ACT_R4 extends Rule {
   }
 
   @ElementExists
+  @IsHTMLDocument
   execute(element: any): void {
     
     const evaluation: ACTRuleResult = {

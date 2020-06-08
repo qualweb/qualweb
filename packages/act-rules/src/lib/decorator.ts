@@ -186,32 +186,16 @@ function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   };
 }
 
-function IsDocument(document: string) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+function IsHTMLDocument (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = function () {
-      const rootElement = arguments[1].getPageRootElement();
-      if (rootElement) {
-        const tagName = rootElement.getElementTagName();
-        if (tagName === document) {
+      const IsHTMLDocument = arguments[0].getElementAttribute("nonHTMLPage") === "true"
+      if (!IsHTMLDocument) {
           return method.apply(this, arguments);
         }
       }
     };
-  };
-}
 
-//fixme
-function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-  const method = descriptor.value;
-  descriptor.value = function () {
-    const isMathDocument = arguments[0].getElementAttribute("nonHTMLPage") === "true"
-    console.log(arguments[0].getElementAttribute("nonHTMLPage") );
-    if (!isMathDocument) {
-      return method.apply(this, arguments);
-    }
-  };
-}
 
 function IsLangSubTagValid(attribute: string) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -242,7 +226,6 @@ export {
   ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
   ElementHasOneOfTheFollowingRoles,
-  IsDocument,
-  IsNotMathDocument,
-  IsLangSubTagValid
+  IsHTMLDocument,
+    IsLangSubTagValid
 };
