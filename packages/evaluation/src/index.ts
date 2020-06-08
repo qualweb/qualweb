@@ -97,29 +97,25 @@ class Evaluation {
             // @ts-ignore 
         }, parsedMetaElements, stylesheets, options);
         let r40 = "QW-ACT-R40";
+        console.log(options)
         if (!options || !options["rules"] || options["rules"].includes(r40)||options["rules"].includes("59br37")) {
             const viewport = page.viewport();
             await page.setViewport({ width: 640, height: 512 });
-
-            const actReportR40 = await page.evaluate((parsedMetaElements, stylesheets, options) => {
+            const actReportR40 = await page.evaluate(() => {
                 // @ts-ignore 
                 const act = new ACTRules.ACTRules();
-                if (options)
-                    act.configure(options);
-                // @ts-ignore 
-                const report = act.execute(parsedMetaElements, new QWPage.QWPage(document, window), stylesheets);
+                 // @ts-ignore 
+                const report = act.executeQW_ACT_R40( new QWPage.QWPage(document, window));
                 return report;
                 // @ts-ignore 
-            }, parsedMetaElements, stylesheets,  {rules: [r40]});
-
+            });
+    
             await page.setViewport({ width: viewport.width, height: viewport.height });
-            actReport.assertions[r40] = actReportR40.assertions[r40];
+            actReport.assertions[r40] = actReportR40;
             actReport.metadata.passed += actReportR40.metadata.passed;
             actReport.metadata.failed += actReportR40.metadata.failed;
             actReport.metadata.warning += actReportR40.metadata.warning;
             actReport.metadata.inapplicable += actReportR40.metadata.inapplicable;
-
-
         }
 
 
