@@ -9,7 +9,7 @@ describe('Core', function() {
 
     await core.start();
     const reports = await core.evaluate({ url: 'http://ciencias.ulisboa.pt'});
-    console.log(reports);
+    console.log(JSON.stringify(reports['http://ciencias.ulisboa.pt']["modules"]["act-rules"],0,2));
     await core.close();
 
     expect(reports['http://ciencias.ulisboa.pt'].type).to.be.equal('evaluation');
