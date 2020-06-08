@@ -97,24 +97,25 @@ class Evaluation {
             // @ts-ignore 
         }, parsedMetaElements, stylesheets, options);
         let r40 = "QW-ACT-R40";
-        if (!options || !options["rules"] || options["rules"].includes(r40)||options["rules"].includes("59br37")) {
+        if (!options || !options["rules"] || options["rules"].includes(r40) || options["rules"].includes("59br37")) {
             const viewport = page.viewport();
             await page.setViewport({ width: 640, height: 512 });
             const actReportR40 = await page.evaluate(() => {
                 // @ts-ignore 
                 const act = new ACTRules.ACTRules();
-                 // @ts-ignore 
-                const report = act.executeQW_ACT_R40( new QWPage.QWPage(document, window));
+                // @ts-ignore 
+                const report = act.executeQW_ACT_R40(new QWPage.QWPage(document, window));
                 return report;
                 // @ts-ignore 
             });
-    
+
             await page.setViewport({ width: viewport.width, height: viewport.height });
             actReport.assertions[r40] = actReportR40;
             actReport.metadata.passed += actReportR40.metadata.passed;
             actReport.metadata.failed += actReportR40.metadata.failed;
             actReport.metadata.warning += actReportR40.metadata.warning;
-            actReport.metadata.inapplicable += actReportR40.metadata.inapplicable;
+            if (actReportR40["outcome"] === "inapplicable")
+                actReport.metadata.inapplicable ++;
         }
 
 
