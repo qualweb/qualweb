@@ -205,7 +205,8 @@ function IsDocument(document: string) {
 function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const isMathDocument = false;//DomUtils.isMathDocument(arguments[1].url());
+    const isMathDocument = arguments[0].getElementAttribute("nonHTMLPage") === "true"
+    console.log(arguments[0].getElementAttribute("nonHTMLPage") );
     if (!isMathDocument) {
       return method.apply(this, arguments);
     }
