@@ -48,7 +48,9 @@ class Dom {
                     sourceHTMLPupeteer = await response.text()
 
                 if (this.isSVGorMath(sourceHTMLPupeteer)) {
-                    await this.page.setContent('<!DOCTYPE html <html><body></body></html>', {
+                    this.page.close()
+                    this.page = await browser.newPage();
+                    await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
                         timeout: 0,
                         waitUntil: ['networkidle2', 'domcontentloaded']
                     });
@@ -337,7 +339,7 @@ class Dom {
             }, "shadowTree", counter + "");
         }
     }
-    private async isSVGorMath(content: string) {
+    private isSVGorMath(content: string) {
         return content.trim().startsWith('<math') || content.trim().startsWith('<svg');
     }
 }

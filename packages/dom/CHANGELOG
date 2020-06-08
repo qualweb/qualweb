@@ -1,4 +1,7 @@
 # Changelog
+## [0.1.4] - 08/06/2020
+ - fixed svg/math detection
+
 ## [0.1.3] - 08/06/2020
  - fixed variable initialization
 
