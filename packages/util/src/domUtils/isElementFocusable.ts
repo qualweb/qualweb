@@ -5,29 +5,23 @@ import isElementHiddenByCSS from './isElementHiddenByCSS';
 import { QWElement } from '@qualweb/qw-element';
 
 function isElementFocusable(elementQW: QWElement): boolean {
-  let disabled = false;
-  let hidden = false;
-  let focusableByDefault = false;
-  let tabIndexLessThanZero = false;
-  let tabIndexExistsAndIsNumber = false;
 
-  const hasAttributes =  elementQW.elementHasAttributes();
-  const tabindex = elementQW.getElementAttribute( 'tabindex');
+  let disabled = (elementQW.getElementAttribute('disabled')) !== null;
 
-  if (hasAttributes) {
-    tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
-    disabled = (elementQW.getElementAttribute( 'disabled')) !== null;
-    hidden = isElementHiddenByCSS(elementQW);
-    focusableByDefault = isElementFocusableByDefault(elementQW);
+  if (disabled || isElementHiddenByCSS(elementQW)) {
+    return false;
+  } else if (isElementFocusableByDefault(elementQW)) {
+    return true;
+  }
+  else {
+    let tabIndexLessThanZero = false;
+    const tabindex = elementQW.getElementAttribute('tabindex');
+    let tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
 
     if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
-  }
-  if (focusableByDefault) {
-    return !(disabled || hidden || tabIndexLessThanZero);
-  } else {
-    return tabIndexExistsAndIsNumber ? !tabIndexLessThanZero : false;
+    return tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
   }
 }
 
