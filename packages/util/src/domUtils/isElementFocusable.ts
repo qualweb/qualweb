@@ -10,10 +10,7 @@ function isElementFocusable(elementQW: QWElement): boolean {
 
   if (disabled || isElementHiddenByCSS(elementQW)) {
     return false;
-  } else if (isElementFocusableByDefault(elementQW)) {
-    return true;
-  }
-  else {
+  } else {
     let tabIndexLessThanZero = false;
     const tabindex = elementQW.getElementAttribute('tabindex');
     let tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
@@ -21,7 +18,12 @@ function isElementFocusable(elementQW: QWElement): boolean {
     if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
-    return tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
+    if (isElementFocusableByDefault(elementQW)) {
+      return true;
+    }
+    else {
+      return tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
+    }
   }
 }
 
