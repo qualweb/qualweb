@@ -6,9 +6,8 @@ import Rule from '../lib/Rule.object';
 import { 
   ACTRule, 
   ElementExists, 
-  ElementHasNonEmptyAttribute, 
-  IsDocument, 
-  IsNotMathDocument 
+  ElementHasNonEmptyAttribute,
+  IsHTMLDocument,  
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 
@@ -20,8 +19,7 @@ class QW_ACT_R5 extends Rule {
   }
 
   @ElementExists
-  @IsDocument('html')
-  @IsNotMathDocument
+  @IsHTMLDocument
   @ElementHasNonEmptyAttribute('lang')
   execute(element: QWElement): void {
 

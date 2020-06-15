@@ -3,7 +3,7 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists, ElementIsInAccessibilityTree } from '../lib/decorator';
+import { ACTRule, ElementExists, ElementIsInAccessibilityTree, IsHTMLDocument } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from "@qualweb/qw-page";
 
@@ -15,6 +15,7 @@ class QW_ACT_R6 extends Rule {
   }
 
   @ElementExists
+  @IsHTMLDocument
   @ElementIsInAccessibilityTree
   execute(element: QWElement, page: QWPage): void {
 

@@ -6,12 +6,10 @@ import {
   ACTRule, 
   ElementExists,
   ElementIsInAccessibilityTree,
-  ElementHasAttributeRole,
   ElementHasAttribute,
   ElementSrcAttributeFilenameEqualsAccessibleName
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
-import { AccessibilityUtils } from '@qualweb/util';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
@@ -23,7 +21,6 @@ class QW_ACT_R8 extends Rule {
 
   @ElementExists
   @ElementIsInAccessibilityTree
-  @ElementHasAttributeRole('img')
   @ElementHasAttribute('src')
   @ElementSrcAttributeFilenameEqualsAccessibleName
   execute(element: QWElement,page:QWPage): void {
@@ -34,35 +31,10 @@ class QW_ACT_R8 extends Rule {
       resultCode: ''
     };
 
-    const imageFile = new RegExp('(.apng|.bmp|.gif|.ico|.cur|.jpg|.jpeg|.jfif|.pjpeg|.pjp|.png|.svg|.tif|.tiff|.webp)(\\?.+)?$');
 
-    const src = <string> element.getElementAttribute('src');
-
-    const filePath = src.split('/');
-    const filenameWithExtension = filePath[filePath.length - 1];
-
-    const parent = element.getElementParent();
-
-    if (parent && imageFile.test(filenameWithExtension)) {
-      const tagName = element.getElementTagName();
-      const elementText = element.getElementText();
-
-      if (tagName && elementText){
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target accessible name includes the filename but with the text content of the \`a\` element, the image is accurately described.`;
-        evaluation.resultCode = 'RC1';
-      } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The presence of the file extension in the accessible name doesn't accurately describe the image.`;
-        evaluation.resultCode = 'RC2';
-      }
-    } else {
-      evaluation.verdict = 'passed';
-      evaluation.description = `This element's accessible name uses the filename which accurately describes the image.`;
-      evaluation.resultCode = 'RC3';
-    }
-
-    evaluation.accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+      evaluation.verdict = 'warning';
+      evaluation.description = `This element's accessible name uses the filename.Check if it accurately describes the image.`;
+      evaluation.resultCode = 'RC1';
     
     super.addEvaluationResult(evaluation, element);
   }

@@ -6,16 +6,16 @@ import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import languages from './language.json';
 import cloneDeep from 'lodash.clonedeep';
 
-function ACTRule<T extends { new (...args: any[]): {} }>(constructor: T) {
+function ACTRule<T extends { new(...args: any[]): {} }>(constructor: T) {
   const rule = rules[constructor.name];
-  
+
   rule.metadata.passed = 0;
   rule.metadata.warning = 0;
   rule.metadata.failed = 0;
   rule.metadata.outcome = '';
   rule.metadata.description = '';
   rule.results = new Array<ACTRuleResult>();
-  
+
   const newConstructor: any = function () {
     let func: any = function () {
       return new constructor(cloneDeep(rule));
@@ -29,7 +29,7 @@ function ACTRule<T extends { new (...args: any[]): {} }>(constructor: T) {
 
 function ElementExists(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = function() {
+  descriptor.value = function () {
     if (arguments[0]) {
       return method.apply(this, arguments);
     }
@@ -38,7 +38,7 @@ function ElementExists(target: any, propertyKey: string, descriptor: PropertyDes
 
 function ElementHasAttributes(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value =  function() {
+  descriptor.value = function () {
     const hasAttributes = arguments[0].elementHasAttributes();
     if (hasAttributes) {
       return method.apply(this, arguments);
@@ -47,10 +47,10 @@ function ElementHasAttributes(target: any, propertyKey: string, descriptor: Prop
 }
 
 function ElementHasAttribute(attribute: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
-      const attr = arguments[0].elementHasAttribute( attribute);
+    descriptor.value = function () {
+      const attr = arguments[0].elementHasAttribute(attribute);
       if (attr) {
         return method.apply(this, arguments);
       }
@@ -59,10 +59,10 @@ function ElementHasAttribute(attribute: string) {
 }
 
 function ElementHasNonEmptyAttribute(attribute: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
-      const attr = arguments[0].getElementAttribute( attribute);
+    descriptor.value = function () {
+      const attr = arguments[0].getElementAttribute(attribute);
       if (attr && attr.trim()) {
         return method.apply(this, arguments);
       }
@@ -71,9 +71,9 @@ function ElementHasNonEmptyAttribute(attribute: string) {
 }
 
 function ElementHasAttributeRole(role: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
+    descriptor.value = function () {
       const _role = AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (!_role || _role === role) {
         return method.apply(this, arguments);
@@ -83,9 +83,9 @@ function ElementHasAttributeRole(role: string) {
 }
 
 function ElementHasAttributeValue(attribute: string, value: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
+    descriptor.value = function () {
       const attr = arguments[0].getElementAttribute(attribute);// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (attr && attr === value) {
         return method.apply(this, arguments);
@@ -95,12 +95,12 @@ function ElementHasAttributeValue(attribute: string, value: string) {
 }
 
 function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
+    descriptor.value = function () {
       const _tagName = arguments[0].getElementTagName();
       if (_tagName === tagName) {
-        const _role = arguments[0].getElementAttribute( 'role');// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+        const _role = arguments[0].getElementAttribute('role');// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
         if (!_role || _role === role) {
           return method.apply(this, arguments);
         }
@@ -113,8 +113,8 @@ function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string)
 
 function ElementIsInAccessibilityTree(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value =  function() {
-    const isInAT =  AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
+  descriptor.value = function () {
+    const isInAT = AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
     if (isInAT) {
       return method.apply(this, arguments);
     }
@@ -123,26 +123,51 @@ function ElementIsInAccessibilityTree(target: any, propertyKey: string, descript
 
 function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value =  function() {
+  descriptor.value = function () {
     const src = arguments[0].getElementAttribute('src');
-
+    const srcSet = arguments[0].getElementAttribute('srcset');
+    let parent = arguments[0].getElementParent()
+    let filenameWithExtension;
     if (src) {
       const filePath = src.split('/');
-      const filenameWithExtension = filePath[filePath.length - 1];
-
-      const accessibleName =  AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
-
-      if (filenameWithExtension === accessibleName) {
-        return method.apply(this, arguments);
+      filenameWithExtension = [filePath[filePath.length - 1].trim().toLowerCase()];
+    }
+    if (srcSet) {
+      let srcSetElements = srcSet.split(',')
+      for (let srcsetElement of srcSetElements) {
+        let srcValue = srcsetElement.split(" ")[0];
+        let fileSrc = srcValue.split('/')
+        filenameWithExtension.push(fileSrc[fileSrc.length - 1].trim().toLowerCase())
       }
     }
-  };
-}
+    if (parent) {
+      let parentTag = parent.getElementTagName();
+      if (parentTag === "picture") {
+        let sourceElements = parent.getElements("source");
+        for(let sourceElement of sourceElements){
+          let src = sourceElement.getElementAttribute('srcset');
+          const filePath = src.split('/');
+           filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
+        }
+
+      }
+    }
+
+    const accessibleName = AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
+    console.log(accessibleName)
+    console.log(filenameWithExtension)
+
+    if (accessibleName && filenameWithExtension && filenameWithExtension.includes(accessibleName.toLowerCase())) {
+      return method.apply(this, arguments);
+    }
+  }
+};
+
 
 function ElementIsVisible(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value =  function() {
-    const isVisible =  DomUtils.isElementVisible(arguments[0]);
+  descriptor.value = function () {
+    const isVisible = DomUtils.isElementVisible(arguments[0]);
     if (isVisible) {
       return method.apply(this, arguments);
     }
@@ -150,10 +175,10 @@ function ElementIsVisible(target: any, propertyKey: string, descriptor: Property
 }
 
 function ElementHasOneOfTheFollowingRoles(roles: string[]) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
-      const role =  AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+    descriptor.value = function () {
+      const role = AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (!!role && roles.includes(role)) {
         return method.apply(this, arguments);
       }
@@ -161,37 +186,22 @@ function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   };
 }
 
-function IsDocument(document: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+function IsHTMLDocument (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
-      const rootElement = arguments[1].getPageRootElement();
-      if(rootElement) {
-        const tagName = rootElement.getElementTagName();
-        if (tagName === document) {
+    descriptor.value = function () {
+      const IsHTMLDocument = arguments[0].getElementAttribute("nonHTMLPage") === "true"
+      if (!IsHTMLDocument) {
           return method.apply(this, arguments);
         }
       }
     };
-  };
-}
 
-//fixme
-function IsNotMathDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-  const method = descriptor.value;
-  descriptor.value = function() {
-    const isMathDocument = false;//DomUtils.isMathDocument(arguments[1].url());
-    if (!isMathDocument) {
-      return method.apply(this, arguments);
-    }
-  };
-}
 
 function IsLangSubTagValid(attribute: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value =  function() {
-      const attr = arguments[0].getElementAttribute( attribute);
+    descriptor.value = function () {
+      const attr = arguments[0].getElementAttribute(attribute);
       if (attr && isSubTagValid(attr.split('-')[0])) {
         return method.apply(this, arguments);
       }
@@ -203,9 +213,9 @@ function isSubTagValid(subTag: string): boolean {
   return languages.hasOwnProperty(subTag);
 }
 
-export { 
-  ACTRule, 
-  ElementExists, 
+export {
+  ACTRule,
+  ElementExists,
   ElementHasAttributes,
   ElementHasAttribute,
   ElementHasAttributeRole,
@@ -216,7 +226,6 @@ export {
   ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
   ElementHasOneOfTheFollowingRoles,
-  IsDocument,
-  IsNotMathDocument,
-  IsLangSubTagValid
+  IsHTMLDocument,
+    IsLangSubTagValid
 };

@@ -182,9 +182,6 @@ class ACTRules {
       },
       assertions: {}
     };
-
-    page.processShadowDom();
-
     this.executeNonConcurrentRules(report, page)
     this.executeConcurrentRules(report, page)
     this.executeNotMappedRules( report, stylesheets,metaElements)

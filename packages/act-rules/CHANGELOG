@@ -1,4 +1,17 @@
 # Changelog
+## [0.4.10] - 08/06/2020
+### Updated
+ - deleted process shadowDom
+## [0.4.9] - 08/06/2020
+### Updated
+ - deleted log
+## [0.4.8] - 08/06/2020
+### Updated
+ - fixed isDocument
+## [0.4.7] - 08/06/2020
+
+### Updated
+ - updated dependencies, fixed bugs and added rules 40 to 44
 ## [0.4.6] - 29/05/2020
 
 ### Updated
