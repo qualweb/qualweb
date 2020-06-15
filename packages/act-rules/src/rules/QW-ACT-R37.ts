@@ -38,7 +38,7 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-        let visible =  DomUtils.isElementVisible(element);
+				let visible =  DomUtils.isElementVisible(element);
 
         if(!visible){
           evaluation.verdict = 'inapplicable';
@@ -93,15 +93,15 @@ class QW_ACT_R37 extends Rule {
             break;
           }
         }
-        console.log(evaluation.resultCode)
 
         if(shouldContinue)
           continue;
 
-
         let role =  AccessibilityUtils.getElementRole(element, page);
-        if(role === 'group'){
-          if( element.elementHasAttribute( 'disabled')){
+				if(role === 'group'){
+          let disable = (element.getElementAttribute('disabled')) !== null;
+          let ariaDisable = (element.getElementAttribute('aria-disabled')) !== null;
+          if( disable || ariaDisable){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Element has a semantic role of group and is disabled.';
             evaluation.resultCode = 'RC6';
@@ -129,7 +129,6 @@ class QW_ACT_R37 extends Rule {
         //TODO check char to char
         //TODO check if there is more colors
         //TODO account for margin and padding
-        console.log(evaluation.resultCode)
 
         const regexGradient = /((\w-?)*gradient.*)/gm;
         let regexGradientMatches = bgColor.match(regexGradient);
@@ -187,7 +186,6 @@ class QW_ACT_R37 extends Rule {
             evaluation.description = `Element doesn't have human language text.`;
             evaluation.resultCode = 'RC9';
           }
-
         }else{
 
           let parsedBG = this.parseRgbString(bgColor, opacity);
@@ -236,8 +234,7 @@ class QW_ACT_R37 extends Rule {
             }
           }
         }
-        console.log(evaluation.resultCode)
-         super.addEvaluationResult(evaluation, element);
+        super.addEvaluationResult(evaluation, element);
 
       }
     }
