@@ -3,7 +3,6 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
-//import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
 function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean {
 
@@ -11,7 +10,7 @@ function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): b
   let treeSelector = elementQW.getTreeSelector();
   let result = false;
   if (id !== null) {
-    let referencedByAriaLabel = pageQW.getElements(`[aria-labelledby*="${id}"]` + treeSelector);
+    let referencedByAriaLabel = pageQW.getElements(`[aria-labelledby="${id}"]` + treeSelector);
     let i = 0;
     while(i < referencedByAriaLabel.length){
       let ariaLabelBy = referencedByAriaLabel[i].getElementAttribute( "aria-labelledby");

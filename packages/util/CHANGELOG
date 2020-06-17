@@ -1,5 +1,8 @@
 # Changelog
-## [0.3.11] - 15/06/2020
+## [0.3.13] - 17/06/2020
+### Fixed
+ - deleted "*" in selector (isElementReferencedByAriaLabel)
+## [0.3.12] - 15/06/2020
 ### Fixed
  - isElementFocusable
 ## [0.3.11] - 15/06/2020
