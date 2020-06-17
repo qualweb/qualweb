@@ -10,6 +10,7 @@ import {
   IsHTMLDocument
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R3 extends Rule {
@@ -24,7 +25,7 @@ class QW_ACT_R3 extends Rule {
   @ElementHasNonEmptyAttribute('xml:lang')
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

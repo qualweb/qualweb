@@ -1,19 +1,10 @@
 const {expect} = require('chai');
 const puppeteer = require('puppeteer');
 const path = require('path');
+const {mapping} = require('../constants');
+const {getTestCases, getDom} = require('../getDom');
 
-<<<<<<<
-HEAD
-const {mapping} = require('../constants');
-const {getTestCases, getDom} = require('../getDom');
-const {ACTRules} = require('../../dist/index');
-======
-=
-const {mapping} = require('../constants');
-const {getTestCases, getDom} = require('../getDom');
->>>>>>>
-94
-bdb3c8c0869c0f9d21b56de0de8d86b77218ff
+
 
 const rule = path.basename(__filename).split('.')[0];
 const ruleId = mapping[rule];

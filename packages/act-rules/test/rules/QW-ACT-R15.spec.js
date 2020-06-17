@@ -12,8 +12,8 @@ const ruleId = mapping[rule];
 describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
-    const browser = await puppeteer.launch({args: ['--autoplay-policy=no-user-gesture-required']});
-    //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+    const browser = await puppeteer.launch({args: ['--autoplay-policy=no-user-gesture-required','--disable-features=AutoplayIgnoreWebAudio']});
+   // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};

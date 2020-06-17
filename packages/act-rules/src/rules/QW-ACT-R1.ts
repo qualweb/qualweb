@@ -4,6 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRule, IsHTMLDocument } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R1 extends Rule {
@@ -11,9 +12,8 @@ class QW_ACT_R1 extends Rule {
   constructor(rule?: any) {
     super(rule);
   }
-  
   @IsHTMLDocument
-  execute(element: QWElement | undefined): void {
+  execute(element: QWElement | undefined,page:QWPage): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',

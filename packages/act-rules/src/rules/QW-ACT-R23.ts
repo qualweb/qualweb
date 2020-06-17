@@ -24,31 +24,27 @@ class QW_ACT_R23 extends Rule {
 
     const metadata = DomUtils.getVideoMetadata(element);
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
-    const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element);
 
-    if (metadata.puppeteer.error) {
+
+
+    if (!isVisible) {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
+      evaluation.resultCode = 'RC1';
+    }
+    else if (metadata.puppeteer.error) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't colect data from the test target.`;
-      evaluation.resultCode = 'RC1';
-    } else if (isVisible) {
-      if (track !== null) {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the `track` element correctly describes the auditive content of the video.';
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'Check if the test target auditive content has and accessible alternative.';
-        evaluation.resultCode = 'RC3';
-      }
-    } else if (isVisible && hasPuppeteerApplicableData) {
+      evaluation.resultCode = 'RC2';
+    } else if (hasPuppeteerApplicableData) {
       evaluation.verdict = 'warning';
       evaluation.description = `The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does, check if the visual content has an accessible alternative.`;
-      evaluation.resultCode = 'RC4';
+      evaluation.resultCode = 'RC3';
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
-      evaluation.resultCode = 'RC5';
+      evaluation.resultCode = 'RC4';
     }
 
     super.addEvaluationResult(evaluation, element);

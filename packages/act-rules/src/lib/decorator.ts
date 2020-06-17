@@ -144,10 +144,10 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
       let parentTag = parent.getElementTagName();
       if (parentTag === "picture") {
         let sourceElements = parent.getElements("source");
-        for(let sourceElement of sourceElements){
+        for (let sourceElement of sourceElements) {
           let src = sourceElement.getElementAttribute('srcset');
           const filePath = src.split('/');
-           filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
+          filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
         }
 
       }
@@ -186,15 +186,18 @@ function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   };
 }
 
-function IsHTMLDocument (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    const method = descriptor.value;
-    descriptor.value = function () {
-      const IsHTMLDocument = arguments[0].getElementAttribute("nonHTMLPage") === "true"
-      if (!IsHTMLDocument) {
-          return method.apply(this, arguments);
-        }
-      }
-    };
+function IsHTMLDocument(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    let IsNonHTMLDocument = false;
+    let htmlElement =  arguments[1].getElement("html");
+    if (htmlElement)
+      IsNonHTMLDocument = htmlElement.getElementAttribute("nonHTMLPage") === "true"
+    if (!IsNonHTMLDocument) {
+      return method.apply(this, arguments);
+    }
+  }
+};
 
 
 function IsLangSubTagValid(attribute: string) {
@@ -227,5 +230,5 @@ export {
   ElementIsVisible,
   ElementHasOneOfTheFollowingRoles,
   IsHTMLDocument,
-    IsLangSubTagValid
+  IsLangSubTagValid
 };
