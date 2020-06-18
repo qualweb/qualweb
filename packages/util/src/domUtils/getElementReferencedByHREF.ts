@@ -3,38 +3,26 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
 function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null {
-  if (!elementQW && pageQW) {
+  if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
 
-  if (!(elementQW.elementHasAttributes())) {
-    return null;
+  let href = elementQW.getElementAttribute('href');
+  let url = pageQW.getURL();
+  let urlConcatWithId = url + '#';
+  let lastSlash = url.lastIndexOf('/');
+  let filename = url.substring(lastSlash + 1);
+  let result;
+  if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) ||
+    href.startsWith(filename))) {
+    let idSymbol = href.indexOf('#');
+    let idReferenced = href.substring(idSymbol + 1);
+    if (idReferenced.length > 0) {
+      let idElementReferenced = pageQW.getElement('#' + idReferenced)
+      result = idElementReferenced;
+    }
   }
-
-  let href = elementQW.getElementAttribute( 'href');
-  if (!href) {
-    return null;
-  }
-
-  if (href.charAt(0) === '#' && href.length > 1) {
-    href = decodeURIComponent(href.substring(1));
-  } else if (href.substr(0, 2) === '/#' && href.length > 2) {
-    href = decodeURIComponent(href.substring(2));
-  } else {
-    return null;
-  }
-
-  let result = pageQW.getElementByID(href, elementQW);
-  if (result) {
-    return result;
-  }
-
-  result = pageQW.getElementByAttributeName(href);
-  if (result) {
-    return result;
-  }
-
-  return null;
+  return result;
 }
 
 export default getElementReferencedByHREF;

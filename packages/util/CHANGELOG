@@ -1,5 +1,7 @@
 # Changelog
-## [0.3.13] - 17/06/2020
+## [0.3.14] - 18/06/2020
+### Fixed
+ - fixed getElementReferencedByHREF
 ### Fixed
  - deleted "*" in selector (isElementReferencedByAriaLabel)
 ## [0.3.12] - 15/06/2020
