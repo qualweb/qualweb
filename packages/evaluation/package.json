@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -33,11 +33,11 @@
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "mocha": "^7.0.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "@qualweb/types": "0.4.11"
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "@qualweb/types": "0.4.10",
     "@qualweb/qw-page": "0.1.5",
     "@qualweb/act-rules": "^0.4.11",
     "@qualweb/best-practices": "^0.4.2",
