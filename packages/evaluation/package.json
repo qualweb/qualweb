@@ -39,9 +39,9 @@
     "node-fetch": "^2.6.0",
     "@qualweb/types": "0.4.10",
     "@qualweb/qw-page": "0.1.5",
-    "@qualweb/act-rules": "^0.4.9",
+    "@qualweb/act-rules": "^0.4.11",
     "@qualweb/best-practices": "^0.4.2",
-    "@qualweb/html-techniques": "^0.4.2",
-    "@qualweb/css-techniques": "^0.3.8"
+    "@qualweb/html-techniques": "^0.4.3",
+    "@qualweb/css-techniques": "^0.3.9"
   }
 }
