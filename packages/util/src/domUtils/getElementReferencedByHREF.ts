@@ -16,10 +16,12 @@ function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWEle
   if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) ||
     href.startsWith(filename))) {
     let idSymbol = href.indexOf('#');
-    let idReferenced = href.substring(idSymbol + 1);
-    if (idReferenced.length > 0) {
-      let idElementReferenced = pageQW.getElement('#' + idReferenced)
-      result = idElementReferenced;
+    if (idSymbol > -1) {
+      let idReferenced = href.substring(idSymbol + 1);
+      if (idReferenced.length > 0) {
+        let idElementReferenced = pageQW.getElement('#' + idReferenced)
+        result = idElementReferenced;
+      }
     }
   }
   return result;

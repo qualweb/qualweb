@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.15] - 18/06/2020
+### Fixed
+ - fixed getElementReferencedByHREF
 ## [0.3.14] - 18/06/2020
 ### Fixed
  - fixed getElementReferencedByHREF
