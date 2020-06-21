@@ -1,3 +1,5 @@
+import actRulesJson from './act-rules.options.json';
+
 const header =
 ` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
 |     |  |  |  _  |  |  | | | |   __| __  |  |     |  |  |     |
@@ -8,7 +10,7 @@ const header =
 const strings = {};
 const modules = ['act', 'html', 'css', 'bp'];
 const reports = ['earl', 'earl-a']
-const actRules = ['QW-ACT-R1', 'QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R4', 'QW-ACT-R5','QW-ACT-R6', 'QW-ACT-R7', 'QW-ACT-R8', 'QW-ACT-R9', 'QW-ACT-R10', 'QW-ACT-R11', 'QW-ACT-R12', 'QW-ACT-R13', 'QW-ACT-R14', 'QW-ACT-R15', 'QW-ACT-R16', 'QW-ACT-R17', 'QW-ACT-R18', 'QW-ACT-R19', 'QW-ACT-R20', 'QW-ACT-R21', 'QW-ACT-R22', 'QW-ACT-R23', 'QW-ACT-R24', 'QW-ACT-R25', 'QW-ACT-R26', 'QW-ACT-R27', 'QW-ACT-R28', 'QW-ACT-R29', 'QW-ACT-R30', 'QW-ACT-R31', 'QW-ACT-R32', 'QW-ACT-R33', 'QW-ACT-R34', 'QW-ACT-R35', 'QW-ACT-R36', 'QW-ACT-R37', 'QW-ACT-R38', 'QW-ACT-R39'];
+const actRules = [...actRulesJson.qualweb_id, ...actRulesJson.act_id];
 const htmlTechniques = ['QW-HTML-T1', 'QW-HTML-T2', 'QW-HTML-T3', 'QW-HTML-T4', 'QW-HTML-T5', 'QW-HTML-T6', 'QW-HTML-T7', 'QW-HTML-T8', 'QW-HTML-T9', 'QW-HTML-T10', 'QW-HTML-T11', 'QW-HTML-T12', 'QW-HTML-T13', 'QW-HTML-T14', 'QW-HTML-T15', 'QW-HTML-T16', 'QW-HTML-T17', 'QW-HTML-T18', 'QW-HTML-T19', 'QW-HTML-T20', 'QW-HTML-T21', 'QW-HTML-T22', 'QW-HTML-T23', 'QW-HTML-T24', 'QW-HTML-T25', 'QW-HTML-T26', 'QW-HTML-T27', 'QW-HTML-T28', 'QW-HTML-T29', 'QW-HTML-T30', 'QW-HTML-T31', 'QW-HTML-T32', 'QW-HTML-T33', 'QW-HTML-T34', 'QW-HTML-T35', 'QW-HTML-T36', 'QW-HTML-T37', 'QW-HTML-T38', 'QW-HTML-T39', 'QW-HTML-T40', 'QW-HTML-T41', 'QW-HTML-T42', 'QW-HTML-T43'];
 const cssTechniques = ['QW-CSS-T1', 'QW-CSS-T2', 'QW-CSS-T3', 'QW-CSS-T4', 'QW-CSS-T5', 'QW-CSS-T6', 'QW-CSS-T7'];
 const bps = ['QW-BP1', 'QW-BP2', 'QW-BP3', 'QW-BP4', 'QW-BP5', 'QW-BP6', 'QW-BP7', 'QW-BP8', 'QW-BP9', 'QW-BP10', 'QW-BP11', 'QW-BP12', 'QW-BP13', 'QW-BP14', 'QW-BP15', 'QW-BP16'];
@@ -52,7 +54,7 @@ const viewport = [
 const moduleFilters = [
   {
     name: 'act-rules',
-    typeLabel: '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R'+actRules.length + ' ]',
+    typeLabel: '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R'+ actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
     type: String,
     multiple: true,
     description: 'Choose which ACT rules to execute.'
