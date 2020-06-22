@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.16] - 18/06/2020
+### Fixed
+ - added protection for invalid selectors
 ## [0.3.15] - 18/06/2020
 ### Fixed
  - fixed getElementReferencedByHREF

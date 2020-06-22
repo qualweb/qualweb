@@ -9,6 +9,7 @@ function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): b
   let id = elementQW.getElementAttribute( "id");
   let treeSelector = elementQW.getTreeSelector();
   let result = false;
+  try{
   if (id !== null) {
     let referencedByAriaLabel = pageQW.getElements(`[aria-labelledby="${id}"]` + treeSelector);
     let i = 0;
@@ -22,7 +23,7 @@ function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): b
       }
       i++;
     }
-  }
+  }}catch{}
   return result;
 }
 
