@@ -6,9 +6,9 @@ const { ACTRules } = require('../dist/index');
 describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
-    //const browser = await puppeteer.launch();
-   const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
-    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://ciencias.ulisboa.pt/");
+    const browser = await puppeteer.launch();
+   //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.accessibility.nl/wai-tools/validation-test-sites/ns-international/");
     
     try {
       await page.addScriptTag({
@@ -32,7 +32,7 @@ describe('ACT-Rules module', function () {
     } catch (err) {
       console.error(err);
     } finally {
-      //await browser.close();
+      await browser.close();
     }
   })
 });

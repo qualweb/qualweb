@@ -204,7 +204,6 @@ class QW_ACT_R24 extends Rule {
       description: '',
       resultCode: ''
     };
-
     //check if is visible and not in accessibility tree
     const visible = DomUtils.isElementVisible(element);
     if (!visible) {
