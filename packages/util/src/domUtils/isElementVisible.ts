@@ -10,13 +10,27 @@ function isElementVisible(elementQW: QWElement): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  const offScreen =  elementQW.isOffScreen();
+  if (elementQW.getElementAttribute('shadowTree') !== null) {
+    let selector = elementQW.getElementSelector();
+    let parent = elementQW.getElementParent();
+    while (parent && parent.getElementAttribute('shadowTree') !== null) {
+      parent = parent.getElementParent();
+    }
+    if (parent) {
+      let parentSelector = parent.getElementSelector();
+      let shadowSelector = selector.replace(parentSelector + " >", "");
+      let shadowElement = parent.getShadowElement(shadowSelector.trim());
+      if (shadowElement)
+        elementQW = shadowElement
+    }
+  }
+  const offScreen = elementQW.isOffScreen();
   const cssHidden = isElementHiddenByCSS(elementQW);
   const textHasTheSameColor = textHasTheSameColorOfBackground(elementQW);
   const hasContent = elementHasContent(elementQW);
   const hasOnePixelHeight = elementHasOnePixel(elementQW);
-  
-  return !(offScreen||hasOnePixelHeight || cssHidden||textHasTheSameColor && !hasContent || !hasContent);
+
+  return !(offScreen || hasOnePixelHeight || cssHidden || textHasTheSameColor && !hasContent || !hasContent);
 }
 
 export default isElementVisible;

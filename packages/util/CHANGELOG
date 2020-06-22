@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.17] - 22/06/2020
+### Fixed
+ - isVisible for shadowDom
 ## [0.3.16] - 18/06/2020
 ### Fixed
  - added protection for invalid selectors
