@@ -1,4 +1,7 @@
 # Changelog
+## [0.4.12] - 22/06/2020
+### Updated
+ - added method to QWElement
 ## [0.4.11] - 04/06/2020
 ### Updated
  - added method AccessibilityUtils
