@@ -80,7 +80,7 @@ class QWElement {
   }
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    const clonedElem = <Element> this.element.cloneNode(true);
+    const clonedElem = <Element>this.element.cloneNode(true);
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -148,7 +148,7 @@ class QWElement {
     let selector = 'html > ';
     let parents = new Array<string>();
     let parent = this.element.parentElement;
-    
+
     while (parent && parent.tagName.toLowerCase() !== 'html') {
       parents.unshift(this.getSelfLocationInParent(parent));
       parent = parent['parentElement'];
@@ -269,14 +269,14 @@ class QWElement {
     return this.element instanceof HTMLElement;
   }
 
-  public getContentFrame(): Document | null{
+  public getContentFrame(): Document | null {
     let page: Document | null = null;
 
-    if(this.getElementTagName()==="iframe"){
-      const element = <HTMLIFrameElement> this.element;
+    if (this.getElementTagName() === "iframe") {
+      const element = <HTMLIFrameElement>this.element;
       const contentWindow = element.contentWindow;
 
-      if(contentWindow) {
+      if (contentWindow) {
         page = contentWindow.document
       }
     }
@@ -307,12 +307,26 @@ class QWElement {
   }
 
   public focusElement(): void {
-    const htmlElement = <HTMLElement> this.element;
+    const htmlElement = <HTMLElement>this.element;
     htmlElement.focus();
   }
 
   public getBoundingBox(): any {
     return this.element.getBoundingClientRect();
+  }
+  public getShadowElement(selector: string): QWElement|null {
+    let shadowRoot = this.element.shadowRoot;
+    let element;
+    if (shadowRoot)
+      element = shadowRoot.querySelector(selector)
+    return this.convertElementToQWElement(element);
+  }
+  public getShadowElements(selector: string): Array<QWElement> {
+    let shadowRoot = this.element.shadowRoot;
+    let elements;
+    if (shadowRoot)
+      elements = shadowRoot.querySelectorAll(selector)
+    return this.convertElementsToQWElement(elements);
   }
 }
 
