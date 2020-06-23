@@ -34,12 +34,12 @@
     "htmlparser2": "^4.0.0",
     "mocha": "^7.0.1",
     "typescript": "^3.8.3",
-    "@qualweb/types": "0.4.11"
+    "@qualweb/types": "0.4.12"
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "@qualweb/qw-page": "0.1.5",
-    "@qualweb/act-rules": "^0.4.12",
+    "@qualweb/qw-page": "0.1.6",
+    "@qualweb/act-rules": "^0.4.13",
     "@qualweb/best-practices": "^0.4.2",
     "@qualweb/html-techniques": "^0.4.3",
     "@qualweb/css-techniques": "^0.3.9"
