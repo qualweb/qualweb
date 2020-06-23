@@ -34,7 +34,6 @@ class QW_ACT_R25 extends Rule {
       const elemRole = AccessibilityUtils.getElementRole(elem, page);
       const isInAT = AccessibilityUtils.isElementInAT(elem, page);
       const elemAttribs = elem.getElementAttributesName();
-      console.log(elemRole)
 
       for (const attrib of elemAttribs || []) {
         if (Object.keys(ariaJSON).includes(attrib)) {

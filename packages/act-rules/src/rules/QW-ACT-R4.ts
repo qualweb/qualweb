@@ -22,8 +22,6 @@ class QW_ACT_R4 extends Rule {
 
     const content =element.content;
     const httpEquiv = element.httpEquiv;
-    console.log(content)
-    console.log(httpEquiv);
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
       evaluation.verdict = 'inapplicable';
@@ -131,7 +129,6 @@ class QW_ACT_R4 extends Rule {
         }
       }
     }
-    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 

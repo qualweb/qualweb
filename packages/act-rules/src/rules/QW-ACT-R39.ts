@@ -71,7 +71,6 @@ class QW_ACT_R39 extends Rule {
                   for (let cellElement of rowChildrenElements) {
                     if (!found) {
                       const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
-                      console.log(cellElementRole);
                       // verifying if it has a colspan attribute and it matches headerElement's index
                       const cellColspanAttribute = cellElement.getElementAttribute('colspan');
                       const cellElementIndex = getElementIndexOfParentChildren(cellElement);

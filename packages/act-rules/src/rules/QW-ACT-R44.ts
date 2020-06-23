@@ -41,7 +41,6 @@ class QW_ACT_R44 extends Rule {
 
     let counter = 0;
     const blacklist = new Array<number>();
-    console.log(linkDataList);
     for (const linkData of linkDataList || []) {
       const evaluation: ACTRuleResult = {
         verdict: '',
@@ -53,13 +52,11 @@ class QW_ACT_R44 extends Rule {
         //element already evaluated
       } else if (!!linkData.aName && linkData.aName !== '') {
         const hasEqualAn = this.isInListExceptIndex(linkData, linkDataList, counter);
-        console.log(hasEqualAn);
         
         if (hasEqualAn.length > 0) {
 
           blacklist.push(...hasEqualAn);
           let hasEqualHref = false;
-          console.log(counter)
           for (let index of hasEqualAn) {
             hasEqualHref = linkDataList[index].href === linkDataList[counter].href && linkDataList[counter].href !== null;
           }
@@ -82,7 +79,6 @@ class QW_ACT_R44 extends Rule {
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC5';
       }
-      console.log(evaluation.resultCode);
 
       super.addEvaluationResult(evaluation, links[counter]);
       counter++;

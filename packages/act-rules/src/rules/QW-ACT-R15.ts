@@ -39,9 +39,7 @@ class QW_ACT_R15 extends Rule {
       }
     } else { 
       src.push(srcAttr) ;
-    }
-    console.log({autoplay,paused,muted,srcAttr,childSrc,controls})
-    
+    }    
 
 
     if (!autoplay || paused || muted || (!srcAttr && childSrc.length === 0)) {
@@ -71,7 +69,6 @@ class QW_ACT_R15 extends Rule {
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC6';
     }
-    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 

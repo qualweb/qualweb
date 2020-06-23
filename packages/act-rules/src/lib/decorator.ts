@@ -154,8 +154,7 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
     }
 
     const accessibleName = AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
-    console.log(accessibleName)
-    console.log(filenameWithExtension)
+
 
     if (accessibleName && filenameWithExtension && filenameWithExtension.includes(accessibleName.toLowerCase())) {
       return method.apply(this, arguments);

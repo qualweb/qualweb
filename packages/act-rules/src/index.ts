@@ -128,7 +128,6 @@ class ACTRules {
   }
 
   private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[], metaElements: any[]): void {
-    console.log("executing non mapped")
     if (this.rulesToExecute['QW-ACT-R7']) {
       this.rules['QW-ACT-R7'].unmappedExecute(stylesheets);
       report.assertions['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();

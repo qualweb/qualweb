@@ -74,7 +74,6 @@ class QW_ACT_R17 extends Rule {
       evaluation.description = `The test target is not an HTML element with role img.`;
       evaluation.resultCode = 'RC8';
     }
-    console.log(evaluation.resultCode)
     super.addEvaluationResult(evaluation, element);
   }
 }

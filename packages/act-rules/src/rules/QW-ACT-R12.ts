@@ -31,7 +31,6 @@ class QW_ACT_R12 extends Rule {
     };
 
     const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-    console.log(accessibleName);
     
     if(accessibleName && accessibleName.trim()!=="") {
       evaluation.verdict = 'passed';
