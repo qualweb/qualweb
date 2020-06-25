@@ -38,13 +38,13 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-				let visible =  DomUtils.isElementVisible(element);
+        let visible =  DomUtils.isElementVisible(element);
 
         if(!visible){
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not visible.';
           evaluation.resultCode = 'RC1';
-           super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           continue;
         }
 
@@ -55,7 +55,7 @@ class QW_ACT_R37 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Element doesn't have text.`;
           evaluation.resultCode = 'RC2';
-           super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           continue;
         }
 
@@ -64,7 +64,7 @@ class QW_ACT_R37 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not an HTML element.';
           evaluation.resultCode = 'RC3';
-           super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           continue;
         }
 
@@ -73,7 +73,7 @@ class QW_ACT_R37 extends Rule {
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element has a semantic role that inherits from widget.';
           evaluation.resultCode = 'RC4';
-           super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           continue;
         }
 
@@ -88,7 +88,7 @@ class QW_ACT_R37 extends Rule {
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'This text is part of a label of a disabled widget.';
             evaluation.resultCode = 'RC5';
-             super.addEvaluationResult(evaluation, element);
+            super.addEvaluationResult(evaluation, element);
             shouldContinue = true;
             break;
           }
@@ -105,7 +105,7 @@ class QW_ACT_R37 extends Rule {
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Element has a semantic role of group and is disabled.';
             evaluation.resultCode = 'RC6';
-             super.addEvaluationResult(evaluation, element);
+            super.addEvaluationResult(evaluation, element);
             continue;
           }
         }
@@ -118,11 +118,11 @@ class QW_ACT_R37 extends Rule {
         const fontFamily =  element.getElementStyleProperty( "font-family", null);
         const fontStyle =  element.getElementStyleProperty( "font-style", null);
 
-        if(bgColor.toLowerCase().includes("jpeg") || bgColor.toLowerCase().includes("jpg") || bgColor.toLowerCase().includes("png") || bgColor.toLowerCase().includes("svg")){
+        if(this.isImage(bgColor)){
           evaluation.verdict = 'warning';
           evaluation.description = 'Element has an image on background.';
           evaluation.resultCode = 'RC12';
-           super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, element);
           continue
         }
 
@@ -135,72 +135,48 @@ class QW_ACT_R37 extends Rule {
         if(regexGradientMatches){
           if(this.isHumanLanguage(elementText)){
             let parsedGradientString = regexGradientMatches[0];
-            if(parsedGradientString.startsWith("linear-gradient")){
-              let gradientDirection = this.getGradientDirection(parsedGradientString);
-              if(gradientDirection === 'to right'){
-                let colors = this.parseGradientString(parsedGradientString, opacity);
-                let isValid = true;
-                let contrastRatio;
-                let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText)
-                if(textSize !== -1){
-                  let elementWidth =  element.getElementStyleProperty( "width", null);
-                  let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
-                  let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
-                  contrastRatio = this.getContrast(colors[0], this.parseRgbString(fgColor, opacity));
-                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, colors[0], this.parseRgbString(fgColor, opacity));
-                  contrastRatio = this.getContrast(lastCharBgColor, this.parseRgbString(fgColor, opacity));
-                  isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, lastCharBgColor, this.parseRgbString(fgColor, opacity));
-                }else{
-                  for(let color of colors){
-                    contrastRatio = this.getContrast(color, this.parseRgbString(fgColor, opacity));
-                    isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, color, this.parseRgbString(fgColor, opacity));
-                  }
-                }
-                if(isValid){
-                  evaluation.verdict = 'passed';
-                  evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
-                  evaluation.resultCode = 'RC8';
-                }else{
-                  evaluation.verdict = 'failed';
-                  evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
-                  evaluation.resultCode = 'RC10';
-                }
-              }else if(gradientDirection === 'to left'){
-                //TODO
-              }else{
-                evaluation.verdict = 'warning';
-                evaluation.description = 'Element has an gradient that we cant verify.';
-                evaluation.resultCode = 'RC13';
-                 super.addEvaluationResult(evaluation, element);
-                continue
-              }
-            }else{
-              evaluation.verdict = 'warning';
-              evaluation.description = 'Element has an gradient that we cant verify.';
-              evaluation.resultCode = 'RC13';
-               super.addEvaluationResult(evaluation, element);
-              continue
-            }
+            this.evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText);
           }else{
             evaluation.verdict = 'passed';
             evaluation.description = `Element doesn't have human language text.`;
             evaluation.resultCode = 'RC9';
+            super.addEvaluationResult(evaluation, element);
           }
         }else{
 
-          let parsedBG = this.parseRgbString(bgColor, opacity);
+          let parsedBG = this.parseRGBString(bgColor, opacity);
           let elementAux = element;
           let opacityAUX;
+          shouldContinue = false;
           while(parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0){
             let parent =  elementAux.getElementParent();
             if(parent){
               bgColor =  parent.getElementStyleProperty( "background", null);
-              opacityAUX = parseFloat( parent.getElementStyleProperty( "opacity", null));
-              parsedBG = this.parseRgbString( parent.getElementStyleProperty( "background", null), opacityAUX);
-              elementAux = parent;
+              if(this.isImage(bgColor)){
+                evaluation.verdict = 'warning';
+                evaluation.description = 'Element has an image on background.';
+                evaluation.resultCode = 'RC12';
+                super.addEvaluationResult(evaluation, element);
+                shouldContinue = true;
+                break;
+              } else { //helps visualize
+                regexGradientMatches = bgColor.match(regexGradient);
+                if(regexGradientMatches){
+                  let parsedGradientString = regexGradientMatches[0];
+                  this.evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText);
+                }else{
+                  opacityAUX = parseFloat( parent.getElementStyleProperty( "opacity", null));
+                  parsedBG = this.parseRGBString( parent.getElementStyleProperty( "background", null), opacityAUX);
+                  elementAux = parent;
+                }
+              }
             }else{
               break;
             }
+          }
+
+          if(shouldContinue){
+            continue;
           }
 
           // if we cant find a bg color, we assume that is white (default bg page color)
@@ -208,12 +184,13 @@ class QW_ACT_R37 extends Rule {
             parsedBG = {"red": 255, "green": 255, "blue": 255, "alpha": 1}
           }
 
-          let parsedFG = this.parseRgbString(fgColor, opacity);
+          let parsedFG = this.parseRGBString(fgColor, opacity);
 
           if(this.equals(parsedBG, parsedFG)){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Colors are equal.';
             evaluation.resultCode = 'RC7';
+            super.addEvaluationResult(evaluation, element);
           }else{
             if(this.isHumanLanguage(elementText)){
               let contrastRatio = this.getContrast(parsedBG, parsedFG);
@@ -222,21 +199,78 @@ class QW_ACT_R37 extends Rule {
                 evaluation.verdict = 'passed';
                 evaluation.description = 'Element has contrast ratio higher than minimum.';
                 evaluation.resultCode = 'RC9';
+                super.addEvaluationResult(evaluation, element);
               }else{
                 evaluation.verdict = 'failed';
                 evaluation.description = 'Element has contrast ratio lower than minimum.';
                 evaluation.resultCode = 'RC11';
+                super.addEvaluationResult(evaluation, element);
               }
             }else{
               evaluation.verdict = 'passed';
               evaluation.description = `Element doesn't have human language text.`;
               evaluation.resultCode = 'RC9';
+              super.addEvaluationResult(evaluation, element);
             }
           }
         }
-        super.addEvaluationResult(evaluation, element);
-
       }
+    }
+  }
+
+  isImage(color){
+    return color.toLowerCase().includes("jpeg") || color.toLowerCase().includes("jpg") || color.toLowerCase().includes("png") || color.toLowerCase().includes("svg");
+  }
+
+  evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText){
+    if(parsedGradientString.startsWith("linear-gradient")){
+      let gradientDirection = this.getGradientDirection(parsedGradientString);
+      if(gradientDirection === 'to right'){
+        let colors = this.parseGradientString(parsedGradientString, opacity);
+        let isValid = true;
+        let contrastRatio;
+        let textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', "")), fontWeight.toLowerCase().includes("bold"), fontStyle.toLowerCase().includes("italic"), elementText);
+        if(textSize !== -1){
+          let elementWidth =  element.getElementStyleProperty( "width", null);
+          let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
+          let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
+          contrastRatio = this.getContrast(colors[0], this.parseRGBString(fgColor, opacity));
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, colors[0], this.parseRGBString(fgColor, opacity));
+          contrastRatio = this.getContrast(lastCharBgColor, this.parseRGBString(fgColor, opacity));
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, lastCharBgColor, this.parseRGBString(fgColor, opacity));
+        }else{
+          for(let color of colors){
+            contrastRatio = this.getContrast(color, this.parseRGBString(fgColor, opacity));
+            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, color, this.parseRGBString(fgColor, opacity));
+          }
+        }
+        if(isValid){
+          evaluation.verdict = 'passed';
+          evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
+          evaluation.resultCode = 'RC8';
+          super.addEvaluationResult(evaluation, element);
+          return
+        }else{
+          evaluation.verdict = 'failed';
+          evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
+          evaluation.resultCode = 'RC10';
+          super.addEvaluationResult(evaluation, element);
+          return
+        }
+      }else if(gradientDirection === 'to left'){
+        //TODO
+      }else{
+        evaluation.verdict = 'warning';
+        evaluation.description = 'Element has an gradient that we cant verify.';
+        evaluation.resultCode = 'RC13';
+        return
+      }
+    }else{
+      evaluation.verdict = 'warning';
+      evaluation.description = 'Element has an gradient that we cant verify.';
+      evaluation.resultCode = 'RC13';
+      super.addEvaluationResult(evaluation, element);
+      return
     }
   }
 
@@ -269,13 +303,13 @@ class QW_ACT_R37 extends Rule {
     let colorsMatch = gradient.match(regex);
     let colors: any = []
     for(let stringColor of colorsMatch || []){
-      colors.push(this.parseRgbString(stringColor, opacity));
+      colors.push(this.parseRGBString(stringColor, opacity));
     }
 
     return colors;
   }
 
-  parseRgbString(colorString: string, opacity: number): any {
+  parseRGBString(colorString: string, opacity: number): any {
 
     let rgbRegex = /^rgb\((\d+), (\d+), (\d+)\)/;
     let rgbaRegex = /^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/;
