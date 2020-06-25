@@ -25,7 +25,7 @@ class QW_BP7 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const titleValue = element.getElementText();
+    let titleValue =  element.getElementText().replace(/\s/g, '');
     const regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
     const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;:!? ]*$');
     const regExAllowBracketsWithText = new RegExp(/(\([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\))|(\[[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\])|(\{[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\})|(\"[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\")|(\'[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\')/);
@@ -61,7 +61,6 @@ class QW_BP7 extends BestPracticeObject {
     }
     evaluation.htmlCode = element.getElementHtmlCode( true, true);
     evaluation.pointer = element.getElementSelector();
-
     super.addEvaluationResult(evaluation);
   }
 }

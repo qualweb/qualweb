@@ -11,13 +11,15 @@ describe('Best Practice QW-BP6', function () {
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed.html',
-      outcome: 'failed'
+      outcome: 'passed'
     },
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed2.html',
-      outcome: 'failed'
+      outcome: 'passed'
     }
   ];
+  //last 2 tests were failed when max was 64 and not 100
+
   let browser;
   it("pup open", async function () {
     browser = await puppeteer.launch();
@@ -35,14 +37,14 @@ describe('Best Practice QW-BP6', function () {
         this.timeout(10 * 1000);
         const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
         await page.addScriptTag({
-          path: require.resolve('../qwPage.js')
+          path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
         })
         await page.addScriptTag({
-          path: require.resolve('../bp.js')
+          path: require.resolve('../../dist/bp.js')
         })
         const report = await page.evaluate(( rules) => {
           const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document));
+          let report= bp.execute(new QWPage.QWPage(document, window));
           return report;
         }, {bestPractices: ['QW-BP6']});
 

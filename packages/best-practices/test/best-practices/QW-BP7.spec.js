@@ -6,6 +6,10 @@ const { getDom } = require('../getDom');
 describe('Best Practice QW-BP7', function () {
   const tests = [
     {
+      url: 'https://cm-aljezur.pt/pt/Default.aspx',
+      outcome: 'passed'
+    }
+    /*{
     url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste.html',
     outcome: 'failed'
     },
@@ -63,14 +67,14 @@ describe('Best Practice QW-BP7', function () {
         this.timeout(10 * 1000);
         const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
         await page.addScriptTag({
-          path: require.resolve('../qwPage.js')
+          path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
         })
         await page.addScriptTag({
-          path: require.resolve('../bp.js')
+          path: require.resolve('../../dist/bp.js')
         })
         const report = await page.evaluate(( rules) => {
           const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document));
+          let report= bp.execute(new QWPage.QWPage(document, window));
           return report;
         }, {bestPractices: ['QW-BP7']});
 

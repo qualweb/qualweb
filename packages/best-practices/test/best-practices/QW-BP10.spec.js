@@ -39,14 +39,14 @@ describe('Best Practice QW-BP10', function () {
         this.timeout(10 * 1000);
         const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
         await page.addScriptTag({
-          path: require.resolve('../qwPage.js')
+          path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
         })
         await page.addScriptTag({
-          path: require.resolve('../bp.js')
+          path: require.resolve('../../dist/bp.js')
         })
         const report = await page.evaluate(( rules) => {
           const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document));
+          let report= bp.execute(new QWPage.QWPage(document, window));
           return report;
         }, {bestPractices: ['QW-BP10']});
 

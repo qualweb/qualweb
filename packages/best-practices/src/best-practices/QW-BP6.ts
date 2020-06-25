@@ -25,15 +25,17 @@ class QW_BP6 extends BestPracticeObject {
       resultCode: ''
     };
 
+    const MAX_LENGTH_TITLE = 100;
+
     const titleValue = element.getElementText();
 
-    if (titleValue.length > 64) {
+    if (titleValue.length > MAX_LENGTH_TITLE) {
       evaluation.verdict = 'failed';
-      evaluation.description = `The page title has more than 64 characters`;
+      evaluation.description = `The page title has more than ` + MAX_LENGTH_TITLE + ` characters`;
       evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'passed';
-      evaluation.description = 'The page title has less than 64 characters';
+      evaluation.description = `The page title has less than ` + MAX_LENGTH_TITLE + ` characters`;
       evaluation.resultCode = 'RC2';
     }
 
