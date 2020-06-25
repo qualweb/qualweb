@@ -1,4 +1,6 @@
 # Changelog
+## [0.1.6] - 25/06/2020
+ - fixed inline css
 ## [0.1.4] - 08/06/2020
  - fixed svg/math detection
 

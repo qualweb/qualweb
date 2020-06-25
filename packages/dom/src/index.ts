@@ -340,7 +340,7 @@ class Dom {
         }
     }
     private isSVGorMath(content: string) {
-        return content.trim().startsWith('<math') || content.trim().startsWith('<svg');
+        return content.trim().startsWith('<math') || content.trim().startsWith('<svg')|| !content.includes('<!DOCTYPE html>');
     }
 }
 
