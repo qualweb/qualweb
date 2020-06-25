@@ -68,10 +68,17 @@ class Dom {
             if (_sourceHtml) {
                 sourceHtml = await this.parseSourceHTML(_sourceHtml);
                 const styles = CSSselect('style', sourceHtml.html.parsed);
+                const allElems = CSSselect('[style]', sourceHtml.html.parsed);
                 let k = 0;
                 for (const style of styles || []) {
                     if (style['children'] && style['children'][0]) {
                         plainStylesheets['html' + k] = style['children'][0]['data'];
+                    }
+                    k++;
+                }
+                for (const elem of allElems || []) {
+                    if (elem['name'] && elem['attribs'] && elem['attribs']['style']) {
+                        plainStylesheets['html' + k] = elem['name']+"{"+elem['attribs']['style']+"}";
                     }
                     k++;
                 }
