@@ -8,7 +8,7 @@ describe('ACT-Rules module', function () {
     this.timeout(1000 * 1000);
     const browser = await puppeteer.launch();
    //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
-    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.accessibility.nl/wai-tools/validation-test-sites/ns-international/");
+    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.w3.org/WAI/WCAG21/Techniques/html/H2");
     
     try {
       await page.addScriptTag({

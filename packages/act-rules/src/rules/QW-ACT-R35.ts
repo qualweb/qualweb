@@ -49,7 +49,7 @@ class QW_ACT_R35 extends Rule {
       evaluation.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element,true,true);
   }
 }
 
