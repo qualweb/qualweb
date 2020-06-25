@@ -27,7 +27,6 @@ async function getDom(browser,url, viewport) {
         timeout: 0,
         waitUntil: ['networkidle2', 'domcontentloaded']
     });
-    console.log(plainStylesheets);
 
 
     const sourceHtml = await getSourceHTML(url);
