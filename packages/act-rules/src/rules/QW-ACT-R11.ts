@@ -43,7 +43,7 @@ class QW_ACT_R11 extends Rule {
     }
 
     evaluation.accessibleName = accessibleName;
-    super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element,true,true);
   }
 }
 
