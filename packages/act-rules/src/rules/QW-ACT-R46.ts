@@ -2,10 +2,10 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists} from '../lib/decorator';
+import { ACTRule, ElementExists } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 @ACTRule
 class QW_ACT_R46 extends Rule {
@@ -15,23 +15,61 @@ class QW_ACT_R46 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement,page:QWPage): void {
+  execute(element: QWElement, page: QWPage): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
     let name = element.getElementTagName();
-    let role = AccessibilityUtils.getElementRole(element,page);
+    let role = AccessibilityUtils.getElementRole(element, page);
+    let children = element.getElementChildren();
 
-    if(name ===) 
-
-    evaluation.verdict = 'warning';
-    evaluation.description = ' Check that text error messages provided, identify the cause of the error or how to fix the error.';
-    evaluation.resultCode = 'RC1';
-
+    if (name === "ul" || name === "ol") {
+      if (role !== "list") {
+        evaluation.verdict = 'inapplicable';
+        evaluation.description = 'The explicit semantic role is diferent from the implicit semantic role';
+        evaluation.resultCode = 'RC1';
+      } else {
+        if (nonHiddennChildrenHasTagName(children,page, "li","listitem")) {
+          evaluation.verdict = 'passed';
+          evaluation.description = 'The element follows the flow content model';
+          evaluation.resultCode = 'RC2';
+        } else {
+          evaluation.verdict = 'failed';
+          evaluation.description = 'The element doesnt follow the flow content model';
+          evaluation.resultCode = 'RC3';
+        }
+      }
+    } else {//if (name === "dl") {
+      if (nonHiddennChildrenHasTagName(children,page, "dd","definition" ) && nonHiddennChildrenHasTagName(children,page, "dt","term")) {
+        evaluation.verdict = 'passed';
+        evaluation.description = 'The element follows the flow content model';
+        evaluation.resultCode = 'RC5';
+      } else {
+        evaluation.verdict = 'failed';
+        evaluation.description = 'The element doesnt follow the flow content model';
+        evaluation.resultCode = 'RC6';
+      }
+    }
     super.addEvaluationResult(evaluation, element);
   }
 }
+function nonHiddennChildrenHasTagName(children: QWElement[],page:QWPage, name: string,role:string): boolean {
+  let result = false;
+  let i = 0;
+  let child;
+  while (i < children.length && !result) {
+    child = children[i];
+    if (child && child.getElementTagName() === name && !DomUtils.isElementHidden(child)&& AccessibilityUtils.getElementRole(child,page)===role) {
+      result = true;
+    }
+    i++;
+  }
+  return result;
+}
+
+
 
 export = QW_ACT_R46;
+
