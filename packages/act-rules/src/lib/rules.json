@@ -1151,7 +1151,7 @@
         "G18, G145",
         "F83"
       ],
-      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/text-contrast-afw4f7.md",
+      "url": "https://act-rules.github.io/rules/afw4f7",
       "type": [
         "ACTRule",
         "TestCase"
