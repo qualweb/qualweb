@@ -32,7 +32,7 @@ class QW_BP10 extends BestPracticeObject {
       evaluation.resultCode = 'RC2';
 
       evaluation.attributes = name;
-      evaluation.htmlCode = element.getElementHtmlCode( true, true);
+      evaluation.htmlCode = element.getElementHtmlCode(true, true);
       evaluation.pointer = element.getElementSelector();
     }
     
