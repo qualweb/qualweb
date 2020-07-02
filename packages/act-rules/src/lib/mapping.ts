@@ -38,8 +38,8 @@ export default {
       'th,[role="rowheader"],[role="columnheader"]': ['QW-ACT-R39'],
       'object':["QW-ACT-R42"],
       'li,dd,dt':["QW-ACT-R45"],
-      'ul,ol,dl':["QW-ACT-R46"]
-
+      'ul,ol,dl':["QW-ACT-R46"],
+      '*[style]': ['QW-ACT-R47']
     }
   }
 };
