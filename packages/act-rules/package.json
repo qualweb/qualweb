@@ -53,6 +53,8 @@
     "test-r42": "mocha test/rules/QW-ACT-R42.spec.js",
     "test-r43": "mocha test/rules/QW-ACT-R43.spec.js",
     "test-r44": "mocha test/rules/QW-ACT-R44.spec.js",
+    "test-r45": "mocha test/rules/QW-ACT-R45.spec.js",
+    "test-r46": "mocha test/rules/QW-ACT-R46.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
     "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development",

@@ -1363,5 +1363,59 @@
           "WCAG21:language"
         ]
       }
+    },"QW_ACT_R45": {
+      "name": "Child elements of list(s) follow context model",
+      "code": "QW-ACT-R45",
+      "mapping": "c6f8a9",
+      "description": "This rule checks that child elements of a list follow context model ",
+      "metadata": {
+        "target": {
+          "element": "li,dd,dt"
+        },
+        "success-criteria": [
+          {
+            "name": "1.3.1",
+            "level": "A",
+            "principle": "Perceivable ",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+          }
+        ],
+        "related": [],
+        "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ]
+      }
+    },"QW_ACT_R46": {
+      "name": "List elements follow content model",
+      "code": "QW-ACT-R46",
+      "mapping": "a73be2",
+      "description": "This rule checks that list elements follow content model",
+      "metadata": {
+        "target": {
+          "element": "ul,ol,dl"
+        },
+        "success-criteria": [
+          {
+            "name": "1.3.1",
+            "level": "A",
+            "principle": "Perceivable ",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+          }
+        ],
+        "related": [],
+        "url": "https://github.com/act-rules/act-rules.github.io/blob/23ac4d54c128cb098800e2206c4618c2b66ef7d5/_rules/lists-follow-content-model-a73be2.md",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ]
+      }
     }
   }
