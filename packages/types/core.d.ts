@@ -5,7 +5,7 @@ declare module '@qualweb/core' {
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
   import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
   import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
-  import { BestPracticesReport } from '@qualweb/best-practices';
+  import { BestPracticesReport, BPOptions } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
   import { LaunchOptions } from 'puppeteer';
 
@@ -67,7 +67,7 @@ declare module '@qualweb/core' {
             height: number;
           };
         };
-        dom: Dom;
+        dom: DomData;
       };
     };
     metadata: Metadata;
@@ -115,7 +115,7 @@ declare module '@qualweb/core' {
     };
   }
 
-  interface Dom {
+  interface DomData {
     source: SourceHtml;
     processed: ProcessedHtml;
     stylesheets: CSSStylesheet[];
@@ -134,7 +134,7 @@ declare module '@qualweb/core' {
     PageOptions,
     SourceHtml,
     ProcessedHtml,
-    Dom,
+    DomData,
     CSSStylesheet,
     start,
     close,

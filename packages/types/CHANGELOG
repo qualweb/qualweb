@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.4.13] - 02/07/2020
+
+### Updated
+ - dependencies
+ - css-techniques interface
+
+## [0.4.12] - 22/06/2020
+
+### Updated
+ - added method to QWElement
+
+## [0.4.11] - 04/06/2020
+
+### Updated
+ - added method AccessibilityUtils
+
+## [0.4.10] - 29/05/2020
+
+### Updated
+ - fixed evaluation report naming
+## [0.4.9] - 29/05/2020
+
+### Updated
+ - fixed evaluation report naming
+## [0.4.8] - 29/05/2020
+
+### Updated
+ - fixed imports
+
+## [0.4.7] - 29/05/2020
+
+### Updated
+ - added dom and evaluation
+
 ## [0.4.7] - 02/07/2020
 
 ### Updated

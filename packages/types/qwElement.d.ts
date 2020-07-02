@@ -34,6 +34,8 @@ declare module '@qualweb/qw-element' {
     public getContentFrame(): Document | null;
     public focusElement(): void;
     public getBoundingBox(): any;
+    public getShadowElement(selector: string): QWElement|null;
+    public getShadowElements(selector: string): Array<QWElement>
   }
 
   export {

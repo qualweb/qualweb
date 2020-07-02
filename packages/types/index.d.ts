@@ -9,3 +9,5 @@
 /// <reference path="./core.d.ts" />
 /// <reference path="./qwElement.d.ts" />
 /// <reference path="./qwPage.d.ts" />
+/// <reference path="./dom.d.ts" />
+/// <reference path="./evaluation.d.ts" />
