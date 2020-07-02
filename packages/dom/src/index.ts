@@ -16,12 +16,13 @@ import {
     DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
 
-class DOM {
+class Dom {
     private page!: Page;
-    public async getDOM(url: string, browser: Browser, options: QualwebOptions) {
-        let sourceHtml, mappedDOM, stylesheets;
+    public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string) {
+        let sourceHtml, mappedDOM = {}, stylesheets;
         try {
             this.page = await browser.newPage();
+            await this.page.setBypassCSP(true);
             await this.setPageViewport(options.viewport);
 
             const plainStylesheets: any = {};
@@ -32,21 +33,52 @@ class DOM {
                     plainStylesheets[responseUrl] = content;
                 }
             });
+            let _sourceHtml;
+            if (url) {
+                _sourceHtml = await this.getSourceHtml(url);
+            }
 
-            const _sourceHtml = await this.getSourceHtml(url);
+            if (url) {
+                let response = await this.page.goto(url, {
+                    timeout: 0,
+                    waitUntil: ['networkidle2', 'domcontentloaded']
+                });
+                let sourceHTMLPupeteer
+                if (response)
+                    sourceHTMLPupeteer = await response.text()
 
-            await this.page.goto(url, {
-                timeout: 0,
-                waitUntil: ['networkidle2', 'domcontentloaded']
-            });
+                if (this.isSVGorMath(sourceHTMLPupeteer)) {
+                    this.page.close()
+                    this.page = await browser.newPage();
+                    await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
+                        timeout: 0,
+                        waitUntil: ['networkidle2', 'domcontentloaded']
+                    });
+                }
+
+
+            } else {
+                await this.page.setContent(html, {
+                    timeout: 0,
+                    waitUntil: ['networkidle2', 'domcontentloaded']
+                });
+                _sourceHtml = await this.page.content();
+            }
 
             if (_sourceHtml) {
                 sourceHtml = await this.parseSourceHTML(_sourceHtml);
                 const styles = CSSselect('style', sourceHtml.html.parsed);
+                const allElems = CSSselect('[style]', sourceHtml.html.parsed);
                 let k = 0;
                 for (const style of styles || []) {
                     if (style['children'] && style['children'][0]) {
                         plainStylesheets['html' + k] = style['children'][0]['data'];
+                    }
+                    k++;
+                }
+                for (const elem of allElems || []) {
+                    if (elem['name'] && elem['attribs'] && elem['attribs']['style']) {
+                        plainStylesheets['html' + k] = elem['name']+"{"+elem['attribs']['style']+"}";
                     }
                     k++;
                 }
@@ -314,4 +346,16 @@ class DOM {
             }, "shadowTree", counter + "");
         }
     }
+    private isSVGorMath(content: string) {
+        return content.trim().startsWith('<math') || content.trim().startsWith('<svg');
+    }
 }
+
+export {
+    Dom
+};
+
+
+
+
+
