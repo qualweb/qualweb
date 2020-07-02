@@ -1,6 +1,7 @@
 declare module '@qualweb/css-techniques' {
   import { Position } from 'css';
   import { CSSStylesheet } from '@qualweb/core';
+  import { QWPage } from '@qualweb/qw-page';
 
   interface CSSTOptions {
     techniques?: string[];
@@ -88,9 +89,8 @@ declare module '@qualweb/css-techniques' {
     constructor(options?: CSSTOptions);
     public configure(options: CSSTOptions): void;
     public resetConfiguration(): void;
-    private executeTechnique(report: CSSTechniquesReport, technique: string, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
-    private executeTechniques(report: CSSTechniquesReport, styleSheets: CSSStylesheet[], mappedDOM: any): Promise<void>;
-    public execute(styleSheets: CSSStylesheet[], mappedDOM: any): Promise<CSSTechniquesReport>;
+    private executeTechnique(technique: string, selector: string, page: QWPage, styleSheets: CSSStylesheet[], mappedDOM: any, report: CSSTechniquesReport): void;
+    public execute(page: QWPage, styleSheets: CSSStylesheet[], mappedDOM: any): CSSTechniquesReport;
   }
 
   export {
