@@ -38,12 +38,13 @@ class QW_ACT_R30 extends Rule {
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         const elementText = AccessibilityUtils.getTrimmedText(element);
+        let hasTextNode = element.elementHasTextNode();
 
         if(accessibleName === undefined) {
           evaluation.verdict = 'failed';
           evaluation.description = `The test target doesn't have an accessible name.`;
           evaluation.resultCode = 'RC6';
-        } else if(elementText === undefined || elementText === '' || elementText && !this.isHumanLanguage(elementText)) {
+        } else if(!hasTextNode || elementText === undefined || elementText === '' || elementText && !this.isHumanLanguage(elementText)) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target has no visible text content or contains non-text content.`;
           evaluation.resultCode = 'RC3';
