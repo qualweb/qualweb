@@ -31,6 +31,28 @@ declare module '@qualweb/core' {
     'css-techniques'?: CSSTOptions; 
   }
 
+  interface Evaluator {
+    name: string;
+    description: string;
+    version: string;
+    homepage: string;
+    date: string;
+    hash: string;
+    url: Url;
+    page: {
+      viewport: {
+        mobile: boolean;
+        landscape: boolean;
+        userAgent: string;
+        resolution: {
+          width: number;
+          height: number;
+        };
+      };
+      dom: DomData;
+    };
+  }
+
   interface Url {
     inputUrl: string;
     protocol: string;
@@ -47,37 +69,19 @@ declare module '@qualweb/core' {
     inapplicable: number;
   }
 
+  interface Modules {
+    'wappalyzer'?: WappalyzerReport;
+    'act-rules'?: ACTRulesReport;
+    'html-techniques'?: HTMLTechniquesReport;
+    'css-techniques'?: CSSTechniquesReport;
+    'best-practices'?: BestPracticesReport;
+  }
+
   interface EvaluationReport {
     type: 'evaluation';
-    system: {
-      name: string;
-      description: string;
-      version: string;
-      homepage: string;
-      date: string;
-      hash: string;
-      url: Url;
-      page: {
-        viewport: {
-          mobile: boolean;
-          landscape: boolean;
-          userAgent: string;
-          resolution: {
-            width: number;
-            height: number;
-          };
-        };
-        dom: DomData;
-      };
-    };
+    system: Evaluator;
     metadata: Metadata;
-    modules: {
-      'wappalyzer'?: WappalyzerReport;
-      'act-rules'?: ACTRulesReport;
-      'html-techniques'?: HTMLTechniquesReport;
-      'css-techniques'?: CSSTechniquesReport;
-      'best-practices'?: BestPracticesReport;
-    };
+    modules: Modules;
   }
 
   interface PageOptions {
@@ -129,8 +133,10 @@ declare module '@qualweb/core' {
   export {
     QualwebOptions,
     EvaluationReport,
+    Evaluator,
     Url,
     Metadata,
+    Modules,
     PageOptions,
     SourceHtml,
     ProcessedHtml,
