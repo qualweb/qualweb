@@ -235,6 +235,14 @@ This config file can replace commands **--css-techniques**, **--css-levels** and
 | QW-ACT-R37 | [afw4f7](https://act-rules.github.io/rules/afw4f7) | Text has minimum contrast |
 | QW-ACT-R38 | [bc4a75](https://act-rules.github.io/rules/bc4a75) | ARIA required owned elements |
 | QW-ACT-R39 | [d0f69e](https://act-rules.github.io/rules/d0f69e) | All table header cells have assigned data cells |
+| QW-ACT-R40 | [59br37](https://act-rules.github.io/rules/59br37) | Zoomed text node is not clipped with CSS overflow |
+| QW-ACT-R41 | [36b590](https://act-rules.github.io/rules/36b590) | Error message describes invalid form field value |
+| QW-ACT-R42 | [8fc3b6](https://act-rules.github.io/rules/8fc3b6) | Object element has non-empty accessible name |
+| QW-ACT-R43 | [0ssw9k](https://act-rules.github.io/rules/0ssw9k) | Scrollable element is keyboard accessible |
+| QW-ACT-R44 | [fd3a94](https://act-rules.github.io/rules/fd3a94) | Links with identical accessible names and context serve equivalent purpose |
+| QW-ACT-R45 | [c6f8a9](https://act-rules.github.io/rules/c6f8a9) | Child elements of list(s) follow context model |
+| QW-ACT-R46 | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model |
+| QW-ACT-R47 | [b8bb68](https://act-rules.github.io/rules/b8bb68) | Text spacing in `style` attributes is not `!important` |
 
 ## Implemented WCAG 2.1 HTML Techniques
 
@@ -279,7 +287,6 @@ This config file can replace commands **--css-techniques**, **--css-levels** and
 | QW-HTML-T41 | [H63](https://www.w3.org/WAI/WCAG21/Techniques/html/H63) | Using the scope attribute to associate header cells and data cells in data tables |
 | QW-HTML-T42 | [F59](https://www.w3.org/WAI/WCAG21/Techniques/failures/F59) | Failure of Success Criterion 4.1.2 due to using script to make div or span a user interface control in HTML without providing a role for the control |
 | QW-HTML-T43 | [F88](https://www.w3.org/WAI/WCAG21/Techniques/failures/F88) | Failure of Success Criterion 1.4.8 due to using text that is justified (aligned to both the left and the right margins) |
-
 
 ## Implemented WCAG 2.1 CSS Techniques
 
