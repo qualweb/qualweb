@@ -38,7 +38,7 @@ declare module '@qualweb/core' {
     homepage: string;
     date: string;
     hash: string;
-    url: Url;
+    url?: Url;
     page: {
       viewport: {
         mobile: boolean;

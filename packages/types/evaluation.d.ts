@@ -1,15 +1,19 @@
 declare module '@qualweb/evaluation' {
-  import { QualwebOptions, SourceHtml, CSSStylesheet, EvaluationReport } from "@qualweb/core";
-  import { Browser, Page } from "puppeteer";
+  import { QualwebOptions, SourceHtml, CSSStylesheet, EvaluationReport, Evaluator } from '@qualweb/core';
+  import { ACTRulesReport } from '@qualweb/act-rules';
+  import { HTMLTechniquesReport } from '@qualweb/html-techniques';
+  import { CSSTechniquesReport } from '@qualweb/css-techniques';
+  import { BestPracticesReport } from '@qualweb/best-practices';
+  import { Page } from 'puppeteer';
 
   class Evaluation {
-    public evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord>
-    public addQWPage(page: Page);
-    public executeBP(page: Page, options: QualwebOptions)
-    public executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: QualwebOptions)
-    public executeHTML(page: Page, options: QualwebOptions)
-    public executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: QualwebOptions)
-    public getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string)
+    public evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord>;
+    public addQWPage(page: Page): Promise<void>;
+    public executeBP(page: Page, options: QualwebOptions): Promise<BestPracticesReport>;
+    public executeCSS(stylesheets: CSSStylesheet[], mappedDOM: any, options: QualwebOptions): Promise<CSSTechniquesReport>;
+    public executeHTML(page: Page, options: QualwebOptions): Promise<HTMLTechniquesReport>;
+    public executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: QualwebOptions): Promise<ACTRulesReport>;
+    public getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string): Promise<Evaluator>;
   }
   class EvaluationRecord {
   
