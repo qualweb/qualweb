@@ -1,7 +1,6 @@
 declare module '@qualweb/dom' {
   import { QualwebOptions, SourceHtml, CSSStylesheet } from '@qualweb/core';
   import { Browser, Page } from 'puppeteer';
-  import { Stylesheet } from 'css';
 
   interface PageData {
     sourceHtml: SourceHtml,

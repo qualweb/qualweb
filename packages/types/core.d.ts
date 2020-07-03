@@ -125,6 +125,8 @@ declare module '@qualweb/core' {
     stylesheets: CSSStylesheet[];
   }
 
+  type Module = 'wappalyzer' | 'act-rules' | 'html-techniques' | 'css-techniques' | 'best-practices';
+
   function start(options?: LaunchOptions): Promise<void>;
   function close(): Promise<void>;
   function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
@@ -137,6 +139,7 @@ declare module '@qualweb/core' {
     Url,
     Metadata,
     Modules,
+    Module,
     PageOptions,
     SourceHtml,
     ProcessedHtml,
