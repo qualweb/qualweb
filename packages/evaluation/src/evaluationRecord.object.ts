@@ -3,28 +3,33 @@
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import Metadata from './metadata.object';
-import { EvaluationReport } from '@qualweb/core';
+import { EvaluationReport, Evaluator, Modules, Module } from '@qualweb/core';
+import { Report } from '@qualweb/earl-reporter';
 
 class EvaluationRecord {
   
-  private type: 'evaluation';
-  private evaluator: any;
+  private readonly type: 'evaluation';
+  private evaluator: Evaluator;
   private metadata: Metadata;
-  private modules: any;
+  private modules: Modules;
 
-  constructor(evaluator: any) {
+  constructor(evaluator: Evaluator) {
     this.type = 'evaluation';
     this.evaluator = clone(evaluator);
     this.metadata = new Metadata();
     this.modules = {};
   }
 
-  public addModuleEvaluation(module: any, evaluation: any): void {
+  public addModuleEvaluation(module: Module, evaluation: Report): void {
     this.modules[module] = cloneDeep(evaluation);
     if (module !== 'wappalyzer') {
+      // @ts-ignore
       this.metadata.addPassedResults(this.modules[module].metadata.passed || 0);
+      // @ts-ignore
       this.metadata.addWarningResults(this.modules[module].metadata.warning || 0);
+      // @ts-ignore
       this.metadata.addFailedResults(this.modules[module].metadata.failed || 0);
+      // @ts-ignore
       this.metadata.addInapplicableResults(this.modules[module].metadata.inapplicable || 0);
     }
   }
