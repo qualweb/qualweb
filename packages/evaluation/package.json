@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
