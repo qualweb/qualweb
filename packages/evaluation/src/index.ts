@@ -16,7 +16,6 @@ import {
   randomBytes
 } from 'crypto';
 import {
-  CSSTechniques,
   CSSTOptions,
   CSSTechniquesReport
 } from '@qualweb/css-techniques';
@@ -255,7 +254,6 @@ class Evaluation {
     if (execute.bp) {
       reports.push(await this.executeBP(page, options['best-practices']));
     }
-
 
     for (const report of reports || []) {
       if (report.type === 'wappalyzer') {
