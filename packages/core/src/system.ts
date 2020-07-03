@@ -1,7 +1,7 @@
 'use strict';
 
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
-import {  QualwebOptions, EvaluationReport } from '@qualweb/core';
+import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
@@ -54,10 +54,9 @@ class System {
       this.urls = this.urls.concat(await crawlDomain(options.crawl));
     }
 
-    /*FIXME
     if (options.html) {
       this.html = options.html;
-    }*/
+    }
 
     if (!this.html && this.urls.length === 0) {
       throw new Error('Invalid input method');
@@ -99,7 +98,7 @@ class System {
 
   public async execute(options: QualwebOptions): Promise<void> {
     for (let i = 0; i < this.urls.length; i += this.numberOfParallelEvaluations) {
-      const promises = new Array<any>();
+      const promises = new Array<Promise<void>>();
       for (let j = 0; j < this.numberOfParallelEvaluations && i + j < this.urls.length; j++) {
         promises.push(this.runModulesUrl(this.urls[i + j], options));
       }
@@ -128,11 +127,11 @@ class System {
   private async runModulesUrl(url: string, options: QualwebOptions): Promise<void> {
     if (this.browser) {
       try {
-        let dom = new Dom();
-        let { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, url, "");
-        let evaluation = new Evaluation();
+        const dom = new Dom();
+        const { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, url, '');
+        const evaluation = new Evaluation();
         const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options, url);
-        dom.close();
+        await dom.close();
         this.evaluations[url] = evaluationReport.getFinalReport();
       } catch (err) {
         if (!this.force) {
@@ -145,11 +144,11 @@ class System {
   private async runModulesHtml(options: QualwebOptions): Promise<void> {
     if (this.browser && this.html) {
       try {
-        let dom = new Dom();
-        let { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, "", this.html);
-        let evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options,"");
-        dom.close();
+        const dom = new Dom();
+        const { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, '', this.html);
+        const evaluation = new Evaluation();
+        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options, '');
+        await dom.close();
         this.evaluations['customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
         if (!this.force) {
@@ -158,7 +157,6 @@ class System {
       }
     }
   }
-
 }
 
 export = System;
