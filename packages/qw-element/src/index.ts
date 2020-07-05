@@ -65,7 +65,7 @@ class QWElement {
     const attribute = this.getElementAttribute('shadowTree');
     let result = ':not([shadowTree])';
     if (attribute !== null) {
-      result = `[shadowTree="${attribute}"]`
+      result = `[shadowTree='${attribute}']`
     }
     return result;
   }
@@ -107,8 +107,8 @@ class QWElement {
   }
 
   private convertElementsToQWElement(elements: NodeListOf<Element>): Array<QWElement> {
-    let qwList: Array<QWElement> = [];
-    for (let element of elements) {
+    const qwList = new Array<QWElement>();
+    for (const element of elements || []) {
       qwList.push(new QWElement(element));
     }
     return qwList;
@@ -132,7 +132,7 @@ class QWElement {
 
   public getElementProperty(property: string): string {
     let propertyValue = this.element[property];
-    return propertyValue === null ? "" : propertyValue;
+    return propertyValue === null ? '' : propertyValue;
   }
 
   public getElementSelector(): string {
@@ -146,7 +146,7 @@ class QWElement {
     }
 
     let selector = 'html > ';
-    let parents = new Array<string>();
+    const parents = new Array<string>();
     let parent = this.element.parentElement;
     
     while (parent && parent.tagName.toLowerCase() !== 'html') {
@@ -225,11 +225,11 @@ class QWElement {
     let counter = 0;
     for (const child of children || []) {
       textContent = child.textContent
-      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
-        result = result + (counter === 0 ? "" : " ") + textContent.trim();
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== '') {
+        result = result + (counter === 0 ? '' : ' ') + textContent.trim();
         counter++;
       } else if (child.nodeType === 1) {
-        result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
+        result = result + (counter > 0 && !!aNames[i] ? ' ' : '') + aNames[i];
         i++;
       }
     }
@@ -272,7 +272,7 @@ class QWElement {
   public getContentFrame(): Document | null{
     let page: Document | null = null;
 
-    if(this.getElementTagName()==="iframe"){
+    if(this.getElementTagName()==='iframe'){
       const element = <HTMLIFrameElement> this.element;
       const contentWindow = element.contentWindow;
 
