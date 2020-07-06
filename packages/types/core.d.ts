@@ -1,6 +1,5 @@
 declare module '@qualweb/core' {
   import { Node } from 'domhandler';
-  import { Stylesheet } from 'css';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
   import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
@@ -111,18 +110,9 @@ declare module '@qualweb/core' {
     elementCount?: number;
   }
 
-  interface CSSStylesheet {
-    file: string;
-    content?: {
-      plain?: string;
-      parsed?: Stylesheet;
-    };
-  }
-
   interface DomData {
     source: SourceHtml;
     processed: ProcessedHtml;
-    stylesheets: CSSStylesheet[];
   }
 
   type Module = 'wappalyzer' | 'act-rules' | 'html-techniques' | 'css-techniques' | 'best-practices';
@@ -144,7 +134,6 @@ declare module '@qualweb/core' {
     SourceHtml,
     ProcessedHtml,
     DomData,
-    CSSStylesheet,
     start,
     close,
     evaluate,
