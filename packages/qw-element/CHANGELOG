@@ -1,5 +1,21 @@
 # Changelog
 
+# Changelog
+## [0.1.7] - 22/06/2020
+
+### Added
+ - css rules mapping to each element
+
+## [0.1.6] - 22/06/2020
+
+### Added
+ - ShadowDom functions
+
+## [0.1.5] - 29/05/2020
+
+### Updated
+ - dependencies
+
 ## [0.1.4] - 28/05/2020
 
 ### Updated

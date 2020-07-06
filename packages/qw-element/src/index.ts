@@ -2,10 +2,18 @@
 
 class QWElement {
 
-  private element: Element;
+  private readonly element: Element;
+  private readonly elementsCSSRules?: Map<Element, any>;
 
-  constructor(element: Element) {
+  constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
+    this.elementsCSSRules = elementsCSSRules;
+  }
+
+  private addCSSRulesPropertyToElement(element: Element | null): void {
+    if (element && this.elementsCSSRules?.has(element)) {
+      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules?.get(element)));
+    }
   }
 
   public elementHasAttribute(attribute: string) {
@@ -52,10 +60,11 @@ class QWElement {
 
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
-    let treeSelector = this.getTreeSelector();
-    let elements = this.element.querySelectorAll(selector + ' > *' + treeSelector);
-    let qwList: Array<QWElement> = [];
-    for (let element of elements) {
+    const treeSelector = this.getTreeSelector();
+    const elements = this.element.querySelectorAll(selector + ' > *' + treeSelector);
+    const qwList = new Array<QWElement>();
+    for (const element of elements) {
+      this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element));
     }
     return qwList;
@@ -80,7 +89,7 @@ class QWElement {
   }
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    const clonedElem = <Element> this.element.cloneNode(true);
+    const clonedElem = <Element>this.element.cloneNode(true);
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -94,21 +103,24 @@ class QWElement {
   }
 
   public getElement(selector: string): QWElement | null {
-    let element = this.element.querySelector(selector);
-
+    const element = this.element.querySelector(selector);
+    this.addCSSRulesPropertyToElement(element);
     return this.convertElementToQWElement(element);
   }
 
   private convertElementToQWElement(element: Element | null): QWElement | null {
-    if (element)
+    if (element) {
+      this.addCSSRulesPropertyToElement(element);
       return new QWElement(element);
-    else
+    } else {
       return null;
+    }
   }
 
-  private convertElementsToQWElement(elements: NodeListOf<Element>): Array<QWElement> {
+  private convertElementsToQWElement(elements: NodeListOf<Element> | null): Array<QWElement> {
     const qwList = new Array<QWElement>();
     for (const element of elements || []) {
+      this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element));
     }
     return qwList;
@@ -131,7 +143,7 @@ class QWElement {
   }
 
   public getElementProperty(property: string): string {
-    let propertyValue = this.element[property];
+    const propertyValue = this.element[property];
     return propertyValue === null ? '' : propertyValue;
   }
 
@@ -148,7 +160,7 @@ class QWElement {
     let selector = 'html > ';
     const parents = new Array<string>();
     let parent = this.element.parentElement;
-    
+
     while (parent && parent.tagName.toLowerCase() !== 'html') {
       parents.unshift(this.getSelfLocationInParent(parent));
       parent = parent['parentElement'];
@@ -269,14 +281,14 @@ class QWElement {
     return this.element instanceof HTMLElement;
   }
 
-  public getContentFrame(): Document | null{
+  public getContentFrame(): Document | null {
     let page: Document | null = null;
 
-    if(this.getElementTagName()==='iframe'){
+    if(this.getElementTagName() === 'iframe'){
       const element = <HTMLIFrameElement> this.element;
       const contentWindow = element.contentWindow;
 
-      if(contentWindow) {
+      if (contentWindow) {
         page = contentWindow.document
       }
     }
@@ -313,6 +325,24 @@ class QWElement {
 
   public getBoundingBox(): any {
     return this.element.getBoundingClientRect();
+  }
+
+  public getShadowElement(selector: string): QWElement|null {
+    const shadowRoot = this.element.shadowRoot;
+    let element: Element | null = null;
+    if (shadowRoot) {
+      element = shadowRoot.querySelector(selector);
+    }
+    return this.convertElementToQWElement(element);
+  }
+
+  public getShadowElements(selector: string): Array<QWElement> {
+    const shadowRoot = this.element.shadowRoot;
+    let elements: NodeListOf<Element> | null = null;
+    if (shadowRoot) {
+      elements = shadowRoot.querySelectorAll(selector);
+    }
+    return this.convertElementsToQWElement(elements);
   }
 }
 
