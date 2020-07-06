@@ -23,6 +23,7 @@ class QWPage {
       this.mapExternalStylesheets();
       this.mapHeadStyles();
       this.mapInlineStyles();
+      console.log(this.elementsCSSRules);
     }
   }
 
@@ -30,15 +31,31 @@ class QWPage {
     for (const stylesheet of this.document.styleSheets || []) {
       const rules = stylesheet.rules || stylesheet.cssRules;
       for (const rule of rules || []) {
-        const selector = rule['selectorText'];
-        if (!!selector) {
+        if (rule.type === 1) {
+          const selector = rule['selectorText'].trim();
           const properties = rule.cssText.replace(selector, '').replace('{', '').replace('}', '').trim().split(';').map(p => p.trim()).filter(p => p !== '');
           const elements = this.document.querySelectorAll(selector);
           for (const element of elements || []) {
             if (this.elementsCSSRules?.has(element)) {
-              this.addElementCSSRules(element, properties, 'file', stylesheet.href || '');
+              this.addElementCSSRules(element, properties, undefined, 'file', stylesheet.href || '');
             } else {
-              this.createElementCSSMapping(element, properties, 'file', stylesheet.href || '');
+              this.createElementCSSMapping(element, properties, undefined, 'file', stylesheet.href || '');
+            }
+          }
+        } else if (rule.type === 4) {
+          const subRules = rule['cssRules'];
+          for (const subRule of subRules || []) {
+            if (subRule.type === 1) {
+              const selector = subRule['selectorText'].trim();
+              const properties = subRule.cssText.replace(selector, '').replace('{', '').replace('}', '').trim().split(';').map(p => p.trim()).filter(p => p !== '');
+              const elements = this.document.querySelectorAll(selector);
+              for (const element of elements || []) {
+                if (this.elementsCSSRules?.has(element)) {
+                  this.addElementCSSRules(element, properties, rule['conditionText'], 'file', stylesheet.href || '');
+                } else {
+                  this.createElementCSSMapping(element, properties, rule['conditionText'], 'file', stylesheet.href || '');
+                }
+              }
             }
           }
         }
@@ -51,15 +68,31 @@ class QWPage {
     for (const style of styles || []) {
       const rules = style.sheet?.rules || style.sheet?.cssRules;
       for (const rule of rules || []) {
-        const selector = rule['selectorText'];
-        if (!!selector) {
+        if (rule.type === 1) {
+          const selector = rule['selectorText'].trim();
           const properties = rule.cssText.replace(selector, '').replace('{', '').replace('}', '').trim().split(';').map(p => p.trim()).filter(p => p !== '');
           const elements = this.document.querySelectorAll(selector);
           for (const element of elements || []) {
             if (this.elementsCSSRules?.has(element)) {
-              this.addElementCSSRules(element, properties, 'head', new QWElement(style).getElementSelector() || '');
+              this.addElementCSSRules(element, properties, undefined, 'head', new QWElement(style).getElementSelector() || '');
             } else {
-              this.createElementCSSMapping(element, properties, 'head', new QWElement(style).getElementSelector() || '');
+              this.createElementCSSMapping(element, properties, undefined, 'head', new QWElement(style).getElementSelector() || '');
+            }
+          }
+        } else if (rule.type === 4) {
+          const subRules = rule['cssRules'];
+          for (const subRule of subRules || []) {
+            if (subRule.type === 1) {
+              const selector = subRule['selectorText'].trim();
+              const properties = subRule.cssText.replace(selector, '').replace('{', '').replace('}', '').trim().split(';').map(p => p.trim()).filter(p => p !== '');
+              const elements = this.document.querySelectorAll(selector);
+              for (const element of elements || []) {
+                if (this.elementsCSSRules?.has(element)) {
+                  this.addElementCSSRules(element, properties, rule['conditionText'], 'head', new QWElement(style).getElementSelector() || '');
+                } else {
+                  this.createElementCSSMapping(element, properties, rule['conditionText'], 'head', new QWElement(style).getElementSelector() || '');
+                }
+              }
             }
           }
         }
@@ -74,29 +107,54 @@ class QWPage {
       if (style) {
         const properties = style?.split(';').map(p => p.trim()).filter(p => p !== '') || [style.trim()];
         if (this.elementsCSSRules?.has(element)) {
-          this.addElementCSSRules(element, properties, 'inline', new QWElement(element).getElementSelector() || '');
+          this.addElementCSSRules(element, properties, undefined, 'inline', new QWElement(element).getElementSelector() || '');
         } else {
-          this.createElementCSSMapping(element, properties, 'inline', new QWElement(element).getElementSelector() || '');
+          this.createElementCSSMapping(element, properties, undefined, 'inline', new QWElement(element).getElementSelector() || '');
         }
       }
     }
   }
 
-  private createElementCSSMapping(element: Element, properties: string[], location: 'file' | 'head' | 'inline', pointer: string): void {
+  private createElementCSSMapping(element: Element, properties: string[], media: string | undefined, location: 'file' | 'head' | 'inline', pointer: string): void {
     const cssProperties = {};
+    console.log(media);
+    if (media) {
+      cssProperties['media'] = {};
+      cssProperties['media'][media] = {};
+    }
     for (const property of properties || []) {
       const propertyName = property.split(':')[0].trim();
-      cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+      if (media) {
+        cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+      } else {
+        cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+      }
     }
     this.elementsCSSRules?.set(element, cssProperties);
   }
 
-  private addElementCSSRules(element: Element, properties: string[], location: 'file' | 'head' | 'inline', pointer: string): void {
+  private addElementCSSRules(element: Element, properties: string[], media: string | undefined, location: 'file' | 'head' | 'inline', pointer: string): void {
     const cssProperties = this.elementsCSSRules?.get(element);
 
     for (const property of properties || []) {
       const propertyName = property.split(':')[0].trim();
-      if (cssProperties[property] === undefined) {
+      if (media) {
+        if (cssProperties['media'] === undefined) {
+          cssProperties['media'] = {};
+        }
+        if (cssProperties['media'][media] === undefined) {
+          cssProperties['media'][media] = {};
+          cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+        } else if (cssProperties['media'][media][propertyName] === undefined) {
+          cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+        } else {
+          if (!cssProperties['media'][media][propertyName].important) {
+            cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+          } else if (property.includes('!important')) {
+            cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+          }
+        }
+      } else if (cssProperties[property] === undefined) {
         cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
       } else {
         if (!cssProperties[propertyName].important) {
