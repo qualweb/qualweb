@@ -1,19 +1,31 @@
 import { QWElement } from '@qualweb/qw-element';
+import Cache = require('./cache.object');
 
 class QWPage {
 
   private document: Document;
   private window: Window;
-
+  private cache: Cache;
   private defaultWidth: number;
   private defaultHeight: number;
 
   constructor(document: Document, window: Window) {
     this.document = document;
     this.window = window;
+    this.cache = new Cache();
 
     this.defaultWidth = this.window.innerWidth;
     this.defaultHeight = this.window.innerHeight;
+  }
+
+  public cacheValue(selector: string, method: string, value: string|undefined): void {
+    this.cache.put(selector + "," + method, value);
+  }
+  public getCachedValue(selector: string, method: string): string|undefined {
+    return this.cache.get(selector + "," + method);
+  }
+  public isValueCached(selector: string, method: string): boolean {
+    return  this.cache.exists(selector + "," + method);
   }
 
   public getURL(): string {
@@ -66,7 +78,7 @@ class QWPage {
       element.setAttribute('shadowTree', counter + '');
     }
   }
-  
+
   public getPageRootElement(): QWElement | null {
     const documentElement = this.document.documentElement;
     return documentElement ? new QWElement(documentElement) : null;
