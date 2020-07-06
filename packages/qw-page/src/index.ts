@@ -3,15 +3,10 @@ import Cache = require('./cache.object');
 
 class QWPage {
 
-<<<<<<< HEAD
-  private document: Document;
-  private window: Window;
   private cache: Cache;
-=======
   private readonly document: Document;
   private readonly window: Window;
 
->>>>>>> 2bc6cb8e072ab3a2bf9b2cc99a811c516291c998
   private defaultWidth: number;
   private defaultHeight: number;
 
