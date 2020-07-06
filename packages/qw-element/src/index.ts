@@ -4,10 +4,12 @@ class QWElement {
 
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, any>;
+  private selector:string;
 
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
+    this.selector = "";
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
@@ -90,6 +92,7 @@ class QWElement {
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     const clonedElem = <Element>this.element.cloneNode(true);
+    clonedElem.removeAttribute( "_cssRules");
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -149,6 +152,8 @@ class QWElement {
 
   public getElementSelector(): string {
 
+    if(this.selector === ""){
+
     if (this.element.tagName.toLowerCase() === 'html') {
       return 'html';
     } else if (this.element.tagName.toLowerCase() === 'head') {
@@ -169,7 +174,10 @@ class QWElement {
     selector += parents.join(' > ');
     selector += ' > ' + this.getSelfLocationInParent(this.element);
 
-    return selector;
+    return selector;}
+    else{
+      return this.selector;
+    }
   }
 
   private getSelfLocationInParent(element: Element): string {
