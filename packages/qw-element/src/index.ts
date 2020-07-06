@@ -4,7 +4,7 @@ class QWElement {
 
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, any>;
-  private selector:string;
+  private selector: string;
 
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
@@ -13,8 +13,8 @@ class QWElement {
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
-    if (element && this.elementsCSSRules?.has(element)) {
-      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules?.get(element)));
+    if (element && this.elementsCSSRules ?.has(element)) {
+      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules ?.get(element)));
     }
   }
 
@@ -92,7 +92,7 @@ class QWElement {
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     const clonedElem = <Element>this.element.cloneNode(true);
-    clonedElem.removeAttribute( "_cssRules");
+    clonedElem.removeAttribute("_cssRules");
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -152,30 +152,31 @@ class QWElement {
 
   public getElementSelector(): string {
 
-    if(this.selector === ""){
+    if (this.selector === "") {
 
-    if (this.element.tagName.toLowerCase() === 'html') {
-      return 'html';
-    } else if (this.element.tagName.toLowerCase() === 'head') {
-      return 'html > head';
-    } else if (this.element.tagName.toLowerCase() === 'body') {
-      return 'html > body';
+      if (this.element.tagName.toLowerCase() === 'html') {
+        return 'html';
+      } else if (this.element.tagName.toLowerCase() === 'head') {
+        return 'html > head';
+      } else if (this.element.tagName.toLowerCase() === 'body') {
+        return 'html > body';
+      }
+
+      let selector = 'html > ';
+      const parents = new Array<string>();
+      let parent = this.element.parentElement;
+
+      while (parent && parent.tagName.toLowerCase() !== 'html') {
+        parents.unshift(this.getSelfLocationInParent(parent));
+        parent = parent['parentElement'];
+      }
+
+      selector += parents.join(' > ');
+      selector += ' > ' + this.getSelfLocationInParent(this.element);
+      this.selector = selector;
+      return selector;
     }
-
-    let selector = 'html > ';
-    const parents = new Array<string>();
-    let parent = this.element.parentElement;
-
-    while (parent && parent.tagName.toLowerCase() !== 'html') {
-      parents.unshift(this.getSelfLocationInParent(parent));
-      parent = parent['parentElement'];
-    }
-
-    selector += parents.join(' > ');
-    selector += ' > ' + this.getSelfLocationInParent(this.element);
-
-    return selector;}
-    else{
+    else {
       return this.selector;
     }
   }
@@ -292,8 +293,8 @@ class QWElement {
   public getContentFrame(): Document | null {
     let page: Document | null = null;
 
-    if(this.getElementTagName() === 'iframe'){
-      const element = <HTMLIFrameElement> this.element;
+    if (this.getElementTagName() === 'iframe') {
+      const element = <HTMLIFrameElement>this.element;
       const contentWindow = element.contentWindow;
 
       if (contentWindow) {
@@ -327,7 +328,7 @@ class QWElement {
   }
 
   public focusElement(): void {
-    const htmlElement = <HTMLElement> this.element;
+    const htmlElement = <HTMLElement>this.element;
     htmlElement.focus();
   }
 
@@ -335,7 +336,7 @@ class QWElement {
     return this.element.getBoundingClientRect();
   }
 
-  public getShadowElement(selector: string): QWElement|null {
+  public getShadowElement(selector: string): QWElement | null {
     const shadowRoot = this.element.shadowRoot;
     let element: Element | null = null;
     if (shadowRoot) {
