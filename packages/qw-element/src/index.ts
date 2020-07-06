@@ -16,7 +16,7 @@ class QWElement {
     }
   }
 
-  public elementHasAttribute(attribute: string) {
+  public elementHasAttribute(attribute: string): boolean {
     return this.element.getAttributeNames().includes(attribute);
   }
 
