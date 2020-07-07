@@ -1279,143 +1279,175 @@
       "a11yReq": [
         "WCAG21:language"
       ]
-    }},
-    "QW_ACT_R42": {
-      "name": "Object element has non-empty accessible name",
-      "code": "QW-ACT-R42",
-      "mapping": "8fc3b6",
-      "description": "This rule checks that each `object` element has a non-empty accessible name. ",
-      "metadata": {
-        "target": {
-          "element": [
-            "object"
-          ]
-        },
-        "success-criteria": [
-          {
-            "name": "1.1.1",
-            "level": "A",
-            "principle": "Perceivable",
-            "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
-          }
-        ],
-        "related": [],
-        "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
-        "type": [
-          "ACTRule",
-          "TestCase"
-        ],
-        "a11yReq": [
-          "WCAG21:language"
+    }
+  },
+  "QW_ACT_R42": {
+    "name": "Object element has non-empty accessible name",
+    "code": "QW-ACT-R42",
+    "mapping": "8fc3b6",
+    "description": "This rule checks that each `object` element has a non-empty accessible name. ",
+    "metadata": {
+      "target": {
+        "element": [
+          "object"
         ]
-      }
-    },
-    "QW_ACT_R43": {
-      "name": "Scrollable element is keyboard accessible",
-      "code": "QW-ACT-R43",
-      "mapping": "0ssw9k",
-      "description": "This rule checks that scrollable elements can be scrolled by keyboard",
-      "metadata": {
-        "target": {
-          "element": "*"
-        },
-        "success-criteria": [
-          {
-            "name": "2.1.1",
-            "level": "A",
-            "principle": "Operable",
-            "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
-          }
-        ],
-        "related": [],
-        "url": "https://act-rules.github.io/rules/0ssw9k",
-        "type": [
-          "ACTRule",
-          "TestCase"
-        ],
-        "a11yReq": []
-      }
-    },
-    "QW_ACT_R44": {
-      "name": "Links with identical accessible names and context serve equivalent purpose",
-      "code": "QW-ACT-R44",
-      "mapping": "fd3a94",
-      "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
-      "metadata": {
-        "target": {
-          "element": "a, [role='link']"
-        },
-        "success-criteria": [
-          {
-            "name": "2.4.9",
-            "level": "AAA",
-            "principle": "Operable",
-            "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
-          }
-        ],
-        "related": [],
-        "url": "https://act-rules.github.io/rules/fd3a94",
-        "type": [
-          "ACTRule",
-          "TestCase"
-        ],
-        "a11yReq": [
-          "WCAG21:language"
-        ]
-      }
-    },"QW_ACT_R45": {
-      "name": "Child elements of list(s) follow context model",
-      "code": "QW-ACT-R45",
-      "mapping": "c6f8a9",
-      "description": "This rule checks that child elements of a list follow context model ",
-      "metadata": {
-        "target": {
-          "element": "li,dd,dt"
-        },
-        "success-criteria": [
-          {
-            "name": "1.3.1",
-            "level": "A",
-            "principle": "Perceivable ",
-            "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-          }
-        ],
-        "related": [],
-        "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
-        "type": [
-          "ACTRule",
-          "TestCase"
-        ],
-        "a11yReq": [
-          "WCAG21:language"
-        ]
-      }
-    },"QW_ACT_R46": {
-      "name": "List elements follow content model",
-      "code": "QW-ACT-R46",
-      "mapping": "a73be2",
-      "description": "This rule checks that list elements follow content model",
-      "metadata": {
-        "target": {
-          "element": "ul,ol,dl"
-        },
-        "success-criteria": [
-          {
-            "name": "1.3.1",
-            "level": "A",
-            "principle": "Perceivable ",
-            "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-          }
-        ],
-        "related": [],
-        "url": "https://github.com/act-rules/act-rules.github.io/blob/23ac4d54c128cb098800e2206c4618c2b66ef7d5/_rules/lists-follow-content-model-a73be2.md",
-        "type": [
-          "ACTRule",
-          "TestCase"
-        ],
-        "a11yReq": [
-          "WCAG21:language"
-        ]
-      }
+      },
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
+        }
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R43": {
+    "name": "Scrollable element is keyboard accessible",
+    "code": "QW-ACT-R43",
+    "mapping": "0ssw9k",
+    "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "2.1.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/0ssw9k",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": []
+    }
+  },
+  "QW_ACT_R44": {
+    "name": "Links with identical accessible names and context serve equivalent purpose",
+    "code": "QW-ACT-R44",
+    "mapping": "fd3a94",
+    "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+    "metadata": {
+      "target": {
+        "element": "a, [role='link']"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.9",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/fd3a94",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R45": {
+    "name": "Child elements of list(s) follow context model",
+    "code": "QW-ACT-R45",
+    "mapping": "c6f8a9",
+    "description": "This rule checks that child elements of a list follow context model ",
+    "metadata": {
+      "target": {
+        "element": "li,dd,dt"
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R46": {
+    "name": "List elements follow content model",
+    "code": "QW-ACT-R46",
+    "mapping": "a73be2",
+    "description": "This rule checks that list elements follow content model",
+    "metadata": {
+      "target": {
+        "element": "ul,ol,dl"
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/23ac4d54c128cb098800e2206c4618c2b66ef7d5/_rules/lists-follow-content-model-a73be2.md",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R47": {
+    "name": "Text spacing in `style` attributes is not `!important`",
+    "code": "QW-ACT-R47",
+    "mapping": "b8bb68",
+    "description": "This rule checks that text spacing set in the `style` attribute is not set to `!important` or that at least one of the relevant text styles has exceeded the specified metric for retaining content visibility and functionality.",
+    "metadata": {
+      "target": {
+        "element": "body, body *",
+        "attribute": "style"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/b8bb68",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
     }
   }
+}

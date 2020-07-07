@@ -1,30 +1,45 @@
 # Changelog
+
+## [0.4.15] - 02/07/2020
+### Added
+ - rules QW-ACT-R45, QW-ACT-R46, QW-ACT-R47
+### Updated
+ - dependencies
+ - README.md
+
 ## [0.4.14] - 25/06/2020
 ### Updated
  - fixed R37
+
 ## [0.4.13] - 23/06/2020
 ### Updated
  - bug fixes
+
 ## [0.4.12] - 21/06/2020
 ### Updated
  - ypdated util
+
 ## [0.4.11] - 08/06/2020
 ### Updated
  - multiple bug fixes
+
 ## [0.4.10] - 08/06/2020
 ### Updated
  - deleted process shadowDom
+
 ## [0.4.9] - 08/06/2020
 ### Updated
  - deleted log
+
 ## [0.4.8] - 08/06/2020
 ### Updated
  - fixed isDocument
+
 ## [0.4.7] - 08/06/2020
 ### Updated
  - updated dependencies, fixed bugs and added rules 40 to 44
-## [0.4.6] - 29/05/2020
 
+## [0.4.6] - 29/05/2020
 ### Updated
  - updated dependencies and bug fixes
  
