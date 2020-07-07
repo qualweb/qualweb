@@ -15,7 +15,7 @@ describe('ACT-Rules module', function () {
 
     const browser = await puppeteer.launch({
     });
-    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');//'https://www.pcdiga.com/'
+    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/');//'https://www.pcdiga.com/'
     
   // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
   //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
@@ -31,7 +31,7 @@ describe('ACT-Rules module', function () {
      // sourceHtml.html.parsed = {};
       const report = await page.evaluate(( stylesheets) => {
         const actRules = new ACTRules.ACTRules();
-        const report = actRules.execute([], new QWPage.QWPage(document,window,false), stylesheets);
+        const report = actRules.execute([], new QWPage.QWPage(document,window,true), stylesheets);
         return report;
       },[]);
       const fs = require('fs')
