@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 
 describe('QualWeb page', function() {
@@ -9,7 +8,7 @@ describe('QualWeb page', function() {
     const page = await browser.newPage();
     await page.setBypassCSP(true);
 
-    await page.goto('https://act-rules.github.io/testcases/b33eff/c3ff853372ad20009acd217e0fa4f8709d3636bf.html', {
+    await page.goto('https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/', {
       timeout: 0,
       waitUntil: ['networkidle2', 'domcontentloaded']
     });

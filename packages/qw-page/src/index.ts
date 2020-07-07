@@ -26,7 +26,6 @@ class QWPage {
       this.mapExternalStylesheets();
       this.mapHeadStyles();
       this.mapInlineStyles();
-      console.log(this.elementsCSSRules);
     }
   }
 
@@ -120,7 +119,7 @@ class QWPage {
 
   private createElementCSSMapping(element: Element, properties: string[], media: string | undefined, location: 'file' | 'head' | 'inline', pointer: string): void {
     const cssProperties = {};
-    console.log(media);
+    
     if (media) {
       cssProperties['media'] = {};
       cssProperties['media'][media] = {};
@@ -172,10 +171,12 @@ class QWPage {
   }
 
   private createPropertyObject(property: string, location: string, pointer: string): any {
+    console.log(property);
     const hasImportant = property.includes('!important');
     const split = property.split(':');
     const propertyName = split[0].trim();
-    const propertyValue = hasImportant ? split[1].replace('!important', '').trim() : split[1].trim();
+    const value = split.splice(1).join(''); 
+    const propertyValue = hasImportant ? value.replace('!important', '').trim() : value.trim();
 
     return {
       important: hasImportant,
