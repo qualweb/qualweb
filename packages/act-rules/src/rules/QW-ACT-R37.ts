@@ -283,10 +283,9 @@ class QW_ACT_R37 extends Rule {
   }
 
   getGradientDirection(gradient: string): string | undefined{
-    const regex = /(?<=linear-gradient\()(.*?)(?=,)/gm;
-    let directionMatch = gradient.match(regex);
-    if(directionMatch){
-      let direction = directionMatch[0];
+
+    let direction = gradient.replace("linear-gradient(", "").split(",")[0];
+    if(direction){
       if(direction === '90deg')
         return 'to right'
       if(direction === '-90deg')

@@ -9,14 +9,14 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
     //['chromium', 'firefox', 'webkit']
-    /*const browser = await playwright['chromium'].launch({headless:false});
+    const browser = await playwright['chromium'].launch({headless:false});
     const context = await browser.newContext();
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");*/
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");
 
-    const browser = await puppeteer.launch({
+  /*  const browser = await puppeteer.launch({
     });
     const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/');//'https://www.pcdiga.com/'
-    
+    */
   // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
   //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
    
