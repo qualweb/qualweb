@@ -1449,5 +1449,26 @@
         "WCAG21:language"
       ]
     }
+  },  "QW_ACT_R48": {
+    "name": "Element marked as decorative is not exposed",
+    "code": "QW-ACT-R48",
+    "mapping": "46ca7f",
+    "description": "This rule checks that elements marked as decorative either are not included in the accessibility tree, or have a presentational role.",
+    "metadata": {
+      "target": {
+        "element": "[role='presentation'],[role='none'],[alt='']",
+      },
+      "success-criteria": [
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/decorative-element-no-alt/_rules/element-marked-decorative-is-not-exposed-46ca7f.md",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
   }
 }
