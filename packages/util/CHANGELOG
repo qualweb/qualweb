@@ -1,4 +1,13 @@
 # Changelog
+## [0.3.21] - 08/07/2020
+### Fixed
+ - added even more cache
+## [0.3.20] - 06/07/2020
+### Fixed
+ - added more cache
+## [0.3.19] - 06/07/2020
+### Fixed
+ - cacheTest
 ## [0.3.18] - 22/06/2020
 ### Fixed
  - isVisible for shadowDom

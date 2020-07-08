@@ -4,7 +4,21 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementADescendantOfExplicitRole from "../domUtils/isElementADescendantOfExplicitRole";
 
+
 function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
+  let selector = elementQW.getElementSelector();
+  let method = "AcceUtils.getImplicitRole";
+  let result;
+  if(pageQW.isValueCached(selector,method)){
+     result = pageQW.getCachedValue(selector,method);
+  }else{
+    result = getImplicitRoleAux(elementQW, pageQW, accessibleName);
+    pageQW.cacheValue(selector,method,result);
+  }
+  return result;
+}
+
+function getImplicitRoleAux(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
   let name =elementQW.getElementTagName();
   let attributes, role;
   if (name) {

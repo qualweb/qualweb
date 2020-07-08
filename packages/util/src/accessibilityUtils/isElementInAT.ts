@@ -9,13 +9,25 @@ import elementIDIsReferenced from '../domUtils/elementIDIsReferenced';
 import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute';
 
 function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
+let selector = elementQW.getElementSelector();
+  let method = "AcceUtils.isElementInAT";
+  let result;
+  if(pageQW.isValueCached(selector,method)){
+     result = pageQW.getCachedValue(selector,method);
+  }else{
+    result = isElementInATAux(elementQW, pageQW);
+    pageQW.cacheValue(selector,method,result);
+  }
+  return result;}
+
+function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
   let isPresentation = isElementPresentation(elementQW, pageQW);
-  let isHidden = isElementHidden(elementQW);
+  let isHidden = isElementHidden(elementQW,pageQW);
   let result = false;
 
   if (!isHidden && !isPresentation) {
     let type = elementQW.getElementType();
-    let focusable = isElementFocusable(elementQW);
+    let focusable = isElementFocusable(elementQW,pageQW);
     let id = elementQW.getElementAttribute("id");
     let ariaActivedescendant = false;
     let ariaControls = false;

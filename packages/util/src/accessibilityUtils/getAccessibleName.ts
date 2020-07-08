@@ -12,7 +12,16 @@ import isElementControl from './isElementControl';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 function getAccessibleName(elementQW: QWElement, pageQW: QWPage): string | undefined {
-  return getAccessibleNameRecursion(elementQW, pageQW, false, false);
+  let selector = elementQW.getElementSelector();
+  let method = "AcceUtils.getAccessibleName";
+  let result;
+  if(pageQW.isValueCached(selector,method)){
+     result = pageQW.getCachedValue(selector,method);
+  }else{
+    result = getAccessibleNameRecursion(elementQW, pageQW, false, false);
+    pageQW.cacheValue(selector,method,result);
+  }
+  return result;
 }
 function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recursion: boolean, isWidget: boolean): string | undefined {
   let AName, ariaLabelBy, ariaLabel, title, alt, attrType, value, role, placeholder, id;
