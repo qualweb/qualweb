@@ -23,8 +23,8 @@ class QW_ACT_R29 extends Rule {
       resultCode: ''
     };
 
-    const isHidden = DomUtils.isElementHidden(element);
-    const isVisible = DomUtils.isElementVisible(element);
+    const isHidden = DomUtils.isElementHidden(element,page);
+    const isVisible = DomUtils.isElementVisible(element,page);
     const controls = element.elementHasAttribute('controls');
     const autoPlay = element.getElementAttribute('autoplay');
     const metadata = DomUtils.getVideoMetadata(element);

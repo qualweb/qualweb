@@ -37,7 +37,7 @@ class QW_ACT_R10 extends Rule {
 
     // add iframe contents
     for (const link of iframes || []) {
-      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
+      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link,page)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
         const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);

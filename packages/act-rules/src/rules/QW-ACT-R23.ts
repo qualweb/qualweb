@@ -5,6 +5,7 @@ import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R23 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R23 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -24,7 +25,7 @@ class QW_ACT_R23 extends Rule {
 
     const metadata = DomUtils.getVideoMetadata(element);
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0 && metadata.puppeteer.audio.hasSoundTrack;
-    const isVisible = DomUtils.isElementVisible(element);
+    const isVisible = DomUtils.isElementVisible(element,page);
 
 
 

@@ -38,7 +38,7 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-        let visible =  DomUtils.isElementVisible(element);
+        let visible =  DomUtils.isElementVisible(element,page);
 
         if(!visible){
           evaluation.verdict = 'inapplicable';

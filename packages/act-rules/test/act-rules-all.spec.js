@@ -10,7 +10,7 @@ describe('ACT-Rules module', function () {
     this.timeout(1000 * 1000);
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({headless:false});
-    const context = await browser.newContext();
+    const context = await browser.newContext({userAgent:"chromium",bypassCSP:true});
     const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");
 
   /*  const browser = await puppeteer.launch({
