@@ -76,10 +76,10 @@ declare module '@qualweb/act-rules' {
     private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): void;
     private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void;
     private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): void;
-    private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[]): void;
+    private executeNotMappedRules(report: ACTRulesReport): void;
     private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
     private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
-    public execute(sourceHtml: SourceHtml, page: QWPage, stylesheets: any[]): ACTRulesReport;
+    public execute(sourceHtml: SourceHtml, page: QWPage): ACTRulesReport;
   }
 
   export {

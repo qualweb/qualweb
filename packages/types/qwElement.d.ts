@@ -2,7 +2,7 @@ declare module '@qualweb/qw-element' {
 
   class QWElement {
     constructor(element: Element);
-    public elementHasAttribute(attribute: string);
+    public elementHasAttribute(attribute: string): boolean;
     public elementHasAttributes(): boolean;
     public elementHasChild(childName: string): boolean;
     public elementHasChildren(): boolean;

@@ -1,4 +1,3 @@
-
 declare module '@qualweb/qw-page' {
   import { QWElement } from "@qualweb/qw-element";
 
