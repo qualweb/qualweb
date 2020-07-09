@@ -104,6 +104,16 @@ class QWElement {
     return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
   }
 
+  public hasTextNode(): boolean {
+    let hasText = false;
+    for (const child of this.element.childNodes || []) {
+      if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+        hasText = true;
+      }
+    }
+    return hasText;
+  }
+
   public getElementAttribute(attribute: string): string | null {
     return this.element.getAttribute(attribute);
   }
