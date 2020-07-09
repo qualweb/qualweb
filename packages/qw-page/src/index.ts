@@ -28,7 +28,7 @@ class QWPage {
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules?.has(element)) {
-      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules?.get(element)));
+      element.setAttribute('_cssRules', 'true');
     }
   }
 
