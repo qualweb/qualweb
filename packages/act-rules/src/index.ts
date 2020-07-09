@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { Optimization } from '@qualweb/util';
 import * as rules from './lib/rules';
@@ -110,7 +108,6 @@ class ACTRules {
       }
     }
 
-
     report.assertions[rule] = this.rules[rule].getFinalResults();
     report.metadata[report.assertions[rule].metadata.outcome]++;
     this.rules[rule].reset();
@@ -181,9 +178,10 @@ class ACTRules {
       },
       assertions: {}
     };
-    this.executeNonConcurrentRules(report, page)
-    this.executeConcurrentRules(report, page)
-    this.executeNotMappedRules( report, stylesheets,metaElements)
+
+    this.executeNonConcurrentRules(report, page);
+    this.executeConcurrentRules(report, page);
+    this.executeNotMappedRules(report, stylesheets, metaElements);
 
     return report;
   }
