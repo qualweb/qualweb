@@ -1,10 +1,14 @@
 # Changelog
 
+## [0.1.11] - 09/07/2020
+
+### Added
+ - css rules mapping manipulation functions
 
 ## [0.1.10] - 06/07/2020
 
 ### Updated
- -fixed cached selector
+ - fixed cached selector
 
 ## [0.1.9] - 06/07/2020
 

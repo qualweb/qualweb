@@ -1,5 +1,3 @@
-'use strict';
-
 class QWElement {
 
   private readonly element: Element;
@@ -9,13 +7,75 @@ class QWElement {
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    this.selector = "";
+    this.selector = '';
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules ?.has(element)) {
-      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules ?.get(element)));
+      element.setAttribute('_cssRules', 'true');
     }
+  }
+
+  public hasCSSRules(): boolean {
+    return this.element.getAttribute('_cssRules') === 'true';
+  }
+
+  public getCSSRules(): any {
+    return this.elementsCSSRules?.get(this.element);
+  }
+
+  public hasCSSProperty(property: string, pseudoStyle?: string, media?: string): boolean {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+
+      if (pseudoStyle && media) {
+        return rules['media'][media][pseudoStyle][property] !== undefined;
+      } else if (pseudoStyle) {
+        return rules[pseudoStyle][property] !== undefined;
+      } else if (media) {
+        return rules['media'][media][property] !== undefined;
+      }
+
+      return rules[property] !== undefined;
+    }
+
+    return false;
+  }
+
+  public getCSSProperty(property: string, pseudoStyle?: string, media?: string): any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+
+      if (pseudoStyle && media) {
+        return rules['media'][media][pseudoStyle][property];
+      } else if (pseudoStyle) {
+        return rules[pseudoStyle][property];
+      } else if (media) {
+        return rules['media'][media][property];
+      }
+
+      return rules[property];
+    }
+
+    return undefined;
+  }
+
+  public getCSSMediaRules() : any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+      return rules['media'];
+    }
+
+    return undefined;
+  }
+
+  public getCSSPseudoSelectorRules(pseudoSelector: string): any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+      return rules[pseudoSelector];
+    }
+
+    return undefined;
   }
 
   public elementHasAttribute(attribute: string): boolean {
@@ -92,7 +152,7 @@ class QWElement {
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     const clonedElem = <Element>this.element.cloneNode(true);
-    clonedElem.removeAttribute("_cssRules");
+    clonedElem.removeAttribute('_cssRules');
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-element",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.4.20",
-    "@types/node": "^14.0.14",
+    "@qualweb/types": "^0.4.21",
+    "@types/node": "^14.0.20",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
     "mocha": "^8.0.1",
