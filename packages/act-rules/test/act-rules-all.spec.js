@@ -39,7 +39,7 @@ describe('ACT-Rules module', function () {
         const actRules = new ACTRules.ACTRules();
         const report = actRules.execute([], new QWPage.QWPage(document, window, true), stylesheets);
         return report;
-      }, stylesheets);
+      }, []);
       const fs = require('fs')
       // Write data in 'Output.txt' . 
       fs.writeFile('Output.txt', JSON.stringify(report, null, 2), (err) => {
