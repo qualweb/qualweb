@@ -137,7 +137,7 @@ class QWElement {
     const qwList = new Array<QWElement>();
     for (const element of elements) {
       this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element));
+      qwList.push(new QWElement(element, this.elementsCSSRules));
     }
     return qwList;
   }
@@ -184,7 +184,7 @@ class QWElement {
   private convertElementToQWElement(element: Element | null): QWElement | null {
     if (element) {
       this.addCSSRulesPropertyToElement(element);
-      return new QWElement(element);
+      return new QWElement(element, this.elementsCSSRules);
     } else {
       return null;
     }
@@ -194,7 +194,7 @@ class QWElement {
     const qwList = new Array<QWElement>();
     for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element));
+      qwList.push(new QWElement(element, this.elementsCSSRules));
     }
     return qwList;
   }
