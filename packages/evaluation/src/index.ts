@@ -5,6 +5,10 @@ import {
 import {
   QualwebOptions,
   SourceHtml,
+<<<<<<< HEAD
+=======
+  
+>>>>>>> dd08978ddd72f85beba303e162249a92d74c4417
   ProcessedHtml,
   Url,
   Evaluator
@@ -38,7 +42,11 @@ const endpoint = 'http://194.117.20.242/validate/';
 
 class Evaluation {
 
+<<<<<<< HEAD
   public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
+=======
+  public async getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: any[], url: string): Promise<Evaluator> {
+>>>>>>> dd08978ddd72f85beba303e162249a92d74c4417
     const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
         return document.documentElement.outerHTML;
@@ -97,7 +105,11 @@ class Evaluation {
     });
   }
 
+<<<<<<< HEAD
   public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
+=======
+  public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: any[], options: ACTROptions | undefined): Promise<ACTRulesReport> {
+>>>>>>> dd08978ddd72f85beba303e162249a92d74c4417
     await page.addScriptTag({
       path: require.resolve('@qualweb/act-rules')
     });
@@ -200,7 +212,11 @@ class Evaluation {
     return htmlReport;
   }
 
+<<<<<<< HEAD
   public async executeCSS(page: Page, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
+=======
+  public async executeCSS(page: Page, stylesheets: any[], mappedDOM: any, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
+>>>>>>> dd08978ddd72f85beba303e162249a92d74c4417
     await page.addScriptTag({
       path: require.resolve('@qualweb/css-techniques')
     });
@@ -233,8 +249,13 @@ class Evaluation {
     return bpReport;
   }
 
+<<<<<<< HEAD
   public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, url);
+=======
+  public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: any[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
+    const evaluator = await this.getEvaluator(page, sourceHtml, stylesheets, url);
+>>>>>>> dd08978ddd72f85beba303e162249a92d74c4417
     const evaluation = new EvaluationRecord(evaluator);
 
     await this.addQWPage(page);
