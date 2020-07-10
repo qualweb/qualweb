@@ -1,5 +1,3 @@
-'use strict';
-
 import { BestPracticeResult } from '@qualweb/best-practices';
 import bestPractices from './bestPractices.json';
 import cloneDeep from 'lodash.clonedeep';

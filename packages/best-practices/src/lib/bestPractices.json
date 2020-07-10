@@ -143,23 +143,14 @@
       }
     }
   },
-  "QW_BP14": {
-    "name": "At least one container's width has been specified using values expressed in px",
-    "code": "QW-BP14",
-    "description": "At least one container's width has been specified using values expressed in px",
-    "metadata": {
-      "target": {
-        "element": ["span", "article", "section", "nav", "aside", "hgroup", "header", "footer", "address", "p", "hr", "blockquote", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "dd", "dt", "dl", "figcaption"]
-      }
-    }
-  },
   "QW_BP15": {
     "name": "At least one width attribute of an HTML element is expressed in absolute values",
     "code": "QW-BP15",
     "description": "At least one width attribute of an HTML element is expressed in absolute values",
     "metadata": {
       "target": {
-        "element": "*"
+        "element": "*",
+        "attributes": "width"
       }
     }
   },

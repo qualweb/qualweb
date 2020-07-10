@@ -1,5 +1,3 @@
-'use strict';
-
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
@@ -9,7 +7,7 @@ import { QWElement } from '@qualweb/qw-element';
 
 abstract class BestPractice {
 
-  private bestPractice: BestPracticeType;
+  private readonly bestPractice: BestPracticeType;
 
   constructor(bestPractice: BestPracticeType) {
     this.bestPractice = bestPractice;
