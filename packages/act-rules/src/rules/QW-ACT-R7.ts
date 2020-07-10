@@ -1,9 +1,8 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
+import { QWElement } from '@qualweb/qw-element';
 import * as Rematrix from 'rematrix';
 import Rule from '../lib/Rule.object';
-import { ACTRule } from '../lib/decorator';
+import { ACTRule, ElementExists, ElementIsVisible } from '../lib/decorator';
 
 @ACTRule
 class QW_ACT_R7 extends Rule {
@@ -206,10 +205,45 @@ class QW_ACT_R7 extends Rule {
     super.addEvaluationResult(evaluation);
   }
 
-  execute(): void {
-    throw new Error(
-      'Not implemented, please use unmappedExecute(cssStyleSheets: CSSStylesheet[])'
-    );
+  @ElementExists
+  @ElementIsVisible
+  execute(element: QWElement): void {
+    
+    /*const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };*/
+    console.log(element);
+    const media = element.getCSSMediaRules();
+    console.log(media);
+    if (media) {
+      for (const condition in media || {}) {
+        console.log('c', condition);
+        if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
+          console.log('mc', media[condition]);
+          for (const property in media[condition] || {}) {
+            console.log('p', property);
+            if (property === 'transform') {
+              const value = media[condition][property];
+              console.log('v', value);
+              if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+                let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+                angle = this.parseDegrees(angle);
+                const matrix = Rematrix.rotateZ(angle);
+                angle = this.calculateRotationDegree(matrix);
+                this.checkRotation(angle);
+              } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
+                const matrix = Rematrix.fromString(value);
+                this.calculateRotationDegree(matrix);
+                const angle = this.calculateRotationDegree(matrix);
+                this.checkRotation(angle);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   private isVisible(cssObject: any): boolean {

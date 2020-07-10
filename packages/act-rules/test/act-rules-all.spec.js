@@ -1,28 +1,39 @@
 const { expect } = require('chai');
-const puppeteer = require('puppeteer');
+const playwright = require('playwright');
 const { getDom } = require('./getDom');
 const { ACTRules } = require('../dist/index');
+const puppeteer = require('puppeteer');
+
 
 describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 1000);
-    const browser = await puppeteer.launch();
-   //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
-    const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");
+    //['chromium', 'firefox', 'webkit']
+    /*const browser = await playwright['chromium'].launch({headless:false});
+    const context = await browser.newContext();
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");*/
+
+    const browser = await puppeteer.launch({
+    });
+    const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');//'https://www.pcdiga.com/'
+    
+  // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+  //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
+   
     
     try {
-      await page.addScriptTag({
+     await page.addScriptTag({
         path: require.resolve('../dist/act.js')
       })
       await page.addScriptTag({
-        path: require.resolve('../node_modules/@qualweb/qw-page/dist/qwPage.js')
+        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
       })
-      sourceHtml.html.parsed = {};
-      const report = await page.evaluate((sourceHtml, stylesheets) => {
+     // sourceHtml.html.parsed = {};
+      const report = await page.evaluate(( stylesheets) => {
         const actRules = new ACTRules.ACTRules();
-        const report = actRules.execute(sourceHtml, new QWPage.QWPage(document,window), stylesheets);
+        const report = actRules.execute([], new QWPage.QWPage(document,window,false), stylesheets);
         return report;
-      }, [], stylesheets);
+      },[]);
       const fs = require('fs')
       // Write data in 'Output.txt' . 
       fs.writeFile('Output.txt', JSON.stringify(report, null, 2), (err) => {
@@ -32,7 +43,7 @@ describe('ACT-Rules module', function () {
     } catch (err) {
       console.error(err);
     } finally {
-      await browser.close();
+      //await browser.close();
     }
   })
 });
