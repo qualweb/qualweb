@@ -91,8 +91,8 @@
   },
   "dependencies": {
     "htmlparser2": "^4.0.0",
-    "@qualweb/qw-element": "^0.1.10",
-    "@qualweb/qw-page": "^0.1.12",
+    "@qualweb/qw-element": "^0.1.11",
+    "@qualweb/qw-page": "^0.1.14",
     "@qualweb/util": "^0.3.21",
     "css-select": "^2.1.0",
     "languagedetect": "^2.0.0",
