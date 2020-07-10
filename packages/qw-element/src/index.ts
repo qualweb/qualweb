@@ -60,7 +60,7 @@ class QWElement {
     return undefined;
   }
 
-  public getCSSMediaRules() : any {
+  public getCSSMediaRules(): any {
     if (this.elementsCSSRules?.has(this.element)) {
       const rules = this.elementsCSSRules?.get(this.element);
       return rules['media'];
