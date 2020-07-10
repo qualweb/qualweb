@@ -5,7 +5,6 @@ import {
 import {
   QualwebOptions,
   SourceHtml,
-  CSSStylesheet,
   ProcessedHtml,
   Url,
   Evaluator
@@ -33,12 +32,13 @@ import {
 import {
   HTMLTOptions, HTMLTechniquesReport
 } from '@qualweb/html-techniques';
+import { QWPage } from '@qualweb/qw-page';
 
 const endpoint = 'http://194.117.20.242/validate/';
 
 class Evaluation {
 
-  public async getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string): Promise<Evaluator> {
+  public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
     const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
         return document.documentElement.outerHTML;
@@ -83,8 +83,7 @@ class Evaluation {
         },
         dom: {
           source: sourceHtml,
-          processed: processedHtml,
-          stylesheets
+          processed: processedHtml
         }
       }
     };
@@ -98,7 +97,7 @@ class Evaluation {
     });
   }
 
-  public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: ACTROptions | undefined): Promise<ACTRulesReport> {
+  public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/act-rules')
     });
@@ -120,13 +119,13 @@ class Evaluation {
       });
     }
 
-    const actReport = await page.evaluate((parsedMetaElements, stylesheets, options) => {
+    const actReport = await page.evaluate((parsedMetaElements, options) => {
       // @ts-ignore
       const act = new ACTRules.ACTRules(options);
       // @ts-ignore
-      return act.execute(parsedMetaElements, new QWPage.QWPage(document, window), stylesheets);
+      return act.execute(parsedMetaElements, new QWPage.QWPage(document, window));
       // @ts-ignore
-    }, parsedMetaElements, stylesheets, options);
+    }, parsedMetaElements, options);
 
     const r40 = 'QW-ACT-R40';
     
@@ -201,18 +200,18 @@ class Evaluation {
     return htmlReport;
   }
 
-  public async executeCSS(page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
+  public async executeCSS(page: Page, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/css-techniques')
     });
 
-    const cssReport = await page.evaluate((stylesheets, mappedDOM, options) => {
+    const cssReport = await page.evaluate((options) => {
       // @ts-ignore
       const css = new CSSTechniques.CSSTechniques(options);
       // @ts-ignore
-      return css.execute(new QWPage.QWPage(document, window), stylesheets, mappedDOM);
+      return css.execute(new QWPage.QWPage(document, window, true));
       // @ts-ignore
-    }, stylesheets, {}, options);
+    }, options);
 
     return cssReport;
   }
@@ -228,52 +227,36 @@ class Evaluation {
       if (options)
         bp.configure(options)
       // @ts-ignore
-      const report = bp.execute(new QWPage.QWPage(document, window));
-      return report;
+      return bp.execute(new QWPage.QWPage(document, window));
       // @ts-ignore
     }, options);
     return bpReport;
   }
 
-  public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
-    const evaluator = await this.getEvaluator(page, sourceHtml, stylesheets, url);
+  public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
+    const evaluator = await this.getEvaluator(page, sourceHtml, url);
     const evaluation = new EvaluationRecord(evaluator);
 
-    const reports = new Array<any>();
     await this.addQWPage(page);
 
     if (execute.act) {
-      reports.push(await this.executeACT(page, sourceHtml, stylesheets, options['act-rules']));
+      evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
     }
     if (execute.html) {
-      reports.push(await this.executeHTML(page, options['html-techniques']));
+      evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques']));
     }
     if (execute.css) {
-      reports.push(await this.executeCSS(page, stylesheets, mappedDOM, options['css-techniques']));
+      evaluation.addModuleEvaluation('css-techniques', await this.executeCSS(page, options['css-techniques']));
     }
     if (execute.bp) {
-      reports.push(await this.executeBP(page, options['best-practices']));
-    }
-
-    for (const report of reports || []) {
-      if (report.type === 'wappalyzer') {
-        evaluation.addModuleEvaluation('wappalyzer', report);
-      } else if (report.type === 'act-rules') {
-        evaluation.addModuleEvaluation('act-rules', report);
-      } else if (report.type === 'html-techniques') {
-        evaluation.addModuleEvaluation('html-techniques', report);
-      } else if (report.type === 'css-techniques') {
-        evaluation.addModuleEvaluation('css-techniques', report);
-      } else if (report.type === 'best-practices') {
-        evaluation.addModuleEvaluation('best-practices', report);
-      }
+      evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));
     }
 
     return evaluation;
   }
 
   private parseUrl(url: string, pageUrl: string): Url {
-    let inputUrl: string = url;
+    const inputUrl = url;
     let protocol: string;
     let domainName: string;
     let domain: string;
