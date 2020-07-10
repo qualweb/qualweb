@@ -5,7 +5,7 @@ import {
 import {
   QualwebOptions,
   SourceHtml,
-  CSSStylesheet,
+  
   ProcessedHtml,
   Url,
   Evaluator
@@ -38,7 +38,7 @@ const endpoint = 'http://194.117.20.242/validate/';
 
 class Evaluation {
 
-  public async getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], url: string): Promise<Evaluator> {
+  public async getEvaluator(page: Page, sourceHtml: SourceHtml, stylesheets: any[], url: string): Promise<Evaluator> {
     const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
         return document.documentElement.outerHTML;
@@ -98,7 +98,7 @@ class Evaluation {
     });
   }
 
-  public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: CSSStylesheet[], options: ACTROptions | undefined): Promise<ACTRulesReport> {
+  public async executeACT(page: Page, sourceHtml: SourceHtml, stylesheets: any[], options: ACTROptions | undefined): Promise<ACTRulesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/act-rules')
     });
@@ -201,7 +201,7 @@ class Evaluation {
     return htmlReport;
   }
 
-  public async executeCSS(page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
+  public async executeCSS(page: Page, stylesheets: any[], mappedDOM: any, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/css-techniques')
     });
@@ -235,7 +235,7 @@ class Evaluation {
     return bpReport;
   }
 
-  public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: CSSStylesheet[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
+  public async evaluatePage(sourceHtml: SourceHtml, page: Page, stylesheets: any[], mappedDOM: any, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, stylesheets, url);
     const evaluation = new EvaluationRecord(evaluator);
 
