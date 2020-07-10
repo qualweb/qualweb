@@ -23,7 +23,7 @@ class QW_ACT_R19 extends Rule {
       resultCode: ''
     };
 
-    const hidden = DomUtils.isElementHiddenByCSS(element);
+    const hidden = DomUtils.isElementHiddenByCSS(element,page);
     const tabIndex = element.getElementAttribute("tabindex");
     const presentation = DomUtils.isElementPresentation(element, page);
     if (hidden || (presentation && tabIndex && parseInt(tabIndex) < 0)) {

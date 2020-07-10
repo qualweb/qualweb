@@ -61,7 +61,7 @@ function nonHiddennChildrenHasTagName(children: QWElement[],page:QWPage, name: s
   let child;
   while (i < children.length && !result) {
     child = children[i];
-    if (child && child.getElementTagName() === name && !DomUtils.isElementHidden(child)&& AccessibilityUtils.getElementRole(child,page)===role) {
+    if (child && child.getElementTagName() === name && !DomUtils.isElementHidden(child,page)&& AccessibilityUtils.getElementRole(child,page)===role) {
       result = true;
     }
     i++;

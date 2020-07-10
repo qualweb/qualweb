@@ -23,7 +23,7 @@ class QW_ACT_R42 extends Rule {
       resultCode: ''
     };
     
-    const isInAT = !(DomUtils.isElementHidden(element) || DomUtils.isElementPresentation(element,page));
+    const isInAT = !(DomUtils.isElementHidden(element,page) || DomUtils.isElementPresentation(element,page));
     if (isInAT) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName) {

@@ -24,10 +24,10 @@ async function getDom(browser,url, viewport) {
     });
 
     await page.goto(url, {
-        waitUntil: 'networkidle2'
+        waitUntil: 'domcontentloaded'
     });
 
-    
+    /*
     const sourceHtml = await getSourceHTML(url);
     //let stylesheets = [];
 
@@ -46,7 +46,8 @@ async function getDom(browser,url, viewport) {
         for (const item of cookedStew || [])
             mappedDOM[item['_node_id']] = item;
 
-    await mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);
+    await mapCSSElements(sourceHtml.html.parsed, stylesheets, mappedDOM);*/
+    let sourceHtml,stylesheets;
 
     return { sourceHtml, page, stylesheets };
 }

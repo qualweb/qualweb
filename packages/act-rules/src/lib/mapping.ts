@@ -13,7 +13,7 @@ export default {
     'pre': {
     },
     'post': {
-      'html': ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5', 'QW-ACT-R7'],
+      'html': ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5'],
       'img[src], input[type="image"][src]': ['QW-ACT-R8'],
       'input[type="image"]': ['QW-ACT-R6'],
       'button, input[type="submit"], input[type="reset"], input[type="button"], summary, [role="button"]': ['QW-ACT-R11'],
@@ -40,7 +40,7 @@ export default {
       'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
       '*[style]': ['QW-ACT-R47'],
-      //'[_cssRules]': ['QW-ACT-R7']
+      '*': ['QW-ACT-R7']
     }
   }
 };

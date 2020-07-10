@@ -26,7 +26,7 @@ class QW_ACT_R17 extends Rule {
     const name = element.getElementTagName();
     const elementInAT = AccessibilityUtils.isElementInAT(element, page);
     const role = AccessibilityUtils.getElementRole(element, page);
-    let hidden = DomUtils.isElementHidden(element);
+    let hidden = DomUtils.isElementHidden(element,page);
 
     if (name === 'img') {
       const alt = element.getElementAttribute("alt");

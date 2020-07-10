@@ -25,7 +25,7 @@ class QW_ACT_R37 extends Rule {
     const elements =  page.getElements('*');
     if (elements.length > 0) {
       for (const element of elements || []) {
-
+        console.log(element.getElementTagName())
         let tagName  =  element.getElementTagName();
 
         if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
@@ -38,7 +38,7 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-        let visible =  DomUtils.isElementVisible(element);
+        let visible =  DomUtils.isElementVisible(element,page);
 
         if(!visible){
           evaluation.verdict = 'inapplicable';
@@ -164,6 +164,7 @@ class QW_ACT_R37 extends Rule {
                 if(regexGradientMatches){
                   let parsedGradientString = regexGradientMatches[0];
                   this.evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText);
+                  break;
                 }else{
                   opacityAUX = parseFloat( parent.getElementStyleProperty( "opacity", null));
                   parsedBG = this.parseRGBString( parent.getElementStyleProperty( "background", null), opacityAUX);

@@ -214,23 +214,39 @@ class QW_ACT_R7 extends Rule {
       description: '',
       resultCode: ''
     };*/
-    console.log(element);
-    const media = element.getCSSMediaRules();
-    console.log(media);
+    
+    const rules = element.getElementAttribute('_cssRules');
+
+    if (!rules) {
+      return;
+    }
+
+    const parsedRules = JSON.parse(rules);
+
+    let transformValue: number | null = null;
+    for (const property in parsedRules || {}) {
+      if (property === 'transform') {
+        const value = parsedRules[property].value;
+        if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+          let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+          transformValue = this.parseDegrees(angle);
+        }
+      }
+    }
+
+    const media = parsedRules.media;
     if (media) {
       for (const condition in media || {}) {
-        console.log('c', condition);
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
-          console.log('mc', media[condition]);
           for (const property in media[condition] || {}) {
-            console.log('p', property);
             if (property === 'transform') {
-              const value = media[condition][property];
+              const value = media[condition][property].value;
               console.log('v', value);
               if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
                 let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
                 angle = this.parseDegrees(angle);
-                const matrix = Rematrix.rotateZ(angle);
+                
+                const matrix = Rematrix.rotateZ(transformValue ? angle - transformValue : angle);
                 angle = this.calculateRotationDegree(matrix);
                 this.checkRotation(angle);
               } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
