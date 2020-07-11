@@ -12,7 +12,7 @@ describe('QualWeb page', function() {
     const dom = new Dom();
     const { sourceHtml, page } = await dom.getDOM(browser, { viewport: null }, url);
     const evaluation = new Evaluation();
-    const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: false, html: true, css: false, bp: false }, {}, url);
+    const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: true, html: false, css: false, bp: false }, {}, url);
     console.log(evaluationReport);
     await dom.close();
     await browser.close();
