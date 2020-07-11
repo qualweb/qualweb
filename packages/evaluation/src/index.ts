@@ -105,7 +105,7 @@ class Evaluation {
     const metaElements = CSSselect('meta', sourceHtml.html.parsed);
     const parsedMetaElements = new Array<any>();
 
-    for (let element of metaElements || []) {
+    for (const element of metaElements || []) {
       const content = DomUtils.getSourceElementAttribute(element, 'content');
       const httpEquiv = DomUtils.getSourceElementAttribute(element, 'http-equiv');
       const htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
