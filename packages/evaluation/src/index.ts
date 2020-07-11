@@ -32,7 +32,6 @@ import {
 import {
   HTMLTOptions, HTMLTechniquesReport
 } from '@qualweb/html-techniques';
-import { QWPage } from '@qualweb/qw-page';
 
 const endpoint = 'http://194.117.20.242/validate/';
 
