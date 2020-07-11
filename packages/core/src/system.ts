@@ -128,9 +128,9 @@ class System {
     if (this.browser) {
       try {
         const dom = new Dom();
-        const { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, url, '');
+        const { sourceHtml, page } = await dom.getDOM(this.browser, options, url, '');
         const evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options, url);
+        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, url);
         await dom.close();
         this.evaluations[url] = evaluationReport.getFinalReport();
       } catch (err) {
@@ -145,9 +145,9 @@ class System {
     if (this.browser && this.html) {
       try {
         const dom = new Dom();
-        const { sourceHtml, page, stylesheets, mappedDOM } = await dom.getDOM(this.browser, options, '', this.html);
+        const { sourceHtml, page } = await dom.getDOM(this.browser, options, '', this.html);
         const evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, stylesheets, mappedDOM, this.modulesToExecute, options, '');
+        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, '');
         await dom.close();
         this.evaluations['customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
