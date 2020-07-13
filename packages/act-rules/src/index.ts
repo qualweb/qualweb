@@ -1,8 +1,9 @@
-import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
+import { ACTROptions, ACTRulesReport, ACTRule } from '@qualweb/act-rules';
 import { Optimization } from '@qualweb/util';
 import * as rules from './lib/rules';
 
 import mapping from './lib/mapping';
+import compositeRules from './lib/mappingComposite';
 import { QWPage } from '@qualweb/qw-page';
 
 class ACTRules {
@@ -139,6 +140,45 @@ class ACTRules {
     }
   }
 
+  private executeCompositeRules(report: ACTRulesReport, page: QWPage) {
+    const promises = new Array<any>();
+    let rules = Object.keys(compositeRules);
+    for (const rule of rules || []) {
+      if (this.rulesToExecute[rule]) {
+        promises.push(this.executeCompositeRule(rule, compositeRules[rule].selector, compositeRules[rule].rules, compositeRules[rule].implementation, page, report));
+      }
+    }
+
+  }
+  private executeCompositeRule(rule: string, selector: string, atomicRules: string[], implementation: string, page: QWPage, report: ACTRulesReport): void {
+
+
+    let atomicRulesReport: ACTRule[] = [];
+
+    for (let atomicRule of atomicRules) {
+      atomicRulesReport.push(report.assertions[atomicRule])
+    }
+    const elements = page.getElements(selector);
+    if (elements.length > 0) {
+      for (const elem of elements || []) {
+        if (implementation === "conjunction") {
+          this.rules[rule].conjunction(elem, atomicRulesReport);
+        } else if (implementation === "dijunction") {
+          this.rules[rule].dijunction(elem, atomicRulesReport);
+        } else {
+          this.rules[rule].execute(elem, atomicRulesReport);
+        }
+      }
+    } else {
+      this.rules[rule].execute(undefined, page, this.optimization);
+    }
+
+
+    report.assertions[rule] = this.rules[rule].getFinalResults();
+    report.metadata[report.assertions[rule].metadata.outcome]++;
+    this.rules[rule].reset();
+  }
+
   private executeNonConcurrentRules(report: ACTRulesReport, page: QWPage): void {
     this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
   }
@@ -147,7 +187,7 @@ class ACTRules {
     this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
   }
 
-  public executeQW_ACT_R40(page: QWPage,): any {
+  public executeQW_ACT_R40(page: QWPage, ): any {
     const elements = page.getElements('body *');
 
     if (elements.length > 0) {
