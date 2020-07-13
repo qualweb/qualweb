@@ -40,7 +40,6 @@ async function cli(): Promise<void> {
     } else {
       for (const url in reports || {}) {
         delete reports[url].system.page.dom.source.html.parsed;
-        delete reports[url].system.page.dom.stylesheets;
         saveReport(url, reports[url]);
       }
     }

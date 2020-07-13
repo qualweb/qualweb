@@ -294,8 +294,6 @@ This config file can replace commands **--css-techniques**, **--css-levels** and
 |---|---|---|
 | QW-CSS-T1 | [C12](https://www.w3.org/WAI/WCAG21/Techniques/css/C12) [C13](https://www.w3.org/WAI/WCAG21/Techniques/css/C13) [C14](https://www.w3.org/WAI/WCAG21/Techniques/css/C14) | Using "percent, em, names" for font sizes |
 | QW-CSS-T2 | [C19](https://www.w3.org/WAI/WCAG21/Techniques/css/C19) | Specifying alignment either to the left or right in CSS |
-| QW-CSS-T3 | [C21](https://www.w3.org/WAI/WCAG21/Techniques/css/C21) | Specifying line spacing in CSS |
-| QW-CSS-T4 | [C22](https://www.w3.org/WAI/WCAG21/Techniques/css/C22) | Using CSS to control visual presentation of text |
 | QW-CSS-T5 | [C24](https://www.w3.org/WAI/WCAG21/Techniques/css/C24) | Using percentage values in CSS for container sizes |
 | QW-CSS-T6 | [F4](https://www.w3.org/WAI/WCAG21/Techniques/failures/F4) | Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds |
 | QW-CSS-T7 | [F24](https://www.w3.org/WAI/WCAG21/Techniques/failures/F24) | Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa |
@@ -317,7 +315,6 @@ This config file can replace commands **--css-techniques**, **--css-levels** and
 | QW-BP11 | HTML | Using br to make a list |
 | QW-BP12 | HTML | Using scope col and row |
 | QW-BP13 | HTML | Using consecutive links with the same href and one contains an image |
-| QW-BP14 | CSS | At least one container's width has been specified using values expressed in px |
 | QW-BP15 | CSS | At least one width attribute of an HTML element is expressed in absolute values |
 | QW-BP16 | HTML | Verify if page has links |
 
