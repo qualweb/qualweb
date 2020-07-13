@@ -149,11 +149,14 @@ class Evaluation {
       });
 
       actReport.assertions[r40] = actReportR40;
-      actReport.metadata.passed += actReportR40.metadata.passed;
-      actReport.metadata.failed += actReportR40.metadata.failed;
-      actReport.metadata.warning += actReportR40.metadata.warning;
-
-      if (actReportR40['outcome'] === 'inapplicable') {
+      let outcome = actReportR40.metadata.outcome;
+      if(outcome === "passed"){
+        actReport.metadata.passed ++;
+      }else if(outcome === "failed"){
+        actReport.metadata.failed ++;
+      }else if (outcome === "warning"){
+        actReport.metadata.warning ++;
+      }else{
         actReport.metadata.inapplicable++;
       }
     }
