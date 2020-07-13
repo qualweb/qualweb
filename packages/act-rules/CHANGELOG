@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.17] - 10/07/2020
+### Fixed
+ - QW-ACT-R7
+
 ## [0.4.16] - 10/07/2020
 ### Added
  - cache
@@ -21,7 +25,7 @@
 
 ## [0.4.12] - 21/06/2020
 ### Updated
- - ypdated util
+ - updated util
 
 ## [0.4.11] - 08/06/2020
 ### Updated

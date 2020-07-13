@@ -39,7 +39,8 @@ export default {
       'object':["QW-ACT-R42"],
       'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
-      '*[style]': ['QW-ACT-R47']
+      '*[style]': ['QW-ACT-R47'],
+      '*': ['QW-ACT-R7']
     }
   }
 };

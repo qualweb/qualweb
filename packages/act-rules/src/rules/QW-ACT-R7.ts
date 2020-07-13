@@ -1,9 +1,8 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
+import { QWElement } from '@qualweb/qw-element';
 import * as Rematrix from 'rematrix';
 import Rule from '../lib/Rule.object';
-import { ACTRule } from '../lib/decorator';
+import { ACTRule, ElementExists, ElementIsVisible } from '../lib/decorator';
 
 @ACTRule
 class QW_ACT_R7 extends Rule {
@@ -206,10 +205,61 @@ class QW_ACT_R7 extends Rule {
     super.addEvaluationResult(evaluation);
   }
 
-  execute(): void {
-    throw new Error(
-      'Not implemented, please use unmappedExecute(cssStyleSheets: CSSStylesheet[])'
-    );
+  @ElementExists
+  @ElementIsVisible
+  execute(element: QWElement): void {
+    
+    /*const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };*/
+    
+    const rules = element.getElementAttribute('_cssRules');
+
+    if (!rules) {
+      return;
+    }
+
+    const parsedRules = JSON.parse(rules);
+
+    let transformValue: number | null = null;
+    for (const property in parsedRules || {}) {
+      if (property === 'transform') {
+        const value = parsedRules[property].value;
+        if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+          let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+          transformValue = this.parseDegrees(angle);
+        }
+      }
+    }
+
+    const media = parsedRules.media;
+    if (media) {
+      for (const condition in media || {}) {
+        if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
+          for (const property in media[condition] || {}) {
+            if (property === 'transform') {
+              const value = media[condition][property].value;
+              console.log('v', value);
+              if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+                let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+                angle = this.parseDegrees(angle);
+                
+                const matrix = Rematrix.rotateZ(transformValue ? angle - transformValue : angle);
+                angle = this.calculateRotationDegree(matrix);
+                this.checkRotation(angle);
+              } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
+                const matrix = Rematrix.fromString(value);
+                this.calculateRotationDegree(matrix);
+                const angle = this.calculateRotationDegree(matrix);
+                this.checkRotation(angle);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   private isVisible(cssObject: any): boolean {

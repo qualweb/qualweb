@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { Optimization } from '@qualweb/util';
 import * as rules from './lib/rules';
@@ -110,7 +108,6 @@ class ACTRules {
       }
     }
 
-
     report.assertions[rule] = this.rules[rule].getFinalResults();
     report.metadata[report.assertions[rule].metadata.outcome]++;
     this.rules[rule].reset();
@@ -127,13 +124,8 @@ class ACTRules {
     }
   }
 
-  private executeNotMappedRules(report: ACTRulesReport, stylesheets: any[], metaElements: any[]): void {
-    if (this.rulesToExecute['QW-ACT-R7']) {
-      this.rules['QW-ACT-R7'].unmappedExecute(stylesheets);
-      report.assertions['QW-ACT-R7'] = this.rules['QW-ACT-R7'].getFinalResults();
-      report.metadata[report.assertions['QW-ACT-R7'].metadata.outcome]++;
-      this.rules['QW-ACT-R7'].reset();
-    } if (this.rulesToExecute['QW-ACT-R4']) {
+  private executeNotMappedRules(report: ACTRulesReport, metaElements: any[]): void {
+    if (this.rulesToExecute['QW-ACT-R4']) {
       if (metaElements.length > 0) {
         for (const elem of metaElements || []) {
           this.rules['QW-ACT-R4'].execute(elem);
@@ -169,7 +161,7 @@ class ACTRules {
     return this.rules['QW-ACT-R40'].getFinalResults();
   }
 
-  public execute(metaElements: any[], page: QWPage, stylesheets: any[]): ACTRulesReport {
+  public execute(metaElements: any[], page: QWPage): ACTRulesReport {
 
     const report: ACTRulesReport = {
       type: 'act-rules',
@@ -181,9 +173,10 @@ class ACTRules {
       },
       assertions: {}
     };
-    this.executeNonConcurrentRules(report, page)
-    this.executeConcurrentRules(report, page)
-    this.executeNotMappedRules( report, stylesheets,metaElements)
+
+    this.executeNonConcurrentRules(report, page);
+    this.executeConcurrentRules(report, page);
+    this.executeNotMappedRules(report, metaElements);
 
     return report;
   }
