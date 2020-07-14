@@ -37,7 +37,7 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement,withText: boolean = true, fullElement: boolean = false): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
@@ -52,14 +52,54 @@ abstract class Rule {
     }
   }
 
-  abstract execute (element: QWElement,rules: [ACTRuleResult] ): void;
-  conjunction (element: QWElement,rules: [ACTRuleResult] ): void{
+  abstract execute(element: QWElement, rules: Array<ACTRule>): void;
+  conjunction(element: QWElement, rules: Array<ACTRule>): void {
+    let selector = element.getElementSelector();
+    let results = this.getAtomicRuleResultForElement(selector,rules);
+    let values = Object.values(results);
+    const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };
+    if(values.includes("failed")){
+      evaluation.verdict="failed"
+      evaluation.resultCode = "RC1"
+      evaluation.description = ""
+    }
+
 
 
   }
-  dijunction (element: QWElement,rules: [ACTRuleResult] ): void{
+  dijunction(element: QWElement, rules: Array<ACTRule>): void {
+    let selector = element.getElementSelector();
+    let results = this.getAtomicRuleResultForElement(selector,rules);
+    let values = Object.values(results);
+    const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };
+    if(values.includes("passed")){
+      evaluation.verdict="passed"
+      evaluation.resultCode = "RC1"
+      evaluation.description = ""
+    }
 
+  }
 
+  getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
+    let ruleResult = {};
+    for (let rule of rules) {
+      ruleResult[rule.code] = "inapplicable"
+      for (let result of rule.results) {
+        if (result.pointer === selector) {
+          ruleResult[rule.code] = result.verdict;
+        }
+
+      }
+    }
+    return ruleResult;
   }
 
   getFinalResults(): any {

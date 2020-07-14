@@ -140,7 +140,7 @@ class ACTRules {
     }
   }
 
-  private executeCompositeRules(report: ACTRulesReport, page: QWPage) {
+  private executeAllCompositeRules(report: ACTRulesReport, page: QWPage) {
     const promises = new Array<any>();
     let rules = Object.keys(compositeRules);
     for (const rule of rules || []) {
@@ -217,6 +217,7 @@ class ACTRules {
     this.executeNonConcurrentRules(report, page);
     this.executeConcurrentRules(report, page);
     this.executeNotMappedRules(report, metaElements);
+    this.executeAllCompositeRules(report,page);
 
     return report;
   }
