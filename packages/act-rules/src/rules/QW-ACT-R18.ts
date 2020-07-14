@@ -21,6 +21,7 @@ class QW_ACT_R18 extends Rule {
       description: '',
       resultCode: ''
     };
+    const elementsWithSameId  = new Array<QWElement>();
 
     const treeSelector = element.getTreeSelector();
     const id = element.getElementAttribute('id');
@@ -45,7 +46,7 @@ class QW_ACT_R18 extends Rule {
       }
     }
 
-    super.addEvaluationResult(evaluation, element);
+    super.addMultipleElementEvaluationResult(evaluation, elementsWithSameId);
   }
 }
 
