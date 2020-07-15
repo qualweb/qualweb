@@ -1,14 +1,14 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import {  DomUtils } from '@qualweb/util';
+import {  DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 import {QWPage} from "@qualweb/qw-page";
 
 @ACTRule
-class QW_ACT_R42 extends Rule {
+class QW_ACT_R48 extends Rule {
 
   constructor(rule?: any) {
     super(rule);
@@ -23,13 +23,15 @@ class QW_ACT_R42 extends Rule {
       resultCode: ''
     };
     
-    const isInAT = !(DomUtils.isElementHidden(element) || DomUtils.isElementPresentation(element,page));
-    if (isInAT) {
-        evaluation.verdict = 'passed';
+    const isInAT = !(DomUtils.isElementHidden(element,page) || DomUtils.isElementPresentation(element,page));
+    let name = element.getElementTagName();
+     
+    if ((name==="img"&&AccessibilityUtils.isElementInAT(element,page) || name!=="img"&&isInAT)) {
+        evaluation.verdict = 'failed';
         evaluation.description = 'The test target is in the Acessibility Tree';
         evaluation.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed';
+        evaluation.verdict = 'passed';
         evaluation.description = `The test target is not in the Acessibility Tree.`;
         evaluation.resultCode = 'RC2';
       }
@@ -38,4 +40,4 @@ class QW_ACT_R42 extends Rule {
   }
 }
 
-export = QW_ACT_R42;
+export = QW_ACT_R48;

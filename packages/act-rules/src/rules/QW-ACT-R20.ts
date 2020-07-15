@@ -6,6 +6,7 @@ import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R20 extends Rule {
@@ -15,7 +16,7 @@ class QW_ACT_R20 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -27,7 +28,7 @@ class QW_ACT_R20 extends Rule {
     const roleAttr = element.getElementAttribute('role');
     
     if (roleAttr && roleAttr.trim().length > 0) {
-      const isHidden = DomUtils.isElementHidden(element);
+      const isHidden = DomUtils.isElementHidden(element,page);
       if (!isHidden) {
         let validRolesFound = 0;
         const roles = roleAttr.split(' ');

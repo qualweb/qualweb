@@ -166,7 +166,7 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
 function ElementIsVisible(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const isVisible = DomUtils.isElementVisible(arguments[0]);
+    const isVisible = DomUtils.isElementVisible(arguments[0], arguments[1]);
     if (isVisible) {
       return method.apply(this, arguments);
     }

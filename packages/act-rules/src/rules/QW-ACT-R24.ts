@@ -205,7 +205,7 @@ class QW_ACT_R24 extends Rule {
       resultCode: ''
     };
     //check if is visible and not in accessibility tree
-    const visible = DomUtils.isElementVisible(element);
+    const visible = DomUtils.isElementVisible(element,page);
     if (!visible) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The element is not visible, and not included in the accessibility tree`;
@@ -253,7 +253,7 @@ class QW_ACT_R24 extends Rule {
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = DomUtils.isElementFocusable(element);
+      const isFocusable = DomUtils.isElementFocusable(element,page);
       const widgetRole = AccessibilityUtils.isElementWidget(element, page);
 
       if (!isFocusable && !widgetRole) {

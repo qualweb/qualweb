@@ -5,6 +5,7 @@ import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R13 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R13 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -24,7 +25,7 @@ class QW_ACT_R13 extends Rule {
 
     const children = element.getElementChildren();
     if (children && children.length > 0) {
-      const focusable = this.isFocusableChildren(element);
+      const focusable = this.isFocusableChildren(element,page);
       if (focusable) {
         evaluation.verdict = 'failed';
         evaluation.description = `The test target has focusable children.`;
@@ -35,7 +36,7 @@ class QW_ACT_R13 extends Rule {
         evaluation.resultCode = 'RC2';
       }
     } else {
-      const focusable = this.isFocusableContent(element);
+      const focusable = this.isFocusableContent(element,page);
       if (focusable) {
         evaluation.verdict = 'failed';
         evaluation.description = `Thie test target is focusable.`;
@@ -50,24 +51,24 @@ class QW_ACT_R13 extends Rule {
     super.addEvaluationResult(evaluation, element);
   }
 
-  private isFocusableChildren(element: QWElement): boolean {
-    let result = this.isFocusableContent(element);
+  private isFocusableChildren(element: QWElement,page:QWPage): boolean {
+    let result = this.isFocusableContent(element,page);
     const children = element.getElementChildren();
     for (const child of children || []) {
-      const focusable = this.isFocusableContent(child);
+      const focusable = this.isFocusableContent(child,page);
       if (focusable) {
         result = true;
       } else {
-        const childFocusable = this.isFocusableChildren(child);
+        const childFocusable = this.isFocusableChildren(child,page);
         result = result || childFocusable;
       }
     }
     return result;
   }
 
-  private isFocusableContent(element: QWElement): boolean {
+  private isFocusableContent(element: QWElement,page:QWPage): boolean {
     const disabled = (element.getElementAttribute('disabled')) !== null;
-    const hidden = DomUtils.isElementHiddenByCSS(element);
+    const hidden = DomUtils.isElementHiddenByCSS(element,page);
     const focusableByDefault = DomUtils.isElementFocusableByDefault(element);
     const tabIndexExists = (element.getElementAttribute('tabIndex')) !== null;
     const tabindex = element.getElementAttribute('tabIndex');

@@ -30,7 +30,7 @@ class QW_ACT_R21 extends Rule {
       };
 
       const role = elem.getElementAttribute('role');
-      const isHidden = DomUtils.isElementHidden(elem);
+      const isHidden = DomUtils.isElementHidden(elem,page);
       const accessibleName = AccessibilityUtils.getAccessibleNameSVG(elem, page);
 
       if (!role || (role && roleList.indexOf(role) < 0) || isHidden) {

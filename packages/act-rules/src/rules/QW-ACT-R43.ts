@@ -5,6 +5,7 @@ import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { DomUtils } from '@qualweb/util';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R43 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R43 extends Rule {
   }
   
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
     
     if (element.getElementTagName().toLowerCase() === 'iframe') {
       return;
@@ -28,7 +29,7 @@ class QW_ACT_R43 extends Rule {
 
     let hasVisibleChildren = false;
     for (const child of element.getElementChildren()) {
-      if (DomUtils.isElementVisible(child)) {
+      if (DomUtils.isElementVisible(child,page)) {
         hasVisibleChildren = true;
         break;
       }
@@ -67,7 +68,7 @@ class QW_ACT_R43 extends Rule {
 
     if (hasVisibleChildren && isApplicable) {
       
-      if (this.isInSequentialFocusNavigation(element)) {
+      if (this.isInSequentialFocusNavigation(element,page)) {
         evaluation.verdict = 'passed';
       } else {
         evaluation.verdict = 'failed'
@@ -77,15 +78,15 @@ class QW_ACT_R43 extends Rule {
     }
   }
 
-  private isInSequentialFocusNavigation(element: QWElement): boolean {
-    if (DomUtils.isElementFocusable(element)) {
+  private isInSequentialFocusNavigation(element: QWElement,page:QWPage): boolean {
+    if (DomUtils.isElementFocusable(element,page)) {
       return true;
     } else {
       for (const child of element.getElementChildren()) {
-        if (DomUtils.isElementFocusable(child)) {
+        if (DomUtils.isElementFocusable(child,page)) {
           return true;
         } else {
-          return this.isInSequentialFocusNavigation(child);
+          return this.isInSequentialFocusNavigation(child,page);
         }
       }
       return false;

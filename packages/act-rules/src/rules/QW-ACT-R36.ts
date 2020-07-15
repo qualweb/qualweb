@@ -37,7 +37,7 @@ class QW_ACT_R36 extends Rule {
         evaluation.htmlCode = parentTableElem.getElementHtmlCode(true, true);
         evaluation.pointer = parentTableElem.getElementSelector();
       } else {
-        let isVisible = DomUtils.isElementVisible(parentTableElem);
+        let isVisible = DomUtils.isElementVisible(parentTableElem,page);
         if (!isVisible) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = "This table is not visible in page";

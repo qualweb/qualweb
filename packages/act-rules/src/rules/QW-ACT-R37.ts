@@ -25,7 +25,6 @@ class QW_ACT_R37 extends Rule {
     const elements =  page.getElements('*');
     if (elements.length > 0) {
       for (const element of elements || []) {
-
         let tagName  =  element.getElementTagName();
 
         if(tagName === 'head' || tagName === 'body' || tagName === 'html' ||
@@ -38,7 +37,7 @@ class QW_ACT_R37 extends Rule {
           resultCode: ''
         };
 
-        let visible =  DomUtils.isElementVisible(element);
+        let visible =  DomUtils.isElementVisible(element,page);
 
         if(!visible){
           evaluation.verdict = 'inapplicable';
@@ -111,7 +110,7 @@ class QW_ACT_R37 extends Rule {
         }
 
         const fgColor =  element.getElementStyleProperty( "color", null);
-        let bgColor =  element.getElementStyleProperty( "background", null);
+        let bgColor =  this.getBackground(element);
         const opacity = parseFloat( element.getElementStyleProperty( "opacity", null));
         const fontSize =  element.getElementStyleProperty( "font-size", null);
         const fontWeight =  element.getElementStyleProperty( "font-weight", null);
@@ -148,7 +147,7 @@ class QW_ACT_R37 extends Rule {
           let elementAux = element;
           let opacityAUX;
           shouldContinue = false;
-          while(parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0){
+          while(parsedBG === undefined || (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)){
             let parent =  elementAux.getElementParent();
             if(parent){
               bgColor =  parent.getElementStyleProperty( "background", null);
@@ -163,7 +162,10 @@ class QW_ACT_R37 extends Rule {
                 regexGradientMatches = bgColor.match(regexGradient);
                 if(regexGradientMatches){
                   let parsedGradientString = regexGradientMatches[0];
-                  this.evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText);
+                  if(this.evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText)){
+                    shouldContinue=true;
+                    break;
+                  }
                 }else{
                   opacityAUX = parseFloat( parent.getElementStyleProperty( "opacity", null));
                   parsedBG = this.parseRGBString( parent.getElementStyleProperty( "background", null), opacityAUX);
@@ -180,7 +182,7 @@ class QW_ACT_R37 extends Rule {
           }
 
           // if we cant find a bg color, we assume that is white (default bg page color)
-          if(parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0){
+          if(parsedBG === undefined || (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)){
             parsedBG = {"red": 255, "green": 255, "blue": 255, "alpha": 1}
           }
 
@@ -218,11 +220,25 @@ class QW_ACT_R37 extends Rule {
     }
   }
 
+  getBackground(element){
+    let backgroundImage = element.getElementStyleProperty( "background-image", null);
+    if(backgroundImage === "none"){
+      let bg = element.getElementStyleProperty( "background", null);
+      if(bg === ""){
+        bg = element.getElementStyleProperty( "background-color", null);
+      }
+
+      return bg;
+    }else{
+      return backgroundImage;
+    }
+  }
+
   isImage(color){
     return color.toLowerCase().includes("jpeg") || color.toLowerCase().includes("jpg") || color.toLowerCase().includes("png") || color.toLowerCase().includes("svg");
   }
 
-  evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText){
+  evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText): boolean{
     if(parsedGradientString.startsWith("linear-gradient")){
       let gradientDirection = this.getGradientDirection(parsedGradientString);
       if(gradientDirection === 'to right'){
@@ -249,29 +265,37 @@ class QW_ACT_R37 extends Rule {
           evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
           evaluation.resultCode = 'RC8';
           super.addEvaluationResult(evaluation, element);
-          return
+          return true;
         }else{
           evaluation.verdict = 'failed';
           evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
           evaluation.resultCode = 'RC10';
           super.addEvaluationResult(evaluation, element);
-          return
+          return true;
         }
       }else if(gradientDirection === 'to left'){
         //TODO
+        evaluation.verdict = 'warning';
+        evaluation.description = 'Element has an gradient that we cant verify.';
+        evaluation.resultCode = 'RC13';
+        super.addEvaluationResult(evaluation, element);
+        return true;
       }else{
         evaluation.verdict = 'warning';
         evaluation.description = 'Element has an gradient that we cant verify.';
         evaluation.resultCode = 'RC13';
-        return
+        super.addEvaluationResult(evaluation, element);
+        return true;
       }
     }else{
       evaluation.verdict = 'warning';
       evaluation.description = 'Element has an gradient that we cant verify.';
       evaluation.resultCode = 'RC13';
       super.addEvaluationResult(evaluation, element);
-      return
+      return true;
     }
+
+    return false;
   }
 
   isHumanLanguage(string): boolean{
@@ -380,6 +404,12 @@ class QW_ACT_R37 extends Rule {
   };
 
   getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, string: string): number{
+
+    //firefox fix
+    if(font === "serif")
+      font = "times new roman"
+    else if(font === "sans-serif")
+      font = "arial"
     try {
       const width = pixelWidth(string, { font: font, size: fontSize, bold: bold, italic: italic });
       return width;

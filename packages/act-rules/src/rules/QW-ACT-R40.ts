@@ -5,6 +5,7 @@ import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { DomUtils } from '@qualweb/util';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRule
 class QW_ACT_R40 extends Rule {
@@ -14,7 +15,7 @@ class QW_ACT_R40 extends Rule {
   }
   
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,7 +24,7 @@ class QW_ACT_R40 extends Rule {
     };
 
     if (element.elementHasTextNode()) {
-      if (DomUtils.isElementVisible(element)) {
+      if (DomUtils.isElementVisible(element,page)) {
         let isApplicable = false
 
         let parent: QWElement | null = element;

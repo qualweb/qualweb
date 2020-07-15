@@ -25,7 +25,6 @@ describe(`Rule ${rule}`, async function () {
           this.timeout(100 * 1000);
           const dom = new Dom();
           const {sourceHtml, page, stylesheets} = await dom.getDOM(browser, {}, test.url, null);
-          await page.setViewport({ width: 640, height: 512 });
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
@@ -36,11 +35,11 @@ describe(`Rule ${rule}`, async function () {
           sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(new QWPage.QWPage(document, window));
+            const report = actRules.execute([],new QWPage.QWPage(document, window),[]);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
 
-          expect(report.assertions[rule].outcome).to.be.equal(test.outcome);
+          expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       }
     });

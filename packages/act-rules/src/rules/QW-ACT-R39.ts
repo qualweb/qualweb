@@ -31,7 +31,7 @@ class QW_ACT_R39 extends Rule {
 
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
-      const isVisible = DomUtils.isElementVisible(element);
+      const isVisible = DomUtils.isElementVisible(element,page);
       if (isVisible) {
         const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, page, [], ['grid', 'table']);
         if (ancestorTableOrGrid !== null) {
