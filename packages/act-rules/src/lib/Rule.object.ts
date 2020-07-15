@@ -38,12 +38,12 @@ abstract class Rule {
   protected getNumberOfFailedResults(): number {
     return this.rule.metadata.failed;
   }
-  
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement,withText: boolean = true, fullElement: boolean = false): void {
+
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-      result.elements =[{htmlCode,pointer}];
+      result.elements = [{ htmlCode, pointer }];
     }
 
     this.rule.results.push(clone(result));
@@ -53,15 +53,15 @@ abstract class Rule {
     }
   }
 
-  protected addMultipleElementEvaluationResult(result: ACTRuleResult, elements?: QWElement[],withText: boolean = true, fullElement: boolean = false): void {
+  protected addMultipleElementEvaluationResult(result: ACTRuleResult, elements?: QWElement[], withText: boolean = true, fullElement: boolean = false): void {
     result.elements = [];
-    for(let element of elements){
-      const htmlCode = element.getElementHtmlCode(withText, fullElement);
-      const pointer = element.getElementSelector();
-      result.elements.push({htmlCode,pointer});
+    if (elements) {
+      for (let element of elements) {
+        const htmlCode = element.getElementHtmlCode(withText, fullElement);
+        const pointer = element.getElementSelector();
+        result.elements.push({ htmlCode, pointer });
+      }
     }
-      
-    
 
     this.rule.results.push(clone(result));
 

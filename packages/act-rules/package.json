@@ -77,7 +77,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.14",
-    "@qualweb/types": "^0.4.23",
+    "@qualweb/types": "../types",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.22",
     "chai": "^4.2.0",

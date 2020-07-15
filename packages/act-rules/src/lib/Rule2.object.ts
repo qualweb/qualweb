@@ -41,10 +41,10 @@ abstract class Rule {
 
   protected addEvaluationResult(result: ACTRuleResult, element?: any): void {
     if (element) {
-      result.htmlCode =element.htmlCode;
-      result.pointer = element.selector;
+      const htmlCode = element.getElementHtmlCode(true, false);
+      const pointer = element.getElementSelector();
+      result.elements =[{htmlCode,pointer}];
     }
-
     this.rule.results.push(clone(result));
     
     if (result.verdict !== 'inapplicable') {
