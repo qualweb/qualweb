@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.22] - 16/07/2020
+### Fixed
+ - image with empty alt
 ## [0.3.21] - 08/07/2020
 ### Fixed
  - added even more cache

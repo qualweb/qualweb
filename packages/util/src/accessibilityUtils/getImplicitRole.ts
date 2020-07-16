@@ -50,6 +50,8 @@ function getImplicitRoleAux(elementQW: QWElement, pageQW: QWPage, accessibleName
               let alt =elementQW.getElementAttribute( "alt");
               if (alt !== "") {
                 role = roleValue["role"];
+              }else if (elementQW.elementHasAttribute("alt")){
+                role = "presentation";
               }
             } else if (name === "input") {
 
