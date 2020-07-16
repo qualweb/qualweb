@@ -24,9 +24,11 @@ class QW_ACT_R48 extends Rule {
     };
     
     const isInAT = !(DomUtils.isElementHidden(element,page) || DomUtils.isElementPresentation(element,page));
-    let name = element.getElementTagName();
+    console.log(AccessibilityUtils.getElementRole(element,page))
+    console.log(AccessibilityUtils.isElementInAT(element,page))
+    console.log(isInAT);
      
-    if ((name==="img"&&AccessibilityUtils.isElementInAT(element,page) || name!=="img"&&isInAT)) {
+    if (isInAT) {
         evaluation.verdict = 'failed';
         evaluation.description = 'The test target is in the Acessibility Tree';
         evaluation.resultCode = 'RC1';
