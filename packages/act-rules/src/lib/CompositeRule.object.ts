@@ -53,6 +53,8 @@ abstract class Rule {
   }
 
   abstract execute(element: QWElement, rules: Array<ACTRule>): void;
+
+  //resultados
   conjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
     let results = this.getAtomicRuleResultForElement(selector,rules);
@@ -65,10 +67,23 @@ abstract class Rule {
     if(values.includes("failed")){
       evaluation.verdict="failed"
       evaluation.resultCode = "RC1"
-      evaluation.description = ""
+      evaluation.description = "The rule failed because of the rule" //title + id
     }
-
-
+    else if(values.includes("warning")){
+      evaluation.verdict="warning"
+      evaluation.resultCode = "RC2"
+      evaluation.description = "The rule can't tell because of the rule" //title + id
+    }
+    else if(values.includes("passed")){
+      evaluation.verdict="passed"
+      evaluation.resultCode = "RC3"
+      evaluation.description = "The rule passed because of the rule" //title + id
+    }else{
+      evaluation.verdict="inapplicable"
+      evaluation.resultCode = "RC4"
+      evaluation.description = "The test target doesn't apply to this rule" //title + id
+    }
+    this.addEvaluationResult(evaluation, element);
 
   }
   dijunction(element: QWElement, rules: Array<ACTRule>): void {
@@ -83,8 +98,23 @@ abstract class Rule {
     if(values.includes("passed")){
       evaluation.verdict="passed"
       evaluation.resultCode = "RC1"
-      evaluation.description = ""
+      evaluation.description = "The rule passed because of the rule" //title + id
     }
+    else if(values.includes("warning")){
+      evaluation.verdict="warning"
+      evaluation.resultCode = "RC2"
+      evaluation.description = "The rule can't tell because of the rule" //title + id
+    }
+    else if(values.includes("failed")){
+      evaluation.verdict="failed"
+      evaluation.resultCode = "RC3"
+      evaluation.description = "The rule failed because of the rule" //title + id
+    }else{
+      evaluation.verdict="inapplicable"
+      evaluation.resultCode = "RC4"
+      evaluation.description = "The test target doesn't apply to this rule" //title + id
+    }
+    this.addEvaluationResult(evaluation, element);
 
   }
 
