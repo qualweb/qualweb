@@ -23,7 +23,7 @@ function isElementPresentationAux(elementQW: QWElement, pageQW: QWPage): boolean
     throw Error('Element is not defined');
   }
 
-  const role = elementQW.getElementAttribute('role');
+  const role = getElementRole(elementQW,pageQW);
   let presentationOrNone = role === 'presentation'|| role === 'none';
   const focusable =  isElementFocusable(elementQW,pageQW);
   const hasGlobalARIA =  elementHasGlobalARIAPropertyOrAttribute(elementQW);
