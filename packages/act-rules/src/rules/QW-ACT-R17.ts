@@ -43,6 +43,7 @@ class QW_ACT_R17 extends Rule {
       else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         if (accessibleName && accessibleName.trim()!== "") {
+          evaluation.accessibleName = accessibleName;
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has an accessible name.`;
           evaluation.resultCode = 'RC3';
@@ -60,6 +61,7 @@ class QW_ACT_R17 extends Rule {
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         if (accessibleName) {
+          evaluation.accessibleName = accessibleName;
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has an accessible name.`;
           evaluation.resultCode = 'RC6';
