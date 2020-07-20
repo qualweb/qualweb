@@ -59,6 +59,7 @@ abstract class Rule {
     let selector = element.getElementSelector();
     let results = this.getAtomicRuleResultForElement(selector,rules);
     let values = Object.values(results);
+    console.log(values);
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',

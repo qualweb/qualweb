@@ -204,7 +204,7 @@ class ACTRules {
 
   public execute(metaElements: any[], page: QWPage): ACTRulesReport {
 
-    const report: ACTRulesReport = {
+    let report: ACTRulesReport = {
       type: 'act-rules',
       metadata: {
         passed: 0,
@@ -216,8 +216,11 @@ class ACTRules {
     };
 
     this.executeNonConcurrentRules(report, page);
+    console.log(report)
     this.executeConcurrentRules(report, page);
+    console.log(report)
     this.executeNotMappedRules(report, metaElements);
+    console.log(report)
     this.executeAllCompositeRules(report,page);
 
     return report;
