@@ -1,15 +1,12 @@
-'use strict';
-
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
-import { CSSStylesheet } from '@qualweb/core';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
 abstract class BestPractice {
 
-  private bestPractice: BestPracticeType;
+  private readonly bestPractice: BestPracticeType;
 
   constructor(bestPractice: BestPracticeType) {
     this.bestPractice = bestPractice;
@@ -46,7 +43,7 @@ abstract class BestPractice {
     }
   }
 
-  public abstract execute(element: QWElement | undefined, page: QWPage | undefined, styleSheets: CSSStylesheet[] | undefined): void;
+  public abstract execute(element: QWElement | undefined, page: QWPage | undefined): void;
 
   public getFinalResults() {
     this.outcomeBestPractice();

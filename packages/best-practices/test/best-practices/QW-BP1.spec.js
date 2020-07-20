@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const puppeteer = require('puppeteer');
+const playwright = require('playwright');
 const { getDom } = require('../getDom');
 
 
@@ -14,9 +14,10 @@ describe('Best practice QW-BP1', function () {
       outcome: 'failed'
     }
   ];
-  let browser;
+  let context,browser;
   it('pup open', async function () {
-    browser = await puppeteer.launch();
+    browser = await playwright['chromium'].launch({headless:false});
+    context = await browser.newContext({bypassCSP:true});
   });
   let i = 0;
   let lastOutcome = 'warning';
@@ -29,7 +30,7 @@ describe('Best practice QW-BP1', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(10 * 1000);
-        const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
+        const { sourceHtml, page, stylesheets } = await getDom(context, test.url);
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
           })
