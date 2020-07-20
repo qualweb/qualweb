@@ -119,6 +119,8 @@ abstract class Rule {
   }
 
   getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
+    console.log(rules);
+    console.log(selector);
     let ruleResult = {};
     for (let rule of rules) {
       ruleResult[rule.code] = "inapplicable"

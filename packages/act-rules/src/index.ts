@@ -142,6 +142,7 @@ class ACTRules {
 
   private executeAllCompositeRules(report: ACTRulesReport, page: QWPage) {
     const promises = new Array<any>();
+    console.log(report)
     let rules = Object.keys(compositeRules);
     for (const rule of rules || []) {
       if (this.rulesToExecute[rule]) {
