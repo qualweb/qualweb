@@ -4,14 +4,14 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import languages from '../lib/language.json';
 import Rule from '../lib/Rule.object';
 import { 
-  ACTRule, 
+  ACTRuleDecorator, 
   ElementExists, 
   ElementHasNonEmptyAttribute,
   IsHTMLDocument,  
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R5 extends Rule {
 
   constructor(rule?: any) {

@@ -3,11 +3,11 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R26 extends Rule {
 
   constructor(rule?: any) {

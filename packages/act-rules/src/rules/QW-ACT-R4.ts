@@ -2,9 +2,9 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule2.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R4 extends Rule {
 
   constructor(rule?: any) {

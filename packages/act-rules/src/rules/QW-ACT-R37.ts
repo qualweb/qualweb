@@ -5,13 +5,13 @@ import { AccessibilityUtils, DomUtils } from '@qualweb/util'
 import LanguageDetect from 'languagedetect';
 import pixelWidth from 'string-pixel-width';
 import Rule from '../lib/Rule.object';
-import { ACTRule } from '../lib/decorator';
+import { ACTRuleDecorator } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 
 const detector = new LanguageDetect();
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R37 extends Rule {
 
   constructor(rule?: any) {

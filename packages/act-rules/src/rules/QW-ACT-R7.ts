@@ -2,9 +2,9 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { QWElement } from '@qualweb/qw-element';
 import * as Rematrix from 'rematrix';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R7 extends Rule {
 
   private rawMap: Object = {};

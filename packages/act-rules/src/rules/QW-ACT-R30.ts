@@ -3,12 +3,12 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 import {QWPage} from "@qualweb/qw-page";
 import LanguageDetect from "languagedetect";
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R30 extends Rule {
 
   constructor(rule?: any) {

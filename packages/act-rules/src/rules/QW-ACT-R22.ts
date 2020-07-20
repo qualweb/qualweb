@@ -3,10 +3,10 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import languages from '../lib/language.json';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R22 extends Rule {
 
   constructor(rule?: any) {

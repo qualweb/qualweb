@@ -6,7 +6,7 @@ import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import languages from './language.json';
 import cloneDeep from 'lodash.clonedeep';
 
-function ACTRule<T extends { new(...args: any[]): {} }>(constructor: T) {
+function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
   const rule = rules[constructor.name];
 
   rule.metadata.passed = 0;
@@ -216,7 +216,7 @@ function isSubTagValid(subTag: string): boolean {
 }
 
 export {
-  ACTRule,
+  ACTRuleDecorator,
   ElementExists,
   ElementHasAttributes,
   ElementHasAttribute,

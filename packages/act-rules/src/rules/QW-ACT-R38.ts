@@ -4,11 +4,11 @@ import {ACTRuleResult} from '@qualweb/act-rules';
 import {AccessibilityUtils,} from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
-import {ACTRule, ElementExists} from '../lib/decorator';
+import {ACTRuleDecorator, ElementExists} from '../lib/decorator';
 import {QWPage} from '@qualweb/qw-page';
 import {QWElement} from '@qualweb/qw-element';
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R38 extends Rule {
 
   constructor(rule?: any) {

@@ -5,11 +5,11 @@ import { AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
-import { ACTRule, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from "@qualweb/qw-page";
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R25 extends Rule {
 
   constructor(rule?: any) {

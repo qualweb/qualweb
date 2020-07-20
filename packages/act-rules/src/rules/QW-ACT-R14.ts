@@ -3,14 +3,14 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { 
-  ACTRule,
+  ACTRuleDecorator,
   ElementExists,
   ElementHasAttribute,
   ElementHasAttributeValue
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 
-@ACTRule
+@ACTRuleDecorator
 class QW_ACT_R14 extends Rule {
 
   constructor(rule?: any) {
