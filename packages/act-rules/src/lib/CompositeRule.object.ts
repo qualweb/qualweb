@@ -57,77 +57,90 @@ abstract class Rule {
   //resultados
   conjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
-    let results = this.getAtomicRuleResultForElement(selector,rules);
+    let results = this.getAtomicRuleResultPerVerdict(selector, rules);
     let values = Object.values(results);
     console.log(values);
+    console.log(results)
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    if(values.includes("failed")){
-      evaluation.verdict="failed"
+    if (results["failed"]) {
+      evaluation.verdict = "failed"
       evaluation.resultCode = "RC1"
-      evaluation.description = "The rule failed because of the rule" //title + id
+      evaluation.description = "The rule failed because of the rule " + results["failed"].title + "with the code" + results["failed"].code //title + id
     }
-    else if(values.includes("warning")){
-      evaluation.verdict="warning"
+    else if (results["warning"]) {
+      evaluation.verdict = "warning"
       evaluation.resultCode = "RC2"
-      evaluation.description = "The rule can't tell because of the rule" //title + id
+      evaluation.description = "The rule can't tell because of the rule " + results["warning"].title + "with the code" + results["warning"].code //title + id
     }
-    else if(values.includes("passed")){
-      evaluation.verdict="passed"
+    else if (results["passed"]) {
+      evaluation.verdict = "passed"
       evaluation.resultCode = "RC3"
-      evaluation.description = "The rule passed because of the rule" //title + id
-    }else{
-      evaluation.verdict="inapplicable"
+      evaluation.description = "The rule passed because of the rule " + results["passed"].title + "with the code" + results["passed"].code //title + id
+    } else {
+      evaluation.verdict = "inapplicable"
       evaluation.resultCode = "RC4"
       evaluation.description = "The test target doesn't apply to this rule" //title + id
     }
+    console.log(evaluation);
     this.addEvaluationResult(evaluation, element);
 
   }
   dijunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
-    let results = this.getAtomicRuleResultForElement(selector,rules);
-    let values = Object.values(results);
+    let results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    if(values.includes("passed")){
-      evaluation.verdict="passed"
+    if (results["passed"]) {
+      evaluation.verdict = "passed"
       evaluation.resultCode = "RC1"
-      evaluation.description = "The rule passed because of the rule" //title + id
+      evaluation.description = "The rule passed because of the rule " + results["passed"].title + "with the code" + results["passed"].code //title + id
     }
-    else if(values.includes("warning")){
-      evaluation.verdict="warning"
+    else if (results["warning"]) {
+      evaluation.verdict = "warning"
       evaluation.resultCode = "RC2"
-      evaluation.description = "The rule can't tell because of the rule" //title + id
+      evaluation.description = "The rule can't tell because of the rule " + results["warning"].title + "with the code" + results["warning"].code //title + id
     }
-    else if(values.includes("failed")){
-      evaluation.verdict="failed"
+    else if (results["failed"]) {
+      evaluation.verdict = "failed"
       evaluation.resultCode = "RC3"
-      evaluation.description = "The rule failed because of the rule" //title + id
-    }else{
-      evaluation.verdict="inapplicable"
+      evaluation.description = "The rule failed because of the rule " + results["failed"].title + "with the code" + results["failed"].code//title + id
+    } else {
+      evaluation.verdict = "inapplicable"
       evaluation.resultCode = "RC4"
       evaluation.description = "The test target doesn't apply to this rule" //title + id
     }
+    console.log(evaluation);
     this.addEvaluationResult(evaluation, element);
 
   }
 
-  getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
-    console.log(rules);
-    console.log(selector);
+  getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
     let ruleResult = {};
     for (let rule of rules) {
-      ruleResult[rule.code] = "inapplicable"
+      for (let result of rule.results) {
+        if (result.pointer === selector && !ruleResult[result.verdict]) {
+          ruleResult[result.verdict] = { title: rule.name, code: rule.mapping };
+        }
+      }
+
+    }
+    return ruleResult;
+  }
+
+  getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
+    let ruleResult = {};
+    for (let rule of rules) {
+      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: "inapplicable" }
       for (let result of rule.results) {
         if (result.pointer === selector) {
-          ruleResult[rule.code] = result.verdict;
+          ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: result.verdict };
         }
 
       }
