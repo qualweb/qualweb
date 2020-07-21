@@ -47,7 +47,7 @@ class QW_ACT_R37 extends Rule {
           continue;
         }
 
-        let hasTextNode =  element.elementHasTextNode();
+        let hasTextNode =  element.hasTextNode();
         let elementText =  AccessibilityUtils.getTrimmedText(element);
 
         if(!hasTextNode || elementText === ''){
@@ -150,7 +150,7 @@ class QW_ACT_R37 extends Rule {
           while(parsedBG === undefined || (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)){
             let parent =  elementAux.getElementParent();
             if(parent){
-              bgColor =  parent.getElementStyleProperty( "background", null);
+              bgColor = this.getBackground(parent);
               if(this.isImage(bgColor)){
                 evaluation.verdict = 'warning';
                 evaluation.description = 'Element has an image on background.';
