@@ -28,9 +28,7 @@ class QW_BP15 extends BestPracticeObject {
       evaluation.resultCode = 'RC3';
     }else{
       const width = <string> element.getElementAttribute('width');
-			console.log("TCL: QW_BP15 -> width", width)
       const unit = width.trim().substring(width.length - 2, width.length);
-			console.log("TCL: QW_BP15 -> unit", unit)
 
       if (!this.absoluteLengths.includes(unit)) {
         evaluation.verdict = 'passed';
