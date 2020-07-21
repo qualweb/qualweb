@@ -1,5 +1,5 @@
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { Optimization } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import { QWPage } from '@qualweb/qw-page';
@@ -39,11 +39,15 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-      result.elements = [{ htmlCode, pointer }];
+      let accessibleName;
+      if (accessibleName && page) {
+        accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+      }
+      result.elements = [{ htmlCode, pointer, accessibleName }];
     }
 
     this.rule.results.push(clone(result));
@@ -53,13 +57,17 @@ abstract class Rule {
     }
   }
 
-  protected addMultipleElementEvaluationResult(result: ACTRuleResult, elements?: QWElement[], withText: boolean = true, fullElement: boolean = false): void {
+  protected addMultipleElementEvaluationResult(result: ACTRuleResult, elements?: QWElement[], withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
     result.elements = [];
     if (elements) {
       for (let element of elements) {
         const htmlCode = element.getElementHtmlCode(withText, fullElement);
         const pointer = element.getElementSelector();
-        result.elements.push({ htmlCode, pointer });
+        let accessibleName;
+        if (accessibleName && page) {
+          accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+        }
+        result.elements.push({ htmlCode, pointer, accessibleName });
       }
     }
 
@@ -70,7 +78,7 @@ abstract class Rule {
     }
   }
 
-  abstract execute(element: QWElement | undefined, page: QWPage, optimization: Optimization): void;
+  abstract execute(element: QWElement | undefined, page: QWPage): void;
 
   getFinalResults(): any {
     this.outcomeRule();

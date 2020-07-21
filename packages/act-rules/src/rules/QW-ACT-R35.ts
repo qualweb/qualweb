@@ -4,8 +4,8 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRule, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
 
 @ACTRule
 class QW_ACT_R35 extends Rule {
@@ -28,7 +28,7 @@ class QW_ACT_R35 extends Rule {
       description: '',
       resultCode: ''
     };
-    
+
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
@@ -42,14 +42,16 @@ class QW_ACT_R35 extends Rule {
         evaluation.resultCode = 'RC2';
       }
 
-      evaluation.accessibleName = accessibleName;
+      super.addEvaluationResult(evaluation, element, true, true, true, page);
+
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC3';
+      super.addEvaluationResult(evaluation, element, true, true);
+
     }
 
-    super.addEvaluationResult(evaluation, element,true,true);
   }
 }
 

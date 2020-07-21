@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.4.17",
+  "version": "0.4.18",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/act.js",
   "types": "./node_modules/@qualweb/types",
@@ -56,6 +56,7 @@
     "test-r45": "mocha test/rules/QW-ACT-R45.spec.js",
     "test-r46": "mocha test/rules/QW-ACT-R46.spec.js",
     "test-r47": "mocha test/rules/QW-ACT-R47.spec.js",
+    "test-r48": "mocha test/rules/QW-ACT-R48.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
     "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development",
@@ -92,7 +93,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.14",
     "@qualweb/qw-page": "^0.1.16",
-    "@qualweb/util": "^0.3.21",
+    "@qualweb/util": "^0.3.23",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

@@ -57,13 +57,11 @@ class QW_ACT_R30 extends Rule {
           evaluation.description = `The complete visible text content of the test target neither matches or is contained within its accessible name.`;
           evaluation.resultCode = 'RC5';
         }
-
-        evaluation.accessibleName = accessibleName;
       }
     }
 
+    super.addEvaluationResult(evaluation, element,true,false,true,page);
 
-    super.addEvaluationResult(evaluation, element);
   }
 
   isHumanLanguage(string): boolean {
