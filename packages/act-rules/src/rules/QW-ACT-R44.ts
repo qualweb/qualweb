@@ -79,13 +79,14 @@ class QW_ACT_R44 extends Rule {
           evaluation.description = `Doesn't exist any other \`link\` with the same accessible name in the same link context.`;
           evaluation.resultCode = 'RC4';
         }
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       } else {//inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC5';
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       }
 
-      super.addMultipleElementEvaluationResult(evaluation, elementList);
       counter++;
     }
   }
