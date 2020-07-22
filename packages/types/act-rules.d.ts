@@ -35,9 +35,12 @@ declare module '@qualweb/act-rules' {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     resultCode: string | '';
+    elements?:ACTElement[];
+    attributes?: string | string[];
+  }
+  interface ACTElement{
     pointer?: string;
     htmlCode?: string;
-    attributes?: string | string[];
     accessibleName?: string;
   }
 
