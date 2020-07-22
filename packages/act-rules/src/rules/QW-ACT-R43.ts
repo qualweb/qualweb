@@ -82,14 +82,15 @@ class QW_ACT_R43 extends Rule {
     if (DomUtils.isElementFocusable(element,page)) {
       return true;
     } else {
+      let result = false;
       for (const child of element.getElementChildren()) {
         if (DomUtils.isElementFocusable(child,page)) {
           return true;
         } else {
-          return this.isInSequentialFocusNavigation(child,page);
+          result = result|| this.isInSequentialFocusNavigation(child,page);
         }
       }
-      return false;
+      return result;
     }
   }
 }
