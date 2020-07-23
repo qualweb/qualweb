@@ -41,7 +41,6 @@ class QW_ACT_R50 extends Rule {
       src.push(srcAttr) ;
     }    
 
-
     if (!autoplay || paused || muted || (!srcAttr && childSrc.length === 0)) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio.`;
@@ -55,41 +54,18 @@ class QW_ACT_R50 extends Rule {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target has a visible control mechanism.';
         evaluation.resultCode = 'RC3';
-      } else if (this.srcTimeIsLessThanThree(src)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The test target plays for 3 seconds or less.';
-        evaluation.resultCode = 'RC4';
       } else {
         evaluation.verdict = 'warning';
         evaluation.description = 'Check if test target has a visible control mechanism.';
-        evaluation.resultCode = 'RC5';
+        evaluation.resultCode = 'RC4';
       }
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
-      evaluation.resultCode = 'RC6';
+      evaluation.resultCode = 'RC5';
     }
     super.addEvaluationResult(evaluation, element);
   }
-
-  private srcTimeIsLessThanThree(src: any[]): boolean {
-    let result = false;
-    for (const child of src || []) {
-      if (child) {
-        const values = String(child).split('#t=')
-        if (values.length > 1) {
-          const separatedValues = values[1].split(',');
-          const value1 = Number(separatedValues[0]);
-          const value2 = Number(separatedValues[1]);
-          
-          if (value1 && value2) {
-            result = Math.abs(value1 - value2) <= 3;
-          }
-        }
-      }
-    }
-    return result;
-  }
 }
 
-export = QW_ACT_R15;
+export = QW_ACT_R50;
