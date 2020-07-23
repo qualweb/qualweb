@@ -21,32 +21,35 @@ class QW_ACT_R18 extends Rule {
       description: '',
       resultCode: ''
     };
-    const elementsWithSameId  = new Array<QWElement>();
+    let elementsWithSameId  = new Array<QWElement>();
 
     const treeSelector = element.getTreeSelector();
+    console.log(treeSelector);
     const id = element.getElementAttribute('id');
-    if (id && id.trim()) {
+    console.log(id);
+
+    if (id) {
       try {
-        const elementsWithSameId = page.getElements(`[id="${id.trim()}"]` + treeSelector);
-        const genId = RegExp('qw-generated-id-');
+        elementsWithSameId = page.getElements(`[id="${id}"]` + treeSelector);
   
         if (elementsWithSameId.length > 1) {
           evaluation.verdict = 'failed';
           evaluation.description = `Several elements have the same \`id\` attribute (${id}).`;
           evaluation.resultCode = 'RC1';
-        } else if (!genId.test(id)) {
+        } else {
           evaluation.verdict = 'passed';
           evaluation.description = 'The test target has a unique `id` attribute.';
           evaluation.resultCode = 'RC2';
         }
+        super.addMultipleElementEvaluationResult(evaluation, elementsWithSameId);
       } catch (err) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target \`id\` attribute has a invalid value.`;
         evaluation.resultCode = 'RC3';
+        super.addEvaluationResult(evaluation,element);
       }
     }
 
-    super.addMultipleElementEvaluationResult(evaluation, elementsWithSameId);
   }
 }
 

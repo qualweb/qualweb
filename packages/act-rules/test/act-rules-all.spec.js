@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({headless:false});
     const context = await browser.newContext({bypassCSP:true});
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.pcdiga.com/");
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://ciencias.ulisboa.pt/");
 
     /*  const browser = await puppeteer.launch({
       });
