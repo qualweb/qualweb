@@ -1730,5 +1730,31 @@
         "WCAG21:language"
       ]
     }
+  },
+  "QW_ACT_R61": {
+    "name": "video element visual content has transcript",
+    "code": "QW-ACT-R61",
+    "mapping": "1a02b0",
+    "description": "This rule checks that non-streaming video elements have all audio and visual information available in a transcript.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [ {
+        "name": "1.2.8 ",
+        "level": "AAA",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/TR/WCAG21/#media-alternative-prerecorded"
+      }],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/1a02b0",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
   }
 }
