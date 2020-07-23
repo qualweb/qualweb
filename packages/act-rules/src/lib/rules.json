@@ -1478,5 +1478,257 @@
         "WCAG21:language"
       ]
     }
+  },
+  "QW_ACT_R49": {
+    "name": "Audio or video that plays automatically has no audio that lasts more than 3 seconds",
+    "code": "QW-ACT-R49",
+    "mapping": "aaa1bf",
+    "description": "audio or video that plays automatically does not output audio for more than 3 seconds.",
+    "metadata": {
+      "target": {
+        "element": "audio, video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/aaa1bf",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R50": {
+    "name": "audio or video that plays automatically has a control mechanism",
+    "code": "QW-ACT-R50",
+    "mapping": "4c31df",
+    "description": "audio or video that plays automatically must have a control mechanism.",
+    "metadata": {
+      "target": {
+        "element": "audio, video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/4c31df",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R51": {
+    "name": "video element visual-only content is media alternative for text",
+    "code": "QW-ACT-R51",
+    "mapping": "fd26cf",
+    "description": "This rule checks non-streaming silent video is a media alternative for text on the page.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/fd26cf",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R52": {
+    "name": "video element visual-only content has description track",
+    "code": "QW-ACT-R52",
+    "mapping": "ac7dc6",
+    "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ac7dc6",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R53": {
+    "name": "video element visual-only content has transcript",
+    "code": "QW-ACT-R53",
+    "mapping": "ee13b5",
+    "description": "Non-streaming video elements without audio must have all visual information available in a transcript.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ee13b5",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R54": {
+    "name": "video element visual-only content has transcript",
+    "code": "QW-ACT-R54",
+    "mapping": "d7ba54",
+    "description": "Non-streaming video elements without audio must have an audio alternative.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/d7ba54",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R55": {
+    "name": "video element visual-only content has transcript",
+    "code": "QW-ACT-R55",
+    "mapping": "1ea59c",
+    "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/1ea59c",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R56": {
+    "name": "video element content is media alternative for text",
+    "code": "QW-ACT-R56",
+    "mapping": "ab4d13",
+    "description": "This rule checks non-streaming video is a media alternative for text on the page.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ab4d13",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R57": {
+    "name": "video element visual content has description track",
+    "code": "QW-ACT-R57",
+    "mapping": "f196ce",
+    "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/f196ce",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R58": {
+    "name": "video element visual content has description track",
+    "code": "QW-ACT-R58",
+    "mapping": "2eb176",
+    "description": "Non-streaming audio elements must have a text alternative for all included auditory information.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/2eb176",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R59": {
+    "name": "audio element content is media alternative for text",
+    "code": "QW-ACT-R59",
+    "mapping": "afb423",
+    "description": "This rule checks audio is a media alternative for text on the page.",
+    "metadata": {
+      "target": {
+        "element": "audio"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/afb423",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
+  },
+  "QW_ACT_R60": {
+    "name": "video element auditory content has captions",
+    "code": "QW-ACT-R60",
+    "mapping": "f51b46",
+    "description": "This rule checks that captions are available for audio information in non-streaming video elements.",
+    "metadata": {
+      "target": {
+        "element": "video"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/f51b46",
+      "type": [
+        "ACTRule",
+        "TestCase"
+      ],
+      "a11yReq": [
+        "WCAG21:language"
+      ]
+    }
   }
 }
