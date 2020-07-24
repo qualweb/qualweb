@@ -44,7 +44,7 @@ abstract class Rule {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
       let accessibleName;
-      if (accessibleName && page) {
+      if (aName && page) {
         accessibleName = AccessibilityUtils.getAccessibleName(element, page)
       }
       result.elements = [{ htmlCode, pointer, accessibleName }];

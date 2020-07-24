@@ -5592,7 +5592,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-23T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > time:nth-of-type(1)"
             }
           ]
@@ -5614,7 +5614,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-23T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(2) > time:nth-of-type(1)"
             }
           ]
@@ -5636,7 +5636,7 @@
           "resultCode": "RC4",
           "elements": [
             {
-              "htmlCode": "<a href=\"/pt/evento/23-07-2020/delamination-of-oceanic-lithosphere-a-key-for-subduction-initiation\">Delamination of oceanic lithosphere: a key for subduction initiation?</a>",
+              "htmlCode": "<a href=\"/pt/evento/24-07-2020/the-active-interfaces-of-swarming-bacteria\">The active interfaces of swarming bacteria</a>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
             }
           ]
@@ -5680,7 +5680,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-23T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1) > time:nth-of-type(1)"
             }
           ]
@@ -5702,7 +5702,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-23T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(2) > time:nth-of-type(1)"
             }
           ]
@@ -5724,7 +5724,7 @@
           "resultCode": "RC4",
           "elements": [
             {
-              "htmlCode": "<a href=\"/pt/evento/23-07-2020/kirigami-for-lazy-people\">Kirigami for lazy people</a>",
+              "htmlCode": "<a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > h3:nth-of-type(1) > a:nth-of-type(1)"
             }
           ]
@@ -5856,7 +5856,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-25T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > span:nth-of-type(1) > time:nth-of-type(1)"
             }
           ]
@@ -5878,7 +5878,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-25T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > span:nth-of-type(2) > time:nth-of-type(1)"
             }
           ]
@@ -5900,7 +5900,7 @@
           "resultCode": "RC4",
           "elements": [
             {
-              "htmlCode": "<a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a>",
+              "htmlCode": "<a href=\"/pt/evento/25-07-2020/a-procura-de-uma-outra-terra\">À procura de uma outra Terra</a>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > h3:nth-of-type(1) > a:nth-of-type(1)"
             }
           ]
@@ -5944,7 +5944,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-27T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > span:nth-of-type(1) > time:nth-of-type(1)"
             }
           ]
@@ -5966,7 +5966,7 @@
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<time datetime=\"2020-07-24T00:00:00+01:00\"></time>",
+              "htmlCode": "<time datetime=\"2020-07-27T00:00:00+01:00\"></time>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > span:nth-of-type(2) > time:nth-of-type(1)"
             }
           ]
@@ -5988,7 +5988,7 @@
           "resultCode": "RC4",
           "elements": [
             {
-              "htmlCode": "<a href=\"/pt/evento/24-07-2020/the-active-interfaces-of-swarming-bacteria\">The active interfaces of swarming bacteria</a>",
+              "htmlCode": "<a href=\"/pt/evento/27-07-2020/light-and-math\">Light and math</a>",
               "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > h3:nth-of-type(1) > a:nth-of-type(1)"
             }
           ]
@@ -6956,7 +6956,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"sliding-popup\" class=\"sliding-popup-bottom\" style=\"height: 100px; width: 100%; bottom: -243.263px;\"></div>",
+              "htmlCode": "<div id=\"sliding-popup\" class=\"sliding-popup-bottom\" style=\"height: 100px; width: 100%; bottom: -206.297px;\"></div>",
               "pointer": "html > body > div:nth-of-type(2)"
             }
           ]
@@ -7424,7 +7424,8 @@
           "elements": [
             {
               "htmlCode": "<button onclick=\"adicionarEmail()\" class=\"btnCI btnCI-inverse\">OK</button>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
+              "accessibleName": "OK"
             }
           ]
         },
@@ -7435,7 +7436,8 @@
           "elements": [
             {
               "htmlCode": "<button type=\"button\" class=\"find-more-button eu-cookie-compliance-more-button find-more-button-processed\">Informações sobre Cookies</button>",
-              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+              "accessibleName": "Informações sobre Cookies"
             }
           ]
         },
@@ -7446,7 +7448,8 @@
           "elements": [
             {
               "htmlCode": "<button type=\"button\" class=\"agree-button eu-cookie-compliance-default-button\">Aceitar e Prosseguir</button>",
-              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+              "accessibleName": "Aceitar e Prosseguir"
             }
           ]
         }
@@ -7510,7 +7513,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"#main-content\" class=\"element-invisible element-focusable\">Passar para o conteúdo principal</a>",
-              "pointer": "html > body > a:nth-of-type(1)"
+              "pointer": "html > body > a:nth-of-type(1)",
+              "accessibleName": "Passar para o conteúdo principal"
             }
           ]
         },
@@ -7521,7 +7525,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt\" class=\"language-link active\" xml:lang=\"pt-pt\" lang=\"pt-pt\">Português</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Português"
             }
           ]
         },
@@ -7532,7 +7537,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/en\" class=\"language-link\" xml:lang=\"en\" lang=\"en\">English</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": "English"
             }
           ]
         },
@@ -7543,7 +7549,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/user\">Login</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Login"
             }
           ]
         },
@@ -7554,7 +7561,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt\" title=\"home\" rel=\"home\" class=\"active\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ciências"
             }
           ]
         },
@@ -7565,7 +7573,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/a-faculdade\" title=\"A Faculdade de Ciências da ULisboa\">A Faculdade</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "A Faculdade"
             }
           ]
         },
@@ -7576,7 +7585,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7587,7 +7597,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/sa%C3%BAde\" title=\"Informações sobre a COVID-19\">Saúde: COVID-19</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": "Saúde: COVID-19"
             }
           ]
         },
@@ -7598,7 +7609,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7609,7 +7621,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/qualidade\" title=\"Qualidade Ciências ULisboa\">Qualidade</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+              "accessibleName": "Qualidade"
             }
           ]
         },
@@ -7620,7 +7633,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7631,7 +7645,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/viver\" title=\"Viver em Ciências ULisboa\">Viver</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+              "accessibleName": "Viver"
             }
           ]
         },
@@ -7642,7 +7657,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7653,7 +7669,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/departamentos\" title=\"Departamentos de Ciências ULisboa\">Departamentos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)",
+              "accessibleName": "Departamentos"
             }
           ]
         },
@@ -7664,7 +7681,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7675,7 +7693,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/ensino\" title=\"Ensino de Ciências ULisboa\">Ensino</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)",
+              "accessibleName": "Ensino"
             }
           ]
         },
@@ -7686,7 +7705,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7697,7 +7717,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/sociedade\" title=\"Interação com a Sociedade\">Sociedade</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(1)",
+              "accessibleName": "Sociedade"
             }
           ]
         },
@@ -7708,7 +7729,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7719,7 +7741,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/a-investiga%C3%A7%C3%A3o-na-faculdade-de-ci%C3%AAncias-um-sistema-em-rede\" title=\"Investigação de Ciências ULisboa\">Investigação</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(1)",
+              "accessibleName": "Investigação"
             }
           ]
         },
@@ -7730,7 +7753,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7741,7 +7765,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/inova%C3%A7%C3%A3o-e-empreendedorismo\" title=\"Inovação em Ciências ULisboa\">Inovação</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(1)",
+              "accessibleName": "Inovação"
             }
           ]
         },
@@ -7752,7 +7777,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7763,7 +7789,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/gabinete-de-empregabilidade\" title=\"Informações sobre Emprego\">Emprego</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(1)",
+              "accessibleName": "Emprego"
             }
           ]
         },
@@ -7774,7 +7801,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7785,7 +7813,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/internacional\" title=\"Internacional Ciências ULisboa\">Internacional</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(1)",
+              "accessibleName": "Internacional"
             }
           ]
         },
@@ -7796,7 +7825,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7807,7 +7837,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/ci%C3%AAncias\" title=\"+ Ciências ULisboa\">+ Ciências</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(1)",
+              "accessibleName": "+ Ciências"
             }
           ]
         },
@@ -7818,7 +7849,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7829,7 +7861,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/laboratorio-vivo-para-a-sustentabilidade\" title=\"Laboratório Vivo para a Sustentabilidade\">Sustentabilidade</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(13) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(13) > a:nth-of-type(1)",
+              "accessibleName": "Sustentabilidade"
             }
           ]
         },
@@ -7840,7 +7873,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"setinha\" href=\"#\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(13) > a:nth-of-type(2)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(13) > a:nth-of-type(2)",
+              "accessibleName": ""
             }
           ]
         },
@@ -7851,7 +7885,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/contactos\" title=\"Contactos Ciências ULisboa\">Contactos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(14) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(14) > a:nth-of-type(1)",
+              "accessibleName": "Contactos"
             }
           ]
         },
@@ -7862,7 +7897,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/oferta-formativa\" title=\"Lista de cursos de Ciências ULisboa\">Cursos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Cursos"
             }
           ]
         },
@@ -7873,7 +7909,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/candidaturas\" title=\"Candidaturas aos cursos de Ciências ULisboa\">Candidaturas</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": "Candidaturas"
             }
           ]
         },
@@ -7884,7 +7921,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/informa%C3%A7%C3%A3o-para-estudantes/\" title=\"Informação para Estudantes de Ciências ULisboa\">Informação para Estudantes</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+              "accessibleName": "Informação para Estudantes"
             }
           ]
         },
@@ -7895,7 +7933,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/estudante-internacional/\" title=\"Candidaturas de Estudantes Internacionais\">Estudante Internacional</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+              "accessibleName": "Estudante Internacional"
             }
           ]
         },
@@ -7906,7 +7945,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/p%C3%BAblico-escolar-geral/\" title=\"Informações para Público Escolar | Geral\">Público Escolar | Geral</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)",
+              "accessibleName": "Público Escolar | Geral"
             }
           ]
         },
@@ -7917,7 +7957,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/ciencias-nos-media\" title=\"Ciências ULisboa nos Média\">Ciências nos Média</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)",
+              "accessibleName": "Ciências nos Média"
             }
           ]
         },
@@ -7928,7 +7969,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/concursos/\" title=\"Concursos - Ciências ULisboa\">Concursos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(7) > a:nth-of-type(1)",
+              "accessibleName": "Concursos"
             }
           ]
         },
@@ -7939,7 +7981,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/doc\" title=\"Concursos Docentes - Candidaturas Ciências ULisboa\">Concursos Docentes - Candidaturas</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > a:nth-of-type(1)",
+              "accessibleName": "Concursos Docentes - Candidaturas"
             }
           ]
         },
@@ -7950,7 +7993,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://biblios.ciencias.ulisboa.pt/?lang=por\" title=\"Biblios - Sistema de Gestão de Referências Bibliográficas de Ciências\">Publicações</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(9) > a:nth-of-type(1)",
+              "accessibleName": "Publicações"
             }
           ]
         },
@@ -7961,7 +8005,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/ferramentas-de-apoio-a-distancia\" title=\"Ferramentas de Apoio ao Ensino à Distância Ciências ULisboa\">Ferramentas de Apoio ao Ensino à Distância</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > a:nth-of-type(1)",
+              "accessibleName": "Ferramentas de Apoio ao Ensino à Distância"
             }
           ]
         },
@@ -7972,7 +8017,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/provas-academicas\" title=\"Provas Académicas Ciências ULisboa\">Provas Académicas</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(11) > a:nth-of-type(1)",
+              "accessibleName": "Provas Académicas"
             }
           ]
         },
@@ -7983,7 +8029,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/contratacao-monitores\" title=\"Contratação de Monitores Ciências ULisboa\">Contratação de Monitores</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > header:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(12) > a:nth-of-type(1)",
+              "accessibleName": "Contratação de Monitores"
             }
           ]
         },
@@ -7994,7 +8041,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8005,7 +8053,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\">IA lidera um dos sistemas de controlo da missão Athena da ESA</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "IA lidera um dos sistemas de controlo da missão Athena da ESA"
             }
           ]
         },
@@ -8016,7 +8065,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8027,7 +8077,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/licenciaturas-e-mestrados-integrados\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Fotografia de três alunos de Ciências ULisboa"
             }
           ]
         },
@@ -8038,7 +8089,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/licenciaturas-e-mestrados-integrados\">Licenciaturas e Mestrados Integrados</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Licenciaturas e Mestrados Integrados"
             }
           ]
         },
@@ -8049,7 +8101,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/licenciaturas-e-mestrados-integrados\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8060,7 +8113,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/estudar-em-ci%C3%AAncias-0\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Quadro com a frase \"A nossa vida depende das escolhas que fazemos!\", em várias línguas"
             }
           ]
         },
@@ -8071,7 +8125,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/estudar-em-ci%C3%AAncias-0\">Estudar em Ciências</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Estudar em Ciências"
             }
           ]
         },
@@ -8082,7 +8137,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/estudar-em-ci%C3%AAncias-0\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8093,7 +8149,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/doutoramentos\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Fotografia de diploma da ULisboa"
             }
           ]
         },
@@ -8104,7 +8161,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/doutoramentos\">Doutoramentos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Doutoramentos"
             }
           ]
         },
@@ -8115,7 +8173,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/minors\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Iconografia representativa das áreas científicas de Ciências ULisboa (branco sobre um fundo azul)"
             }
           ]
         },
@@ -8126,7 +8185,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/minors\">Minors</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Minors"
             }
           ]
         },
@@ -8137,7 +8197,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/minors\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8148,7 +8209,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"ver-todos\" href=\"/noticias\">Ver Todos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ver Todos"
             }
           ]
         },
@@ -8159,7 +8221,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\">IA lidera um dos sistemas de controlo da missão Athena da ESA</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "IA lidera um dos sistemas de controlo da missão Athena da ESA"
             }
           ]
         },
@@ -8170,7 +8233,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8181,7 +8245,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/17-07-2020/as-qualidades-da-ci%C3%AAncia-cidad%C3%A3\">As qualidades da ciência cidadã</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "As qualidades da ciência cidadã"
             }
           ]
         },
@@ -8192,7 +8257,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/17-07-2020/as-qualidades-da-ci%C3%AAncia-cidad%C3%A3\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8203,7 +8269,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/16-07-2020/entrevista-com-carlos-cordeiro\">Entrevista com Carlos Cordeiro</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Entrevista com Carlos Cordeiro"
             }
           ]
         },
@@ -8214,7 +8281,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/16-07-2020/entrevista-com-carlos-cordeiro\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8225,7 +8293,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/11-07-2020/lusovenator-santosi\">Lusovenator santosi</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Lusovenator santosi"
             }
           ]
         },
@@ -8236,7 +8305,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/11-07-2020/lusovenator-santosi\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8247,7 +8317,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/06-07-2020/ci%C3%AAncias-ulisboa-no-rnie-2020\">Ciências ULisboa no RNIE 2020</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ciências ULisboa no RNIE 2020"
             }
           ]
         },
@@ -8258,7 +8329,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/noticia/06-07-2020/ci%C3%AAncias-ulisboa-no-rnie-2020\" class=\"views-more-link\">Ler mais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > span:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ler mais"
             }
           ]
         },
@@ -8269,51 +8341,8 @@
           "elements": [
             {
               "htmlCode": "<a class=\"ver-todos\" href=\"/eventos\">Ver Todos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"/pt/evento/23-07-2020/delamination-of-oceanic-lithosphere-a-key-for-subduction-initiation\">Delamination of oceanic lithosphere: a key for subduction initiation?</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"/pt/evento/23-07-2020/kirigami-for-lazy-people\">Kirigami for lazy people</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > h3:nth-of-type(1) > a:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"/pt/evento/24-07-2020/noncommutative-weil-conjectures\">Noncommutative Weil conjectures</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > h3:nth-of-type(1) > a:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Ver Todos"
             }
           ]
         },
@@ -8324,7 +8353,56 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/evento/24-07-2020/the-active-interfaces-of-swarming-bacteria\">The active interfaces of swarming bacteria</a>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > h3:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "The active interfaces of swarming bacteria"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a valid accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a valid accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"/pt/evento/24-07-2020/noncommutative-weil-conjectures\">Noncommutative Weil conjectures</a>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Noncommutative Weil conjectures"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a valid accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"/pt/evento/25-07-2020/a-procura-de-uma-outra-terra\">À procura de uma outra Terra</a>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "À procura de uma outra Terra"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a valid accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"/pt/evento/27-07-2020/light-and-math\">Light and math</a>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > h3:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Light and math"
             }
           ]
         },
@@ -8335,7 +8413,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"mailto:info@ciencias.ulisboa.pt\">info@ciencias.ulisboa.pt</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "info@ciencias.ulisboa.pt"
             }
           ]
         },
@@ -8346,7 +8425,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/caixa-de-sugest%C3%B5es\" title=\"Elogios, Sugestões e Reclamações Ciências ULisboa\">Elogios, Sugestões e Reclamações</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Elogios, Sugestões e Reclamações"
             }
           ]
         },
@@ -8357,7 +8437,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://webmail.ciencias.ulisboa.pt\" title=\"Webmail - Ciências ULisboa\">Webmail</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": "Webmail"
             }
           ]
         },
@@ -8368,7 +8449,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"http://moodle.ciencias.ulisboa.pt/\" title=\"Moodle - Ciências ULisboa\">Moodle</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+              "accessibleName": "Moodle"
             }
           ]
         },
@@ -8379,7 +8461,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/copyright-e-termos-legais\" title=\"Copyright e Termos Legais - Ciências ULisboa\">Copyright e Termos Legais</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+              "accessibleName": "Copyright e Termos Legais"
             }
           ]
         },
@@ -8390,7 +8473,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/ficha-t%C3%A9cnica\" title=\"Ficha Técnica - Ciências ULisboa\">Ficha Técnica</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)",
+              "accessibleName": "Ficha Técnica"
             }
           ]
         },
@@ -8401,7 +8485,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/sitemap\" title=\"Mapa do Site - Ciências ULisboa\">Mapa do Site</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(2) > nav:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)",
+              "accessibleName": "Mapa do Site"
             }
           ]
         },
@@ -8412,7 +8497,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"http://www.fciencias-id.pt/\" title=\"FCiências.ID - Ciências ULisboa\" target=\"_blank\" rel=\"noopener noreferrer\">FCiências.ID</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "FCiências.ID"
             }
           ]
         },
@@ -8423,7 +8509,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"http://www.teclabs.pt/\" title=\"Tec Labs - Centro de Inovação\" target=\"_blank\" rel=\"noopener noreferrer\">Tec Labs</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": "Tec Labs"
             }
           ]
         },
@@ -8434,7 +8521,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"http://www.ulisboa.pt\" title=\"Universidade de Lisboa\">ULisboa</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+              "accessibleName": "ULisboa"
             }
           ]
         },
@@ -8445,7 +8533,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/pt/sistema-logos\" title=\"Sistema Logos - Ciências ULisboa\">Sistema Logos</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+              "accessibleName": "Sistema Logos"
             }
           ]
         },
@@ -8456,7 +8545,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"http://fenix.ciencias.ulisboa.pt\" title=\"Sistema Fenix - Ciências ULisboa\">Sistema Fenix</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(3) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)",
+              "accessibleName": "Sistema Fenix"
             }
           ]
         },
@@ -8467,7 +8557,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://twitter.com/fc_ul\" target=\"_blank\" title=\"Twitter Ciências ULisboa\" class=\"footer-social-twitter\" rel=\"noopener noreferrer\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8478,7 +8569,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://www.facebook.com/fac.ciencias.ul\" target=\"_blank\" title=\"Facebook Ciências ULisboa\" class=\"footer-social-facebook\" rel=\"noopener noreferrer\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8489,7 +8581,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://www.youtube.com/user/FaculdadeCiencias\" target=\"_blank\" title=\"Youtube Ciências ULisboa\" class=\"footer-social-youtube\" rel=\"noopener noreferrer\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8500,7 +8593,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://www.instagram.com/ciencias_ulisboa_oficial\" target=\"_blank\" title=\"Instagram Ciências ULisboa\" class=\"footer-social-instagram\" rel=\"noopener noreferrer\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8511,7 +8605,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://pt.linkedin.com/school/cienciasulisboa\" target=\"_blank\" title=\"Linkedin Ciências ULisboa\" class=\"footer-social-youtube\" rel=\"noopener noreferrer\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8522,7 +8617,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"/rss/noticias\" target=\"_blank\" title=\"RSS\" class=\"footer-social-rss\"></a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(6) > a:nth-of-type(1)",
+              "accessibleName": ""
             }
           ]
         },
@@ -8533,7 +8629,8 @@
           "elements": [
             {
               "htmlCode": "<a href=\"https://ciencias.ulisboa.pt/pt/node/9888/\" class=\"listagens\">Listas de Divulgação Ciências</a>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)",
+              "accessibleName": "Listas de Divulgação Ciências"
             }
           ]
         }
@@ -8756,7 +8853,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"sliding-popup\" class=\"sliding-popup-bottom\" style=\"height: 100px; width: 100%; bottom: -243.263px;\"></div>",
+              "htmlCode": "<div id=\"sliding-popup\" class=\"sliding-popup-bottom\" style=\"height: 100px; width: 100%; bottom: -206.297px;\"></div>",
               "pointer": "html > body > div:nth-of-type(2)"
             }
           ]
@@ -10254,7 +10351,8 @@
           "elements": [
             {
               "htmlCode": "<input type=\"text\" name=\"termo\" id=\"termo\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > form:nth-of-type(1) > input:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > form:nth-of-type(1) > input:nth-of-type(1)",
+              "accessibleName": "Pesquisa"
             }
           ]
         },
@@ -10265,7 +10363,8 @@
           "elements": [
             {
               "htmlCode": "<input type=\"text\" name=\"email\" id=\"email\" title=\"email\">",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > input:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > input:nth-of-type(1)",
+              "accessibleName": "Email"
             }
           ]
         },
@@ -10276,7 +10375,8 @@
           "elements": [
             {
               "htmlCode": "<input type=\"checkbox\" name=\"cookie-categories\" id=\"cookie-category-necessary\" value=\"necessary\" checked=\"\" disabled=\"\">",
-              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+              "accessibleName": "Funcionamento"
             }
           ]
         }
@@ -10572,7 +10672,8 @@
           "elements": [
             {
               "htmlCode": "<img src=\"https://ciencias.ulisboa.pt/sites/default/files/Ciencias_Logo_Azul-02.png\" width=\"268\" height=\"404\" alt=\"Ciências\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+              "accessibleName": "Ciências"
             }
           ]
         },
@@ -10605,7 +10706,8 @@
           "elements": [
             {
               "htmlCode": "<img src=\"https://ciencias.ulisboa.pt/sites/default/files/styles/destaque/public/destaque-licenciaturas-mestrados-integrados-2020.png?itok=8cP3YxqU\" width=\"735\" height=\"290\" alt=\"Fotografia de três alunos de Ciências ULisboa\" title=\"Licenciaturas e Mestrados Integrados: candidaturas no âmbito dos Concursos Especiais (Titulares de outros Cursos Superiores) e dos Regimes de Reingresso e Mudança de Par Instituição/Curso\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+              "accessibleName": "Fotografia de três alunos de Ciências ULisboa"
             }
           ]
         },
@@ -10616,7 +10718,8 @@
           "elements": [
             {
               "htmlCode": "<img src=\"https://ciencias.ulisboa.pt/sites/default/files/styles/destaque/public/destaque-estudar-em-ciencias-2019.png?itok=B1OaM_60\" width=\"735\" height=\"290\" alt=\"Quadro com a frase &quot;A nossa vida depende das escolhas que fazemos!&quot;, em várias línguas\" title=\"Vem descobrir com os testemunhos dos nossos alunos e ex-alunos o que é estudar em Ciências ULisboa\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+              "accessibleName": "Quadro com a frase \"A nossa vida depende das escolhas que fazemos!\", em várias línguas"
             }
           ]
         },
@@ -10627,7 +10730,8 @@
           "elements": [
             {
               "htmlCode": "<img src=\"https://ciencias.ulisboa.pt/sites/default/files/styles/destaque/public/destaque-doutoramentos-2019.png?itok=3WGZujCh\" width=\"735\" height=\"290\" alt=\"Fotografia de diploma da ULisboa\" title=\"Candidaturas a Doutoramentos Ciências ULisboa\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+              "accessibleName": "Fotografia de diploma da ULisboa"
             }
           ]
         },
@@ -10638,7 +10742,8 @@
           "elements": [
             {
               "htmlCode": "<img src=\"https://ciencias.ulisboa.pt/sites/default/files/styles/destaque/public/areas-fcul_0.png?itok=L-0bulk5\" width=\"735\" height=\"290\" alt=\"Iconografia representativa das áreas científicas de Ciências ULisboa (branco sobre um fundo azul)\" title=\"Candidaturas a Minors Ciências ULisboa\">",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > img:nth-of-type(1)",
+              "accessibleName": "Iconografia representativa das áreas científicas de Ciências ULisboa (branco sobre um fundo azul)"
             }
           ]
         }
@@ -11020,7 +11125,8 @@
           "elements": [
             {
               "htmlCode": "<h2 class=\"title\">Em Destaque</h2>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)",
+              "accessibleName": "Em Destaque"
             }
           ]
         },
@@ -11031,7 +11137,8 @@
           "elements": [
             {
               "htmlCode": "<h3><a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\">IA lidera um dos sistemas de controlo da missão Athena da ESA</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "IA lidera um dos sistemas de controlo da missão Athena da ESA"
             }
           ]
         },
@@ -11042,7 +11149,8 @@
           "elements": [
             {
               "htmlCode": "<h3><a href=\"/pt/licenciaturas-e-mestrados-integrados\">Licenciaturas e Mestrados Integrados</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Licenciaturas e Mestrados Integrados"
             }
           ]
         },
@@ -11053,7 +11161,8 @@
           "elements": [
             {
               "htmlCode": "<h3><a href=\"/pt/estudar-em-ci%C3%AAncias-0\">Estudar em Ciências</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Estudar em Ciências"
             }
           ]
         },
@@ -11064,7 +11173,8 @@
           "elements": [
             {
               "htmlCode": "<h3><a href=\"/pt/doutoramentos\">Doutoramentos</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Doutoramentos"
             }
           ]
         },
@@ -11075,7 +11185,8 @@
           "elements": [
             {
               "htmlCode": "<h3><a href=\"/pt/minors\">Minors</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Minors"
             }
           ]
         },
@@ -11086,7 +11197,8 @@
           "elements": [
             {
               "htmlCode": "<h2>Notícias</h2>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)",
+              "accessibleName": "Notícias"
             }
           ]
         },
@@ -11097,7 +11209,8 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/noticia/22-07-2020/ia-lidera-um-dos-sistemas-de-controlo-da-miss%C3%A3o-athena-da-esa\">IA lidera um dos sistemas de controlo da missão Athena da ESA</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "IA lidera um dos sistemas de controlo da missão Athena da ESA"
             }
           ]
         },
@@ -11108,7 +11221,8 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/noticia/17-07-2020/as-qualidades-da-ci%C3%AAncia-cidad%C3%A3\">As qualidades da ciência cidadã</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "As qualidades da ciência cidadã"
             }
           ]
         },
@@ -11119,7 +11233,8 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/noticia/16-07-2020/entrevista-com-carlos-cordeiro\">Entrevista com Carlos Cordeiro</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Entrevista com Carlos Cordeiro"
             }
           ]
         },
@@ -11130,7 +11245,8 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/noticia/11-07-2020/lusovenator-santosi\">Lusovenator santosi</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Lusovenator santosi"
             }
           ]
         },
@@ -11141,7 +11257,8 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/noticia/06-07-2020/ci%C3%AAncias-ulisboa-no-rnie-2020\">Ciências ULisboa no RNIE 2020</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Ciências ULisboa no RNIE 2020"
             }
           ]
         },
@@ -11152,51 +11269,8 @@
           "elements": [
             {
               "htmlCode": "<h2>Eventos</h2>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a non-empty accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/23-07-2020/delamination-of-oceanic-lithosphere-a-key-for-subduction-initiation\">Delamination of oceanic lithosphere: a key for subduction initiation?</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > h3:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a non-empty accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/23-07-2020/kirigami-for-lazy-people\">Kirigami for lazy people</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > h3:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a non-empty accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/24-07-2020/noncommutative-weil-conjectures\">Noncommutative Weil conjectures</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > h3:nth-of-type(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a non-empty accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)",
+              "accessibleName": "Eventos"
             }
           ]
         },
@@ -11207,7 +11281,56 @@
           "elements": [
             {
               "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/24-07-2020/the-active-interfaces-of-swarming-bacteria\">The active interfaces of swarming bacteria</a></h3>",
-              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "The active interfaces of swarming bacteria"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a non-empty accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/24-07-2020/pharmaceuticals-in-the-environment-occurrence-and-exposure-effects-in-non-target\">Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species</a></h3>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2) > h3:nth-of-type(1)",
+              "accessibleName": "Pharmaceuticals in the environment: occurrence and exposure effects in non-target fish species"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a non-empty accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/24-07-2020/noncommutative-weil-conjectures\">Noncommutative Weil conjectures</a></h3>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3) > h3:nth-of-type(1)",
+              "accessibleName": "Noncommutative Weil conjectures"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a non-empty accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/25-07-2020/a-procura-de-uma-outra-terra\">À procura de uma outra Terra</a></h3>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(4) > h3:nth-of-type(1)",
+              "accessibleName": "À procura de uma outra Terra"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a non-empty accessible name.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<h3 class=\"field-content\"><a href=\"/pt/evento/27-07-2020/light-and-math\">Light and math</a></h3>",
+              "pointer": "html > body > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(5) > h3:nth-of-type(1)",
+              "accessibleName": "Light and math"
             }
           ]
         },
@@ -11218,7 +11341,8 @@
           "elements": [
             {
               "htmlCode": "<h3>Ciências ULisboa</h3>",
-              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1)",
+              "accessibleName": "Ciências ULisboa"
             }
           ]
         },
@@ -11229,7 +11353,8 @@
           "elements": [
             {
               "htmlCode": "<h2>Ciências ULisboa&nbsp;requer o uso de cookies</h2>",
-              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)"
+              "pointer": "html > body > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1)",
+              "accessibleName": "Ciências ULisboa requer o uso de cookies"
             }
           ]
         }
