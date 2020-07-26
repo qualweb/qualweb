@@ -30,7 +30,7 @@ export default {
       'iframe': ['QW-ACT-R19'],
       'audio':['QW-ACT-R58','QW-ACT-R59'],
       '[aria-label], [aria-labelledby]': ['QW-ACT-R30'],
-      'video': ['QW-ACT-R23', 'QW-ACT-R26', 'QW-ACT-R31', 'QW-ACT-R32'],
+      'video': ['QW-ACT-R51','QW_ACT_R52','QW_ACT_R53','QW_ACT_R54','QW_ACT_R55','QW_ACT_R56','QW_ACT_R57','QW_ACT_R60','QW_ACT_R61'],
       'audio, video': ['QW-ACT-R49','QW-ACT-R50'],
       'input[autocomplete], select[autocomplete], textarea[autocomplete]' : ['QW-ACT-R24'],
       'h1,h2,h3,h4,h5,h6,[role="heading"]': ['QW-ACT-R35'],

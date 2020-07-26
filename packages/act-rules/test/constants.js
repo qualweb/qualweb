@@ -57,7 +57,18 @@ exports.mapping = {
   'QW-ACT-R47': 'b8bb68',
   'QW-ACT-R48': 'c487ae',
   'QW-ACT-R49': 'aaa1bf',
-  'QW-ACT-R50': '4c31df'
+  'QW-ACT-R50': '4c31df',
+  'QW-ACT-R51': 'fd26cf',
+  'QW-ACT-R52': 'ac7dc6',
+  'QW-ACT-R53': 'ee13b5',
+  'QW-ACT-R54': 'd7ba54',
+  'QW-ACT-R55': '1ea59c',
+  'QW-ACT-R56': 'ab4d13',
+  'QW-ACT-R57': 'f196ce',
+  'QW-ACT-R58': '2eb176',
+  'QW-ACT-R59': 'afb423',
+  'QW-ACT-R60': 'f51b46',
+  'QW-ACT-R61': '1a02b0',
 
 
 };

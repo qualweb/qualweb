@@ -24,7 +24,6 @@ class QW_ACT_R51 extends Rule {
     };
 
     const metadata = DomUtils.getVideoMetadata(element);
-   // const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element,page);
 
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0  && !metadata.puppeteer.audio.hasSoundTrack;
@@ -47,6 +46,7 @@ class QW_ACT_R51 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC4';
     }
+    console.log(evaluation.resultCode)
     
     super.addEvaluationResult(evaluation, element);
   }

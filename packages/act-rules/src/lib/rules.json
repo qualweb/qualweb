@@ -1669,13 +1669,13 @@
     }
   },
   "QW_ACT_R58": {
-    "name": "video element visual content has description track",
+    "name": "audio element content has transcript",
     "code": "QW-ACT-R58",
     "mapping": "2eb176",
     "description": "Non-streaming audio elements must have a text alternative for all included auditory information.",
     "metadata": {
       "target": {
-        "element": "video"
+        "element": "audio"
       },
       "success-criteria": [],
       "related": [],
