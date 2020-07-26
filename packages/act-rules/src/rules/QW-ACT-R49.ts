@@ -23,11 +23,11 @@ class QW_ACT_R49 extends Rule {
     };
 
     const autoplay = element.getElementProperty('autoplay');
-    const paused = element.getElementProperty('paused');
+    const paused = element.getElementAttribute('paused');
     const muted = element.getElementProperty('muted');
     const srcAttr = element.getElementAttribute('src');
     const childSrc = element.getElements('source[src]');
-        const metadata = DomUtils.getVideoMetadata(element);
+    const metadata = DomUtils.getVideoMetadata(element);
     
     const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
     const src = new Array<any>();
@@ -38,7 +38,8 @@ class QW_ACT_R49 extends Rule {
       }
     } else { 
       src.push(srcAttr) ;
-    }    
+    }   
+    console.log({autoplay,paused,muted,srcAttr,childSrc}) 
 
 
     if (!autoplay || paused || muted || (!srcAttr && childSrc.length === 0)) {
@@ -64,6 +65,7 @@ class QW_ACT_R49 extends Rule {
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC5';
     }
+    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 

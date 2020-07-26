@@ -17,8 +17,6 @@ describe(`Rule ${rule}`, async function () {
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
     });
-    console.log(tests)
-
 
     describe('Running tests', function () {
       for (const test of tests || []) {
@@ -52,4 +50,3 @@ describe(`Rule ${rule}`, async function () {
     });
   });
 });
-

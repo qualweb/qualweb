@@ -57,6 +57,7 @@
     "test-r46": "mocha test/rules/QW-ACT-R46.spec.js",
     "test-r47": "mocha test/rules/QW-ACT-R47.spec.js",
     "test-r48": "mocha test/rules/QW-ACT-R48.spec.js",
+    "test-r49": "mocha test/rules/QW-ACT-R49.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
     "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development",
@@ -78,7 +79,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.14",
-    "@qualweb/types": "^0.4.23",
+    "@qualweb/types": "0.4.23",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.22",
     "chai": "^4.2.0",
