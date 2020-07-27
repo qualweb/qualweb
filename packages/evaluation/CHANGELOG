@@ -1,8 +1,9 @@
 # Changelog
+
 ## [0.1.28] - 27/07/2020
  - dependencies updated
-## [0.1.27] - 27/07/2020
- - dependencies updated
+## [0.1.27] - 13/07/2020
+- bug fix
 ## [0.1.26] - 11/07/2020
 - tests updated
 ## [0.1.25] - 11/07/2020
@@ -34,7 +35,7 @@
 ## [0.1.11] - 08/06/2020
 - updated act
 ## [0.1.10] - 08/06/2020
-- fixed inaplicable
+- fixed inapplicable
 ## [0.1.9] - 08/06/2020
 - fixed act
 ## [0.1.8] - 08/06/2020
