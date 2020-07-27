@@ -1,4 +1,8 @@
 # Changelog
+
+## [0.3.24] - 27/07/2020
+### Fixed
+ - isElementPresentation cache bug
 ## [0.3.23] - 16/07/2020
 ### Fixed
  - image with empty alt

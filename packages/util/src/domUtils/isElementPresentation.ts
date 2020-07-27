@@ -6,15 +6,15 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementFocusable from './isElementFocusable';
 
-function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean{
+function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean {
   let selector = elementQW.getElementSelector();
   let method = "DomUtils.isElementPresentationAux";
   let result;
-  if(pageQW.isValueCached(selector,method)){
-     result = pageQW.getCachedValue(selector,method);
-  }else{
+  if (pageQW.isValueCached(selector, method)) {
+    result = pageQW.getCachedValue(selector, method);
+  } else {
     result = isElementPresentationAux(elementQW, pageQW);
-    pageQW.cacheValue(selector,method,result);
+    pageQW.cacheValue(selector, method, result);
   }
   return result;
 }
@@ -23,58 +23,75 @@ function isElementPresentationAux(elementQW: QWElement, pageQW: QWPage): boolean
     throw Error('Element is not defined');
   }
 
-  const role = getElementRole(elementQW,pageQW);
-  let presentationOrNone = role === 'presentation'|| role === 'none';
-  const focusable =  isElementFocusable(elementQW,pageQW);
-  const hasGlobalARIA =  elementHasGlobalARIAPropertyOrAttribute(elementQW);
+  const role = getElementRole(elementQW, pageQW);
+  let presentationOrNone = role === 'presentation' || role === 'none';
+  const focusable = isElementFocusable(elementQW, pageQW);
+  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
   const parent = elementQW.getElementParent();
-  let parentPresentation= false;
+  let parentPresentation = false;
   let childPresentational = false;
 
   if (parent) {
-    parentPresentation =  isElementParentPresentation(parent,pageQW);
-    childPresentational =  isParentChildPresentational(parent,pageQW);
+    parentPresentation = isElementParentPresentation(parent, pageQW);
+    childPresentational = isParentChildPresentational(parent, pageQW);
   }
 
-  return ((presentationOrNone && !focusable && !hasGlobalARIA )  || childPresentational) && !parentPresentation;
+  return ((presentationOrNone && !focusable && !hasGlobalARIA) || childPresentational) && !parentPresentation;
 }
 
 function isElementParentPresentation(element: QWElement, pageQW: QWPage): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }
+  let selector = element.getElementSelector();
+  let method = "DomUtils.isElementParentPresentation";
+  let result;
+  if (pageQW.isValueCached(selector, method)) {
+    result = pageQW.getCachedValue(selector, method);
+  } else {
+    const role = element.getElementAttribute('role')
+    let presentationOrNone = role === 'presentation' || role === 'none';
+    const focusable = isElementFocusable(element, pageQW);
+    const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(element);
+    const parent = element.getElementParent();
+    let parentPresentation = false;
+    let presentation = presentationOrNone && !focusable && !hasGlobalARIA;
 
-  const role = element.getElementAttribute('role')
-  let presentationOrNone = role === 'presentation'|| role ==='none';
-  const focusable = isElementFocusable(element,pageQW);
-  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(element);
-  const parent = element.getElementParent();
-  let parentPresentation= false;
-  let presentation = presentationOrNone && !focusable && !hasGlobalARIA; 
-
-  if (parent && !presentation) {
-    parentPresentation = isElementParentPresentation(parent,pageQW);
+    if (parent && !presentation) {
+      parentPresentation = isElementParentPresentation(parent, pageQW);
+    }
+    result = presentation || parentPresentation
+    pageQW.cacheValue(selector, method, result);
   }
 
-  return presentation || parentPresentation;
+  return result;
 }
 
-function isParentChildPresentational(element: QWElement,page:QWPage): boolean{
+function isParentChildPresentational(element: QWElement, page: QWPage): boolean {
   if (!element) {
     throw Error('Element is not defined');
   }
+  let selector = element.getElementSelector();
+  let method = "DomUtils.isParentChildPresentational";
+  let result;
+  if (page.isValueCached(selector, method)) {
+    result = page.getCachedValue(selector, method);
+  } else {
 
-  const role = getElementRole(element,page);
-  let childPresentational;
-  if(role!== null)
-    childPresentational= childPresentationalRole.includes(role);
-  const parent = element.getElementParent();
-  let isParentChildPresentationalVar= false;
+    const role = getElementRole(element, page);
+    let childPresentational;
+    if (role !== null)
+      childPresentational = childPresentationalRole.includes(role);
+    const parent = element.getElementParent();
+    let isParentChildPresentationalVar = false;
 
-  if (parent && !childPresentational) {
-    isParentChildPresentationalVar = isParentChildPresentational(parent,page);
+    if (parent && !childPresentational) {
+      isParentChildPresentationalVar = isParentChildPresentational(parent, page);
+    }
+    result = childPresentational || isParentChildPresentationalVar;
+    page.cacheValue(selector, method, result);
   }
 
-  return childPresentational || isParentChildPresentationalVar;
+  return result;
 }
 export default isElementPresentation;
