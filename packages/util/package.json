@@ -1,15 +1,15 @@
 {
   "name": "@qualweb/util",
-  "version": "0.3.25",
+  "version": "0.3.26",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha",
-    "test-ANameTest": "mocha test/ANameTest.spec.js",
-    "test-ANameTestWiki": "mocha test/ANameTestWiki.spec.js",
-    "test-svg": "mocha test/ANameSVGTest.spec.js",
+    "test": "mocha --require esm",
+    "test:ANameTest": "mocha --require esm test/ANameTest.spec.js",
+    "test:ANameTestWiki": "mocha --require esm test/ANameTestWiki.spec.js",
+    "test:svg": "mocha --require esm test/ANameSVGTest.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish --access=public"
@@ -31,12 +31,14 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.4.18",
+    "@qualweb/dom": "^0.1.15",
+    "@qualweb/types": "^0.4.26",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.26",
     "chai": "^4.2.0",
     "css": "^3.0.0",
     "css-select": "^2.1.0",
+    "esm": "^3.2.25",
     "htmlparser2": "^4.0.0",
     "mocha": "^8.0.1",
     "puppeteer": "^5.2.1",
@@ -47,7 +49,6 @@
     "@qualweb/qw-page": "^0.1.11",
     "domutils": "^2.1.0",
     "htmlparser-to-html": "0.0.6",
-    "lodash.clone": "^4.5.0",
-    "request": "^2.88.0"
+    "lodash.clone": "^4.5.0"
   }
 }

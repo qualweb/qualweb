@@ -1,18 +1,16 @@
-const { AccessibilityUtils , DomUtils, Optimization} = require('../dist/index');
-const {
-  getDom
-} = require('./getDom');
-const puppeteer = require('puppeteer');
-const CSSselect = require('css-select');
-const { expect } = require('chai');
+import { AccessibilityUtils , DomUtils, Optimization } from '../dist/index';
+import puppeteer from 'puppeteer';
+import CSSselect from 'css-select';
+import { expect } from 'chai';
 
 describe('DOM UTILITIES', function() {
   describe('Testing getElementStyleProperty function', function() {
     it('should work', async function() {
       this.timeout(10 * 1000);
-      browser = await puppeteer.launch();
-      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html");
-      let svg = await page.$("svg");
+      const browser = await puppeteer.launch();
+      const dom = new Dom();
+      const { page } = await dom.getDOM(browser, 'https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html');
+      let svg = await page.$('svg');
       let children;
       if(svg!== null)
       children = await DomUtils.getElementChildren(svg);
@@ -23,12 +21,12 @@ describe('DOM UTILITIES', function() {
       }
       await browser.close();
       
-      expect("").to.be.equal('');
+      expect('').to.be.equal('');
     });
     it('test getPageRootElement', async function() {
       this.timeout(1000 * 1000);
       browser = await puppeteer.launch();
-      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml");
+      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml');
 
       const rootElement = await DomUtils.getPageRootElement(page);
       const tagName = await DomUtils.getElementTagName(rootElement);
@@ -38,7 +36,7 @@ describe('DOM UTILITIES', function() {
     it('test isMathDocument', async function() {
       this.timeout(1000 * 1000);
       browser = await puppeteer.launch();
-      const { sourceHtml, page, stylesheets } = await getDom(browser, "https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml");
+      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml');
 
       const isMath = await DomUtils.isMathDocument(await page.url());
       console.log(isMath);
