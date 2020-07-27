@@ -16,7 +16,7 @@ async function cli(): Promise<void> {
 
     await core.start();
     const reports = await core.evaluate(options);
-    await core.close();
+    await core.stop();
 
     if (reportType) {
       if (reportType === 'earl') {
