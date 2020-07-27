@@ -1,5 +1,7 @@
 # Changelog
-
+## [0.3.24] - 27/07/2020
+### Updated
+ - dependencies
 ## [0.3.24] - 27/07/2020
 ### Fixed
  - isElementPresentation cache bug

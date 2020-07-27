@@ -1,22 +1,10 @@
 # QualWeb utilities
 
-## How to install
+Utilities module for QualWeb.
 
-```shell
-  $ npm i @qualweb/util --save
-```
+## How to use
 
-## How to run
-
-```javascript
-  'use strict';
-
-  const { DomUtils } = require('@qualweb/util');
-
-  (async () => {
-    
-  })();
-```
+**This is an internal module of QualWeb. To use it please check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
 
 # License
 
