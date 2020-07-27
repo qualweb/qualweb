@@ -1,7 +1,7 @@
 declare module '@qualweb/qw-element' {
 
   class QWElement {
-    constructor(element: Element);
+    constructor(element: Element, elementsCSSRules?: Map<Element, any>);
     public elementHasAttribute(attribute: string): boolean;
     public elementHasAttributes(): boolean;
     public elementHasChild(childName: string): boolean;
