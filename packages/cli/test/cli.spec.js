@@ -1,6 +1,9 @@
-const cli = require('../dist/index');
-const { expect } = require('chai');
+import cli from '../dist/index';
+import { expect } from 'chai';
+import { exec } from 'child_process';
 
 describe('CLI', function() {
-  //TODO: tests
+  it('Print options', async function() {
+    cli();
+  });
 });

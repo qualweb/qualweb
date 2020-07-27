@@ -1,9 +1,7 @@
-'use strict';
-
 import * as core from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
-import { parse } from './lib/parser';
+import parse from './lib/parser';
 import { saveReport } from './lib/fileUtils';
 import { printHelp } from './lib/parserUtils';
 
@@ -11,29 +9,34 @@ async function cli(): Promise<void> {
   try {
     const options = await parse();
 
+    const reportType = options['r'];
+    const saveName = options['save-name'];
+    delete options['r'];
+    delete options['save-name'];
+
     await core.start();
     const reports = await core.evaluate(options);
     await core.close();
 
-    if (options['r']) {
-      if (options['r'] === 'earl') {
+    if (reportType) {
+      if (reportType === 'earl') {
         const earlReports = await core.generateEarlReport();
         for (const url in earlReports || {}) {
           saveReport(url, earlReports[url]);
         }
-      } else if (options['r'] === 'earl-a') {
-        const earlOptions: EarlOptions = { aggregated: true, aggregatedName: options['save-name'] };
-        if (options['m']) {
+      } else if (reportType === 'earl-a') {
+        const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
+        if (options.execute) {
           earlOptions.modules = {};
-          earlOptions.modules.act = !!options['execute'].act;
-          earlOptions.modules.html = !!options['execute'].html;
-          earlOptions.modules.css = !!options['execute'].css;
-          earlOptions.modules['best-practices'] = !!options['execute'].bp;
+          earlOptions.modules.act = !!options?.execute?.act;
+          earlOptions.modules.html = !!options?.execute?.html;
+          earlOptions.modules.css = !!options?.execute?.css;
+          earlOptions.modules['best-practices'] = !!options?.execute?.bp;
         }
 
         const earlReport = await core.generateEarlReport(earlOptions);
         const name = Object.keys(earlReport)[0];
-        saveReport(name, earlReport[name], !!options['save-name']);
+        saveReport(name, earlReport[name], !!saveName);
       } else {
         throw new Error('Invalid reporter format');
       }
@@ -44,12 +47,14 @@ async function cli(): Promise<void> {
       }
     }
   } catch (err) {
-    if(err.message === "Invalid input method"){
+    if(err?.message === 'Invalid input method'){
       printHelp();
-    }else{
+    } else {
       console.error(err);
     }
   }
+
+  process.exit(0);
 }
 
 export = cli;

@@ -1,5 +1,3 @@
-'use strict';
-
 import { EvaluationReport } from '@qualweb/core';
 import { EarlReport } from '@qualweb/earl-reporter';
 import fs from 'fs';
@@ -22,21 +20,23 @@ async function saveReport(name: string, report: EvaluationReport | EarlReport, o
   await writeFile(`${path}/${filename}`, JSON.stringify(report, null, 2));
 }
 
-function readJsonFile(filePath): Promise<void> {
-  const fs = require('fs');
+function readJsonFile(filePath: string): Promise<any> {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
-      if (err) reject(err);
-      resolve(JSON.parse(data));
+      if (err) 
+        reject(err);
+      else
+        resolve(JSON.parse(data.toString()));
     });
   });
 }
 
-function fileExists(filePath): Promise<boolean> {
-  const fs = require('fs');
+function fileExists(filePath: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     try {
-      resolve(fs.existsSync(filePath));
+      fs.exists(filePath, (exists) => {
+        resolve(exists);
+      });
     } catch(err) {
       reject(err);
     }

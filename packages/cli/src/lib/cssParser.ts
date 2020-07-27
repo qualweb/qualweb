@@ -1,64 +1,70 @@
-'use strict';
 import { validateCSS, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { readJsonFile, fileExists } from './fileUtils';
+import { CommandLineOptions } from 'command-line-args';
+import { QualwebOptions } from '@qualweb/core';
 import clone from 'lodash.clone';
 
-async function parseCSS(mainOptions, options) {
+async function parseCSS(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
   options['css-techniques'] = {};
 
   if(mainOptions['css-techniques']){
-    if(mainOptions.module && !options['execute']['css']) {
-      printError("Wrong module selected.");
-    }else{
-      console.log("Warning: Module css has options but is not select. Will be select automatically");
-      options['execute']["css"] = true;
-    }
-
-    if(mainOptions['html-techniques'].length === 1){
-      if(await fileExists(mainOptions['css-techniques'][0])){
-        let rules = await readJsonFile(mainOptions['css-techniques'][0]);
-        options['css-techniques']['techniques'] = clone(rules['css-techniques']['rules']);
-      }else{
-        options['css-techniques']['techniques'] = clone(mainOptions['css-techniques']);
+    if(mainOptions.module && !options?.execute?.css) {
+      printError('Wrong module selected.');
+    } else {
+      console.log('Warning: Module css has options but is not select. Will be select automatically');
+      if (!options.execute){
+        options.execute = {};
       }
-    }else{
-      options['css-techniques']['techniques'] = clone(mainOptions['css-techniques']);
+      options.execute.css = true;
     }
 
-    validateCSS(options['css-techniques']['techniques']);
+    if(mainOptions['css-techniques'].length === 1){
+      if(await fileExists(mainOptions['css-techniques'][0])){
+        const techniques = await readJsonFile(mainOptions['css-techniques'][0]);
+        options['css-techniques'].techniques = clone(techniques['css-techniques'].techniques);
+      } else {
+        options['css-techniques'].techniques = clone(mainOptions['css-techniques']);
+      }
+    } else {
+      options['css-techniques'].techniques = clone(mainOptions['css-techniques']);
+    }
+
+    validateCSS(options['css-techniques'].techniques!);
   }
 
   if(mainOptions['css-levels']){
-    if(mainOptions.module && !options['execute']['css']) {
-      printError("Wrong module selected.");
-    }else{
-      console.log("Warning: Module css has options but is not select. Will be select automatically");
-      options['execute']["css"] = true;
+    if(mainOptions.module && !options?.execute?.css) {
+      printError('Wrong module selected.');
+    } else {
+      console.log('Warning: Module css has options but is not select. Will be select automatically');
+      if (!options.execute){
+        options.execute = {};
+      }
+      options.execute.css = true;
     }
 
-    options['css-techniques']['levels'] = clone(mainOptions['css-levels']);
-    validateLevels(options['css-techniques']['levels']);
+    options['css-techniques'].levels = clone(mainOptions['css-levels']);
+    validateLevels(options['css-techniques'].levels!);
   }
 
   if(mainOptions['css-principles']){
-    if(mainOptions.module && !options['execute']['css']) {
-      printError("Wrong module selected.");
-    }else{
-      console.log("Warning: Module css has options but is not select. Will be select automatically");
-      options['execute']["css"] = true;
+    if(mainOptions.module && !options?.execute?.css) {
+      printError('Wrong module selected.');
+    } else {
+      console.log('Warning: Module css has options but is not select. Will be select automatically');
+      if (!options.execute){
+        options.execute = {};
+      }
+      options.execute.css = true;
     }
 
-    options['css-techniques']['principles'] = clone(mainOptions['css-principles']);
-    validatePrinciples(options['css-techniques']['principles']);
+    options['css-techniques'].principles = clone(mainOptions['css-principles']);
+    validatePrinciples(options['css-techniques'].principles!);
   }
 
   if(Object.keys(options['css-techniques']).length === 0){
     delete options['css-techniques'];
   }
-
-  return options;
 }
 
-export {
-  parseCSS
-}
+export = parseCSS;
