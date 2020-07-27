@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.26",
+  "version": "0.1.28",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.14",
-    "@qualweb/types": "^0.4.23",
+    "@qualweb/dom": "^0.1.15",
+    "@qualweb/types": "^0.4.26",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "css": "^3.0.0",
@@ -37,15 +37,15 @@
     "esm": "^3.2.25",
     "htmlparser2": "^4.0.0",
     "mocha": "^8.0.1",
-    "puppeteer": "^5.0.0",
-    "typescript": "^3.9.6"
+    "puppeteer": "^5.2.1",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.4.17",
-    "@qualweb/best-practices": "^0.4.4",
-    "@qualweb/css-techniques": "^0.4.3",
-    "@qualweb/html-techniques": "^0.4.6",
-    "@qualweb/qw-page": "^0.1.16",
+    "@qualweb/act-rules": "^0.4.20",
+    "@qualweb/best-practices": "^0.4.6",
+    "@qualweb/css-techniques": "^0.4.6",
+    "@qualweb/html-techniques": "^0.4.8",
+    "@qualweb/qw-page": "^0.1.17",
     "node-fetch": "^2.6.0"
   }
 }
