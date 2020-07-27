@@ -209,24 +209,16 @@ class QW_ACT_R7 extends Rule {
   @ElementIsVisible
   execute(element: QWElement): void {
     
-    /*const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };*/
+    const rules = element.getCSSRules();
     
-    const rules = element.getElementAttribute('_cssRules');
-
     if (!rules) {
       return;
     }
 
-    const parsedRules = JSON.parse(rules);
-
     let transformValue: number | null = null;
-    for (const property in parsedRules || {}) {
+    for (const property in rules || {}) {
       if (property === 'transform') {
-        const value = parsedRules[property].value;
+        const value = rules[property].value;
         if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
           let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
           transformValue = this.parseDegrees(angle);
@@ -234,7 +226,7 @@ class QW_ACT_R7 extends Rule {
       }
     }
 
-    const media = parsedRules.media;
+    const media = rules.media;
     if (media) {
       for (const condition in media || {}) {
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
