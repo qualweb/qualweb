@@ -49,7 +49,7 @@ class QWPage {
   public getElement(selector: string): QWElement | null {
     const element = this.document.querySelector(selector);
     this.addCSSRulesPropertyToElement(element);
-    return element ? new QWElement(element) : null;
+    return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
 
   public getElements(selector: string): Array<QWElement> {
@@ -58,7 +58,7 @@ class QWPage {
 
     for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element));
+      qwList.push(new QWElement(element, this.elementsCSSRules));
     }
 
     return qwList;
@@ -68,13 +68,13 @@ class QWPage {
     const treeSelector = elementQW.getTreeSelector();
     const element = this.document.querySelector(`#${id}` + treeSelector);
     this.addCSSRulesPropertyToElement(element);
-    return element ? new QWElement(element) : null;
+    return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
 
   public getElementByAttributeName(name: string): QWElement | null {
     const element = this.document.querySelector(`[name="${name}"]`);
     this.addCSSRulesPropertyToElement(element);
-    return element ? new QWElement(element) : null;
+    return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
 
   public processShadowDom(): void {
@@ -100,7 +100,7 @@ class QWPage {
   public getPageRootElement(): QWElement | null {
     const documentElement = this.document.documentElement;
     this.addCSSRulesPropertyToElement(documentElement);
-    return documentElement ? new QWElement(documentElement) : null;
+    return documentElement ? new QWElement(documentElement, this.elementsCSSRules) : null;
   }
 
   public getHTMLContent(): string {
@@ -110,7 +110,7 @@ class QWPage {
   public getFocusedElement(): QWElement | null {
     const activeElement = this.document.activeElement;
     this.addCSSRulesPropertyToElement(activeElement);
-    return activeElement ? new QWElement(activeElement) : null
+    return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null
   }
 
   public changeToDefaultViewport(): void {
