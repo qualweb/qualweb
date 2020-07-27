@@ -124,7 +124,7 @@ class ACTRules {
     }
   }
 
-  private executeNotMappedRules(report: ACTRulesReport, metaElements: any[]): void {
+  private executeNotMappedRules(report: ACTRulesReport, metaElements: any[], page: QWPage): void {
     if (this.rulesToExecute['QW-ACT-R4']) {
       if (metaElements.length > 0) {
         for (const elem of metaElements || []) {
@@ -136,6 +136,12 @@ class ACTRules {
       report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
       report.metadata[report.assertions['QW-ACT-R4'].metadata.outcome]++;
       this.rules['QW-ACT-R4'].reset();
+    }
+    if (this.rulesToExecute['QW-ACT-R37']) {
+      this.rules['QW-ACT-R37'].execute(undefined, page);
+      report.assertions['QW-ACT-R37'] = this.rules['QW-ACT-R37'].getFinalResults();
+      report.metadata[report.assertions['QW-ACT-R37'].metadata.outcome]++;
+      this.rules['QW-ACT-R37'].reset();
     }
   }
 
@@ -176,7 +182,7 @@ class ACTRules {
 
     this.executeNonConcurrentRules(report, page);
     this.executeConcurrentRules(report, page);
-    this.executeNotMappedRules(report, metaElements);
+    this.executeNotMappedRules(report, metaElements, page);
 
     return report;
   }

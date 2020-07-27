@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.20] - 28/07/2020
+### Fixed
+ - known bugs
+
+### Updated
+ - dependencies
+
+## [0.4.19] - 27/07/2020
+### Fixed
+ - known bugs
+
+### Updated
+ - dependencies
+
 ## [0.4.18] - 20/07/2020
 ### Fixed
  - AcessibleNames on report in R8 and R17

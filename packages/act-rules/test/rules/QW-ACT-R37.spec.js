@@ -23,36 +23,50 @@ describe(`Rule ${rule}`, async function () {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
     describe('Running tests', function () {
-      for (const test of tests || []) {
+      /*for (const test of tests || []) {
         it(test.title, async function () {
 
           this.timeout(100 * 1000);
-          const { sourceHtml, page, stylesheets } = await getDom(context, test.url);
+          const { page } = await getDom(context, test.url);
 
           await page.addScriptTag({
-                        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+          });
 
-          })
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
-          })
+          });
 
-          const report = await page.evaluate((stylesheets) => {
-            const actRules = new ACTRules.ACTRules();
-            const report = actRules.execute([], new QWPage.QWPage(document, window, true), stylesheets);
+          const report = await page.evaluate((rules) => {
+            const actRules = new ACTRules.ACTRules(rules);
+            const report = actRules.execute([], new QWPage.QWPage(document, window, true));
             return report;
-          }, [rule]);
-          // const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
-          //   const actRules = new ACTRules.ACTRules(rules);
-          //   const report = actRules.execute(sourceHtml, new QWPage.QWPage(document, window), stylesheets);
-          //   return report;
-          // }, sourceHtml, stylesheets, { rules: [rule] });
+          }, {rules: [rule]});
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
-
-
         });
-      }
+      }*/
+
+      it('Should pass', async function() {
+        this.timeout(100 * 1000);
+        const { page } = await getDom(context, 'https://accessibilitynl.github.io/act-rules-test-pages/first-class-ongehinderd/');
+
+        await page.addScriptTag({
+          path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+        });
+
+        await page.addScriptTag({
+          path: require.resolve('../../dist/act.js')
+        });
+
+        const report = await page.evaluate((rules) => {
+          const actRules = new ACTRules.ACTRules(rules);
+          const report = actRules.execute([], new QWPage.QWPage(document, window, true));
+          return report;
+        }, {rules: [rule]});
+        
+        expect(report.assertions[rule].metadata.outcome).to.be.equal('passed');
+      });
     });
 
     describe(`Closing testbench`, async function () {

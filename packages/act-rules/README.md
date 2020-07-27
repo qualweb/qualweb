@@ -57,6 +57,7 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R45 | [c6f8a9](https://act-rules.github.io/rules/c6f8a9) | Child elements of list(s) follow context model |
 | QW-ACT-R46 | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model |
 | QW-ACT-R47 | [b8bb68](https://act-rules.github.io/rules/b8bb68) | Text spacing in `style` attributes is not `!important` |
+| QW-ACT-R48 | [46ca7f](https://act-rules.github.io/rules/46ca7f) | Element marked as decorative is not exposed |
 
 # License
 

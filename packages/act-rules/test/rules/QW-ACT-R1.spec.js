@@ -23,7 +23,7 @@ describe(`Rule ${rule}`, async function () {
         it(test.title, async function () {
           this.timeout(100 * 1000);
           const dom = new Dom();
-          const {sourceHtml, page, stylesheets} = await dom.getDOM(browser, {}, test.url, null);
+          const {sourceHtml, page } = await dom.getDOM(browser, {}, test.url, null);
           console.log(test.url);
 
           await page.addScriptTag({

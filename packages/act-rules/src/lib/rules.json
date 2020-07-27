@@ -1449,7 +1449,8 @@
         "WCAG21:language"
       ]
     }
-  },  "QW_ACT_R48": {
+  },  
+  "QW_ACT_R48": {
     "name": "Element marked as decorative is not exposed",
     "code": "QW-ACT-R48",
     "mapping": "46ca7f",
