@@ -44,8 +44,13 @@ function isElementVisibleAux(elementQW: QWElement,pageQW:QWPage): boolean {
   const textHasTheSameColor = textHasTheSameColorOfBackground(elementQW);
   const hasContent = elementHasContent(elementQW);
   const hasOnePixelHeight = elementHasOnePixel(elementQW);
+  let opacityProperty = elementQW.getElementStyleProperty( 'opacity','');
+  let opacity;
+  if(opacityProperty){
+    opacity = parseInt(opacityProperty)
+  }
 
-  return !(offScreen || hasOnePixelHeight || cssHidden || textHasTheSameColor && !hasContent || !hasContent);
+  return !(offScreen || hasOnePixelHeight || cssHidden || textHasTheSameColor && !hasContent || !hasContent || opacity && opacity === 0);
 }
 
 export default isElementVisible;
