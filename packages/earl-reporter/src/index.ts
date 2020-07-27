@@ -1,5 +1,3 @@
-'use strict';
-
 import cloneDeep from 'lodash.clonedeep';
 import { EvaluationReport } from '@qualweb/core';
 import {
@@ -68,12 +66,12 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
 
   const testSubject: TestSubject = {
     '@type': 'TestSubject',
-    source: report.system.url.inputUrl,
+    source: report.system.url?.inputUrl || '',
     assertor,
     assertions: new Array<Assertion>()
   };
 
-  if (report.system.url.inputUrl !== report.system.url.completeUrl) {
+  if (report.system.url && report.system.url.inputUrl !== report.system.url.completeUrl) {
     testSubject.redirectedTo = report.system.url.completeUrl;
   }
 

@@ -1,12 +1,12 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha",
+    "test": "mocha --require esm",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
@@ -25,12 +25,13 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.3.28",
+    "@qualweb/types": "^0.4.26",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^13.13.5",
+    "@types/node": "^14.0.26",
     "chai": "^4.2.0",
-    "mocha": "^7.1.2",
-    "typescript": "^3.8.3"
+    "esm": "^3.2.25",
+    "mocha": "^8.0.1",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"

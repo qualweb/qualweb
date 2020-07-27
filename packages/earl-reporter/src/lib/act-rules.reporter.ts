@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRulesReport } from '@qualweb/act-rules';
 import { 
   Assertion,
@@ -19,7 +17,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
         for (const result of rule.results || []) {
           const source: ResultSource = {
             result: {
-              pointer: result.pointer,
+              pointer: result.elements?.filter(e => e.pointer !== undefined).map(e => e.pointer).join(', '),
               outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
             }
           };

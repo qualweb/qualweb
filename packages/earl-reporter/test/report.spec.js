@@ -1,7 +1,5 @@
-const { expect } = require('chai');
-const request = require('request-promise');
-const reporter = require('../dist/index');
-
+import { expect } from 'chai';
+import reporter from '../dist/index';
 // https://ciencias.ulisboa.pt - 05/08/2019 15:31
 const evaluationReport = {
   "type": "evaluation",
