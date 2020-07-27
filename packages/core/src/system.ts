@@ -1,5 +1,3 @@
-'use strict';
-
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
@@ -100,13 +98,13 @@ class System {
     for (let i = 0; i < this.urls.length; i += this.numberOfParallelEvaluations) {
       const promises = new Array<Promise<void>>();
       for (let j = 0; j < this.numberOfParallelEvaluations && i + j < this.urls.length; j++) {
-        promises.push(this.runModulesUrl(this.urls[i + j], options));
+        promises.push(this.runModules(this.urls[i + j], options));
       }
       await Promise.all(promises);
     }
 
     if (this.html) {
-      await this.runModulesHtml(options);
+      await this.runModules('', options);
     }
   }
 
@@ -118,38 +116,21 @@ class System {
     }
   }
 
-  public async close(): Promise<void> {
+  public async stop(): Promise<void> {
     if (this.browser) {
       await this.browser.close();
     }
   }
 
-  private async runModulesUrl(url: string, options: QualwebOptions): Promise<void> {
+  private async runModules(url: string, options: QualwebOptions): Promise<void> {
     if (this.browser) {
       try {
         const dom = new Dom();
-        const { sourceHtml, page } = await dom.getDOM(this.browser, options, url, '');
+        const { sourceHtml, page } = await dom.getDOM(this.browser, options, url, this.html || '');
         const evaluation = new Evaluation();
         const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, url);
         await dom.close();
-        this.evaluations[url] = evaluationReport.getFinalReport();
-      } catch (err) {
-        if (!this.force) {
-          console.error(err);
-        }
-      }
-    }
-  }
-
-  private async runModulesHtml(options: QualwebOptions): Promise<void> {
-    if (this.browser && this.html) {
-      try {
-        const dom = new Dom();
-        const { sourceHtml, page } = await dom.getDOM(this.browser, options, '', this.html);
-        const evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, '');
-        await dom.close();
-        this.evaluations['customHtml'] = evaluationReport.getFinalReport();
+        this.evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
         if (!this.force) {
           console.error(err);

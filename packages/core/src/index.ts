@@ -1,5 +1,3 @@
-'use strict';
-
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 
@@ -11,8 +9,8 @@ async function start(): Promise<void> {
   await system.start();
 }
 
-async function close(): Promise<void> {
-  await system.close();
+async function stop(): Promise<void> {
+  await system.stop();
 }
 
 async function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
@@ -27,7 +25,7 @@ async function generateEarlReport(options?: EarlOptions): Promise<{[url: string]
 
 export {
   start,
-  close,
+  stop,
   evaluate,
   generateEarlReport
 };
