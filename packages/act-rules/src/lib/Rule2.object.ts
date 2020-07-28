@@ -41,8 +41,8 @@ abstract class Rule {
 
   protected addEvaluationResult(result: ACTRuleResult, element?: any): void {
     if (element) {
-      const htmlCode = element.getElementHtmlCode(true, false);
-      const pointer = element.getElementSelector();
+      const htmlCode = element.htmlCode;
+      const pointer = element.selector;
       result.elements =[{htmlCode,pointer}];
     }
     this.rule.results.push(clone(result));
