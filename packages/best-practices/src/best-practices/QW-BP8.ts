@@ -16,11 +16,7 @@ class QW_BP8 extends BestPracticeObject {
 
   @ElementExists
   @ElementHasChild('img, svg')
-  execute(element: QWElement | undefined, page: QWPage): void{
-
-    if (!element) {
-      return;
-    }
+  execute(element: QWElement, page: QWPage): void {
 
    const evaluation: BestPracticeResult = {
       verdict: '',
@@ -30,14 +26,10 @@ class QW_BP8 extends BestPracticeObject {
 
     const images = element.getElements('img');
     const svgs = element.getElements('svg');
-    const svgANames = new Array<string>();
-
-
-    if (images.length + svgs.length === 0) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `This heading doesn't have images`;
-      evaluation.resultCode = 'RC1';
-    } else {
+    
+    if (images.length + svgs.length !== 0) {
+      const svgANames = new Array<string>();
+      
       for (const svg of svgs || []) {
         const aName = AccessibilityUtils.getAccessibleNameSVG(svg, page);
         if (aName && aName.trim() !== '') {
@@ -49,18 +41,15 @@ class QW_BP8 extends BestPracticeObject {
       if (aName || svgANames.length > 0) {
         evaluation.verdict = 'passed';
         evaluation.description = `This heading with at least one image has an accessible name`;
-        evaluation.resultCode = 'RC2';
+        evaluation.resultCode = 'RC1';
       } else {
         evaluation.verdict = 'failed';
         evaluation.description = `This heading with at least one image does not have an accessible name`;
-        evaluation.resultCode = 'RC3';
+        evaluation.resultCode = 'RC2';
       }
+
+      super.addEvaluationResult(evaluation, element);
     }
-
-    evaluation.htmlCode = element.getElementHtmlCode( true, true);
-    evaluation.pointer =element.getElementSelector();
-
-    super.addEvaluationResult(evaluation);
   }
 }
 

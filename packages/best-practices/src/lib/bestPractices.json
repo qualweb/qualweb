@@ -87,7 +87,7 @@
     "description": "Headings with at least one image should have an accessible name",
     "metadata": {
       "target": {
-        "element": ["h1", "h2", "h3", "h4", "h5", "h6"],
+        "element": ["h1", "h2", "h3", "h4", "h5", "h6", "[role='heading']"],
         "children": "img"
       },
       "related": ["G130"]

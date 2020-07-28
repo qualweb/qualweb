@@ -20,6 +20,10 @@ abstract class BestPractice {
     return this.bestPractice.metadata.passed;
   }
 
+  protected getNumberOfWarningResults(): number {
+    return this.bestPractice.metadata.warning;
+  }
+
   protected getNumberOfFailedResults(): number {
     return this.bestPractice.metadata.failed;
   }
@@ -30,8 +34,8 @@ abstract class BestPractice {
 
   protected addEvaluationResult(result: BestPracticeResult, element?: QWElement): void {
     if (element) {
-      const htmlCode= element.getElementHtmlCode(true, true);
-      const pointer= element.getElementSelector()
+      const htmlCode = element.getElementHtmlCode(true, true);
+      const pointer = element.getElementSelector()
       result.htmlCode = htmlCode;
       result.pointer = pointer;
     }
