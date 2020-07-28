@@ -7,10 +7,10 @@ import clone from 'lodash.clone';
 async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void>{
   options['act-rules'] = {}
 
-  if(mainOptions['act-rules']){
-    if(mainOptions.module && !options?.execute?.act) {
-      printError('Wrong module selected.');
-    } else {
+  if(mainOptions['act-rules']) {
+    if(mainOptions.module && options?.execute?.act === undefined) {
+      printError('The "--act-rules" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module act has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};
@@ -32,10 +32,10 @@ async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions
     validateACT(options['act-rules'].rules!);
   }
 
-  if(mainOptions['act-levels']){
-    if(mainOptions.module && !options?.execute?.act) {
-      printError('Wrong module selected.');
-    } else {
+  if(mainOptions['act-levels']) {
+    if(mainOptions.module && options?.execute?.act  === undefined) {
+      printError('The "--act-levels" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module act has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};
@@ -47,10 +47,10 @@ async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions
     validateLevels(options['act-rules'].levels!);
   }
 
-  if(mainOptions['act-principles']){
-    if(mainOptions.module && !options?.execute?.act) {
-      printError('Wrong module selected.');
-    }else{
+  if(mainOptions['act-principles']) {
+    if(mainOptions.module && options?.execute?.act  === undefined) {
+      printError('The "--act-principles" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module act has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};

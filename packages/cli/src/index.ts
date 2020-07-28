@@ -17,12 +17,12 @@ async function cli(): Promise<void> {
     await core.start();
     const reports = await core.evaluate(options);
     await core.stop();
-
+    
     if (reportType) {
       if (reportType === 'earl') {
         const earlReports = await core.generateEarlReport();
         for (const url in earlReports || {}) {
-          saveReport(url, earlReports[url]);
+          await saveReport(url, earlReports[url]);
         }
       } else if (reportType === 'earl-a') {
         const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
@@ -36,14 +36,14 @@ async function cli(): Promise<void> {
 
         const earlReport = await core.generateEarlReport(earlOptions);
         const name = Object.keys(earlReport)[0];
-        saveReport(name, earlReport[name], !!saveName);
+        await saveReport(name, earlReport[name], !!saveName);
       } else {
         throw new Error('Invalid reporter format');
       }
     } else {
       for (const url in reports || {}) {
         delete reports[url].system.page.dom.source.html.parsed;
-        saveReport(url, reports[url]);
+        await saveReport(url, reports[url]);
       }
     }
   } catch (err) {

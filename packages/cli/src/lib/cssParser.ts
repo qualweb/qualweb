@@ -7,10 +7,10 @@ import clone from 'lodash.clone';
 async function parseCSS(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
   options['css-techniques'] = {};
 
-  if(mainOptions['css-techniques']){
-    if(mainOptions.module && !options?.execute?.css) {
-      printError('Wrong module selected.');
-    } else {
+  if(mainOptions['css-techniques']) {
+    if(mainOptions.module && options?.execute?.css === undefined) {
+      printError('The "--css-techniques" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module css has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};
@@ -18,7 +18,7 @@ async function parseCSS(mainOptions: CommandLineOptions, options: QualwebOptions
       options.execute.css = true;
     }
 
-    if(mainOptions['css-techniques'].length === 1){
+    if(mainOptions['css-techniques'].length === 1) {
       if(await fileExists(mainOptions['css-techniques'][0])){
         const techniques = await readJsonFile(mainOptions['css-techniques'][0]);
         options['css-techniques'].techniques = clone(techniques['css-techniques'].techniques);
@@ -32,10 +32,10 @@ async function parseCSS(mainOptions: CommandLineOptions, options: QualwebOptions
     validateCSS(options['css-techniques'].techniques!);
   }
 
-  if(mainOptions['css-levels']){
-    if(mainOptions.module && !options?.execute?.css) {
-      printError('Wrong module selected.');
-    } else {
+  if(mainOptions['css-levels']) {
+    if(mainOptions.module && options?.execute?.css === undefined) {
+      printError('The "--css-levels" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module css has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};
@@ -47,10 +47,10 @@ async function parseCSS(mainOptions: CommandLineOptions, options: QualwebOptions
     validateLevels(options['css-techniques'].levels!);
   }
 
-  if(mainOptions['css-principles']){
-    if(mainOptions.module && !options?.execute?.css) {
-      printError('Wrong module selected.');
-    } else {
+  if(mainOptions['css-principles']) {
+    if(mainOptions.module && options?.execute?.css === undefined) {
+      printError('The "--css-techniques" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module css has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};

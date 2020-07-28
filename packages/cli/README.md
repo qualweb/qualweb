@@ -274,7 +274,6 @@ This config file can replace commands **--css-techniques**, **--css-levels** and
 | QW-HTML-T26 | [F25](https://www.w3.org/WAI/WCAG21/Techniques/failures/F25) | Failure of Success Criterion 2.4.2 due to the title of a Web page not identifying the contents |
 | QW-HTML-T27 | [G130](https://www.w3.org/WAI/WCAG21/Techniques/general/G130) | Providing descriptive headings |
 | QW-HTML-T28 | [H48](https://www.w3.org/WAI/WCAG21/Techniques/html/H48) | Using ol, ul and dl for lists or groups of links |
-| QW-HTML-T29 | [F54](https://www.w3.org/WAI/WCAG21/Techniques/failures/F54) | Failure of Success Criterion 2.1.1 due to using only pointing-device-specific event handlers (including gesture) for a function  |
 | QW-HTML-T30 | [H51](https://www.w3.org/WAI/WCAG21/Techniques/html/H51) | Using table markup to present tabular information |
 | QW-HTML-T31 | [H45](https://www.w3.org/WAI/WCAG21/Techniques/html/H45) | Using longdesc |
 | QW-HTML-T32 | [H32](https://www.w3.org/WAI/WCAG21/Techniques/html/H32) | Providing submit buttons |

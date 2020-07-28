@@ -8,9 +8,9 @@ async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions)
   options['best-practices'] = {};
 
   if(mainOptions['best-practices']) {
-    if(mainOptions.module && !options?.execute?.bp) {
-      printError('Wrong module selected.');
-    } else {
+    if(mainOptions.module && options?.execute?.bp === undefined) {
+      printError('The "--best-practices" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
       console.log('Warning: Module bp has options but is not select. Will be select automatically');
       if (!options.execute){
         options.execute = {};
