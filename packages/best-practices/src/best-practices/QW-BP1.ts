@@ -31,7 +31,7 @@ class QW_BP1 extends BestPracticeObject {
         evaluation.description = 'Check that heading markup is used when content is a heading.';
         evaluation.resultCode = 'RC1';
 
-        super.addEvaluationResult(evaluation, element);
+        super.addEvaluationResult(evaluation, heading);
       }
     }
 
