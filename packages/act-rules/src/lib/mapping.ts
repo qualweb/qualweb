@@ -5,7 +5,6 @@ export default {
     },
     'post': {
       'title': ['QW-ACT-R1'],
-      '*': ['QW-ACT-R37'],
       'body *': ['QW-ACT-R43']
     }
   },
@@ -40,6 +39,7 @@ export default {
       'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
       '*[style]': ['QW-ACT-R47'],
+      '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
       '*': ['QW-ACT-R7']
     }
   }

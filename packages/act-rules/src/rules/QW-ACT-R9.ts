@@ -19,20 +19,21 @@ class QW_ACT_R9 extends Rule {
 
     const links = element.getElements('a[href], [role="link"]');
     const iframesAll = element.getElements('iframe');
-    let iframeContent,frame;
+    let iframeContent, frame;
 
     for (const iframe of iframesAll || []) {
-      try{
-      frame = iframe.getContentFrame();}
-      catch(e){
+      try {
+        frame = iframe.getContentFrame();
+      }
+      catch (e) {
       }
       if (frame) {
-        iframeContent = new QWPage(frame,frame.defaultView);
+        iframeContent = new QWPage(frame, frame.defaultView);
         links.push(...(iframeContent.getElements('a[href], [role="link"]')));
       }
       frame = null;
     }
-  
+
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string>();
@@ -41,7 +42,7 @@ class QW_ACT_R9 extends Rule {
       let aName, href;
       if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
         aName = AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else if(AccessibilityUtils.isElementInAT(link, page)){
+      } else if (AccessibilityUtils.isElementInAT(link, page)) {
         aName = AccessibilityUtils.getAccessibleName(link, page);
       }
       href = link.getElementAttribute('href');
@@ -60,36 +61,22 @@ class QW_ACT_R9 extends Rule {
         description: '',
         resultCode: ''
       };
+      let elementList = new Array<QWElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
       } else if (!!accessibleName && accessibleName !== '') {
         const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
-        
+
         if (hasEqualAn.length > 0) {
           blacklist.push(...hasEqualAn);
           let hasEqualHref = true;
           for (let index of hasEqualAn) {
             hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
+            elementList.push(links[index]);
           }
+          elementList.push(links[counter]);
           hasEqualAn.push(counter);
-          if (!hasEqualHref) {
-            /*const selector = new Array<string>();
-            for (const index of hasEqualAn || []) {
-              selector.push(links[index].getElementSelector());
-            }
-            const hashArray = this.getContentHash(selector, page);
-            const firstHash = hashArray.pop();
-
-            for (const hash of hashArray || []) {
-              if (!firstHash || !hashArray || hash !== firstHash) {
-                result = false;
-              }
-            }
-            if(hashArray.length=== 0){
-              result = false;
-              }*/
-          }
           if (hasEqualHref) {//passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`links\` with the same accessible name have equal content.`;
@@ -104,13 +91,13 @@ class QW_ACT_R9 extends Rule {
           evaluation.description = `Doesn't exist any other \`link\` with the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       } else {//inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       }
-
-      super.addEvaluationResult(evaluation, links[counter]);
       counter++;
     }
   }

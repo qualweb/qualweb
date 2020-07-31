@@ -35,8 +35,7 @@ class QW_ACT_R6 extends Rule {
       evaluation.description = `The \`image button\` doesn't have an accessible name.`;
       evaluation.resultCode = 'RC2';
     }
-    evaluation.accessibleName = accessibleName;
-    super.addEvaluationResult(evaluation, element);
+    super.addEvaluationResult(evaluation, element,true,false,true,page);
   }
 }
 

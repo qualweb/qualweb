@@ -47,6 +47,8 @@ class QW_ACT_R44 extends Rule {
         description: '',
         resultCode: ''
       };
+      let elementList = new Array<QWElement>();
+
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -59,7 +61,10 @@ class QW_ACT_R44 extends Rule {
           let hasEqualHref = false;
           for (let index of hasEqualAn) {
             hasEqualHref = linkDataList[index].href === linkDataList[counter].href && linkDataList[counter].href !== null;
+            elementList.push(links[index]);
+
           }
+          elementList.push(links[counter]);
           if (hasEqualHref) {//passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`links\` with the same accessible name have equal content.`;
@@ -74,13 +79,14 @@ class QW_ACT_R44 extends Rule {
           evaluation.description = `Doesn't exist any other \`link\` with the same accessible name in the same link context.`;
           evaluation.resultCode = 'RC4';
         }
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       } else {//inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC5';
+        super.addMultipleElementEvaluationResult(evaluation, elementList);
       }
 
-      super.addEvaluationResult(evaluation, links[counter]);
       counter++;
     }
   }

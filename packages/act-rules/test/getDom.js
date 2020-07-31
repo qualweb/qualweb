@@ -14,15 +14,6 @@ async function getDom(browser,url, viewport) {
         await page.setViewport(viewport);
     }
 
-    const plainStylesheets = {};
-    page.on('response', async response => {
-        if (response.request().resourceType() === 'stylesheet') {
-            const url = response.url();
-            const content = await response.text();
-            plainStylesheets[url] = content;
-        }
-    });
-
     await page.goto(url, {
         waitUntil: 'domcontentloaded'
     });

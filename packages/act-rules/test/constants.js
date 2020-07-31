@@ -55,7 +55,7 @@ exports.mapping = {
   'QW-ACT-R45': 'c6f8a9',
   'QW-ACT-R46': 'a73be2',
   'QW-ACT-R47': 'b8bb68',
-  'QW-ACT-R48': 'c487ae',
+  'QW-ACT-R48': '46ca7f',
   'QW-ACT-R49': 'aaa1bf',
   'QW-ACT-R50': '4c31df',
   'QW-ACT-R51': 'fd26cf',
@@ -68,7 +68,5 @@ exports.mapping = {
   'QW-ACT-R58': '2eb176',
   'QW-ACT-R59': 'afb423',
   'QW-ACT-R60': 'f51b46',
-  'QW-ACT-R61': '1a02b0',
-
-
+  'QW-ACT-R61': '1a02b0'
 };

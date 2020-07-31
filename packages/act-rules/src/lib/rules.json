@@ -1451,25 +1451,17 @@
     }
   },
   "QW_ACT_R48": {
-    "name": "Text spacing in `style` attributes is not `!important`",
-    "code": "QW-ACT-R47",
-    "mapping": "b8bb68",
-    "description": "This rule checks that text spacing set in the `style` attribute is not set to `!important` or that at least one of the relevant text styles has exceeded the specified metric for retaining content visibility and functionality.",
+    "name": "Element marked as decorative is not exposed",
+    "code": "QW-ACT-R48",
+    "mapping": "46ca7f",
+    "description": "This rule checks that elements marked as decorative either are not included in the accessibility tree, or have a presentational role.",
     "metadata": {
       "target": {
-        "element": "body, body *",
-        "attribute": "style"
+        "element": "[role='presentation'],[role='none'],[alt='']",
       },
-      "success-criteria": [
-        {
-          "name": "1.4.12",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
-        }
-      ],
+      "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/b8bb68",
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/decorative-element-no-alt/_rules/element-marked-decorative-is-not-exposed-46ca7f.md",
       "type": [
         "ACTRule",
         "TestCase"
@@ -1740,21 +1732,16 @@
       "target": {
         "element": "video"
       },
-      "success-criteria": [ {
-        "name": "1.2.8 ",
-        "level": "AAA",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/TR/WCAG21/#media-alternative-prerecorded"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.2.8 ",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/TR/WCAG21/#media-alternative-prerecorded"
+        }
+      ],
       "related": [],
       "url": "https://act-rules.github.io/rules/1a02b0",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
     }
   }
 }

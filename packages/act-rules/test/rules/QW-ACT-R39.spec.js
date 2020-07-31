@@ -26,7 +26,12 @@ describe(`Rule ${rule}`, async function () {
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
 
           await page.addScriptTag({
+<<<<<<< HEAD
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+=======
+                        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+
+>>>>>>> develop
           })
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
@@ -47,7 +52,8 @@ describe(`Rule ${rule}`, async function () {
         this.timeout(1000 * 1000);
         const { sourceHtml, page, stylesheets } = await getDom(browser, "https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/");
         await page.addScriptTag({
-          path: require.resolve('../qwPage.js')
+                      path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+
         })
         await page.addScriptTag({
           path: require.resolve('../../dist/act.js')

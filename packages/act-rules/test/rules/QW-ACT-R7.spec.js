@@ -29,7 +29,8 @@ describe(`Rule ${rule}`, async function () {
           const { sourceHtml, page } = await dom.getDOM(browser, {}, test.url);
 
           await page.addScriptTag({
-            path: require.resolve('../qwPage.js')
+                        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+
           })
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')

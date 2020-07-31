@@ -54,6 +54,8 @@ class QW_ACT_R10 extends Rule {
         resultCode: ''
       };
 
+      const elements = new Array<QWElement>();
+
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
       } else if (accessibleName && accessibleName.trim() !== '') {
@@ -62,7 +64,6 @@ class QW_ACT_R10 extends Rule {
           blacklist.push(...hasEqualAn);
           hasEqualAn.push(counter);
 
-          const elements = new Array<QWElement>();
           for (const index of hasEqualAn || []) {
             elements.push(iframes[index]);
           }
@@ -93,7 +94,7 @@ class QW_ACT_R10 extends Rule {
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
       }
-      super.addEvaluationResult(evaluation, iframes[counter]);
+      super.addMultipleElementEvaluationResult(evaluation, elements);
       counter++;
     }
     /* if (iframes.length === 0) {

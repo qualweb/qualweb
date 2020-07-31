@@ -34,16 +34,12 @@ class QW_ACT_R36 extends Rule {
         evaluation.verdict = 'inapplicable';
         evaluation.description = "This table is not included in the accessibility tree";
         evaluation.resultCode = 'RC2';
-        evaluation.htmlCode = parentTableElem.getElementHtmlCode(true, true);
-        evaluation.pointer = parentTableElem.getElementSelector();
       } else {
         let isVisible = DomUtils.isElementVisible(parentTableElem,page);
         if (!isVisible) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = "This table is not visible in page";
           evaluation.resultCode = 'RC3';
-          evaluation.htmlCode = parentTableElem.getElementHtmlCode(true, true);
-          evaluation.pointer = parentTableElem.getElementSelector();
         } else {
           let headerAttributes: string[] = [];
           let elementHeaders = element.getElementAttribute('headers');
@@ -81,14 +77,7 @@ class QW_ACT_R36 extends Rule {
         }
       }
     }
-
-    if(!evaluation.htmlCode) {
-      const htmlCode = element.getElementHtmlCode(true, true);
-      const pointer = element.getElementSelector();
-      evaluation.htmlCode = htmlCode;
-      evaluation.pointer = pointer;
-    }
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation,element,true,true);
   }
 }
 

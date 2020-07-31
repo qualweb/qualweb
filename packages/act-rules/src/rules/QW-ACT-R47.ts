@@ -86,10 +86,7 @@ class QW_ACT_R47 extends Rule {
         }
       }
 
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
-      evaluation.pointer = element.getElementSelector();
-
-      super.addEvaluationResult(evaluation);
+      super.addEvaluationResult(evaluation,element,true,true);
     }
   }
 }

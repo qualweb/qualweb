@@ -47,9 +47,8 @@ class QW_ACT_R21 extends Rule {
         evaluation.resultCode = 'RC3';
       }
 
-      evaluation.accessibleName = accessibleName || undefined;
       
-      super.addEvaluationResult(evaluation, elem);
+      super.addEvaluationResult(evaluation, elem,true,false,true,page);
     }
   }
 }

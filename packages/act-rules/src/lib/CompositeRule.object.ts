@@ -2,6 +2,8 @@ import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import { QWElement } from '@qualweb/qw-element';
+import { AccessibilityUtils } from '@qualweb/util';
+import { QWPage } from '@qualweb/qw-page';
 
 abstract class Rule {
 
@@ -37,12 +39,15 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false): void {
+  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-      result.htmlCode = htmlCode;
-      result.pointer = pointer;
+      let accessibleName;
+      if (aName && page) {
+        accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+      }
+      result.elements = [{ htmlCode, pointer, accessibleName }];
     }
 
     this.rule.results.push(clone(result));
@@ -126,7 +131,7 @@ abstract class Rule {
     for (let rule of rules) {
       if (rule) {
         for (let result of rule.results) {
-          if (result.pointer === selector && !ruleResult[result.verdict]) {
+          if (result.elements && result.elements[0].pointer === selector && !ruleResult[result.verdict]) {
             ruleResult[result.verdict] = { title: rule.name, code: rule.mapping };
           }
         }
@@ -141,7 +146,7 @@ abstract class Rule {
     for (let rule of rules) {
       ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: "inapplicable" }
       for (let result of rule.results) {
-        if (result.pointer === selector) {
+        if (result.elements && result.elements[0].pointer === selector) {
           ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: result.verdict };
         }
 
