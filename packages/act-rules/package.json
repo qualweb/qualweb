@@ -7,6 +7,7 @@
   "scripts": {
     "tsc": "tsc",
     "test:all": "npm install && mocha --require esm test/act-rules.spec.js",
+    "test-all": "mocha test/act-rules-all.spec.js",
     "test:r1": "mocha --require esm test/rules/QW-ACT-R1.spec.js",
     "test:r2": "mocha --require esm test/rules/QW-ACT-R2.spec.js",
     "test:r3": "mocha --require esm test/rules/QW-ACT-R3.spec.js",
@@ -92,7 +93,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.15",
     "@qualweb/qw-page": "^0.1.17",
-    "@qualweb/util": "^0.3.26",
+    "@qualweb/util": "^0.3.27",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

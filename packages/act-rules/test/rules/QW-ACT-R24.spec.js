@@ -33,10 +33,9 @@ describe(`Rule ${rule}`, async function () {
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document,window), stylesheets);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
 

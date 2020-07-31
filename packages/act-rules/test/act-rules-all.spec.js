@@ -11,9 +11,9 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 10000);
     //['chromium', 'firefox', 'webkit']
-    const browser = await playwright['chromium'].launch({headless:false});
-    const context = await browser.newContext({bypassCSP:true});
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://ciencias.ulisboa.pt/");
+   // const browser = await playwright['chromium'].launch({headless:false});
+  //  const context = await browser.newContext({bypassCSP:true});
+    //const { sourceHtml, page, stylesheets } = await getDom(context, "https://ciencias.ulisboa.pt/pt/o-campus");
 
     /*  const browser = await puppeteer.launch({
       });
@@ -21,9 +21,9 @@ describe('ACT-Rules module', function () {
       */
     // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
-   /* const browser = await puppeteer.launch({headless:false});
+    const browser = await puppeteer.launch({headless:false});
     const dom = new Dom();
-    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {}, " https://www.metrolisboa.pt/en/", null);*/
+    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {}, " https://ciencias.ulisboa.pt/pt/o-campus", null);
 
     try {
       await page.addScriptTag({
