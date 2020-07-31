@@ -24,13 +24,9 @@ class QW_ACT_R58 extends Rule {
 
     const isHidden = DomUtils.isElementHidden(element,page);
     const isVisible = DomUtils.isElementVisible(element,page);
-    const controls = element.elementHasAttribute('controls');
-    const autoPlay = element.getElementAttribute('autoplay');
-    const metadata = DomUtils.getVideoMetadata(element);
+    const autoPlay = element.getElementProperty('autoplay');
 
-    const duration = metadata['puppeteer']['video']['duration'];
-
-    if (duration > 0 && (!isHidden && isVisible && controls || autoPlay)) {
+    if (!isHidden && isVisible || autoPlay) {
       evaluation.verdict = 'warning';
       evaluation.description = 'Check if the test target audio has text-alternative.';
       evaluation.resultCode = 'RC1';

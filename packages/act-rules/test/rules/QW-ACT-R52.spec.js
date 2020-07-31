@@ -21,7 +21,7 @@ describe(`Rule ${rule}`, async function () {
     describe('Running tests', function () {
       for (const test of tests || []) {
         it(test.title, async function () {
-          this.timeout(100 * 1000);
+          this.timeout(100 * 10000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
           console.log(test.url);
 
@@ -32,11 +32,11 @@ describe(`Rule ${rule}`, async function () {
             path: require.resolve('../../dist/act.js')
           })
           const report = await page.evaluate((rules) => {
-            const actRules = new ACTRules.ACTRules();
+            const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document,window), []);
             return report;
           }, {rules: [rule]});
-          console.log(report.assertions[rule]);
+          console.log(report.assertions);
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

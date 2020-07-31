@@ -124,9 +124,11 @@ abstract class Rule {
   getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
     let ruleResult = {};
     for (let rule of rules) {
-      for (let result of rule.results) {
-        if (result.pointer === selector && !ruleResult[result.verdict]) {
-          ruleResult[result.verdict] = { title: rule.name, code: rule.mapping };
+      if (rule) {
+        for (let result of rule.results) {
+          if (result.pointer === selector && !ruleResult[result.verdict]) {
+            ruleResult[result.verdict] = { title: rule.name, code: rule.mapping };
+          }
         }
       }
 

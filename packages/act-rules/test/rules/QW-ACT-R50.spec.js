@@ -21,7 +21,7 @@ describe(`Rule ${rule}`, async function () {
     describe('Running tests', function () {
       for (const test of tests || []) {
         it(test.title, async function () {
-          this.timeout(100 * 1000);
+          this.timeout(100 * 100000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
           console.log(test.url);
 
@@ -36,7 +36,6 @@ describe(`Rule ${rule}`, async function () {
             const report = actRules.execute([], new QWPage.QWPage(document,window), []);
             return report;
           }, {rules: [rule]});
-          console.log(report.assertions[rule]);
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

@@ -12,7 +12,7 @@ const ruleId = mapping[rule];
 describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless:false});
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -21,20 +21,19 @@ describe(`Rule ${rule}`, async function () {
     describe('Running tests', function () {
       for (const test of tests || []) {
         it(test.title, async function () {
-          this.timeout(100 * 1000);
+          this.timeout(100 * 100000);
           const {sourceHtml, page, stylesheets} = await getDom(browser, test.url);
           console.log(test.url);
 
           await page.addScriptTag({
-            path: require.resolve('../qwPage.js')
+            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
           })
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
-            const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+            const actRules = new ACTRules.ACTRules();
+            const report = actRules.execute([], new QWPage.QWPage(document,window), []);
             return report;
           }, sourceHtml, stylesheets, {rules: [rule]});
 

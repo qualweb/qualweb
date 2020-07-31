@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
@@ -15,24 +15,24 @@ class QW_ACT_R51 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement,page:QWPage): void {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
+    const isVisible = DomUtils.isElementVisible(element, page);
+    const duration = parseInt(element.getElementProperty('duration'));
+    const hasSoundTrack = DomUtils.videoElementHasAudio(element);
 
-    const metadata = DomUtils.getVideoMetadata(element);
-    const isVisible = DomUtils.isElementVisible(element,page);
-
-    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0  && !metadata.puppeteer.audio.hasSoundTrack;
+    const hasPuppeteerApplicableData = duration > 0 && !hasSoundTrack;
 
     if (!isVisible) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The video is not visible';
       evaluation.resultCode = 'RC1';
-    } else if ( metadata.puppeteer.error) {
+    } else if (!(duration >= 0 && hasSoundTrack)) {
       evaluation.verdict = 'warning';
       evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';
@@ -47,7 +47,7 @@ class QW_ACT_R51 extends Rule {
       evaluation.resultCode = 'RC4';
     }
     console.log(evaluation.resultCode)
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

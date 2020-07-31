@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
@@ -15,7 +15,7 @@ class QW_ACT_R57 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement,page:QWPage): void {
+  execute(element: QWElement, page: QWPage): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -23,18 +23,17 @@ class QW_ACT_R57 extends Rule {
       resultCode: ''
     };
 
-    const metadata = DomUtils.getVideoMetadata(element);
-    const isVisible = DomUtils.isElementVisible(element,page);
+    const isVisible = DomUtils.isElementVisible(element, page);
     const track = element.getElement('track[kind="descriptions"]');
-
-
-    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0  && metadata.puppeteer.audio.hasSoundTrack;
+    const duration = parseInt(element.getElementProperty('duration'));
+    const hasSoundTrack = DomUtils.videoElementHasAudio(element);
+    const hasPuppeteerApplicableData = duration > 0 && hasSoundTrack;
 
     if (!isVisible) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The pause button is not visible';
       evaluation.resultCode = 'RC1';
-    } else if ( metadata.puppeteer.error) {
+    } else if (!(duration >= 0 && hasSoundTrack)) {
       evaluation.verdict = 'warning';
       evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';
@@ -48,7 +47,7 @@ class QW_ACT_R57 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC4';
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

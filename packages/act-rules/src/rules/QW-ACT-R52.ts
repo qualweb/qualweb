@@ -23,21 +23,21 @@ class QW_ACT_R52 extends Rule {
       resultCode: ''
     };
 
-    const metadata = DomUtils.getVideoMetadata(element);
     const track = element.getElement('track[kind="descriptions"]');
     const isVisible = DomUtils.isElementVisible(element,page);
+    const duration = parseInt(element.getElementProperty('duration'));
+    const hasSoundTrack = DomUtils.videoElementHasAudio(element);
+    const hasPuppeteerApplicableData =duration > 0  && !hasSoundTrack;
 
-    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 0  && !metadata.puppeteer.audio.hasSoundTrack;
-
-    if (!isVisible) {
+    if (!isVisible || !track) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The video is not visible';
       evaluation.resultCode = 'RC1';
-    } else if ( metadata.puppeteer.error) {
+    } else if ( !(duration >= 0 && hasSoundTrack)) {
       evaluation.verdict = 'warning';
       evaluation.description = 'Cant colect data from the test target.';
       evaluation.resultCode = 'RC2';
-    } else if (hasPuppeteerApplicableData && track) {
+    } else if (hasPuppeteerApplicableData ) {
       evaluation.verdict = 'warning';
       evaluation.description = `Check if visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC3';
@@ -46,6 +46,7 @@ class QW_ACT_R52 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC4';
     }
+    console.log(evaluation.resultCode);
     
     super.addEvaluationResult(evaluation, element);
   }

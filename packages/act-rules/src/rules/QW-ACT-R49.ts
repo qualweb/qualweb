@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from "@qualweb/qw-element";
 
 @ACTRuleDecorator
 class QW_ACT_R49 extends Rule {
@@ -27,30 +27,28 @@ class QW_ACT_R49 extends Rule {
     const muted = element.getElementProperty('muted');
     const srcAttr = element.getElementAttribute('src');
     const childSrc = element.getElements('source[src]');
-    const metadata = DomUtils.getVideoMetadata(element);
-    
-    const hasPuppeteerApplicableData = metadata.puppeteer.video.duration > 3 && metadata.puppeteer.audio.hasSoundTrack;
+    const duration = parseInt(element.getElementProperty('duration'));
+    const hasSoundTrack = DomUtils.videoElementHasAudio(element);
+    const hasPuppeteerApplicableData = duration > 3 && hasSoundTrack;
     const src = new Array<any>();
 
     if (childSrc.length > 0) {
       for (let child of childSrc || []) {
-        src.push(child.getElementAttribute( 'src'));
+        src.push(child.getElementAttribute('src'));
       }
-    } else { 
-      src.push(srcAttr) ;
-    }   
-    console.log({autoplay,paused,muted,srcAttr,childSrc}) 
-
+    } else {
+      src.push(srcAttr);
+    }
 
     if (!autoplay || paused || muted || (!srcAttr && childSrc.length === 0)) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target doesn't auto-play audio.`;
       evaluation.resultCode = 'RC1';
-    } else if ( metadata.puppeteer.error) {
+    } else if (!(duration >= 0 && hasSoundTrack)) {
       evaluation.verdict = 'warning';
       evaluation.description = `Can't collect data from the test target element.`;
       evaluation.resultCode = 'RC2';
-    } else if( hasPuppeteerApplicableData){
+    } else if (hasPuppeteerApplicableData) {
       if (this.srcTimeIsLessThanThree(src)) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target plays for 3 seconds or less.';
@@ -65,7 +63,6 @@ class QW_ACT_R49 extends Rule {
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC5';
     }
-    console.log(evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 
@@ -78,7 +75,7 @@ class QW_ACT_R49 extends Rule {
           const separatedValues = values[1].split(',');
           const value1 = Number(separatedValues[0]);
           const value2 = Number(separatedValues[1]);
-          
+
           if (value1 && value2) {
             result = Math.abs(value1 - value2) <= 3;
           }
