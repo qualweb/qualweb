@@ -1,9 +1,8 @@
 import { QWElement } from '@qualweb/qw-element';
 import Cache from './cache.object';
 import CSSMapper from './css.mapper';
-import { IframePage } from './iframepage.object';
 
-class QWPage {
+class IframePage {
 
   private cache: Cache;
   private readonly document: Document;
@@ -140,4 +139,4 @@ class QWPage {
     this.window.resizeTo(width, height);
   }
 }
-export { QWPage };
+export { IframePage };
