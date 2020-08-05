@@ -64,6 +64,7 @@ class IframePage {
     return this.document.URL;
   }
 
+
   public getElement(selector: string): QWElement | null {
     const element = this.document.querySelector(selector);
     this.addCSSRulesPropertyToElement(element);
