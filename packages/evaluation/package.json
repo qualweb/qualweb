@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -36,7 +36,7 @@
     "css-select": "^2.1.0",
     "esm": "^3.2.25",
     "htmlparser2": "^4.0.0",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.1",
     "puppeteer": "^5.2.1",
     "typescript": "^3.9.7"
   },

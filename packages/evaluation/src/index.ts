@@ -49,7 +49,7 @@ class Evaluation {
 
     let urlStructure: Url | undefined = undefined;
     if (url) {
-      urlStructure = this.parseUrl(url, page.url())
+      urlStructure = this.parseUrl(url, page.url() !== 'about:blank' ? page.url() : url)
     }
 
     const processedHtml: ProcessedHtml = {
