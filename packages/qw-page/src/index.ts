@@ -8,7 +8,7 @@ class QWPage {
   private cache: Cache;
   private readonly document: Document;
   private readonly window: Window;
-  private iframePages: Map<string, IframePage>;
+  private iframePages: Map<string, QWPage>;
   private defaultWidth: number;
   private defaultHeight: number;
 
@@ -21,7 +21,7 @@ class QWPage {
 
     this.defaultWidth = this.window.innerWidth;
     this.defaultHeight = this.window.innerHeight;
-    this.iframePages = new Map<string, IframePage>();
+    this.iframePages = new Map<string, QWPage>();
 
 
     if (!!addCSSRulesToElements) {
@@ -29,6 +29,8 @@ class QWPage {
     }
     this.processIframes();
     console.log(this.getElements("h1"));
+    console.log(this.getElements("iframe"));
+
 
 
   }
@@ -90,7 +92,7 @@ class QWPage {
   public getElement(selector: string, specificDocument?: QWElement): QWElement | null {
 
     let element, iframeSelector;
-    if (specificDocument) {
+    if (!!specificDocument) {
       iframeSelector = specificDocument.getElementAttribute("iframeSelector");
       if (iframeSelector) {
         let iframePage = this.iframePages[iframeSelector];
@@ -119,25 +121,27 @@ class QWPage {
 
   public getElements(selector: string, specificDocument?: QWElement): Array<QWElement> {
     let elements: QWElement[] = [];
-    if (specificDocument) {
+    if (!!specificDocument) {
       let iframeSelector = specificDocument.getElementAttribute("iframeSelector");
       if (iframeSelector) {
         let iframePage = this.iframePages[iframeSelector];
-        elements.push(iframePage.getElements(selector, specificDocument));
+        elements.push(...iframePage.getElements(selector, specificDocument));
         this.addIframeAttribute(elements, iframeSelector);
       } else {
         elements.push(...this.getElementsFromDocument(selector));
       }
     } else {
+      console.log(this.getElementsFromDocument(selector));
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
       let iframeKeys = Object.keys(this.iframePages);
       let i = 0;
-      let iframePage;
+      let iframePage,iframeElements;
       while (i < iframeKeys.length) {
         iframePage = this.iframePages[iframeKeys[i]];
-        elements.push(iframePage.getElements(selector));
-        this.addIframeAttribute(elements, iframeKeys[i]);
+        iframeElements = iframePage.getElements(selector)
+        this.addIframeAttribute(iframeElements, iframeKeys[i]);
+        elements.push(...iframeElements);
         i++;
       }
     }
