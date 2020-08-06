@@ -28,7 +28,7 @@ describe('Should do parallel evaluations', function() {
     await core.evaluate(options);
     const earlReport = Object.values(await core.generateEarlReport({ aggregated: true, modules: { act: true }}));
     
-    await core.close();
+    await core.stop();
 
     let valid = true;
     for (let i = 0 ; i < tcs.length ; i++) {
@@ -36,7 +36,7 @@ describe('Should do parallel evaluations', function() {
         const result = earlReport[0]['@graph'].filter(r => r.source === tcs[i].url)[0];
         //console.warn(result.source + '   ' + tcs[i].url);
         //console.warn(result.assertions[0].result.outcome + '   earl:' + tcs[i].expected);
-        
+        //console.log(result)
         if (result.assertions[0].result.outcome !== 'earl:' + tcs[i].expected) {
           valid = false;
         }
