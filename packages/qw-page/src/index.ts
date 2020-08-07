@@ -1,38 +1,49 @@
 import { QWElement } from '@qualweb/qw-element';
 import Cache from './cache.object';
 import CSSMapper from './css.mapper';
-import { IframePage } from './iframepage.object';
 
 class QWPage {
 
   private cache: Cache;
-  private readonly document: Document;
-  private readonly window: Window;
-  private iframePages: Map<string, QWPage>;
-  private defaultWidth: number;
-  private defaultHeight: number;
-
+  private readonly document: Document | ShadowRoot;
+  private url: string;
+  private extraDocuments: Map<string, QWPage>;
   private elementsCSSRules?: Map<Element, any>;
+  private readonly window: Window;
 
-  constructor(document: Document, window: Window, addCSSRulesToElements?: boolean) {
+  constructor(document: Document | ShadowRoot, window: Window, addCSSRulesToElements?: boolean, url?: string) {
     this.document = document;
-    this.window = window;
     this.cache = new Cache();
-
-    this.defaultWidth = this.window.innerWidth;
-    this.defaultHeight = this.window.innerHeight;
-    this.iframePages = new Map<string, QWPage>();
-
+    this.extraDocuments = new Map<string, QWPage>();
+    this.url = "";
+    this.window = window;
 
     if (!!addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
     }
+    if (this.document instanceof Document) {
+      this.url = this.document.URL;
+    } else if (!!url) {
+      this.url = url;
+
+    }
     this.processIframes();
-    console.log(this.getElements("h1"));
-    console.log(this.getElements("iframe"));
+    this.processShadowDom();
+    console.log(this.extraDocuments);
+  }
 
+  public processShadowDom(): void {
+    const listElements = this.document.querySelectorAll('*');
+    let shadowRoot, selector, shadowPage;
 
-
+    for (const element of listElements || []) {
+      if (element.shadowRoot !== null) {
+        shadowRoot = new QWElement(element);
+        selector = shadowRoot.getElementSelector();
+        shadowPage = new QWPage(element.shadowRoot, this.window, true,this.url);
+        this.extraDocuments[selector] = shadowPage;
+      }
+    }
   }
   private processIframes(): void {
     const elements = this.document.querySelectorAll("iframe");
@@ -42,8 +53,8 @@ class QWPage {
       contentWindow = iframeQW.getContentFrame();
       frame = contentWindow;
       selector = iframeQW.getElementSelector()
-      iframePage = new IframePage(frame, frame.defaultView, true);
-      this.iframePages[selector] = iframePage;
+      iframePage = new QWPage(frame, frame.defaultView, true);
+      this.extraDocuments[selector] = iframePage;
     }
   }
 
@@ -54,7 +65,7 @@ class QWPage {
   }
   private addIframeAttribute(elements: QWElement[], selector: string): void {
     for (let element of elements) {
-      element.setElementAttribute('_iframeSelector', selector);
+      element.setElementAttribute('_documentSelector', selector);
     }
   }
 
@@ -69,7 +80,8 @@ class QWPage {
   }
 
   public getURL(): string {
-    return this.document.URL;
+    return this.url;
+
   }
   private getElementFromDocument(selector: string): QWElement | null {
     const element = this.document.querySelector(selector);
@@ -93,9 +105,9 @@ class QWPage {
 
     let element, iframeSelector;
     if (!!specificDocument) {
-      iframeSelector = specificDocument.getElementAttribute("iframeSelector");
+      iframeSelector = specificDocument.getElementAttribute("_documentSelector");
       if (iframeSelector) {
-        let iframePage = this.iframePages[iframeSelector];
+        let iframePage = this.extraDocuments[iframeSelector];
         element = iframePage.getElement(selector, specificDocument);
       } else {
         element = this.getElementFromDocument(selector);
@@ -104,11 +116,11 @@ class QWPage {
       element = this.getElementFromDocument(selector);
       if (!element) {
         //search iframes
-        let iframeKeys = Object.keys(this.iframePages);
+        let iframeKeys = Object.keys(this.extraDocuments);
         let i = 0;
         let iframePage;
         while (!element && i < iframeKeys.length) {
-          iframePage = this.iframePages[iframeKeys[i]];
+          iframePage = this.extraDocuments[iframeKeys[i]];
           element = iframePage.getElement(selector);
           iframeSelector = iframeKeys[i];
           i++;
@@ -122,23 +134,23 @@ class QWPage {
   public getElements(selector: string, specificDocument?: QWElement): Array<QWElement> {
     let elements: QWElement[] = [];
     if (!!specificDocument) {
-      let iframeSelector = specificDocument.getElementAttribute("iframeSelector");
+      let iframeSelector = specificDocument.getElementAttribute("_documentSelector");
       if (iframeSelector) {
-        let iframePage = this.iframePages[iframeSelector];
+        let iframePage = this.extraDocuments[iframeSelector];
         elements.push(...iframePage.getElements(selector, specificDocument));
         this.addIframeAttribute(elements, iframeSelector);
       } else {
         elements.push(...this.getElementsFromDocument(selector));
       }
     } else {
-      console.log(this.getElementsFromDocument(selector));
+      // console.log(this.getElementsFromDocument(selector));
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
-      let iframeKeys = Object.keys(this.iframePages);
+      let iframeKeys = Object.keys(this.extraDocuments);
       let i = 0;
-      let iframePage,iframeElements;
+      let iframePage, iframeElements;
       while (i < iframeKeys.length) {
-        iframePage = this.iframePages[iframeKeys[i]];
+        iframePage = this.extraDocuments[iframeKeys[i]];
         iframeElements = iframePage.getElements(selector)
         this.addIframeAttribute(iframeElements, iframeKeys[i]);
         elements.push(...iframeElements);
@@ -161,20 +173,6 @@ class QWPage {
     return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
 
-  public processShadowDom(): void {
-    const listElements = this.document.querySelectorAll('*');
-    let shadowCounter = 0;
-
-    for (const element of listElements || []) {
-      if (element.shadowRoot !== null) {
-        element.innerHTML = element.shadowRoot.innerHTML;
-        const elementsFromShadowDom = element.querySelectorAll('*');
-        this.setShadowAttribute(elementsFromShadowDom, shadowCounter);
-        shadowCounter++;
-      }
-    }
-  }
-
   private setShadowAttribute(elements: NodeListOf<Element>, counter: number): void {
     for (const element of elements || []) {
       element.setAttribute('shadowTree', counter + '');
@@ -182,13 +180,22 @@ class QWPage {
   }
 
   public getPageRootElement(): QWElement | null {
-    const documentElement = this.document.documentElement;
-    this.addCSSRulesPropertyToElement(documentElement);
-    return documentElement ? new QWElement(documentElement, this.elementsCSSRules) : null;
+    if (this.document instanceof Document) {
+      const documentElement = this.document.documentElement;
+      this.addCSSRulesPropertyToElement(documentElement);
+      return documentElement ? new QWElement(documentElement, this.elementsCSSRules) : null;
+    } else {
+      return null;
+    }
   }
 
   public getHTMLContent(): string {
-    return this.document.documentElement.outerHTML;
+    if (this.document instanceof Document) {
+      return this.document.documentElement.outerHTML;
+    }
+    else {
+      return "";
+    }
   }
 
   public getFocusedElement(): QWElement | null {
@@ -196,13 +203,13 @@ class QWPage {
     this.addCSSRulesPropertyToElement(activeElement);
     return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null
   }
-
-  public changeToDefaultViewport(): void {
-    this.window.resizeTo(this.defaultWidth, this.defaultHeight);
-  }
-
-  public changeViewport(width: number, height: number): void {
-    this.window.resizeTo(width, height);
-  }
+  /*
+    public changeToDefaultViewport(): void {
+      this.window.resizeTo(this.defaultWidth, this.defaultHeight);
+    }
+  
+    public changeViewport(width: number, height: number): void {
+      this.window.resizeTo(width, height);
+    }*/
 }
 export { QWPage };

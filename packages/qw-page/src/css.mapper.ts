@@ -3,10 +3,10 @@ import { QWElement } from '@qualweb/qw-element';
 class CSSMapper {
 
   private readonly pseudoSelectors = ['focus', 'hover', 'before', 'after', 'active', 'disabled', 'checked', 'empty', 'enabled', 'in-range', 'invalid', 'lang', 'link', 'optional', 'out-of-range', 'read-only', 'read-write', 'required', 'target', 'valid', 'visited', 'first-letter', 'first-line', 'selection'];
-  private readonly document: Document;
+  private readonly document: Document|ShadowRoot;
   private readonly elementsCSSRules = new Map<Element, any>();
 
-  constructor(document: Document) {
+  constructor(document: Document|ShadowRoot) {
     this.document = document;
   }
 
