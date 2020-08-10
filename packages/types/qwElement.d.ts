@@ -26,7 +26,6 @@ declare module '@qualweb/qw-element' {
     public getElementType(): string;
     public getNumberOfSiblingsWithTheSameTag(): number;
     public setElementAttribute(attribute: string, value: string): void;
-    public getTreeSelector(): string;
     public concatANames(aNames: string[]): string;
     public isOffScreen(): boolean;
     public isElementHTMLElement(): boolean;
