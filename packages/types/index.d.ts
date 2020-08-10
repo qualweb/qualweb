@@ -1,5 +1,6 @@
 /// <reference path="./wappalyzer.d.ts" />
 /// <reference path="./act-rules.d.ts" />
+/// <reference path="./wcag-techniques.d.ts" />
 /// <reference path="./html-techniques.d.ts" />
 /// <reference path="./html-validator.d.ts" />
 /// <reference path="./css-techniques.d.ts" />

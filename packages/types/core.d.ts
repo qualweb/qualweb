@@ -118,7 +118,7 @@ declare module '@qualweb/core' {
   type Module = 'wappalyzer' | 'act-rules' | 'html-techniques' | 'css-techniques' | 'best-practices';
 
   function start(options?: LaunchOptions): Promise<void>;
-  function close(): Promise<void>;
+  function stop(): Promise<void>;
   function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
   function generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
@@ -135,7 +135,7 @@ declare module '@qualweb/core' {
     ProcessedHtml,
     DomData,
     start,
-    close,
+    stop,
     evaluate,
     generateEarlReport
   };
