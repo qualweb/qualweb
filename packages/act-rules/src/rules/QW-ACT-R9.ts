@@ -18,21 +18,6 @@ class QW_ACT_R9 extends Rule {
   execute(element: QWElement, page: QWPage): void {
 
     const links = element.getElements('a[href], [role="link"]');
-    const iframesAll = element.getElements('iframe');
-    let iframeContent, frame;
-
-    for (const iframe of iframesAll || []) {
-      try {
-        frame = iframe.getContentFrame();
-      }
-      catch (e) {
-      }
-      if (frame) {
-        iframeContent = new QWPage(frame, frame.defaultView);
-        links.push(...(iframeContent.getElements('a[href], [role="link"]')));
-      }
-      frame = null;
-    }
 
 
     const accessibleNames = new Array<string>();

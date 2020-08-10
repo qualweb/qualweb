@@ -11,33 +11,35 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 10000);
     //['chromium', 'firefox', 'webkit']
-    const browser = await playwright['chromium'].launch({headless:false});
+   /* const browser = await playwright['chromium'].launch({headless:false});
     const context = await browser.newContext({bypassCSP:true});
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.pcdiga.com/");
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.globaldata.pt/");*/
 
-    /*  const browser = await puppeteer.launch({
+      const browser = await puppeteer.launch({headless:false, args: ['--no-sandbox', '--user-data-dir="/tmp/chromium"', '--disable-web-security', '--disable-features=site-per-process']
       });
-      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/');//'https://www.pcdiga.com/'
-      */
+      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');//'https://www.pcdiga.com/'
+      
     // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
    /* const browser = await puppeteer.launch({headless:false});
     const dom = new Dom();
-    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {}, " https://ciencias.ulisboa.pt/pt/o-campus", null);*/
+    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {}, "https://www.pcdiga.com/", null);*/
 
     try {
       await page.addScriptTag({
         path: require.resolve('../dist/act.js')
       })
       await page.addScriptTag({
-        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+        path: require.resolve('./qwPage.js')
       })
 
       // sourceHtml.html.parsed = {};
       console.log("Evaluating")
       const report = await page.evaluate((stylesheets) => {
         const actRules = new ACTRules.ACTRules();
-        const report = actRules.execute([], new QWPage.QWPage(document, window, true), stylesheets);
+        const page =  new QWPage.QWPage(document, window, true);
+        const report = actRules.execute([],page, []);
+
         return report;
       }, []);
       const fs = require('fs')

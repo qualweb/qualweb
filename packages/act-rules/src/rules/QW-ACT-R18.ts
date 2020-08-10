@@ -24,9 +24,7 @@ class QW_ACT_R18 extends Rule {
     let elementsWithSameId  = new Array<QWElement>();
 
     const treeSelector = element.getTreeSelector();
-    console.log(treeSelector);
     const id = element.getElementAttribute('id');
-    console.log(id);
 
     if (id) {
       try {
