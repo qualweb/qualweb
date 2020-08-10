@@ -153,26 +153,29 @@ class QWElement {
   public getElementSelector(): string {
 
     if (this.selector === "") {
-
       if (this.element.tagName.toLowerCase() === 'html') {
         return 'html';
-      } else if (this.element.tagName.toLowerCase() === 'head') {
+      }
+      else if (this.element.tagName.toLowerCase() === 'head') {
         return 'html > head';
-      } else if (this.element.tagName.toLowerCase() === 'body') {
+      }
+      else if (this.element.tagName.toLowerCase() === 'body') {
         return 'html > body';
       }
-
-      let selector = 'html > ';
-      const parents = new Array<string>();
+      let selector = '';
+      const parents = new Array();
       let parent = this.element.parentElement;
-
-      while (parent && parent.tagName.toLowerCase() !== 'html') {
+      while (parent) {
         parents.unshift(this.getSelfLocationInParent(parent));
         parent = parent['parentElement'];
       }
-
-      selector += parents.join(' > ');
-      selector += ' > ' + this.getSelfLocationInParent(this.element);
+      if (parents.length > 0) {
+        selector += parents.join(' > ');
+        selector += ' > ' + this.getSelfLocationInParent(this.element);
+      }
+      else {
+        selector += this.getSelfLocationInParent(this.element)
+      }
       this.selector = selector;
       return selector;
     }
