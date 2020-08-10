@@ -41,7 +41,7 @@ class QWPage {
         element.innerHTML = "";
         shadowRoot = new QWElement(element);
         selector = shadowRoot.getElementSelector();
-        shadowPage = new QWPage(element.shadowRoot, this.window, true,this.url);
+        shadowPage = new QWPage(element.shadowRoot, this.window, true, this.url);
         this.extraDocuments[selector] = shadowPage;
       }
     }
@@ -50,12 +50,15 @@ class QWPage {
     const elements = this.document.querySelectorAll("iframe");
     let iframeQW, contentWindow, frame, iframePage, selector;
     for (let iframe of elements) {
-      iframeQW = new QWElement(iframe);
-      contentWindow = iframeQW.getContentFrame();
-      frame = contentWindow;
-      selector = iframeQW.getElementSelector()
-      iframePage = new QWPage(frame, frame.defaultView, true);
-      this.extraDocuments[selector] = iframePage;
+      try {
+        iframeQW = new QWElement(iframe);
+        contentWindow = iframeQW.getContentFrame();
+        frame = contentWindow;
+        selector = iframeQW.getElementSelector()
+        iframePage = new QWPage(frame, frame.defaultView, true);
+        this.extraDocuments[selector] = iframePage;
+      }
+      catch (e) { }
     }
   }
 
@@ -188,7 +191,7 @@ class QWPage {
       return this.document.documentElement.outerHTML;
     }
     else {
-      return  this.document.innerHTML;
+      return this.document.innerHTML;
     }
   }
 
