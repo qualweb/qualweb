@@ -1,4 +1,10 @@
 # Changelog
+## [0.3.28] - 10/08/2020
+### Added
+ - fixed shadowDom support
+## [0.3.27] - 31/07/2020
+### Added
+ - new elementHasContent implementation
 ## [0.3.26] - 27/07/2020
 ### Updated
  - dependencies

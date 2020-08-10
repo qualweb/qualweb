@@ -6,10 +6,9 @@ function elementIDIsReferenced(pageQW: QWPage, elementQW: QWElement, id: string,
   if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
-  let treeSelector = elementQW.getTreeSelector();
   let result;
   try {
-    result = (pageQW.getElement('[' + attribute + `="${id}"]` + treeSelector)) !== null;
+    result = (pageQW.getElement('[' + attribute + `="${id}"]`,elementQW)) !== null;
   }
   catch{
     result = false;

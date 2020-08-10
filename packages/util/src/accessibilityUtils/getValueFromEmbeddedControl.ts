@@ -5,7 +5,7 @@ import { QWElement } from '@qualweb/qw-element';
 import getTrimmedText from "./getTrimmedText";
 
 
-function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelector: string): string{
+function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
 
   let role = getElementRoleAName(element, page, "");
   let name = element.getElementTagName();
@@ -18,7 +18,7 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelec
     let valueAT = element.getElementAttribute("value");
     value = valueAT? valueAT : "";
   } else if (role === "combobox") {
-    let refrencedByLabel = element.getElement(`[aria-activedescendant]` + treeSelector);
+    let refrencedByLabel = element.getElement(`[aria-activedescendant]` );
     let aria_descendendant, selectedElement, optionSelected;
     if (!!refrencedByLabel) {
       aria_descendendant = refrencedByLabel.getElementAttribute( "role");
@@ -26,15 +26,15 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelec
     }
 
     if (name === 'select') {
-      optionSelected = element.getElement(`[selected]` + treeSelector);
+      optionSelected = element.getElement(`[selected]`);
     }
 
-    let aria_owns = element.getElementAttribute( "[aria-owns]" + treeSelector);
+    let aria_owns = element.getElementAttribute( "[aria-owns]" );
     let elementasToSelect = page.getElement(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
     if (!!elementasToSelect )
-      elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]` + treeSelector);
+      elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]` );
 
     if (!!optionSelected) {
       value = getTrimmedText(optionSelected);
@@ -46,20 +46,20 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage, treeSelec
     }
 
   } else if (role === "listbox") {
-    let elementsWithId = element.getElements(`[id]` + treeSelector);
-    let elementWithAriaSelected = element.getElement(`[aria-selected="true"]` + treeSelector);
+    let elementsWithId = element.getElements(`[id]` );
+    let elementWithAriaSelected = element.getElement(`[aria-selected="true"]` );
     let selectedElement;
     let optionSelected;
 
     for (let elementWithId of elementsWithId) {
       if (!!selectedElement) {
         let id = elementWithId.getElementAttribute( "id");
-        selectedElement = element.getElement(`[aria-activedescendant="${id}"]` + treeSelector);
+        selectedElement = element.getElement(`[aria-activedescendant="${id}"]` );
       }
     }
 
     if (name === 'select') {
-      optionSelected = element.getElement(`[selected]` + treeSelector);
+      optionSelected = element.getElement(`[selected]`);
     }
 
     if (!!selectedElement)

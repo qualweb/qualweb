@@ -20,7 +20,6 @@ function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion:
   let elementSelector = element.getElementSelector();
   let name = element.getElementTagName();
   let allowNameFromContent = allowsNameFromContent(element);
-  let treeSelector =  element.getTreeSelector();
   ariaLabelBy = element.getElementAttribute("aria-labelledby");
 
   if (ariaLabelBy !== null && !(verifyAriaLabel(ariaLabelBy, page, element))) {
@@ -42,7 +41,7 @@ function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion:
   } else if (ariaLabel) {
     AName = ariaLabel;
   } else if (isWidget && isElementControl(element, page)) {
-    let valueFromEmbeddedControl = !!(getValueFromEmbeddedControl(element, page, treeSelector)) ? elementSelector : null;
+    let valueFromEmbeddedControl = !!(getValueFromEmbeddedControl(element, page)) ? elementSelector : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === "area" || (name === "input" && attrType === "image")) {
     AName = getFirstNotUndefined(alt, title);
@@ -52,28 +51,28 @@ function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion:
     AName = getFirstNotUndefined(value, defaultName, title);
   } else if (name === "input" && (typesWithLabel.indexOf(attrType) >= 0 || !attrType)) {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name && formElements.indexOf(name) >= 0) {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title);
     } else {
       AName = getFirstNotUndefined(title);
     }
   } else if (name === "textarea") {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page, treeSelector), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
     } else {
       AName = getFirstNotUndefined(getTextFromCss(element, page, isWidget), title, placeholder);
     }
   } else if (name === "figure") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "figcaption", page, treeSelector), title);
+    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "figcaption", page), title);
   } else if (name === "table") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "caption", page, treeSelector), title);
+    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "caption", page), title);
   } else if (name === "fieldset") {
-    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "legend", page, treeSelector), title);
+    AName = getFirstNotUndefined(getValueFromSpecialLabel(element, "legend", page), title);
   } else if (allowNameFromContent || ((role && allowNameFromContent) || (!role)) && recursion) {
     AName = getFirstNotUndefined(getTextFromCss(element, page, isWidget), title);
   } else /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) and all other elements*/ {
@@ -103,8 +102,8 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
- function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage, treeSelector: string): string {
-  let labelElement = element.getElement(label + treeSelector);
+ function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage): string {
+  let labelElement = element.getElement(label);
   let accessNameFromLabel, result;
 
   if (labelElement)
@@ -116,9 +115,9 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
- function getValueFromLabel(element: QWElement, id: string, page: QWPage, treeSelector: string): string[] {
+ function getValueFromLabel(element: QWElement, id: string, page: QWPage): string[] {
   let referencedByLabelList: QWElement[] = [];
-  let referencedByLabel = page.getElements(`label[for="${id}"]` + treeSelector);
+  let referencedByLabel = page.getElements(`label[for="${id}"]`,element);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
   }
