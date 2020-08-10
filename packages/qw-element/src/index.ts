@@ -1,5 +1,3 @@
-'use strict';
-
 class QWElement {
 
   private readonly element: Element;
@@ -9,13 +7,75 @@ class QWElement {
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    this.selector = "";
+    this.selector = '';
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules ?.has(element)) {
-      element.setAttribute('_cssRules', JSON.stringify(this.elementsCSSRules ?.get(element)));
+      element.setAttribute('_cssRules', 'true');
     }
+  }
+
+  public hasCSSRules(): boolean {
+    return this.element.getAttribute('_cssRules') === 'true';
+  }
+
+  public getCSSRules(): any {
+    return this.elementsCSSRules?.get(this.element);
+  }
+
+  public hasCSSProperty(property: string, pseudoStyle?: string, media?: string): boolean {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+
+      if (pseudoStyle && media) {
+        return rules['media'][media][pseudoStyle][property] !== undefined;
+      } else if (pseudoStyle) {
+        return rules[pseudoStyle][property] !== undefined;
+      } else if (media) {
+        return rules['media'][media][property] !== undefined;
+      }
+
+      return rules[property] !== undefined;
+    }
+
+    return false;
+  }
+
+  public getCSSProperty(property: string, pseudoStyle?: string, media?: string): any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+
+      if (pseudoStyle && media) {
+        return rules['media'][media][pseudoStyle][property];
+      } else if (pseudoStyle) {
+        return rules[pseudoStyle][property];
+      } else if (media) {
+        return rules['media'][media][property];
+      }
+
+      return rules[property];
+    }
+
+    return undefined;
+  }
+
+  public getCSSMediaRules(): any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+      return rules['media'];
+    }
+
+    return undefined;
+  }
+
+  public getCSSPseudoSelectorRules(pseudoSelector: string): any {
+    if (this.elementsCSSRules?.has(this.element)) {
+      const rules = this.elementsCSSRules?.get(this.element);
+      return rules[pseudoSelector];
+    }
+
+    return undefined;
   }
 
   public elementHasAttribute(attribute: string): boolean {
@@ -44,6 +104,16 @@ class QWElement {
     return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
   }
 
+  public hasTextNode(): boolean {
+    let hasText = false;
+    for (const child of this.element.childNodes || []) {
+      if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+        hasText = true;
+      }
+    }
+    return hasText;
+  }
+
   public getElementAttribute(attribute: string): string | null {
     return this.element.getAttribute(attribute);
   }
@@ -67,7 +137,7 @@ class QWElement {
     const qwList = new Array<QWElement>();
     for (const element of elements) {
       this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element));
+      qwList.push(new QWElement(element, this.elementsCSSRules));
     }
     return qwList;
   }
@@ -92,7 +162,7 @@ class QWElement {
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     const clonedElem = <Element>this.element.cloneNode(true);
-    clonedElem.removeAttribute("_cssRules");
+    clonedElem.removeAttribute('_cssRules');
     if (fullElement) {
       return clonedElem.outerHTML;
     } else if (withText) {
@@ -114,7 +184,7 @@ class QWElement {
   private convertElementToQWElement(element: Element | null): QWElement | null {
     if (element) {
       this.addCSSRulesPropertyToElement(element);
-      return new QWElement(element);
+      return new QWElement(element, this.elementsCSSRules);
     } else {
       return null;
     }
@@ -124,7 +194,7 @@ class QWElement {
     const qwList = new Array<QWElement>();
     for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element));
+      qwList.push(new QWElement(element, this.elementsCSSRules));
     }
     return qwList;
   }
