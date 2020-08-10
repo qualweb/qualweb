@@ -38,6 +38,7 @@ class QWPage {
 
     for (const element of listElements || []) {
       if (element.shadowRoot !== null) {
+        element.innerHTML = "";
         shadowRoot = new QWElement(element);
         selector = shadowRoot.getElementSelector();
         shadowPage = new QWPage(element.shadowRoot, this.window, true,this.url);
@@ -161,8 +162,7 @@ class QWPage {
   }
 
   public getElementByID(id: string, elementQW: QWElement): QWElement | null {
-    const treeSelector = elementQW.getTreeSelector();
-    const element = this.document.querySelector(`#${id}` + treeSelector);
+    const element = this.document.querySelector(`#${id}`);
     this.addCSSRulesPropertyToElement(element);
     return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
@@ -171,12 +171,6 @@ class QWPage {
     const element = this.document.querySelector(`[name="${name}"]`);
     this.addCSSRulesPropertyToElement(element);
     return element ? new QWElement(element, this.elementsCSSRules) : null;
-  }
-
-  private setShadowAttribute(elements: NodeListOf<Element>, counter: number): void {
-    for (const element of elements || []) {
-      element.setAttribute('shadowTree', counter + '');
-    }
   }
 
   public getPageRootElement(): QWElement | null {
@@ -194,7 +188,7 @@ class QWPage {
       return this.document.documentElement.outerHTML;
     }
     else {
-      return "";
+      return  this.document.innerHTML;
     }
   }
 
