@@ -50,6 +50,7 @@ class QWPage {
     const elements = this.document.querySelectorAll("iframe");
     let iframeQW, contentWindow, frame, iframePage, selector;
     for (let iframe of elements) {
+      console.log(iframe)
       try {
         iframeQW = new QWElement(iframe);
         contentWindow = iframeQW.getContentFrame();
@@ -58,7 +59,9 @@ class QWPage {
         iframePage = new QWPage(frame, frame.defaultView, true);
         this.extraDocuments[selector] = iframePage;
       }
-      catch (e) { }
+      catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -131,7 +134,8 @@ class QWPage {
         }
       }
     }
-    this.addIframeAttribute([element], iframeSelector);
+    if (element)
+      this.addIframeAttribute([element], iframeSelector);
     return element;
   }
 
