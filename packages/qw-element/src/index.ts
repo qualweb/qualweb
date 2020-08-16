@@ -21,12 +21,12 @@ class QWElement {
   }
 
   public getCSSRules(): any {
-    return this.elementsCSSRules?.get(this.element);
+    return this.elementsCSSRules ?.get(this.element);
   }
 
   public hasCSSProperty(property: string, pseudoStyle?: string, media?: string): boolean {
-    if (this.elementsCSSRules?.has(this.element)) {
-      const rules = this.elementsCSSRules?.get(this.element);
+    if (this.elementsCSSRules ?.has(this.element)) {
+      const rules = this.elementsCSSRules ?.get(this.element);
 
       if (pseudoStyle && media) {
         return rules['media'][media][pseudoStyle][property] !== undefined;
@@ -43,8 +43,8 @@ class QWElement {
   }
 
   public getCSSProperty(property: string, pseudoStyle?: string, media?: string): any {
-    if (this.elementsCSSRules?.has(this.element)) {
-      const rules = this.elementsCSSRules?.get(this.element);
+    if (this.elementsCSSRules ?.has(this.element)) {
+      const rules = this.elementsCSSRules ?.get(this.element);
 
       if (pseudoStyle && media) {
         return rules['media'][media][pseudoStyle][property];
@@ -61,8 +61,8 @@ class QWElement {
   }
 
   public getCSSMediaRules(): any {
-    if (this.elementsCSSRules?.has(this.element)) {
-      const rules = this.elementsCSSRules?.get(this.element);
+    if (this.elementsCSSRules ?.has(this.element)) {
+      const rules = this.elementsCSSRules ?.get(this.element);
       return rules['media'];
     }
 
@@ -70,8 +70,8 @@ class QWElement {
   }
 
   public getCSSPseudoSelectorRules(pseudoSelector: string): any {
-    if (this.elementsCSSRules?.has(this.element)) {
-      const rules = this.elementsCSSRules?.get(this.element);
+    if (this.elementsCSSRules ?.has(this.element)) {
+      const rules = this.elementsCSSRules ?.get(this.element);
       return rules[pseudoSelector];
     }
 
@@ -107,7 +107,7 @@ class QWElement {
   public hasTextNode(): boolean {
     let hasText = false;
     for (const child of this.element.childNodes || []) {
-      if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+      if (child.nodeType === 3 && child.textContent ?.trim() !== '') {
         hasText = true;
       }
     }
@@ -132,9 +132,13 @@ class QWElement {
 
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
-    const elements = this.element.querySelectorAll(selector + ' > *');
+    let elements;
+    try {
+      elements = this.element.querySelectorAll(selector + ' > *');
+    }
+    catch (e) { }
     const qwList = new Array<QWElement>();
-    for (const element of elements) {
+    for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element, this.elementsCSSRules));
     }
