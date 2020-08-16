@@ -19,7 +19,8 @@ describe('Core', function() {
     this.timeout(1000 * 1000);
     let url = 'http://ciencias.ulisboa.pt';
     await core.start();
-    await core.evaluate({ url});
+    const reports =  await core.evaluate({ url});
+    console.log(reports);
     const earlReports = await core.generateEarlReport();
     await core.stop();
     
