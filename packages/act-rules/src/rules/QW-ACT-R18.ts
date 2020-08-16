@@ -23,12 +23,11 @@ class QW_ACT_R18 extends Rule {
     };
     let elementsWithSameId  = new Array<QWElement>();
 
-    const treeSelector = element.getTreeSelector();
     const id = element.getElementAttribute('id');
 
     if (id) {
       try {
-        elementsWithSameId = page.getElements(`[id="${id}"]` + treeSelector);
+        elementsWithSameId = page.getElements(`[id="${id}"]`);
   
         if (elementsWithSameId.length > 1) {
           evaluation.verdict = 'failed';

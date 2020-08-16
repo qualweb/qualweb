@@ -32,9 +32,8 @@ class QW_ACT_R33 extends Rule {
     if (explicitRole !== null && isValidRole && explicitRole !== implicitRole && isInAT && rolesJSON[explicitRole]['requiredContextRole'] !== '') {
       const requiredContextRole = rolesJSON[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
-      const treeSelector = element.getTreeSelector();
 
-      const ariaOwns = page.getElement('[aria-owns' + `="${id}"]`+ treeSelector);
+      const ariaOwns = page.getElement('[aria-owns' + `="${id}"]`);
 
       if (ariaOwns !== null) {
         const ariaOwnsRole = AccessibilityUtils.getElementRole(ariaOwns, page);

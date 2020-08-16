@@ -11,14 +11,14 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 10000);
     //['chromium', 'firefox', 'webkit']
-   /* const browser = await playwright['chromium'].launch({headless:false});
+    const browser = await playwright['chromium'].launch({headless:false});
     const context = await browser.newContext({bypassCSP:true});
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.globaldata.pt/");*/
-
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://eportugal.gov.pt/");
+/*
       const browser = await puppeteer.launch({headless:false, args: ['--no-sandbox', '--user-data-dir="/tmp/chromium"', '--disable-web-security', '--disable-features=site-per-process']
       });
       const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');//'https://www.pcdiga.com/'
-      
+      */
     // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
    /* const browser = await puppeteer.launch({headless:false});
