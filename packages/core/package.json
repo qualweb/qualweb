@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -47,9 +47,9 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "^0.1.1",
-    "@qualweb/dom": "^0.1.14",
+    "@qualweb/dom": "^0.1.16",
     "@qualweb/earl-reporter": "^0.2.7",
-    "@qualweb/evaluation": "^0.1.31",
+    "@qualweb/evaluation": "^0.1.34",
     "css": "^3.0.0",
     "css-select": "^2.1.0",
     "domhandler": "^3.0.0",
