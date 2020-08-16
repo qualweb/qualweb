@@ -77,9 +77,6 @@ class Dom {
       }
 
       const sourceHtml = await this.parseSourceHTML(_sourceHtml);
-
-      await this.processShadowDom();
-
       return { sourceHtml, page: this.page };
     } catch (err) {
       throw err;
@@ -164,85 +161,6 @@ class Dom {
     return handler.dom;
   }
 
-  private async processShadowDom(): Promise<void> {
-    const selectors = await this.page.evaluate((elem: Element) => {
-
-      function getElementSelector(elem: Element): string {
-        function getSelfLocationInParent(element: Element): string {
-          let selector = '';
-
-          if (element.tagName.toLowerCase() === 'body' || element.tagName.toLowerCase() === 'head') {
-            return element.tagName.toLowerCase();
-          }
-
-          let sameEleCount = 0;
-
-          let prev = element.previousElementSibling;
-          while (prev) {
-            if (prev.tagName.toLowerCase() === element.tagName.toLowerCase()) {
-              sameEleCount++;
-            }
-            prev = prev.previousElementSibling;
-          }
-
-          selector += `${element.tagName.toLowerCase()}:nth-of-type(${sameEleCount + 1})`;
-
-          return selector;
-        }
-
-        if (elem.tagName.toLowerCase() === 'html') {
-          return 'html';
-        } else if (elem.tagName.toLowerCase() === 'head') {
-          return 'html > head';
-        } else if (elem.tagName.toLowerCase() === 'body') {
-          return 'html > body';
-        }
-
-        let selector = 'html > ';
-        const parents = new Array<string>();
-        let parent = elem['parentElement'];
-        while (parent && parent.tagName.toLowerCase() !== 'html') {
-          parents.unshift(getSelfLocationInParent(parent));
-          parent = parent['parentElement'];
-        }
-
-        selector += parents.join(' > ');
-        selector += ' > ' + getSelfLocationInParent(elem);
-
-        return selector;
-      }
-
-      const listElements = document.querySelectorAll('*') || new Array<Element>();
-      const listOfSelectors = new Array<string>();
-
-      listElements.forEach(element => {
-        if (element.shadowRoot !== null) {
-          element.innerHTML = element.shadowRoot.innerHTML;
-          listOfSelectors.push(getElementSelector(element));
-        }
-      });
-
-      return listOfSelectors;
-    });
-
-    let shadowCounter = 0;
-    for (const selector of selectors || []) {
-      const shadowRoot = await this.page.$(selector);
-      if (shadowRoot) {
-        const children = await shadowRoot.$$(selector + ' *')
-        await this.setShadowAttribute(children, shadowCounter);
-        shadowCounter++;
-      }
-    }
-  }
-
-  private async setShadowAttribute(elements: ElementHandle[], counter: number): Promise<void> {
-    for (const element of elements || []) {
-      await element.evaluate((elem, attribute, value) => {
-        elem.setAttribute(attribute, value);
-      }, 'shadowTree', counter + '');
-    }
-  }
 
   private isSVGorMath(content?: string): boolean {
     return !!(content?.trim().startsWith('<math') || content?.trim().startsWith('<svg'));
