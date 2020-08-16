@@ -132,8 +132,7 @@ class QWElement {
 
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
-    const treeSelector = this.getTreeSelector();
-    const elements = this.element.querySelectorAll(selector + ' > *' + treeSelector);
+    const elements = this.element.querySelectorAll(selector + ' > *');
     const qwList = new Array<QWElement>();
     for (const element of elements) {
       this.addCSSRulesPropertyToElement(element);
@@ -142,14 +141,6 @@ class QWElement {
     return qwList;
   }
 
-  public getTreeSelector(): string {
-    const attribute = this.getElementAttribute('shadowTree');
-    let result = ':not([shadowTree])';
-    if (attribute !== null) {
-      result = `[shadowTree='${attribute}']`
-    }
-    return result;
-  }
 
   public getElementChildTextContent(childName: string): string | undefined {
     for (const child of this.element.children || []) {
