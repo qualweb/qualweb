@@ -89,8 +89,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.15",
-    "@qualweb/types": "^0.4.26",
+    "@qualweb/dom": "^0.1.16",
+    "@qualweb/types": "^0.4.29",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.27",
     "chai": "^4.2.0",
@@ -105,7 +105,7 @@
   },
   "dependencies": {
     "@qualweb/qw-element": "^0.1.16",
-    "@qualweb/qw-page": "^0.1.19",
+    "@qualweb/qw-page": "^0.1.20",
     "@qualweb/util": "^0.3.28",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",

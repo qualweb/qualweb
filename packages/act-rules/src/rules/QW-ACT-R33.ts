@@ -33,7 +33,7 @@ class QW_ACT_R33 extends Rule {
       const requiredContextRole = rolesJSON[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
 
-      const ariaOwns = page.getElement('[aria-owns' + `="${id}"]`);
+      const ariaOwns = page.getElement('[aria-owns' + `="${id}"]`,element);
 
       if (ariaOwns !== null) {
         const ariaOwnsRole = AccessibilityUtils.getElementRole(ariaOwns, page);
@@ -60,6 +60,7 @@ class QW_ACT_R33 extends Rule {
       evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` with the required context \`role\``;
       evaluation.resultCode = 'RC5';
     }
+    console.log(evaluation.resultCode);
 
     super.addEvaluationResult(evaluation, element);
   }

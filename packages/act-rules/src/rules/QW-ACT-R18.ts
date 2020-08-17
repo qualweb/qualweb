@@ -27,7 +27,7 @@ class QW_ACT_R18 extends Rule {
 
     if (id) {
       try {
-        elementsWithSameId = page.getElements(`[id="${id}"]`);
+        elementsWithSameId = page.getElements(`[id="${id}"]`,element);
   
         if (elementsWithSameId.length > 1) {
           evaluation.verdict = 'failed';
