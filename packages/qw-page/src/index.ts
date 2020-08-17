@@ -113,7 +113,7 @@ class QWPage {
     let element, iframeSelector;
     if (!!specificDocument) {
       iframeSelector = specificDocument.getElementAttribute("_documentSelector");
-      if (iframeSelector) {
+      if (!!iframeSelector && !!this.extraDocuments[iframeSelector]) {
         let iframePage = this.extraDocuments[iframeSelector];
         element = iframePage.getElement(selector, specificDocument);
       } else {
@@ -134,7 +134,7 @@ class QWPage {
         }
       }
     }
-    if (element)
+    if (!!element)
       this.addIframeAttribute([element], iframeSelector);
     return element;
   }
@@ -143,7 +143,7 @@ class QWPage {
     let elements: QWElement[] = [];
     if (!!specificDocument) {
       let iframeSelector = specificDocument.getElementAttribute("_documentSelector");
-      if (iframeSelector) {
+      if (!!iframeSelector && !!this.extraDocuments[iframeSelector]) {
         let iframePage = this.extraDocuments[iframeSelector];
         elements.push(...iframePage.getElements(selector, specificDocument));
         this.addIframeAttribute(elements, iframeSelector);
