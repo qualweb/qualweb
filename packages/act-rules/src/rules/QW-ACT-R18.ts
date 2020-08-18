@@ -3,14 +3,17 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWPage} from "@qualweb/qw-page";
-import {QWElement} from "@qualweb/qw-element";
+import { QWPage } from "@qualweb/qw-page";
+import { QWElement } from "@qualweb/qw-element";
 
 @ACTRuleDecorator
 class QW_ACT_R18 extends Rule {
+  private idMap: Map<string, boolean>;
+
 
   constructor(rule?: any) {
     super(rule);
+    this.idMap = new Map<string, boolean>();
   }
 
   @ElementExists
@@ -21,14 +24,15 @@ class QW_ACT_R18 extends Rule {
       description: '',
       resultCode: ''
     };
-    let elementsWithSameId  = new Array<QWElement>();
+    let elementsWithSameId = new Array<QWElement>();
 
     const id = element.getElementAttribute('id');
 
-    if (id) {
+
+    if (id && !this.idMap[id]) {
       try {
-        elementsWithSameId = page.getElements(`[id="${id}"]`,element);
-  
+        elementsWithSameId = page.getElements(`[id="${id}"]`, element);
+
         if (elementsWithSameId.length > 1) {
           evaluation.verdict = 'failed';
           evaluation.description = `Several elements have the same \`id\` attribute (${id}).`;
@@ -43,8 +47,9 @@ class QW_ACT_R18 extends Rule {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target \`id\` attribute has a invalid value.`;
         evaluation.resultCode = 'RC3';
-        super.addEvaluationResult(evaluation,element);
+        super.addEvaluationResult(evaluation, element);
       }
+      this.idMap[id] = true;
     }
 
   }
