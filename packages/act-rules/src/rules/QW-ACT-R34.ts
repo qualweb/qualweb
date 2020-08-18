@@ -28,13 +28,11 @@ class QW_ACT_R34 extends Rule {
 
     // get all elements that are using aria attributes
     const elementsWithAriaAttribs = element.getElements(ariaSelector);
-    let keys = Object.keys(ariaJSON)
 
     for (const elem of elementsWithAriaAttribs || []) {
       const isInAT = AccessibilityUtils.isElementInAT(elem, page);
       let elemAttribs = elem.getElementAttributesName();
-      elemAttribs = elemAttribs.filter((elem) => elem.startsWith("aria-"));
-
+      elemAttribs = elemAttribs.filter((elem) => elem.startsWith("ar"));
 
       for (const attrib of elemAttribs || []) {
         const evaluation: ACTRuleResult = {
@@ -42,7 +40,7 @@ class QW_ACT_R34 extends Rule {
           description: '',
           resultCode: ''
         };
-        if (keys.includes(attrib)) {
+        if (attrib in ariaJSON) {
           //if is in the accessibility tree
           const values = ariaJSON[attrib]['values'];
           const attrValue = elem.getElementAttribute(attrib);
