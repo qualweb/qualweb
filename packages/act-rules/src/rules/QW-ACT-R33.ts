@@ -66,7 +66,13 @@ class QW_ACT_R33 extends Rule {
   }
 
   private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
-    const parent = element.getElementParent();
+    let parent = element.getElementParent();
+    if(!parent){
+      let documentSelector= element.getElementAttribute("_documentSelector")
+      if(!!documentSelector && !documentSelector.includes("iframe")){
+        parent = page.getElement(documentSelector);
+      }
+    }
     let result = false;
     let sameRole;
 
