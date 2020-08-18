@@ -1,10 +1,10 @@
 {
   "type": "act-rules",
   "metadata": {
-    "passed": 16,
-    "warning": 2,
-    "failed": 7,
-    "inapplicable": 32
+    "passed": 15,
+    "warning": 4,
+    "failed": 8,
+    "inapplicable": 33
   },
   "assertions": {
     "QW-ACT-R1": {
@@ -114,9 +114,9 @@
         ],
         "passed": 1,
         "warning": 0,
-        "failed": 0,
-        "outcome": "passed",
-        "description": "The `lang` attribute exists and has a value."
+        "failed": 1,
+        "outcome": "failed",
+        "description": "The `lang` attribute doesn't exist or is empty (\"\")."
       },
       "results": [
         {
@@ -126,6 +126,17 @@
           "elements": [
             {
               "htmlCode": "<html class=\"ltr yui3-js-enabled webkit js chrome chrome85 chrome85-0 linux secure js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths\" dir=\"ltr\" lang=\"pt-PT\" _documentselector=\"undefined\"><head></head><body></body></html>",
+              "pointer": "html"
+            }
+          ]
+        },
+        {
+          "verdict": "failed",
+          "description": "The `lang` attribute doesn't exist or is empty (\"\").",
+          "resultCode": "RC2",
+          "elements": [
+            {
+              "htmlCode": "<html _documentselector=\"html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)\"><head></head><body></body></html>",
               "pointer": "html"
             }
           ]
@@ -569,9 +580,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/governo-aprova-estrategia-para-inovacao-e-modernizacao-da-administracao-publica\">\n\t\t\t\t\tAprovada estratégia para modernização da Adm. Pública                \n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/governo-aprova-estrategia-para-inovacao-e-modernizacao-da-administracao-publica\">\n\t\t\t\t\tAprovada estratégia para inovação da Adm. Pública                \n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
-              "accessibleName": "Aprovada estratégia para modernização da Adm. Pública"
+              "accessibleName": "Aprovada estratégia para inovação da Adm. Pública"
             }
           ]
         },
@@ -581,9 +592,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/plataforma-mega-disponibiliza-vouchers-para-manuais-escolares-gratuitos\">\n\t\t\t\t\t\"MEGA\" disponibiliza vouchers para manuais escolares gratuitos\n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/plataforma-mega-disponibiliza-vouchers-para-manuais-escolares-gratuitos\">\n\t\t\t\t\tVouchers para manuais escolares disponíveis online\n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)",
-              "accessibleName": "\"MEGA\" disponibiliza vouchers para manuais escolares gratuitos"
+              "accessibleName": "Vouchers para manuais escolares disponíveis online"
             }
           ]
         },
@@ -593,9 +604,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/covid-19-aeroportos-portugueses-com-novas-regras\">\n\t\t\t\t\tAeroportos portugueses com novas regras\n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/balcao-para-desbloquear-pins-de-cartao-de-cidadao-com-mais-de-300-atendimentos-numa-semana\">\n\t\t\t\t\tNovo balcão para desbloquear PINs de Cartão de Cidadão\n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(3)",
-              "accessibleName": "Aeroportos portugueses com novas regras"
+              "accessibleName": "Novo balcão para desbloquear PINs de Cartão de Cidadão"
             }
           ]
         },
@@ -1129,7 +1140,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -1220,7 +1231,7 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 99,
+        "passed": 100,
         "warning": 0,
         "failed": 0,
         "outcome": "passed",
@@ -1255,7 +1266,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<link charset=\"utf-8\" rel=\"stylesheet\" id=\"yui_patched_v3_18_1_2_1597589481473_2\" href=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/widget-base/assets/skins/sam/widget-base.css&amp;/o/frontend-js-web/aui/widget-stack/assets/skins/sam/widget-stack.css&amp;/o/frontend-js-web/aui/aui-dropdown/assets/skins/sam/aui-dropdown.css\">",
+              "htmlCode": "<link charset=\"utf-8\" rel=\"stylesheet\" id=\"yui_patched_v3_18_1_2_1597771632301_2\" href=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/widget-base/assets/skins/sam/widget-base.css&amp;/o/frontend-js-web/aui/widget-stack/assets/skins/sam/widget-stack.css&amp;/o/frontend-js-web/aui/aui-dropdown/assets/skins/sam/aui-dropdown.css\">",
               "pointer": "html:nth-of-type(1) > head > link:nth-of-type(16)"
             }
           ]
@@ -1266,7 +1277,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<script charset=\"utf-8\" id=\"yui_patched_v3_18_1_2_1597589481473_3\" src=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/base-core/base-core-min.js&amp;/o/frontend-js-web/aui/base-observable/base-observable-min.js&amp;/o/frontend-js-web/aui/gesture-simulate/gesture-simulate-min.js&amp;/o/frontend-js-web/aui/aui-widget-cssclass/aui-widget-cssclass-min.js&amp;/o/frontend-js-web/aui/aui-widget-toggle/aui-widget-toggle-min.js&amp;/o/frontend-js-web/aui/aui-widget-trigger/aui-widget-trigger-min.js&amp;/o/frontend-js-web/aui/aui-dropdown/aui-dropdown-min.js\" async=\"\"></script>",
+              "htmlCode": "<script charset=\"utf-8\" id=\"yui_patched_v3_18_1_2_1597771632301_3\" src=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/base-core/base-core-min.js&amp;/o/frontend-js-web/aui/base-observable/base-observable-min.js&amp;/o/frontend-js-web/aui/gesture-simulate/gesture-simulate-min.js&amp;/o/frontend-js-web/aui/aui-widget-cssclass/aui-widget-cssclass-min.js&amp;/o/frontend-js-web/aui/aui-widget-toggle/aui-widget-toggle-min.js&amp;/o/frontend-js-web/aui/aui-widget-trigger/aui-widget-trigger-min.js&amp;/o/frontend-js-web/aui/aui-dropdown/aui-dropdown-min.js\" async=\"\"></script>",
               "pointer": "html:nth-of-type(1) > head > script:nth-of-type(5)"
             }
           ]
@@ -1277,7 +1288,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<script charset=\"utf-8\" id=\"yui_patched_v3_18_1_1_1597589481473_65\" src=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/event-move/event-move-min.js\" async=\"\"></script>",
+              "htmlCode": "<script charset=\"utf-8\" id=\"yui_patched_v3_18_1_1_1597771632301_65\" src=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/event-move/event-move-min.js\" async=\"\"></script>",
               "pointer": "html:nth-of-type(1) > head > script:nth-of-type(6)"
             }
           ]
@@ -1332,7 +1343,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597589481473_8\" class=\"yui3-widget dropdown yui3-widget-stacked\" style=\"z-index: 0;\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597771632301_8\" class=\"yui3-widget dropdown yui3-widget-stacked\" style=\"z-index: 0;\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(1)"
             }
           ]
@@ -1343,7 +1354,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597589481473_10\" class=\"dropdown-content\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597771632301_10\" class=\"dropdown-content\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -1530,7 +1541,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_3_1597589481473_8\" class=\"dropdown-content\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_3_1597771632301_8\" class=\"dropdown-content\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -1849,7 +1860,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -1860,7 +1871,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -2313,6 +2324,17 @@
             {
               "htmlCode": "<input type=\"hidden\" id=\"themeClass\" name=\"theme-principal\" value=\"theme-principal\">",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > input:nth-of-type(3)"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target has a unique `id` attribute.",
+          "resultCode": "RC2",
+          "elements": [
+            {
+              "htmlCode": "<textarea id=\"g-recaptcha-response-100000\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;\"></textarea>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > textarea:nth-of-type(1)"
             }
           ]
         }
@@ -4611,6 +4633,387 @@
       },
       "results": []
     },
+    "QW-ACT-R9": {
+      "name": "Links with identical accessible names have equivalent purpose",
+      "code": "QW-ACT-R9",
+      "mapping": "b20e66",
+      "description": "This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.",
+      "metadata": {
+        "target": {
+          "element": "a, [role='link']"
+        },
+        "success-criteria": [
+          {
+            "name": "2.4.9",
+            "level": "AAA",
+            "principle": "Operable",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
+          }
+        ],
+        "related": [],
+        "url": "https://act-rules.github.io/rules/b20e66",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ],
+        "passed": 0,
+        "warning": 1,
+        "failed": 0,
+        "outcome": "warning",
+        "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent."
+      },
+      "results": [
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "warning",
+          "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent.",
+          "resultCode": "RC3",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"#0\"> voltar </a>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+            },
+            {
+              "htmlCode": "<a href=\"#0\"> voltar </a>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name.",
+          "resultCode": "RC4",
+          "elements": []
+        }
+      ]
+    },
+    "QW-ACT-R10": {
+      "name": "`iframe` elements with identical accessible names have equivalent purpose",
+      "code": "QW-ACT-R10",
+      "mapping": "4b1c6c",
+      "description": "This rule checks that iframe elements with identical accessible names embed the same resource or equivalent resources.",
+      "metadata": {
+        "target": {
+          "element": "iframe",
+          "attributes": [
+            "src"
+          ]
+        },
+        "success-criteria": [
+          {
+            "name": "4.1.2",
+            "level": "A",
+            "principle": "Robust",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html"
+          }
+        ],
+        "related": [],
+        "url": "https://act-rules.github.io/rules/4b1c6c",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ],
+        "passed": 0,
+        "warning": 0,
+        "failed": 0,
+        "outcome": "inapplicable",
+        "description": "No test targets found."
+      },
+      "results": []
+    },
     "QW-ACT-R25": {
       "name": "ARIA state or property is permitted",
       "code": "QW-ACT-R25",
@@ -4644,7 +5047,7 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 11,
+        "passed": 12,
         "warning": 0,
         "failed": 3,
         "outcome": "failed",
@@ -4789,7 +5192,7 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\" _documentselector=\"null\"></ul>",
+              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\"></ul>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > ul:nth-of-type(1)"
             }
           ]
@@ -4932,7 +5335,18 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The `aria-describedby` property is supported or inherited by the `role` tabpanel.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -4943,7 +5357,18 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC3",
+          "elements": [
+            {
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -4954,7 +5379,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -4965,7 +5390,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -4976,7 +5401,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -5177,7 +5602,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\" _documentselector=\"null\"></ul>",
+              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\"></ul>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > ul:nth-of-type(1)"
             }
           ]
@@ -5320,7 +5745,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -5331,7 +5756,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -5342,7 +5767,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -6027,7 +6452,7 @@
           "resultCode": "RC5",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -6049,7 +6474,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -6093,7 +6518,7 @@
           "resultCode": "RC5",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -6306,6 +6731,17 @@
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) > svg:nth-of-type(1)"
             }
           ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not in accessibility tree.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
+            }
+          ]
         }
       ]
     },
@@ -6336,7 +6772,7 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 14,
+        "passed": 15,
         "warning": 0,
         "failed": 0,
         "outcome": "passed",
@@ -6630,6 +7066,28 @@
           ]
         },
         {
+          "verdict": "passed",
+          "description": "The test target `aria-describedby` attribute has a valid value.",
+          "resultCode": "RC3",
+          "elements": [
+            {
+              "htmlCode": "<body class=\"controls-visible yui3-skin-sam guest-site signed-out public-page site themeToggle userStyle theme-principal homepage-layout-small\" id=\"senna_surface1\"></body>",
+              "pointer": "html > body"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC5",
+          "elements": [
+            {
+              "htmlCode": "<body class=\"controls-visible yui3-skin-sam guest-site signed-out public-page site themeToggle userStyle theme-principal homepage-layout-small\" id=\"senna_surface1\"></body>",
+              "pointer": "html > body"
+            }
+          ]
+        },
+        {
           "verdict": "inapplicable",
           "description": "The test target is not included in the accessibility tree.",
           "resultCode": "RC5",
@@ -6810,6 +7268,350 @@
         }
       ]
     },
+    "QW-ACT-R44": {
+      "name": "Links with identical accessible names and context serve equivalent purpose",
+      "code": "QW-ACT-R44",
+      "mapping": "fd3a94",
+      "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+      "metadata": {
+        "target": {
+          "element": "a, [role='link']"
+        },
+        "success-criteria": [
+          {
+            "name": "2.4.9",
+            "level": "AAA",
+            "principle": "Operable",
+            "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html"
+          }
+        ],
+        "related": [],
+        "url": "https://act-rules.github.io/rules/fd3a94",
+        "type": [
+          "ACTRule",
+          "TestCase"
+        ],
+        "a11yReq": [
+          "WCAG21:language"
+        ],
+        "passed": 0,
+        "warning": 1,
+        "failed": 0,
+        "outcome": "warning",
+        "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent."
+      },
+      "results": [
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "warning",
+          "description": "The `links` with the same accessible name have different content. Verify is the content is equivalent.",
+          "resultCode": "RC3",
+          "elements": [
+            {
+              "htmlCode": "<a href=\"#0\"> voltar </a>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(10) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+            },
+            {
+              "htmlCode": "<a href=\"#0\"> voltar </a>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > nav:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(8) > ul:nth-of-type(1) > li:nth-of-type(1) > a:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
+          "resultCode": "RC4",
+          "elements": []
+        }
+      ]
+    },
     "QW-ACT-R16": {
       "name": "Form control has accessible name",
       "code": "QW-ACT-R16",
@@ -6924,7 +7726,7 @@
           "WCAG21:language"
         ],
         "passed": 0,
-        "warning": 11,
+        "warning": 12,
         "failed": 0,
         "outcome": "warning",
         "description": " Check that text error messages provided, identify the cause of the error or how to fix the error."
@@ -7048,6 +7850,17 @@
             {
               "htmlCode": "<input aria-required=\"true\" type=\"tel\" class=\"form-control click2callForm_intent_Selected\" id=\"click2callForm_phone\" placeholder=\"N.º de telefone ou telemóvel\">",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > form:nth-of-type(1) > fieldset:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "warning",
+          "description": " Check that text error messages provided, identify the cause of the error or how to fix the error.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<textarea id=\"g-recaptcha-response-100000\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;\"></textarea>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > textarea:nth-of-type(1)"
             }
           ]
         }
@@ -7678,7 +8491,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -7700,7 +8513,7 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -7744,7 +8557,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -7955,6 +8768,17 @@
             {
               "htmlCode": "<svg class=\" nc-align-to-text\" role=\"img\" viewBox=\"0 0 32 32\"></svg>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) > svg:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC3",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
             }
           ]
         }
@@ -8583,7 +9407,7 @@
           "resultCode": "RC5",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -8605,7 +9429,7 @@
           "resultCode": "RC5",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -8649,7 +9473,7 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -8860,6 +9684,17 @@
             {
               "htmlCode": "<svg class=\" nc-align-to-text\" role=\"img\" viewBox=\"0 0 32 32\"></svg>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) > svg:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
+          "resultCode": "RC5",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
             }
           ]
         }
@@ -9755,7 +10590,19 @@
         "outcome": "inapplicable",
         "description": "No test targets found."
       },
-      "results": []
+      "results": [
+        {
+          "verdict": "inapplicable",
+          "description": "The test target is not included in the accessibility tree.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
+            }
+          ]
+        }
+      ]
     },
     "QW-ACT-R58": {
       "name": "audio element content has transcript",
@@ -9898,7 +10745,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\" _documentselector=\"null\"></ul>",
+              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\"></ul>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > ul:nth-of-type(1)",
               "accessibleName": "Área reservada"
             }
@@ -9982,7 +10829,7 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)",
               "accessibleName": "1 of 2"
             }
@@ -10499,9 +11346,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">Aprovada estratégia para modernização da Adm. Pública</p></h3>",
+              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">Aprovada estratégia para inovação da Adm. Pública</p></h3>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) > h3:nth-of-type(1)",
-              "accessibleName": "Aprovada estratégia para modernização da Adm. Pública"
+              "accessibleName": "Aprovada estratégia para inovação da Adm. Pública"
             }
           ]
         },
@@ -10511,9 +11358,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">\"MEGA\" disponibiliza vouchers para manuais escolares gratuitos</p></h3>",
+              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">Vouchers para manuais escolares disponíveis online</p></h3>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2) > h3:nth-of-type(1)",
-              "accessibleName": "\"MEGA\" disponibiliza vouchers para manuais escolares gratuitos"
+              "accessibleName": "Vouchers para manuais escolares disponíveis online"
             }
           ]
         },
@@ -10523,9 +11370,9 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">Aeroportos portugueses com novas regras</p></h3>",
+              "htmlCode": "<h3 class=\"feature__box\"><p _cssrules=\"true\">Novo balcão para desbloquear PINs de Cartão de Cidadão</p></h3>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(3) > h3:nth-of-type(1)",
-              "accessibleName": "Aeroportos portugueses com novas regras"
+              "accessibleName": "Novo balcão para desbloquear PINs de Cartão de Cidadão"
             }
           ]
         },
@@ -11444,7 +12291,7 @@
           "resultCode": "RC3",
           "elements": [
             {
-              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\" _documentselector=\"null\"></ul>",
+              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\"></ul>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > ul:nth-of-type(1)"
             }
           ]
@@ -11549,7 +12396,7 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 3,
+        "passed": 4,
         "warning": 0,
         "failed": 0,
         "outcome": "passed",
@@ -11586,6 +12433,17 @@
             {
               "htmlCode": "<li role=\"presentation\"></li>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(2)"
+            }
+          ]
+        },
+        {
+          "verdict": "passed",
+          "description": "The test target is not in the accessibility Tree.",
+          "resultCode": "RC2",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
             }
           ]
         }
@@ -11910,7 +12768,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<link charset=\"utf-8\" rel=\"stylesheet\" id=\"yui_patched_v3_18_1_2_1597589481473_2\" href=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/widget-base/assets/skins/sam/widget-base.css&amp;/o/frontend-js-web/aui/widget-stack/assets/skins/sam/widget-stack.css&amp;/o/frontend-js-web/aui/aui-dropdown/assets/skins/sam/aui-dropdown.css\">",
+              "htmlCode": "<link charset=\"utf-8\" rel=\"stylesheet\" id=\"yui_patched_v3_18_1_2_1597771632301_2\" href=\"/combo/?browserId=other&amp;minifierType=&amp;languageId=pt_PT&amp;b=7010&amp;t=1597320311087&amp;/o/frontend-js-web/aui/widget-base/assets/skins/sam/widget-base.css&amp;/o/frontend-js-web/aui/widget-stack/assets/skins/sam/widget-stack.css&amp;/o/frontend-js-web/aui/aui-dropdown/assets/skins/sam/aui-dropdown.css\">",
               "pointer": "html:nth-of-type(1) > head > link:nth-of-type(16)"
             }
           ]
@@ -11987,7 +12845,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597589481473_8\" class=\"yui3-widget dropdown yui3-widget-stacked\" style=\"z-index: 0;\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597771632301_8\" class=\"yui3-widget dropdown yui3-widget-stacked\" style=\"z-index: 0;\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(1)"
             }
           ]
@@ -11998,7 +12856,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597589481473_10\" class=\"dropdown-content\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_2_1597771632301_10\" class=\"dropdown-content\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -14748,7 +15606,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div id=\"yui_patched_v3_18_1_3_1597589481473_8\" class=\"dropdown-content\"></div>",
+              "htmlCode": "<div id=\"yui_patched_v3_18_1_3_1597771632301_8\" class=\"dropdown-content\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -15562,7 +16420,7 @@
           "resultCode": "RC1",
           "elements": [
             {
-              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\" _documentselector=\"null\"></ul>",
+              "htmlCode": "<ul class=\"login-list dropdown-menu\" aria-labelledby=\"reservedAreaMenu\"></ul>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > header:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > ul:nth-of-type(1)"
             }
           ]
@@ -16893,7 +17751,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-track\" style=\"opacity: 1; width: 840px; transform: translate3d(0px, 0px, 0px); transition: transform 500ms ease 0s;\"></div>",
+              "htmlCode": "<div class=\"slick-track\" style=\"opacity: 1; width: 840px; transform: translate3d(0px, 0px, 0px);\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -16904,7 +17762,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\"></div>",
+              "htmlCode": "<div class=\"slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" style=\"width: 420px;\" role=\"tabpanel\" id=\"slick-slide00\" aria-describedby=\"slick-slide-control00\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)"
             }
           ]
@@ -17080,7 +17938,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\"></div>",
+              "htmlCode": "<div class=\"slick-slide\" data-slick-index=\"1\" aria-hidden=\"true\" style=\"width: 420px;\" tabindex=\"-1\" role=\"tabpanel\" id=\"slick-slide01\" aria-describedby=\"slick-slide-control01\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)"
             }
           ]
@@ -17278,7 +18136,7 @@
           "resultCode": "RC4",
           "elements": [
             {
-              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\" _documentselector=\"null\"></button>",
+              "htmlCode": "<button type=\"button\" role=\"tab\" id=\"slick-slide-control00\" aria-controls=\"slick-slide00\" aria-label=\"1 of 2\" tabindex=\"0\" aria-selected=\"true\"></button>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(1) > button:nth-of-type(1)"
             }
           ]
@@ -17630,7 +18488,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/governo-aprova-estrategia-para-inovacao-e-modernizacao-da-administracao-publica\">\n\t\t\t\t\tAprovada estratégia para modernização da Adm. Pública                \n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/governo-aprova-estrategia-para-inovacao-e-modernizacao-da-administracao-publica\">\n\t\t\t\t\tAprovada estratégia para inovação da Adm. Pública                \n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)"
             }
           ]
@@ -17663,7 +18521,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/plataforma-mega-disponibiliza-vouchers-para-manuais-escolares-gratuitos\">\n\t\t\t\t\t\"MEGA\" disponibiliza vouchers para manuais escolares gratuitos\n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/plataforma-mega-disponibiliza-vouchers-para-manuais-escolares-gratuitos\">\n\t\t\t\t\tVouchers para manuais escolares disponíveis online\n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2)"
             }
           ]
@@ -17696,7 +18554,7 @@
           "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<a href=\"/noticias/covid-19-aeroportos-portugueses-com-novas-regras\">\n\t\t\t\t\tAeroportos portugueses com novas regras\n\t\t\t\t</a>",
+              "htmlCode": "<a href=\"/noticias/balcao-para-desbloquear-pins-de-cartao-de-cidadao-com-mais-de-300-atendimentos-numa-semana\">\n\t\t\t\t\tNovo balcão para desbloquear PINs de Cartão de Cidadão\n\t\t\t\t</a>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(3)"
             }
           ]
@@ -20547,6 +21405,72 @@
             {
               "htmlCode": "<div class=\"lfr-spa-loading-bar\"></div>",
               "pointer": "html:nth-of-type(1) > body > div:nth-of-type(3)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element doesn't have text.",
+          "resultCode": "RC2",
+          "elements": [
+            {
+              "htmlCode": "<div></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<div class=\"grecaptcha-badge\" data-style=\"bottomright\" style=\"width: 256px; height: 60px; position: fixed; visibility: hidden; display: block; transition: right 0.3s ease 0s; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;\"></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<div class=\"grecaptcha-logo\"></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<iframe src=\"https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Leq-9UUAAAAABWXbl_lrLQiZkmG0xiOHloQv2gc&amp;co=aHR0cHM6Ly9lcG9ydHVnYWwuZ292LnB0OjQ0Mw..&amp;hl=en&amp;v=TPiWapjoyMdQOtxLT9_b4n2W&amp;size=invisible&amp;cb=7fq83c12ppzb\" width=\"256\" height=\"60\" role=\"presentation\" name=\"a-dhtbec5s9kq5\" frameborder=\"0\" scrolling=\"no\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox\"></iframe>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > iframe:nth-of-type(1)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<div class=\"grecaptcha-error\"></div>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2)"
+            }
+          ]
+        },
+        {
+          "verdict": "inapplicable",
+          "description": "Element is not visible.",
+          "resultCode": "RC1",
+          "elements": [
+            {
+              "htmlCode": "<textarea id=\"g-recaptcha-response-100000\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;\"></textarea>",
+              "pointer": "html:nth-of-type(1) > body > div:nth-of-type(4) > div:nth-of-type(1) > textarea:nth-of-type(1)"
             }
           ]
         }
