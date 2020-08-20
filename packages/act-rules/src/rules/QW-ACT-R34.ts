@@ -116,7 +116,7 @@ class QW_ACT_R34 extends Rule {
             evaluation.resultCode = 'RC5';
           }
 
-          super.addEvaluationResult(evaluation, element);
+          super.addEvaluationResult(evaluation, elem);
         }
       }
     }

@@ -37,8 +37,6 @@ class QW_ACT_R25 extends Rule {
 
       for (const attrib of elemAttribs || []) {
         let keys = Object.keys(ariaJSON);
-        console.log(keys)
-        console.log(attrib);
         if (!!keys && !!attrib && keys.includes(attrib)) {
           const evaluation: ACTRuleResult = {
             verdict: '',

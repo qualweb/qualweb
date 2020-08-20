@@ -63,9 +63,6 @@ abstract class Rule {
   conjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
     let results = this.getAtomicRuleResultPerVerdict(selector, rules);
-    let values = Object.values(results);
-    console.log(values);
-    console.log(results)
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -90,7 +87,6 @@ abstract class Rule {
       evaluation.resultCode = "RC4"
       evaluation.description = "The test target doesn't apply to this rule" //title + id
     }
-    console.log(evaluation);
     this.addEvaluationResult(evaluation, element);
 
   }
@@ -121,7 +117,6 @@ abstract class Rule {
       evaluation.resultCode = "RC4"
       evaluation.description = "The test target doesn't apply to this rule" //title + id
     }
-    console.log(evaluation);
     this.addEvaluationResult(evaluation, element);
 
   }

@@ -46,7 +46,6 @@ class QW_ACT_R51 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC4';
     }
-    console.log(evaluation.resultCode)
 
     super.addEvaluationResult(evaluation, element);
   }

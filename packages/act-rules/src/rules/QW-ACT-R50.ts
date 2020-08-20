@@ -64,7 +64,6 @@ class QW_ACT_R50 extends Rule {
       evaluation.description = `The test target doesn't auto-play audio for 3 seconds.`;
       evaluation.resultCode = 'RC5';
     }
-    console.log()
     super.addEvaluationResult(evaluation, element);
   }
 }

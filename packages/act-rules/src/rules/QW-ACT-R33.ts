@@ -60,7 +60,6 @@ class QW_ACT_R33 extends Rule {
       evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` with the required context \`role\``;
       evaluation.resultCode = 'RC5';
     }
-    console.log(evaluation.resultCode);
 
     super.addEvaluationResult(evaluation, element);
   }
