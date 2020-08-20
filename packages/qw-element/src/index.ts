@@ -156,18 +156,27 @@ class QWElement {
   }
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    const clonedElem = <Element>this.element.cloneNode(true);
-    clonedElem.removeAttribute('_cssRules');
+    let cssRules = this.element.getAttribute('_cssRules');
+    this.element.removeAttribute('_cssRules');
+    let result;
     if (fullElement) {
-      return clonedElem.outerHTML;
-    } else if (withText) {
-      const text = clonedElem['text'];
-      clonedElem.innerHTML = text !== undefined ? text : '';
-      return clonedElem.outerHTML;
-    } else {
-      clonedElem.innerHTML = '';
-      return clonedElem.outerHTML;
+      result = this.element.outerHTML;
     }
+    else if (withText) {
+      let clonedElem = <Element>this.element.cloneNode(false);
+      const text = this.element['text'];
+      clonedElem.innerHTML = text !== undefined ? text : '';
+      result = clonedElem.outerHTML;
+    }
+    else {
+      let clonedElem = <Element>this.element.cloneNode(false);
+      clonedElem.innerHTML = '';
+      result = clonedElem.outerHTML;
+    }
+    if (!!cssRules) {
+      this.element.setAttribute('_cssRules', cssRules)
+    }
+    return result;
   }
 
   public getElement(selector: string): QWElement | null {
