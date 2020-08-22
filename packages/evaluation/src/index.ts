@@ -94,6 +94,10 @@ class Evaluation {
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
     });
+    await page.evaluate(() => {
+      // @ts-ignore
+      window.page = new QWPage.QWPage(document, window, true);
+    });
   }
 
   public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
@@ -122,15 +126,15 @@ class Evaluation {
       // @ts-ignore
       const act = new ACTRules.ACTRules(options);
       // @ts-ignore
-      return act.execute(parsedMetaElements, new QWPage.QWPage(document, window, true));
+      return act.execute(parsedMetaElements, window.page);
       // @ts-ignore
     }, parsedMetaElements, options);
 
     const r40 = 'QW-ACT-R40';
-    
+
     if (!options || !options['rules'] || options['rules'].includes(r40) || options['rules'].includes('59br37')) {
       const viewport = page.viewport();
-      
+
       await page.setViewport({
         width: 640,
         height: 512
@@ -140,7 +144,7 @@ class Evaluation {
         // @ts-ignore
         const act = new ACTRules.ACTRules();
         // @ts-ignore
-        return act.executeQW_ACT_R40(new QWPage.QWPage(document, window));
+        return act.executeQW_ACT_R40( window.page);
       });
 
       await page.setViewport({
@@ -150,13 +154,13 @@ class Evaluation {
 
       actReport.assertions[r40] = actReportR40;
       let outcome = actReportR40.metadata.outcome;
-      if(outcome === "passed"){
-        actReport.metadata.passed ++;
-      }else if(outcome === "failed"){
-        actReport.metadata.failed ++;
-      }else if (outcome === "warning"){
-        actReport.metadata.warning ++;
-      }else{
+      if (outcome === "passed") {
+        actReport.metadata.passed++;
+      } else if (outcome === "failed") {
+        actReport.metadata.failed++;
+      } else if (outcome === "warning") {
+        actReport.metadata.warning++;
+      } else {
         actReport.metadata.inapplicable++;
       }
     }
@@ -186,7 +190,7 @@ class Evaluation {
     }
 
     if (response && response.status === 200) {
-      validation = <HTMLValidationReport> JSON.parse(await response.json());
+      validation = <HTMLValidationReport>JSON.parse(await response.json());
     }
 
     const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
@@ -195,7 +199,7 @@ class Evaluation {
       // @ts-ignore
       const html = new HTMLTechniques.HTMLTechniques(options);
       // @ts-ignore
-      return html.execute(new QWPage.QWPage(document, window), newTabWasOpen, validation);
+      return html.execute( window.page, newTabWasOpen, validation);
       // @ts-ignore
     }, newTabWasOpen, validation, options);
 
@@ -211,7 +215,7 @@ class Evaluation {
       // @ts-ignore
       const css = new CSSTechniques.CSSTechniques(options);
       // @ts-ignore
-      return css.execute(new QWPage.QWPage(document, window, true));
+      return css.execute( window.page);
       // @ts-ignore
     }, options);
 
@@ -229,7 +233,7 @@ class Evaluation {
       if (options)
         bp.configure(options)
       // @ts-ignore
-      return bp.execute(new QWPage.QWPage(document, window));
+      return bp.execute( window.page);
       // @ts-ignore
     }, options);
     return bpReport;
