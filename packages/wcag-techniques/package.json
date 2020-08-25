@@ -1,0 +1,59 @@
+{
+  "name": "@qualweb/wcag-techniques",
+  "version": "0.1.0",
+  "description": "Implementation of the WCAG 2.1 techniques",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "lint": "eslint src/**/*",
+    "test": "mocha --require esm test/**/*",
+    "clean": "node clean.js",
+    "compile:techniques": "node compile-techniques.js",
+    "build": "npm run compile:techniques && npm run clean && tsc --build && webpack --mode development",
+    "pub": "npm run build && npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/wcag-techniques.git"
+  },
+  "keywords": [
+    "wcag",
+    "a11y",
+    "accessibility",
+    "wcag-2.1",
+    "techniques",
+    "qualweb",
+    "evaluation"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qualweb/wcag-techniques/issues"
+  },
+  "homepage": "https://github.com/qualweb/wcag-techniques#readme",
+  "dependencies": {
+    "@qualweb/qw-element": "^0.1.18",
+    "@qualweb/qw-page": "^0.1.21",
+    "@qualweb/util": "^0.3.28",
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.intersection": "^4.4.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@qualweb/dom": "^0.1.16",
+    "@qualweb/types": "^0.4.29",
+    "@types/lodash.clone": "^4.5.6",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.intersection": "^4.4.6",
+    "@types/node": "^14.6.0",
+    "chai": "^4.2.0",
+    "css-select": "^2.1.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.1.1",
+    "puppeteer": "^5.2.1",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
