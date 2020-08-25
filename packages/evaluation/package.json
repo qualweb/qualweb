@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "description": "Evaluates choosen modules",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
     "@qualweb/dom": "^0.1.16",
-    "@qualweb/types": "^0.4.27",
+    "@qualweb/types": "^0.4.29",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "css": "^3.0.0",
