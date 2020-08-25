@@ -1,12 +1,13 @@
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
+import { LaunchOptions } from 'puppeteer';
 
 import System from './system';
 
 const system = new System();
 
-async function start(): Promise<void> {
-  await system.start();
+async function start(options?: LaunchOptions): Promise<void> {
+  await system.start(options);
 }
 
 async function stop(): Promise<void> {
