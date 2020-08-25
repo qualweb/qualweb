@@ -42,8 +42,9 @@ async function cli(): Promise<void> {
       }
     } else {
       for (const url in reports || {}) {
-        delete reports[url].system.page.dom.source.html.parsed;
-        await saveReport(url, reports[url]);
+        const report = <any> reports[url];
+        delete report.system.page.dom.source.html.parsed;
+        await saveReport(url, report);
       }
     }
   } catch (err) {
