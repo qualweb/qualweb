@@ -3,8 +3,7 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import getElementRole from './getElementRole';
-import isElementPresentation from '../domUtils/isElementPresentation';
-import isElementHidden from '../domUtils/isElementHidden';
+import isElementInAT from './isElementInAT';
 //incomplete
 //ignores being a header cell assigned to the closest ancestor of the link in the flat tree that has a semantic role of cell or gridcell;
 function getLinkContext(element: QWElement, page: QWPage): string[] {
@@ -16,7 +15,7 @@ function getLinkContext(element: QWElement, page: QWPage): string[] {
     ariaDescribedBy = ariaDescribedByATT.split(" ");
   if (parent) {
     let role = getElementRole(parent, page);
-    let inAT = !isElementPresentation(parent, page) && !isElementHidden(parent,page);//isElementInAT(when added html list)
+    let inAT = isElementInAT(parent, page);
     let tagName = parent.getElementTagName();
     let id = parent.getElementAttribute("id");
     if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell" || role === "listitem" || id && ariaDescribedBy.includes(id))){
@@ -31,7 +30,7 @@ function getLinkContextAux(element: QWElement, page: QWPage,ariaDescribedBy:stri
   let parent = element.getElementParent();
   if (parent) {
     let role = getElementRole(parent, page);
-    let inAT = !isElementPresentation(parent, page) && !isElementHidden(parent,page);//isElementInAT(when added html list)
+    let inAT = isElementInAT(parent, page);;//isElementInAT(when added html list)
     let tagName = parent.getElementTagName();
     let id = parent.getElementAttribute("id");
     if(inAT && (tagName === "p"|| role === "cell" || role === "gridcell"|| role === "listitem"||(id && ariaDescribedBy.includes(id)))){

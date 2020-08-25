@@ -17,7 +17,7 @@ import isElementADescendantOfFunction from './isElementADescendantOf';
 import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
 import getVideoMetadataFunction from './getVideoMetadata';
 import isMathDocumentFunction from './isMathDocument';
-import isElementPresentationFunction from './isElementPresentation';
+import isElementPresentationFunction from './isElementChildPresentational';
 import elementHasContentFunction from './elementHasContent'
 
 /**

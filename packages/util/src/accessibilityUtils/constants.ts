@@ -15,4 +15,7 @@ let noAccessibleObject = ["animate", "animateMotion", "animateTransform", "disca
 let elementsLikeHtml = ["canvas", "iframe", "source", "track", "video"];
 let childPresentationalRole = ["button","checkbox","img","math","menuitemcheckbox","menuitemradio","option","progressbar","radio","scrollbar","separator","slider","switch","tab"];
 let textContainer = ["a", "defs", "g", "marker", "mask", "missing-glyph", "pattern", "svg","switch","symbol"];
-export{textContainer,childPresentationalRole,elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}
+let notDefaultAT = ["b","bdi","bdo","br","cite","col","colgroup","data","dfn","em","kbd","link","map","meta","span","noscript","script","param","picture","q","s","samp","small","source","strong","style","sub","sup","tbody","thead","tfoot","template","title","track","u","var","wbr"]
+let notExposedIfEmpy=["div","p","pre"]
+let needsToBeInsideDetails = ["summary"]
+export{notDefaultAT,notExposedIfEmpy,textContainer,needsToBeInsideDetails,childPresentationalRole,elementsLikeHtml,noAccessibleObjectOrChild,noAccessibleObject,typesWithLabel,tabularElements,formElements,sectionAndGrouping,controlRoles,widgetElements,widgetRoles,nameFromContentElements,nameFromContentRoles}

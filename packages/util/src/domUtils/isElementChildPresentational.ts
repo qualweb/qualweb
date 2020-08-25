@@ -6,39 +6,34 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementFocusable from './isElementFocusable';
 
-function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean {
+function isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean {
   let selector = elementQW.getElementSelector();
   let method = "DomUtils.isElementPresentationAux";
   let result;
   if (pageQW.isValueCached(selector, method)) {
     result = pageQW.getCachedValue(selector, method);
   } else {
-    result = isElementPresentationAux(elementQW, pageQW);
+    result = isElementChildPresentationalAux(elementQW, pageQW);
     pageQW.cacheValue(selector, method, result);
   }
   return result;
 }
-function isElementPresentationAux(elementQW: QWElement, pageQW: QWPage): boolean {
+function isElementChildPresentationalAux(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-
-  const role = getElementRole(elementQW, pageQW);
-  let presentationOrNone = role === 'presentation' || role === 'none';
   const focusable = isElementFocusable(elementQW, pageQW);
   const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
   const parent = elementQW.getElementParent();
-  let parentPresentation = false;
   let childPresentational = false;
 
-  if (parent) {
-    parentPresentation = isElementParentPresentation(parent, pageQW);
+  if (parent && !focusable && !hasGlobalARIA) {
     childPresentational = isParentChildPresentational(parent, pageQW);
   }
 
-  return ((presentationOrNone && !focusable && !hasGlobalARIA) || childPresentational) && !parentPresentation;
+  return !focusable && !hasGlobalARIA && childPresentational;
 }
-
+/*
 function isElementParentPresentation(element: QWElement, pageQW: QWPage): boolean {
   if (!element) {
     throw Error('Element is not defined');
@@ -65,7 +60,7 @@ function isElementParentPresentation(element: QWElement, pageQW: QWPage): boolea
   }
 
   return result;
-}
+}*/
 
 function isParentChildPresentational(element: QWElement, page: QWPage): boolean {
   if (!element) {
@@ -94,4 +89,4 @@ function isParentChildPresentational(element: QWElement, page: QWPage): boolean 
 
   return result;
 }
-export default isElementPresentation;
+export default isElementChildPresentational;
