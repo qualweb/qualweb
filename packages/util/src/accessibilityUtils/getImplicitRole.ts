@@ -3,6 +3,8 @@ import roles from './elementImplicitRoles.json';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementADescendantOfExplicitRole from "../domUtils/isElementADescendantOfExplicitRole";
+import isElementFocusable from '../domUtils/isElementFocusable.js';
+import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute.js';
 
 
 function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
@@ -50,7 +52,7 @@ function getImplicitRoleAux(elementQW: QWElement, pageQW: QWPage, accessibleName
               let alt =elementQW.getElementAttribute( "alt");
               if (alt !== "") {
                 role = roleValue["role"];
-              }else if (elementQW.elementHasAttribute("alt")){
+              }else if (elementQW.elementHasAttribute("alt") && !(isElementFocusable(elementQW,pageQW) ||elementHasGlobalARIAPropertyOrAttribute(elementQW))){
                 role = "presentation";
               }
             } else if (name === "input") {

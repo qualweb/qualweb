@@ -40,6 +40,7 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
       case 'textarea':
       case 'select':
       case 'button':
+      case 'iframe':
         return true;
     }
     return false;
