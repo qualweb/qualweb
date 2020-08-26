@@ -90,7 +90,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.16",
-    "@qualweb/types": "^0.4.29",
+    "@qualweb/types": "^0.4.30",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.27",
     "chai": "^4.2.0",
@@ -106,7 +106,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.18",
     "@qualweb/qw-page": "^0.1.21",
-    "@qualweb/util": "^0.3.28",
+    "@qualweb/util": "^0.3.29",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

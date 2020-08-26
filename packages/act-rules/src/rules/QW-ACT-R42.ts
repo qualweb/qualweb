@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
@@ -23,7 +23,7 @@ class QW_ACT_R42 extends Rule {
       resultCode: ''
     };
     
-    const isInAT = !(DomUtils.isElementHidden(element,page) || DomUtils.isElementPresentation(element,page));
+    const isInAT =  AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName) {
