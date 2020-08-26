@@ -1,6 +1,8 @@
 # Changelog
-
-## [0.4.289 - 10/08/2020
+## [0.4.30 - 26/08/2020
+### Added
+ -  deleted isElementPresention
+## [0.4.29 - 10/08/2020
 
 ### Added
  -  deleted getTreeSelector

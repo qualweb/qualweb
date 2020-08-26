@@ -20,8 +20,6 @@ declare module '@qualweb/util' {
     export function isElementHidden(elementQW: QWElement,pageQW: QWPage): boolean;
     export function isElementHiddenByCSS(elementQW: QWElement,pageQW: QWPage): boolean;
     export function isElementHiddenByCSSAux(elementQW: QWElement): boolean;
-    export function isElementPresentation(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function isElementHidden(elementQW: QWElement,pageQW: QWPage): boolean;
     export function isElementVisible(elementQW: QWElement,pageQW: QWPage): boolean;
     export function isFocusableBrowser(page: QWPage, element: QWElement): boolean;
     //export function isMathDocument(url: string): boolean;
