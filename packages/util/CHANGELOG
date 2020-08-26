@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.29] - 26/08/2020
+### Added
+ - fixed isElementInAT
 ## [0.3.28] - 10/08/2020
 ### Added
  - fixed shadowDom support
