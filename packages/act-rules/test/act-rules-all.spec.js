@@ -11,36 +11,40 @@ describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
     this.timeout(1000 * 10000);
     //['chromium', 'firefox', 'webkit']
-    const browser = await playwright['chromium'].launch({headless:false});
-    const context = await browser.newContext({bypassCSP:true});
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://eportugal.gov.pt/");
-/*
-      const browser = await puppeteer.launch({headless:false, args: ['--no-sandbox', '--user-data-dir="/tmp/chromium"', '--disable-web-security', '--disable-features=site-per-process']
-      });
-      const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.pcdiga.com/');//'https://www.pcdiga.com/'
-      */
-    // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
-    //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/
-   /* const browser = await puppeteer.launch({headless:false});
+    const browser = await playwright['chromium'].launch({ headless: false });
+    const context = await browser.newContext({ bypassCSP: true });
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.globaldata.pt/");//https://www.amazon.com/
+    //https://observador.pt/
+    /*
+         const browser = await puppeteer.launch({headless:false});
+         const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://www.globaldata.pt/');//'https://www.pcdiga.com/'
+         
+       // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
+       //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/*/
+    /*const browser = await puppeteer.launch({headless:false});
     const dom = new Dom();
-    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {}, "https://www.pcdiga.com/", null);*/
+    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {},  "https://www.globaldata.pt/", null);*/
 
     try {
       await page.addScriptTag({
         path: require.resolve('../dist/act.js')
       })
       await page.addScriptTag({
-        path: require.resolve('./qwPage.js')
+        path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
       })
 
       // sourceHtml.html.parsed = {};
-      console.log("Evaluating")
-      const report = await page.evaluate((stylesheets) => {
-        const actRules = new ACTRules.ACTRules();
-        const page =  new QWPage.QWPage(document, window, true);
-        const report = actRules.execute([],page, []);
 
-        return report;
+
+      console.log("Evaluating")
+      const report = await page.evaluate(() => {
+        const actRules = new ACTRules.ACTRules();
+        window.page = new QWPage.QWPage(document, window, true);
+        const report = actRules.execute([], window.page, []);
+        const reportR40 = actRules.executeQW_ACT_R40( window.page);
+
+
+        return reportR40;
       }, []);
       const fs = require('fs')
       // Write data in 'Output.txt' . 

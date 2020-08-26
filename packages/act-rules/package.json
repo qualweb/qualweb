@@ -106,7 +106,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.18",
     "@qualweb/qw-page": "^0.1.21",
-    "@qualweb/util": "^0.3.29",
+    "@qualweb/util": "^0.3.30",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

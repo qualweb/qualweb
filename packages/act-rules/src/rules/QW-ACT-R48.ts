@@ -21,6 +21,7 @@ class QW_ACT_R48 extends Rule {
       resultCode: ''
     };
     const isInAT =  AccessibilityUtils.isElementInAT(element, page);
+    console.log( AccessibilityUtils.getElementRole(element, page))
     if (isInAT) {
       evaluation.verdict = 'failed';
       evaluation.description = 'The test target is in the accessibility Tree';

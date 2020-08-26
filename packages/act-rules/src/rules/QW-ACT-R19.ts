@@ -25,6 +25,7 @@ class QW_ACT_R19 extends Rule {
 
     const tabIndex = element.getElementAttribute("tabindex");
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
+    console.log( AccessibilityUtils.getElementRole(element, page))
     if (!isInAT ||  tabIndex && parseInt(tabIndex) < 0) {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not included in the accessibility tree.`;
