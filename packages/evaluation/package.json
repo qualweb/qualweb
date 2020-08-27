@@ -41,7 +41,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.4.24",
+    "@qualweb/act-rules": "^0.4.25",
     "@qualweb/best-practices": "^0.4.8",
     "@qualweb/css-techniques": "^0.4.10",
     "@qualweb/html-techniques": "^0.4.10",
