@@ -1,4 +1,6 @@
 # Changelog
+## [0.1.20] - 27/08/2020
+ - changed flag to loaded
 ## [0.1.16] - 16/08/2020
  - shadowDom to QWPage
 ## [0.1.15] - 27/07/2020

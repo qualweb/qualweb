@@ -46,7 +46,7 @@ class Dom {
 
         const response = await this.page.goto(url, {
           timeout: 0,
-          waitUntil: ['networkidle2', 'domcontentloaded']
+          waitUntil: [ 'load']
         });
         
         const sourceHTMLPuppeteer = await response?.text();
@@ -56,13 +56,13 @@ class Dom {
           this.page = await browser.newPage();
           await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
             timeout: 0,
-            waitUntil: ['networkidle2', 'domcontentloaded']
+            waitUntil: ['load']
           });
         }
       } else {
         await this.page.setContent(html, {
           timeout: 0,
-          waitUntil: ['networkidle2', 'domcontentloaded']
+          waitUntil: ['load']
         });
         _sourceHtml = await this.page.content();
 
@@ -71,7 +71,7 @@ class Dom {
           this.page = await browser.newPage();
           await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
             timeout: 0,
-            waitUntil: ['networkidle2', 'domcontentloaded']
+            waitUntil: ['load']
           });
         }
       }
