@@ -5,7 +5,6 @@ import isElementWidget from './isElementWidget';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel } from './constants';
-import elementHasRoleNoneOrPresentation from "./elementHasRoleNoneOrPresentation";
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion'
 import getElementRoleAName from './getElementRoleAName';
 import isElementControl from './isElementControl';
@@ -53,9 +52,7 @@ function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recurs
     AName = getFirstNotUndefined(alt, title);
   } else if (name === "img") {
     alt = elementQW.getElementAttribute("alt");
-    if (!(elementHasRoleNoneOrPresentation(elementQW))) {
       AName = getFirstNotUndefined(alt, title);
-    }
   } else if (name === "input" && (attrType === "button" || attrType === "submit" || attrType === "reset")) {
     value = elementQW.getElementAttribute("value");
     AName = getFirstNotUndefined(value, getDefaultName(elementQW), title);

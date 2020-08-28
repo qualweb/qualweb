@@ -1,7 +1,6 @@
 'use strict';
 
 import allowsNameFromContentFunction from "./allowsNameFromContent";
-import elementHasRoleNoneOrPresentationFunction from "./elementHasRoleNoneOrPresentation";
 import getAccessibleNameFunction from "./getAccessibleName";
 import getDefaultNameFunction from "./getDefaultName";
 import getAccessibleNameSVGFunction from "./getAccessibleNameSVG";
@@ -23,7 +22,6 @@ import getLinkContextFunction from './getLinkContext';
 namespace AccessibilityUtils {
   export const getElmentRoleAname = getElementRoleANameFunction;
   export const allowsNameFromContent = allowsNameFromContentFunction;
-  export const elementHasRoleNoneOrPresentation = elementHasRoleNoneOrPresentationFunction;
   export const getAccessibleName = getAccessibleNameFunction;
   export const getDefaultName = getDefaultNameFunction;
   export const getAccessibleNameSVG = getAccessibleNameSVGFunction;

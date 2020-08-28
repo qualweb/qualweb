@@ -9,11 +9,11 @@ import { QWElement } from '@qualweb/qw-element';
     throw Error('Element is not defined');
   }
   let elemAttribs = elementQW.getElementAttributesName();
-  let keyArray = Object.keys(ariaJSON);
+  elemAttribs = elemAttribs.filter((elem) => elem.startsWith("ar"));
   let result = false;
   let i = 0;
   while(!result && i< elemAttribs.length){
-    result = keyArray.includes(elemAttribs[i])&& ariaJSON[elemAttribs[i]].global;
+    result = elemAttribs[i] in ariaJSON && ariaJSON[elemAttribs[i]].global;
     i++;
   }
   return result;}
