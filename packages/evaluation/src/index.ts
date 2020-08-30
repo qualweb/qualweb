@@ -9,7 +9,6 @@ import {
   Url,
   Evaluator
 } from '@qualweb/core';
-import fetch, { Response } from 'node-fetch';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import {
   randomBytes
@@ -33,11 +32,29 @@ import {
   HTMLTOptions, HTMLTechniquesReport
 } from '@qualweb/html-techniques';
 
+import { Worker } from 'worker_threads';
+ 
+
 const endpoint = 'http://194.117.20.242/validate/';
 
 class Evaluation {
 
   public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
+
+    const urlVal = await page.evaluate(() => {
+      return location.href;
+    });
+
+    const validationUrl = endpoint + encodeURIComponent(urlVal);
+    const worker = new Worker('./background.js',{
+      workerData: {
+        url: validationUrl
+      }});
+      worker.on('message', (result) => {
+        console.log(result);
+      });
+    
+
     const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
         return document.documentElement.outerHTML;
@@ -174,24 +191,11 @@ class Evaluation {
     });
 
     const url = page.url();
-    const urlVal = await page.evaluate(() => {
-      return location.href;
-    });
-
-    const validationUrl = endpoint + encodeURIComponent(urlVal);
 
     let response: Response | undefined = undefined;
     let validation: HTMLValidationReport;
 
-    try {
-      response = await fetch(validationUrl);
-    } catch (err) {
-      console.error(err);
-    }
-
-    if (response && response.status === 200) {
-      validation = <HTMLValidationReport>JSON.parse(await response.json());
-    }
+    
 
     const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
 
