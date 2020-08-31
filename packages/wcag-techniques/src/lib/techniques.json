@@ -72,7 +72,7 @@
           "level": "A",
           "principle": "Understandable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions"
-        },
+        }
       ],
       "related": ["H44", "H65"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H71"
@@ -238,5 +238,341 @@
       ],
       "related": ["G91", "G94", "H30", "C9", "F89"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H2"
+    }
+  },
+  "QW_WCAG_T11": {
+    "name": "Providing text alternatives on applet elements",
+    "code": "QW-WCAG-T11",
+    "mapping": "H35",
+    "description": "Provide a text alternative for an applet by using the alt attribute to label an applet and providing the text alternative in the body of the applet element. In this technique, both mechanisms are required due to the varying support of the alt attribute and applet body text by user agents.",
+    "metadata": {
+      "target": {
+        "element": "applet"
+      },
+      "success-criteria": [{
+        "name": "1.1.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
+      }],
+      "related": ["G94"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H25"
+    }
+  },
+  "QW_WCAG_T12": {
+    "name": "Failure of Success Criterion 1.3.1 due to using th elements, caption elements, or non-empty summary attributes in layout tables",
+    "code": "QW-WCAG-T12",
+    "mapping": "F46",
+    "description": "The objective of this technique is to describe a failure that occurs when a table used only for layout includes either th elements, a summary attribute, or a caption element. This is a failure because it uses structural (or semantic) markup only for presentation. The intent of the HTML and XHTML table elements is to present data.",
+    "metadata": {
+      "target": {
+        "element": "table"
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+      }],
+      "related": ["H39", "H51", "H73"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F46"
+    }
+  },
+  "QW_WCAG_T13": {
+    "name": "Failure of Success Criterion 2.2.2 due to using the blink element",
+    "code": "QW-WCAG-T13",
+    "mapping": "F47",
+    "description": "The blink element, while not part of the official HTML or XHTML specification, is supported by many user agents. It causes any text inside the element to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a preference. The blinking continues as long as the page is displayed. Therefore, content that uses blink fails the Success Criterion because blinking can continue for more than three seconds.",
+    "metadata": {
+      "target": {
+        "element": "blink"
+      },
+      "success-criteria": [{
+        "name": "2.2.2",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide"
+      }],
+      "related": [],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F47"
+    }
+  },
+  "QW_WCAG_T14": {
+    "name": "Using id and headers attributes to associate data cells with header cells in data tables",
+    "code": "QW-WCAG-T14",
+    "mapping": "H43",
+    "description": "This technique checks if data cells are associated with header cells in data tables",
+    "metadata": {
+      "target": {
+        "element": "table"
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+      }],
+      "related": [],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H43"
+    }
+  },
+  "QW_WCAG_T15": {
+    "name": "Using the link element and navigation tools",
+    "code": "QW-WCAG-T15",
+    "mapping": "H59",
+    "description": "The objective of this technique is to describe how the link element can provide metadata about the position of an HTML page within a set of Web pages or can assist in locating content with a set of Web pages.",
+    "metadata": {
+      "target": {
+        "element": "link"
+      },
+      "success-criteria": [{
+          "name": "2.4.5",
+          "level": "AA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/multiple-ways"
+        },
+        {
+          "name": "2.4.8",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/location"
+        }
+      ],
+      "related": ["G1", "G63", "G64", "G123"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H59"
+    }
+  },
+  "QW_WCAG_T16": {
+    "name": "Using HTML according to spec",
+    "code": "QW-WCAG-T16",
+    "mapping": "H88",
+    "description": "This technique checks that the HTML or XHTML web page follows the specification",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [{
+        "name": "4.1.1",
+        "level": "A",
+        "principle": "Robust",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing"
+        }, {
+        "name": "4.1.2",
+        "level": "A",
+        "principle": "Robust",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+      }],
+      "related": ["H74", "H75"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H88"
+    }
+  },
+  "QW_WCAG_T17": {
+    "name": "Positioning labels to maximize predictability of relationships",
+    "code": "QW-WCAG-T17",
+    "mapping": "G162",
+    "description": "This technique checks the correct position of labels in forms",
+    "metadata": {
+      "target": {
+        "element": "form"
+      },
+      "success-criteria": [{
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        },
+        {
+          "name": "3.3.2",
+          "level": "A",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions"
+        },
+      ],
+      "related": ["H44", "H71", "H65", "G131", "G167"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G162.html"
+    }
+  },
+  "QW_WCAG_T18": {
+    "name": "Using table markup to present tabular information",
+    "code": "QW-WCAG-T18",
+    "mapping": "H51",
+    "description": "The objective of this technique is to present tabular information in a way that preserves relationships within the information even when users cannot see the table or the presentation format is changed. Using the table element with the child elements tr, th, and td makes these relationships perceivable.",
+    "metadata": {
+      "target": {
+        "element": "table"
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+      }],
+      "related": ["H39", "H43", "H63"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H51"
+    }
+  },
+  "QW_WCAG_T19": {
+    "name": "Providing submit buttons",
+    "code": "QW-WCAG-T19",
+    "mapping": "H32",
+    "description": "The objective of this technique is to provide a mechanism that allows users to explicitly request changes of context. The intended use of a submit button is to generate an HTTP request that submits data entered in a form, so it is an appropriate control to use for causing a change of context.",
+    "metadata": {
+      "target": {
+        "element": "form"
+      },
+      "success-criteria": [{
+        "name": "3.2.2",
+        "level": "A",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-input"
+      }],
+      "related": ["G80", "H36", "H84"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H32"
+    }
+  },
+  "QW_WCAG_T20": {
+    "name": "Supplementing link text with the title attribute",
+    "code": "QW-WCAG-T20",
+    "mapping": "H33",
+    "description": "Supplementing link text with the title attribute",
+    "metadata": {
+      "target": {
+        "element": "a"
+      },
+      "success-criteria": [{
+        "name": "2.4.4",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context"
+      }, {
+        "name": "2.4.9",
+        "level": "AAA",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only"
+      }],
+      "related": ["C7", "H30"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H33"
+    }
+  },
+  "QW_WCAG_T21": {
+    "name": "Failure of Success Criteria 2.4.4, 2.4.9 and 4.1.2 due to not providing an accessible name for an image which is the only content in a link",
+    "code": "QW-WCAG-T21",
+    "mapping": "F89",
+    "description": "This technique checks the text alternative of images which are the only content of a link",
+    "metadata": {
+      "target": {
+        "parent": "a",
+        "element": "img"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.4",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html"
+        },
+        {
+          "name": "2.4.9",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-link.html"
+        },
+        {
+          "name":"4.1.2",
+          "level":"A",
+          "principle":"Robust",
+          "url":"https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": ["H2", "H30","ARIA7","ARIA8"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F89"
+    }
+  },
+  "QW_WCAG_T22": {
+    "name": "Failure of Success Criterion 3.2.1 and 3.2.5 due to opening a new window as soon as a new page is loaded",
+    "code": "QW-WCAG-T22",
+    "mapping": "F52",
+    "description": "The objective of this technique is to ensure that pages do not disorient users by opening up one or more new windows that automatically attain focus as soon as a page is loaded. ",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [{
+        "name": "3.2.5",
+        "level": "AAA",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
+      }],
+      "related": ["G107"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F52"
+    }
+  },
+  "QW_WCAG_T23": {
+    "name": "Adding a link at the top of each page that goes directly to the main content area",
+    "code": "QW-WCAG-T23",
+    "mapping": "G1",
+    "description": "The objective of this technique is to provide a mechanism to bypass blocks of material that are repeated on multiple Web pages by skipping directly to the main content of the Web page.",
+    "metadata": {
+      "target": {
+        "element": "body"
+      },
+      "success-criteria": [{
+        "name": "2.4.1",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
+      }],
+      "related": ["G123", "G124"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G1"
+    }
+  },
+  "QW_WCAG_T24": {
+    "name": "Failure of Success Criteria 2.1.1, 2.4.7, and 3.2.1 due to using script to remove focus when focus is received",
+    "code": "QW-WCAG-T24",
+    "mapping": "F55",
+    "description": "Content that normally receives focus when the content is accessed by keyboard may have this focus removed by scripting.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [{
+        "name": "2.1.1",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
+      }, {
+        "name": "2.4.7",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible"
+      }, {
+        "name": "3.2.1",
+        "level": "A",
+        "principle": "Understandable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-focus"
+      }],
+      "related": [],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F55"
+    }
+  },
+  "QW_WCAG_T25": {
+    "name": "Using the scope attribute to associate header cells and data cells in data tables",
+    "code": "QW-WCAG-T25",
+    "mapping": "H63",
+    "description": "The objective of this technique is to associate header cells with data cells in complex tables using the scope attribute.",
+    "metadata": {
+      "target": {
+        "element": ["th", "td[scope]"]
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+      }
+      ],
+      "related": ["H43", "H51"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H63"
+    }
   }
 }
