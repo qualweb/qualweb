@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.289 - 10/08/2020
+
+### Added
+ -  deleted getTreeSelector
+## [0.4.28] - 10/08/2020
+
+### Added
+ -  new shadowDOM and iframe support
+
 ## [0.4.27] - 06/08/2020
 
 ### Added

@@ -26,7 +26,6 @@ declare module '@qualweb/qw-element' {
     public getElementType(): string;
     public getNumberOfSiblingsWithTheSameTag(): number;
     public setElementAttribute(attribute: string, value: string): void;
-    public getTreeSelector(): string;
     public concatANames(aNames: string[]): string;
     public isOffScreen(): boolean;
     public isElementHTMLElement(): boolean;
@@ -34,8 +33,8 @@ declare module '@qualweb/qw-element' {
     public getContentFrame(): Document | null;
     public focusElement(): void;
     public getBoundingBox(): any;
-    public getShadowElement(selector: string): QWElement|null;
-    public getShadowElements(selector: string): Array<QWElement>;
+   // public getShadowElement(selector: string): QWElement|null;
+   // public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
     public getCSSRules(): any;
