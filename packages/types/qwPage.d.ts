@@ -3,7 +3,7 @@ declare module '@qualweb/qw-page' {
 
   class QWPage {
     constructor(document: Document, window: Window);
-    public cacheValue(selector: string, method: string, value: string|undefined);
+    public cacheValue(selector: string, method: string, value: string | undefined): void;
     public getCachedValue(selector: string, method: string): string|undefined;
     public isValueCached(selector: string, method: string): boolean;
     public getElement(selector: string): QWElement | null;
