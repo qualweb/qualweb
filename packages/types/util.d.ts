@@ -45,7 +45,7 @@ declare module '@qualweb/util' {
     export function getElementRoleAName(elementQW: QWElement, pageQW: QWPage, aName: string | undefined): string | null;
     export function getTextFromCss(elementQW: QWElement, textContent: string): string;
     export function getTrimmedText(elementQW: QWElement): string;
-    export function getValueFromEmbeddedControl(element: QWElement, page: QWPage, treeSelector: string);
+    export function getValueFromEmbeddedControl(element: QWElement, page: QWPage, treeSelector: string): string;
     export function isDataTable(element: QWElement, pageQW: QWPage): boolean;
     export function isElementChildOfDetails(element: Node): boolean;
     export function isElementControl(elementQW: QWElement, pageQW: QWPage): boolean;

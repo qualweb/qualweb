@@ -1,11 +1,16 @@
 # Changelog
+## [0.4.30] - 31/08/2020
+### Fixed
+ - Missing return-type annotations in qwPage and util
+ 
 ## [0.4.30 - 26/08/2020
 ### Added
  -  deleted isElementPresention
-## [0.4.29 - 10/08/2020
+## [0.4.29] - 10/08/2020
 
 ### Added
- -  deleted getTreeSelector
+ - deleted getTreeSelector
+
 ## [0.4.28] - 10/08/2020
 
 ### Added
