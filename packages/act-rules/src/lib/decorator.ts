@@ -146,8 +146,10 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
         let sourceElements = parent.getElements("source");
         for (let sourceElement of sourceElements) {
           let src = sourceElement.getElementAttribute('srcset');
-          const filePath = src.split('/');
-          filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
+          if (!!src) {
+            const filePath = src.split('/');
+            filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
+          }
         }
 
       }
@@ -189,7 +191,7 @@ function IsHTMLDocument(target: any, propertyKey: string, descriptor: PropertyDe
   const method = descriptor.value;
   descriptor.value = function () {
     let IsNonHTMLDocument = false;
-    let htmlElement =  arguments[1].getElement("html");
+    let htmlElement = arguments[1].getElement("html");
     if (htmlElement)
       IsNonHTMLDocument = htmlElement.getElementAttribute("nonHTMLPage") === "true"
     if (!IsNonHTMLDocument) {
