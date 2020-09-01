@@ -189,7 +189,7 @@
     "metadata": {
       "target": {
         "element": ["h1", "h2", "h3", "h4", "h5", "h6"],
-        "attributes": "role="heading""
+        "attributes": "role='heading'"
       },
       "success-criteria": [{
         "name": "1.3.1",
@@ -386,7 +386,7 @@
           "level": "A",
           "principle": "Understandable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions"
-        },
+        }
       ],
       "related": ["H44", "H71", "H65", "G131", "G167"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G162.html"
@@ -573,6 +573,185 @@
       ],
       "related": ["H43", "H51"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H63"
+    }
+  },
+  "QW_WCAG_T26": {
+    "name": "Failure of Success Criterion 4.1.2 due to using script to make div or span a user interface control in HTML without providing a role for the control",
+    "code": "QW-WCAG-T26",
+    "mapping": "F59",
+    "description": "This failure demonstrates how using generic HTML elements to create user interface controls can make the controls inaccessible to assistive technology.",
+    "metadata": {
+      "target": {
+        "element": ["div", "span"],
+        "attributes": ["onmousedown", "onmouseup", "onclick", "onmouseover", "onmouseout", "onkeydown", "onkeyup", "onkeypress", "onfocus", "onblur"]
+      },
+      "success-criteria": [{
+        "name": "4.1.2",
+        "level": "A",
+        "principle": "Robust",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+      }
+      ],
+      "related": ["F42"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F59"
+    }
+  },
+  "QW_WCAG_T27": {
+    "name": "Failure of Success Criterion 1.4.8 due to using text that is justified (aligned to both the left and the right margins)",
+    "code": "QW-WCAG-T27",
+    "mapping": "F88",
+    "description": "This failure describes situations where blocks of text that are justified (aligned to both the left and the right margins) occurs in HTML, using the \"align\" attribute.",
+    "metadata": {
+      "target": {
+        "element": ["p", "div", "h1", "h2", "h3", "h4", "h5", "h6", "col", "colgroup", "tbody", "thead", "tfoot", "tr", "th", "td"],
+        "attributes": "align"
+      },
+      "success-criteria": [{
+        "name": "1.4.8",
+        "level": "AAA",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+      }],
+      "related": ["C22"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F88"
+    }
+  },
+  "QW_WCAG_T28": {
+    "name": "Using `percent, em, names` for font sizes",
+    "code": "QW-WCAG-T28",
+    "mapping": "C121314",
+    "description": "This technique checks that all font-size attribute uses percent, em or names",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "font-size"
+      },
+      "success-criteria": [{
+        "name": "1.4.4",
+        "level": "AA",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-scale.html"
+      },
+        {
+          "name": "1.4.5",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-text-presentation.html"
+        },
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-visual-presentation.html"
+        },
+        {
+          "name": "1.4.9",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/GL/UNDERSTANDING-WCAG20/visual-audio-contrast-text-images.html"
+        }
+      ],
+      "related": ["C12", "C13", "C14"],
+      "url": {
+        "C12": "https://www.w3.org/WAI/WCAG21/Techniques/css/C12",
+        "C13": "https://www.w3.org/WAI/WCAG21/Techniques/css/C13",
+        "C14": "https://www.w3.org/WAI/WCAG21/Techniques/css/C14"
+      }
+    }
+  },
+  "QW_WCAG_T29": {
+    "name": "Specifying alignment either to the left or right in CSS",
+    "code": "QW-WCAG-T29",
+    "mapping": "C19",
+    "description": "This technique describes how to align blocks of text either left or right by setting the CSS text-align property.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "text-align"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": [],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C19"
+    }
+  },
+  "QW_WCAG_T30": {
+    "name": "Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds",
+    "code": "QW-WCAG-T30",
+    "mapping": "F4",
+    "description": "CSS defines the blink value for the text-decoration property. When used, it causes any text in elements with this property to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a user agent preference. The blinking continues as long as the page is displayed. Therefore, content that uses text-decoration:blink fails the Success Criterion because blinking can continue for more than three seconds.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "text-decoration"
+      },
+      "success-criteria": [{
+        "name": "2.2.2",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html"
+      }
+      ],
+      "related": ["SCR22"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F4"
+    }
+  },
+  "QW_WCAG_T31": {
+    "name": "Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa",
+    "code": "QW-WCAG-T31",
+    "mapping": "F24",
+    "description": "Users with vision loss or cognitive, language and learning challenges often prefer specific foreground and background color combinations. In some cases, individuals with low vision will find it much easier to see a Web page that has white text on a black background, and they may have set their user agent to present this contrast. Many user agents make it possible for users to choose a preference about the foreground or background colors they would like to see without overriding all author-specified styles. This makes it possible for users to view pages where colors have not been specified by the author in their preferred color combination.",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "text-decoration"
+      },
+      "success-criteria": [{
+          "name": "1.4.3",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum"
+        },
+        {
+          "name": "1.4.6",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced"
+        },
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C23", "C25"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F24"
+    }
+  },
+  "QW_WCAG_T32": {
+    "name": "Using ol, ul and dl for lists or groups of links",
+    "code": "QW-WCAG-T32",
+    "mapping": "H48",
+    "description": "The objective of this technique is to create lists of related items using list elements appropriate for their purposes",
+    "metadata": {
+      "target": {
+        "element": ["li", "dd", "dt"]
+      },
+      "success-criteria": [{
+        "name": "1.3.1",
+        "level": "A",
+        "principle": "Perceivable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+      }],
+      "related": ["H40"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H48"
     }
   }
 }
