@@ -33,6 +33,7 @@ import {
 } from '@qualweb/html-techniques';
 
 import { Worker } from 'worker_threads';
+
  
 
 const endpoint = 'http://194.117.20.242/validate/';
@@ -40,20 +41,6 @@ const endpoint = 'http://194.117.20.242/validate/';
 class Evaluation {
 
   public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
-
-    const urlVal = await page.evaluate(() => {
-      return location.href;
-    });
-
-    const validationUrl = endpoint + encodeURIComponent(urlVal);
-    const worker = new Worker('./background.js',{
-      workerData: {
-        url: validationUrl
-      }});
-      worker.on('message', (result) => {
-        console.log(result);
-      });
-    
 
     const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
@@ -118,6 +105,8 @@ class Evaluation {
   }
 
   public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
+    let start = new Date().getTime();
+    console.log(start+"act");
     await page.addScriptTag({
       path: require.resolve('@qualweb/act-rules')
     });
@@ -181,22 +170,18 @@ class Evaluation {
         actReport.metadata.inapplicable++;
       }
     }
-
+    let end = new Date().getTime();
+    let duration = end - start;
+    console.log(duration+"act");
     return actReport;
   }
 
-  public async executeHTML(page: Page, options: HTMLTOptions | undefined): Promise<HTMLTechniquesReport> {
+  public async executeHTML(page: Page, options: HTMLTOptions | undefined,validation:any): Promise<HTMLTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/html-techniques')
     });
 
-    const url = page.url();
-
-    let response: Response | undefined = undefined;
-    let validation: HTMLValidationReport;
-
-    
-
+    const url = page.url();    
     const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
 
     const htmlReport = await page.evaluate((newTabWasOpen, validation, options) => {
@@ -249,11 +234,28 @@ class Evaluation {
 
     await this.addQWPage(page);
 
+    const urlVal = await page.evaluate(() => {
+      return location.href;
+    });
+    const validationUrl = endpoint + encodeURIComponent(urlVal);
+    let validator = new Promise((resolve,reject)=>{
+      const worker = new Worker(__filename.replace('index.js', 'background.js'),{
+        workerData: {
+          url: validationUrl
+        }});
+        worker.on('message', (result) => {
+          resolve(result);
+        });
+    })
+    let [act,validation] =  await Promise.all( [this.executeACT(page, sourceHtml, options['act-rules']),validator])
     if (execute.act) {
-      evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
+     // console.log({act,validation});
+     evaluation.addModuleEvaluation('act-rules', act);
+      //evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
     }
     if (execute.html) {
-      evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques']));
+      evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'],validation));
+      //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'],await validator));
     }
     if (execute.css) {
       evaluation.addModuleEvaluation('css-techniques', await this.executeCSS(page, options['css-techniques']));
