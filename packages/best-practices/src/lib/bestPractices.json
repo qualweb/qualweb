@@ -28,18 +28,6 @@
       }
     }
   },
-  "QW_BP3": {
-    "name": "Link element with text content equal to the content of the title attribute",
-    "code": "QW-BP3",
-    "description": "The link element text content shouldn't be equal to the content of the title attribute",
-    "metadata": {
-      "target": {
-        "element": "a",
-        "attributes": "title"
-      },
-      "related": ["H33"]
-    }
-  },
   "QW_BP4": {
     "name": "Grouped links not within a nav element",
     "code": "QW-BP4",

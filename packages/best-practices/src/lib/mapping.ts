@@ -1,6 +1,5 @@
 export default {
   'img[alt]': ['QW-BP2'],
-  'a[title]': ['QW-BP3'],
   'table': ['QW-BP9', 'QW-BP12'],
   'table table': ['QW-BP5'],
   ':not(svg) > title': ['QW-BP6', 'QW-BP7'],
