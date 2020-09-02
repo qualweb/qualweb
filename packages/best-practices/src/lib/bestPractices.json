@@ -163,5 +163,47 @@
         "element": "body"
       }
     }
-  }
+  },
+  "QW_BP17": {
+    "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
+    "code": "QW-BP17",
+    "mapping": "G123",
+    "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
+    "metadata": {
+      "target": {
+        "element": "a",
+        "attributes": "href"
+      },
+      "success-criteria": [{
+        "name": "2.4.1",
+        "level": "A",
+        "principle": "Operable",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
+      }],
+      "related": ["G1", "G124"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G123"
+    }
+  },
+  "QW_BP18": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP18",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
 }

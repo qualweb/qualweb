@@ -10,5 +10,7 @@ export default {
   'body': ['QW-BP1','QW-BP16'],
   'a > img': ['QW-BP13'],
   'a:first-child': ['QW-BP4'],
-  '[width]:not(img)': ['QW-BP15']
+  '[width]:not(img)': ['QW-BP15'],
+  'a[href]': ['QW-BP17'],
+  'style, [style]': ['QW-BP18'],
 };

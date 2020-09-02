@@ -26,6 +26,8 @@ Implementation of the accessibility best practices for web pages.
 | QW-BP14 | CSS | At least one container's width has been specified using values expressed in px |
 | QW-BP15 | CSS | At least one width attribute of an HTML element is expressed in absolute values |
 | QW-BP16 | HTML | Verify if page has links |
+| QW-BP17 | HTML | Adding a link at the beginning of a block of repeated content to go to the end of the block |
+| QW-BP18 | CSS | Using percentage values in CSS for container sizes |
 
 # License
 
