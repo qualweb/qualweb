@@ -42,10 +42,14 @@ class Dom {
       await this.setPageViewport(options.viewport);
 
       let _sourceHtml = '';
-      let validation;
+      let validation,response;
 
       if (url) {
-        _sourceHtml = await this.getSourceHtml(url);
+        try{
+        _sourceHtml = await this.getSourceHtml(url);}
+        catch(e){
+          _sourceHtml = "";
+        }
 
         const validationUrl = endpoint + encodeURIComponent(url);
 
@@ -64,13 +68,10 @@ class Dom {
           }
         });
 
-        validation = await validator;
-
-
-        const response = await this.page.goto(url, {
+        [response, validation] = await Promise.all([this.page.goto(url, {
           timeout: 0,
           waitUntil: ['load']
-        });
+      }), validator])
 
         const sourceHTMLPuppeteer = await response ?.text();
 
