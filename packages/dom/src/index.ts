@@ -28,6 +28,9 @@ import {
   DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH,
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
+import { HTMLValidationReport } from '@qualweb/html-validator';
+const endpoint = 'http://194.117.20.242/validate/';
+
 
 class Dom {
 
@@ -40,17 +43,38 @@ class Dom {
       await this.setPageViewport(options.viewport);
 
       let _sourceHtml = '';
+      let validation;
 
       if (url) {
         _sourceHtml = await this.getSourceHtml(url);
 
+        const validationUrl = endpoint + encodeURIComponent(url);
+
+        let validator = new Promise((resolve, reject) => {
+          try {
+            fetch(validationUrl).then((response) => {
+              if (response && response.status === 200) {
+                response.json().then((response) => {
+                  let validation = <HTMLValidationReport>JSON.parse(response);
+                  resolve(validation);
+                })
+              }
+            })
+          } catch (e) {
+            resolve([]);
+          }
+        });
+
+        validation = await validator;
+
+
         const response = await this.page.goto(url, {
           timeout: 0,
-          waitUntil: [ 'load']
+          waitUntil: ['load']
         });
-        
-        const sourceHTMLPuppeteer = await response?.text();
-        
+
+        const sourceHTMLPuppeteer = await response ?.text();
+
         if (this.isSVGorMath(sourceHTMLPuppeteer)) {
           this.page.close()
           this.page = await browser.newPage();
@@ -60,6 +84,7 @@ class Dom {
           });
         }
       } else {
+        validation = [];
         await this.page.setContent(html, {
           timeout: 0,
           waitUntil: ['load']
@@ -77,7 +102,7 @@ class Dom {
       }
 
       const sourceHtml = await this.parseSourceHTML(_sourceHtml);
-      return { sourceHtml, page: this.page };
+      return { sourceHtml, page: this.page ,validation};
     } catch (err) {
       throw err;
     }
@@ -87,7 +112,7 @@ class Dom {
     await this.page.close();
   }
 
-  private async setPageViewport(options ? : PageOptions): Promise<void> {
+  private async setPageViewport(options?: PageOptions): Promise<void> {
     if (options) {
       if (options.userAgent) {
         await this.page.setUserAgent(options.userAgent);
@@ -101,11 +126,11 @@ class Dom {
         width: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH : DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
         height: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT : DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT
       };
-      
-      if (options.resolution?.width) {
+
+      if (options.resolution ?.width) {
         viewPort.width = options.resolution.width;
       }
-      if (options.resolution?.height) {
+      if (options.resolution ?.height) {
         viewPort.height = options.resolution.height;
       }
 
@@ -150,7 +175,7 @@ class Dom {
   }
 
   private parseHTML(html: string): Node[] {
-    const handler = new DomHandler(() => {}, {
+    const handler = new DomHandler(() => { }, {
       withStartIndices: true,
       withEndIndices: true
     });
@@ -163,7 +188,7 @@ class Dom {
 
 
   private isSVGorMath(content?: string): boolean {
-    return !!(content?.trim().startsWith('<math') || content?.trim().startsWith('<svg'));
+    return !!(content ?.trim().startsWith('<math') || content ?.trim().startsWith('<svg'));
   }
 }
 
