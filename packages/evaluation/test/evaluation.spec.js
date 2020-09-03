@@ -10,9 +10,9 @@ describe('QualWeb page', function() {
 
     const browser = await puppeteer.launch();
     const dom = new Dom();
-    const { sourceHtml, page } = await dom.getDOM(browser, { viewport: null }, url);
+    const { sourceHtml, page ,validation} = await dom.getDOM(browser, { viewport: null }, url);
     const evaluation = new Evaluation();
-    const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: true, html: true, css: false, bp: false }, {}, url);
+    const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: true, html: true, css: false, bp: false }, {}, url,validation);
     //console.log(evaluationReport);
     await dom.close();
     await browser.close();

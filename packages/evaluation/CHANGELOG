@@ -1,4 +1,6 @@
 # Changelog
+## [0.1.38] - 03/09/2020
+ - changed validator to dom
 ## [0.1.37] - 27/08/2020
  - added QWPage to window
 ## [0.1.36] - 25/08/2020

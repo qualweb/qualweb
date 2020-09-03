@@ -32,9 +32,7 @@ import {
   HTMLTOptions, HTMLTechniquesReport
 } from '@qualweb/html-techniques';
 
-import { Worker } from 'worker_threads';
 
- 
 
 const endpoint = 'http://194.117.20.242/validate/';
 
@@ -105,8 +103,6 @@ class Evaluation {
   }
 
   public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
-    let start = new Date().getTime();
-    console.log(start+"act");
     await page.addScriptTag({
       path: require.resolve('@qualweb/act-rules')
     });
@@ -150,7 +146,7 @@ class Evaluation {
         // @ts-ignore
         const act = new ACTRules.ACTRules();
         // @ts-ignore
-        return act.executeQW_ACT_R40( window.page);
+        return act.executeQW_ACT_R40(window.page);
       });
 
       await page.setViewport({
@@ -170,25 +166,22 @@ class Evaluation {
         actReport.metadata.inapplicable++;
       }
     }
-    let end = new Date().getTime();
-    let duration = end - start;
-    console.log(duration+"act");
     return actReport;
   }
 
-  public async executeHTML(page: Page, options: HTMLTOptions | undefined,validation:any): Promise<HTMLTechniquesReport> {
+  public async executeHTML(page: Page, options: HTMLTOptions | undefined, validation: any): Promise<HTMLTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/html-techniques')
     });
 
-    const url = page.url();    
+    const url = page.url();
     const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
 
     const htmlReport = await page.evaluate((newTabWasOpen, validation, options) => {
       // @ts-ignore
       const html = new HTMLTechniques.HTMLTechniques(options);
       // @ts-ignore
-      return html.execute( window.page, newTabWasOpen, validation);
+      return html.execute(window.page, newTabWasOpen, validation);
       // @ts-ignore
     }, newTabWasOpen, validation, options);
 
@@ -204,7 +197,7 @@ class Evaluation {
       // @ts-ignore
       const css = new CSSTechniques.CSSTechniques(options);
       // @ts-ignore
-      return css.execute( window.page);
+      return css.execute(window.page);
       // @ts-ignore
     }, options);
 
@@ -222,40 +215,24 @@ class Evaluation {
       if (options)
         bp.configure(options)
       // @ts-ignore
-      return bp.execute( window.page);
+      return bp.execute(window.page);
       // @ts-ignore
     }, options);
     return bpReport;
   }
 
-  public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string): Promise<EvaluationRecord> {
+  public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string,validation:any): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, url);
     const evaluation = new EvaluationRecord(evaluator);
 
     await this.addQWPage(page);
-
-    const urlVal = await page.evaluate(() => {
-      return location.href;
-    });
-    const validationUrl = endpoint + encodeURIComponent(urlVal);
-    let validator = new Promise((resolve,reject)=>{
-      const worker = new Worker(__filename.replace('index.js', 'background.js'),{
-        workerData: {
-          url: validationUrl
-        }});
-        worker.on('message', (result) => {
-          resolve(result);
-        });
-    })
-    let [act,validation] =  await Promise.all( [this.executeACT(page, sourceHtml, options['act-rules']),validator])
+    
     if (execute.act) {
-     // console.log({act,validation});
-     evaluation.addModuleEvaluation('act-rules', act);
-      //evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
+      evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
     }
     if (execute.html) {
+      //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'], validation));
       evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'],validation));
-      //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'],await validator));
     }
     if (execute.css) {
       evaluation.addModuleEvaluation('css-techniques', await this.executeCSS(page, options['css-techniques']));
