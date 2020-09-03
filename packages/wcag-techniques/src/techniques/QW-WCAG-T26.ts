@@ -28,7 +28,7 @@ class QW_WCAG_T26 extends Technique {
       evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'failed';
-      evaluation.description = `The element is a forcer user interface control without the proper role attribute`;
+      evaluation.description = `The element is a forced user interface control without the proper role attribute`;
       evaluation.resultCode = 'RC2';
     }
 

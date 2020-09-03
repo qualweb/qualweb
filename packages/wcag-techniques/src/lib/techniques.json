@@ -603,8 +603,8 @@
     "description": "This failure describes situations where blocks of text that are justified (aligned to both the left and the right margins) occurs in HTML, using the \"align\" attribute.",
     "metadata": {
       "target": {
-        "element": ["p", "div", "h1", "h2", "h3", "h4", "h5", "h6", "col", "colgroup", "tbody", "thead", "tfoot", "tr", "th", "td"],
-        "attributes": "align"
+        "element": ["div", "span"],
+        "attributes": "text-align"
       },
       "success-criteria": [{
         "name": "1.4.8",

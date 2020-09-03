@@ -4,14 +4,14 @@ import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechnique, ElementExists } from '../lib/decorators';
 
 @WCAGTechnique
-class QW_HTML_T43 extends Technique {
+class QW_WCAG_T27 extends Technique {
 
   constructor(technique?: any) {
     super(technique);
   }
 
   @ElementExists
-  execute(element: QWElement | undefined): void {
+  execute(element: QWElement): void {
 
     const evaluation: HTMLTechniqueResult = {
       verdict: '',
@@ -19,30 +19,22 @@ class QW_HTML_T43 extends Technique {
       resultCode: ''
     };
 
-    if (!element) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'There is no element eligible to use the \'align\' attribute';
-      evaluation.resultCode = 'RC1';
-    } else {
-      const alignAttribute = element.getElementAttribute('align');
+    const alignAttribute = element.getElementStyleProperty('text-align', null);
 
-      if (alignAttribute) {
-        if (alignAttribute.trim() === 'justify') {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'This content shouldn\'t be justified';
-          evaluation.resultCode = 'RC2';
-        } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = 'This content is not justified';
-          evaluation.resultCode = 'RC3';
-        }
+    if (alignAttribute) {
+      if (alignAttribute.includes('justify')) {
+        evaluation.verdict = 'failed';
+        evaluation.description = 'This content shouldn\'t be justified';
+        evaluation.resultCode = 'RC1';
       } else {
-        return; // if it doesnt have the align attribute, it doesnt matter
+        evaluation.verdict = 'passed';
+        evaluation.description = 'This content is not justified';
+        evaluation.resultCode = 'RC2';
       }
-    }
 
-    super.addEvaluationResult(evaluation, element);
+      super.addEvaluationResult(evaluation, element);
+    }
   }
 }
 
-export = QW_HTML_T43;
+export = QW_WCAG_T27;

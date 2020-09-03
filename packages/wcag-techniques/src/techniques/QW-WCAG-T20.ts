@@ -32,7 +32,7 @@ class QW_WCAG_T20 extends Technique {
         evaluation.verdict = 'failed';
         evaluation.description = `The element's title attribute is empty`;
         evaluation.resultCode = 'RC1';
-      } else if (text &&  trimTitle === text.trim()) {
+      } else if (text && trimTitle === text.trim()) {
         evaluation.verdict = 'failed';
         evaluation.description = `The element contains a title attribute equal to the text in the link`;
         evaluation.resultCode = 'RC2';
