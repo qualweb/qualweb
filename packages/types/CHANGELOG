@@ -1,4 +1,8 @@
 # Changelog
+## [0.4.32] - 03/09/2020
+### Fixed
+ - Added validator to dom
+ 
 ## [0.4.31] - 31/08/2020
 ### Fixed
  - Missing return-type annotations in qwPage and util
