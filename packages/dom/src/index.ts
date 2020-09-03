@@ -1,8 +1,7 @@
 import {
   Browser,
   Page,
-  Viewport,
-  ElementHandle
+  Viewport
 } from 'puppeteer';
 import {
   QualwebOptions,
@@ -55,14 +54,12 @@ class Dom {
           this.page.close()
           this.page = await browser.newPage();
           await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
-            timeout: 0,
-            waitUntil: ['load']
+            timeout: 1000 * 60 * 2
           });
         }
       } else {
         await this.page.setContent(html, {
-          timeout: 0,
-          waitUntil: ['load']
+          timeout: 1000 * 60 * 2
         });
         _sourceHtml = await this.page.content();
 
@@ -70,13 +67,13 @@ class Dom {
           this.page.close()
           this.page = await browser.newPage();
           await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
-            timeout: 0,
-            waitUntil: ['load']
+            timeout: 1000 * 60 * 2
           });
         }
       }
 
-      const sourceHtml = await this.parseSourceHTML(_sourceHtml);
+      const sourceHtml = this.parseSourceHTML(_sourceHtml);
+
       return { sourceHtml, page: this.page };
     } catch (err) {
       throw err;
@@ -135,7 +132,7 @@ class Dom {
     return (await response.text()).trim();
   }
 
-  private async parseSourceHTML(html: string): Promise<SourceHtml> {
+  private parseSourceHTML(html: string): SourceHtml {
 
     const sourceHTML = html.trim();
     const parsedHTML = this.parseHTML(sourceHTML);
