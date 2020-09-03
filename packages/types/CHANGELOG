@@ -1,4 +1,8 @@
 # Changelog
+## [0.4.33] - 03/09/2020
+### Fixed
+ - Added validator argumennt to evaluation
+ 
 ## [0.4.32] - 03/09/2020
 ### Fixed
  - Added validator to dom
