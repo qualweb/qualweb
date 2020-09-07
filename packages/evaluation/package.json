@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.16",
+    "@qualweb/dom": "^0.1.23",
     "@qualweb/types": "^0.4.33",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
