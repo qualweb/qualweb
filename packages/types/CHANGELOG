@@ -1,7 +1,12 @@
 # Changelog
+
+## [0.4.34] - 07/09/2020
+### Updated
+ - dom module types
+
 ## [0.4.33] - 03/09/2020
 ### Fixed
- - Added validator argumennt to evaluation
+ - Added validator argument to evaluation
  
 ## [0.4.32] - 03/09/2020
 ### Fixed

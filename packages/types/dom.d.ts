@@ -1,11 +1,12 @@
 declare module '@qualweb/dom' {
   import { QualwebOptions, SourceHtml } from '@qualweb/core';
+  import { HTMLValidationReport } from '@qualweb/html-validator';
   import { Browser, Page } from 'puppeteer';
 
   interface PageData {
-    sourceHtml: SourceHtml,
+    sourceHtml: SourceHtml;
     page: Page;
-    validation:any
+    validation: HTMLValidationReport;
   }
 
   class Dom {
