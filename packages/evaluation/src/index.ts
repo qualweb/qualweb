@@ -181,7 +181,7 @@ class Evaluation {
     const validationUrl = endpoint + encodeURIComponent(urlVal);
 
     let response: Response | undefined = undefined;
-    let validation: HTMLValidationReport;
+    let validation: HTMLValidationReport | undefined = undefined;
 
     try {
       response = await fetch(validationUrl);
