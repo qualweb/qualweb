@@ -42,36 +42,22 @@ class Dom {
       await this.setPageViewport(options.viewport);
 
       let _sourceHtml = '';
-      let validation,response;
+      let validation, response;
 
       if (url) {
-        try{
-        _sourceHtml = await this.getSourceHtml(url);}
-        catch(e){
+        try {
+          _sourceHtml = await this.getSourceHtml(url);
+        }
+        catch (e) {
           _sourceHtml = "";
         }
+        let validator = this.getValidatorResult(url);
 
-        const validationUrl = endpoint + encodeURIComponent(url);
-
-        let validator = new Promise((resolve, reject) => {
-          try {
-            fetch(validationUrl).then((response) => {
-              if (response && response.status === 200) {
-                response.json().then((response) => {
-                  let validation = <HTMLValidationReport>JSON.parse(response);
-                  resolve(validation);
-                })
-              }
-            })
-          } catch (e) {
-            resolve([]);
-          }
-        });
 
         [response, validation] = await Promise.all([this.page.goto(url, {
           timeout: 0,
           waitUntil: ['load']
-      }), validator])
+        }), validator])
 
         const sourceHTMLPuppeteer = await response ?.text();
 
@@ -99,7 +85,7 @@ class Dom {
       }
 
       const sourceHtml = await this.parseSourceHTML(_sourceHtml);
-      return { sourceHtml, page: this.page ,validation};
+      return { sourceHtml, page: this.page, validation };
     } catch (err) {
       throw err;
     }
@@ -181,6 +167,28 @@ class Dom {
     parser.end();
 
     return handler.dom;
+  }
+  private getValidatorResult(url: string) {
+    const validationUrl = endpoint + encodeURIComponent(url);
+    return new Promise((resolve, reject) => {
+      try {
+        fetch(validationUrl).then((response) => {
+          if (response && response.status === 200) {
+            response.json().then((response) => {
+              try {
+                let validation = <HTMLValidationReport>JSON.parse(response);
+                resolve(validation);
+              }
+              catch (e) {
+                resolve([]);
+              }
+            })
+          }
+        })
+      } catch (e) {
+        resolve([]);
+      }
+    });
   }
 
 
