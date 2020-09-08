@@ -28,15 +28,16 @@ function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recurs
   let allowNameFromContent = allowsNameFromContent(elementQW);
 
   ariaLabelBy = elementQW.getElementAttribute("aria-labelledby");
+  id = elementQW.getElementAttribute("id");
 
-  if (ariaLabelBy !== null && !(verifyAriaLabel(ariaLabelBy, pageQW, elementQW))) {
+
+  if (ariaLabelBy !== null && !(verifyAriaLabel(ariaLabelBy, pageQW, elementQW,id))) {
     ariaLabelBy = "";
   }
   ariaLabel = elementQW.getElementAttribute("aria-label");
   attrType = elementQW.getElementAttribute("type");
   title = elementQW.getElementAttribute("title");
   role = getElementRoleAName(elementQW, pageQW, "");
-  id = elementQW.getElementAttribute("id");
 
   let referencedByAriaLabel = isElementReferencedByAriaLabel(elementQW, pageQW);
   if (name === "svg") {
@@ -229,11 +230,11 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
 
 
 
-function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
+function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement,elementID:string) {
   let elementIds = ariaLabelBy.split(" ");
   let result = false;
   for (let id of elementIds) {
-    if (!result && id !== "") {
+    if (!result && id !== "" && elementID!== id) {
       result = page.getElementByID(id, element) !== null;
     }
   }
