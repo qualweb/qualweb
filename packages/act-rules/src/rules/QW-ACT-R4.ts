@@ -13,14 +13,14 @@ class QW_ACT_R4 extends Rule {
 
   @ElementExists
   execute(element: any): void {
-    
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const content =element.content;
+    const content = element.content;
     const httpEquiv = element.httpEquiv;
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) { // only one meta needs to pass or fail, others will be discarded
@@ -92,7 +92,7 @@ class QW_ACT_R4 extends Rule {
           if (content[indexOf + 1] === ' ') { // verifies if the url is well formated
             let url: string | null = null;
 
-            if (split[1].toLowerCase().includes('url=')) {
+            if (split[1].toLowerCase().includes('url=') && split[1].split(`'`).length > 1) {
               url = split[1].split(`'`)[1].trim();
             } else {
               url = split[1].trim();
@@ -133,12 +133,12 @@ class QW_ACT_R4 extends Rule {
   }
 
   private validURL(url: string): boolean {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(url);
   }
 
