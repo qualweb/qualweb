@@ -9,7 +9,6 @@ import {
   Url,
   Evaluator
 } from '@qualweb/core';
-import { HTMLValidationReport } from '@qualweb/html-validator';
 import {
   randomBytes
 } from 'crypto';

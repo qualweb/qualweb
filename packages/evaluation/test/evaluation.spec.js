@@ -6,7 +6,7 @@ describe('QualWeb page', function() {
   it('Testing qualweb page evaluation', async function() {
     this.timeout(1000 * 1000);
 
-    const url = 'https://www.pcdiga.com/';
+    const url = 'https://www.dagbladet.no/pluss';
 
     const browser = await puppeteer.launch();
     const dom = new Dom();
