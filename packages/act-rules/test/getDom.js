@@ -15,7 +15,7 @@ async function getDom(browser,url, viewport) {
     }
 
     await page.goto(url, {
-        waitUntil: 'domcontentloaded'
+        waitUntil: 'load'
     });
 
     /*

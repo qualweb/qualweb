@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.globaldata.pt/");//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.pcdiga.com/");//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});
@@ -21,9 +21,9 @@ describe('ACT-Rules module', function () {
          
        // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
        //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/*/
-    /*const browser = await puppeteer.launch({headless:false});
+  /*  const browser = await puppeteer.launch({headless:false});
     const dom = new Dom();
-    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {},  "https://www.globaldata.pt/", null);*/
+    const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {},  "https://www.lasige.di.fc.ul.pt/", null);*/
 
     try {
       await page.addScriptTag({
@@ -44,7 +44,7 @@ describe('ACT-Rules module', function () {
         const reportR40 = actRules.executeQW_ACT_R40( window.page);
 
 
-        return reportR40;
+        return report;
       }, []);
       const fs = require('fs')
       // Write data in 'Output.txt' . 

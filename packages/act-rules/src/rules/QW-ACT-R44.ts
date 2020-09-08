@@ -21,6 +21,7 @@ class QW_ACT_R44 extends Rule {
     const links = element.getElements('a[href], [role="link"]');
     const linkDataList = new Array<any>();
 
+
     for (const link of links || []) {
       let aName, href,context;
       if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
@@ -33,7 +34,7 @@ class QW_ACT_R44 extends Rule {
 
       if (!!aName) {
         linkDataList.push({
-          context,href,aName
+          context,href,aName,link
         })
 
       }
@@ -61,10 +62,10 @@ class QW_ACT_R44 extends Rule {
           let hasEqualHref = false;
           for (let index of hasEqualAn) {
             hasEqualHref = linkDataList[index].href === linkDataList[counter].href && linkDataList[counter].href !== null;
-            elementList.push(links[index]);
+            elementList.push( linkDataList[index].link);
 
           }
-          elementList.push(links[counter]);
+          elementList.push(linkDataList[counter].link);
           if (hasEqualHref) {//passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`links\` with the same accessible name have equal content.`;

@@ -22,6 +22,7 @@ class QW_ACT_R9 extends Rule {
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string>();
+    const aplicableLinks = new Array<QWElement>();
 
     for (const link of links || []) {
       let aName, href;
@@ -35,6 +36,7 @@ class QW_ACT_R9 extends Rule {
       if (!!aName) {
         hrefList.push(href);
         accessibleNames.push(aName);
+        aplicableLinks.push(link);
       }
     }
 
@@ -52,15 +54,16 @@ class QW_ACT_R9 extends Rule {
         //element already evaluated
       } else if (!!accessibleName && accessibleName !== '') {
         const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
+        console.log(hasEqualAn);
 
         if (hasEqualAn.length > 0) {
           blacklist.push(...hasEqualAn);
           let hasEqualHref = true;
           for (let index of hasEqualAn) {
             hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
-            elementList.push(links[index]);
+            elementList.push(aplicableLinks[index]);
           }
-          elementList.push(links[counter]);
+          elementList.push(aplicableLinks[counter]);
           hasEqualAn.push(counter);
           if (hasEqualHref) {//passed
             evaluation.verdict = 'passed';
@@ -76,7 +79,7 @@ class QW_ACT_R9 extends Rule {
           evaluation.description = `Doesn't exist any other \`link\` with the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
-        super.addMultipleElementEvaluationResult(evaluation, elementList);
+        super.addMultipleElementEvaluationResult(evaluation, elementList,true,false,true,page);
       } else {//inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
