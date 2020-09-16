@@ -126,9 +126,9 @@ class System {
     if (this.browser) {
       try {
         const dom = new Dom();
-        const { sourceHtml, page } = await dom.getDOM(this.browser, options, url, this.html || '');
+        const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, this.html || '');
         const evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, url);
+        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, url, validation);
         await dom.close();
         this.evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
