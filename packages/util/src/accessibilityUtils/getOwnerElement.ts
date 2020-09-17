@@ -2,18 +2,18 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import getAriaOwner from './isElementAriaOwned';
+import getAriaOwner from './getAriaOwner';
 import isElementInAT from './isElementInAT';
 
 function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null {
   let ariaOwner = getAriaOwner(elementQW, pageQW);
   let ownerElement;
 
-  if (ariaOwner) {
+  if (!!ariaOwner) {
     ownerElement = ariaOwner;
   } else {
     let parent = elementQW.getElementParent();
-    while (!!parent && !!ownerElement) {
+    while (!!parent && !ownerElement) {
       if (isElementInAT(parent, pageQW))
         ownerElement = parent;
       parent = parent.getElementParent();

@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.35] - 17/09/2020
+### Added
+ - fixed getOwnerElement
 ## [0.3.34] - 17/09/2020
 ### Added
  - added getOwnerElement
