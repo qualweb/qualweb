@@ -13,7 +13,7 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless:false});
     //const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
     const tests = [
       {
@@ -57,7 +57,6 @@ describe(`Rule ${rule}`, async function () {
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute(sourceHtml, new QWPage.QWPage(document,window), stylesheets);

@@ -23,7 +23,7 @@ class QW_ACT_R45 extends Rule {
     };
     let name = element.getElementTagName();
     let role = AccessibilityUtils.getElementRole(element, page);
-    let parent = element.getElementParent();
+    let owner = AccessibilityUtils.getOwnerElement(element,page);
 
     if (name === "li") {
       if (role !== "listitem") {
@@ -31,7 +31,9 @@ class QW_ACT_R45 extends Rule {
         evaluation.description = 'The explicit semantic role is diferent from the implicit semantic role';
         evaluation.resultCode = 'RC1';
       } else {
-        if (parent && ["ol", "ul"].includes(parent.getElementTagName()) && AccessibilityUtils.getElementRole(parent, page) === "list") {
+        if(!!owner)
+        console.log(owner.getElementTagName());
+        if (owner && ["ol", "ul"].includes(owner.getElementTagName()) && AccessibilityUtils.getElementRole(owner, page) === "list") {
           evaluation.verdict = 'passed';
           evaluation.description = 'The element follows the flow content model';
           evaluation.resultCode = 'RC2';
@@ -47,7 +49,7 @@ class QW_ACT_R45 extends Rule {
         evaluation.description = 'The explicit semantic role is diferent from the implicit semantic role';
         evaluation.resultCode = 'RC4';
       } else {
-        if (parent && parent.getElementTagName() === "dl") {
+        if (owner && owner.getElementTagName() === "dl") {
           evaluation.verdict = 'passed';
           evaluation.description = 'The element follows the flow content model';
           evaluation.resultCode = 'RC5';
@@ -58,6 +60,7 @@ class QW_ACT_R45 extends Rule {
         }
       }
     }
+    console.log( evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 }

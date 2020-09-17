@@ -1,4 +1,7 @@
 # Changelog
+## [0.4.27] - 17/09/2020
+### Fixed
+ - changed r45 to owner element
 ## [0.4.26] - 08/09/2020
 ### Fixed
  - multiple bugs fixes
