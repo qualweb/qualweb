@@ -18,6 +18,7 @@ import isElementReferencedByAriaLabelFunction from './isElementReferencedByAriaL
 import getDisabledWidgetsFunction from './getDisabledWidgets';
 import getAccessibleNameSelectorFunction from './getAccessibleNameSelector';
 import getLinkContextFunction from './getLinkContext';
+import getOwnerElementFunction from './getOwnerElement';
 
 namespace AccessibilityUtils {
   export const getElmentRoleAname = getElementRoleANameFunction;
@@ -38,6 +39,7 @@ namespace AccessibilityUtils {
   export const getDisabledWidgets = getDisabledWidgetsFunction;
   export const getAccessibleNameSelector = getAccessibleNameSelectorFunction;
   export const getLinkContext = getLinkContextFunction;
+  export const getOwnerElement = getOwnerElementFunction;
 }
 
 export default AccessibilityUtils;
