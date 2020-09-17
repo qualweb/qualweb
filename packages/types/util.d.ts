@@ -53,6 +53,7 @@ declare module '@qualweb/util' {
     export function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean;
     export function isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean;
     export function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
+    export function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null;
   }
 
   namespace CssUtils {
