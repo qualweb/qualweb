@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "description": "Evaluates choosen modules",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.25",
+    "@qualweb/dom": "^0.1.26",
     "@qualweb/types": "^0.4.33",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
@@ -41,7 +41,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.4.26",
+    "@qualweb/act-rules": "^0.4.27",
     "@qualweb/best-practices": "^0.4.8",
     "@qualweb/css-techniques": "^0.4.10",
     "@qualweb/html-techniques": "^0.4.11",
