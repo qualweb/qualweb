@@ -1,7 +1,8 @@
 import {
   Browser,
   Page,
-  Viewport
+  Viewport,
+  Response
 } from 'puppeteer';
 import {
   QualwebOptions,
@@ -28,6 +29,7 @@ import {
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
 import { HTMLValidationReport } from '@qualweb/html-validator';
+import { executeWappalyzer } from '@qualweb/wappalyzer';
 const endpoint = 'http://194.117.20.242/validate/';
 
 
@@ -40,24 +42,20 @@ class Dom {
       this.page = await browser.newPage();
       await this.page.setBypassCSP(true);
       await this.setPageViewport(options.viewport);
-
-      let _sourceHtml = '';
-      let validation, response;
+      let validation: any = [], response, _sourceHtml = "";
+      let needsValidator = this.validatorNeeded(options);
+      let needsPreprocessedHTML = this.sourceHTMLNeeded(options);
 
       if (url) {
-        try {
-          _sourceHtml = await this.getSourceHtml(url);
-        }
-        catch (e) {
-          _sourceHtml = "";
-        }
-        let validator = this.getValidatorResult(url);
+        if (needsValidator && needsPreprocessedHTML)
+          [response, validation, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url), this.getSourceHtml(url)]);
+        else if (needsValidator)
+          [response, validation] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url)]);
+        else if (needsPreprocessedHTML)
+          [response, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getSourceHtml(url)]);
+        else
+          response = await this.navigateToPage(url);
 
-
-        [response, validation] = await Promise.all([this.page.goto(url, {
-          timeout: 0,
-          waitUntil: ['load']
-        }), validator])
 
         const sourceHTMLPuppeteer = await response ?.text();
 
@@ -94,7 +92,12 @@ class Dom {
   public async close(): Promise<void> {
     await this.page.close();
   }
-
+  public async navigateToPage(url: string): Promise<Response | null> {
+    return this.page.goto(url, {
+      timeout: 0,
+      waitUntil: ['load']
+    });
+  }
   private async setPageViewport(options?: PageOptions): Promise<void> {
     if (options) {
       if (options.userAgent) {
@@ -134,13 +137,18 @@ class Dom {
   }
 
   private async getSourceHtml(url: string, options?: any): Promise<string> {
-    const fetchOptions = {
-      'headers': {
-        'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
-      }
-    };
-    const response = await fetch(url, fetchOptions);
-    return (await response.text()).trim();
+    try {
+      const fetchOptions = {
+        'headers': {
+          'User-Agent': options ? options.userAgent ? options.userAgent : options.mobile ? DEFAULT_MOBILE_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT : DEFAULT_DESKTOP_USER_AGENT
+        }
+      };
+      const response = await fetch(url, fetchOptions);
+      return (await response.text()).trim();
+    }
+    catch (e) {
+      return "";
+    }
   }
 
   private parseSourceHTML(html: string): SourceHtml {
@@ -190,6 +198,17 @@ class Dom {
       }
     });
   }
+
+  private validatorNeeded(options: QualwebOptions): boolean {
+    return !options.execute || !!(options.execute.html);
+  }
+
+  private sourceHTMLNeeded(options: QualwebOptions): boolean {
+    let checkModule = !!options && !options.execute || !!options.execute && !!options.execute.act;
+    let checkRules = !!options["act-rules"] && !!options["act-rules"].rules && (options["act-rules"].rules.includes("QW-ACT-R4") || options["act-rules"].rules.includes("bc659a"));
+    return checkModule || checkRules;
+  }
+
 
 
   private isSVGorMath(content?: string): boolean {
