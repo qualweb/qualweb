@@ -3,7 +3,8 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import getAriaOwner from './getAriaOwner';
-import isElementInAT from './isElementInAT';
+import { AccessibilityUtils } from '@qualweb/util';
+
 
 function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null {
   let ariaOwner = getAriaOwner(elementQW, pageQW);
@@ -14,7 +15,7 @@ function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null
   } else {
     let parent = elementQW.getElementParent();
     while (!!parent && !ownerElement) {
-      if (isElementInAT(parent, pageQW))
+      if (AccessibilityUtils.isElementInAT(parent, pageQW))
         ownerElement = parent;
       parent = parent.getElementParent();
     }

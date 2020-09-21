@@ -1,14 +1,13 @@
 'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import elementHasValidRole from "./elementHasValidRole";
 import isElementHidden from '../domUtils/isElementHidden';
 import isElementChildPresentational from '../domUtils/isElementChildPresentational';
 import isElementFocusable from '../domUtils/isElementFocusable';
 import elementIDIsReferenced from '../domUtils/elementIDIsReferenced';
 import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute';
-import getElementRole from './getElementRole';
 import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpy } from './constants';
+import { AccessibilityUtils } from '@qualweb/util';
 
 function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
   let selector = elementQW.getElementSelector();
@@ -27,8 +26,8 @@ function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
   let childPresentational = isElementChildPresentational(elementQW, pageQW);
   let isHidden = isElementHidden(elementQW, pageQW);
   let result = false;
-  let role = getElementRole(elementQW, pageQW);
-  let validRole = elementHasValidRole(elementQW, pageQW);
+  let role = AccessibilityUtils.getElementRole(elementQW, pageQW);
+  let validRole = AccessibilityUtils.elementHasValidRole(elementQW, pageQW);
 
   if (!isHidden && !childPresentational && role !== "presentation" && role !== "none") {
     let name = elementQW.getElementTagName()

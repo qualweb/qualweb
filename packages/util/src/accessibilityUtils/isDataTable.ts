@@ -1,10 +1,9 @@
 'use strict';
 
-import getAccessibleName from "./getAccessibleName";
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
+import { AccessibilityUtils } from '@qualweb/util';
 
-//import getTreeSelector from "../shadowDomUtils/getTreeSelector";
 
 function isDataTable(element: QWElement, pageQW: QWPage): boolean {
   if (!element) {
@@ -13,11 +12,10 @@ function isDataTable(element: QWElement, pageQW: QWPage): boolean {
   // based on https://www.w3.org/TR/WCAG20-TECHS/H43.html
   // and https://fae.disability.illinois.edu/rulesets/TABLE_5/
   // it is considered that AccessibilityUtils element is already a <table> element
-  //let treeSelector = await getTreeSelector(element);
-  let accessibleName = getAccessibleName(element, pageQW);
-  let thElem = element.getElements('th'/*+treeSelector*/);
-  let tdHeaders = element.getElements('td[scope]'/*+treeSelector*/);
-  let tdWithHeaders = element.getElements('td[headers]'/*+treeSelector*/);
+  let accessibleName = AccessibilityUtils.getAccessibleName(element, pageQW);
+  let thElem = element.getElements('th');
+  let tdHeaders = element.getElements('td[scope]');
+  let tdWithHeaders = element.getElements('td[headers]');
   let presentation, describedBy;
   presentation = element.getElementAttribute( "role") === "presentation";
   describedBy = Boolean(element.getElementAttribute( "aria-describedby"));

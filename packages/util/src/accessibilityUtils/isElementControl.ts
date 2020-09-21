@@ -3,10 +3,10 @@
 import {controlRoles } from "./constants";
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import getElementRoleAName from "./getElementRoleAName";
+import { AccessibilityUtils } from "@qualweb/util";
 
 function isElementControl(elementQW: QWElement, pageQW: QWPage): boolean{
-  let role = getElementRoleAName(elementQW,pageQW,"");
+  let role = AccessibilityUtils.getElementRoleAName(elementQW,pageQW,"");
   return role!==null && controlRoles.indexOf(role) >= 0;
 }
 export default isElementControl;

@@ -2,7 +2,7 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import isElementInAT from './isElementInAT';
+import { AccessibilityUtils } from '@qualweb/util';
 
 function getAriaOwner(elementQW: QWElement, pageQW: QWPage): QWElement | null {
   let id = elementQW.getElementAttribute("id");
@@ -14,7 +14,7 @@ function getAriaOwner(elementQW: QWElement, pageQW: QWPage): QWElement | null {
     let ariaOwnsAtribute = ariaElement.getElementAttribute("aria-owns")
     if (!!ariaOwnsAtribute) {
       let idArray = ariaOwnsAtribute.split(" ");
-      if (idArray.includes(id) && isElementInAT(ariaElement,pageQW)) {
+      if (idArray.includes(id) && AccessibilityUtils.isElementInAT(ariaElement,pageQW)) {
         ariaOwner = ariaElement;
       }
     }

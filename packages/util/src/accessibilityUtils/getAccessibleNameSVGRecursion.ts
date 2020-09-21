@@ -1,14 +1,12 @@
 'use strict';
-import getTrimmedText from './getTrimmedText';
-import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import {
   noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer
 } from './constants';
-import getAccessibleName from "./getAccessibleName";
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import isElementHidden from "../domUtils/isElementHidden";
+import { AccessibilityUtils } from '@qualweb/util';
 
 function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, ariaLabel, tag;
@@ -22,7 +20,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
     ariaLabelBy = "";
   }
   ariaLabel = element.getElementAttribute("aria-label");
-  let referencedByAriaLabel = isElementReferencedByAriaLabel(element, page);
+  let referencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
   let title = element.getElementChildTextContent("title");
   let titleAtt = element.getElementAttribute("xlink:title");//tem de ser a
   let href = element.getElementAttribute("href");
@@ -33,7 +31,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
-    AName = getAccessibleName(element, page);
+    AName = AccessibilityUtils.getAccessibleName(element, page);
   } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;
   } else if (title && title.trim() !== "") {
@@ -43,7 +41,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   } else if (textContainer.indexOf(tag) >= 0 || recursion) {
     AName = getTextFromCss(element, page);
   } else if (tag && tag === "text") {
-    AName = getTrimmedText(element);
+    AName = AccessibilityUtils.getTrimmedText(element);
   }
   return AName;
 }

@@ -1,13 +1,12 @@
 'use strict';
-import getElementRoleAName = require("./getElementRoleAName");
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import getTrimmedText from "./getTrimmedText";
+import { AccessibilityUtils } from '@qualweb/util';
 
 
 function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
 
-  let role = getElementRoleAName(element, page, "");
+  let role = AccessibilityUtils.getElementRoleAName(element, page, "");
   let name = element.getElementTagName();
   if (!name)
     name = '';
@@ -37,12 +36,12 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
       elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]` );
 
     if (!!optionSelected) {
-      value = getTrimmedText(optionSelected);
+      value = AccessibilityUtils.getTrimmedText(optionSelected);
     }
     else if (!!selectedElement) {
-      value = getTrimmedText(selectedElement[0]);
+      value = AccessibilityUtils.getTrimmedText(selectedElement[0]);
     } else if (!!elementWithAriaSelected) {
-      value = getTrimmedText(elementWithAriaSelected[0]);
+      value = AccessibilityUtils.getTrimmedText(elementWithAriaSelected[0]);
     }
 
   } else if (role === "listbox") {
@@ -63,11 +62,11 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
     }
 
     if (!!selectedElement)
-      value = getTrimmedText(elementsWithId[0]);
+      value = AccessibilityUtils.getTrimmedText(elementsWithId[0]);
     else if (!! elementWithAriaSelected) {
-      value = getTrimmedText(elementWithAriaSelected);
+      value = AccessibilityUtils.getTrimmedText(elementWithAriaSelected);
     } else if (!!optionSelected) {
-      value = getTrimmedText(optionSelected);
+      value = AccessibilityUtils.getTrimmedText(optionSelected);
     }
   } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
     let valueTextVar = element.getElementAttribute( "aria-valuetext");

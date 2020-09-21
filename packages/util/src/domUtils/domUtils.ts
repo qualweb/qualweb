@@ -21,24 +21,24 @@ import elementHasContentFunction from './elementHasContent'
 /**
  * DOM Utilities namespace
  */
-namespace DomUtils {
-  export const getSourceElementAttribute = getSourceElementAttributeFunction;
-  export const getSourceElementSelector = getSourceElementSelectorFunction;
-  export const getSourceElementHtmlCode = getSourceElementHtmlCodeFunction;
-  export const getElementReferencedByHREF = getElementReferencedByHREFFunction;
-  export const isElementHidden = isElementHiddenFunction;
-  export const isElementHiddenByCSS = isElementHiddenByCSSFunction;
-  export const isElementFocusableByDefault = isElementFocusableByDefaultFunction;
-  export const videoElementHasAudio = videoElementHasAudioFunction;
-  export const isElementFocusable = isElementFocusableFunction;
-  export const isFocusableBrowser = isFocusableBrowserFunction;
-  export const isElementVisible = isElementVisibleFunction;
-  export const elementHasGlobalARIAPropertyOrAttribute = elementHasGlobalARIAPropertyOrAttributeFunction;
-  export const elementIDIsReferenced = elementIDIsReferencedFunction;
-  export const isElementADescendantOf = isElementADescendantOfFunction;
-  export const isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
-  export const getVideoMetadata = getVideoMetadataFunction;
-  export const elementHasContent = elementHasContentFunction;
+class DomUtils {
+ public static getSourceElementAttribute = getSourceElementAttributeFunction;
+ public static getSourceElementSelector = getSourceElementSelectorFunction;
+ public static getSourceElementHtmlCode = getSourceElementHtmlCodeFunction;
+ public static getElementReferencedByHREF = getElementReferencedByHREFFunction;
+ public static isElementHidden = isElementHiddenFunction;
+ public static isElementHiddenByCSS = isElementHiddenByCSSFunction;
+ public static isElementFocusableByDefault = isElementFocusableByDefaultFunction;
+ public static videoElementHasAudio = videoElementHasAudioFunction;
+ public static isElementFocusable = isElementFocusableFunction;
+ public static isFocusableBrowser = isFocusableBrowserFunction;
+ public static isElementVisible = isElementVisibleFunction;
+ public static elementHasGlobalARIAPropertyOrAttribute = elementHasGlobalARIAPropertyOrAttributeFunction;
+ public static elementIDIsReferenced = elementIDIsReferencedFunction;
+ public static isElementADescendantOf = isElementADescendantOfFunction;
+ public static isElementADescendantOfExplicitRole = isElementADescendantOfExplicitRoleFunction;
+ public static getVideoMetadata = getVideoMetadataFunction;
+ public static elementHasContent = elementHasContentFunction;
 }
 
 export default DomUtils;

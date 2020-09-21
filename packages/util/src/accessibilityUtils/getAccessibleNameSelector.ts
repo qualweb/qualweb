@@ -1,15 +1,12 @@
 'use strict';
-import getDefaultName from './getDefaultName';
 import allowsNameFromContent from "./allowsNameFromContent";
-import isElementWidget from './isElementWidget';
-import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel } from './constants';
-import getElementRoleAName from './getElementRoleAName';
-import isElementControl from './isElementControl';
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
+import { AccessibilityUtils } from "@qualweb/util";
+import getDefaultName from "./getDefaultName";
 
 function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined {
   return getAccessibleNameRecursion(element, pageQW, false, false);
@@ -31,16 +28,16 @@ function getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion:
   alt = !!(element.getElementAttribute("alt")) ? [elementSelector] : null;
   value = !!(element.getElementAttribute("value")) ? [elementSelector] : null;
   placeholder = element.getElementAttribute("placeholder") ? [elementSelector] : null;
-  role = getElementRoleAName(element, page, "");
+  role = AccessibilityUtils.getElementRoleAName(element, page, "");
   id = element.getElementAttribute("id");
   defaultName = !!(getDefaultName(element)) ? ["default"] : null;
 
-  let referencedByAriaLabel = isElementReferencedByAriaLabel(element, page);
+  let referencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
   if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel) {
     AName = ariaLabel;
-  } else if (isWidget && isElementControl(element, page)) {
+  } else if (isWidget && AccessibilityUtils.isElementControl(element, page)) {
     let valueFromEmbeddedControl = !!(getValueFromEmbeddedControl(element, page)) ? elementSelector : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === "area" || (name === "input" && attrType === "image")) {
@@ -123,7 +120,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   }
   let parent = element.getElementParent();
   let result: string[] = [], accessNameFromLabel;
-  let isWidget = isElementWidget(element, page);
+  let isWidget = AccessibilityUtils.isElementWidget(element, page);
 
   if (parent && parent.getElementTagName() === "label" && !(isElementPresent(parent, referencedByLabelList))) {
     referencedByLabelList.push(parent);
@@ -156,7 +153,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string[] = [];
   let accessNameFromId;
-  let isWidget = isElementWidget(element, page);
+  let isWidget = AccessibilityUtils.isElementWidget(element, page);
   let elem;
 
 
@@ -191,7 +188,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
 
  function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): string[] {
   if (!isWidget) {
-    isWidget = isElementWidget(element, page);
+    isWidget = AccessibilityUtils.isElementWidget(element, page);
   }
   let children = element.getElementChildren();
   let result: string[] = [];
