@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.43] - 22/09/2020
+### Added
+ - fixed aria-owner
 ## [0.3.42] - 22/09/2020
 ### Added
  - testing new cache

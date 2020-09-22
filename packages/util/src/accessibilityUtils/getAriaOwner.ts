@@ -18,6 +18,7 @@ function getAriaOwner(elementQW: QWElement, pageQW: QWPage): QWElement | null {
         ariaOwner = ariaElement;
       }
     }
+    index++;
   }
   return ariaOwner;
 }
