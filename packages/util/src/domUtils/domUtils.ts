@@ -5,6 +5,7 @@ import getSourceElementHtmlCodeFunction from './getSourceElementHtmlCode';
 import getSourceElementAttributeFunction from './getSourceElementAttribute';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
+import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
 import isElementFocusableByDefaultFunction from './isElementFocusableByDefault'
 import videoElementHasAudioFunction from './videoElementHasAudio';
 import isElementHiddenFunction from './isElementHidden';
@@ -96,6 +97,10 @@ class DomUtils {
   public static elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
     return elementHasContentFunction(elementQW, pageQW,checkChildren);
 
+  }
+  @CacheDecorator("DomUtils.isElementHiddenByCSSAux")
+  public static isElementHiddenByCSSAux(elementQW: QWElement,pageQW:QWPage): boolean{
+    return isElementHiddenByCSSAuxFunction(elementQW, pageQW); 
   }
 
 

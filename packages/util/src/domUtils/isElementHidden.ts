@@ -15,7 +15,7 @@ function isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
   let typeHidden = name === "input" && type === "hidden";
   const ariaHidden = elementQW.getElementAttribute('aria-hidden') === 'true';
   const hidden = elementQW.getElementAttribute('hidden') !== null;
-  const cssHidden = DomUtils.isElementHiddenByCSSAux(elementQW);
+  const cssHidden = DomUtils.isElementHiddenByCSSAux(elementQW,pageQW);
   const parent = elementQW.getElementParent();
   let parentHidden = false;
   if (parent) {

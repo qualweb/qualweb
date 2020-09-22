@@ -11,7 +11,7 @@ function isElementHiddenByCSS(elementQW: QWElement, pageQW: QWPage): boolean {
   if (parent) {
     parentHidden = DomUtils.isElementHiddenByCSS(parent, pageQW);
   }
-  result = DomUtils.isElementHiddenByCSSAux(elementQW) || parentHidden;
+  result = DomUtils.isElementHiddenByCSSAux(elementQW,pageQW) || parentHidden;
 
   return result;
 }

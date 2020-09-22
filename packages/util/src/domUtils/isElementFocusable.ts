@@ -18,7 +18,7 @@ function isElementFocusable(elementQW: QWElement,pageQW:QWPage): boolean {
     if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
-    if (DomUtils.isElementFocusableByDefault(elementQW)) {
+    if (DomUtils.isElementFocusableByDefault(elementQW,pageQW)) {
       return true;
     }
     else {

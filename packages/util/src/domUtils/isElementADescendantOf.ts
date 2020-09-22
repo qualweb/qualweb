@@ -2,7 +2,7 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils,DomUtils } from '@qualweb/util';
 
 function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
@@ -25,7 +25,7 @@ function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: str
     }
     result = sameName || sameRole;
     if (!result) {
-      return isElementADescendantOf(parent, pageQW, names, roles);
+      return DomUtils.isElementADescendantOf(parent, pageQW, names, roles);
     } else {
       return result;
     }

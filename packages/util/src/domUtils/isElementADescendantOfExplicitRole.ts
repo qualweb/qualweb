@@ -1,6 +1,7 @@
 'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
+import { DomUtils } from '@qualweb/util';
 
 function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
@@ -23,7 +24,7 @@ function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage
     }
     result = sameName || sameRole;
     if (!result) {
-      return isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
+      return DomUtils.isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
     } else {
       return result;
     }
