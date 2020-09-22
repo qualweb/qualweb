@@ -5,8 +5,7 @@ import {
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import isElementHidden from "../domUtils/isElementHidden";
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, ariaLabel, tag;
@@ -26,7 +25,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   let href = element.getElementAttribute("href");
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if ((isElementHidden(element,page) || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
+  if ((DomUtils.isElementHidden(element,page) || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);

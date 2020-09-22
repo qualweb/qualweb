@@ -4,20 +4,8 @@ import { alwaysNotVisible, needsControls, alwaysVisible, needsOpen } from "./con
 import textHasTheSameColorOfBackground from "./textHasTheSameColorOfBackground";
 import { QWPage } from "@qualweb/qw-page";
 
-function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
-  let selector = elementQW.getElementSelector();
-  let method = "DomUtils.elementHasContent";
-  let result;
-  if (pageQW.isValueCached(selector, method)) {
-    result = pageQW.getCachedValue(selector, method);
-  } else {
-    result = elementHasContentAux(elementQW,pageQW, checkChildren);
-    pageQW.cacheValue(selector, method, result);
-  }
-  return result;
-}
 
-function elementHasContentAux(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
+function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }

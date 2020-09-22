@@ -1,32 +1,18 @@
 'use strict';
 
-import isElementHiddenByCSS from './isElementHiddenByCSS';
 import { QWElement } from '@qualweb/qw-element';
-import elementHasContent from './elementHasContent';
 import elementHasOnePixel from './elementHasOnePixel';
 import { QWPage } from '@qualweb/qw-page';
+import { DomUtils } from '@qualweb/util';
 
 
 function isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
-  let selector = elementQW.getElementSelector();
-  let method = "DomUtils.isElementVisible";
-  let result;
-  if (pageQW.isValueCached(selector, method)) {
-    result = pageQW.getCachedValue(selector, method);
-  } else {
-    result = isElementVisibleAux(elementQW, pageQW);
-    pageQW.cacheValue(selector, method, result);
-  }
-  return result;
-}
-
-function isElementVisibleAux(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
   const offScreen = elementQW.isOffScreen();
-  const cssHidden = isElementHiddenByCSS(elementQW, pageQW);
-  const hasContent = elementHasContent(elementQW, pageQW, true);
+  const cssHidden = DomUtils.isElementHiddenByCSS(elementQW, pageQW);
+  const hasContent = DomUtils.elementHasContent(elementQW, pageQW, true);
   const hasOnePixelHeight = elementHasOnePixel(elementQW);
   let opacityProperty = elementQW.getElementStyleProperty('opacity', '');
   let opacity;

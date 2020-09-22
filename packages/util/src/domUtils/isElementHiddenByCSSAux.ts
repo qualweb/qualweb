@@ -8,13 +8,12 @@ function isElementHiddenByCSSAux(elementQW: QWElement): boolean {
 
   let visibility;
   let displayNone;
-  const display = elementQW.getElementStyleProperty( 'display','');
+  const display = elementQW.getElementStyleProperty('display', '');
   displayNone = display ? display.trim() === 'none' : false;
-  const visibilityATT = elementQW.getElementStyleProperty('visibility','');
+  const visibilityATT = elementQW.getElementStyleProperty('visibility', '');
   visibility = visibilityATT ? visibilityATT.trim() === 'collapse' || visibilityATT.trim() === 'hidden' : false;
 
-
-return visibility || displayNone;
+  return visibility || displayNone;
 }
 
 export default isElementHiddenByCSSAux;

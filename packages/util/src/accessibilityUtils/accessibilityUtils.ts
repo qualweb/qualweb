@@ -40,7 +40,7 @@ class AccessibilityUtils {
   }
 
   @CacheDecorator("AcceUtils.getAccessibleNameRecursion")
-  protected static getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): string | undefined {
+  public static getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): string | undefined {
     return getAccessibleNameRecursionFunction(element, page, recursion, isWidget);
   }
   public static getAccessibleNameSelector = getAccessibleNameSelectorFunction;
@@ -75,7 +75,7 @@ class AccessibilityUtils {
   public static isElementControl(element: QWElement, page: QWPage): boolean {
     return isElementControlFunction(element, page);
   }
-  @CacheDecorator("AcceUtils.isElementControl")
+  @CacheDecorator("AcceUtils.isElementInAT")
   public static isElementInAT(element: QWElement, page: QWPage): boolean {
     return isElementInATFunction(element, page);
   }

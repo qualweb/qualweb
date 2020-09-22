@@ -1,30 +1,14 @@
 'use strict';
 
-import isElementFocusableByDefault from './isElementFocusableByDefault';
-import isElementHiddenByCSS from './isElementHiddenByCSS';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
+import { DomUtils } from '@qualweb/util';
 
-
-function isElementFocusable(elementQW: QWElement,pageQW:QWPage): boolean  {
-  let selector = elementQW.getElementSelector();
-  let method = "DomUtils.isElementFocusable";
-  let result;
-  if(pageQW.isValueCached(selector,method)){
-     result = pageQW.getCachedValue(selector,method);
-  }else{
-    result = isElementFocusableAux(elementQW, pageQW);
-    pageQW.cacheValue(selector,method,result);
-  }
-  return result;
-}
-
-
-function isElementFocusableAux(elementQW: QWElement,pageQW:QWPage): boolean {
+function isElementFocusable(elementQW: QWElement,pageQW:QWPage): boolean {
 
   let disabled = (elementQW.getElementAttribute('disabled')) !== null;
 
-  if (disabled || isElementHiddenByCSS(elementQW,pageQW)) {
+  if (disabled || DomUtils.isElementHiddenByCSS(elementQW,pageQW)) {
     return false;
   } else {
     let tabIndexLessThanZero = false;
@@ -34,7 +18,7 @@ function isElementFocusableAux(elementQW: QWElement,pageQW:QWPage): boolean {
     if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
-    if (isElementFocusableByDefault(elementQW)) {
+    if (DomUtils.isElementFocusableByDefault(elementQW)) {
       return true;
     }
     else {

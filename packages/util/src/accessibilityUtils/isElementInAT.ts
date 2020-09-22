@@ -1,30 +1,14 @@
 'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import isElementHidden from '../domUtils/isElementHidden';
-import isElementChildPresentational from '../domUtils/isElementChildPresentational';
-import isElementFocusable from '../domUtils/isElementFocusable';
-import elementIDIsReferenced from '../domUtils/elementIDIsReferenced';
-import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute';
+
 import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpy } from './constants';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils,DomUtils } from '@qualweb/util';
+
 
 function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
-  let selector = elementQW.getElementSelector();
-  let method = "AcceUtils.isElementInAT";
-  let result;
-  if (pageQW.isValueCached(selector, method)) {
-    result = pageQW.getCachedValue(selector, method);
-  } else {
-    result = isElementInATAux(elementQW, pageQW);
-    pageQW.cacheValue(selector, method, result);
-  }
-  return result;
-}
-
-function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
-  let childPresentational = isElementChildPresentational(elementQW, pageQW);
-  let isHidden = isElementHidden(elementQW, pageQW);
+  let childPresentational = DomUtils.isElementChildPresentational(elementQW, pageQW);
+  let isHidden = DomUtils.isElementHidden(elementQW, pageQW);
   let result = false;
   let role = AccessibilityUtils.getElementRole(elementQW, pageQW);
   let validRole = AccessibilityUtils.elementHasValidRole(elementQW, pageQW);
@@ -45,7 +29,7 @@ function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
         specialCondition = !!parent && parent.getElementTagName() === "details";
       }
       let type = elementQW.getElementType();
-      let focusable = isElementFocusable(elementQW, pageQW);
+      let focusable = DomUtils.isElementFocusable(elementQW, pageQW);
       let id = elementQW.getElementAttribute("id");
       let ariaActivedescendant = false;
       let ariaControls = false;
@@ -56,17 +40,17 @@ function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
       let ariaLabelledby = false;
       let ariaOwns = false;
       if (id !== null) {
-        ariaActivedescendant = elementIDIsReferenced(pageQW, elementQW, id, "aria-activedescendant");
-        ariaControls = elementIDIsReferenced(pageQW, elementQW, id, " aria-controls");
-        ariaDescribedby = elementIDIsReferenced(pageQW, elementQW, id, " aria-describedby");
-        ariaDetails = elementIDIsReferenced(pageQW, elementQW, id, " aria-details");
-        ariaErrormessage = elementIDIsReferenced(pageQW, elementQW, id, "aria-errormessage");
-        ariaFlowto = elementIDIsReferenced(pageQW, elementQW, id, "aria-flowto");
-        ariaLabelledby = elementIDIsReferenced(pageQW, elementQW, id, "aria-labelledby");
-        ariaOwns = elementIDIsReferenced(pageQW, elementQW, id, "aria-owns");
+        ariaActivedescendant = DomUtils.elementIDIsReferenced(elementQW,pageQW, id, "aria-activedescendant");
+        ariaControls = DomUtils.elementIDIsReferenced(elementQW, pageQW,id, " aria-controls");
+        ariaDescribedby = DomUtils.elementIDIsReferenced(elementQW,pageQW, id, " aria-describedby");
+        ariaDetails = DomUtils.elementIDIsReferenced( elementQW, pageQW,id, " aria-details");
+        ariaErrormessage = DomUtils.elementIDIsReferenced(elementQW, pageQW,id, "aria-errormessage");
+        ariaFlowto = DomUtils.elementIDIsReferenced(elementQW, pageQW,id, "aria-flowto");
+        ariaLabelledby = DomUtils.elementIDIsReferenced( elementQW,pageQW, id, "aria-labelledby");
+        ariaOwns =DomUtils. elementIDIsReferenced(elementQW, pageQW,id, "aria-owns");
 
       }
-      let globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
+      let globalWaiARIA = DomUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW,pageQW);
 
       result = specialCondition || type === "text" || focusable || ariaActivedescendant || ariaControls || ariaDescribedby || ariaDetails || ariaErrormessage || ariaFlowto || ariaLabelledby || ariaOwns || validRole || globalWaiARIA;
 

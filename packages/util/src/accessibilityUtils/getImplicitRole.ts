@@ -2,9 +2,8 @@
 import roles from './elementImplicitRoles.json';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import isElementADescendantOfExplicitRole from "../domUtils/isElementADescendantOfExplicitRole";
-import isElementFocusable from '../domUtils/isElementFocusable.js';
-import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute.js';
+import { DomUtils } from '@qualweb/util';
+
 
 
 function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
@@ -22,7 +21,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
           } else {
             let heading = new RegExp("h[1-6]");
             if (name === "footer" || name === "header") {
-              if (isElementADescendantOfExplicitRole(elementQW, pageQW, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
+              if (DomUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["article", "aside", "main", "nav", "section"], ["article", "complementary", "main", "navigation", "region"])) {
                 role = roleValue["role"];
               }
             } else if (name === "form" || name === "section") {
@@ -39,7 +38,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
               let alt =elementQW.getElementAttribute( "alt");
               if (alt !== "") {
                 role = roleValue["role"];
-              }else if (elementQW.elementHasAttribute("alt") && !(isElementFocusable(elementQW,pageQW) ||elementHasGlobalARIAPropertyOrAttribute(elementQW))){
+              }else if (elementQW.elementHasAttribute("alt") && !(DomUtils.isElementFocusable(elementQW,pageQW) ||DomUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW,pageQW))){
                 role = "presentation";
               }
             } else if (name === "input") {
@@ -84,7 +83,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
                 role = roleValue["role"];
               }
             } else if (name === "td") {
-              if (isElementADescendantOfExplicitRole(elementQW, pageQW, ["table"], [])) {
+              if (DomUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ["table"], [])) {
                 role = roleValue["role"];
               }
             }

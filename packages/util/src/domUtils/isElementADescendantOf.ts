@@ -2,7 +2,7 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import getElementRole from '../accessibilityUtils/getElementRole';
+import { AccessibilityUtils } from '@qualweb/util';
 
 function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
@@ -14,7 +14,7 @@ function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: str
 
   if (parent !== null) {
     let parentName = parent.getElementTagName();
-    let parentRole = getElementRole(parent, pageQW);
+    let parentRole = AccessibilityUtils.getElementRole(parent, pageQW);
 
 
     if (parentName !== null) {
