@@ -250,6 +250,11 @@ class QWElement {
       else {
         selector += this.getSelfLocationInParent(this.element)
       }
+
+      let documentSelector = this.element.getAttribute("_documentSelector");
+      if (!!documentSelector) {
+        selector = documentSelector + selector;
+      }
       this.selector = selector;
       return selector;
     }
