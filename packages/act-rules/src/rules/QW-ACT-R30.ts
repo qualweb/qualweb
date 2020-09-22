@@ -37,7 +37,7 @@ class QW_ACT_R30 extends Rule {
         evaluation.resultCode = 'RC2';
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-        const elementText = AccessibilityUtils.getTrimmedText(element);
+        const elementText = AccessibilityUtils.getTrimmedText(element,page);
         let hasTextNode = element.elementHasTextNode();
 
         if(accessibleName === undefined) {

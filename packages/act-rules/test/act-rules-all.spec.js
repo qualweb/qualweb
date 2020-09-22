@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context, "https://www.sas.no/fly-med-oss/gruppereiser/");//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context, 'https://www.pcdiga.com/');//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});
@@ -37,6 +37,7 @@ describe('ACT-Rules module', function () {
 
 
       console.log("Evaluating")
+      let start = new Date().getTime();
       const report = await page.evaluate(() => {
         const actRules = new ACTRules.ACTRules();
         window.page = new QWPage.QWPage(document, window, true);
@@ -46,6 +47,9 @@ describe('ACT-Rules module', function () {
 
         return report;
       }, []);
+      let end = new Date().getTime();
+      let duration = end - start;
+      console.log(duration);
       const fs = require('fs')
       // Write data in 'Output.txt' . 
       fs.writeFile('Output.txt', JSON.stringify(report, null, 2), (err) => {

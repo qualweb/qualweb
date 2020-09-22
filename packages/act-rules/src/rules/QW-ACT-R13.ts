@@ -69,7 +69,7 @@ class QW_ACT_R13 extends Rule {
   private isFocusableContent(element: QWElement,page:QWPage): boolean {
     const disabled = (element.getElementAttribute('disabled')) !== null;
     const hidden = DomUtils.isElementHiddenByCSS(element,page);
-    const focusableByDefault = DomUtils.isElementFocusableByDefault(element);
+    const focusableByDefault = DomUtils.isElementFocusableByDefault(element,page);
     const tabIndexExists = (element.getElementAttribute('tabIndex')) !== null;
     const tabindex = element.getElementAttribute('tabIndex');
 
