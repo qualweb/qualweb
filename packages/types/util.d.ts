@@ -5,63 +5,67 @@ declare module '@qualweb/util' {
   import { QWPage } from "@qualweb/qw-page";
   import { Node } from 'domhandler';
 
-  namespace DomUtils {
-    export function elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean;
-    export function elementIDIsReferenced(pageQW: QWPage, elementQW: QWElement, id: string, attribute: string): boolean;
-    export function getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null;
-    export function getSourceElementAttribute(element: Node, attribute: string): string | null;
-    export function getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
-    export function getSourceElementSelector(element: Node): string;
-    export function getVideoMetadata(elementQW: QWElement): any;
-    export function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
-    export function isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
-    export function isElementFocusable(elementQW: QWElement,pageQW: QWPage): boolean;
-    export function isElementFocusableByDefault(elementQW: QWElement): boolean;
-    export function isElementHidden(elementQW: QWElement,pageQW: QWPage): boolean;
-    export function isElementHiddenByCSS(elementQW: QWElement,pageQW: QWPage): boolean;
-    export function isElementHiddenByCSSAux(elementQW: QWElement): boolean;
-    export function isElementVisible(elementQW: QWElement,pageQW: QWPage): boolean;
-    export function isFocusableBrowser(page: QWPage, element: QWElement): boolean;
-    //export function isMathDocument(url: string): boolean;
-    export function videoElementHasAudio(elementQW: QWElement): boolean;
+  class DomUtils {
+    public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static elementIDIsReferenced( elementQW: QWElement,pageQW: QWPage, id: string, attribute: string): boolean;
+    public static getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null;
+    public static getSourceElementAttribute(element: Node, attribute: string): string | null;
+    public static getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
+    public static getSourceElementSelector(element: Node): string;
+    public static getVideoMetadata(elementQW: QWElement): any;
+    public static isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
+    public static isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
+    public static isElementFocusable(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementFocusableByDefault(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementHidden(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementHiddenByCSS(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementHiddenByCSSAux(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementVisible(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isFocusableBrowser(page: QWPage, element: QWElement): boolean;
+    //public static isMathDocument(url: string): boolean;
+    public static videoElementHasAudio(elementQW: QWElement): boolean;
+    public static isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean;
+    public static isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean
+    public static elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean;
   }
 
-  namespace BrowserUtils {
-    export function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
+  class BrowserUtils {
+    public static detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
   }
 
-  namespace AccessibilityUtils {
-    export function getLinkContext(element: QWElement, page: QWPage): string[] 
-    export function allowsNameFromContent(element: QWElement): boolean;
-    export function elementHasRoleNoneOrPresentation(elementQW: QWElement): boolean;
-    export function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function getAccessibleName(elementQW: QWElement, pageQW: QWPage): string | undefined;
-    export function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined;
-    export function getAccessibleNameSVG(element: QWElement, page: QWPage): string | undefined;
-    export function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined;
-    export function getDefaultName(elementQW: QWElement): string;
-    export function getDisabledWidgets(pageQW: QWPage): QWElement[];
-    export function getElementRole(elementQW: QWElement, pageQW: QWPage): string | null;
-    export function getElementRoleAName(elementQW: QWElement, pageQW: QWPage, aName: string | undefined): string | null;
-    export function getTextFromCss(elementQW: QWElement, textContent: string): string;
-    export function getTrimmedText(elementQW: QWElement): string;
-    export function getValueFromEmbeddedControl(element: QWElement, page: QWPage, treeSelector: string): string;
-    export function isDataTable(element: QWElement, pageQW: QWPage): boolean;
-    export function isElementChildOfDetails(element: Node): boolean;
-    export function isElementControl(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean;
-    export function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
-    export function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null;
+  class AccessibilityUtils {
+    public static getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): string | undefined;
+    public static getLinkContext(element: QWElement, page: QWPage): string[] 
+    public static allowsNameFromContent(element: QWElement): boolean;
+    public static elementHasRoleNoneOrPresentation(elementQW: QWElement): boolean;
+    public static elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static getAccessibleName(elementQW: QWElement, pageQW: QWPage): string | undefined;
+    public static getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined;
+    public static getAccessibleNameSVG(element: QWElement, page: QWPage): string | undefined;
+    public static getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined;
+    public static getDefaultName(elementQW: QWElement): string;
+    public static getDisabledWidgets(pageQW: QWPage): QWElement[];
+    public static getElementRole(elementQW: QWElement, pageQW: QWPage): string | null;
+    public static getElementRoleAName(elementQW: QWElement, pageQW: QWPage, aName: string | undefined): string | null;
+    public static getTextFromCss(elementQW: QWElement, textContent: string): string;
+    public static getTrimmedText(elementQW: QWElement,page:QWPage): string;
+    public static getValueFromEmbeddedControl(element: QWElement, page: QWPage, treeSelector: string): string;
+    public static isDataTable(element: QWElement, pageQW: QWPage): boolean;
+    public static isElementChildOfDetails(element: Node): boolean;
+    public static isElementControl(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
+    public static getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null;
   }
 
-  namespace CssUtils {
-    export function trimImportant(value: string): string;
+  class CssUtils {
+    public static trimImportant(value: string): string;
   }
 
-  namespace ShadowDomUtils {
-    export function areElementsInTheSameTree(elements: QWElement[]): boolean;
+  class ShadowDomUtils {
+    public static areElementsInTheSameTree(elements: QWElement[]): boolean;
   }
 
   enum Optimization {
