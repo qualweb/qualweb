@@ -162,6 +162,8 @@ class QWElement {
     let cssRules = this.element.getAttribute('_cssRules');
     let selector = this.element.getAttribute('_selector');
     this.element.removeAttribute('_cssRules');
+    this.element.removeAttribute('_selector');
+
     let result;
     if (fullElement) {
       result = this.element.outerHTML;
