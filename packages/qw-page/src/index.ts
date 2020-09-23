@@ -1,6 +1,7 @@
 import { QWElement } from '@qualweb/qw-element';
 import Cache from './cache.object';
 import CSSMapper from './css.mapper';
+import SelectorCalculator from './selectorCalculator.object ';
 
 class QWPage {
 
@@ -17,6 +18,8 @@ class QWPage {
     this.extraDocuments = new Map<string, QWPage>();
     this.url = "";
     this.window = window;
+    let selectorCalculator = new SelectorCalculator(document);
+    selectorCalculator.processElementSelector();
 
     if (!!addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
@@ -29,9 +32,9 @@ class QWPage {
     }
     this.processIframes();
     this.processShadowDom();
-    console.log(this.extraDocuments);
   }
 
+ 
   public processShadowDom(): void {
     const listElements = this.document.querySelectorAll('*');
     let shadowRoot, selector, shadowPage;
