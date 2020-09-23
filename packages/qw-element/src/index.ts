@@ -7,7 +7,10 @@ class QWElement {
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    this.selector = '';
+    this.selector = "";
+    let selector = element.getAttribute("_selector");
+    if (selector)
+      this.selector = selector;
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
@@ -157,6 +160,7 @@ class QWElement {
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     let cssRules = this.element.getAttribute('_cssRules');
+    let selector = this.element.getAttribute('_selector');
     this.element.removeAttribute('_cssRules');
     let result;
     if (fullElement) {
@@ -174,7 +178,10 @@ class QWElement {
       result = clonedElem.outerHTML;
     }
     if (!!cssRules) {
-      this.element.setAttribute('_cssRules', cssRules)
+      this.element.setAttribute('_cssRules', cssRules);
+    }
+    if (!!selector) {
+      this.element.setAttribute('_selector', selector);
     }
     return result;
   }
