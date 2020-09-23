@@ -115,7 +115,6 @@ function ElementIsInAccessibilityTree(target: any, propertyKey: string, descript
   const method = descriptor.value;
   descriptor.value = function () {
     const isInAT = AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
-    console.log(isInAT);
     if (isInAT) {
       return method.apply(this, arguments);
     }

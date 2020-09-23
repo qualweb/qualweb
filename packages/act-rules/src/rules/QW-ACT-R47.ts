@@ -28,7 +28,6 @@ class QW_ACT_R47 extends Rule {
 
     if (isApplicable) {
       const properties = style.split(';') || [style];
-      console.log(properties)
 
       if (style.includes('word-spacing')) {
         const hasImportant = properties.filter(p => (p.trim().startsWith('word-spacing')) && p.includes('!important'));

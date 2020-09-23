@@ -118,7 +118,6 @@ class ACTRules {
     const promises = new Array<any>();
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
-        console.log(rule);
         if (this.rulesToExecute[rule]) {
           promises.push(this.executeRule(rule, selector, page, report, concurrent));
         }

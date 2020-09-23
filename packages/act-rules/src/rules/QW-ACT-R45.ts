@@ -32,7 +32,6 @@ class QW_ACT_R45 extends Rule {
         evaluation.resultCode = 'RC1';
       } else {
         if(!!owner)
-        console.log(owner.getElementTagName());
         if (owner && ["ol", "ul"].includes(owner.getElementTagName()) && AccessibilityUtils.getElementRole(owner, page) === "list") {
           evaluation.verdict = 'passed';
           evaluation.description = 'The element follows the flow content model';
@@ -60,7 +59,6 @@ class QW_ACT_R45 extends Rule {
         }
       }
     }
-    console.log( evaluation.resultCode);
     super.addEvaluationResult(evaluation, element);
   }
 }

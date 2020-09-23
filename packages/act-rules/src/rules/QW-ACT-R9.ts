@@ -54,7 +54,6 @@ class QW_ACT_R9 extends Rule {
         //element already evaluated
       } else if (!!accessibleName && accessibleName !== '') {
         const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
-        console.log(hasEqualAn);
 
         if (hasEqualAn.length > 0) {
           blacklist.push(...hasEqualAn);
