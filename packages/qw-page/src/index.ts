@@ -19,7 +19,7 @@ class QWPage {
     this.url = "";
     this.window = window;
     let selectorCalculator = new SelectorCalculator(document);
-    selectorCalculator.processElementSelector();
+   // selectorCalculator.processElementSelector();
 
     if (!!addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
