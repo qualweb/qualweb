@@ -27,7 +27,6 @@ describe('Core', function () {
       const earlReports = await core.generateEarlReport();
       let end = new Date().getTime();
       let duration = end - start;
-      console.log(duration);
       total+=duration;
       evaluationTime[url] = { duration };}
       catch(e){
