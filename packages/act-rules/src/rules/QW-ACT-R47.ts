@@ -3,7 +3,7 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from "@qualweb/qw-element";
 
 @ACTRuleDecorator
 class QW_ACT_R47 extends Rule {
@@ -22,15 +22,16 @@ class QW_ACT_R47 extends Rule {
       resultCode: ''
     };
 
-    const style = <string> element.getElementAttribute('style');
+    const style = <string>element.getElementAttribute('style');
 
     const isApplicable = style.includes('word-spacing') || style.includes('letter-spacing') || style.includes('line-height');
 
     if (isApplicable) {
       const properties = style.split(';') || [style];
+      console.log(properties)
 
       if (style.includes('word-spacing')) {
-        const hasImportant = properties.filter(p => p.trim().startsWith('word-spacing'))[0].includes('!important');
+        const hasImportant = properties.filter(p => (p.trim().startsWith('word-spacing')) && p.includes('!important'));
 
         const fontSize = element.getElementStyleProperty('font-size', null);
         const wordSpacing = element.getElementStyleProperty('word-spacing', null);
@@ -49,7 +50,7 @@ class QW_ACT_R47 extends Rule {
       }
 
       if (style.includes('letter-spacing') && evaluation.verdict !== 'failed') {
-        const hasImportant = properties.filter(p => p.trim().startsWith('letter-spacing'))[0].includes('!important');
+        const hasImportant = properties.filter(p => (p.trim().startsWith('letter-spacing')) && p.includes('!important'));
 
         const fontSize = element.getElementStyleProperty('font-size', null);
         const letterSpacing = element.getElementStyleProperty('letter-spacing', null);
@@ -68,7 +69,7 @@ class QW_ACT_R47 extends Rule {
       }
 
       if (style.includes('line-height') && evaluation.verdict !== 'failed') {
-        const hasImportant = properties.filter(p => p.trim().startsWith('line-height'))[0].includes('!important');
+        const hasImportant = properties.filter(p => (p.trim().startsWith('line-height') && p.includes('!important')));
 
         const fontSize = element.getElementStyleProperty('font-size', null);
         const lineHeight = element.getElementStyleProperty('line-height', null);
@@ -86,7 +87,7 @@ class QW_ACT_R47 extends Rule {
         }
       }
 
-      super.addEvaluationResult(evaluation,element,true,true);
+      super.addEvaluationResult(evaluation, element, true, true);
     }
   }
 }
