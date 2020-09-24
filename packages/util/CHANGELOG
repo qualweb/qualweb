@@ -1,4 +1,7 @@
 # Changelog
+## [0.3.44] - 24/09/2020
+### Added
+ - changed function class
 ## [0.3.43] - 22/09/2020
 ### Added
  - fixed aria-owner
