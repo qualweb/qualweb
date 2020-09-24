@@ -48,7 +48,7 @@ class QW_ACT_R37 extends Rule {
         }
 
         let hasTextNode =  element.hasTextNode();
-        let elementText =  AccessibilityUtils.getTrimmedText(element,page);
+        let elementText =  DomUtils.getTrimmedText(element,page);
 
         if(!hasTextNode || elementText === ''){
           evaluation.verdict = 'inapplicable';

@@ -4,7 +4,7 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
-import { DomUtils } from '@qualweb/util';
+import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
@@ -75,12 +75,12 @@ class QW_ACT_R43 extends Rule {
   }
 
   private isInSequentialFocusNavigation(element: QWElement, page: QWPage): boolean {
-    if (DomUtils.isElementFocusable(element, page)) {
+    if (AccessibilityUtils.isElementFocusable(element, page)) {
       return true;
     } else {
       let result = false;
       for (const child of element.getElementChildren()) {
-        if (DomUtils.isElementFocusable(child, page)) {
+        if (AccessibilityUtils.isElementFocusable(child, page)) {
           return true;
         } else {
           result = result || this.isInSequentialFocusNavigation(child, page);

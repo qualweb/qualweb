@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
@@ -37,7 +37,7 @@ class QW_ACT_R30 extends Rule {
         evaluation.resultCode = 'RC2';
       } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-        const elementText = AccessibilityUtils.getTrimmedText(element,page);
+        const elementText = DomUtils.getTrimmedText(element,page);
         let hasTextNode = element.elementHasTextNode();
 
         if(accessibleName === undefined) {

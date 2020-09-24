@@ -253,7 +253,7 @@ class QW_ACT_R24 extends Rule {
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = DomUtils.isElementFocusable(element,page);
+      const isFocusable = AccessibilityUtils.isElementFocusable(element,page);
       const widgetRole = AccessibilityUtils.isElementWidget(element, page);
 
       if (!isFocusable && !widgetRole) {
