@@ -32,7 +32,7 @@
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
     "@qualweb/dom": "^0.1.15",
-    "@qualweb/types": "^0.4.36",
+    "@qualweb/types": "^0.4.37",
     "@types/domhandler": "^2.4.1",
     "@types/node": "^14.0.26",
     "chai": "^4.2.0",

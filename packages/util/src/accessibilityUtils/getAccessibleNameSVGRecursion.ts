@@ -40,7 +40,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   } else if (textContainer.indexOf(tag) >= 0 || recursion) {
     AName = getTextFromCss(element, page);
   } else if (tag && tag === "text") {
-    AName = AccessibilityUtils.getTrimmedText(element,page);
+    AName = DomUtils.getTrimmedText(element,page);
   }
   return AName;
 }

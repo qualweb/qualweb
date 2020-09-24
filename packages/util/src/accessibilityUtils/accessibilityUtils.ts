@@ -6,7 +6,6 @@ import getAccessibleNameFunction from "./getAccessibleName";
 import getAccessibleNameRecursionFunction from "./getAccessibleNameRecursion";
 import getDefaultNameFunction from "./getDefaultName";
 import getAccessibleNameSVGFunction from "./getAccessibleNameSVG";
-import getTrimmedTextFunction from "./getTrimmedText";
 import isDataTableFunction from "./isDataTable";
 import isElementChildOfDetailsFunction from "./isElementChildOfDetails";
 import isElementControlFunction from "./isElementControl";
@@ -21,6 +20,12 @@ import getDisabledWidgetsFunction from './getDisabledWidgets';
 import getAccessibleNameSelectorFunction from './getAccessibleNameSelector';
 import getLinkContextFunction from './getLinkContext';
 import getOwnerElementFunction from './getOwnerElement';
+import isElementChildPresentationalFunction from './isElementChildPresentational';
+import isElementChildPresentationalAuxFunction from './isElementChildPresentationalAux';
+import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalARIAPropertyOrAttribute'
+import isElementFocusableByDefaultFunction from './isElementFocusableByDefault'
+import isElementFocusableFunction from './isElementFocusable';
+
 import { CacheDecorator } from "../decorator";
 
 
@@ -60,11 +65,7 @@ class AccessibilityUtils {
   public static getElementRoleAName(element: QWElement, page: QWPage, aName: string | undefined): string | null {
     return getElementRoleANameFunction(element, page, aName);
   }
-  @CacheDecorator("AcceUtils.getTrimmedText")
-  public static getTrimmedText(element: QWElement, page: QWPage): string {
-    return getTrimmedTextFunction(element);
 
-  }
   @CacheDecorator("AcceUtils.isDataTable")
   public static isDataTable(element: QWElement, page: QWPage): boolean {
     return isDataTableFunction(element, page);
@@ -95,6 +96,31 @@ class AccessibilityUtils {
   public static getOwnerElement(element: QWElement, page: QWPage): QWElement | null {
     return getOwnerElementFunction(element, page);
 
+  }
+  @CacheDecorator("AcceUtils.isElementChildPresentationalAux")
+  public static isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean{
+    return isElementChildPresentationalAuxFunction(element, page);
+  }
+
+  @CacheDecorator("AcceUtils.isElementChildPresentational")
+  public static isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean{
+    return isElementChildPresentationalFunction(elementQW, pageQW);
+
+  }
+
+  @CacheDecorator("AcceUtils.isElementFocusableByDefault")
+  public static isElementFocusableByDefault(elementQW: QWElement, pageQW: QWPage): boolean {
+    return isElementFocusableByDefaultFunction(elementQW);
+  }
+
+  @CacheDecorator("AcceUtils.isElementFocusable")
+  public static isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
+    return isElementFocusableFunction(elementQW, pageQW);
+  }
+
+  @CacheDecorator("AcceUtils.elementHasGlobalARIAPropertyOrAttribute")
+  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement, pageQW: QWPage): boolean {
+    return elementHasGlobalARIAPropertyOrAttributeFunction(elementQW);
   }
 
 }

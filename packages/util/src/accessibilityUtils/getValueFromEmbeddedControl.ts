@@ -1,7 +1,7 @@
 'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils,DomUtils } from '@qualweb/util';
 
 
 function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
@@ -36,12 +36,12 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
       elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]` );
 
     if (!!optionSelected) {
-      value = AccessibilityUtils.getTrimmedText(optionSelected,page);
+      value = DomUtils.getTrimmedText(optionSelected,page);
     }
     else if (!!selectedElement) {
-      value = AccessibilityUtils.getTrimmedText(selectedElement[0],page);
+      value = DomUtils.getTrimmedText(selectedElement[0],page);
     } else if (!!elementWithAriaSelected) {
-      value = AccessibilityUtils.getTrimmedText(elementWithAriaSelected[0],page);
+      value = DomUtils.getTrimmedText(elementWithAriaSelected[0],page);
     }
 
   } else if (role === "listbox") {
@@ -62,11 +62,11 @@ function getValueFromEmbeddedControl(element: QWElement,  page:QWPage): string{
     }
 
     if (!!selectedElement)
-      value = AccessibilityUtils.getTrimmedText(elementsWithId[0],page);
+      value = DomUtils.getTrimmedText(elementsWithId[0],page);
     else if (!! elementWithAriaSelected) {
-      value = AccessibilityUtils.getTrimmedText(elementWithAriaSelected,page);
+      value = DomUtils.getTrimmedText(elementWithAriaSelected,page);
     } else if (!!optionSelected) {
-      value = AccessibilityUtils.getTrimmedText(optionSelected,page);
+      value = DomUtils.getTrimmedText(optionSelected,page);
     }
   } else if (role === "range" || role === "progressbar" || role === "scrollbar" || role === "slider" || role === "spinbutton") {
     let valueTextVar = element.getElementAttribute( "aria-valuetext");

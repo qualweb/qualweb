@@ -2,7 +2,7 @@
 import { childPresentationalRole } from '../accessibilityUtils/constants';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import {  AccessibilityUtils,DomUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 
 
 function isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean {
@@ -19,7 +19,7 @@ function isElementChildPresentationalAux(element: QWElement, page: QWPage): bool
   let isParentChildPresentationalVar = false;
 
   if (parent && !childPresentational) {
-    isParentChildPresentationalVar = DomUtils.isElementChildPresentationalAux(parent, page);
+    isParentChildPresentationalVar = AccessibilityUtils.isElementChildPresentationalAux(parent, page);
   }
   result = childPresentational || isParentChildPresentationalVar;
 

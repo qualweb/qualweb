@@ -7,7 +7,7 @@ import { AccessibilityUtils,DomUtils } from '@qualweb/util';
 
 
 function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
-  let childPresentational = DomUtils.isElementChildPresentational(elementQW, pageQW);
+  let childPresentational = AccessibilityUtils.isElementChildPresentational(elementQW, pageQW);
   let isHidden = DomUtils.isElementHidden(elementQW, pageQW);
   let result = false;
   let role = AccessibilityUtils.getElementRole(elementQW, pageQW);
@@ -29,7 +29,7 @@ function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
         specialCondition = !!parent && parent.getElementTagName() === "details";
       }
       let type = elementQW.getElementType();
-      let focusable = DomUtils.isElementFocusable(elementQW, pageQW);
+      let focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
       let id = elementQW.getElementAttribute("id");
       let ariaActivedescendant = false;
       let ariaControls = false;
@@ -50,7 +50,7 @@ function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
         ariaOwns =DomUtils. elementIDIsReferenced(elementQW, pageQW,id, "aria-owns");
 
       }
-      let globalWaiARIA = DomUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW,pageQW);
+      let globalWaiARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW,pageQW);
 
       result = specialCondition || type === "text" || focusable || ariaActivedescendant || ariaControls || ariaDescribedby || ariaDetails || ariaErrormessage || ariaFlowto || ariaLabelledby || ariaOwns || validRole || globalWaiARIA;
 
