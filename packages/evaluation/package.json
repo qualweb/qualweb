@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.44",
+  "version": "0.1.45",
   "description": "Evaluates choosen modules",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -45,7 +45,7 @@
     "@qualweb/best-practices": "^0.4.8",
     "@qualweb/css-techniques": "^0.4.10",
     "@qualweb/html-techniques": "^0.4.11",
-    "@qualweb/qw-page": "^0.1.23",
+    "@qualweb/qw-page": "^0.1.24",
     "node-fetch": "^2.6.1"
   }
 }
