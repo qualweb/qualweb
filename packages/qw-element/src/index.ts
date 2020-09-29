@@ -3,6 +3,7 @@ class QWElement {
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, any>;
   private selector: string;
+  
 
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
