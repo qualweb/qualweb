@@ -166,7 +166,27 @@ class QWElement {
 
     let result;
     if (fullElement) {
+      let children = this.element.children;
+      let attributeArray: any=[];
+      for(let child of children){
+        let cssRulesValue= child.getAttribute('_cssRules');
+        let selectorValue = child.getAttribute('_selector');
+        attributeArray.push({cssRulesValue,selectorValue})
+        child.removeAttribute('_cssRules');
+        child.removeAttribute('_selector');
+      }
       result = this.element.outerHTML;
+      let i = 0;
+      for(let child of children){
+        let atributes= attributeArray[i];
+        if (!!atributes.cssRulesValue) {
+          child.setAttribute('_cssRules', atributes.cssRulesValue);
+        }
+        if (!!atributes.selectorValue) {
+          child.setAttribute('_selector', atributes.selectorValue);
+        }
+        i++;
+      }
     }
     else if (withText) {
       let clonedElem = <Element>this.element.cloneNode(false);
