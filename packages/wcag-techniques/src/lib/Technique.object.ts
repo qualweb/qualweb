@@ -42,9 +42,7 @@ abstract class Technique {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-
-      result.htmlCode = htmlCode;
-      result.pointer = pointer;
+      result.elements = [{ htmlCode, pointer }];
     }
 
     this.technique.results.push(clone(result));

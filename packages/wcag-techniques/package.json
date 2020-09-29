@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.18",
-    "@qualweb/qw-page": "^0.1.21",
+    "@qualweb/qw-element": "^0.1.21",
+    "@qualweb/qw-page": "^0.1.24",
     "@qualweb/util": "^0.3.32",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
@@ -41,8 +41,8 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@qualweb/dom": "^0.1.21",
-    "@qualweb/types": "^0.4.31",
+    "@qualweb/dom": "^0.1.26",
+    "@qualweb/types": "^0.4.38",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.intersection": "^4.4.6",

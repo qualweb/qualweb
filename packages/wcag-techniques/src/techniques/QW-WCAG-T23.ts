@@ -1,9 +1,9 @@
 import { HTMLTechniqueResult } from '@qualweb/html-techniques';
-import { DomUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { AccessibilityUtils } from '@qualweb/util';
 
 @WCAGTechnique
 class QW_WCAG_T23 extends Technique {
@@ -91,7 +91,7 @@ function findFirstFocusableElement(element: QWElement, page: QWPage): QWElement 
     let i = 0;
     while (!foundFirstFocusableElem && i < children.length) {
       if (children[i] !== undefined) {
-        if (DomUtils.isElementFocusable(children[i], page)) {
+        if (AccessibilityUtils.isElementFocusable(children[i], page)) {
           firstFocusableElem = children[i];
           foundFirstFocusableElem = true;
         } else {

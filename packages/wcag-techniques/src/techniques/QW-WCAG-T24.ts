@@ -1,5 +1,5 @@
 import { HTMLTechniqueResult } from '@qualweb/html-techniques';
-import { DomUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -21,10 +21,10 @@ class QW_WCAG_T24 extends Technique {
       resultCode: ''
     };
 
-    const isFocusable = DomUtils.isElementFocusable(element,page);
+    const isFocusable = AccessibilityUtils.isElementFocusable(element,page);
 
     if (isFocusable) {
-      const keepsFocus = DomUtils.isFocusableBrowser(page, element);
+      const keepsFocus = AccessibilityUtils.isFocusableBrowser(page, element);
       if (keepsFocus) {
         evaluation.verdict = 'passed';
         evaluation.description = `Element kept focus`;
