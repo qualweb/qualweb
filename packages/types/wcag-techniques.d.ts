@@ -39,10 +39,8 @@ declare module '@qualweb/wcag-techniques' {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string[] | string | '';
     resultCode: string[] | string;
-    pointer?: string;
-    htmlCode?: string | string[];
+    elements?:WCAGElement[];
     attributes?: string | string[];
-    accessibleName?: string;
   }
 
   interface WCAGMetadata {
@@ -50,6 +48,11 @@ declare module '@qualweb/wcag-techniques' {
     warning: number;
     failed: number;
     inapplicable: number;
+  }
+  interface WCAGElement{
+    pointer?: string;
+    htmlCode?: string;
+    accessibleName?: string;
   }
 
   interface WCAGTechnique {
