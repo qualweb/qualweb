@@ -6,7 +6,7 @@ declare module '@qualweb/util' {
   import { Node } from 'domhandler';
 
   class DomUtils {
-    public static elementIDIsReferenced( elementQW: QWElement,pageQW: QWPage, id: string, attribute: string): boolean;
+    public static elementIDIsReferenced(elementQW: QWElement, pageQW: QWPage, id: string, attribute: string): boolean;
     public static getElementReferencedByHREF(pageQW: QWPage, elementQW: QWElement): QWElement | null;
     public static getSourceElementAttribute(element: Node, attribute: string): string | null;
     public static getSourceElementHtmlCode(element: Node, withText: boolean, fullElement: boolean): string;
@@ -14,14 +14,14 @@ declare module '@qualweb/util' {
     public static getVideoMetadata(elementQW: QWElement): any;
     public static isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
     public static isElementADescendantOfExplicitRole(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean;
-    public static isElementHidden(elementQW: QWElement,pageQW: QWPage): boolean;
-    public static isElementHiddenByCSS(elementQW: QWElement,pageQW: QWPage): boolean;
-    public static isElementHiddenByCSSAux(elementQW: QWElement,pageQW: QWPage): boolean;
-    public static isElementVisible(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementHiddenByCSS(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementHiddenByCSSAux(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean;
     //public static isMathDocument(url: string): boolean;
     public static videoElementHasAudio(elementQW: QWElement): boolean;
     public static elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean;
-    public static getTrimmedText(elementQW: QWElement,page:QWPage): string;
+    public static getTrimmedText(elementQW: QWElement, page: QWPage): string;
   }
 
   class BrowserUtils {
@@ -32,11 +32,11 @@ declare module '@qualweb/util' {
     public static isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean;
     public static isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean
     public static isFocusableBrowser(page: QWPage, element: QWElement): boolean;
-    public static isElementFocusable(elementQW: QWElement,pageQW: QWPage): boolean;
-    public static isElementFocusableByDefault(elementQW: QWElement,pageQW: QWPage): boolean;
-    public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement,pageQW: QWPage): boolean;
+    public static isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static isElementFocusableByDefault(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement, pageQW: QWPage): boolean;
     public static getAccessibleNameRecursion(element: QWElement, page: QWPage, recursion: boolean, isWidget: boolean): string | undefined;
-    public static getLinkContext(element: QWElement, page: QWPage): string[] 
+    public static getLinkContext(element: QWElement, page: QWPage): string[]
     public static allowsNameFromContent(element: QWElement): boolean;
     public static elementHasRoleNoneOrPresentation(elementQW: QWElement): boolean;
     public static elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean;
@@ -57,6 +57,8 @@ declare module '@qualweb/util' {
     public static isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean;
     public static getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
     public static getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null;
+    public static isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean;
+
   }
 
   class CssUtils {
