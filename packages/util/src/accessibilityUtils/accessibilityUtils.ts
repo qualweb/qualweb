@@ -25,6 +25,7 @@ import isElementChildPresentationalAuxFunction from './isElementChildPresentatio
 import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalARIAPropertyOrAttribute'
 import isElementFocusableByDefaultFunction from './isElementFocusableByDefault'
 import isElementFocusableFunction from './isElementFocusable';
+import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
 import { CacheDecorator } from "../decorator";
 
@@ -116,6 +117,11 @@ class AccessibilityUtils {
   @CacheDecorator("AcceUtils.isElementFocusable")
   public static isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
     return isElementFocusableFunction(elementQW, pageQW);
+  }
+
+  @CacheDecorator("AcceUtils.isPartOfSequentialFocusNavigation")
+  public static isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean {
+    return isPartOfSequentialFocusNavigationFunction(elementQW, pageQW);
   }
 
   @CacheDecorator("AcceUtils.elementHasGlobalARIAPropertyOrAttribute")
