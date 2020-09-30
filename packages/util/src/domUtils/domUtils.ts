@@ -8,7 +8,7 @@ import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
 import videoElementHasAudioFunction from './videoElementHasAudio';
 import isElementHiddenFunction from './isElementHidden';
-import isFocusableBrowserFunction from './isFocusableBrowser';
+import isFocusableBrowserFunction from '../accessibilityUtils/isFocusableBrowser';
 import isElementVisibleFunction from './isElementVisible'
 import elementIDIsReferencedFunction from './elementIDIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';

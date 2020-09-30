@@ -10,7 +10,10 @@ function isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
 
   if (disabled || DomUtils.isElementHiddenByCSS(elementQW, pageQW)) {
     return false;
-  } else {
+  } else if (AccessibilityUtils.isElementFocusableByDefault(elementQW, pageQW)) {
+    return true;
+  }
+  else {
     let tabIndexLessThanZero = false;
     const tabindex = elementQW.getElementAttribute('tabindex');
     let tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
@@ -18,12 +21,8 @@ function isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
     if (tabindex && tabIndexExistsAndIsNumber) {
       tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
     }
-    if (AccessibilityUtils.isElementFocusableByDefault(elementQW, pageQW)) {
-      return true;
-    }
-    else {
-      return tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
-    }
+    return tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
+
   }
 }
 

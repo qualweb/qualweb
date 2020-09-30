@@ -27,6 +27,10 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
 
     switch (elementName) {
       case 'a':
+         if (hasHref) {
+          return true;
+        }
+        break
       case 'area':
       case 'link':
         if (hasHref) {

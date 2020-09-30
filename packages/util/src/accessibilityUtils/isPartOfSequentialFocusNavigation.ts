@@ -13,7 +13,8 @@ function isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage)
   if (tabindex && tabIndexExistsAndIsNumber) {
     tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
   }
-  return AccessibilityUtils.isElementFocusable(elementQW, pageQW) && tabIndexExistsAndIsNumber && !tabIndexLessThanZero;
+  let focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW) 
+  return focusable && tabIndexExistsAndIsNumber && !tabIndexLessThanZero || focusable && !tabIndexExistsAndIsNumber;
 }
 
 export default isPartOfSequentialFocusNavigation;

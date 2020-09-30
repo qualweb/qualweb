@@ -25,6 +25,8 @@ import isElementChildPresentationalAuxFunction from './isElementChildPresentatio
 import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalARIAPropertyOrAttribute'
 import isElementFocusableByDefaultFunction from './isElementFocusableByDefault'
 import isElementFocusableFunction from './isElementFocusable';
+import isFocusableBrowserFunction from './isFocusableBrowser';
+
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
 import { CacheDecorator } from "../decorator";
@@ -57,6 +59,8 @@ class AccessibilityUtils {
   }
   public static getDefaultName = getDefaultNameFunction;
   public static getDisabledWidgets = getDisabledWidgetsFunction;
+  public static isFocusableBrowser = isFocusableBrowserFunction;
+
   @CacheDecorator("AcceUtils.getElementRole")
   public static getElementRole(element: QWElement, page: QWPage): string | null {
     return getElementRoleFunction(element, page);
