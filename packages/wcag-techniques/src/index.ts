@@ -3,7 +3,7 @@ import { QWPage } from '@qualweb/qw-page';
 import * as techniques from './lib/techniques';
 import mapping from './lib/mapping';
 
-class HTMLTechniques {
+class WCAGTechniques {
 
   private techniques: any;
   private techniquesToExecute: any;
@@ -143,4 +143,4 @@ class HTMLTechniques {
   }
 }
 
-export { HTMLTechniques };
+export { WCAGTechniques };
