@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
@@ -36,7 +36,7 @@ class QW_ACT_R13 extends Rule {
         evaluation.resultCode = 'RC2';
       }
     } else {
-      const focusable = this.isFocusableContent(element,page);
+      const focusable = AccessibilityUtils.isPartOfSequentialFocusNavigation(element,page);
       if (focusable) {
         evaluation.verdict = 'failed';
         evaluation.description = `Thie test target is focusable.`;
@@ -52,10 +52,10 @@ class QW_ACT_R13 extends Rule {
   }
 
   private isFocusableChildren(element: QWElement,page:QWPage): boolean {
-    let result = this.isFocusableContent(element,page);
+    let result = AccessibilityUtils.isPartOfSequentialFocusNavigation(element,page);
     const children = element.getElementChildren();
     for (const child of children || []) {
-      const focusable = this.isFocusableContent(child,page);
+      const focusable = AccessibilityUtils.isPartOfSequentialFocusNavigation(child,page);
       if (focusable) {
         result = true;
       } else {
@@ -66,24 +66,7 @@ class QW_ACT_R13 extends Rule {
     return result;
   }
 
-  private isFocusableContent(element: QWElement,page:QWPage): boolean {
-    const disabled = (element.getElementAttribute('disabled')) !== null;
-    const hidden = DomUtils.isElementHiddenByCSS(element,page);
-    const focusableByDefault = AccessibilityUtils.isElementFocusableByDefault(element,page);
-    const tabIndexExists = (element.getElementAttribute('tabIndex')) !== null;
-    const tabindex = element.getElementAttribute('tabIndex');
 
-    let tabIndexLessThanZero = false;
-    if (tabindex && !isNaN(parseInt(tabindex, 10))) {
-      tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
-    }
-
-    if (focusableByDefault) {
-      return !(disabled || hidden || tabIndexLessThanZero);
-    } else {
-      return tabIndexExists ? !tabIndexLessThanZero : false;
-    }
-  }
 }
 
 export = QW_ACT_R13;

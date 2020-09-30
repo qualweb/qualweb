@@ -75,12 +75,12 @@ class QW_ACT_R43 extends Rule {
   }
 
   private isInSequentialFocusNavigation(element: QWElement, page: QWPage): boolean {
-    if (AccessibilityUtils.isElementFocusable(element, page)) {
+    if (AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page)) {
       return true;
     } else {
       let result = false;
       for (const child of element.getElementChildren()) {
-        if (AccessibilityUtils.isElementFocusable(child, page)) {
+        if (AccessibilityUtils.isPartOfSequentialFocusNavigation(child, page)) {
           return true;
         } else {
           result = result || this.isInSequentialFocusNavigation(child, page);
