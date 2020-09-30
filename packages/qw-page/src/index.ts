@@ -24,17 +24,12 @@ class QWPage {
     if (!!addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
     }
-    if (this.document instanceof Document) {
-      this.url = this.document.URL;
-    } else if (!!url) {
-      this.url = url;
-
-    }
+    this.url = this.document.baseURI;
     this.processIframes();
     this.processShadowDom();
   }
 
- 
+
   public processShadowDom(): void {
     const listElements = this.document.querySelectorAll('*');
     let shadowRoot, selector, shadowPage;
@@ -53,7 +48,6 @@ class QWPage {
     const elements = this.document.querySelectorAll("iframe");
     let iframeQW, contentWindow, frame, iframePage, selector;
     for (let iframe of elements) {
-      console.log(iframe)
       try {
         iframeQW = new QWElement(iframe);
         contentWindow = iframeQW.getContentFrame();
@@ -63,7 +57,7 @@ class QWPage {
         this.extraDocuments[selector] = iframePage;
       }
       catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     }
   }
@@ -194,11 +188,11 @@ class QWPage {
   }
 
   public getHTMLContent(): string {
-    if (this.document instanceof Document) {
-      return this.document.documentElement.outerHTML;
+    if (this.document instanceof ShadowRoot) {
+      return this.document.innerHTML;
     }
     else {
-      return this.document.innerHTML;
+      return this.document.documentElement.outerHTML;
     }
   }
 
