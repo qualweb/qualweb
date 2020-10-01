@@ -38,6 +38,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.22"
+    "@qualweb/qw-element": "^0.1.23"
   }
 }

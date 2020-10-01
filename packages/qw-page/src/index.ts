@@ -201,13 +201,41 @@ class QWPage {
     this.addCSSRulesPropertyToElement(activeElement);
     return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null
   }
-  /*
-    public changeToDefaultViewport(): void {
-      this.window.resizeTo(this.defaultWidth, this.defaultHeight);
+
+  public cleanAllElements(): void {
+    const html = this.document.querySelector('html');
+    if (!!html) {
+      html.removeAttribute('_selector');
+      html.removeAttribute('_cssrules');
+      html.removeAttribute("_documentSelector")
+      let children = html.children;
+      if (!!children)
+        this.cleanAllElementsAux([...children]);
+    };
+  }
+
+
+  private cleanAllElementsAux(elements: Element[]): void {
+    for (let element of elements) {
+      element.removeAttribute('_selector');
+      element.removeAttribute('_cssrules');
+      element.removeAttribute("_documentSelector");
+      let children = element.children;
+      if (children && children.length > 0) {
+        this.cleanAllElementsAux([...children]);
+      }
     }
-  
-    public changeViewport(width: number, height: number): void {
-      this.window.resizeTo(width, height);
-    }*/
+  }
+
 }
+
+/*
+  public changeToDefaultViewport(): void {
+    this.window.resizeTo(this.defaultWidth, this.defaultHeight);
+  }
+ 
+  public changeViewport(width: number, height: number): void {
+    this.window.resizeTo(width, height);
+  }*/
+
 export { QWPage };
