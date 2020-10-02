@@ -15,6 +15,7 @@ async function stop(): Promise<void> {
 }
 
 async function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
+  console.log(options)
   await system.update(options);
   await system.execute(options);
   return <{[url: string]: EvaluationReport}> await system.report(false);

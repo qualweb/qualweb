@@ -126,6 +126,7 @@ class System {
     if (this.browser) {
       try {
         const dom = new Dom();
+        console.log(url);
         const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, this.html || '');
         const evaluation = new Evaluation();
         const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, this.modulesToExecute, options, url, validation);

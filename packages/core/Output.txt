@@ -1,95 +1,35 @@
 {
   "http://ciencias.ulisboa.pt": {
-    "duration": 4885
+    "duration": 0
   },
   "https://www.pcdiga.com/": {
-    "duration": 8559
+    "duration": 0
   },
   "https://www.globaldata.pt/": {
-    "duration": 14180
+    "duration": 0
   },
   "https://www.amazon.es/": {
-    "duration": 6542
+    "duration": 0
   },
   "https://www.w3.org/": {
-    "duration": 4382
+    "duration": 0
   },
   "https://pt.wikipedia.org/": {
-    "duration": 6164
+    "duration": 0
   },
   "https://act-rules.github.io/": {
-    "duration": 3244
+    "duration": 0
   },
   "https://www.w3schools.com/": {
-    "duration": 4930
+    "duration": 0
   },
   "https://www.sapo.pt/": {
-    "duration": 8891
+    "duration": 0
   },
   "https://www.ama.gov.pt/": {
-    "duration": 3875
+    "duration": 0
   },
   "https://eportugal.gov.pt/": {
-    "duration": 5592
-  },
-  "https://stackoverflow.com/": {
-    "duration": 4744
-  },
-  "https://www.theverge.com/": {
-    "duration": 6218
-  },
-  "https://www.cnet.com/": {
-    "duration": 6715
-  },
-  "https://www.privateinternetaccess.com/": {
-    "duration": 5831
-  },
-  "https://www.infopedia.pt/": {
-    "duration": 3684
-  },
-  "https://www.psp.pt/": {
-    "duration": 13316
-  },
-  "https://www.dges.gov.pt/pt": {
-    "duration": 5968
-  },
-  "https://www.portugal.gov.pt/": {
-    "duration": 5446
-  },
-  "https://unric.org/pt/": {
-    "duration": 6444
-  },
-  "https://europa.eu/european-union/index_pt": {
-    "duration": 5130
-  },
-  "https://www.portaldasfinancas.gov.pt/": {
-    "duration": 3630
-  },
-  "http://www.seg-social.pt/": {
-    "duration": 4980
-  },
-  "https://www.cgd.pt/": {
-    "duration": 4790
-  },
-  "https://www.microsoft.com/pt-pt/": {
-    "duration": 5270
-  },
-  "https://www.apple.com/pt/": {
-    "duration": 4270
-  },
-  "https://about.google/": {
-    "duration": 4611
-  },
-  "https://www.booking.com/": {
-    "duration": 6921
-  },
-  "https://www.jn.pt/": {
-    "duration": 8941
-  },
-  "https://www.imdb.com/": {
-    "duration": 6120
-  },
-  "https://www.viaverde.pt/": {
-    "duration": 5709
+    "duration": 0
   }
 }
