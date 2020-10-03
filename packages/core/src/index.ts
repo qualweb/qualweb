@@ -1,10 +1,36 @@
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
 import { LaunchOptions } from 'puppeteer';
-
 import System from './system';
 
-const system = new System();
+class QualWeb {
+
+  private system: System;
+
+  constructor() {
+    this.system = new System();
+  }
+
+  async start(options?: LaunchOptions): Promise<void> {
+    await this.system.start(options);
+  }
+
+  public async evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
+    await this.system.update(options);
+    await this.system.execute(options);
+    return <{[url: string]: EvaluationReport}> await this.system.report(false);
+  }
+
+  async generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}> {
+    return <{[url: string]: EarlReport}> await this.system.report(true, options);
+  }
+
+  async stop(): Promise<void> {
+    await this.system.stop();
+  }
+}
+
+/*const 
 
 async function start(options?: LaunchOptions): Promise<void> {
   await system.start(options);
@@ -29,4 +55,6 @@ export {
   stop,
   evaluate,
   generateEarlReport
-};
+};*/
+
+export { QualWeb, System };

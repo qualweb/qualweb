@@ -13,7 +13,10 @@ describe('Core', function () {
                   ];
     let total=0;
     let evaluationTime={};
-    await core.start();
+
+    const qualweb = new core.QualWeb();
+
+    await qualweb.start();
 
     /**
      * { url,  "act-rules": { // More information about this options at https://github.com/qualweb/act-rules
@@ -23,8 +26,8 @@ describe('Core', function () {
       try{
       console.log(url);
       let start = new Date().getTime();
-      const report = await core.evaluate({ url});
-      const earlReports = await core.generateEarlReport();
+      const report = await qualweb.evaluate({ url});
+      const earlReports = await qualweb.generateEarlReport();
       let end = new Date().getTime();
       let duration = end - start;
       total+=duration;
@@ -40,7 +43,7 @@ describe('Core', function () {
       // In case of a error throw err. 
       if (err) throw err;
     })
-    await core.stop();
+    await qualweb.stop();
     //expect(earlReports[0].graph.length).to.be.greaterThan(0);
   });
 /*

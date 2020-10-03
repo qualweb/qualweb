@@ -1,95 +1,95 @@
 {
   "http://ciencias.ulisboa.pt": {
-    "duration": 4885
+    "duration": 6307
   },
   "https://www.pcdiga.com/": {
-    "duration": 8559
+    "duration": 11900
   },
   "https://www.globaldata.pt/": {
-    "duration": 14180
+    "duration": 20974
   },
   "https://www.amazon.es/": {
-    "duration": 6542
+    "duration": 8311
   },
   "https://www.w3.org/": {
-    "duration": 4382
+    "duration": 5737
   },
   "https://pt.wikipedia.org/": {
-    "duration": 6164
+    "duration": 7269
   },
   "https://act-rules.github.io/": {
-    "duration": 3244
+    "duration": 4380
   },
   "https://www.w3schools.com/": {
-    "duration": 4930
+    "duration": 6638
   },
   "https://www.sapo.pt/": {
-    "duration": 8891
+    "duration": 13169
   },
   "https://www.ama.gov.pt/": {
-    "duration": 3875
+    "duration": 4891
   },
   "https://eportugal.gov.pt/": {
-    "duration": 5592
+    "duration": 7251
   },
   "https://stackoverflow.com/": {
-    "duration": 4744
+    "duration": 5682
   },
   "https://www.theverge.com/": {
-    "duration": 6218
+    "duration": 8508
   },
   "https://www.cnet.com/": {
-    "duration": 6715
+    "duration": 7604
   },
   "https://www.privateinternetaccess.com/": {
-    "duration": 5831
+    "duration": 7515
   },
   "https://www.infopedia.pt/": {
-    "duration": 3684
+    "duration": 4928
   },
   "https://www.psp.pt/": {
-    "duration": 13316
+    "duration": 9104
   },
   "https://www.dges.gov.pt/pt": {
-    "duration": 5968
+    "duration": 6841
   },
   "https://www.portugal.gov.pt/": {
-    "duration": 5446
+    "duration": 7563
   },
   "https://unric.org/pt/": {
-    "duration": 6444
+    "duration": 8074
   },
   "https://europa.eu/european-union/index_pt": {
-    "duration": 5130
+    "duration": 6404
   },
   "https://www.portaldasfinancas.gov.pt/": {
-    "duration": 3630
+    "duration": 4639
   },
   "http://www.seg-social.pt/": {
-    "duration": 4980
+    "duration": 7442
   },
   "https://www.cgd.pt/": {
-    "duration": 4790
+    "duration": 6261
   },
   "https://www.microsoft.com/pt-pt/": {
-    "duration": 5270
+    "duration": 7568
   },
   "https://www.apple.com/pt/": {
-    "duration": 4270
+    "duration": 6361
   },
   "https://about.google/": {
-    "duration": 4611
+    "duration": 6135
   },
   "https://www.booking.com/": {
-    "duration": 6921
+    "duration": 10695
   },
   "https://www.jn.pt/": {
-    "duration": 8941
+    "duration": 15878
   },
   "https://www.imdb.com/": {
-    "duration": 6120
+    "duration": 9140
   },
   "https://www.viaverde.pt/": {
-    "duration": 5709
+    "duration": 7769
   }
 }
