@@ -17,23 +17,25 @@ The core allows you to perform automatic accessibility evaluations on web pages.
 ```javascript
   'use strict';
 
-  const { start, stop, evaluate, generateEarlReport } = require('@qualweb/core');
+  const { QualWeb } = require('@qualweb/core');
 
   (async () => {
+    const qualweb = new QualWeb();
     // Starts the QualWeb core engine - only needs to run once
     const launchOptions = {
       ... // check https://github.com/puppeteer/puppeteer/blob/v3.0.3/docs/api.md#puppeteerlaunchoptions
       // in most of the cases there's no need to give additional options. Just leave the field undefined
     };
-    await start(launchOptions);
+    await qualweb.start(launchOptions);
 
     // QualWeb evaluation report
     const evaluationOptions = { 
-      url: 'https://act-rules.github.io/pages/about/' 
+      url: 'https://act-rules.github.io/pages/about/',
+      ...
     };
 
     // Evaluates the given options - will only return after all urls have finished evaluating or resulted in an error
-    const reports = await evaluate(evaluationOptions);
+    const reports = await qualweb.evaluate(evaluationOptions);
 
     console.log(reports);
     //  {
@@ -43,19 +45,19 @@ The core allows you to perform automatic accessibility evaluations on web pages.
 
     const earlOptions = {
       // Check the options in the section below
-    }
+    };
 
     // if you want an EARL report
-    const earlReports = await generateEarlReport(earlOptions);
+    const earlReports = await qualweb.generateEarlReport(reports, earlOptions);
 
-    console.log(earlReport);
+    console.log(earlReports);
     //  {
     //    "url": "earlReport",
     //    "url2": "earlReport2"
     //  }
 
     // Stops the QualWeb core engine
-    await stop();
+    await qualweb.stop();
   })();
 ```
 
