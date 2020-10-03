@@ -139,6 +139,7 @@ function isElementPresent(element: QWElement, listElement: QWElement[]): boolean
   let elementSelector = element.getElementSelector();
   while (i < listElement.length && !result) {
     result = elementSelector === listElement[i].getElementSelector();
+    i++;
   }
   return result;
 
