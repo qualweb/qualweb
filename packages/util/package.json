@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.3.46",
+  "version": "0.3.47",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
