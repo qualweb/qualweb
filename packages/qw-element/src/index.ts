@@ -167,7 +167,8 @@ class QWElement {
 
     let result;
     if (fullElement) {
-      let children = this.element.children;
+      const selector = this.getElementSelector();
+      let children = this.element.querySelectorAll(selector + ' *');
       let attributeArray: any=[];
       for(let child of children){
         let cssRulesValue= child.getAttribute('_cssRules');
