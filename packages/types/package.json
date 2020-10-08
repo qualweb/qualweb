@@ -17,6 +17,6 @@
   "dependencies": {
     "@types/css": "0.0.31",
     "@types/domhandler": "^2.4.1",
-    "@types/puppeteer": "^3.0.1"
+    "@types/puppeteer": "^3.0.2"
   }
 }

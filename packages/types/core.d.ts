@@ -6,7 +6,7 @@ declare module '@qualweb/core' {
   import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
   import { BestPracticesReport, BPOptions } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
-  import { LaunchOptions } from 'puppeteer';
+  import { LaunchOptions, Browser } from 'puppeteer';
 
   interface QualwebOptions {
     url?: string;
@@ -16,7 +16,8 @@ declare module '@qualweb/core' {
     html?: string;
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
-    force?: boolean;
+    r?: 'earl' | 'earl-a';
+    'save-name'?: string;
     execute?: {
       wappalyzer?: boolean;
       act?: boolean;
@@ -27,7 +28,8 @@ declare module '@qualweb/core' {
     'wappalyzer'?: WappalyzerOptions;
     'act-rules'?: ACTROptions;
     'html-techniques'?: HTMLTOptions;
-    'css-techniques'?: CSSTOptions; 
+    'css-techniques'?: CSSTOptions;
+    'best-practices'?: BPOptions;
   }
 
   interface Evaluator {
@@ -117,10 +119,15 @@ declare module '@qualweb/core' {
 
   type Module = 'wappalyzer' | 'act-rules' | 'html-techniques' | 'css-techniques' | 'best-practices';
 
-  function start(options?: LaunchOptions): Promise<void>;
-  function stop(): Promise<void>;
-  function evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
-  function generateEarlReport(options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
+  class QualWeb {
+    private browser: Browser | null;
+    public start(options?: LaunchOptions): Promise<void>;
+    public evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
+    public stop(): Promise<void>;
+    private runModules(evaluations: any, url: string, html: string | undefined, options: QualwebOptions, modulesToExecute: any): Promise<void>;
+  }
+
+  function generateEarlReport(evaluations: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
 
   export {
     QualwebOptions,
@@ -134,9 +141,7 @@ declare module '@qualweb/core' {
     SourceHtml,
     ProcessedHtml,
     DomData,
-    start,
-    stop,
-    evaluate,
+    QualWeb,
     generateEarlReport
   };
 }
