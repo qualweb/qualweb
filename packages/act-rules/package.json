@@ -105,8 +105,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.20",
-    "@qualweb/qw-page": "^0.1.22",
+    "@qualweb/qw-element": "^0.1.23",
+    "@qualweb/qw-page": "^0.1.26",
     "@qualweb/util": "^0.3.47",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
