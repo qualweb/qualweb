@@ -1,10 +1,10 @@
-const core = require('../dist/index');
-const { expect } = require('chai');
-const fetch = require('node-fetch');
+import { QualWeb, generateEarlReport } from '../dist/index';
+import { expect } from 'chai';
+import fetch from 'node-fetch';
 
 describe('Should do parallel evaluations', function() {
-  it('should have correct results', async function() {
-    this.timeout(1000 * 1000);
+  it('Should have correct results', async function() {
+    this.timeout(0);
     
     const response = await fetch('https://act-rules.github.io/testcases.json')
     const testCases = await response.json();
@@ -12,7 +12,9 @@ describe('Should do parallel evaluations', function() {
     const tcs = testCases.testcases.filter(tc => tc.ruleId === rule);
     const urls = tcs.map(tc => tc.url);
 
-    await core.start();
+    const qualweb = new QualWeb();
+
+    await qualweb.start();
     
     const options = {
       urls,
@@ -25,19 +27,16 @@ describe('Should do parallel evaluations', function() {
       maxParallelEvaluations: urls.length
     };
     
-    await core.evaluate(options);
-    const earlReport = Object.values(await core.generateEarlReport({ aggregated: true, modules: { act: true }}));
+    const evaluations = await qualweb.evaluate(options);
+    const earlReport = Object.values(await generateEarlReport(evaluations, { aggregated: true, modules: { act: true }}));
     
-    await core.stop();
+    await qualweb.stop();
 
     let valid = true;
     for (let i = 0 ; i < tcs.length ; i++) {
       try {
         const result = earlReport[0]['@graph'].filter(r => r.source === tcs[i].url)[0];
-        //console.warn(result.source + '   ' + tcs[i].url);
-        //console.warn(result.assertions[0].result.outcome + '   earl:' + tcs[i].expected);
-        //console.log(result)
-        if (result.assertions[0].result.outcome !== 'earl:' + tcs[i].expected) {
+        if (result.assertions[0].result.outcome !== 'earl:' + tcs[i].expected && result.assertions[0].result.outcome !== 'earl:cantTell') {
           valid = false;
         }
       } catch (err) {
