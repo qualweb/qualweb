@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.28",
+  "version": "0.4.29",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./dist",
@@ -58,7 +58,7 @@
     "puppeteer": "^5.3.1"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.4.39",
+    "@qualweb/types": "^0.4.40",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.11.5",
     "@types/puppeteer": "^3.0.1",

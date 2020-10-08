@@ -17,7 +17,7 @@ The core allows you to perform automatic accessibility evaluations on web pages.
 ```javascript
   'use strict';
 
-  const { QualWeb } = require('@qualweb/core');
+  const { QualWeb, generateEarlReport } = require('@qualweb/core');
 
   (async () => {
     const qualweb = new QualWeb();
@@ -43,21 +43,21 @@ The core allows you to perform automatic accessibility evaluations on web pages.
     //    "url2": "report2"
     //  }
 
+    // Stops the QualWeb core engine
+    await qualweb.stop();
+
     const earlOptions = {
       // Check the options in the section below
     };
 
     // if you want an EARL report
-    const earlReports = await qualweb.generateEarlReport(reports, earlOptions);
+    const earlReports = await generateEarlReport(reports, earlOptions);
 
     console.log(earlReports);
     //  {
     //    "url": "earlReport",
     //    "url2": "earlReport2"
     //  }
-
-    // Stops the QualWeb core engine
-    await qualweb.stop();
   })();
 ```
 
