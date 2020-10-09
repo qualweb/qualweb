@@ -41,7 +41,28 @@ async function parse(): Promise<QualwebOptions> {
       if(!modules.includes(module.replace(',','').trim())){
         printError('Module ' + module.replace(',','').trim() + ' does not exist.');
       } else {
-        options.execute[module.replace(',','').trim()] = true;
+        const mod = module.replace(',','').trim();
+        switch (mod) {
+          case 'act':
+            options.execute.act = true;
+            break;
+          case 'html':
+            options.execute.html = true;
+            break;
+          case 'css':
+            options.execute.css = true;
+            break;
+          case 'bp':
+            options.execute.bp = true;
+            break;
+          case 'wappalyzer':
+            options.execute.wappalyzer = true;
+            break;
+          
+          default:
+            printError('Module ' + mod + ' does not exist.');
+            break;
+        }
       }
     }
   }
@@ -85,7 +106,7 @@ async function parse(): Promise<QualwebOptions> {
   if(mainOptions['report-type']) {
     options['r'] = mainOptions['report-type'];
 
-    if(!reports.includes(options['r'])){
+    if(!reports.includes(options['r']!)){
       printError('Wrong report type selected.')
     }
   }

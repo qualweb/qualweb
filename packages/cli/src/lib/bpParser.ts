@@ -29,7 +29,7 @@ async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions)
       options['best-practices'].bestPractices = clone(mainOptions['best-practices']);
     }
 
-    validateBP(options['best-practices'].bestPractices);
+    validateBP(options['best-practices'].bestPractices!);
   }
 
   if(Object.keys(options['best-practices']).length === 0){

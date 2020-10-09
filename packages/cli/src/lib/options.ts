@@ -8,7 +8,7 @@ const header =
    |__|                                                         `
 
 const strings = {};
-const modules = ['act', 'html', 'css', 'bp'];
+const modules = ['act', 'html', 'css', 'bp', 'wappalyzer'];
 const reports = ['earl', 'earl-a']
 const actRules = [...actRulesJson.qualweb_id, ...actRulesJson.act_id];
 const htmlTechniques = ['QW-HTML-T1', 'QW-HTML-T2', 'QW-HTML-T3', 'QW-HTML-T4', 'QW-HTML-T5', 'QW-HTML-T6', 'QW-HTML-T7', 'QW-HTML-T8', 'QW-HTML-T9', 'QW-HTML-T10', 'QW-HTML-T11', 'QW-HTML-T12', 'QW-HTML-T13', 'QW-HTML-T14', 'QW-HTML-T15', 'QW-HTML-T16', 'QW-HTML-T17', 'QW-HTML-T18', 'QW-HTML-T19', 'QW-HTML-T20', 'QW-HTML-T21', 'QW-HTML-T22', 'QW-HTML-T23', 'QW-HTML-T24', 'QW-HTML-T25', 'QW-HTML-T26', 'QW-HTML-T27', 'QW-HTML-T28', 'QW-HTML-T29', 'QW-HTML-T30', 'QW-HTML-T31', 'QW-HTML-T32', 'QW-HTML-T33', 'QW-HTML-T34', 'QW-HTML-T35', 'QW-HTML-T36', 'QW-HTML-T37', 'QW-HTML-T38', 'QW-HTML-T39', 'QW-HTML-T40', 'QW-HTML-T41', 'QW-HTML-T42', 'QW-HTML-T43'];
