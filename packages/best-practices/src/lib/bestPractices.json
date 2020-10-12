@@ -142,16 +142,6 @@
       }
     }
   },
-  "QW_BP16": {
-    "name": "Verify if page has links (<a>)",
-    "code": "QW-BP16",
-    "description": "At least one link <a> in the page",
-    "metadata": {
-      "target": {
-        "element": "body"
-      }
-    }
-  },
   "QW_BP17": {
     "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
     "code": "QW-BP17",
