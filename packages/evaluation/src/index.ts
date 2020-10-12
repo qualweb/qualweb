@@ -203,7 +203,7 @@ class Evaluation {
     return cssReport;
   }
 
-  public async executeBP(page: Page, options: BPOptions): Promise<BestPracticesReport> {
+  public async executeBP(page: Page, options: BPOptions | undefined): Promise<BestPracticesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/best-practices')
     });
