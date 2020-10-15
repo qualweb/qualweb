@@ -12,9 +12,11 @@ describe('QualWeb page', function() {
     const dom = new Dom();
     const { sourceHtml, page ,validation} = await dom.getDOM(browser, {}, url);
     const evaluation = new Evaluation();
-    await evaluation.evaluatePage(sourceHtml, page, { act: true, html: true, css: true, bp: true }, {}, url, validation);
+    const report = await evaluation.evaluatePage(sourceHtml, page, { act: false, html: false, css: false, bp: false, wappalyzer: true }, {}, url, validation);
     
     await dom.close();
     await browser.close();
+
+    console.log(report);
   });
 });

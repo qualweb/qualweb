@@ -30,6 +30,7 @@ import {
 import {
   HTMLTOptions, HTMLTechniquesReport
 } from '@qualweb/html-techniques';
+import { executeWappalyzer } from '@qualweb/wappalyzer';
 
 
 
@@ -238,6 +239,9 @@ class Evaluation {
     }
     if (execute.bp) {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));
+    }
+    if (execute.wappalyzer) {
+      evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(url));
     }
 
     return evaluation;

@@ -1,10 +1,9 @@
-'use strict';
-
 import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import Metadata from './metadata.object';
 import { EvaluationReport, Evaluator, Modules, Module } from '@qualweb/core';
 import { Report } from '@qualweb/earl-reporter';
+import { WappalyzerReport } from '@qualweb/wappalyzer';
 
 class EvaluationRecord {
   
@@ -20,7 +19,7 @@ class EvaluationRecord {
     this.modules = {};
   }
 
-  public addModuleEvaluation(module: Module, evaluation: Report): void {
+  public addModuleEvaluation(module: Module, evaluation: Report | WappalyzerReport): void {
     this.modules[module] = cloneDeep(evaluation);
     if (module !== 'wappalyzer') {
       // @ts-ignore
