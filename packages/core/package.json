@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.31",
+  "version": "0.4.32",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./dist",
@@ -13,6 +13,7 @@
     "test:file": "mocha --require esm test/file.spec.js",
     "test:urls": "mocha --require esm test/urls.spec.js",
     "test:parallel": "mocha --require esm test/parallel.spec.js",
+    "test:wp": "mocha --require esm test/wappalyzer.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
     "pub": "npm run build && npm publish"
@@ -52,7 +53,7 @@
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/dom": "^0.1.26",
     "@qualweb/earl-reporter": "^0.2.7",
-    "@qualweb/evaluation": "^0.1.48",
+    "@qualweb/evaluation": "^0.1.49",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "puppeteer": "^5.3.1"
