@@ -5,7 +5,7 @@ import { QWPage } from "@qualweb/qw-page";
 import { DomUtils } from '@qualweb/util';
 
 function isElementHiddenByCSS(elementQW: QWElement, pageQW: QWPage): boolean {
-  const parent = elementQW.getElementParent();
+  const parent = elementQW.getParentAllContexts();
   let parentHidden = false;
   let result;
   if (parent) {
