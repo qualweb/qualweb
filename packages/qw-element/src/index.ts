@@ -245,6 +245,16 @@ class QWElement {
   public getElementParent(): QWElement | null {
     return this.convertElementToQWElement(this.element.parentElement);
   }
+  public getParentAllContexts(): QWElement | null {
+    let parent = this.element.parentElement;
+    if(!parent){
+      let context = this.element.getAttribute('_documentSelector');
+      if(context){
+        parent = document.querySelector(context);
+      }
+    }
+    return this.convertElementToQWElement(this.element.parentElement);
+  }
 
   public getElementPreviousSibling(): QWElement | null {
     return this.convertElementToQWElement(this.element.previousElementSibling)
