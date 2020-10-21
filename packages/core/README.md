@@ -81,6 +81,7 @@ The available options fot the **evaluate()** function are:
       }
     },
     "maxParallelEvaluations": "5", // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
+    "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached in front of the given endpoint 
     "execute": { // choose which modules to execute
       "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
       "act": true, // act-rules module (https://github.com/qualweb/act-rules) - default value = true
