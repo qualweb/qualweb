@@ -34,7 +34,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.25",
     "@qualweb/qw-page": "^0.1.27",
-    "@qualweb/util": "^0.3.47",
+    "@qualweb/util": "^0.3.48",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.intersection": "^4.4.0",
