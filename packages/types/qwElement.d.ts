@@ -42,6 +42,7 @@ declare module '@qualweb/qw-element' {
     public getCSSProperty(property: string, pseudoStyle?: string, media?: string): any;
     public getCSSMediaRules(): any;
     public getCSSPseudoSelectorRules(pseudoSelector: string): any;
+    public getParentAllContexts(): QWElement | null;
   }
 
   export {
