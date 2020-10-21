@@ -162,8 +162,11 @@ class QWElement {
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
     let cssRules = this.element.getAttribute('_cssRules');
     let selector = this.element.getAttribute('_selector');
+    let documentSelector = this.element.getAttribute('_documentSelector');
     this.element.removeAttribute('_cssRules');
     this.element.removeAttribute('_selector');
+    this.element.removeAttribute('_documentSelector');
+
 
     let result;
     if (fullElement) {
@@ -173,9 +176,12 @@ class QWElement {
       for(let child of children){
         let cssRulesValue= child.getAttribute('_cssRules');
         let selectorValue = child.getAttribute('_selector');
-        attributeArray.push({cssRulesValue,selectorValue})
+        let documentSelectorValue = child.getAttribute('_documentSelector');
+
+        attributeArray.push({cssRulesValue,selectorValue,documentSelectorValue})
         child.removeAttribute('_cssRules');
         child.removeAttribute('_selector');
+        child.removeAttribute('_documentSelector');
       }
       result = this.element.outerHTML;
       let i = 0;
@@ -186,6 +192,9 @@ class QWElement {
         }
         if (!!atributes.selectorValue) {
           child.setAttribute('_selector', atributes.selectorValue);
+        }
+        if (!!atributes.documentSelectorValue) {
+          child.setAttribute('_documentSelector', atributes.documentSelectorValue);
         }
         i++;
       }
@@ -206,6 +215,9 @@ class QWElement {
     }
     if (!!selector) {
       this.element.setAttribute('_selector', selector);
+    }
+    if (!!documentSelector) {
+      this.element.setAttribute('_documentSelector', documentSelector);
     }
     return result;
   }
