@@ -56,7 +56,7 @@ describe('DOM UTILITIES', function() {
       this.timeout(100 * 1000);
       browser = await puppeteer.launch();
       const { sourceHtml, page, stylesheets } = await getDom(browser, 'https://nav.no');
-      const metas = CSSselect('meta', sourceHtml.html.parsed);
+      const metas = CSSselect.selectAll('meta', sourceHtml.html.parsed);
       const html = DomUtils.getSourceElementHtmlCode(metas[0]);
       console.log(html);
       await browser.close();

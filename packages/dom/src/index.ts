@@ -29,16 +29,22 @@ import {
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
 import { HTMLValidationReport } from '@qualweb/html-validator';
-import { executeWappalyzer } from '@qualweb/wappalyzer';
-const endpoint = 'http://194.117.20.242/validate/';
-
 
 class Dom {
 
   private page!: Page;
+  private endpoint: string;
+
+  constructor() {
+    this.endpoint = 'http://194.117.20.202/validate/';
+  }
 
   public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string): Promise<PageData> {
     try {
+      if (options.validator) {
+        this.endpoint = options.validator;
+      }
+
       this.page = await browser.newPage();
       await this.page.setBypassCSP(true);
       await this.setPageViewport(options.viewport);
@@ -92,12 +98,14 @@ class Dom {
   public async close(): Promise<void> {
     await this.page.close();
   }
+
   public async navigateToPage(url: string): Promise<Response | null> {
     return this.page.goto(url, {
       timeout: 0,
       waitUntil: ['load']
     });
   }
+
   private async setPageViewport(options?: PageOptions): Promise<void> {
     if (options) {
       if (options.userAgent) {
@@ -176,15 +184,16 @@ class Dom {
 
     return handler.dom;
   }
+
   private getValidatorResult(url: string) {
-    const validationUrl = endpoint + encodeURIComponent(url);
+    const validationUrl = this.endpoint + encodeURIComponent(url);
     return new Promise((resolve, reject) => {
       try {
         fetch(validationUrl).then((response) => {
           if (response && response.status === 200) {
             response.json().then((response) => {
               try {
-                let validation = <HTMLValidationReport>JSON.parse(response);
+                const validation = <HTMLValidationReport>JSON.parse(response);
                 resolve(validation);
               }
               catch (e) {
