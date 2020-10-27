@@ -99,7 +99,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
- function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage): string {
+function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage): string {
   let labelElement = element.getElement(label);
   let accessNameFromLabel, result;
 
@@ -112,9 +112,9 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
- function getValueFromLabel(element: QWElement, id: string, page: QWPage): string[] {
+function getValueFromLabel(element: QWElement, id: string, page: QWPage): string[] {
   let referencedByLabelList: QWElement[] = [];
-  let referencedByLabel = page.getElements(`label[for="${id}"]`,element);
+  let referencedByLabel = page.getElements(`label[for="${id}"]`, element);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
   }
@@ -136,12 +136,13 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
 
   return result;
 }
- function isElementPresent(element: QWElement, listElement: QWElement[]): boolean {
+function isElementPresent(element: QWElement, listElement: QWElement[]): boolean {
   let result = false;
   let i = 0;
   let elementSelector = element.getElementSelector();
   while (i < listElement.length && !result) {
     result = elementSelector === listElement[i].getElementSelector();
+    i++;
   }
   return result;
 
@@ -149,17 +150,19 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
 
 
 
- function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: string, page: QWPage): string[] {
+function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: string, page: QWPage): string[] {
   let ListIdRefs = ariaLabelId.split(" ");
   let result: string[] = [];
   let accessNameFromId;
   let isWidget = AccessibilityUtils.isElementWidget(element, page);
   let elem;
-
+  let elementID = element.getElementAttribute("id");
 
   for (let id of ListIdRefs) {
-    elem = page.getElementByID(id, element);
-    accessNameFromId = getAccessibleNameRecursion(elem, page, true, isWidget);
+    if (id !== "" && elementID !== id)
+      elem = page.getElementByID(id, element);
+    if (elem)
+      accessNameFromId = getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       result.push(elem.getElementSelector());
     }
@@ -167,7 +170,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
- function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): string[] {
+function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): string[] {
   let aNameList = getAccessibleNameFromChildren(element, page, isWidget);
   let textValue = !!(getConcatentedText(element, [])) ? element.getElementSelector() : null;
 
@@ -179,14 +182,14 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return aNameList;
 }
 
- function getConcatentedText(element: QWElement, aNames: string[]): string {
+function getConcatentedText(element: QWElement, aNames: string[]): string {
   if (!element) {
     throw Error('Element is not defined');
   }
   return element.concatANames(aNames);
 }
 
- function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): string[] {
+function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): string[] {
   if (!isWidget) {
     isWidget = AccessibilityUtils.isElementWidget(element, page);
   }
@@ -207,13 +210,13 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
 
 
 
- function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
+function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement) {
 
   let elementIds = ariaLabelBy.split(" ");
   let result = false;
   for (let id of elementIds) {
     if (!result) {
-      result = page.getElementByID( id,element) !== null;
+      result = page.getElementByID(id, element) !== null;
     }
   }
 

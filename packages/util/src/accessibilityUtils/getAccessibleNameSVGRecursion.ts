@@ -63,10 +63,12 @@ function getAccessibleNameFromAriaLabelledBy(page: QWPage, element: QWElement, a
   let result: string | undefined;
   let accessNameFromId: string | undefined;
   let elem;
+  let elementID = element.getElementAttribute("id");
 
   for (let id of ListIdRefs) {
+    if (id !== "" && elementID !== id)
     elem = page.getElementByID(id, element);
-    if (elem)
+  if (elem)
       accessNameFromId = getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {
       if (result) {
