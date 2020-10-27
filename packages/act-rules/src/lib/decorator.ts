@@ -164,6 +164,16 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(target: any, propertyKe
   }
 };
 
+function isInMainContext(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    let diferentContext = arguments[0].getElementAttribute('_documentSelector');
+    if (!diferentContext.includes('>')) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 
 function ElementIsVisible(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
@@ -231,5 +241,6 @@ export {
   ElementIsVisible,
   ElementHasOneOfTheFollowingRoles,
   IsHTMLDocument,
-  IsLangSubTagValid
+  IsLangSubTagValid,
+  isInMainContext
 };

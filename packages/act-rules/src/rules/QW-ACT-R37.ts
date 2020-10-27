@@ -83,7 +83,7 @@ class QW_ACT_R37 extends Rule {
 
         for (let disableWidget of disabledWidgets){
           selectors =  AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
-          if(selectors && selectors.includes(elementSelectors)){
+          if(disableWidget&&selectors && selectors.includes(elementSelectors)){
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'This text is part of a label of a disabled widget.';
             evaluation.resultCode = 'RC5';
