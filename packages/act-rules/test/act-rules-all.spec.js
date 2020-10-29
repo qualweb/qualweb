@@ -9,11 +9,11 @@ const { Dom } = require('@qualweb/dom');
 
 describe('ACT-Rules module', function () {
   it('Should evaluate', async function () {
-    this.timeout(1000 * 60);
+    this.timeout(1000 * 6000);
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context,'https://www.komplett.no/');//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context,'http://ferreiradoalentejo.pt/en/viver/ambiente/agua-consumo-humano/controlo-da-qualidade-da-agua');//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});

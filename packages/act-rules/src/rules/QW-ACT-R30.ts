@@ -39,16 +39,17 @@ class QW_ACT_R30 extends Rule {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         const elementText = DomUtils.getTrimmedText(element,page);
         let hasTextNode = element.elementHasTextNode();
+        let isIconValue = this.isIcon(elementText,accessibleName,element);
 
         if(accessibleName === undefined) {
           evaluation.verdict = 'failed';
           evaluation.description = `The test target doesn't have an accessible name.`;
           evaluation.resultCode = 'RC6';
-        } else if(!hasTextNode || elementText === undefined || elementText === '' || elementText && !this.isHumanLanguage(elementText)) {
+        } else if(!hasTextNode || elementText === undefined || elementText === '' || elementText && !this.isHumanLanguage(elementText)&&!isIconValue) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target has no visible text content or contains non-text content.`;
           evaluation.resultCode = 'RC3';
-        } else if(elementText && accessibleName.toLowerCase().trim().includes(elementText.toLowerCase())) {
+        } else if(!!elementText &&(isIconValue ||accessibleName.toLowerCase().trim().includes(elementText.toLowerCase()))) {
           evaluation.verdict = 'passed';
           evaluation.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
           evaluation.resultCode = 'RC4';
@@ -59,9 +60,16 @@ class QW_ACT_R30 extends Rule {
         }
       }
     }
+    console.log( evaluation.resultCode)
 
     super.addEvaluationResult(evaluation, element,true,false,true,page);
 
+  }
+   //      let isIconValue = this.isIcon(elementText,accessibleName,element);
+   isIcon(elementText:string,accessibleName:string|undefined,element:QWElement): boolean {
+    const iconMap=['i','x'];
+    let fontStyle =element.getElementStyleProperty('font-family',null);
+    return !!accessibleName && (iconMap.includes(elementText.toLowerCase()) || fontStyle.includes("Material Icons"));
   }
 
   isHumanLanguage(string): boolean {

@@ -12,7 +12,7 @@ const ruleId = mapping[rule];
 describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless:false});
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -31,7 +31,6 @@ describe(`Rule ${rule}`, async function () {
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
@@ -45,7 +44,7 @@ describe(`Rule ${rule}`, async function () {
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        await browser.close();
+        //await browser.close();
       });
     });
   });
