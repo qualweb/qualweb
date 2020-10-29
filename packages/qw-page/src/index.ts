@@ -166,7 +166,7 @@ class QWPage {
   }
 
   public getElementByID(id: string, elementQW: QWElement): QWElement | null {
-    const element = this.document.querySelector(`#${id}`);
+    const element = this.document.querySelector(`[id="${id}"]`);
     this.addCSSRulesPropertyToElement(element);
     return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
