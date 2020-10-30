@@ -1,5 +1,11 @@
 # Changelog
-## [0.1.47] - 30/10/2020
+## [0.1.50] - 30/10/2020
+ - added wcag techniques
+## [0.1.49] - 15/10/2020
+ - added @qualweb/wappalyzer
+## [0.1.48] - 12/10/2020
+ - updated dependencies
+## [0.1.47] - 03/10/2020
  - updated dependencies
 ## [0.1.46] - 29/09/2020
  - updated dependencies
