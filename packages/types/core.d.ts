@@ -117,7 +117,7 @@ declare module '@qualweb/core' {
     processed: ProcessedHtml;
   }
 
-  type Module = 'wappalyzer' | 'act-rules' | 'html-techniques' | 'css-techniques' | 'best-practices';
+  type Module = 'wappalyzer' | 'act-rules' | 'wcag-techniques' | 'best-practices';
 
   class QualWeb {
     private browser: Browser | null;
