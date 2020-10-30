@@ -21,29 +21,27 @@ class QW_WCAG_T20 extends Technique {
     };
 
     let trimTitle: string | undefined;
-    const title = element.getElementAttribute('title');
-    if (title) {
+    let title = element.getElementAttribute('title');
+    if (title)
       trimTitle = title.trim();
-    }
     const text = element.getElementText();
 
-    if (trimTitle !== undefined) {
-      if (trimTitle === '') {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The element's title attribute is empty`;
-        evaluation.resultCode = 'RC1';
-      } else if (text && trimTitle === text.trim()) {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The element contains a title attribute equal to the text in the link`;
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'warning';
-        evaluation.description = `Please verify that the element's title attribute describes correctly the link`;
-        evaluation.resultCode = 'RC3';
-      }
-
-      super.addEvaluationResult(evaluation, element);
+    if (!trimTitle || trimTitle === "") {
+      evaluation.verdict = 'failed';
+      evaluation.description = `The element's title attribute is empty`;
+      evaluation.resultCode = 'RC1';
+    } else if (text &&  trimTitle === text.trim()) {
+      evaluation.verdict = 'failed';
+      evaluation.description = `The element contains a title attribute equal to the text in the link`;
+      evaluation.resultCode = 'RC2';
+    } else {
+      evaluation.verdict = 'warning';
+      evaluation.description = `Please verify that the element's title attribute describes correctly the link`;
+      evaluation.resultCode = 'RC3';
     }
+
+    super.addEvaluationResult(evaluation, element);
+    
   }
 }
 

@@ -20,26 +20,24 @@ class QW_WCAG_T23 extends Technique {
       description: '',
       resultCode: ''
     };
-
-    const children = element.getElementChildren();
-
+    let children = element.getElementChildren();
     if (children !== null && children.length > 0) {
-      const firstFocusableElem = findFirstFocusableElement(element, page);
+      let firstFocusableElem = findFirstFocusableElement(element,page);
       if (!!firstFocusableElem) {
         const firstFocusableElemName = firstFocusableElem.getElementTagName();
         //const firstFocusableElemAttribs = await DomUtils.getElementAttributes(firstFocusableElem);
         const firstFocusableElemHREF = firstFocusableElem.getElementAttribute('href');
         if (firstFocusableElemName === 'a' && firstFocusableElemHREF && firstFocusableElemHREF.trim()) {
-          const url = page.getURL();
-          const urlConcatWithId = url + '#';
-          const lastSlash = url.lastIndexOf('/');
-          const filename = url.substring(lastSlash + 1);
+          let url = page.getURL();
+          let urlConcatWithId = url + '#';
+          let lastSlash = url.lastIndexOf('/');
+          let filename = url.substring(lastSlash + 1);
           if (firstFocusableElemHREF.startsWith('#') || firstFocusableElemHREF.startsWith(urlConcatWithId) ||
             firstFocusableElemHREF.startsWith(filename)) {
-            const idSymbol = firstFocusableElemHREF.indexOf('#');
-            const idReferenced = firstFocusableElemHREF.substring(idSymbol + 1);
+            let idSymbol = firstFocusableElemHREF.indexOf('#');
+            let idReferenced = firstFocusableElemHREF.substring(idSymbol + 1);
             if (idReferenced.length > 0) {
-              const idElementReferenced = element.getElement('[id="' + idReferenced + '"]')
+              let idElementReferenced = element.getElement('[id="' + idReferenced + '"]')
               if (idElementReferenced !== null) {
                 if (hasMainElementAsParent(idElementReferenced)) {
                   evaluation.verdict = 'warning';
@@ -82,21 +80,23 @@ class QW_WCAG_T23 extends Technique {
   }
 }
 
-function findFirstFocusableElement(element: QWElement, page: QWPage): QWElement | undefined {
+function findFirstFocusableElement(element: QWElement,page:QWPage): QWElement | undefined {
   let foundFirstFocusableElem = false;
   let firstFocusableElem: QWElement | undefined;
-  const children = element.getElementChildren();
+  let children = element.getElementChildren();
 
   if (children && children.length > 0) {
     let i = 0;
     while (!foundFirstFocusableElem && i < children.length) {
-      if (children[i] !== undefined) {
-        if (AccessibilityUtils.isElementFocusable(children[i], page)) {
+      if (!!children[i]) {
+        if (AccessibilityUtils.isElementFocusable(children[i],page)) {
           firstFocusableElem = children[i];
           foundFirstFocusableElem = true;
         } else {
-          firstFocusableElem = findFirstFocusableElement(children[i], page);
-          foundFirstFocusableElem = true;
+          firstFocusableElem = findFirstFocusableElement(children[i],page);
+          if(!!firstFocusableElem){
+            foundFirstFocusableElem = true;
+          }
         }
         i++;
       } else {
@@ -109,11 +109,10 @@ function findFirstFocusableElement(element: QWElement, page: QWPage): QWElement 
 
 function hasMainElementAsParent(element: QWElement | undefined): boolean {
   if (element) {
-    const pointer = element.getElementSelector();
+    let pointer = element.getElementSelector();
     return pointer.indexOf('main:') > 0;
   }
 
   return false;
 }
-
 export = QW_WCAG_T23;
