@@ -16,6 +16,7 @@ declare module '@qualweb/core' {
     html?: string;
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
+    validator?: string;
     r?: 'earl' | 'earl-a';
     'save-name'?: string;
     execute?: {
