@@ -29,7 +29,7 @@
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
     "@qualweb/dom": "^0.1.26",
-    "@qualweb/types": "^0.4.33",
+    "@qualweb/types": "^0.4.44",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "css": "^3.0.0",
@@ -43,9 +43,8 @@
   "dependencies": {
     "@qualweb/act-rules": "^0.4.30",
     "@qualweb/best-practices": "^0.4.8",
-    "@qualweb/css-techniques": "^0.4.10",
-    "@qualweb/html-techniques": "^0.4.11",
-    "@qualweb/qw-page": "^0.1.24",
+    "@qualweb/wcag-techniques": "^0.1.0",
+    "@qualweb/qw-page": "^0.1.29",
     "node-fetch": "^2.6.1"
   }
 }

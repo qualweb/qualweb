@@ -13,9 +13,9 @@ import {
   randomBytes
 } from 'crypto';
 import {
-  CSSTOptions,
-  CSSTechniquesReport
-} from '@qualweb/css-techniques';
+  WCAGOptions,
+  WCAGTechniquesReport
+} from '@qualweb/wcag-techniques';
 import {
   BrowserUtils,
   DomUtils
@@ -27,9 +27,7 @@ import {
 import {
   BPOptions, BestPracticesReport
 } from '@qualweb/best-practices';
-import {
-  HTMLTOptions, HTMLTechniquesReport
-} from '@qualweb/html-techniques';
+
 
 
 
@@ -168,9 +166,9 @@ class Evaluation {
     return actReport;
   }
 
-  public async executeHTML(page: Page, options: HTMLTOptions | undefined, validation: any): Promise<HTMLTechniquesReport> {
+  public async executeWCAG(page: Page, options: WCAGOptions | undefined, validation: any): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
-      path: require.resolve('@qualweb/html-techniques')
+      path: require.resolve('@qualweb/wcag-techniques')
     });
 
     const url = page.url();
@@ -178,7 +176,7 @@ class Evaluation {
 
     const htmlReport = await page.evaluate((newTabWasOpen, validation, options) => {
       // @ts-ignore
-      const html = new HTMLTechniques.HTMLTechniques(options);
+      const html = new WCAGTechniques.WCAGTechniques(options);
       // @ts-ignore
       return html.execute(window.page, newTabWasOpen, validation);
       // @ts-ignore
@@ -187,23 +185,7 @@ class Evaluation {
     return htmlReport;
   }
 
-  public async executeCSS(page: Page, options: CSSTOptions | undefined): Promise<CSSTechniquesReport> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/css-techniques')
-    });
-
-    const cssReport = await page.evaluate((options) => {
-      // @ts-ignore
-      const css = new CSSTechniques.CSSTechniques(options);
-      // @ts-ignore
-      return css.execute(window.page);
-      // @ts-ignore
-    }, options);
-
-    return cssReport;
-  }
-
-  public async executeBP(page: Page, options: BPOptions): Promise<BestPracticesReport> {
+  public async executeBP(page: Page, options: BPOptions|undefined): Promise<BestPracticesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/best-practices')
     });
@@ -229,12 +211,9 @@ class Evaluation {
     if (execute.act) {
       evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
     }
-    if (execute.html) {
+    if (execute.wcag) {
       //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'], validation));
-      evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'],validation));
-    }
-    if (execute.css) {
-      evaluation.addModuleEvaluation('css-techniques', await this.executeCSS(page, options['css-techniques']));
+      evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(page, options['wcag-techniques'],validation));
     }
     if (execute.bp) {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));
