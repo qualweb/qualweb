@@ -1,9 +1,9 @@
+import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
+
 declare module '@qualweb/core' {
   import { Node } from 'domhandler';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
-  import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
-  import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
   import { BestPracticesReport, BPOptions } from '@qualweb/best-practices';
   import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
   import { LaunchOptions, Browser } from 'puppeteer';
@@ -22,14 +22,12 @@ declare module '@qualweb/core' {
     execute?: {
       wappalyzer?: boolean;
       act?: boolean;
-      html?: boolean;
-      css?: boolean;
+      wcag?: boolean;
       bp?: boolean;
     };
     'wappalyzer'?: WappalyzerOptions;
     'act-rules'?: ACTROptions;
-    'html-techniques'?: HTMLTOptions;
-    'css-techniques'?: CSSTOptions;
+    'wcag-techniques'?: WCAGOptions;
     'best-practices'?: BPOptions;
   }
 
@@ -74,8 +72,7 @@ declare module '@qualweb/core' {
   interface Modules {
     'wappalyzer'?: WappalyzerReport;
     'act-rules'?: ACTRulesReport;
-    'html-techniques'?: HTMLTechniquesReport;
-    'css-techniques'?: CSSTechniquesReport;
+    'wcag-techniques'?: WCAGTechniquesReport;
     'best-practices'?: BestPracticesReport;
   }
 
