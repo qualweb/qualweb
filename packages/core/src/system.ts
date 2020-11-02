@@ -71,16 +71,15 @@ class System {
       this.numberOfParallelEvaluations = this.urls.length;
     }
 
-    if (options.force) {
+   /* if (options.force) {
       this.force = !!options.force;
     } else {
       this.force = false;
-    }
+    }*/
 
     if (options.execute) {
       this.modulesToExecute.act = options.execute.act ? options.execute.act : false;
-      this.modulesToExecute.html = options.execute.html ? options.execute.html : false;
-      this.modulesToExecute.css = options.execute.css ? options.execute.css : false;
+      this.modulesToExecute.wcag = options.execute.wcag ? options.execute.wcag : false;
       this.modulesToExecute.bp = options.execute.bp ? options.execute.bp : false;
       this.modulesToExecute.wappalyzer = options.execute.wappalyzer ? options.execute.wappalyzer : false;
     } else {

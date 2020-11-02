@@ -1,9 +1,9 @@
 {
   "http://ciencias.ulisboa.pt": {
-    "duration": 0
+    "duration": 2
   },
   "https://www.pcdiga.com/": {
-    "duration": 0
+    "duration": 1
   },
   "https://www.globaldata.pt/": {
     "duration": 0
@@ -24,7 +24,7 @@
     "duration": 0
   },
   "https://www.sapo.pt/": {
-    "duration": 0
+    "duration": 1
   },
   "https://www.ama.gov.pt/": {
     "duration": 0

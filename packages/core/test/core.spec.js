@@ -5,9 +5,13 @@ describe('Core', function () {
   it('EARL report should have assertions from all modules', async function () {
     this.timeout(0);
     let errorUrl = [];
-    let urlList = ['http://ciencias.ulisboa.pt', 'https://www.pcdiga.com/', 'https://www.globaldata.pt/', 'https://www.amazon.es/', 'https://www.w3.org/', 'https://pt.wikipedia.org/',
-      'https://act-rules.github.io/', 'https://www.w3schools.com/', 'https://www.sapo.pt/', 'https://www.ama.gov.pt/', 'https://eportugal.gov.pt/'
-    ];
+    let urlList = ['http://ciencias.ulisboa.pt','https://www.pcdiga.com/','https://www.globaldata.pt/','https://www.amazon.es/','https://www.w3.org/','https://pt.wikipedia.org/',
+                    'https://act-rules.github.io/','https://www.w3schools.com/','https://www.sapo.pt/','https://www.ama.gov.pt/','https://eportugal.gov.pt/','https://stackoverflow.com/',
+                    'https://www.theverge.com/','https://www.cnet.com/','https://www.privateinternetaccess.com/','https://www.infopedia.pt/','https://www.psp.pt/','https://www.dges.gov.pt/pt',
+                    'https://www.portugal.gov.pt/','https://unric.org/pt/','https://europa.eu/european-union/index_pt','https://www.portaldasfinancas.gov.pt/','http://www.seg-social.pt/',
+                    'https://www.cgd.pt/','https://www.microsoft.com/pt-pt/','https://www.apple.com/pt/','https://about.google/','https://www.booking.com/','https://www.jn.pt/','https://www.imdb.com/',
+                    'https://www.viaverde.pt/'
+                  ];
     let total = 0;
     let evaluationTime = {};
     await core.start();
@@ -28,7 +32,7 @@ describe('Core', function () {
       }
       catch (e) {
         errorUrl.push(url)
-        console.log(errorUrl);
+        console.log(e);
       }
     }
     let results = await Promise.all(list);
