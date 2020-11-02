@@ -1,5 +1,42 @@
 # Changelog
 
+
+## [0.4.34] - 02/11/2020
+### Updated
+ - dependencies
+
+## [0.4.33] - 21/10/2020
+### Updated
+ - dependencies
+
+## [0.4.32] - 15/10/2020
+### Updated
+ - dependencies
+
+## [0.4.31] - 12/10/2020
+
+### Updated
+ - tsconfig.json
+
+## [0.4.30] - 12/10/2020
+### Updated
+ - dependencies
+
+## [0.4.29] - 08/10/2020
+### Updated
+ - dependencies
+
+## [0.4.28] - 08/10/2020
+### Updated
+ - dependencies
+ - code refactor
+ - tests
+
+## [0.4.27] - 03/10/2020
+### Updated
+ - dependencies
+ - core interface
+
 ## [0.4.26] - 29/09/2020
 ### Updated
  - dependencies

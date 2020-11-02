@@ -1,13 +1,13 @@
 import { QualWeb } from '../dist/index';
 import { expect } from 'chai';
-import { readFileSync } from 'fs';
 
-describe('Core input method: html', function() {
-  it('Should evaluate normally', async function() {
+describe('Core input method: file', function() {
+  it('Should evaluate all urls', async function() {
     this.timeout(0);
 
     const options = { 
-      html: readFileSync('./test/test.html').toString()
+      file: './test/urls.txt',
+      maxParallelEvaluations: 9
     };
 
     const qualweb = new QualWeb();
@@ -16,6 +16,6 @@ describe('Core input method: html', function() {
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
     
-    expect(reports['customHtml']).to.not.be.equal(undefined);
+    expect(Object.keys(reports).length).to.be.equal(9);
   });
 });

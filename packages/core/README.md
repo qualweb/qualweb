@@ -17,23 +17,25 @@ The core allows you to perform automatic accessibility evaluations on web pages.
 ```javascript
   'use strict';
 
-  const { start, stop, evaluate, generateEarlReport } = require('@qualweb/core');
+  const { QualWeb, generateEarlReport } = require('@qualweb/core');
 
   (async () => {
+    const qualweb = new QualWeb();
     // Starts the QualWeb core engine - only needs to run once
     const launchOptions = {
       ... // check https://github.com/puppeteer/puppeteer/blob/v3.0.3/docs/api.md#puppeteerlaunchoptions
       // in most of the cases there's no need to give additional options. Just leave the field undefined
     };
-    await start(launchOptions);
+    await qualweb.start(launchOptions);
 
     // QualWeb evaluation report
     const evaluationOptions = { 
-      url: 'https://act-rules.github.io/pages/about/' 
+      url: 'https://act-rules.github.io/pages/about/',
+      ...
     };
 
     // Evaluates the given options - will only return after all urls have finished evaluating or resulted in an error
-    const reports = await evaluate(evaluationOptions);
+    const reports = await qualweb.evaluate(evaluationOptions);
 
     console.log(reports);
     //  {
@@ -41,21 +43,21 @@ The core allows you to perform automatic accessibility evaluations on web pages.
     //    "url2": "report2"
     //  }
 
+    // Stops the QualWeb core engine
+    await qualweb.stop();
+
     const earlOptions = {
       // Check the options in the section below
-    }
+    };
 
     // if you want an EARL report
-    const earlReports = await generateEarlReport(earlOptions);
+    const earlReports = await generateEarlReport(reports, earlOptions);
 
-    console.log(earlReport);
+    console.log(earlReports);
     //  {
     //    "url": "earlReport",
     //    "url2": "earlReport2"
     //  }
-
-    // Stops the QualWeb core engine
-    await stop();
   })();
 ```
 
@@ -79,6 +81,7 @@ The available options fot the **evaluate()** function are:
       }
     },
     "maxParallelEvaluations": "5", // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
+    "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached in front of the given endpoint 
     "execute": { // choose which modules to execute
       "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
       "act": true, // act-rules module (https://github.com/qualweb/act-rules) - default value = true
@@ -503,26 +506,6 @@ In this section it's explained the evaluation report in detail. For detailed ver
 | QW-CSS-T5 | [C24](https://www.w3.org/WAI/WCAG21/Techniques/css/C24) | Using percentage values in CSS for container sizes |
 | QW-CSS-T6 | [F4](https://www.w3.org/WAI/WCAG21/Techniques/failures/F4) | Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds |
 | QW-CSS-T7 | [F24](https://www.w3.org/WAI/WCAG21/Techniques/failures/F24) | Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa |
-
-## Implemented accessibility best practices
-
-| QualWeb best practice ID | Related to | Best practice Name |
-|---|---|---|
-| QW-BP1 | HTML | Using h1-h6 to identify headings |
-| QW-BP2 | HTML | Concise images alt text |
-| QW-BP3 | HTML | Link element with text content equal to the content of the title attribute |
-| QW-BP4 | HTML | Grouped links not within a nav element |
-| QW-BP5 | HTML | Using table elements inside other table elements |
-| QW-BP6 | HTML | title element is not too long (64 characters) |
-| QW-BP7 | HTML | Title element contains ASCII-art |
-| QW-BP8 | HTML | Headings with images should have an accessible name |
-| QW-BP9 | HTML | Table element without header cells has a caption |
-| QW-BP10 | HTML | HTML elements are used to control visual presentation of content |
-| QW-BP11 | HTML | Using br to make a list |
-| QW-BP12 | HTML | Using scope col and row |
-| QW-BP13 | HTML | Using consecutive links with the same href and one contains an image |
-| QW-BP15 | CSS | At least one width attribute of an HTML element is expressed in absolute values |
-| QW-BP16 | HTML | Verify if page has links |
 
 # License
 

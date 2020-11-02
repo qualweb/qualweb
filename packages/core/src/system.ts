@@ -1,9 +1,9 @@
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
 import { QualwebOptions, EvaluationReport } from '@qualweb/core';
-import { getFileUrls, crawlDomain } from './lib/managers/startup.manager';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
+import { getFileUrls, crawlDomain } from '.';
 
 
 class System {
