@@ -79,7 +79,6 @@ class WCAGTechniques {
     if (elements.length > 0) {
       for (const elem of elements || []) {
         try {
-          console.log(technique)
           this.techniques[technique].execute(elem, page);
         } catch (err) {
           console.error(err);
