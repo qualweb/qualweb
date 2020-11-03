@@ -37,9 +37,9 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
     AName = title;
   } else if (titleAtt && titleAtt.trim() !== "" && tag === "a" && href !== undefined) {//check if link
     AName = titleAtt;
-  } else if (textContainer.indexOf(tag) >= 0 || recursion) {
+  } else if (textContainer.indexOf(tag) >= 0) {
     AName = getTextFromCss(element, page);
-  } else if (tag && tag === "text") {
+  } else if (tag && tag === "text" && !recursion) {
     AName = DomUtils.getTrimmedText(element,page);
   }
   return AName;

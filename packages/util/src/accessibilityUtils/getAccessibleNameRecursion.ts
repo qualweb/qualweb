@@ -27,7 +27,11 @@ function getAccessibleNameRecursion(elementQW: QWElement, pageQW: QWPage, recurs
   if (name === "svg") {
     AName = getAccessibleNameSVGRecursion(elementQW, pageQW, recursion)
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
-    AName = getAccessibleNameFromAriaLabelledBy(elementQW, ariaLabelBy, pageQW);
+    try {
+      AName = getAccessibleNameFromAriaLabelledBy(elementQW, ariaLabelBy, pageQW);
+    }catch(e){
+      AName = "";
+    }
   } else if (ariaLabel && ariaLabel.trim() !== "") {
     AName = ariaLabel;
   } else if (isWidget && AccessibilityUtils.isElementControl(elementQW, pageQW)) {

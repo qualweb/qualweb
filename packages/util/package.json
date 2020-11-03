@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.3.49",
+  "version": "0.3.51",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -45,8 +45,8 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.16",
-    "@qualweb/qw-page": "^0.1.24",
+    "@qualweb/qw-element": "^0.1.25",
+    "@qualweb/qw-page": "^0.1.29",
     "domutils": "^2.1.0",
     "htmlparser-to-html": "0.0.6",
     "lodash.clone": "^4.5.0"
