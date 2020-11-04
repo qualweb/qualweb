@@ -3,7 +3,7 @@ class QWElement {
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, any>;
   private selector: string;
-  
+
 
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
@@ -172,21 +172,21 @@ class QWElement {
     if (fullElement) {
       const selector = this.getElementSelector();
       let children = this.element.querySelectorAll(selector + ' *');
-      let attributeArray: any=[];
-      for(let child of children){
-        let cssRulesValue= child.getAttribute('_cssRules');
+      let attributeArray: any = [];
+      for (let child of children) {
+        let cssRulesValue = child.getAttribute('_cssRules');
         let selectorValue = child.getAttribute('_selector');
         let documentSelectorValue = child.getAttribute('_documentSelector');
 
-        attributeArray.push({cssRulesValue,selectorValue,documentSelectorValue})
+        attributeArray.push({ cssRulesValue, selectorValue, documentSelectorValue })
         child.removeAttribute('_cssRules');
         child.removeAttribute('_selector');
         child.removeAttribute('_documentSelector');
       }
       result = this.element.outerHTML;
       let i = 0;
-      for(let child of children){
-        let atributes= attributeArray[i];
+      for (let child of children) {
+        let atributes = attributeArray[i];
         if (!!atributes.cssRulesValue) {
           child.setAttribute('_cssRules', atributes.cssRulesValue);
         }
@@ -259,9 +259,9 @@ class QWElement {
   }
   public getParentAllContexts(): QWElement | null {
     let parent = this.element.parentElement;
-    if(!parent){
+    if (!parent) {
       let context = this.element.getAttribute('_documentSelector');
-      if(context){
+      if (context) {
         parent = document.querySelector(context);
       }
     }
@@ -348,7 +348,11 @@ class QWElement {
   }
 
   public getElementText(): string {
-    return this.element.textContent || '';
+    if (!!this.element.shadowRoot) {
+      return this.element.shadowRoot.textContent || '';
+    } else {
+      return this.element.textContent || '';
+    }
   }
 
   public getElementType(): string {
