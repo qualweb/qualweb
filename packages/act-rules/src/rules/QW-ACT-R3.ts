@@ -7,7 +7,8 @@ import {
   ElementExists, 
   ElementHasNonEmptyAttribute,
   IsLangSubTagValid,
-  IsHTMLDocument
+  IsHTMLDocument,
+  isInMainContext
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
@@ -25,6 +26,7 @@ class QW_ACT_R3 extends Rule {
   @ElementHasNonEmptyAttribute('xml:lang')
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
+  @isInMainContext
   execute(element: QWElement,page:QWPage): void {
 
     const evaluation: ACTRuleResult = {

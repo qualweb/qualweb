@@ -32,7 +32,7 @@ class QW_ACT_R35 extends Rule {
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
     if (isInAT) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-      if (accessibleName) {
+      if (!!accessibleName && accessibleName!== undefined) {
         evaluation.verdict = 'passed';
         evaluation.description = 'The test target has a non-empty accessible name.';
         evaluation.resultCode = 'RC1';

@@ -13,26 +13,12 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(100 * 10000);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless:false});
     const data = await getTestCases();
     let tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
     });
-    tests[3].outcome = 'warning';
-    tests[6].outcome = 'warning';
-    tests[7].outcome = 'warning';
-    tests[10].outcome = 'warning';
-    tests[11].outcome = 'warning';
-    tests[12].outcome = 'warning';
-    tests[13].outcome = 'warning';
-
-
-    //tests = tests.slice(16,tests.length);
-
-    //TODOa
-    //failed 5 possivel bug no AName
-    //passed 12 o q fazer?
-
+  
     describe('Running tests', function () {
       for (const test of tests || []) {
         it(test.title, async function () {
@@ -47,12 +33,11 @@ describe(`Rule ${rule}`, async function () {
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
-          const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
+          const report = await page.evaluate(( rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+            const report = actRules.execute([], new QWPage.QWPage(document));
             return report;
-          }, sourceHtml, stylesheets, {rules: [rule]});
+          },  {rules: [rule]});
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
@@ -61,7 +46,7 @@ describe(`Rule ${rule}`, async function () {
 
     describe(`Closing testbench`, async function () {
       it(`closed`, async function () {
-        await browser.close();
+        //await browser.close();
       });
     });
   });

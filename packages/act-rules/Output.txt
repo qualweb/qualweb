@@ -1,10 +1,10 @@
 {
   "type": "act-rules",
   "metadata": {
-    "passed": 13,
+    "passed": 1,
     "warning": 0,
-    "failed": 0,
-    "inapplicable": 47
+    "failed": 3,
+    "inapplicable": 56
   },
   "assertions": {
     "QW-ACT-R1": {
@@ -33,23 +33,17 @@
         "a11yReq": [
           "WCAG21:title"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
-        "failed": 0,
-        "outcome": "passed",
-        "description": "The `title` element exists and it's not empty (\"\")."
+        "failed": 1,
+        "outcome": "failed",
+        "description": "The `title` element doesn't exist."
       },
       "results": [
         {
-          "verdict": "passed",
-          "description": "The `title` element exists and it's not empty (\"\").",
-          "resultCode": "RC3",
-          "elements": [
-            {
-              "htmlCode": "<title>Exemplo</title>",
-              "pointer": "html > head:nth-child(1) > title:nth-child(1)"
-            }
-          ]
+          "verdict": "failed",
+          "description": "The `title` element doesn't exist.",
+          "resultCode": "RC1"
         }
       ]
     },
@@ -112,20 +106,20 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
-        "failed": 0,
-        "outcome": "passed",
-        "description": "The `lang` attribute exists and has a value."
+        "failed": 1,
+        "outcome": "failed",
+        "description": "The `lang` attribute doesn't exist or is empty (\"\")."
       },
       "results": [
         {
-          "verdict": "passed",
-          "description": "The `lang` attribute exists and has a value.",
-          "resultCode": "RC1",
+          "verdict": "failed",
+          "description": "The `lang` attribute doesn't exist or is empty (\"\").",
+          "resultCode": "RC2",
           "elements": [
             {
-              "htmlCode": "<html lang=\"pt-PT\" _documentselector=\"undefined\"><head></head><body></body></html>",
+              "htmlCode": "<html _documentselector=\"undefined\"><head></head><body></body></html>",
               "pointer": "html"
             }
           ]
@@ -199,25 +193,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The `lang` attribute has a valid value."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The `lang` attribute has a valid value.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<html lang=\"pt-PT\" _documentselector=\"undefined\"><head></head><body></body></html>",
-              "pointer": "html"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R8": {
       "name": "Image filename is accessible name for image",
@@ -387,74 +369,13 @@
         "a11yReq": [
           "WCAG21:title"
         ],
-        "passed": 5,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The test target has a valid accessible name."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"javascript:void(0)\" class=\"dropdown-toggle\" aria-expanded=\"false\">Aderir ▼</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)",
-              "accessibleName": "Aderir contém submenu"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"candidatura.html\">Candidatura</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)",
-              "accessibleName": "Candidatura"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"requisitos.html\">Requisitos</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1)",
-              "accessibleName": "Requisitos"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"acessibilidadeeusabilidade.html\">Declaração de Acessibilidade e Usabilidade</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)",
-              "accessibleName": "Declaração de Acessibilidade e Usabilidade"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid accessible name.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"#\">Auditores</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)",
-              "accessibleName": "Auditores"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R13": {
       "name": "Element with `aria-hidden` has no focusable content",
@@ -560,13 +481,25 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 0,
+        "passed": 1,
         "warning": 0,
         "failed": 0,
-        "outcome": "inapplicable",
-        "description": "No test targets found."
+        "outcome": "passed",
+        "description": "The test target has a unique `id` attribute."
       },
-      "results": []
+      "results": [
+        {
+          "verdict": "passed",
+          "description": "The test target has a unique `id` attribute.",
+          "resultCode": "RC2",
+          "elements": [
+            {
+              "htmlCode": "<p style=\"color: #CCC; background: #fff;\" id=\"p\"></p>",
+              "pointer": "html > body:nth-child(2) > p:nth-child(1)"
+            }
+          ]
+        }
+      ]
     },
     "QW-ACT-R21": {
       "name": "svg element with explicit role has accessible name",
@@ -671,38 +604,7 @@
         "outcome": "inapplicable",
         "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name.",
-          "resultCode": "RC4",
-          "elements": []
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R10": {
       "name": "`iframe` elements with identical accessible names have equivalent purpose",
@@ -774,47 +676,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 3,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The `aria-label` property is supported or inherited by the `role` navigation."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The `aria-label` property is supported or inherited by the `role` navigation.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<nav aria-label=\"menu principal do sítio Web do Selo\" class=\"nav\"></nav>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The `aria-expanded` property is supported or inherited by the `role` link.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"javascript:void(0)\" class=\"dropdown-toggle\" aria-expanded=\"false\">Aderir ▼</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The `aria-label` property is supported or inherited by the `role` img.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R27": {
       "name": "aria-* attribute is defined in WAI-ARIA",
@@ -843,47 +711,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 3,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "All aria-* attributes in this element are defined in ARIA 1.1"
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "All aria-* attributes in this element are defined in ARIA 1.1",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<nav aria-label=\"menu principal do sítio Web do Selo\" class=\"nav\"></nav>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "All aria-* attributes in this element are defined in ARIA 1.1",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"javascript:void(0)\" class=\"dropdown-toggle\" aria-expanded=\"false\">Aderir ▼</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "All aria-* attributes in this element are defined in ARIA 1.1",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R28": {
       "name": "Element with role attribute has required states and properties",
@@ -912,25 +746,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The test target `role` doesn't have required state or property"
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The test target `role` doesn't have required state or property",
-          "resultCode": "RC5",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R34": {
       "name": "ARIA state or property has valid value",
@@ -959,47 +781,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 3,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The test target `aria-label` attribute has a valid value."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The test target `aria-label` attribute has a valid value.",
-          "resultCode": "RC3",
-          "elements": [
-            {
-              "htmlCode": "<nav aria-label=\"menu principal do sítio Web do Selo\" class=\"nav\"></nav>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target `aria-expanded` attribute has a valid value.",
-          "resultCode": "RC3",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"javascript:void(0)\" class=\"dropdown-toggle\" aria-expanded=\"false\">Aderir ▼</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The test target `aria-label` attribute has a valid value.",
-          "resultCode": "RC3",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R38": {
       "name": "ARIA required owned elements",
@@ -1068,38 +856,7 @@
         "outcome": "inapplicable",
         "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
-          "resultCode": "RC4",
-          "elements": []
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Doesn't exist any other `link` with the same accessible name in the same link context.",
-          "resultCode": "RC4",
-          "elements": []
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R16": {
       "name": "Form control has accessible name",
@@ -1214,25 +971,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The test target has a valid `role` attribute."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The test target has a valid `role` attribute.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R33": {
       "name": "ARIA required context role",
@@ -1267,19 +1012,7 @@
         "outcome": "inapplicable",
         "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "inapplicable",
-          "description": "The test target is not in the accessibility tree or doesn't have an explicit `role` with the required context `role`",
-          "resultCode": "RC5",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R17": {
       "name": "Image has accessible name",
@@ -1300,26 +1033,13 @@
         "a11yReq": [
           "WCAG21:title"
         ],
-        "passed": 1,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The test target has an accessible name."
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The test target has an accessible name.",
-          "resultCode": "RC6",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)",
-              "accessibleName": "contém submenu"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R19": {
       "name": "iframe element has accessible name",
@@ -1447,32 +1167,7 @@
         "outcome": "inapplicable",
         "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "inapplicable",
-          "description": "The test target is not a `widget`.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<nav aria-label=\"menu principal do sítio Web do Selo\" class=\"nav\"></nav>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1)",
-              "accessibleName": "menu principal do sítio Web do Selo"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "The test target is not a `widget`.",
-          "resultCode": "RC1",
-          "elements": [
-            {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)",
-              "accessibleName": "contém submenu"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R51": {
       "name": "video element visual-only content is media alternative for text",
@@ -1982,69 +1677,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 5,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The element follows the flow content model"
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li class=\"button-dropdown\"></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li class=\"hidden-li\"></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(3)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R46": {
       "name": "List elements follow content model",
@@ -2072,36 +1711,13 @@
         "a11yReq": [
           "WCAG21:language"
         ],
-        "passed": 2,
+        "passed": 0,
         "warning": 0,
         "failed": 0,
-        "outcome": "passed",
-        "description": "The element follows the flow content model"
+        "outcome": "inapplicable",
+        "description": "No test targets found."
       },
-      "results": [
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<ul></ul>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "passed",
-          "description": "The element follows the flow content model",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<ul class=\"dropdown-menu\"></ul>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2)"
-            }
-          ]
-        }
-      ]
+      "results": []
     },
     "QW-ACT-R47": {
       "name": "Text spacing in `style` attributes is not `!important`",
@@ -2286,173 +1902,30 @@
         ],
         "passed": 1,
         "warning": 0,
-        "failed": 0,
-        "outcome": "passed",
-        "description": "Element doesn't have human language text."
+        "failed": 1,
+        "outcome": "failed",
+        "description": "Element has contrast ratio lower than minimum."
       },
       "results": [
         {
-          "verdict": "inapplicable",
-          "description": "Element is not visible.",
-          "resultCode": "RC1",
+          "verdict": "failed",
+          "description": "Element has contrast ratio lower than minimum.",
+          "resultCode": "RC11",
           "elements": [
             {
-              "htmlCode": "<title>Exemplo</title>",
-              "pointer": "html > head:nth-child(1) > title:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<nav aria-label=\"menu principal do sítio Web do Selo\" class=\"nav\"></nav>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<ul></ul>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li class=\"button-dropdown\"></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element has a semantic role that inherits from widget.",
-          "resultCode": "RC4",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"javascript:void(0)\" class=\"dropdown-toggle\" aria-expanded=\"false\">Aderir ▼</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"
+              "htmlCode": "<p style=\"color: #CCC; background: #fff;\" id=\"p\"></p>",
+              "pointer": "html > body:nth-child(2) > p:nth-child(1)"
             }
           ]
         },
         {
           "verdict": "passed",
-          "description": "Element doesn't have human language text.",
+          "description": "Element has contrast ratio higher than minimum.",
           "resultCode": "RC9",
           "elements": [
             {
-              "htmlCode": "<span aria-label=\"contém submenu\" role=\"img\"></span>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1) > span:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<ul class=\"dropdown-menu\"></ul>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element has a semantic role that inherits from widget.",
-          "resultCode": "RC4",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"candidatura.html\">Candidatura</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element has a semantic role that inherits from widget.",
-          "resultCode": "RC4",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"requisitos.html\">Requisitos</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(2)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element has a semantic role that inherits from widget.",
-          "resultCode": "RC4",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"acessibilidadeeusabilidade.html\">Declaração de Acessibilidade e Usabilidade</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element doesn't have text.",
-          "resultCode": "RC2",
-          "elements": [
-            {
-              "htmlCode": "<li class=\"hidden-li\"></li>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(3)"
-            }
-          ]
-        },
-        {
-          "verdict": "inapplicable",
-          "description": "Element has a semantic role that inherits from widget.",
-          "resultCode": "RC4",
-          "elements": [
-            {
-              "htmlCode": "<a href=\"#\">Auditores</a>",
-              "pointer": "html > body:nth-child(2) > nav:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)"
+              "htmlCode": "<span style=\"color: #333;\" _documentselector=\"html > body:nth-child(2) > p:nth-child(1)\"></span>",
+              "pointer": "html > body:nth-child(2) > p:nth-child(1)span:nth-of-type(1)"
             }
           ]
         }

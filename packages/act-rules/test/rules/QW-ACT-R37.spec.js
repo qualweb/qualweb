@@ -16,14 +16,14 @@ describe(`Rule ${rule}`, async function () {
   it('Starting testbench', async function () {
     this.timeout(1000 * 1000);
     //['chromium', 'firefox', 'webkit']
-    const browser = await playwright['chromium'].launch({headless:true});
+    const browser = await playwright['chromium'].launch({headless:false});
     const context = await browser.newContext({bypassCSP:true});
     const data = await getTestCases();
     const tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
     describe('Running tests', function () {
-      /*for (const test of tests || []) {
+      for (const test of tests || []) {
         it(test.title, async function () {
 
           this.timeout(100 * 1000);
@@ -45,9 +45,9 @@ describe(`Rule ${rule}`, async function () {
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
-      }*/
+      }
 
-      it('Should pass', async function() {
+     /* it('Should pass', async function() {
         this.timeout(100 * 1000);
         const { page } = await getDom(context, 'https://accessibilitynl.github.io/act-rules-test-pages/first-class-ongehinderd/');
 
@@ -66,12 +66,12 @@ describe(`Rule ${rule}`, async function () {
         }, {rules: [rule]});
         
         expect(report.assertions[rule].metadata.outcome).to.be.equal('passed');
-      });
+      });*/
     });
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        await browser.close();
+       // await browser.close();
       });
     });
   });

@@ -1,9 +1,9 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import {  AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from "@qualweb/qw-page";
 
@@ -15,14 +15,15 @@ class QW_ACT_R10 extends Rule {
   }
 
   @ElementExists
+  @isInMainContext
   execute(element: QWElement, page: QWPage): void {
 
-    const iframes = element.getElements('iframe[src]');
+    const iframes = page.getElements('iframe');
     const accessibleNames = new Array<string>();
 
     // add iframe contents
     for (const link of iframes || []) {
-      if (!(DomUtils.isElementADescendantOf(link, page, ['svg'], [])) && !(DomUtils.isElementHidden(link,page)) /*await AccessibilityUtils.isElementInAT(link,page)*/) {
+      if (AccessibilityUtils.isElementInAT(link,page)) {
         const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);

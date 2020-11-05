@@ -17,7 +17,7 @@ class QW_ACT_R9 extends Rule {
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
 
-    const links = element.getElements('a[href], [role="link"]');
+    const links = page.getElements('a[href], [role="link"]');
 
 
     const accessibleNames = new Array<string>();

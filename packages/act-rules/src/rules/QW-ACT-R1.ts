@@ -20,7 +20,6 @@ class QW_ACT_R1 extends Rule {
       description: '',
       resultCode: ''
     };
-
     //the first title element was already tested
     if (super.getNumberOfPassedResults() > 0 || super.getNumberOfFailedResults() > 0) {
       evaluation.verdict = 'inapplicable';
@@ -38,10 +37,14 @@ class QW_ACT_R1 extends Rule {
         evaluation.verdict = 'failed';
         evaluation.description = 'The \`title\` element is empty ("").';
         evaluation.resultCode = 'RC2';
+      }  else if (element.getElementAttribute('_documentSelector')) {
+        evaluation.verdict = 'failed';
+        evaluation.description = 'The \`title\` element is not in the same context.';
+        evaluation.resultCode = 'RC3';
       } else { //the title element exists and it's not empty
         evaluation.verdict = 'passed';
         evaluation.description = `The \`title\` element exists and it's not empty ("").`;
-        evaluation.resultCode = 'RC3';
+        evaluation.resultCode = 'RC4';
       }
     }
 

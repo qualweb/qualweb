@@ -168,7 +168,7 @@ function isInMainContext(target: any, propertyKey: string, descriptor: PropertyD
   const method = descriptor.value;
   descriptor.value = function () {
     let diferentContext = arguments[0].getElementAttribute('_documentSelector');
-    if (!diferentContext.includes('>')) {
+    if (!diferentContext || !diferentContext.includes('>')) {
       return method.apply(this, arguments);
     }
   };
@@ -224,7 +224,7 @@ function IsLangSubTagValid(attribute: string) {
 }
 
 function isSubTagValid(subTag: string): boolean {
-  return languages.hasOwnProperty(subTag);
+  return languages.hasOwnProperty(subTag.toLowerCase());
 }
 
 export {

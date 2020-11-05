@@ -13,7 +13,7 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(100 * 10000);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless:false});
     const data = await getTestCases();
     let tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return {title: t.testcaseTitle, url: t.url, outcome: t.expected};
@@ -47,12 +47,11 @@ describe(`Rule ${rule}`, async function () {
           await page.addScriptTag({
             path: require.resolve('../../dist/act.js')
           })
-          sourceHtml.html.parsed = {};
           const report = await page.evaluate((sourceHtml, stylesheets, rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute(sourceHtml, new QWPage.QWPage(document), stylesheets);
+            const report = actRules.execute( [],new QWPage.QWPage(document));
             return report;
-          }, sourceHtml, stylesheets, {rules: [rule]});
+          },{rules: [rule]});
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
@@ -61,7 +60,7 @@ describe(`Rule ${rule}`, async function () {
 
     describe(`Closing testbench`, async function () {
       it(`closed`, async function () {
-        await browser.close();
+       // await browser.close();
       });
     });
   });

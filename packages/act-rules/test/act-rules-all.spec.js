@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context,'file:///home/estriga/warning2.html');//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context,'https://act-rules.github.io/testcases/afw4f7/1934f556cad7387ea81f1d59ab137ce3034abb23.html');//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});

@@ -50,7 +50,7 @@ class QW_ACT_R37 extends Rule {
         let hasTextNode =  element.hasTextNode();
         let elementText =  DomUtils.getTrimmedText(element,page);
 
-        if(!hasTextNode || elementText === ''){
+        if(!hasTextNode && elementText === ''){
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Element doesn't have text.`;
           evaluation.resultCode = 'RC2';
