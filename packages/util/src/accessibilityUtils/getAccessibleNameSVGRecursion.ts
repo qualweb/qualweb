@@ -23,9 +23,10 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   let title = element.getElementChildTextContent("title");
   let titleAtt = element.getElementAttribute("xlink:title");//tem de ser a
   let href = element.getElementAttribute("href");
+  let roleLink = tag === "a" && href !== undefined;
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
-  if ((DomUtils.isElementHidden(element,page) || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
+  if ((DomUtils.isElementHidden(element, page) || hasParentOfName(element, noAccessibleObjectOrChild) || noAccessibleObject.indexOf(tag) >= 0 || noAccessibleObjectOrChild.indexOf(tag) >= 0 || regex.test(tag)) && !recursion) {
     //noAName
   } else if (ariaLabelBy && ariaLabelBy !== "" && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
@@ -35,12 +36,12 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
     AName = ariaLabel;
   } else if (title && title.trim() !== "") {
     AName = title;
-  } else if (titleAtt && titleAtt.trim() !== "" && tag === "a" && href !== undefined) {//check if link
+  } else if (titleAtt && titleAtt.trim() !== "" && roleLink) {//check if link
     AName = titleAtt;
-  } else if (textContainer.indexOf(tag) >= 0) {
+  } else if (roleLink) {
     AName = getTextFromCss(element, page);
-  } else if (tag && tag === "text" && !recursion) {
-    AName = DomUtils.getTrimmedText(element,page);
+  } else if (tag && tag === "text") {
+    AName = DomUtils.getTrimmedText(element, page);
   }
   return AName;
 }
@@ -67,8 +68,8 @@ function getAccessibleNameFromAriaLabelledBy(page: QWPage, element: QWElement, a
 
   for (let id of ListIdRefs) {
     if (id !== "" && elementID !== id)
-    elem = page.getElementByID(id, element);
-  if (elem)
+      elem = page.getElementByID(id, element);
+    if (elem)
       accessNameFromId = getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {
       if (result) {
@@ -87,14 +88,16 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage): string
   let aName;
   let children = element.getElementChildren();
   let elementAnames: string[] = [];
-
   if (children) {
     for (let child of children) {
-      aName = getAccessibleNameSVGRecursion(child, page, true);
-      if (!!aName) {
-        elementAnames.push(aName);
-      } else {
-        elementAnames.push("");
+      let name = child.getElementTagName()
+      if (textContainer.indexOf(name) >= 0) {
+        aName = getAccessibleNameSVGRecursion(child, page, true);
+        if (!!aName) {
+          elementAnames.push(aName);
+        } else {
+          elementAnames.push("");
+        }
       }
     }
   }
@@ -119,7 +122,11 @@ function getConcatentedText(elementQW: QWElement, aNames: string[]): string {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  return elementQW.concatANames(aNames);
+  let result = "";
+  for (let aName of aNames) {
+    result += aName;
+  }
+  return result;
 }
 
 export default getAccessibleNameSVGRecursion;
