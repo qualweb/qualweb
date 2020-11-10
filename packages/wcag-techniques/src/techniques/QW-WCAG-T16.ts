@@ -14,9 +14,9 @@ class QW_WCAG_T16 extends Technique {
     throw new Error('Method not implemented.');
   }
 
-  validate(validation: HTMLValidationReport): void{
+  validate(validation: HTMLValidationReport | undefined): void {
 
-    for (const result of validation.messages || []) {
+    for (const result of validation?.messages || []) {
       const evaluation: WCAGTechniqueResult = {
         verdict: '',
         description: '',
