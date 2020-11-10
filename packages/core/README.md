@@ -1,9 +1,8 @@
 # QualWeb core
 
-The core allows you to perform automatic accessibility evaluations on web pages. It contains 4 evaluation modules:
+The core allows you to perform automatic accessibility evaluations on web pages. It contains 3 evaluation modules:
  - [@qualweb/act-rules](https://github.com/qualweb/act-rules)
- - [@qualweb/html-techniques](https://github.com/qualweb/html-techniques)
- - [@qualweb/css-techniques](https://github.com/qualweb/css-techniques)
+ - [@qualweb/wcag-techniques](https://github.com/qualweb/wcag-techniques)
  - [@qualweb/best-practices](https://github.com/qualweb/best-practices)
 
 ## How to install

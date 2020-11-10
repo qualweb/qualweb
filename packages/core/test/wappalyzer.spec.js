@@ -2,7 +2,7 @@ import { QualWeb } from '../dist/index';
 import { expect } from 'chai';
 
 describe('Core module: wappalyzer', function() {
-  it('Should crawl all pages', async function() {
+  it('Should find page technologies', async function() {
     this.timeout(0);
 
     const qualweb = new QualWeb();
