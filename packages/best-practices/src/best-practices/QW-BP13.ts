@@ -13,11 +13,7 @@ class QW_BP13 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement | undefined): void{
-
-    if (!element) {
-      return;
-    }
+  execute(element: QWElement): void{
 
     const aWithImg = element.getElementParent();
 
