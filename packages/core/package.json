@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.33",
+  "version": "0.4.35",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "types": "./dist",
@@ -54,13 +54,13 @@
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/dom": "^0.1.27",
     "@qualweb/earl-reporter": "^0.2.7",
-    "@qualweb/evaluation": "^0.1.49",
+    "@qualweb/evaluation": "^0.1.51",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "puppeteer": "^5.3.1"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.4.42",
+    "@qualweb/types": "^0.4.46",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.0",
     "@types/puppeteer": "^3.0.1",

@@ -20,8 +20,7 @@ class QualWeb {
     let html: string | undefined = undefined;
     let modulesToExecute = {
       act: true,
-      html: true,
-      css: true,
+      wcag: true,
       bp: true,
       wappalyzer: false
     };
@@ -60,15 +59,13 @@ class QualWeb {
 
     if (options.execute) {
       modulesToExecute.act = options.execute.act ? options.execute.act : false;
-      modulesToExecute.html = options.execute.html ? options.execute.html : false;
-      modulesToExecute.css = options.execute.css ? options.execute.css : false;
+      modulesToExecute.wcag = options.execute.wcag ? options.execute.wcag : false;
       modulesToExecute.bp = options.execute.bp ? options.execute.bp : false;
       modulesToExecute.wappalyzer = options.execute.wappalyzer ? options.execute.wappalyzer : false;
     } else {
       modulesToExecute = {
         act: true,
-        html: true,
-        css: true,
+        wcag: true,
         bp: true,
         wappalyzer: false
       };
@@ -140,4 +137,4 @@ function readFile(file: string): Promise<string> {
   });
 }
 
-export { QualWeb, generateEarlReport };
+export { QualWeb, generateEarlReport, crawlDomain,getFileUrls};
