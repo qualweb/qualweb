@@ -6,7 +6,7 @@
   "types": "./dist",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha",
+    "test": "mocha --require esm",
     "test:core": "mocha --require esm test/core.spec.js",
     "test:html": "mocha --require esm test/html.spec.js",
     "test:crawler": "mocha --require esm test/crawler.spec.js",
