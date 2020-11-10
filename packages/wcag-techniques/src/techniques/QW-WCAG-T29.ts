@@ -52,8 +52,8 @@ class QW_WCAG_T29 extends Technique {
           evaluation.resultCode = 'RC2';
         }
 
-        evaluation.pointer = element.getElementSelector();
-        evaluation.htmlCode = element.getElementHtmlCode(true, true);
+        evaluation.pointer =element.getElementSelector();
+        evaluation.htmlCode = element.getElementHtmlCode(true, false);
         evaluation.attributes = property;
 
         super.addEvaluationResult(evaluation);
