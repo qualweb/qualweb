@@ -1,4 +1,8 @@
 # Changelog
+## [0.1.52] - 10/11/2020
+ - updated dependencies
+ - fixed some bugs
+ - added @qualweb/wappalyzer
 ## [0.1.51] - 05/11/2020
  - updated dependencies
 ## [0.1.50] - 02/11/2020

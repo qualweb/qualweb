@@ -30,10 +30,6 @@ import {
 
 import { executeWappalyzer } from '@qualweb/wappalyzer';
 
-
-
-const endpoint = 'http://194.117.20.242/validate/';
-
 class Evaluation {
 
   public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
