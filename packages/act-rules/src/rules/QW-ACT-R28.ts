@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
@@ -41,8 +39,10 @@ class QW_ACT_R28 extends Rule {
         evaluation.description = 'The test target explicit role equals the implicit role.';
         evaluation.resultCode = 'RC2';
       } else if (elemRole !== null && Object.keys(rolesJSON).includes(elemRole)) {
+        //@ts-ignore
         if (rolesJSON[elemRole]['requiredAria']) {
           const implicitRoles = new Array<string>();
+          //@ts-ignore
           const implicitValueRoles = rolesJSON[elemRole]['implicitValueRoles'];
           for (const role of implicitValueRoles || []) {
             if (role[0] !== '') {
@@ -50,6 +50,7 @@ class QW_ACT_R28 extends Rule {
             }
           }
           let i = 0;
+          //@ts-ignore
           const requiredAriaList = rolesJSON[elemRole]['requiredAria'];
           let result = true;// passed until it fails a requirement
           let requiredAria;

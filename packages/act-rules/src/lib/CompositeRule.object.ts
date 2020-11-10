@@ -43,23 +43,24 @@ abstract class Rule {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-      let accessibleName;
+      let accessibleName: string | undefined;
+
       if (aName && page) {
-        accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+        accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       }
       result.elements = [{ htmlCode, pointer, accessibleName }];
     }
 
     this.rule.results.push(clone(result));
 
-    if (result.verdict !== 'inapplicable') {
+    if (result.verdict && result.verdict !== 'inapplicable') {
       this.rule.metadata[result.verdict]++;
     }
   }
 
   abstract execute(element: QWElement, rules: Array<ACTRule>): void;
 
-  //resultados
+  // results
   conjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
     let results = this.getAtomicRuleResultPerVerdict(selector, rules);
@@ -68,29 +69,29 @@ abstract class Rule {
       description: '',
       resultCode: ''
     };
-    if (results["failed"]) {
-      evaluation.verdict = "failed"
-      evaluation.resultCode = "RC1"
-      evaluation.description = "The rule failed because of the rule " + results["failed"].title + "with the code" + results["failed"].code //title + id
+    if (results['failed']) {
+      evaluation.verdict = 'failed';
+      evaluation.resultCode = 'RC1';
+      evaluation.description = 'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
     }
-    else if (results["warning"]) {
-      evaluation.verdict = "warning"
-      evaluation.resultCode = "RC2"
-      evaluation.description = "The rule can't tell because of the rule " + results["warning"].title + "with the code" + results["warning"].code //title + id
+    else if (results['warning']) {
+      evaluation.verdict = 'warning';
+      evaluation.resultCode = 'RC2';
+      evaluation.description = 'The rule can\'t tell because of the rule ' + results['warning'].title + 'with the code' + results['warning'].code; //title + id
     }
-    else if (results["passed"]) {
-      evaluation.verdict = "passed"
-      evaluation.resultCode = "RC3"
-      evaluation.description = "The rule passed because of the rule " + results["passed"].title + "with the code" + results["passed"].code //title + id
+    else if (results['passed']) {
+      evaluation.verdict = 'passed';
+      evaluation.resultCode = 'RC3';
+      evaluation.description = 'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
     } else {
-      evaluation.verdict = "inapplicable"
-      evaluation.resultCode = "RC4"
-      evaluation.description = "The test target doesn't apply to this rule" //title + id
+      evaluation.verdict = 'inapplicable';
+      evaluation.resultCode = 'RC4';
+      evaluation.description = 'The test target doesn\'t apply to this rule'; //title + id
     }
     this.addEvaluationResult(evaluation, element);
 
   }
-  dijunction(element: QWElement, rules: Array<ACTRule>): void {
+  disjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
     let results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const evaluation: ACTRuleResult = {
@@ -98,31 +99,31 @@ abstract class Rule {
       description: '',
       resultCode: ''
     };
-    if (results["passed"]) {
-      evaluation.verdict = "passed"
-      evaluation.resultCode = "RC1"
-      evaluation.description = "The rule passed because of the rule " + results["passed"].title + "with the code" + results["passed"].code //title + id
+    if (results['passed']) {
+      evaluation.verdict = 'passed'
+      evaluation.resultCode = 'RC1'
+      evaluation.description = 'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code //title + id
     }
-    else if (results["warning"]) {
-      evaluation.verdict = "warning"
-      evaluation.resultCode = "RC2"
-      evaluation.description = "The rule can't tell because of the rule " + results["warning"].title + "with the code" + results["warning"].code //title + id
+    else if (results['warning']) {
+      evaluation.verdict = 'warning'
+      evaluation.resultCode = 'RC2'
+      evaluation.description = 'The rule can\'t tell because of the rule ' + results['warning'].title + 'with the code' + results['warning'].code //title + id
     }
-    else if (results["failed"]) {
-      evaluation.verdict = "failed"
-      evaluation.resultCode = "RC3"
-      evaluation.description = "The rule failed because of the rule " + results["failed"].title + "with the code" + results["failed"].code//title + id
+    else if (results['failed']) {
+      evaluation.verdict = 'failed'
+      evaluation.resultCode = 'RC3'
+      evaluation.description = 'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code//title + id
     } else {
-      evaluation.verdict = "inapplicable"
-      evaluation.resultCode = "RC4"
-      evaluation.description = "The test target doesn't apply to this rule" //title + id
+      evaluation.verdict = 'inapplicable'
+      evaluation.resultCode = 'RC4'
+      evaluation.description = 'The test target doesn\'t apply to this rule' //title + id
     }
     this.addEvaluationResult(evaluation, element);
 
   }
 
   getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
-    let ruleResult = {};
+    const ruleResult: any = {};
     for (let rule of rules) {
       if (rule) {
         for (let result of rule.results) {
@@ -137,9 +138,9 @@ abstract class Rule {
   }
 
   getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
-    let ruleResult = {};
-    for (let rule of rules) {
-      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: "inapplicable" }
+    const ruleResult: any = {};
+    for (const rule of rules || []) {
+      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: 'inapplicable' }
       for (let result of rule.results) {
         if (result.elements && result.elements[0].pointer === selector) {
           ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: result.verdict };
@@ -150,7 +151,7 @@ abstract class Rule {
     return ruleResult;
   }
 
-  getFinalResults(): any {
+  getFinalResults(): ACTRule {
     this.outcomeRule();
     return cloneDeep(this.rule);
   }

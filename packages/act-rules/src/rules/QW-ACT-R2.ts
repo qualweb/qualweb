@@ -4,8 +4,6 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists, IsHTMLDocument, isInMainContext} from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-
 
 @ACTRuleDecorator
 class QW_ACT_R2 extends Rule {
@@ -17,7 +15,7 @@ class QW_ACT_R2 extends Rule {
   @ElementExists
   @IsHTMLDocument
   @isInMainContext
-  execute(element: QWElement,page:QWPage): void {
+  execute(element: QWElement): void {
     
     const evaluation: ACTRuleResult = {
       verdict: '',

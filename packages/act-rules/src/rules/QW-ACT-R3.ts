@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { 
@@ -11,7 +9,6 @@ import {
   isInMainContext
 } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
-import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R3 extends Rule {
@@ -27,7 +24,7 @@ class QW_ACT_R3 extends Rule {
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
   @isInMainContext
-  execute(element: QWElement,page:QWPage): void {
+  execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {
       verdict: '',

@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
@@ -42,8 +40,10 @@ class QW_ACT_R34 extends Rule {
         };
         if (attrib in ariaJSON) {
           //if is in the accessibility tree
+          //@ts-ignore
           const values = ariaJSON[attrib]['values'];
           const attrValue = elem.getElementAttribute(attrib);
+          //@ts-ignore
           const typeValue = ariaJSON[attrib]['typeValue'];
 
           let result = false;
@@ -75,7 +75,9 @@ class QW_ACT_R34 extends Rule {
               const role = AccessibilityUtils.getElementRole(elem, page);
 
               let requiredAriaList;
+              //@ts-ignore
               if (role !== null && !!rolesJSON[role]) {
+                //@ts-ignore
                 requiredAriaList = rolesJSON[role]['requiredAria'];
               }
               if (typeValue === 'id') {

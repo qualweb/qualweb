@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.34] - 10/11/2020
+### Fixed
+ - type definitions
+### Updated
+ - dependencies
+
 ## [0.4.33] - 05/11/2020
 ### Fixed
  - bug fixes

@@ -19,6 +19,7 @@ class ACTRules {
 
     for (const rule of Object.keys(rules) || []) {
       const _rule = rule.replace(/_/g, '-');
+      //@ts-ignore
       this.rules[_rule] = new rules[rule]();
       this.rulesToExecute[_rule] = true;
     }
@@ -73,14 +74,6 @@ class ACTRules {
         }
       }
     }
-
-    if (options.optimize) {
-      if (options.optimize.toLowerCase() === 'performance') {
-        this.optimization = Optimization.Performance;
-      } else if (options.optimize.toLowerCase() === 'error-detection') {
-        this.optimization = Optimization.ErrorDetection;
-      }
-    }
   }
 
   public resetConfiguration(): void {
@@ -88,7 +81,6 @@ class ACTRules {
       this.rulesToExecute[rule] = true;
     }
   }
-
 
   private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void {
     const promises = new Array<any>();
@@ -110,6 +102,7 @@ class ACTRules {
     }
 
     report.assertions[rule] = this.rules[rule].getFinalResults();
+    //@ts-ignore
     report.metadata[report.assertions[rule].metadata.outcome]++;
     this.rules[rule].reset();
   }
@@ -135,12 +128,14 @@ class ACTRules {
         this.rules['QW-ACT-R4'].execute(undefined);
       }
       report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
+      //@ts-ignore
       report.metadata[report.assertions['QW-ACT-R4'].metadata.outcome]++;
       this.rules['QW-ACT-R4'].reset();
     }
     if (this.rulesToExecute['QW-ACT-R37']) {
       this.rules['QW-ACT-R37'].execute(undefined, page);
       report.assertions['QW-ACT-R37'] = this.rules['QW-ACT-R37'].getFinalResults();
+      //@ts-ignore
       report.metadata[report.assertions['QW-ACT-R37'].metadata.outcome]++;
       this.rules['QW-ACT-R37'].reset();
     }
@@ -148,20 +143,19 @@ class ACTRules {
 
   private executeAllCompositeRules(report: ACTRulesReport, page: QWPage) {
     const promises = new Array<any>();
-    let rules = Object.keys(compositeRules);
+    const rules = Object.keys(compositeRules);
     for (const rule of rules || []) {
       if (this.rulesToExecute[rule]) {
+        //@ts-ignore
         promises.push(this.executeCompositeRule(rule, compositeRules[rule].selector, compositeRules[rule].rules, compositeRules[rule].implementation, page, report));
       }
     }
-
   }
+
   private executeCompositeRule(rule: string, selector: string, atomicRules: string[], implementation: string, page: QWPage, report: ACTRulesReport): void {
+    const atomicRulesReport = new Array<ACTRule>();
 
-
-    let atomicRulesReport: ACTRule[] = [];
-
-    for (let atomicRule of atomicRules) {
+    for (const atomicRule of atomicRules || []) {
       atomicRulesReport.push(report.assertions[atomicRule])
     }
     const elements = page.getElements(selector);
@@ -169,8 +163,8 @@ class ACTRules {
       for (const elem of elements || []) {
         if (implementation === "conjunction") {
           this.rules[rule].conjunction(elem, atomicRulesReport);
-        } else if (implementation === "dijunction") {
-          this.rules[rule].dijunction(elem, atomicRulesReport);
+        } else if (implementation === "disjunction") {
+          this.rules[rule].disjunction(elem, atomicRulesReport);
         } else {
           this.rules[rule].execute(elem, atomicRulesReport);
         }
@@ -179,8 +173,8 @@ class ACTRules {
       this.rules[rule].execute(undefined, page, this.optimization);
     }
 
-
     report.assertions[rule] = this.rules[rule].getFinalResults();
+    //@ts-ignore
     report.metadata[report.assertions[rule].metadata.outcome]++;
     this.rules[rule].reset();
   }

@@ -52,7 +52,7 @@ abstract class Rule {
 
     this.rule.results.push(clone(result));
 
-    if (result.verdict !== 'inapplicable') {
+    if (result.verdict && result.verdict !== 'inapplicable') {
       this.rule.metadata[result.verdict]++;
     }
   }
@@ -73,7 +73,7 @@ abstract class Rule {
 
     this.rule.results.push(clone(result));
 
-    if (result.verdict !== 'inapplicable') {
+    if (result.verdict && result.verdict !== 'inapplicable') {
       this.rule.metadata[result.verdict]++;
     }
   }

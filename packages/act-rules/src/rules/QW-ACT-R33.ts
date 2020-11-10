@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import {AccessibilityUtils} from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
@@ -29,7 +27,9 @@ class QW_ACT_R33 extends Rule {
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
     const isValidRole = AccessibilityUtils.elementHasValidRole(element, page);
 
+    //@ts-ignore
     if (explicitRole !== null && isValidRole && explicitRole !== implicitRole && isInAT && rolesJSON[explicitRole]['requiredContextRole'] !== '') {
+      //@ts-ignore
       const requiredContextRole = rolesJSON[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
 
@@ -73,7 +73,7 @@ class QW_ACT_R33 extends Rule {
       }
     }
     let result = false;
-    let sameRole;
+    let sameRole: boolean = false;
 
     if (parent !== null) {
       const parentRole = AccessibilityUtils.getElementRole(parent, page);

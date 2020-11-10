@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
@@ -24,12 +22,13 @@ class QW_ACT_R18 extends Rule {
       description: '',
       resultCode: ''
     };
+
     let elementsWithSameId = new Array<QWElement>();
 
     const id = element.getElementAttribute('id');
 
 
-    if (id && !this.idMap[id]) {
+    if (id && !this.idMap.get(id)) {
       try {
         elementsWithSameId = page.getElements(`[id="${id}"]`, element);
 
@@ -49,7 +48,7 @@ class QW_ACT_R18 extends Rule {
         evaluation.resultCode = 'RC3';
         super.addEvaluationResult(evaluation, element);
       }
-      this.idMap[id] = true;
+      this.idMap.set(id, true);
     }
 
   }

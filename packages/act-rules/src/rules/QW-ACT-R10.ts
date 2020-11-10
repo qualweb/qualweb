@@ -16,7 +16,7 @@ class QW_ACT_R10 extends Rule {
 
   @ElementExists
   @isInMainContext
-  execute(element: QWElement, page: QWPage): void {
+  execute(_element: QWElement, page: QWPage): void {
 
     const iframes = page.getElements('iframe');
     const accessibleNames = new Array<string>();
@@ -97,8 +97,8 @@ class QW_ACT_R10 extends Rule {
     try {
       for (const element of elements) {
         htmlContent = element.getContentFrame()
-        if (htmlContent!== null) {
-          let page = new QWPage(htmlContent,htmlContent.defaultView)
+        if (htmlContent !== null && htmlContent.defaultView) {
+          const page = new QWPage(htmlContent, htmlContent.defaultView)
           content.push(page.getHTMLContent());
         }
       }

@@ -1,5 +1,3 @@
-'use strict';
-
 import {ACTRuleResult} from '@qualweb/act-rules';
 import {AccessibilityUtils,} from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
@@ -47,6 +45,7 @@ class QW_ACT_R38 extends Rule {
           children.push(ariaOwnsElement);
         }
 
+        //@ts-ignore
         const result = this.checkOwnedElementsRole(rolesJSON[explicitRole]['requiredOwnedElements'], children, page);
 
         if (result) {

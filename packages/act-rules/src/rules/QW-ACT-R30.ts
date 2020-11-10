@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -72,7 +70,7 @@ class QW_ACT_R30 extends Rule {
     return !!accessibleName && (iconMap.includes(elementText.toLowerCase()) || fontStyle.includes("Material Icons"));
   }
 
-  isHumanLanguage(string): boolean {
+  isHumanLanguage(string: string): boolean {
     const detector = new LanguageDetect();
     return detector.detect(string).length > 0;
   }

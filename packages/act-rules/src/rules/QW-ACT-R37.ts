@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util'
 import LanguageDetect from 'languagedetect';
@@ -18,7 +16,7 @@ class QW_ACT_R37 extends Rule {
     super(rule);
   }
 
-  execute(element: QWElement | undefined, page: QWPage): void {
+  execute(_element: QWElement | undefined, page: QWPage): void {
 
     let disabledWidgets =  AccessibilityUtils.getDisabledWidgets(page);
 
@@ -196,7 +194,7 @@ class QW_ACT_R37 extends Rule {
           }else{
             if(this.isHumanLanguage(elementText)){
               let contrastRatio = this.getContrast(parsedBG, parsedFG);
-              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, "BG " + bgColor, "FG " + fgColor);
+              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
               if(isValid){
                 evaluation.verdict = 'passed';
                 evaluation.description = 'Element has contrast ratio higher than minimum.';
@@ -220,7 +218,7 @@ class QW_ACT_R37 extends Rule {
     }
   }
 
-  getBackground(element){
+  getBackground(element: QWElement): string {
     let backgroundImage = element.getElementStyleProperty( "background-image", null);
     if(backgroundImage === "none"){
       let bg = element.getElementStyleProperty( "background", null);
@@ -234,11 +232,11 @@ class QW_ACT_R37 extends Rule {
     }
   }
 
-  isImage(color){
+  isImage(color: string): boolean {
     return color.toLowerCase().includes("jpeg") || color.toLowerCase().includes("jpg") || color.toLowerCase().includes("png") || color.toLowerCase().includes("svg");
   }
 
-  evaluateGradient(evaluation, element, parsedGradientString, fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText): boolean{
+  evaluateGradient(evaluation: ACTRuleResult, element: QWElement, parsedGradientString: any, fgColor: any, opacity: number, fontSize: string, fontWeight: string, fontStyle: string, fontFamily: string, elementText: string): boolean{
     if(parsedGradientString.startsWith("linear-gradient")){
       let gradientDirection = this.getGradientDirection(parsedGradientString);
       if(gradientDirection === 'to right'){
@@ -251,13 +249,13 @@ class QW_ACT_R37 extends Rule {
           let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ""));
           let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
           contrastRatio = this.getContrast(colors[0], this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, colors[0], this.parseRGBString(fgColor, opacity));
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
           contrastRatio = this.getContrast(lastCharBgColor, this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, lastCharBgColor, this.parseRGBString(fgColor, opacity));
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
         }else{
           for(let color of colors){
             contrastRatio = this.getContrast(color, this.parseRGBString(fgColor, opacity));
-            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold', elementText, color, this.parseRGBString(fgColor, opacity));
+            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight==='bold');
           }
         }
         if(isValid){
@@ -298,11 +296,11 @@ class QW_ACT_R37 extends Rule {
     return false;
   }
 
-  isHumanLanguage(string): boolean{
+  isHumanLanguage(string: string): boolean{
     return detector.detect(string).length > 0;
   }
 
-  equals(color1, color2): boolean{
+  equals(color1: any, color2: any): boolean{
     return color1.red === color2.red && color1.green === color2.green && color1.blue === color2.blue && color1.alpha === color2.alpha;
   }
 
@@ -356,7 +354,7 @@ class QW_ACT_R37 extends Rule {
     }
   };
 
-  getRelativeLuminance(red, green, blue): number {
+  getRelativeLuminance(red: number, green: number, blue: number): number {
     let rSRGB = red / 255;
     let gSRGB = green / 255;
     let bSRGB = blue / 255;
@@ -371,7 +369,7 @@ class QW_ACT_R37 extends Rule {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   };
 
-  flattenColors(fgColor, bgColor): any {
+  flattenColors(fgColor: any, bgColor: any): any {
     let fgAlpha = fgColor["alpha"];
     let red = (1 - fgAlpha) * bgColor["red"] + fgAlpha * fgColor["red"];
     let green = (1 - fgAlpha) * bgColor["green"] + fgAlpha * fgColor["green"];
@@ -381,7 +379,7 @@ class QW_ACT_R37 extends Rule {
     return {"red": red, "green": green, "blue": blue, "alpha": alpha};
   };
 
-  getContrast(bgColor, fgColor): number {
+  getContrast(bgColor: any, fgColor: any): number {
 
     if (fgColor.alpha < 1) {
       fgColor = this.flattenColors(fgColor, bgColor);
@@ -393,11 +391,11 @@ class QW_ACT_R37 extends Rule {
     return (Math.max(fL, bL) + 0.05) / (Math.min(fL, bL) + 0.05);
   };
 
-  hasValidContrastRatio(contrast, fontSize, isBold, text, bg, fg) {
+  hasValidContrastRatio(contrast: number, fontSize: string, isBold: boolean): boolean {
 
     let isSmallFont =
-      (isBold && Math.ceil(fontSize * 72) / 96 < 14) ||
-      (!isBold && Math.ceil(fontSize * 72) / 96 < 18);
+      (isBold && Math.ceil(parseInt(fontSize) * 72) / 96 < 14) ||
+      (!isBold && Math.ceil(parseInt(fontSize) * 72) / 96 < 18);
       let expectedContrastRatio = isSmallFont ? 4.5 : 3;
 
     return contrast > expectedContrastRatio;
@@ -411,6 +409,7 @@ class QW_ACT_R37 extends Rule {
     else if(font === "sans-serif")
       font = "arial"
     try {
+      //@ts-ignore
       const width = pixelWidth(string, { font: font, size: fontSize, bold: bold, italic: italic });
       return width;
     } catch (error) {
@@ -426,7 +425,6 @@ class QW_ACT_R37 extends Rule {
     let blue = fromColor['blue'] + ((toColor['blue'] - fromColor['blue']) * ratio);
 
     return {"red": red, "green": green, "blue": blue, "alpha": 1};
-
   }
 }
 

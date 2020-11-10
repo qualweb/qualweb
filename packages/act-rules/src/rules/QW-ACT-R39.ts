@@ -143,7 +143,7 @@ function getFirstAncestorElementByNameOrRoles(element: QWElement, page: QWPage, 
 
   const parent = element.getElementParent();
   let result = false;
-  let sameRole, sameName;
+  let sameRole: boolean = false, sameName: boolean = false;
 
   if (parent !== null) {
     const parentName = parent.getElementTagName();

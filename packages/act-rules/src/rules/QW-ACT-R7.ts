@@ -7,8 +7,8 @@ import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decora
 @ACTRuleDecorator
 class QW_ACT_R7 extends Rule {
 
-  private rawMap: Object = {};
-  private mediaMap: Object = {};
+  private rawMap: any = {};
+  private mediaMap: any = {};
 
   constructor(rule?: any) {
     super(rule);

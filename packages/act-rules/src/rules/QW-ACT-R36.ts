@@ -1,5 +1,3 @@
-'use strict';
-
 import {ACTRuleResult} from '@qualweb/act-rules';
 import {DomUtils, AccessibilityUtils} from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -88,7 +86,7 @@ function getFirstAncestorElementByNameOrRoles(element: QWElement, page: QWPage, 
 
   let parent = element.getElementParent();
   let result = false;
-  let sameRole, sameName;
+  let sameRole: boolean = false, sameName: boolean = false;
 
   if (parent !== null) {
     let parentName = parent.getElementTagName();

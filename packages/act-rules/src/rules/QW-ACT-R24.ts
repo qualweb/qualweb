@@ -1,5 +1,3 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
@@ -319,6 +317,7 @@ class QW_ACT_R24 extends Rule {
 
   private isValidModifier(modifier: string, field: string): boolean {
     try {
+      //@ts-ignore
       return this.autoCompleteTable[modifier.toLowerCase()].includes(field.toLowerCase());
     } catch (err) {
       return false;
@@ -450,6 +449,7 @@ class QW_ACT_R24 extends Rule {
   }
 
   private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean{
+    //@ts-ignore
     const fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
     
     switch (fieldControl) {

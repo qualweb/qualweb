@@ -15,13 +15,13 @@ class QW_ACT_R9 extends Rule {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(_element: QWElement, page: QWPage): void {
 
     const links = page.getElements('a[href], [role="link"]');
 
 
     const accessibleNames = new Array<string>();
-    const hrefList = new Array<string>();
+    const hrefList = new Array<string | null>();
     const aplicableLinks = new Array<QWElement>();
 
     for (const link of links || []) {
