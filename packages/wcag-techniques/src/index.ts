@@ -108,18 +108,18 @@ class WCAGTechniques {
   }
 
   private executeNotMappedTechniques(report: WCAGTechniquesReport, newTabWasOpen: boolean, validation): void {
-    if (this.techniquesToExecute['QW-HTML-T20']) {
-      this.techniques['QW-HTML-T20'].validate(validation);
-      report.assertions['QW-HTML-T20'] = this.techniques['QW-HTML-T20'].getFinalResults();
-      report.metadata[report.assertions['QW-HTML-T20'].metadata.outcome]++;
-      this.techniques['QW-HTML-T20'].reset();
+    if (this.techniquesToExecute['QW-WCAG-T16']) {
+      this.techniques['QW-WCAG-T16'].validate(validation);
+      report.assertions['QW-WCAG-T16'] = this.techniques['QW-WCAG-T16'].getFinalResults();
+      report.metadata[report.assertions['QW-WCAG-T16'].metadata.outcome]++;
+      this.techniques['QW-WCAG-T16'].reset();
     }
 
-    if (this.techniquesToExecute['QW-HTML-T35']) {
-      this.techniques['QW-HTML-T35'].validate(newTabWasOpen);
-      report.assertions['QW-HTML-T35'] = this.techniques['QW-HTML-T35'].getFinalResults();
-      report.metadata[report.assertions['QW-HTML-T35'].metadata.outcome]++;
-      this.techniques['QW-HTML-T35'].reset();
+    if (this.techniquesToExecute['QW-WCAG-T22']) {
+      this.techniques['QW-WCAG-T22'].validate(newTabWasOpen);
+      report.assertions['QW-WCAG-T22'] = this.techniques['QW-WCAG-T22'].getFinalResults();
+      report.metadata[report.assertions['QW-WCAG-T22'].metadata.outcome]++;
+      this.techniques['QW-WCAG-T22'].reset();
     }
   }
 
