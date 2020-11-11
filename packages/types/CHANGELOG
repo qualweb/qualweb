@@ -1,8 +1,12 @@
 # Changelog
 
-## [0.4.45] - 02/11/2020
+## [0.4.46] - 11/11/2020
+
+### Changed
+ - dom.d.ts interface
+
 ### Updated
- - bug fixes
+ - dependencies
 
 ## [0.4.45] - 02/11/2020
 ### Updated

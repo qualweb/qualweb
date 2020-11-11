@@ -6,7 +6,7 @@ declare module '@qualweb/dom' {
   interface PageData {
     sourceHtml: SourceHtml;
     page: Page;
-    validation: HTMLValidationReport;
+    validation?: HTMLValidationReport;
   }
 
   class Dom {
