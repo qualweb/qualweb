@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.53",
+  "version": "0.1.54",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "types": "./dist",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.27",
-    "@qualweb/types": "^0.4.44",
+    "@qualweb/dom": "^0.1.28",
+    "@qualweb/types": "^0.4.47",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
@@ -48,7 +48,7 @@
     "@qualweb/best-practices": "^0.4.12",
     "@qualweb/qw-page": "^0.1.30",
     "@qualweb/wappalyzer": "^0.2.0",
-    "@qualweb/wcag-techniques": "^0.1.7",
+    "@qualweb/wcag-techniques": "^0.1.8",
     "node-fetch": "^2.6.1"
   }
 }
