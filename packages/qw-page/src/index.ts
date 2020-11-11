@@ -4,7 +4,6 @@ import CSSMapper from './css.mapper';
 import SelectorCalculator from './selectorCalculator.object ';
 
 class QWPage {
-
   private cache: Cache;
   private readonly document: Document | ShadowRoot;
   private url: string;
@@ -12,13 +11,16 @@ class QWPage {
   private elementsCSSRules?: Map<Element, any>;
   private readonly window: Window;
 
-  constructor(document: Document | ShadowRoot, window: Window, addCSSRulesToElements?: boolean, url?: string) {
+  constructor(
+    document: Document | ShadowRoot,
+    window: Window,
+    addCSSRulesToElements?: boolean
+  ) {
     this.document = document;
     this.cache = new Cache();
     this.extraDocuments = new Map<string, QWPage>();
-    this.url = "";
     this.window = window;
-    let selectorCalculator = new SelectorCalculator(document);
+    const selectorCalculator = new SelectorCalculator(document);
     selectorCalculator.processElementSelector();
 
     if (!!addCSSRulesToElements) {
@@ -29,41 +31,40 @@ class QWPage {
     this.processShadowDom();
   }
 
-
   public processShadowDom(): void {
     const listElements = this.document.querySelectorAll('*');
-    let shadowRoot, selector, shadowPage;
 
     for (const element of listElements || []) {
       if (element.shadowRoot !== null) {
-        element.innerHTML = "";
-        shadowRoot = new QWElement(element);
-        selector = shadowRoot.getElementSelector();
-        shadowPage = new QWPage(element.shadowRoot, this.window, true, this.url);
-        this.extraDocuments[selector] = shadowPage;
+        element.innerHTML = '';
+        const shadowRoot = new QWElement(element);
+        const selector = shadowRoot.getElementSelector();
+        const shadowPage = new QWPage(element.shadowRoot, this.window, true);
+        this.extraDocuments.set(selector, shadowPage);
       }
     }
   }
   private processIframes(): void {
-    const elements = this.document.querySelectorAll("iframe");
-    let iframeQW, contentWindow, frame, iframePage, selector;
-    for (let iframe of elements) {
+    const elements = this.document.querySelectorAll('iframe');
+
+    for (const iframe of elements || []) {
       try {
-        iframeQW = new QWElement(iframe);
-        contentWindow = iframeQW.getContentFrame();
-        frame = contentWindow;
-        selector = iframeQW.getElementSelector()
-        iframePage = new QWPage(frame, frame.defaultView, true);
-        this.extraDocuments[selector] = iframePage;
-      }
-      catch (e) {
+        const iframeQW = new QWElement(iframe);
+        const contentWindow = iframeQW.getContentFrame();
+        const frame = contentWindow;
+        if (frame && frame.defaultView) {
+          const selector = iframeQW.getElementSelector();
+          const iframePage = new QWPage(frame, frame.defaultView, true);
+          this.extraDocuments.set(selector, iframePage);
+        }
+      } catch (e) {
         //console.log(e);
       }
     }
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
-    if (element && this.elementsCSSRules ?.has(element)) {
+    if (element && this.elementsCSSRules?.has(element)) {
       element.setAttribute('_cssRules', 'true');
     }
   }
@@ -73,19 +74,24 @@ class QWPage {
     }
   }
 
-  public cacheValue(selector: string, method: string, value: string | undefined): void {
-    this.cache.put(selector + "," + method, value);
+  public cacheValue(
+    selector: string,
+    method: string,
+    value: string | undefined
+  ): void {
+    this.cache.put(selector + ',' + method, value);
   }
+
   public getCachedValue(selector: string, method: string): string | undefined {
-    return this.cache.get(selector + "," + method);
+    return this.cache.get(selector + ',' + method);
   }
+
   public isValueCached(selector: string, method: string): boolean {
-    return this.cache.exists(selector + "," + method);
+    return this.cache.exists(selector + ',' + method);
   }
 
   public getURL(): string {
     return this.url;
-
   }
   private getElementFromDocument(selector: string): QWElement | null {
     const element = this.document.querySelector(selector);
@@ -95,7 +101,7 @@ class QWPage {
 
   private getElementsFromDocument(selector: string): Array<QWElement> {
     const elements = this.document.querySelectorAll(selector);
-    const qwList: Array<QWElement> = [];
+    const qwList = new Array<QWElement>();
 
     for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
@@ -105,14 +111,21 @@ class QWPage {
     return qwList;
   }
 
-  public getElement(selector: string, specificDocument?: QWElement): QWElement | null {
-
-    let element, iframeSelector;
+  public getElement(
+    selector: string,
+    specificDocument?: QWElement
+  ): QWElement | null {
+    let element: QWElement | null = null;
+    let iframeSelector: string | null = null;
     if (!!specificDocument) {
-      iframeSelector = specificDocument.getElementAttribute("_documentSelector");
-      if (!!iframeSelector && !!this.extraDocuments[iframeSelector]) {
-        let iframePage = this.extraDocuments[iframeSelector];
-        element = iframePage.getElement(selector, specificDocument);
+      iframeSelector = specificDocument.getElementAttribute(
+        '_documentSelector'
+      );
+      if (!!iframeSelector && !!this.extraDocuments.has(iframeSelector)) {
+        const iframePage = this.extraDocuments.get(iframeSelector);
+        if (iframePage) {
+          element = iframePage.getElement(selector, specificDocument);
+        }
       } else {
         element = this.getElementFromDocument(selector);
       }
@@ -120,30 +133,41 @@ class QWPage {
       element = this.getElementFromDocument(selector);
       if (!element) {
         //search iframes
-        let iframeKeys = Object.keys(this.extraDocuments);
+        const iframeKeys = Object.keys(this.extraDocuments);
         let i = 0;
-        let iframePage;
         while (!element && i < iframeKeys.length) {
-          iframePage = this.extraDocuments[iframeKeys[i]];
-          element = iframePage.getElement(selector);
-          iframeSelector = iframeKeys[i];
-          i++;
+          const iframePage = this.extraDocuments.get(iframeKeys[i]);
+          if (iframePage) {
+            element = iframePage.getElement(selector);
+            iframeSelector = iframeKeys[i];
+            i++;
+          }
         }
       }
     }
-    if (!!element)
+
+    if (element && iframeSelector) {
       this.addIframeAttribute([element], iframeSelector);
+    }
+
     return element;
   }
 
-  public getElements(selector: string, specificDocument?: QWElement): Array<QWElement> {
-    let elements: QWElement[] = [];
+  public getElements(
+    selector: string,
+    specificDocument?: QWElement
+  ): Array<QWElement> {
+    const elements = new Array<QWElement>();
     if (!!specificDocument) {
-      let iframeSelector = specificDocument.getElementAttribute("_documentSelector");
-      if (!!iframeSelector && !!this.extraDocuments[iframeSelector]) {
-        let iframePage = this.extraDocuments[iframeSelector];
-        elements.push(...iframePage.getElements(selector, specificDocument));
-        this.addIframeAttribute(elements, iframeSelector);
+      const iframeSelector = specificDocument.getElementAttribute(
+        '_documentSelector'
+      );
+      if (!!iframeSelector && !!this.extraDocuments.has(iframeSelector)) {
+        const iframePage = this.extraDocuments.get(iframeSelector);
+        if (iframePage) {
+          elements.push(...iframePage.getElements(selector, specificDocument));
+          this.addIframeAttribute(elements, iframeSelector);
+        }
       } else {
         elements.push(...this.getElementsFromDocument(selector));
       }
@@ -151,28 +175,31 @@ class QWPage {
       // console.log(this.getElementsFromDocument(selector));
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
-      let iframeKeys = Object.keys(this.extraDocuments);
+      const iframeKeys = Object.keys(this.extraDocuments);
       let i = 0;
-      let iframePage, iframeElements;
+      let iframePage: QWPage | undefined;
+      let iframeElements: Array<QWElement>;
       while (i < iframeKeys.length) {
-        iframePage = this.extraDocuments[iframeKeys[i]];
-        iframeElements = iframePage.getElements(selector)
-        this.addIframeAttribute(iframeElements, iframeKeys[i]);
-        elements.push(...iframeElements);
-        i++;
+        iframePage = this.extraDocuments.get(iframeKeys[i]);
+        if (iframePage) {
+          iframeElements = iframePage.getElements(selector);
+          this.addIframeAttribute(iframeElements, iframeKeys[i]);
+          elements.push(...iframeElements);
+          i++;
+        }
       }
     }
     return elements;
   }
 
-  public getElementByID(id: string, elementQW: QWElement): QWElement | null {
-    const element = this.document.querySelector(`[id="${id}"]`);
+  public getElementByID(id: string): QWElement | null {
+    const element = this.document.querySelector(`[id='${id}']`);
     this.addCSSRulesPropertyToElement(element);
     return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
 
   public getElementByAttributeName(name: string): QWElement | null {
-    const element = this.document.querySelector(`[name="${name}"]`);
+    const element = this.document.querySelector(`[name='${name}']`);
     this.addCSSRulesPropertyToElement(element);
     return element ? new QWElement(element, this.elementsCSSRules) : null;
   }
@@ -181,7 +208,9 @@ class QWPage {
     if (this.document instanceof Document) {
       const documentElement = this.document.documentElement;
       this.addCSSRulesPropertyToElement(documentElement);
-      return documentElement ? new QWElement(documentElement, this.elementsCSSRules) : null;
+      return documentElement
+        ? new QWElement(documentElement, this.elementsCSSRules)
+        : null;
     } else {
       return null;
     }
@@ -190,8 +219,7 @@ class QWPage {
   public getHTMLContent(): string {
     if (this.document instanceof ShadowRoot) {
       return this.document.innerHTML;
-    }
-    else {
+    } else {
       return this.document.documentElement.outerHTML;
     }
   }
@@ -199,43 +227,33 @@ class QWPage {
   public getFocusedElement(): QWElement | null {
     const activeElement = this.document.activeElement;
     this.addCSSRulesPropertyToElement(activeElement);
-    return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null
+    return activeElement
+      ? new QWElement(activeElement, this.elementsCSSRules)
+      : null;
   }
 
   public cleanAllElements(): void {
     const html = this.document.querySelector('html');
     if (!!html) {
       html.removeAttribute('_selector');
-      html.removeAttribute('_cssrules');
-      html.removeAttribute("_documentSelector")
-      let children = html.children;
-      if (!!children)
-        this.cleanAllElementsAux([...children]);
-    };
+      html.removeAttribute('_cssRules');
+      html.removeAttribute('_documentSelector');
+      const children = html.children;
+      if (!!children) this.cleanAllElementsAux([...children]);
+    }
   }
 
-
   private cleanAllElementsAux(elements: Element[]): void {
-    for (let element of elements) {
+    for (const element of elements || []) {
       element.removeAttribute('_selector');
-      element.removeAttribute('_cssrules');
-      element.removeAttribute("_documentSelector");
-      let children = element.children;
+      element.removeAttribute('_cssRules');
+      element.removeAttribute('_documentSelector');
+      const children = element.children;
       if (children && children.length > 0) {
         this.cleanAllElementsAux([...children]);
       }
     }
   }
-
 }
-
-/*
-  public changeToDefaultViewport(): void {
-    this.window.resizeTo(this.defaultWidth, this.defaultHeight);
-  }
- 
-  public changeViewport(width: number, height: number): void {
-    this.window.resizeTo(width, height);
-  }*/
 
 export { QWPage };

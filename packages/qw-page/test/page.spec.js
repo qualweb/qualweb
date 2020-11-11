@@ -26,7 +26,7 @@ describe('QualWeb page', function() {
     });
 
     await page.evaluate(() => {
-      console.log(page);
+      //console.log(page);
       //new QWPage.QWPage(document, window, true);
     });
 
