@@ -8,14 +8,14 @@ describe('QualWeb page', function() {
 
     const url = 'https://www.youtube.com/';
 
-    const browser = await puppeteer.launch({headless:false});
+    const browser = await puppeteer.launch();
     const dom = new Dom();
     const { sourceHtml, page ,validation} = await dom.getDOM(browser, {}, url);
     const evaluation = new Evaluation();
     const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: false,  wcag: true, bp: false }, {}, url,validation);
     //console.log(evaluationReport);
-   // await dom.close();
-   // await browser.close();
+    await dom.close();
+    await browser.close();
 
     console.log(evaluationReport);
   });
