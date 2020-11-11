@@ -1,6 +1,7 @@
-import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
+
 
 declare module '@qualweb/core' {
+  import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
   import { Node } from 'domhandler';
   import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
   import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
