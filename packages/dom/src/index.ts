@@ -40,66 +40,65 @@ class Dom {
   }
 
   public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string): Promise<PageData> {
-    try {
-      if (options.validator) {
-        this.endpoint = options.validator;
+    if (options.validator) {
+      this.endpoint = options.validator;
+    }
+
+    this.page = await browser.newPage();
+    await this.page.setBypassCSP(true);
+    await this.setPageViewport(options.viewport);
+    
+    const needsValidator = this.validatorNeeded(options);
+    const needsPreprocessedHTML = this.sourceHTMLNeeded(options);
+
+    let validation: HTMLValidationReport | undefined = undefined;
+    let response: Response | null;
+    let _sourceHtml = '';
+
+    if (url) {
+      if (needsValidator && needsPreprocessedHTML) {
+        [response, validation, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url), this.getSourceHtml(url)]);
+      } else if (needsValidator) {
+        [response, validation] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url)]);
+      } else if (needsPreprocessedHTML) {
+        [response, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getSourceHtml(url)]);
+      } else {
+        response = await this.navigateToPage(url);
       }
 
-      this.page = await browser.newPage();
-      await this.page.setBypassCSP(true);
-      await this.setPageViewport(options.viewport);
-      let validation: any = [], response, _sourceHtml = "";
-      let needsValidator = this.validatorNeeded(options);
-      let needsPreprocessedHTML = this.sourceHTMLNeeded(options);
+      const sourceHTMLPuppeteer = await response?.text();
 
-      if (url) {
-        if (needsValidator && needsPreprocessedHTML)
-          [response, validation, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url), this.getSourceHtml(url)]);
-        else if (needsValidator)
-          [response, validation] = await Promise.all([this.navigateToPage(url), this.getValidatorResult(url)]);
-        else if (needsPreprocessedHTML)
-          [response, _sourceHtml] = await Promise.all([this.navigateToPage(url), this.getSourceHtml(url)]);
-        else
-          response = await this.navigateToPage(url);
-
-
-        const sourceHTMLPuppeteer = await response ?.text();
-
-        if (this.isSVGorMath(sourceHTMLPuppeteer)) {
-          this.page.close()
-          this.page = await browser.newPage();
-          await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
-            timeout: 1000 * 60 * 2
-          });
-        }
-      } else {
-        validation = [];
-        await this.page.setContent(html, {
+      if (this.isSVGorMath(sourceHTMLPuppeteer)) {
+        await this.page.close()
+        this.page = await browser.newPage();
+        await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
           timeout: 1000 * 60 * 2
         });
-        _sourceHtml = await this.page.content();
-
-        if (this.isSVGorMath(_sourceHtml)) {
-          this.page.close()
-          this.page = await browser.newPage();
-          await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
-            timeout: 1000 * 60 * 2
-          });
-        }
       }
+    } else {
+      await this.page.setContent(html, {
+        timeout: 1000 * 60 * 2
+      });
+      _sourceHtml = await this.page.content();
 
-      const sourceHtml = await this.parseSourceHTML(_sourceHtml);
-      return { sourceHtml, page: this.page, validation };
-    } catch (err) {
-      throw err;
+      if (this.isSVGorMath(_sourceHtml)) {
+        await this.page.close()
+        this.page = await browser.newPage();
+        await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
+          timeout: 1000 * 60 * 2
+        });
+      }
     }
+
+    const sourceHtml = this.parseSourceHTML(_sourceHtml);
+    return { sourceHtml, page: this.page, validation };
   }
 
   public async close(): Promise<void> {
     await this.page.close();
   }
 
-  public async navigateToPage(url: string): Promise<Response | null> {
+  public navigateToPage(url: string): Promise<Response | null> {
     return this.page.goto(url, {
       timeout: 0,
       waitUntil: ['load']
@@ -153,14 +152,12 @@ class Dom {
       };
       const response = await fetch(url, fetchOptions);
       return (await response.text()).trim();
-    }
-    catch (e) {
-      return "";
+    } catch (e) {
+      return '';
     }
   }
 
   private parseSourceHTML(html: string): SourceHtml {
-
     const sourceHTML = html.trim();
     const parsedHTML = this.parseHTML(sourceHTML);
     const source = {
@@ -185,9 +182,9 @@ class Dom {
     return handler.dom;
   }
 
-  private getValidatorResult(url: string) {
+  private getValidatorResult(url: string): Promise<HTMLValidationReport> {
     const validationUrl = this.endpoint + encodeURIComponent(url);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       try {
         fetch(validationUrl).then((response) => {
           if (response && response.status === 200) {
@@ -195,30 +192,27 @@ class Dom {
               try {
                 const validation = <HTMLValidationReport>JSON.parse(response);
                 resolve(validation);
-              }
-              catch (e) {
-                resolve([]);
+              } catch (e) {
+                resolve(undefined);
               }
             })
           }
         })
       } catch (e) {
-        resolve([]);
+        resolve(undefined);
       }
     });
   }
 
   private validatorNeeded(options: QualwebOptions): boolean {
-    return !options.execute || !!(options.execute.html);
+    return !options.execute || !!(options.execute.wcag);
   }
 
   private sourceHTMLNeeded(options: QualwebOptions): boolean {
-    let checkModule = !!options && !options.execute || !!options.execute && !!options.execute.act;
-    let checkRules = !!options["act-rules"] && !!options["act-rules"].rules && (options["act-rules"].rules.includes("QW-ACT-R4") || options["act-rules"].rules.includes("bc659a"));
+    const checkModule = !!options && !options.execute || !!options.execute && !!options.execute.act;
+    const checkRules = !!options['act-rules'] && !!options['act-rules'].rules && (options['act-rules'].rules.includes('QW-ACT-R4') || options['act-rules'].rules.includes('bc659a'));
     return checkModule || checkRules;
   }
-
-
 
   private isSVGorMath(content?: string): boolean {
     return !!(content ?.trim().startsWith('<math') || content ?.trim().startsWith('<svg'));

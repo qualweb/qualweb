@@ -1,9 +1,9 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
-  "types": "./node_modules/@qualweb/types",
+  "types": "./dist",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -28,20 +28,22 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.4.42",
+    "@qualweb/types": "^0.4.47",
+    "@tsconfig/recommended": "^1.0.1",
     "@types/domhandler": "^2.4.1",
-    "@types/node": "^14.14.0",
+    "@types/lodash.clone": "^4.5.6",
+    "@types/node": "^14.14.7",
     "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
     "css": "^3.0.0",
     "css-select": "^3.1.0",
-    "mocha": "^8.2.0",
-    "typescript": "^4.0.3"
+    "mocha": "^8.2.1",
+    "typescript": "^4.0.5"
   },
   "dependencies": {
     "domutils": "^2.4.2",
     "htmlparser-to-html": "0.0.6",
-    "htmlparser2": "^5.0.0",
+    "htmlparser2": "^5.0.1",
     "lodash.clone": "^4.5.0",
     "node-fetch": "^2.6.1"
   }
