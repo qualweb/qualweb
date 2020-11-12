@@ -22,6 +22,7 @@ declare module '@qualweb/util' {
     public static videoElementHasAudio(elementQW: QWElement): boolean;
     public static elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean;
     public static getTrimmedText(elementQW: QWElement, page: QWPage): string;
+    public static objectElementisNonText(elementQW: QWElement): boolean;
   }
 
   class BrowserUtils {
