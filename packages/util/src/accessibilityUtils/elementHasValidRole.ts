@@ -5,11 +5,9 @@ import roles from './roles.json';
 import { AccessibilityUtils } from '@qualweb/util';
 
 function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean {
-
-  let role = AccessibilityUtils.getElementRole(elementQW, pageQW);
+  const role = AccessibilityUtils.getElementRole(elementQW, pageQW);
   let result = false;
-  if (role !== null)
-    result = Object.keys(roles).includes(role);
+  if (role !== null) result = Object.keys(roles).includes(role);
 
   return result;
 }

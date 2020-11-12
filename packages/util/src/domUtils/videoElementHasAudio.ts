@@ -1,6 +1,6 @@
 'use strict';
 
-import { QWElement } from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 
 function videoElementHasAudio(elementQW: QWElement): boolean {
   if (!elementQW) {

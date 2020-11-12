@@ -5,18 +5,16 @@ import { QWElement } from '@qualweb/qw-element';
 import getAriaOwner from './getAriaOwner';
 import { AccessibilityUtils } from '@qualweb/util';
 
-
 function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null {
-  let ariaOwner = getAriaOwner(elementQW, pageQW);
+  const ariaOwner = getAriaOwner(elementQW, pageQW);
   let ownerElement;
 
-  if (!!ariaOwner) {
+  if (ariaOwner) {
     ownerElement = ariaOwner;
   } else {
     let parent = elementQW.getElementParent();
     while (!!parent && !ownerElement) {
-      if (AccessibilityUtils.isElementInAT(parent, pageQW))
-        ownerElement = parent;
+      if (AccessibilityUtils.isElementInAT(parent, pageQW)) ownerElement = parent;
       parent = parent.getElementParent();
     }
   }

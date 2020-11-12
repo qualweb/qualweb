@@ -9,10 +9,4 @@ enum Optimization {
   ErrorDetection = 2
 }
 
-export {
-  DomUtils,
-  BrowserUtils,
-  AccessibilityUtils,
-  CssUtils,
-  Optimization
-};
+export { DomUtils, BrowserUtils, AccessibilityUtils, CssUtils, Optimization };

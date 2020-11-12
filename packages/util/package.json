@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.3.52",
+  "version": "0.3.54",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -12,7 +12,10 @@
     "test:svg": "mocha --require esm test/ANameSVGTest.spec.js",
     "clean": "node clean.js",
     "build": "npm run clean && tsc --build",
-    "pub": "npm run build && npm publish --access=public"
+    "pub": "npm run build && npm publish --access=public",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "repository": {
     "type": "git",
@@ -42,13 +45,21 @@
     "htmlparser2": "^4.0.0",
     "mocha": "^8.0.1",
     "puppeteer": "^5.2.1",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "prettier": "^2.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0"
   },
   "dependencies": {
     "@qualweb/qw-element": "^0.1.25",
     "@qualweb/qw-page": "^0.1.29",
     "domutils": "^2.1.0",
     "htmlparser-to-html": "0.0.6",
-    "lodash.clone": "^4.5.0"
+    "lodash.clone": "^4.5.0",
+    "chai": "^4.2.0"
   }
 }

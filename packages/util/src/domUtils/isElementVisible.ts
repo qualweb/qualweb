@@ -5,7 +5,6 @@ import elementHasOnePixel from './elementHasOnePixel';
 import { QWPage } from '@qualweb/qw-page';
 import { DomUtils } from '@qualweb/util';
 
-
 function isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
@@ -14,13 +13,13 @@ function isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
   const cssHidden = DomUtils.isElementHiddenByCSS(elementQW, pageQW);
   const hasContent = DomUtils.elementHasContent(elementQW, pageQW, true);
   const hasOnePixelHeight = elementHasOnePixel(elementQW);
-  let opacityProperty = elementQW.getElementStyleProperty('opacity', '');
+  const opacityProperty = elementQW.getElementStyleProperty('opacity', '');
   let opacity;
   if (opacityProperty) {
-    opacity = parseInt(opacityProperty)
+    opacity = parseInt(opacityProperty);
   }
 
-  return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || opacity && opacity === 0);
+  return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0));
 }
 
 export default isElementVisible;

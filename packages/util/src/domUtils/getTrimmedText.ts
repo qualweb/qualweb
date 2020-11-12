@@ -10,7 +10,7 @@ function getTrimmedText(elementQW: QWElement): string {
   if (text) {
     text = text.trim();
   } else {
-    text = "";
+    text = '';
   }
   return text;
 }

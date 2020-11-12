@@ -3,13 +3,12 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import { AccessibilityUtils } from '@qualweb/util';
 
-
 function isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
   const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
-  const hasGlobalARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW,pageQW);
+  const hasGlobalARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW);
   const parent = elementQW.getElementParent();
   let childPresentational = false;
 

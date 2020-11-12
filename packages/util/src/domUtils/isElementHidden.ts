@@ -1,4 +1,3 @@
-
 'use strict';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -11,11 +10,11 @@ function isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
   let result;
 
   const name = elementQW.getElementTagName();
-  const type = elementQW.getElementAttribute("type");
-  let typeHidden = name === "input" && type === "hidden";
+  const type = elementQW.getElementAttribute('type');
+  const typeHidden = name === 'input' && type === 'hidden';
   const ariaHidden = elementQW.getElementAttribute('aria-hidden') === 'true';
   const hidden = elementQW.getElementAttribute('hidden') !== null;
-  const cssHidden = DomUtils.isElementHiddenByCSSAux(elementQW,pageQW);
+  const cssHidden = DomUtils.isElementHiddenByCSSAux(elementQW, pageQW);
   const parent = elementQW.getElementParent();
   let parentHidden = false;
   if (parent) {
@@ -25,7 +24,6 @@ function isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
   result = cssHidden || hidden || ariaHidden || parentHidden || typeHidden;
 
   return result;
-
 }
 
 export default isElementHidden;

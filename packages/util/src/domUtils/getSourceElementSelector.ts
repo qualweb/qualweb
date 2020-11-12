@@ -12,20 +12,19 @@ function getSelfLocationInParent(element: Node): string {
   let sameEleCount = 0;
 
   let prev = element.prev;
-  while(prev) {
-    if (prev.type === 'tag'&& prev['name'] === element['name']) {
+  while (prev) {
+    if (prev.type === 'tag' && prev['name'] === element['name']) {
       sameEleCount++;
     }
     prev = prev.prev;
   }
 
-  selector += `${element['name']}:nth-of-type(${sameEleCount+1})`;
+  selector += `${element['name']}:nth-of-type(${sameEleCount + 1})`;
 
   return selector;
 }
 
 function getSourceElementSelector(element: Node): string {
-
   if (element['name'] === 'html') {
     return 'html';
   } else if (element['name'] === 'head') {
@@ -36,7 +35,7 @@ function getSourceElementSelector(element: Node): string {
 
   let selector = 'html > ';
 
-  let parents = new Array<string>();
+  const parents = new Array<string>();
   let parent = element.parent;
   while (parent && parent['name'] !== 'html') {
     parents.unshift(getSelfLocationInParent(parent));
