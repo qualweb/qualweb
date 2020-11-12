@@ -15,8 +15,11 @@
     "test:parallel": "mocha --require esm test/parallel.spec.js",
     "test:validator": "mocha --require esm test/validator.spec.js",
     "test:wp": "mocha --require esm test/wappalyzer.spec.js",
-    "clean": "node clean.js",
-    "build": "npm run clean && tsc --build",
+    "prebuild": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run format && npm run lint && npm run prebuild && tsc --build",
     "pub": "npm run build && npm publish"
   },
   "keywords": [
@@ -64,10 +67,18 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.7",
     "@types/puppeteer": "^5.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
     "chai": "^4.2.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-sonarjs": "^0.5.0",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
     "node-fetch": "^2.6.1",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "typescript": "^4.0.5"
   }
 }

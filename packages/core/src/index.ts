@@ -7,36 +7,23 @@ import Crawl from '@qualweb/crawler';
 import fs from 'fs';
 
 class QualWeb {
-
   private browser: Browser | null = null;
 
   public async start(options?: LaunchOptions): Promise<void> {
     this.browser = await puppeteer.launch(options);
   }
 
-  public async evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}> {
-    let urls = new Array<string>();
+  public async evaluate(options: QualwebOptions): Promise<{ [url: string]: EvaluationReport }> {
     let numberOfParallelEvaluations = 1;
     let html: string | undefined = undefined;
-    let modulesToExecute = {
+    const modulesToExecute = {
       act: true,
       wcag: true,
       bp: true,
       wappalyzer: false
     };
 
-    if (options.url) {
-      urls.push(decodeURIComponent(options.url).trim());
-    }
-    if (options.urls) {
-      urls = urls.concat(options.urls.map((url: string) => decodeURIComponent(url).trim()));
-    }
-    if (options.file) {
-      urls = urls.concat(await getFileUrls(options.file));
-    }
-    if (options.crawl) {
-      urls = urls.concat(await crawlDomain(options.crawl));
-    }
+    const urls = await this.checkUrls(options);
 
     if (options.html) {
       html = options.html;
@@ -58,25 +45,18 @@ class QualWeb {
     }
 
     if (options.execute) {
-      modulesToExecute.act = options.execute.act ? options.execute.act : false;
-      modulesToExecute.wcag = options.execute.wcag ? options.execute.wcag : false;
-      modulesToExecute.bp = options.execute.bp ? options.execute.bp : false;
-      modulesToExecute.wappalyzer = options.execute.wappalyzer ? options.execute.wappalyzer : false;
-    } else {
-      modulesToExecute = {
-        act: true,
-        wcag: true,
-        bp: true,
-        wappalyzer: false
-      };
+      modulesToExecute.act = !!options.execute.act;
+      modulesToExecute.wcag = !!options.execute.wcag;
+      modulesToExecute.bp = !!options.execute.bp;
+      modulesToExecute.wappalyzer = !!options.execute.wappalyzer;
     }
 
-    const evaluations: {[url: string]: EvaluationReport} = {};
+    const evaluations: { [url: string]: EvaluationReport } = {};
 
     for (let i = 0; i < urls.length; i += numberOfParallelEvaluations) {
       const promises = new Array<Promise<void>>();
       for (let j = 0; j < numberOfParallelEvaluations && i + j < urls.length; j++) {
-        promises.push(this.runModules(evaluations, urls[i + j], html,  options, modulesToExecute));
+        promises.push(this.runModules(evaluations, urls[i + j], html, options, modulesToExecute));
       }
       await Promise.all(promises);
     }
@@ -94,14 +74,45 @@ class QualWeb {
     }
   }
 
-  private async runModules(evaluations: any, url: string, html: string | undefined, options: QualwebOptions, modulesToExecute: any): Promise<void> {
+  private async checkUrls(options: QualwebOptions): Promise<Array<string>> {
+    let urls = new Array<string>();
+    if (options.url) {
+      urls.push(decodeURIComponent(options.url).trim());
+    }
+    if (options.urls) {
+      urls = urls.concat(options.urls.map((url: string) => decodeURIComponent(url).trim()));
+    }
+    if (options.file) {
+      urls = urls.concat(await getFileUrls(options.file));
+    }
+    if (options.crawl) {
+      urls = urls.concat(await crawlDomain(options.crawl));
+    }
+
+    return urls;
+  }
+
+  private async runModules(
+    evaluations: { [url: string]: EvaluationReport },
+    url: string,
+    html: string | undefined,
+    options: QualwebOptions,
+    modulesToExecute: { [module: string]: boolean }
+  ): Promise<void> {
     if (this.browser) {
       try {
         const dom = new Dom();
-        
+
         const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, html || '');
         const evaluation = new Evaluation();
-        const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, modulesToExecute, options, url, validation);
+        const evaluationReport = await evaluation.evaluatePage(
+          sourceHtml,
+          page,
+          modulesToExecute,
+          options,
+          url,
+          validation
+        );
         await dom.close();
         evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
@@ -111,13 +122,19 @@ class QualWeb {
   }
 }
 
-async function generateEarlReport(evaluations: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}> {
-  return <{[url: string]: EarlReport}> await generateEARLReport(evaluations, options);
+async function generateEarlReport(
+  evaluations: { [url: string]: EvaluationReport },
+  options?: EarlOptions
+): Promise<{ [url: string]: EarlReport }> {
+  return <{ [url: string]: EarlReport }>await generateEARLReport(evaluations, options);
 }
 
 async function getFileUrls(file: string): Promise<Array<string>> {
   const content = await readFile(file);
-  return content.split('\n').filter((url: string) => url.trim() !== '').map((url: string) => decodeURIComponent(url).trim());
+  return content
+    .split('\n')
+    .filter((url: string) => url.trim() !== '')
+    .map((url: string) => decodeURIComponent(url).trim());
 }
 
 async function crawlDomain(domain: string): Promise<Array<string>> {
@@ -129,12 +146,10 @@ async function crawlDomain(domain: string): Promise<Array<string>> {
 function readFile(file: string): Promise<string> {
   return new Promise((resolve, reject) => {
     fs.readFile(file, (err, data) => {
-      if (err) 
-        reject(err);
-      else 
-        resolve(data.toString());
+      if (err) reject(err);
+      else resolve(data.toString());
     });
   });
 }
 
-export { QualWeb, generateEarlReport, crawlDomain,getFileUrls};
+export { QualWeb, generateEarlReport, crawlDomain, getFileUrls };
