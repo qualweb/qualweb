@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
@@ -24,7 +24,8 @@ class QW_ACT_R42 extends Rule {
     };
     
     const isInAT =  AccessibilityUtils.isElementInAT(element, page);
-    if (isInAT) {
+    let isNonText = DomUtils.objectElementisNonText(element)
+    if (isInAT && isNonText) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName) {
         evaluation.verdict = 'passed';
