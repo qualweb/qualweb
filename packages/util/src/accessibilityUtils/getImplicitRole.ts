@@ -19,75 +19,23 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
           } else {
             const heading = new RegExp('h[1-6]');
             if (name === 'footer' || name === 'header') {
-              if (
-                DomUtils.isElementADescendantOfExplicitRole(
-                  elementQW,
-                  pageQW,
-                  ['article', 'aside', 'main', 'nav', 'section'],
-                  ['article', 'complementary', 'main', 'navigation', 'region']
-                )
-              ) {
-                role = roleValue['role'];
-              }
+              role = getRoleHeaderFooter(elementQW, pageQW, roleValue);
             } else if (name === 'form' || name === 'section') {
               if (accessibleName !== undefined) {
                 role = roleValue['role'];
               }
             } else if (heading.test(name)) {
-              const ariaLevel = elementQW.getElementAttribute('aria-level');
-              if (ariaLevel === null || parseInt(ariaLevel) > 0) {
-                role = roleValue['role'];
-              }
+              role = getRoleHeading(elementQW, roleValue);
             } else if (name === 'img') {
-              const alt = elementQW.getElementAttribute('alt');
-              if (alt !== '') {
-                role = roleValue['role'];
-              } else if (
-                elementQW.elementHasAttribute('alt') &&
-                !(
-                  AccessibilityUtils.isElementFocusable(elementQW, pageQW) ||
-                  AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW)
-                )
-              ) {
-                role = 'presentation';
-              }
+              role = getRoleImg(elementQW, pageQW, roleValue);
             } else if (name === 'input') {
-              const list = elementQW.getElementAttribute('list');
-              const type = elementQW.getElementAttribute('type');
-
-              if (list !== null) {
-                role = roleValue['role'];
-              } else if (type === 'search') {
-                role = 'searchbox';
-              } else {
-                role = 'textbox';
-              }
+              role = getRoleInput(elementQW, roleValue);
             } else if (name === 'li') {
-              const parent = elementQW.getElementParent();
-              const parentNames = ['ol', 'ul', 'menu'];
-              let parentName;
-              if (parent !== null) parentName = parent.getElementTagName();
-
-              if (parentName !== null && parentNames.includes(parentName)) {
-                role = roleValue['role'];
-              }
+              role = getRoleLi(elementQW, roleValue);
             } else if (name === 'option') {
-              const parent = elementQW.getElementParent();
-              let parentName;
-              if (parent !== null) parentName = parent.getElementTagName();
-
-              if (parentName === 'datalist') {
-                role = roleValue['role'];
-              }
+              role = getRoleOption(elementQW, roleValue);
             } else if (name === 'select') {
-              const size = elementQW.getElementAttribute('size');
-              const multiple = elementQW.getElementAttribute('multiple');
-
-              if (multiple !== null && size !== null && parseInt(size, 10) > 1) {
-                role = 'listbox';
-              } else {
-                role = roleValue['role'];
-              }
+              role = getRoleSelect(elementQW, roleValue);
             } else if (name === 'td') {
               if (DomUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ['table'], [])) {
                 role = roleValue['role'];
@@ -97,6 +45,101 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
         }
       }
     }
+  }
+  return role;
+}
+
+function getRoleHeading(elementQW: QWElement, roleValue) {
+  const ariaLevel = elementQW.getElementAttribute('aria-level');
+  let role;
+  if (ariaLevel === null || parseInt(ariaLevel) > 0) {
+    role = roleValue['role'];
+  }
+  return role;
+}
+
+function getRoleSelect(elementQW: QWElement, roleValue) {
+  const size = elementQW.getElementAttribute('size');
+  const multiple = elementQW.getElementAttribute('multiple');
+  let role;
+
+  if (multiple !== null && size !== null && parseInt(size, 10) > 1) {
+    role = 'listbox';
+  } else {
+    role = roleValue['role'];
+  }
+  return role;
+}
+
+function getRoleHeaderFooter(elementQW: QWElement, pageQW: QWPage, roleValue) {
+  let role;
+  if (
+    DomUtils.isElementADescendantOfExplicitRole(
+      elementQW,
+      pageQW,
+      ['article', 'aside', 'main', 'nav', 'section'],
+      ['article', 'complementary', 'main', 'navigation', 'region']
+    )
+  ) {
+    role = roleValue['role'];
+  }
+
+  return role;
+}
+
+function getRoleInput(elementQW: QWElement, roleValue) {
+  const list = elementQW.getElementAttribute('list');
+  const type = elementQW.getElementAttribute('type');
+  let role;
+
+  if (list !== null) {
+    role = roleValue['role'];
+  } else if (type === 'search') {
+    role = 'searchbox';
+  } else {
+    role = 'textbox';
+  }
+  return role;
+}
+
+function getRoleOption(elementQW: QWElement, roleValue) {
+  const parent = elementQW.getElementParent();
+  let parentName;
+  let role;
+  if (parent !== null) parentName = parent.getElementTagName();
+
+  if (parentName === 'datalist') {
+    role = roleValue['role'];
+  }
+  return role;
+}
+
+function getRoleImg(elementQW: QWElement, pageQW: QWPage, roleValue) {
+  const alt = elementQW.getElementAttribute('alt');
+  let role;
+  if (alt !== '') {
+    role = roleValue['role'];
+  } else if (
+    elementQW.elementHasAttribute('alt') &&
+    !(
+      AccessibilityUtils.isElementFocusable(elementQW, pageQW) ||
+      AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW)
+    )
+  ) {
+    role = 'presentation';
+  }
+  return role;
+}
+
+function getRoleLi(elementQW: QWElement, roleValue) {
+  const parent = elementQW.getElementParent();
+  let role;
+  const parentNames = ['ol', 'ul', 'menu'];
+  let parentName;
+  if (parent !== null) parentName = parent.getElementTagName();
+
+  if (parentName !== null && parentNames.includes(parentName)) {
+    role = roleValue['role'];
   }
   return role;
 }

@@ -9,14 +9,14 @@ function objectElementisNonText(elementQW: QWElement): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  let data = elementQW.getElementAttribute('data');
+  const data = elementQW.getElementAttribute('data');
   let result = false;
-  if(!!data){
-    let splitted = data.split(".");
-    if(splitted.length > 1){
-      let extension= splitted[splitted.length-1]
-      result = image.includes(extension)|| video.includes(extension)|| audio.includes(extension);
-    }   
+  if (data) {
+    const splitted = data.split('.');
+    if (splitted.length > 1) {
+      const extension = splitted[splitted.length - 1];
+      result = image.includes(extension) || video.includes(extension) || audio.includes(extension);
+    }
   }
   return result;
 }

@@ -18,7 +18,6 @@ import elementHasContentFunction from './elementHasContent';
 import getTrimmedTextFunction from './getTrimmedText';
 import objectElementisNonTextFunction from './objectElementisNonText';
 
-
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 import { CacheDecorator } from '../decorator';
