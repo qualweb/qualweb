@@ -1,6 +1,6 @@
 'use strict';
 
-import videoElementHasAudio from './videoElementHasAudio';
+import videoElementHasAudio from './objectElementisNonText';
 import { QWElement } from '@qualweb/qw-element';
 
 function getVideoMetadata(elementQW: QWElement): any {

@@ -6,7 +6,7 @@ import getSourceElementAttributeFunction from './getSourceElementAttribute';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
-import videoElementHasAudioFunction from './videoElementHasAudio';
+import videoElementHasAudioFunction from './objectElementisNonText';
 import isElementHiddenFunction from './isElementHidden';
 import isFocusableBrowserFunction from '../accessibilityUtils/isFocusableBrowser';
 import isElementVisibleFunction from './isElementVisible';
@@ -16,6 +16,8 @@ import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOf
 import getVideoMetadataFunction from './getVideoMetadata';
 import elementHasContentFunction from './elementHasContent';
 import getTrimmedTextFunction from './getTrimmedText';
+import objectElementisNonTextFunction from './objectElementisNonText';
+
 
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -33,6 +35,7 @@ class DomUtils {
   public static getElementReferencedByHREF = getElementReferencedByHREFFunction;
   public static videoElementHasAudio = videoElementHasAudioFunction;
   public static isFocusableBrowser = isFocusableBrowserFunction;
+  public static objectElementisNonText = objectElementisNonTextFunction;
 
   @CacheDecorator('DomUtils.isElementHidden')
   public static isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
