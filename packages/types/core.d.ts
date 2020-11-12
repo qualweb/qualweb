@@ -1,13 +1,11 @@
-
-
-declare module '@qualweb/core' {
-  import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
-  import { Node } from 'domhandler';
-  import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
-  import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
-  import { BestPracticesReport, BPOptions } from '@qualweb/best-practices';
-  import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
-  import { LaunchOptions, Browser } from 'puppeteer';
+declare module "@qualweb/core" {
+  import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
+  import { Node } from "domhandler";
+  import { WappalyzerReport, WappalyzerOptions } from "@qualweb/wappalyzer";
+  import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
+  import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
+  import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
+  import { LaunchOptions, Browser } from "puppeteer";
 
   interface QualwebOptions {
     url?: string;
@@ -18,18 +16,18 @@ declare module '@qualweb/core' {
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
     validator?: string;
-    r?: 'earl' | 'earl-a';
-    'save-name'?: string;
+    r?: "earl" | "earl-a";
+    "save-name"?: string;
     execute?: {
       wappalyzer?: boolean;
       act?: boolean;
       wcag?: boolean;
       bp?: boolean;
     };
-    'wappalyzer'?: WappalyzerOptions;
-    'act-rules'?: ACTROptions;
-    'wcag-techniques'?: WCAGOptions;
-    'best-practices'?: BPOptions;
+    wappalyzer?: WappalyzerOptions;
+    "act-rules"?: ACTROptions;
+    "wcag-techniques"?: WCAGOptions;
+    "best-practices"?: BPOptions;
   }
 
   interface Evaluator {
@@ -71,14 +69,14 @@ declare module '@qualweb/core' {
   }
 
   interface Modules {
-    'wappalyzer'?: WappalyzerReport;
-    'act-rules'?: ACTRulesReport;
-    'wcag-techniques'?: WCAGTechniquesReport;
-    'best-practices'?: BestPracticesReport;
+    wappalyzer?: WappalyzerReport;
+    "act-rules"?: ACTRulesReport;
+    "wcag-techniques"?: WCAGTechniquesReport;
+    "best-practices"?: BestPracticesReport;
   }
 
   interface EvaluationReport {
-    type: 'evaluation';
+    type: "evaluation";
     system: Evaluator;
     metadata: Metadata;
     modules: Modules;
@@ -97,7 +95,7 @@ declare module '@qualweb/core' {
   interface SourceHtml {
     html: {
       plain: string;
-      parsed: Node[];
+      parsed?: Node[];
     };
     title?: string;
     elementCount?: number;
@@ -116,17 +114,32 @@ declare module '@qualweb/core' {
     processed: ProcessedHtml;
   }
 
-  type Module = 'wappalyzer' | 'act-rules' | 'wcag-techniques' | 'best-practices';
+  type Module =
+    | "wappalyzer"
+    | "act-rules"
+    | "wcag-techniques"
+    | "best-practices";
 
   class QualWeb {
     private browser: Browser | null;
     public start(options?: LaunchOptions): Promise<void>;
-    public evaluate(options: QualwebOptions): Promise<{[url: string]: EvaluationReport}>;
+    public evaluate(
+      options: QualwebOptions
+    ): Promise<{ [url: string]: EvaluationReport }>;
     public stop(): Promise<void>;
-    private runModules(evaluations: any, url: string, html: string | undefined, options: QualwebOptions, modulesToExecute: any): Promise<void>;
+    private runModules(
+      evaluations: any,
+      url: string,
+      html: string | undefined,
+      options: QualwebOptions,
+      modulesToExecute: any
+    ): Promise<void>;
   }
 
-  function generateEarlReport(evaluations: {[url: string]: EvaluationReport}, options?: EarlOptions): Promise<{[url: string]: EarlReport}>;
+  function generateEarlReport(
+    evaluations: { [url: string]: EvaluationReport },
+    options?: EarlOptions
+  ): Promise<{ [url: string]: EarlReport }>;
 
   export {
     QualwebOptions,
@@ -141,6 +154,6 @@ declare module '@qualweb/core' {
     ProcessedHtml,
     DomData,
     QualWeb,
-    generateEarlReport
+    generateEarlReport,
   };
 }
