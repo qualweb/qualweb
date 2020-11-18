@@ -1741,7 +1741,28 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/1a02b0",
+      "url": "https://act-rules.github.io/rules/1a02b0"
+    }
+  },
+  "QW_ACT_R62": {
+    "name": "Element in sequential focus order has visible focus",
+    "code": "QW-ACT-R62",
+    "mapping": "oj04fd",
+    "description": "This rule checks that each element in sequential focus order has some visible focus indication.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.7 ",
+          "level": "AA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/oj04fd"
     }
   }
 }
