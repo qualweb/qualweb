@@ -180,7 +180,7 @@ class Dom {
     const validationUrl = endpoint + encodeURIComponent(url);
     return new Promise((resolve, reject) => {
       try {
-        fetch(validationUrl).then((response) => {
+        fetch(validationUrl,{timeout:20000}).then((response) => {
           if (response && response.status === 200) {
             response.json().then((response) => {
               try {
@@ -212,7 +212,7 @@ class Dom {
 
 
   private isSVGorMath(content?: string): boolean {
-    return !!(content ?.trim().startsWith('<math') || content ?.trim().startsWith('<svg'));
+    return !!(content ?.trim().startsWith('<math') || content ?.trim().startsWith('<svg')|| content ?.includes('<html'));
   }
 }
 
