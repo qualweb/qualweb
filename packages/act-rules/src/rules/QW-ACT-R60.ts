@@ -8,7 +8,7 @@ import {QWElement} from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
-class QW_ACT_R57 extends Rule {
+class QW_ACT_R60 extends Rule {
 
   constructor(rule?: any) {
     super(rule);
@@ -51,4 +51,4 @@ class QW_ACT_R57 extends Rule {
   }
 }
 
-export = QW_ACT_R57;
+export = QW_ACT_R60;
