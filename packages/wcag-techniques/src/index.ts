@@ -18,7 +18,7 @@ class WCAGTechniques {
       this.techniquesToExecute[_technique] = true;
     }
 
-    this.techniquesToExecute['QW-WCAG-T21'] = false;
+    //this.techniquesToExecute['QW-WCAG-T21'] = false;
 
     if (options) {
       this.configure(options);

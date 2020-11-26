@@ -1,6 +1,7 @@
 import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
 import techniques from './techniques.json';
 import cloneDeep from 'lodash.clonedeep';
+import { AccessibilityUtils } from '@qualweb/util';
 
 function WCAGTechnique<T extends { new(...args: any[]): {} }>(constructor: T) {
   const technique = techniques[constructor.name];
@@ -45,5 +46,14 @@ function ElementHasAttributes(target: any, propertyKey: string, descriptor: Prop
     }
   };
 }
+function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isInAT = AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
+    if (isInAT) {
+      return method.apply(this, arguments);
+    }
+  };
+}
 
-export { WCAGTechnique, ElementExists, ElementHasAttributes };
+export { WCAGTechnique, ElementExists, ElementHasAttributes,ElementIsInAccessibilityTree };
