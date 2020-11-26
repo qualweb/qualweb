@@ -1,4 +1,9 @@
 # Changelog
+## [0.1.28] - 11/11/2020
+ - updated dependencies
+## [0.1.27] - 21/10/2020
+ - updated dependencies
+ - updated validator endpoint
 ## [0.1.26] - 18/09/2020
  - only runs validator and node fetch when needed
 ## [0.1.25] - 08/09/2020
