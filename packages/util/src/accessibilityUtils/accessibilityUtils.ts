@@ -46,7 +46,7 @@ class AccessibilityUtils {
     return getAccessibleNameFunction(element, page);
   }
 
-  @CacheDecorator('AcceUtils.getAccessibleNameRecursion')
+ // @CacheDecorator('AcceUtils.getAccessibleNameRecursion')
   public static getAccessibleNameRecursion(
     element: QWElement,
     page: QWPage,
