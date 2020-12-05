@@ -30,10 +30,6 @@ import {
 
 import { executeWappalyzer } from '@qualweb/wappalyzer';
 
-
-
-const endpoint = 'http://194.117.20.242/validate/';
-
 class Evaluation {
 
   public async getEvaluator(page: Page, sourceHtml: SourceHtml, url: string): Promise<Evaluator> {
@@ -109,17 +105,19 @@ class Evaluation {
     const parsedMetaElements = new Array<any>();
 
     for (const element of metaElements || []) {
-      const content = DomUtils.getSourceElementAttribute(element, 'content');
-      const httpEquiv = DomUtils.getSourceElementAttribute(element, 'http-equiv');
-      const htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
-      const selector = DomUtils.getSourceElementSelector(element);
+      if (!!element) {
+        const content = DomUtils.getSourceElementAttribute(element, 'content');
+        const httpEquiv = DomUtils.getSourceElementAttribute(element, 'http-equiv');
+        const htmlCode = DomUtils.getSourceElementHtmlCode(element, true, false);
+        const selector = DomUtils.getSourceElementSelector(element);
 
-      parsedMetaElements.push({
-        content,
-        httpEquiv,
-        htmlCode,
-        selector
-      });
+        parsedMetaElements.push({
+          content,
+          httpEquiv,
+          htmlCode,
+          selector
+        });
+      }
     }
 
     const actReport = await page.evaluate((parsedMetaElements, options) => {
@@ -186,7 +184,7 @@ class Evaluation {
     return htmlReport;
   }
 
-  public async executeBP(page: Page, options: BPOptions|undefined): Promise<BestPracticesReport> {
+  public async executeBP(page: Page, options: BPOptions | undefined): Promise<BestPracticesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/best-practices')
     });
@@ -203,18 +201,18 @@ class Evaluation {
     return bpReport;
   }
 
-  public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string,validation:any): Promise<EvaluationRecord> {
+  public async evaluatePage(sourceHtml: SourceHtml, page: Page, execute: any, options: QualwebOptions, url: string, validation: any): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, url);
     const evaluation = new EvaluationRecord(evaluator);
 
     await this.addQWPage(page);
-    
+
     if (execute.act) {
       evaluation.addModuleEvaluation('act-rules', await this.executeACT(page, sourceHtml, options['act-rules']));
     }
     if (execute.wcag) {
       //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'], validation));
-      evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(page, options['wcag-techniques'],validation));
+      evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(page, options['wcag-techniques'], validation));
     }
     if (execute.bp) {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));

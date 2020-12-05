@@ -8,10 +8,11 @@ describe('QualWeb page', function() {
 
     const url = 'http://www.appacdm-elvas.org ';
 
-    const browser = await puppeteer.launch({headless:false});
+    const browser = await puppeteer.launch();
     const dom = new Dom();
     const { sourceHtml, page ,validation} = await dom.getDOM(browser, {}, url);
     const evaluation = new Evaluation();
+<<<<<<< HEAD
     const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: true,  wcag: true, bp: true }, {}, url,validation);
     const fs = require('fs')
       // Write data in 'Output.txt' . 
@@ -22,6 +23,12 @@ describe('QualWeb page', function() {
     console.log(evaluationReport.modules['wcag-techniques']['assertions']['QW-WCAG-T21']);
    // await dom.close();
    // await browser.close();
+=======
+    const evaluationReport = await evaluation.evaluatePage(sourceHtml, page, { act: false,  wcag: true, bp: false }, {}, url,validation);
+    //console.log(evaluationReport);
+    await dom.close();
+    await browser.close();
+>>>>>>> 887667450a4d1ef4c20fd8d2105e10abd44b4b5e
 
     //console.log(evaluationReport);
   });
