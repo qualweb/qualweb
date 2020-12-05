@@ -8,8 +8,8 @@ class QWElement {
   constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    this.selector = "";
-    let selector = element.getAttribute("_selector");
+    this.selector = '';
+    let selector = element.getAttribute('_selector');
     if (selector)
       this.selector = selector;
   }
@@ -123,7 +123,7 @@ class QWElement {
   }
 
   public getElementAttributes(): any {
-    const attributes = {};
+    const attributes: any = {};
     for (const attr of this.element.getAttributeNames() || []) {
       attributes[attr] = this.element.getAttribute(attr);
     }
@@ -136,16 +136,16 @@ class QWElement {
 
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
-    let elements;
-    try {
-      elements = this.element.querySelectorAll(selector + ' > *');
-    }
-    catch (e) { }
     const qwList = new Array<QWElement>();
-    for (const element of elements || []) {
-      this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element, this.elementsCSSRules));
+    try {
+      const elements = this.element.querySelectorAll(selector + ' > *');
+      for (const element of elements || []) {
+        this.addCSSRulesPropertyToElement(element);
+        qwList.push(new QWElement(element, this.elementsCSSRules));
+      }
+    } catch (e) {
     }
+    
     return qwList;
   }
 
@@ -185,16 +185,16 @@ class QWElement {
       }
       result = this.element.outerHTML;
       let i = 0;
-      for (let child of children) {
-        let atributes = attributeArray[i];
-        if (!!atributes.cssRulesValue) {
-          child.setAttribute('_cssRules', atributes.cssRulesValue);
+      for (const child of children) {
+        const attributes = attributeArray[i];
+        if (!!attributes.cssRulesValue) {
+          child.setAttribute('_cssRules', attributes.cssRulesValue);
         }
-        if (!!atributes.selectorValue) {
-          child.setAttribute('_selector', atributes.selectorValue);
+        if (!!attributes.selectorValue) {
+          child.setAttribute('_selector', attributes.selectorValue);
         }
-        if (!!atributes.documentSelectorValue) {
-          child.setAttribute('_documentSelector', atributes.documentSelectorValue);
+        if (!!attributes.documentSelectorValue) {
+          child.setAttribute('_documentSelector', attributes.documentSelectorValue);
         }
         i++;
       }
@@ -204,9 +204,8 @@ class QWElement {
       const text = this.getElementText();
       clonedElem.innerHTML = text !== undefined ? text : '';
       result = clonedElem.outerHTML;
-    }
-    else {
-      let clonedElem = <Element>this.element.cloneNode(false);
+    } else {
+      const clonedElem = <Element>this.element.cloneNode(false);
       clonedElem.innerHTML = '';
       result = clonedElem.outerHTML;
     }
@@ -273,13 +272,14 @@ class QWElement {
   }
 
   public getElementProperty(property: string): string {
+    //@ts-ignore
     const propertyValue = this.element[property];
     return propertyValue === null ? '' : propertyValue;
   }
 
   public getElementSelector(): string {
 
-    if (this.selector === "") {
+    if (this.selector === '') {
       if (this.element.tagName.toLowerCase() === 'html') {
         return 'html';
       }
@@ -304,7 +304,7 @@ class QWElement {
         selector += this.getSelfLocationInParent(this.element)
       }
 
-      let documentSelector = this.element.getAttribute("_documentSelector");
+      let documentSelector = this.element.getAttribute('_documentSelector');
       if (!!documentSelector) {
         selector = documentSelector + selector;
       }
