@@ -201,7 +201,7 @@ class QWElement {
     }
     else if (withText) {
       let clonedElem = <Element>this.element.cloneNode(false);
-      const text = this.element['text'];
+      const text = this.getElementText();
       clonedElem.innerHTML = text !== undefined ? text : '';
       result = clonedElem.outerHTML;
     }
@@ -348,11 +348,25 @@ class QWElement {
   }
 
   public getElementText(): string {
+    let children;
     if (!!this.element.shadowRoot) {
-      return this.element.shadowRoot.textContent || '';
+      children = this.element.shadowRoot.childNodes;
     } else {
-      return this.element.textContent || '';
+      children = this.element.childNodes;
     }
+    let result = '';
+    let textContent: string | null;
+    for (const child of children || []) {
+      textContent = child.textContent
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== '')
+        result = result + + textContent.trim();
+    }
+
+    if (!result) {
+      result = '';
+    }
+
+    return result
   }
 
   public getElementType(): string {
