@@ -25,7 +25,11 @@ describe('QualWeb page', function() {
     });
 
     await page.evaluate(() => {
+<<<<<<< HEAD
       console.log(window.page);
+=======
+      //console.log(page);
+>>>>>>> d74fc9bfcd0677af6042c326398e2f3e32817627
       //new QWPage.QWPage(document, window, true);
     });
 

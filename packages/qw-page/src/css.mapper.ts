@@ -1,12 +1,36 @@
 import { QWElement } from '@qualweb/qw-element';
 
 class CSSMapper {
-
-  private readonly pseudoSelectors = ['focus', 'hover', 'before', 'after', 'active', 'disabled', 'checked', 'empty', 'enabled', 'in-range', 'invalid', 'lang', 'link', 'optional', 'out-of-range', 'read-only', 'read-write', 'required', 'target', 'valid', 'visited', 'first-letter', 'first-line', 'selection'];
-  private readonly document: Document|ShadowRoot;
+  private readonly pseudoSelectors = [
+    'focus',
+    'hover',
+    'before',
+    'after',
+    'active',
+    'disabled',
+    'checked',
+    'empty',
+    'enabled',
+    'in-range',
+    'invalid',
+    'lang',
+    'link',
+    'optional',
+    'out-of-range',
+    'read-only',
+    'read-write',
+    'required',
+    'target',
+    'valid',
+    'visited',
+    'first-letter',
+    'first-line',
+    'selection'
+  ];
+  private readonly document: Document | ShadowRoot;
   private readonly elementsCSSRules = new Map<Element, any>();
 
-  constructor(document: Document|ShadowRoot) {
+  constructor(document: Document | ShadowRoot) {
     this.document = document;
   }
 
@@ -23,9 +47,14 @@ class CSSMapper {
       const rules = this.getCSSRules(stylesheet);
       for (const rule of rules || []) {
         if (rule.type === 1) {
-          this.mapNormalCSSRule(rule, undefined, 'file', stylesheet.href);
+          this.mapNormalCSSRule(
+            <CSSStyleRule>rule,
+            undefined,
+            'file',
+            stylesheet.href
+          );
         } else if (rule.type === 4) {
-          this.mapMediaCSSRule(rule, 'file', stylesheet.href);
+          this.mapMediaCSSRule(<CSSMediaRule>rule, 'file', stylesheet.href);
         }
       }
     }
@@ -37,9 +66,18 @@ class CSSMapper {
       const rules = this.getCSSRules(style.sheet);
       for (const rule of rules || []) {
         if (rule.type === 1) {
-          this.mapNormalCSSRule(rule, undefined, 'head', new QWElement(style).getElementSelector());
+          this.mapNormalCSSRule(
+            <CSSStyleRule>rule,
+            undefined,
+            'head',
+            new QWElement(style).getElementSelector()
+          );
         } else if (rule.type === 4) {
-          this.mapMediaCSSRule(rule, 'head', new QWElement(style).getElementSelector());
+          this.mapMediaCSSRule(
+            <CSSMediaRule>rule,
+            'head',
+            new QWElement(style).getElementSelector()
+          );
         }
       }
     }
@@ -50,28 +88,66 @@ class CSSMapper {
     for (const element of elements || []) {
       const style = element.getAttribute('style');
       if (style) {
-        const properties = style.split(';').map(p => p.trim()).filter(p => p !== '') || [style.trim()];
+        const properties = style
+          .split(';')
+          .map((p) => p.trim())
+          .filter((p) => p !== '') || [style.trim()];
         if (this.elementsCSSRules?.has(element)) {
-          this.addElementCSSRules(element, properties, undefined, undefined, 'inline', new QWElement(element).getElementSelector() || '');
+          this.addElementCSSRules(
+            element,
+            properties,
+            undefined,
+            undefined,
+            'inline',
+            new QWElement(element).getElementSelector() || ''
+          );
         } else {
-          this.createElementCSSMapping(element, properties, undefined, undefined, 'inline', new QWElement(element).getElementSelector() || '');
+          this.createElementCSSMapping(
+            element,
+            properties,
+            undefined,
+            undefined,
+            'inline',
+            new QWElement(element).getElementSelector() || ''
+          );
         }
       }
     }
   }
 
-  private mapMediaCSSRule(rule: CSSRule, location: 'file' | 'head' | 'inline', pointer: string | null): void {
+  private mapMediaCSSRule(
+    rule: CSSMediaRule,
+    location: 'file' | 'head' | 'inline',
+    pointer: string | null
+  ): void {
     const subRules = rule['cssRules'] || new CSSRuleList();
     for (const subRule of subRules || []) {
       if (subRule.type === 1) {
-        this.mapNormalCSSRule(subRule, rule['conditionText'], location, pointer);
+        this.mapNormalCSSRule(
+          <CSSStyleRule>subRule,
+          rule['conditionText'],
+          location,
+          pointer
+        );
       }
     }
   }
 
-  private mapNormalCSSRule(rule: CSSRule, media: string | undefined, location: 'file' | 'head' | 'inline', pointer: string | null): void {
+  private mapNormalCSSRule(
+    rule: CSSStyleRule,
+    media: string | undefined,
+    location: 'file' | 'head' | 'inline',
+    pointer: string | null
+  ): void {
     const selectorText = rule['selectorText'].trim();
-    const properties = rule.cssText.replace(selectorText, '').replace('{', '').replace('}', '').trim().split(';').map(p => p.trim()).filter(p => p !== '');
+    const properties = rule.cssText
+      .replace(selectorText, '')
+      .replace('{', '')
+      .replace('}', '')
+      .trim()
+      .split(';')
+      .map((p) => p.trim())
+      .filter((p) => p !== '');
     const selectors = selectorText.split(',') || [selectorText];
     for (let selector of selectors || []) {
       let pseudoSelector: string | undefined;
@@ -97,17 +173,38 @@ class CSSMapper {
       const elements = this.getElements(selector);
       for (const element of elements || []) {
         if (this.elementsCSSRules?.has(element)) {
-          this.addElementCSSRules(element, properties, media, pseudoSelector, location, pointer || '');
+          this.addElementCSSRules(
+            element,
+            properties,
+            media,
+            pseudoSelector,
+            location,
+            pointer || ''
+          );
         } else {
-          this.createElementCSSMapping(element, properties, media, pseudoSelector, location, pointer || '');
+          this.createElementCSSMapping(
+            element,
+            properties,
+            media,
+            pseudoSelector,
+            location,
+            pointer || ''
+          );
         }
       }
     }
   }
 
-  private createElementCSSMapping(element: Element, properties: string[], media: string | undefined, pseudoSelector: string | undefined, location: 'file' | 'head' | 'inline', pointer: string): void {
-    const cssProperties = {};
-    
+  private createElementCSSMapping(
+    element: Element,
+    properties: string[],
+    media: string | undefined,
+    pseudoSelector: string | undefined,
+    location: 'file' | 'head' | 'inline',
+    pointer: string
+  ): void {
+    const cssProperties: any = {};
+
     if (media) {
       cssProperties['media'] = {};
       cssProperties['media'][media] = {};
@@ -120,18 +217,33 @@ class CSSMapper {
       const propertyName = property.split(':')[0].trim();
       if (media) {
         if (pseudoSelector) {
-          cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties['media'][media][pseudoSelector][
+            propertyName
+          ] = this.createPropertyObject(property, location, pointer);
         } else {
-          cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties['media'][media][
+            propertyName
+          ] = this.createPropertyObject(property, location, pointer);
         }
       } else {
-        cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+        cssProperties[propertyName] = this.createPropertyObject(
+          property,
+          location,
+          pointer
+        );
       }
     }
     this.elementsCSSRules?.set(element, cssProperties);
   }
 
-  private addElementCSSRules(element: Element, properties: string[], media: string | undefined, pseudoSelector: string | undefined, location: 'file' | 'head' | 'inline', pointer: string): void {
+  private addElementCSSRules(
+    element: Element,
+    properties: string[],
+    media: string | undefined,
+    pseudoSelector: string | undefined,
+    location: 'file' | 'head' | 'inline',
+    pointer: string
+  ): void {
     const cssProperties = this.elementsCSSRules?.get(element);
 
     for (const property of properties || []) {
@@ -140,60 +252,106 @@ class CSSMapper {
         if (cssProperties['media'] === undefined) {
           cssProperties['media'] = {};
         }
-        
+
         if (cssProperties['media'][media] === undefined) {
           cssProperties['media'][media] = {};
 
           if (pseudoSelector) {
             cssProperties['media'][media][pseudoSelector] = {};
-            cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+            cssProperties['media'][media][pseudoSelector][
+              propertyName
+            ] = this.createPropertyObject(property, location, pointer);
           } else {
-            cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+            cssProperties['media'][media][
+              propertyName
+            ] = this.createPropertyObject(property, location, pointer);
           }
         } else {
           if (pseudoSelector) {
             if (cssProperties['media'][media][pseudoSelector] === undefined) {
               cssProperties['media'][media][pseudoSelector] = {};
-              cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
-            } else if (cssProperties['media'][media][pseudoSelector][propertyName] === undefined) {
-              cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+              cssProperties['media'][media][pseudoSelector][
+                propertyName
+              ] = this.createPropertyObject(property, location, pointer);
+            } else if (
+              cssProperties['media'][media][pseudoSelector][propertyName] ===
+              undefined
+            ) {
+              cssProperties['media'][media][pseudoSelector][
+                propertyName
+              ] = this.createPropertyObject(property, location, pointer);
             } else {
-              if (!cssProperties['media'][media][pseudoSelector][propertyName].important) {
-                cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+              if (
+                !cssProperties['media'][media][pseudoSelector][propertyName]
+                  .important
+              ) {
+                cssProperties['media'][media][pseudoSelector][
+                  propertyName
+                ] = this.createPropertyObject(property, location, pointer);
               } else if (property.includes('!important')) {
-                cssProperties['media'][media][pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+                cssProperties['media'][media][pseudoSelector][
+                  propertyName
+                ] = this.createPropertyObject(property, location, pointer);
               }
             }
-          } else if (cssProperties['media'][media][propertyName] === undefined) {
-            cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+          } else if (
+            cssProperties['media'][media][propertyName] === undefined
+          ) {
+            cssProperties['media'][media][
+              propertyName
+            ] = this.createPropertyObject(property, location, pointer);
           } else {
             if (!cssProperties['media'][media][propertyName].important) {
-              cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+              cssProperties['media'][media][
+                propertyName
+              ] = this.createPropertyObject(property, location, pointer);
             } else if (property.includes('!important')) {
-              cssProperties['media'][media][propertyName] = this.createPropertyObject(property, location, pointer);
+              cssProperties['media'][media][
+                propertyName
+              ] = this.createPropertyObject(property, location, pointer);
             }
           }
         }
       } else if (pseudoSelector) {
         if (cssProperties[pseudoSelector] === undefined) {
           cssProperties[pseudoSelector] = {};
-          cssProperties[pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties[pseudoSelector][
+            propertyName
+          ] = this.createPropertyObject(property, location, pointer);
         } else if (cssProperties[pseudoSelector][propertyName] === undefined) {
-          cssProperties[pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties[pseudoSelector][
+            propertyName
+          ] = this.createPropertyObject(property, location, pointer);
         } else {
           if (!cssProperties[pseudoSelector][propertyName].important) {
-            cssProperties[pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+            cssProperties[pseudoSelector][
+              propertyName
+            ] = this.createPropertyObject(property, location, pointer);
           } else if (property.includes('!important')) {
-            cssProperties[pseudoSelector][propertyName] = this.createPropertyObject(property, location, pointer);
+            cssProperties[pseudoSelector][
+              propertyName
+            ] = this.createPropertyObject(property, location, pointer);
           }
         }
       } else if (cssProperties[property] === undefined) {
-        cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+        cssProperties[propertyName] = this.createPropertyObject(
+          property,
+          location,
+          pointer
+        );
       } else {
         if (!cssProperties[propertyName].important) {
-          cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties[propertyName] = this.createPropertyObject(
+            property,
+            location,
+            pointer
+          );
         } else if (property.includes('!important')) {
-          cssProperties[propertyName] = this.createPropertyObject(property, location, pointer);
+          cssProperties[propertyName] = this.createPropertyObject(
+            property,
+            location,
+            pointer
+          );
         }
       }
     }
@@ -201,12 +359,18 @@ class CSSMapper {
     this.elementsCSSRules?.set(element, cssProperties);
   }
 
-  private createPropertyObject(property: string, location: string, pointer: string): any {
+  private createPropertyObject(
+    property: string,
+    location: string,
+    pointer: string
+  ): any {
     const hasImportant = property.includes('!important');
     const split = property.split(':');
     const propertyName = split[0].trim();
-    const value = split.splice(1).join(''); 
-    const propertyValue = hasImportant ? value.replace('!important', '').trim() : value.trim();
+    const value = split.splice(1).join('');
+    const propertyValue = hasImportant
+      ? value.replace('!important', '').trim()
+      : value.trim();
 
     return {
       important: hasImportant,
@@ -226,7 +390,7 @@ class CSSMapper {
   }
 
   private getElements(selector: string): NodeListOf<Element> | null {
-    try { 
+    try {
       return this.document.querySelectorAll(selector);
     } catch (err) {
       return null;

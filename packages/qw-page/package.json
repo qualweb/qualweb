@@ -7,8 +7,9 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
-    "clean": "node clean.js",
-    "build": "npm run clean && tsc --build  && webpack --mode development",
+    "prebuild": "rimraf dist",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run prebuild && tsc --build && webpack --mode development",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
@@ -29,12 +30,15 @@
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
     "@qualweb/types": "^0.4.41",
+    "@tsconfig/recommended": "^1.0.1",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
     "mocha": "^8.0.1",
-    "puppeteer": "^5.2.1",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.0",
+    "playwright": "^1.5.2",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.5",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {

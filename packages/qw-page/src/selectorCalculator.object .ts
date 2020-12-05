@@ -1,7 +1,5 @@
-'use strict';
 class SelectorCalculator {
   private document: Document | ShadowRoot;
-
 
   constructor(document: Document | ShadowRoot) {
     this.document = document;
@@ -9,13 +7,13 @@ class SelectorCalculator {
 
   public processElementSelector(): void {
     const html = this.document.querySelector('html');
-    let selector = 'html';
     if (!!html) {
-      html.setAttribute('_selector', "html")
+      html.setAttribute('_selector', 'html');
       let children = html.children;
-      if (!!children)
+      if (!!children) {
         this.processElementSelectorAux([...children]);
-    };
+      }
+    }
   }
 
   private processElementSelectorAux(elements: Element[]): void {
@@ -31,22 +29,21 @@ class SelectorCalculator {
           }
         }
       }
-
     }
   }
-
 
   private addSelectorAttribute(elements: Element[], selector: string): void {
     let index = 1;
     let name;
     for (let element of elements) {
       name = element.tagName.toLowerCase();
-      element.setAttribute('_selector', selector + ' > ' + name + ':nth-child(' + index + ')');
+      element.setAttribute(
+        '_selector',
+        selector + ' > ' + name + ':nth-child(' + index + ')'
+      );
       index++;
     }
   }
-
-
 }
 
 export = SelectorCalculator;

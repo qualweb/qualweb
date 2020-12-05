@@ -1,5 +1,4 @@
 const path = require('path')
-const os = require('os')
 
 module.exports = {
   entry: './dist/index.js',
@@ -8,8 +7,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'var',
     library: 'QWPage'
-  }, 
-target: 'node-webkit',
-
-
+  },
+  target: 'node-webkit'
 }
