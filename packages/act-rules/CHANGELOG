@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.36] - 05/12/2020
+### Updated
+ - dependencies
+## [0.4.35] - 10/11/2020
+### Added
+ACT-R62 - Element in sequential focus order has visible focus
 ## [0.4.34] - 10/11/2020
 ### Fixed
  - type definitions

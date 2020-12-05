@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context,'https://act-rules.github.io/testcases/afw4f7/1934f556cad7387ea81f1d59ab137ce3034abb23.html');//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context,'https://lead-me-cost.eu/');//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});
@@ -42,7 +42,7 @@ describe('ACT-Rules module', function () {
         const actRules = new ACTRules.ACTRules();
         window.page = new QWPage.QWPage(document, window, true);
         const report = actRules.execute([], window.page, []);
-        const reportR40 = actRules.executeQW_ACT_R40( window.page);
+       // const reportR40 = actRules.executeQW_ACT_R40( window.page);
 
 
         return report;
