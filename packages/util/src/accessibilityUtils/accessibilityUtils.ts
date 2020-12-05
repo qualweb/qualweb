@@ -29,7 +29,7 @@ import isFocusableBrowserFunction from './isFocusableBrowser';
 
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
-import { CacheDecorator } from '../decorator';
+import { CacheDecorator, FullMethodCacheDecorator } from '../decorator';
 
 class AccessibilityUtils {
   @CacheDecorator('AcceUtils.getLinkContext')
@@ -46,7 +46,7 @@ class AccessibilityUtils {
     return getAccessibleNameFunction(element, page);
   }
 
- // @CacheDecorator('AcceUtils.getAccessibleNameRecursion')
+  @FullMethodCacheDecorator('AcceUtils.getAccessibleNameRecursion')
   public static getAccessibleNameRecursion(
     element: QWElement,
     page: QWPage,
