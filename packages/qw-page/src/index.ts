@@ -133,7 +133,8 @@ class QWPage {
       element = this.getElementFromDocument(selector);
       if (!element) {
         //search iframes
-        const iframeKeys = Object.keys(this.extraDocuments);
+        const iframeKeys = Array.from(this.extraDocuments.keys());
+
         let i = 0;
         while (!element && i < iframeKeys.length) {
           const iframePage = this.extraDocuments.get(iframeKeys[i]);
@@ -157,6 +158,7 @@ class QWPage {
     selector: string,
     specificDocument?: QWElement
   ): Array<QWElement> {
+
     const elements = new Array<QWElement>();
     if (!!specificDocument) {
       const iframeSelector = specificDocument.getElementAttribute(
@@ -175,13 +177,13 @@ class QWPage {
       // console.log(this.getElementsFromDocument(selector));
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
-      const iframeKeys = Object.keys(this.extraDocuments);
+      const iframeKeys = Array.from(this.extraDocuments.keys());
       let i = 0;
       let iframePage: QWPage | undefined;
       let iframeElements: Array<QWElement>;
       while (i < iframeKeys.length) {
         iframePage = this.extraDocuments.get(iframeKeys[i]);
-        if (iframePage) {
+        if (!!iframePage) {
           iframeElements = iframePage.getElements(selector);
           this.addIframeAttribute(iframeElements, iframeKeys[i]);
           elements.push(...iframeElements);
