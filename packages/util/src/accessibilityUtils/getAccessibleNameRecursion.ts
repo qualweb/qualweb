@@ -2,7 +2,7 @@
 import { formElements, typesWithLabel } from './constants';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils ,DomUtils} from '@qualweb/util';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import getDefaultName from './getDefaultName';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
@@ -208,7 +208,8 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
 
   if (children) {
     for (const child of children) {
-      if (AccessibilityUtils.isElementInAT(child, page)) {
+      const role = AccessibilityUtils.getElementRole(child, page);
+      if (!DomUtils.isElementHidden(child, page)&& role !== 'presentation' && role !== 'none') {
         aName = AccessibilityUtils.getAccessibleNameRecursion(child, page, true, isWidget);
         if (aName) {
           elementAnames.push(aName);

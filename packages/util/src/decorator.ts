@@ -25,7 +25,7 @@ function FullMethodCacheDecorator(methodName: string) {
       const pageQW = arguments[1];
       const elementQW = arguments[0];
       let selector = elementQW.getElementSelector();
-      for(let i = 2; i > arguments.length; i++){
+      for(let i = 2; i < arguments.length; i++){
         selector += arguments[i];
       }
       let result;
