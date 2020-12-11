@@ -26,6 +26,7 @@ import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalA
 import isElementFocusableByDefaultFunction from './isElementFocusableByDefault';
 import isElementFocusableFunction from './isElementFocusable';
 import isFocusableBrowserFunction from './isFocusableBrowser';
+import getOwnedElementsFunction from './getOwnedElements'
 
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
@@ -63,6 +64,11 @@ class AccessibilityUtils {
   public static getDefaultName = getDefaultNameFunction;
   public static getDisabledWidgets = getDisabledWidgetsFunction;
   public static isFocusableBrowser = isFocusableBrowserFunction;
+
+  @CacheDecorator('AcceUtils.getOwnedElements')
+  public static getOwnedElements(element: QWElement, page: QWPage): QWElement []{
+    return getOwnedElementsFunction(element, page);
+  }
 
   @CacheDecorator('AcceUtils.getElementRole')
   public static getElementRole(element: QWElement, page: QWPage): string | null {
