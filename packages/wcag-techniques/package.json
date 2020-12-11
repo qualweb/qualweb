@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.js",
   "types": "./dist",
@@ -33,27 +33,27 @@
   },
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.25",
-    "@qualweb/qw-page": "^0.1.29",
-    "@qualweb/util": "^0.3.54",
+    "@qualweb/qw-element": "^0.1.27",
+    "@qualweb/qw-page": "^0.1.31",
+    "@qualweb/util": "^0.3.58",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.intersection": "^4.4.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@qualweb/dom": "^0.1.27",
-    "@qualweb/types": "^0.4.46",
+    "@qualweb/dom": "^0.1.28",
+    "@qualweb/types": "^0.4.49",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.intersection": "^4.4.6",
-    "@types/node": "^14.6.3",
+    "@types/node": "^14.14.12",
     "chai": "^4.2.0",
     "css-select": "^2.1.0",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
-    "puppeteer": "^5.4.1",
-    "typescript": "^4.0.2",
+    "puppeteer": "^5.5.0",
+    "typescript": "^4.1.2",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   }
