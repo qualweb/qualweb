@@ -59,6 +59,7 @@ declare module '@qualweb/util' {
     public static getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null;
     public static getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null;
     public static isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean;
+    public static getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[];
 
   }
 

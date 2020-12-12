@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.50] - 12/12/2020
+
+### Changed
+ - added getOwnedElements
 ## [0.4.49] - 12/11/2020
 
 ### Changed
