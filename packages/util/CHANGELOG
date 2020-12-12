@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.59] - 10/12/2020
+### Added
+ -new function getOwnedElements
+
 ## [0.3.58] - 10/12/2020
 ### Added
  - bug fixes
