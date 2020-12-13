@@ -120,6 +120,17 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
   };
 }
 
+function ElementNotHidden(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const notHidden = !DomUtils.isElementHidden(arguments[0], arguments[1]);
+    if (notHidden) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+
 function ElementSrcAttributeFilenameEqualsAccessibleName(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -241,5 +252,6 @@ export {
   ElementHasOneOfTheFollowingRoles,
   IsHTMLDocument,
   IsLangSubTagValid,
-  isInMainContext
+  isInMainContext,
+  ElementNotHidden
 };

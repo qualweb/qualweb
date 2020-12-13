@@ -2,7 +2,7 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementNotHidden } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from '@qualweb/qw-page';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
@@ -15,6 +15,7 @@ class QW_ACT_R46 extends Rule {
   }
 
   @ElementExists
+  @ElementNotHidden
   execute(element: QWElement, page: QWPage): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
