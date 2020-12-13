@@ -91,7 +91,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.24",
-    "@qualweb/types": "^0.4.49",
+    "@qualweb/types": "^0.4.50",
     "@tsconfig/recommended": "^1.0.1",
     "@types/domhandler": "^2.4.1",
     "@types/lodash.clone": "^4.5.6",
@@ -112,7 +112,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.27",
     "@qualweb/qw-page": "^0.1.31",
-    "@qualweb/util": "^0.3.57",
+    "@qualweb/util": "^0.3.60",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

@@ -1,10 +1,10 @@
-import {ACTRuleResult} from '@qualweb/act-rules';
-import {AccessibilityUtils,} from '@qualweb/util';
+import { ACTRuleResult } from '@qualweb/act-rules';
+import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
 import Rule from '../lib/Rule.object';
-import {ACTRuleDecorator, ElementExists} from '../lib/decorator';
-import {QWPage} from '@qualweb/qw-page';
-import {QWElement} from '@qualweb/qw-element';
+import { ACTRuleDecorator, ElementExists, ElementIsInAccessibilityTree } from '../lib/decorator';
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R38 extends Rule {
@@ -14,57 +14,40 @@ class QW_ACT_R38 extends Rule {
   }
 
   @ElementExists
+  @ElementIsInAccessibilityTree
   execute(element: QWElement, page: QWPage): void {
 
-    const selector = '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]';
 
-    const elementOfValidRole = element.getElements(selector.substr(0, selector.length - 1));
-    for (const validElement of elementOfValidRole || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    const evaluation: ACTRuleResult = {
+      verdict: '',
+      description: '',
+      resultCode: ''
+    };
 
-      const explicitRole = validElement.getElementAttribute('role');
-      const implicitRole = AccessibilityUtils.getImplicitRole(validElement, page, "");//fixme
-      const isInAT = AccessibilityUtils.isElementInAT(validElement, page);
+    const explicitRole = element.getElementAttribute('role');
+    const implicitRole = AccessibilityUtils.getImplicitRole(element, page, "");//fixme
+    const ariaBusy = this.isElementADescendantOfAriaBusy(element, page) || element.getElementAttribute("aria-busy");
 
-      const ariaBusy = this.isElementADescendantOfAriaBusy(validElement, page) || validElement.getElementAttribute("aria-busy");
+    if (explicitRole !== null && explicitRole !== implicitRole && explicitRole !== "combobox" && !ariaBusy) {
+      //@ts-ignore
+      const result = this.checkOwnedElementsRole(rolesJSON[explicitRole]['requiredOwnedElements'], AccessibilityUtils.getOwnedElements(element,page), page);
 
-      if (explicitRole !== null && explicitRole !== implicitRole && isInAT && explicitRole !== "combobox" && !ariaBusy) {
-        const ariaOwns = validElement.getElementAttribute("aria-owns");
-        let ariaOwnsElement;
-        if (!!ariaOwns) {
-          ariaOwnsElement = page.getElementByID(ariaOwns, validElement);
-        }
-
-        const children = validElement.getElementChildren();
-
-        if (!!ariaOwnsElement) {
-          children.push(ariaOwnsElement);
-        }
-
-        //@ts-ignore
-        const result = this.checkOwnedElementsRole(rolesJSON[explicitRole]['requiredOwnedElements'], children, page);
-
-        if (result) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target only owns elements with correct role`;
-          evaluation.resultCode = 'RC1';
-        } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = `The test target owns elements that doesn't have the correct role`;
-          evaluation.resultCode = 'RC2';
-        }
+      if (result) {
+        evaluation.verdict = 'passed';
+        evaluation.description = `The test target only owns elements with correct role`;
+        evaluation.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` different from the implicit role or has the role 'combobox' or has an accessibility tree ancestor with 'aria-busy'`;
-        evaluation.resultCode = 'RC3';
+        evaluation.verdict = 'failed';
+        evaluation.description = `The test target owns elements that doesn't have the correct role`;
+        evaluation.resultCode = 'RC2';
       }
-
-      super.addEvaluationResult(evaluation, validElement);
+    } else {
+      evaluation.verdict = 'inapplicable';
+      evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` different from the implicit role or has the role 'combobox' or has an accessibility tree ancestor with 'aria-busy'`;
+      evaluation.resultCode = 'RC3';
     }
+
+    super.addEvaluationResult(evaluation, element);
   }
 
   private checkOwnedElementsRole(ownedRoles: string[][], elements: QWElement[], page: QWPage): boolean {
@@ -74,19 +57,18 @@ class QW_ACT_R38 extends Rule {
     while (i < elements.length && !end) {
       hasOwnedRole = false;
       currentElement = elements[i];
-      if (AccessibilityUtils.isElementInAT(currentElement, page)) {
         const role = AccessibilityUtils.getElementRole(currentElement, page);
         while (j < ownedRoles.length && !hasOwnedRole) {
           currentOwnedRole = ownedRoles[j];
           if (currentOwnedRole.length === 1) {
             hasOwnedRole = role === currentOwnedRole[0]
           } else {
-            hasOwnedRole = role === currentOwnedRole[0] && this.checkOwnedElementsRole([[currentOwnedRole[1]]], currentElement.getElementChildren(), page)
+            hasOwnedRole = role === currentOwnedRole[0] && this.checkOwnedElementsRole([[currentOwnedRole[1]]], AccessibilityUtils.getOwnedElements(currentElement,page), page)
           }
           j++;
         }
         result = hasOwnedRole;
-      }
+
       j = 0;
       i++;
       if (result) {
@@ -98,23 +80,23 @@ class QW_ACT_R38 extends Rule {
   }
 
   private isElementADescendantOfAriaBusy(element: QWElement, page: QWPage): boolean {
-    const parent = element.getElementParent();
-    let result = false;
+  const parent = element.getElementParent();
+  let result = false;
 
-    if (parent !== null) {
-      const inAt = AccessibilityUtils.isElementInAT(parent, page);
-      if (inAt) {
-        result = !!(parent.getElementAttribute("aria-busy"));
-      }
-      if (!result) {
-        return this.isElementADescendantOfAriaBusy(parent, page);
-      } else {
-        return result;
-      }
+  if (parent !== null) {
+    const inAt = AccessibilityUtils.isElementInAT(parent, page);
+    if (inAt) {
+      result = !!(parent.getElementAttribute("aria-busy"));
+    }
+    if (!result) {
+      return this.isElementADescendantOfAriaBusy(parent, page);
     } else {
       return result;
     }
+  } else {
+    return result;
   }
+}
 }
 
 export = QW_ACT_R38;

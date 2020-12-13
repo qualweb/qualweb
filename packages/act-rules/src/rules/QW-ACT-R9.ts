@@ -3,7 +3,7 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
 import { QWElement } from "@qualweb/qw-element";
 import { QWPage } from "@qualweb/qw-page";
 
@@ -15,6 +15,7 @@ class QW_ACT_R9 extends Rule {
   }
 
   @ElementExists
+  @isInMainContext
   execute(_element: QWElement, page: QWPage): void {
 
     const links = page.getElements('a[href], [role="link"]');

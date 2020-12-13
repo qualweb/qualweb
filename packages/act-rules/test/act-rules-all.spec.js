@@ -13,7 +13,7 @@ describe('ACT-Rules module', function () {
     //['chromium', 'firefox', 'webkit']
     const browser = await playwright['chromium'].launch({ headless: false });
     const context = await browser.newContext({ bypassCSP: true });
-    const { sourceHtml, page, stylesheets } = await getDom(context,'https://lead-me-cost.eu/');//https://www.amazon.com/
+    const { sourceHtml, page, stylesheets } = await getDom(context,' https://www.cm-murca.pt/');//https://www.amazon.com/
     //https://observador.pt/
     /*
          const browser = await puppeteer.launch({headless:false});
@@ -21,7 +21,7 @@ describe('ACT-Rules module', function () {
          
        // const browser = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222/', defaultViewport: null });
        //https://www.accessibility.nl/wai-tools/validation-test-sites/wikipedia-wikipedia/*/
-  /*  const browser = await puppeteer.launch({headless:false});
+  /*const browser = await puppeteer.launch({headless:false});
     const dom = new Dom();
     const { sourceHtml, page, stylesheets } = await dom.getDOM(browser, {},  "https://www.lasige.di.fc.ul.pt/", null);*/
 
