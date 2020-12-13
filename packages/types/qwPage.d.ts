@@ -8,7 +8,7 @@ declare module '@qualweb/qw-page' {
     public isValueCached(selector: string, method: string): boolean;
     public getElement(selector: string, specificDocument?: QWElement): QWElement | null;
     public getElements(selector: string, specificDocument?: QWElement): Array<QWElement>;
-    public getElementByID(id: string, elementQW: QWElement): QWElement | null;
+    public getElementByID(id: string): QWElement | null;
     public getElementByAttributeName(name: string): QWElement | null;
     public getPageRootElement(page: QWPage): QWElement | null;
     public getURL(): string;
