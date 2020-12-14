@@ -41,7 +41,7 @@ export default {
       'ul,ol,dl':["QW-ACT-R46"],
       '*[style]': ['QW-ACT-R47'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
-      '*': ['QW-ACT-R7']
+      '*': ['QW-ACT-R7','QW-ACT-R65']
     }
   }
 };
