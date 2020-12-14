@@ -37,7 +37,7 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
         }
         break;
       case 'input':
-        return !(elementAttributeType && elementAttributeType !== 'hidden');
+        return !(elementAttributeType && elementAttributeType === 'hidden');
       case 'summary':
         return !!(
           parent &&

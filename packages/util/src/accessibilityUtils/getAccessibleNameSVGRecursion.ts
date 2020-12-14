@@ -12,7 +12,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   if (!tag) tag = '';
   const regex = new RegExp('^fe[a-zA-Z]+');
   ariaLabelBy = element.getElementAttribute('aria-labelledby');
-  if (ariaLabelBy !== null && page.getElementByID(ariaLabelBy, element) === null) {
+  if (ariaLabelBy !== null && page.getElementByID(ariaLabelBy) === null) {
     ariaLabelBy = '';
   }
   const ariaLabel = element.getElementAttribute('aria-label');
@@ -73,7 +73,7 @@ function getAccessibleNameFromAriaLabelledBy(
   const elementID = element.getElementAttribute('id');
 
   for (const id of ListIdRefs) {
-    if (id !== '' && elementID !== id) elem = page.getElementByID(id, element);
+    if (id !== '' && elementID !== id) elem = page.getElementByID(id);
     if (elem) accessNameFromId = getAccessibleNameSVGRecursion(elem, page, true);
     if (accessNameFromId) {
       if (result) {

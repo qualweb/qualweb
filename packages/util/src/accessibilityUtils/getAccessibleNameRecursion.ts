@@ -165,7 +165,7 @@ function getAccessibleNameFromAriaLabelledBy(
   let elem;
 
   for (const id of ListIdRefs) {
-    if (id !== '' && elementID !== id) elem = page.getElementByID(id, element);
+    if (id !== '' && elementID !== id) elem = page.getElementByID(id);
     if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget);
     if (accessNameFromId) {
       if (result) {
@@ -229,7 +229,7 @@ function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement, 
   let result = false;
   for (const id of elementIds) {
     if (!result && id !== '' && elementID !== id) {
-      result = page.getElementByID(id, element) !== null;
+      result = page.getElementByID(id) !== null;
     }
   }
 

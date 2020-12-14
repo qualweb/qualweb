@@ -8,6 +8,8 @@ import { AccessibilityUtils } from '@qualweb/util';
 function getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
   let children = elementQW.getElementChildren();
   let result: QWElement[] = [];
+  let ariaOwnedElements = getAriaOwnedElements(elementQW, pageQW);
+  result.push(...ariaOwnedElements);
   for (let child of children) {
     result.push(...getOwnedElementsAux(child, pageQW, elementQW.getElementSelector()));
   }
@@ -27,5 +29,22 @@ function getOwnedElementsAux(elementQW: QWElement, pageQW: QWPage, ownerSelector
     return result;
   }
 }
+
+function getAriaOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
+  let ariaOwns = elementQW.getElementAttribute('aria-owns');
+  let elements: QWElement[] = [];
+  if (ariaOwns) {
+    let splitted = ariaOwns.split(',');
+    for (let id of splitted) {
+      let elem = pageQW.getElementByID(id)
+      if (!!elem) {
+        elements.push(elem);
+      }
+    }
+
+  }
+  return elements;
+}
+
 
 export default getOwnedElements;
