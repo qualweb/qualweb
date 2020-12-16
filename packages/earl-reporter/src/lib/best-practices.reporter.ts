@@ -1,9 +1,5 @@
-import { 
-  Assertion,
-  TestResult,
-  ResultSource 
-} from '@qualweb/earl-reporter';
-import { BestPracticesReport } from '@qualweb/best-practices';
+import { Assertion, TestResult, ResultSource } from '@qualweb/earl-reporter';
+import { BestPractice, BestPracticesReport } from '@qualweb/best-practices';
 
 async function BestPracticesReportToEARL(report: BestPracticesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
@@ -12,26 +8,15 @@ async function BestPracticesReportToEARL(report: BestPracticesReport, date?: str
     if (report.assertions[bpName]) {
       const bestPractice = report.assertions[bpName];
       if (bestPractice) {
-        const sources = new Array<ResultSource>();
-
-        for (const result of bestPractice.results || []) {
-          const source: ResultSource = {
-            result: {
-              pointer: result.pointer,
-              outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell') 
-            }
-          };
-
-          sources.push(source);
-        }
+        const sources = generateSources(bestPractice);
 
         const result: TestResult = {
           '@type': 'TestResult',
           outcome: 'earl:' + (bestPractice.metadata.outcome !== 'warning' ? bestPractice.metadata.outcome : 'cantTell'),
           source: sources,
           description: bestPractice.metadata.description,
-          date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-        }
+          date: date || new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        };
 
         const assertion: Assertion = {
           '@type': 'Assertion',
@@ -51,6 +36,23 @@ async function BestPracticesReportToEARL(report: BestPracticesReport, date?: str
   }
 
   return assertions;
+}
+
+function generateSources(bestPractice: BestPractice): Array<ResultSource> {
+  const sources = new Array<ResultSource>();
+
+  for (const result of bestPractice.results || []) {
+    const source: ResultSource = {
+      result: {
+        pointer: result.pointer,
+        outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+      }
+    };
+
+    sources.push(source);
+  }
+
+  return sources;
 }
 
 export = BestPracticesReportToEARL;

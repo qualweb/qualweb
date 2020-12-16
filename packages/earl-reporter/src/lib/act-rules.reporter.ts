@@ -1,9 +1,5 @@
-import { ACTRulesReport } from '@qualweb/act-rules';
-import { 
-  Assertion,
-  TestResult,
-  ResultSource 
-} from '@qualweb/earl-reporter';
+import { ACTRule, ACTRulesReport } from '@qualweb/act-rules';
+import { Assertion, TestResult, ResultSource } from '@qualweb/earl-reporter';
 
 async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Promise<Assertion[]> {
   const assertions = new Array<Assertion>();
@@ -12,18 +8,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
     if (report.assertions[ruleName]) {
       const rule = report.assertions[ruleName];
       if (rule) {
-        const sources = new Array<ResultSource>();
-
-        for (const result of rule.results || []) {
-          const source: ResultSource = {
-            result: {
-              pointer: result.elements?.filter(e => e.pointer !== undefined).map(e => e.pointer).join(', '),
-              outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
-            }
-          };
-
-          sources.push(source);
-        }
+        const sources = generateSources(rule);
 
         const result: TestResult = {
           '@type': 'TestResult',
@@ -31,7 +16,7 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
           source: sources,
           description: rule.metadata.description,
           date: date ? date : new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-        }
+        };
 
         const assertion: Assertion = {
           '@type': 'Assertion',
@@ -51,6 +36,26 @@ async function ACTRulesReportToEARL(report: ACTRulesReport, date?: string): Prom
   }
 
   return assertions;
+}
+
+function generateSources(rule: ACTRule): Array<ResultSource> {
+  const sources = new Array<ResultSource>();
+
+  for (const result of rule.results || []) {
+    const source: ResultSource = {
+      result: {
+        pointer: result.elements
+          ?.filter((e) => e.pointer !== undefined)
+          .map((e) => e.pointer)
+          .join(', '),
+        outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+      }
+    };
+
+    sources.push(source);
+  }
+
+  return sources;
 }
 
 export = ACTRulesReportToEARL;
