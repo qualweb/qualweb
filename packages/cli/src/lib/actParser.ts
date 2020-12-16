@@ -3,23 +3,33 @@ import { readJsonFile, fileExists } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
 import { QualwebOptions } from '@qualweb/core';
 import clone from 'lodash.clone';
+import setValue from 'set-value';
 
-async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void>{
-  options['act-rules'] = {}
+const WARNING_MESSAGE = 'Warning: Module act has options but is not select. Will be select automatically';
 
-  if(mainOptions['act-rules']) {
-    if(mainOptions.module && options?.execute?.act === undefined) {
+async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+  options['act-rules'] = {};
+
+  await validateACTRules(mainOptions, options);
+  await validateACTLevels(mainOptions, options);
+  await validateACTPrinciples(mainOptions, options);
+
+  if (Object.keys(options['act-rules']).length === 0) {
+    delete options['act-rules'];
+  }
+}
+
+async function validateACTRules(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+  if (mainOptions['act-rules'] && options['act-rules']) {
+    if (mainOptions.module && options?.execute?.act === undefined) {
       printError('The "--act-rules" option doesn\'t match any of the modules selected.');
     } else if (!mainOptions.module) {
-      console.log('Warning: Module act has options but is not select. Will be select automatically');
-      if (!options.execute){
-        options.execute = {};
-      }
-      options.execute.act = true;
+      console.warn(WARNING_MESSAGE);
+      setValue(options, 'execute.act', true);
     }
 
-    if(mainOptions['act-rules'].length === 1){
-      if(await fileExists(mainOptions['act-rules'][0])){
+    if (mainOptions['act-rules'].length === 1) {
+      if (await fileExists(mainOptions['act-rules'][0])) {
         const rules = await readJsonFile(mainOptions['act-rules'][0]);
         options['act-rules'].rules = clone(rules['act-rules'].rules);
       } else {
@@ -29,41 +39,47 @@ async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions
       options['act-rules'].rules = clone(mainOptions['act-rules']);
     }
 
-    validateACT(options['act-rules'].rules!);
+    validateACT(options['act-rules'].rules);
   }
+}
 
-  if(mainOptions['act-levels']) {
-    if(mainOptions.module && options?.execute?.act  === undefined) {
+async function validateACTLevels(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+  if (mainOptions['act-levels'] && options['act-rules']) {
+    if (mainOptions.module && options?.execute?.act === undefined) {
       printError('The "--act-levels" option doesn\'t match any of the modules selected.');
     } else if (!mainOptions.module) {
-      console.log('Warning: Module act has options but is not select. Will be select automatically');
-      if (!options.execute){
+      console.warn(WARNING_MESSAGE);
+      if (!options.execute) {
         options.execute = {};
       }
       options.execute.act = true;
     }
 
     options['act-rules'].levels = clone(mainOptions['act-levels']);
-    validateLevels(options['act-rules'].levels!);
-  }
 
-  if(mainOptions['act-principles']) {
-    if(mainOptions.module && options?.execute?.act  === undefined) {
+    if (options['act-rules'].levels) {
+      validateLevels(options['act-rules'].levels);
+    }
+  }
+}
+
+async function validateACTPrinciples(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+  if (mainOptions['act-principles'] && options['act-rules']) {
+    if (mainOptions.module && options?.execute?.act === undefined) {
       printError('The "--act-principles" option doesn\'t match any of the modules selected.');
     } else if (!mainOptions.module) {
-      console.log('Warning: Module act has options but is not select. Will be select automatically');
-      if (!options.execute){
+      console.warn(WARNING_MESSAGE);
+      if (!options.execute) {
         options.execute = {};
       }
       options.execute.act = true;
     }
 
     options['act-rules'].principles = clone(mainOptions['act-principles']);
-    validatePrinciples(options['act-rules'].principles!);
-  }
 
-  if(Object.keys(options['act-rules']).length === 0){
-    delete options['act-rules'];
+    if (options['act-rules'].principles) {
+      validatePrinciples(options['act-rules'].principles);
+    }
   }
 }
 

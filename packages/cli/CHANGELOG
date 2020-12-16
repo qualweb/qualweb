@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0] - 16/12/2020
+
+### Updated
+ - compatibility with wcag-techniques module
+ - dependencies
+
 ## [0.3.39] - 12/10/2020
 
 ### Updated

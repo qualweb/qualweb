@@ -2,23 +2,23 @@ import { optionList, reports, modules } from './options';
 import { readJsonFile } from './fileUtils';
 import { printHelp, printError } from './parserUtils';
 import parseACT from './actParser';
-import parseHTML from './htmlParser';
-import parseCSS from './cssParser';
+import parseWCAG from './wcagParser';
 import parseBP from './bpParser';
 
 import commandLineArgs, { CommandLineOptions } from 'command-line-args';
 import { QualwebOptions } from '@qualweb/core';
+import setValue from 'set-value';
 
 async function parse(): Promise<QualwebOptions> {
   let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
   const options: QualwebOptions = {};
 
-  if(mainOptions._unknown) {
+  if (mainOptions._unknown) {
     printHelp();
   }
 
-  if (mainOptions.json){
-    mainOptions = <CommandLineOptions> await readJsonFile(mainOptions['json']);
+  if (mainOptions.json) {
+    mainOptions = <CommandLineOptions>await readJsonFile(mainOptions['json']);
   }
 
   if (mainOptions.url) {
@@ -33,24 +33,21 @@ async function parse(): Promise<QualwebOptions> {
     options.crawl = mainOptions.crawl;
   }
 
-  if(mainOptions.module){
+  if (mainOptions.module) {
     options.execute = {};
     const modulesToExecute = mainOptions.module;
 
-    for(const module of modulesToExecute || []){
-      if(!modules.includes(module.replace(',','').trim())){
-        printError('Module ' + module.replace(',','').trim() + ' does not exist.');
+    for (const module of modulesToExecute || []) {
+      if (!modules.includes(module.replace(',', '').trim())) {
+        printError('Module ' + module.replace(',', '').trim() + ' does not exist.');
       } else {
-        const mod = module.replace(',','').trim();
+        const mod = module.replace(',', '').trim();
         switch (mod) {
           case 'act':
             options.execute.act = true;
             break;
           case 'html':
-            options.execute.html = true;
-            break;
-          case 'css':
-            options.execute.css = true;
+            options.execute.wcag = true;
             break;
           case 'bp':
             options.execute.bp = true;
@@ -58,7 +55,7 @@ async function parse(): Promise<QualwebOptions> {
           case 'wappalyzer':
             options.execute.wappalyzer = true;
             break;
-          
+
           default:
             printError('Module ' + mod + ' does not exist.');
             break;
@@ -71,7 +68,8 @@ async function parse(): Promise<QualwebOptions> {
     options.viewport = {
       mobile: false,
       landscape: true,
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0', default value for mobile = 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0', default value for mobile = 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
       resolution: {
         width: 1920,
         height: 1080
@@ -83,7 +81,7 @@ async function parse(): Promise<QualwebOptions> {
     }
 
     if (mainOptions.orientation) {
-      options.viewport.landscape = !(mainOptions.orientation === 'portrait');
+      options.viewport.landscape = mainOptions.orientation !== 'portrait';
     }
 
     if (mainOptions['user-agent']) {
@@ -91,23 +89,25 @@ async function parse(): Promise<QualwebOptions> {
     }
 
     if (mainOptions.width) {
-      options.viewport.resolution!.width = mainOptions.width;
+      setValue(options, 'viewport.resolution.width', mainOptions.width);
     }
 
     if (mainOptions.height) {
-      options.viewport.resolution!.height = mainOptions.height;
+      setValue(options, 'viewport.resolution.height', mainOptions.height);
     }
   }
 
-  if(mainOptions.maxParallelEvaluations) {
+  if (mainOptions.maxParallelEvaluations) {
     options.maxParallelEvaluations = mainOptions.maxParallelEvaluations;
   }
 
-  if(mainOptions['report-type']) {
-    options['r'] = mainOptions['report-type'];
+  const reportType = 'report-type';
 
-    if(!reports.includes(options['r']!)){
-      printError('Wrong report type selected.')
+  if (mainOptions[reportType]) {
+    options['r'] = mainOptions[reportType];
+
+    if (!reports.includes(mainOptions[reportType])) {
+      printError('Wrong report type selected.');
     }
   }
 
@@ -118,16 +118,10 @@ async function parse(): Promise<QualwebOptions> {
   await parseACT(mainOptions, options);
 
   //////////////////////////////////////////////////////////////////////////////////
-  // HTML //////////////////////////////////////////////////////////////////////////
+  // WCAG //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
 
-  await parseHTML(mainOptions, options);
-
-  //////////////////////////////////////////////////////////////////////////////////
-  // CSS ///////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////
-
-  await parseCSS(mainOptions, options);
+  await parseWCAG(mainOptions, options);
 
   //////////////////////////////////////////////////////////////////////////////////
   // BP ////////////////////////////////////////////////////////////////////////////
@@ -142,7 +136,7 @@ async function parse(): Promise<QualwebOptions> {
   if (mainOptions.help) {
     printHelp();
   }
-  
+
   return options;
 }
 

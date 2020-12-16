@@ -1,4 +1,4 @@
-import { QualWeb, generateEarlReport } from '@qualweb/core';
+import { QualWeb, generateEarlReport, EvaluationReport, QualwebOptions } from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
 import parse from './lib/parser';
@@ -9,48 +9,15 @@ async function cli(): Promise<void> {
   try {
     const options = await parse();
 
-    const reportType = options['r'];
-    const saveName = options['save-name'];
-    delete options['r'];
-    delete options['save-name'];
-
     const qualweb = new QualWeb();
 
     await qualweb.start();
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
-    
-    if (reportType) {
-      if (reportType === 'earl') {
-        const earlReports = await generateEarlReport(reports);
-        for (const url in earlReports || {}) {
-          await saveReport(url, earlReports[url]);
-        }
-      } else if (reportType === 'earl-a') {
-        const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
-        if (options.execute) {
-          earlOptions.modules = {};
-          earlOptions.modules.act = !!options?.execute?.act;
-          earlOptions.modules.html = !!options?.execute?.html;
-          earlOptions.modules.css = !!options?.execute?.css;
-          earlOptions.modules['best-practices'] = !!options?.execute?.bp;
-        }
 
-        const earlReport = await generateEarlReport(reports, earlOptions);
-        const name = Object.keys(earlReport)[0];
-        await saveReport(name, earlReport[name], !!saveName);
-      } else {
-        throw new Error('Invalid reporter format');
-      }
-    } else {
-      for (const url in reports || {}) {
-        const report = <any> reports[url];
-        delete report.system.page.dom.source.html.parsed;
-        await saveReport(url, report);
-      }
-    }
+    await handleReporting(reports, options);
   } catch (err) {
-    if(err?.message === 'Invalid input method'){
+    if (err?.message === 'Invalid input method') {
       printHelp();
     } else {
       console.error(err);
@@ -58,6 +25,48 @@ async function cli(): Promise<void> {
   }
 
   process.exit(0);
+}
+
+async function handleReporting(reports: { [url: string]: EvaluationReport }, options: QualwebOptions): Promise<void> {
+  const reportType = options['r'];
+  const saveName = options['save-name'];
+  delete options['r'];
+  delete options['save-name'];
+
+  if (reportType) {
+    if (reportType === 'earl') {
+      const earlReports = await generateEarlReport(reports);
+      for (const url in earlReports || {}) {
+        await saveReport(url, earlReports[url]);
+      }
+    } else if (reportType === 'earl-a') {
+      const earlOptions = checkEarlOptions(options, saveName);
+
+      const earlReport = await generateEarlReport(reports, earlOptions);
+      const name = Object.keys(earlReport)[0];
+      await saveReport(name, earlReport[name], !!saveName);
+    } else {
+      throw new Error('Invalid reporter format');
+    }
+  } else {
+    for (const url in reports || {}) {
+      const report = <EvaluationReport>reports[url];
+      delete report.system.page.dom.source.html.parsed;
+      await saveReport(url, report);
+    }
+  }
+}
+
+function checkEarlOptions(options: QualwebOptions, saveName: string | undefined): EarlOptions {
+  const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
+  if (options.execute) {
+    earlOptions.modules = {};
+    earlOptions.modules.act = !!options?.execute?.act;
+    earlOptions.modules.wcag = !!options?.execute?.wcag;
+    earlOptions.modules['best-practices'] = !!options?.execute?.bp;
+  }
+
+  return earlOptions;
 }
 
 export = cli;

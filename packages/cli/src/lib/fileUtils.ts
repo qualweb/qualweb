@@ -5,15 +5,13 @@ import fs from 'fs';
 function writeFile(file: string, data: string): Promise<void> {
   return new Promise((resolve, reject) => {
     fs.writeFile(file, data, (err) => {
-      if (err)
-        reject(err);
-      else
-        resolve();
-    })
+      if (err) reject(err);
+      else resolve();
+    });
   });
 }
 
-async function saveReport(name: string, report: EvaluationReport | EarlReport, overrideName: boolean = false): Promise<void> {
+async function saveReport(name: string, report: EvaluationReport | EarlReport, overrideName = false): Promise<void> {
   const path = process.cwd();
   const filename = overrideName ? name : `${encodeURIComponent(name)}_${new Date().getTime()}.json`;
 
@@ -23,28 +21,22 @@ async function saveReport(name: string, report: EvaluationReport | EarlReport, o
 function readJsonFile(filePath: string): Promise<any> {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
-      if (err) 
-        reject(err);
-      else
-        resolve(JSON.parse(data.toString()));
+      if (err) reject(err);
+      else resolve(JSON.parse(data.toString()));
     });
   });
 }
 
 function fileExists(filePath: string): Promise<boolean> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
-      fs.exists(filePath, (exists) => {
-        resolve(exists);
+      fs.access(filePath, () => {
+        resolve(true);
       });
-    } catch(err) {
-      reject(err);
+    } catch (err) {
+      resolve(false);
     }
   });
 }
 
-export {
-  readJsonFile,
-  saveReport,
-  fileExists
-};
+export { readJsonFile, saveReport, fileExists };

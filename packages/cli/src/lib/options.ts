@@ -1,21 +1,68 @@
 import actRulesJson from './act-rules.options.json';
 
-const header =
-` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
+const header = ` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
 |     |  |  |  _  |  |  | | | |   __| __  |  |     |  |  |     |
 |  |  |  |  |     |  |__| | | |   __| __ -|  |   --|  |__|-   -|
 |__  _|_____|__|__|_____|_____|_____|_____|  |_____|_____|_____|
-   |__|                                                         `
+   |__|                                                         `;
 
 const strings = {};
 const modules = ['act', 'html', 'css', 'bp', 'wappalyzer'];
-const reports = ['earl', 'earl-a']
+const reports = ['earl', 'earl-a'];
 const actRules = [...actRulesJson.qualweb_id, ...actRulesJson.act_id];
-const htmlTechniques = ['QW-HTML-T1', 'QW-HTML-T2', 'QW-HTML-T3', 'QW-HTML-T4', 'QW-HTML-T5', 'QW-HTML-T6', 'QW-HTML-T7', 'QW-HTML-T8', 'QW-HTML-T9', 'QW-HTML-T10', 'QW-HTML-T11', 'QW-HTML-T12', 'QW-HTML-T13', 'QW-HTML-T14', 'QW-HTML-T15', 'QW-HTML-T16', 'QW-HTML-T17', 'QW-HTML-T18', 'QW-HTML-T19', 'QW-HTML-T20', 'QW-HTML-T21', 'QW-HTML-T22', 'QW-HTML-T23', 'QW-HTML-T24', 'QW-HTML-T25', 'QW-HTML-T26', 'QW-HTML-T27', 'QW-HTML-T28', 'QW-HTML-T29', 'QW-HTML-T30', 'QW-HTML-T31', 'QW-HTML-T32', 'QW-HTML-T33', 'QW-HTML-T34', 'QW-HTML-T35', 'QW-HTML-T36', 'QW-HTML-T37', 'QW-HTML-T38', 'QW-HTML-T39', 'QW-HTML-T40', 'QW-HTML-T41', 'QW-HTML-T42', 'QW-HTML-T43'];
-const cssTechniques = ['QW-CSS-T1', 'QW-CSS-T2', 'QW-CSS-T5', 'QW-CSS-T6', 'QW-CSS-T7'];
-const bps = ['QW-BP1', 'QW-BP2', 'QW-BP3', 'QW-BP4', 'QW-BP5', 'QW-BP6', 'QW-BP7', 'QW-BP8', 'QW-BP9', 'QW-BP10', 'QW-BP11', 'QW-BP12', 'QW-BP13', 'QW-BP15', 'QW-BP16'];
+const wcagTechniques = [
+  'QW-WCAG-T1',
+  'QW-WCAG-T2',
+  'QW-WCAG-T3',
+  'QW-WCAG-T4',
+  'QW-WCAG-T5',
+  'QW-WCAG-T6',
+  'QW-WCAG-T7',
+  'QW-WCAG-T8',
+  'QW-WCAG-T9',
+  'QW-WCAG-T10',
+  'QW-WCAG-T11',
+  'QW-WCAG-T12',
+  'QW-WCAG-T13',
+  'QW-WCAG-T14',
+  'QW-WCAG-T15',
+  'QW-WCAG-T16',
+  'QW-WCAG-T17',
+  'QW-WCAG-T18',
+  'QW-WCAG-T19',
+  'QW-WCAG-T20',
+  'QW-WCAG-T21',
+  'QW-WCAG-T22',
+  'QW-WCAG-T23',
+  'QW-WCAG-T24',
+  'QW-WCAG-T25',
+  'QW-WCAG-T26',
+  'QW-WCAG-T27',
+  'QW-WCAG-T28',
+  'QW-WCAG-T29',
+  'QW-WCAG-T30',
+  'QW-WCAG-T31',
+  'QW-WCAG-T32'
+];
+const bps = [
+  'QW-BP1',
+  'QW-BP2',
+  'QW-BP4',
+  'QW-BP5',
+  'QW-BP6',
+  'QW-BP7',
+  'QW-BP8',
+  'QW-BP9',
+  'QW-BP10',
+  'QW-BP11',
+  'QW-BP12',
+  'QW-BP13',
+  'QW-BP15',
+  'QW-BP17',
+  'QW-BP18'
+];
 const levels = ['A', 'AA', 'AAA'];
-const principles = ['Perceivable', 'Operable', 'Understandable', 'Robust']
+const principles = ['Perceivable', 'Operable', 'Understandable', 'Robust'];
 const viewport = [
   {
     name: 'viewport',
@@ -54,7 +101,8 @@ const viewport = [
 const moduleFilters = [
   {
     name: 'act-rules',
-    typeLabel: '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R'+ actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
+    typeLabel:
+      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
     type: String,
     multiple: true,
     description: 'Choose which ACT rules to execute.'
@@ -64,60 +112,39 @@ const moduleFilters = [
     typeLabel: '[ ' + levels.join(' | ') + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
+    description: 'Choose which conform levels to evaluate for the act rules only. Can be multiple.'
   },
   {
     name: 'act-principles',
     typeLabel: '[ ' + principles.join(' | ') + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
+    description: 'Choose which principles to evaluate for the act rules only. Can be multiple.'
   },
   {
-    name: 'html-techniques',
-    typeLabel: '{underline file-path} or [ QW-HTML-T1 ... QW-HTML-T'+htmlTechniques.length + ' ]',
+    name: 'wcag-techniques',
+    typeLabel: '{underline file-path} or [ QW-WCAG-T1 ... QW-WCAG-T' + wcagTechniques.length + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which html technique to execute. Can be multiple.'
+    description: 'Choose which wcag techniques to execute. Can be multiple.'
   },
   {
-    name: 'html-levels',
+    name: 'wcag-levels',
     typeLabel: '[ ' + levels.join(' | ') + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
+    description: 'Choose which conform levels to evaluate for the wcag techniques only. Can be multiple.'
   },
   {
-    name: 'html-principles',
+    name: 'wcag-principles',
     typeLabel: '[ ' + principles.join(' | ') + ' ]',
     type: String,
     multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
-  },
-  {
-    name: 'css-techniques',
-    typeLabel: '{underline file-path} or [ QW-CSS-T1 ... QW-CSS-T'+cssTechniques.length + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which css technique to execute. Can be multiple.'
-  },
-  {
-    name: 'css-levels',
-    typeLabel: '[ ' + levels.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which conform levels to evaluate. Can be multiple.'
-  },
-  {
-    name: 'css-principles',
-    typeLabel: '[ ' + principles.join(' | ') + ' ]',
-    type: String,
-    multiple: true,
-    description: 'Choose which principles to evaluate. Can be multiple.'
+    description: 'Choose which principles to evaluate for the wcag techniques only. Can be multiple.'
   },
   {
     name: 'best-practices',
-    typeLabel: '{underline file-path} or [ QW-BP1 ... QW-BP'+bps.length + ' ]',
+    typeLabel: '{underline file-path} or [ QW-BP1 ... QW-BP' + bps.length + ' ]',
     type: String,
     multiple: true,
     description: 'Choose which best-practices to execute. Can be multiple.'
@@ -187,7 +214,7 @@ const options = [
     description: 'Print this usage guide.',
     type: Boolean
   }
-]
+];
 const sections = [
   {
     content: header,
@@ -203,8 +230,7 @@ const sections = [
       '$ qw [OPTION] ...',
       '$ qw [OPTION] ... [-r] ...',
       '$ qw [-m] act [-act-rules | -act-levels | -act-principles] ...',
-      '$ qw [-m] html [-html-techniques | -html-levels | -html-principles] ...',
-      '$ qw [-m] css [-css-techniques | -css-levels | -css-principles] ...',
+      '$ qw [-m] wcag [-wcag-techniques | -wcag-levels | -wcag-principles] ...',
       '$ qw [-m] bp [-best-practices] ...'
     ]
   },
@@ -220,20 +246,8 @@ const sections = [
     header: 'Module Filters',
     optionList: moduleFilters
   }
-]
+];
 
 const optionList = [...options, ...viewport, ...moduleFilters];
 
-export {
-  optionList,
-  sections,
-  strings,
-  actRules,
-  htmlTechniques,
-  cssTechniques,
-  bps,
-  reports,
-  levels,
-  principles,
-  modules
-};
+export { optionList, sections, strings, actRules, wcagTechniques, bps, reports, levels, principles, modules };
