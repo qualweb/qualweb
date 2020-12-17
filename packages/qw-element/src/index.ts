@@ -359,7 +359,7 @@ class QWElement {
     for (const child of children || []) {
       textContent = child.textContent
       if (child.nodeType === 3 && !!textContent && textContent.trim() !== '')
-        result = result + + textContent.trim();
+        result = result + textContent.trim();
     }
 
     if (!result) {
