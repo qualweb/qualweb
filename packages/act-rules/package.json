@@ -71,6 +71,7 @@
     "test:r61": "mocha --require esm test/rules/QW-ACT-R61.spec.js",
     "test:r62": "mocha --require esm test/rules/QW-ACT-R62.spec.js",
     "test:r66": "mocha --require esm test/rules/QW-ACT-R66.spec.js",
+    "test:r67": "mocha --require esm test/rules/QW-ACT-R67.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
     "build": "npm run compile:rules && npm run clean && tsc --build && webpack --mode development",

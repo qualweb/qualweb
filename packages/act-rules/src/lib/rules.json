@@ -1416,7 +1416,7 @@
     "description": "This rule checks that each element with a menuitem role has a non-empty accessible name.",
     "metadata": {
       "target": {
-        "element": "*[role='heading']"
+        "element": "*[role='menuitem']"
       },
       "success-criteria": [
         {
@@ -1428,6 +1428,27 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/m6b1q3"
+    }
+  },
+  "QW_ACT_R67": {
+    "name": "Letter spacing in style attributes is not !important",
+    "code": "QW-ACT-R67",
+    "mapping": "24afc2",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting letter-spacing by using !important, except if it's at least 0.12 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/24afc2"
     }
   }
 }
