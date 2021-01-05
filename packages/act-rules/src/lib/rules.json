@@ -18,13 +18,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/2779a5",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R2": {
@@ -47,13 +42,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/b5c3f8",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R3": {
@@ -64,10 +54,7 @@
     "metadata": {
       "target": {
         "element": "html",
-        "attributes": [
-          "lang",
-          "xml:lang"
-        ]
+        "attributes": ["lang", "xml:lang"]
       },
       "success-criteria": [
         {
@@ -79,13 +66,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/5b7ae0",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R4": {
@@ -117,16 +99,9 @@
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
         }
       ],
-      "related": [
-        "H76",
-        "F40",
-        "F41"
-      ],
+      "related": ["H76", "F40", "F41"],
       "url": "https://act-rules.github.io/rules/bc659a",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ]
+      "type": ["ACTRule", "TestCase"]
     }
   },
   "QW_ACT_R5": {
@@ -137,9 +112,7 @@
     "metadata": {
       "target": {
         "element": "html",
-        "attributes": [
-          "lang"
-        ]
+        "attributes": ["lang"]
       },
       "success-criteria": [
         {
@@ -151,13 +124,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/bf051a",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R6": {
@@ -168,9 +136,7 @@
     "metadata": {
       "target": {
         "element": "input",
-        "attributes": [
-          "type='image'"
-        ]
+        "attributes": ["type='image'"]
       },
       "success-criteria": [
         {
@@ -188,13 +154,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/59796f",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R7": {
@@ -217,13 +178,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/b33eff",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R8": {
@@ -233,13 +189,8 @@
     "description": "This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.",
     "metadata": {
       "target": {
-        "element": [
-          "img",
-          "input[type='image']"
-        ],
-        "attributes": [
-          "src"
-        ]
+        "element": ["img", "input[type='image']"],
+        "attributes": ["src"]
       },
       "success-criteria": [
         {
@@ -251,13 +202,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/9eb3f6",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R9": {
@@ -279,13 +225,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/b20e66",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R10": {
@@ -296,9 +237,7 @@
     "metadata": {
       "target": {
         "element": "iframe",
-        "attributes": [
-          "src"
-        ]
+        "attributes": ["src"]
       },
       "success-criteria": [
         {
@@ -310,13 +249,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/4b1c6c",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R11": {
@@ -326,14 +260,8 @@
     "description": "This rule checks that each button element has an accessible name.",
     "metadata": {
       "target": {
-        "element": [
-          "button",
-          "input",
-          "summary"
-        ],
-        "attributes": [
-          "role='button'"
-        ]
+        "element": ["button", "input", "summary"],
+        "attributes": ["role='button'"]
       },
       "success-criteria": [
         {
@@ -345,13 +273,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/97a4e1",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R12": {
@@ -361,13 +284,8 @@
     "description": "This rule checks that each link has an accessible name.",
     "metadata": {
       "target": {
-        "element": [
-          "a[href]",
-          "area[href]"
-        ],
-        "attributes": [
-          "role='link'"
-        ]
+        "element": ["a[href]", "area[href]"],
+        "attributes": ["role='link'"]
       },
       "success-criteria": [
         {
@@ -391,13 +309,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/c487ae",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R13": {
@@ -408,9 +321,7 @@
     "metadata": {
       "target": {
         "element": "*",
-        "attributes": [
-          "aria-hidden='true'"
-        ]
+        "attributes": ["aria-hidden='true'"]
       },
       "success-criteria": [
         {
@@ -428,13 +339,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/6cfa84",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R14": {
@@ -457,13 +363,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/b4f0c3",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R15": {
@@ -473,10 +374,7 @@
     "description": "This rule checks that auto-play audio does not last for more than 3 seconds, or the audio has a control mechanism to stop or mute it.",
     "metadata": {
       "target": {
-        "element": [
-          "audio",
-          "video"
-        ]
+        "element": ["audio", "video"]
       },
       "success-criteria": [
         {
@@ -488,13 +386,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/80f0bf",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R16": {
@@ -504,12 +397,7 @@
     "description": "Form control has accessible name",
     "metadata": {
       "target": {
-        "element": [
-          "input",
-          "select",
-          "textarea",
-          "*[role]"
-        ]
+        "element": ["input", "select", "textarea", "*[role]"]
       },
       "success-criteria": [
         {
@@ -527,13 +415,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/e086e5",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R17": {
@@ -548,13 +431,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/23a2a8",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R18": {
@@ -576,13 +454,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/3ea0c8",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R19": {
@@ -610,13 +483,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/cae760",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R20": {
@@ -627,9 +495,7 @@
     "metadata": {
       "target": {
         "element": "*",
-        "attributes": [
-          "role"
-        ]
+        "attributes": ["role"]
       },
       "success-criteria": [
         {
@@ -641,13 +507,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/674b10",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R21": {
@@ -669,13 +530,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/7d6734",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R22": {
@@ -686,9 +542,7 @@
     "metadata": {
       "target": {
         "element": "body *",
-        "attribute": [
-          "lang"
-        ]
+        "attribute": ["lang"]
       },
       "success-criteria": [
         {
@@ -700,13 +554,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/de46e4",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R23": {
@@ -728,13 +577,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/c5a4ea",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R24": {
@@ -756,13 +600,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/73f2c2",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R25": {
@@ -791,13 +630,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/5c01ea",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R26": {
@@ -819,13 +653,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/eac66b",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R27": {
@@ -848,13 +677,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/5f99a7",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R28": {
@@ -877,13 +701,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/4e8ab6",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R29": {
@@ -906,13 +725,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/e7aa44",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R30": {
@@ -934,13 +748,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/2ee8b8",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R31": {
@@ -962,13 +771,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/c3232f",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R32": {
@@ -990,13 +794,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/1ec09b",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R33": {
@@ -1019,13 +818,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/ff89c9",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R34": {
@@ -1048,13 +842,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/6a7281",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R35": {
@@ -1064,10 +853,7 @@
     "description": "This rule applies to any HTML element with the semantic role of heading that is included in the accessibility tree.",
     "metadata": {
       "target": {
-        "element": [
-          "h1-h6",
-          "*[role='heading']"
-        ]
+        "element": ["h1-h6", "*[role='heading']"]
       },
       "success-criteria": [
         {
@@ -1085,13 +871,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/ffd0e9",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R36": {
@@ -1113,13 +894,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/a25f45",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R37": {
@@ -1129,9 +905,7 @@
     "description": "This rule checks that the highest possible contrast of every text character with its background meets the minimal contrast requirement.",
     "metadata": {
       "target": {
-        "element": [
-          "*"
-        ]
+        "element": ["*"]
       },
       "success-criteria": [
         {
@@ -1147,18 +921,10 @@
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html"
         }
       ],
-      "related": [
-        "G18, G145",
-        "F83"
-      ],
+      "related": ["G18, G145", "F83"],
       "url": "https://act-rules.github.io/rules/afw4f7",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R38": {
@@ -1181,13 +947,8 @@
       ],
       "related": [],
       "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/_rules/aria-required-owned-element-bc4a75.md",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:title"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
     }
   },
   "QW_ACT_R39": {
@@ -1197,11 +958,7 @@
     "description": "This rule checks that each table header has assigned data cells in a table element.",
     "metadata": {
       "target": {
-        "element": [
-          "th",
-          "*[role='columnheader']",
-          "*[role='rowheader']"
-        ]
+        "element": ["th", "*[role='columnheader']", "*[role='rowheader']"]
       },
       "success-criteria": [
         {
@@ -1213,13 +970,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/d0f69e",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R40": {
@@ -1241,10 +993,7 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/59br37",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
+      "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
@@ -1255,12 +1004,7 @@
     "description": "This rule checks that text error messages provided when the user completes a form field with invalid values or using an invalid format, identify the cause of the error or how to fix the error.",
     "metadata": {
       "target": {
-        "element": [
-          "input",
-          "select",
-          "textarea",
-          "*[role]"
-        ]
+        "element": ["input", "select", "textarea", "*[role]"]
       },
       "success-criteria": [
         {
@@ -1272,13 +1016,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/36b590",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R42": {
@@ -1288,9 +1027,7 @@
     "description": "This rule checks that each `object` element has a non-empty accessible name. ",
     "metadata": {
       "target": {
-        "element": [
-          "object"
-        ]
+        "element": ["object"]
       },
       "success-criteria": [
         {
@@ -1302,13 +1039,8 @@
       ],
       "related": [],
       "url": "https://github.com/act-rules/act-rules.github.io/blob/develop/object-has-acessible-name-8fc3b6.md",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R43": {
@@ -1330,10 +1062,7 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/0ssw9k",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
+      "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
@@ -1356,13 +1085,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/fd3a94",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R45": {
@@ -1384,13 +1108,8 @@
       ],
       "related": [],
       "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R46": {
@@ -1412,13 +1131,8 @@
       ],
       "related": [],
       "url": "https://github.com/act-rules/act-rules.github.io/blob/23ac4d54c128cb098800e2206c4618c2b66ef7d5/_rules/lists-follow-content-model-a73be2.md",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R47": {
@@ -1441,13 +1155,8 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/b8bb68",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R48": {
@@ -1457,18 +1166,13 @@
     "description": "This rule checks that elements marked as decorative either are not included in the accessibility tree, or have a presentational role.",
     "metadata": {
       "target": {
-        "element": "[role='presentation'],[role='none'],[alt='']",
+        "element": "[role='presentation'],[role='none'],[alt='']"
       },
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/46ca7f",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R49": {
@@ -1483,13 +1187,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/aaa1bf",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R50": {
@@ -1504,13 +1203,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/4c31df",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R51": {
@@ -1525,13 +1219,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/fd26cf",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R52": {
@@ -1546,13 +1235,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/ac7dc6",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R53": {
@@ -1567,13 +1251,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/ee13b5",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R54": {
@@ -1588,13 +1267,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/d7ba54",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R55": {
@@ -1609,13 +1283,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/1ea59c",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R56": {
@@ -1630,13 +1299,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/ab4d13",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R57": {
@@ -1651,13 +1315,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/f196ce",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R58": {
@@ -1672,13 +1331,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/2eb176",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R59": {
@@ -1693,13 +1347,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/afb423",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R60": {
@@ -1714,13 +1363,8 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/f51b46",
-      "type": [
-        "ACTRule",
-        "TestCase"
-      ],
-      "a11yReq": [
-        "WCAG21:language"
-      ]
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:language"]
     }
   },
   "QW_ACT_R61": {
@@ -1763,6 +1407,27 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/oj04fd"
+    }
+  },
+  "QW_ACT_R66": {
+    "name": "Menuitem has non-empty accessible name",
+    "code": "QW-ACT-R66",
+    "mapping": "m6b1q3",
+    "description": "This rule checks that each element with a menuitem role has a non-empty accessible name.",
+    "metadata": {
+      "target": {
+        "element": "*[role='heading']"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2 ",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/m6b1q3"
     }
   }
 }
