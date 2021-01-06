@@ -92,8 +92,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.24",
-    "@qualweb/types": "^0.4.50",
+    "@qualweb/dom": "^0.1.28",
+    "@qualweb/types": "^0.4.52",
     "@tsconfig/recommended": "^1.0.1",
     "@types/domhandler": "^2.4.1",
     "@types/lodash.clone": "^4.5.6",
@@ -112,8 +112,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.27",
-    "@qualweb/qw-page": "^0.1.31",
+    "@qualweb/qw-element": "^0.1.28",
+    "@qualweb/qw-page": "^0.1.34",
     "@qualweb/util": "^0.3.60",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
