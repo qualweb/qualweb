@@ -63,7 +63,7 @@ class QW_ACT_R68 extends Rule {
     if (endLS === -1) {
       endLS = style.length;
     }
-    return style?.substring(startLS + 15, endLS);
+    return style?.substring(startLS + 12, endLS);
   }
 
   private isImportant(cssValue: any, element: QWElement): boolean {
@@ -75,7 +75,7 @@ class QW_ACT_R68 extends Rule {
     return cssValue.important;
   }
 
-  private isNormal(cssValue: any, element: QWElement) : boolean {
+  private isNormal(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = element.getElementParent();
       if (parent === null) return false;
