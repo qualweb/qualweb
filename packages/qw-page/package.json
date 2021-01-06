@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.1.30",
+  "version": "0.1.34",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
   "types": "./node_modules/@qualweb/types",
@@ -50,6 +50,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.25"
+    "@qualweb/qw-element": "^0.1.28"
   }
 }

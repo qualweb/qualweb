@@ -1,9 +1,29 @@
 # Changelog
 
-## [0.1.30] - 11/11/2020
+## [0.1.33] - 06/01/2021
+
+### Fixed
+ - CSS mapping
+
+## [0.1.33] - 17/12/2020
+
+### Updated
+ - updated dependencies
+
+## [0.1.32] - 11/12/2020
+
+### Updated
+ - bug fix
+
+## [0.1.31] - 11/12/2020
 
 ### Updated
  - dependencies
+
+## [0.1.30] - 05/12/2020
+
+### Fixed
+  - updated dependencies
 
 ## [0.1.29] - 29/10/2020
 
