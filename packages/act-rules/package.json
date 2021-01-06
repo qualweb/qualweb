@@ -70,6 +70,7 @@
     "test:r60": "mocha --require esm test/rules/QW-ACT-R60.spec.js",
     "test:r61": "mocha --require esm test/rules/QW-ACT-R61.spec.js",
     "test:r62": "mocha --require esm test/rules/QW-ACT-R62.spec.js",
+    "test:r65": "mocha --require esm test/rules/QW-ACT-R65.spec.js",
     "test:r66": "mocha --require esm test/rules/QW-ACT-R66.spec.js",
     "clean": "node clean.js",
     "compile:rules": "node compile-rules.js",
@@ -113,7 +114,7 @@
   "dependencies": {
     "@qualweb/qw-element": "^0.1.27",
     "@qualweb/qw-page": "^0.1.31",
-    "@qualweb/util": "^0.3.60",
+    "@qualweb/util": "^0.3.61",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",

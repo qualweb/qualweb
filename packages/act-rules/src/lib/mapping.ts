@@ -41,8 +41,8 @@ export default {
       'ul,ol,dl':["QW-ACT-R46"],
       '*[style]': ['QW-ACT-R47'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
-      '*': ['QW-ACT-R7'],
-      '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66']
+      '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66'],
+      '*': ['QW-ACT-R7','QW-ACT-R65']
     }
   }
 };
