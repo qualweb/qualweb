@@ -41,15 +41,15 @@ describe(`Rule ${rule}`, async function () {
           }, { rules: [rule] });
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
-        //   if (report.assertions[rule].metadata.outcome === test.outcome)
-        //     page.close();
+          if (report.assertions[rule].metadata.outcome === test.outcome)
+            page.close();
         });
       }
     });
 
     describe(`Closing testbench`, async function () {
       it(`closed`, async function () {
-        //await browser.close();
+        await browser.close();
       });
     });
   });
