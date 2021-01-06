@@ -1854,6 +1854,27 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/78fd32"
     }
+  },
+  "QW_ACT_R69": {
+    "name": "Word spacing in style attributes is not !important",
+    "code": "QW-ACT-R69",
+    "mapping": "9e45ec",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting word-spacing by using !important, except if it's at least 0.16 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/9e45ec"
+    }
   }
 
 }
