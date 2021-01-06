@@ -4,7 +4,7 @@ import CSSMapper from './css.mapper';
 import SelectorCalculator from './selectorCalculator.object ';
 
 class QWPage {
-  private cache: Cache;
+  private readonly cache: Cache;
   private readonly document: Document | ShadowRoot;
   private url: string;
   private extraDocuments: Map<string, QWPage>;
@@ -23,7 +23,7 @@ class QWPage {
     const selectorCalculator = new SelectorCalculator(document);
     selectorCalculator.processElementSelector();
 
-    if (!!addCSSRulesToElements) {
+    if (addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
     }
     this.url = this.document.baseURI;
@@ -69,7 +69,7 @@ class QWPage {
     }
   }
   private addIframeAttribute(elements: QWElement[], selector: string): void {
-    for (let element of elements) {
+    for (const element of elements) {
       element.setElementAttribute('_documentSelector', selector);
     }
   }
@@ -117,7 +117,7 @@ class QWPage {
   ): QWElement | null {
     let element: QWElement | null = null;
     let iframeSelector: string | null = null;
-    if (!!specificDocument) {
+    if (specificDocument) {
       iframeSelector = specificDocument.getElementAttribute(
         '_documentSelector'
       );
@@ -158,7 +158,7 @@ class QWPage {
     specificDocument?: QWElement
   ): Array<QWElement> {
     const elements = new Array<QWElement>();
-    if (!!specificDocument) {
+    if (specificDocument) {
       const iframeSelector = specificDocument.getElementAttribute(
         '_documentSelector'
       );
@@ -234,12 +234,12 @@ class QWPage {
 
   public cleanAllElements(): void {
     const html = this.document.querySelector('html');
-    if (!!html) {
+    if (html) {
       html.removeAttribute('_selector');
       html.removeAttribute('_cssRules');
       html.removeAttribute('_documentSelector');
       const children = html.children;
-      if (!!children) this.cleanAllElementsAux([...children]);
+      if (children) this.cleanAllElementsAux([...children]);
     }
   }
 

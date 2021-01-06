@@ -8,6 +8,8 @@
     "tsc": "tsc",
     "test": "mocha --require esm",
     "prebuild": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "npm run prebuild && tsc --build && webpack --mode development",
     "pub": "npm run build && npm publish --access=public"
@@ -31,7 +33,13 @@
   "devDependencies": {
     "@qualweb/types": "^0.4.41",
     "@tsconfig/recommended": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
     "chai": "^4.2.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-sonarjs": "^0.5.0",
     "esm": "^3.2.25",
     "mocha": "^8.0.1",
     "playwright": "^1.5.2",

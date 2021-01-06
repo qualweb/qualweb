@@ -1,20 +1,20 @@
 class Cache {
-  private cache: any;
+  private readonly cache: Map<string, string | undefined>;
 
   constructor() {
-    this.cache = {};
+    this.cache = new Map<string, string | undefined>();
   }
 
   public get(key: string): string | undefined {
-    return this.cache[key];
+    return this.cache.get(key);
   }
 
   public put(key: string, value: string | undefined): void {
-    this.cache[key] = value;
+    this.cache.set(key, value);
   }
 
   public exists(key: string): boolean {
-    return key in this.cache;
+    return this.cache.has(key);
   }
 }
 
