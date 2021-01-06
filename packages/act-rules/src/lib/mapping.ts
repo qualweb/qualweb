@@ -39,7 +39,7 @@ export default {
       'object':["QW-ACT-R42"],
       'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
-      '*[style]': ['QW-ACT-R47','QW-ACT-R67'],
+      '*[style]': ['QW-ACT-R47','QW-ACT-R67','QW-ACT-R68'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
       '*': ['QW-ACT-R7'],
       '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66']

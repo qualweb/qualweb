@@ -1450,5 +1450,26 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/24afc2"
     }
+  },
+  "QW_ACT_R68": {
+    "name": "Line height in style attributes is not !important",
+    "code": "QW-ACT-R68",
+    "mapping": "78fd32",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting line-height by using !important, except if it's at least 1.5 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/78fd32"
+    }
   }
 }
