@@ -52,8 +52,6 @@ class QW_ACT_R69 extends Rule {
       evaluation.resultCode = 'RC5';
       super.addEvaluationResult(evaluation, element, false, false);
     }
-
-    console.log(evaluation.resultCode);
   }
 
   private parseStyle(style: string | null): string {

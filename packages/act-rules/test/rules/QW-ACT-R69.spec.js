@@ -12,7 +12,7 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(100 * 10000);
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const data = await getTestCases();
     let tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
@@ -41,15 +41,15 @@ describe(`Rule ${rule}`, async function () {
           }, { rules: [rule] });
 
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
-          // if (report.assertions[rule].metadata.outcome === test.outcome)
-          //   page.close();
+          if (report.assertions[rule].metadata.outcome === test.outcome)
+            page.close();
         });
       }
     });
 
     describe(`Closing testbench`, async function () {
       it(`closed`, async function () {
-        // await browser.close();
+        await browser.close();
       });
     });
   });
