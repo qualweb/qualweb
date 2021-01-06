@@ -58,6 +58,25 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R46 | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model |
 | QW-ACT-R47 | [b8bb68](https://act-rules.github.io/rules/b8bb68) | Text spacing in `style` attributes is not `!important` |
 | QW-ACT-R48 | [46ca7f](https://act-rules.github.io/rules/46ca7f) | Element marked as decorative is not exposed |
+| QW-ACT-R49 | [aaa1bf](https://act-rules.github.io/rules/aaa1bf) | Audio or video that plays automatically has no audio that lasts more than 3 seconds |
+| QW-ACT-R50 | [4c31df](https://act-rules.github.io/rules/4c31df) | Audio or video that plays automatically has a control mechanism |
+| QW-ACT-R51 | [fd26cf](https://act-rules.github.io/rules/fd26cf) | video element visual-only content is media alternative for text	| 
+| QW-ACT-R52 | [ac7dc6](https://act-rules.github.io/rules/ac7dc6) | video element visual-only content has description track	| 
+| QW-ACT-R53 | [ee13b5](https://act-rules.github.io/rules/ee13b5) | video element visual-only content has transcript |
+| QW-ACT-R54 | [d7ba54](https://act-rules.github.io/rules/d7ba54) | video element visual-only content has audio track alternative	
+| QW-ACT-R55 | [1ea59c](https://act-rules.github.io/rules/1ea59c) | video element visual content has audio description |
+| QW-ACT-R56 | [ab4d13](https://act-rules.github.io/rules/ab4d13) | video element content is media alternative for text	|
+| QW-ACT-R57 | [f196ce](https://act-rules.github.io/rules/f196ce) | video element visual content has description track |
+| QW-ACT-R58 | [2eb176](https://act-rules.github.io/rules/2eb176) | audio element content has transcript |
+| QW-ACT-R59 | [afb423](https://act-rules.github.io/rules/afb423) | audio element content is media alternative for text	|
+| QW-ACT-R60 | [f51b46](https://act-rules.github.io/rules/f51b46) | video element auditory content has captions	|
+| QW-ACT-R61 | [1a02b0](https://act-rules.github.io/rules/1a02b0) | video element visual content has transcript	|
+| QW-ACT-R62 | [oj04fd](https://act-rules.github.io/rules/oj04fd) | Element in sequential focus order has visible focus	|
+| QW-ACT-R65 | [307n5z](https://act-rules.github.io/rules/307n5z) | Element with presentational children has no focusable content |
+| QW-ACT-R66 | [m6b1q3](https://act-rules.github.io/rules/m6b1q3) | Menuitem has non-empty accessible name | 
+| QW-ACT-R67 | [24afc2](https://act-rules.github.io/rules/24afc2) | Letter spacing in style attributes is not !important | 
+| QW-ACT-R68 | [78fd32](https://act-rules.github.io/rules/78fd32) | Line height in style attributes is not !important | 
+| QW-ACT-R69 | [9e45ec](https://act-rules.github.io/rules/9e45ec) | Word spacing in style attributes is not !important | 
 
 # License
 
