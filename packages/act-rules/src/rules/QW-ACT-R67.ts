@@ -30,7 +30,7 @@ class QW_ACT_R67 extends Rule {
 
       if (!this.isImportant(computedRawLetterSpacing, element)) {
         evaluation.verdict = 'passed';
-        evaluation.description = 'The computed letter-spacing property is not !important';
+        evaluation.description = 'The letter-spacing property is not !important';
         evaluation.resultCode = 'RC1';
       } else if (this.isWide(computedLetterSpacing, fontSize)) {
         evaluation.verdict = 'passed';
@@ -69,7 +69,8 @@ class QW_ACT_R67 extends Rule {
   private isImportant(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = element.getElementParent();
-      cssValue = parent?.getCSSProperty('letter-spacing');
+      if (parent === null) return false;
+      return this.isImportant(parent?.getCSSProperty('letter-spacing'), parent);
     }
     return cssValue.important;
   }

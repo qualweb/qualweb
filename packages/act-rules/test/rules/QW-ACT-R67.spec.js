@@ -12,7 +12,7 @@ describe(`Rule ${rule}`, async function () {
 
   it('Starting testbench', async function () {
     this.timeout(100 * 10000);
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const data = await getTestCases();
     let tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
