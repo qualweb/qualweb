@@ -74,6 +74,9 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R62 | [oj04fd](https://act-rules.github.io/rules/oj04fd) | Element in sequential focus order has visible focus	|
 | QW-ACT-R65 | [307n5z](https://act-rules.github.io/rules/307n5z) | Element with presentational children has no focusable content |
 | QW-ACT-R66 | [m6b1q3](https://act-rules.github.io/rules/m6b1q3) | Menuitem has non-empty accessible name | 
+| QW-ACT-R67 | [24afc2](https://act-rules.github.io/rules/24afc2) | Letter spacing in style attributes is not !important | 
+| QW-ACT-R68 | [78fd32](https://act-rules.github.io/rules/78fd32) | Line height in style attributes is not !important | 
+| QW-ACT-R69 | [9e45ec](https://act-rules.github.io/rules/9e45ec) | Word spacing in style attributes is not !important | 
 
 # License
 
