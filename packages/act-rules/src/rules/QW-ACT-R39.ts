@@ -22,6 +22,7 @@ class QW_ACT_R39 extends Rule {
     if (role !== 'columnheader' && role !== 'rowheader') {
       return;
     }
+    const cellRoles = ['cell','gridcell','rowheader','columnheader'];
 
     const evaluation: ACTRuleResult = {
       verdict: '',
@@ -64,7 +65,7 @@ class QW_ACT_R39 extends Rule {
                     const cellIndexElementRole = cellIndexElement ? AccessibilityUtils.getElementRole(cellIndexElement, page) : null;
                     const cellHeadersAttribute = cellIndexElement ? cellIndexElement.getElementAttribute('headers') : null;
                     // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
-                    found = (cellIndexElementRole === 'cell' || cellIndexElementRole === 'gridcell') && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
+                    found =  !!cellIndexElementRole && cellRoles.includes(cellIndexElementRole) && (cellHeadersAttribute ? (headerElementId ? cellHeadersAttribute.includes(headerElementId) : false) : true);
                   }
                 } else {
                   // if there is not an element in the same index as header, we need to check all row children...
@@ -77,7 +78,7 @@ class QW_ACT_R39 extends Rule {
 
                       // and verifying if it has a headers attribute that includes headerElement's id
                       const headers = cellElement.getElementAttribute('headers');
-                      found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (!!headerElementId && !!headers && headers.includes(headerElementId) || (cellColspanAttribute ? cellElementIndex + +cellColspanAttribute - 1 <= headerElementIndex : false));
+                      found =  !!cellElementRole && cellRoles.includes(cellElementRole) && (!!headerElementId && !!headers && headers.includes(headerElementId) || (cellColspanAttribute ? cellElementIndex + +cellColspanAttribute - 1 <= headerElementIndex : false));
                     }
                   }
                 }
@@ -88,7 +89,7 @@ class QW_ACT_R39 extends Rule {
                     const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
                     // and verifying if it has a headers attribute that includes headerElement's id
                     const headers = cellElement.getElementAttribute('headers');
-                    found = (cellElementRole === 'cell' || cellElementRole === 'gridcell') && (!headers || (!!headerElementId && !!headers && headers.includes(headerElementId)));
+                    found =  !!cellElementRole && cellRoles.includes(cellElementRole) && (!headers || (!!headerElementId && !!headers && headers.includes(headerElementId)));
                   }
                 }
 
