@@ -1457,7 +1457,7 @@
     "description": "This rule checks that elements marked as decorative either are not included in the accessibility tree, or have a presentational role.",
     "metadata": {
       "target": {
-        "element": "[role='presentation'],[role='none'],[alt='']",
+        "element": "[role='presentation'],[role='none'],[alt='']"
       },
       "success-criteria": [],
       "related": [],
@@ -1764,5 +1764,117 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/oj04fd"
     }
+  },
+  "QW_ACT_R65": {
+    "name": "Element with presentational children has no focusable content",
+    "code": "QW-ACT-R65",
+    "mapping": "307n5z",
+    "description": "This rule checks that elements with a role that makes its children presentational do not contain focusable elements.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1 ",
+          "level": "A",
+          "principle": "Perceivable§",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        },
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/oj04fd"
+    }
+  },
+  "QW_ACT_R66": {
+    "name": "Menuitem has non-empty accessible name",
+    "code": "QW-ACT-R66",
+    "mapping": "m6b1q3",
+    "description": "This rule checks that each element with a menuitem role has a non-empty accessible name.",
+    "metadata": {
+      "target": {
+        "element": "*[role='menuitem']"
+      },
+      "success-criteria": [
+        {
+          "name": "4.1.2 ",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/m6b1q3"
+    }
+  },
+  "QW_ACT_R67": {
+    "name": "Letter spacing in style attributes is not !important",
+    "code": "QW-ACT-R67",
+    "mapping": "24afc2",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting letter-spacing by using !important, except if it's at least 0.12 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/24afc2"
+    }
+  },
+  "QW_ACT_R68": {
+    "name": "Line height in style attributes is not !important",
+    "code": "QW-ACT-R68",
+    "mapping": "78fd32",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting line-height by using !important, except if it's at least 1.5 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/78fd32"
+    }
+  },
+  "QW_ACT_R69": {
+    "name": "Word spacing in style attributes is not !important",
+    "code": "QW-ACT-R69",
+    "mapping": "9e45ec",
+    "description": "This rule checks that the style attribute is not used to prevent adjusting word-spacing by using !important, except if it's at least 0.16 times the font size.",
+    "metadata": {
+      "target": {
+        "element": "*[style]"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.12 ",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/9e45ec"
+    }
   }
+
 }

@@ -24,7 +24,7 @@ export default {
       'body *[lang]': ['QW-ACT-R22'],
       '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]':[ 'QW-ACT-R38'],
       'body': ['QW-ACT-R62','QW-ACT-R9','QW-ACT-R10', 'QW-ACT-R25', 'QW-ACT-R27', 'QW-ACT-R28', 'QW-ACT-R34','QW-ACT-R44'],
-     'input, select, textarea, [role]': ['QW-ACT-R16','QW-ACT-R41'],
+      'input, select, textarea, [role]': ['QW-ACT-R16','QW-ACT-R41'],
       '[role]': ['QW-ACT-R20','QW-ACT-R33'],
       'img, [role="img"]':  ['QW-ACT-R17'],
       'iframe': ['QW-ACT-R19'],
@@ -37,11 +37,12 @@ export default {
       '[headers]': ['QW-ACT-R36'],
       'th,[role="rowheader"],[role="columnheader"]': ['QW-ACT-R39'],
       'object':["QW-ACT-R42"],
-      'li,dd,dt':["QW-ACT-R45"],
+      //'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
-      '*[style]': ['QW-ACT-R47'],
+      '*[style]': ['QW-ACT-R47','QW-ACT-R67','QW-ACT-R68','QW-ACT-R69'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
-      '*': ['QW-ACT-R7']
+      '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66'],
+      '*': ['QW-ACT-R7','QW-ACT-R65']
     }
   }
 };
