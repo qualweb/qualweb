@@ -23,7 +23,7 @@ class QW_ACT_R10 extends Rule {
 
     // add iframe contents
     for (const link of iframes || []) {
-      console.log(AccessibilityUtils.isElementInAT(link,page));
+      //console.log(AccessibilityUtils.isElementInAT(link,page));
       if (AccessibilityUtils.isElementInAT(link,page)) {
         const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
@@ -31,7 +31,7 @@ class QW_ACT_R10 extends Rule {
         }
       }
     }
-    console.log(accessibleNames);
+    //console.log(accessibleNames);
 
     let counter = 0;
     const blacklist = new Array<number>();

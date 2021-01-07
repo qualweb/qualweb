@@ -58,7 +58,7 @@ class QW_ACT_R30 extends Rule {
         }
       }
     }
-    console.log( evaluation.resultCode)
+    //console.log( evaluation.resultCode)
 
     super.addEvaluationResult(evaluation, element,true,false,true,page);
 
