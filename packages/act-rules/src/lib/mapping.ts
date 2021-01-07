@@ -37,9 +37,9 @@ export default {
       '[headers]': ['QW-ACT-R36'],
       'th,[role="rowheader"],[role="columnheader"]': ['QW-ACT-R39'],
       'object':["QW-ACT-R42"],
-      'li,dd,dt':["QW-ACT-R45"],
+      //'li,dd,dt':["QW-ACT-R45"],
       'ul,ol,dl':["QW-ACT-R46"],
-      '*[style]': ['QW-ACT-R47','QW-ACT-R67','QW-ACT-R68'],
+      '*[style]': ['QW-ACT-R47','QW-ACT-R67','QW-ACT-R68','QW-ACT-R69'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
       '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66'],
       '*': ['QW-ACT-R7','QW-ACT-R65']

@@ -1,14 +1,27 @@
 # Changelog
 
+## [0.4.38] - 06/01/2021
+### Updated
+ - dependencies
+### Added
+ACT-R65 - Element with presentational children has no focusable content
+ACT-R66 - Menuitem has non-empty accessible name
+ACT-R67 - Letter spacing in style attributes is not !important
+ACT-R68 - Line height in style attributes is not !important
+ACT-R69 - Word spacing in style attributes is not !important
+
 ## [0.4.37] - 13/12/2020
 ###Fixed
     -bug fixes
+
 ## [0.4.36] - 05/12/2020
 ### Updated
  - dependencies
+
 ## [0.4.35] - 10/11/2020
 ### Added
 ACT-R62 - Element in sequential focus order has visible focus
+
 ## [0.4.34] - 10/11/2020
 ### Fixed
  - type definitions
