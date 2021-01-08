@@ -1,8 +1,18 @@
 # Changelog
 
+## [0.4.39] - 08/01/2021
+### Updated
+ - dependencies
+ - webpack config
+ - rules tests
+
+### Removed
+ - QW-ACT-R47
+
 ## [0.4.38] - 06/01/2021
 ### Updated
  - dependencies
+
 ### Added
 ACT-R65 - Element with presentational children has no focusable content
 ACT-R66 - Menuitem has non-empty accessible name
