@@ -4,7 +4,7 @@ import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import languages from './language.json';
 import cloneDeep from 'lodash.clonedeep';
 
-function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
   //@ts-ignore
   const rule = rules[constructor.name];
 
@@ -16,12 +16,13 @@ function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T)
   rule.results = new Array<ACTRuleResult>();
 
   const newConstructor: any = function () {
+    console.log(cloneDeep(rule));
     let func: any = function () {
       return new constructor(cloneDeep(rule));
-    }
+    };
     func.prototype = constructor.prototype;
     return new func();
-  }
+  };
   newConstructor.prototype = constructor.prototype;
   return newConstructor;
 }
@@ -85,7 +86,7 @@ function ElementHasAttributeValue(attribute: string, value: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = function () {
-      const attr = arguments[0].getElementAttribute(attribute);// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+      const attr = arguments[0].getElementAttribute(attribute); // AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
       if (attr && attr === value) {
         return method.apply(this, arguments);
       }
@@ -99,7 +100,7 @@ function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string)
     descriptor.value = function () {
       const _tagName = arguments[0].getElementTagName();
       if (_tagName === tagName) {
-        const _role = arguments[0].getElementAttribute('role');// AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
+        const _role = arguments[0].getElementAttribute('role'); // AccessibilityUtils.getElementRole(arguments[0], arguments[1]);
         if (!_role || _role === role) {
           return method.apply(this, arguments);
         }
@@ -130,30 +131,33 @@ function ElementNotHidden(_target: any, _propertyKey: string, descriptor: Proper
   };
 }
 
-
-function ElementSrcAttributeFilenameEqualsAccessibleName(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+function ElementSrcAttributeFilenameEqualsAccessibleName(
+  _target: any,
+  _propertyKey: string,
+  descriptor: PropertyDescriptor
+) {
   const method = descriptor.value;
   descriptor.value = function () {
     const src = arguments[0].getElementAttribute('src');
     const srcSet = arguments[0].getElementAttribute('srcset');
-    const parent = arguments[0].getElementParent()
+    const parent = arguments[0].getElementParent();
     let filenameWithExtension = new Array<string>();
     if (src) {
       const filePath = src.split('/');
       filenameWithExtension = [filePath[filePath.length - 1].trim().toLowerCase()];
     }
     if (srcSet) {
-      let srcSetElements = srcSet.split(',')
+      let srcSetElements = srcSet.split(',');
       for (const srcsetElement of srcSetElements || []) {
-        const srcValue = srcsetElement.split(" ")[0];
-        const fileSrc = srcValue.split('/')
-        filenameWithExtension.push(fileSrc[fileSrc.length - 1].trim().toLowerCase())
+        const srcValue = srcsetElement.split(' ')[0];
+        const fileSrc = srcValue.split('/');
+        filenameWithExtension.push(fileSrc[fileSrc.length - 1].trim().toLowerCase());
       }
     }
     if (parent) {
       let parentTag = parent.getElementTagName();
-      if (parentTag === "picture") {
-        let sourceElements = parent.getElements("source");
+      if (parentTag === 'picture') {
+        let sourceElements = parent.getElements('source');
         for (let sourceElement of sourceElements) {
           let src = sourceElement.getElementAttribute('srcset');
           if (!!src) {
@@ -161,18 +165,16 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(_target: any, _property
             filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
           }
         }
-
       }
     }
 
     const accessibleName = AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
 
-
     if (accessibleName && filenameWithExtension && filenameWithExtension.includes(accessibleName.toLowerCase())) {
       return method.apply(this, arguments);
     }
-  }
-};
+  };
+}
 
 function isInMainContext(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
@@ -183,7 +185,6 @@ function isInMainContext(_target: any, _propertyKey: string, descriptor: Propert
     }
   };
 }
-
 
 function ElementIsVisible(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
@@ -211,15 +212,13 @@ function IsHTMLDocument(_target: any, _propertyKey: string, descriptor: Property
   const method = descriptor.value;
   descriptor.value = function () {
     let IsNonHTMLDocument = false;
-    let htmlElement = arguments[1].getElement("html");
-    if (htmlElement)
-      IsNonHTMLDocument = htmlElement.getElementAttribute("nonHTMLPage") === "true"
+    let htmlElement = arguments[1].getElement('html');
+    if (htmlElement) IsNonHTMLDocument = htmlElement.getElementAttribute('nonHTMLPage') === 'true';
     if (!IsNonHTMLDocument) {
       return method.apply(this, arguments);
     }
-  }
-};
-
+  };
+}
 
 function IsLangSubTagValid(attribute: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
