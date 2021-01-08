@@ -38,6 +38,7 @@
     "chai": "^4.2.0",
     "css": "^3.0.0",
     "esm": "^3.2.25",
+    "json-minimizer-webpack-plugin": "^2.0.0",
     "mocha": "^8.2.1",
     "node-fetch": "^2.6.1",
     "puppeteer": "^5.5.0",
