@@ -5,7 +5,6 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
 abstract class BestPractice {
-
   private readonly bestPractice: BestPracticeType;
 
   constructor(bestPractice: BestPracticeType) {
@@ -35,7 +34,7 @@ abstract class BestPractice {
   protected addEvaluationResult(result: BestPracticeResult, element?: QWElement): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(true, true);
-      const pointer = element.getElementSelector()
+      const pointer = element.getElementSelector();
       result.htmlCode = htmlCode;
       result.pointer = pointer;
     }
@@ -43,6 +42,7 @@ abstract class BestPractice {
     this.bestPractice.results.push(clone(result));
 
     if (result.verdict !== 'inapplicable') {
+      //@ts-ignore
       this.bestPractice.metadata[result.verdict]++;
     }
   }
@@ -81,7 +81,7 @@ abstract class BestPractice {
   private addDescription(): void {
     for (const result of this.bestPractice.results || []) {
       if (result.verdict === this.bestPractice.metadata.outcome) {
-        this.bestPractice.metadata.description = <string> result.description;
+        this.bestPractice.metadata.description = <string>result.description;
         break;
       }
     }

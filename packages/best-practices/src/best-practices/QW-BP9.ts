@@ -7,7 +7,6 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP9 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
@@ -15,7 +14,6 @@ class QW_BP9 extends BestPracticeObject {
   @ElementExists
   @ElementDoesNotHaveChild('th')
   async execute(element: QWElement | undefined): Promise<void> {
-
     if (!element) {
       return;
     }
@@ -26,10 +24,10 @@ class QW_BP9 extends BestPracticeObject {
       resultCode: ''
     };
 
-    const headers =  element.getElements('th');
+    const headers = element.getElements('th');
 
     if (headers.length === 0) {
-      const caption =  element.getElements('caption');
+      const caption = element.getElements('caption');
 
       if (caption.length !== 0) {
         evaluation.verdict = 'passed';
@@ -45,10 +43,10 @@ class QW_BP9 extends BestPracticeObject {
       evaluation.description = `Table has header cells`;
       evaluation.resultCode = 'RC3';
     }
-    
-    evaluation.htmlCode = element.getElementHtmlCode( true, true);
-    evaluation.pointer =element.getElementSelector();
-    
+
+    evaluation.htmlCode = element.getElementHtmlCode(true, true);
+    evaluation.pointer = element.getElementSelector();
+
     super.addEvaluationResult(evaluation);
   }
 }

@@ -7,8 +7,34 @@ import intersection from 'lodash.intersection';
 
 @BestPractice
 class QW_BP18 extends BestPracticeObject {
-
-  private readonly containers = ['span', 'article', 'section', 'nav', 'aside', 'hgroup', 'header', 'footer', 'address', 'p', 'hr', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'dd', 'dt', 'dl', 'figcaption'];
+  private readonly containers = [
+    'span',
+    'article',
+    'section',
+    'nav',
+    'aside',
+    'hgroup',
+    'header',
+    'footer',
+    'address',
+    'p',
+    'hr',
+    'blockquote',
+    'div',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'li',
+    'ul',
+    'ol',
+    'dd',
+    'dt',
+    'dl',
+    'figcaption'
+  ];
 
   constructor(bestPractice?: any) {
     super(bestPractice);
@@ -16,10 +42,9 @@ class QW_BP18 extends BestPracticeObject {
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     if (element.getElementTagName() === 'style') {
-      const sheet = <any> element.getElementProperty('sheet');
-      
+      const sheet = <any>element.getElementProperty('sheet');
+
       for (const rule of sheet.cssRules || []) {
         if (rule?.style?.cssText?.includes('width:') && this.checkIfCssSelectorIsApplicable(rule, page)) {
           const style = rule?.style?.cssText;
@@ -29,7 +54,7 @@ class QW_BP18 extends BestPracticeObject {
         }
       }
     } else {
-      const style = <string> element.getElementAttribute('style');
+      const style = <string>element.getElementAttribute('style');
       this.checkCssProperty(style, element);
     }
   }
@@ -59,28 +84,29 @@ class QW_BP18 extends BestPracticeObject {
   }
 
   private checkCssProperty(style: string, element: QWElement): void {
-    
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const properties = style.split(';').filter(p => p.trim() !== '') || [style];
-      
+    const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
+
     for (const property of properties || []) {
       if (property.includes('width')) {
         const width = property.split(':')[1];
         const hasImportant = width.includes('!important');
-        
+
         if (hasImportant) {
           if (width.endsWith('%')) {
             evaluation.verdict = 'passed';
-            evaluation.description = 'This test target has a `width` css property using percentage value with the important flag.';
+            evaluation.description =
+              'This test target has a `width` css property using percentage value with the important flag.';
             evaluation.resultCode = 'RC1';
           } else {
             evaluation.verdict = 'failed';
-            evaluation.description = 'This test target has a `width` css property not using percentage value with the important flag.';
+            evaluation.description =
+              'This test target has a `width` css property not using percentage value with the important flag.';
             if (width.endsWith('px')) {
               evaluation.resultCode = 'RC2';
             } else {

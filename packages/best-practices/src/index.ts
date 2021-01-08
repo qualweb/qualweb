@@ -5,16 +5,16 @@ import * as bestPractices from './lib/bestPractices';
 import mapping from './lib/mapping';
 
 class BestPractices {
-
   private bestPractices: any;
   private bestPracticesToExecute: any;
 
   constructor(options?: BPOptions) {
     this.bestPractices = {};
     this.bestPracticesToExecute = {};
-    
-    for(const bp of Object.keys(bestPractices) || []) {
+
+    for (const bp of Object.keys(bestPractices) || []) {
       const _bp = bp.replace(/_/g, '-');
+      // @ts-ignore
       this.bestPractices[_bp] = new bestPractices[bp]();
       this.bestPracticesToExecute[_bp] = true;
     }
@@ -26,9 +26,9 @@ class BestPractices {
 
   public configure(options: BPOptions): void {
     this.resetConfiguration();
-    
+
     if (options.bestPractices) {
-      options.bestPractices = options.bestPractices.map(bp => bp.toUpperCase().trim());
+      options.bestPractices = options.bestPractices.map((bp) => bp.toUpperCase().trim());
       for (const bp of Object.keys(this.bestPractices) || []) {
         this.bestPracticesToExecute[bp] = options.bestPractices.includes(bp);
       }
@@ -50,9 +50,8 @@ class BestPractices {
   }
 
   private executeBP(bestPractice: string, selector: string, page: QWPage, report: BestPracticesReport): void {
-    
     const elements = page.getElements(selector);
-    
+
     if (elements.length > 0) {
       for (const elem of elements || []) {
         this.evaluateElement(bestPractice, elem, page);
@@ -62,12 +61,12 @@ class BestPractices {
     }
 
     report.assertions[bestPractice] = this.bestPractices[bestPractice].getFinalResults();
+    // @ts-ignore
     report.metadata[report.assertions[bestPractice].metadata.outcome]++;
     this.bestPractices[bestPractice].reset();
   }
 
   public execute(page: QWPage): BestPracticesReport {
-
     const report: BestPracticesReport = {
       type: 'best-practices',
       metadata: {
@@ -80,9 +79,10 @@ class BestPractices {
     };
 
     for (const selector of Object.keys(mapping) || []) {
+      // @ts-ignore
       for (const bestPractice of mapping[selector] || []) {
         if (this.bestPracticesToExecute[bestPractice]) {
-          this.executeBP(bestPractice, selector, page, report)
+          this.executeBP(bestPractice, selector, page, report);
         }
       }
     }
@@ -91,6 +91,4 @@ class BestPractices {
   }
 }
 
-export {
-  BestPractices
-};
+export { BestPractices };

@@ -7,14 +7,12 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP6 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   @ElementExists
   execute(element: QWElement | undefined): void {
-
     if (!element) {
       return;
     }
@@ -41,7 +39,7 @@ class QW_BP6 extends BestPracticeObject {
 
     evaluation.htmlCode = element.getElementHtmlCode(true, true);
     evaluation.pointer = element.getElementSelector();
-    
+
     super.addEvaluationResult(evaluation);
   }
 }

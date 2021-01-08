@@ -7,14 +7,12 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP7 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   @ElementExists
   execute(element: QWElement | undefined): void {
-
     if (!element) {
       return;
     }
@@ -25,19 +23,21 @@ class QW_BP7 extends BestPracticeObject {
       resultCode: ''
     };
 
-    let titleValue =  element.getElementText().replace(/\s/g, '');
-    const regExConsecutiveSymbols = new RegExp('[,\\-;!?\'][,\\-;!?\']');
+    const titleValue = element.getElementText().replace(/\s/g, '');
+    const regExConsecutiveSymbols = new RegExp("[,\\-;!?'][,\\-;!?']");
     const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;:!?| ]*$');
-    const regExAllowBracketsWithText = new RegExp(/(\([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\))|(\[[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\])|(\{[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\})|(\"[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\")|(\'[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\')/);
+    const regExAllowBracketsWithText = new RegExp(
+      /(\([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\))|(\[[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\])|(\{[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\})|(\"[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\")|(\'[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\')/
+    );
     const regExConsecutiveDots = new RegExp('^[^.]*(\\.{2}(\\.{2,})?)[^.]*$');
     const regExConsecutiveSpaces = new RegExp('[ ][ ]');
 
     let titleValueWithoutBrackets = titleValue;
     let occurrence;
     let allDone = false;
-    while (regExAllowBracketsWithText.test(titleValueWithoutBrackets) && !allDone){
+    while (regExAllowBracketsWithText.test(titleValueWithoutBrackets) && !allDone) {
       occurrence = regExAllowBracketsWithText.exec(titleValueWithoutBrackets);
-      if(occurrence) {
+      if (occurrence) {
         titleValueWithoutBrackets = titleValueWithoutBrackets.replace(occurrence[0], '');
       } else {
         allDone = true;
@@ -49,7 +49,11 @@ class QW_BP7 extends BestPracticeObject {
       evaluation.description = `The title element contains other symbols than .,;-!?| and ()[]{}"' with text in between`;
       evaluation.resultCode = `RC1`;
     } else {
-      if (regExConsecutiveDots.test(titleValue) || regExConsecutiveSymbols.test(titleValue) || regExConsecutiveSpaces.test(titleValue)) {
+      if (
+        regExConsecutiveDots.test(titleValue) ||
+        regExConsecutiveSymbols.test(titleValue) ||
+        regExConsecutiveSpaces.test(titleValue)
+      ) {
         evaluation.verdict = 'failed';
         evaluation.description = `The title element contains ASCII art`;
         evaluation.resultCode = `RC2`;
@@ -59,7 +63,7 @@ class QW_BP7 extends BestPracticeObject {
         evaluation.resultCode = `RC3`;
       }
     }
-    evaluation.htmlCode = element.getElementHtmlCode( true, true);
+    evaluation.htmlCode = element.getElementHtmlCode(true, true);
     evaluation.pointer = element.getElementSelector();
     super.addEvaluationResult(evaluation);
   }

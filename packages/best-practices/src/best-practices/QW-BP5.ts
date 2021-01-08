@@ -7,13 +7,11 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP5 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   execute(element: QWElement | undefined): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
@@ -30,8 +28,8 @@ class QW_BP5 extends BestPracticeObject {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = element.getElementHtmlCode( true, true);
-      evaluation.pointer =element.getElementSelector();
+      evaluation.htmlCode = element.getElementHtmlCode(true, true);
+      evaluation.pointer = element.getElementSelector();
     }
     super.addEvaluationResult(evaluation);
   }

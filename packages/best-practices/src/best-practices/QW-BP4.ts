@@ -7,7 +7,6 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP4 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
@@ -15,7 +14,6 @@ class QW_BP4 extends BestPracticeObject {
   @ElementExists
   @ElementIsNotChildOf('nav')
   execute(element: QWElement | undefined): void {
-
     if (!element || element.elementHasParent('nav')) {
       return;
     }

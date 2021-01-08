@@ -7,15 +7,13 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP11 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   @ElementExists
   @ElementHasChild('*')
-  execute(element: QWElement | undefined): void{
-
+  execute(element: QWElement | undefined): void {
     if (!element) {
       return;
     }
@@ -32,19 +30,18 @@ class QW_BP11 extends BestPracticeObject {
       resultCode: ''
     };
 
-      let result = 0;
-      let hasBr = false;
+    let result = 0;
+    let hasBr = false;
 
-      for (const child of element.getElementChildren() || []) {
-        const type = child.getElementType();
-        if (child && child.getElementTagName() === 'br') {
-          result++;
-          hasBr = true;
-        } else if(type !== "text") {
-          result = 0;
-        }
+    for (const child of element.getElementChildren() || []) {
+      const type = child.getElementType();
+      if (child && child.getElementTagName() === 'br') {
+        result++;
+        hasBr = true;
+      } else if (type !== 'text') {
+        result = 0;
       }
-
+    }
 
     if (result > 3) {
       evaluation.verdict = 'failed';
@@ -57,7 +54,7 @@ class QW_BP11 extends BestPracticeObject {
     }
 
     if (hasBr) {
-      evaluation.htmlCode = element.getElementHtmlCode( true, true);
+      evaluation.htmlCode = element.getElementHtmlCode(true, true);
       evaluation.pointer = element.getElementSelector();
 
       super.addEvaluationResult(evaluation);

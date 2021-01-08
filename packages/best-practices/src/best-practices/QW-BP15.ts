@@ -5,7 +5,6 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP15 extends BestPracticeObject {
-
   private readonly absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
 
   constructor(bestPractice?: any) {
@@ -14,14 +13,13 @@ class QW_BP15 extends BestPracticeObject {
 
   @ElementExists
   execute(element: QWElement): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const width = <string> element.getElementAttribute('width');
+    const width = <string>element.getElementAttribute('width');
     const unit = width.trim().substring(width.length - 2, width.length);
 
     if (!this.absoluteLengths.includes(unit)) {

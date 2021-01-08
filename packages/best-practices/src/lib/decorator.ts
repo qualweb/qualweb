@@ -3,29 +3,30 @@ import bestPractices from './bestPractices.json';
 import cloneDeep from 'lodash.clonedeep';
 
 function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
+  //@ts-ignore
   const bestPractice = bestPractices[constructor.name];
-  
+
   bestPractice.metadata.passed = 0;
   bestPractice.metadata.warning = 0;
   bestPractice.metadata.failed = 0;
   bestPractice.metadata.outcome = '';
   bestPractice.metadata.description = '';
   bestPractice.results = new Array<BestPracticeResult>();
-  
+
   const newConstructor: any = function () {
-    let func: any = function () {
+    const func: any = function () {
       return new constructor(cloneDeep(bestPractice));
-    }
+    };
     func.prototype = constructor.prototype;
     return new func();
-  }
+  };
   newConstructor.prototype = constructor.prototype;
   return newConstructor;
 }
 
-function ElementExists(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+function ElementExists(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
-  descriptor.value = function() {
+  descriptor.value = function () {
     if (arguments[0]) {
       return method.apply(this, arguments);
     }
@@ -33,10 +34,10 @@ function ElementExists(target: any, propertyKey: string, descriptor: PropertyDes
 }
 
 function ElementHasAttribute(attribute: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = arguments[0].elementHasAttribute( attribute);
+    descriptor.value = async function () {
+      const attr = arguments[0].elementHasAttribute(attribute);
       if (attr) {
         return method.apply(this, arguments);
       }
@@ -45,10 +46,10 @@ function ElementHasAttribute(attribute: string) {
 }
 
 function ElementHasNonEmptyAttribute(attribute: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const attr = arguments[0].getElementAttribute( attribute);
+    descriptor.value = async function () {
+      const attr = arguments[0].getElementAttribute(attribute);
       if (attr && attr.trim()) {
         return method.apply(this, arguments);
       }
@@ -57,9 +58,9 @@ function ElementHasNonEmptyAttribute(attribute: string) {
 }
 
 function ElementHasChild(child: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
+    descriptor.value = async function () {
       if (arguments[0]) {
         const children = arguments[0].getElements(child);
         if (children.length !== 0) {
@@ -71,9 +72,9 @@ function ElementHasChild(child: string) {
 }
 
 function ElementDoesNotHaveChild(child: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
+    descriptor.value = async function () {
       if (arguments[0]) {
         const children = arguments[0].getElements(child);
         if (children.length === 0) {
@@ -85,10 +86,10 @@ function ElementDoesNotHaveChild(child: string) {
 }
 
 function ElementHasParent(parent: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const element = arguments[0].elementHasParent( parent);
+    descriptor.value = async function () {
+      const element = arguments[0].elementHasParent(parent);
       if (element) {
         return method.apply(this, arguments);
       }
@@ -97,10 +98,10 @@ function ElementHasParent(parent: string) {
 }
 
 function ElementIsNotChildOf(parent: string) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
-    descriptor.value = async function() {
-      const hasParent = arguments[0].elementHasParent( parent);
+    descriptor.value = async function () {
+      const hasParent = arguments[0].elementHasParent(parent);
       if (!hasParent) {
         return method.apply(this, arguments);
       }

@@ -9,7 +9,6 @@ import { QWPage } from '@qualweb/qw-page';
 
 @BestPractice
 class QW_BP8 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
@@ -17,8 +16,7 @@ class QW_BP8 extends BestPracticeObject {
   @ElementExists
   @ElementHasChild('img, svg')
   execute(element: QWElement, page: QWPage): void {
-
-   const evaluation: BestPracticeResult = {
+    const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
@@ -26,14 +24,14 @@ class QW_BP8 extends BestPracticeObject {
 
     const images = element.getElements('img');
     const svgs = element.getElements('svg');
-    
+
     if (images.length + svgs.length !== 0) {
       const svgANames = new Array<string>();
-      
+
       for (const svg of svgs || []) {
         const aName = AccessibilityUtils.getAccessibleNameSVG(svg, page);
         if (aName && aName.trim() !== '') {
-          svgANames.push(aName)
+          svgANames.push(aName);
         }
       }
 

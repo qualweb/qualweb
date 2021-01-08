@@ -9,14 +9,12 @@ import { QWPage } from '@qualweb/qw-page';
 
 @BestPractice
 class QW_BP1 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     const headings = element.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
 
     for (const heading of headings || []) {

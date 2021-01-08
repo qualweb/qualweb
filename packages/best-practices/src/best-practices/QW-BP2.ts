@@ -7,7 +7,6 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP2 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
@@ -16,7 +15,6 @@ class QW_BP2 extends BestPracticeObject {
   @ElementHasAttribute('alt')
   @ElementHasNonEmptyAttribute('alt')
   async execute(element: QWElement | undefined): Promise<void> {
-
     if (!element) {
       return;
     }
@@ -26,7 +24,7 @@ class QW_BP2 extends BestPracticeObject {
       description: '',
       resultCode: ''
     };
-    const altValue = element.getElementAttribute( 'alt');   
+    const altValue = element.getElementAttribute('alt');
 
     if (!altValue || altValue === '') {
       evaluation.verdict = 'inapplicable';
@@ -41,10 +39,10 @@ class QW_BP2 extends BestPracticeObject {
       evaluation.description = 'The img alt text attribute has less than 100 characters';
       evaluation.resultCode = 'RC3';
     }
-    
-    evaluation.htmlCode = element.getElementHtmlCode( true, true);
+
+    evaluation.htmlCode = element.getElementHtmlCode(true, true);
     evaluation.pointer = element.getElementSelector();
-    
+
     super.addEvaluationResult(evaluation);
   }
 }

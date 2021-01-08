@@ -7,13 +7,11 @@ import { BestPractice } from '../lib/decorator';
 
 @BestPractice
 class QW_BP17 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   execute(element: QWElement | undefined, page: QWPage): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',

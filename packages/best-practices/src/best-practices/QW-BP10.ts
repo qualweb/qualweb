@@ -7,13 +7,11 @@ import { QWElement } from '@qualweb/qw-element';
 
 @BestPractice
 class QW_BP10 extends BestPracticeObject {
-
   constructor(bestPractice?: any) {
     super(bestPractice);
   }
 
   async execute(element: QWElement | undefined): Promise<void> {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
@@ -35,7 +33,7 @@ class QW_BP10 extends BestPracticeObject {
       evaluation.htmlCode = element.getElementHtmlCode(true, true);
       evaluation.pointer = element.getElementSelector();
     }
-    
+
     super.addEvaluationResult(evaluation);
   }
 }
