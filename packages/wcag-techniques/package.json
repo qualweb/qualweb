@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.js",
   "types": "./dist",
@@ -10,7 +10,7 @@
     "test": "mocha --require esm test/**/*",
     "clean": "node clean.js",
     "compile:techniques": "node compile-techniques.js",
-    "build": "npm run compile:techniques && npm run clean && tsc --build && webpack --mode development",
+    "build": "npm run compile:techniques && npm run clean && tsc --build && webpack --mode production",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
@@ -33,9 +33,9 @@
   },
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.27",
-    "@qualweb/qw-page": "^0.1.31",
-    "@qualweb/util": "^0.3.58",
+    "@qualweb/qw-element": "^0.1.28",
+    "@qualweb/qw-page": "^0.1.34",
+    "@qualweb/util": "^0.3.61",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.intersection": "^4.4.0",
@@ -43,18 +43,18 @@
   },
   "devDependencies": {
     "@qualweb/dom": "^0.1.28",
-    "@qualweb/types": "^0.4.49",
+    "@qualweb/types": "^0.4.52",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.intersection": "^4.4.6",
-    "@types/node": "^14.14.12",
+    "@types/node": "^14.14.20",
     "chai": "^4.2.0",
     "css-select": "^2.1.0",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
     "puppeteer": "^5.5.0",
-    "typescript": "^4.1.2",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
   }
 }
