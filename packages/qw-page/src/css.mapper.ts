@@ -38,7 +38,6 @@ class CSSMapper {
     this.mapExternalStylesheets();
     this.mapHeadStyles();
     this.mapInlineStyles();
-    console.log(this.elementsCSSRules);
     return this.elementsCSSRules;
   }
 

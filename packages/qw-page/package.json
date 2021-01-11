@@ -1,8 +1,8 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.1.34",
+  "version": "0.1.35",
   "description": "Utilities module for qualweb",
-  "main": "dist/index.js",
+  "main": "dist/qwPage.js",
   "types": "./node_modules/@qualweb/types",
   "scripts": {
     "tsc": "tsc",
@@ -11,7 +11,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "build": "npm run prebuild && tsc --build && webpack --mode development",
+    "build": "npm run prebuild && tsc --build && webpack --mode production",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
@@ -31,25 +31,27 @@
   },
   "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
+    "@qualweb/dom": "^0.1.28",
     "@qualweb/types": "^0.4.41",
     "@tsconfig/recommended": "^1.0.1",
+    "@types/puppeteer": "^5.4.2",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "chai": "^4.2.0",
     "eslint": "^7.13.0",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-sonarjs": "^0.5.0",
     "esm": "^3.2.25",
     "mocha": "^8.0.1",
-    "playwright": "^1.5.2",
     "prettier": "^2.1.2",
+    "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.0.5",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^4.1.3",
+    "webpack": "^5.12.3",
+    "webpack-cli": "^4.3.1"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.28"
+    "@qualweb/qw-element": "^0.1.29"
   }
 }
