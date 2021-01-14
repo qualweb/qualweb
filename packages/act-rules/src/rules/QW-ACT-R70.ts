@@ -32,11 +32,6 @@ class QW_ACT_R70 extends Rule {
       evaluation.description = ' The nested browsing context does not include elements that are visible and part of the sequential focus navigation.';
       evaluation.resultCode = 'RC1';
       super.addEvaluationResult(evaluation, element);
-      evaluation = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
     } else {
       evaluation.verdict = 'failed';
       evaluation.description =  'The nested browsing context includes elements that are visible and part of the sequential focus navigation.';
