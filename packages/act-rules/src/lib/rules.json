@@ -1519,5 +1519,21 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/9e45ec"
     }
+  },
+  "QW_ACT_R70": {
+    "name": "iframe with negative tabindex has no interactive elements",
+    "code": "QW-ACT-R70",
+    "mapping": "akn7bn",
+    "description": "This rule checks that `iframe` elements with a negative `tabindex` attribute value contain no interactive elements.",
+    "metadata": {
+      "target": {
+        "element": "iframe[tabindex]"
+      },
+      "success-criteria": [
+        {}
+      ],
+      "related": [],
+      "url": "https://github.com/act-rules/act-rules.github.io/blob/bee1a813fdfebde47b17b9b5ee01a37cf513578d/_rules/iframe-not-focusable-has-no-interactive-content-akn7bn.md"
+    }
   }
 }

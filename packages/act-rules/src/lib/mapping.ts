@@ -42,7 +42,12 @@ export default {
       '*[style]': ['QW-ACT-R47','QW-ACT-R67','QW-ACT-R68','QW-ACT-R69'],
       '[role="presentation"],[role="none"],[alt=""]': ['QW-ACT-R48'],
       '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': ['QW-ACT-R66'],
-      '*': ['QW-ACT-R7','QW-ACT-R65']
+      '*': ['QW-ACT-R7','QW-ACT-R65'],   
+      'iframe[tabindex]':["QW-ACT-R70"],
+   
+
+    
+
     }
   }
 };

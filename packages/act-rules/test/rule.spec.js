@@ -75,7 +75,8 @@ const mapping = {
   'QW-ACT-R66': 'm6b1q3',
   'QW-ACT-R67': '24afc2',
   'QW-ACT-R68': '78fd32',
-  'QW-ACT-R69': '9e45ec'
+  'QW-ACT-R69': '9e45ec',
+  'QW-ACT-R70': 'akn7bn'
 };
 
 const rule = process.argv[3].toUpperCase();
@@ -98,7 +99,7 @@ describe(`Rule ${rule}`, function() {
         it(test.title, async function () {
           this.timeout(10 * 1000);
           const dom = new Dom();
-          const { page } = await dom.getDOM(browser, {}, test.url, null);
+          const { page } = await dom.getDOM(browser, {execute:{act:true}}, test.url, null);
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
@@ -110,7 +111,7 @@ describe(`Rule ${rule}`, function() {
 
           const report = await page.evaluate((rules) => {
             const actRules = new ACTRules.ACTRules(rules);
-            const report = actRules.execute([], new QWPage.QWPage(document));
+            const report = actRules.execute([], new QWPage.QWPage(document,window,true));
             return report;
           }, {rules: [rule]});
 
