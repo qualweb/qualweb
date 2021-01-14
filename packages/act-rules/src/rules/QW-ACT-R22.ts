@@ -3,7 +3,7 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import languages from '../lib/language.json';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsInAccessibilityTree, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisibleOrInAccessibilityTree} from '../lib/decorator';
 import {QWElement} from "@qualweb/qw-element";
 
 @ACTRuleDecorator
@@ -14,8 +14,7 @@ class QW_ACT_R22 extends Rule {
   }
 
   @ElementExists
-  @ElementIsVisible
-  @ElementIsInAccessibilityTree
+  @ElementIsVisibleOrInAccessibilityTree
   execute(element: QWElement): void {
 
     const evaluation: ACTRuleResult = {

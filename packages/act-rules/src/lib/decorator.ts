@@ -120,6 +120,16 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
   };
 }
 
+function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isVisibleOrAT = DomUtils.isElementVisible(arguments[0], arguments[1])||AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);;
+    if (isVisibleOrAT) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function ElementNotHidden(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -253,5 +263,6 @@ export {
   IsHTMLDocument,
   IsLangSubTagValid,
   isInMainContext,
-  ElementNotHidden
+  ElementNotHidden,
+  ElementIsVisibleOrInAccessibilityTree
 };
