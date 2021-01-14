@@ -6,7 +6,6 @@ import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decora
 
 @ACTRuleDecorator
 class QW_ACT_R7 extends Rule {
-
   private rawMap: any = {};
   private mediaMap: any = {};
 
@@ -15,26 +14,22 @@ class QW_ACT_R7 extends Rule {
   }
 
   public unmappedExecute(styleSheets: any[]): void {
-    if(styleSheets.length === 0) {
-      this.fillEvaluation(
-        'inapplicable',
-        'A page where there are no CSS styles.',
-        'RC1'
-      );
+    if (styleSheets.length === 0) {
+      this.fillEvaluation('inapplicable', 'A page where there are no CSS styles.', 'RC1');
     } else {
       this.rawMap = {};
       this.mediaMap = {};
       let foundATransform = false;
 
       for (const styleSheet of styleSheets || []) {
-        if (styleSheet.content && styleSheet.content.plain && styleSheet.content.plain.includes('transform')){
+        if (styleSheet.content && styleSheet.content.plain && styleSheet.content.plain.includes('transform')) {
           this.analyseAST(styleSheet.content.parsed, styleSheet.file);
           foundATransform = true;
         }
       }
-      if(foundATransform) {
+      if (foundATransform) {
         const keys = Object.keys(this.mediaMap);
-        for(const key of keys || []) {
+        for (const key of keys || []) {
           let angle = this.mediaMap[key].replace('rotate(', '').replace(')', '');
           angle = this.parseDegrees(angle);
           const matrix = Rematrix.rotateZ(angle);
@@ -42,11 +37,7 @@ class QW_ACT_R7 extends Rule {
           this.checkRotation(angle);
         }
       } else {
-        this.fillEvaluation(
-          'inapplicable',
-          'A page that has no CSS transform property specified.',
-          'RC2'
-        );
+        this.fillEvaluation('inapplicable', 'A page that has no CSS transform property specified.', 'RC2');
       }
     }
   }
@@ -62,11 +53,7 @@ class QW_ACT_R7 extends Rule {
       return;
     }
 
-    if (
-      cssObject['type'] === 'rule' ||
-      cssObject['type'] === 'font-face' ||
-      cssObject['type'] === 'page'
-    ) {
+    if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'page') {
       if (this.isVisible(cssObject)) {
         this.extractInfo(cssObject, parentType);
       } else {
@@ -94,49 +81,55 @@ class QW_ACT_R7 extends Rule {
   }
 
   private extractInfo(cssObject: any, parentType?: string): void {
-
-    if(cssObject.selectors === undefined)
-      return;
+    if (cssObject.selectors === undefined) return;
 
     let declarations = cssObject['declarations'];
 
     if (declarations) {
       for (const declaration of declarations || []) {
         if (declaration['property'] && declaration['value'] && declaration['property'].includes('transform')) {
-          if (parentType && parentType.includes('orientation') && (parentType.includes('landscape') || parentType.includes('portrait'))){
-            if(declaration['value'].includes('rotateZ')){
+          if (
+            parentType &&
+            parentType.includes('orientation') &&
+            (parentType.includes('landscape') || parentType.includes('portrait'))
+          ) {
+            if (declaration['value'].includes('rotateZ')) {
               let angle = declaration['value'].replace('rotateZ(', '').replace(')', '');
               angle = this.parseDegrees(angle);
               let matrix = Rematrix.rotateZ(angle);
               angle = this.calculateRotationDegree(matrix);
               this.checkRotation(angle);
-            } else if(declaration['value'].includes('matrix')) {
+            } else if (declaration['value'].includes('matrix')) {
               let matrix = Rematrix.fromString(declaration['value']);
               this.calculateRotationDegree(matrix);
               let angle = this.calculateRotationDegree(matrix);
               this.checkRotation(angle);
             } else if (declaration['value'].includes('rotate')) {
-              if(this.rawMap.hasOwnProperty(cssObject.selectors.toString()) &&
-              this.rawMap[cssObject.selectors.toString()] === declaration['value']){
-                    this.fillEvaluation(
-                      'passed',
-                      'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
-                      'RC4'
-                    );
-                    delete this.rawMap[cssObject.selectors.toString()];
+              if (
+                this.rawMap.hasOwnProperty(cssObject.selectors.toString()) &&
+                this.rawMap[cssObject.selectors.toString()] === declaration['value']
+              ) {
+                this.fillEvaluation(
+                  'passed',
+                  'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
+                  'RC4'
+                );
+                delete this.rawMap[cssObject.selectors.toString()];
               } else {
                 this.mediaMap[cssObject.selectors.toString()] = declaration['value'];
               }
             }
           } else {
-            if(this.mediaMap.hasOwnProperty(cssObject.selectors.toString()) &&
-            this.mediaMap[cssObject.selectors.toString()] === declaration['value']){
-                    this.fillEvaluation(
-                      'passed',
-                      'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
-                      'RC5'
-                    );
-                delete this.mediaMap[cssObject.selectors.toString()];
+            if (
+              this.mediaMap.hasOwnProperty(cssObject.selectors.toString()) &&
+              this.mediaMap[cssObject.selectors.toString()] === declaration['value']
+            ) {
+              this.fillEvaluation(
+                'passed',
+                'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
+                'RC5'
+              );
+              delete this.mediaMap[cssObject.selectors.toString()];
             } else {
               this.rawMap[cssObject.selectors.toString()] = declaration['value'];
             }
@@ -147,7 +140,7 @@ class QW_ACT_R7 extends Rule {
   }
 
   private checkRotation(angle: number): void {
-    if(angle === 90 || angle === 270) {
+    if (angle === 90 || angle === 270) {
       this.fillEvaluation(
         'failed',
         'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which restricts the element to landscape orientation.',
@@ -162,42 +155,38 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  private parseDegrees(angle: string): number{
+  private parseDegrees(angle: string): number {
     angle = angle.toLowerCase();
-    if(angle.includes('deg')) {
+    if (angle.includes('deg')) {
       return parseFloat(angle.replace('deg', ''));
-    } else if(angle.includes('rad')) {
+    } else if (angle.includes('rad')) {
       const radians = parseFloat(angle.replace('rad', ''));
-      return radians * 180 / Math.PI;
-    } else if(angle.includes('turn')) {
+      return (radians * 180) / Math.PI;
+    } else if (angle.includes('turn')) {
       const turnDegrees = 360;
       const turns = parseFloat(angle.replace('turn', ''));
       return turns * turnDegrees;
-    } else{
+    } else {
       return -1;
     }
   }
 
-  private calculateRotationDegree(matrix: number[]): number{
+  private calculateRotationDegree(matrix: number[]): number {
     const radians = Math.atan2(matrix[1], matrix[0]);
-    let degrees = Math.round(radians * 180 / Math.PI);
-    if(degrees < 0) {
+    let degrees = Math.round((radians * 180) / Math.PI);
+    if (degrees < 0) {
       degrees = 360 + degrees;
     }
     return Math.abs(degrees); // just ignore the abs
   }
 
-  private fillEvaluation(
-    verdict: '' | 'passed' | 'failed' | 'inapplicable',
-    description: string,
-    resultCode: string
-  ) {
+  private fillEvaluation(verdict: '' | 'passed' | 'failed' | 'inapplicable', description: string, resultCode: string) {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    
+
     evaluation.verdict = verdict;
     evaluation.description = description;
     evaluation.resultCode = resultCode;
@@ -208,9 +197,8 @@ class QW_ACT_R7 extends Rule {
   @ElementExists
   @ElementIsVisible
   execute(element: QWElement): void {
-    
     const rules = element.getCSSRules();
-    
+
     if (!rules) {
       return;
     }
@@ -218,8 +206,9 @@ class QW_ACT_R7 extends Rule {
     let transformValue: number | null = null;
     for (const property in rules || {}) {
       if (property === 'transform') {
-        const value = rules[property].value;
-        if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+        const value = <string>rules[property].value;
+        console.log(value);
+        if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
           let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
           transformValue = this.parseDegrees(angle);
         }
@@ -233,10 +222,10 @@ class QW_ACT_R7 extends Rule {
           for (const property in media[condition] || {}) {
             if (property === 'transform') {
               const value = media[condition][property].value;
-              if (value.startsWith('rotate(') || value.startsWith('rotate3d(') || value.startsWith('rotateZ(')) {
+              if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
                 let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
                 angle = this.parseDegrees(angle);
-                
+
                 const matrix = Rematrix.rotateZ(transformValue ? angle - transformValue : angle);
                 angle = this.calculateRotationDegree(matrix);
                 this.checkRotation(angle);
@@ -261,10 +250,7 @@ class QW_ACT_R7 extends Rule {
           if (declaration['property'] === 'display') {
             return !(declaration['value'] === 'none');
           } else if (declaration['property'] === 'visibility') {
-            return (
-              !(declaration['value'] === 'hidden') ||
-              !(declaration['value'] === 'collapse')
-            );
+            return !(declaration['value'] === 'hidden') || !(declaration['value'] === 'collapse');
           }
         }
       }

@@ -1,4 +1,5 @@
-const path = require('path')
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -10,9 +11,19 @@ module.exports = {
     library: 'ACTRules'
   },
   optimization: {
-    minimize: false
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            keep_classnames: true
+          },
+          mangle: {
+            keep_classnames: true
+          }
+        }
+      })
+    ],
   },
-  target: 'node-webkit',
-  
-
+  target: 'node-webkit'
 }

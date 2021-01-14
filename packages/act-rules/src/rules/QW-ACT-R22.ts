@@ -28,7 +28,8 @@ class QW_ACT_R22 extends Rule {
     let subtag = '';
     let splittedLang = new Array<string>();
     if(lang){
-      splittedLang = lang.split('-');
+      let langLowercase = lang.toLowerCase();
+      splittedLang = langLowercase.split('-');
       subtag = splittedLang[0];
     }
 

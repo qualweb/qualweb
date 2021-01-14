@@ -7,7 +7,6 @@ import compositeRules from './lib/mappingComposite';
 import { QWPage } from '@qualweb/qw-page';
 
 class ACTRules {
-
   private optimization: Optimization;
   private rules: any;
   private rulesToExecute: any;
@@ -24,6 +23,8 @@ class ACTRules {
       this.rulesToExecute[_rule] = true;
     }
 
+    this.rulesToExecute['QW-ACT-R45'] = true;
+
     if (options) {
       this.configure(options);
     }
@@ -33,13 +34,13 @@ class ACTRules {
     this.resetConfiguration();
 
     if (options.principles) {
-      options.principles = options.principles.map(p => (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim());
+      options.principles = options.principles.map((p) => (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim());
     }
     if (options.levels) {
-      options.levels = options.levels.map(l => l.toUpperCase().trim());
+      options.levels = options.levels.map((l) => l.toUpperCase().trim());
     }
     if (options.rules) {
-      options.rules = options.rules.map(r => {
+      options.rules = options.rules.map((r) => {
         return r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim();
       });
     }
@@ -54,7 +55,12 @@ class ACTRules {
           this.rulesToExecute[rule] = false;
         }
       } else if (options.levels && options.levels.length !== 0) {
-        if (!this.rules[rule].hasPrincipleAndLevels(['Perceivable', 'Operable', 'Understandable', 'Robust'], options.levels)) {
+        if (
+          !this.rules[rule].hasPrincipleAndLevels(
+            ['Perceivable', 'Operable', 'Understandable', 'Robust'],
+            options.levels
+          )
+        ) {
           this.rulesToExecute[rule] = false;
         }
       }
@@ -107,7 +113,13 @@ class ACTRules {
     this.rules[rule].reset();
   }
 
-  private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): void {
+  private executePageMappedRules(
+    report: ACTRulesReport,
+    page: QWPage,
+    selectors: string[],
+    mappedRules: any,
+    concurrent: boolean
+  ): void {
     const promises = new Array<any>();
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
@@ -147,23 +159,42 @@ class ACTRules {
     for (const rule of rules || []) {
       if (this.rulesToExecute[rule]) {
         //@ts-ignore
-        promises.push(this.executeCompositeRule(rule, compositeRules[rule].selector, compositeRules[rule].rules, compositeRules[rule].implementation, page, report));
+        promises.push(
+          this.executeCompositeRule(
+            rule,
+            //@ts-ignore
+            compositeRules[rule].selector,
+            //@ts-ignore
+            compositeRules[rule].rules,
+            //@ts-ignore
+            compositeRules[rule].implementation,
+            page,
+            report
+          )
+        );
       }
     }
   }
 
-  private executeCompositeRule(rule: string, selector: string, atomicRules: string[], implementation: string, page: QWPage, report: ACTRulesReport): void {
+  private executeCompositeRule(
+    rule: string,
+    selector: string,
+    atomicRules: string[],
+    implementation: string,
+    page: QWPage,
+    report: ACTRulesReport
+  ): void {
     const atomicRulesReport = new Array<ACTRule>();
 
     for (const atomicRule of atomicRules || []) {
-      atomicRulesReport.push(report.assertions[atomicRule])
+      atomicRulesReport.push(report.assertions[atomicRule]);
     }
     const elements = page.getElements(selector);
     if (elements.length > 0) {
       for (const elem of elements || []) {
-        if (implementation === "conjunction") {
+        if (implementation === 'conjunction') {
           this.rules[rule].conjunction(elem, atomicRulesReport);
-        } else if (implementation === "disjunction") {
+        } else if (implementation === 'disjunction') {
           this.rules[rule].disjunction(elem, atomicRulesReport);
         } else {
           this.rules[rule].execute(elem, atomicRulesReport);
@@ -180,14 +211,20 @@ class ACTRules {
   }
 
   private executeNonConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent.post), mapping.non_concurrent.post, false)
+    this.executePageMappedRules(
+      report,
+      page,
+      Object.keys(mapping.non_concurrent.post),
+      mapping.non_concurrent.post,
+      false
+    );
   }
 
   private executeConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true)
+    this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true);
   }
 
-  public executeQW_ACT_R40(page: QWPage, ): any {
+  public executeQW_ACT_R40(page: QWPage): any {
     const elements = page.getElements('body *');
 
     if (elements.length > 0) {
@@ -202,7 +239,6 @@ class ACTRules {
   }
 
   public execute(metaElements: any[], page: QWPage): ACTRulesReport {
-
     let report: ACTRulesReport = {
       type: 'act-rules',
       metadata: {
@@ -217,12 +253,10 @@ class ACTRules {
     this.executeNonConcurrentRules(report, page);
     this.executeConcurrentRules(report, page);
     this.executeNotMappedRules(report, metaElements, page);
-    this.executeAllCompositeRules(report,page);
+    this.executeAllCompositeRules(report, page);
 
     return report;
   }
 }
 
-export {
-  ACTRules
-};
+export { ACTRules };
