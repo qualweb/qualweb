@@ -3,8 +3,9 @@ import rules from './rules.json';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import languages from './language.json';
 import cloneDeep from 'lodash.clonedeep';
+import { QWElement } from '@qualweb/qw-element';
 
-function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
+function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
   //@ts-ignore
   const rule = rules[constructor.name];
 
@@ -116,6 +117,19 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
   descriptor.value = function () {
     const isInAT = AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
     if (isInAT) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    let page = arguments[1];
+    let elements = arguments[1].getElements('*').filter((element: QWElement) => {
+      return element.hasTextNode() && (DomUtils.isElementVisible(element, page) || AccessibilityUtils.isElementInAT(element, page));
+    })
+    if (elements.length > 0) {
       return method.apply(this, arguments);
     }
   };
@@ -252,5 +266,6 @@ export {
   IsHTMLDocument,
   IsLangSubTagValid,
   isInMainContext,
-  ElementNotHidden
+  ElementNotHidden,
+  ElementIsVisibleOrInAccessibilityTree
 };
