@@ -94,6 +94,12 @@ class Evaluation {
       // @ts-ignore
       window.page = new QWPage.QWPage(document, window, true);
     });
+    await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+    await page.evaluate(() => {
+      // @ts-ignore
+      window.page72 = new QWPage.QWPage(document, window, true);
+    });
+
   }
 
   public async executeACT(page: Page, sourceHtml: SourceHtml, options: ACTROptions | undefined): Promise<ACTRulesReport> {
@@ -129,6 +135,7 @@ class Evaluation {
     }, parsedMetaElements, options);
 
     const r40 = 'QW-ACT-R40';
+    const r72 = 'QW-ACT-R72';
 
     if (!options || !options['rules'] || options['rules'].includes(r40) || options['rules'].includes('59br37')) {
       const viewport = page.viewport();
@@ -162,8 +169,33 @@ class Evaluation {
         actReport.metadata.inapplicable++;
       }
     }
+
+    if (!options || !options['rules'] || options['rules'].includes(r72) || options['rules'].includes('8a213c')) {
+
+      const actReportR72 = await page.evaluate(() => {
+        // @ts-ignore
+        const act = new ACTRules.ACTRules();
+        // @ts-ignore
+        return act.executeQW_ACT_R72(window.page72);
+      });
+
+      actReport.assertions[r72] = actReportR72;
+      let outcome = actReportR72.metadata.outcome;
+      if (outcome === "passed") {
+        actReport.metadata.passed++;
+      } else if (outcome === "failed") {
+        actReport.metadata.failed++;
+      } else if (outcome === "warning") {
+        actReport.metadata.warning++;
+      } else {
+        actReport.metadata.inapplicable++;
+      }
+    }
+
     return actReport;
   }
+
+  
 
   public async executeWCAG(page: Page, options: WCAGOptions | undefined, validation: any): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
