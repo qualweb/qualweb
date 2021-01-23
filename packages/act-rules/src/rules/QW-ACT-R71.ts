@@ -5,7 +5,7 @@ import Rule from '../lib/Rule2.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 
 @ACTRuleDecorator
-class QW_ACT_R4 extends Rule {
+class QW_ACT_R71 extends Rule {
 
   constructor(rule?: any) {
     super(rule);
@@ -147,4 +147,4 @@ class QW_ACT_R4 extends Rule {
   }
 }
 
-export = QW_ACT_R4;
+export = QW_ACT_R71;
