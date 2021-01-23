@@ -1546,5 +1546,20 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/bisz58"
     }
+  },
+  "QW_ACT_R72": {
+    "name": "First focusable element is link to non-repeated content",
+    "code": "QW-ACT-R72",
+    "mapping": "8a213c",
+    "description": "This rule checks that the first focusable element is a link to non-repeated content in the page",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/8a213c"
+    }
   }
 }

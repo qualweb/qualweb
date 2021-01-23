@@ -238,6 +238,11 @@ class ACTRules {
     return this.rules['QW-ACT-R40'].getFinalResults();
   }
 
+  public executeQW_ACT_R72(page: QWPage): any {
+    this.rules['QW-ACT-R72'].execute(undefined, page, this.optimization);
+    return this.rules['QW-ACT-R72'].getFinalResults();
+  }
+
   public execute(metaElements: any[], page: QWPage): ACTRulesReport {
     let report: ACTRulesReport = {
       type: 'act-rules',
