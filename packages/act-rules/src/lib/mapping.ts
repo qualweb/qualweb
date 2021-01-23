@@ -1,7 +1,7 @@
 export default {
   'non_concurrent': {
     'pre': {
-      'meta': ['QW-ACT-R4']
+      'meta': ['QW-ACT-R4', 'QW-ACT-R71']
     },
     'post': {
       'title': ['QW-ACT-R1'],

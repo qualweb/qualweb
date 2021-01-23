@@ -1519,5 +1519,32 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/9e45ec"
     }
+  },
+  "QW_ACT_R71": {
+    "name": "`meta` element has no refresh delay (no exception)",
+    "code": "QW-ACT-R71",
+    "mapping": "bisz58",
+    "description": "This rule checks that the `meta` element is not used for delayed redirecting or refreshing.",
+    "metadata": {
+      "target": {
+        "element": "meta"
+      },
+      "success-criteria": [
+        {
+          "name": "2.2.4",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/interruptions"
+        },
+        {
+          "name": "3.2.5",
+          "level": "AAA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/bisz58"
+    }
   }
 }
