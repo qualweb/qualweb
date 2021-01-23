@@ -17,7 +17,6 @@ function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T)
   rule.results = new Array<ACTRuleResult>();
 
   const newConstructor: any = function () {
-    console.log(cloneDeep(rule));
     let func: any = function () {
       return new constructor(cloneDeep(rule));
     };
