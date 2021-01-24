@@ -7,6 +7,7 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm test/rule.spec.js",
+    "test-pre": "mocha --require esm test/rulePreProcessing.spec.js",
     "prebuild": "rimraf dist",
     "compile:rules": "node compile-rules.js",
     "build": "npm run compile:rules && npm run prebuild && tsc --build && webpack --mode production",
