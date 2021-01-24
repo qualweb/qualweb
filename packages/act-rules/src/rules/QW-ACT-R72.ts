@@ -21,6 +21,7 @@ class QW_ACT_R72 extends Rule {
     };
 
     const elementList = page.getElements('*');
+    //mudar para find
     const inSequentialFocusList = elementList.filter((element) => {
       return AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
     });
