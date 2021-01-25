@@ -5,7 +5,7 @@ import languages from './language.json';
 import cloneDeep from 'lodash.clonedeep';
 import { QWElement } from '@qualweb/qw-element';
 
-function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
   //@ts-ignore
   const rule = rules[constructor.name];
 
@@ -17,7 +17,6 @@ function ACTRuleDecorator<T extends { new(...args: any[]): {} }>(constructor: T)
   rule.results = new Array<ACTRuleResult>();
 
   const newConstructor: any = function () {
-    console.log(cloneDeep(rule));
     let func: any = function () {
       return new constructor(cloneDeep(rule));
     };
@@ -127,8 +126,11 @@ function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: strin
   descriptor.value = function () {
     let page = arguments[1];
     let elements = arguments[1].getElements('*').filter((element: QWElement) => {
-      return element.hasTextNode() && (DomUtils.isElementVisible(element, page) || AccessibilityUtils.isElementInAT(element, page));
-    })
+      return (
+        element.hasTextNode() &&
+        (DomUtils.isElementVisible(element, page) || AccessibilityUtils.isElementInAT(element, page))
+      );
+    });
     if (elements.length > 0) {
       return method.apply(this, arguments);
     }
