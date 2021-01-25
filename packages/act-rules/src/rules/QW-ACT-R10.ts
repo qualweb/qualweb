@@ -63,7 +63,7 @@ class QW_ACT_R10 extends Rule {
               result = false;
             }
           }
-          if (result) { //passed
+          if (result && hashArray.length!== 0) { //passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
@@ -100,12 +100,14 @@ class QW_ACT_R10 extends Rule {
       for (const element of elements) {
         htmlContent = element.getContentFrame()
         if (htmlContent !== null && htmlContent.defaultView) {
-          const page = new QWPage(htmlContent, htmlContent.defaultView)
-          content.push(page.getHTMLContent());
+          content.push(htmlContent.documentElement.outerHTML);
         }
       }
     } catch (e) {
+      console.log(e);
+
     };
+    console.log(content);
     return content;
   }
 
