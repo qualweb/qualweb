@@ -54,6 +54,23 @@ function ElementHasAttributes(
     }
   };
 }
+
+function ElementHasAttribute(attribute: string) {
+  return function (
+    _target: any,
+    _propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
+    const method = descriptor.value;
+    descriptor.value = function () {
+      const attr = arguments[0].elementHasAttribute(attribute);
+      if (attr) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 function ElementIsInAccessibilityTree(
   _target: any,
   _propertyKey: string,
@@ -85,6 +102,7 @@ export {
   WCAGTechnique,
   ElementExists,
   ElementHasAttributes,
+  ElementHasAttribute,
   ElementIsInAccessibilityTree,
   ElementIsVisible,
 };
