@@ -1,27 +1,28 @@
-import Technique from '../lib/Technique.object';
-import { CSSTechniqueResult } from '@qualweb/css-techniques';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Technique from "../lib/Technique.object";
+import { CSSTechniqueResult } from "@qualweb/css-techniques";
+import { WCAGTechnique, ElementExists } from "../lib/decorators";
+import { QWElement } from "@qualweb/qw-element";
 
 @WCAGTechnique
 class QW_WCAG_T31 extends Technique {
-
   constructor(technique?: any) {
     super(technique);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-
-    if (element.getElementTagName() === 'head' || element.getElementParent()?.getElementTagName() === 'head' || !element.hasTextNode()) {
+  execute(element: QWElement): void {
+    if (
+      element.getElementTagName() === "head" ||
+      element.getElementParent()?.getElementTagName() === "head" ||
+      !element.hasTextNode()
+    ) {
       return;
     }
 
     const evaluation: CSSTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
+      verdict: "",
+      description: "",
+      resultCode: "",
     };
 
     let foundColorProperty = false;
@@ -29,16 +30,19 @@ class QW_WCAG_T31 extends Technique {
 
     let parent: QWElement | null = element;
     while (parent !== null) {
-      const hasColor = parent.hasCSSProperty('color');
-      const hasBackgroundColor = parent.hasCSSProperty('background-color');
-      const hasBackgroundImage = parent.hasCSSProperty('background-image');
-      const hasBackground = parent.hasCSSProperty('background');
+      const hasColor = parent.hasCSSProperty("color");
+      const hasBackgroundColor = parent.hasCSSProperty("background-color");
+      const hasBackgroundImage = parent.hasCSSProperty("background-image");
+      const hasBackground = parent.hasCSSProperty("background");
 
       if (hasColor && !foundColorProperty) {
         foundColorProperty = true;
       }
 
-      if ((hasBackground || hasBackgroundColor || hasBackgroundImage) && !foundBackgroundProperty) {
+      if (
+        (hasBackground || hasBackgroundColor || hasBackgroundImage) &&
+        !foundBackgroundProperty
+      ) {
         foundBackgroundProperty = true;
       }
 
@@ -50,31 +54,31 @@ class QW_WCAG_T31 extends Technique {
     }
 
     if (foundColorProperty && foundBackgroundProperty) {
-      evaluation.verdict = 'passed';
+      evaluation.verdict = "passed";
       evaluation.description = `The test target has a author defined color and background css properties.`;
-      evaluation.resultCode = 'RC1';
+      evaluation.resultCode = "RC1";
 
       evaluation.pointer = element.getElementSelector();
       evaluation.htmlCode = element.getElementHtmlCode(true, true);
-  
+
       super.addEvaluationResult(evaluation);
     } else if (foundColorProperty) {
-      evaluation.verdict = 'failed';
+      evaluation.verdict = "failed";
       evaluation.description = `The test target has a author defined color css property but not a background css property.`;
-      evaluation.resultCode = 'RC2';
+      evaluation.resultCode = "RC2";
 
       evaluation.pointer = element.getElementSelector();
       evaluation.htmlCode = element.getElementHtmlCode(true, true);
-  
+
       super.addEvaluationResult(evaluation);
     } else if (foundBackgroundProperty) {
-      evaluation.verdict = 'failed';
+      evaluation.verdict = "failed";
       evaluation.description = `The test target has a author defined background property but not a color css property.`;
-      evaluation.resultCode = 'RC3';
+      evaluation.resultCode = "RC3";
 
       evaluation.pointer = element.getElementSelector();
       evaluation.htmlCode = element.getElementHtmlCode(true, true);
-  
+
       super.addEvaluationResult(evaluation);
     }
   }

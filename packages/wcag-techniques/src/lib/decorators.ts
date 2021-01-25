@@ -25,8 +25,8 @@ function WCAGTechnique<T extends { new (...args: any[]): {} }>(constructor: T) {
 }
 
 function ElementExists(
-  target: any,
-  propertyKey: string,
+  _target: any,
+  _propertyKey: string,
   descriptor: PropertyDescriptor
 ) {
   const method = descriptor.value;
@@ -40,8 +40,8 @@ function ElementExists(
 }
 
 function ElementHasAttributes(
-  target: any,
-  propertyKey: string,
+  _target: any,
+  _propertyKey: string,
   descriptor: PropertyDescriptor
 ) {
   const method = descriptor.value;

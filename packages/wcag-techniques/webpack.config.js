@@ -2,7 +2,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  entry: './dist/index.js',
+  entry: './prebuild/index.js',
   output: {
     filename: 'wcag.js',
     path: path.resolve(__dirname, 'dist'),

@@ -1,16 +1,15 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.js",
-  "types": "./dist",
   "scripts": {
     "tsc": "tsc",
     "lint": "eslint src/**/*",
     "test": "mocha --require esm test/**/*",
-    "clean": "node clean.js",
     "compile:techniques": "node compile-techniques.js",
-    "build": "npm run compile:techniques && npm run clean && tsc --build && webpack --mode production",
+    "prebuild": "npm run compile:techniques && rimraf prebuild && tsc --build",
+    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
@@ -35,15 +34,13 @@
   "dependencies": {
     "@qualweb/util": "^0.3.61",
     "lodash.clone": "^4.5.0",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.intersection": "^4.4.0"
+    "lodash.clonedeep": "^4.5.0"
   },
   "devDependencies": {
     "@qualweb/dom": "^0.1.28",
     "@qualweb/types": "^0.4.52",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/lodash.intersection": "^4.4.6",
     "@types/node": "^14.14.22",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
