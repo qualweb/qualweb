@@ -1,14 +1,14 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.63",
+  "version": "0.1.64",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "types": "./dist",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
-    "clean": "node clean.js",
-    "build": "npm run clean && tsc --build",
+    "prebuild": "rimraf dist",
+    "build": "npm run prebuild && tsc --build",
     "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
@@ -33,22 +33,20 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node-fetch": "^2.5.7",
     "chai": "^4.2.0",
-    "css": "^3.0.0",
-    "css-select": "^3.1.2",
     "esm": "^3.2.25",
-    "htmlparser2": "^5.0.1",
     "mocha": "^8.2.1",
     "puppeteer": "^5.5.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.4.43",
+    "@qualweb/act-rules": "^0.4.44",
     "@qualweb/best-practices": "^0.4.14",
     "@qualweb/qw-page": "^0.1.35",
     "@qualweb/wappalyzer": "^0.2.0",
-    "@qualweb/wcag-techniques": "^0.1.11",
-    "node-fetch": "^2.6.1"
+    "@qualweb/wcag-techniques": "^0.1.13",
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0"
   }
 }

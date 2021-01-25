@@ -1,9 +1,6 @@
-'use strict';
-
-import clone from 'lodash.clone';
+import clone from "lodash.clone";
 
 class Metadata {
-
   private passed: number;
   private warning: number;
   private failed: number;
@@ -37,7 +34,7 @@ class Metadata {
       passed: this.passed,
       warning: this.warning,
       failed: this.failed,
-      inapplicable: this.inapplicable
+      inapplicable: this.inapplicable,
     });
   }
 }
