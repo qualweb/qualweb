@@ -1089,29 +1089,6 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW_ACT_R45": {
-    "name": "Child elements of list(s) follow context model",
-    "code": "QW-ACT-R45",
-    "mapping": "c6f8a9",
-    "description": "This rule checks that child elements of a list follow context model ",
-    "metadata": {
-      "target": {
-        "element": "li,dd,dt"
-      },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Perceivable ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-        }
-      ],
-      "related": [],
-      "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R46": {
     "name": "List elements follow content model",
     "code": "QW-ACT-R46",
@@ -1518,6 +1495,47 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/9e45ec"
+    }
+  },
+  "QW_ACT_R71": {
+    "name": "`meta` element has no refresh delay (no exception)",
+    "code": "QW-ACT-R71",
+    "mapping": "bisz58",
+    "description": "This rule checks that the `meta` element is not used for delayed redirecting or refreshing.",
+    "metadata": {
+      "target": {
+        "element": "meta"
+      },
+      "success-criteria": [
+        {
+          "name": "2.2.4",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/interruptions"
+        },
+        {
+          "name": "3.2.5",
+          "level": "AAA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/bisz58"
+    }
+  },
+  "QW_ACT_R72": {
+    "name": "First focusable element is link to non-repeated content",
+    "code": "QW-ACT-R72",
+    "mapping": "8a213c",
+    "description": "This rule checks that the first focusable element is a link to non-repeated content in the page",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/8a213c"
     }
   }
 }

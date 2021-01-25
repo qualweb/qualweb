@@ -68,7 +68,7 @@ class QW_ACT_R69 extends Rule {
 
   private isImportant(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
-      const parent = element.getElementParent();
+      const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
       return this.isImportant(parent?.getCSSProperty('word-spacing'), parent);
     }
@@ -84,6 +84,17 @@ class QW_ACT_R69 extends Rule {
   private isCascade(declaredStyle: string, computedStyle: any): boolean {
     return declaredStyle.includes(computedStyle.value);
   }
+
+  private findParentWithCSSProperty(element: QWElement | null): QWElement | null {
+    while (element !== null) {
+      if (element?.getCSSProperty('word-spacing')) {
+        return element;
+      }
+      element = element.getElementParent();
+    }
+    return null;
+  }
+
 }
 
 export = QW_ACT_R69;

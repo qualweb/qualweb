@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.4.44] - 25/01/2021
+### Updated
+ - Mapping
+ - dependencies
+
+### Removed
+ - unnecessary libraries
+
+## [0.4.43] - 25/01/2021
+### Updated
+ - remove r45
+
+## [0.4.42] - 23/01/2021
+### Fixed
+ - fixed r67, r68, r69
+
+### Added
+ - ACT-R71 - `meta` element has no refresh delay (no exception)
+ - ACT-R72 - First focusable element is link to non-repeated content
+
 ## [0.4.41] - 14/01/2021
 ### Updated
  - fixed r22
