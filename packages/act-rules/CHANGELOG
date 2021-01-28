@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.44] - 25/01/2021
+### Updated
+ - Mapping
+ - dependencies
+
+### Removed
+ - unnecessary libraries
+
+## [0.4.43] - 25/01/2021
+### Updated
+ - remove r45
+
 ## [0.4.42] - 23/01/2021
 ### Fixed
  - fixed r67, r68, r69

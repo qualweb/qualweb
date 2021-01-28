@@ -592,9 +592,9 @@
       },
       "success-criteria": [
         {
-          "name": "3.1.2",
+          "name": "1.3.5",
           "level": "AA",
-          "principle": "Understandable",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts"
         }
       ],
@@ -1089,29 +1089,6 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW_ACT_R45": {
-    "name": "Child elements of list(s) follow context model",
-    "code": "QW-ACT-R45",
-    "mapping": "c6f8a9",
-    "description": "This rule checks that child elements of a list follow context model ",
-    "metadata": {
-      "target": {
-        "element": "li,dd,dt"
-      },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Perceivable ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-        }
-      ],
-      "related": [],
-      "url": "https://github.com/act-rules/act-rules.github.io/blob/c5c4a42f6ad353f2474b146c5b34313e2a192b83/_rules/lists-children-follow-context-model-c6f8a9.md",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R46": {
     "name": "List elements follow content model",
     "code": "QW-ACT-R46",
@@ -1556,8 +1533,7 @@
       "target": {
         "element": "*"
       },
-      "success-criteria": [
-      ],
+      "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/8a213c"
     }

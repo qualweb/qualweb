@@ -1,5 +1,4 @@
 import { ACTROptions, ACTRulesReport, ACTRule } from '@qualweb/act-rules';
-import { Optimization } from '@qualweb/util';
 import * as rules from './lib/rules';
 
 import mapping from './lib/mapping';
@@ -7,14 +6,12 @@ import compositeRules from './lib/mappingComposite';
 import { QWPage } from '@qualweb/qw-page';
 
 class ACTRules {
-  private optimization: Optimization;
   private rules: any;
   private rulesToExecute: any;
 
   constructor(options?: ACTROptions) {
     this.rules = {};
     this.rulesToExecute = {};
-    this.optimization = Optimization.Performance;
 
     for (const rule of Object.keys(rules) || []) {
       const _rule = rule.replace(/_/g, '-');
@@ -22,8 +19,6 @@ class ACTRules {
       this.rules[_rule] = new rules[rule]();
       this.rulesToExecute[_rule] = true;
     }
-
-    this.rulesToExecute['QW-ACT-R45'] = true;
 
     if (options) {
       this.configure(options);
@@ -91,19 +86,19 @@ class ACTRules {
   private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void {
     const promises = new Array<any>();
     if (rule === 'QW-ACT-R37') {
-      this.rules[rule].execute(undefined, page, this.optimization);
+      this.rules[rule].execute(undefined, page);
     } else {
       const elements = page.getElements(selector);
       if (elements.length > 0) {
         for (const elem of elements || []) {
           if (concurrent) {
-            promises.push(this.rules[rule].execute(elem, page, this.optimization));
+            promises.push(this.rules[rule].execute(elem, page));
           } else {
-            this.rules[rule].execute(elem, page, this.optimization);
+            this.rules[rule].execute(elem, page);
           }
         }
       } else {
-        this.rules[rule].execute(undefined, page, this.optimization);
+        this.rules[rule].execute(undefined, page);
       }
     }
 
@@ -131,18 +126,36 @@ class ACTRules {
   }
 
   private executeNotMappedRules(report: ACTRulesReport, metaElements: any[], page: QWPage): void {
-    if (this.rulesToExecute['QW-ACT-R4']) {
+    if (this.rulesToExecute['QW-ACT-R4'] || this.rulesToExecute['QW-ACT-R71']) {
       if (metaElements.length > 0) {
         for (const elem of metaElements || []) {
-          this.rules['QW-ACT-R4'].execute(elem);
+          if (this.rulesToExecute['QW-ACT-R4']) {
+            this.rules['QW-ACT-R4'].execute(elem);
+          }
+          if (this.rulesToExecute['QW-ACT-R71']) {
+            this.rules['QW-ACT-R71'].execute(elem);
+          }
         }
       } else {
-        this.rules['QW-ACT-R4'].execute(undefined);
+        if (this.rulesToExecute['QW-ACT-R4']) {
+          this.rules['QW-ACT-R4'].execute(undefined);
+        }
+        if (this.rulesToExecute['QW-ACT-R71']) {
+          this.rules['QW-ACT-R71'].execute(undefined);
+        }
       }
-      report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
-      //@ts-ignore
-      report.metadata[report.assertions['QW-ACT-R4'].metadata.outcome]++;
-      this.rules['QW-ACT-R4'].reset();
+      if (this.rulesToExecute['QW-ACT-R4']) {
+        report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
+        //@ts-ignore
+        report.metadata[report.assertions['QW-ACT-R4'].metadata.outcome]++;
+        this.rules['QW-ACT-R4'].reset();
+      }
+      if (this.rulesToExecute['QW-ACT-R71']) {
+        report.assertions['QW-ACT-R71'] = this.rules['QW-ACT-R71'].getFinalResults();
+        //@ts-ignore
+        report.metadata[report.assertions['QW-ACT-R71'].metadata.outcome]++;
+        this.rules['QW-ACT-R71'].reset();
+      }
     }
     if (this.rulesToExecute['QW-ACT-R37']) {
       this.rules['QW-ACT-R37'].execute(undefined, page);
@@ -201,7 +214,7 @@ class ACTRules {
         }
       }
     } else {
-      this.rules[rule].execute(undefined, page, this.optimization);
+      this.rules[rule].execute(undefined, page);
     }
 
     report.assertions[rule] = this.rules[rule].getFinalResults();
@@ -211,17 +224,11 @@ class ACTRules {
   }
 
   private executeNonConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(
-      report,
-      page,
-      Object.keys(mapping.non_concurrent.post),
-      mapping.non_concurrent.post,
-      false
-    );
+    this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent), mapping.non_concurrent, false);
   }
 
   private executeConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping.concurrent.post), mapping.concurrent.post, true);
+    this.executePageMappedRules(report, page, Object.keys(mapping.concurrent), mapping.concurrent, true);
   }
 
   public executeQW_ACT_R40(page: QWPage): any {
@@ -229,17 +236,17 @@ class ACTRules {
 
     if (elements.length > 0) {
       for (const elem of elements || []) {
-        this.rules['QW-ACT-R40'].execute(elem, page, this.optimization);
+        this.rules['QW-ACT-R40'].execute(elem, page);
       }
     } else {
-      this.rules['QW-ACT-R40'].execute(undefined, page, this.optimization);
+      this.rules['QW-ACT-R40'].execute(undefined, page);
     }
 
     return this.rules['QW-ACT-R40'].getFinalResults();
   }
 
   public executeQW_ACT_R72(page: QWPage): any {
-    this.rules['QW-ACT-R72'].execute(undefined, page, this.optimization);
+    this.rules['QW-ACT-R72'].execute(undefined, page);
     return this.rules['QW-ACT-R72'].getFinalResults();
   }
 
