@@ -110,6 +110,12 @@ describe(`Rule ${rule}`, function () {
           this.timeout(10 * 1000);
           const dom = new Dom();
           const { page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
+         /* mobile version 
+         await page.setViewport({
+            width: 375,
+            height: 667,
+            isMobile: true
+          });*/
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
@@ -118,7 +124,7 @@ describe(`Rule ${rule}`, function () {
           await page.addScriptTag({
             path: require.resolve('../dist/act.js')
           });
-
+     
           const report = await page.evaluate((rules) => {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document, window, true));
