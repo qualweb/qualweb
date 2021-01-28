@@ -174,7 +174,7 @@ function getAccessibleNameFromAriaLabelledBy(
         result = accessNameFromId.trim() + ' ';
       }
       elem = null;
-      accessNameFromId = null;
+      accessNameFromId = undefined;
     }
   }
   return result ? result.trim() : result;
