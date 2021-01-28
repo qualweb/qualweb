@@ -8,7 +8,7 @@ function isElementReferencedByAriaLabel(elementQW: QWElement, pageQW: QWPage): b
   let result = false;
   try {
     if (id !== null) {
-      const referencedByAriaLabel = pageQW.getElements(`[aria-labelledby="${id}"]`, elementQW);
+      const referencedByAriaLabel = pageQW.getElements(`[aria-labelledby~="${id}"]`, elementQW);
       let i = 0;
       while (i < referencedByAriaLabel.length) {
         const ariaLabelBy = referencedByAriaLabel[i].getElementAttribute('aria-labelledby');
