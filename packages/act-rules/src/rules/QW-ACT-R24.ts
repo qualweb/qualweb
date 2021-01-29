@@ -1,15 +1,14 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R24 extends Rule {
-  
   private autoCompleteTable = {
-    'home': [
+    home: [
       'tel',
       'tel-country-code',
       'tel-national',
@@ -21,7 +20,7 @@ class QW_ACT_R24 extends Rule {
       'email',
       'impp'
     ],
-    'work': [
+    work: [
       'tel',
       'tel-country-code',
       'tel-national',
@@ -33,7 +32,7 @@ class QW_ACT_R24 extends Rule {
       'email',
       'impp'
     ],
-    'mobile': [
+    mobile: [
       'tel',
       'tel-country-code',
       'tel-national',
@@ -45,7 +44,7 @@ class QW_ACT_R24 extends Rule {
       'email',
       'impp'
     ],
-    'fax': [
+    fax: [
       'tel',
       'tel-country-code',
       'tel-national',
@@ -57,7 +56,7 @@ class QW_ACT_R24 extends Rule {
       'email',
       'impp'
     ],
-    'pager': [
+    pager: [
       'tel',
       'tel-country-code',
       'tel-national',
@@ -69,16 +68,8 @@ class QW_ACT_R24 extends Rule {
       'email',
       'impp'
     ],
-    'modifiers': [
-      'pager',
-      'fax',
-      'mobile',
-      'work',
-      'home',
-      'shipping',
-      'billing'
-    ],
-    'correctTerms': [
+    modifiers: ['pager', 'fax', 'mobile', 'work', 'home', 'shipping', 'billing'],
+    correctTerms: [
       'name',
       'honorific-prefix',
       'given-name',
@@ -131,21 +122,22 @@ class QW_ACT_R24 extends Rule {
       'tel-local-suffix',
       'tel-extension',
       'email',
-      'impp'
+      'impp',
+      'off'
     ],
-    'fieldControl': {
-      'name': 'text',
+    fieldControl: {
+      name: 'text',
       'honorific-prefix': 'text',
       'given-name': 'text',
       'additional-name': 'text',
       'family-name': 'text',
       'honorific-suffix': 'text',
-      'nickname': 'text',
+      nickname: 'text',
       'organization-title': 'text',
-      'username': 'text',
+      username: 'text',
       'new-password': 'password',
       'current-password': 'password',
-      'organization': 'text',
+      organization: 'text',
       'street-address': 'multiline',
       'address-line1': 'text',
       'address-line2': 'text',
@@ -154,7 +146,7 @@ class QW_ACT_R24 extends Rule {
       'address-level3': 'text',
       'address-level2': 'text',
       'address-level1': 'text',
-      'country': 'text',
+      country: 'text',
       'country-name': 'text',
       'postal-code': 'text',
       'cc-name': 'text',
@@ -169,15 +161,15 @@ class QW_ACT_R24 extends Rule {
       'cc-type': 'text',
       'transaction-currency': 'text',
       'transaction-amount': 'numeric',
-      'language': 'text',
-      'bday': 'date',
+      language: 'text',
+      bday: 'date',
       'bday-day': 'numeric',
       'bday-month': 'numeric',
       'bday-year': 'numeric',
-      'sex': 'text',
-      'url': 'url',
-      'photo': 'url',
-      'tel': 'tel',
+      sex: 'text',
+      url: 'url',
+      photo: 'url',
+      tel: 'tel',
       'tel-country-code': 'text',
       'tel-national': 'text',
       'tel-area-code': 'text',
@@ -185,8 +177,8 @@ class QW_ACT_R24 extends Rule {
       'tel-local-prefix': 'text',
       'tel-local-suffix': 'text',
       'tel-extension': 'text',
-      'email': 'email',
-      'impp': 'url'
+      email: 'email',
+      impp: 'url'
     }
   };
 
@@ -195,22 +187,13 @@ class QW_ACT_R24 extends Rule {
   }
 
   @ElementExists
+  @ElementIsVisible
   execute(element: QWElement, page: QWPage): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    //check if is visible and not in accessibility tree
-    const visible = DomUtils.isElementVisible(element,page);
-    if (!visible) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The element is not visible, and not included in the accessibility tree`;
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation, element);
-      return;
-    }
 
     //if input type = hidden, button,submit or reset
     const tag = element.getElementTagName();
@@ -226,12 +209,7 @@ class QW_ACT_R24 extends Rule {
           super.addEvaluationResult(evaluation, element);
           return;
         }
-        if (
-          type === 'hidden' ||
-          type === 'button' ||
-          type === 'submit' ||
-          type === 'reset'
-        ) {
+        if (type === 'hidden' || type === 'button' || type === 'submit' || type === 'reset') {
           evaluation.verdict = 'inapplicable';
           evaluation.description = `The test target is an \`input\` element with a type property of \`hidden, button, submit or reset\`.`;
           evaluation.resultCode = 'RC3';
@@ -251,7 +229,7 @@ class QW_ACT_R24 extends Rule {
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = AccessibilityUtils.isPartOfSequentialFocusNavigation(element,page);
+      const isFocusable = AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
       const widgetRole = AccessibilityUtils.isElementWidget(element, page);
 
       if (!isFocusable && !widgetRole) {
@@ -296,7 +274,6 @@ class QW_ACT_R24 extends Rule {
       super.addEvaluationResult(evaluation, element);
       return;
     }
-
   }
 
   private isAutoCompleteField(field: string): boolean {
@@ -423,7 +400,7 @@ class QW_ACT_R24 extends Rule {
   private isMonth(element: QWElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
-      const type = element.getElementAttribute( 'type');
+      const type = element.getElementAttribute('type');
       if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'month') {
         return true;
       }
@@ -448,10 +425,14 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean{
+  private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean {
+    if (field.toLowerCase() === 'off') {
+      return true;
+    }
+
     //@ts-ignore
     const fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
-    
+
     switch (fieldControl) {
       case 'text':
         return this.isText(element);
@@ -479,8 +460,7 @@ class QW_ACT_R24 extends Rule {
   private isCorrectAutocompleteField(element: QWElement, autoCompleteField: string): boolean {
     const fields = autoCompleteField.split(' ');
 
-    if (fields[0].startsWith('section-'))
-      fields.splice(0, 1);
+    if (fields[0].startsWith('section-')) fields.splice(0, 1);
 
     let field;
     let lastField = '';
