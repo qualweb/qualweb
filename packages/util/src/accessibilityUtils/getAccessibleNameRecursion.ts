@@ -2,7 +2,7 @@
 import { formElements, typesWithLabel } from './constants';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils ,DomUtils} from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import getDefaultName from './getDefaultName';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
@@ -165,8 +165,8 @@ function getAccessibleNameFromAriaLabelledBy(
   let elem;
 
   for (const id of ListIdRefs) {
-    if (id !== '' && elementID !== id) elem = page.getElementByID(id);
-    if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget);
+    if (id !== '' /*&& elementID !== id*/) elem = page.getElementByID(id);
+    if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget && elementID !== id);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId.trim() + ' ';
@@ -210,7 +210,7 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
   if (children) {
     for (const child of children) {
       const role = AccessibilityUtils.getElementRole(child, page);
-      if (!DomUtils.isElementHidden(child, page)&& role !== 'presentation' && role !== 'none') {
+      if (!DomUtils.isElementHidden(child, page) && role !== 'presentation' && role !== 'none') {
         aName = AccessibilityUtils.getAccessibleNameRecursion(child, page, true, isWidget);
         if (aName) {
           elementAnames.push(aName);
