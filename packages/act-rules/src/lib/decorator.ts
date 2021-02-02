@@ -224,6 +224,26 @@ function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   };
 }
 
+function ElementIsWidget(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isWidget = AccessibilityUtils.isElementWidget(arguments[0], arguments[1]);
+    if (isWidget) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementAllowsNameFromContent(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const supportsNameFromContent = AccessibilityUtils.allowsNameFromContent(arguments[0]);
+    if (supportsNameFromContent) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function IsHTMLDocument(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -265,6 +285,8 @@ export {
   ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
   ElementHasOneOfTheFollowingRoles,
+  ElementIsWidget,
+  ElementAllowsNameFromContent,
   IsHTMLDocument,
   IsLangSubTagValid,
   isInMainContext,
