@@ -207,7 +207,7 @@ class QW_ACT_R7 extends Rule {
     for (const property in rules || {}) {
       if (property === 'transform') {
         const value = <string>rules[property].value;
-        console.log(value);
+       // console.log(value);
         if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
           let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
           transformValue = this.parseDegrees(angle);

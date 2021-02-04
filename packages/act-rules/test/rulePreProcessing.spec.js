@@ -50,7 +50,7 @@ describe(`Rule ${rule}`, function () {
           const {sourceHtml, page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
           let preProcessElements = CSSselect(selector,sourceHtml.html.parsed);
           let elements = convertElements(selector,preProcessElements)
-          console.log(elements);
+          //console.log(elements);
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')

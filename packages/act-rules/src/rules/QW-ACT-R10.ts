@@ -104,10 +104,10 @@ class QW_ACT_R10 extends Rule {
         }
       }
     } catch (e) {
-      console.log(e);
+     // console.log(e);
 
     };
-    console.log(content);
+   // console.log(content);
     return content;
   }
 
