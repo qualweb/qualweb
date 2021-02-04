@@ -121,6 +121,16 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
   };
 }
 
+function ElementHasNegativeTabIndex(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const tabindex = arguments[0].getElementAttribute('tabindex');
+    if (tabindex && parseInt(tabindex) <=-1) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -291,5 +301,6 @@ export {
   IsLangSubTagValid,
   isInMainContext,
   ElementNotHidden,
-  ElementIsVisibleOrInAccessibilityTree
+  ElementIsVisibleOrInAccessibilityTree,
+  ElementHasNegativeTabIndex
 };

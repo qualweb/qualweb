@@ -28,7 +28,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.28",
-    "@qualweb/types": "^0.4.52",
+    "@qualweb/types": "^0.4.53",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@qualweb/qw-element": "^0.1.29",
-    "@qualweb/qw-page": "^0.1.35",
+    "@qualweb/qw-page": "^0.1.36",
     "@qualweb/util": "^0.3.64",
     "css-select": "^2.1.0",
     "htmlparser2": "^4.0.0",

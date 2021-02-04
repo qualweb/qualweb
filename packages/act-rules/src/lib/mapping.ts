@@ -56,6 +56,7 @@ export default {
     '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': [
       'QW-ACT-R66'
     ],
-    '*': ['QW-ACT-R7', 'QW-ACT-R65']
+    '*': ['QW-ACT-R7', 'QW-ACT-R65'],
+    'iframe[tabindex]':['QW-ACT-R70'],
   }
 };
