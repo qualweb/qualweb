@@ -17,27 +17,36 @@ class QW_ACT_R70 extends Rule {
   @ElementExists
   @ElementHasNegativeTabIndex
   execute(element: QWElement, page: QWPage): void {
-    let elementList = element.getElements('*');
-    let inSequentialFocusList = elementList.filter((element) => {
-      return AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page) && DomUtils.isElementVisible(element,page) ;
-    })
     let evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    if (inSequentialFocusList.length === 0) {
+    if (!DomUtils.isElementVisible(element, page)) {
       evaluation.verdict = 'passed';
       evaluation.description = ' The nested browsing context does not include elements that are visible and part of the sequential focus navigation.';
       evaluation.resultCode = 'RC1';
       super.addEvaluationResult(evaluation, element);
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description =  'The nested browsing context includes elements that are visible and part of the sequential focus navigation.';
-      evaluation.resultCode = 'RC2';
-      super.addEvaluationResult(evaluation, element, false, false);
+      let elementList = page.getElements("*", undefined, element.getElementSelector());
+      let inSequentialFocusList = elementList.filter((elem) => {
+        return AccessibilityUtils.isPartOfSequentialFocusNavigation(elem, page) && DomUtils.isElementVisible(elem, page);
+      })
+
+      if (inSequentialFocusList.length === 0) {
+        evaluation.verdict = 'passed';
+        evaluation.description = ' The nested browsing context does not include elements that are visible and part of the sequential focus navigation.';
+        evaluation.resultCode = 'RC1';
+        super.addEvaluationResult(evaluation, element);
+      } else {
+        evaluation.verdict = 'failed';
+        evaluation.description = 'The nested browsing context includes elements that are visible and part of the sequential focus navigation.';
+        evaluation.resultCode = 'RC2';
+        super.addEvaluationResult(evaluation, element, false, false);
+      }
     }
+
 
 
   }

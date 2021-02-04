@@ -88,7 +88,8 @@ describe(`Rule ${rule}`, function() {
   let tests = null;
 
   it('Starting testbench', async function() {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({headless:false,args: [
+      "--disable-web-security"]})
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
@@ -122,7 +123,7 @@ describe(`Rule ${rule}`, function() {
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        await browser.close();
+       // await browser.close();
       });
     });
   });
