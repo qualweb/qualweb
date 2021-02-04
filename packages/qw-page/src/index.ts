@@ -64,7 +64,7 @@ class QWPage {
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
-    if (element && this.elementsCSSRules?.has(element)) {
+    if (element && this.elementsCSSRules ?.has(element)) {
       element.setAttribute('_cssRules', 'true');
     }
   }
@@ -113,14 +113,18 @@ class QWPage {
 
   public getElement(
     selector: string,
-    specificDocument?: QWElement
+    specificDocument?: QWElement,
+    documentSelector?: string
   ): QWElement | null {
     let element: QWElement | null = null;
-    let iframeSelector: string | null = null;
-    if (specificDocument) {
-      iframeSelector = specificDocument.getElementAttribute(
-        '_documentSelector'
-      );
+    let iframeSelector: any = null;
+    if (specificDocument || !!documentSelector) {
+      if (specificDocument) {
+        iframeSelector = specificDocument.getElementAttribute(
+          '_documentSelector');
+      } else {
+        iframeSelector = documentSelector;
+      }
       if (!!iframeSelector && !!this.extraDocuments.has(iframeSelector)) {
         const iframePage = this.extraDocuments.get(iframeSelector);
         if (iframePage) {
@@ -156,14 +160,19 @@ class QWPage {
 
   public getElements(
     selector: string,
-    specificDocument?: QWElement
+    specificDocument?: QWElement,
+    documentSelector?: string
   ): Array<QWElement> {
-
+    let iframeSelector;
     const elements = new Array<QWElement>();
-    if (specificDocument) {
-      const iframeSelector = specificDocument.getElementAttribute(
-        '_documentSelector'
-      );
+    if (specificDocument || !!documentSelector) {
+      if (specificDocument) {
+        iframeSelector = specificDocument.getElementAttribute(
+          '_documentSelector');
+      } else {
+        iframeSelector = documentSelector;
+      }
+
       if (!!iframeSelector && !!this.extraDocuments.has(iframeSelector)) {
         const iframePage = this.extraDocuments.get(iframeSelector);
         if (iframePage) {
