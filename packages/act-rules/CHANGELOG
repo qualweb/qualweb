@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.46] - 08/02/2021
+### Added
+ - ACT-R70 - frame with negative tabindex has no interactive elements
+
 ## [0.4.44] - 25/01/2021
 ### Updated
  - Mapping
