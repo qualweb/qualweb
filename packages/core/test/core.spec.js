@@ -7,7 +7,7 @@ describe('Core', function () {
 
     const qualweb = new QualWeb();
 
-    await qualweb.start();
+    await qualweb.start(«);
 
     const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt/' });
 
@@ -15,6 +15,6 @@ describe('Core', function () {
 
     await qualweb.stop();
 
-    expect(earlReports['https://www.ulisboa.pt/']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://ciencias.ulisboa.pt/']['@graph'].length).to.be.equal(1);
   });
 });
