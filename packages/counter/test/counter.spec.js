@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 const { expect } = require('chai');
 
-const URL = 'http://127.0.0.1:8080/testsite.html';
+const URL = '127.0.0.1:8080';
 
 
 
