@@ -1,0 +1,37 @@
+{
+  "name": "@qualweb/counter",
+  "version": "0.1.67",
+  "description": "Evaluates chosen modules",
+  "main": "dist/index.js",
+  "types": "./dist",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha --require esm",
+    "prebuild": "rimraf dist",
+    "build": "npm run prebuild && tsc --build",
+    "pub": "npm run build && npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/util.git"
+  },
+  "keywords": [
+    "qualweb",
+    "accessibility",
+    "util",
+    "lib"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qualweb/util/issues"
+  },
+  "homepage": "https://github.com/qualweb/util#readme",
+  "devDependencies": {
+   "@qualweb/util": "^0.3.26"
+  },
+  "dependencies": {
+   "@qualweb/util": "^0.3.26"
+
+  }
+}
