@@ -1,6 +1,6 @@
-declare module '@qualweb/Counter' {
+declare module '@qualweb/counter' {
   
-  import { QWPage } from '@qualweb/qw-page';
+  import { QWPage } from '@qualweb/qw-page';  
 
   interface Roles{
     [role: string]: number;
