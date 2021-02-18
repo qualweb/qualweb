@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/counter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Counts elements of a webpage by role and by tag",
   "main": "dist/counter.js",
   "scripts": {
@@ -8,11 +8,11 @@
     "test": "mocha --require esm test/counter.spec.js",
     "prebuild": "rimraf prebuild && tsc --build",
     "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
-    "pub": "npm run build && npm publish"
+    "pub": "npm run build && npm publish --access=public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/util.git"
+    "url": "git+https://github.com/qualweb/counter.git"
   },
   "keywords": [
     "qualweb",
@@ -23,9 +23,9 @@
   "author": "Pedro Santos",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/qualweb/util/issues"
+    "url": "https://github.com/qualweb/counter/issues"
   },
-  "homepage": "https://github.com/qualweb/util#readme",
+  "homepage": "https://github.com/qualweb/counter#readme",
   "devDependencies": {
     "@qualweb/dom": "^0.1.28",
     "@qualweb/types": "^0.4.52",
