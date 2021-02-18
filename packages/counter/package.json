@@ -1,9 +1,8 @@
 {
   "name": "@qualweb/counter",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Counts elements of a webpage by role and by tag",
-  "main": "dist/index.js",
-  "types": "./dist",
+  "main": "dist/counter.js",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm test/counter.spec.js",
@@ -31,8 +30,6 @@
     "@qualweb/dom": "^0.1.28",
     "@qualweb/types": "^0.4.52",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/lodash.clone": "^4.5.6",
-    "@types/lodash.clonedeep": "^4.5.6",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
@@ -43,11 +40,6 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.29",
-    "@qualweb/qw-page": "^0.1.36",
-    "@qualweb/util": "^0.3.64",
-    "css-select": "^3.1.2",
-    "lodash.clone": "^4.5.0",
-    "lodash.clonedeep": "^4.5.0"
+    "@qualweb/util": "^0.3.64"
   }
 }
