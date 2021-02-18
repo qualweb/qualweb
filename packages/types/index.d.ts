@@ -13,3 +13,4 @@
 /// <reference path="./qwPage.d.ts" />
 /// <reference path="./dom.d.ts" />
 /// <reference path="./evaluation.d.ts" />
+/// <reference path="./counter.d.ts" />
