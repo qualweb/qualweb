@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
   "dependencies": {
-    "@qualweb/util": "^0.3.61",
+    "@qualweb/util": "^0.3.63",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0"
   },
@@ -48,7 +48,7 @@
     "puppeteer": "^5.5.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.1.3",
-    "webpack": "^5.17.0",
+    "webpack": "^5.19.0",
     "webpack-cli": "^4.4.0"
   }
 }

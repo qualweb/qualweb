@@ -10,7 +10,8 @@
         "parent": "map",
         "element": "area"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "1.1.1",
           "level": "A",
           "principle": "Perceivable",
@@ -42,12 +43,14 @@
       "target": {
         "element": "table"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": ["H51", "H73", "F46"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H39"
     }
@@ -61,7 +64,8 @@
       "target": {
         "element": "fieldset"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "1.3.1",
           "level": "A",
           "principle": "Perceivable",
@@ -87,12 +91,14 @@
       "target": {
         "element": "table"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": ["H39", "H51", "F46"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H73"
     }
@@ -106,12 +112,14 @@
       "target": {
         "element": "input"
       },
-      "success-criteria": [{
-        "name": "1.1.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content"
+        }
+      ],
       "related": ["G94"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H36"
     }
@@ -124,14 +132,22 @@
     "metadata": {
       "target": {
         "element": "*",
-        "attributes": ["onmousedown", "onmouseup", "onclick", "onmouseover", "onmouseout"]
+        "attributes": [
+          "onmousedown",
+          "onmouseup",
+          "onclick",
+          "onmouseover",
+          "onmouseout"
+        ]
       },
-      "success-criteria": [{
-        "name": "2.1.1",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.1.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
+        }
+      ],
       "related": ["G90"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/client-side-script/SCR20"
     }
@@ -145,12 +161,14 @@
       "target": {
         "element": "abbr"
       },
-      "success-criteria": [{
-        "name": "3.1.4",
-        "level": "AAA",
-        "principle": "Understandable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/abbreviations"
-      }],
+      "success-criteria": [
+        {
+          "name": "3.1.4",
+          "level": "AAA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/abbreviations"
+        }
+      ],
       "related": ["G91", "H30"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H28"
     }
@@ -164,7 +182,8 @@
       "target": {
         "attributes": "alt"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "1.1.1",
           "level": "A",
           "principle": "Perceivable",
@@ -191,18 +210,19 @@
         "element": ["h1", "h2", "h3", "h4", "h5", "h6"],
         "attributes": "role='heading'"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      },
-      {
-        "name": "2.4.10",
-        "level": "AAA",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/section-headings"
-      }
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        },
+        {
+          "name": "2.4.10",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/section-headings"
+        }
       ],
       "related": ["G91", "H30"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G141"
@@ -217,24 +237,25 @@
       "target": {
         "element": "a"
       },
-      "success-criteria": [{
-        "name": "1.1.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/text-equiv-all.html"
-      },
-      {
-        "name": "2.4.4",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html"
-      },
-      {
-        "name": "2.4.9",
-        "level": "AAA",
-        "principle": "Operable",
-        "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-link.html"
-      }
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/text-equiv-all.html"
+        },
+        {
+          "name": "2.4.4",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html"
+        },
+        {
+          "name": "2.4.9",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-link.html"
+        }
       ],
       "related": ["G91", "G94", "H30", "C9", "F89"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H2"
@@ -249,12 +270,14 @@
       "target": {
         "element": "applet"
       },
-      "success-criteria": [{
-        "name": "1.1.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
+        }
+      ],
       "related": ["G94"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H25"
     }
@@ -268,12 +291,14 @@
       "target": {
         "element": "table"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": ["H39", "H51", "H73"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F46"
     }
@@ -287,12 +312,14 @@
       "target": {
         "element": "blink"
       },
-      "success-criteria": [{
-        "name": "2.2.2",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.2.2",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide"
+        }
+      ],
       "related": [],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F47"
     }
@@ -306,12 +333,14 @@
       "target": {
         "element": "table"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": [],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H43"
     }
@@ -325,7 +354,8 @@
       "target": {
         "element": "link"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "2.4.5",
           "level": "AA",
           "principle": "Operable",
@@ -351,17 +381,20 @@
       "target": {
         "element": "*"
       },
-      "success-criteria": [{
-        "name": "4.1.1",
-        "level": "A",
-        "principle": "Robust",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing"
-        }, {
-        "name": "4.1.2",
-        "level": "A",
-        "principle": "Robust",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
-      }],
+      "success-criteria": [
+        {
+          "name": "4.1.1",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing"
+        },
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
+      ],
       "related": ["H74", "H75"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H88"
     }
@@ -375,7 +408,8 @@
       "target": {
         "element": "form"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "1.3.1",
           "level": "A",
           "principle": "Perceivable",
@@ -401,12 +435,14 @@
       "target": {
         "element": "table"
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": ["H39", "H43", "H63"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H51"
     }
@@ -420,12 +456,14 @@
       "target": {
         "element": "form"
       },
-      "success-criteria": [{
-        "name": "3.2.2",
-        "level": "A",
-        "principle": "Understandable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-input"
-      }],
+      "success-criteria": [
+        {
+          "name": "3.2.2",
+          "level": "A",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-input"
+        }
+      ],
       "related": ["G80", "H36", "H84"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H32"
     }
@@ -439,17 +477,20 @@
       "target": {
         "element": "a"
       },
-      "success-criteria": [{
-        "name": "2.4.4",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context"
-      }, {
-        "name": "2.4.9",
-        "level": "AAA",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.4.4",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context"
+        },
+        {
+          "name": "2.4.9",
+          "level": "AAA",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only"
+        }
+      ],
       "related": ["C7", "H30"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H33"
     }
@@ -478,13 +519,13 @@
           "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-link.html"
         },
         {
-          "name":"4.1.2",
-          "level":"A",
-          "principle":"Robust",
-          "url":"https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
         }
       ],
-      "related": ["H2", "H30","ARIA7","ARIA8"],
+      "related": ["H2", "H30", "ARIA7", "ARIA8"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F89"
     }
   },
@@ -497,12 +538,14 @@
       "target": {
         "element": "*"
       },
-      "success-criteria": [{
-        "name": "3.2.5",
-        "level": "AAA",
-        "principle": "Understandable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
-      }],
+      "success-criteria": [
+        {
+          "name": "3.2.5",
+          "level": "AAA",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/change-on-request"
+        }
+      ],
       "related": ["G107"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F52"
     }
@@ -516,12 +559,14 @@
       "target": {
         "element": "body"
       },
-      "success-criteria": [{
-        "name": "2.4.1",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
+        }
+      ],
       "related": ["G123", "G124"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G1"
     }
@@ -535,22 +580,26 @@
       "target": {
         "element": "*"
       },
-      "success-criteria": [{
-        "name": "2.1.1",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
-      }, {
-        "name": "2.4.7",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible"
-      }, {
-        "name": "3.2.1",
-        "level": "A",
-        "principle": "Understandable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-focus"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.1.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard"
+        },
+        {
+          "name": "2.4.7",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible"
+        },
+        {
+          "name": "3.2.1",
+          "level": "A",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/on-focus"
+        }
+      ],
       "related": [],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F55"
     }
@@ -564,12 +613,13 @@
       "target": {
         "element": ["th", "td[scope]"]
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
       ],
       "related": ["H43", "H51"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H63"
@@ -583,14 +633,26 @@
     "metadata": {
       "target": {
         "element": ["div", "span"],
-        "attributes": ["onmousedown", "onmouseup", "onclick", "onmouseover", "onmouseout", "onkeydown", "onkeyup", "onkeypress", "onfocus", "onblur"]
+        "attributes": [
+          "onmousedown",
+          "onmouseup",
+          "onclick",
+          "onmouseover",
+          "onmouseout",
+          "onkeydown",
+          "onkeyup",
+          "onkeypress",
+          "onfocus",
+          "onblur"
+        ]
       },
-      "success-criteria": [{
-        "name": "4.1.2",
-        "level": "A",
-        "principle": "Robust",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
-      }
+      "success-criteria": [
+        {
+          "name": "4.1.2",
+          "level": "A",
+          "principle": "Robust",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+        }
       ],
       "related": ["F42"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F59"
@@ -606,12 +668,14 @@
         "element": ["div", "span"],
         "attributes": "text-align"
       },
-      "success-criteria": [{
-        "name": "1.4.8",
-        "level": "AAA",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
       "related": ["C22"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F88"
     }
@@ -626,12 +690,13 @@
         "element": "*",
         "attributes": "font-size"
       },
-      "success-criteria": [{
-        "name": "1.4.4",
-        "level": "AA",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-scale.html"
-      },
+      "success-criteria": [
+        {
+          "name": "1.4.4",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-scale.html"
+        },
         {
           "name": "1.4.5",
           "level": "AA",
@@ -691,12 +756,13 @@
         "element": "*",
         "attributes": "text-decoration"
       },
-      "success-criteria": [{
-        "name": "2.2.2",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html"
-      }
+      "success-criteria": [
+        {
+          "name": "2.2.2",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html"
+        }
       ],
       "related": ["SCR22"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/failures/F4"
@@ -712,7 +778,8 @@
         "element": "*",
         "attributes": "text-decoration"
       },
-      "success-criteria": [{
+      "success-criteria": [
+        {
           "name": "1.4.3",
           "level": "AA",
           "principle": "Perceivable",
@@ -744,12 +811,14 @@
       "target": {
         "element": ["li", "dd", "dt"]
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
+        }
+      ],
       "related": ["H40"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/html/H48"
     }
