@@ -4,7 +4,7 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 
 ## How to use
 
-**This is an internal module of QualWeb. To use it please check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
+**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core). You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http://qualweb.di.fc.ul.pt/evaluator/), or by installing the [chrome extension](https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc).**
 
 ## Implemented rules
 
@@ -75,9 +75,9 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R67      | [24afc2](https://act-rules.github.io/rules/24afc2) | Letter spacing in style attributes is not !important                                |
 | QW-ACT-R68      | [78fd32](https://act-rules.github.io/rules/78fd32) | Line height in style attributes is not !important                                   |
 | QW-ACT-R69      | [9e45ec](https://act-rules.github.io/rules/9e45ec) | Word spacing in style attributes is not !important                                  |
-| QW-ACT-R70      | [akn7bn](https://act-rules.github.io/rules/akn7bn) | frame with negative tabindex has no interactive elements                                    | 
+| QW-ACT-R70      | [akn7bn](https://act-rules.github.io/rules/akn7bn) | frame with negative tabindex has no interactive elements                            |
 | QW-ACT-R71      | [bisz58](https://act-rules.github.io/rules/bisz58) | `meta` element has no refresh delay (no exception)                                  |
-| QW-ACT-R72      | [8a213c](https://act-rules.github.io/rules/8a213c) | First focusable element is link to non-repeated content                                  |
+| QW-ACT-R72      | [8a213c](https://act-rules.github.io/rules/8a213c) | First focusable element is link to non-repeated content                             |
 
 # License
 
