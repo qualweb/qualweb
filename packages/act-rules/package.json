@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.4.47",
+  "version": "0.4.48",
   "description": "ACT-R module for qualweb accessibility evaluator",
   "main": "dist/act.js",
   "scripts": {
@@ -49,8 +49,6 @@
     "@qualweb/qw-element": "^0.1.29",
     "@qualweb/qw-page": "^0.1.36",
     "@qualweb/util": "^0.3.64",
-    "css-select": "^2.1.0",
-    "htmlparser2": "^4.0.0",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
