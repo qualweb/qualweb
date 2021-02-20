@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "description": "Utilities module for qualweb",
   "main": "dist/qwPage.js",
   "types": "./node_modules/@qualweb/types",
