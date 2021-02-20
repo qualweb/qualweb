@@ -6,6 +6,8 @@ The core allows you to perform automatic accessibility evaluations on web pages.
 - [@qualweb/wcag-techniques](https://github.com/qualweb/wcag-techniques)
 - [@qualweb/best-practices](https://github.com/qualweb/best-practices)
 
+You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http://qualweb.di.fc.ul.pt/evaluator/), or by installing the [chrome extension](https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc).
+
 ## How to install
 
 ```shell
