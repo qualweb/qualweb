@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./dist",
@@ -43,7 +43,7 @@
   "dependencies": {
     "domutils": "^2.4.2",
     "htmlparser-to-html": "0.0.6",
-    "htmlparser2": "^5.0.1",
+    "htmlparser2": "^6.0.0",
     "lodash.clone": "^4.5.0",
     "node-fetch": "^2.6.1"
   }
