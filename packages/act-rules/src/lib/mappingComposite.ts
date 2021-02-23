@@ -13,5 +13,5 @@ export default {
     rules: ['QW-ACT-R51', 'QW-ACT-R52', 'QW-ACT-R53', 'QW-ACT-R54']
   },
   'QW-ACT-R32': { selector: 'video', implementation: 'conjunction', rules: ['QW-ACT-R55', 'QW-ACT-R56', 'QW-ACT-R57'] },
-  'QW-ACT-R73': { selector: 'html', implementation: 'conjunction', rules: [''] }
+  'QW-ACT-R75': { selector: 'html', implementation: 'disjunction', rules: ['QW-ACT-R73', 'QW-ACT-R74'] }
 };

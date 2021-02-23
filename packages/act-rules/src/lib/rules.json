@@ -1496,7 +1496,8 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/9e45ec"
     }
-  },"QW_ACT_R70": {
+  },
+  "QW_ACT_R70": {
     "name": "iframe with negative tabindex has no interactive elements",
     "code": "QW-ACT-R70",
     "mapping": "akn7bn",
@@ -1505,11 +1506,11 @@
       "target": {
         "element": "iframe[tabindex]"
       },
-      "success-criteria": [
-        {}
-      ],
+      "success-criteria": [{}],
       "related": [],
-      "url": "https://act-rules.github.io/rules/akn7bn"}},
+      "url": "https://act-rules.github.io/rules/akn7bn"
+    }
+  },
   "QW_ACT_R71": {
     "name": "`meta` element has no refresh delay (no exception)",
     "code": "QW-ACT-R71",
@@ -1549,6 +1550,75 @@
       "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/8a213c"
+    }
+  },
+  "QW_ACT_R73": {
+    "name": "Block of repeated content is collapsible",
+    "code": "QW-ACT-R73",
+    "mapping": "3e12e1",
+    "description": "This rule checks that repeated blocks of content are collapsible.",
+    "metadata": {
+      "target": {
+        "element": "html"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/3e12e1",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
+  },
+  "QW_ACT_R74": {
+    "name": "Document has an instrument to move focus to non-repeated content",
+    "code": "QW-ACT-R74",
+    "mapping": "ye5d6e",
+    "description": "This rule checks that there is an instrument to move focus to non-repeated content in the page.",
+    "metadata": {
+      "target": {
+        "element": "html"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/ye5d6e",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
+  },
+  "QW_ACT_R75": {
+    "name": "Bypass Blocks of Repeated Content",
+    "code": "QW-ACT-R75",
+    "mapping": "cf77f2",
+    "description": "This rule checks that each page has a mechanism to bypass repeated blocks of content.",
+    "metadata": {
+      "target": {
+        "element": "html"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/cf77f2",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
     }
   }
 }

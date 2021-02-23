@@ -28,6 +28,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.1.28",
+    "@qualweb/qw-page": "^0.1.38",
     "@qualweb/types": "^0.4.53",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
@@ -46,8 +47,6 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.1.29",
-    "@qualweb/qw-page": "^0.1.36",
     "@qualweb/util": "^0.3.64",
     "languagedetect": "^2.0.0",
     "lodash.clone": "^4.5.0",
