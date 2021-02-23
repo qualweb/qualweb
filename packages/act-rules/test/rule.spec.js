@@ -112,14 +112,14 @@ describe(`Rule ${rule}`, function () {
         it(test.title, async function () {
           this.timeout(10 * 1000);
           const dom = new Dom();
-          console.log(test.url);
+          
           const { page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
           /*mobile version
          await page.setViewport({
             width: 375,
             height: 667,
             isMobile: true
-          }); */
+          });*/
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page')
@@ -133,8 +133,8 @@ describe(`Rule ${rule}`, function () {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document, window, true));
             return report;
-          }, { rules: [rule] });
-
+          }, { rules: ["QW-ACT-R73", "QW-ACT-R74", rule] });
+          
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       });

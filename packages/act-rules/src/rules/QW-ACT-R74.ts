@@ -38,7 +38,12 @@ class QW_ACT_R74 extends Rule {
         let nSkipLinks = 0;
         for (const anchor of linksWithAnchors) {
           anchor.focusElement();
-          anchor.click();
+          try {
+            anchor.click();
+          } catch (e) {
+            console.log(anchor);
+            console.log(e);
+          }
           const focusedElement = page.getFocusedElement();
           if (anchor.getElementSelector() !== focusedElement.getElementSelector()) {
             nSkipLinks++;
