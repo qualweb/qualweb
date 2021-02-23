@@ -1,5 +1,4 @@
-declare module '@qualweb/qw-element' {
-
+declare module "@qualweb/qw-element" {
   class QWElement {
     constructor(element: Element, elementsCSSRules?: Map<Element, any>);
     public elementHasAttribute(attribute: string): boolean;
@@ -18,9 +17,12 @@ declare module '@qualweb/qw-element' {
     public getElementNextSibling(): QWElement | null;
     public getElementParent(): QWElement | null;
     public getElementPreviousSibling(): QWElement | null;
-    public getElementProperty( property: string): string;
+    public getElementProperty(property: string): string;
     public getElementSelector(): string;
-    public getElementStyleProperty(property: string, pseudoStyle: string | null): string;
+    public getElementStyleProperty(
+      property: string,
+      pseudoStyle: string | null
+    ): string;
     public getElementTagName(): string;
     public getElementText(): string;
     public getElementType(): string;
@@ -32,20 +34,27 @@ declare module '@qualweb/qw-element' {
     public elementHasTextNode(): boolean;
     public getContentFrame(): Document | null;
     public focusElement(): void;
+    public click(): void;
     public getBoundingBox(): any;
-   // public getShadowElement(selector: string): QWElement|null;
-   // public getShadowElements(selector: string): Array<QWElement>;
+    // public getShadowElement(selector: string): QWElement|null;
+    // public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
     public getCSSRules(): any;
-    public hasCSSProperty(property: string, pseudoStyle?: string, media?: string): boolean;
-    public getCSSProperty(property: string, pseudoStyle?: string, media?: string): any;
+    public hasCSSProperty(
+      property: string,
+      pseudoStyle?: string,
+      media?: string
+    ): boolean;
+    public getCSSProperty(
+      property: string,
+      pseudoStyle?: string,
+      media?: string
+    ): any;
     public getCSSMediaRules(): any;
     public getCSSPseudoSelectorRules(pseudoSelector: string): any;
     public getParentAllContexts(): QWElement | null;
   }
 
-  export {
-    QWElement
-  };
+  export { QWElement };
 }

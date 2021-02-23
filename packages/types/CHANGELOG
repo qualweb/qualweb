@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.4.54] - 02/18/2020
+## [0.4.55] - 23/18/2020
+
+### Updated
+ - qw-element definition
+
+## [0.4.54] - 18/02/2020
 
 ### Added
  - counter module definition types
