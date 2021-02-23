@@ -244,7 +244,7 @@ class Dom {
     return !!(
       content?.trim().startsWith("<math") ||
       content?.trim().startsWith("<svg") ||
-      content?.includes("<html")
+      !content?.includes("<html")
     );
   }
 }
