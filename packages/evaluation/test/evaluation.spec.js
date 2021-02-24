@@ -6,7 +6,7 @@ describe('QualWeb page', function() {
   it('Testing qualweb page evaluation', async function() {
     this.timeout(60*1000);
 
-    const url = 'https://ciencias.ulisboa.pt';
+    const url = 'https://www.stormraadet.dk/regler-og-vejledninger/afgoerelser-fra-stormraadet/2017/ikke-medhold-i-klage-over-afvisning-af-totalskade-og-skader-paa-braendeovn/';
 
     const browser = await puppeteer.launch();
     const dom = new Dom();

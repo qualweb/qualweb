@@ -13,7 +13,6 @@ import { BrowserUtils, DomUtils } from "@qualweb/util";
 import EvaluationRecord from "./evaluationRecord.object";
 import { ACTROptions, ACTRulesReport } from "@qualweb/act-rules";
 import { BPOptions, BestPracticesReport } from "@qualweb/best-practices";
-
 import { executeWappalyzer } from "@qualweb/wappalyzer";
 
 class Evaluation {
