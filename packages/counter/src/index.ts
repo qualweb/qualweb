@@ -3,9 +3,9 @@ import { AccessibilityUtils } from "@qualweb/util";
 import { CounterReport } from "@qualweb/counter";
 
 async function executeCounter(page: QWPage): Promise<CounterReport | void> {
-  let roles: any = {}; //dicionario roles
+  let roles2: any = {}; //dicionario roles
   let names: any = {}; //dicionario tag
-  // const CounterReport = new CounterReport();
+  const cr: CounterReport = {type: 'counter', data:{roles:{},tags:{}}};
   const elementList = page.getElements("*");
 
   //get explicit roles
@@ -14,11 +14,11 @@ async function executeCounter(page: QWPage): Promise<CounterReport | void> {
     const tag = element.getElementTagName();
     // count elements
     if (role !== null) {
-      if (roles[role] === undefined) {
-        roles[role] = 0;
+      if (roles2[role] === undefined) {
+        roles2[role] = 0;
       }
 
-      roles[role]++;
+      roles2[role]++;
     }
     // count tags
 
@@ -29,8 +29,13 @@ async function executeCounter(page: QWPage): Promise<CounterReport | void> {
       names[tag]++;
     }
   }
-
-  console.log(roles, names);
+  cr.data.roles = roles2;
+  cr.data.tags = names;
+  return cr;
+  
 }
 
 export { executeCounter };
+    
+
+  
