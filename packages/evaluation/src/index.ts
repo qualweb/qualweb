@@ -14,6 +14,9 @@ import EvaluationRecord from "./evaluationRecord.object";
 import { ACTROptions, ACTRulesReport } from "@qualweb/act-rules";
 import { BPOptions, BestPracticesReport } from "@qualweb/best-practices";
 import { executeWappalyzer } from "@qualweb/wappalyzer";
+import {CounterReport} from '@qualweb/counter';
+
+
 
 class Evaluation {
   public async getEvaluator(
@@ -264,6 +267,23 @@ class Evaluation {
     return bpReport;
   }
 
+ 
+  public async executeCounter2(page: Page): Promise<CounterReport> {
+    await page.addScriptTag({
+      path: require.resolve("@qualweb/counter"),
+    });
+
+    const Counter = await page.evaluate(() => {
+      //@ts-ignore
+      
+      const cr: CounterReport = Counter.executeCounter(window.page) ;
+      
+      return cr;
+   
+  });
+  return Counter;
+}
+
   public async evaluatePage(
     sourceHtml: SourceHtml,
     page: Page,
@@ -302,6 +322,10 @@ class Evaluation {
         await executeWappalyzer(url)
       );
     }
+    if(execute.counter){
+      evaluation.addModuleEvaluation("counter", await this.executeCounter2(page));
+    }
+
 
     return evaluation;
   }

@@ -7,6 +7,7 @@ import { WappalyzerReport } from "@qualweb/wappalyzer";
 import { ACTRulesReport } from "@qualweb/act-rules";
 import { WCAGTechniquesReport } from "@qualweb/wcag-techniques";
 import { BestPracticesReport } from "@qualweb/best-practices";
+import { CounterReport } from "@qualweb/counter";
 
 class EvaluationRecord {
   private readonly type: "evaluation";
@@ -23,7 +24,7 @@ class EvaluationRecord {
 
   public addModuleEvaluation(
     module: Module,
-    evaluation: Report | WappalyzerReport
+    evaluation: Report | WappalyzerReport | CounterReport
   ): void {
     const clonedEvaluation = cloneDeep(evaluation);
     if (clonedEvaluation) {
@@ -41,9 +42,11 @@ class EvaluationRecord {
             clonedEvaluation
           );
           break;
+        case "counter":
+          this.modules["counter"] = <CounterReport>(clonedEvaluation);
       }
 
-      if (module !== "wappalyzer") {
+      if (module !== "wappalyzer" && module!== "counter") {
         this.metadata.addPassedResults(
           this.modules[module]?.metadata.passed || 0
         );
