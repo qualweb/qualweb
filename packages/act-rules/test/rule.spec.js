@@ -71,6 +71,8 @@ const mapping = {
   'QW-ACT-R60': 'f51b46',
   'QW-ACT-R61': '1a02b0',
   'QW-ACT-R62': 'oj04fd',
+  'QW-ACT-R63': 'b40fd1',
+  'QW-ACT-R64': '047fe0',
   'QW-ACT-R65': '307n5z',
   'QW-ACT-R66': 'm6b1q3',
   'QW-ACT-R67': '24afc2',
@@ -78,7 +80,10 @@ const mapping = {
   'QW-ACT-R69': '9e45ec',
   'QW-ACT-R70': 'akn7bn',
   'QW-ACT-R71': 'bisz58',
-  'QW-ACT-R72': '8a213c'
+  'QW-ACT-R72': '8a213c',
+  'QW-ACT-R73': '3e12e1',
+  'QW-ACT-R74': 'ye5d6e',
+  'QW-ACT-R75': 'cf77f2'
 };
 
 const rule = process.argv[3].toUpperCase();
@@ -95,7 +100,7 @@ describe(`Rule ${rule}`, function () {
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
-
+    
     // tests = [
     //   {
     //     title: 'R72',
@@ -109,28 +114,29 @@ describe(`Rule ${rule}`, function () {
         it(test.title, async function () {
           this.timeout(10 * 1000);
           const dom = new Dom();
+          
           const { page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
           /*mobile version
          await page.setViewport({
             width: 375,
             height: 667,
             isMobile: true
-          }); */
+          });*/
 
           await page.addScriptTag({
-            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+            path: require.resolve('@qualweb/qw-page')
           });
 
           await page.addScriptTag({
             path: require.resolve('../dist/act.js')
           });
-     
+          
           const report = await page.evaluate((rules) => {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document, window, true));
             return report;
-          }, { rules: [rule] });
-
+          }, { rules: ["QW-ACT-R63", "QW-ACT-R64", "QW-ACT-R73", "QW-ACT-R74", rule] });
+          
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       });

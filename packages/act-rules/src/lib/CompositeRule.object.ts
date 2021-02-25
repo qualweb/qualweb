@@ -6,7 +6,6 @@ import { AccessibilityUtils } from '@qualweb/util';
 import { QWPage } from '@qualweb/qw-page';
 
 abstract class Rule {
-
   private rule: ACTRule;
 
   constructor(rule: ACTRule) {
@@ -39,7 +38,14 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
+  protected addEvaluationResult(
+    result: ACTRuleResult,
+    element?: QWElement,
+    withText: boolean = true,
+    fullElement: boolean = false,
+    aName?: boolean,
+    page?: QWPage
+  ): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
@@ -72,24 +78,27 @@ abstract class Rule {
     if (results['failed']) {
       evaluation.verdict = 'failed';
       evaluation.resultCode = 'RC1';
-      evaluation.description = 'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
-    }
-    else if (results['warning']) {
+      evaluation.description =
+        'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
+    } else if (results['warning']) {
       evaluation.verdict = 'warning';
       evaluation.resultCode = 'RC2';
-      evaluation.description = 'The rule can\'t tell because of the rule ' + results['warning'].title + 'with the code' + results['warning'].code; //title + id
-    }
-    else if (results['passed']) {
+      evaluation.description =
+        "The rule can't tell because of the rule " +
+        results['warning'].title +
+        'with the code' +
+        results['warning'].code; //title + id
+    } else if (results['passed']) {
       evaluation.verdict = 'passed';
       evaluation.resultCode = 'RC3';
-      evaluation.description = 'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
+      evaluation.description =
+        'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.resultCode = 'RC4';
-      evaluation.description = 'The test target doesn\'t apply to this rule'; //title + id
+      evaluation.description = "The test target doesn't apply to this rule"; //title + id
     }
     this.addEvaluationResult(evaluation, element);
-
   }
   disjunction(element: QWElement, rules: Array<ACTRule>): void {
     let selector = element.getElementSelector();
@@ -100,26 +109,29 @@ abstract class Rule {
       resultCode: ''
     };
     if (results['passed']) {
-      evaluation.verdict = 'passed'
-      evaluation.resultCode = 'RC1'
-      evaluation.description = 'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code //title + id
-    }
-    else if (results['warning']) {
-      evaluation.verdict = 'warning'
-      evaluation.resultCode = 'RC2'
-      evaluation.description = 'The rule can\'t tell because of the rule ' + results['warning'].title + 'with the code' + results['warning'].code //title + id
-    }
-    else if (results['failed']) {
-      evaluation.verdict = 'failed'
-      evaluation.resultCode = 'RC3'
-      evaluation.description = 'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code//title + id
+      evaluation.verdict = 'passed';
+      evaluation.resultCode = 'RC1';
+      evaluation.description =
+        'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
+    } else if (results['warning']) {
+      evaluation.verdict = 'warning';
+      evaluation.resultCode = 'RC2';
+      evaluation.description =
+        "The rule can't tell because of the rule " +
+        results['warning'].title +
+        'with the code' +
+        results['warning'].code; //title + id
+    } else if (results['failed']) {
+      evaluation.verdict = 'failed';
+      evaluation.resultCode = 'RC3';
+      evaluation.description =
+        'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
     } else {
-      evaluation.verdict = 'inapplicable'
-      evaluation.resultCode = 'RC4'
-      evaluation.description = 'The test target doesn\'t apply to this rule' //title + id
+      evaluation.verdict = 'inapplicable';
+      evaluation.resultCode = 'RC4';
+      evaluation.description = "The test target doesn't apply to this rule"; //title + id
     }
     this.addEvaluationResult(evaluation, element);
-
   }
 
   getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
@@ -132,7 +144,6 @@ abstract class Rule {
           }
         }
       }
-
     }
     return ruleResult;
   }
@@ -140,12 +151,11 @@ abstract class Rule {
   getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
     const ruleResult: any = {};
     for (const rule of rules || []) {
-      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: 'inapplicable' }
+      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: 'inapplicable' };
       for (let result of rule.results) {
         if (result.elements && result.elements[0].pointer === selector) {
           ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: result.verdict };
         }
-
       }
     }
     return ruleResult;
@@ -177,7 +187,7 @@ abstract class Rule {
     if (this.rule.results.length > 0 && this.rule.metadata.outcome !== 'inapplicable') {
       this.addDescription();
     } else {
-      this.rule.metadata.description = 'No test targets found.'
+      this.rule.metadata.description = 'No test targets found.';
     }
   }
 

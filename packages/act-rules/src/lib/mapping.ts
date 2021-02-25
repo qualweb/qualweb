@@ -4,7 +4,7 @@ export default {
     'body *': ['QW-ACT-R43']
   },
   concurrent: {
-    html: ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5'],
+    html: ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5', 'QW-ACT-R63', 'QW-ACT-R64', 'QW-ACT-R73', 'QW-ACT-R74'],
     'img[src], input[type="image"][src]': ['QW-ACT-R8'],
     'input[type="image"]': ['QW-ACT-R6'],
     'button, input[type="submit"], input[type="reset"], input[type="button"], summary, [role="button"]': ['QW-ACT-R11'],
@@ -57,6 +57,6 @@ export default {
       'QW-ACT-R66'
     ],
     '*': ['QW-ACT-R7', 'QW-ACT-R65'],
-    'iframe[tabindex]':['QW-ACT-R70'],
+    'iframe[tabindex]': ['QW-ACT-R70']
   }
 };
