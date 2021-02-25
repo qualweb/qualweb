@@ -1,43 +1,30 @@
-
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R20 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement,page:QWPage): void {
-
+  execute(element: QWElement, page: QWPage): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const validRoleValues = ['button', 'checkbox', 'gridcell', 'link', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'progressbar', 'radio', 'scrollbar', 'searchbox', 'separator', 'slider', 'spinbutton', 'switch', 'tab', 'tabpanel', 'textbox', 'treeitem', 'combobox', 'grid', 'listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid', 'application', 'article', 'cell', 'collumnheader', 'definition', 'directory', 'document', 'feed', 'figure', 'group', 'heading', 'img', 'list', 'listitem', 'math', 'none', 'note', 'presentation', 'row', 'rowgroup', 'rowheader', 'separator', 'table', 'term', 'toolbar', 'tooltip', 'banner', 'complementary', 'contentinfo', 'form', 'main', 'navigation', 'region', 'search', 'alert', 'log', 'marquee', 'status', 'timer'];
     const roleAttr = element.getElementAttribute('role');
-    
+
     if (roleAttr && roleAttr.trim().length > 0) {
-      const isHidden = DomUtils.isElementHidden(element,page);
+      const isHidden = DomUtils.isElementHidden(element, page);
       if (!isHidden) {
-        let validRolesFound = 0;
-        const roles = roleAttr.split(' ');
-        for (const role of roles || []) {
-          if (validRoleValues.includes(role)) {
-            validRolesFound++;
-          }
-        }
-        if (validRolesFound > 0) {
+        if (AccessibilityUtils.elementHasValidRole(element, page)) {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has a valid \`role\` attribute.`;
           evaluation.resultCode = 'RC1';
