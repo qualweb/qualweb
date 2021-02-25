@@ -235,6 +235,8 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 | QW-ACT-R60      | [f51b46](https://act-rules.github.io/rules/f51b46) | video element auditory content has captions                                         |
 | QW-ACT-R61      | [1a02b0](https://act-rules.github.io/rules/1a02b0) | video element visual content has transcript                                         |
 | QW-ACT-R62      | [oj04fd](https://act-rules.github.io/rules/oj04fd) | Element in sequential focus order has visible focus                                 |
+| QW-ACT-R63      | [b40fd1](https://act-rules.github.io/rules/b40fd1) | Document has a landmark with non-repeated content                                   |
+| QW-ACT-R64      | [047fe0](https://act-rules.github.io/rules/047fe0) | Document has heading for non-repeated content                                       |
 | QW-ACT-R65      | [307n5z](https://act-rules.github.io/rules/307n5z) | Element with presentational children has no focusable content                       |
 | QW-ACT-R66      | [m6b1q3](https://act-rules.github.io/rules/m6b1q3) | Menuitem has non-empty accessible name                                              |
 | QW-ACT-R67      | [24afc2](https://act-rules.github.io/rules/24afc2) | Letter spacing in style attributes is not !important                                |
@@ -243,6 +245,10 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 | QW-ACT-R70      | [akn7bn](https://act-rules.github.io/rules/akn7bn) | frame with negative tabindex has no interactive elements                            |
 | QW-ACT-R71      | [bisz58](https://act-rules.github.io/rules/bisz58) | `meta` element has no refresh delay (no exception)                                  |
 | QW-ACT-R72      | [8a213c](https://act-rules.github.io/rules/8a213c) | First focusable element is link to non-repeated content                             |
+| QW-ACT-R73      | [3e12e1](https://act-rules.github.io/rules/3e12e1) | Block of repeated content is collapsible                                            |
+| QW-ACT-R74      | [ye5d6e](https://act-rules.github.io/rules/ye5d6e) | Document has an instrument to move focus to non-repeated content                    |
+| QW-ACT-R75      | [cf77f2](https://act-rules.github.io/rules/cf77f2) | Bypass Blocks of Repeated Content                                                   |
+| QW-ACT-R76      | [09o5cg](https://act-rules.github.io/rules/09o5cg) | Text has enhanced contrast                                                          |
 
 ## Implemented WCAG 2.1 Techniques
 
