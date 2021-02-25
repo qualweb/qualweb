@@ -2,6 +2,14 @@
 
 ## [0.4.50] - 25/02/2021
 
+### Added
+ - QW-ACT-R63 atomic rule
+ - QW-ACT-R64 atomic rule
+ - QW-ACT-R73 atomic rule
+ - QW-ACT-R74 atomic rule
+ - QW-ACT-R75 composite rule
+ - QW-ACT-R76 atomic rule
+
 ### Fixed
  - QW-ACT-R20 bugs
 

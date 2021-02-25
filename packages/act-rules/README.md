@@ -70,6 +70,8 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R60      | [f51b46](https://act-rules.github.io/rules/f51b46) | video element auditory content has captions                                         |
 | QW-ACT-R61      | [1a02b0](https://act-rules.github.io/rules/1a02b0) | video element visual content has transcript                                         |
 | QW-ACT-R62      | [oj04fd](https://act-rules.github.io/rules/oj04fd) | Element in sequential focus order has visible focus                                 |
+| QW-ACT-R63      | [b40fd1](https://act-rules.github.io/rules/b40fd1) | Document has a landmark with non-repeated content                                   |
+| QW-ACT-R64      | [047fe0](https://act-rules.github.io/rules/047fe0) | Document has heading for non-repeated content                                       |
 | QW-ACT-R65      | [307n5z](https://act-rules.github.io/rules/307n5z) | Element with presentational children has no focusable content                       |
 | QW-ACT-R66      | [m6b1q3](https://act-rules.github.io/rules/m6b1q3) | Menuitem has non-empty accessible name                                              |
 | QW-ACT-R67      | [24afc2](https://act-rules.github.io/rules/24afc2) | Letter spacing in style attributes is not !important                                |
