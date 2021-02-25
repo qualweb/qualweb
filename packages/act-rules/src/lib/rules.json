@@ -1639,12 +1639,35 @@
         {
           "name": "2.4.1",
           "level": "A",
-          "principle": "Operable ",
+          "principle": "Operable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
         }
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/cf77f2",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
+  },
+  "QW_ACT_R76": {
+    "name": "Text has enhanced contrast",
+    "code": "QW-ACT-R76",
+    "mapping": "09o5cg",
+    "description": "This rule checks that the highest possible contrast of every text character with its background meets the enhanced contrast requirement.",
+    "metadata": {
+      "target": {
+        "element": "*"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.6",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html"
+        }
+      ],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/09o5cg",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }

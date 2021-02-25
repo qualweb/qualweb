@@ -85,7 +85,7 @@ class ACTRules {
 
   private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void {
     const promises = new Array<any>();
-    if (rule === 'QW-ACT-R37') {
+    if (rule === 'QW-ACT-R37' || rule === 'QW-ACT-R76') {
       this.rules[rule].execute(undefined, page);
     } else {
       const elements = page.getElements(selector);
@@ -163,6 +163,13 @@ class ACTRules {
       //@ts-ignore
       report.metadata[report.assertions['QW-ACT-R37'].metadata.outcome]++;
       this.rules['QW-ACT-R37'].reset();
+    }
+    if (this.rulesToExecute['QW-ACT-R76']) {
+      this.rules['QW-ACT-R76'].execute(undefined, page);
+      report.assertions['QW-ACT-R76'] = this.rules['QW-ACT-R76'].getFinalResults();
+      //@ts-ignore
+      report.metadata[report.assertions['QW-ACT-R76'].metadata.outcome]++;
+      this.rules['QW-ACT-R76'].reset();
     }
   }
 

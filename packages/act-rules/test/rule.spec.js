@@ -83,7 +83,8 @@ const mapping = {
   'QW-ACT-R72': '8a213c',
   'QW-ACT-R73': '3e12e1',
   'QW-ACT-R74': 'ye5d6e',
-  'QW-ACT-R75': 'cf77f2'
+  'QW-ACT-R75': 'cf77f2',
+  'QW-ACT-R76': '09o5cg'
 };
 
 const rule = process.argv[3].toUpperCase();
@@ -135,7 +136,7 @@ describe(`Rule ${rule}`, function () {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document, window, true));
             return report;
-          }, { rules: ["QW-ACT-R63", "QW-ACT-R64", "QW-ACT-R73", "QW-ACT-R74", rule] });
+          }, { rules: [rule] });
           
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

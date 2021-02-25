@@ -81,6 +81,7 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R73      | [3e12e1](https://act-rules.github.io/rules/3e12e1) | Block of repeated content is collapsible                                            |
 | QW-ACT-R74      | [ye5d6e](https://act-rules.github.io/rules/ye5d6e) | Document has an instrument to move focus to non-repeated content                    |
 | QW-ACT-R75      | [cf77f2](https://act-rules.github.io/rules/cf77f2) | Bypass Blocks of Repeated Content                                                   |
+| QW-ACT-R76      | [09o5cg](https://act-rules.github.io/rules/09o5cg) | Text has enhanced contrast                                                          |
 
 # License
 
