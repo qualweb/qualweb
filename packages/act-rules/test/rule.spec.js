@@ -71,6 +71,8 @@ const mapping = {
   'QW-ACT-R60': 'f51b46',
   'QW-ACT-R61': '1a02b0',
   'QW-ACT-R62': 'oj04fd',
+  'QW-ACT-R63': 'b40fd1',
+  'QW-ACT-R64': '047fe0',
   'QW-ACT-R65': '307n5z',
   'QW-ACT-R66': 'm6b1q3',
   'QW-ACT-R67': '24afc2',
@@ -98,7 +100,7 @@ describe(`Rule ${rule}`, function () {
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
-
+    
     // tests = [
     //   {
     //     title: 'R72',
@@ -128,12 +130,12 @@ describe(`Rule ${rule}`, function () {
           await page.addScriptTag({
             path: require.resolve('../dist/act.js')
           });
-     
+          
           const report = await page.evaluate((rules) => {
             const actRules = new ACTRules.ACTRules(rules);
             const report = actRules.execute([], new QWPage.QWPage(document, window, true));
             return report;
-          }, { rules: ["QW-ACT-R73", "QW-ACT-R74", rule] });
+          }, { rules: ["QW-ACT-R63", "QW-ACT-R64", "QW-ACT-R73", "QW-ACT-R74", rule] });
           
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });

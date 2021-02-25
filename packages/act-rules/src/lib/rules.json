@@ -1386,6 +1386,34 @@
       "url": "https://act-rules.github.io/rules/oj04fd"
     }
   },
+  "QW_ACT_R63": {
+    "name": "Document has a landmark with non-repeated content",
+    "code": "QW-ACT-R63",
+    "mapping": "b40fd1",
+    "description": "This rule checks that each page has an element with a landmark semantic role starting with non-repeated content",
+    "metadata": {
+      "target": {
+        "element": "html"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/b40fd1"
+    }
+  },
+  "QW_ACT_R64": {
+    "name": "Document has heading for non-repeated content",
+    "code": "QW-ACT-R64",
+    "mapping": "047fe0",
+    "description": "This rule checks that the non-repeated content contains a heading",
+    "metadata": {
+      "target": {
+        "element": "html"
+      },
+      "success-criteria": [],
+      "related": [],
+      "url": "https://act-rules.github.io/rules/047fe0"
+    }
+  },
   "QW_ACT_R65": {
     "name": "Element with presentational children has no focusable content",
     "code": "QW-ACT-R65",
