@@ -1,4 +1,4 @@
-import { HTMLTechniqueResult } from "@qualweb/html-techniques";
+import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
 import { AccessibilityUtils } from "@qualweb/util";
 import Technique from "../lib/Technique.object";
 import { QWElement } from "@qualweb/qw-element";
@@ -20,7 +20,7 @@ class QW_WCAG_T26 extends Technique {
   @ElementHasAttributes
   @ElementIsVisible
   execute(element: QWElement, page: QWPage): void {
-    const evaluation: HTMLTechniqueResult = {
+    const evaluation: WCAGTechniqueResult = {
       verdict: "",
       description: "",
       resultCode: "",

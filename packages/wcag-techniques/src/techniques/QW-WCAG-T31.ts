@@ -1,5 +1,5 @@
 import Technique from "../lib/Technique.object";
-import { CSSTechniqueResult } from "@qualweb/css-techniques";
+import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
 import { WCAGTechnique, ElementExists } from "../lib/decorators";
 import { QWElement } from "@qualweb/qw-element";
 
@@ -19,7 +19,7 @@ class QW_WCAG_T31 extends Technique {
       return;
     }
 
-    const evaluation: CSSTechniqueResult = {
+    const evaluation: WCAGTechniqueResult = {
       verdict: "",
       description: "",
       resultCode: "",
@@ -58,8 +58,12 @@ class QW_WCAG_T31 extends Technique {
       evaluation.description = `The test target has a author defined color and background css properties.`;
       evaluation.resultCode = "RC1";
 
-      evaluation.pointer = element.getElementSelector();
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
+      evaluation.elements = [
+        {
+          pointer: element.getElementSelector(),
+          htmlCode: element.getElementHtmlCode(true, false),
+        },
+      ];
 
       super.addEvaluationResult(evaluation);
     } else if (foundColorProperty) {
@@ -67,8 +71,12 @@ class QW_WCAG_T31 extends Technique {
       evaluation.description = `The test target has a author defined color css property but not a background css property.`;
       evaluation.resultCode = "RC2";
 
-      evaluation.pointer = element.getElementSelector();
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
+      evaluation.elements = [
+        {
+          pointer: element.getElementSelector(),
+          htmlCode: element.getElementHtmlCode(true, false),
+        },
+      ];
 
       super.addEvaluationResult(evaluation);
     } else if (foundBackgroundProperty) {
@@ -76,8 +84,12 @@ class QW_WCAG_T31 extends Technique {
       evaluation.description = `The test target has a author defined background property but not a color css property.`;
       evaluation.resultCode = "RC3";
 
-      evaluation.pointer = element.getElementSelector();
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
+      evaluation.elements = [
+        {
+          pointer: element.getElementSelector(),
+          htmlCode: element.getElementHtmlCode(true, false),
+        },
+      ];
 
       super.addEvaluationResult(evaluation);
     }
