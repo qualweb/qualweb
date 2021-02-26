@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/types",
-  "version": "0.1.9",
+  "version": "0.4.55",
   "description": "Type definitions for qualweb core and modules",
   "main": "./index.d.ts",
   "types": "./index.d.ts",
@@ -14,9 +14,9 @@
   },
   "author": "João Afonso Vicente",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/css": "0.0.31",
-    "@types/htmlparser2": "^3.10.1"
-  },
-  "dependencies": {}
+    "@types/domhandler": "^2.4.1",
+    "@types/puppeteer": "^5.4.0"
+  }
 }

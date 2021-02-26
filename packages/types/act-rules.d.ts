@@ -1,34 +1,30 @@
 declare module '@qualweb/act-rules' {
-  import { DomElement } from 'htmlparser2';
-  import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
+  import { QWPage } from "@qualweb/qw-page";
+  import { SourceHtml } from '@qualweb/core';
+  import { Optimization } from '@qualweb/util';
 
   interface ACTROptions {
     rules?: string[];
     levels?: string[];
     principles?: string[];
+    optimize?: 'performance' | 'error-detection';
+  }
+
+  interface SuccessCriteria {
+    name: string;
+    level: string;
+    principle: string;
+    url: string;
   }
 
   interface ACTRuleMetadata {
-    target: {
-      'parent-sibling'?: string;
-      parent?: string | string[];
-      element?: string | string[];
-      children?: string | string[];
-      attributes?: string | string[];
-      css?: string | string[];
-    };
-    'success-criteria': {
-      name: string;
-      level: string;
-      principle: string;
-      url: string;
-    }[];
+    target: any;
+    'success-criteria': SuccessCriteria[];
     related: string[];
     url: string;
     passed: number;
     warning: number;
     failed: number;
-    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
     outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
@@ -39,9 +35,13 @@ declare module '@qualweb/act-rules' {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
     resultCode: string | '';
-    pointer?: string;
-    code?: string;
+    elements?:ACTElement[];
     attributes?: string | string[];
+  }
+  interface ACTElement{
+    pointer?: string;
+    htmlCode?: string;
+    accessibleName?: string;
   }
 
   interface ACTRule {
@@ -63,24 +63,36 @@ declare module '@qualweb/act-rules' {
   interface ACTRulesReport {
     type: 'act-rules';
     metadata: ACTMetadata;
-    rules: {
+    assertions: {
       [rule: string]: ACTRule;
     };
   }
 
-  function resetConfiguration(): void;
-  function configure(options: ACTROptions): void;
-  function executeACTR(url: string, sourceHTML: DomElement[], processedHTML: DomElement[], stylesheets: CSSStylesheet[]): Promise<ACTRulesReport>;
+  class ACTRules {
+    private optimization: Optimization;
+    private rules: any;
+    private rulesToExecute: any;
+
+    constructor(options?: ACTROptions);
+    public configure(options: ACTROptions): void;
+    public resetConfiguration(): void;
+    private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): void;
+    private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void;
+    private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): void;
+    private executeNotMappedRules(report: ACTRulesReport): void;
+    private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
+    private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
+    public execute(sourceHtml: SourceHtml, page: QWPage): ACTRulesReport;
+  }
 
   export {
     ACTROptions,
+    SuccessCriteria,
     ACTRuleMetadata,
     ACTRuleResult,
     ACTRule,
     ACTMetadata,
     ACTRulesReport,
-    configure,
-    executeACTR,
-    resetConfiguration
+    ACTRules
   };
 } 

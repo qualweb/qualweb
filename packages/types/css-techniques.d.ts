@@ -1,7 +1,6 @@
 declare module '@qualweb/css-techniques' {
-  import { DomElement } from 'htmlparser2';
   import { Position } from 'css';
-  import { CSSStylesheet } from '@qualweb/get-dom-puppeteer';
+  import { QWPage } from '@qualweb/qw-page';
 
   interface CSSTOptions {
     techniques?: string[];
@@ -41,6 +40,7 @@ declare module '@qualweb/css-techniques' {
   interface CSSTechniqueResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
     description: string | '';
+    resultCode: string;
     pointer?: string;
     htmlCode?: string | string[];
     attributes?: string | string[];
@@ -76,14 +76,21 @@ declare module '@qualweb/css-techniques' {
   interface CSSTechniquesReport {
     type: 'css-techniques';
     metadata: CSSMetadata;
-    techniques: {
+    assertions: {
       [technique: string]: CSSTechnique;
     };
   }
 
-  function configure(options: CSSTOptions): void;
-  function resetConfiguration(): void;
-  function executeCSST(stylesheets: CSSStylesheet[]): Promise<CSSTechniquesReport>;
+  class CSSTechniques {
+    private techniques: any;
+    private techniquesToExecute: any;
+    
+    constructor(options?: CSSTOptions);
+    public configure(options: CSSTOptions): void;
+    public resetConfiguration(): void;
+    private executeTechnique(technique: string, selector: string, page: QWPage, report: CSSTechniquesReport): void;
+    public execute(page: QWPage): CSSTechniquesReport;
+  }
 
   export {
     CSSTOptions,
@@ -92,8 +99,6 @@ declare module '@qualweb/css-techniques' {
     CSSMetadata,
     CSSTechnique,
     CSSTechniquesReport,
-    configure,
-    executeCSST,
-    resetConfiguration
+    CSSTechniques
   };
 }

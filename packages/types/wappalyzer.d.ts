@@ -36,6 +36,7 @@ declare module '@qualweb/wappalyzer' {
   }
 
   interface WappalyzerReport {
+    type: 'wappalyzer';
     result: WappalyzerResult;
   }
 

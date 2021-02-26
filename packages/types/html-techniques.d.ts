@@ -1,10 +1,14 @@
 declare module '@qualweb/html-techniques' {
-  import { DomElement } from 'htmlparser2';
+  import { Optimization } from '@qualweb/util';
+  import { QWPage } from "@qualweb/qw-page";
+
 
   interface HTMLTOptions {
     techniques?: string[];
     levels?: string[];
     principles?: string[];
+    optimize?: 'performance' | 'error-detection';
+    htmlValidatorEndpoint?: string;
   }
 
   interface HTMLTechniqueMetadata {
@@ -27,7 +31,6 @@ declare module '@qualweb/html-techniques' {
     passed: number;
     warning: number;
     failed: number;
-    inapplicable: number;
     type?: string[];
     a11yReq?: string[];
     outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
@@ -41,6 +44,7 @@ declare module '@qualweb/html-techniques' {
     pointer?: string;
     htmlCode?: string | string[];
     attributes?: string | string[];
+    accessibleName?: string;
   }
 
   interface HTMLMetadata {
@@ -62,14 +66,28 @@ declare module '@qualweb/html-techniques' {
   interface HTMLTechniquesReport {
     type: 'html-techniques';
     metadata: HTMLMetadata;
-    techniques: {
+    assertions: {
       [technique: string]: HTMLTechnique;
     };
   }
 
   function configure(options: HTMLTOptions): void;
   function resetConfiguration(): void;
-  function executeHTMLT(url: string, sourceHTML: DomElement[], processedHTML: DomElement[]): Promise<HTMLTechniquesReport>;
+  function executeHTMLT(page: QWPage): Promise<HTMLTechniquesReport>;
+
+  class HTMLTechniques {
+    private optimization: Optimization;
+    private techniques: any;
+    private techniquesToExecute: any;
+
+    constructor(options?: HTMLTOptions);
+    public configure(options: HTMLTOptions): void;
+    public resetConfiguration(): void;
+    private executeTechnique(technique: string, selector: string, page: QWPage, report: HTMLTechniquesReport): void;
+    private executeMappedTechniques(report: HTMLTechniquesReport, page: QWPage, selectors: string[], mappedTechniques: any): void;
+    private executeNotMappedTechniques(report: HTMLTechniquesReport, page: QWPage): void;
+    public execute(page: QWPage): HTMLTechniquesReport;
+  }
 
   export {
     HTMLTOptions,
@@ -78,8 +96,6 @@ declare module '@qualweb/html-techniques' {
     HTMLMetadata,
     HTMLTechnique,
     HTMLTechniquesReport,
-    configure,
-    resetConfiguration,
-    executeHTMLT
+    HTMLTechniques
   };
 }

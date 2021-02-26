@@ -1,14 +1,3 @@
-<<<<<<< Updated upstream
-declare module '@qualweb/core' {
-  import { Dom } from '@qualweb/get-dom-puppeteer';
-  import { WappalyzerReport, WappalyzerOptions } from '@qualweb/wappalyzer';
-  import { ACTRulesReport, ACTROptions } from '@qualweb/act-rules';
-  import { CSSTechniquesReport, CSSTOptions } from '@qualweb/css-techniques';
-  import { HTMLTechniquesReport, HTMLTOptions } from '@qualweb/html-techniques';
-  import { BestPracticesReport } from '@qualweb/best-practices';
-  import { EarlOptions, EarlReport } from '@qualweb/earl-reporter';
-
-=======
 declare module "@qualweb/core" {
   import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
   import { Node } from "domhandler";
@@ -18,41 +7,62 @@ declare module "@qualweb/core" {
   import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
   import { LaunchOptions, Browser } from "puppeteer";
   import { CounterReport} from '@qualweb/counter'
+  
+  interface Execute {
+    wappalyzer?: boolean;
+    act?: boolean;
+    wcag?: boolean;
+    bp?: boolean;
+    counter?: boolean;	
+  }
 	
->>>>>>> Stashed changes
   interface QualwebOptions {
     url?: string;
     urls?: string[];
     file?: string;
     crawl?: string;
-    mobile?: boolean;
-    landscape?: boolean;
-    resolution?: {
-      width?: number;
-      height?: number;
+    html?: string;
+    viewport?: PageOptions;
+    maxParallelEvaluations?: number;
+    validator?: string;
+    r?: "earl" | "earl-a";
+    "save-name"?: string;
+    execute?: Execute;
+    wappalyzer?: WappalyzerOptions;
+    "act-rules"?: ACTROptions;
+    "wcag-techniques"?: WCAGOptions;
+    "best-practices"?: BPOptions;
+  }
+
+  interface Evaluator {
+    name: string;
+    description: string;
+    version: string;
+    homepage: string;
+    date: string;
+    hash: string;
+    url?: Url;
+    page: {
+      viewport: {
+        mobile: boolean;
+        landscape: boolean;
+        userAgent: string;
+        resolution: {
+          width: number;
+          height: number;
+        };
+      };
+      dom: DomData;
     };
-    force?: boolean;
-    execute?: {
-      wappalyzer?: boolean;
-      act?: boolean;
-      html?: boolean;
-      css?: boolean;
-      bp?: boolean;
-      counter?: boolean;	
-    };
-    'wappalyzer'?: WappalyzerOptions;
-    'act-rules'?: ACTROptions;
-    'html-techniques'?: HTMLTOptions;
-    'css-techniques'?: CSSTOptions; 
   }
 
   interface Url {
-    readonly inputUrl: string;
-    readonly protocol: string;
-    readonly domainName: string;
-    readonly domain: string;
-    readonly uri: string;
-    readonly completeUrl: string;
+    inputUrl: string;
+    protocol: string;
+    domainName: string;
+    domain: string;
+    uri: string;
+    completeUrl: string;
   }
 
   interface Metadata {
@@ -62,39 +72,47 @@ declare module "@qualweb/core" {
     inapplicable: number;
   }
 
-<<<<<<< Updated upstream
-=======
   interface Modules {
     wappalyzer?: WappalyzerReport;
     "act-rules"?: ACTRulesReport;
     "wcag-techniques"?: WCAGTechniquesReport;
     "best-practices"?: BestPracticesReport;
-    "counter"?: CounterReport;
+    counter?: CounterReport;
   }
 
->>>>>>> Stashed changes
   interface EvaluationReport {
-    type: 'evaluation';
-    system: {
-      name: string;
-      description: string;
-      version: string;
-      homepage: string;
-      date: string;
-      hash: string;
-      url: Url;
-      dom?: Dom;
-    };
+    type: "evaluation";
+    system: Evaluator;
     metadata: Metadata;
-    modules: {
-      'wappalyzer'?: WappalyzerReport;
-      'act-rules'?: ACTRulesReport;
-      'html-techniques'?: HTMLTechniquesReport;
-      'css-techniques'?: CSSTechniquesReport;
-      'best-practices'?: BestPracticesReport;
+    modules: Modules;
+  }
+
+  interface PageOptions {
+    mobile?: boolean;
+    landscape?: boolean;
+    userAgent?: string;
+    resolution?: {
+      width?: number;
+      height?: number;
     };
-<<<<<<< Updated upstream
-=======
+
+    title?: string;
+    elementCount?: number;
+  }
+
+  interface SourceHtml {
+    html: {
+      plain: string;
+      parsed?: Node[];
+    };
+    title?: string;
+    elementCount?: number;
+  }
+
+  interface ProcessedHtml {
+    html: {
+      plain: string;
+    };
     title?: string;
     elementCount?: number;
   }
@@ -123,20 +141,29 @@ declare module "@qualweb/core" {
       url: string,
       html: string | undefined,
       options: QualwebOptions,
-      modulesToExecute: any
+      modulesToExecute: Execute
     ): Promise<void>;
->>>>>>> Stashed changes
   }
 
-  function evaluate(options: QualwebOptions): Promise<EvaluationReport[]>;
-  function generateEarlReport(options?: EarlOptions): Promise<EarlReport[]>;
+  function generateEarlReport(
+    evaluations: { [url: string]: EvaluationReport },
+    options?: EarlOptions
+  ): Promise<{ [url: string]: EarlReport }>;
 
   export {
     QualwebOptions,
+    Execute,
     EvaluationReport,
+    Evaluator,
     Url,
     Metadata,
-    evaluate,
-    generateEarlReport
+    Modules,
+    Module,
+    PageOptions,
+    SourceHtml,
+    ProcessedHtml,
+    DomData,
+    QualWeb,
+    generateEarlReport,
   };
 }

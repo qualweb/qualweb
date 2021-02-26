@@ -1,5 +1,516 @@
 # Changelog
 
+## [0.4.55] - 23/18/2020
+
+### Updated
+ - qw-element definition
+
+## [0.4.54] - 18/02/2020
+
+### Added
+ - counter module definition types
+
+## [0.4.52] - 16/12/2020
+
+### Changed
+ - updated earl-reporter module
+
+## [0.4.50] - 12/12/2020
+
+### Changed
+ - added getOwnedElements
+## [0.4.49] - 12/11/2020
+
+### Changed
+ - util.d.ts interface
+## [0.4.48] - 12/11/2020
+
+### Changed
+ - dom.d.ts interface
+
+## [0.4.47] - 11/11/2020
+
+### Changed
+ - dom.d.ts interface
+
+## [0.4.46] - 11/11/2020
+
+### Changed
+ - dom.d.ts interface
+
+### Updated
+ - dependencies
+
+## [0.4.45] - 02/11/2020
+### Updated
+ - adapting core to wcag tecniques
+
+## [0.4.44] - 30/10/2020
+### Updated
+ - changed reports
+
+## [0.4.43] - 30/10/2020
+### Updated
+ - wcag module
+
+## [0.4.42] - 21/10/2020
+### Updated
+ - core options
+
+## [0.4.41] - 21/10/2020
+### Updated
+ - qwElement types
+
+## [0.4.40] - 08/10/2020
+### Updated
+ - core types
+
+## [0.4.39] - 29/09/2020
+### Updated
+ - updated util
+
+## [0.4.38] - 29/09/2020
+### Updated
+ - updated wcag techniques
+## [0.4.37] - 22/09/2020
+### Updated
+ - util module types
+
+## [0.4.36] - 22/09/2020
+### Updated
+ - util module types
+
+## [0.4.35] - 17/09/2020
+### Updated
+ - util module types
+
+## [0.4.34] - 07/09/2020
+### Updated
+ - dom module types
+
+## [0.4.33] - 03/09/2020
+### Fixed
+ - Added validator argument to evaluation
+ 
+## [0.4.32] - 03/09/2020
+### Fixed
+ - Added validator to dom
+ 
+## [0.4.31] - 31/08/2020
+### Fixed
+ - Missing return-type annotations in qwPage and util
+ 
+## [0.4.30] - 26/08/2020
+### Added
+ -  deleted isElementPresention
+
+## [0.4.29] - 10/08/2020
+
+### Added
+ - deleted getTreeSelector
+
+## [0.4.28] - 10/08/2020
+
+### Added
+ -  new shadowDOM and iframe support
+
+## [0.4.27] - 06/08/2020
+
+### Added
+ - wcag-techniques definition types
+
+## [0.4.26] - 27/07/2020
+
+### Updated
+ - qw-element interface
+
+## [0.4.25] - 27/07/2020
+
+### Updated
+ - core interface
+
+## [0.4.24] - 22/07/2020
+
+### Updated
+ - merged
+## [0.4.23] - 10/07/2020
+
+### Updated
+ - merged
+
+## [0.4.22] - 10/07/2020
+
+### Updated
+ - qwElement interface
+## [0.4.21] - 08/07/2020
+
+### Updated
+ - changed util methods
+
+## [0.4.19] - 06/07/2020
+
+### Updated
+ - interfaces that rely on stylesheets
+
+## [0.4.18] - 03/07/2020
+
+### Updated
+ - added cache to qwpage
+
+## [0.4.17] - 03/07/2020
+
+### Updated
+ - core and evaluation interfaces
+
+## [0.4.16] - 03/07/2020
+
+### Added
+ - html-validator interface
+
+## [0.4.15] - 03/07/2020
+
+### Updated
+ - core interface
+
+## [0.4.14] - 03/07/2020
+
+### Updated
+ - dom and core interfaces
+
+## [0.4.13] - 02/07/2020
+
+### Updated
+ - dependencies
+ - css-techniques interface
+
+## [0.4.12] - 22/06/2020
+
+### Updated
+ - added method to QWElement
+
+## [0.4.11] - 04/06/2020
+
+### Updated
+ - added method AccessibilityUtils
+
+## [0.4.10] - 29/05/2020
+
+### Updated
+ - fixed evaluation report naming
+## [0.4.9] - 29/05/2020
+
+### Updated
+ - fixed evaluation report naming
+## [0.4.8] - 29/05/2020
+
+### Updated
+ - fixed imports
+
+## [0.4.7] - 29/05/2020
+
+### Updated
+ - added dom and evaluation
+
+## [0.4.7] - 02/07/2020
+
+### Updated
+ - css-techniques interface
+ - dependencies
+
+## [0.4.6] - 28/05/2020
+
+### Updated
+ - qwPage interface
+ - qwElement interface
+ - dependencies
+
+## [0.4.5] - 27/05/2020
+
+### Added
+ - qwPage interface
+ - qwElement interface
+
+## [0.3.31] - 11/05/2020
+
+### Added
+ - resultCode to CSSTechniqueResult interface
+
+### Removed
+ - accessibility-tree.d.ts
+ - get-dom-puppeteer.d.ts
+
+## [0.3.30] - 06/05/2020
+
+### Added
+ - html option as input method to core options
+
+## [0.3.29] - 06/05/2020
+
+### Added
+ - LaunchOptions options to th start() function from core module
+
+## [0.3.28] - 05/05/2020
+
+### Added
+ - accessibleName attribute to HTMLTechniqueResult and ACTRuleResult
+
+### Updated
+ - evaluation modules - normalized rules/techniques/bestPractices to assertions
+
+## [0.3.27] - 22/04/2020
+
+### Updated
+ - core module functions
+
+## [0.3.26] - 03/04/2020
+
+### Updated
+ - earl-report context 
+
+## [0.3.25] - 03/04/2020
+
+### Updated
+ - earl-report context 
+
+## [0.3.24] - 02/04/2020
+
+### Added
+ - htmlValidatorEndpoint option to html-techniques module options interface
+
+### Removed
+ - htmlValidatorEndpoint option to act-rules module options interface
+
+## [0.3.23] - 02/04/2020
+
+### Added
+ - htmlValidatorEndpoint option to act-rules module options interface
+
+## [0.3.22] - 18/03/2020
+
+### Updated 
+ - util module interfaces
+
+## [0.3.21] - 18/03/2020
+
+### Updated 
+ - util module interfaces
+
+## [0.3.20] - 17/03/2020
+
+### Updated 
+ - html-techniques module interfaces
+
+## [0.3.19] - 17/03/2020
+
+### Fixed 
+ - some bugs
+
+## [0.3.18] - 05/02/2020
+
+### Updated 
+ - dependencies
+
+## [0.3.17] - 05/02/2020
+
+### Deleted 
+ - accessibility-tree.d.ts
+
+## [0.3.16] - 05/02/2020
+
+### Changed 
+ - DomElement to Node
+
+## [0.3.15] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.14] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.13] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.12] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.11] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.10] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.9] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.8] - 29/01/2020
+
+### Updated
+ - util module
+
+## [0.3.7] - 29/01/2020
+
+### Added
+ - class Optimization to util module
+
+## [0.3.6] - 22/01/2020
+
+### Fixed
+ - a bug in the ACTRRuleMetadata interface
+
+## [0.3.5] - 22/01/2020
+
+### Updated
+ - ACTRRuleMetadata interface
+
+## [0.3.4] - 22/01/2020
+
+### Updated
+ - ACTROptions interface
+
+## [0.3.3] - 21/01/2020
+
+### Updated
+ - earl-reporter module interfaces
+
+## [0.3.2] - 20/01/2020
+
+### Changed
+ - earl-reporter module interfaces
+
+## [0.3.1] - 17/01/2020
+
+### Fixed
+ - some bugs
+
+## [0.3.0] - 17/01/2020
+
+### Changed
+ - act-rules module
+ - css-techniques module
+ - best-practices module
+ - earl-reporter module
+
+## [0.2.16] - 15/01/2020
+
+### Changed
+ - core module
+
+## [0.2.15] - 15/01/2020
+
+### Changed
+ - earl-reporter module
+
+## [0.2.14] - 07/01/2020
+
+### Changed
+ - act-rules module
+
+## [0.2.13] - 07/01/2020
+
+### Changed
+ - act-rules module
+
+## [0.2.12] - 07/01/2020
+
+### Changed
+ - act-rules module
+
+## [0.2.11] - 07/01/2020
+
+### Changed
+ - act-rules module
+
+## [0.2.10] - 18/12/2019
+
+### Changed
+ - EvaluationReport interface
+
+## [0.2.9] - 18/12/2019
+
+### Changed
+ - DomOptions interface to PageOptions
+
+## [0.2.8] - 16/12/2019
+
+### Changed
+ - css-practices interface
+
+## [0.2.7] - 11/12/2019
+
+### Changed
+ - best-practices interface
+
+## [0.2.6] - 02/12/2019
+
+### Changed
+ - stylesheets interface
+
+## [0.2.5] - 02/12/2019
+
+### Fixed
+ - interfaces bugs
+
+## [0.2.4] - 02/12/2019
+
+### Fixed
+ - dependencies bugs
+
+## [0.2.3] - 29/11/2019
+
+### Changed
+ - WappalyzerReport interface from wappalyzer module
+
+## [0.2.2] - 29/11/2019
+
+### Changed
+ - interface Dom from core module
+
+## [0.2.1] - 29/11/2019
+
+### Fixed
+ - some bugs
+
+## [0.2.0] - 29/11/2019
+
+### Changed
+ - interfaces from get-dom-puppeteer to core module
+
+### Deleted
+ - get-dom-puppeteer module
+
+## [0.1.13] - 29/11/2019
+
+### Fixed
+ - a bug in the BPOptions interface to best-practices module
+
+## [0.1.12] - 29/11/2019
+
+### Added
+ - BPOptions interface to best-practices module
+
+## [0.1.11] - 27/11/2019
+
+### Added
+ - maxParallelEvaluations option to QualwebOptions interface from core module
+
+## [0.1.10] - 21/11/2019
+
+### Changed
+ - act-rules module interface
+
 ## [0.1.9] - 18/10/2019
 
 ### Changed

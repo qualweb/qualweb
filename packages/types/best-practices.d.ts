@@ -1,5 +1,9 @@
 declare module '@qualweb/best-practices' {
-  import { DomElement } from 'htmlparser2';
+  import { QWPage } from '@qualweb/qw-page';
+
+  interface BPOptions {
+    bestPractices?: string[];
+  }
 
   interface BestPracticeMetadata {
     target: {
@@ -56,19 +60,30 @@ declare module '@qualweb/best-practices' {
   interface BestPracticesReport {
     type: 'best-practices';
     metadata: BestPracticesGlobalMetadata;
-    'best-practices': {
+    assertions: {
       [bestPractice: string]: BestPractice;
     };
   }
 
-  function executeBestPractices(dom: DomElement[]): Promise<BestPracticesReport>;
+  class BestPractices {
+
+    private bestPractices: any;
+    private bestPracticesToExecute: any;
+
+    constructor(options?: BPOptions);
+    public configure(options: BPOptions): void;
+    public resetConfiguration(): void;
+    private executeBP(bestPractice: string, selector: string, page: QWPage | undefined, report: BestPracticesReport): void;
+    public execute(page: QWPage): BestPracticesReport;
+  }
 
   export {
+    BPOptions,
     BestPracticeMetadata,
     BestPracticeResult,
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
-    executeBestPractices
+    BestPractices
   };
 }
