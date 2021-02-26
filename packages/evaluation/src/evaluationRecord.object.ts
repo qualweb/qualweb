@@ -43,7 +43,7 @@ class EvaluationRecord {
           break;
       }
 
-      if (module !== "wappalyzer") {
+      if (module !== "wappalyzer" && module !== "counter") {
         this.metadata.addPassedResults(
           this.modules[module]?.metadata.passed || 0
         );
