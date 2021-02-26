@@ -29,13 +29,20 @@ class ACTRules {
     this.resetConfiguration();
 
     if (options.principles) {
-      options.principles = options.principles.map((p) => (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim());
+      options.principles = options.principles.map((p: string) =>
+        (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim()
+      );
     }
     if (options.levels) {
-      options.levels = options.levels.map((l) => l.toUpperCase().trim());
+      options.levels = options.levels.map((l: string) => l.toUpperCase().trim());
     }
     if (options.rules) {
-      options.rules = options.rules.map((r) => {
+      options.rules = options.rules.map((r: string) => {
+        return r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim();
+      });
+    }
+    if (options.exclude) {
+      options.exclude = options.exclude.map((r: string) => {
         return r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim();
       });
     }
@@ -71,6 +78,20 @@ class ACTRules {
         if (options.rules && options.rules.length !== 0) {
           if (options.rules.includes(rule) || options.rules.includes(this.rules[rule].getRuleMapping())) {
             this.rulesToExecute[rule] = true;
+          }
+        }
+      }
+      if (options.exclude && options.exclude.length !== 0) {
+        if (options.exclude.includes(rule) || options.exclude.includes(this.rules[rule].getRuleMapping())) {
+          this.rulesToExecute[rule] = false;
+        }
+      }
+      for (const cr of Object.keys(compositeRules)) {
+        // @ts-ignore
+        const compositeRule = compositeRules[cr];
+        if (this.rulesToExecute[cr]) {
+          for (const ar of compositeRule.rules || []) {
+            this.rulesToExecute[ar] = true;
           }
         }
       }

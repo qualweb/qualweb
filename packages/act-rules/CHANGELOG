@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.51] - 25/02/2021
+
+### Added
+ - "exclude" option to exclude rules to execute
+
 ## [0.4.50] - 25/02/2021
 
 ### Added
