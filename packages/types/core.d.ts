@@ -6,16 +6,16 @@ declare module "@qualweb/core" {
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
   import { LaunchOptions, Browser } from "puppeteer";
-  import { CounterReport} from '@qualweb/counter'
-  
+  import { CounterReport } from "@qualweb/counter";
+
   interface Execute {
     wappalyzer?: boolean;
     act?: boolean;
     wcag?: boolean;
     bp?: boolean;
-    counter?: boolean;	
+    counter?: boolean;
   }
-	
+
   interface QualwebOptions {
     url?: string;
     urls?: string[];
@@ -126,7 +126,7 @@ declare module "@qualweb/core" {
     | "wappalyzer"
     | "act-rules"
     | "wcag-techniques"
-    | "best-practices";
+    | "best-practices"
     | "counter";
 
   class QualWeb {

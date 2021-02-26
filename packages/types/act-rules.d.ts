@@ -1,13 +1,13 @@
-declare module '@qualweb/act-rules' {
+declare module "@qualweb/act-rules" {
   import { QWPage } from "@qualweb/qw-page";
-  import { SourceHtml } from '@qualweb/core';
-  import { Optimization } from '@qualweb/util';
+  import { SourceHtml } from "@qualweb/core";
+  import { Optimization } from "@qualweb/util";
 
   interface ACTROptions {
     rules?: string[];
+    exclude?: string[];
     levels?: string[];
     principles?: string[];
-    optimize?: 'performance' | 'error-detection';
   }
 
   interface SuccessCriteria {
@@ -19,7 +19,7 @@ declare module '@qualweb/act-rules' {
 
   interface ACTRuleMetadata {
     target: any;
-    'success-criteria': SuccessCriteria[];
+    "success-criteria": SuccessCriteria[];
     related: string[];
     url: string;
     passed: number;
@@ -27,18 +27,18 @@ declare module '@qualweb/act-rules' {
     failed: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
+    outcome: "passed" | "failed" | "warning" | "inapplicable" | "";
     description: string;
   }
 
   interface ACTRuleResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
-    description: string | '';
-    resultCode: string | '';
-    elements?:ACTElement[];
+    verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
+    description: string | "";
+    resultCode: string | "";
+    elements?: ACTElement[];
     attributes?: string | string[];
   }
-  interface ACTElement{
+  interface ACTElement {
     pointer?: string;
     htmlCode?: string;
     accessibleName?: string;
@@ -61,7 +61,7 @@ declare module '@qualweb/act-rules' {
   }
 
   interface ACTRulesReport {
-    type: 'act-rules';
+    type: "act-rules";
     metadata: ACTMetadata;
     assertions: {
       [rule: string]: ACTRule;
@@ -76,12 +76,37 @@ declare module '@qualweb/act-rules' {
     constructor(options?: ACTROptions);
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
-    private executeSourceHtmlMappedRules(report: ACTRulesReport, html: SourceHtml, selectors: string[], mappedRules: any): void;
-    private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void;
-    private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any, concurrent: boolean): void;
+    private executeSourceHtmlMappedRules(
+      report: ACTRulesReport,
+      html: SourceHtml,
+      selectors: string[],
+      mappedRules: any
+    ): void;
+    private executeRule(
+      rule: string,
+      selector: string,
+      page: QWPage,
+      report: ACTRulesReport,
+      concurrent: boolean
+    ): void;
+    private executePageMappedRules(
+      report: ACTRulesReport,
+      page: QWPage,
+      selectors: string[],
+      mappedRules: any,
+      concurrent: boolean
+    ): void;
     private executeNotMappedRules(report: ACTRulesReport): void;
-    private executeNonConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
-    private executeConcurrentRules(report: ACTRulesReport, html: SourceHtml, page: QWPage): void;
+    private executeNonConcurrentRules(
+      report: ACTRulesReport,
+      html: SourceHtml,
+      page: QWPage
+    ): void;
+    private executeConcurrentRules(
+      report: ACTRulesReport,
+      html: SourceHtml,
+      page: QWPage
+    ): void;
     public execute(sourceHtml: SourceHtml, page: QWPage): ACTRulesReport;
   }
 
@@ -93,6 +118,6 @@ declare module '@qualweb/act-rules' {
     ACTRule,
     ACTMetadata,
     ACTRulesReport,
-    ACTRules
+    ACTRules,
   };
-} 
+}

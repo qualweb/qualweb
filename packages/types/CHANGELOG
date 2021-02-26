@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.56] - 26/18/2020
+
+### Added
+ - counter.d.ts for counter module
+ - "exclude" option for ACTROptions, WCAGOptions and BPOptions
+ - "Execute" interface for core.d.ts
+
 ## [0.4.55] - 23/18/2020
 
 ### Updated

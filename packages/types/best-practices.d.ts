@@ -1,20 +1,21 @@
-declare module '@qualweb/best-practices' {
-  import { QWPage } from '@qualweb/qw-page';
+declare module "@qualweb/best-practices" {
+  import { QWPage } from "@qualweb/qw-page";
 
   interface BPOptions {
     bestPractices?: string[];
+    exclude?: string[];
   }
 
   interface BestPracticeMetadata {
     target: {
-      'parent-sibling'?: string;
+      "parent-sibling"?: string;
       parent?: string | string[];
       element?: string | string[];
       children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };
-    'success-criteria'?: {
+    "success-criteria"?: {
       name: string;
       level: string;
       principle: string;
@@ -28,13 +29,13 @@ declare module '@qualweb/best-practices' {
     inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
+    outcome: "passed" | "failed" | "warning" | "inapplicable" | "";
     description: string;
   }
 
   interface BestPracticeResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
-    description: string[] | string | '';
+    verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
+    description: string[] | string | "";
     resultCode: string[] | string;
     pointer?: string;
     htmlCode?: string | string[];
@@ -58,7 +59,7 @@ declare module '@qualweb/best-practices' {
   }
 
   interface BestPracticesReport {
-    type: 'best-practices';
+    type: "best-practices";
     metadata: BestPracticesGlobalMetadata;
     assertions: {
       [bestPractice: string]: BestPractice;
@@ -66,14 +67,18 @@ declare module '@qualweb/best-practices' {
   }
 
   class BestPractices {
-
     private bestPractices: any;
     private bestPracticesToExecute: any;
 
     constructor(options?: BPOptions);
     public configure(options: BPOptions): void;
     public resetConfiguration(): void;
-    private executeBP(bestPractice: string, selector: string, page: QWPage | undefined, report: BestPracticesReport): void;
+    private executeBP(
+      bestPractice: string,
+      selector: string,
+      page: QWPage | undefined,
+      report: BestPracticesReport
+    ): void;
     public execute(page: QWPage): BestPracticesReport;
   }
 
@@ -84,6 +89,6 @@ declare module '@qualweb/best-practices' {
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
-    BestPractices
+    BestPractices,
   };
 }

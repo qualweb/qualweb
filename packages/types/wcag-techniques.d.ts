@@ -1,9 +1,9 @@
-declare module '@qualweb/wcag-techniques' {
+declare module "@qualweb/wcag-techniques" {
   import { QWPage } from "@qualweb/qw-page";
-
 
   interface WCAGOptions {
     techniques?: string[];
+    exclude?: string[];
     levels?: string[];
     principles?: string[];
     htmlValidatorEndpoint?: string;
@@ -11,14 +11,14 @@ declare module '@qualweb/wcag-techniques' {
 
   interface WCAGTechniqueMetadata {
     target: {
-      'parent-sibling'?: string;
+      "parent-sibling"?: string;
       parent?: string | string[];
       element?: string | string[];
       children?: string | string[];
       attributes?: string | string[];
       css?: string | string[];
     };
-    'success-criteria': {
+    "success-criteria": {
       name: string;
       level: string;
       principle: string;
@@ -31,15 +31,15 @@ declare module '@qualweb/wcag-techniques' {
     failed: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
+    outcome: "passed" | "failed" | "warning" | "inapplicable" | "";
     description: string;
   }
 
   interface WCAGTechniqueResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable' | '';
-    description: string[] | string | '';
+    verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
+    description: string[] | string | "";
     resultCode: string[] | string;
-    elements?:WCAGElement[];
+    elements?: WCAGElement[];
     attributes?: string | string[];
   }
 
@@ -49,7 +49,7 @@ declare module '@qualweb/wcag-techniques' {
     failed: number;
     inapplicable: number;
   }
-  interface WCAGElement{
+  interface WCAGElement {
     pointer?: string;
     htmlCode?: string;
     accessibleName?: string;
@@ -65,7 +65,7 @@ declare module '@qualweb/wcag-techniques' {
   }
 
   interface WCAGTechniquesReport {
-    type: 'wcag-techniques';
+    type: "wcag-techniques";
     metadata: WCAGMetadata;
     assertions: {
       [technique: string]: WCAGTechnique;
@@ -79,9 +79,22 @@ declare module '@qualweb/wcag-techniques' {
     constructor(options?: WCAGOptions);
     public configure(options: WCAGOptions): void;
     public resetConfiguration(): void;
-    private executeTechnique(technique: string, selector: string, page: QWPage, report: WCAGTechniquesReport): void;
-    private executeMappedTechniques(report: WCAGTechniquesReport, page: QWPage, selectors: string[], mappedTechniques: any): void;
-    private executeNotMappedTechniques(report: WCAGTechniquesReport, page: QWPage): void;
+    private executeTechnique(
+      technique: string,
+      selector: string,
+      page: QWPage,
+      report: WCAGTechniquesReport
+    ): void;
+    private executeMappedTechniques(
+      report: WCAGTechniquesReport,
+      page: QWPage,
+      selectors: string[],
+      mappedTechniques: any
+    ): void;
+    private executeNotMappedTechniques(
+      report: WCAGTechniquesReport,
+      page: QWPage
+    ): void;
     public execute(page: QWPage): WCAGTechniquesReport;
   }
 
@@ -92,6 +105,6 @@ declare module '@qualweb/wcag-techniques' {
     WCAGMetadata,
     WCAGTechnique,
     WCAGTechniquesReport,
-    WCAGTechniques
+    WCAGTechniques,
   };
 }
