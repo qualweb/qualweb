@@ -1,4 +1,5 @@
 declare module "@qualweb/wcag-techniques" {
+  import { Position } from "css";
   import { QWPage } from "@qualweb/qw-page";
 
   interface WCAGOptions {
@@ -53,6 +54,14 @@ declare module "@qualweb/wcag-techniques" {
     pointer?: string;
     htmlCode?: string;
     accessibleName?: string;
+    attributes?: string | string[];
+    cssCode?: string;
+    property?: {
+      name?: string;
+      value?: string;
+    };
+    stylesheetFile?: string;
+    position?: Position;
   }
 
   interface WCAGTechnique {
