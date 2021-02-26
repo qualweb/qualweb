@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.14] - 26/02/2021
+
+### Added
+ - "exclude" option to exclude best practices from running
+
+### Updated
+ - dependencies
+
 ## [0.4.13] - 08/01/2021
 
 ### Updated

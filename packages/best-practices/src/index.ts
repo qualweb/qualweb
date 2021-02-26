@@ -33,6 +33,12 @@ class BestPractices {
         this.bestPracticesToExecute[bp] = options.bestPractices.includes(bp);
       }
     }
+    if (options.exclude) {
+      options.exclude = options.exclude.map((bp) => bp.toUpperCase().trim());
+      for (const bp of options.exclude || []) {
+        this.bestPracticesToExecute[bp] = false;
+      }
+    }
   }
 
   public resetConfiguration(): void {
