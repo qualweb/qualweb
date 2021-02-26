@@ -1,5 +1,5 @@
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
-import { QualwebOptions, EvaluationReport } from '@qualweb/core';
+import { QualwebOptions, EvaluationReport, Execute } from '@qualweb/core';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
@@ -97,7 +97,7 @@ class QualWeb {
     url: string,
     html: string | undefined,
     options: QualwebOptions,
-    modulesToExecute: { [module: string]: boolean }
+    modulesToExecute: Execute
   ): Promise<void> {
     if (this.browser) {
       try {

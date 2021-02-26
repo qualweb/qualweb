@@ -89,23 +89,27 @@ The available options fot the **evaluate()** function are:
     "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
     "act": true, // act-rules module (https://github.com/qualweb/act-rules) - default value = true
     "wcag": true, // wcag-techniques module (https://github.com/qualweb/wcag-techniques) - default value = true
-    "bp": false // best-practices module (https://github.com/qualweb/best-practices) - default value = true
+    "bp": false, // best-practices module (https://github.com/qualweb/best-practices) - default value = true
+    "counter": false // counter module (https://github.com/qualweb/counter) - default value = false
   },
   "act-rules": {
     // More information about this options at https://github.com/qualweb/act-rules
     "rules": ["QW-ACT-R1", "b5c3f8"], // Array of rules to execute, can be passed the QualWeb Rule ID or the ACT Rule ID
+    "exclude": ["QW-ACT-R1", "b5c3f8"], // Array of rules to exclude, can be passed the QualWeb Rule ID or the ACT Rule ID
     "levels": ["A", "AA", "AAA"], // Conformance levels to execute,
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"] // Principles to execute
   },
   "wcag-techniques": {
     // More information about this options at https://github.com/qualweb/wcag-techniques
     "rules": ["QW-WCAG-T1", "H39"], // Array of techniques to execute, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code
+    "exclude": ["QW-WCAG-T1", "H39"], // Array of techniques to exclude, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code
     "levels": ["A", "AA", "AAA"], // Conformance levels to execute,
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"] // Principles to execute
   },
   "best-practices": {
     // More information about this options at https://github.com/qualweb/best-practices
-    "bestPractices": ["QW-BP1", "QW-BP2"] // Array of best practices to execute
+    "bestPractices": ["QW-BP1", "QW-BP2"], // Array of best practices to execute
+    "exclude": ["QW-BP1", "QW-BP2"] // Array of best practices to exclude
   }
 }
 ```
@@ -336,6 +340,21 @@ In this section it's explained the evaluation report in detail. For detailed ver
             ]
           },
           "...": { ... }
+        }
+      },
+      "counter": {
+        "type": "counter",
+        "data": {
+          "roles": {
+            "button": 2,
+            "link": 4,
+            ...
+          },
+          "tags": {
+            "div": 10,
+            "table": 3,
+            ...
+          }
         }
       }
     }
