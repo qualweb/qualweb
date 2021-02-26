@@ -6,7 +6,16 @@ declare module "@qualweb/core" {
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
   import { LaunchOptions, Browser } from "puppeteer";
-
+  import { CounterReport} from '@qualweb/counter'
+  
+  interface Execute {
+    wappalyzer?: boolean;
+    act?: boolean;
+    wcag?: boolean;
+    bp?: boolean;
+    counter?: boolean;	
+  }
+	
   interface QualwebOptions {
     url?: string;
     urls?: string[];
@@ -18,12 +27,7 @@ declare module "@qualweb/core" {
     validator?: string;
     r?: "earl" | "earl-a";
     "save-name"?: string;
-    execute?: {
-      wappalyzer?: boolean;
-      act?: boolean;
-      wcag?: boolean;
-      bp?: boolean;
-    };
+    execute?: Execute;
     wappalyzer?: WappalyzerOptions;
     "act-rules"?: ACTROptions;
     "wcag-techniques"?: WCAGOptions;
@@ -73,6 +77,7 @@ declare module "@qualweb/core" {
     "act-rules"?: ACTRulesReport;
     "wcag-techniques"?: WCAGTechniquesReport;
     "best-practices"?: BestPracticesReport;
+    counter?: CounterReport;
   }
 
   interface EvaluationReport {
@@ -90,6 +95,9 @@ declare module "@qualweb/core" {
       width?: number;
       height?: number;
     };
+
+    title?: string;
+    elementCount?: number;
   }
 
   interface SourceHtml {
@@ -119,6 +127,7 @@ declare module "@qualweb/core" {
     | "act-rules"
     | "wcag-techniques"
     | "best-practices";
+    | "counter";
 
   class QualWeb {
     private browser: Browser | null;
@@ -132,7 +141,7 @@ declare module "@qualweb/core" {
       url: string,
       html: string | undefined,
       options: QualwebOptions,
-      modulesToExecute: any
+      modulesToExecute: Execute
     ): Promise<void>;
   }
 
@@ -143,6 +152,7 @@ declare module "@qualweb/core" {
 
   export {
     QualwebOptions,
+    Execute,
     EvaluationReport,
     Evaluator,
     Url,
