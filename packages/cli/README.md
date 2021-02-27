@@ -94,16 +94,19 @@ This command replaces all other commands.
   },
   "act-rules": {
     "rules": ["QW-ACT-R1"],
+    "exclude": ["QW-ACT-R2"],
     "levels": ["A", "AA", "AAA"],
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
   },
   "wcag-techniques": {
     "rules": ["QW-WCAG-T1"],
+    "exclude": ["QW-WCAG-T2"],
     "levels": ["A", "AA", "AAA"],
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
   },
   "best-practices": {
-    "bestPractices": ["QW-BP1"]
+    "bestPractices": ["QW-BP1"],
+    "exclude": ["QW-BP2"]
   }
 }
 ```
@@ -124,12 +127,15 @@ This command replaces all other commands.
 | Command           | Value                                                           | Information                                                           |
 | ----------------- | --------------------------------------------------------------- | --------------------------------------------------------------------- |
 | --act-rules       | `"ruleId1 ruleId2 ... ruleIdx" or <config file>`                | Choose which act rules to execute. For config file check below        |
+| --exclude-act     | `"ruleId1 ruleId2 ... ruleIdx" or <config file>`                | Choose which act rules to exclude. For config file check below        |
 | --act-levels      | `A AA AAA`                                                      | Choose which conform levels to evaluate regarding the act rules       |
 | --act-principles  | `Perceivable Operable Understandable Robust`                    | Choose which principles to evaluate regarding the act rules           |
-| --wcag-techniques | `"techniqueId1 techniqueId2 ... techniqueIdx" or <config file>` | Choose which wcag technique to execute. For config file check below   |
+| --wcag-techniques | `"techniqueId1 techniqueId2 ... techniqueIdx" or <config file>` | Choose which wcag techniques to execute. For config file check below  |
+| --exclude-wcag    | `"techniqueId1 techniqueId2 ... techniqueIdx" or <config file>` | Choose which wcag techniques to exclude. For config file check below  |
 | --wcag-levels     | `A AA AAA`                                                      | Choose which conform levels to evaluate regarding the html techniques |
 | --wcag-principles | `Perceivable Operable Understandable Robust`                    | Choose which principles to evaluate regarding the html techniques     |
 | --best-practices  | `bestpracticeId1 bestpracticeId2 ... bestpracticeIdx`           | Choose which best practices to execute. For config file check below   |
+| --exclude-bp      | `bestpracticeId1 bestpracticeId2 ... bestpracticeIdx`           | Choose which best practices to exclude. For config file check below   |
 
 **Note:** The module options above are only used if the correspondent module was set to be executed (command _-m_).
 
@@ -141,6 +147,7 @@ This config file can replace commands **--act-rules**, **--act-levels** and **--
 {
   "act-rules": {
     "rules": ["QW-ACT-R1"],
+    "exclude": ["QW-ACT-R2"],
     "levels": ["A", "AA", "AAA"],
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
   }
@@ -154,7 +161,8 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 ```json
 {
   "wcag-techniques": {
-    "rules": ["QW-WCAG-T1"],
+    "techniques": ["QW-WCAG-T1"],
+    "exclude": ["QW-WCAG-T2"],
     "levels": ["A", "AA", "AAA"],
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"]
   }
@@ -166,7 +174,8 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 ```json
 {
   "best-practices": {
-    "bestPractices": ["QW-BP1"]
+    "bestPractices": ["QW-BP1"],
+    "exclude": ["QW-BP2"]
   }
 }
 ```

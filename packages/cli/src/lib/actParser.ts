@@ -11,6 +11,7 @@ async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions
   options['act-rules'] = {};
 
   await validateACTRules(mainOptions, options);
+  await validateACTExclusions(mainOptions, options);
   await validateACTLevels(mainOptions, options);
   await validateACTPrinciples(mainOptions, options);
 
@@ -40,6 +41,30 @@ async function validateACTRules(mainOptions: CommandLineOptions, options: Qualwe
     }
 
     validateACT(options['act-rules'].rules);
+  }
+}
+
+async function validateACTExclusions(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+  if (mainOptions['exclude-act'] && options['act-rules']) {
+    if (mainOptions.module && options?.execute?.act === undefined) {
+      printError('The "--act-rules" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
+      console.warn(WARNING_MESSAGE);
+      setValue(options, 'execute.act', true);
+    }
+
+    if (mainOptions['exclude-act'].length === 1) {
+      if (await fileExists(mainOptions['exclude-act'][0])) {
+        const rules = await readJsonFile(mainOptions['exclude-act'][0]);
+        options['act-rules'].exclude = clone(rules['act-rules'].exclude);
+      } else {
+        options['act-rules'].exclude = clone(mainOptions['exclude-act']);
+      }
+    } else {
+      options['act-rules'].exclude = clone(mainOptions['exclude-act']);
+    }
+
+    validateACT(options['act-rules'].exclude);
   }
 }
 

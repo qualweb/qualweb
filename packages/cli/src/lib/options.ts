@@ -105,7 +105,15 @@ const moduleFilters = [
       '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
     type: String,
     multiple: true,
-    description: 'Choose which ACT rules to execute.'
+    description: 'Choose which ACT rules to execute. Can be multiple.'
+  },
+  {
+    name: 'exclude-act',
+    typeLabel:
+      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which ACT rules to exclude. Can be multiple.'
   },
   {
     name: 'act-levels',
@@ -129,6 +137,13 @@ const moduleFilters = [
     description: 'Choose which wcag techniques to execute. Can be multiple.'
   },
   {
+    name: 'exclude-wcag',
+    typeLabel: '{underline file-path} or [ QW-WCAG-T1 ... QW-WCAG-T' + wcagTechniques.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which wcag techniques to exclude. Can be multiple.'
+  },
+  {
     name: 'wcag-levels',
     typeLabel: '[ ' + levels.join(' | ') + ' ]',
     type: String,
@@ -148,6 +163,13 @@ const moduleFilters = [
     type: String,
     multiple: true,
     description: 'Choose which best-practices to execute. Can be multiple.'
+  },
+  {
+    name: 'exclude-bp',
+    typeLabel: '{underline file-path} or [ QW-BP1 ... QW-BP' + bps.length + ' ]',
+    type: String,
+    multiple: true,
+    description: 'Choose which best-practices to exclude. Can be multiple.'
   }
 ];
 const options = [

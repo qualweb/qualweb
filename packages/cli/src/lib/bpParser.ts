@@ -32,6 +32,31 @@ async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions)
     validateBP(options['best-practices'].bestPractices);
   }
 
+  if (mainOptions['exclude-bp']) {
+    if (mainOptions.module && options?.execute?.bp === undefined) {
+      printError('The "--best-practices" option doesn\'t match any of the modules selected.');
+    } else if (!mainOptions.module) {
+      console.log('Warning: Module bp has options but is not select. Will be select automatically');
+      if (!options.execute) {
+        options.execute = {};
+      }
+      options.execute.bp = true;
+    }
+
+    if (mainOptions['exclude-bp'].length === 1) {
+      if (await fileExists(mainOptions['exclude-bp'][0])) {
+        const bps = await readJsonFile(mainOptions['exclude-bp'][0]);
+        options['best-practices'].exclude = clone(bps['best-practices'].exclude);
+      } else {
+        options['best-practices'].exclude = clone(mainOptions['exclude-bp']);
+      }
+    } else {
+      options['best-practices'].exclude = clone(mainOptions['exclude-bp']);
+    }
+
+    validateBP(options['best-practices'].exclude);
+  }
+
   if (Object.keys(options['best-practices']).length === 0) {
     delete options['best-practices'];
   }

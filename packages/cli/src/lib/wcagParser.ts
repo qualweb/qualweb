@@ -23,13 +23,38 @@ async function parseWCAG(mainOptions: CommandLineOptions, options: QualwebOption
         const techniques = await readJsonFile(mainOptions['wcag-techniques'][0]);
         options['wcag-techniques'].techniques = clone(techniques['wcag-techniques'].techniques);
       } else {
-        options['wcag-techniques'].techniques = clone(mainOptions['wcah-techniques']);
+        options['wcag-techniques'].techniques = clone(mainOptions['wcag-techniques']);
       }
     } else {
       options['wcag-techniques'].techniques = clone(mainOptions['wcag-techniques']);
     }
 
     validateWCAG(options['wcag-techniques'].techniques);
+  }
+
+  if (mainOptions['exclude-wcag']) {
+    if (mainOptions.module && options?.execute?.wcag === undefined) {
+      printError('The "--html-techniques" option doesn\'t match any of the modules selected.');
+    } else {
+      console.log('Warning: Module html has options but is not select. Will be select automatically');
+      if (!options.execute) {
+        options.execute = {};
+      }
+      options.execute.wcag = true;
+    }
+
+    if (mainOptions['exclude-wcag'].length === 1) {
+      if (await fileExists(mainOptions['exclude-wcag'][0])) {
+        const techniques = await readJsonFile(mainOptions['wcag-techniques'][0]);
+        options['wcag-techniques'].exclude = clone(techniques['exclude-wcag'].exclude);
+      } else {
+        options['wcag-techniques'].exclude = clone(mainOptions['exclude-wcag']);
+      }
+    } else {
+      options['wcag-techniques'].exclude = clone(mainOptions['exclude-wcag']);
+    }
+
+    validateWCAG(options['wcag-techniques'].exclude);
   }
 
   if (mainOptions['wcag-levels']) {
