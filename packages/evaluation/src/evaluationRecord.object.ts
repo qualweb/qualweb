@@ -46,7 +46,7 @@ class EvaluationRecord {
           this.modules["counter"] = <CounterReport>(clonedEvaluation);
       }
 
-      if (module !== "wappalyzer" && module!== "counter") {
+      if (module !== "wappalyzer" && module !== "counter") {
         this.metadata.addPassedResults(
           this.modules[module]?.metadata.passed || 0
         );
