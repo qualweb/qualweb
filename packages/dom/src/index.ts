@@ -242,8 +242,8 @@ class Dom {
 
   private isSVGorMath(content?: string): boolean {
     return !!(
-      content?.trim().startsWith("<math") ||
-      content?.trim().startsWith("<svg") ||
+      (content?.trim().startsWith("<math") ||
+        content?.trim().startsWith("<svg")) &&
       !content?.includes("<html")
     );
   }
