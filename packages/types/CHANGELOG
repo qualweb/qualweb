@@ -1,23 +1,28 @@
 # Changelog
 
-## [0.4.58] - 27/18/2020
+## [0.4.59] - 01/03/2020
+
+### Updated
+ - evaluation.d.ts
+
+## [0.4.58] - 27/02/2020
 
 ### Fixed
  - bugs on evaluation.d.ts
 
-## [0.4.57] - 26/18/2020
+## [0.4.57] - 26/02/2020
 
 ### Updated
  - wcag-techniques.d.ts
 
-## [0.4.56] - 26/18/2020
+## [0.4.56] - 26/02/2020
 
 ### Added
  - counter.d.ts for counter module
  - "exclude" option for ACTROptions, WCAGOptions and BPOptions
  - "Execute" interface for core.d.ts
 
-## [0.4.55] - 23/18/2020
+## [0.4.55] - 23/02/2020
 
 ### Updated
  - qw-element definition

@@ -20,24 +20,29 @@ declare module "@qualweb/evaluation" {
       execute: Execute,
       options: QualwebOptions,
       url: string,
-      validation: HTMLValidationReport
+      validation: HTMLValidationReport | undefined
     ): Promise<EvaluationRecord>;
+
     public addQWPage(page: Page): Promise<void>;
+
     public executeBP(
       page: Page,
       options: QualwebOptions
     ): Promise<BestPracticesReport>;
+
     public executeWCAG(
       page: Page,
       options: WCAGOptions | undefined,
-      validation: HTMLValidationReport
+      validation: HTMLValidationReport | undefined
     ): Promise<WCAGTechniquesReport>;
+
     public executeACT(
       page: Page,
       sourceHtml: SourceHtml,
       options: QualwebOptions
     ): Promise<ACTRulesReport>;
     public executeCounter(page: Page): Promise<CounterReport>;
+
     public getEvaluator(
       page: Page,
       sourceHtml: SourceHtml,
