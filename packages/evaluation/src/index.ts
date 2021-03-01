@@ -220,7 +220,7 @@ class Evaluation {
   public async executeWCAG(
     page: Page,
     options: WCAGOptions | undefined,
-    validation: HTMLValidationReport
+    validation: HTMLValidationReport | undefined
   ): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve("@qualweb/wcag-techniques"),
@@ -285,7 +285,7 @@ class Evaluation {
     execute: Execute,
     options: QualwebOptions,
     url: string,
-    validation: HTMLValidationReport
+    validation: HTMLValidationReport | undefined
   ): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, url);
     const evaluation = new EvaluationRecord(evaluator);
