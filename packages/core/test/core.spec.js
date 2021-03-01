@@ -7,7 +7,7 @@ describe('Core', function () {
 
     const qualweb = new QualWeb();
 
-    await qualweb.start(«);
+    await qualweb.start();
 
     const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt/' });
 
