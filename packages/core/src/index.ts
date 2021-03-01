@@ -1,5 +1,5 @@
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
-import { QualwebOptions, EvaluationReport, Execute } from '@qualweb/core';
+import { QualwebOptions, EvaluationReport } from '@qualweb/core';
 import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
@@ -20,7 +20,8 @@ class QualWeb {
       act: true,
       wcag: true,
       bp: true,
-      wappalyzer: false
+      wappalyzer: false,
+      counter: false
     };
 
     const urls = await this.checkUrls(options);
@@ -49,6 +50,7 @@ class QualWeb {
       modulesToExecute.wcag = !!options.execute.wcag;
       modulesToExecute.bp = !!options.execute.bp;
       modulesToExecute.wappalyzer = !!options.execute.wappalyzer;
+      modulesToExecute.counter = !!options.execute.counter;
     }
 
     const evaluations: { [url: string]: EvaluationReport } = {};
@@ -97,7 +99,7 @@ class QualWeb {
     url: string,
     html: string | undefined,
     options: QualwebOptions,
-    modulesToExecute: Execute
+    modulesToExecute: { [module: string]: boolean }
   ): Promise<void> {
     if (this.browser) {
       try {

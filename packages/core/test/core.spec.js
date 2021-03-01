@@ -9,12 +9,12 @@ describe('Core', function () {
 
     await qualweb.start();
 
-    const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt/' });
+    const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt' });
 
     const earlReports = await generateEarlReport(evaluations);
 
     await qualweb.stop();
 
-    expect(earlReports['https://ciencias.ulisboa.pt/']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://ciencias.ulisboa.pt']['@graph'].length).to.be.equal(1);
   });
 });
