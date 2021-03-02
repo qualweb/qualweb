@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.65] - 02/03/2021
+### Fixed
+ - elementHasValidRole to support role attribute with multiples values
+
 ## [0.3.64] - 04/02/2021
 ### Fixed
  -cleaned svg code
