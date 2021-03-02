@@ -2,7 +2,7 @@
 import { formElements, typesWithLabel } from './constants';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils ,DomUtils} from '@qualweb/util';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import getDefaultName from './getDefaultName';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
@@ -165,8 +165,8 @@ function getAccessibleNameFromAriaLabelledBy(
   let elem;
 
   for (const id of ListIdRefs) {
-    if (id !== '' && elementID !== id) elem = page.getElementByID(id);
-    if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget);
+    if (id !== '' /*&& elementID !== id*/) elem = page.getElementByID(id);
+    if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget && elementID !== id);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId.trim() + ' ';
@@ -181,13 +181,10 @@ function getAccessibleNameFromAriaLabelledBy(
 }
 
 function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): string {
-  let before = element.getElementStyleProperty('content', ':before');
-  let after = element.getElementStyleProperty('content', ':after');
+  let before = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':before'));
+  let after = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':after'));
   const aNameList = getAccessibleNameFromChildren(element, page, isWidget);
   const textValue = getConcatentedText(element, aNameList);
-
-  if (after === 'none') after = '';
-  if (before === 'none') before = '';
 
   return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
@@ -197,6 +194,13 @@ function getConcatentedText(elementQW: QWElement, aNames: string[]): string {
     throw Error('Element is not defined');
   }
   return elementQW.concatANames(aNames);
+}
+
+function cleanSVGAndNoneCode(text: string): string {
+  if (!text || text === 'none'|| text.includes('url(')) {
+    text = ''
+  };
+  return text;
 }
 
 function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): string[] {
@@ -210,7 +214,7 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
   if (children) {
     for (const child of children) {
       const role = AccessibilityUtils.getElementRole(child, page);
-      if (!DomUtils.isElementHidden(child, page)&& role !== 'presentation' && role !== 'none') {
+      if (!DomUtils.isElementHidden(child, page) && role !== 'presentation' && role !== 'none') {
         aName = AccessibilityUtils.getAccessibleNameRecursion(child, page, true, isWidget);
         if (aName) {
           elementAnames.push(aName);
