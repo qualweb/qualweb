@@ -86,13 +86,13 @@ class ACTRules {
           this.rulesToExecute[rule] = false;
         }
       }
-      for (const cr of Object.keys(compositeRules)) {
-        // @ts-ignore
-        const compositeRule = compositeRules[cr];
-        if (this.rulesToExecute[cr]) {
-          for (const ar of compositeRule.rules || []) {
-            this.rulesToExecute[ar] = true;
-          }
+    }
+    for (const cr of Object.keys(compositeRules)) {
+      // @ts-ignore
+      const compositeRule = compositeRules[cr];
+      if (this.rulesToExecute[cr]) {
+        for (const ar of compositeRule.rules || []) {
+          this.rulesToExecute[ar] = true;
         }
       }
     }
