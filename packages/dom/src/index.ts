@@ -67,7 +67,7 @@ class Dom {
 
       const sourceHTMLPuppeteer = await response?.text();
 
-      if (this.isSVGorMath(sourceHTMLPuppeteer)) {
+      if (!this.isHtmlDocument(sourceHTMLPuppeteer, url)) {
         await this.page.close();
         this.page = await browser.newPage();
         await this.page.setContent(
@@ -83,7 +83,7 @@ class Dom {
       });
       _sourceHtml = await this.page.content();
 
-      if (this.isSVGorMath(_sourceHtml)) {
+      if (!this.isHtmlDocument(_sourceHtml)) {
         await this.page.close();
         this.page = await browser.newPage();
         await this.page.setContent(
@@ -240,8 +240,15 @@ class Dom {
     return checkModule || checkRules;
   }
 
-  private isSVGorMath(content?: string): boolean {
-    return !!(
+  private isHtmlDocument(content?: string, url?: string): boolean {
+    if (
+      url &&
+      (url.endsWith(".svg") || url.endsWith(".xml") || url.endsWith(".xhtml"))
+    ) {
+      return false;
+    }
+
+    return !(
       (content?.trim().startsWith("<math") ||
         content?.trim().startsWith("<svg")) &&
       !content?.includes("<html")
