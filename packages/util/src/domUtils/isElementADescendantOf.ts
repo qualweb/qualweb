@@ -2,20 +2,19 @@
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import getElementRole from '../accessibilityUtils/getElementRole';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
-function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string [], roles: string[]): boolean {
+function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
-  let parent = elementQW.getElementParent();
+  const parent = elementQW.getElementParent();
   let result = false;
   let sameRole, sameName;
 
   if (parent !== null) {
-    let parentName = parent.getElementTagName();
-    let parentRole = getElementRole(parent, pageQW);
-
+    const parentName = parent.getElementTagName();
+    const parentRole = AccessibilityUtils.getElementRole(parent, pageQW);
 
     if (parentName !== null) {
       sameName = names.includes(parentName);
@@ -25,7 +24,7 @@ function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: str
     }
     result = sameName || sameRole;
     if (!result) {
-      return isElementADescendantOf(parent, pageQW, names, roles);
+      return DomUtils.isElementADescendantOf(parent, pageQW, names, roles);
     } else {
       return result;
     }

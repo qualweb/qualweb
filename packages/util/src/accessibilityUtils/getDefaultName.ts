@@ -4,21 +4,20 @@ import { QWElement } from '@qualweb/qw-element';
 
 function getDefaultName(elementQW: QWElement): string {
   let name = elementQW.getElementTagName();
-  if (!name)
-    name = '';
+  if (!name) name = '';
   let type;
-  let result = "";
+  let result = '';
 
-  if (name === "input") {
-    type = elementQW.getElementAttribute( "type");
+  if (name === 'input') {
+    type = elementQW.getElementAttribute('type');
   }
 
   /*if (type === "image") {
     result = "image";
-  } */ if (type === "submit") {
-    result = "Reset";
-  } else if (type === "reset") {
-    result = "Reset";
+  } */ if (type === 'submit') {
+    result = 'Reset';
+  } else if (type === 'reset') {
+    result = 'Reset';
   }
 
   return result;

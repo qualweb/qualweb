@@ -1,59 +1,76 @@
 'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import elementHasValidRole from "./elementHasValidRole";
-import isElementHidden from '../domUtils/isElementHidden';
-import isElementPresentation from '../domUtils/isElementPresentation';
-import isElementFocusable from '../domUtils/isElementFocusable';
-import elementIDIsReferenced from '../domUtils/elementIDIsReferenced';
-import elementHasGlobalARIAPropertyOrAttribute from '../domUtils/elementHasGlobalARIAPropertyOrAttribute';
+
+import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpy } from './constants';
+import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
-let selector = elementQW.getElementSelector();
-  let method = "AcceUtils.isElementInAT";
-  let result;
-  if(pageQW.isValueCached(selector,method)){
-     result = pageQW.getCachedValue(selector,method);
-  }else{
-    result = isElementInATAux(elementQW, pageQW);
-    pageQW.cacheValue(selector,method,result);
-  }
-  return result;}
-
-function isElementInATAux(elementQW: QWElement, pageQW: QWPage): boolean {
-  let isPresentation = isElementPresentation(elementQW, pageQW);
-  let isHidden = isElementHidden(elementQW,pageQW);
+  const childPresentational = AccessibilityUtils.isElementChildPresentational(elementQW, pageQW);
+  const isHidden = DomUtils.isElementHidden(elementQW, pageQW);
   let result = false;
+  const role = AccessibilityUtils.getElementRole(elementQW, pageQW);
+  const validRole = AccessibilityUtils.elementHasValidRole(elementQW, pageQW);
 
-  if (!isHidden && !isPresentation) {
-    let type = elementQW.getElementType();
-    let focusable = isElementFocusable(elementQW,pageQW);
-    let id = elementQW.getElementAttribute("id");
-    let ariaActivedescendant = false;
-    let ariaControls = false;
-    let ariaDescribedby = false;
-    let ariaDetails = false;
-    let ariaErrormessage = false;
-    let ariaFlowto = false;
-    let ariaLabelledby = false;
-    let ariaOwns = false;
-    if (id !== null) {
-      ariaActivedescendant = elementIDIsReferenced(pageQW,elementQW, id, "aria-activedescendant");
-      ariaControls = elementIDIsReferenced(pageQW,elementQW,id, " aria-controls");
-      ariaDescribedby = elementIDIsReferenced(pageQW,elementQW, id, " aria-describedby");
-      ariaDetails = elementIDIsReferenced(pageQW,elementQW, id, " aria-details");
-      ariaErrormessage = elementIDIsReferenced(pageQW,elementQW, id, "aria-errormessage");
-      ariaFlowto = elementIDIsReferenced(pageQW,elementQW, id, "aria-flowto");
-      ariaLabelledby = elementIDIsReferenced(pageQW,elementQW, id, "aria-labelledby");
-      ariaOwns = elementIDIsReferenced(pageQW,elementQW, id, "aria-owns");
+  if (!isHidden && !childPresentational && role !== 'presentation' && role !== 'none') {
+    const name = elementQW.getElementTagName();
+    const notExposedIfEmpyTag = notExposedIfEmpy.includes(name);
+    const needsToBeInsideDetailsTag = needsToBeInsideDetails.includes(name);
 
+    if (notDefaultAT.includes(name) || notExposedIfEmpyTag || needsToBeInsideDetailsTag) {
+      let specialCondition = false;
+      if (notExposedIfEmpyTag) {
+        const text = elementQW.getElementText();
+        specialCondition = !!text && text.trim() !== '';
+      } else if (needsToBeInsideDetailsTag) {
+        const parent = elementQW.getElementParent();
+        specialCondition = !!parent && parent.getElementTagName() === 'details';
+      }else if (name === 'picture') {
+        const child = elementQW.getElement('img');
+        specialCondition = !!child;
+      }
+      const type = elementQW.getElementType();
+      const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
+      const id = elementQW.getElementAttribute('id');
+      let ariaActivedescendant = false;
+      let ariaControls = false;
+      let ariaDescribedby = false;
+      let ariaDetails = false;
+      let ariaErrormessage = false;
+      let ariaFlowto = false;
+      let ariaLabelledby = false;
+      let ariaOwns = false;
+      if (id !== null) {
+        ariaActivedescendant = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-activedescendant');
+        ariaControls = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-controls');
+        ariaDescribedby = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-describedby');
+        ariaDetails = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-details');
+        ariaErrormessage = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-errormessage');
+        ariaFlowto = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-flowto');
+        ariaLabelledby = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-labelledby');
+        ariaOwns = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-owns');
+      }
+      const globalWaiARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW);
+
+      result =
+        specialCondition ||
+        type === 'text' ||
+        focusable ||
+        ariaActivedescendant ||
+        ariaControls ||
+        ariaDescribedby ||
+        ariaDetails ||
+        ariaErrormessage ||
+        ariaFlowto ||
+        ariaLabelledby ||
+        ariaOwns ||
+        validRole ||
+        globalWaiARIA;
+    } else {
+      //defaultInAT
+      result = true;
     }
-    let role = elementHasValidRole(elementQW,pageQW);
-    let globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
-
-    result = type === "text"||focusable||ariaActivedescendant||ariaControls||ariaDescribedby||ariaDetails||ariaErrormessage||ariaFlowto||ariaLabelledby||ariaOwns||role||globalWaiARIA;
   }
-  //https://www.w3.org/TR/core-aam-1.1/#exclude_elements2
   return result;
 }
 

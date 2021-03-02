@@ -7,7 +7,7 @@ function getSourceElementAttribute(element: Node, attribute: string): string | n
     throw Error('Element is not defined');
   }
 
-  return element['attribs'] ? element['attribs'][attribute] ? element['attribs'][attribute] : null : null;
+  return element['attribs'] ? (element['attribs'][attribute] ? element['attribs'][attribute] : null) : null;
 }
 
 export default getSourceElementAttribute;

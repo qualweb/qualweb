@@ -13,7 +13,7 @@ async function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Prom
 
     if (opener) {
       const openerPage = await opener.page();
-      if (await openerPage.url() === url) {
+      if ((await openerPage.url()) === url) {
         wasOpen = true;
         await tab.close();
       }

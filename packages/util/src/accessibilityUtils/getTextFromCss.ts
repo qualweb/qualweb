@@ -3,9 +3,8 @@
 import { QWElement } from '@qualweb/qw-element';
 
 function getTextFromCss(elementQW: QWElement, textContent: string): string {
-
-  let before = elementQW.getElementStyleProperty( "computed-style-before", "content");
-  let after = elementQW.getElementStyleProperty( "computed-style-after", "content");
+  const before = elementQW.getElementStyleProperty('computed-style-before', 'content');
+  const after = elementQW.getElementStyleProperty('computed-style-after', 'content');
 
   return before + textContent + after;
 }

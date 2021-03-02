@@ -1,6 +1,5 @@
 'use strict';
 
-
 /*function getRequestContent(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
@@ -15,7 +14,7 @@
 //fixme
 function isMathDocument(url: string): boolean {
   //const content = await getRequestContent(url);
-  return true;//content.trim().startsWith('<math');
+  return true; //content.trim().startsWith('<math');
 }
 
 export default isMathDocument;

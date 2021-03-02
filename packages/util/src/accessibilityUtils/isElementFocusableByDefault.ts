@@ -1,4 +1,3 @@
-
 'use strict';
 import { QWElement } from '@qualweb/qw-element';
 
@@ -7,7 +6,7 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
     throw Error('Element is not defined');
   }
 
-  const draggableAttribute =  elementQW.getElementAttribute( 'draggable');
+  const draggableAttribute = elementQW.getElementAttribute('draggable');
 
   if (draggableAttribute && draggableAttribute === 'true') {
     return true;
@@ -27,6 +26,10 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
 
     switch (elementName) {
       case 'a':
+        if (hasHref) {
+          return true;
+        }
+        break;
       case 'area':
       case 'link':
         if (hasHref) {
@@ -34,12 +37,18 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
         }
         break;
       case 'input':
-        return !(elementAttributeType && elementAttributeType !== 'hidden');
+        return !(elementAttributeType && elementAttributeType === 'hidden');
       case 'summary':
-        return !!(parent && parentName === 'details' && parentChildren && elementQW.getElementSelector() === parentChildren[0].getElementSelector());
+        return !!(
+          parent &&
+          parentName === 'details' &&
+          parentChildren &&
+          elementQW.getElementSelector() === parentChildren[0].getElementSelector()
+        );
       case 'textarea':
       case 'select':
       case 'button':
+      case 'iframe':
         return true;
     }
     return false;
