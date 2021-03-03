@@ -6,6 +6,7 @@ import {
   ProcessedHtml,
   Url,
   Evaluator,
+  Execute,
 } from "@qualweb/core";
 import { randomBytes } from "crypto";
 import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
@@ -14,9 +15,8 @@ import EvaluationRecord from "./evaluationRecord.object";
 import { ACTROptions, ACTRulesReport } from "@qualweb/act-rules";
 import { BPOptions, BestPracticesReport } from "@qualweb/best-practices";
 import { executeWappalyzer } from "@qualweb/wappalyzer";
-import {CounterReport} from '@qualweb/counter';
-
-
+import { CounterReport } from "@qualweb/counter";
+import { HTMLValidationReport } from "@qualweb/html-validator";
 
 class Evaluation {
   public async getEvaluator(
@@ -220,7 +220,7 @@ class Evaluation {
   public async executeWCAG(
     page: Page,
     options: WCAGOptions | undefined,
-    validation: any
+    validation: HTMLValidationReport | undefined
   ): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve("@qualweb/wcag-techniques"),
@@ -240,7 +240,7 @@ class Evaluation {
         return html.execute(window.page, newTabWasOpen, validation);
       },
       newTabWasOpen,
-      validation,
+      <any>validation,
       // @ts-ignore
       options
     );
@@ -267,30 +267,25 @@ class Evaluation {
     return bpReport;
   }
 
- 
-  public async executeCounter2(page: Page): Promise<CounterReport> {
+  public async executeCounter(page: Page): Promise<CounterReport> {
     await page.addScriptTag({
       path: require.resolve("@qualweb/counter"),
     });
 
-    const Counter = await page.evaluate(() => {
+    const Counter = <CounterReport>await page.evaluate(() => {
       //@ts-ignore
-      
-      const cr: CounterReport = Counter.executeCounter(window.page) ;
-      
-      return cr;
-   
-  });
-  return Counter;
-}
+      return Counter.executeCounter(window.page);
+    });
+    return Counter;
+  }
 
   public async evaluatePage(
     sourceHtml: SourceHtml,
     page: Page,
-    execute: any,
+    execute: Execute,
     options: QualwebOptions,
     url: string,
-    validation: any
+    validation: HTMLValidationReport | undefined
   ): Promise<EvaluationRecord> {
     const evaluator = await this.getEvaluator(page, sourceHtml, url);
     const evaluation = new EvaluationRecord(evaluator);
@@ -304,7 +299,6 @@ class Evaluation {
       );
     }
     if (execute.wcag) {
-      //evaluation.addModuleEvaluation('html-techniques', await this.executeHTML(page, options['html-techniques'], validation));
       evaluation.addModuleEvaluation(
         "wcag-techniques",
         await this.executeWCAG(page, options["wcag-techniques"], validation)
@@ -322,10 +316,12 @@ class Evaluation {
         await executeWappalyzer(url)
       );
     }
-    if(execute.counter){
-      evaluation.addModuleEvaluation("counter", await this.executeCounter2(page));
+    if (execute.counter) {
+      evaluation.addModuleEvaluation(
+        "counter",
+        await this.executeCounter(page)
+      );
     }
-
 
     return evaluation;
   }
