@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.68",
+  "version": "0.1.73",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "types": "./dist",
