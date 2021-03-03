@@ -20,7 +20,8 @@ class QualWeb {
       act: true,
       wcag: true,
       bp: true,
-      wappalyzer: false
+      wappalyzer: false,
+      counter: false
     };
 
     const urls = await this.checkUrls(options);
@@ -49,6 +50,7 @@ class QualWeb {
       modulesToExecute.wcag = !!options.execute.wcag;
       modulesToExecute.bp = !!options.execute.bp;
       modulesToExecute.wappalyzer = !!options.execute.wappalyzer;
+      modulesToExecute.counter = !!options.execute.counter;
     }
 
     const evaluations: { [url: string]: EvaluationReport } = {};
