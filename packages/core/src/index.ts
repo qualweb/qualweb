@@ -99,7 +99,7 @@ class QualWeb {
     url: string,
     html: string | undefined,
     options: QualwebOptions,
-    modulesToExecute: { [module: string]: boolean }
+    modulesToExecute: Execute
   ): Promise<void> {
     if (this.browser) {
       try {
