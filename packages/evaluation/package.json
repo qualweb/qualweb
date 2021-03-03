@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.70",
+  "version": "0.1.71",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "types": "./dist",
@@ -46,6 +46,7 @@
     "@qualweb/qw-page": "^0.1.36",
     "@qualweb/wappalyzer": "^0.2.0",
     "@qualweb/wcag-techniques": "^0.1.13",
+    "@qualweb/counter":"^0.1.1",
     "css-select": "^3.1.2",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0"
