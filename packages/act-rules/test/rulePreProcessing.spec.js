@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-const CSSselect = require('css-select');
+import CSSselect from 'css-select';
 const { DomUtils } = require('@qualweb/util');
 
 
@@ -12,7 +12,7 @@ async function getTestCases() {
 }
 
 const mapping = {
-  'QW-ACT-R4': {code:'bc659a',selector:'meta'},
+  'QW-ACT-R4': {code: 'bc659a',selector:'meta'},
   'QW-ACT-R71': {code:'bisz58',selector:'meta'},
 };
 
@@ -28,7 +28,7 @@ describe(`Rule ${rule}`, function () {
   let tests = null;
 
   it('Starting testbench', async function () {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({ headless: false });
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
@@ -45,7 +45,7 @@ describe(`Rule ${rule}`, function () {
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
-          this.timeout(10 * 1000);
+          this.timeout(100 * 1000);
           const dom = new Dom();
           const {sourceHtml, page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
           let preProcessElements = CSSselect(selector,sourceHtml.html.parsed);
@@ -53,7 +53,7 @@ describe(`Rule ${rule}`, function () {
           //console.log(elements);
 
           await page.addScriptTag({
-            path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+            path: require.resolve('@qualweb/qw-page')
           });
 
           await page.addScriptTag({

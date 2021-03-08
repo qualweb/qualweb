@@ -113,7 +113,7 @@ describe(`Rule ${rule}`, function () {
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
-          this.timeout(10 * 1000);
+          this.timeout(100 * 1000);
           const dom = new Dom();
           
           const { page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);

@@ -1112,30 +1112,6 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW_ACT_R47": {
-    "name": "Text spacing in `style` attributes is not `!important`",
-    "code": "QW-ACT-R47",
-    "mapping": "b8bb68",
-    "description": "This rule checks that text spacing set in the `style` attribute is not set to `!important` or that at least one of the relevant text styles has exceeded the specified metric for retaining content visibility and functionality.",
-    "metadata": {
-      "target": {
-        "element": "body, body *",
-        "attribute": "style"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.12",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html"
-        }
-      ],
-      "related": [],
-      "url": "https://act-rules.github.io/rules/b8bb68",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R48": {
     "name": "Element marked as decorative is not exposed",
     "code": "QW-ACT-R48",

@@ -68,7 +68,7 @@ class ACTRules {
       }
       if (!options.principles && !options.levels) {
         if (options.rules && options.rules.length !== 0) {
-          if (!options.rules.includes(rule) && !options.rules.includes(this.rules[rule].getRuleMapping())) {
+          if (!options.rules.includes(rule) && !options.rules.includes(this.rules[rule]?.getRuleMapping())) {
             this.rulesToExecute[rule] = false;
           } else {
             this.rulesToExecute[rule] = true;
@@ -76,13 +76,13 @@ class ACTRules {
         }
       } else {
         if (options.rules && options.rules.length !== 0) {
-          if (options.rules.includes(rule) || options.rules.includes(this.rules[rule].getRuleMapping())) {
+          if (options.rules.includes(rule) || options.rules.includes(this.rules[rule]?.getRuleMapping())) {
             this.rulesToExecute[rule] = true;
           }
         }
       }
       if (options.exclude && options.exclude.length !== 0) {
-        if (options.exclude.includes(rule) || options.exclude.includes(this.rules[rule].getRuleMapping())) {
+        if (options.exclude.includes(rule) || options.exclude.includes(this.rules[rule]?.getRuleMapping())) {
           this.rulesToExecute[rule] = false;
         }
       }
