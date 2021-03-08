@@ -82,7 +82,7 @@ class WCAGTechniques {
           if (
             !options.techniques.includes(technique) &&
             !options.techniques.includes(
-              this.techniques[technique].getTechniqueMapping()
+              this.techniques[technique]?.getTechniqueMapping()
             )
           ) {
             this.techniquesToExecute[technique] = false;
@@ -93,7 +93,7 @@ class WCAGTechniques {
           if (
             options.techniques.includes(technique) ||
             options.techniques.includes(
-              this.techniques[technique].getTechniqueMapping()
+              this.techniques[technique]?.getTechniqueMapping()
             )
           ) {
             this.techniquesToExecute[technique] = true;
@@ -103,7 +103,9 @@ class WCAGTechniques {
       if (options.exclude && options.exclude.length !== 0) {
         if (
           options.exclude.includes(technique) ||
-          options.exclude.includes(this.techniques[technique].getRuleMapping())
+          options.exclude.includes(
+            this.techniques[technique]?.getTechniqueMapping()
+          )
         ) {
           this.techniquesToExecute[technique] = false;
         }
