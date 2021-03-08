@@ -67,12 +67,12 @@ class Evaluation {
       url: urlStructure,
       page: {
         viewport: {
-          mobile: !!viewport.isMobile,
-          landscape: !!viewport.isLandscape,
+          mobile: viewport?.isMobile,
+          landscape: viewport?.isLandscape,
           userAgent: browserUserAgent,
           resolution: {
-            width: viewport.width,
-            height: viewport.height,
+            width: viewport?.width,
+            height: viewport?.height,
           },
         },
         dom: {
@@ -170,10 +170,12 @@ class Evaluation {
         return act.executeQW_ACT_R40(window.page);
       });
 
-      await page.setViewport({
-        width: viewport.width,
-        height: viewport.height,
-      });
+      if (viewport) {
+        await page.setViewport({
+          width: viewport?.width,
+          height: viewport?.height,
+        });
+      }
 
       actReport.assertions[r40] = actReportR40;
       let outcome = actReportR40.metadata.outcome;
