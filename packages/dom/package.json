@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.1.32",
+  "version": "0.1.34",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
   "types": "./dist",

@@ -20,7 +20,7 @@ class Dom {
   private endpoint: string;
 
   constructor() {
-    this.endpoint = "http://194.117.20.202/validate/";
+    this.endpoint = "http://194.117.20.242/validate/";
   }
 
   public async getDOM(
@@ -103,9 +103,9 @@ class Dom {
     await this.page.close();
   }
 
-  public navigateToPage(url: string): Promise<Response | null> {
+  public async navigateToPage(url: string): Promise<Response | null> {
     return this.page.goto(url, {
-      timeout: 0,
+      timeout: 1000 * 60 * 3,
       waitUntil: ["load"],
     });
   }
@@ -225,11 +225,72 @@ class Dom {
   }
 
   private validatorNeeded(options: QualwebOptions): boolean {
-    return !options.execute || !!options.execute.wcag;
+    /*const checkModule = !options.execute || !!options.execute.wcag;
+
+    const checkRules =
+      !options["wcag-techniques"] ||
+      !!(
+        options["wcag-techniques"].techniques &&
+        (options["wcag-techniques"].techniques.includes("QW-WCAG-T16") ||
+          options["wcag-techniques"].techniques.includes("H88"))
+      );
+
+    const checkExclusions =
+      !options["wcag-techniques"] ||
+      !!(
+        options["wcag-techniques"].exclude &&
+        (options["wcag-techniques"].exclude.includes("QW-WCAG-T16") ||
+          options["wcag-techniques"].exclude.includes("H88"))
+      );
+
+    return checkModule || checkRules || !checkExclusions;*/
+
+    if (options.execute) {
+      if (!!options.execute.wcag) {
+        if (options["wcag-techniques"]) {
+          if (options["wcag-techniques"].exclude) {
+            if (
+              options["wcag-techniques"].exclude.includes("QW-WCAG-T16") ||
+              options["wcag-techniques"].exclude.includes("H88")
+            ) {
+              return false;
+            } else if (options["wcag-techniques"].techniques) {
+              if (
+                options["wcag-techniques"].techniques.includes("QW-WCAG-T16") ||
+                options["wcag-techniques"].techniques.includes("H88")
+              ) {
+                return true;
+              } else {
+                return false;
+              }
+            } else {
+              return true;
+            }
+          } else if (options["wcag-techniques"].techniques) {
+            if (
+              options["wcag-techniques"].techniques.includes("QW-WCAG-T16") ||
+              options["wcag-techniques"].techniques.includes("H88")
+            ) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 
   private sourceHTMLNeeded(options: QualwebOptions): boolean {
-    const checkModule =
+    /*const checkModule =
       (!!options && !options.execute) ||
       (!!options.execute && !!options.execute.act);
     const checkRules =
@@ -237,7 +298,50 @@ class Dom {
       !!options["act-rules"].rules &&
       (options["act-rules"].rules.includes("QW-ACT-R4") ||
         options["act-rules"].rules.includes("bc659a"));
-    return checkModule || checkRules;
+    return checkModule || checkRules;*/
+
+    if (options.execute) {
+      if (!!options.execute.act) {
+        if (options["act-rules"]) {
+          if (options["act-rules"].exclude) {
+            if (
+              options["act-rules"].exclude.includes("QW-ACT-R4") ||
+              options["act-rules"].exclude.includes("bc659a")
+            ) {
+              return false;
+            } else if (options["act-rules"].rules) {
+              if (
+                options["act-rules"].rules.includes("QW-ACT-R4") ||
+                options["act-rules"].rules.includes("bc659a")
+              ) {
+                return true;
+              } else {
+                return false;
+              }
+            } else {
+              return true;
+            }
+          } else if (options["act-rules"].rules) {
+            if (
+              options["act-rules"].rules.includes("QW-ACT-R4") ||
+              options["act-rules"].rules.includes("bc659a")
+            ) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   }
 
   private isHtmlDocument(content?: string, url?: string): boolean {
