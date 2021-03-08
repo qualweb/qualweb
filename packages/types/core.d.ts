@@ -44,12 +44,12 @@ declare module "@qualweb/core" {
     url?: Url;
     page: {
       viewport: {
-        mobile: boolean;
-        landscape: boolean;
+        mobile?: boolean;
+        landscape?: boolean;
         userAgent: string;
-        resolution: {
-          width: number;
-          height: number;
+        resolution?: {
+          width?: number;
+          height?: number;
         };
       };
       dom: DomData;
