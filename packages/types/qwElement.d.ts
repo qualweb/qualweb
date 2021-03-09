@@ -36,8 +36,8 @@ declare module "@qualweb/qw-element" {
     public focusElement(): void;
     public click(): void;
     public getBoundingBox(): any;
-    // public getShadowElement(selector: string): QWElement|null;
-    // public getShadowElements(selector: string): Array<QWElement>;
+    public getShadowElement(selector: string): QWElement | null;
+    public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
     public getCSSRules(): any;
