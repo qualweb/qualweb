@@ -1,0 +1,62 @@
+{
+  "name": "@qualweb/cli",
+  "version": "0.4.10",
+  "description": "QualWeb evaluator command line interface",
+  "main": "dist/index.js",
+  "bin": {
+    "qw": "bin/cli.js"
+  },
+  "types": "./node_modules/@qualweb/types",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha --require esm",
+    "prebuild": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run prebuild && tsc --build",
+    "pub": "npm run build && npm publish"
+  },
+  "keywords": [
+    "qualweb",
+    "cli",
+    "a11y",
+    "accessibility"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qualweb/cli.git"
+  },
+  "author": "João Vicente",
+  "license": "ISC",
+  "dependencies": {
+    "@qualweb/core": "^0.4.60",
+    "@qualweb/counter": "^0.1.2",
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.1",
+    "lodash.clone": "^4.5.0",
+    "log-update": "^4.0.0",
+    "set-value": "^3.0.2"
+  },
+  "devDependencies": {
+    "@qualweb/types": "^0.4.52",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/command-line-args": "^5.0.0",
+    "@types/command-line-usage": "^5.0.1",
+    "@types/lodash.clone": "^4.5.6",
+    "@types/node": "^14.14.20",
+    "@types/set-value": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-sonarjs": "^0.6.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
+  }
+}
