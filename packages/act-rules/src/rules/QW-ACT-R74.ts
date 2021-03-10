@@ -41,10 +41,7 @@ class QW_ACT_R74 extends Rule {
           anchor.focusElement();
           try {
             anchor.click();
-          } catch (e) {
-            console.log(anchor);
-            console.log(e);
-          }
+          } catch (e) {}
           const focusedElement = page.getFocusedElement();
           if (anchor.getElementSelector() !== focusedElement.getElementSelector()) {
             nSkipLinks++;

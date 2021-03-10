@@ -8,7 +8,6 @@ import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R38 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -16,8 +15,6 @@ class QW_ACT_R38 extends Rule {
   @ElementExists
   @ElementIsInAccessibilityTree
   execute(element: QWElement, page: QWPage): void {
-
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -25,12 +22,16 @@ class QW_ACT_R38 extends Rule {
     };
 
     const explicitRole = element.getElementAttribute('role');
-    const implicitRole = AccessibilityUtils.getImplicitRole(element, page, "");//fixme
-    const ariaBusy = this.isElementADescendantOfAriaBusy(element, page) || element.getElementAttribute("aria-busy");
+    const implicitRole = AccessibilityUtils.getImplicitRole(element, page, ''); //fixme
+    const ariaBusy = this.isElementADescendantOfAriaBusy(element, page) || element.getElementAttribute('aria-busy');
 
-    if (explicitRole !== null && explicitRole !== implicitRole && explicitRole !== "combobox" && !ariaBusy) {
-      //@ts-ignore
-      const result = this.checkOwnedElementsRole(rolesJSON[explicitRole]['requiredOwnedElements'], AccessibilityUtils.getOwnedElements(element,page), page);
+    if (explicitRole !== null && explicitRole !== implicitRole && explicitRole !== 'combobox' && !ariaBusy) {
+      const result = this.checkOwnedElementsRole(
+        //@ts-ignore
+        rolesJSON[explicitRole]['requiredOwnedElements'],
+        AccessibilityUtils.getOwnedElements(element, page),
+        page
+      );
 
       if (result) {
         evaluation.verdict = 'passed';
@@ -51,23 +52,31 @@ class QW_ACT_R38 extends Rule {
   }
 
   private checkOwnedElementsRole(ownedRoles: string[][], elements: QWElement[], page: QWPage): boolean {
-    let result = false, end = false;
-    let i = 0, j = 0;
+    let result = false,
+      end = false;
+    let i = 0,
+      j = 0;
     let hasOwnedRole, currentElement, currentOwnedRole;
     while (i < elements.length && !end) {
       hasOwnedRole = false;
       currentElement = elements[i];
-        const role = AccessibilityUtils.getElementRole(currentElement, page);
-        while (j < ownedRoles.length && !hasOwnedRole) {
-          currentOwnedRole = ownedRoles[j];
-          if (currentOwnedRole.length === 1) {
-            hasOwnedRole = role === currentOwnedRole[0]
-          } else {
-            hasOwnedRole = role === currentOwnedRole[0] && this.checkOwnedElementsRole([[currentOwnedRole[1]]], AccessibilityUtils.getOwnedElements(currentElement,page), page)
-          }
-          j++;
+      const role = AccessibilityUtils.getElementRole(currentElement, page);
+      while (j < ownedRoles.length && !hasOwnedRole) {
+        currentOwnedRole = ownedRoles[j];
+        if (currentOwnedRole.length === 1) {
+          hasOwnedRole = role === currentOwnedRole[0];
+        } else {
+          hasOwnedRole =
+            role === currentOwnedRole[0] &&
+            this.checkOwnedElementsRole(
+              [[currentOwnedRole[1]]],
+              AccessibilityUtils.getOwnedElements(currentElement, page),
+              page
+            );
         }
-        result = hasOwnedRole;
+        j++;
+      }
+      result = hasOwnedRole;
 
       j = 0;
       i++;
@@ -80,23 +89,23 @@ class QW_ACT_R38 extends Rule {
   }
 
   private isElementADescendantOfAriaBusy(element: QWElement, page: QWPage): boolean {
-  const parent = element.getElementParent();
-  let result = false;
+    const parent = element.getElementParent();
+    let result = false;
 
-  if (parent !== null) {
-    const inAt = AccessibilityUtils.isElementInAT(parent, page);
-    if (inAt) {
-      result = !!(parent.getElementAttribute("aria-busy"));
-    }
-    if (!result) {
-      return this.isElementADescendantOfAriaBusy(parent, page);
+    if (parent !== null) {
+      const inAt = AccessibilityUtils.isElementInAT(parent, page);
+      if (inAt) {
+        result = !!parent.getElementAttribute('aria-busy');
+      }
+      if (!result) {
+        return this.isElementADescendantOfAriaBusy(parent, page);
+      } else {
+        return result;
+      }
     } else {
       return result;
     }
-  } else {
-    return result;
   }
-}
 }
 
 export = QW_ACT_R38;

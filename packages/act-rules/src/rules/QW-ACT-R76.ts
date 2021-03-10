@@ -16,12 +16,12 @@ class QW_ACT_R76 extends Rule {
   }
 
   execute(_element: QWElement | undefined, page: QWPage): void {
-    let disabledWidgets = AccessibilityUtils.getDisabledWidgets(page);
+    const disabledWidgets = AccessibilityUtils.getDisabledWidgets(page);
 
     const elements = page.getElements('*');
     if (elements.length > 0) {
       for (const element of elements || []) {
-        let tagName = element.getElementTagName();
+        const tagName = element.getElementTagName();
 
         if (
           tagName === 'head' ||
@@ -39,7 +39,7 @@ class QW_ACT_R76 extends Rule {
           resultCode: ''
         };
 
-        let visible = DomUtils.isElementVisible(element, page);
+        const visible = DomUtils.isElementVisible(element, page);
 
         if (!visible) {
           evaluation.verdict = 'inapplicable';
@@ -49,8 +49,8 @@ class QW_ACT_R76 extends Rule {
           continue;
         }
 
-        let hasTextNode = element.hasTextNode();
-        let elementText = DomUtils.getTrimmedText(element, page);
+        const hasTextNode = element.hasTextNode();
+        const elementText = DomUtils.getTrimmedText(element, page);
 
         if (!hasTextNode && elementText === '') {
           evaluation.verdict = 'inapplicable';
@@ -60,7 +60,7 @@ class QW_ACT_R76 extends Rule {
           continue;
         }
 
-        let isHTML = element.isElementHTMLElement();
+        const isHTML = element.isElementHTMLElement();
         if (!isHTML) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element is not an HTML element.';
@@ -69,7 +69,7 @@ class QW_ACT_R76 extends Rule {
           continue;
         }
 
-        let isWidget = AccessibilityUtils.isElementWidget(element, page);
+        const isWidget = AccessibilityUtils.isElementWidget(element, page);
         if (isWidget) {
           evaluation.verdict = 'inapplicable';
           evaluation.description = 'Element has a semantic role that inherits from widget.';
@@ -80,11 +80,10 @@ class QW_ACT_R76 extends Rule {
 
         const elementSelectors = element.getElementSelector();
 
-        let selectors;
         let shouldContinue = false;
 
-        for (let disableWidget of disabledWidgets) {
-          selectors = AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+        for (const disableWidget of disabledWidgets || []) {
+          const selectors = AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
           if (disableWidget && selectors && selectors.includes(elementSelectors)) {
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'This text is part of a label of a disabled widget.';
@@ -97,10 +96,10 @@ class QW_ACT_R76 extends Rule {
 
         if (shouldContinue) continue;
 
-        let role = AccessibilityUtils.getElementRole(element, page);
+        const role = AccessibilityUtils.getElementRole(element, page);
         if (role === 'group') {
-          let disable = element.getElementAttribute('disabled') !== null;
-          let ariaDisable = element.getElementAttribute('aria-disabled') !== null;
+          const disable = element.getElementAttribute('disabled') !== null;
+          const ariaDisable = element.getElementAttribute('aria-disabled') !== null;
           if (disable || ariaDisable) {
             evaluation.verdict = 'inapplicable';
             evaluation.description = 'Element has a semantic role of group and is disabled.';
@@ -117,6 +116,25 @@ class QW_ACT_R76 extends Rule {
         const fontWeight = element.getElementStyleProperty('font-weight', null);
         const fontFamily = element.getElementStyleProperty('font-family', null);
         const fontStyle = element.getElementStyleProperty('font-style', null);
+        const textShadow = element.getElementStyleProperty('text-shadow', null);
+
+        if (textShadow.trim() !== 'none') {
+          const properties = textShadow.trim().split(' ');
+          if (properties.length === 6) {
+            //const textShadowColor = properties[0] + ' ' + properties[1] + ' ' + properties[2];
+            const vs = parseInt(properties[3], 0);
+            const hs = parseInt(properties[4], 0);
+            const blur = parseInt(properties[5], 0);
+            const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
+            if (validateTextShadow) {
+              evaluation.verdict = 'warning';
+              evaluation.description = 'Element has text-shadow that needs manual verification.';
+              evaluation.resultCode = 'RC14';
+              super.addEvaluationResult(evaluation, element);
+              continue;
+            }
+          }
+        }
 
         if (this.isImage(bgColor)) {
           evaluation.verdict = 'warning';
@@ -217,7 +235,7 @@ class QW_ACT_R76 extends Rule {
             parsedBG = { red: 255, green: 255, blue: 255, alpha: 1 };
           }
 
-          let parsedFG = this.parseRGBString(fgColor, opacity);
+          const parsedFG = this.parseRGBString(fgColor, opacity);
 
           if (this.equals(parsedBG, parsedFG)) {
             evaluation.verdict = 'inapplicable';
@@ -226,8 +244,8 @@ class QW_ACT_R76 extends Rule {
             super.addEvaluationResult(evaluation, element);
           } else {
             if (this.isHumanLanguage(elementText)) {
-              let contrastRatio = this.getContrast(parsedBG, parsedFG);
-              let isValid = this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight === 'bold');
+              const contrastRatio = this.getContrast(parsedBG, parsedFG);
+              const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
               if (isValid) {
                 evaluation.verdict = 'passed';
                 evaluation.description = 'Element has contrast ratio higher than minimum.';
@@ -252,7 +270,7 @@ class QW_ACT_R76 extends Rule {
   }
 
   getBackground(element: QWElement): string {
-    let backgroundImage = element.getElementStyleProperty('background-image', null);
+    const backgroundImage = element.getElementStyleProperty('background-image', null);
     if (backgroundImage === 'none') {
       let bg = element.getElementStyleProperty('background', null);
       if (bg === '') {
@@ -267,10 +285,10 @@ class QW_ACT_R76 extends Rule {
 
   isImage(color: string): boolean {
     return (
-      color.toLowerCase().includes('jpeg') ||
-      color.toLowerCase().includes('jpg') ||
-      color.toLowerCase().includes('png') ||
-      color.toLowerCase().includes('svg')
+      color.toLowerCase().includes('.jpeg') ||
+      color.toLowerCase().includes('.jpg') ||
+      color.toLowerCase().includes('.png') ||
+      color.toLowerCase().includes('.svg')
     );
   }
 
@@ -287,15 +305,15 @@ class QW_ACT_R76 extends Rule {
     elementText: string
   ): boolean {
     if (parsedGradientString.startsWith('linear-gradient')) {
-      let gradientDirection = this.getGradientDirection(parsedGradientString);
+      const gradientDirection = this.getGradientDirection(parsedGradientString);
       if (gradientDirection === 'to right') {
-        let colors = this.parseGradientString(parsedGradientString, opacity);
+        const colors = this.parseGradientString(parsedGradientString, opacity);
         let isValid = true;
         let contrastRatio;
-        let textSize = this.getTextSize(
+        const textSize = this.getTextSize(
           fontFamily.toLowerCase().replace(/['"]+/g, ''),
           parseInt(fontSize.replace('px', '')),
-          fontWeight.toLowerCase().includes('bold'),
+          this.isBold(fontWeight),
           fontStyle.toLowerCase().includes('italic'),
           elementText
         );
@@ -304,13 +322,13 @@ class QW_ACT_R76 extends Rule {
           let lastCharRatio = textSize / parseInt(elementWidth.replace('px', ''));
           let lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
           contrastRatio = this.getContrast(colors[0], this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight === 'bold');
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           contrastRatio = this.getContrast(lastCharBgColor, this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight === 'bold');
+          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
         } else {
           for (let color of colors) {
             contrastRatio = this.getContrast(color, this.parseRGBString(fgColor, opacity));
-            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, fontWeight === 'bold');
+            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           }
         }
         if (isValid) {
@@ -329,13 +347,13 @@ class QW_ACT_R76 extends Rule {
       } else if (gradientDirection === 'to left') {
         //TODO
         evaluation.verdict = 'warning';
-        evaluation.description = 'Element has an gradient that we cant verify.';
+        evaluation.description = "Element has an gradient that we can't verify.";
         evaluation.resultCode = 'RC13';
         super.addEvaluationResult(evaluation, element);
         return true;
       } else {
         evaluation.verdict = 'warning';
-        evaluation.description = 'Element has an gradient that we cant verify.';
+        evaluation.description = "Element has an gradient that we can't verify.";
         evaluation.resultCode = 'RC13';
         super.addEvaluationResult(evaluation, element);
         return true;
@@ -442,22 +460,28 @@ class QW_ACT_R76 extends Rule {
     return { red: red, green: green, blue: blue, alpha: alpha };
   }
 
+  private isBold(fontWeight: string): boolean {
+    return !!fontWeight && ['bold', 'bolder', '700', '800', '900'].includes(fontWeight);
+  }
+
   getContrast(bgColor: any, fgColor: any): number {
     if (fgColor.alpha < 1) {
       fgColor = this.flattenColors(fgColor, bgColor);
     }
 
-    let bL = this.getRelativeLuminance(bgColor['red'], bgColor['green'], bgColor['blue']);
-    let fL = this.getRelativeLuminance(fgColor['red'], fgColor['green'], fgColor['blue']);
+    const bL = this.getRelativeLuminance(bgColor['red'], bgColor['green'], bgColor['blue']);
+    const fL = this.getRelativeLuminance(fgColor['red'], fgColor['green'], fgColor['blue']);
 
     return (Math.max(fL, bL) + 0.05) / (Math.min(fL, bL) + 0.05);
   }
 
   hasValidContrastRatio(contrast: number, fontSize: string, isBold: boolean): boolean {
-    let isSmallFont =
-      (isBold && Math.ceil(parseInt(fontSize) * 72) / 96 < 14) ||
-      (!isBold && Math.ceil(parseInt(fontSize) * 72) / 96 < 18);
-    let expectedContrastRatio = isSmallFont ? 7 : 4.5;
+    /*const isSmallFont =
+      (isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 14) ||
+      (!isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 18);*/
+
+    const isSmallFont = (isBold && parseFloat(fontSize) < 18.6667) || (!isBold && parseFloat(fontSize) < 24);
+    const expectedContrastRatio = isSmallFont ? 7 : 4.5;
 
     return contrast > expectedContrastRatio;
   }
