@@ -55,7 +55,9 @@ async function parse(): Promise<QualwebOptions> {
           case 'wappalyzer':
             options.execute.wappalyzer = true;
             break;
-
+          case 'counter':
+            options.execute.counter = true;
+            break;
           default:
             printError('Module ' + mod + ' does not exist.');
             break;
