@@ -1,5 +1,3 @@
-'use strict';
-
 import trimImportantFunction from './trimImportant';
 
 namespace CssUtils {

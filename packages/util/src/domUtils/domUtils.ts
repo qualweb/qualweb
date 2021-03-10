@@ -1,5 +1,3 @@
-'use strict';
-
 import getSourceElementSelectorFunction from './getSourceElementSelector';
 import getSourceElementHtmlCodeFunction from './getSourceElementHtmlCode';
 import getSourceElementAttributeFunction from './getSourceElementAttribute';
@@ -81,11 +79,11 @@ class DomUtils {
     return elementHasContentFunction(elementQW, pageQW, checkChildren);
   }
   @CacheDecorator('DomUtils.isElementHiddenByCSSAux')
-  public static isElementHiddenByCSSAux(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementHiddenByCSSAuxFunction(elementQW, pageQW);
+  public static isElementHiddenByCSSAux(elementQW: QWElement): boolean {
+    return isElementHiddenByCSSAuxFunction(elementQW);
   }
   @CacheDecorator('DomUtils.getTrimmedText')
-  public static getTrimmedText(element: QWElement, page: QWPage): string {
+  public static getTrimmedText(element: QWElement): string {
     return getTrimmedTextFunction(element);
   }
 }

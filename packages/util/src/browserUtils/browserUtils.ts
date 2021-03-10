@@ -1,5 +1,3 @@
-'use strict';
-
 import detectIfUnwantedTabWasOpenedFunction from './detectIfUnwantedTabWasOpened';
 
 namespace BrowserUtils {

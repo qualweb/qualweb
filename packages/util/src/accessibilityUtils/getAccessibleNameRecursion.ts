@@ -19,7 +19,7 @@ function getAccessibleNameRecursion(
   let ariaLabelBy = elementQW.getElementAttribute('aria-labelledby');
   const id = elementQW.getElementAttribute('id');
 
-  if (ariaLabelBy !== null && !verifyAriaLabel(ariaLabelBy, pageQW, elementQW, id)) {
+  if (ariaLabelBy !== null && !verifyAriaLabel(ariaLabelBy, pageQW, id)) {
     ariaLabelBy = '';
   }
   const ariaLabel = elementQW.getElementAttribute('aria-label');
@@ -166,7 +166,8 @@ function getAccessibleNameFromAriaLabelledBy(
 
   for (const id of ListIdRefs) {
     if (id !== '' /*&& elementID !== id*/) elem = page.getElementByID(id);
-    if (elem) accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget && elementID !== id);
+    if (elem)
+      accessNameFromId = AccessibilityUtils.getAccessibleNameRecursion(elem, page, true, isWidget && elementID !== id);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId.trim() + ' ';
@@ -197,9 +198,9 @@ function getConcatentedText(elementQW: QWElement, aNames: string[]): string {
 }
 
 function cleanSVGAndNoneCode(text: string): string {
-  if (!text || text === 'none'|| text.includes('url(')) {
-    text = ''
-  };
+  if (!text || text === 'none' || text.includes('url(')) {
+    text = '';
+  }
   return text;
 }
 
@@ -229,7 +230,7 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
   return elementAnames;
 }
 
-function verifyAriaLabel(ariaLabelBy: string, page: QWPage, element: QWElement, elementID: string | null) {
+function verifyAriaLabel(ariaLabelBy: string, page: QWPage, elementID: string | null) {
   const elementIds = ariaLabelBy.split(' ');
   let result = false;
   for (const id of elementIds) {

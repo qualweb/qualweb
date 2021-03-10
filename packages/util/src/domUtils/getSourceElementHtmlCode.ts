@@ -1,10 +1,8 @@
-'use strict';
-
-import { Node } from 'domhandler';
+import { Element } from 'domhandler';
 import clone from 'lodash.clone';
 import html from 'htmlparser-to-html';
 
-function getSourceElementHtmlCode(element: Node, withText = true, fullElement = false): string {
+function getSourceElementHtmlCode(element: Element, withText = true, fullElement = false): string {
   if (!element) {
     throw new Error('Invalid element');
   }

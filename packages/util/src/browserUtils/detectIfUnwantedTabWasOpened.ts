@@ -1,5 +1,3 @@
-'use strict';
-
 import { Browser } from 'puppeteer';
 
 async function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean> {
@@ -13,7 +11,7 @@ async function detectIfUnwantedTabWasOpened(browser: Browser, url: string): Prom
 
     if (opener) {
       const openerPage = await opener.page();
-      if ((await openerPage.url()) === url) {
+      if (openerPage && openerPage.url() === url) {
         wasOpen = true;
         await tab.close();
       }

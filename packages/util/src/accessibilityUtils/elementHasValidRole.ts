@@ -6,7 +6,7 @@ import { AccessibilityUtils } from '@qualweb/util';
 function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean {
   const role = AccessibilityUtils.getElementRole(elementQW, pageQW);
   let result = false;
-  if (role !== null) {
+  if (role) {
     if (role.trim().includes(' ')) {
       for (const r of role.trim().split(' ')) {
         result = Object.keys(roles).includes(r);
