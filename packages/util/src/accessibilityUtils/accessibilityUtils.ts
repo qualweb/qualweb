@@ -26,7 +26,7 @@ import elementHasGlobalARIAPropertyOrAttributeFunction from './elementHasGlobalA
 import isElementFocusableByDefaultFunction from './isElementFocusableByDefault';
 import isElementFocusableFunction from './isElementFocusable';
 import isFocusableBrowserFunction from './isFocusableBrowser';
-import getOwnedElementsFunction from './getOwnedElements'
+import getOwnedElementsFunction from './getOwnedElements';
 
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
@@ -66,7 +66,7 @@ class AccessibilityUtils {
   public static isFocusableBrowser = isFocusableBrowserFunction;
 
   @CacheDecorator('AcceUtils.getOwnedElements')
-  public static getOwnedElements(element: QWElement, page: QWPage): QWElement []{
+  public static getOwnedElements(element: QWElement, page: QWPage): QWElement[] {
     return getOwnedElementsFunction(element, page);
   }
 
@@ -119,7 +119,7 @@ class AccessibilityUtils {
   }
 
   @CacheDecorator('AcceUtils.isElementFocusableByDefault')
-  public static isElementFocusableByDefault(elementQW: QWElement, pageQW: QWPage): boolean {
+  public static isElementFocusableByDefault(elementQW: QWElement): boolean {
     return isElementFocusableByDefaultFunction(elementQW);
   }
 
@@ -134,7 +134,7 @@ class AccessibilityUtils {
   }
 
   @CacheDecorator('AcceUtils.elementHasGlobalARIAPropertyOrAttribute')
-  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement, pageQW: QWPage): boolean {
+  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean {
     return elementHasGlobalARIAPropertyOrAttributeFunction(elementQW);
   }
 }

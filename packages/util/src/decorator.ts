@@ -1,7 +1,6 @@
-'use strict';
-
+/* eslint-disable prefer-rest-params */
 function CacheDecorator(methodName: string) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): void {
     const method = descriptor.value;
     descriptor.value = function () {
       const pageQW = arguments[1];
@@ -19,13 +18,13 @@ function CacheDecorator(methodName: string) {
   };
 }
 function FullMethodCacheDecorator(methodName: string) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): void {
     const method = descriptor.value;
     descriptor.value = function () {
       const pageQW = arguments[1];
       const elementQW = arguments[0];
       let selector = elementQW.getElementSelector();
-      for(let i = 2; i < arguments.length; i++){
+      for (let i = 2; i < arguments.length; i++) {
         selector += arguments[i];
       }
       let result;
@@ -40,4 +39,4 @@ function FullMethodCacheDecorator(methodName: string) {
   };
 }
 
-export { CacheDecorator,FullMethodCacheDecorator };
+export { CacheDecorator, FullMethodCacheDecorator };

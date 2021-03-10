@@ -1,5 +1,3 @@
-'use strict';
-
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import getAriaOwner from './getAriaOwner';
@@ -18,7 +16,7 @@ function getOwnerElement(elementQW: QWElement, pageQW: QWPage): QWElement | null
       parent = parent.getElementParent();
     }
   }
-  return ownerElement;
+  return ownerElement || null;
 }
 
 export default getOwnerElement;

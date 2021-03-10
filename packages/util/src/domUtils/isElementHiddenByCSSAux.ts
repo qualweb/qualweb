@@ -1,8 +1,6 @@
-'use strict';
 import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
 
-function isElementHiddenByCSSAux(elementQW: QWElement, pageQW: QWPage): boolean {
+function isElementHiddenByCSSAux(elementQW: QWElement): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
