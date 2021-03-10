@@ -1,577 +1,780 @@
 # Changelog
 
-## [0.4.62] - 08/03/2021
+## [0.4.63] - 10/03/2021
+
 ### Updated
- - dependencies
+
+- dependencies
+
+## [0.4.62] - 08/03/2021
+
+### Updated
+
+- dependencies
 
 ## [0.4.61] - 08/03/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.60] - 03/03/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.59] - 03/03/2021
+
 ### Added
- - element and role counter
+
+- element and role counter
 
 ## [0.4.58] - 01/03/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.57] - 27/02/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.56] - 26/02/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.55] - 25/02/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.54] - 23/02/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.53] - 20/02/2021
+
 ### Updated
- - dependencies
- - README.md
+
+- dependencies
+- README.md
 
 ## [0.4.51] - 08/02/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.50] - 25/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.49] - 25/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.48] - 25/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.47] - 23/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.46] - 11/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.45] - 06/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.44] - 06/01/2021
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.43] - 16/12/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.42] - 10/12/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.41] - 1/12/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.40] - 09/12/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.39] - 11/11/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.38] - 11/11/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.37] - 10/11/2020
+
 ### Updated
- - README.md
+
+- README.md
 
 ## [0.4.36] - 10/11/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.35] - 05/11/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.34] - 02/11/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.33] - 21/10/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.32] - 15/10/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.31] - 12/10/2020
 
 ### Updated
- - tsconfig.json
+
+- tsconfig.json
 
 ## [0.4.30] - 12/10/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.29] - 08/10/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.28] - 08/10/2020
+
 ### Updated
- - dependencies
- - code refactor
- - tests
+
+- dependencies
+- code refactor
+- tests
 
 ## [0.4.27] - 03/10/2020
+
 ### Updated
- - dependencies
- - core interface
+
+- dependencies
+- core interface
 
 ## [0.4.26] - 29/09/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.25] - 23/09/2020
+
 ### Updated
- - deleted logs
+
+- deleted logs
 
 ## [0.4.24] - 23/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
+
 ## [0.4.23] - 23/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
 
 ## [0.4.22] - 23/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
 
 ## [0.4.21] - 23/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
 
 ## [0.4.20] - 18/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
 
 ## [0.4.19] - 16/09/2020
+
 ### Updated
- - dom and evaluation dependencies
+
+- dom and evaluation dependencies
 
 ## [0.4.18] - 07/09/2020
+
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.4.17] - 25/08/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.16] - 16/08/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.15] - 06/08/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.14] - 29/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.13] - 28/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.12] - 27/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.11] - 11/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.10] - 11/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.10] - 03/07/2020
+
 ### Updated
- - dependencies
+
+- dependencies
+
 ## [0.4.9] - 03/07/2020
+
 ### Updated
- - dependencies
- - code optimization
+
+- dependencies
+- code optimization
+
 ## [0.4.8] - 25/06/2020
+
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.7] - 25/06/2020
+
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.6] - 23/06/2020
 
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.5] - 21/06/2020
 
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.4] - 18/06/2020
 
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.3] - 08/06/2020
 
 ### Fixed
- - Updated dependencies
+
+- Updated dependencies
+
 ## [0.4.2] - 08/06/2020
 
 ### Fixed
- - Updated dependencies and added evaluate and dom
+
+- Updated dependencies and added evaluate and dom
 
 ## [0.4.1] - 15/05/2020
 
 ### Fixed
- - qwPage.js dependency path
+
+- qwPage.js dependency path
 
 ## [0.4.0] - 15/05/2020
 
 ### Updated
- - evaluation modules
- - architecture
+
+- evaluation modules
+- architecture
 
 ## [0.3.20] - 07/05/2020
 
 ### Downgraded
- - @qualweb/crawler to version 0.1.1 before the keyboard event
+
+- @qualweb/crawler to version 0.1.1 before the keyboard event
 
 ## [0.3.19] - 06/05/2020
 
 ### Added
- - new input method: plain html
+
+- new input method: plain html
 
 ## [0.3.18] - 06/05/2020
 
 ### Updated
- - dependencies
- - tests
- - README.md
+
+- dependencies
+- tests
+- README.md
 
 ## [0.3.16] - 22/03/2020
 
 ### Updated
- - act-rules module
- - puppeteer to version 3
- - the way qualweb obtains the page source html
+
+- act-rules module
+- puppeteer to version 3
+- the way qualweb obtains the page source html
 
 ## [0.3.16] - 19/03/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.15] - 18/03/2020
 
 ### Updated
- - act-rules module
- - html-techniques module
+
+- act-rules module
+- html-techniques module
 
 ## [0.3.14] - 21/02/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.13] - 17/02/2020
 
 ### Updated
- - act-rules module
- - system and modules manager
+
+- act-rules module
+- system and modules manager
 
 ## [0.3.12] - 22/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.11] - 22/01/2020
 
 ### Updated
- - earl-reporter module
+
+- earl-reporter module
 
 ## [0.3.10] - 21/01/2020
 
 ### Updated
- - act-rules module
- - earl-reporter module
+
+- act-rules module
+- earl-reporter module
 
 ## [0.3.9] - 17/01/2020
 
 ### Updated
- - act-rules module
- - css-techniques module
- - best-practices module
- - earl-reporter module
+
+- act-rules module
+- css-techniques module
+- best-practices module
+- earl-reporter module
 
 ## [0.3.8] - 15/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.7] - 14/01/2020
 
 ### Updated
- - act-rules module
- - README.md
+
+- act-rules module
+- README.md
 
 ## [0.3.6] - 14/01/2020
 
 ### Updated
- - act-rules module
- - README.md
+
+- act-rules module
+- README.md
 
 ## [0.3.5] - 13/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.4] - 09/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.3] - 08/01/2020
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.3.2] - 08/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.3.1] - 08/01/2020
 
 ### Fixed
- - a bug with the inpage stylesheets
+
+- a bug with the inpage stylesheets
 
 ## [0.3.0] - 08/01/2020
 
 ### Updated
- - act-rules module
- - README.md
+
+- act-rules module
+- README.md
 
 ## [0.2.17] - 07/01/2020
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.2.16] - 07/01/2020
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.2.15] - 07/01/2020
 
 ### Updated
- - act-rules module
- - type definitions
+
+- act-rules module
+- type definitions
 
 ## [0.2.15] - 07/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.2.14] - 07/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.2.13] - 06/01/2020
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.2.12] - 18/12/2019
 
 ### Fixed
- - code optimization
+
+- code optimization
 
 ### Updated
- - dependencies 
+
+- dependencies
 
 ## [0.2.11] - 18/12/2019
 
 ### Fixed
- - code optimization
+
+- code optimization
 
 ## [0.2.10] - 18/12/2019
 
 ### Fixed
- - some core bugs
- - code optimization
+
+- some core bugs
+- code optimization
 
 ### Updated
- - @qualweb/types module 
+
+- @qualweb/types module
 
 ## [0.2.9] - 16/12/2019
 
 ### Updated
- - css-techniques module
- - best-practices module
+
+- css-techniques module
+- best-practices module
 
 ## [0.2.8] - 11/12/2019
 
 ### Updated
- - css-techniques module
- - best-practices module
+
+- css-techniques module
+- best-practices module
 
 ## [0.2.7] - 09/12/2019
 
 ### Updated
- - html-techniques module
+
+- html-techniques module
 
 ## [0.2.6] - 05/12/2019
 
 ### Updated
- - html-techniques module
+
+- html-techniques module
 
 ## [0.2.5] - 05/12/2019
 
 ### Updated
- - html-techniques module
+
+- html-techniques module
 
 ## [0.2.4] - 04/12/2019
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.2.3] - 03/12/2019
 
 ### Fixed
- - processed html not being added to the final report
+
+- processed html not being added to the final report
 
 ## [0.2.2] - 03/12/2019
 
 ### Fixed
- - a bug that counted and empty space ("") as an url when parsing a file with urls
+
+- a bug that counted and empty space ("") as an url when parsing a file with urls
 
 ## [0.2.1] - 02/12/2019
 
 ### Fixed
- - maxParallelEvations parameter
+
+- maxParallelEvations parameter
 
 ## [0.2.0] - 02/12/2019
 
 ### Updated
- - evaluation modules
- - architecture
- - types
+
+- evaluation modules
+- architecture
+- types
 
 ## [0.1.10] - 20/11/2019
 
 ### Updated
- - best-practices package
+
+- best-practices package
 
 ## [0.1.9] - 20/11/2019
 
 ### Updated
- - html-techniques package
+
+- html-techniques package
 
 ## [0.1.8] - 20/11/2019
 
 ### Updated
- - best-practices package
- - html-techniques package
+
+- best-practices package
+- html-techniques package
 
 ## [0.1.7] - 19/11/2019
 
 ### Updated
- - get-dom-puppeteer package
+
+- get-dom-puppeteer package
 
 ## [0.1.6] - 29/10/2019
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.1.5] - 29/10/2019
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.1.4] - 29/10/2019
 
 ### Updated
- - act-rules module
+
+- act-rules module
 
 ## [0.1.3] - 29/10/2019
 
 ### Updated
- - act-rules module with more implemented rules
+
+- act-rules module with more implemented rules
 
 ## [0.1.2] - 14/10/2019
 
 ### Fixed
- - dependencies bugs
+
+- dependencies bugs
 
 ## [0.1.1] - 14/10/2019
 
 ### Fixed
- - a bug where two evaluations followed were giving incorrect results
+
+- a bug where two evaluations followed were giving incorrect results
 
 ## [0.1.0] - 14/10/2019
 
 ### Added
- - options to run specific modules
- - option to continue running evaluations even if any url fails to evaluate 
+
+- options to run specific modules
+- option to continue running evaluations even if any url fails to evaluate
 
 ## [0.0.6] - 07/10/2019
 
 ### Changed
- - core architecture
+
+- core architecture
 
 ### Updated
- - act-rules module
- - html-techniques module
+
+- act-rules module
+- html-techniques module
 
 ## [0.0.5] - 17/09/2019
 
 ### Added
- - module "html-techniques"
- - module "css-techniques"
- - module "best-practices"
+
+- module "html-techniques"
+- module "css-techniques"
+- module "best-practices"
 
 ### Updated
- - package @qualweb/get-dom-puppeteer to version 0.0.4
- - package @qualweb/types to version 0.0.24
- - package @qualweb/earl-reporter to version 0.0.4
+
+- package @qualweb/get-dom-puppeteer to version 0.0.4
+- package @qualweb/types to version 0.0.24
+- package @qualweb/earl-reporter to version 0.0.4
 
 ## [0.0.4] - 12/09/2019
 
 ### Added
- - Dom interface to the evaluation report
+
+- Dom interface to the evaluation report
 
 ## [0.0.3] - 12/08/2019
 
 ### Added
- - "mocha" framework
+
+- "mocha" framework
 
 ### Changed
- - access to dom object from the @qualweb/get-dom-puppeteer module
+
+- access to dom object from the @qualweb/get-dom-puppeteer module
 
 ### Updated
- - package @qualweb/types to version 0.0.32
- - package @qualweb/get-dom-puppeteer to version 0.0.2
- - package @qualweb/earl-reporter to version 0.0.3
- - package @qualweb/act-rules to version 0.0.3
- - package @qualweb/wappalyzer to version 0.0.2
- - package @types/node to version 12.7.1
+
+- package @qualweb/types to version 0.0.32
+- package @qualweb/get-dom-puppeteer to version 0.0.2
+- package @qualweb/earl-reporter to version 0.0.3
+- package @qualweb/act-rules to version 0.0.3
+- package @qualweb/wappalyzer to version 0.0.2
+- package @types/node to version 12.7.1
