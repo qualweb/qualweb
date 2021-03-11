@@ -58,17 +58,19 @@ This method will create an aggregated EARL report from all urls.
 
 ### Usage options
 
-| Alias | Command                 | Value                | Information                                                           |
-| ----- | ----------------------- | -------------------- | --------------------------------------------------------------------- |
-| -u    | --url                   | `<url>`              | Url to evaluate                                                       |
-| -f    | --file                  | `<path-to-file>`     | File with urls to evaluate                                            |
-| -c    | --crawl                 | `<domain>`           | Domain to crawl                                                       |
-| -m    | --module                | `act html css bp`    | Choose which modules to execute                                       |
-| -r    | --report-type           | `"earl" or "earl-a"` | Convert the evaluation to `earl` or `earl-a` (_earl-aggregated_)      |
-| -s    | --save-name             | `<name>`             | The name to save the aggregated earl reports (_earl-a_)               |
-| -p    | -maxParallelEvaluations | `<number>`           | Evaluates multiples urls ate the same time (_experimental_)           |
-| -j    | --json                  | `<file>`             | Loads a json file with the configs to execute. Check an example below |
-| -h    | --help                  |                      | Print the help menu                                                   |
+| Alias | Command                  | Value                                             | Information                                                           |
+| ----- | ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------- |
+| -u    | --url                    | `<url>`                                           | Url to evaluate                                                       |
+| -f    | --file                   | `<path-to-file>`                                  | File with urls to evaluate                                            |
+| -c    | --crawl                  | `<domain>`                                        | Domain to crawl                                                       |
+| -m    | --module                 | `act html css bp`                                 | Choose which modules to execute                                       |
+| -r    | --report-type            | `"earl" or "earl-a"`                              | Convert the evaluation to `earl` or `earl-a` (_earl-aggregated_)      |
+| -s    | --save-name              | `<name>`                                          | The name to save the aggregated earl reports (_earl-a_)               |
+| -t    | --timeout                | `<number>`                                        | Timeout for page to load                                              |
+| -w    | --waitUntil              | `load doncontentloaded networkidle0 networkidle2` | Events to wait before starting evaluation                             |
+| -p    | --maxParallelEvaluations | `<number>`                                        | Evaluates multiples urls ate the same time (_experimental_)           |
+| -j    | --json                   | `<file>`                                          | Loads a json file with the configs to execute. Check an example below |
+| -h    | --help                   |                                                   | Print the help menu                                                   |
 
 ### -j, --json config file example
 

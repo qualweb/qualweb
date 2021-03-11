@@ -99,6 +99,14 @@ async function parse(): Promise<QualwebOptions> {
     }
   }
 
+  if (mainOptions.timeout) {
+    options.timeout = mainOptions.timeout;
+  }
+
+  if (mainOptions.waitUntil) {
+    options.waitUntil = mainOptions.waitUntil.split(' ');
+  }
+
   if (mainOptions.maxParallelEvaluations) {
     options.maxParallelEvaluations = mainOptions.maxParallelEvaluations;
   }

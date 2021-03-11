@@ -217,6 +217,20 @@ const options = [
     description: 'The name to save the aggregated earl reports (earl-a).'
   },
   {
+    name: 'timeout',
+    alias: 't',
+    type: Number,
+    typeLabel: '{underline number}',
+    description: 'Timeout for loading page.'
+  },
+  {
+    name: 'waitUntil',
+    alias: 'w',
+    type: String,
+    typeLabel: '[ load | domcontentloaded | networkidle0 | networkidle2 ]',
+    description: 'Specify which events to wait before starting the evaluation. Can be multiple.'
+  },
+  {
     name: 'maxParallelEvaluations',
     alias: 'p',
     type: Number,
