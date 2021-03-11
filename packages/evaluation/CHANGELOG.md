@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.77] - 11/03/2021
+
+- updated dependencies
+
 ## [0.1.76] - 10/03/2021
 
 - updated dependencies
