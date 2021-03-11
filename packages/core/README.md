@@ -71,19 +71,19 @@ The available options fot the **evaluate()** function are:
 {
   "url": "https://act-rules.github.io/pages/about/", // url to evaluate
   "urls": ["https://act-rules.github.io/pages/about/", "https://act-rules.github.io/rules/"], // Array of urls
-  "file": "/path/to/file/with/urls", // urls must be separacted by a newline (\n)
+  "file": "/path/to/file/with/urls", // urls must be separated by a newline (\n)
   "crawl": "https://act-rules.github.io", // Experimental feature - domain to crawl and obtain the urls
   "viewport": {
     "mobile": false, // default value = false
     "landscape": true, // default value = viewPort.width > viewPort.height
     "userAgent": "custom user agent", // default value for desktop = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0', default value for mobile = 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
     "resolution": {
-      "width": 1920, // default value for desktop = 1366, default valuet for mobile = 1080
-      "height": 1080 // default value for desktop = 768, default valuet for mobile = 1920
+      "width": 1920, // default value for desktop = 1366, default value for mobile = 1080
+      "height": 1080 // default value for desktop = 768, default value for mobile = 1920
     }
   },
   "maxParallelEvaluations": "5", // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
-  "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached before of the given endpoint
+  "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached after of the given endpoint
   "execute": {
     // choose which modules to execute
     "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
