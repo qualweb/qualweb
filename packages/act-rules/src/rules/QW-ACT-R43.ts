@@ -1,22 +1,19 @@
-'use strict';
-
 import { ACTRuleResult } from '@qualweb/act-rules';
 import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R43 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
+  @ElementIsVisible
   execute(element: QWElement, page: QWPage): void {
-
     if (element.getElementTagName().toLowerCase() === 'iframe') {
       return;
     }
@@ -31,6 +28,7 @@ class QW_ACT_R43 extends Rule {
     let isApplicable = false;
     for (const child of element.getElementChildren()) {
       if (DomUtils.isElementVisible(child, page)) {
+        console.log(child);
         hasVisibleChildren = true;
         break;
       }
@@ -40,7 +38,17 @@ class QW_ACT_R43 extends Rule {
       const ofx = element.getElementStyleProperty('overflow-x', null);
       const ofy = element.getElementStyleProperty('overflow-y', null);
 
-      if (of === 'auto' || of === 'clip' || of === 'scroll' || ofx === 'auto' || ofx === 'clip' || ofx === 'scroll' || ofy === 'auto' || ofy === 'clip' || ofy === 'scroll') {
+      if (
+        of === 'auto' ||
+        of === 'clip' ||
+        of === 'scroll' ||
+        ofx === 'auto' ||
+        ofx === 'clip' ||
+        ofx === 'scroll' ||
+        ofy === 'auto' ||
+        ofy === 'clip' ||
+        ofy === 'scroll'
+      ) {
         const scrollWidth = element.getElementProperty('scrollWidth');
         const clientWidth = element.getElementProperty('clientWidth');
 
@@ -57,17 +65,23 @@ class QW_ACT_R43 extends Rule {
         const paddingTop = element.getElementStyleProperty('padding-top', null);
         const paddingBottom = element.getElementStyleProperty('padding-bottom', null);
 
-        isApplicable = differenceWidth > parseInt(paddingLeft) || differenceWidth > parseInt(paddingRight) || differenceHeight > parseInt(paddingTop)
-          || differenceHeight > parseInt(paddingBottom);
+        isApplicable =
+          differenceWidth > parseInt(paddingLeft) ||
+          differenceWidth > parseInt(paddingRight) ||
+          differenceHeight > parseInt(paddingTop) ||
+          differenceHeight > parseInt(paddingBottom);
       }
     }
 
     if (isApplicable) {
-
       if (this.isInSequentialFocusNavigation(element, page)) {
         evaluation.verdict = 'passed';
+        evaluation.description = `This scrollable section element is included in sequential focus navigation.`;
+        evaluation.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed'
+        evaluation.verdict = 'failed';
+        evaluation.description = `This vertically/horizontally scrollable section element is not included in sequential focus navigation, nor does it have any descendants that are.`;
+        evaluation.resultCode = 'RC2';
       }
 
       super.addEvaluationResult(evaluation, element);

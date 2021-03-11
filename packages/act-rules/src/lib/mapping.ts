@@ -1,7 +1,7 @@
 export default {
   non_concurrent: {
     title: ['QW-ACT-R1'],
-    'body *': ['QW-ACT-R43']
+    'body, body *': ['QW-ACT-R43']
   },
   concurrent: {
     html: ['QW-ACT-R2', 'QW-ACT-R3', 'QW-ACT-R5', 'QW-ACT-R63', 'QW-ACT-R64', 'QW-ACT-R73', 'QW-ACT-R74'],

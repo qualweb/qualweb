@@ -5,14 +5,10 @@ import { Dom } from '@qualweb/dom';
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(100 * 1000);
-    const url = 'https://act-rules.github.io/testcases/afw4f7/8edb54199f19f6b983aafe6dfd04a4710f23c3ea.html'
+    const url = 'https://www.odense.dk/om-kommunen/om-hjemmesiden/teknisk-faq'
     const browser = await puppeteer.launch({ headless: false });
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true } }, "", `<p style="color: #CCC; background: #fff;" id="p"></p>
-<script>
-	const shadowRoot = document.getElementById('p').attachShadow({ mode: 'open' })
-	shadowRoot.innerHTML = '<span style="color: #333;">Some text in English</span>'
-</script>`);
+    const { page } = await dom.getDOM(browser, { execute: { act: true } }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -23,7 +19,7 @@ describe('Running tests', function () {
     });
     
     const report = await page.evaluate(() => {
-      const actRules = new ACTRules.ACTRules({ rules: ['QW-ACT-R37'] });
+      const actRules = new ACTRules.ACTRules({ rules: ['QW-ACT-R43'] });
       return actRules.execute([], new QWPage.QWPage(document, window, true));
     });
     console.log(JSON.stringify(report, null, 2))

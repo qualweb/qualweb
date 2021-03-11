@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.56] - 11/03/2021
+
+### Fixed
+
+- rule QW-ACT-R43
+  - invisible elements should now be inapplicable
+
 ## [0.4.55] - 08/03/2021
 
 ### Fixed
