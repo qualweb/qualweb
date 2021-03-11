@@ -82,7 +82,9 @@ The available options fot the **evaluate()** function are:
       "height": 1080 // default value for desktop = 768, default value for mobile = 1920
     }
   },
-  "maxParallelEvaluations": "5", // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
+  "timeout": 60 * 1000, // Timeout for loading page, default value = 30 seconds
+  "waitUntil": ["load", "networkidle0"], // Events to wait before starting evaluation, default value = "load". For more check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagegotourl-options
+  "maxParallelEvaluations": 5, // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
   "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached after of the given endpoint
   "execute": {
     // choose which modules to execute
