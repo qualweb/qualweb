@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.57] - 11/03/2021
+
+### Fixed
+
+- rule QW-ACT-R62
+  - should not crash when the page doesn't have a body element
+
 ## [0.4.56] - 11/03/2021
 
 ### Fixed

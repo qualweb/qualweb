@@ -5,10 +5,10 @@ import { Dom } from '@qualweb/dom';
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(100 * 1000);
-    const url = 'https://www.odense.dk/om-kommunen/om-hjemmesiden/teknisk-faq'
+    const url = 'http://she.as/'
     const browser = await puppeteer.launch({ headless: false });
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true } }, url, '');
+    const { page } = await dom.getDOM(browser, { execute: { act: true }, waitUntil: ["load", 'networkidle2'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -19,7 +19,7 @@ describe('Running tests', function () {
     });
     
     const report = await page.evaluate(() => {
-      const actRules = new ACTRules.ACTRules({ rules: ['QW-ACT-R43'] });
+      const actRules = new ACTRules.ACTRules(/*{ rules: ['QW-ACT-R62'] }*/);
       return actRules.execute([], new QWPage.QWPage(document, window, true));
     });
     console.log(JSON.stringify(report, null, 2))

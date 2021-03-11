@@ -68,8 +68,8 @@ abstract class Rule {
 
   // results
   conjunction(element: QWElement, rules: Array<ACTRule>): void {
-    let selector = element.getElementSelector();
-    let results = this.getAtomicRuleResultPerVerdict(selector, rules);
+    const selector = element.getElementSelector();
+    const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -78,31 +78,25 @@ abstract class Rule {
     if (results['failed']) {
       evaluation.verdict = 'failed';
       evaluation.resultCode = 'RC1';
-      evaluation.description =
-        'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
+      evaluation.description = 'The rule failed because of the rule ' + results['failed'].code;
     } else if (results['warning']) {
       evaluation.verdict = 'warning';
       evaluation.resultCode = 'RC2';
-      evaluation.description =
-        "The rule can't tell because of the rule " +
-        results['warning'].title +
-        'with the code' +
-        results['warning'].code; //title + id
+      evaluation.description = "The rule can't tell because of the rule " + results['warning'].code;
     } else if (results['passed']) {
       evaluation.verdict = 'passed';
       evaluation.resultCode = 'RC3';
-      evaluation.description =
-        'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
+      evaluation.description = 'The rule passed because of the rule ' + results['passed'].code;
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.resultCode = 'RC4';
-      evaluation.description = "The test target doesn't apply to this rule"; //title + id
+      evaluation.description = "The test target doesn't apply to this rule";
     }
     this.addEvaluationResult(evaluation, element);
   }
   disjunction(element: QWElement, rules: Array<ACTRule>): void {
-    let selector = element.getElementSelector();
-    let results = this.getAtomicRuleResultPerVerdict(selector, rules);
+    const selector = element.getElementSelector();
+    const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -111,25 +105,19 @@ abstract class Rule {
     if (results['passed']) {
       evaluation.verdict = 'passed';
       evaluation.resultCode = 'RC1';
-      evaluation.description =
-        'The rule passed because of the rule ' + results['passed'].title + 'with the code' + results['passed'].code; //title + id
+      evaluation.description = 'The rule passed because of the rule ' + results['passed'].code;
     } else if (results['warning']) {
       evaluation.verdict = 'warning';
       evaluation.resultCode = 'RC2';
-      evaluation.description =
-        "The rule can't tell because of the rule " +
-        results['warning'].title +
-        'with the code' +
-        results['warning'].code; //title + id
+      evaluation.description = "The rule can't tell because of the rule " + results['warning'].code;
     } else if (results['failed']) {
       evaluation.verdict = 'failed';
       evaluation.resultCode = 'RC3';
-      evaluation.description =
-        'The rule failed because of the rule ' + results['failed'].title + 'with the code' + results['failed'].code; //title + id
+      evaluation.description = 'The rule failed because of the rule ' + results['failed'].code;
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.resultCode = 'RC4';
-      evaluation.description = "The test target doesn't apply to this rule"; //title + id
+      evaluation.description = "The test target doesn't apply to this rule";
     }
     this.addEvaluationResult(evaluation, element);
   }
@@ -140,7 +128,7 @@ abstract class Rule {
       if (rule) {
         for (let result of rule.results) {
           if (result.elements && result.elements[0].pointer === selector && !ruleResult[result.verdict]) {
-            ruleResult[result.verdict] = { title: rule.name, code: rule.mapping };
+            ruleResult[result.verdict] = { title: rule.name, code: rule.code };
           }
         }
       }
