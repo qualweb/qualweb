@@ -5,7 +5,7 @@ declare module "@qualweb/core" {
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
-  import { LaunchOptions, Browser } from "puppeteer";
+  import { LaunchOptions, Browser, LoadEvent } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
 
   interface Execute {
@@ -22,6 +22,8 @@ declare module "@qualweb/core" {
     file?: string;
     crawl?: string;
     html?: string;
+    timeout?: number;
+    waitUntil?: LoadEvent | LoadEvent[];
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
     validator?: string;
