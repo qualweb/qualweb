@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.64] - 22/03/2020
+
+### Updated
+
+- return values for earl-reporter module functions
+
 ## [0.4.63] - 22/03/2020
 
 ### Added

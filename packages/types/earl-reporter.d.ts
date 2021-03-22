@@ -67,11 +67,11 @@ declare module "@qualweb/earl-reporter" {
 
   type Report = ACTRulesReport | WCAGTechniquesReport | BestPracticesReport;
 
-  function generateEARLAssertions(report: Report): Promise<Assertion[]>;
+  function generateEARLAssertions(report: Report): Array<Assertion>;
   function generateEARLReport(
     reports: { [url: string]: EvaluationReport },
     options?: EarlOptions
-  ): Promise<{ [url: string]: EarlReport }>;
+  ): { [url: string]: EarlReport };
 
   export {
     EarlOptions,
