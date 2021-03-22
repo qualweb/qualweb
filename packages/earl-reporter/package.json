@@ -1,9 +1,11 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
-  "types": "./dist",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
@@ -12,38 +14,48 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "npm run format && npm run lint && npm run prebuild && tsc --build",
-    "pub": "npm run build && npm publish"
+    "prepare": "npm run build"
   },
   "keywords": [
     "earl",
     "json-ld",
     "a11y",
     "normalized",
-    "report"
+    "report",
+    "accessibility"
   ],
+  "homepage": "https://github.com/qualweb/earl-reporter#readme",
+  "bugs": {
+    "url": "https://github.com/qualweb/earl-reporter/issues",
+    "email": "qualweb@fc.ul.pt"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/qualweb/earl-reporter.git"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.4.52",
+    "@qualweb/types": "^0.4.63",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^14.14.14",
-    "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "@typescript-eslint/parser": "^4.10.0",
-    "chai": "^4.2.0",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-sonarjs": "^0.5.0",
+    "@types/node": "^14.14.35",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
-    "mocha": "^8.2.1",
+    "mocha": "^8.3.2",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.1.3"
+    "typedoc": "^0.20.33",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"

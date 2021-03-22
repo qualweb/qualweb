@@ -1,29 +1,74 @@
 import cloneDeep from 'lodash.clonedeep';
 import { EvaluationReport } from '@qualweb/core';
-import { Report, EarlReport, TestSubject, Assertor, Assertion, EarlOptions } from '@qualweb/earl-reporter';
+import { ACTRule } from '@qualweb/act-rules';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import { BestPractice } from '@qualweb/best-practices';
+import {
+  EarlReport,
+  TestSubject,
+  Assertor,
+  Assertion,
+  EarlOptions,
+  TestResult,
+  ResultSource,
+  Report
+} from '@qualweb/earl-reporter';
 
-import ACTRulesReportToEARL from './lib/act-rules.reporter';
-import WCAGTechniquesReportToEARL from './lib/wcag-techniques.reporter';
-import BestPracticesReportToEARL from './lib/best-practices.reporter';
+function generateEARLAssertions(report: Report, date?: string): Array<Assertion> {
+  const assertions = new Array<Assertion>();
 
-const wcagTechniques = 'wcag-techniques';
-const bestPractices = 'best-practices';
+  for (const name in report.assertions || {}) {
+    if (report.assertions[name]) {
+      const test = report.assertions[name];
+      if (test) {
+        const sources = generateSources(test);
 
-async function generateEARLAssertions(report: Report | undefined, date?: string): Promise<Assertion[]> {
-  if (report) {
-    switch (report.type) {
-      case 'act-rules':
-        return await ACTRulesReportToEARL(report, date);
-      case wcagTechniques:
-        return await WCAGTechniquesReportToEARL(report, date);
-      case bestPractices:
-        return await BestPracticesReportToEARL(report, date);
-      default:
-        throw new Error('Invalid report type');
+        const result: TestResult = {
+          '@type': 'TestResult',
+          outcome: 'earl:' + (test.metadata.outcome !== 'warning' ? test.metadata.outcome : 'cantTell'),
+          source: sources,
+          description: test.metadata.description,
+          date: date ?? new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        };
+
+        const assertion: Assertion = {
+          '@type': 'Assertion',
+          test: {
+            '@id': test.metadata.url ?? test.name,
+            '@type': 'TestCase',
+            title: test.name,
+            description: test.description
+          },
+          mode: 'earl:automatic',
+          result
+        };
+
+        assertions.push(assertion);
+      }
     }
-  } else {
-    throw new Error('Report is not defined');
   }
+
+  return assertions;
+}
+
+function generateSources(test: ACTRule | WCAGTechnique | BestPractice): Array<ResultSource> {
+  const sources = new Array<ResultSource>();
+
+  for (const result of test.results || []) {
+    const source: ResultSource = {
+      result: {
+        pointer: result.elements
+          ?.filter((e) => e.pointer !== undefined)
+          .map((e) => e.pointer)
+          .join(', '),
+        outcome: 'earl:' + (result.verdict !== 'warning' ? result.verdict : 'cantTell')
+      }
+    };
+
+    sources.push(source);
+  }
+
+  return sources;
 }
 
 function reportModule(module: string, options?: EarlOptions): boolean {
@@ -35,15 +80,15 @@ function reportModule(module: string, options?: EarlOptions): boolean {
         return !!options.modules.act;
       case 'wcag':
         return !!options.modules.wcag;
-      case bestPractices:
-        return !!options.modules[bestPractices];
+      case 'best-practices':
+        return !!options.modules['best-practices'];
       default:
         return false;
     }
   }
 }
 
-async function generateSingleEarlReport(report: EvaluationReport, options?: EarlOptions): Promise<EarlReport> {
+function generateSingleEarlReport(report: EvaluationReport, options?: EarlOptions): EarlReport {
   const earlReport: EarlReport = {
     '@context': 'https://act-rules.github.io/earl-context.json',
     '@graph': new Array<TestSubject>()
@@ -60,7 +105,7 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
 
   const testSubject: TestSubject = {
     '@type': 'TestSubject',
-    source: report.system.url?.inputUrl || '',
+    source: report.system.url?.inputUrl ?? '',
     assertor,
     assertions: new Array<Assertion>()
   };
@@ -72,19 +117,19 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
   if (report.modules['act-rules'] && reportModule('act', options)) {
     testSubject.assertions = [
       ...testSubject.assertions,
-      ...(await generateEARLAssertions(report.modules['act-rules'], report.system.date))
+      ...generateEARLAssertions(report.modules['act-rules'], report.system.date)
     ];
   }
-  if (report.modules[wcagTechniques] && reportModule('wcag', options)) {
+  if (report.modules['wcag-techniques'] && reportModule('wcag', options)) {
     testSubject.assertions = [
       ...testSubject.assertions,
-      ...(await generateEARLAssertions(report.modules[wcagTechniques], report.system.date))
+      ...generateEARLAssertions(report.modules['wcag-techniques'], report.system.date)
     ];
   }
-  if (report.modules[bestPractices] && reportModule(bestPractices, options)) {
+  if (report.modules['best-practices'] && reportModule('best-practices', options)) {
     testSubject.assertions = [
       ...testSubject.assertions,
-      ...(await generateEARLAssertions(report.modules[bestPractices], report.system.date))
+      ...generateEARLAssertions(report.modules['best-practices'], report.system.date)
     ];
   }
 
@@ -93,34 +138,31 @@ async function generateSingleEarlReport(report: EvaluationReport, options?: Earl
   return earlReport;
 }
 
-async function generateAggregatedEarlReport(reports: EvaluationReport[], options?: EarlOptions): Promise<EarlReport> {
+function generateAggregatedEarlReport(reports: EvaluationReport[], options?: EarlOptions): EarlReport {
   const aggregatedReport: EarlReport = {
     '@context': 'https://act-rules.github.io/earl-context.json',
     '@graph': new Array<TestSubject>()
   };
 
   for (const report of reports || []) {
-    const earlReport = await generateSingleEarlReport(report, options);
+    const earlReport = generateSingleEarlReport(report, options);
     aggregatedReport['@graph'].push(cloneDeep(earlReport['@graph'][0]));
   }
 
   return aggregatedReport;
 }
 
-async function generateEARLReport(
+function generateEARLReport(
   reports: { [url: string]: EvaluationReport },
   options?: EarlOptions
-): Promise<{ [url: string]: EarlReport }> {
+): { [url: string]: EarlReport } {
   const earlReports: { [url: string]: EarlReport } = {};
   if (options && options.aggregated) {
     const firstUrl = Object.keys(reports)[0];
-    earlReports[options.aggregatedName || firstUrl] = await generateAggregatedEarlReport(
-      Object.values(reports),
-      options
-    );
+    earlReports[options.aggregatedName || firstUrl] = generateAggregatedEarlReport(Object.values(reports), options);
   } else {
     for (const url in reports || {}) {
-      const earlReport = await generateSingleEarlReport(reports[url], options);
+      const earlReport = generateSingleEarlReport(reports[url], options);
       earlReports[url] = cloneDeep(earlReport);
     }
   }
