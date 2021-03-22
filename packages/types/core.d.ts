@@ -4,7 +4,7 @@ declare module "@qualweb/core" {
   import { WappalyzerReport, WappalyzerOptions } from "@qualweb/wappalyzer";
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
-  import { EarlOptions, EarlReport } from "@qualweb/earl-reporter";
+  import { generateEARLReport } from "@qualweb/earl-reporter";
   import { LaunchOptions, Browser, LoadEvent } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
 
@@ -147,11 +147,6 @@ declare module "@qualweb/core" {
     ): Promise<void>;
   }
 
-  function generateEarlReport(
-    evaluations: { [url: string]: EvaluationReport },
-    options?: EarlOptions
-  ): Promise<{ [url: string]: EarlReport }>;
-
   export {
     QualwebOptions,
     Execute,
@@ -166,6 +161,6 @@ declare module "@qualweb/core" {
     ProcessedHtml,
     DomData,
     QualWeb,
-    generateEarlReport,
+    generateEARLReport,
   };
 }
