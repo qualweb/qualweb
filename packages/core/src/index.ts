@@ -1,6 +1,6 @@
 import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
 import { QualwebOptions, EvaluationReport, Execute } from '@qualweb/core';
-import { EarlOptions, EarlReport, generateEARLReport } from '@qualweb/earl-reporter';
+import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
 import Crawl from '@qualweb/crawler';
@@ -124,13 +124,6 @@ class QualWeb {
   }
 }
 
-function generateEarlReport(
-  evaluations: { [url: string]: EvaluationReport },
-  options?: EarlOptions
-): { [url: string]: EarlReport } {
-  return generateEARLReport(evaluations, options);
-}
-
 async function getFileUrls(file: string): Promise<Array<string>> {
   const content = await readFile(file);
   return content
@@ -154,4 +147,4 @@ function readFile(file: string): Promise<string> {
   });
 }
 
-export { QualWeb, generateEarlReport, crawlDomain, getFileUrls };
+export { QualWeb, generateEARLReport, crawlDomain, getFileUrls };
