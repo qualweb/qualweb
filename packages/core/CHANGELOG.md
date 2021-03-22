@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.67] - 22/03/2021
+
+### Updated
+
+- dependencies
+
+### Changed
+
+## [0.4.66] - 12/03/2021
+
+### Changed
+
+- downgraded puppeteer from version 8.0.0 to 5.5.0 due to inconsistent certificate validation
+
 ## [0.4.65] - 11/03/2021
 
 ### Updated
