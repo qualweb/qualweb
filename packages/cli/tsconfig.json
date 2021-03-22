@@ -3,6 +3,8 @@
   "compilerOptions": {
     /* Basic Options */
     "resolveJsonModule": true,
+    "target": "ES2019",
+    "lib": ["ES2019"],
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
@@ -28,11 +30,6 @@
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     "typeRoots": ["@qualweb/types"] /* List of folders to include type definitions from. */,
-    "types": [
-      "@qualweb/types",
-      "node",
-      "puppeteer",
-      "lodash.clone"
-    ] /* Type declaration files to be included in compilation. */
+    "types": ["@qualweb/types", "node", "lodash.clone"] /* Type declaration files to be included in compilation. */
   }
 }

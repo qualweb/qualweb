@@ -1,4 +1,4 @@
-import { QualWeb, generateEarlReport, EvaluationReport, QualwebOptions } from '@qualweb/core';
+import { QualWeb, generateEARLReport, EvaluationReport, QualwebOptions } from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
 
 import parse from './lib/parser';
@@ -35,14 +35,14 @@ async function handleReporting(reports: { [url: string]: EvaluationReport }, opt
 
   if (reportType) {
     if (reportType === 'earl') {
-      const earlReports = await generateEarlReport(reports);
+      const earlReports = generateEARLReport(reports);
       for (const url in earlReports || {}) {
         await saveReport(url, earlReports[url]);
       }
     } else if (reportType === 'earl-a') {
       const earlOptions = checkEarlOptions(options, saveName);
 
-      const earlReport = await generateEarlReport(reports, earlOptions);
+      const earlReport = generateEARLReport(reports, earlOptions);
       const name = Object.keys(earlReport)[0];
       await saveReport(name, earlReport[name], !!saveName);
     } else {
@@ -57,7 +57,7 @@ async function handleReporting(reports: { [url: string]: EvaluationReport }, opt
   }
 }
 
-function checkEarlOptions(options: QualwebOptions, saveName: string | undefined): EarlOptions {
+function checkEarlOptions(options: QualwebOptions, saveName?: string): EarlOptions {
   const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
   if (options.execute) {
     earlOptions.modules = {};
