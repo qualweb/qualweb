@@ -1,16 +1,23 @@
 {
   "name": "@qualweb/types",
-  "version": "0.4.62",
-  "description": "Type definitions for qualweb core and modules",
+  "version": "0.4.63",
+  "description": "Type definitions for qualweb ecosystem",
   "main": "./index.d.ts",
-  "types": "./index.d.ts",
   "keywords": [
     "qualweb",
     "types"
   ],
+  "homepage": "https://github.com/qualweb/types#readme",
+  "bugs": {
+    "url": "https://github.com/qualweb/types/issues",
+    "email": "qualweb@fc.ul.pt"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/qualweb/types.git"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "author": "João Afonso Vicente",
   "license": "ISC",

@@ -1,4 +1,5 @@
 declare module "@qualweb/act-rules" {
+  import { Position } from "css";
   import { QWPage } from "@qualweb/qw-page";
   import { SourceHtml } from "@qualweb/core";
   import { Optimization } from "@qualweb/util";
@@ -42,6 +43,14 @@ declare module "@qualweb/act-rules" {
     pointer?: string;
     htmlCode?: string;
     accessibleName?: string;
+    attributes?: string | string[];
+    cssCode?: string;
+    property?: {
+      name?: string;
+      value?: string;
+    };
+    stylesheetFile?: string;
+    position?: Position;
   }
 
   interface ACTRule {

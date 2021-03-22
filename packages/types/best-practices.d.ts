@@ -1,4 +1,5 @@
 declare module "@qualweb/best-practices" {
+  import { Position } from "css";
   import { QWPage } from "@qualweb/qw-page";
 
   interface BPOptions {
@@ -37,9 +38,22 @@ declare module "@qualweb/best-practices" {
     verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
     description: string[] | string | "";
     resultCode: string[] | string;
-    pointer?: string;
-    htmlCode?: string | string[];
+    elements?: BPElement[];
     attributes?: string | string[];
+  }
+
+  interface BPElement {
+    pointer?: string;
+    htmlCode?: string;
+    accessibleName?: string;
+    attributes?: string | string[];
+    cssCode?: string;
+    property?: {
+      name?: string;
+      value?: string;
+    };
+    stylesheetFile?: string;
+    position?: Position;
   }
 
   interface BestPracticesGlobalMetadata {

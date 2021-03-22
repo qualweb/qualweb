@@ -1,4 +1,28 @@
 declare module "@qualweb/qw-element" {
+  interface CSSProperty {
+    name: string;
+    value: string;
+    important: boolean;
+    location: string;
+    pointer: string;
+  }
+
+  interface PseudoSelectorProperty {
+    [property: string]: CSSProperty;
+  }
+
+  interface MediaProperty {
+    [media: string]: CSSProperty | PseudoSelectorProperty | undefined;
+  }
+
+  interface CSSProperties {
+    [property: string]:
+      | CSSProperty
+      | PseudoSelectorProperty
+      | MediaProperty
+      | undefined;
+  }
+
   class QWElement {
     constructor(element: Element, elementsCSSRules?: Map<Element, any>);
     public elementHasAttribute(attribute: string): boolean;
@@ -40,7 +64,7 @@ declare module "@qualweb/qw-element" {
     public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
-    public getCSSRules(): any;
+    public getCSSRules(): CSSProperties;
     public hasCSSProperty(
       property: string,
       pseudoStyle?: string,
@@ -50,11 +74,19 @@ declare module "@qualweb/qw-element" {
       property: string,
       pseudoStyle?: string,
       media?: string
-    ): any;
-    public getCSSMediaRules(): any;
-    public getCSSPseudoSelectorRules(pseudoSelector: string): any;
+    ): CSSProperty;
+    public getCSSMediaRules(): MediaProperty;
+    public getCSSPseudoSelectorRules(
+      pseudoSelector: string
+    ): PseudoSelectorProperty;
     public getParentAllContexts(): QWElement | null;
   }
 
-  export { QWElement };
+  export {
+    CSSProperty,
+    PseudoSelectorProperty,
+    MediaProperty,
+    CSSProperties,
+    QWElement,
+  };
 }

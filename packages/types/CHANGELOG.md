@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.63] - 22/03/2020
+
+### Added
+
+- new interfaces for the CSS rules on qw-element module:
+  - CSSProperties
+  - MediaProperty
+  - PseudoSelectorProperty
+  - CSSProperty
+
+### Updated
+
+- ACTElement interface
+- BestPracticeResult interface. It now supports multiple elements of type BPElement
+
 ## [0.4.62] - 11/03/2020
 
 ### Added
