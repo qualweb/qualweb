@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.1.77",
+  "version": "0.1.78",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "types": "./dist",
@@ -33,9 +33,9 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
     "@types/lodash.clonedeep": "^4.5.6",
-    "chai": "^4.3.3",
+    "chai": "^4.3.4",
     "esm": "^3.2.25",
-    "mocha": "^8.3.1",
+    "mocha": "^8.3.2",
     "puppeteer": "^8.0.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.3"

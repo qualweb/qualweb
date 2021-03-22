@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.78] - 22/03/2021
+
+### Updated
+
+- dependencies
+
+### Changed
+
+- QW-ACT-R72 to execute before all others ACT Rules. This way we can guarantee that the right elements are being evaluated.
+
 ## [0.1.77] - 11/03/2021
 
 - updated dependencies

@@ -93,11 +93,6 @@ class Evaluation {
       // @ts-ignore
       window.page = new QWPage.QWPage(document, window, true);
     });
-    await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-    await page.evaluate(() => {
-      // @ts-ignore
-      window.page72 = new QWPage.QWPage(document, window, true);
-    });
   }
 
   public async executeACT(
@@ -108,6 +103,26 @@ class Evaluation {
     await page.addScriptTag({
       path: require.resolve("@qualweb/act-rules"),
     });
+
+    const r40 = "QW-ACT-R40";
+    const r72 = "QW-ACT-R72";
+
+    let actReportR72 = null;
+
+    if (
+      !options ||
+      !options["rules"] ||
+      options["rules"].includes(r72) ||
+      options["rules"].includes("8a213c")
+    ) {
+      await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+      actReportR72 = await page.evaluate(() => {
+        // @ts-ignore
+        const act = new ACTRules.ACTRules();
+        // @ts-ignore
+        return act.executeQW_ACT_R72(window.page);
+      });
+    }
 
     const metaElements = CSSselect("meta", sourceHtml.html.parsed);
     const parsedMetaElements = new Array<any>();
@@ -147,8 +162,19 @@ class Evaluation {
       options
     );
 
-    const r40 = "QW-ACT-R40";
-    const r72 = "QW-ACT-R72";
+    if (actReportR72) {
+      actReport.assertions[r72] = actReportR72;
+      const outcome = actReportR72.metadata.outcome;
+      if (outcome === "passed") {
+        actReport.metadata.passed++;
+      } else if (outcome === "failed") {
+        actReport.metadata.failed++;
+      } else if (outcome === "warning") {
+        actReport.metadata.warning++;
+      } else {
+        actReport.metadata.inapplicable++;
+      }
+    }
 
     if (
       !options ||
@@ -178,33 +204,7 @@ class Evaluation {
       }
 
       actReport.assertions[r40] = actReportR40;
-      let outcome = actReportR40.metadata.outcome;
-      if (outcome === "passed") {
-        actReport.metadata.passed++;
-      } else if (outcome === "failed") {
-        actReport.metadata.failed++;
-      } else if (outcome === "warning") {
-        actReport.metadata.warning++;
-      } else {
-        actReport.metadata.inapplicable++;
-      }
-    }
-
-    if (
-      !options ||
-      !options["rules"] ||
-      options["rules"].includes(r72) ||
-      options["rules"].includes("8a213c")
-    ) {
-      const actReportR72 = await page.evaluate(() => {
-        // @ts-ignore
-        const act = new ACTRules.ACTRules();
-        // @ts-ignore
-        return act.executeQW_ACT_R72(window.page72);
-      });
-
-      actReport.assertions[r72] = actReportR72;
-      let outcome = actReportR72.metadata.outcome;
+      const outcome = actReportR40.metadata.outcome;
       if (outcome === "passed") {
         actReport.metadata.passed++;
       } else if (outcome === "failed") {
