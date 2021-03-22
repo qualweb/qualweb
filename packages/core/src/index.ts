@@ -105,7 +105,7 @@ class QualWeb {
       try {
         const dom = new Dom();
 
-        const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, html || '');
+        const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, html ?? '');
         const evaluation = new Evaluation();
         const evaluationReport = await evaluation.evaluatePage(
           sourceHtml,
@@ -116,7 +116,7 @@ class QualWeb {
           validation
         );
         await dom.close();
-        evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
+        evaluations[url ?? 'customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
         console.error(err);
       }
@@ -124,11 +124,11 @@ class QualWeb {
   }
 }
 
-async function generateEarlReport(
+function generateEarlReport(
   evaluations: { [url: string]: EvaluationReport },
   options?: EarlOptions
-): Promise<{ [url: string]: EarlReport }> {
-  return <{ [url: string]: EarlReport }>await generateEARLReport(evaluations, options);
+): { [url: string]: EarlReport } {
+  return generateEARLReport(evaluations, options);
 }
 
 async function getFileUrls(file: string): Promise<Array<string>> {

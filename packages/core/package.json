@@ -1,10 +1,10 @@
 {
   "name": "@qualweb/core",
-  "version": "0.4.67",
+  "version": "0.4.68",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
-    "./dist/*"
+    "dist/*"
   ],
   "scripts": {
     "tsc": "tsc",
@@ -61,25 +61,25 @@
     }
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=12.0.0"
   },
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "^0.1.1",
     "@qualweb/dom": "^0.1.35",
-    "@qualweb/earl-reporter": "^0.3.0",
+    "@qualweb/earl-reporter": "^0.4.0",
     "@qualweb/evaluation": "^0.1.78",
     "lodash.clone": "^4.5.0",
     "lodash.clonedeep": "^4.5.0",
     "puppeteer": "^5.5.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.4.62",
+    "@qualweb/types": "^0.4.64",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.35",
     "@types/puppeteer": "^5.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
     "chai": "^4.3.4",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
