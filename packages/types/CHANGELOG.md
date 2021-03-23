@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.68] - 23/03/2020
+
+### Updated
+
+- qw-element styles interface
+
 ## [0.4.67] - 23/03/2020
 
 ### Updated
