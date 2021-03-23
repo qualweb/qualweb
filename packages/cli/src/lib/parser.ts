@@ -114,7 +114,7 @@ async function parse(): Promise<QualwebOptions> {
   const reportType = 'report-type';
 
   if (mainOptions[reportType]) {
-    options['r'] = mainOptions[reportType];
+    options.report = mainOptions[reportType];
 
     if (!reports.includes(mainOptions[reportType])) {
       printError('Wrong report type selected.');

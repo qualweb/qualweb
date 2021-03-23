@@ -28,9 +28,9 @@ async function cli(): Promise<void> {
 }
 
 async function handleReporting(reports: { [url: string]: EvaluationReport }, options: QualwebOptions): Promise<void> {
-  const reportType = options['r'];
+  const reportType = options.report;
   const saveName = options['save-name'];
-  delete options['r'];
+  delete options.report;
   delete options['save-name'];
 
   if (reportType) {

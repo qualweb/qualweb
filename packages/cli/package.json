@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
@@ -26,14 +26,22 @@
     "a11y",
     "accessibility"
   ],
+  "homepage": "https://github.com/qualweb/cli#readme",
+  "bugs": {
+    "url": "https://github.com/qualweb/cli/issues",
+    "email": "qualweb@fc.ul.pt"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/qualweb/cli.git"
   },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "^0.4.69",
+    "@qualweb/core": "^0.4.71",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "lodash.clone": "^4.5.0",
@@ -41,7 +49,7 @@
     "set-value": "^3.0.2"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.4.65",
+    "@qualweb/types": "^0.4.67",
     "@tsconfig/recommended": "^1.0.1",
     "@types/command-line-args": "^5.0.0",
     "@types/command-line-usage": "^5.0.1",
