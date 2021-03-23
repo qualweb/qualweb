@@ -19,7 +19,7 @@ You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http
 ```javascript
   'use strict';
 
-  const { QualWeb, generateEarlReport } = require('@qualweb/core');
+  const { QualWeb, generateEARLReport } = require('@qualweb/core');
 
   (async () => {
     const qualweb = new QualWeb();
@@ -53,7 +53,7 @@ You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http
     };
 
     // if you want an EARL report
-    const earlReports = await generateEarlReport(reports, earlOptions);
+    const earlReports = generateEARLReport(reports, earlOptions);
 
     console.log(earlReports);
     //  {
@@ -116,7 +116,7 @@ The available options fot the **evaluate()** function are:
 }
 ```
 
-The available options fot the **generateEarlReport()** function are:
+The available options fot the **generateEARLReport()** function are:
 
 ```jsonc
 {
