@@ -104,19 +104,14 @@ class ACTRules {
     }
   }
 
-  private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport, concurrent: boolean): void {
-    const promises = new Array<any>();
+  private executeRule(rule: string, selector: string, page: QWPage, report: ACTRulesReport): void {
     if (rule === 'QW-ACT-R37' || rule === 'QW-ACT-R76') {
       this.rules[rule].execute(undefined, page);
     } else {
       const elements = page.getElements(selector);
       if (elements.length > 0) {
         for (const elem of elements || []) {
-          if (concurrent) {
-            promises.push(this.rules[rule].execute(elem, page));
-          } else {
-            this.rules[rule].execute(elem, page);
-          }
+          this.rules[rule].execute(elem, page);
         }
       } else {
         this.rules[rule].execute(undefined, page);
@@ -129,18 +124,11 @@ class ACTRules {
     this.rules[rule].reset();
   }
 
-  private executePageMappedRules(
-    report: ACTRulesReport,
-    page: QWPage,
-    selectors: string[],
-    mappedRules: any,
-    concurrent: boolean
-  ): void {
-    const promises = new Array<any>();
+  private executePageMappedRules(report: ACTRulesReport, page: QWPage, selectors: string[], mappedRules: any): void {
     for (const selector of selectors || []) {
       for (const rule of mappedRules[selector] || []) {
         if (this.rulesToExecute[rule]) {
-          promises.push(this.executeRule(rule, selector, page, report, concurrent));
+          this.executeRule(rule, selector, page, report);
         }
       }
     }
@@ -194,24 +182,20 @@ class ACTRules {
     }
   }
 
-  private executeAllCompositeRules(report: ACTRulesReport, page: QWPage) {
-    const promises = new Array<any>();
+  private executeAllCompositeRules(report: ACTRulesReport, page: QWPage): void {
     const rules = Object.keys(compositeRules);
     for (const rule of rules || []) {
       if (this.rulesToExecute[rule]) {
-        //@ts-ignore
-        promises.push(
-          this.executeCompositeRule(
-            rule,
-            //@ts-ignore
-            compositeRules[rule].selector,
-            //@ts-ignore
-            compositeRules[rule].rules,
-            //@ts-ignore
-            compositeRules[rule].implementation,
-            page,
-            report
-          )
+        this.executeCompositeRule(
+          rule,
+          //@ts-ignore
+          compositeRules[rule].selector,
+          //@ts-ignore
+          compositeRules[rule].rules,
+          //@ts-ignore
+          compositeRules[rule].implementation,
+          page,
+          report
         );
       }
     }
@@ -251,14 +235,6 @@ class ACTRules {
     this.rules[rule].reset();
   }
 
-  private executeNonConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping.non_concurrent), mapping.non_concurrent, false);
-  }
-
-  private executeConcurrentRules(report: ACTRulesReport, page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping.concurrent), mapping.concurrent, true);
-  }
-
   public executeQW_ACT_R40(page: QWPage): any {
     const elements = page.getElements('body *');
 
@@ -279,7 +255,7 @@ class ACTRules {
   }
 
   public execute(metaElements: any[], page: QWPage): ACTRulesReport {
-    let report: ACTRulesReport = {
+    const report: ACTRulesReport = {
       type: 'act-rules',
       metadata: {
         passed: 0,
@@ -290,8 +266,7 @@ class ACTRules {
       assertions: {}
     };
 
-    this.executeNonConcurrentRules(report, page);
-    this.executeConcurrentRules(report, page);
+    this.executePageMappedRules(report, page, Object.keys(mapping), mapping);
     this.executeNotMappedRules(report, metaElements, page);
     this.executeAllCompositeRules(report, page);
 

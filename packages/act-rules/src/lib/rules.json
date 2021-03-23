@@ -359,6 +359,12 @@
           "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/resize-text"
+        },
+        {
+          "name": "1.4.10",
+          "level": "AA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/reflow.html"
         }
       ],
       "related": [],
@@ -387,7 +393,7 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/80f0bf",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R16": {
@@ -416,7 +422,7 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/e086e5",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R17": {
@@ -428,11 +434,18 @@
       "target": {
         "element": "img"
       },
-      "success-criteria": [],
-      "related": [],
+      "success-criteria": [
+        {
+          "name": "1.1.1",
+          "level": "A",
+          "principle": "Understandable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html"
+        }
+      ],
+      "related": ["G94", "G95"],
       "url": "https://act-rules.github.io/rules/23a2a8",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:title"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R18": {
@@ -473,12 +486,6 @@
           "level": "A",
           "principle": "Robust",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html"
-        },
-        {
-          "name": "2.4.1",
-          "level": "A",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
         }
       ],
       "related": [],
@@ -499,13 +506,13 @@
       },
       "success-criteria": [
         {
-          "name": "4.1.2",
+          "name": "1.3.1",
           "level": "A",
           "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
         }
       ],
-      "related": [],
+      "related": ["ARIA4", "G108"],
       "url": "https://act-rules.github.io/rules/674b10",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
@@ -573,12 +580,24 @@
           "level": "A",
           "principle": "Perceivable ",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded.html"
+        },
+        {
+          "name": "1.2.5",
+          "level": "AA",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html"
+        },
+        {
+          "name": "1.2.8",
+          "level": "AAA",
+          "principle": "Perceivable ",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/media-alternative-prerecorded.html"
         }
       ],
-      "related": [],
+      "related": ["G8", "G69", "G78", "G173", "H96"],
       "url": "https://act-rules.github.io/rules/c5a4ea",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R24": {
@@ -614,21 +633,8 @@
         "element": "*",
         "attributes": "aria-*"
       },
-      "success-criteria": [
-        {
-          "name": "4.1.1",
-          "level": "A",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/parsing.html"
-        },
-        {
-          "name": "4.1.2",
-          "level": "AA",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
-        }
-      ],
-      "related": [],
+      "success-criteria": [],
+      "related": ["ARIA5", "ARIA 1.1, 7.6"],
       "url": "https://act-rules.github.io/rules/5c01ea",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
@@ -661,20 +667,13 @@
     "name": "aria-* attribute is defined in WAI-ARIA",
     "code": "QW-ACT-R27",
     "mapping": "5f99a7",
-    "description": "This rule checks that each aria- attribute specified is defined in ARIA 1.1.",
+    "description": "This rule checks that each aria-* attribute specified is defined in ARIA 1.1.",
     "metadata": {
       "target": {
         "element": "*",
         "attributes": "aria-*"
       },
-      "success-criteria": [
-        {
-          "name": "4.1.2",
-          "level": "A",
-          "principle": "Robust ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
-        }
-      ],
+      "success-criteria": [],
       "related": [],
       "url": "https://act-rules.github.io/rules/5f99a7",
       "type": ["ACTRule", "TestCase"],
@@ -726,7 +725,7 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/e7aa44",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R30": {
@@ -832,15 +831,8 @@
         "element": "*",
         "attributes": "aria-*"
       },
-      "success-criteria": [
-        {
-          "name": "4.1.2",
-          "level": "AA",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
-        }
-      ],
-      "related": [],
+      "success-criteria": [],
+      "related": ["ARIA 1.1, 6.3"],
       "url": "https://act-rules.github.io/rules/6a7281",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
@@ -863,13 +855,13 @@
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
         },
         {
-          "name": "4.1.2",
+          "name": "2.4.6",
           "level": "AA",
           "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels"
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html"
         }
       ],
-      "related": [],
+      "related": ["H42"],
       "url": "https://act-rules.github.io/rules/ffd0e9",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
@@ -1085,29 +1077,6 @@
       ],
       "related": [],
       "url": "https://act-rules.github.io/rules/fd3a94",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
-  "QW_ACT_R46": {
-    "name": "List elements follow content model",
-    "code": "QW-ACT-R46",
-    "mapping": "a73be2",
-    "description": "This rule checks that list elements follow content model",
-    "metadata": {
-      "target": {
-        "element": "ul,ol,dl"
-      },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Perceivable ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships"
-        }
-      ],
-      "related": [],
-      "url": "https://github.com/act-rules/act-rules.github.io/blob/23ac4d54c128cb098800e2206c4618c2b66ef7d5/_rules/lists-follow-content-model-a73be2.md",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -1386,7 +1355,7 @@
         "element": "html"
       },
       "success-criteria": [],
-      "related": [],
+      "related": ["H69"],
       "url": "https://act-rules.github.io/rules/047fe0"
     }
   },
@@ -1510,8 +1479,15 @@
       "target": {
         "element": "iframe[tabindex]"
       },
-      "success-criteria": [{}],
-      "related": [],
+      "success-criteria": [
+        {
+          "name": "2.1.1 ",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html"
+        }
+      ],
+      "related": ["G202"],
       "url": "https://act-rules.github.io/rules/akn7bn"
     }
   },
@@ -1565,15 +1541,8 @@
       "target": {
         "element": "html"
       },
-      "success-criteria": [
-        {
-          "name": "2.4.1",
-          "level": "A",
-          "principle": "Operable ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
-        }
-      ],
-      "related": [],
+      "success-criteria": [],
+      "related": ["SCR28"],
       "url": "https://act-rules.github.io/rules/3e12e1",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
@@ -1588,15 +1557,8 @@
       "target": {
         "element": "html"
       },
-      "success-criteria": [
-        {
-          "name": "2.4.1",
-          "level": "A",
-          "principle": "Operable ",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html"
-        }
-      ],
-      "related": [],
+      "success-criteria": [],
+      "related": ["G1", "G123", "G124"],
       "url": "https://act-rules.github.io/rules/ye5d6e",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []

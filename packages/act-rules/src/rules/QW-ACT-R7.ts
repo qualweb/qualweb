@@ -1,5 +1,5 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import { QWElement } from '@qualweb/qw-element';
+import { ConditionProperty, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
 import * as Rematrix from 'rematrix';
 import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
@@ -205,9 +205,8 @@ class QW_ACT_R7 extends Rule {
 
     let transformValue: number | null = null;
     for (const property in rules || {}) {
-      if (property === 'transform') {
-        const value = <string>rules[property].value;
-       // console.log(value);
+      if (rules && rules[property] && property === 'transform') {
+        const value = <string>(<CSSProperty>rules[property]).value;
         if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
           let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
           transformValue = this.parseDegrees(angle);
@@ -215,16 +214,17 @@ class QW_ACT_R7 extends Rule {
       }
     }
 
-    const media = rules.media;
+    const media = <MediaProperty>rules.media;
     if (media) {
       for (const condition in media || {}) {
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
           for (const property in media[condition] || {}) {
             if (property === 'transform') {
-              const value = media[condition][property].value;
+              const cssProperty = <CSSProperty>(<ConditionProperty>media[condition])[property];
+              const value = cssProperty.value;
               if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
-                let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
-                angle = this.parseDegrees(angle);
+                let angle = Number(value.replace(value.split('(')[0], '').replace('(', '').replace(')', ''));
+                angle = this.parseDegrees(angle.toString());
 
                 const matrix = Rematrix.rotateZ(transformValue ? angle - transformValue : angle);
                 angle = this.calculateRotationDegree(matrix);
