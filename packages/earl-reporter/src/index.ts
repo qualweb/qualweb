@@ -1,9 +1,10 @@
 import cloneDeep from 'lodash.clonedeep';
-import { EvaluationReport } from '@qualweb/core';
+import { EvaluationReport, Evaluations } from '@qualweb/core';
 import { ACTRule } from '@qualweb/act-rules';
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import { BestPractice } from '@qualweb/best-practices';
 import {
+  EarlEvaluations,
   EarlReport,
   TestSubject,
   Assertor,
@@ -14,6 +15,13 @@ import {
   Report
 } from '@qualweb/earl-reporter';
 
+/**
+ * Generates assertions from a given report
+ *
+ * @param {Report} report - the report where the assertions are generated
+ * @param {string | undefined} date - date of the report
+ * @returns list of assertions
+ */
 function generateEARLAssertions(report: Report, date?: string): Array<Assertion> {
   const assertions = new Array<Assertion>();
 
@@ -51,6 +59,12 @@ function generateEARLAssertions(report: Report, date?: string): Array<Assertion>
   return assertions;
 }
 
+/**
+ * Generates results sources form a given test
+ *
+ * @param {ACTRule | WCAGTechnique | BestPractice} test - the test where the sources are generated
+ * @returns list of result sources from a test
+ */
 function generateSources(test: ACTRule | WCAGTechnique | BestPractice): Array<ResultSource> {
   const sources = new Array<ResultSource>();
 
@@ -71,6 +85,13 @@ function generateSources(test: ACTRule | WCAGTechnique | BestPractice): Array<Re
   return sources;
 }
 
+/**
+ * Checks if given module should be converted to earl
+ *
+ * @param {string} module - module to verify
+ * @param {EarlOptions} options - options of conversion (check https://github.com/qualweb/core#options)
+ * @returns (true) if the module should be converted, (false) otherwise
+ */
 function reportModule(module: string, options?: EarlOptions): boolean {
   if (!options || !options.modules) {
     return true;
@@ -88,6 +109,13 @@ function reportModule(module: string, options?: EarlOptions): boolean {
   }
 }
 
+/**
+ * Generates one earl report from a given evaluation report
+ *
+ * @param {EvaluationReport} report - evaluation report to convert
+ * @param {EarlOptions} options - options of conversion (check https://github.com/qualweb/core#options)
+ * @returns earl evaluation report with one test subject
+ */
 function generateSingleEarlReport(report: EvaluationReport, options?: EarlOptions): EarlReport {
   const earlReport: EarlReport = {
     '@context': 'https://act-rules.github.io/earl-context.json',
@@ -138,7 +166,14 @@ function generateSingleEarlReport(report: EvaluationReport, options?: EarlOption
   return earlReport;
 }
 
-function generateAggregatedEarlReport(reports: EvaluationReport[], options?: EarlOptions): EarlReport {
+/**
+ * Generates one aggregated earl report from given evaluation reports
+ *
+ * @param {Array<EvaluationReport>} reports - evaluation reports to convert
+ * @param {EarlOptions} options - options of conversion (check https://github.com/qualweb/core#options)
+ * @returns earl evaluation report with multiple test subjects
+ */
+function generateAggregatedEarlReport(reports: Array<EvaluationReport>, options?: EarlOptions): EarlReport {
   const aggregatedReport: EarlReport = {
     '@context': 'https://act-rules.github.io/earl-context.json',
     '@graph': new Array<TestSubject>()
@@ -152,11 +187,15 @@ function generateAggregatedEarlReport(reports: EvaluationReport[], options?: Ear
   return aggregatedReport;
 }
 
-function generateEARLReport(
-  reports: { [url: string]: EvaluationReport },
-  options?: EarlOptions
-): { [url: string]: EarlReport } {
-  const earlReports: { [url: string]: EarlReport } = {};
+/**
+ * Generates earl evaluations reports from given evaluation reports
+ *
+ * @param {Evaluations} reports - evaluation reports to convert to EARL
+ * @param {EarlOptions} options - options of conversion (check https://github.com/qualweb/core#options)
+ * @returns list of earl evaluation reports
+ */
+function generateEARLReport(reports: Evaluations, options?: EarlOptions): EarlEvaluations {
+  const earlReports: EarlEvaluations = {};
   if (options && options.aggregated) {
     const firstUrl = Object.keys(reports)[0];
     earlReports[options.aggregatedName || firstUrl] = generateAggregatedEarlReport(Object.values(reports), options);

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "files": [
@@ -39,7 +39,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.4.63",
+    "@qualweb/types": "^0.4.67",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^14.14.35",
