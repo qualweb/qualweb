@@ -1,5 +1,5 @@
 declare module "@qualweb/earl-reporter" {
-  import { EvaluationReport } from "@qualweb/core";
+  import { Evaluations } from "@qualweb/core";
   import { ACTRulesReport } from "@qualweb/act-rules";
   import { WCAGTechniquesReport } from "@qualweb/wcag-techniques";
   import { BestPracticesReport } from "@qualweb/best-practices";
@@ -65,13 +65,17 @@ declare module "@qualweb/earl-reporter" {
     "@graph": TestSubject[];
   }
 
+  interface EarlEvaluations {
+    [url: string]: EarlReport;
+  }
+
   type Report = ACTRulesReport | WCAGTechniquesReport | BestPracticesReport;
 
   function generateEARLAssertions(report: Report): Array<Assertion>;
   function generateEARLReport(
-    reports: { [url: string]: EvaluationReport },
+    reports: Evaluations,
     options?: EarlOptions
-  ): { [url: string]: EarlReport };
+  ): EarlEvaluations;
 
   export {
     EarlOptions,
@@ -82,6 +86,7 @@ declare module "@qualweb/earl-reporter" {
     ResultSource,
     TestResult,
     TestSubject,
+    EarlEvaluations,
     generateEARLAssertions,
     generateEARLReport,
   };

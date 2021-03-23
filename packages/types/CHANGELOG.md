@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.4.65] - 23/03/2020
+## [0.4.67] - 23/03/2020
+
+### Updated
+
+- earl-reporter interfaces
+
+## [0.4.66] - 23/03/2020
 
 ### Updated
 
