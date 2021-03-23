@@ -78,13 +78,13 @@
 				</a>
 				<pre><code class="language-javascript"><span style="color: #000000">  </span><span style="color: #A31515">&#039;use strict&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">QualWeb</span><span style="color: #000000">, </span><span style="color: #0070C1">generateEarlReport</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@qualweb/core&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">QualWeb</span><span style="color: #000000">, </span><span style="color: #0070C1">generateEARLReport</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@qualweb/core&#039;</span><span style="color: #000000">);</span>
 
 <span style="color: #000000">  (</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">qualweb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">QualWeb</span><span style="color: #000000">();</span>
 <span style="color: #000000">    </span><span style="color: #008000">// Starts the QualWeb core engine - only needs to run once</span>
 <span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">launchOptions</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">      ... </span><span style="color: #008000">// check https://github.com/puppeteer/puppeteer/blob/v3.0.3/docs/api.md#puppeteerlaunchoptions</span>
+<span style="color: #000000">      ... </span><span style="color: #008000">// check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions</span>
 <span style="color: #000000">      </span><span style="color: #008000">// in most of the cases there&#039;s no need to give additional options. Just leave the field undefined</span>
 <span style="color: #000000">    };</span>
 <span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">qualweb</span><span style="color: #000000">.</span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">launchOptions</span><span style="color: #000000">);</span>
@@ -112,7 +112,7 @@
 <span style="color: #000000">    };</span>
 
 <span style="color: #000000">    </span><span style="color: #008000">// if you want an EARL report</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">earlReports</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEarlReport</span><span style="color: #000000">(</span><span style="color: #001080">reports</span><span style="color: #000000">, </span><span style="color: #001080">earlOptions</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">earlReports</span><span style="color: #000000"> = </span><span style="color: #795E26">generateEARLReport</span><span style="color: #000000">(</span><span style="color: #001080">reports</span><span style="color: #000000">, </span><span style="color: #001080">earlOptions</span><span style="color: #000000">);</span>
 
 <span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">earlReports</span><span style="color: #000000">);</span>
 <span style="color: #000000">    </span><span style="color: #008000">//  {</span>
@@ -128,19 +128,21 @@
 				<pre><code class="language-jsonc"><span style="color: #000000">{</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;https://act-rules.github.io/pages/about/&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// url to evaluate</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;urls&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;https://act-rules.github.io/pages/about/&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;https://act-rules.github.io/rules/&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of urls</span>
-<span style="color: #000000">  </span><span style="color: #0451A5">&quot;file&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/path/to/file/with/urls&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// urls must be separacted by a newline (\n)</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;file&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/path/to/file/with/urls&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// urls must be separated by a newline (\n)</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;crawl&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;https://act-rules.github.io&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// Experimental feature - domain to crawl and obtain the urls</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;viewport&quot;</span><span style="color: #000000">: {</span>
 <span style="color: #000000">    </span><span style="color: #0451A5">&quot;mobile&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// default value = false</span>
 <span style="color: #000000">    </span><span style="color: #0451A5">&quot;landscape&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// default value = viewPort.width &gt; viewPort.height</span>
 <span style="color: #000000">    </span><span style="color: #0451A5">&quot;userAgent&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;custom user agent&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// default value for desktop = &#039;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0&#039;, default value for mobile = &#039;Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&#039;</span>
 <span style="color: #000000">    </span><span style="color: #0451A5">&quot;resolution&quot;</span><span style="color: #000000">: {</span>
-<span style="color: #000000">      </span><span style="color: #0451A5">&quot;width&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1920</span><span style="color: #000000">, </span><span style="color: #008000">// default value for desktop = 1366, default valuet for mobile = 1080</span>
-<span style="color: #000000">      </span><span style="color: #0451A5">&quot;height&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1080</span><span style="color: #000000"> </span><span style="color: #008000">// default value for desktop = 768, default valuet for mobile = 1920</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;width&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1920</span><span style="color: #000000">, </span><span style="color: #008000">// default value for desktop = 1366, default value for mobile = 1080</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;height&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1080</span><span style="color: #000000"> </span><span style="color: #008000">// default value for desktop = 768, default value for mobile = 1920</span>
 <span style="color: #000000">    }</span>
 <span style="color: #000000">  },</span>
-<span style="color: #000000">  </span><span style="color: #0451A5">&quot;maxParallelEvaluations&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;5&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used</span>
-<span style="color: #000000">  </span><span style="color: #0451A5">&quot;validator&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;http://127.0.0.1/validate&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// HTML validator service endpoint. The url will be attached before of the given endpoint</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;timeout&quot;</span><span style="color: #000000">: </span><span style="color: #098658">60</span><span style="color: #000000"> </span><span style="color: #CD3131">*</span><span style="color: #000000"> </span><span style="color: #098658">1000</span><span style="color: #000000">, </span><span style="color: #008000">// Timeout for loading page, default value = 30 seconds</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;waitUntil&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;load&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;networkidle0&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Events to wait before starting evaluation, default value = &quot;load&quot;. For more check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagegotourl-options</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;maxParallelEvaluations&quot;</span><span style="color: #000000">: </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #008000">// Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;validator&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;http://127.0.0.1/validate&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// HTML validator service endpoint. The url will be attached after of the given endpoint</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;execute&quot;</span><span style="color: #000000">: {</span>
 <span style="color: #000000">    </span><span style="color: #008000">// choose which modules to execute</span>
 <span style="color: #000000">    </span><span style="color: #0451A5">&quot;wappalyzer&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false</span>
@@ -170,7 +172,7 @@
 <span style="color: #000000">  }</span>
 <span style="color: #000000">}</span>
 </code></pre>
-				<p>The available options fot the <strong>generateEarlReport()</strong> function are:</p>
+				<p>The available options fot the <strong>generateEARLReport()</strong> function are:</p>
 				<pre><code class="language-jsonc"><span style="color: #000000">{</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;aggregated&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// default value = false</span>
 <span style="color: #000000">  </span><span style="color: #0451A5">&quot;aggregatedName&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;websites.json&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// The name to save the aggregated earl reports. default value = first url of the list</span>
@@ -988,8 +990,8 @@
 					<li class=" tsd-kind-function">
 						<a href="modules.html#crawldomain" class="tsd-kind-icon">crawl<wbr>Domain</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#generateearlreport" class="tsd-kind-icon">generate<wbr>Earl<wbr>Report</a>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="modules.html#generateearlreport" class="tsd-kind-icon">generateEARLReport</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#getfileurls" class="tsd-kind-icon">get<wbr>File<wbr>Urls</a>

@@ -71,7 +71,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#crawldomain" class="tsd-kind-icon">crawl<wbr>Domain</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#generateearlreport" class="tsd-kind-icon">generate<wbr>Earl<wbr>Report</a></li>
+								<li class="tsd-kind-function tsd-is-external"><a href="modules.html#generateearlreport" class="tsd-kind-icon">generateEARLReport</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#getfileurls" class="tsd-kind-icon">get<wbr>File<wbr>Urls</a></li>
 							</ul>
 						</section>
@@ -90,47 +90,51 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L142">index.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L183">src/index.ts:183</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Crawls a domain to find all webpages urls</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>domain: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>web domain to crawl</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>list of decoded urls</p>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
 					<a name="generateearlreport" class="tsd-anchor"></a>
-					<h3>generate<wbr>Earl<wbr>Report</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Earl<wbr>Report<span class="tsd-signature-symbol">(</span>evaluations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EarlOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<h3>generateEARLReport</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">generateEARLReport<span class="tsd-signature-symbol">(</span>reports<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Evaluations</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EarlOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EarlEvaluations</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L127">index.ts:127</a></li>
+									<li>Defined in node_modules/@qualweb/types/earl-reporter.d.ts:75</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>evaluations: <span class="tsd-signature-symbol">{}</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-index-signature">
-											<h5><span class="tsd-signature-symbol">[</span>url: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">EvaluationReport</span></h5>
-										</li>
-									</ul>
+									<h5>reports: <span class="tsd-signature-type">Evaluations</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">EarlOptions</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EarlEvaluations</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -144,16 +148,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L134">index.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L169">src/index.ts:169</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reads a file to obtain the urls to evaluate</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>file: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>path to file of urls</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>list of decoded urls</p>
 						</li>
 					</ul>
 				</section>
@@ -175,8 +188,8 @@
 					<li class=" tsd-kind-function">
 						<a href="modules.html#crawldomain" class="tsd-kind-icon">crawl<wbr>Domain</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#generateearlreport" class="tsd-kind-icon">generate<wbr>Earl<wbr>Report</a>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="modules.html#generateearlreport" class="tsd-kind-icon">generateEARLReport</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#getfileurls" class="tsd-kind-icon">get<wbr>File<wbr>Urls</a>

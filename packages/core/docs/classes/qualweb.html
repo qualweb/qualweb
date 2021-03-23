@@ -127,9 +127,14 @@
 					<div class="tsd-signature tsd-kind-icon">browser<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Browser</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L10">index.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L13">src/index.ts:13</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Chromium browser instance</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -144,16 +149,32 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L79">index.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L106">src/index.ts:106</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks possible input options and compiles the urls.
+									Possible input options are:</p>
+									<ul>
+										<li>url - single url</li>
+										<li>urls - multiple urls</li>
+										<li>file - file with urls</li>
+										<li>crawler - domain to crawl and gather urls</li>
+									</ul>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <span class="tsd-signature-type">QualwebOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>-</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>list of urls</p>
 						</li>
 					</ul>
 				</section>
@@ -161,22 +182,31 @@
 					<a name="evaluate" class="tsd-anchor"></a>
 					<h3>evaluate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">evaluate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QualwebOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">evaluate<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QualwebOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Evaluations</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L16">index.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L29">src/index.ts:29</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Evaluates given options</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <span class="tsd-signature-type">QualwebOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options of execution (check <a href="https://github.com/qualweb/core#options">https://github.com/qualweb/core#options</a>)</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Evaluations</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>list of evaluations</p>
 						</li>
 					</ul>
 				</section>
@@ -184,36 +214,51 @@
 					<a name="runmodules" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> run<wbr>Modules</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">run<wbr>Modules<span class="tsd-signature-symbol">(</span>evaluations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span>, url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, html<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QualwebOptions</span>, modulesToExecute<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Execute</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">run<wbr>Modules<span class="tsd-signature-symbol">(</span>evaluations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Evaluations</span>, url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, html<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QualwebOptions</span>, modulesToExecute<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Execute</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L97">index.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L133">src/index.ts:133</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Executes defined modules on the given url or html code and saves the evaluation on the list of evaluations.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>evaluations: <span class="tsd-signature-symbol">{}</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-index-signature">
-											<h5><span class="tsd-signature-symbol">[</span>url: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">EvaluationReport</span></h5>
-										</li>
-									</ul>
+									<h5>evaluations: <span class="tsd-signature-type">Evaluations</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>list of evaluations</p>
+									</div>
 								</li>
 								<li>
 									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>url to be evaluated</p>
+									</div>
 								</li>
 								<li>
 									<h5>html: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>html code to be evaluated (optional)</p>
+									</div>
 								</li>
 								<li>
 									<h5>options: <span class="tsd-signature-type">QualwebOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options of execution (check <a href="https://github.com/qualweb/core#options">https://github.com/qualweb/core#options</a>)</p>
+									</div>
 								</li>
 								<li>
 									<h5>modulesToExecute: <span class="tsd-signature-type">Execute</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>modules to execute (act, wcag, best-practices, wappalyzer, counter)</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -230,13 +275,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L12">index.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L19">src/index.ts:19</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Opens chromium browser</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">LaunchOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>check <a href="https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions">https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions</a></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -253,9 +306,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/qualweb/core/blob/40bd390/src/index.ts#L73">index.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/qualweb/core/blob/acf0dbf/src/index.ts#L89">src/index.ts:89</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Closes chromium browser</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -305,8 +363,8 @@
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#crawldomain" class="tsd-kind-icon">crawl<wbr>Domain</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="../modules.html#generateearlreport" class="tsd-kind-icon">generate<wbr>Earl<wbr>Report</a>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../modules.html#generateearlreport" class="tsd-kind-icon">generateEARLReport</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#getfileurls" class="tsd-kind-icon">get<wbr>File<wbr>Urls</a>

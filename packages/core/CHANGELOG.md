@@ -1,6 +1,17 @@
 # Changelog
 
-## [0.4.70] - 23/03/2021
+## [0.5.1] - 23/03/2021
+
+### Added
+
+- code documentation
+
+### Updated
+
+- earl-reporter
+- @qualweb/types
+
+## [0.5.0] - 23/03/2021
 
 ### Updated
 

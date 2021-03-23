@@ -25,7 +25,7 @@ You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http
     const qualweb = new QualWeb();
     // Starts the QualWeb core engine - only needs to run once
     const launchOptions = {
-      ... // check https://github.com/puppeteer/puppeteer/blob/v3.0.3/docs/api.md#puppeteerlaunchoptions
+      ... // check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
       // in most of the cases there's no need to give additional options. Just leave the field undefined
     };
     await qualweb.start(launchOptions);
