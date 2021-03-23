@@ -27,7 +27,7 @@ declare module "@qualweb/core" {
     viewport?: PageOptions;
     maxParallelEvaluations?: number;
     validator?: string;
-    r?: "earl" | "earl-a";
+    report?: "earl" | "earl-a";
     "save-name"?: string;
     execute?: Execute;
     wappalyzer?: WappalyzerOptions;
@@ -131,13 +131,54 @@ declare module "@qualweb/core" {
     | "best-practices"
     | "counter";
 
+  interface Evaluations {
+    [url: string]: EvaluationReport;
+  }
+
   class QualWeb {
     private browser: Browser | null;
+
+    /**
+     * Opens chromium browser
+     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+     */
     public start(options?: LaunchOptions): Promise<void>;
-    public evaluate(
-      options: QualwebOptions
-    ): Promise<{ [url: string]: EvaluationReport }>;
+
+    /**
+     * Evaluates given options
+     *
+     * @param {QualwebOptions} options - options of execution (check https://github.com/qualweb/core#options)
+     * @returns list of evaluations
+     */
+    public evaluate(options: QualwebOptions): Promise<Evaluations>;
+
+    /**
+     * Closes chromium browser
+     */
     public stop(): Promise<void>;
+
+    /**
+     * Checks possible input options and compiles the urls.
+     * Possible input options are:
+     * - url - single url
+     * - urls - multiple urls
+     * - file - file with urls
+     * - crawler - domain to crawl and gather urls
+     *
+     * @param {QualwebOptions} options -
+     * @returns list of urls
+     */
+    private checkUrls(options: QualwebOptions): Promise<Array<string>>;
+
+    /**
+     * Executes defined modules on the given url or html code and saves the evaluation on the list of evaluations.
+     *
+     * @param {Evaluations} evaluations - list of evaluations
+     * @param {string} url - url to be evaluated
+     * @param {string | undefined} html - html code to be evaluated (optional)
+     * @param {QualwebOptions} options - options of execution (check https://github.com/qualweb/core#options)
+     * @param {Execute} modulesToExecute - modules to execute (act, wcag, best-practices, wappalyzer, counter)
+     */
     private runModules(
       evaluations: any,
       url: string,
@@ -146,6 +187,22 @@ declare module "@qualweb/core" {
       modulesToExecute: Execute
     ): Promise<void>;
   }
+
+  /**
+   * Reads a file to obtain the urls to evaluate
+   *
+   * @param {string} file - path to file of urls
+   * @returns list of decoded urls
+   */
+  function getFileUrls(file: string): Promise<Array<string>>;
+
+  /**
+   * Crawls a domain to find all webpages urls
+   *
+   * @param {string} domain - web domain to crawl
+   * @returns list of decoded urls
+   */
+  function crawlDomain(domain: string): Promise<Array<string>>;
 
   export {
     QualwebOptions,
@@ -160,7 +217,10 @@ declare module "@qualweb/core" {
     SourceHtml,
     ProcessedHtml,
     DomData,
+    Evaluations,
     QualWeb,
+    getFileUrls,
+    crawlDomain,
     generateEARLReport,
   };
 }
