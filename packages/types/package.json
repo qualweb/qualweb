@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/types",
-  "version": "0.4.68",
+  "version": "0.5.0",
   "description": "Type definitions for qualweb ecosystem",
   "main": "./index.d.ts",
   "keywords": [
@@ -22,8 +22,6 @@
   "author": "João Afonso Vicente",
   "license": "ISC",
   "dependencies": {
-    "@types/css": "0.0.31",
-    "@types/domhandler": "^2.4.1",
     "@types/puppeteer": "^5.4.0"
   }
 }

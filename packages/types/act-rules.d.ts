@@ -1,8 +1,6 @@
 declare module "@qualweb/act-rules" {
-  import { Position } from "css";
   import { QWPage } from "@qualweb/qw-page";
-  import { SourceHtml } from "@qualweb/core";
-  import { Optimization } from "@qualweb/util";
+  import { QWElement } from "@qualweb/qw-element";
 
   interface ACTROptions {
     rules?: string[];
@@ -50,7 +48,6 @@ declare module "@qualweb/act-rules" {
       value?: string;
     };
     stylesheetFile?: string;
-    position?: Position;
   }
 
   interface ACTRule {
@@ -78,45 +75,30 @@ declare module "@qualweb/act-rules" {
   }
 
   class ACTRules {
-    private optimization: Optimization;
-    private rules: any;
-    private rulesToExecute: any;
+    private readonly rules: any;
+    private readonly rulesToExecute: any;
+    private readonly report: ACTRulesReport;
 
     constructor(options?: ACTROptions);
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
-    private executeSourceHtmlMappedRules(
-      report: ACTRulesReport,
-      html: SourceHtml,
-      selectors: string[],
-      mappedRules: any
-    ): void;
-    private executeRule(
+
+    private executeRule(rule: string, selector: string, page: QWPage): void;
+    private executeCompositeRule(
       rule: string,
       selector: string,
-      page: QWPage,
-      report: ACTRulesReport,
-      concurrent: boolean
-    ): void;
-    private executePageMappedRules(
-      report: ACTRulesReport,
-      page: QWPage,
-      selectors: string[],
-      mappedRules: any,
-      concurrent: boolean
-    ): void;
-    private executeNotMappedRules(report: ACTRulesReport): void;
-    private executeNonConcurrentRules(
-      report: ACTRulesReport,
-      html: SourceHtml,
+      atomicRules: Array<string>,
+      implementation: string,
       page: QWPage
     ): void;
-    private executeConcurrentRules(
-      report: ACTRulesReport,
-      html: SourceHtml,
+    public executeAtomicRules(page: QWPage): void;
+    public executeCompositeRules(page: QWPage): void;
+    public validateMetaElements(metaElements: Array<QWElement>): void;
+    public validateZoomedTextNodeNotClippedWithCSSOverflow(page: QWPage): void;
+    public validateFirstFocusableElementIsLinkToNonRepeatedContent(
       page: QWPage
     ): void;
-    public execute(sourceHtml: SourceHtml, page: QWPage): ACTRulesReport;
+    public getReport(): ACTRulesReport;
   }
 
   export {

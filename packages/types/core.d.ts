@@ -1,6 +1,6 @@
 declare module "@qualweb/core" {
   import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
-  import { Node } from "domhandler";
+  import { DomData } from "@qualweb/dom";
   import { WappalyzerReport, WappalyzerOptions } from "@qualweb/wappalyzer";
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
@@ -97,31 +97,6 @@ declare module "@qualweb/core" {
       width?: number;
       height?: number;
     };
-
-    title?: string;
-    elementCount?: number;
-  }
-
-  interface SourceHtml {
-    html: {
-      plain: string;
-      parsed?: Node[];
-    };
-    title?: string;
-    elementCount?: number;
-  }
-
-  interface ProcessedHtml {
-    html: {
-      plain: string;
-    };
-    title?: string;
-    elementCount?: number;
-  }
-
-  interface DomData {
-    source: SourceHtml;
-    processed: ProcessedHtml;
   }
 
   type Module =
@@ -214,9 +189,6 @@ declare module "@qualweb/core" {
     Modules,
     Module,
     PageOptions,
-    SourceHtml,
-    ProcessedHtml,
-    DomData,
     Evaluations,
     QualWeb,
     getFileUrls,

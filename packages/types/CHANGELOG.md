@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0] - 24/03/2020
+
+### Updated
+
+- qw-element styles interface
+- dom interfaces
+- evaluation interfaces
+- act-rules interfaces
+
+### Removed
+
+- unused dependencies
+
 ## [0.4.68] - 23/03/2020
 
 ### Updated

@@ -1,7 +1,6 @@
 declare module "@qualweb/evaluation" {
   import {
     QualwebOptions,
-    SourceHtml,
     EvaluationReport,
     Evaluator,
     Execute,
@@ -15,7 +14,7 @@ declare module "@qualweb/evaluation" {
 
   class Evaluation {
     public evaluatePage(
-      sourceHtml: SourceHtml,
+      sourceHtmlHeadContent: string,
       page: Page,
       execute: Execute,
       options: QualwebOptions,
@@ -38,16 +37,12 @@ declare module "@qualweb/evaluation" {
 
     public executeACT(
       page: Page,
-      sourceHtml: SourceHtml,
+      sourceHtmlHeadContent: string,
       options: QualwebOptions
     ): Promise<ACTRulesReport>;
     public executeCounter(page: Page): Promise<CounterReport>;
 
-    public getEvaluator(
-      page: Page,
-      sourceHtml: SourceHtml,
-      url: string
-    ): Promise<Evaluator>;
+    public getEvaluator(page: Page, url: string): Promise<Evaluator>;
   }
   class EvaluationRecord {
     constructor(evaluator: Evaluator);

@@ -28,7 +28,10 @@ declare module "@qualweb/qw-element" {
   }
 
   class QWElement {
-    constructor(element: Element, elementsCSSRules?: Map<Element, any>);
+    constructor(
+      element: Element,
+      elementsCSSRules?: Map<Element, CSSProperties>
+    );
     public elementHasAttribute(attribute: string): boolean;
     public elementHasAttributes(): boolean;
     public elementHasChild(childName: string): boolean;
@@ -63,7 +66,7 @@ declare module "@qualweb/qw-element" {
     public getContentFrame(): Document | null;
     public focusElement(): void;
     public click(): void;
-    public getBoundingBox(): any;
+    public getBoundingBox(): DOMRect;
     public getShadowElement(selector: string): QWElement | null;
     public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
