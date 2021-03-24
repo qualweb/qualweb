@@ -11,19 +11,16 @@ declare module "@qualweb/qw-element" {
     [property: string]: CSSProperty;
   }
 
-  interface ConditionProperty {
-    [property: string]: CSSProperty;
-  }
-
-  interface MediaProperty {
-    [media: string]: ConditionProperty | PseudoSelectorProperty | undefined;
+  interface MediaProperties {
+    [media: string]: CSSProperty | PseudoSelectorProperty | undefined;
   }
 
   interface CSSProperties {
+    media: MediaProperties;
     [property: string]:
       | CSSProperty
+      | MediaProperties
       | PseudoSelectorProperty
-      | MediaProperty
       | undefined;
   }
 
@@ -82,7 +79,7 @@ declare module "@qualweb/qw-element" {
       pseudoStyle?: string,
       media?: string
     ): CSSProperty;
-    public getCSSMediaRules(): MediaProperty;
+    public getCSSMediaRules(): MediaProperties;
     public getCSSPseudoSelectorRules(
       pseudoSelector: string
     ): PseudoSelectorProperty;
@@ -92,8 +89,7 @@ declare module "@qualweb/qw-element" {
   export {
     CSSProperty,
     PseudoSelectorProperty,
-    ConditionProperty,
-    MediaProperty,
+    MediaProperties,
     CSSProperties,
     QWElement,
   };
