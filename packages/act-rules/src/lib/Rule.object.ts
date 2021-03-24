@@ -6,7 +6,6 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
 abstract class Rule {
-
   private rule: ACTRule;
 
   constructor(rule: ACTRule) {
@@ -39,13 +38,20 @@ abstract class Rule {
     return this.rule.metadata.failed;
   }
 
-  protected addEvaluationResult(result: ACTRuleResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
+  protected addEvaluationResult(
+    result: ACTRuleResult,
+    element?: QWElement,
+    withText: boolean = true,
+    fullElement: boolean = false,
+    aName?: boolean,
+    page?: QWPage
+  ): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
       let accessibleName;
       if (aName && page) {
-        accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+        accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       }
       result.elements = [{ htmlCode, pointer, accessibleName }];
     }
@@ -57,7 +63,14 @@ abstract class Rule {
     }
   }
 
-  protected addMultipleElementEvaluationResult(result: ACTRuleResult, elements?: QWElement[], withText: boolean = true, fullElement: boolean = false, aName?: boolean, page?: QWPage): void {
+  protected addMultipleElementEvaluationResult(
+    result: ACTRuleResult,
+    elements?: QWElement[],
+    withText: boolean = true,
+    fullElement: boolean = false,
+    aName?: boolean,
+    page?: QWPage
+  ): void {
     result.elements = [];
     if (elements) {
       for (let element of elements) {
@@ -65,7 +78,7 @@ abstract class Rule {
         const pointer = element.getElementSelector();
         let accessibleName;
         if (aName && page) {
-          accessibleName = AccessibilityUtils.getAccessibleName(element, page)
+          accessibleName = AccessibilityUtils.getAccessibleName(element, page);
         }
         result.elements.push({ htmlCode, pointer, accessibleName });
       }
@@ -80,7 +93,7 @@ abstract class Rule {
 
   abstract execute(element: QWElement | undefined, page: QWPage): void;
 
-  getFinalResults(): any {
+  getFinalResults(): ACTRule {
     this.outcomeRule();
     return cloneDeep(this.rule);
   }
@@ -106,7 +119,7 @@ abstract class Rule {
     if (this.rule.results.length > 0 && this.rule.metadata.outcome !== 'inapplicable') {
       this.addDescription();
     } else {
-      this.rule.metadata.description = 'No test targets found.'
+      this.rule.metadata.description = 'No test targets found.';
     }
   }
 

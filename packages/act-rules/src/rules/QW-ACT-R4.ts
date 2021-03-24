@@ -1,6 +1,7 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule2.object';
+import Rule from '../lib/Rule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R4 extends Rule {
@@ -9,15 +10,15 @@ class QW_ACT_R4 extends Rule {
   }
 
   @ElementExists
-  execute(element: any): void {
+  execute(element: QWElement): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const content = element.content;
-    const httpEquiv = element.httpEquiv;
+    const content = element.getElementAttribute('content');
+    const httpEquiv = element.getElementAttribute('http-equiv');
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) {
       // only one meta needs to pass or fail, others will be discarded
@@ -101,7 +102,7 @@ class QW_ACT_R4 extends Rule {
           }
 
           if (content[indexOf + 1] === ' ') {
-            // verifies if the url is well formated
+            // verifies if the url is well formatted
             let url: string | null = null;
 
             if (split[1].toLowerCase().includes('url=') && split[1].split(`'`).length > 1) {

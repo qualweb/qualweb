@@ -28,7 +28,6 @@ class QW_ACT_R43 extends Rule {
     let isApplicable = false;
     for (const child of element.getElementChildren()) {
       if (DomUtils.isElementVisible(child, page)) {
-        console.log(child);
         hasVisibleChildren = true;
         break;
       }

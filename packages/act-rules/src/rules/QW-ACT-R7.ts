@@ -243,7 +243,7 @@ class QW_ACT_R7 extends Rule {
   }
 
   private isVisible(cssObject: any): boolean {
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
     if (declarations) {
       for (const declaration of declarations) {
         if (declaration['property'] && declaration['value']) {
