@@ -208,7 +208,7 @@ class QW_ACT_R7 extends Rule {
       if (rules && rules[property] && property === 'transform') {
         const value = <string>(<CSSProperty>rules[property]).value;
         if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
-          let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+          const angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
           transformValue = this.parseDegrees(angle);
         }
       }
@@ -223,12 +223,13 @@ class QW_ACT_R7 extends Rule {
               const cssProperty = <CSSProperty>(<ConditionProperty>media[condition])[property];
               const value = cssProperty.value;
               if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
-                let angle = Number(value.replace(value.split('(')[0], '').replace('(', '').replace(')', ''));
-                angle = this.parseDegrees(angle.toString());
-
-                const matrix = Rematrix.rotateZ(transformValue ? angle - transformValue : angle);
-                angle = this.calculateRotationDegree(matrix);
-                this.checkRotation(angle);
+                let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
+                angle = this.parseDegrees(angle.toString()).toString();
+                const matrix = Rematrix.rotateZ(
+                  transformValue ? parseFloat(angle) - transformValue : parseFloat(angle)
+                );
+                angle = this.calculateRotationDegree(matrix).toString();
+                this.checkRotation(parseInt(angle));
               } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
                 const matrix = Rematrix.fromString(value);
                 this.calculateRotationDegree(matrix);
