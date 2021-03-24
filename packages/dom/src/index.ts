@@ -1,9 +1,7 @@
 import { Browser, Page, Viewport, Response, LoadEvent } from 'puppeteer';
-import { QualwebOptions, SourceHtml, PageOptions, Module } from '@qualweb/core';
+import { QualwebOptions, PageOptions } from '@qualweb/core';
 import { PageData } from '@qualweb/dom';
 import fetch from 'node-fetch';
-import DomHandler, { Node } from 'domhandler';
-import { Parser } from 'htmlparser2';
 
 import {
   DEFAULT_DESKTOP_USER_AGENT,
@@ -16,11 +14,12 @@ import {
 import { HTMLValidationReport } from '@qualweb/html-validator';
 
 class Dom {
-  private page!: Page;
+  private page: Page | null;
   private endpoint: string;
 
   constructor() {
     this.endpoint = 'http://194.117.20.242/validate/';
+    this.page = null;
   }
 
   public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string): Promise<PageData> {
@@ -71,7 +70,8 @@ class Dom {
       }
     } else {
       await this.page.setContent(html, {
-        timeout: options.timeout
+        timeout: options.timeout ?? 3 * 60 * 1000,
+        waitUntil: options.waitUntil ?? 'load'
       });
       _sourceHtml = await this.page.content();
 
@@ -84,12 +84,14 @@ class Dom {
       }
     }
 
-    const sourceHtml = this.parseSourceHTML(_sourceHtml);
-    return { sourceHtml, page: this.page, validation };
+    const sourceHtmlHeadContent = this.getHeadContent(_sourceHtml);
+    return { sourceHtmlHeadContent, page: this.page, validation };
   }
 
   public async close(): Promise<void> {
-    await this.page.close();
+    if (this.page) {
+      await this.page.close();
+    }
   }
 
   public async navigateToPage(
@@ -97,31 +99,37 @@ class Dom {
     timeout?: number,
     waitUntil?: LoadEvent | LoadEvent[]
   ): Promise<Response | null> {
-    return this.page.goto(url, {
-      timeout: timeout || 3 * 60 * 1000,
-      waitUntil: waitUntil || 'load'
-    });
+    if (this.page) {
+      return this.page.goto(url, {
+        timeout: timeout ?? 3 * 60 * 1000,
+        waitUntil: waitUntil ?? 'load'
+      });
+    } else {
+      return null;
+    }
   }
 
   private async setPageViewport(options?: PageOptions): Promise<void> {
-    if (options) {
-      if (options.userAgent) {
-        await this.page.setUserAgent(options.userAgent);
-      } else if (options.mobile) {
-        await this.page.setUserAgent(DEFAULT_MOBILE_USER_AGENT);
-      } else {
-        await this.page.setUserAgent(DEFAULT_DESKTOP_USER_AGENT);
-      }
+    if (this.page) {
+      if (options) {
+        if (options.userAgent) {
+          await this.page.setUserAgent(options.userAgent);
+        } else if (options.mobile) {
+          await this.page.setUserAgent(DEFAULT_MOBILE_USER_AGENT);
+        } else {
+          await this.page.setUserAgent(DEFAULT_DESKTOP_USER_AGENT);
+        }
 
-      await this.page.setViewport(this.createViewportObject(options));
-    } else {
-      await this.page.setViewport({
-        width: DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
-        height: DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
-        isMobile: false,
-        hasTouch: false,
-        isLandscape: true
-      });
+        await this.page.setViewport(this.createViewportObject(options));
+      } else {
+        await this.page.setViewport({
+          width: DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
+          height: DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
+          isMobile: false,
+          hasTouch: false,
+          isLandscape: true
+        });
+      }
     }
   }
 
@@ -139,7 +147,7 @@ class Dom {
     }
 
     viewPort.isMobile = !!options.mobile;
-    viewPort.isLandscape = options.landscape !== undefined ? options.landscape : viewPort.width > viewPort.height;
+    viewPort.isLandscape = options.landscape ?? viewPort.width > viewPort.height;
     viewPort.hasTouch = !!options.mobile;
 
     return viewPort;
@@ -165,39 +173,16 @@ class Dom {
     }
   }
 
-  private parseSourceHTML(html: string): SourceHtml {
+  private getHeadContent(html: string): string {
     const sourceHTML = html.trim();
-    const parsedHTML = this.parseHTML(sourceHTML);
-    return {
-      html: {
-        plain: sourceHTML,
-        parsed: parsedHTML
-      }
-    };
-  }
-
-  private parseHTML(html: string): Node[] {
-    const handler = new DomHandler(
-      () => {
-        return;
-      },
-      {
-        withStartIndices: true,
-        withEndIndices: true
-      }
-    );
-    const parser = new Parser(handler);
-    parser.write(html.replace(/(\r\n|\n|\r|\t)/gm, ''));
-    parser.end();
-
-    return handler.dom;
+    return sourceHTML.includes('<head>') ? sourceHTML.split('<head>')[1].split('</head>')[0].trim() : '';
   }
 
   private getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {
     const validationUrl = this.endpoint + encodeURIComponent(url);
     return new Promise((resolve) => {
       try {
-        fetch(validationUrl, { timeout: 20000 }).then((response) => {
+        fetch(validationUrl, { timeout: 10 * 1000 }).then((response) => {
           if (response && response.status === 200) {
             response.json().then((response) => {
               try {
@@ -216,7 +201,7 @@ class Dom {
   }
 
   private validatorNeeded(options: QualwebOptions): boolean {
-    if (this.isModuleSetToExecute(options, 'wcag-techniques')) {
+    if (this.isModuleSetToExecute(options, 'wcag')) {
       if (options['wcag-techniques']) {
         if (this.moduleExcludesValidatorTechnique(options)) {
           return false;
@@ -233,7 +218,7 @@ class Dom {
     }
   }
 
-  private isModuleSetToExecute(options: QualwebOptions, module: Module): boolean {
+  private isModuleSetToExecute(options: QualwebOptions, module: string): boolean {
     return !options.execute || (options.execute && options.execute[module]);
   }
 
@@ -257,7 +242,7 @@ class Dom {
   }
 
   private sourceHTMLNeeded(options: QualwebOptions): boolean {
-    if (this.isModuleSetToExecute(options, 'act-rules')) {
+    if (this.isModuleSetToExecute(options, 'act')) {
       if (options['act-rules']) {
         if (this.moduleExcludesSourceCodeRule(options)) {
           return false;

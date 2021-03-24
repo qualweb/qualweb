@@ -1,9 +1,11 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.1.35",
+  "version": "0.2.0",
   "description": "Obtains a DOM from a given url",
   "main": "dist/index.js",
-  "types": "./dist",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -12,50 +14,47 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prebuild": "rimraf dist",
     "build": "npm run format && npm run lint && npm run prebuild && tsc --build",
-    "pub": "npm run build && npm publish --access=public"
+    "prepare": "npm run build"
   },
+  "homepage": "https://github.com/qualweb/dom#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/util.git"
+    "url": "git+https://github.com/qualweb/dom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/dom/issues"
   },
   "keywords": [
     "qualweb",
     "accessibility",
-    "util",
+    "dom",
     "lib"
   ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "author": "João Vicente",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qualweb/util/issues"
-  },
-  "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/types": "^0.4.62",
+    "@qualweb/types": "^0.5.0",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/domhandler": "^2.4.1",
     "@types/lodash.clone": "^4.5.6",
-    "@types/node": "^14.14.33",
+    "@types/node": "^14.14.35",
     "@types/node-fetch": "^2.5.7",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "chai": "^4.3.3",
-    "css": "^3.0.0",
-    "css-select": "^3.1.0",
-    "eslint": "^7.21.0",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
-    "mocha": "^8.3.1",
+    "mocha": "^8.3.2",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.30",
+    "typedoc": "^0.20.33",
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "domhandler": "^4.0.0",
-    "htmlparser-to-html": "0.0.6",
-    "htmlparser2": "^6.0.1",
     "lodash.clone": "^4.5.0",
     "node-fetch": "^2.6.1"
   }

@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.0] - 24/03/2021
+
+### Changes
+
+- code refactored
+
+### Updated
+
+- dependencies
+
+### Removed
+
+- unnecessary dependencies
+- information about source html code
+
 ## [0.1.35] - 11/03/2021
 
 - Updated dependencies
