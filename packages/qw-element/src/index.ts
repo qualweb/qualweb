@@ -124,8 +124,8 @@ class QWElement {
   }
 
   public elementHasParent(parent: string): boolean {
-    const parentElement = this.element['parentElement'];
-    return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
+    const parentElement = this.element.parentElement;
+    return parentElement ? parentElement.tagName.toLowerCase() === parent.toLowerCase() : false;
   }
 
   public hasTextNode(): boolean {
@@ -158,10 +158,9 @@ class QWElement {
   }
 
   public getElementChildren(): Array<QWElement> {
-    const selector = this.getElementSelector();
     const qwList = new Array<QWElement>();
-    const elements = this.element.querySelectorAll(selector + ' > *');
-    for (const element of elements || []) {
+    const elements = this.element.children;
+    for (const element of elements ?? []) {
       this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element, this.elementsCSSRules));
     }
@@ -171,7 +170,7 @@ class QWElement {
   public getElementChildTextContent(childName: string): string | undefined {
     for (const child of this.element.children || []) {
       if (child.tagName.toLowerCase() === childName.toLowerCase()) {
-        return child['textContent'] || undefined;
+        return child.textContent ?? undefined;
       }
     }
     return undefined;
@@ -187,8 +186,7 @@ class QWElement {
 
     let result;
     if (fullElement) {
-      const selector = this.getElementSelector();
-      const children = this.element.querySelectorAll(selector + ' *');
+      const children = this.element.children;
       const attributeArray = new Array<{ [attr: string]: string | null }>();
       for (const child of children) {
         const cssRulesValue = child.getAttribute('_cssRules');
@@ -258,7 +256,7 @@ class QWElement {
 
   private convertElementsToQWElement(elements: NodeListOf<Element> | null): Array<QWElement> {
     const qwList = new Array<QWElement>();
-    for (const element of elements || []) {
+    for (const element of elements ?? []) {
       this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element, this.elementsCSSRules));
     }
@@ -359,7 +357,7 @@ class QWElement {
   }
 
   public getElementTagName(): string {
-    return this.element['tagName'].toLowerCase();
+    return this.element.tagName.toLowerCase();
   }
 
   public getElementText(): string {
@@ -369,7 +367,7 @@ class QWElement {
     } else {
       children = this.element.childNodes;
     }
-    console.log(children);
+
     let result = '';
     let textContent: string | null;
     for (const child of children || []) {

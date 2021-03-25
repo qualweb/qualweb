@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [0.2.2] - 25/03/2021
+
+### Changes
+
+- general bugs fixed
+
 ## [0.2.1] - 25/03/2021
 
 ### Added
