@@ -2,18 +2,12 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import languages from '../lib/language.json';
-import Rule from '../lib/Rule.object';
-import { 
-  ACTRuleDecorator, 
-  ElementExists, 
-  ElementHasNonEmptyAttribute,
-  IsHTMLDocument,  
-} from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import Rule from '../lib/AtomicRule.object';
+import { ACTRuleDecorator, ElementExists, ElementHasNonEmptyAttribute, IsHTMLDocument } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R5 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -22,14 +16,13 @@ class QW_ACT_R5 extends Rule {
   @IsHTMLDocument
   @ElementHasNonEmptyAttribute('lang')
   execute(element: QWElement): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const lang = <string> element.getElementAttribute('lang');
+    const lang = <string>element.getElementAttribute('lang');
 
     if (this.checkValidity(lang)) {
       evaluation.verdict = 'passed';
@@ -37,7 +30,7 @@ class QW_ACT_R5 extends Rule {
       evaluation.resultCode = 'RC1';
     } else {
       evaluation.verdict = 'failed';
-      evaluation.description = 'The \`lang\` attribute does not have a valid value.';
+      evaluation.description = 'The `lang` attribute does not have a valid value.';
       evaluation.resultCode = 'RC2';
     }
 
@@ -46,7 +39,7 @@ class QW_ACT_R5 extends Rule {
 
   private checkValidity(lang: string): boolean {
     const subLangs = lang.split('-');
-    
+
     /*if (subLangs.length > 2) {
       return false;
     }*/

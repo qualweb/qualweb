@@ -2,14 +2,13 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
-import { QWPage } from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R9 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -17,9 +16,7 @@ class QW_ACT_R9 extends Rule {
   @ElementExists
   @isInMainContext
   execute(_element: QWElement, page: QWPage): void {
-
     const links = page.getElements('a[href], [role="link"]');
-
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string | null>();
@@ -34,7 +31,7 @@ class QW_ACT_R9 extends Rule {
       }
       href = link.getElementAttribute('href');
 
-      if (!!aName) {
+      if (aName) {
         hrefList.push(href);
         accessibleNames.push(aName);
         aplicableLinks.push(link);
@@ -49,7 +46,7 @@ class QW_ACT_R9 extends Rule {
         description: '',
         resultCode: ''
       };
-      let elementList = new Array<QWElement>();
+      const elementList = new Array<QWElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -59,28 +56,32 @@ class QW_ACT_R9 extends Rule {
         if (hasEqualAn.length > 0) {
           blacklist.push(...hasEqualAn);
           let hasEqualHref = true;
-          for (let index of hasEqualAn) {
+          for (const index of hasEqualAn) {
             hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
             elementList.push(aplicableLinks[index]);
           }
           elementList.push(aplicableLinks[counter]);
           hasEqualAn.push(counter);
-          if (hasEqualHref) {//passed
+          if (hasEqualHref) {
+            //passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`links\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
-          } else { //warning
+          } else {
+            //warning
             evaluation.verdict = 'warning';
             evaluation.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
             evaluation.resultCode = 'RC3';
           }
-        } else {//inaplicable
+        } else {
+          //inaplicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Doesn't exist any other \`link\` with the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
-        super.addMultipleElementEvaluationResult(evaluation, elementList,true,false,true,page);
-      } else {//inaplicable
+        super.addMultipleElementEvaluationResult(evaluation, elementList, true, false, true, page);
+      } else {
+        //inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`link\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';

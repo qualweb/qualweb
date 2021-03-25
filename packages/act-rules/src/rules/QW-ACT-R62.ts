@@ -1,6 +1,6 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -13,8 +13,8 @@ class QW_ACT_R62 extends Rule {
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-    let elementList = element.getElements('*');
-    let inSequentialFocusList = elementList.filter((element) => {
+    const elementList = element.getElements('*');
+    const inSequentialFocusList = elementList.filter((element) => {
       return AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
     });
     let evaluation: ACTRuleResult = {

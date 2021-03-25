@@ -2,29 +2,27 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R42 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
-    
-    const isInAT =  AccessibilityUtils.isElementInAT(element, page);
-    let isNonText = DomUtils.objectElementisNonText(element)
+
+    const isInAT = AccessibilityUtils.isElementInAT(element, page);
+    const isNonText = DomUtils.objectElementisNonText(element);
     if (isInAT && isNonText) {
       const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
       if (accessibleName) {
@@ -37,15 +35,13 @@ class QW_ACT_R42 extends Rule {
         evaluation.resultCode = 'RC2';
       }
 
-      super.addEvaluationResult(evaluation, element,true,false,true,page);
+      super.addEvaluationResult(evaluation, element, true, false, true, page);
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = 'The test target is not included in the accessibility tree.';
       evaluation.resultCode = 'RC3';
       super.addEvaluationResult(evaluation, element);
     }
-
-    
   }
 }
 

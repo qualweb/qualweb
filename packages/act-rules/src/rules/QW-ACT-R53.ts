@@ -2,31 +2,29 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R53 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement,page:QWPage): void {
-
+  execute(element: QWElement, page: QWPage): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const isVisible = DomUtils.isElementVisible(element,page);
+    const isVisible = DomUtils.isElementVisible(element, page);
     const duration = parseInt(element.getElementProperty('duration'));
     const hasSoundTrack = DomUtils.videoElementHasAudio(element);
-    const hasPuppeteerApplicableData =duration > 0  && !hasSoundTrack;
+    const hasPuppeteerApplicableData = duration > 0 && !hasSoundTrack;
 
     if (!isVisible) {
       evaluation.verdict = 'inapplicable';
@@ -45,7 +43,7 @@ class QW_ACT_R53 extends Rule {
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;
       evaluation.resultCode = 'RC4';
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

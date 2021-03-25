@@ -1,5 +1,5 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 
 @ACTRuleDecorator
@@ -141,7 +141,7 @@ class QW_ACT_R71 extends Rule {
   }
 
   private validURL(url: string): boolean {
-    var pattern = new RegExp(
+    const pattern = new RegExp(
       '^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address

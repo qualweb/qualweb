@@ -1,5 +1,5 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, IsHTMLDocument } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';

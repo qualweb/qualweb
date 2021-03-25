@@ -2,21 +2,19 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R51 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -40,7 +38,6 @@ class QW_ACT_R51 extends Rule {
       evaluation.verdict = 'warning';
       evaluation.description = `Check if visual content has an accessible alternative.`;
       evaluation.resultCode = 'RC3';
-
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target isn't a non-streaming \`video\` element that is visible, where the video contains audio.`;

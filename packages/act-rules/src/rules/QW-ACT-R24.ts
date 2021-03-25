@@ -1,6 +1,6 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -476,7 +476,7 @@ class QW_ACT_R24 extends Rule {
       } else if (!this.isAutoCompleteField(field)) {
         return false;
       } else {
-        let isAppropriate = this.isAppropriateFieldForTheFormControl(field, element);
+        const isAppropriate = this.isAppropriateFieldForTheFormControl(field, element);
         if (!isAppropriate) {
           return false;
         }

@@ -1,18 +1,17 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
-import { 
-  ACTRuleDecorator, 
-  ElementExists, 
+import Rule from '../lib/AtomicRule.object';
+import {
+  ACTRuleDecorator,
+  ElementExists,
   ElementHasNonEmptyAttribute,
   IsLangSubTagValid,
   IsHTMLDocument,
   isInMainContext
 } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R3 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -25,15 +24,14 @@ class QW_ACT_R3 extends Rule {
   @IsLangSubTagValid('xml:lang')
   @isInMainContext
   execute(element: QWElement): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const lang = <string> element.getElementAttribute('lang');
-    const xmlLang = <string> element.getElementAttribute('xml:lang');
+    const lang = <string>element.getElementAttribute('lang');
+    const xmlLang = <string>element.getElementAttribute('xml:lang');
 
     const primaryLang = lang.split('-')[0];
     const primaryXmlLang = xmlLang.split('-')[0];
@@ -47,7 +45,7 @@ class QW_ACT_R3 extends Rule {
       evaluation.description = `The \`lang\` and \`xml:lang\` attributes don't have the same value.`;
       evaluation.resultCode = 'RC2';
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

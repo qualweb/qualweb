@@ -2,7 +2,7 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementHasNegativeTabIndex } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -16,7 +16,7 @@ class QW_ACT_R70 extends Rule {
   @ElementExists
   @ElementHasNegativeTabIndex
   execute(element: QWElement, page: QWPage): void {
-    let evaluation: ACTRuleResult = {
+    const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
@@ -30,7 +30,7 @@ class QW_ACT_R70 extends Rule {
       super.addEvaluationResult(evaluation, element);
     } else {
       const elementList = page.getElements('*', undefined);
-      let inSequentialFocusList = elementList.filter((elem) => {
+      const inSequentialFocusList = elementList.filter((elem) => {
         return (
           AccessibilityUtils.isPartOfSequentialFocusNavigation(elem, page) && DomUtils.isElementVisible(elem, page)
         );

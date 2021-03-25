@@ -2,21 +2,19 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
-import { QWPage } from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R17 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -26,12 +24,12 @@ class QW_ACT_R17 extends Rule {
     const name = element.getElementTagName();
     const elementInAT = AccessibilityUtils.isElementInAT(element, page);
     const role = AccessibilityUtils.getElementRole(element, page);
-    let hidden = DomUtils.isElementHidden(element, page);
+    const hidden = DomUtils.isElementHidden(element, page);
 
     if (name === 'img') {
-      const alt = element.getElementAttribute("alt");
+      const alt = element.getElementAttribute('alt');
 
-      if (!hidden && (alt === "" || role === "presentation" || role === "none")) {
+      if (!hidden && (alt === '' || role === 'presentation' || role === 'none')) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target is decorative.`;
         evaluation.resultCode = 'RC1';
@@ -41,10 +39,9 @@ class QW_ACT_R17 extends Rule {
         evaluation.description = `The test target is not included in the accessibility tree.`;
         evaluation.resultCode = 'RC2';
         super.addEvaluationResult(evaluation, element);
-      }
-      else {
+      } else {
         const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-        if (accessibleName && accessibleName.trim() !== "") {
+        if (accessibleName && accessibleName.trim() !== '') {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target has an accessible name.`;
           evaluation.resultCode = 'RC3';
@@ -55,7 +52,7 @@ class QW_ACT_R17 extends Rule {
         }
         super.addEvaluationResult(evaluation, element, true, false, true, page);
       }
-    } else if (name !== "svg" && role === "img") {
+    } else if (name !== 'svg' && role === 'img') {
       if (!elementInAT) {
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The test target is not included in the accessibility tree.`;
@@ -73,13 +70,11 @@ class QW_ACT_R17 extends Rule {
         }
       }
       super.addEvaluationResult(evaluation, element, true, false, true, page);
-
     } else {
       evaluation.verdict = 'inapplicable';
       evaluation.description = `The test target is not an HTML element with role img.`;
       evaluation.resultCode = 'RC8';
       super.addEvaluationResult(evaluation, element);
-
     }
   }
 }

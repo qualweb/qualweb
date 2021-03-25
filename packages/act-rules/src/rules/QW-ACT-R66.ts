@@ -2,8 +2,13 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsInAccessibilityTree, ElementHasOneOfTheFollowingRoles } from '../lib/decorator';
+import Rule from '../lib/AtomicRule.object';
+import {
+  ACTRuleDecorator,
+  ElementExists,
+  ElementIsInAccessibilityTree,
+  ElementHasOneOfTheFollowingRoles
+} from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 

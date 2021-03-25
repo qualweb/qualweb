@@ -1,13 +1,12 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists, IsHTMLDocument, isInMainContext} from '../lib/decorator';
+import Rule from '../lib/AtomicRule.object';
+import { ACTRuleDecorator, ElementExists, IsHTMLDocument, isInMainContext } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R2 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -16,7 +15,6 @@ class QW_ACT_R2 extends Rule {
   @IsHTMLDocument
   @isInMainContext
   execute(element: QWElement): void {
-    
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',

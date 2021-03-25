@@ -17,7 +17,7 @@ function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T
   rule.results = new Array<ACTRuleResult>();
 
   const newConstructor: any = function () {
-    let func: any = function () {
+    const func: any = function () {
       return new constructor(cloneDeep(rule));
     };
     func.prototype = constructor.prototype;
@@ -125,7 +125,7 @@ function ElementHasNegativeTabIndex(_target: any, _propertyKey: string, descript
   const method = descriptor.value;
   descriptor.value = function () {
     const tabindex = arguments[0].getElementAttribute('tabindex');
-    if (tabindex && parseInt(tabindex) <=-1) {
+    if (tabindex && parseInt(tabindex) <= -1) {
       return method.apply(this, arguments);
     }
   };
@@ -134,8 +134,8 @@ function ElementHasNegativeTabIndex(_target: any, _propertyKey: string, descript
 function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    let page = arguments[1];
-    let elements = arguments[1].getElements('*').filter((element: QWElement) => {
+    const page = arguments[1];
+    const elements = arguments[1].getElements('*').filter((element: QWElement) => {
       return (
         element.hasTextNode() &&
         (DomUtils.isElementVisible(element, page) || AccessibilityUtils.isElementInAT(element, page))
@@ -173,7 +173,7 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(
       filenameWithExtension = [filePath[filePath.length - 1].trim().toLowerCase()];
     }
     if (srcSet) {
-      let srcSetElements = srcSet.split(',');
+      const srcSetElements = srcSet.split(',');
       for (const srcsetElement of srcSetElements || []) {
         const srcValue = srcsetElement.split(' ')[0];
         const fileSrc = srcValue.split('/');
@@ -181,12 +181,12 @@ function ElementSrcAttributeFilenameEqualsAccessibleName(
       }
     }
     if (parent) {
-      let parentTag = parent.getElementTagName();
+      const parentTag = parent.getElementTagName();
       if (parentTag === 'picture') {
-        let sourceElements = parent.getElements('source');
-        for (let sourceElement of sourceElements) {
-          let src = sourceElement.getElementAttribute('srcset');
-          if (!!src) {
+        const sourceElements = parent.getElements('source');
+        for (const sourceElement of sourceElements) {
+          const src = sourceElement.getElementAttribute('srcset');
+          if (src) {
             const filePath = src.split('/');
             filenameWithExtension.push(filePath[filePath.length - 1].trim().toLowerCase());
           }
@@ -258,7 +258,7 @@ function IsHTMLDocument(_target: any, _propertyKey: string, descriptor: Property
   const method = descriptor.value;
   descriptor.value = function () {
     let IsNonHTMLDocument = false;
-    let htmlElement = arguments[1].getElement('html');
+    const htmlElement = arguments[1].getElement('html');
     if (htmlElement) IsNonHTMLDocument = htmlElement.getElementAttribute('nonHTMLPage') === 'true';
     if (!IsNonHTMLDocument) {
       return method.apply(this, arguments);

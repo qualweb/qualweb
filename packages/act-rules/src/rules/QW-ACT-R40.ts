@@ -1,7 +1,7 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { DomUtils } from '@qualweb/util';
@@ -9,14 +9,12 @@ import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R40 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
-  
-  @ElementExists
-  execute(element: QWElement,page:QWPage): void {
 
+  @ElementExists
+  execute(element: QWElement, page: QWPage): void {
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -24,12 +22,11 @@ class QW_ACT_R40 extends Rule {
     };
 
     if (element.elementHasTextNode()) {
-      if (DomUtils.isElementVisible(element,page)) {
-        let isApplicable = false
+      if (DomUtils.isElementVisible(element, page)) {
+        let isApplicable = false;
 
         let parent: QWElement | null = element;
         while (parent && parent.getElementTagName().toLowerCase() !== 'html') {
-
           if (parent.getElementTagName().toLowerCase() === 'svg') {
             isApplicable = false;
             break;
@@ -39,7 +36,14 @@ class QW_ACT_R40 extends Rule {
           const ofx = parent.getElementStyleProperty('overflow-x', null);
           const ofy = parent.getElementStyleProperty('overflow-y', null);
 
-          if (of === 'hidden' || of === 'clip' || ofx === 'hidden' || ofx === 'clip' || ofy === 'hidden' || ofy === 'clip') {
+          if (
+            of === 'hidden' ||
+            of === 'clip' ||
+            ofx === 'hidden' ||
+            ofx === 'clip' ||
+            ofy === 'hidden' ||
+            ofy === 'clip'
+          ) {
             isApplicable = true;
           }
 

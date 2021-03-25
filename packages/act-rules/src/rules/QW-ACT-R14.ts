@@ -1,18 +1,12 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
-import { 
-  ACTRuleDecorator,
-  ElementExists,
-  ElementHasAttribute,
-  ElementHasAttributeValue
-} from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import Rule from '../lib/AtomicRule.object';
+import { ACTRuleDecorator, ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R14 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -21,17 +15,16 @@ class QW_ACT_R14 extends Rule {
   @ElementHasAttribute('content')
   @ElementHasAttributeValue('name', 'viewport')
   execute(element: QWElement): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
 
-    const content = <string> element.getElementAttribute('content');
+    const content = <string>element.getElementAttribute('content');
     let maximumScale = '';
     let userScalable = '';
-    let contentValues = content.split(',');
+    const contentValues = content.split(',');
 
     if (contentValues[0].trim().length > 0) {
       for (const valueItem of contentValues || []) {
@@ -57,7 +50,6 @@ class QW_ACT_R14 extends Rule {
       evaluation.description = `The \`meta\` element with a \`name="viewport"\` attribute retains the user agent ability to zoom.`;
       evaluation.resultCode = 'RC3';
     }
-
 
     super.addEvaluationResult(evaluation, element);
   }

@@ -2,7 +2,7 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
@@ -14,7 +14,7 @@ class QW_ACT_R72 extends Rule {
   }
 
   execute(element: QWElement, page: QWPage): void {
-    let evaluation: ACTRuleResult = {
+    const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
       resultCode: ''
@@ -63,7 +63,7 @@ class QW_ACT_R72 extends Rule {
             evaluation.verdict = 'failed';
             evaluation.description = 'The first focusable element does not skip to the main content';
             evaluation.resultCode = 'RC6';
-            super.addEvaluationResult(evaluation, focused, false, false);              
+            super.addEvaluationResult(evaluation, focused, false, false);
           }
         } else {
           evaluation.verdict = 'failed';

@@ -1,9 +1,10 @@
-import Rule from '../lib/CompositeRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import CompositeRule from '../lib/CompositeRule.object';
 import { ACTRuleDecorator, ElementExists, IsHTMLDocument } from '../lib/decorator';
 
 @ACTRuleDecorator
-class QW_ACT_R75 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R75 extends CompositeRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 

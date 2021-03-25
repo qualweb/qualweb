@@ -2,20 +2,18 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R49 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -33,7 +31,7 @@ class QW_ACT_R49 extends Rule {
     const src = new Array<any>();
 
     if (childSrc.length > 0) {
-      for (let child of childSrc || []) {
+      for (const child of childSrc || []) {
         src.push(child.getElementAttribute('src'));
       }
     } else {
@@ -70,7 +68,7 @@ class QW_ACT_R49 extends Rule {
     let result = false;
     for (const child of src || []) {
       if (child) {
-        const values = String(child).split('#t=')
+        const values = String(child).split('#t=');
         if (values.length > 1) {
           const separatedValues = values[1].split(',');
           const value1 = Number(separatedValues[0]);

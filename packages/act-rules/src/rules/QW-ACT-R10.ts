@@ -1,15 +1,14 @@
 'use strict';
 
 import { ACTRuleResult } from '@qualweb/act-rules';
-import {  AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import { AccessibilityUtils } from '@qualweb/util';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
-import { QWPage } from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R10 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -17,14 +16,13 @@ class QW_ACT_R10 extends Rule {
   @ElementExists
   @isInMainContext
   execute(_element: QWElement, page: QWPage): void {
-
     const iframes = page.getElements('iframe');
     const accessibleNames = new Array<string>();
 
     // add iframe contents
     for (const link of iframes || []) {
       //console.log(AccessibilityUtils.isElementInAT(link,page));
-      if (AccessibilityUtils.isElementInAT(link,page)) {
+      if (AccessibilityUtils.isElementInAT(link, page)) {
         const aName = AccessibilityUtils.getAccessibleName(link, page);
         if (aName) {
           accessibleNames.push(aName);
@@ -63,7 +61,8 @@ class QW_ACT_R10 extends Rule {
               result = false;
             }
           }
-          if (result && hashArray.length!== 0) { //passed
+          if (result && hashArray.length !== 0) {
+            //passed
             evaluation.verdict = 'passed';
             evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
             evaluation.resultCode = 'RC2';
@@ -72,12 +71,14 @@ class QW_ACT_R10 extends Rule {
             evaluation.description = `The \`iframes\` with the same accessible name have different content.`;
             evaluation.resultCode = 'RC3';
           }
-        } else { //inaplicable
+        } else {
+          //inaplicable
           evaluation.verdict = 'inapplicable';
           evaluation.description = `Doesn't exist any other \`iframe\` with same the same accessible name.`;
           evaluation.resultCode = 'RC4';
         }
-      } else { //inaplicable
+      } else {
+        //inaplicable
         evaluation.verdict = 'inapplicable';
         evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
         evaluation.resultCode = 'RC4';
@@ -94,20 +95,19 @@ class QW_ACT_R10 extends Rule {
   }
 
   private getContentHash(elements: QWElement[]): Array<string> {
-    let content: string[] = [];
+    const content: string[] = [];
     let htmlContent;
     try {
       for (const element of elements) {
-        htmlContent = element.getContentFrame()
+        htmlContent = element.getContentFrame();
         if (htmlContent !== null && htmlContent.defaultView) {
           content.push(htmlContent.documentElement.outerHTML);
         }
       }
     } catch (e) {
-     // console.log(e);
-
-    };
-   // console.log(content);
+      // console.log(e);
+    }
+    // console.log(content);
     return content;
   }
 

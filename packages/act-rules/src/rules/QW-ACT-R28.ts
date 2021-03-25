@@ -1,21 +1,19 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R28 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     // get all elements
     const allElements = element.getElements('[role]');
     for (const elem of allElements || []) {
@@ -27,7 +25,7 @@ class QW_ACT_R28 extends Rule {
 
       const elemRole = elem.getElementAttribute('role');
       const elemAttribs = elem.getElementAttributesName();
-      const implicitRole = AccessibilityUtils.getImplicitRole(elem, page,"");//FIXME
+      const implicitRole = AccessibilityUtils.getImplicitRole(elem, page, ''); //FIXME
       const isInAT = AccessibilityUtils.isElementInAT(elem, page);
 
       if (!isInAT) {
@@ -52,7 +50,7 @@ class QW_ACT_R28 extends Rule {
           let i = 0;
           //@ts-ignore
           const requiredAriaList = rolesJSON[elemRole]['requiredAria'];
-          let result = true;// passed until it fails a requirement
+          let result = true; // passed until it fails a requirement
           let requiredAria;
 
           while (i < requiredAriaList.length && result) {

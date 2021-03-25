@@ -96,55 +96,45 @@ describe(`Rule ${rule}`, function () {
   let tests = null;
 
   it('Starting testbench', async function () {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch();
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
-    
-    // tests = [
-    //   {
-    //     title: 'R72',
-    //     url: 'http://127.0.0.1/a11y/',
-    //     outcome: 'passed'
-    //   }
-    // ];
 
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
           this.timeout(100 * 1000);
 
-          const response = await fetch(test.url);
-          const sourceCode = await response.text();
-
           const dom = new Dom();
           
-          const { page } = await dom.getDOM(browser, { execute: { act: true } }, test.url, null);
+          const { page, sourceHtmlHeadContent } = await dom.getDOM(browser, { execute: { act: true } }, test.url, '');
 
           await page.addScriptTag({
             path: require.resolve('@qualweb/qw-page')
           });
 
           await page.addScriptTag({
-            path: require.resolve('../dist/act.js')
+            path: require.resolve('../dist/act.bundle.js')
           });
 
           await page.evaluate((rules) => {
-            window.page = new QWPage.QWPage(document, window, true);
-            window.act = new ACTRules.ACTRules(rules);
+            window.page = new QWPage(document, window, true);
+            window.act = new ACTRules(rules);
           }, { rules: [rule] });
           
-          const headContent = sourceCode.includes('<head>') ? sourceCode.split('<head>')[1].split('</head>')[0] : '';
-          
-          await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-          await page.evaluate((headContent) => {
+
+          if (ruleId === '8a213c') {
+            await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+          }
+          await page.evaluate((sourceHtmlHeadContent) => {
             window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent(window.page);
 
             const parser = new DOMParser();
             const sourceDoc = parser.parseFromString('', "text/html");
 
-            sourceDoc.head.innerHTML = headContent;
+            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
 
             const elements = sourceDoc.querySelectorAll("meta");
             const metaElements = new Array();
@@ -155,18 +145,22 @@ describe(`Rule ${rule}`, function () {
             window.act.validateMetaElements(metaElements);
             window.act.executeAtomicRules(window.page);
             window.act.executeCompositeRules(window.page);
-          }, headContent);
+          }, sourceHtmlHeadContent);
 
-          await page.setViewport({
-            width: 640,
-            height: 512,
-          });
+          if (ruleId === '59br37') {
+            await page.setViewport({
+              width: 640,
+              height: 512
+            });
+          }
 
           const report = await page.evaluate(() => {
             window.act.validateZoomedTextNodeNotClippedWithCSSOverflow(window.page);
             return window.act.getReport();
           });
           
+          await dom.close();
+
           expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       });
@@ -174,7 +168,7 @@ describe(`Rule ${rule}`, function () {
 
     describe(`Closing testbench`, async function () {
       it(`Closed`, async function () {
-        //await browser.close();
+        await browser.close();
       });
     });
   });

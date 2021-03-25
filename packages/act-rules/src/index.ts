@@ -1,14 +1,15 @@
 import { ACTROptions, ACTRulesReport, ACTRule } from '@qualweb/act-rules';
 import * as rules from './lib/rules';
-
+import AtomicRule from './lib/AtomicRule.object';
+import CompositeRule from './lib/CompositeRule.object';
 import mapping from './lib/mapping';
 import compositeRules from './lib/mappingComposite';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 
 class ACTRules {
-  private readonly rules: any;
-  private readonly rulesToExecute: any;
+  private readonly rules: { [rule: string]: AtomicRule | CompositeRule };
+  private readonly rulesToExecute: { [rule: string]: boolean };
 
   private readonly report: ACTRulesReport;
 
@@ -118,17 +119,46 @@ class ACTRules {
   }
 
   private executeRule(rule: string, selector: string, page: QWPage): void {
-    if (rule === 'QW-ACT-R37' || rule === 'QW-ACT-R76') {
-      this.rules[rule].execute(undefined, page);
-    } else {
-      const elements = page.getElements(selector);
-      if (elements.length > 0) {
-        for (const elem of elements || []) {
-          this.rules[rule].execute(elem, page);
-        }
-      } else {
-        this.rules[rule].execute(undefined, page);
+    const elements = page.getElements(selector);
+    if (elements.length > 0) {
+      for (const elem of elements || []) {
+        this.rules[rule].execute(elem, page);
       }
+    } else {
+      this.rules[rule].execute(undefined, page);
+    }
+
+    this.report.assertions[rule] = this.rules[rule].getFinalResults();
+    //@ts-ignore
+    this.report.metadata[this.report.assertions[rule].metadata.outcome]++;
+    this.rules[rule].reset();
+  }
+
+  private executeCompositeRule(
+    rule: string,
+    selector: string,
+    atomicRules: Array<string>,
+    implementation: string,
+    page: QWPage
+  ): void {
+    const atomicRulesReport = new Array<ACTRule>();
+
+    for (const atomicRule of atomicRules || []) {
+      atomicRulesReport.push(this.report.assertions[atomicRule]);
+    }
+    const elements = page.getElements(selector);
+    if (elements.length > 0) {
+      for (const elem of elements || []) {
+        if (implementation === 'conjunction') {
+          (<CompositeRule>this.rules[rule]).conjunction(elem, atomicRulesReport);
+        } else if (implementation === 'disjunction') {
+          (<CompositeRule>this.rules[rule]).disjunction(elem, atomicRulesReport);
+        } else {
+          (<CompositeRule>this.rules[rule]).execute(elem, page, atomicRulesReport);
+        }
+      }
+    } else {
+      this.rules[rule].execute(undefined, page);
     }
 
     this.report.assertions[rule] = this.rules[rule].getFinalResults();
@@ -140,30 +170,13 @@ class ACTRules {
   public executeAtomicRules(page: QWPage): void {
     const selectors = Object.keys(mapping);
     for (const selector of selectors || []) {
-      for (const rule of (<any>mapping)[selector] || []) {
+      for (const rule of (<{ [selector: string]: Array<string> }>mapping)[selector] || []) {
         if (this.rulesToExecute[rule]) {
           this.executeRule(rule, selector, page);
         }
       }
     }
   }
-
-  /*private executeNotMappedRules(report: ACTRulesReport, page: QWPage): void {
-    if (this.rulesToExecute['QW-ACT-R37']) {
-      this.rules['QW-ACT-R37'].execute(undefined, page);
-      report.assertions['QW-ACT-R37'] = this.rules['QW-ACT-R37'].getFinalResults();
-      //@ts-ignore
-      report.metadata[report.assertions['QW-ACT-R37'].metadata.outcome]++;
-      this.rules['QW-ACT-R37'].reset();
-    }
-    if (this.rulesToExecute['QW-ACT-R76']) {
-      this.rules['QW-ACT-R76'].execute(undefined, page);
-      report.assertions['QW-ACT-R76'] = this.rules['QW-ACT-R76'].getFinalResults();
-      //@ts-ignore
-      report.metadata[report.assertions['QW-ACT-R76'].metadata.outcome]++;
-      this.rules['QW-ACT-R76'].reset();
-    }
-  }*/
 
   public executeCompositeRules(page: QWPage): void {
     const rules = Object.keys(compositeRules);
@@ -181,39 +194,6 @@ class ACTRules {
         );
       }
     }
-  }
-
-  private executeCompositeRule(
-    rule: string,
-    selector: string,
-    atomicRules: string[],
-    implementation: string,
-    page: QWPage
-  ): void {
-    const atomicRulesReport = new Array<ACTRule>();
-
-    for (const atomicRule of atomicRules || []) {
-      atomicRulesReport.push(this.report.assertions[atomicRule]);
-    }
-    const elements = page.getElements(selector);
-    if (elements.length > 0) {
-      for (const elem of elements || []) {
-        if (implementation === 'conjunction') {
-          this.rules[rule].conjunction(elem, atomicRulesReport);
-        } else if (implementation === 'disjunction') {
-          this.rules[rule].disjunction(elem, atomicRulesReport);
-        } else {
-          this.rules[rule].execute(elem, atomicRulesReport);
-        }
-      }
-    } else {
-      this.rules[rule].execute(undefined, page);
-    }
-
-    this.report.assertions[rule] = this.rules[rule].getFinalResults();
-    //@ts-ignore
-    this.report.metadata[this.report.assertions[rule].metadata.outcome]++;
-    this.rules[rule].reset();
   }
 
   public validateMetaElements(metaElements: Array<QWElement>): void {
@@ -278,12 +258,6 @@ class ACTRules {
       this.rules['QW-ACT-R72'].reset();
     }
   }
-
-  /*public executeAtomicRules(page: QWPage): void {
-    this.executePageMappedRules(report, page, Object.keys(mapping), mapping);
-    this.executeNotMappedRules(report, page);
-    this.executeAllCompositeRules(report, page);
-  }*/
 
   public getReport(): ACTRulesReport {
     return this.report;

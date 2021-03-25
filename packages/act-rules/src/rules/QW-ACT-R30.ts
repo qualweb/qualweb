@@ -1,6 +1,6 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import {
   ACTRuleDecorator,
   ElementAllowsNameFromContent,
@@ -65,7 +65,7 @@ class QW_ACT_R30 extends Rule {
   //      let isIconValue = this.isIcon(elementText,accessibleName,element);
   private isIcon(elementText: string, accessibleName: string | undefined, element: QWElement): boolean {
     const iconMap = ['i', 'x'];
-    let fontStyle = element.getElementStyleProperty('font-family', null);
+    const fontStyle = element.getElementStyleProperty('font-family', null);
     return !!accessibleName && (iconMap.includes(elementText.toLowerCase()) || fontStyle.includes('Material Icons'));
   }
 

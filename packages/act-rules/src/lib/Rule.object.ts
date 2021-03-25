@@ -1,10 +1,8 @@
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
-import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-
 abstract class Rule {
   private rule: ACTRule;
 
@@ -12,13 +10,13 @@ abstract class Rule {
     this.rule = rule;
   }
 
-  getRuleMapping(): string {
+  public getRuleMapping(): string {
     return this.rule.mapping;
   }
 
-  hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
+  public hasPrincipleAndLevels(principles: string[], levels: string[]): boolean {
     let has = false;
-    for (let sc of this.rule.metadata['success-criteria'] || []) {
+    for (const sc of this.rule.metadata['success-criteria'] || []) {
       if (principles.includes(sc.principle) && levels.includes(sc.level)) {
         has = true;
       }
@@ -41,8 +39,8 @@ abstract class Rule {
   protected addEvaluationResult(
     result: ACTRuleResult,
     element?: QWElement,
-    withText: boolean = true,
-    fullElement: boolean = false,
+    withText = true,
+    fullElement = false,
     aName?: boolean,
     page?: QWPage
   ): void {
@@ -56,7 +54,7 @@ abstract class Rule {
       result.elements = [{ htmlCode, pointer, accessibleName }];
     }
 
-    this.rule.results.push(clone(result));
+    this.rule.results.push(cloneDeep(result));
 
     if (result.verdict && result.verdict !== 'inapplicable') {
       this.rule.metadata[result.verdict]++;
@@ -66,14 +64,14 @@ abstract class Rule {
   protected addMultipleElementEvaluationResult(
     result: ACTRuleResult,
     elements?: QWElement[],
-    withText: boolean = true,
-    fullElement: boolean = false,
+    withText = true,
+    fullElement = false,
     aName?: boolean,
     page?: QWPage
   ): void {
     result.elements = [];
     if (elements) {
-      for (let element of elements) {
+      for (const element of elements) {
         const htmlCode = element.getElementHtmlCode(withText, fullElement);
         const pointer = element.getElementSelector();
         let accessibleName;
@@ -84,21 +82,19 @@ abstract class Rule {
       }
     }
 
-    this.rule.results.push(clone(result));
+    this.rule.results.push(cloneDeep(result));
 
     if (result.verdict && result.verdict !== 'inapplicable') {
       this.rule.metadata[result.verdict]++;
     }
   }
 
-  abstract execute(element: QWElement | undefined, page: QWPage): void;
-
-  getFinalResults(): ACTRule {
+  public getFinalResults(): ACTRule {
     this.outcomeRule();
     return cloneDeep(this.rule);
   }
 
-  reset(): void {
+  public reset(): void {
     this.rule.metadata.passed = 0;
     this.rule.metadata.warning = 0;
     this.rule.metadata.failed = 0;

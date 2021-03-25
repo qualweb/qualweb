@@ -2,13 +2,12 @@
 
 import { ACTRuleResult } from '@qualweb/act-rules';
 import languages from '../lib/language.json';
-import Rule from '../lib/Rule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisibleOrInAccessibilityTree} from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
+import Rule from '../lib/AtomicRule.object';
+import { ACTRuleDecorator, ElementExists, ElementIsVisibleOrInAccessibilityTree } from '../lib/decorator';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R22 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
@@ -16,7 +15,6 @@ class QW_ACT_R22 extends Rule {
   @ElementExists
   @ElementIsVisibleOrInAccessibilityTree
   execute(element: QWElement): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -27,8 +25,8 @@ class QW_ACT_R22 extends Rule {
 
     let subtag = '';
     let splittedLang = new Array<string>();
-    if(lang){
-      let langLowercase = lang.toLowerCase();
+    if (lang) {
+      const langLowercase = lang.toLowerCase();
       splittedLang = langLowercase.split('-');
       subtag = splittedLang[0];
     }

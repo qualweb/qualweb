@@ -1,21 +1,35 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import {AccessibilityUtils} from '@qualweb/util';
+import { AccessibilityUtils } from '@qualweb/util';
 import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import {QWElement} from "@qualweb/qw-element";
-import {QWPage} from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
+
+interface Roles {
+  [role: string]: {
+    baseConcept: string | string[];
+    attribute: string | string[];
+    requiredContextRole: string | string[];
+    requiredAria?: string | string[];
+    requiredRoles?: string | string[];
+    supportedAria?: string | Array<string>;
+    supportedRoles?: string | Array<string>;
+    implicitValueRoles: Array<Array<string>>;
+    requiredOwnedElements: any;
+  };
+}
 
 @ACTRuleDecorator
 class QW_ACT_R33 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-    
+    const roles = <Roles>rolesJSON;
+
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -23,21 +37,27 @@ class QW_ACT_R33 extends Rule {
     };
 
     const explicitRole = element.getElementAttribute('role');
-    const implicitRole = AccessibilityUtils.getImplicitRole(element, page,"");
+    const implicitRole = AccessibilityUtils.getImplicitRole(element, page, '');
     const isInAT = AccessibilityUtils.isElementInAT(element, page);
     const isValidRole = AccessibilityUtils.elementHasValidRole(element, page);
 
     //@ts-ignore
-    if (explicitRole !== null && isValidRole && explicitRole !== implicitRole && isInAT && rolesJSON[explicitRole]['requiredContextRole'] !== '') {
+    if (
+      explicitRole !== null &&
+      isValidRole &&
+      explicitRole !== implicitRole &&
+      isInAT &&
+      roles[explicitRole]['requiredContextRole'] !== ''
+    ) {
       //@ts-ignore
-      const requiredContextRole = rolesJSON[explicitRole]['requiredContextRole'];
+      const requiredContextRole = roles[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
 
-      const ariaOwns = page.getElement('[aria-owns' + `~="${id}"]`,element);
+      const ariaOwns = page.getElement('[aria-owns' + `~="${id}"]`, element);
 
       if (ariaOwns !== null) {
         const ariaOwnsRole = AccessibilityUtils.getElementRole(ariaOwns, page);
-        if (requiredContextRole.includes(ariaOwnsRole)) {
+        if (ariaOwnsRole && requiredContextRole.includes(ariaOwnsRole)) {
           evaluation.verdict = 'passed';
           evaluation.description = `The test target parent has the required context \`role\`.`;
           evaluation.resultCode = 'RC1';
@@ -46,7 +66,7 @@ class QW_ACT_R33 extends Rule {
           evaluation.description = `The test target parent doesn't have the required context \`role\``;
           evaluation.resultCode = 'RC2';
         }
-      } else if (this.isElementADescendantOf(element, page, requiredContextRole)) {
+      } else if (this.isElementADescendantOf(element, page, <string[]>requiredContextRole)) {
         evaluation.verdict = 'passed';
         evaluation.description = `The test target parent has the required context \`role\`.`;
         evaluation.resultCode = 'RC3';
@@ -66,14 +86,14 @@ class QW_ACT_R33 extends Rule {
 
   private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
     let parent = element.getElementParent();
-    if(!parent){
-      let documentSelector= element.getElementAttribute("_documentSelector")
-      if(!!documentSelector && !documentSelector.includes("iframe")){
+    if (!parent) {
+      const documentSelector = element.getElementAttribute('_documentSelector');
+      if (!!documentSelector && !documentSelector.includes('iframe')) {
         parent = page.getElement(documentSelector);
       }
     }
     let result = false;
-    let sameRole: boolean = false;
+    let sameRole = false;
 
     if (parent !== null) {
       const parentRole = AccessibilityUtils.getElementRole(parent, page);

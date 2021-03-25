@@ -5,10 +5,11 @@ module.exports = {
   mode: 'production',
   entry: './prebuild/index.js',
   output: {
-    filename: 'act.js',
+    filename: 'act.bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'var',
-    library: 'ACTRules'
+    library: {
+      type: 'window'
+    }
   },
   optimization: {
     minimize: true,
@@ -23,7 +24,7 @@ module.exports = {
           }
         }
       })
-    ],
+    ]
   },
-  target: 'node-webkit'
+  target: 'web'
 }

@@ -2,21 +2,19 @@ import { ACTRuleResult } from '@qualweb/act-rules';
 import { AccessibilityUtils } from '@qualweb/util';
 import ariaJSON from '../lib/ariaAttributesRoles.json';
 import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from "@qualweb/qw-element";
-import { QWPage } from "@qualweb/qw-page";
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
 
 @ACTRuleDecorator
 class QW_ACT_R34 extends Rule {
-
   constructor(rule?: any) {
     super(rule);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';
     for (const ariaAttrib of Object.keys(ariaJSON) || []) {
@@ -30,7 +28,7 @@ class QW_ACT_R34 extends Rule {
     for (const elem of elementsWithAriaAttribs || []) {
       const isInAT = AccessibilityUtils.isElementInAT(elem, page);
       let elemAttribs = elem.getElementAttributesName();
-      elemAttribs = elemAttribs.filter((elem) => elem.startsWith("ar"));
+      elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
 
       for (const attrib of elemAttribs || []) {
         const evaluation: ACTRuleResult = {
@@ -67,10 +65,9 @@ class QW_ACT_R34 extends Rule {
               for (const value of list || []) {
                 if (passed) {
                   result = values.includes(value);
-                  passed = false
+                  passed = false;
                 }
               }
-
             } else {
               const role = AccessibilityUtils.getElementRole(elem, page);
 
@@ -82,12 +79,10 @@ class QW_ACT_R34 extends Rule {
               }
               if (typeValue === 'id') {
                 const isRequired = requiredAriaList && requiredAriaList.includes(attrib);
-                if (isRequired)
-                  result = page.getElement('#' + attrValue) !== null;
-                else
-                  result = !attrValue.includes(' ');
-
-              } else {//if (typeValue === 'idList')
+                if (isRequired) result = page.getElement('#' + attrValue) !== null;
+                else result = !attrValue.includes(' ');
+              } else {
+                //if (typeValue === 'idList')
                 const list = attrValue.split(' ');
                 const isRequired = requiredAriaList && requiredAriaList.includes(attrib);
                 if (isRequired) {

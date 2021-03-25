@@ -28,7 +28,6 @@
     "types": [
       "@qualweb/types",
       "node",
-      "lodash.clone",
       "lodash.clonedeep",
       "string-pixel-width"
     ] /* Type declaration files to be included in compilation. */,

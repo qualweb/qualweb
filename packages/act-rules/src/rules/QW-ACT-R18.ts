@@ -1,13 +1,12 @@
 import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWPage } from "@qualweb/qw-page";
-import { QWElement } from "@qualweb/qw-element";
+import { QWPage } from '@qualweb/qw-page';
+import { QWElement } from '@qualweb/qw-element';
 
 @ACTRuleDecorator
 class QW_ACT_R18 extends Rule {
   private idMap: Map<string, boolean>;
-
 
   constructor(rule?: any) {
     super(rule);
@@ -16,7 +15,6 @@ class QW_ACT_R18 extends Rule {
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
     const evaluation: ACTRuleResult = {
       verdict: '',
       description: '',
@@ -26,7 +24,6 @@ class QW_ACT_R18 extends Rule {
     let elementsWithSameId = new Array<QWElement>();
 
     const id = element.getElementAttribute('id');
-
 
     if (id && !this.idMap.get(id)) {
       try {
@@ -50,7 +47,6 @@ class QW_ACT_R18 extends Rule {
       }
       this.idMap.set(id, true);
     }
-
   }
 }
 

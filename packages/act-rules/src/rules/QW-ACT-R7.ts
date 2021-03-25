@@ -1,7 +1,7 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { ConditionProperty, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
+import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
 import * as Rematrix from 'rematrix';
-import Rule from '../lib/Rule.object';
+import Rule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
 
 @ACTRuleDecorator
@@ -9,7 +9,7 @@ class QW_ACT_R7 extends Rule {
   private rawMap: any = {};
   private mediaMap: any = {};
 
-  constructor(rule?: any) {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
@@ -83,7 +83,7 @@ class QW_ACT_R7 extends Rule {
   private extractInfo(cssObject: any, parentType?: string): void {
     if (cssObject.selectors === undefined) return;
 
-    let declarations = cssObject['declarations'];
+    const declarations = cssObject['declarations'];
 
     if (declarations) {
       for (const declaration of declarations || []) {
@@ -96,13 +96,13 @@ class QW_ACT_R7 extends Rule {
             if (declaration['value'].includes('rotateZ')) {
               let angle = declaration['value'].replace('rotateZ(', '').replace(')', '');
               angle = this.parseDegrees(angle);
-              let matrix = Rematrix.rotateZ(angle);
+              const matrix = Rematrix.rotateZ(angle);
               angle = this.calculateRotationDegree(matrix);
               this.checkRotation(angle);
             } else if (declaration['value'].includes('matrix')) {
-              let matrix = Rematrix.fromString(declaration['value']);
+              const matrix = Rematrix.fromString(declaration['value']);
               this.calculateRotationDegree(matrix);
-              let angle = this.calculateRotationDegree(matrix);
+              const angle = this.calculateRotationDegree(matrix);
               this.checkRotation(angle);
             } else if (declaration['value'].includes('rotate')) {
               if (
@@ -214,13 +214,13 @@ class QW_ACT_R7 extends Rule {
       }
     }
 
-    const media = <MediaProperty>rules.media;
+    const media = <MediaProperties>rules.media;
     if (media) {
       for (const condition in media || {}) {
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
           for (const property in media[condition] || {}) {
             if (property === 'transform') {
-              const cssProperty = <CSSProperty>(<ConditionProperty>media[condition])[property];
+              const cssProperty = <CSSProperty>(<MediaProperty>media[condition])[property];
               const value = cssProperty.value;
               if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
                 let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
@@ -249,9 +249,9 @@ class QW_ACT_R7 extends Rule {
       for (const declaration of declarations) {
         if (declaration['property'] && declaration['value']) {
           if (declaration['property'] === 'display') {
-            return !(declaration['value'] === 'none');
+            return declaration['value'] !== 'none';
           } else if (declaration['property'] === 'visibility') {
-            return !(declaration['value'] === 'hidden') || !(declaration['value'] === 'collapse');
+            return declaration['value'] !== 'hidden' || declaration['value'] !== 'collapse';
           }
         }
       }
