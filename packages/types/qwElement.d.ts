@@ -8,24 +8,20 @@ declare module "@qualweb/qw-element" {
   }
 
   interface PseudoSelectorProperty {
-    [property: string]: CSSProperty | undefined;
+    [property: string]: CSSProperty;
   }
 
   interface MediaProperty {
-    [property: string]: CSSProperty | PseudoSelectorProperty | undefined;
+    [property: string]: CSSProperty | PseudoSelectorProperty;
   }
 
   interface MediaProperties {
-    [media: string]: MediaProperty | PseudoSelectorProperty | undefined;
+    [media: string]: MediaProperty | PseudoSelectorProperty;
   }
 
   interface CSSProperties {
     media: MediaProperties;
-    [property: string]:
-      | CSSProperty
-      | MediaProperties
-      | PseudoSelectorProperty
-      | undefined;
+    [property: string]: CSSProperty | MediaProperties | PseudoSelectorProperty;
   }
 
   class QWElement {
