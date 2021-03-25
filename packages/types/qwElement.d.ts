@@ -8,11 +8,15 @@ declare module "@qualweb/qw-element" {
   }
 
   interface PseudoSelectorProperty {
-    [property: string]: CSSProperty;
+    [property: string]: CSSProperty | undefined;
+  }
+
+  interface MediaProperty {
+    [property: string]: CSSProperty | PseudoSelectorProperty | undefined;
   }
 
   interface MediaProperties {
-    [media: string]: CSSProperty | PseudoSelectorProperty | undefined;
+    [media: string]: MediaProperty | PseudoSelectorProperty | undefined;
   }
 
   interface CSSProperties {
@@ -89,6 +93,7 @@ declare module "@qualweb/qw-element" {
   export {
     CSSProperty,
     PseudoSelectorProperty,
+    MediaProperty,
     MediaProperties,
     CSSProperties,
     QWElement,
