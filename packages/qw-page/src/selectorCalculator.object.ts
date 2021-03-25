@@ -37,10 +37,7 @@ class SelectorCalculator {
     let name;
     for (const element of elements) {
       name = element.tagName.toLowerCase();
-      element.setAttribute(
-        '_selector',
-        selector + ' > ' + name + ':nth-child(' + index + ')'
-      );
+      element.setAttribute('_selector', selector + ' > ' + name + ':nth-child(' + index + ')');
       index++;
     }
   }

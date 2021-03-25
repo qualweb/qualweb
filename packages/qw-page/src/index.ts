@@ -1,21 +1,17 @@
-import { QWElement } from '@qualweb/qw-element';
+import { CSSProperties, QWElement } from '@qualweb/qw-element';
 import Cache from './cache.object';
 import CSSMapper from './css.mapper';
-import SelectorCalculator from './selectorCalculator.object ';
+import SelectorCalculator from './selectorCalculator.object';
 
 class QWPage {
   private readonly cache: Cache;
   private readonly document: Document | ShadowRoot;
   private url: string;
   private extraDocuments: Map<string, QWPage>;
-  private elementsCSSRules?: Map<Element, any>;
+  private elementsCSSRules?: Map<Element, CSSProperties>;
   private readonly window: Window;
 
-  constructor(
-    document: Document | ShadowRoot,
-    window: Window,
-    addCSSRulesToElements?: boolean
-  ) {
+  constructor(document: Document | ShadowRoot, window: Window, addCSSRulesToElements?: boolean) {
     this.document = document;
     this.cache = new Cache();
     this.extraDocuments = new Map<string, QWPage>();
@@ -29,6 +25,10 @@ class QWPage {
     this.url = this.document.baseURI;
     this.processIframes();
     this.processShadowDom();
+  }
+
+  public static createQWElement(element: HTMLElement): QWElement {
+    return new QWElement(element);
   }
 
   public processShadowDom(): void {
@@ -64,7 +64,7 @@ class QWPage {
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
-    if (element && this.elementsCSSRules ?.has(element)) {
+    if (element && this.elementsCSSRules?.has(element)) {
       element.setAttribute('_cssRules', 'true');
     }
   }
@@ -74,11 +74,7 @@ class QWPage {
     }
   }
 
-  public cacheValue(
-    selector: string,
-    method: string,
-    value: string | undefined
-  ): void {
+  public cacheValue(selector: string, method: string, value: string | undefined): void {
     this.cache.put(selector + ',' + method, value);
   }
 
@@ -111,17 +107,12 @@ class QWPage {
     return qwList;
   }
 
-  public getElement(
-    selector: string,
-    specificDocument?: QWElement,
-    documentSelector?: string
-  ): QWElement | null {
+  public getElement(selector: string, specificDocument?: QWElement, documentSelector?: string): QWElement | null {
     let element: QWElement | null = null;
-    let iframeSelector: any = null;
+    let iframeSelector: string | null | undefined = null;
     if (specificDocument || !!documentSelector) {
       if (specificDocument) {
-        iframeSelector = specificDocument.getElementAttribute(
-          '_documentSelector');
+        iframeSelector = specificDocument.getElementAttribute('_documentSelector');
       } else {
         iframeSelector = documentSelector;
       }
@@ -158,17 +149,12 @@ class QWPage {
     return element;
   }
 
-  public getElements(
-    selector: string,
-    specificDocument?: QWElement,
-    documentSelector?: string
-  ): Array<QWElement> {
+  public getElements(selector: string, specificDocument?: QWElement, documentSelector?: string): Array<QWElement> {
     let iframeSelector;
     const elements = new Array<QWElement>();
     if (specificDocument || !!documentSelector) {
       if (specificDocument) {
-        iframeSelector = specificDocument.getElementAttribute(
-          '_documentSelector');
+        iframeSelector = specificDocument.getElementAttribute('_documentSelector');
       } else {
         iframeSelector = documentSelector;
       }
@@ -192,7 +178,7 @@ class QWPage {
       let iframeElements: Array<QWElement>;
       while (i < iframeKeys.length) {
         iframePage = this.extraDocuments.get(iframeKeys[i]);
-        if (!!iframePage) {
+        if (iframePage) {
           iframeElements = iframePage.getElements(selector);
           this.addIframeAttribute(iframeElements, iframeKeys[i]);
           elements.push(...iframeElements);
@@ -219,9 +205,7 @@ class QWPage {
     if (this.document instanceof Document) {
       const documentElement = this.document.documentElement;
       this.addCSSRulesPropertyToElement(documentElement);
-      return documentElement
-        ? new QWElement(documentElement, this.elementsCSSRules)
-        : null;
+      return documentElement ? new QWElement(documentElement, this.elementsCSSRules) : null;
     } else {
       return null;
     }
@@ -238,9 +222,7 @@ class QWPage {
   public getFocusedElement(): QWElement | null {
     const activeElement = this.document.activeElement;
     this.addCSSRulesPropertyToElement(activeElement);
-    return activeElement
-      ? new QWElement(activeElement, this.elementsCSSRules)
-      : null;
+    return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null;
   }
 
   public cleanAllElements(): void {
