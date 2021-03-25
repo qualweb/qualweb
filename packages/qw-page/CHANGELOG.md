@@ -4,6 +4,11 @@
 
 ### Updated
 
+- webpack config
+## [0.2.1] - 25/03/2021
+
+### Updated
+
 - dependencies
 - webpack config
 - exported filename
