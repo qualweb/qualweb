@@ -39,7 +39,7 @@
     "@qualweb/types": "^0.5.3",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^14.14.35",
+    "@types/node": "^14.14.36",
     "@types/string-pixel-width": "^1.7.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -60,7 +60,7 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "@qualweb/util": "^0.3.66",
+    "@qualweb/util": "^0.4.0",
     "languagedetect": "^2.0.0",
     "lodash.clonedeep": "^4.5.0",
     "rematrix": "^0.7.1",
