@@ -1,87 +1,102 @@
+import {
+  CSSProperties,
+  CSSProperty,
+  MediaProperty,
+  MediaProperties,
+  PseudoSelectorProperty
+} from '@qualweb/qw-element';
+
 class QWElement {
   private readonly element: Element;
-  private readonly elementsCSSRules?: Map<Element, any>;
+  private readonly elementsCSSRules?: Map<Element, CSSProperties>;
   private selector: string;
 
-  constructor(element: Element, elementsCSSRules?: Map<Element, any>) {
+  constructor(element: Element, elementsCSSRules?: Map<Element, CSSProperties>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    this.selector = "";
-    let selector = element.getAttribute("_selector");
-    if (selector) this.selector = selector;
+    this.selector = '';
+    const selector = element.getAttribute('_selector');
+    if (selector) {
+      this.selector = selector;
+    }
   }
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules?.has(element)) {
-      element.setAttribute("_cssRules", "true");
+      element.setAttribute('_cssRules', 'true');
     }
   }
 
   public hasCSSRules(): boolean {
-    return this.element.getAttribute("_cssRules") === "true";
+    return this.element.getAttribute('_cssRules') === 'true';
   }
 
-  public getCSSRules(): any {
+  public getCSSRules(): CSSProperties | undefined {
     return this.elementsCSSRules?.get(this.element);
   }
 
-  public hasCSSProperty(
-    property: string,
-    pseudoStyle?: string,
-    media?: string
-  ): boolean {
+  public hasCSSProperty(property: string, pseudoStyle?: string, media?: string): boolean {
     if (this.elementsCSSRules?.has(this.element)) {
       const rules = this.elementsCSSRules?.get(this.element);
 
-      if (pseudoStyle && media) {
-        return rules["media"][media][pseudoStyle][property] !== undefined;
-      } else if (pseudoStyle) {
-        return rules[pseudoStyle][property] !== undefined;
-      } else if (media) {
-        return rules["media"][media][property] !== undefined;
+      if (rules) {
+        if (pseudoStyle && media) {
+          return (
+            (<PseudoSelectorProperty>(<MediaProperty>(<MediaProperties>rules.media)[media])[pseudoStyle])[property] !==
+            undefined
+          );
+        } else if (pseudoStyle) {
+          return (<PseudoSelectorProperty>rules[pseudoStyle])[property] !== undefined;
+        } else if (media) {
+          return <CSSProperty>(<MediaProperty>(<MediaProperties>rules.media)[media])[property] !== undefined;
+        }
       }
 
-      return rules[property] !== undefined;
+      return !rules || rules[property] !== undefined;
     }
 
     return false;
   }
 
-  public getCSSProperty(
-    property: string,
-    pseudoStyle?: string,
-    media?: string
-  ): any {
+  public getCSSProperty(property: string, pseudoStyle?: string, media?: string): CSSProperty | undefined {
     if (this.elementsCSSRules?.has(this.element)) {
       const rules = this.elementsCSSRules?.get(this.element);
 
-      if (pseudoStyle && media) {
-        return rules["media"][media][pseudoStyle][property];
-      } else if (pseudoStyle) {
-        return rules[pseudoStyle][property];
-      } else if (media) {
-        return rules["media"][media][property];
+      if (rules) {
+        if (pseudoStyle && media) {
+          return (<PseudoSelectorProperty>(<MediaProperty>(<MediaProperties>rules.media)[media])[pseudoStyle])[
+            property
+          ];
+        } else if (pseudoStyle) {
+          return (<PseudoSelectorProperty>rules[pseudoStyle])[property];
+        } else if (media) {
+          return <CSSProperty>(<MediaProperty>(<MediaProperties>rules.media)[media])[property];
+        } else {
+          return <CSSProperty>rules[property];
+        }
       }
-
-      return rules[property];
     }
 
     return undefined;
   }
 
-  public getCSSMediaRules(): any {
+  public getCSSMediaRules(): MediaProperty | undefined {
     if (this.elementsCSSRules?.has(this.element)) {
       const rules = this.elementsCSSRules?.get(this.element);
-      return rules["media"];
+      if (rules) {
+        return <MediaProperty>rules['media'];
+      }
     }
 
     return undefined;
   }
 
-  public getCSSPseudoSelectorRules(pseudoSelector: string): any {
+  public getCSSPseudoSelectorRules(pseudoSelector: string): PseudoSelectorProperty | undefined {
     if (this.elementsCSSRules?.has(this.element)) {
       const rules = this.elementsCSSRules?.get(this.element);
-      return rules[pseudoSelector];
+      if (rules) {
+        return <PseudoSelectorProperty>rules[pseudoSelector];
+      }
     }
 
     return undefined;
@@ -109,16 +124,14 @@ class QWElement {
   }
 
   public elementHasParent(parent: string): boolean {
-    const parentElement = this.element["parentElement"];
-    return parentElement
-      ? parentElement["tagName"].toLowerCase() === parent.toLowerCase()
-      : false;
+    const parentElement = this.element['parentElement'];
+    return parentElement ? parentElement['tagName'].toLowerCase() === parent.toLowerCase() : false;
   }
 
   public hasTextNode(): boolean {
     let hasText = false;
     for (const child of this.element.childNodes || []) {
-      if (child.nodeType === 3 && child.textContent?.trim() !== "") {
+      if (child.nodeType === 3 && child.textContent?.trim() !== '') {
         hasText = true;
       }
     }
@@ -129,10 +142,13 @@ class QWElement {
     return this.element.getAttribute(attribute);
   }
 
-  public getElementAttributes(): any {
-    const attributes: any = {};
+  public getElementAttributes(): { [attr: string]: string } {
+    const attributes: { [attr: string]: string } = {};
     for (const attr of this.element.getAttributeNames() || []) {
-      attributes[attr] = this.element.getAttribute(attr);
+      const value = this.element.getAttribute(attr);
+      if (value) {
+        attributes[attr] = value;
+      }
     }
     return attributes;
   }
@@ -144,89 +160,83 @@ class QWElement {
   public getElementChildren(): Array<QWElement> {
     const selector = this.getElementSelector();
     const qwList = new Array<QWElement>();
-    try {
-      const elements = this.element.querySelectorAll(selector + " > *");
-      for (const element of elements || []) {
-        this.addCSSRulesPropertyToElement(element);
-        qwList.push(new QWElement(element, this.elementsCSSRules));
-      }
-    } catch (e) {}
-
+    const elements = this.element.querySelectorAll(selector + ' > *');
+    for (const element of elements || []) {
+      this.addCSSRulesPropertyToElement(element);
+      qwList.push(new QWElement(element, this.elementsCSSRules));
+    }
     return qwList;
   }
 
   public getElementChildTextContent(childName: string): string | undefined {
     for (const child of this.element.children || []) {
       if (child.tagName.toLowerCase() === childName.toLowerCase()) {
-        return child["textContent"] || undefined;
+        return child['textContent'] || undefined;
       }
     }
     return undefined;
   }
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    let cssRules = this.element.getAttribute("_cssRules");
-    let selector = this.element.getAttribute("_selector");
-    let documentSelector = this.element.getAttribute("_documentSelector");
-    this.element.removeAttribute("_cssRules");
-    this.element.removeAttribute("_selector");
-    this.element.removeAttribute("_documentSelector");
+    const cssRules = this.element.getAttribute('_cssRules');
+    const selector = this.element.getAttribute('_selector');
+    const documentSelector = this.element.getAttribute('_documentSelector');
+    this.element.removeAttribute('_cssRules');
+    this.element.removeAttribute('_selector');
+    this.element.removeAttribute('_documentSelector');
 
     let result;
     if (fullElement) {
       const selector = this.getElementSelector();
-      let children = this.element.querySelectorAll(selector + " *");
-      let attributeArray: any = [];
-      for (let child of children) {
-        let cssRulesValue = child.getAttribute("_cssRules");
-        let selectorValue = child.getAttribute("_selector");
-        let documentSelectorValue = child.getAttribute("_documentSelector");
+      const children = this.element.querySelectorAll(selector + ' *');
+      const attributeArray = new Array<{ [attr: string]: string | null }>();
+      for (const child of children) {
+        const cssRulesValue = child.getAttribute('_cssRules');
+        const selectorValue = child.getAttribute('_selector');
+        const documentSelectorValue = child.getAttribute('_documentSelector');
 
         attributeArray.push({
           cssRulesValue,
           selectorValue,
-          documentSelectorValue,
+          documentSelectorValue
         });
-        child.removeAttribute("_cssRules");
-        child.removeAttribute("_selector");
-        child.removeAttribute("_documentSelector");
+        child.removeAttribute('_cssRules');
+        child.removeAttribute('_selector');
+        child.removeAttribute('_documentSelector');
       }
       result = this.element.outerHTML;
       let i = 0;
       for (const child of children) {
         const attributes = attributeArray[i];
-        if (!!attributes.cssRulesValue) {
-          child.setAttribute("_cssRules", attributes.cssRulesValue);
+        if (attributes.cssRulesValue) {
+          child.setAttribute('_cssRules', attributes.cssRulesValue);
         }
-        if (!!attributes.selectorValue) {
-          child.setAttribute("_selector", attributes.selectorValue);
+        if (attributes.selectorValue) {
+          child.setAttribute('_selector', attributes.selectorValue);
         }
-        if (!!attributes.documentSelectorValue) {
-          child.setAttribute(
-            "_documentSelector",
-            attributes.documentSelectorValue
-          );
+        if (attributes.documentSelectorValue) {
+          child.setAttribute('_documentSelector', attributes.documentSelectorValue);
         }
         i++;
       }
     } else if (withText) {
-      let clonedElem = <Element>this.element.cloneNode(false);
+      const clonedElem = <Element>this.element.cloneNode(false);
       const text = this.getElementText();
-      clonedElem.innerHTML = text !== undefined ? text : "";
+      clonedElem.innerHTML = text !== undefined ? text : '';
       result = clonedElem.outerHTML;
     } else {
       const clonedElem = <Element>this.element.cloneNode(false);
-      clonedElem.innerHTML = "";
+      clonedElem.innerHTML = '';
       result = clonedElem.outerHTML;
     }
-    if (!!cssRules) {
-      this.element.setAttribute("_cssRules", cssRules);
+    if (cssRules) {
+      this.element.setAttribute('_cssRules', cssRules);
     }
-    if (!!selector) {
-      this.element.setAttribute("_selector", selector);
+    if (selector) {
+      this.element.setAttribute('_selector', selector);
     }
-    if (!!documentSelector) {
-      this.element.setAttribute("_documentSelector", documentSelector);
+    if (documentSelector) {
+      this.element.setAttribute('_documentSelector', documentSelector);
     }
     return result;
   }
@@ -246,9 +256,7 @@ class QWElement {
     }
   }
 
-  private convertElementsToQWElement(
-    elements: NodeListOf<Element> | null
-  ): Array<QWElement> {
+  private convertElementsToQWElement(elements: NodeListOf<Element> | null): Array<QWElement> {
     const qwList = new Array<QWElement>();
     for (const element of elements || []) {
       this.addCSSRulesPropertyToElement(element);
@@ -258,9 +266,7 @@ class QWElement {
   }
 
   public getElements(selector: string): Array<QWElement> {
-    return this.convertElementsToQWElement(
-      this.element.querySelectorAll(selector)
-    );
+    return this.convertElementsToQWElement(this.element.querySelectorAll(selector));
   }
 
   public getElementNextSibling(): QWElement | null {
@@ -273,7 +279,7 @@ class QWElement {
   public getParentAllContexts(): QWElement | null {
     let parent = this.element.parentElement;
     if (!parent) {
-      let context = this.element.getAttribute("_documentSelector");
+      const context = this.element.getAttribute('_documentSelector');
       if (context) {
         parent = document.querySelector(context);
       }
@@ -288,34 +294,34 @@ class QWElement {
   public getElementProperty(property: string): string {
     //@ts-ignore
     const propertyValue = this.element[property];
-    return propertyValue === null ? "" : propertyValue;
+    return propertyValue === null ? '' : propertyValue;
   }
 
   public getElementSelector(): string {
-    if (this.selector === "") {
-      if (this.element.tagName.toLowerCase() === "html") {
-        return "html";
-      } else if (this.element.tagName.toLowerCase() === "head") {
-        return "html > head";
-      } else if (this.element.tagName.toLowerCase() === "body") {
-        return "html > body";
+    if (this.selector === '') {
+      if (this.element.tagName.toLowerCase() === 'html') {
+        return 'html';
+      } else if (this.element.tagName.toLowerCase() === 'head') {
+        return 'html > head';
+      } else if (this.element.tagName.toLowerCase() === 'body') {
+        return 'html > body';
       }
-      let selector = "";
-      const parents = new Array();
+      let selector = '';
+      const parents = [];
       let parent = this.element.parentElement;
       while (parent) {
         parents.unshift(this.getSelfLocationInParent(parent));
-        parent = parent["parentElement"];
+        parent = parent['parentElement'];
       }
       if (parents.length > 0) {
-        selector += parents.join(" > ");
-        selector += " > " + this.getSelfLocationInParent(this.element);
+        selector += parents.join(' > ');
+        selector += ' > ' + this.getSelfLocationInParent(this.element);
       } else {
         selector += this.getSelfLocationInParent(this.element);
       }
 
-      let documentSelector = this.element.getAttribute("_documentSelector");
-      if (!!documentSelector) {
+      const documentSelector = this.element.getAttribute('_documentSelector');
+      if (documentSelector) {
         selector = documentSelector + selector;
       }
       this.selector = selector;
@@ -326,12 +332,9 @@ class QWElement {
   }
 
   private getSelfLocationInParent(element: Element): string {
-    let selector = "";
+    let selector = '';
 
-    if (
-      element.tagName.toLowerCase() === "body" ||
-      element.tagName.toLowerCase() === "head"
-    ) {
+    if (element.tagName.toLowerCase() === 'body' || element.tagName.toLowerCase() === 'head') {
       return element.tagName.toLowerCase();
     }
 
@@ -345,42 +348,37 @@ class QWElement {
       prev = prev.previousElementSibling;
     }
 
-    selector += `${element.tagName.toLowerCase()}:nth-of-type(${
-      sameEleCount + 1
-    })`;
+    selector += `${element.tagName.toLowerCase()}:nth-of-type(${sameEleCount + 1})`;
 
     return selector;
   }
 
-  public getElementStyleProperty(
-    property: string,
-    pseudoStyle: string | null
-  ): string {
+  public getElementStyleProperty(property: string, pseudoStyle: string | null): string {
     const styles = getComputedStyle(this.element, pseudoStyle);
     return styles.getPropertyValue(property);
   }
 
   public getElementTagName(): string {
-    return this.element["tagName"].toLowerCase();
+    return this.element['tagName'].toLowerCase();
   }
 
   public getElementText(): string {
     let children;
-    if (!!this.element.shadowRoot) {
+    if (this.element.shadowRoot) {
       children = this.element.shadowRoot.childNodes;
     } else {
       children = this.element.childNodes;
     }
-    let result = "";
+    console.log(children);
+    let result = '';
     let textContent: string | null;
     for (const child of children || []) {
       textContent = child.textContent;
-      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "")
-        result = result + textContent.trim();
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== '') result = result + textContent.trim();
     }
 
     if (!result) {
-      result = "";
+      result = '';
     }
 
     return result;
@@ -388,12 +386,12 @@ class QWElement {
 
   public getElementType(): string {
     return this.element.nodeType === 1
-      ? "tag"
+      ? 'tag'
       : this.element.nodeType === 2
-      ? "attribute"
+      ? 'attribute'
       : this.element.nodeType === 3
-      ? "text"
-      : "comment";
+      ? 'text'
+      : 'comment';
   }
 
   public getNumberOfSiblingsWithTheSameTag(): number {
@@ -401,7 +399,7 @@ class QWElement {
     let nextSibling = this.element.nextElementSibling;
 
     while (nextSibling) {
-      if (nextSibling.tagName.toLowerCase() === "a") {
+      if (nextSibling.tagName.toLowerCase() === 'a') {
         aCount++;
       }
       nextSibling = nextSibling.nextElementSibling;
@@ -416,23 +414,23 @@ class QWElement {
 
   public concatANames(aNames: string[]): string {
     const children = this.element.childNodes;
-    let result = "";
+    let result = '';
     let textContent: string | null;
     let i = 0;
     let counter = 0;
     for (const child of children || []) {
       textContent = child.textContent;
-      if (child.nodeType === 3 && !!textContent && textContent.trim() !== "") {
-        result = result + (counter === 0 ? "" : " ") + textContent.trim();
+      if (child.nodeType === 3 && !!textContent && textContent.trim() !== '') {
+        result = result + (counter === 0 ? '' : ' ') + textContent.trim();
         counter++;
       } else if (child.nodeType === 1) {
-        result = result + (counter > 0 && !!aNames[i] ? " " : "") + aNames[i];
+        result = result + (counter > 0 && !!aNames[i] ? ' ' : '') + aNames[i];
         i++;
       }
     }
 
     if (!result) {
-      result = "";
+      result = '';
     }
 
     return result;
@@ -481,7 +479,7 @@ class QWElement {
   public getContentFrame(): Document | null {
     let page: Document | null = null;
 
-    if (this.getElementTagName() === "iframe") {
+    if (this.getElementTagName() === 'iframe') {
       const element = <HTMLIFrameElement>this.element;
       const contentWindow = element.contentWindow;
 
@@ -503,7 +501,7 @@ class QWElement {
 
   private noParentScrolled(offset: number): boolean {
     let element = this.element.parentElement;
-    while (element && element.nodeName.toLowerCase() !== "html") {
+    while (element && element.nodeName.toLowerCase() !== 'html') {
       if (element.scrollTop) {
         offset += element.scrollTop;
         if (offset >= 0) {
@@ -525,7 +523,7 @@ class QWElement {
     htmlElement.click();
   }
 
-  public getBoundingBox(): any {
+  public getBoundingBox(): DOMRect {
     return this.element.getBoundingClientRect();
   }
 

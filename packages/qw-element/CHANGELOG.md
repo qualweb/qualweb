@@ -1,162 +1,210 @@
 # Changelog
 
+## [0.2.0] - 25/03/2021
+
+### Added
+
+- missing types
+
+### Updated
+
+- dependencies
+
+## [0.1.33] - 09/03/2021
+
+### Testing
+
+- getElementText() with shadow root
+
 ## [0.1.32] - 23/02/2021
 
 ### Added
- - click function to interface
+
+- click function to interface
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.31] - 20/02/2021
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.30] - 19/02/2021
 
 ### Updated
- - dependencies
- - README.md
+
+- dependencies
+- README.md
 
 ## [0.1.29] - 08/01/2021
 
 ### Updated
- - dependencies
- - tsconfig
+
+- dependencies
+- tsconfig
 
 ## [0.1.28] - 17/12/2020
 
 ### Updated
- - fixed text
+
+- fixed text
 
 ## [0.1.27] - 05/12/2020
 
 ### Updated
- - fixed text
+
+- fixed text
 
 ## [0.1.26] - 10/11/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.25] - 21/10/2020
 
 ### Updated
- - context get parent
+
+- context get parent
 
 ## [0.1.24] - 07/10/2020
 
 ### Updated
- - bug fixes
- 
+
+- bug fixes
+
 ## [0.1.23] - 29/09/2020
 
 ### Updated
- - bug fixes
+
+- bug fixes
 
 ## [0.1.22] - 23/09/2020
 
 ### Updated
- - bug fixes
+
+- bug fixes
 
 ## [0.1.21] - 23/09/2020
 
 ### Updated
- - bug fixes
+
+- bug fixes
 
 ## [0.1.20] - 23/09/2020
 
 ### Updated
- - Updated getHTML
+
+- Updated getHTML
 
 ## [0.1.19] - 23/09/2020
 
 ### Updated
- - changed selector
+
+- changed selector
 
 ## [0.1.18] - 20/08/2020
 
 ### Updated
- - bug fixes
+
+- bug fixes
 
 ## [0.1.17] - 16/08/2020
 
 ### Updated
- - deleted treeSelector
+
+- deleted treeSelector
 
 ## [0.1.16] - 27/07/2020
 
 ### Updated
- - dependencies
- - getElementSelector
+
+- dependencies
+- getElementSelector
 
 ## [0.1.15] - 27/07/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.14] - 10/07/2020
 
 ### Updated
- - css mapping
+
+- css mapping
 
 ## [0.1.13] - 10/07/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.12] - 09/07/2020
 
 ### Added
- - hasTextNode function
+
+- hasTextNode function
 
 ## [0.1.11] - 09/07/2020
 
 ### Added
- - css rules mapping manipulation functions
+
+- css rules mapping manipulation functions
 
 ## [0.1.10] - 06/07/2020
 
 ### Updated
- - fixed cached selector
+
+- fixed cached selector
 
 ## [0.1.9] - 06/07/2020
 
 ### Updated
- - cached selector
+
+- cached selector
 
 ## [0.1.8] - 06/07/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.7] - 22/06/2020
 
 ### Added
- - css rules mapping to each element
+
+- css rules mapping to each element
 
 ## [0.1.6] - 22/06/2020
 
 ### Added
- - ShadowDom functions
+
+- ShadowDom functions
 
 ## [0.1.5] - 29/05/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.4] - 28/05/2020
 
 ### Updated
- - dependencies
+
+- dependencies
 
 ## [0.1.3] - 27/05/2020
 
 ### Added
- - getBoundingBox method
+
+- getBoundingBox method
 
 ## [0.1.2] - 20/05/2020
 
 ### Fixed
- - changed types
+
+- changed types
