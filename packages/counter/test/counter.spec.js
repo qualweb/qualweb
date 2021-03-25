@@ -3,23 +3,27 @@ import { Dom } from '@qualweb/dom';
 
 describe('QualWeb counter', function() {
   it('Testing qualweb counter module', async function() {
-    this.timeout(60*1000);
+    this.timeout(60 * 1000);
 
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, {}, 'http://127.0.0.1:8080');
+    const { page } = await dom.getDOM(browser, { execute: {} }, 'https://ciencias.ulisboa.pt', '');
+
     await page.addScriptTag({
-      path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
+      path: require.resolve('@qualweb/qw-page')
     });
+    
     await page.addScriptTag({
-      path: require.resolve('../dist/counter.js')
-    });
-    const report = await page.evaluate(() => {
-      const report = Counter.executeCounter(new QWPage.QWPage(document, window, true));
-      return report;
+      path: require.resolve('../dist/counter.bundle.js')
     });
 
-    //await dom.close();
-    //await browser.close();
+    const report = await page.evaluate(() => {
+      return executeCounter(new QWPage(document, window, true));
+    });
+
+    console.log(report);
+
+    await dom.close();
+    await browser.close();
   });
 });
