@@ -16,9 +16,11 @@ function getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
   return result;
 }
 function getOwnedElementsAux(elementQW: QWElement, pageQW: QWPage, ownerSelector: string): QWElement[] {
-
-  let ariaOwner = getAriaOwner(elementQW, pageQW)
-  if (AccessibilityUtils.isElementInAT(elementQW, pageQW) && (!ariaOwner || !!ariaOwner && ariaOwner.getElementSelector() === ownerSelector)) {
+  let ariaOwner = getAriaOwner(elementQW, pageQW);
+  if (
+    AccessibilityUtils.isElementInAT(elementQW, pageQW) &&
+    (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))
+  ) {
     return [elementQW];
   } else {
     let children = elementQW.getElementChildren();
@@ -36,15 +38,13 @@ function getAriaOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[]
   if (ariaOwns) {
     let splitted = ariaOwns.split(',');
     for (let id of splitted) {
-      let elem = pageQW.getElementByID(id)
+      let elem = pageQW.getElementByID(id);
       if (!!elem) {
         elements.push(elem);
       }
     }
-
   }
   return elements;
 }
-
 
 export default getOwnedElements;

@@ -6,7 +6,7 @@ function elementIDIsReferenced(elementQW: QWElement, pageQW: QWPage, id: string,
   if (!elementQW || !pageQW) {
     throw Error('Element is not defined');
   }
-  let result;
+  let result: boolean;
   try {
     result = pageQW.getElement('[' + attribute + `="${id}"]`, elementQW) !== null;
   } catch {

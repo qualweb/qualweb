@@ -1,21 +1,28 @@
 {
   "name": "@qualweb/util",
-  "version": "0.3.66",
+  "version": "0.4.0",
   "description": "Utilities module for qualweb",
   "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
     "test:ANameTest": "mocha --require esm test/ANameTest.spec.js",
     "test:ANameTestWiki": "mocha --require esm test/ANameTestWiki.spec.js",
     "test:svg": "mocha --require esm test/ANameSVGTest.spec.js",
-    "clean": "node clean.js",
-    "build": "npm run clean && tsc --build",
-    "pub": "npm run build && npm publish --access=public",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "docs": "typedoc --out docs src/index.ts"
+    "prebuild": "rimraf dist",
+    "build": "npm run prebuild && npm run format && tsc --build",
+    "docs": "typedoc --out docs src/index.ts",
+    "prepare": "npm run build"
+  },
+  "homepage": "https://github.com/qualweb/util#readme",
+  "bugs": {
+    "url": "https://github.com/qualweb/util/issues"
   },
   "repository": {
     "type": "git",
@@ -29,36 +36,28 @@
   ],
   "author": "João Vicente",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qualweb/util/issues"
-  },
-  "homepage": "https://github.com/qualweb/util#readme",
   "devDependencies": {
-    "@qualweb/dom": "^0.1.34",
-    "@qualweb/types": "^0.4.61",
+    "@qualweb/dom": "^0.2.0",
+    "@qualweb/types": "^0.5.3",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/domhandler": "^2.4.1",
     "@types/lodash.clone": "^4.5.6",
-    "@types/node": "^14.14.33",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "css": "^3.0.0",
-    "css-select": "^3.1.2",
-    "eslint": "^7.13.0",
+    "@types/node": "^14.14.35",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
     "htmlparser2": "^6.0.1",
-    "mocha": "^8.3.1",
+    "mocha": "^8.3.2",
     "prettier": "^2.1.2",
     "puppeteer": "^8.0.0",
-    "typedoc": "^0.20.30",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.20.34",
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "domutils": "^2.1.0",
-    "htmlparser-to-html": "0.0.6",
     "lodash.clone": "^4.5.0"
   }
 }

@@ -1,6 +1,3 @@
-import getSourceElementSelectorFunction from './getSourceElementSelector';
-import getSourceElementHtmlCodeFunction from './getSourceElementHtmlCode';
-import getSourceElementAttributeFunction from './getSourceElementAttribute';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
@@ -25,9 +22,6 @@ import { CacheDecorator } from '../decorator';
  *
  */
 class DomUtils {
-  public static getSourceElementAttribute = getSourceElementAttributeFunction;
-  public static getSourceElementSelector = getSourceElementSelectorFunction;
-  public static getSourceElementHtmlCode = getSourceElementHtmlCodeFunction;
   public static getVideoMetadata = getVideoMetadataFunction;
   public static getElementReferencedByHREF = getElementReferencedByHREFFunction;
   public static videoElementHasAudio = videoElementHasAudioFunction;
