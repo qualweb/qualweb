@@ -1,19 +1,19 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Utilities module for qualweb",
-  "main": "dist/qwPage.js",
+  "main": "dist/qw-page.bundle.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
-    "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "build": "npm run format && npm run prebuild && tsc --build && webpack --mode production",
+    "prebuild": "rimraf prebuild && npm run format && tsc --build",
+    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
     "docs": "typedoc --out docs src/index.ts",
     "prepare": "npm run build"
   },
@@ -55,6 +55,6 @@
     "webpack-cli": "^4.3.1"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.2.1"
+    "@qualweb/qw-element": "^0.2.2"
   }
 }

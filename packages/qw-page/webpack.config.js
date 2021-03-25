@@ -1,12 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './dist/index.js',
+  entry: './prebuild/index.js',
   output: {
-    filename: 'qwPage.js',
+    filename: 'qw-page.bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'var',
-    library: 'QWPage'
+    library: {
+      type: 'window'
+    }
   },
-  target: 'node-webkit'
+  target: 'web'
 }
