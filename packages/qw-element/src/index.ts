@@ -307,7 +307,7 @@ class QWElement {
         return 'html > body';
       }
       let selector = '';
-      const parents = [];
+      const parents = new Array<string>();
       let parent = this.element.parentElement;
       while (parent) {
         parents.unshift(this.getSelfLocationInParent(parent));
@@ -412,7 +412,7 @@ class QWElement {
     this.element.setAttribute(attribute, value);
   }
 
-  public concatANames(aNames: string[]): string {
+  public concatANames(aNames: Array<string>): string {
     const children = this.element.childNodes;
     let result = '';
     let textContent: string | null;
@@ -494,9 +494,8 @@ class QWElement {
   public elementHasTextNode(): boolean {
     if (this.element.childNodes !== null) {
       const nodes = this.element.childNodes;
-      for (let node of nodes) {
-        if (node.nodeType === 3 && node.textContent && node.textContent.trim() !== '')
-          return true;
+      for (const node of nodes) {
+        if (node.nodeType === 3 && node.textContent && node.textContent.trim() !== '') return true;
       }
     }
     return false;
