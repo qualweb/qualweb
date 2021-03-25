@@ -1,69 +1,41 @@
-import CSSselect from "css-select";
-import { Page } from "puppeteer";
-import {
-  QualwebOptions,
-  SourceHtml,
-  ProcessedHtml,
-  Url,
-  Evaluator,
-  Execute,
-} from "@qualweb/core";
-import { randomBytes } from "crypto";
-import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
-import { BrowserUtils, DomUtils } from "@qualweb/util";
-import EvaluationRecord from "./evaluationRecord.object";
-import { ACTROptions, ACTRulesReport } from "@qualweb/act-rules";
-import { BPOptions, BestPracticesReport } from "@qualweb/best-practices";
-import { executeWappalyzer } from "@qualweb/wappalyzer";
-import { CounterReport } from "@qualweb/counter";
-import { HTMLValidationReport } from "@qualweb/html-validator";
+import { Page } from 'puppeteer';
+import { QualwebOptions, Url, Evaluator, Execute } from '@qualweb/core';
+import { randomBytes } from 'crypto';
+import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
+import { BrowserUtils } from '@qualweb/util';
+import EvaluationRecord from './evaluationRecord.object';
+import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
+import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
+import { executeWappalyzer } from '@qualweb/wappalyzer';
+import { CounterReport } from '@qualweb/counter';
+import { HTMLValidationReport } from '@qualweb/html-validator';
+import { QWElement } from '@qualweb/qw-element';
 
 class Evaluation {
-  public async getEvaluator(
-    page: Page,
-    sourceHtml: SourceHtml,
-    url: string
-  ): Promise<Evaluator> {
-    const [
-      plainHtml,
-      pageTitle,
-      elements,
-      browserUserAgent,
-    ] = await Promise.all([
+  public async getEvaluator(page: Page, url: string): Promise<Evaluator> {
+    const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
       page.evaluate(() => {
         return document.documentElement.outerHTML;
       }),
       page.title(),
-      page.$$("*"),
-      page.browser().userAgent(),
+      page.$$('*'),
+      page.browser().userAgent()
     ]);
 
     let urlStructure: Url | undefined = undefined;
     if (url) {
-      urlStructure = this.parseUrl(
-        url,
-        page.url() !== "about:blank" ? page.url() : url
-      );
+      urlStructure = this.parseUrl(url, page.url() !== 'about:blank' ? page.url() : url);
     }
-
-    const processedHtml: ProcessedHtml = {
-      html: {
-        plain: plainHtml,
-      },
-      title: pageTitle,
-      elementCount: elements.length,
-    };
 
     const viewport = page.viewport();
 
-    const evaluator = {
-      name: "QualWeb",
-      description:
-        "QualWeb is an automatic accessibility evaluator for webpages.",
-      version: "3.0.0",
-      homepage: "http://www.qualweb.di.fc.ul.pt/",
-      date: new Date().toISOString().replace(/T/, " ").replace(/\..+/, ""),
-      hash: randomBytes(40).toString("hex"),
+    return {
+      name: 'QualWeb',
+      description: 'QualWeb is an automatic accessibility evaluator for webpages.',
+      version: '3.0.0',
+      homepage: 'http://www.qualweb.di.fc.ul.pt/',
+      date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+      hash: randomBytes(40).toString('hex'),
       url: urlStructure,
       page: {
         viewport: {
@@ -72,151 +44,87 @@ class Evaluation {
           userAgent: browserUserAgent,
           resolution: {
             width: viewport?.width,
-            height: viewport?.height,
-          },
+            height: viewport?.height
+          }
         },
         dom: {
-          source: sourceHtml,
-          processed: processedHtml,
-        },
-      },
+          html: plainHtml,
+          title: pageTitle,
+          elementCount: elements.length
+        }
+      }
     };
-
-    return evaluator;
   }
 
   public async addQWPage(page: Page): Promise<void> {
     await page.addScriptTag({
-      path: require.resolve("@qualweb/qw-page"),
+      path: require.resolve('@qualweb/qw-page')
     });
     await page.evaluate(() => {
       // @ts-ignore
-      window.page = new QWPage.QWPage(document, window, true);
+      window.page = new QWPage(document, window, true);
     });
   }
 
   public async executeACT(
     page: Page,
-    sourceHtml: SourceHtml,
+    sourceHtmlHeadContent: string,
     options: ACTROptions | undefined
   ): Promise<ACTRulesReport> {
     await page.addScriptTag({
-      path: require.resolve("@qualweb/act-rules"),
+      path: require.resolve('@qualweb/act-rules')
     });
 
-    const r40 = "QW-ACT-R40";
-    const r72 = "QW-ACT-R72";
-
-    let actReportR72 = null;
-
-    if (
-      !options ||
-      !options["rules"] ||
-      options["rules"].includes(r72) ||
-      options["rules"].includes("8a213c")
-    ) {
-      await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-      actReportR72 = await page.evaluate(() => {
-        // @ts-ignore
-        const act = new ACTRules.ACTRules();
-        // @ts-ignore
-        return act.executeQW_ACT_R72(window.page);
-      });
-    }
-
-    const metaElements = CSSselect("meta", sourceHtml.html.parsed);
-    const parsedMetaElements = new Array<any>();
-
-    for (const element of metaElements || []) {
-      if (!!element) {
-        const content = DomUtils.getSourceElementAttribute(element, "content");
-        const httpEquiv = DomUtils.getSourceElementAttribute(
-          element,
-          "http-equiv"
-        );
-        const htmlCode = DomUtils.getSourceElementHtmlCode(
-          element,
-          true,
-          false
-        );
-        const selector = DomUtils.getSourceElementSelector(element);
-
-        parsedMetaElements.push({
-          content,
-          httpEquiv,
-          htmlCode,
-          selector,
-        });
-      }
-    }
-
-    const actReport = await page.evaluate(
-      (parsedMetaElements, options) => {
-        // @ts-ignore
-        const act = new ACTRules.ACTRules(options);
-        // @ts-ignore
-        return act.execute(parsedMetaElements, window.page);
-      },
-      parsedMetaElements,
+    await page.evaluate((options) => {
       // @ts-ignore
-      options
-    );
+      window.act = new ACTRules(options);
+      // @ts-ignore
+    }, options);
 
-    if (actReportR72) {
-      actReport.assertions[r72] = actReportR72;
-      const outcome = actReportR72.metadata.outcome;
-      if (outcome === "passed") {
-        actReport.metadata.passed++;
-      } else if (outcome === "failed") {
-        actReport.metadata.failed++;
-      } else if (outcome === "warning") {
-        actReport.metadata.warning++;
-      } else {
-        actReport.metadata.inapplicable++;
+    await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
+    await page.evaluate((sourceHtmlHeadContent) => {
+      // @ts-ignore
+      window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent(window.page);
+
+      const parser = new DOMParser();
+      const sourceDoc = parser.parseFromString('', 'text/html');
+
+      sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+
+      const elements = sourceDoc.querySelectorAll('meta');
+      const metaElements = new Array<QWElement>();
+      for (const element of elements) {
+        // @ts-ignore
+        metaElements.push(QWPage.createQWElement(element));
       }
-    }
 
-    if (
-      !options ||
-      !options["rules"] ||
-      options["rules"].includes(r40) ||
-      options["rules"].includes("59br37")
-    ) {
+      // @ts-ignore
+      window.act.validateMetaElements(metaElements);
+      // @ts-ignore
+      window.act.executeAtomicRules(window.page);
+      // @ts-ignore
+      window.act.executeCompositeRules(window.page);
+    }, sourceHtmlHeadContent);
+
+    if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
       const viewport = page.viewport();
-
       await page.setViewport({
         width: 640,
-        height: 512,
+        height: 512
       });
-
-      const actReportR40 = await page.evaluate(() => {
+      await page.evaluate(() => {
         // @ts-ignore
-        const act = new ACTRules.ACTRules();
-        // @ts-ignore
-        return act.executeQW_ACT_R40(window.page);
+        window.act.validateZoomedTextNodeNotClippedWithCSSOverflow(window.page);
       });
-
       if (viewport) {
-        await page.setViewport({
-          width: viewport?.width,
-          height: viewport?.height,
-        });
-      }
-
-      actReport.assertions[r40] = actReportR40;
-      const outcome = actReportR40.metadata.outcome;
-      if (outcome === "passed") {
-        actReport.metadata.passed++;
-      } else if (outcome === "failed") {
-        actReport.metadata.failed++;
-      } else if (outcome === "warning") {
-        actReport.metadata.warning++;
-      } else {
-        actReport.metadata.inapplicable++;
+        await page.setViewport(viewport);
       }
     }
 
-    return actReport;
+    return page.evaluate(() => {
+      // @ts-ignore
+      return window.act.getReport();
+    });
   }
 
   public async executeWCAG(
@@ -225,40 +133,31 @@ class Evaluation {
     validation: HTMLValidationReport | undefined
   ): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
-      path: require.resolve("@qualweb/wcag-techniques"),
+      path: require.resolve('@qualweb/wcag-techniques')
     });
 
     const url = page.url();
-    const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(
-      page.browser(),
-      url
-    );
+    const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
 
-    const htmlReport = await page.evaluate(
+    return await page.evaluate(
       (newTabWasOpen, validation, options) => {
         // @ts-ignore
-        const html = new WCAGTechniques.WCAGTechniques(options);
+        const html = new WCAGTechniques.WCAGTechniques(JSON.parse(options));
         // @ts-ignore
-        return html.execute(window.page, newTabWasOpen, validation);
+        return html.execute(window.page, newTabWasOpen, JSON.parse(validation));
       },
       newTabWasOpen,
-      <any>validation,
-      // @ts-ignore
-      options
+      JSON.stringify(validation),
+      JSON.stringify(options)
     );
-
-    return htmlReport;
   }
 
-  public async executeBP(
-    page: Page,
-    options: BPOptions | undefined
-  ): Promise<BestPracticesReport> {
+  public async executeBP(page: Page, options: BPOptions | undefined): Promise<BestPracticesReport> {
     await page.addScriptTag({
-      path: require.resolve("@qualweb/best-practices"),
+      path: require.resolve('@qualweb/best-practices')
     });
 
-    const bpReport = await page.evaluate((options) => {
+    return await page.evaluate((options) => {
       // @ts-ignore
       const bp = new BestPractices.BestPractices();
       if (options) bp.configure(options);
@@ -266,12 +165,11 @@ class Evaluation {
       return bp.execute(window.page);
       // @ts-ignore
     }, options);
-    return bpReport;
   }
 
   public async executeCounter(page: Page): Promise<CounterReport> {
     await page.addScriptTag({
-      path: require.resolve("@qualweb/counter"),
+      path: require.resolve('@qualweb/counter')
     });
 
     const Counter = <CounterReport>await page.evaluate(() => {
@@ -282,47 +180,38 @@ class Evaluation {
   }
 
   public async evaluatePage(
-    sourceHtml: SourceHtml,
+    sourceHtmlHeadContent: string,
     page: Page,
     execute: Execute,
     options: QualwebOptions,
     url: string,
     validation: HTMLValidationReport | undefined
   ): Promise<EvaluationRecord> {
-    const evaluator = await this.getEvaluator(page, sourceHtml, url);
+    const evaluator = await this.getEvaluator(page, url);
     const evaluation = new EvaluationRecord(evaluator);
 
     await this.addQWPage(page);
 
     if (execute.act) {
       evaluation.addModuleEvaluation(
-        "act-rules",
-        await this.executeACT(page, sourceHtml, options["act-rules"])
+        'act-rules',
+        await this.executeACT(page, sourceHtmlHeadContent, options['act-rules'])
       );
     }
     if (execute.wcag) {
       evaluation.addModuleEvaluation(
-        "wcag-techniques",
-        await this.executeWCAG(page, options["wcag-techniques"], validation)
+        'wcag-techniques',
+        await this.executeWCAG(page, options['wcag-techniques'], validation)
       );
     }
     if (execute.bp) {
-      evaluation.addModuleEvaluation(
-        "best-practices",
-        await this.executeBP(page, options["best-practices"])
-      );
+      evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));
     }
     if (execute.wappalyzer) {
-      evaluation.addModuleEvaluation(
-        "wappalyzer",
-        await executeWappalyzer(url)
-      );
+      evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(url));
     }
     if (execute.counter) {
-      evaluation.addModuleEvaluation(
-        "counter",
-        await this.executeCounter(page)
-      );
+      evaluation.addModuleEvaluation('counter', await this.executeCounter(page));
     }
 
     return evaluation;
@@ -330,29 +219,23 @@ class Evaluation {
 
   private parseUrl(url: string, pageUrl: string): Url {
     const inputUrl = url;
-    let protocol: string;
-    let domainName: string;
-    let domain: string;
-    let uri: string;
-    let completeUrl: string = pageUrl;
+    const completeUrl: string = pageUrl;
 
-    protocol = completeUrl.split("://")[0];
-    domainName = completeUrl.split("/")[2];
+    const protocol = completeUrl.split('://')[0];
+    const domainName = completeUrl.split('/')[2];
 
-    const tmp: string[] = domainName.split(".");
-    domain = tmp[tmp.length - 1];
-    uri = completeUrl.split("." + domain)[1];
+    const tmp = domainName.split('.');
+    const domain = tmp[tmp.length - 1];
+    const uri = completeUrl.split('.' + domain)[1];
 
-    const parsedUrl = {
+    return {
       inputUrl,
       protocol,
       domainName,
       domain,
       uri,
-      completeUrl,
+      completeUrl
     };
-
-    return parsedUrl;
   }
 }
 

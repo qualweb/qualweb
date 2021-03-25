@@ -6,15 +6,15 @@ describe('QualWeb evaluation', function() {
   it('Testing qualweb page evaluation', async function() {
     this.timeout(60*1000);
 
-    const url = 'http://app-bleauborgerumb-dev-001.azurewebsites.net/';
+    const url = 'https://ciencias.ulisboa.pt';
 
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({ headless: false });
     const dom = new Dom();
-    const { sourceHtml, page, validation } = await dom.getDOM(browser, { act: true }, url);
-    console.log(validation)
+    const { sourceHtmlHeadContent, page, validation } = await dom.getDOM(browser, { act: true }, url);
+    
     const evaluation = new Evaluation();
-    const report = await evaluation.evaluatePage(sourceHtml, page, { act: true }, { "act-rules": { rules: ["QW-ACT-R72"] }}, url, validation);
-    console.log(JSON.stringify(report.getFinalReport().modules['act-rules'], null, 2));
+    const report = await evaluation.evaluatePage(sourceHtmlHeadContent, page, { act: true }, {}, url, validation);
+    console.log(report.getFinalReport());
     //await dom.close();
     //await browser.close();
   });

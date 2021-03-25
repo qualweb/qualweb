@@ -1,4 +1,4 @@
-import clone from "lodash.clone";
+import cloneDeep from 'lodash.clonedeep';
 
 class Metadata {
   private passed: number;
@@ -30,11 +30,11 @@ class Metadata {
   }
 
   public getResults(): any {
-    return clone({
+    return cloneDeep({
       passed: this.passed,
       warning: this.warning,
       failed: this.failed,
-      inapplicable: this.inapplicable,
+      inapplicable: this.inapplicable
     });
   }
 }
