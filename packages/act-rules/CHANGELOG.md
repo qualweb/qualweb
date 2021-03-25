@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.0] - 25/03/2021
+
+### Updated
+
+- dependencies
+- code refactored
+- webpack config
+- package.json
+
 ## [0.4.57] - 11/03/2021
 
 ### Fixed
