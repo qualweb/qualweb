@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1] - 25/03/2021
+
+### Added
+
+- typedoc to generate documentation
+
+### Updated
+
+- dependencies
+
 ## [0.2.0] - 25/03/2021
 
 ### Added
