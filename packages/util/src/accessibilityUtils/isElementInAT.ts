@@ -25,7 +25,7 @@ function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
       } else if (needsToBeInsideDetailsTag) {
         const parent = elementQW.getElementParent();
         specialCondition = !!parent && parent.getElementTagName() === 'details';
-      }else if (name === 'picture') {
+      } else if (name === 'picture') {
         const child = elementQW.getElement('img');
         specialCondition = !!child;
       }

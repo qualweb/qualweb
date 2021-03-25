@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0] - 25/03/2021
+
+# Removed
+
+- unnecessary dependencies
+- source html manipulation functions
+
+### Updated
+
+- dependencies
+
 ## [0.3.66] - 10/03/2021
 
 ### Updated
