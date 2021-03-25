@@ -492,11 +492,14 @@ class QWElement {
   }
 
   public elementHasTextNode(): boolean {
-    if (this.element.firstChild !== null) {
-      return this.element.firstChild.nodeType === 3;
-    } else {
-      return false;
+    if (this.element.childNodes !== null) {
+      const nodes = this.element.childNodes;
+      for (let node of nodes) {
+        if (node.nodeType === 3 && node.textContent && node.textContent.trim() !== '')
+          return true;
+      }
     }
+    return false;
   }
 
   private noParentScrolled(offset: number): boolean {
