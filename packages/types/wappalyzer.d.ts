@@ -1,3 +1,4 @@
+declare module 'wappalyzer'; 
 declare module '@qualweb/wappalyzer' {
   interface Category {
     [index: string]: string;

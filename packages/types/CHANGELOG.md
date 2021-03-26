@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.5.4] - 26/03/2020
+
+### Added
+
+- declaration for module wappalyzer
 ## [0.5.3] - 25/03/2020
 
 ### Updated
