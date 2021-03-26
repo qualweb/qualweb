@@ -1,11 +1,11 @@
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice, ElementExists } from '../lib/decorator';
+import { BestPracticeClass, ElementExists } from '../lib/decorator';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import intersection from 'lodash.intersection';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP18 extends BestPracticeObject {
   private readonly containers = [
     'span',
@@ -36,7 +36,7 @@ class QW_BP18 extends BestPracticeObject {
     'figcaption'
   ];
 
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
@@ -114,11 +114,9 @@ class QW_BP18 extends BestPracticeObject {
             }
           }
 
-          evaluation.pointer = element.getElementSelector();
-          evaluation.htmlCode = element.getElementHtmlCode(true, true);
           evaluation.attributes = property;
 
-          super.addEvaluationResult(evaluation);
+          super.addEvaluationResult(evaluation, element);
         }
       }
     }

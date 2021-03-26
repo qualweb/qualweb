@@ -3,12 +3,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 module.exports = {
-  entry: './dist/index.js',
+  entry: './prebuild/index.js',
   output: {
-    filename: 'bp.js',
+    filename: 'bp.bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'var',
-    library: 'BestPractices'
+    library: {
+      type: 'window'
+    }
   },
   optimization: {
     minimize: true,
@@ -25,5 +26,5 @@ module.exports = {
       })
     ],
   },
-  target: 'node-webkit'
+  target: 'web'
 }

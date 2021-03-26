@@ -1,13 +1,13 @@
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import { DomUtils } from '@qualweb/util';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { BestPractice } from '../lib/decorator';
+import { BestPracticeClass } from '../lib/decorator';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP17 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 

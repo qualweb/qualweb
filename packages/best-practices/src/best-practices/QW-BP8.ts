@@ -1,15 +1,13 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { AccessibilityUtils } from '@qualweb/util';
-import { BestPractice, ElementExists, ElementHasChild } from '../lib/decorator';
+import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP8 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 

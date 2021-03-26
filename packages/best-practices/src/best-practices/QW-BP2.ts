@@ -1,29 +1,25 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
+import { BestPracticeClass, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP2 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
   @ElementExists
   @ElementHasAttribute('alt')
   @ElementHasNonEmptyAttribute('alt')
-  async execute(element: QWElement | undefined): Promise<void> {
-    if (!element) {
-      return;
-    }
+  async execute(element: QWElement): Promise<void> {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
       resultCode: ''
     };
+
     const altValue = element.getElementAttribute('alt');
 
     if (!altValue || altValue === '') {
@@ -40,10 +36,7 @@ class QW_BP2 extends BestPracticeObject {
       evaluation.resultCode = 'RC3';
     }
 
-    evaluation.htmlCode = element.getElementHtmlCode(true, true);
-    evaluation.pointer = element.getElementSelector();
-
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

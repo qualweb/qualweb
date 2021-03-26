@@ -1,13 +1,11 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice } from '../lib/decorator';
+import { BestPracticeClass } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP10 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
@@ -30,11 +28,9 @@ class QW_BP10 extends BestPracticeObject {
       evaluation.resultCode = 'RC2';
 
       evaluation.attributes = name;
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
-      evaluation.pointer = element.getElementSelector();
     }
 
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

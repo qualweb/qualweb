@@ -2,7 +2,7 @@ import { BestPracticeResult } from '@qualweb/best-practices';
 import bestPractices from './bestPractices.json';
 import cloneDeep from 'lodash.clonedeep';
 
-function BestPractice<T extends { new (...args: any[]): {} }>(constructor: T) {
+function BestPracticeClass<T extends { new (...args: any[]): {} }>(constructor: T) {
   //@ts-ignore
   const bestPractice = bestPractices[constructor.name];
 
@@ -110,7 +110,7 @@ function ElementIsNotChildOf(parent: string) {
 }
 
 export {
-  BestPractice,
+  BestPracticeClass,
   ElementExists,
   ElementHasAttribute,
   ElementHasNonEmptyAttribute,

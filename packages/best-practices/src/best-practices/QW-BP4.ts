@@ -1,22 +1,17 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice, ElementExists, ElementIsNotChildOf } from '../lib/decorator';
+import { BestPracticeClass, ElementExists, ElementIsNotChildOf } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP4 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
   @ElementExists
   @ElementIsNotChildOf('nav')
-  execute(element: QWElement | undefined): void {
-    if (!element || element.elementHasParent('nav')) {
-      return;
-    }
+  execute(element: QWElement): void {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -34,12 +29,8 @@ class QW_BP4 extends BestPracticeObject {
     }
 
     const parent = element.getElementParent();
-    if (parent) {
-      evaluation.htmlCode = parent.getElementHtmlCode(true, true);
-      evaluation.pointer = parent.getElementSelector();
-    }
 
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation, parent ? element : undefined);
   }
 }
 

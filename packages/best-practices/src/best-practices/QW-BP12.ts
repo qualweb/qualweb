@@ -1,22 +1,17 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice, ElementExists, ElementHasChild } from '../lib/decorator';
+import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP12 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
   @ElementExists
   @ElementHasChild('tr')
-  execute(element: QWElement | undefined): void {
-    if (!element) {
-      return;
-    }
+  execute(element: QWElement): void {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -25,7 +20,7 @@ class QW_BP12 extends BestPracticeObject {
     };
 
     const rows = element.getElements('tr');
-    let firstRowChildren: QWElement[] = [];
+    let firstRowChildren = new Array<QWElement>();
     if (rows.length > 0) {
       firstRowChildren = rows[0].getElementChildren();
 
@@ -69,10 +64,8 @@ class QW_BP12 extends BestPracticeObject {
       evaluation.description = 'The table has no rows.';
       evaluation.resultCode = 'RC3';
     }
-    evaluation.htmlCode = element.getElementHtmlCode(true, true);
-    evaluation.pointer = element.getElementSelector();
 
-    super.addEvaluationResult(evaluation);
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

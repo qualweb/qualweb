@@ -1,5 +1,4 @@
 import { BestPractice as BestPracticeType, BestPracticeResult } from '@qualweb/best-practices';
-import clone from 'lodash.clone';
 import cloneDeep from 'lodash.clonedeep';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
@@ -31,15 +30,15 @@ abstract class BestPractice {
     return this.bestPractice.metadata.inapplicable;
   }
 
-  protected addEvaluationResult(result: BestPracticeResult, element?: QWElement): void {
+  protected addEvaluationResult(result: BestPracticeResult, element?: QWElement, withText = true, fullElement = false): void {
     if (element) {
-      const htmlCode = element.getElementHtmlCode(true, true);
+      const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();
-      result.htmlCode = htmlCode;
-      result.pointer = pointer;
+
+      result.elements = [{ htmlCode, pointer }];
     }
 
-    this.bestPractice.results.push(clone(result));
+    this.bestPractice.results.push(cloneDeep(result));
 
     if (result.verdict !== 'inapplicable') {
       //@ts-ignore

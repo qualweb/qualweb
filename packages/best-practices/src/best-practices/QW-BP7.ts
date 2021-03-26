@@ -1,21 +1,16 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice, ElementExists } from '../lib/decorator';
+import { BestPracticeClass, ElementExists } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP7 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
   @ElementExists
-  execute(element: QWElement | undefined): void {
-    if (!element) {
-      return;
-    }
+  execute(element: QWElement): void {
 
     const evaluation: BestPracticeResult = {
       verdict: '',
@@ -63,9 +58,8 @@ class QW_BP7 extends BestPracticeObject {
         evaluation.resultCode = `RC3`;
       }
     }
-    evaluation.htmlCode = element.getElementHtmlCode(true, true);
-    evaluation.pointer = element.getElementSelector();
-    super.addEvaluationResult(evaluation);
+    
+    super.addEvaluationResult(evaluation, element);
   }
 }
 

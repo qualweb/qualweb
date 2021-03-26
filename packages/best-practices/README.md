@@ -1,6 +1,6 @@
 # QualWeb best practices
 
-Implementation of the accessibility best practices for web pages.
+Implementation of accessibility best practices for web pages.
 
 ## How to use
 

@@ -1,13 +1,11 @@
-'use strict';
-
-import { BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPractice } from '../lib/decorator';
+import { BestPracticeClass } from '../lib/decorator';
 import { QWElement } from '@qualweb/qw-element';
 
-@BestPractice
+@BestPracticeClass
 class QW_BP5 extends BestPracticeObject {
-  constructor(bestPractice?: any) {
+  constructor(bestPractice: BestPractice) {
     super(bestPractice);
   }
 
@@ -18,8 +16,6 @@ class QW_BP5 extends BestPracticeObject {
       resultCode: ''
     };
 
-    //const parent = await DomUtils.getElementParent(element);
-
     if (!element) {
       evaluation.verdict = 'passed';
       evaluation.description = 'There are not table elements inside other table elements';
@@ -28,10 +24,9 @@ class QW_BP5 extends BestPracticeObject {
       evaluation.verdict = 'failed';
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
-      evaluation.htmlCode = element.getElementHtmlCode(true, true);
-      evaluation.pointer = element.getElementSelector();
     }
-    super.addEvaluationResult(evaluation);
+    
+    super.addEvaluationResult(evaluation, element);
   }
 }
 
