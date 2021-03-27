@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -12,7 +12,7 @@ class QW_WCAG_T9 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     if (page.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
       return;
     }

@@ -1,8 +1,8 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 //import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import {
   WCAGTechniqueClass,
   ElementExists,
@@ -20,7 +20,7 @@ class QW_WCAG_T21 extends Technique {
   @ElementExists
   @ElementHasAttributes
   @ElementIsInAccessibilityTree
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const img = element.getElement('img');

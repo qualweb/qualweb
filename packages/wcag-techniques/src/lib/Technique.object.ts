@@ -1,7 +1,7 @@
 //import cloneDeep from 'lodash.clonedeep';
 import { WCAGTechnique, WCAGTechniqueResult } from '@qualweb/wcag-techniques';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import Test from './Test.object';
 
 abstract class Technique {
@@ -46,7 +46,7 @@ abstract class Technique {
     }
   }
 
-  abstract execute(element: QWElement | undefined, page?: QWPage): void;
+  abstract execute(element: typeof window.qwElement | undefined, page?: typeof window.qwPage): void;
 
   getFinalResults(): WCAGTechnique {
     this.outcomeTechnique();

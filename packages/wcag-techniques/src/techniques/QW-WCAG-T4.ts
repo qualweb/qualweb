@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechniqueClass, ElementExists, ElementIsDataTable, ElementHasAttribute } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -13,7 +13,7 @@ class QW_WCAG_T4 extends Technique {
   @ElementExists
   @ElementIsDataTable
   @ElementHasAttribute('summary')
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const caption = element.getElementChildTextContent('caption');

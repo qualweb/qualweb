@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
-import { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import { CSSProperties, CSSProperty, MediaProperties } from '@qualweb/qw-element';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -11,7 +11,7 @@ class QW_WCAG_T30 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     if (element.elementHasAttribute('_cssRules')) {

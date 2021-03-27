@@ -1,9 +1,9 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/decorators';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 //import { AccessibilityUtils } from '@qualweb/util';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWPage } from '@qualweb/qw-page';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -15,7 +15,7 @@ class QW_WCAG_T6 extends Technique {
   @ElementExists
   @ElementHasAttributes
   @ElementIsVisible
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const isWidget = window.AccessibilityUtils.isElementWidget(element, page);

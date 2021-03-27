@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechniqueClass } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -10,7 +10,7 @@ class QW_WCAG_T13 extends Technique {
     super(technique);
   }
 
-  execute(element: QWElement | undefined): void {
+  execute(element: typeof window.qwElement | undefined): void {
     const test = new Test();
 
     if (element) {

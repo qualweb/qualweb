@@ -1,8 +1,8 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 //import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -13,7 +13,7 @@ class QW_WCAG_T14 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const hasIds = element.getElements('[id]');
@@ -64,7 +64,7 @@ class QW_WCAG_T14 extends Technique {
   }
 }
 
-function doesTableHaveDuplicateIds(table: QWElement): boolean {
+function doesTableHaveDuplicateIds(table: typeof window.qwElement): boolean {
   const elementsId = table.getElements('[id]');
   let duplicate = false;
   let counter: number;
@@ -84,7 +84,7 @@ function doesTableHaveDuplicateIds(table: QWElement): boolean {
   return duplicate;
 }
 
-function doesHeadersMatchId(table: QWElement, headers: string | null): boolean {
+function doesHeadersMatchId(table: typeof window.qwElement, headers: string | null): boolean {
   let outcome = false;
   let result = 0;
   if (headers && headers.trim() !== '') {

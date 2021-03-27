@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -11,7 +11,7 @@ class QW_WCAG_T28 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     if (element.getElementTagName() === 'style') {
       const sheet = <any>element.getElementProperty('sheet');
       for (const rule of sheet.cssRules || []) {
@@ -26,7 +26,7 @@ class QW_WCAG_T28 extends Technique {
     }
   }
 
-  private checkCssProperty(style: string, element: QWElement): void {
+  private checkCssProperty(style: string, element: typeof window.qwElement): void {
     const test = new Test();
 
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];

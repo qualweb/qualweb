@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -11,7 +11,7 @@ class QW_WCAG_T19 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const children = element.getElements(`input[type="submit"], input[type="image"], button[type="submit"]`);

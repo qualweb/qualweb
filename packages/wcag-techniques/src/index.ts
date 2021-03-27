@@ -1,5 +1,5 @@
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWPage } from '@qualweb/qw-page';
 import * as techniques from './lib/techniques';
 import mapping from './lib/mapping';
 import { HTMLValidationReport } from '@qualweb/html-validator';
@@ -99,7 +99,12 @@ class WCAGTechniques {
     }
   }
 
-  private executeTechnique(technique: string, selector: string, page: QWPage, report: WCAGTechniquesReport): void {
+  private executeTechnique(
+    technique: string,
+    selector: string,
+    page: typeof window.qwPage,
+    report: WCAGTechniquesReport
+  ): void {
     const elements = page.getElements(selector);
     if (elements.length > 0) {
       for (const elem of elements || []) {
@@ -122,7 +127,7 @@ class WCAGTechniques {
     this.techniques[technique].reset();
   }
 
-  private executeMappedTechniques(report: WCAGTechniquesReport, page: QWPage): void {
+  private executeMappedTechniques(report: WCAGTechniquesReport, page: typeof window.qwPage): void {
     const selectors = Object.keys(mapping);
     const _mapping = <{ [selector: string]: Array<string> }>mapping;
     for (const selector of selectors ?? []) {
@@ -154,7 +159,11 @@ class WCAGTechniques {
     }
   }
 
-  public execute(page: QWPage, newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport {
+  public execute(
+    page: typeof window.qwPage,
+    newTabWasOpen: boolean,
+    validation: HTMLValidationReport
+  ): WCAGTechniquesReport {
     const report: WCAGTechniquesReport = {
       type: 'wcag-techniques',
       metadata: {

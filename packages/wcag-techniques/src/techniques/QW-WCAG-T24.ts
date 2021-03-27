@@ -1,8 +1,8 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 //import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -13,7 +13,7 @@ class QW_WCAG_T24 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const isFocusable = window.AccessibilityUtils.isElementFocusable(element, page);

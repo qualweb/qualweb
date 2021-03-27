@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechniqueClass, ElementExists, ElementIsVisible } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -12,7 +12,7 @@ class QW_WCAG_T17 extends Technique {
 
   @ElementExists
   @ElementIsVisible
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const result = this.verifyInputLabelPosition(element);
@@ -43,7 +43,7 @@ class QW_WCAG_T17 extends Technique {
     super.addTestResult(test);
   }
 
-  private verifyInputLabelPosition(element: QWElement): string | undefined {
+  private verifyInputLabelPosition(element: typeof window.qwElement): string | undefined {
     if (element.elementHasAttributes()) {
       const type = element.getElementAttribute('type');
 

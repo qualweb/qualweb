@@ -1,7 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 import Test from '../lib/Test.object';
 
@@ -12,12 +11,12 @@ class QW_WCAG_T3 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const formATT = element.getElementAttribute('form');
 
-    let validFormAtt = new Array<QWElement>();
+    let validFormAtt = new Array<typeof window.qwElement>();
 
     if (formATT) {
       validFormAtt = page.getElements(`form[id="${formATT}"]`);

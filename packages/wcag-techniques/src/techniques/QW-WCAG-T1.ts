@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -11,7 +11,7 @@ class QW_WCAG_T1 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const alt = element.getElementAttribute('alt');

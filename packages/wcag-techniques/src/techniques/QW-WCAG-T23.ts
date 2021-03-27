@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+//import { QWElement } from '@qualweb/qw-element';
+//import { QWPage } from '@qualweb/qw-page';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
 //import { AccessibilityUtils } from '@qualweb/util';
 import Test from '../lib/Test.object';
@@ -13,7 +13,7 @@ class QW_WCAG_T23 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
     const test = new Test();
 
     const children = element.getElementChildren();
@@ -84,9 +84,12 @@ class QW_WCAG_T23 extends Technique {
   }
 }
 
-function findFirstFocusableElement(element: QWElement, page: QWPage): QWElement | undefined {
+function findFirstFocusableElement(
+  element: typeof window.qwElement,
+  page: typeof window.qwPage
+): typeof window.qwElement | undefined {
   let foundFirstFocusableElem = false;
-  let firstFocusableElem: QWElement | undefined;
+  let firstFocusableElem: typeof window.qwElement | undefined;
   const children = element.getElementChildren();
 
   if (children && children.length > 0) {
@@ -111,7 +114,7 @@ function findFirstFocusableElement(element: QWElement, page: QWPage): QWElement 
   return firstFocusableElem;
 }
 
-function hasMainElementAsParent(element: QWElement | undefined): boolean {
+function hasMainElementAsParent(element: typeof window.qwElement | undefined): boolean {
   if (element) {
     const pointer = element.getElementSelector();
     return pointer.indexOf('main:') > 0;

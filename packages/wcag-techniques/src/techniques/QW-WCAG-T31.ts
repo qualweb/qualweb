@@ -1,7 +1,7 @@
 import Technique from '../lib/Technique.object';
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
-import { QWElement } from '@qualweb/qw-element';
+//import { QWElement } from '@qualweb/qw-element';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -11,7 +11,7 @@ class QW_WCAG_T31 extends Technique {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     if (
       element.getElementTagName() === 'head' ||
       element.getElementParent()?.getElementTagName() === 'head' ||
@@ -25,7 +25,7 @@ class QW_WCAG_T31 extends Technique {
     let foundColorProperty = false;
     let foundBackgroundProperty = false;
 
-    let parent: QWElement | null = element;
+    let parent: typeof window.qwElement | null = element;
     while (parent !== null) {
       const hasColor = parent.hasCSSProperty('color');
       const hasBackgroundColor = parent.hasCSSProperty('background-color');
