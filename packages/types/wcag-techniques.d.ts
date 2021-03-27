@@ -1,5 +1,6 @@
 declare module "@qualweb/wcag-techniques" {
   import { QWPage } from "@qualweb/qw-page";
+  import { HTMLValidationReport } from "@qualweb/html-validator";
 
   interface WCAGOptions {
     techniques?: string[];
@@ -102,7 +103,7 @@ declare module "@qualweb/wcag-techniques" {
       report: WCAGTechniquesReport,
       page: QWPage
     ): void;
-    public execute(page: QWPage): WCAGTechniquesReport;
+    public execute(page: QWPage, newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport;
   }
 
   export {

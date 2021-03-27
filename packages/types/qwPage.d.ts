@@ -2,7 +2,8 @@ declare module "@qualweb/qw-page" {
   import { QWElement } from "@qualweb/qw-element";
 
   class QWPage {
-    constructor(document: Document, window: Window);
+    constructor(document: Document, window: Window, addCSSRulesToElements?: boolean);
+    public static createQWElement(element: HTMLElement): QWElement;
     public cacheValue(
       selector: string,
       method: string,

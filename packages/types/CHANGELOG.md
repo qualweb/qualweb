@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.5] - 27/03/2020
+
+### Changes
+
+- several interfaces fixes
+
 ## [0.5.4] - 26/03/2020
 
 ### Added

@@ -14,7 +14,7 @@ declare module '@qualweb/html-validator' {
   }
 
   interface HTMLValidationReport {
-    messages: Message[];
+    messages: Array<Message>;
   }
 
   export {
