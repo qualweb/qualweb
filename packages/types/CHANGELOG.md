@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.6] - 27/03/2020
+
+### Added
+
+- necessary types for object Window on the evaluation module
+
 ## [0.5.5] - 27/03/2020
 
 ### Changes

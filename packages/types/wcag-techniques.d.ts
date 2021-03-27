@@ -32,15 +32,15 @@ declare module "@qualweb/wcag-techniques" {
     failed: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: "passed" | "failed" | "warning" | "inapplicable" | "";
+    outcome: "passed" | "failed" | "warning" | "inapplicable";
     description: string;
   }
 
   interface WCAGTechniqueResult {
-    verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
-    description: string[] | string | "";
+    verdict: "passed" | "failed" | "warning" | "inapplicable";
+    description: string[] | string;
     resultCode: string[] | string;
-    elements?: WCAGElement[];
+    elements: Array<WCAGElement>;
     attributes?: string | string[];
   }
 
@@ -110,6 +110,7 @@ declare module "@qualweb/wcag-techniques" {
     WCAGOptions,
     WCAGTechniqueMetadata,
     WCAGTechniqueResult,
+    WCAGElement,
     WCAGMetadata,
     WCAGTechnique,
     WCAGTechniquesReport,

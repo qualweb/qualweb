@@ -2,7 +2,6 @@ declare module "@qualweb/util" {
   import { Browser } from "puppeteer";
   import { QWElement } from "@qualweb/qw-element";
   import { QWPage } from "@qualweb/qw-page";
-  import { Node } from "domhandler";
 
   class DomUtils {
     public static elementIDIsReferenced(

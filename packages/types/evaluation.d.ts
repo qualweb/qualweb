@@ -5,12 +5,27 @@ declare module "@qualweb/evaluation" {
     Evaluator,
     Execute,
   } from "@qualweb/core";
-  import { ACTRulesReport } from "@qualweb/act-rules";
+  import { ACTRulesReport, ACTRules } from "@qualweb/act-rules";
   import { WCAGTechniquesReport, WCAGOptions } from "@qualweb/wcag-techniques";
   import { BestPracticesReport } from "@qualweb/best-practices";
-  import { CounterReport } from "@qualweb/counter";
+  import { CounterReport, executeCounter } from "@qualweb/counter";
   import { HTMLValidationReport } from "@qualweb/html-validator";
+  import { QWPage } from "@qualweb/qw-page";
+  import { QWElement } from "@qualweb/qw-element";
+  import { DomUtils, AccessibilityUtils, CSSUtils } from "@qualweb/util";
   import { Page } from "puppeteer";
+
+  declare global {
+    interface Window {
+      qwPage: QWPage;
+      qwElement: QWElement;
+      act: ACTRules;
+      executeCounter: typeof executeCounter;
+      DomUtils: typeof DomUtils;
+      CSSUtils: typeof CSSUtils;
+      AccessibilityUtils: typeof AccessibilityUtils;
+    }
+  }
 
   class Evaluation {
     public evaluatePage(
