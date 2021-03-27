@@ -1,60 +1,51 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { QWElement } from "@qualweb/qw-element";
-import {
-  WCAGTechnique,
-  ElementExists,
-  ElementIsVisible,
-} from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { QWElement } from '@qualweb/qw-element';
+import { WCAGTechniqueClass, ElementExists, ElementIsVisible } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T17 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   @ElementIsVisible
   execute(element: QWElement): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
     const result = this.verifyInputLabelPosition(element);
 
-    if (result === "checkbox") {
-      evaluation.verdict = "failed";
-      evaluation.description =
-        "The checkbox label is not immediately after the field";
-      evaluation.resultCode = "RC1";
-    } else if (result === "radio") {
-      evaluation.verdict = "failed";
-      evaluation.description =
-        "The radio label is not immediately after the field";
-      evaluation.resultCode = "RC2";
-    } else if (result === "other") {
-      evaluation.verdict = "failed";
-      evaluation.description =
-        "The form field label is not immediately before the field";
-      evaluation.resultCode = "RC3";
-    } else if (result === "noLabel") {
-      evaluation.verdict = "failed";
-      evaluation.description = "The form field does not have a label";
-      evaluation.resultCode = "RC4";
-    } else if (result === "pass") {
-      evaluation.verdict = "passed";
-      evaluation.description = "The form field has well positioned label";
-      evaluation.resultCode = "RC5";
+    if (result === 'checkbox') {
+      test.verdict = 'failed';
+      test.description = 'The checkbox label is not immediately after the field';
+      test.resultCode = 'RC1';
+    } else if (result === 'radio') {
+      test.verdict = 'failed';
+      test.description = 'The radio label is not immediately after the field';
+      test.resultCode = 'RC2';
+    } else if (result === 'other') {
+      test.verdict = 'failed';
+      test.description = 'The form field label is not immediately before the field';
+      test.resultCode = 'RC3';
+    } else if (result === 'noLabel') {
+      test.verdict = 'failed';
+      test.description = 'The form field does not have a label';
+      test.resultCode = 'RC4';
+    } else if (result === 'pass') {
+      test.verdict = 'passed';
+      test.description = 'The form field has well positioned label';
+      test.resultCode = 'RC5';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 
   private verifyInputLabelPosition(element: QWElement): string | undefined {
     if (element.elementHasAttributes()) {
-      const type = element.getElementAttribute("type");
+      const type = element.getElementAttribute('type');
 
       const prevElement = element.getElementPreviousSibling();
       let prevElementTagName;
@@ -64,7 +55,7 @@ class QW_WCAG_T17 extends Technique {
       if (prevElement) {
         prevElementTagName = prevElement.getElementTagName();
         prevElementHasAttributes = prevElement.elementHasAttributes();
-        prevElementAttributeFor = prevElement.getElementAttribute("for");
+        prevElementAttributeFor = prevElement.getElementAttribute('for');
       }
 
       const nextElement = element.getElementNextSibling();
@@ -75,51 +66,35 @@ class QW_WCAG_T17 extends Technique {
       if (nextElement) {
         nextElementTagName = nextElement.getElementTagName();
         nextElementHasAttributes = nextElement.elementHasAttributes();
-        nextElementAttributeFor = nextElement.getElementAttribute("for");
+        nextElementAttributeFor = nextElement.getElementAttribute('for');
       }
 
-      const elementId = element.getElementAttribute("id");
+      const elementId = element.getElementAttribute('id');
 
-      if (type && (type === "radio" || type === "checkbox")) {
+      if (type && (type === 'radio' || type === 'checkbox')) {
         if (nextElement) {
-          if (
-            nextElementTagName === "label" &&
-            nextElementHasAttributes &&
-            nextElementAttributeFor === elementId
-          ) {
-            return "pass";
+          if (nextElementTagName === 'label' && nextElementHasAttributes && nextElementAttributeFor === elementId) {
+            return 'pass';
           }
         } else if (prevElement) {
-          if (
-            prevElementTagName === "label" &&
-            prevElementHasAttributes &&
-            prevElementAttributeFor === elementId
-          ) {
+          if (prevElementTagName === 'label' && prevElementHasAttributes && prevElementAttributeFor === elementId) {
             return type;
           }
         } else {
-          return "noLabel";
+          return 'noLabel';
         }
       }
-      if (type && type !== "checkbox" && type !== "radio") {
+      if (type && type !== 'checkbox' && type !== 'radio') {
         if (prevElement) {
-          if (
-            prevElementTagName === "label" &&
-            prevElementHasAttributes &&
-            prevElementAttributeFor === elementId
-          ) {
-            return "pass";
+          if (prevElementTagName === 'label' && prevElementHasAttributes && prevElementAttributeFor === elementId) {
+            return 'pass';
           }
         } else if (nextElement) {
-          if (
-            nextElementTagName === "label" &&
-            nextElementHasAttributes &&
-            nextElementAttributeFor === elementId
-          ) {
-            return "other";
+          if (nextElementTagName === 'label' && nextElementHasAttributes && nextElementAttributeFor === elementId) {
+            return 'other';
           }
         } else {
-          return "noLabel";
+          return 'noLabel';
         }
       }
     }

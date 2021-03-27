@@ -4,10 +4,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   entry: './prebuild/index.js',
   output: {
-    filename: 'wcag.js',
+    filename: 'wcag.bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'var',
-    library: 'WCAGTechniques'
+    library: {
+      type: 'window'
+    }
   },
   optimization: {
     minimize: true,
@@ -24,5 +25,5 @@ module.exports = {
       })
     ],
   },
-  target: 'node-webkit',
+  target: 'web',
 }

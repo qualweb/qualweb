@@ -1,48 +1,43 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
-import { AccessibilityUtils } from '@qualweb/util';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T14 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
     const hasIds = element.getElements('[id]');
     const hasHeaders = element.getElements('[headers]');
 
-    if (!AccessibilityUtils.isDataTable(element, page)) {
+    if (!window.AccessibilityUtils.isDataTable(element, page)) {
       if (hasIds.length > 0 || hasHeaders.length > 0) {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'This table is a layout table with id or headers attributes';
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'failed';
+        test.description = 'This table is a layout table with id or headers attributes';
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'This table is a layout table';
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'inapplicable';
+        test.description = 'This table is a layout table';
+        test.resultCode = 'RC2';
       }
     } else {
       if (doesTableHaveDuplicateIds(element)) {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'There are duplicate `id`s in this data table';
-        evaluation.resultCode = 'RC3';
+        test.verdict = 'failed';
+        test.description = 'There are duplicate `id`s in this data table';
+        test.resultCode = 'RC3';
       } else if (hasHeaders.length <= 0) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'No header attributes are used in this data table';
-        evaluation.resultCode = 'RC4';
+        test.verdict = 'inapplicable';
+        test.description = 'No header attributes are used in this data table';
+        test.resultCode = 'RC4';
       } else {
         const headersElements = element.getElements('[headers]');
         let headersMatchId = true;
@@ -53,18 +48,19 @@ class QW_WCAG_T14 extends Technique {
         }
 
         if (headersMatchId) {
-          evaluation.verdict = 'passed';
-          evaluation.description = 'id and headers attributes are correctly used';
-          evaluation.resultCode = 'RC5';
+          test.verdict = 'passed';
+          test.description = 'id and headers attributes are correctly used';
+          test.resultCode = 'RC5';
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'id and headers attributes are not correctly used';
-          evaluation.resultCode = 'RC6';
+          test.verdict = 'failed';
+          test.description = 'id and headers attributes are not correctly used';
+          test.resultCode = 'RC6';
         }
       }
     }
-    
-    super.addEvaluationResult(evaluation, element);
+
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

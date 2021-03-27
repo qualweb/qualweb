@@ -1,54 +1,52 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
-import { AccessibilityUtils } from '@qualweb/util';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-import { WCAGTechnique, ElementExists, ElementHasAttributes } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementHasAccessibleName } from '../lib/decorators';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T8 extends Technique {
+  private readonly default_title = ['spacer', 'image', 'picture', 'separador', 'imagem', 'fotografia'];
 
-  constructor(technique?: any) {
+  private readonly pattern = new RegExp('.+\\.(jpg|jpeg|png|gif|tiff|bmp)');
+  private readonly pattern1 = new RegExp('^picture\\s[0-9]+$');
+  private readonly pattern2 = new RegExp('^[0-9]+$');
+  private readonly pattern3 = new RegExp('^intro#[0-9]+$');
+  private readonly pattern4 = new RegExp('^imagem\\s[0-9]+$');
+
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
-  @ElementExists 
+  @ElementExists
   @ElementHasAttributes
+  @ElementHasAccessibleName
   execute(element: QWElement, page: QWPage): void {
+    const test = new Test();
 
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element, page)).toLocaleLowerCase();
 
-    const default_title = ['spacer', 'image', 'picture', 'separador', 'imagem', 'fotografia'];
-
-    const pattern = new RegExp('.+\\.(jpg|jpeg|png|gif|tiff|bmp)');
-    const pattern1 = new RegExp('^picture\\s[0-9]+$');
-    const pattern2 = new RegExp('^[0-9]+$');
-    const pattern3 = new RegExp('^intro#[0-9]+$');
-    const pattern4 = new RegExp('^imagem\\s[0-9]+$');
-
-    let altText = AccessibilityUtils.getAccessibleName(element, page);
-    if (!altText || altText === ''){
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'Text alternative is not actually a text alternative for the non-text content';
-        evaluation.resultCode = 'RC1';
+    if (
+      !this.pattern4.test(accessibleName) &&
+      !this.pattern3.test(accessibleName) &&
+      !this.pattern2.test(accessibleName) &&
+      !this.pattern1.test(accessibleName) &&
+      !this.pattern.test(accessibleName) &&
+      !this.default_title.includes(accessibleName)
+    ) {
+      test.verdict = 'warning';
+      test.description = `Text alternative needs manual verification`;
+      test.resultCode = 'RC1';
     } else {
-      altText = altText.toLocaleLowerCase();
-      if(!pattern4.test(altText) && !pattern3.test(altText) && !pattern2.test(altText) && !pattern1.test(altText) && !pattern.test(altText) && !default_title.includes(altText)) {
-        evaluation.verdict = 'warning';
-        evaluation.description = `Text alternative needs manual verification`;
-        evaluation.resultCode = 'RC2';
-      } else{
-        evaluation.verdict = 'failed';
-        evaluation.description = 'Text alternative is not actually a text alternative for the non-text content';
-        evaluation.resultCode = 'RC3';
-      }
+      test.verdict = 'failed';
+      test.description = 'Text alternative is not actually a text alternative for the non-text content';
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

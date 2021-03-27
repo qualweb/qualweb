@@ -1,30 +1,25 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T3 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
+    const test = new Test();
 
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-    
     const formATT = element.getElementAttribute('form');
-    
-    let validFormAtt = new Array<any>();
 
-    if(formATT){
+    let validFormAtt = new Array<QWElement>();
+
+    if (formATT) {
       validFormAtt = page.getElements(`form[id="${formATT}"]`);
     }
 
@@ -33,24 +28,25 @@ class QW_WCAG_T3 extends Technique {
     const childText = element.getElementChildTextContent('legend');
 
     if (!hasParent && validFormAtt.length === 0) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The fieldset is not in a form and is not referencing a form';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = 'The fieldset is not in a form and is not referencing a form';
+      test.resultCode = 'RC1';
     } else if (!hasChild) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The legend does not exist in the fieldset element';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = 'The legend does not exist in the fieldset element';
+      test.resultCode = 'RC2';
     } else if (childText && childText.trim() === '') {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The legend is empty';
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'failed';
+      test.description = 'The legend is empty';
+      test.resultCode = 'RC3';
     } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Please verify that the legend description is valid';
-      evaluation.resultCode = 'RC4';
+      test.verdict = 'warning';
+      test.description = 'Please verify that the legend description is valid';
+      test.resultCode = 'RC4';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

@@ -1,51 +1,45 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { QWElement } from "@qualweb/qw-element";
-import { WCAGTechnique, ElementExists } from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { QWElement } from '@qualweb/qw-element';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T25 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
     const name = element.getElementTagName();
 
-    const hasScope = element.elementHasAttribute("scope");
-    const scope = element.getElementAttribute("scope");
+    const hasScope = element.elementHasAttribute('scope');
+    const scope = element.getElementAttribute('scope');
 
-    if (name === "th" && !hasScope) {
-      evaluation.verdict = "failed";
-      evaluation.description = `The element doesn't contain a scope attribute`;
-      evaluation.resultCode = "RC1";
-    } else if (name === "th" && scope === "") {
-      evaluation.verdict = "failed";
-      evaluation.description = `The element's scope attribute is empty`;
-      evaluation.resultCode = "RC2";
-    } else if (
-      scope &&
-      ["col", "row", "colgroup", "rowgroup"].includes(scope)
-    ) {
-      evaluation.verdict = "passed";
-      evaluation.description =
-        "The element's scope attribute matches the following values: col, row, colgroup, rowgroup";
-      evaluation.resultCode = "RC3";
+    if (name === 'th' && !hasScope) {
+      test.verdict = 'failed';
+      test.description = `The element doesn't contain a scope attribute`;
+      test.resultCode = 'RC1';
+    } else if (name === 'th' && scope === '') {
+      test.verdict = 'failed';
+      test.description = `The element's scope attribute is empty`;
+      test.resultCode = 'RC2';
+    } else if (scope && ['col', 'row', 'colgroup', 'rowgroup'].includes(scope)) {
+      test.verdict = 'passed';
+      test.description = "The element's scope attribute matches the following values: col, row, colgroup, rowgroup";
+      test.resultCode = 'RC3';
     } else {
-      evaluation.verdict = "failed";
-      evaluation.description =
+      test.verdict = 'failed';
+      test.description =
         "The element's scope attribute doesn't match any of the following values: col, row, colgroup, rowgroup";
-      evaluation.resultCode = "RC4";
+      test.resultCode = 'RC4';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

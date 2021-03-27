@@ -1,35 +1,32 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { WCAGTechnique } from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { WCAGTechniqueClass } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T22 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   execute(): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   validate(newTabWasOpen: boolean): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
     if (!newTabWasOpen) {
-      evaluation.verdict = "passed";
-      evaluation.description = `Browser didn't open new tab`;
-      evaluation.resultCode = "RC1";
+      test.verdict = 'passed';
+      test.description = `Browser didn't open new tab`;
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = "failed";
-      evaluation.description = `Browser opened a new tab`;
-      evaluation.resultCode = "RC2";
+      test.verdict = 'failed';
+      test.description = `Browser opened a new tab`;
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation);
+    super.addTestResult(test);
   }
 }
 

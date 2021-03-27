@@ -1,45 +1,38 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { QWElement } from "@qualweb/qw-element";
-import {
-  WCAGTechnique,
-  ElementExists,
-  ElementHasAttribute,
-} from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { QWElement } from '@qualweb/qw-element';
+import { WCAGTechniqueClass, ElementExists, ElementHasAttribute } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T20 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
-  @ElementHasAttribute("title")
+  @ElementHasAttribute('title')
   execute(element: QWElement): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
-    const title = (<string>element.getElementAttribute("title")).trim();
+    const title = (<string>element.getElementAttribute('title')).trim();
     const text = element.getElementText().trim();
 
     if (!title) {
-      evaluation.verdict = "failed";
-      evaluation.description = `The element's title attribute is empty`;
-      evaluation.resultCode = "RC1";
+      test.verdict = 'failed';
+      test.description = `The element's title attribute is empty`;
+      test.resultCode = 'RC1';
     } else if (title === text) {
-      evaluation.verdict = "failed";
-      evaluation.description = `The element contains a title attribute equal to the text in the link`;
-      evaluation.resultCode = "RC2";
+      test.verdict = 'failed';
+      test.description = `The element contains a title attribute equal to the text in the link`;
+      test.resultCode = 'RC2';
     } else {
-      evaluation.verdict = "warning";
-      evaluation.description = `Please verify that the element's title attribute describes correctly the link`;
-      evaluation.resultCode = "RC3";
+      test.verdict = 'warning';
+      test.description = `Please verify that the element's title attribute describes correctly the link`;
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    super.addTestResult(test);
   }
 }
 

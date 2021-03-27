@@ -1,12 +1,11 @@
-import clone from 'lodash.clone';
-import cloneDeep from 'lodash.clonedeep';
+//import cloneDeep from 'lodash.clonedeep';
 import { WCAGTechnique, WCAGTechniqueResult } from '@qualweb/wcag-techniques';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
+import Test from './Test.object';
 
 abstract class Technique {
-
-  private technique: WCAGTechnique;
+  private readonly technique: WCAGTechnique;
 
   constructor(technique: WCAGTechnique) {
     this.technique = technique;
@@ -38,25 +37,21 @@ abstract class Technique {
     return this.technique.metadata.failed;
   }
 
-  protected addEvaluationResult(result: WCAGTechniqueResult, element?: QWElement, withText: boolean = true, fullElement: boolean = false): void {
-    if (element) {
-      const htmlCode = element.getElementHtmlCode(withText, fullElement);
-      const pointer = element.getElementSelector();
-      result.elements = [{ htmlCode, pointer }];
-    }
-
-    this.technique.results.push(clone(result));
+  protected addTestResult(result: Test): void {
+    //this.technique.results.push(cloneDeep(result));
+    this.technique.results.push(result);
 
     if (result.verdict !== 'inapplicable') {
       this.technique.metadata[result.verdict]++;
     }
   }
 
-  abstract execute(element: QWElement | undefined, page: QWPage): void;
+  abstract execute(element: QWElement | undefined, page?: QWPage): void;
 
-  getFinalResults() {
+  getFinalResults(): WCAGTechnique {
     this.outcomeTechnique();
-    return cloneDeep(this.technique);
+    //return cloneDeep(this.technique);
+    return this.technique;
   }
 
   reset(): void {

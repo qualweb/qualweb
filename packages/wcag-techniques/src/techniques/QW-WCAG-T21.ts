@@ -1,14 +1,19 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
-import { AccessibilityUtils } from '@qualweb/util';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechnique, ElementExists, ElementHasAttributes, ElementIsInAccessibilityTree } from '../lib/decorators';
+import {
+  WCAGTechniqueClass,
+  ElementExists,
+  ElementHasAttributes,
+  ElementIsInAccessibilityTree
+} from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T21 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
@@ -16,39 +21,23 @@ class QW_WCAG_T21 extends Technique {
   @ElementHasAttributes
   @ElementIsInAccessibilityTree
   execute(element: QWElement, page: QWPage): void {
-
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
     const img = element.getElement('img');
     const aText = element.getElementText();
 
-    if (!(aText !== undefined && aText.trim() !== '' || !img)) {
-      if (AccessibilityUtils.getAccessibleName(element, page)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The link has an accessible name`;
+    if (!((aText !== undefined && aText.trim() !== '') || !img)) {
+      if (window.AccessibilityUtils.getAccessibleName(element, page)) {
+        test.verdict = 'passed';
+        test.description = `The link has an accessible name`;
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The image doesn't have an accessible name`;
+        test.verdict = 'failed';
+        test.description = `The image doesn't have an accessible name`;
       }
 
-      super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
     }
-
-    /*if (aText !== undefined && aText.trim() !== '' || !img) {
-
-    } else if (AccessibilityUtils.getAccessibleName(element, page)) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The link has an accessible name`;
-    } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The image doesn't have an accessible name`;
-    }
-
-    super.addEvaluationResult(evaluation, element);*/
   }
 }
 

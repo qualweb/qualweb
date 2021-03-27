@@ -1,59 +1,53 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { WCAGTechnique, ElementExists } from "../lib/decorators";
-import { QWElement } from "@qualweb/qw-element";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T30 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
-    if (element.elementHasAttribute("_cssRules")) {
+    if (element.elementHasAttribute('_cssRules')) {
       const cssRules = element.getCSSRules();
 
       const property = this.findTextDecorationWithBlink(cssRules);
 
       if (property !== undefined) {
-        evaluation.verdict = "failed";
-        evaluation.description =
-          "This test target has a `text-decoration` property with the value `blink";
-        evaluation.resultCode = "RC1";
-        evaluation.elements = [
-          {
-            pointer: element.getElementSelector(),
-            htmlCode: element.getElementHtmlCode(true, true),
-            property: {
-              name: "text-decoration",
-              value: "blink",
-            },
-            stylesheetFile: property.pointer,
+        test.verdict = 'failed';
+        test.description = 'This test target has a `text-decoration` property with the value `blink';
+        test.resultCode = 'RC1';
+        test.elements.push({
+          pointer: element.getElementSelector(),
+          htmlCode: element.getElementHtmlCode(true, true),
+          property: {
+            name: 'text-decoration',
+            value: 'blink'
           },
-        ];
+          stylesheetFile: property.pointer
+        });
 
-        super.addEvaluationResult(evaluation);
+        super.addTestResult(test);
       }
     }
   }
 
-  private findTextDecorationWithBlink(properties: any): any {
-    for (const property in properties || {}) {
-      if (property === "media") {
-        const mediaRule = this.findInMediaRules(properties["media"]);
+  private findTextDecorationWithBlink(properties: CSSProperties): CSSProperty | undefined {
+    for (const property in properties ?? {}) {
+      if (property === 'media') {
+        const mediaRule = this.findInMediaRules(properties.media);
         if (mediaRule !== undefined) {
           return mediaRule;
         }
-      } else if (property === "text-decoration") {
-        if (properties[property]["value"] === "blink") {
-          return properties[property];
+      } else if (property === 'text-decoration') {
+        if (properties[property].value === 'blink') {
+          return <CSSProperty>properties[property];
         }
       }
     }
@@ -61,12 +55,12 @@ class QW_WCAG_T30 extends Technique {
     return undefined;
   }
 
-  private findInMediaRules(media: any): any {
-    for (const condition in media || {}) {
-      for (const property in media[condition] || {}) {
-        if (property === "text-decoration") {
-          if (media[condition][property]["value"] === "blink") {
-            return media[condition][property];
+  private findInMediaRules(media: MediaProperties): CSSProperty | undefined {
+    for (const condition in media ?? {}) {
+      for (const property in media[condition] ?? {}) {
+        if (property === 'text-decoration') {
+          if (media[condition][property]['value'] === 'blink') {
+            return <CSSProperty>media[condition][property];
           }
         }
       }

@@ -1,36 +1,34 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import Technique from "../lib/Technique.object";
-import { QWElement } from "@qualweb/qw-element";
-import { WCAGTechnique, ElementExists } from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+import Technique from '../lib/Technique.object';
+import { QWElement } from '@qualweb/qw-element';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T27 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
-    const alignAttribute = element.getElementStyleProperty("text-align", null);
+    const alignAttribute = element.getElementStyleProperty('text-align', null);
 
     if (alignAttribute) {
-      if (alignAttribute.includes("justify")) {
-        evaluation.verdict = "failed";
-        evaluation.description = "This content shouldn't be justified";
-        evaluation.resultCode = "RC1";
+      if (alignAttribute.includes('justify')) {
+        test.verdict = 'failed';
+        test.description = "This content shouldn't be justified";
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = "passed";
-        evaluation.description = "This content is not justified";
-        evaluation.resultCode = "RC2";
+        test.verdict = 'passed';
+        test.description = 'This content is not justified';
+        test.resultCode = 'RC2';
       }
 
-      super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 }

@@ -1,55 +1,50 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T12 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
+    const test = new Test();
 
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
-    let checks = {};
+    const checks: { [key: string]: boolean } = {};
     checks['hasCaption'] = false;
     checks['hasTh'] = false;
 
     if (element.elementHasChildren()) {
-      checks['hasCaption'] = !!(element.getElement('caption'));
-      checks['hasTh'] = !!(element.getElement('th'));
+      checks['hasCaption'] = !!element.getElement('caption');
+      checks['hasTh'] = !!element.getElement('th');
     }
 
-    const hasSummary = element.elementHasAttribute('summary');
     const summary = element.getElementAttribute('summary');
 
-    if (hasSummary && summary && summary.trim() !== '') {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The table has a non-empty summary - Amend it if it's a layout table`;
-      evaluation.resultCode = 'RC1';
+    if (summary?.trim() !== '') {
+      test.verdict = 'failed';
+      test.description = `The table has a non-empty summary - Amend it if it's a layout table`;
+      test.resultCode = 'RC1';
     } else if (checks['hasTh']) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The table has a th element - Amend it if it's a layout table`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = `The table has a th element - Amend it if it's a layout table`;
+      test.resultCode = 'RC2';
     } else if (checks['hasCaption']) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The table has a caption element - Amend it if it's a layout table`;
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'failed';
+      test.description = `The table has a caption element - Amend it if it's a layout table`;
+      test.resultCode = 'RC3';
     } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = `No incorrect elements used in layout table`;
-      evaluation.resultCode = 'RC4';
+      test.verdict = 'warning';
+      test.description = `No incorrect elements used in layout table`;
+      test.resultCode = 'RC4';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

@@ -1,12 +1,12 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { WCAGTechnique } from '../lib/decorators';
+import { WCAGTechniqueClass } from '../lib/decorators';
 import { HTMLValidationReport } from '@qualweb/html-validator';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T16 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
@@ -15,35 +15,24 @@ class QW_WCAG_T16 extends Technique {
   }
 
   validate(validation: HTMLValidationReport | undefined): void {
-
-    for (const result of validation?.messages || []) {
-      const evaluation: WCAGTechniqueResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    for (const result of validation?.messages ?? []) {
+      const test = new Test();
 
       if (result.type === 'error') {
-        evaluation.verdict = 'failed';
-        evaluation.description = result.message;
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'failed';
+        test.resultCode = 'RC2';
       } else {
-        evaluation.verdict = 'warning';
-        evaluation.description = result.message;
-        evaluation.resultCode = 'RC3';
+        test.verdict = 'warning';
+        test.resultCode = 'RC3';
       }
 
-      super.addEvaluationResult(evaluation);
+      test.description = result.message;
+
+      super.addTestResult(test);
     }
 
     if (super.getNumberOfFailedResults() + super.getNumberOfWarningResults() === 0) {
-      const evaluation: WCAGTechniqueResult = {
-        verdict: 'passed',
-        description: `The HTML document doesn't have errors`,
-        resultCode: 'RC1'
-      };
-
-      super.addEvaluationResult(evaluation);
+      super.addTestResult(new Test('passed', `The HTML document doesn't have errors,`, 'RC1'));
     }
   }
 }

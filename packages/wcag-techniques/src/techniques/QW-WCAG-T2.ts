@@ -1,42 +1,38 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T2 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
     const hasChild = element.elementHasChild('caption');
     const childText = element.getElementChildTextContent('caption');
 
     if (!hasChild) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The caption does not exist in the table element';
-      evaluation.resultCode = 'RC1';
-    } else if (!childText ||childText && childText.trim() === '') {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The caption is empty';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = 'The caption does not exist in the table element';
+      test.resultCode = 'RC1';
+    } else if (!childText || (childText && childText.trim() === '')) {
+      test.verdict = 'failed';
+      test.description = 'The caption is empty';
+      test.resultCode = 'RC2';
     } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Please verify that the caption element identifies the table correctly.';
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'warning';
+      test.description = 'Please verify that the caption element identifies the table correctly.';
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

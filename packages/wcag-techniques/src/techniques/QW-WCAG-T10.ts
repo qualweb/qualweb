@@ -1,60 +1,58 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { QWElement } from '@qualweb/qw-element';
-import { WCAGTechnique, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T10 extends Technique {
-
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement): void {
-
-    const evaluation: WCAGTechniqueResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
     const images = element.getElements('img');
-    let text = element.getElementText()
+    const text = element.getElementText();
 
     const hasImage = images.length > 0;
     let hasNonEmptyAlt = false;
     let hasAlt = false;
     let equalAltText = false;
 
-    for (const img of images || []) { // fails if the element doesn't contain an alt attribute
-      if ((img.elementHasAttribute('alt')) && !hasNonEmptyAlt && !equalAltText) {
+    for (const img of images || []) {
+      // fails if the element doesn't contain an alt attribute
+      if (img.elementHasAttribute('alt') && !hasNonEmptyAlt && !equalAltText) {
         hasAlt = true;
         const alt = img.getElementAttribute('alt');
-        if (alt !== null) { 
+        if (alt !== null) {
           hasNonEmptyAlt = alt.trim() !== '';
           equalAltText = !!text && alt.trim() === text.trim();
         }
       }
     }
 
-    if (!hasImage || !hasAlt || !text|| text.trim()==="") {
-      //inapplicable 
+    if (!hasImage || !hasAlt || !text || text.trim() === '') {
+      //inapplicable
+      return;
     } else if (!hasNonEmptyAlt) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The a element contains an image that has an empty alt attribute`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = `The a element contains an image that has an empty alt attribute`;
+      test.resultCode = 'RC1';
     } else if (equalAltText) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The link text is equal to the image's alternative text`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = `The link text is equal to the image's alternative text`;
+      test.resultCode = 'RC2';
     } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'The link contains an image that has an alt attribute that should be manually verified';
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'warning';
+      test.description = 'The link contains an image that has an alt attribute that should be manually verified';
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

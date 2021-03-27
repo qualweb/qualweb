@@ -63,5 +63,5 @@ export {
   QW_WCAG_T6,
   QW_WCAG_T7,
   QW_WCAG_T8,
-  QW_WCAG_T9,
+  QW_WCAG_T9
 };

@@ -1,39 +1,37 @@
-import { WCAGTechniqueResult } from "@qualweb/wcag-techniques";
-import { AccessibilityUtils } from "@qualweb/util";
-import Technique from "../lib/Technique.object";
-import { QWElement } from "@qualweb/qw-element";
-import { QWPage } from "@qualweb/qw-page";
-import { WCAGTechnique, ElementExists } from "../lib/decorators";
+import { WCAGTechnique } from '@qualweb/wcag-techniques';
+//import { AccessibilityUtils } from '@qualweb/util';
+import Technique from '../lib/Technique.object';
+import { QWElement } from '@qualweb/qw-element';
+import { QWPage } from '@qualweb/qw-page';
+import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import Test from '../lib/Test.object';
 
-@WCAGTechnique
+@WCAGTechniqueClass
 class QW_WCAG_T24 extends Technique {
-  constructor(technique?: any) {
+  constructor(technique: WCAGTechnique) {
     super(technique);
   }
 
   @ElementExists
   execute(element: QWElement, page: QWPage): void {
-    const evaluation: WCAGTechniqueResult = {
-      verdict: "",
-      description: "",
-      resultCode: "",
-    };
+    const test = new Test();
 
-    const isFocusable = AccessibilityUtils.isElementFocusable(element, page);
+    const isFocusable = window.AccessibilityUtils.isElementFocusable(element, page);
 
     if (isFocusable) {
-      const keepsFocus = AccessibilityUtils.isFocusableBrowser(page, element);
+      const keepsFocus = window.AccessibilityUtils.isFocusableBrowser(page, element);
       if (keepsFocus) {
-        evaluation.verdict = "passed";
-        evaluation.description = `Element kept focus`;
-        evaluation.resultCode = "RC1";
+        test.verdict = 'passed';
+        test.description = `Element kept focus`;
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = "failed";
-        evaluation.description = `Element didn't keep focus`;
-        evaluation.resultCode = "RC2";
+        test.verdict = 'failed';
+        test.description = `Element didn't keep focus`;
+        test.resultCode = 'RC2';
       }
 
-      super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 }
