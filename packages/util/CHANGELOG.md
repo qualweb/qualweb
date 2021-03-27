@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.1] - 27/03/2021
+
+### Fixed
+
+- issue with webpack config
+
+## [0.5.0] - 27/03/2021
+
+### Changes
+
+- module is now optimized using webpack
+- should be injected and initialized before any evaluation module
+
 ## [0.4.0] - 25/03/2021
 
 # Removed

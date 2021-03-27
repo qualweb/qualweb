@@ -6,7 +6,7 @@ module.exports = {
     filename: 'util.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      type: 'window'
+      type: 'this'
     }
   },
   target: 'web'
