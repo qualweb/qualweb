@@ -182,30 +182,6 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW_ACT_R8": {
-    "name": "Image filename is accessible name for image",
-    "code": "QW-ACT-R8",
-    "mapping": "9eb3f6",
-    "description": "This rule checks that image elements that use their source filename as their accessible name do so without loss of information to the user.",
-    "metadata": {
-      "target": {
-        "element": ["img", "input[type='image']"],
-        "attributes": ["src"]
-      },
-      "success-criteria": [
-        {
-          "name": "1.1.1",
-          "level": "A",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-content"
-        }
-      ],
-      "related": [],
-      "url": "https://act-rules.github.io/rules/9eb3f6",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R9": {
     "name": "Links with identical accessible names have equivalent purpose",
     "code": "QW-ACT-R9",
@@ -307,7 +283,7 @@
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value"
         }
       ],
-      "related": [],
+      "related": ["G91"],
       "url": "https://act-rules.github.io/rules/c487ae",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:title"]
@@ -370,7 +346,7 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/b4f0c3",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:title"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R15": {
@@ -1383,7 +1359,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/oj04fd"
+      "url": "https://act-rules.github.io/rules/307n5z"
     }
   },
   "QW_ACT_R66": {

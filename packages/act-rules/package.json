@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "main": "dist/act.bundle.js",
   "files": [
@@ -44,13 +44,12 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "chai": "^4.3.4",
-    "css-select": "^3.1.2",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
-    "mocha": "^8.3.1",
+    "mocha": "^8.3.2",
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
     "puppeteer": "^8.0.0",

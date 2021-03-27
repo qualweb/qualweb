@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.5.1] - 27/03/2021
+
+### Fixed
+
+- issue with webpack config
 ## [0.5.0] - 25/03/2021
 
 ### Updated

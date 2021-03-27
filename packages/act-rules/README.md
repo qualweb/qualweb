@@ -54,7 +54,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R42      | [8fc3b6](https://act-rules.github.io/rules/8fc3b6) | Object element has non-empty accessible name                                        |
 | QW-ACT-R43      | [0ssw9k](https://act-rules.github.io/rules/0ssw9k) | Scrollable element is keyboard accessible                                           |
 | QW-ACT-R44      | [fd3a94](https://act-rules.github.io/rules/fd3a94) | Links with identical accessible names and context serve equivalent purpose          |
-| QW-ACT-R46      | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model                                                  |
 | QW-ACT-R48      | [46ca7f](https://act-rules.github.io/rules/46ca7f) | Element marked as decorative is not exposed                                         |
 | QW-ACT-R49      | [aaa1bf](https://act-rules.github.io/rules/aaa1bf) | Audio or video that plays automatically has no audio that lasts more than 3 seconds |
 | QW-ACT-R50      | [4c31df](https://act-rules.github.io/rules/4c31df) | Audio or video that plays automatically has a control mechanism                     |

@@ -54,8 +54,6 @@ const mapping = {
   'QW-ACT-R43': '0ssw9k',
   'QW-ACT-R44': 'fd3a94',
   'QW-ACT-R45': 'c6f8a9',
-  'QW-ACT-R46': 'a73be2',
-  'QW-ACT-R47': 'b8bb68',
   'QW-ACT-R48': '46ca7f',
   'QW-ACT-R49': 'aaa1bf',
   'QW-ACT-R50': '4c31df',
@@ -101,7 +99,7 @@ describe(`Rule ${rule}`, function () {
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
     });
-
+    
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
@@ -118,7 +116,7 @@ describe(`Rule ${rule}`, function () {
           await page.addScriptTag({
             path: require.resolve('../dist/act.bundle.js')
           });
-
+          
           await page.evaluate((rules) => {
             window.page = new QWPage(document, window, true);
             window.act = new ACTRules(rules);
@@ -139,7 +137,7 @@ describe(`Rule ${rule}`, function () {
             const elements = sourceDoc.querySelectorAll("meta");
             const metaElements = new Array();
             for (const element of elements) {
-              metaElements.push(QWPage.QWPage.createQWElement(element));
+              metaElements.push(QWPage.createQWElement(element));
             }
 
             window.act.validateMetaElements(metaElements);
