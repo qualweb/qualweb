@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.1] - 27/03/2021
+
+### Fixed
+
+- issue with webpack config
+
+### Updated
+
+- dependencies
+
 ## [0.5.0] - 26/03/2021
 
 ### Updated

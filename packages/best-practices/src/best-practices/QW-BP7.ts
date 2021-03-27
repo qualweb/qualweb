@@ -11,7 +11,6 @@ class QW_BP7 extends BestPracticeObject {
 
   @ElementExists
   execute(element: QWElement): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
@@ -58,7 +57,7 @@ class QW_BP7 extends BestPracticeObject {
         evaluation.resultCode = `RC3`;
       }
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

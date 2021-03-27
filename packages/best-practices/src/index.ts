@@ -3,16 +3,17 @@ import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import * as bestPractices from './lib/bestPractices';
 import mapping from './lib/mapping';
+import BestPracticeObject from './lib/BestPractice.object';
 
 class BestPractices {
-  private bestPractices: any;
-  private bestPracticesToExecute: any;
+  private readonly bestPractices: { [bp: string]: BestPracticeObject };
+  private readonly bestPracticesToExecute: { [bp: string]: boolean };
 
   constructor(options?: BPOptions) {
     this.bestPractices = {};
     this.bestPracticesToExecute = {};
 
-    for (const bp of Object.keys(bestPractices) || []) {
+    for (const bp of Object.keys(bestPractices) ?? []) {
       const _bp = bp.replace(/_/g, '-');
       // @ts-ignore
       this.bestPractices[_bp] = new bestPractices[bp]();
@@ -29,20 +30,20 @@ class BestPractices {
 
     if (options.bestPractices) {
       options.bestPractices = options.bestPractices.map((bp) => bp.toUpperCase().trim());
-      for (const bp of Object.keys(this.bestPractices) || []) {
+      for (const bp of Object.keys(this.bestPractices) ?? []) {
         this.bestPracticesToExecute[bp] = options.bestPractices.includes(bp);
       }
     }
     if (options.exclude) {
       options.exclude = options.exclude.map((bp) => bp.toUpperCase().trim());
-      for (const bp of options.exclude || []) {
+      for (const bp of options.exclude ?? []) {
         this.bestPracticesToExecute[bp] = false;
       }
     }
   }
 
   public resetConfiguration(): void {
-    for (const bp in this.bestPracticesToExecute || {}) {
+    for (const bp in this.bestPracticesToExecute ?? {}) {
       this.bestPracticesToExecute[bp] = true;
     }
   }
@@ -59,7 +60,7 @@ class BestPractices {
     const elements = page.getElements(selector);
 
     if (elements.length > 0) {
-      for (const elem of elements || []) {
+      for (const elem of elements ?? []) {
         this.evaluateElement(bestPractice, elem, page);
       }
     } else {
@@ -84,9 +85,9 @@ class BestPractices {
       assertions: {}
     };
 
-    for (const selector of Object.keys(mapping) || []) {
+    for (const selector of Object.keys(mapping) ?? []) {
       // @ts-ignore
-      for (const bestPractice of mapping[selector] || []) {
+      for (const bestPractice of mapping[selector] ?? []) {
         if (this.bestPracticesToExecute[bestPractice]) {
           this.executeBP(bestPractice, selector, page, report);
         }

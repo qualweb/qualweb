@@ -12,7 +12,6 @@ class QW_BP4 extends BestPracticeObject {
   @ElementExists
   @ElementIsNotChildOf('nav')
   execute(element: QWElement): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',

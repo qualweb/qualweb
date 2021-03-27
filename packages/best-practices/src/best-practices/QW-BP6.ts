@@ -11,7 +11,6 @@ class QW_BP6 extends BestPracticeObject {
 
   @ElementExists
   execute(element: QWElement): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',

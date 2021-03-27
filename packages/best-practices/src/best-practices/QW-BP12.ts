@@ -12,7 +12,6 @@ class QW_BP12 extends BestPracticeObject {
   @ElementExists
   @ElementHasChild('tr')
   execute(element: QWElement): void {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',

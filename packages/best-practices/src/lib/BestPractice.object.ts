@@ -30,7 +30,12 @@ abstract class BestPractice {
     return this.bestPractice.metadata.inapplicable;
   }
 
-  protected addEvaluationResult(result: BestPracticeResult, element?: QWElement, withText = true, fullElement = false): void {
+  protected addEvaluationResult(
+    result: BestPracticeResult,
+    element?: QWElement,
+    withText = true,
+    fullElement = false
+  ): void {
     if (element) {
       const htmlCode = element.getElementHtmlCode(withText, fullElement);
       const pointer = element.getElementSelector();

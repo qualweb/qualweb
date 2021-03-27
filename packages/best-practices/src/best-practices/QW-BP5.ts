@@ -25,7 +25,7 @@ class QW_BP5 extends BestPracticeObject {
       evaluation.description = 'There are table elements inside other table elements';
       evaluation.resultCode = 'RC2';
     }
-    
+
     super.addEvaluationResult(evaluation, element);
   }
 }

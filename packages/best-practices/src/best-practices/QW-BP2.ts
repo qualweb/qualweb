@@ -13,7 +13,6 @@ class QW_BP2 extends BestPracticeObject {
   @ElementHasAttribute('alt')
   @ElementHasNonEmptyAttribute('alt')
   async execute(element: QWElement): Promise<void> {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',

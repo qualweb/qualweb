@@ -12,7 +12,6 @@ class QW_BP9 extends BestPracticeObject {
   @ElementExists
   @ElementDoesNotHaveChild('th')
   async execute(element: QWElement): Promise<void> {
-
     const evaluation: BestPracticeResult = {
       verdict: '',
       description: '',
