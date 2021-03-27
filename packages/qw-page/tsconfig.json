@@ -3,9 +3,6 @@
   "compilerOptions": {
     /* Basic Options */
     "resolveJsonModule": true,
-    "declaration": false /* Generates corresponding '.d.ts' file. */,
-    "declarationMap": false /* Generates a sourcemap for each corresponding '.d.ts' file. */,
-    "sourceMap": false /* Generates corresponding '.map' file. */,
     "outDir": "./prebuild" /* Redirect output structure to the directory. */,
     "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "removeComments": true /* Do not emit comments to output. */,
