@@ -1,8 +1,6 @@
-'use strict';
-
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import getElementRole from '../accessibilityUtils/getElementRole';
 
 function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: string[], roles: string[]): boolean {
   if (!elementQW || !pageQW) {
@@ -14,7 +12,7 @@ function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: str
 
   if (parent !== null) {
     const parentName = parent.getElementTagName();
-    const parentRole = AccessibilityUtils.getElementRole(parent, pageQW);
+    const parentRole = getElementRole(parent, pageQW);
 
     if (parentName !== null) {
       sameName = names.includes(parentName);
@@ -24,7 +22,7 @@ function isElementADescendantOf(elementQW: QWElement, pageQW: QWPage, names: str
     }
     result = sameName || sameRole;
     if (!result) {
-      return DomUtils.isElementADescendantOf(parent, pageQW, names, roles);
+      return isElementADescendantOf(parent, pageQW, names, roles);
     } else {
       return result;
     }

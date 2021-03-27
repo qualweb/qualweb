@@ -1,19 +1,20 @@
-'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import isElementFocusable from './isElementFocusable';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
+import isElementChildPresentationalAux from './isElementChildPresentationalAux';
 
 function isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
     throw Error('Element is not defined');
   }
-  const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
-  const hasGlobalARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW);
+  const focusable = isElementFocusable(elementQW, pageQW);
+  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
   const parent = elementQW.getElementParent();
   let childPresentational = false;
 
   if (parent && !focusable && !hasGlobalARIA) {
-    childPresentational = AccessibilityUtils.isElementChildPresentationalAux(parent, pageQW);
+    childPresentational = isElementChildPresentationalAux(parent, pageQW);
   }
 
   return !focusable && !hasGlobalARIA && childPresentational;

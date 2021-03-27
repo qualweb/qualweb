@@ -1,4 +1,3 @@
-'use strict';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
 import allowsNameFromContentFunction from './allowsNameFromContent';
@@ -7,7 +6,6 @@ import getAccessibleNameRecursionFunction from './getAccessibleNameRecursion';
 import getDefaultNameFunction from './getDefaultName';
 import getAccessibleNameSVGFunction from './getAccessibleNameSVG';
 import isDataTableFunction from './isDataTable';
-import isElementChildOfDetailsFunction from './isElementChildOfDetails';
 import isElementControlFunction from './isElementControl';
 import isElementWidgetFunction from './isElementWidget';
 import getElementRoleFunction from './getElementRole';
@@ -83,7 +81,7 @@ class AccessibilityUtils {
   public static isDataTable(element: QWElement, page: QWPage): boolean {
     return isDataTableFunction(element, page);
   }
-  public static isElementChildOfDetails = isElementChildOfDetailsFunction;
+
   @CacheDecorator('AcceUtils.isElementControl')
   public static isElementControl(element: QWElement, page: QWPage): boolean {
     return isElementControlFunction(element, page);

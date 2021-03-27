@@ -1,7 +1,6 @@
-'use strict';
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { DomUtils } from '@qualweb/util';
+import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
 
 function isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
   if (!elementQW) {
@@ -14,11 +13,11 @@ function isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
   const typeHidden = name === 'input' && type === 'hidden';
   const ariaHidden = elementQW.getElementAttribute('aria-hidden') === 'true';
   const hidden = elementQW.getElementAttribute('hidden') !== null;
-  const cssHidden = DomUtils.isElementHiddenByCSSAux(elementQW, pageQW);
+  const cssHidden = isElementHiddenByCSSAux(elementQW);
   const parent = elementQW.getElementParent();
   let parentHidden = false;
   if (parent) {
-    parentHidden = DomUtils.isElementHidden(parent, pageQW);
+    parentHidden = isElementHidden(parent, pageQW);
   }
 
   result = cssHidden || hidden || ariaHidden || parentHidden || typeHidden;

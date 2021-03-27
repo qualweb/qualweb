@@ -38,10 +38,7 @@ class DomUtils {
     return isElementHiddenByCSSFunction(elementQW, pageQW);
   }
 
-  @CacheDecorator('DomUtils.isElementVisible')
-  public static isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementVisibleFunction(elementQW, pageQW);
-  }
+  public static isElementVisible = isElementVisibleFunction;
 
   @CacheDecorator('DomUtils.elementIDIsReferenced')
   public static elementIDIsReferenced(elementQW: QWElement, pageQW: QWPage, id: string, attribute: string): boolean {

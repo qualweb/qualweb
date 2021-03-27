@@ -1,9 +1,11 @@
-'use strict';
 import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer } from './constants';
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
+import getAccessibleName from './getAccessibleName';
+import getTrimmedText from '../domUtils/getTrimmedText';
+import isElementHidden from '../domUtils/isElementHidden';
 
 function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, tag;
@@ -16,7 +18,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
     ariaLabelBy = '';
   }
   const ariaLabel = element.getElementAttribute('aria-label');
-  const referencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
+  const referencedByAriaLabel = isElementReferencedByAriaLabel(element, page);
   const title = element.getElementChildTextContent('title');
   const titleAtt = element.getElementAttribute('xlink:title'); //tem de ser a
   const href = element.getElementAttribute('href');
@@ -24,7 +26,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
   if (
-    (DomUtils.isElementHidden(element, page) ||
+    (isElementHidden(element, page) ||
       hasParentOfName(element, noAccessibleObjectOrChild) ||
       noAccessibleObject.indexOf(tag) >= 0 ||
       noAccessibleObjectOrChild.indexOf(tag) >= 0 ||
@@ -35,7 +37,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   } else if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
-    AName = AccessibilityUtils.getAccessibleName(element, page);
+    AName = getAccessibleName(element, page);
   } else if (ariaLabel && ariaLabel.trim() !== '') {
     AName = ariaLabel;
   } else if (title && title.trim() !== '') {
@@ -46,7 +48,7 @@ function getAccessibleNameSVGRecursion(element: QWElement, page: QWPage, recursi
   } else if (roleLink) {
     AName = getTextFromCss(element, page);
   } else if (tag && tag === 'text') {
-    AName = DomUtils.getTrimmedText(element, page);
+    AName = getTrimmedText(element);
   }
   return AName;
 }

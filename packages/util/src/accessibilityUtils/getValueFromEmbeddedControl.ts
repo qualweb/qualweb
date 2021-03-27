@@ -1,10 +1,10 @@
-'use strict';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
+import getElementRoleAName from './getElementRoleAName';
+import getTrimmedText from '../domUtils/getTrimmedText';
 
 function getValueFromEmbeddedControl(element: QWElement, page: QWPage): string {
-  const role = AccessibilityUtils.getElementRoleAName(element, page, '');
+  const role = getElementRoleAName(element, page, '');
   let name = element.getElementTagName();
   if (!name) name = '';
   let value = '';
@@ -31,11 +31,11 @@ function getValueFromEmbeddedControl(element: QWElement, page: QWPage): string {
     if (elementasToSelect) elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]`);
 
     if (optionSelected) {
-      value = DomUtils.getTrimmedText(optionSelected, page);
+      value = getTrimmedText(optionSelected);
     } else if (selectedElement) {
-      value = DomUtils.getTrimmedText(selectedElement[0], page);
+      value = getTrimmedText(selectedElement[0]);
     } else if (elementWithAriaSelected) {
-      value = DomUtils.getTrimmedText(elementWithAriaSelected[0], page);
+      value = getTrimmedText(elementWithAriaSelected[0]);
     }
   } else if (role === 'listbox') {
     const elementsWithId = element.getElements(`[id]`);
@@ -54,11 +54,11 @@ function getValueFromEmbeddedControl(element: QWElement, page: QWPage): string {
       optionSelected = element.getElement(`[selected]`);
     }
 
-    if (selectedElement) value = DomUtils.getTrimmedText(elementsWithId[0], page);
+    if (selectedElement) value = getTrimmedText(elementsWithId[0]);
     else if (elementWithAriaSelected) {
-      value = DomUtils.getTrimmedText(elementWithAriaSelected, page);
+      value = getTrimmedText(elementWithAriaSelected);
     } else if (optionSelected) {
-      value = DomUtils.getTrimmedText(optionSelected, page);
+      value = getTrimmedText(optionSelected);
     }
   } else if (
     role === 'range' ||

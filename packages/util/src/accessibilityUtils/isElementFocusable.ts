@@ -1,15 +1,14 @@
-'use strict';
-
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import isElementFocusableByDefault from './isElementFocusableByDefault';
+import isElementHiddenByCSS from '../domUtils/isElementHiddenByCSS';
 
 function isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
   const disabled = elementQW.getElementAttribute('disabled') !== null;
 
-  if (disabled || DomUtils.isElementHiddenByCSS(elementQW, pageQW)) {
+  if (disabled || isElementHiddenByCSS(elementQW, pageQW)) {
     return false;
-  } else if (AccessibilityUtils.isElementFocusableByDefault(elementQW, pageQW)) {
+  } else if (isElementFocusableByDefault(elementQW)) {
     return true;
   } else {
     let tabIndexLessThanZero = false;

@@ -1,9 +1,7 @@
-'use strict';
-
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import getAriaOwner from './getAriaOwner';
-import { AccessibilityUtils } from '@qualweb/util';
+import isElementInAT from './isElementInAT';
 //elementQW isInAT
 function getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
   let children = elementQW.getElementChildren();
@@ -18,7 +16,7 @@ function getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
 function getOwnedElementsAux(elementQW: QWElement, pageQW: QWPage, ownerSelector: string): QWElement[] {
   let ariaOwner = getAriaOwner(elementQW, pageQW);
   if (
-    AccessibilityUtils.isElementInAT(elementQW, pageQW) &&
+    isElementInAT(elementQW, pageQW) &&
     (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))
   ) {
     return [elementQW];

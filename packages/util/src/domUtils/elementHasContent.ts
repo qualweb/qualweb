@@ -1,9 +1,7 @@
-'use strict';
 import { QWElement } from '@qualweb/qw-element';
 import { alwaysNotVisible, needsControls, alwaysVisible, needsOpen } from './constants';
 import textHasTheSameColorOfBackground from './textHasTheSameColorOfBackground';
 import { QWPage } from '@qualweb/qw-page';
-import { DomUtils } from '@qualweb/util';
 
 function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
   if (!elementQW) {
@@ -33,7 +31,7 @@ function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: 
   if (checkChildren) {
     const children = elementQW.getElementChildren();
     for (const child of children) {
-      checkChildren = childrenVisible || DomUtils.elementHasContent(child, pageQW, checkChildren);
+      checkChildren = childrenVisible || elementHasContent(child, pageQW, checkChildren);
     }
   }
   return result || checkChildren;

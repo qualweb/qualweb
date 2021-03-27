@@ -1,8 +1,6 @@
-'use strict';
-
 import { QWElement } from '@qualweb/qw-element';
 import { QWPage } from '@qualweb/qw-page';
-import { AccessibilityUtils } from '@qualweb/util';
+import isElementFocusable from './isElementFocusable';
 
 function isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean {
   let tabIndexLessThanZero = false;
@@ -12,7 +10,7 @@ function isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage)
   if (tabindex && tabIndexExistsAndIsNumber) {
     tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
   }
-  const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
+  const focusable = isElementFocusable(elementQW, pageQW);
   return (focusable && tabIndexExistsAndIsNumber && !tabIndexLessThanZero) || (focusable && !tabIndexExistsAndIsNumber);
 }
 

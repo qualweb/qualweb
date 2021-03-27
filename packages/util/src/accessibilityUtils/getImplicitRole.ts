@@ -1,8 +1,9 @@
-'use strict';
 import roles from './elementImplicitRoles.json';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole';
+import isElementFocusable from './isElementFocusable';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
 
 function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
   const name = elementQW.getElementTagName();
@@ -37,7 +38,7 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
             } else if (name === 'select') {
               role = getRoleSelect(elementQW, roleValue);
             } else if (name === 'td') {
-              if (DomUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ['table'], [])) {
+              if (isElementADescendantOfExplicitRole(elementQW, pageQW, ['table'], [])) {
                 role = roleValue['role'];
               }
             }
@@ -74,7 +75,7 @@ function getRoleSelect(elementQW: QWElement, roleValue) {
 function getRoleHeaderFooter(elementQW: QWElement, pageQW: QWPage, roleValue) {
   let role;
   if (
-    DomUtils.isElementADescendantOfExplicitRole(
+    isElementADescendantOfExplicitRole(
       elementQW,
       pageQW,
       ['article', 'aside', 'main', 'nav', 'section'],
@@ -121,10 +122,7 @@ function getRoleImg(elementQW: QWElement, pageQW: QWPage, roleValue) {
     role = roleValue['role'];
   } else if (
     elementQW.elementHasAttribute('alt') &&
-    !(
-      AccessibilityUtils.isElementFocusable(elementQW, pageQW) ||
-      AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW)
-    )
+    !(isElementFocusable(elementQW, pageQW) || elementHasGlobalARIAPropertyOrAttribute(elementQW))
   ) {
     role = 'presentation';
   }

@@ -4,7 +4,10 @@ import { formElements, typesWithLabel } from './constants';
 
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRoleAName from './getElementRoleAName';
+import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
+import isElementControl from './isElementControl';
+import isElementWidget from './isElementWidget';
 import getDefaultName from './getDefaultName';
 
 function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined {
@@ -32,16 +35,16 @@ function getAccessibleNameRecursion(
   const alt = element.getElementAttribute('alt') ? [elementSelector] : null;
   const value = element.getElementAttribute('value') ? [elementSelector] : null;
   const placeholder = element.getElementAttribute('placeholder') ? [elementSelector] : null;
-  const role = AccessibilityUtils.getElementRoleAName(element, page, '');
+  const role = getElementRoleAName(element, page, '');
   const id = element.getElementAttribute('id');
   const defaultName = getDefaultName(element) ? ['default'] : null;
 
-  const referencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
+  const referencedByAriaLabel = isElementReferencedByAriaLabel(element, page);
   if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
   } else if (ariaLabel) {
     AName = ariaLabel;
-  } else if (isWidget && AccessibilityUtils.isElementControl(element, page)) {
+  } else if (isWidget && isElementControl(element, page)) {
     const valueFromEmbeddedControl = getValueFromEmbeddedControl(element, page) ? elementSelector : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === 'area' || (name === 'input' && attrType === 'image')) {
@@ -121,7 +124,7 @@ function getValueFromLabel(element: QWElement, id: string | null, page: QWPage):
     referencedByLabelList.push(...referencedByLabel);
   }
   const parent = element.getElementParent();
-  const isWidget = AccessibilityUtils.isElementWidget(element, page);
+  const isWidget = isElementWidget(element, page);
 
   if (parent && parent.getElementTagName() === 'label' && !isElementPresent(parent, referencedByLabelList)) {
     referencedByLabelList.push(parent);
@@ -152,7 +155,7 @@ function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: st
   const ListIdRefs = ariaLabelId.split(' ');
   const result = new Array<string>();
   let accessNameFromId;
-  const isWidget = AccessibilityUtils.isElementWidget(element, page);
+  const isWidget = isElementWidget(element, page);
   const elementID = element.getElementAttribute('id');
 
   for (const id of ListIdRefs || []) {
@@ -187,7 +190,7 @@ function getConcatenatedText(element: QWElement, aNames: Array<string>): string 
 
 function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): Array<string> {
   if (!isWidget) {
-    isWidget = AccessibilityUtils.isElementWidget(element, page);
+    isWidget = isElementWidget(element, page);
   }
   const children = element.getElementChildren();
   const result = new Array<string>();

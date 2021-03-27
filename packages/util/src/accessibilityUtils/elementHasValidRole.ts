@@ -1,10 +1,10 @@
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
 import roles from './roles.json';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRole from './getElementRole';
 
 function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean {
-  const role = AccessibilityUtils.getElementRole(elementQW, pageQW);
+  const role = getElementRole(elementQW, pageQW);
   let result = false;
   if (role) {
     if (role.trim().includes(' ')) {

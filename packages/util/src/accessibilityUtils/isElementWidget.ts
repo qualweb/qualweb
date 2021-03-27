@@ -1,12 +1,10 @@
-'use strict';
-
 import { widgetRoles } from './constants';
 import { QWPage } from '@qualweb/qw-page';
 import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRoleAName from './getElementRoleAName';
 
 function isElementWidget(elementQW: QWElement, pageQW: QWPage): boolean {
-  const role = AccessibilityUtils.getElementRoleAName(elementQW, pageQW, '');
+  const role = getElementRoleAName(elementQW, pageQW, '');
   return role !== null && widgetRoles.indexOf(role) >= 0;
 }
 
