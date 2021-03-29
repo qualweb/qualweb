@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP15 extends BestPracticeObject {
@@ -12,27 +12,24 @@ class QW_BP15 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const width = <string>element.getElementAttribute('width');
     const unit = width.trim().substring(width.length - 2, width.length);
 
     if (!this.absoluteLengths.includes(unit)) {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'The test target `width` attribute uses relative units.';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = 'The test target `width` attribute uses relative units.';
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The test target `width` attribute uses absolute units.';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = 'The test target `width` attribute uses absolute units.';
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

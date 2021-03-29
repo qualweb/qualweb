@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP13 extends BestPracticeObject {
@@ -10,43 +10,35 @@ class QW_BP13 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const aWithImg = element.getElementParent();
 
     if (!aWithImg) {
       return;
     }
 
+    const test = new Test();
+
     const href = aWithImg.getElementAttribute('href');
-
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
     const aWithImgNext = aWithImg.getElementNextSibling();
-
     const aWithImgPrev = aWithImg.getElementPreviousSibling();
 
-    if (aWithImg && aWithImgNext && aWithImgNext.getElementAttribute('href') === href) {
-      evaluation.verdict = 'failed';
-      evaluation.description =
-        'There are consecutive links with the same href in which one of the links contained an image';
-      evaluation.resultCode = 'RC1';
-    } else if (aWithImg && aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href) {
-      evaluation.verdict = 'failed';
-      evaluation.description =
-        'There are consecutive links with the same href in which one of the links contained an image';
-      evaluation.resultCode = 'RC1';
+    if ((aWithImgNext && aWithImgNext.getElementAttribute('href') === href) || 
+        (aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href)) {
+      test.verdict = 'failed';
+      test.description = 'There are consecutive links with the same href in which one of the links contained an image';
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'passed';
-      evaluation.description =
+      test.verdict = 'passed';
+      test.description =
         'There are no consecutive links with the same href in which one of the links contained an image';
-      evaluation.resultCode = 'RC2';
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, aWithImg && aWithImg.getElementParent() ? element : undefined);
+    if (aWithImg.getElementParent()) {
+      test.addElement(element);
+    }
+    super.addTestResult(test);
   }
 }
 

@@ -1,7 +1,6 @@
-import { BestPracticeResult } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementDoesNotHaveChild } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists, ElementDoesNotHaveChild } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP9 extends BestPracticeObject {
@@ -11,12 +10,8 @@ class QW_BP9 extends BestPracticeObject {
 
   @ElementExists
   @ElementDoesNotHaveChild('th')
-  async execute(element: QWElement): Promise<void> {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  async execute(element: typeof window.qwElement): Promise<void> {
+    const test = new Test();
 
     const headers = element.getElements('th');
 
@@ -24,21 +19,22 @@ class QW_BP9 extends BestPracticeObject {
       const caption = element.getElements('caption');
 
       if (caption.length !== 0) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `Table doesn't have header cells but has a caption`;
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'passed';
+        test.description = `Table doesn't have header cells but has a caption`;
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `Table doesn't have header cells or caption`;
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'failed';
+        test.description = `Table doesn't have header cells or caption`;
+        test.resultCode = 'RC2';
       }
     } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `Table has header cells`;
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'inapplicable';
+      test.description = `Table has header cells`;
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

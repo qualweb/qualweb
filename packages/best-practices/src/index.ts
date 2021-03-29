@@ -1,6 +1,4 @@
 import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import * as bestPractices from './lib/bestPractices';
 import mapping from './lib/mapping';
 import BestPracticeObject from './lib/BestPractice.object';
@@ -48,32 +46,26 @@ class BestPractices {
     }
   }
 
-  private evaluateElement(bestPractice: string, element: QWElement | undefined, page: QWPage): void {
-    try {
-      this.bestPractices[bestPractice].execute(element, page);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  private executeBP(bestPractice: string, selector: string, page: QWPage, report: BestPracticesReport): void {
-    const elements = page.getElements(selector);
+  private executeBP(
+    bestPractice: string,
+    selector: string,
+    report: BestPracticesReport
+  ): void {
+    const elements = window.qwPage.getElements(selector);
 
     if (elements.length > 0) {
       for (const elem of elements ?? []) {
-        this.evaluateElement(bestPractice, elem, page);
+        this.bestPractices[bestPractice].execute(elem);
       }
     } else {
-      this.evaluateElement(bestPractice, undefined, page);
+      this.bestPractices[bestPractice].execute(undefined);
     }
 
     report.assertions[bestPractice] = this.bestPractices[bestPractice].getFinalResults();
-    // @ts-ignore
     report.metadata[report.assertions[bestPractice].metadata.outcome]++;
-    this.bestPractices[bestPractice].reset();
   }
 
-  public execute(page: QWPage): BestPracticesReport {
+  public execute(): BestPracticesReport {
     const report: BestPracticesReport = {
       type: 'best-practices',
       metadata: {
@@ -86,10 +78,10 @@ class BestPractices {
     };
 
     for (const selector of Object.keys(mapping) ?? []) {
-      // @ts-ignore
-      for (const bestPractice of mapping[selector] ?? []) {
+      const _mapping = <{ [selector: string]: Array<string> }>mapping;
+      for (const bestPractice of _mapping[selector] ?? []) {
         if (this.bestPracticesToExecute[bestPractice]) {
-          this.executeBP(bestPractice, selector, page, report);
+          this.executeBP(bestPractice, selector, report);
         }
       }
     }

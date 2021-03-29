@@ -1,9 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import intersection from 'lodash.intersection';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP18 extends BestPracticeObject {
@@ -41,12 +39,12 @@ class QW_BP18 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
     if (element.getElementTagName() === 'style') {
       const sheet = <any>element.getElementProperty('sheet');
 
       for (const rule of sheet.cssRules || []) {
-        if (rule?.style?.cssText?.includes('width:') && this.checkIfCssSelectorIsApplicable(rule, page)) {
+        if (rule?.style?.cssText?.includes('width:') && this.checkIfCssSelectorIsApplicable(rule)) {
           const style = rule?.style?.cssText;
           if (style) {
             this.checkCssProperty(style, element);
@@ -59,10 +57,9 @@ class QW_BP18 extends BestPracticeObject {
     }
   }
 
-  private checkIfCssSelectorIsApplicable(rule: any, page: QWPage): boolean {
+  private checkIfCssSelectorIsApplicable(rule: any): boolean {
     const selectors = rule.selectorText.split(',').map((s: string) => s.trim()) || [rule.selectorText.trim()];
-    const hasContainers = intersection(selectors, this.containers);
-
+    const hasContainers = this.hasContainers(selectors);
     if (hasContainers.length > 0) {
       return true;
     }
@@ -70,7 +67,7 @@ class QW_BP18 extends BestPracticeObject {
     let affectsContainers = false;
     for (const selector of selectors || []) {
       if (selector.startsWith('.') || selector.startsWith('#')) {
-        const elements = page.getElements(selector);
+        const elements = window.qwPage.getElements(selector);
         for (const element of elements || []) {
           if (this.containers.includes(element.getElementTagName())) {
             affectsContainers = true;
@@ -83,12 +80,8 @@ class QW_BP18 extends BestPracticeObject {
     return affectsContainers;
   }
 
-  private checkCssProperty(style: string, element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  private checkCssProperty(style: string, element: typeof window.qwElement): void {
+    const test = new Test();
 
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
 
@@ -99,27 +92,41 @@ class QW_BP18 extends BestPracticeObject {
 
         if (hasImportant) {
           if (width.endsWith('%')) {
-            evaluation.verdict = 'passed';
-            evaluation.description =
+            test.verdict = 'passed';
+            test.description =
               'This test target has a `width` css property using percentage value with the important flag.';
-            evaluation.resultCode = 'RC1';
+            test.resultCode = 'RC1';
           } else {
-            evaluation.verdict = 'failed';
-            evaluation.description =
+            test.verdict = 'failed';
+            test.description =
               'This test target has a `width` css property not using percentage value with the important flag.';
             if (width.endsWith('px')) {
-              evaluation.resultCode = 'RC2';
+              test.resultCode = 'RC2';
             } else {
-              evaluation.resultCode = 'RC3';
+              test.resultCode = 'RC3';
             }
           }
 
-          evaluation.attributes = property;
-
-          super.addEvaluationResult(evaluation, element);
+          test.attributes = property;
+          test.addElement(element);
+          super.addTestResult(test);
         }
       }
     }
+  }
+
+  private hasContainers(selectors: Array<string>): Array<string> {
+    const common = new Array<string>();
+
+    for (const selector of selectors ?? []) {
+      for (const container of this.containers ?? []) {
+        if (selector === container) {
+          common.push(selector);
+        }
+      }
+    }
+
+    return common;
   }
 }
 

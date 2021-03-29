@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP7 extends BestPracticeObject {
@@ -10,12 +10,8 @@ class QW_BP7 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const titleValue = element.getElementText().replace(/\s/g, '');
     const regExConsecutiveSymbols = new RegExp("[,\\-;!?'][,\\-;!?']");
@@ -39,26 +35,27 @@ class QW_BP7 extends BestPracticeObject {
     }
 
     if (!regExAllowedSymbols.test(titleValueWithoutBrackets)) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The title element contains other symbols than .,;-!?| and ()[]{}"' with text in between`;
-      evaluation.resultCode = `RC1`;
+      test.verdict = 'failed';
+      test.description = `The title element contains other symbols than .,;-!?| and ()[]{}"' with text in between`;
+      test.resultCode = `RC1`;
     } else {
       if (
         regExConsecutiveDots.test(titleValue) ||
         regExConsecutiveSymbols.test(titleValue) ||
         regExConsecutiveSpaces.test(titleValue)
       ) {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The title element contains ASCII art`;
-        evaluation.resultCode = `RC2`;
+        test.verdict = 'failed';
+        test.description = `The title element contains ASCII art`;
+        test.resultCode = `RC2`;
       } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The title element doesn't contain ASCII art`;
-        evaluation.resultCode = `RC3`;
+        test.verdict = 'passed';
+        test.description = `The title element doesn't contain ASCII art`;
+        test.resultCode = `RC3`;
       }
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

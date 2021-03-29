@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP2 extends BestPracticeObject {
@@ -12,30 +12,27 @@ class QW_BP2 extends BestPracticeObject {
   @ElementExists
   @ElementHasAttribute('alt')
   @ElementHasNonEmptyAttribute('alt')
-  async execute(element: QWElement): Promise<void> {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  async execute(element: typeof window.qwElement): Promise<void> {
+    const test = new Test();
 
     const altValue = element.getElementAttribute('alt');
 
     if (!altValue || altValue === '') {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The img alt text attribute is empty';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'inapplicable';
+      test.description = 'The img alt text attribute is empty';
+      test.resultCode = 'RC1';
     } else if (altValue.trim().length > 100) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The img alt text attribute has more than 100 characters';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = 'The img alt text attribute has more than 100 characters';
+      test.resultCode = 'RC2';
     } else {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'The img alt text attribute has less than 100 characters';
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'passed';
+      test.description = 'The img alt text attribute has less than 100 characters';
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

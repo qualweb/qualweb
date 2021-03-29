@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP11 extends BestPracticeObject {
@@ -11,12 +11,8 @@ class QW_BP11 extends BestPracticeObject {
 
   @ElementExists
   @ElementHasChild('*')
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     let result = 0;
     let hasBr = false;
@@ -32,17 +28,18 @@ class QW_BP11 extends BestPracticeObject {
     }
 
     if (result > 3) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'Br elements are being be used as a list';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = 'Br elements are being be used as a list';
+      test.resultCode = 'RC1';
     } else if (hasBr) {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'There are less than 3 consecutive br.';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'passed';
+      test.description = 'There are less than 3 consecutive br.';
+      test.resultCode = 'RC2';
     }
 
     if (hasBr) {
-      super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 }

@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementIsNotChildOf } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists, ElementIsNotChildOf } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP4 extends BestPracticeObject {
@@ -11,25 +11,23 @@ class QW_BP4 extends BestPracticeObject {
 
   @ElementExists
   @ElementIsNotChildOf('nav')
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const aCount = element.getNumberOfSiblingsWithTheSameTag();
     if (aCount >= 10) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `It was found a group of 10 or more links not grouped within a nav element`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = `It was found a group of 10 or more links not grouped within a nav element`;
+      test.resultCode = 'RC1';
     } else {
       return;
     }
 
-    const parent = element.getElementParent();
+    if (element.getElementParent()) {
+      test.addElement(element);
+    }
 
-    super.addEvaluationResult(evaluation, parent ? element : undefined);
+    super.addTestResult(test);
   }
 }
 

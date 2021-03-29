@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP5 extends BestPracticeObject {
@@ -9,24 +9,21 @@ class QW_BP5 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  execute(element: QWElement | undefined): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement | undefined): void {
+    const test = new Test();
 
     if (!element) {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'There are not table elements inside other table elements';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = 'There are not table elements inside other table elements';
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'There are table elements inside other table elements';
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = 'There are table elements inside other table elements';
+      test.resultCode = 'RC2';
+      test.addElement(element);
     }
 
-    super.addEvaluationResult(evaluation, element);
+    super.addTestResult(test);
   }
 }
 

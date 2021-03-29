@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2] - 29/03/2021
+
+### Updated
+
+- dependencies
+- refactor code to use global qualweb page (qw-page)
+
 ## [0.5.1] - 27/03/2021
 
 ### Fixed

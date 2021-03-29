@@ -1,9 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
-import { DomUtils } from '@qualweb/util';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-import { BestPracticeClass } from '../lib/decorator';
+import { BestPracticeClass } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP17 extends BestPracticeObject {
@@ -11,31 +9,24 @@ class QW_BP17 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  execute(element: QWElement | undefined, page: QWPage): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement | undefined): void {
+    const test = new Test();
 
     if (!element) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `This page does not have links`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = `This page does not have links`;
+      test.resultCode = 'RC1';
     } else {
-      const refElement = DomUtils.getElementReferencedByHREF(page, element);
+      const refElement = window.DomUtils.getElementReferencedByHREF(element);
 
       if (refElement) {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'This link skips a content block';
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `This link is not used to skip a content block`;
-        evaluation.resultCode = 'RC4';
-      }
+        test.verdict = 'warning';
+        test.description = 'This link skips a content block';
+        test.resultCode = 'RC2';
 
-      super.addEvaluationResult(evaluation, element);
+        test.addElement(element);
+        super.addTestResult(test);
+      }
     }
   }
 }

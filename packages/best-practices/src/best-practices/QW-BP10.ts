@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP10 extends BestPracticeObject {
@@ -9,28 +9,22 @@ class QW_BP10 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  async execute(element: QWElement | undefined): Promise<void> {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  async execute(element: typeof window.qwElement | undefined): Promise<void> {
+    const test = new Test();
 
     if (element === undefined) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The webpage doesn't use elements to control the visual content presentation`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = `The webpage doesn't use elements to control the visual content presentation`;
+      test.resultCode = 'RC1';
     } else {
       const name = element.getElementTagName();
-
-      evaluation.verdict = 'failed';
-      evaluation.description = `The webpage uses the element ${name} to control the visual content presentation`;
-      evaluation.resultCode = 'RC2';
-
-      evaluation.attributes = name;
+      test.verdict = 'failed';
+      test.description = `The webpage uses the element ${name} to control the visual content presentation`;
+      test.resultCode = 'RC2';
+      test.attributes = name;
+      test.addElement(element);
     }
-
-    super.addEvaluationResult(evaluation, element);
+    super.addTestResult(test);
   }
 }
 

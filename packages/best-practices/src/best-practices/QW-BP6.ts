@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP6 extends BestPracticeObject {
@@ -10,28 +10,25 @@ class QW_BP6 extends BestPracticeObject {
   }
 
   @ElementExists
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const MAX_LENGTH_TITLE = 100;
 
     const titleValue = element.getElementText();
 
     if (titleValue.length > MAX_LENGTH_TITLE) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The page title has more than ` + MAX_LENGTH_TITLE + ` characters`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = `The page title has more than ` + MAX_LENGTH_TITLE + ` characters`;
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The page title has less than ` + MAX_LENGTH_TITLE + ` characters`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'passed';
+      test.description = `The page title has less than ` + MAX_LENGTH_TITLE + ` characters`;
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

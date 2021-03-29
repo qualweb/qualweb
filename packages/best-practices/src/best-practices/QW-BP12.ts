@@ -1,7 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP12 extends BestPracticeObject {
@@ -11,15 +11,11 @@ class QW_BP12 extends BestPracticeObject {
 
   @ElementExists
   @ElementHasChild('tr')
-  execute(element: QWElement): void {
-    const evaluation: BestPracticeResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const rows = element.getElements('tr');
-    let firstRowChildren = new Array<QWElement>();
+    let firstRowChildren = new Array<typeof window.qwElement>();
     if (rows.length > 0) {
       firstRowChildren = rows[0].getElementChildren();
 
@@ -50,21 +46,22 @@ class QW_BP12 extends BestPracticeObject {
       }
 
       if (scopeCole && scopeRow) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The scope attribute is correctly used.';
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'passed';
+        test.description = 'The scope attribute is correctly used.';
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'The scope attribute is incorrectly used.';
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'failed';
+        test.description = 'The scope attribute is incorrectly used.';
+        test.resultCode = 'RC2';
       }
     } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The table has no rows.';
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'inapplicable';
+      test.description = 'The table has no rows.';
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

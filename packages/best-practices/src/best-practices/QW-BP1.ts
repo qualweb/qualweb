@@ -1,9 +1,7 @@
-import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import { QWPage } from '@qualweb/qw-page';
+import { BestPracticeClass, IsApplicable, ElementItsDefined } from '../lib/applicability';
+import Test from '../lib/Test.object';
 
 @BestPracticeClass
 class QW_BP1 extends BestPracticeObject {
@@ -11,36 +9,32 @@ class QW_BP1 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  // experimental decorator for applicability
+  @IsApplicable({
+    if: [ElementItsDefined]
+  })
+  execute(element: typeof window.qwElement): void {
     const headings = element.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
 
-    for (const heading of headings || []) {
-      const evaluation: BestPracticeResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    for (const heading of headings ?? []) {
+      const test = new Test();
 
-      if (AccessibilityUtils.isElementInAT(heading, page) || DomUtils.isElementVisible(heading, page)) {
-        evaluation.verdict = 'warning';
-        evaluation.description = 'Check that heading markup is used when content is a heading.';
-        evaluation.resultCode = 'RC1';
+      if (window.AccessibilityUtils.isElementInAT(heading) || window.DomUtils.isElementVisible(heading)) {
+        test.verdict = 'warning';
+        test.description = 'Check that heading markup is used when content is a heading.';
+        test.resultCode = 'RC1';
 
-        super.addEvaluationResult(evaluation, heading);
+        test.addElement(heading);
+        super.addTestResult(test);
       }
     }
 
     if (super.getNumberOfWarningResults() === 0) {
-      const evaluation: BestPracticeResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
-      evaluation.verdict = 'failed';
-      evaluation.description = `This page doesn't use headings.`;
-      evaluation.resultCode = 'RC2';
-      super.addEvaluationResult(evaluation);
+      const test = new Test();
+      test.verdict = 'failed';
+      test.description = `This page doesn't use headings.`;
+      test.resultCode = 'RC2';
+      super.addTestResult(test);
     }
   }
 }
