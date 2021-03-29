@@ -1,193 +1,91 @@
 declare module "@qualweb/util" {
-  import { Browser } from "puppeteer";
   import { QWElement } from "@qualweb/qw-element";
-  import { QWPage } from "@qualweb/qw-page";
 
-  class DomUtils {
-    public static elementIDIsReferenced(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      id: string,
-      attribute: string
-    ): boolean;
-    public static getElementReferencedByHREF(
-      pageQW: QWPage,
-      elementQW: QWElement
-    ): QWElement | null;
-    public static getSourceElementAttribute(
-      element: Node,
-      attribute: string
-    ): string | null;
-    public static getSourceElementHtmlCode(
-      element: Node,
-      withText: boolean,
-      fullElement: boolean
-    ): string;
-    public static getSourceElementSelector(element: Node): string;
-    public static getVideoMetadata(elementQW: QWElement): any;
-    public static isElementADescendantOf(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      names: string[],
-      roles: string[]
-    ): boolean;
-    public static isElementADescendantOfExplicitRole(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      names: string[],
-      roles: string[]
-    ): boolean;
-    public static isElementHidden(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementHiddenByCSS(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementHiddenByCSSAux(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementVisible(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    //public static isMathDocument(url: string): boolean;
-    public static videoElementHasAudio(elementQW: QWElement): boolean;
-    public static elementHasContent(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      checkChildren: boolean
-    ): boolean;
-    public static getTrimmedText(elementQW: QWElement, page: QWPage): string;
-    public static objectElementisNonText(elementQW: QWElement): boolean;
+  interface AriaAttributesRoles {
+    [attribute: string]: {
+      global: string;
+      typeValue: string;
+      values: string | Array<string>;
+      defaultValue: string;
+    };
   }
 
-  class BrowserUtils {
-    public static detectIfUnwantedTabWasOpened(
-      browser: Browser,
-      url: string
-    ): Promise<boolean>;
+  interface Roles {
+    [role: string]: {
+      baseConcept: string | Array<string>;
+      attribute: string | Array<string>;
+      requiredContextRole: string | Array<string>;
+      requiredAria?: string | Array<string>;
+      requiredRoles?: string | Array<string>;
+      supportedAria?: string | Array<string>;
+      supportedRoles?: string | Array<string>;
+      implicitValueRoles: Array<Array<string>>;
+      requiredOwnedElements: any;
+    };
+  }
+
+  interface Languages { 
+    [lang: string]: number;
+  }
+
+  class DomUtils {
+    public static elementIdIsReferenced(element: QWElement, id: string, attribute: string): boolean;
+    public static getElementReferencedByHREF(element: QWElement): QWElement | null;
+    public static getVideoMetadata(element: QWElement): any;
+    public static isHumanLanguage(text: string): boolean;
+    public static getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number
+    public static isElementADescendantOf(element: QWElement, names: Array<string>, roles: Array<string>): boolean;
+    public static isElementADescendantOfExplicitRole(element: QWElement, names: Array<string>, roles: Array<string>): boolean;
+    public static isElementHidden(element: QWElement): boolean;
+    public static isElementHiddenByCSS(element: QWElement): boolean;
+    public static isElementHiddenByCSSAux(element: QWElement): boolean;
+    public static isElementVisible(element: QWElement): boolean;
+    public static videoElementHasAudio(element: QWElement): boolean;
+    public static elementHasContent(element: QWElement, checkChildren: boolean): boolean;
+    public static getTrimmedText(element: QWElement): string;
+    public static objectElementIsNonText(element: QWElement): boolean;
   }
 
   class AccessibilityUtils {
-    public static isElementChildPresentationalAux(
-      element: QWElement,
-      page: QWPage
-    ): boolean;
-    public static isElementChildPresentational(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isFocusableBrowser(page: QWPage, element: QWElement): boolean;
-    public static isElementFocusable(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementFocusableByDefault(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static elementHasGlobalARIAPropertyOrAttribute(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static getAccessibleNameRecursion(
-      element: QWElement,
-      page: QWPage,
-      recursion: boolean,
-      isWidget: boolean
-    ): string | undefined;
-    public static getLinkContext(element: QWElement, page: QWPage): string[];
+    public static ariaAttributesRoles: AriaAttributesRoles;
+    public static roles: Roles;
+    public static languages: Languages;
+    public static isElementChildPresentationalAux(element: QWElement): boolean;
+    public static isElementChildPresentational(element: QWElement): boolean;
+    public static isFocusableBrowser(element: QWElement): boolean;
+    public static isElementFocusable(element: QWElement): boolean;
+    public static isElementFocusableByDefault(element: QWElement): boolean;
+    public static elementHasGlobalARIAPropertyOrAttribute(element: QWElement): boolean;
+    public static getAccessibleNameRecursion(element: QWElement, recursion: boolean, isWidget: boolean): string | undefined;
+    public static getLinkContext(element: QWElement): Array<string>;
     public static allowsNameFromContent(element: QWElement): boolean;
-    public static elementHasRoleNoneOrPresentation(
-      elementQW: QWElement
-    ): boolean;
-    public static elementHasValidRole(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static getAccessibleName(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): string | undefined;
-    public static getAccessibleNameSelector(
-      element: QWElement,
-      pageQW: QWPage
-    ): string[] | undefined;
-    public static getAccessibleNameSVG(
-      element: QWElement,
-      page: QWPage
-    ): string | undefined;
-    public static getAccessibleNameSVGRecursion(
-      element: QWElement,
-      page: QWPage,
-      recursion: boolean
-    ): string | undefined;
-    public static getDefaultName(elementQW: QWElement): string;
-    public static getDisabledWidgets(pageQW: QWPage): QWElement[];
-    public static getElementRole(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): string | null;
-    public static getElementRoleAName(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      aName: string | undefined
-    ): string | null;
-    public static getValueFromEmbeddedControl(
-      element: QWElement,
-      page: QWPage,
-      treeSelector: string
-    ): string;
-    public static isDataTable(element: QWElement, pageQW: QWPage): boolean;
+    public static elementHasRoleNoneOrPresentation(element: QWElement): boolean;
+    public static elementHasValidRole(element: QWElement): boolean;
+    public static getAccessibleName(element: QWElement): string | undefined;
+    public static getAccessibleNameSelector(element: QWElement): Array<string> | undefined;
+    public static getAccessibleNameSVG(element: QWElement): string | undefined;
+    public static getAccessibleNameSVGRecursion(element: QWElement, recursion: boolean): string | undefined;
+    public static getDefaultName(element: QWElement): string;
+    public static getDisabledWidgets(): Array<QWElement>;
+    public static getElementRole(element: QWElement): string | null;
+    public static getElementRoleAName(element: QWElement, aName: string | undefined): string | null;
+    public static getValueFromEmbeddedControl(element: QWElement, treeSelector: string): string;
+    public static isDataTable(element: QWElement): boolean;
     public static isElementChildOfDetails(element: Node): boolean;
-    public static isElementControl(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean;
-    public static isElementReferencedByAriaLabel(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static isElementWidget(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static getImplicitRole(
-      elementQW: QWElement,
-      pageQW: QWPage,
-      accessibleName: string | undefined
-    ): string | null;
-    public static getOwnerElement(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): QWElement | null;
-    public static isPartOfSequentialFocusNavigation(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): boolean;
-    public static getOwnedElements(
-      elementQW: QWElement,
-      pageQW: QWPage
-    ): QWElement[];
-  }
-
-  class CssUtils {
-    public static trimImportant(value: string): string;
-  }
-
-  class ShadowDomUtils {
-    public static areElementsInTheSameTree(elements: QWElement[]): boolean;
+    public static isElementControl(element: QWElement): boolean;
+    public static isElementInAT(element: QWElement): boolean;
+    public static isElementReferencedByAriaLabel(element: QWElement): boolean;
+    public static isElementWidget(element: QWElement): boolean;
+    public static getImplicitRole(element: QWElement, accessibleName: string | undefined): string | null;
+    public static getOwnerElement(element: QWElement): QWElement | null;
+    public static isPartOfSequentialFocusNavigation(element: QWElement): boolean;
+    public static getOwnedElements(element: QWElement): Array<QWElement>;
   }
 
   export {
+    AriaAttributesRoles,
+    Roles,
     DomUtils,
-    BrowserUtils,
-    AccessibilityUtils,
-    CssUtils,
-    ShadowDomUtils,
+    AccessibilityUtils
   };
 }

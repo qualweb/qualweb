@@ -1,10 +1,16 @@
 declare module "@qualweb/best-practices" {
-  import { Position } from "css";
-  import { QWPage } from "@qualweb/qw-page";
+  import { QWElement } from "@qualweb/qw-element";
 
   interface BPOptions {
     bestPractices?: string[];
     exclude?: string[];
+  }
+
+  interface SuccessCriteria {
+    name: string;
+    level: string;
+    principle: string;
+    url: string;
   }
 
   interface BestPracticeMetadata {
@@ -16,12 +22,7 @@ declare module "@qualweb/best-practices" {
       attributes?: string | string[];
       css?: string | string[];
     };
-    "success-criteria"?: {
-      name: string;
-      level: string;
-      principle: string;
-      url: string;
-    }[];
+    "success-criteria"?: SuccessCriteria[];
     related?: string[];
     url?: string;
     passed: number;
@@ -30,13 +31,13 @@ declare module "@qualweb/best-practices" {
     inapplicable: number;
     type?: string[];
     a11yReq?: string[];
-    outcome: "passed" | "failed" | "warning" | "inapplicable" | "";
+    outcome: "passed" | "failed" | "warning" | "inapplicable";
     description: string;
   }
 
   interface BestPracticeResult {
-    verdict: "passed" | "failed" | "warning" | "inapplicable" | "";
-    description: string[] | string | "";
+    verdict: "passed" | "failed" | "warning" | "inapplicable";
+    description: string[] | string;
     resultCode: string[] | string;
     elements?: BPElement[];
     attributes?: string | string[];
@@ -53,7 +54,6 @@ declare module "@qualweb/best-practices" {
       value?: string;
     };
     stylesheetFile?: string;
-    position?: Position;
   }
 
   interface BestPracticesGlobalMetadata {
@@ -80,9 +80,43 @@ declare module "@qualweb/best-practices" {
     };
   }
 
+  interface BPMapping {
+    [selector: string]: Array<string>;
+  }
+
+  class Test implements BestPracticeResult {
+    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable';
+    description: string | string[];
+    resultCode: string | string[];
+    elements: BPElement[];
+    attributes?: string | string[] | undefined;
+
+    constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string);
+
+    public addElement(element: QWElement, withText: boolean, fullElement: boolean): void;
+  }
+
+  abstract class BestPracticeObject {
+    private readonly bestPractice: BestPractice;
+
+    constructor(bestPractice: BestPractice);
+
+    protected getNumberOfWarningResults(): number;
+
+    protected addTestResult(test: Test): void;
+
+    public abstract execute(element: QWElement | undefined): void;
+
+    public getFinalResults(): BestPractice;
+
+    private outcomeBestPractice(): void;
+
+    private addDescription(): void;
+  }
+
   class BestPractices {
-    private bestPractices: any;
-    private bestPracticesToExecute: any;
+    private readonly bestPractices: { [bp: string]: BestPracticeObject };
+    private readonly bestPracticesToExecute: { [bp: string]: boolean };
 
     constructor(options?: BPOptions);
     public configure(options: BPOptions): void;
@@ -90,19 +124,22 @@ declare module "@qualweb/best-practices" {
     private executeBP(
       bestPractice: string,
       selector: string,
-      page: QWPage | undefined,
       report: BestPracticesReport
     ): void;
-    public execute(page: QWPage): BestPracticesReport;
+    public execute(): BestPracticesReport;
   }
 
   export {
     BPOptions,
     BestPracticeMetadata,
     BestPracticeResult,
+    BPElement,
     BestPracticesGlobalMetadata,
     BestPractice,
     BestPracticesReport,
+    BPMapping,
+    Test,
+    BestPracticeObject,
     BestPractices,
   };
 }

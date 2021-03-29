@@ -1,28 +1,24 @@
 declare module "@qualweb/evaluation" {
-  import {
-    QualwebOptions,
-    EvaluationReport,
-    Evaluator,
-    Execute,
-  } from "@qualweb/core";
+  import { QualwebOptions, EvaluationReport, Evaluator, Execute, Module, Url } from "@qualweb/core";
+  import { Report } from '@qualweb/earl-reporter';
   import { ACTRulesReport, ACTRules } from "@qualweb/act-rules";
   import { WCAGTechniquesReport, WCAGOptions } from "@qualweb/wcag-techniques";
   import { BestPracticesReport } from "@qualweb/best-practices";
+  import { WappalyzerReport } from '@qualweb/wappalyzer';
   import { CounterReport, executeCounter } from "@qualweb/counter";
   import { HTMLValidationReport } from "@qualweb/html-validator";
   import { QWPage } from "@qualweb/qw-page";
   import { QWElement } from "@qualweb/qw-element";
-  import { DomUtils, AccessibilityUtils, CSSUtils } from "@qualweb/util";
-  import { Page } from "puppeteer";
+  import { DomUtils, AccessibilityUtils } from "@qualweb/util";
+  import { Browser, Page } from "puppeteer";
 
-  declare global {
+  global {
     interface Window {
       qwPage: QWPage;
       qwElement: QWElement;
       act: ACTRules;
       executeCounter: typeof executeCounter;
       DomUtils: typeof DomUtils;
-      CSSUtils: typeof CSSUtils;
       AccessibilityUtils: typeof AccessibilityUtils;
     }
   }
@@ -37,7 +33,7 @@ declare module "@qualweb/evaluation" {
       validation: HTMLValidationReport | undefined
     ): Promise<EvaluationRecord>;
 
-    public addQWPage(page: Page): Promise<void>;
+    public init(page: Page): Promise<void>;
 
     public executeBP(
       page: Page,
@@ -55,13 +51,18 @@ declare module "@qualweb/evaluation" {
       sourceHtmlHeadContent: string,
       options: QualwebOptions
     ): Promise<ACTRulesReport>;
+
     public executeCounter(page: Page): Promise<CounterReport>;
 
     public getEvaluator(page: Page, url: string): Promise<Evaluator>;
+
+    private parseUrl(url: string, pageUrl: string): Url;
+
+    private detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
   }
   class EvaluationRecord {
     constructor(evaluator: Evaluator);
-    public addModuleEvaluation(module: any, evaluation: any): void;
+    public addModuleEvaluation(module: Module, evaluation: Report | WappalyzerReport | CounterReport): void;
     public getFinalReport(): EvaluationReport;
   }
 
