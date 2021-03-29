@@ -7,10 +7,14 @@ describe('QualWeb counter', function() {
 
     const browser = await puppeteer.launch();
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: {} }, 'https://ciencias.ulisboa.pt', '');
+    const { page } = await dom.getDOM(browser, { execute: { counter: true } }, 'https://ciencias.ulisboa.pt', '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
+    });
+
+    await page.addScriptTag({
+      path: require.resolve('@qualweb/util')
     });
     
     await page.addScriptTag({
@@ -18,7 +22,10 @@ describe('QualWeb counter', function() {
     });
 
     const report = await page.evaluate(() => {
-      return executeCounter(new QWPage(document, window, true));
+      window.qwPage = new Module.QWPage(document, window, true);
+      window.DomUtils = Utility.DomUtils;
+      window.AccessibilityUtils = Utility.AccessibilityUtils;
+      return executeCounter();
     });
 
     console.log(report);

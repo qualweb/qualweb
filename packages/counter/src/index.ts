@@ -1,34 +1,38 @@
-import { QWPage } from '@qualweb/qw-page';
-import { AccessibilityUtils } from '@qualweb/util';
 import { CounterReport } from '@qualweb/counter';
 
-async function executeCounter(page: QWPage): Promise<CounterReport> {
-  const cr: CounterReport = { type: 'counter', data: { roles: {}, tags: {} } };
-  const elementList = page.getElements('*');
+function executeCounter(): CounterReport {
+  const report: CounterReport = {
+    type: 'counter',
+    data: {
+      roles: {},
+      tags: {}
+    }
+  };
+
+  const elementList = window.qwPage.getElements('*');
 
   //get explicit roles
   for (const element of elementList ?? []) {
-    const role = AccessibilityUtils.getElementRole(element, page);
+    const role = window.AccessibilityUtils.getElementRole(element);
     const tag = element.getElementTagName();
+
     // count elements
-    if (role !== null) {
-      if (cr.data.roles[role] === undefined) {
-        cr.data.roles[role] = 0;
+    if (role) {
+      if (report.data.roles[role] === undefined) {
+        report.data.roles[role] = 0;
       }
 
-      cr.data.roles[role]++;
+      report.data.roles[role]++;
     }
+
     // count tags
-
-    if (tag !== null) {
-      if (cr.data.tags[tag] === undefined) {
-        cr.data.tags[tag] = 0;
-      }
-      cr.data.tags[tag]++;
+    if (report.data.tags[tag] === undefined) {
+      report.data.tags[tag] = 0;
     }
+    report.data.tags[tag]++;
   }
 
-  return cr;
+  return report;
 }
 
 export { executeCounter };
