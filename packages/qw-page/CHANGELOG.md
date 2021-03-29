@@ -1,11 +1,18 @@
 # Changelog
 
-## [0.2.1] - 27/03/2021
+## [0.2.4] - 29/03/2021
 
 ### Updated
 
 - dependencies
-## [0.2.1] - 25/03/2021
+- webpack config
+
+## [0.2.3] - 27/03/2021
+
+### Updated
+
+- dependencies
+## [0.2.2] - 25/03/2021
 
 ### Updated
 
