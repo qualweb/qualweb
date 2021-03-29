@@ -1,9 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
-//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-//import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -13,13 +10,13 @@ class QW_WCAG_T14 extends Technique {
   }
 
   @ElementExists
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const hasIds = element.getElements('[id]');
     const hasHeaders = element.getElements('[headers]');
 
-    if (!window.AccessibilityUtils.isDataTable(element, page)) {
+    if (!window.AccessibilityUtils.isDataTable(element)) {
       if (hasIds.length > 0 || hasHeaders.length > 0) {
         test.verdict = 'failed';
         test.description = 'This table is a layout table with id or headers attributes';

@@ -1,9 +1,11 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
-//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementHasAccessibleName } from '../lib/decorators';
-//import { QWPage } from '@qualweb/qw-page';
-//import { QWElement } from '@qualweb/qw-element';
+import {
+  WCAGTechniqueClass,
+  ElementExists,
+  ElementHasAttributes,
+  ElementHasAccessibleName
+} from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -23,10 +25,10 @@ class QW_WCAG_T8 extends Technique {
   @ElementExists
   @ElementHasAttributes
   @ElementHasAccessibleName
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element, page)).toLocaleLowerCase();
+    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element)).toLocaleLowerCase();
 
     if (
       !this.pattern4.test(accessibleName) &&

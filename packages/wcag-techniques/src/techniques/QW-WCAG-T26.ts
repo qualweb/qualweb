@@ -1,9 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
-//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-//import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -15,10 +12,10 @@ class QW_WCAG_T26 extends Technique {
   @ElementExists
   @ElementHasAttributes
   @ElementIsVisible
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    if (window.AccessibilityUtils.isElementControl(element, page)) {
+    if (window.AccessibilityUtils.isElementControl(element)) {
       test.verdict = 'passed';
       test.description = `The element is a user interface control with an event handler`;
       test.resultCode = 'RC1';

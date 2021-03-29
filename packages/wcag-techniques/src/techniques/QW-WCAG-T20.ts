@@ -1,7 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-import { WCAGTechniqueClass, ElementExists, ElementHasAttribute } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists, ElementHasAttribute } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -32,6 +31,7 @@ class QW_WCAG_T20 extends Technique {
       test.resultCode = 'RC3';
     }
 
+    test.addElement(element);
     super.addTestResult(test);
   }
 }

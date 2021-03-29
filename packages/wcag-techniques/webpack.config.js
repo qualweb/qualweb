@@ -7,6 +7,7 @@ module.exports = {
     filename: 'wcag.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
+      name: 'WCAG',
       type: 'this'
     }
   },

@@ -1,9 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/decorators';
-//import { QWElement } from '@qualweb/qw-element';
-//import { AccessibilityUtils } from '@qualweb/util';
-//import { QWPage } from '@qualweb/qw-page';
+import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -15,10 +12,10 @@ class QW_WCAG_T6 extends Technique {
   @ElementExists
   @ElementHasAttributes
   @ElementIsVisible
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const isWidget = window.AccessibilityUtils.isElementWidget(element, page);
+    const isWidget = window.AccessibilityUtils.isElementWidget(element);
 
     if (!isWidget) {
       const hasOnkeypress = element.elementHasAttribute('onkeypress');

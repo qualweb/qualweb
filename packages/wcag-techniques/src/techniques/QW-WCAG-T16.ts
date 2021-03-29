@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass } from '../lib/decorators';
+import { WCAGTechniqueClass } from '../lib/applicability';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import Test from '../lib/Test.object';
 

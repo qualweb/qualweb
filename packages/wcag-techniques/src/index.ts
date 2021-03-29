@@ -1,5 +1,4 @@
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
-//import { QWPage } from '@qualweb/qw-page';
 import * as techniques from './lib/techniques';
 import mapping from './lib/mapping';
 import { HTMLValidationReport } from '@qualweb/html-validator';
@@ -99,24 +98,19 @@ class WCAGTechniques {
     }
   }
 
-  private executeTechnique(
-    technique: string,
-    selector: string,
-    page: typeof window.qwPage,
-    report: WCAGTechniquesReport
-  ): void {
-    const elements = page.getElements(selector);
+  private executeTechnique(technique: string, selector: string, report: WCAGTechniquesReport): void {
+    const elements = window.qwPage.getElements(selector);
     if (elements.length > 0) {
       for (const elem of elements || []) {
         try {
-          this.techniques[technique].execute(elem, page);
+          this.techniques[technique].execute(elem);
         } catch (err) {
           console.error(err);
         }
       }
     } else {
       try {
-        this.techniques[technique].execute(undefined, page);
+        this.techniques[technique].execute(undefined);
       } catch (err) {
         console.error(err);
       }
@@ -124,16 +118,15 @@ class WCAGTechniques {
 
     report.assertions[technique] = this.techniques[technique].getFinalResults();
     report.metadata[report.assertions[technique].metadata.outcome]++;
-    this.techniques[technique].reset();
   }
 
-  private executeMappedTechniques(report: WCAGTechniquesReport, page: typeof window.qwPage): void {
+  private executeMappedTechniques(report: WCAGTechniquesReport): void {
     const selectors = Object.keys(mapping);
     const _mapping = <{ [selector: string]: Array<string> }>mapping;
     for (const selector of selectors ?? []) {
       for (const technique of _mapping[selector] ?? []) {
         if (this.techniquesToExecute[technique]) {
-          this.executeTechnique(technique, selector, page, report);
+          this.executeTechnique(technique, selector, report);
         }
       }
     }
@@ -148,22 +141,16 @@ class WCAGTechniques {
       (<QW_WCAG_T16>this.techniques['QW-WCAG-T16']).validate(validation);
       report.assertions['QW-WCAG-T16'] = this.techniques['QW-WCAG-T16'].getFinalResults();
       report.metadata[report.assertions['QW-WCAG-T16'].metadata.outcome]++;
-      this.techniques['QW-WCAG-T16'].reset();
     }
 
     if (this.techniquesToExecute['QW-WCAG-T22']) {
       (<QW_WCAG_T22>this.techniques['QW-WCAG-T22']).validate(newTabWasOpen);
       report.assertions['QW-WCAG-T22'] = this.techniques['QW-WCAG-T22'].getFinalResults();
       report.metadata[report.assertions['QW-WCAG-T22'].metadata.outcome]++;
-      this.techniques['QW-WCAG-T22'].reset();
     }
   }
 
-  public execute(
-    page: typeof window.qwPage,
-    newTabWasOpen: boolean,
-    validation: HTMLValidationReport
-  ): WCAGTechniquesReport {
+  public execute(newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport {
     const report: WCAGTechniquesReport = {
       type: 'wcag-techniques',
       metadata: {
@@ -175,7 +162,7 @@ class WCAGTechniques {
       assertions: {}
     };
 
-    this.executeMappedTechniques(report, page);
+    this.executeMappedTechniques(report);
     this.executeNotMappedTechniques(report, newTabWasOpen, validation);
 
     return report;

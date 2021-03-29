@@ -1,7 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass

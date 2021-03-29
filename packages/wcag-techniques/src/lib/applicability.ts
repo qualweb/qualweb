@@ -1,22 +1,20 @@
-import { WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { WCAGTechnique, WCAGTechniqueResult } from '@qualweb/wcag-techniques';
 import techniques from './techniques.json';
-//import cloneDeep from 'lodash.clonedeep';
-//import { AccessibilityUtils, DomUtils } from '@qualweb/util';
 
 function WCAGTechniqueClass<T extends { new (...args: any[]): {} }>(constructor: T) {
   //@ts-ignore
-  const technique = techniques[constructor.name];
+  const technique = <WCAGTechnique>techniques[constructor.name];
 
   technique.metadata.passed = 0;
   technique.metadata.warning = 0;
   technique.metadata.failed = 0;
-  technique.metadata.outcome = '';
-  technique.metadata.description = '';
+  technique.metadata.inapplicable = 0;
+  technique.metadata.outcome = 'inapplicable';
+  technique.metadata.description = 'No test targets found.';
   technique.results = new Array<WCAGTechniqueResult>();
 
   const newConstructor: any = function () {
     const func: any = function () {
-      //return new constructor(cloneDeep(technique));
       return new constructor(technique);
     };
     func.prototype = constructor.prototype;
@@ -29,7 +27,7 @@ function WCAGTechniqueClass<T extends { new (...args: any[]): {} }>(constructor:
 function ElementExists(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    if (arguments[0]) {
+    if (<typeof window.qwElement>arguments[0]) {
       return method.apply(this, arguments);
     } else {
       return;
@@ -40,7 +38,7 @@ function ElementExists(_target: any, _propertyKey: string, descriptor: PropertyD
 function ElementHasAttributes(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const hasAttributes = arguments[0].elementHasAttributes();
+    const hasAttributes = (<typeof window.qwElement>arguments[0]).elementHasAttributes();
     if (hasAttributes) {
       return method.apply(this, arguments);
     } else {
@@ -53,7 +51,7 @@ function ElementHasAttribute(attribute: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
     descriptor.value = function () {
-      const attr = arguments[0].elementHasAttribute(attribute);
+      const attr = (<typeof window.qwElement>arguments[0]).elementHasAttribute(attribute);
       if (attr) {
         return method.apply(this, arguments);
       }
@@ -64,7 +62,7 @@ function ElementHasAttribute(attribute: string) {
 function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const isInAT = window.AccessibilityUtils.isElementInAT(arguments[0], arguments[1]);
+    const isInAT = window.AccessibilityUtils.isElementInAT(<typeof window.qwElement>arguments[0]);
     if (isInAT) {
       return method.apply(this, arguments);
     }
@@ -74,7 +72,7 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
 function ElementIsVisible(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const isInAT = window.DomUtils.isElementVisible(arguments[0], arguments[1]);
+    const isInAT = window.DomUtils.isElementVisible(<typeof window.qwElement>arguments[0]);
     if (isInAT) {
       return method.apply(this, arguments);
     }
@@ -84,7 +82,7 @@ function ElementIsVisible(_target: any, _propertyKey: string, descriptor: Proper
 function ElementIsDataTable(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const isDataTable = window.AccessibilityUtils.isDataTable(arguments[0], arguments[1]);
+    const isDataTable = window.AccessibilityUtils.isDataTable(<typeof window.qwElement>arguments[0]);
     if (isDataTable) {
       return method.apply(this, arguments);
     }
@@ -94,7 +92,7 @@ function ElementIsDataTable(_target: any, _propertyKey: string, descriptor: Prop
 function ElementHasAccessibleName(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const accessibleName = window.AccessibilityUtils.getAccessibleName(arguments[0], arguments[1]);
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(<typeof window.qwElement>arguments[0]);
     if (accessibleName?.trim() !== '') {
       return method.apply(this, arguments);
     }

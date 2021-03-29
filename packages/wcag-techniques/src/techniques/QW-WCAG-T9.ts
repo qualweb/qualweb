@@ -1,8 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-//import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -12,17 +10,17 @@ class QW_WCAG_T9 extends Technique {
   }
 
   @ElementExists
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
-    if (page.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
+  execute(element: typeof window.qwElement): void {
+    if (window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
       return;
     }
 
     let equal = true;
     let complete = true;
     //let errorElem = element;
-    const hasH1 = page.getElements('h1').length > 0;
+    const hasH1 = window.qwPage.getElements('h1').length > 0;
     let counter = 0;
-    const htmlList = page.getElements('body, body *');
+    const htmlList = window.qwPage.getElements('body, body *');
 
     while (equal && complete && hasH1 && counter < htmlList.length) {
       const elem = htmlList[counter];

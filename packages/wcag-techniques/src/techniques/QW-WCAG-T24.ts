@@ -1,9 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
-//import { AccessibilityUtils } from '@qualweb/util';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-//import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
+import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -13,13 +10,13 @@ class QW_WCAG_T24 extends Technique {
   }
 
   @ElementExists
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const isFocusable = window.AccessibilityUtils.isElementFocusable(element, page);
+    const isFocusable = window.AccessibilityUtils.isElementFocusable(element);
 
     if (isFocusable) {
-      const keepsFocus = window.AccessibilityUtils.isFocusableBrowser(page, element);
+      const keepsFocus = window.AccessibilityUtils.isFocusableBrowser(element);
       if (keepsFocus) {
         test.verdict = 'passed';
         test.description = `Element kept focus`;

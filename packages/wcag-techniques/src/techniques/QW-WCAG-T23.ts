@@ -1,9 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-//import { QWElement } from '@qualweb/qw-element';
-//import { QWPage } from '@qualweb/qw-page';
-import { WCAGTechniqueClass, ElementExists } from '../lib/decorators';
-//import { AccessibilityUtils } from '@qualweb/util';
+import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @WCAGTechniqueClass
@@ -13,18 +10,18 @@ class QW_WCAG_T23 extends Technique {
   }
 
   @ElementExists
-  execute(element: typeof window.qwElement, page: typeof window.qwPage): void {
+  execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const children = element.getElementChildren();
     if (children !== null && children.length > 0) {
-      const firstFocusableElem = findFirstFocusableElement(element, page);
+      const firstFocusableElem = findFirstFocusableElement(element);
       if (firstFocusableElem) {
         const firstFocusableElemName = firstFocusableElem.getElementTagName();
         //const firstFocusableElemAttribs = await DomUtils.getElementAttributes(firstFocusableElem);
         const firstFocusableElemHREF = firstFocusableElem.getElementAttribute('href');
         if (firstFocusableElemName === 'a' && firstFocusableElemHREF && firstFocusableElemHREF.trim()) {
-          const url = page.getURL();
+          const url = window.qwPage.getURL();
           const urlConcatWithId = url + '#';
           const lastSlash = url.lastIndexOf('/');
           const filename = url.substring(lastSlash + 1);
@@ -84,10 +81,7 @@ class QW_WCAG_T23 extends Technique {
   }
 }
 
-function findFirstFocusableElement(
-  element: typeof window.qwElement,
-  page: typeof window.qwPage
-): typeof window.qwElement | undefined {
+function findFirstFocusableElement(element: typeof window.qwElement): typeof window.qwElement | undefined {
   let foundFirstFocusableElem = false;
   let firstFocusableElem: typeof window.qwElement | undefined;
   const children = element.getElementChildren();
@@ -96,11 +90,11 @@ function findFirstFocusableElement(
     let i = 0;
     while (!foundFirstFocusableElem && i < children.length) {
       if (children[i]) {
-        if (window.AccessibilityUtils.isElementFocusable(children[i], page)) {
+        if (window.AccessibilityUtils.isElementFocusable(children[i])) {
           firstFocusableElem = children[i];
           foundFirstFocusableElem = true;
         } else {
-          firstFocusableElem = findFirstFocusableElement(children[i], page);
+          firstFocusableElem = findFirstFocusableElement(children[i]);
           if (firstFocusableElem) {
             foundFirstFocusableElem = true;
           }
