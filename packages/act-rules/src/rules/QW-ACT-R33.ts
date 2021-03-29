@@ -1,45 +1,24 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-
-interface Roles {
-  [role: string]: {
-    baseConcept: string | string[];
-    attribute: string | string[];
-    requiredContextRole: string | string[];
-    requiredAria?: string | string[];
-    requiredRoles?: string | string[];
-    supportedAria?: string | Array<string>;
-    supportedRoles?: string | Array<string>;
-    implicitValueRoles: Array<Array<string>>;
-    requiredOwnedElements: any;
-  };
-}
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R33 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R33 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const roles = <Roles>rolesJSON;
+  execute(element: typeof window.qwElement): void {
+    const roles = window.AccessibilityUtils.roles;
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
     const explicitRole = element.getElementAttribute('role');
-    const implicitRole = AccessibilityUtils.getImplicitRole(element, page, '');
-    const isInAT = AccessibilityUtils.isElementInAT(element, page);
-    const isValidRole = AccessibilityUtils.elementHasValidRole(element, page);
+    const implicitRole = window.AccessibilityUtils.getImplicitRole(element, '');
+    const isInAT = window.AccessibilityUtils.isElementInAT(element);
+    const isValidRole = window.AccessibilityUtils.elementHasValidRole(element);
 
     //@ts-ignore
     if (
@@ -53,56 +32,53 @@ class QW_ACT_R33 extends Rule {
       const requiredContextRole = roles[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
 
-      const ariaOwns = page.getElement('[aria-owns' + `~="${id}"]`, element);
+      const ariaOwns = window.qwPage.getElement('[aria-owns' + `~="${id}"]`, element);
 
       if (ariaOwns !== null) {
-        const ariaOwnsRole = AccessibilityUtils.getElementRole(ariaOwns, page);
+        const ariaOwnsRole = window.AccessibilityUtils.getElementRole(ariaOwns);
         if (ariaOwnsRole && requiredContextRole.includes(ariaOwnsRole)) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target parent has the required context \`role\`.`;
-          evaluation.resultCode = 'RC1';
+          test.verdict = 'passed';
+          test.description = `The test target parent has the required context \`role\`.`;
+          test.resultCode = 'RC1';
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = `The test target parent doesn't have the required context \`role\``;
-          evaluation.resultCode = 'RC2';
+          test.verdict = 'failed';
+          test.description = `The test target parent doesn't have the required context \`role\``;
+          test.resultCode = 'RC2';
         }
-      } else if (this.isElementADescendantOf(element, page, <string[]>requiredContextRole)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target parent has the required context \`role\`.`;
-        evaluation.resultCode = 'RC3';
+      } else if (this.isElementADescendantOf(element, <string[]>requiredContextRole)) {
+        test.verdict = 'passed';
+        test.description = `The test target parent has the required context \`role\`.`;
+        test.resultCode = 'RC3';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The test target parent doesn't have the required context \`role\``;
-        evaluation.resultCode = 'RC4';
+        test.verdict = 'failed';
+        test.description = `The test target parent doesn't have the required context \`role\``;
+        test.resultCode = 'RC4';
       }
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target is not in the accessibility tree or doesn't have an explicit \`role\` with the required context \`role\``;
-      evaluation.resultCode = 'RC5';
-    }
 
-    super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
+    }
   }
 
-  private isElementADescendantOf(element: QWElement, page: QWPage, roles: string[]): boolean {
+  private isElementADescendantOf(element: typeof window.qwElement, roles: string[]): boolean {
     let parent = element.getElementParent();
     if (!parent) {
       const documentSelector = element.getElementAttribute('_documentSelector');
       if (!!documentSelector && !documentSelector.includes('iframe')) {
-        parent = page.getElement(documentSelector);
+        parent = window.qwPage.getElement(documentSelector);
       }
     }
     let result = false;
     let sameRole = false;
 
     if (parent !== null) {
-      const parentRole = AccessibilityUtils.getElementRole(parent, page);
+      const parentRole = window.AccessibilityUtils.getElementRole(parent);
       if (parentRole !== null) {
         sameRole = roles.includes(parentRole);
       }
       result = sameRole;
       if (parentRole === null || parentRole === 'presentation' || parentRole === 'none') {
-        return this.isElementADescendantOf(parent, page, roles);
+        return this.isElementADescendantOf(parent, roles);
       } else {
         return result;
       }

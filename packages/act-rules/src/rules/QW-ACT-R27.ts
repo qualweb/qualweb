@@ -1,26 +1,20 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import ariaJSON from '../lib/ariaAttributesRoles.json';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R27 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R27 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
+    const ariaJSON = window.AccessibilityUtils.ariaAttributesRoles;
     const allElements = element.getElements('*');
-    for (const elem of allElements || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    for (const elem of allElements ?? []) {
+      const test = new Test();
 
       let countAria = 0;
       let failedAria = '';
@@ -35,18 +29,19 @@ class QW_ACT_R27 extends Rule {
       }
 
       if (failedAria.length) {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'The following aria-* attributes are not defined in ARIA 1.1: ' + failedAria;
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'failed';
+        test.description = 'The following aria-* attributes are not defined in ARIA 1.1: ' + failedAria;
+        test.resultCode = 'RC1';
       } else if (countAria) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'All aria-* attributes in this element are defined in ARIA 1.1';
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'passed';
+        test.description = 'All aria-* attributes in this element are defined in ARIA 1.1';
+        test.resultCode = 'RC2';
       } else {
         continue;
       }
 
-      super.addEvaluationResult(evaluation, elem);
+      test.addElement(elem);
+      super.addTestResult(test);
     }
   }
 }

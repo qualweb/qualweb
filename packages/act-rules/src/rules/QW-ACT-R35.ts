@@ -1,51 +1,39 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R35 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R35 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const role = AccessibilityUtils.getElementRole(element, page);
+  execute(element: typeof window.qwElement): void {
+    const role = window.AccessibilityUtils.getElementRole(element);
 
     if (role !== 'heading') {
       return;
     }
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
-    const isInAT = AccessibilityUtils.isElementInAT(element, page);
+    const isInAT = window.AccessibilityUtils.isElementInAT(element);
     if (isInAT) {
-      const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+      const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
       if (!!accessibleName && accessibleName !== undefined) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The test target has a non-empty accessible name.';
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'passed';
+        test.description = 'The test target has a non-empty accessible name.';
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'failed';
+        test.description = `The test target accessible name doesn't exist or it's empty ("").`;
+        test.resultCode = 'RC2';
       }
 
-      super.addEvaluationResult(evaluation, element, true, true, true, page);
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The test target is not included in the accessibility tree.';
-      evaluation.resultCode = 'RC3';
-      super.addEvaluationResult(evaluation, element, true, true);
+      test.addElement(element, true, true, true);
+      super.addTestResult(test);
     }
   }
 }

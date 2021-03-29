@@ -8,6 +8,7 @@ module.exports = {
     filename: 'act.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
+      name: 'ACT',
       type: 'this'
     }
   },

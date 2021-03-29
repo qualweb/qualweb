@@ -1,80 +1,64 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R17 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R17 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const name = element.getElementTagName();
-    const elementInAT = AccessibilityUtils.isElementInAT(element, page);
-    const role = AccessibilityUtils.getElementRole(element, page);
-    const hidden = DomUtils.isElementHidden(element, page);
+    const elementInAT = window.AccessibilityUtils.isElementInAT(element);
+    const role = window.AccessibilityUtils.getElementRole(element);
+    const hidden = window.DomUtils.isElementHidden(element);
 
     if (name === 'img') {
       const alt = element.getElementAttribute('alt');
 
       if (!hidden && (alt === '' || role === 'presentation' || role === 'none')) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target is decorative.`;
-        evaluation.resultCode = 'RC1';
-        super.addEvaluationResult(evaluation, element);
-      } else if (!elementInAT) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not included in the accessibility tree.`;
-        evaluation.resultCode = 'RC2';
-        super.addEvaluationResult(evaluation, element);
-      } else {
-        const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+        test.verdict = 'passed';
+        test.description = `The test target is decorative.`;
+        test.resultCode = 'RC1';
+        
+        test.addElement(element)
+        super.addTestResult(test);
+      } else if (elementInAT) {
+        const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
         if (accessibleName && accessibleName.trim() !== '') {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target has an accessible name.`;
-          evaluation.resultCode = 'RC3';
+          test.verdict = 'passed';
+          test.description = `The test target has an accessible name.`;
+          test.resultCode = 'RC3';
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = `The test target doesn't have an accessible name.`;
-          evaluation.resultCode = 'RC4';
+          test.verdict = 'failed';
+          test.description = `The test target doesn't have an accessible name.`;
+          test.resultCode = 'RC4';
         }
-        super.addEvaluationResult(evaluation, element, true, false, true, page);
+
+        test.addElement(element, true, false, true)
+        super.addTestResult(test);
       }
     } else if (name !== 'svg' && role === 'img') {
-      if (!elementInAT) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not included in the accessibility tree.`;
-        evaluation.resultCode = 'RC5';
-      } else {
-        const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+      if (elementInAT) {
+        const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
         if (accessibleName) {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target has an accessible name.`;
-          evaluation.resultCode = 'RC6';
+          test.verdict = 'passed';
+          test.description = `The test target has an accessible name.`;
+          test.resultCode = 'RC6';
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = `The test target doesn't have an accessible name.`;
-          evaluation.resultCode = 'RC7';
+          test.verdict = 'failed';
+          test.description = `The test target doesn't have an accessible name.`;
+          test.resultCode = 'RC7';
         }
+
+        test.addElement(element, true, false, true)
+        super.addTestResult(test);
       }
-      super.addEvaluationResult(evaluation, element, true, false, true, page);
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target is not an HTML element with role img.`;
-      evaluation.resultCode = 'RC8';
-      super.addEvaluationResult(evaluation, element);
     }
   }
 }

@@ -1,6 +1,5 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import {
   ACTRuleDecorator,
   ElementAllowsNameFromContent,
@@ -8,13 +7,11 @@ import {
   ElementIsVisible,
   ElementIsWidget
 } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-import LanguageDetect from 'languagedetect';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R30 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R30 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
@@ -22,56 +19,52 @@ class QW_ACT_R30 extends Rule {
   @ElementIsVisible
   @ElementIsWidget
   @ElementAllowsNameFromContent
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
-    const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-    const elementText = DomUtils.getTrimmedText(element, page);
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
+    const elementText = window.DomUtils.getTrimmedText(element);
     const hasTextNode = element.elementHasTextNode();
     const isIconValue = this.isIcon(elementText, accessibleName, element);
 
     if (accessibleName === undefined) {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The test target doesn't have an accessible name.`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = `The test target doesn't have an accessible name.`;
+      test.resultCode = 'RC2';
     } else if (
       !hasTextNode ||
       elementText === undefined ||
       elementText === '' ||
       (elementText && !this.isHumanLanguage(elementText) && !isIconValue)
     ) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target has no visible text content or contains non-text content.`;
-      evaluation.resultCode = 'RC2';
+      // CHANGE: remove return and refactor code
+      return;
     } else if (
       !!elementText &&
       (isIconValue || accessibleName.toLowerCase().trim().includes(elementText.toLowerCase()))
     ) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'passed';
+      test.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The complete visible text content of the test target neither matches or is contained within its accessible name.`;
-      evaluation.resultCode = 'RC4';
+      test.verdict = 'failed';
+      test.description = `The complete visible text content of the test target neither matches or is contained within its accessible name.`;
+      test.resultCode = 'RC3';
     }
 
-    super.addEvaluationResult(evaluation, element, true, false, true, page);
+    test.addElement(element, true, false, true)
+    super.addTestResult(test);
   }
+
   //      let isIconValue = this.isIcon(elementText,accessibleName,element);
-  private isIcon(elementText: string, accessibleName: string | undefined, element: QWElement): boolean {
+  private isIcon(elementText: string, accessibleName: string | undefined, element: typeof window.qwElement): boolean {
     const iconMap = ['i', 'x'];
     const fontStyle = element.getElementStyleProperty('font-family', null);
     return !!accessibleName && (iconMap.includes(elementText.toLowerCase()) || fontStyle.includes('Material Icons'));
   }
 
-  private isHumanLanguage(string: string): boolean {
-    const detector = new LanguageDetect();
-    return detector.detect(string).length > 0;
+  private isHumanLanguage(text: string): boolean {
+    return window.DomUtils.isHumanLanguage(text);
   }
 }
 

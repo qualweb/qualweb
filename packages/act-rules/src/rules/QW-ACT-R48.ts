@@ -1,35 +1,31 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R48 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R48 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-    const isInAT = AccessibilityUtils.isElementInAT(element, page);
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
+    
+    const isInAT = window.AccessibilityUtils.isElementInAT(element);
     if (isInAT) {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The test target is in the accessibility Tree';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'failed';
+      test.description = 'The test target is in the accessibility Tree';
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The test target is not in the accessibility Tree.`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'passed';
+      test.description = `The test target is not in the accessibility Tree.`;
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element);
+    super.addTestResult(test);
   }
 }
 

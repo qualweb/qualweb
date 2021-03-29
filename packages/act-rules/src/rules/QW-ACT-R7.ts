@@ -1,142 +1,13 @@
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
-import * as Rematrix from 'rematrix';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import { MediaProperties, CSSProperty, MediaProperty } from '@qualweb/qw-element';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-
+import Test from '../lib/Test.object';
 @ACTRuleDecorator
-class QW_ACT_R7 extends Rule {
-  private rawMap: any = {};
-  private mediaMap: any = {};
+class QW_ACT_R7 extends AtomicRule {
 
   constructor(rule: ACTRule) {
     super(rule);
-  }
-
-  public unmappedExecute(styleSheets: any[]): void {
-    if (styleSheets.length === 0) {
-      this.fillEvaluation('inapplicable', 'A page where there are no CSS styles.', 'RC1');
-    } else {
-      this.rawMap = {};
-      this.mediaMap = {};
-      let foundATransform = false;
-
-      for (const styleSheet of styleSheets || []) {
-        if (styleSheet.content && styleSheet.content.plain && styleSheet.content.plain.includes('transform')) {
-          this.analyseAST(styleSheet.content.parsed, styleSheet.file);
-          foundATransform = true;
-        }
-      }
-      if (foundATransform) {
-        const keys = Object.keys(this.mediaMap);
-        for (const key of keys || []) {
-          let angle = this.mediaMap[key].replace('rotate(', '').replace(')', '');
-          angle = this.parseDegrees(angle);
-          const matrix = Rematrix.rotateZ(angle);
-          angle = this.calculateRotationDegree(matrix);
-          this.checkRotation(angle);
-        }
-      } else {
-        this.fillEvaluation('inapplicable', 'A page that has no CSS transform property specified.', 'RC2');
-      }
-    }
-  }
-
-  private analyseAST(cssObject: any, parentType?: string): void {
-    if (
-      cssObject === undefined ||
-      cssObject['type'] === 'comment' ||
-      cssObject['type'] === 'keyframes' ||
-      cssObject['type'] === 'import'
-    ) {
-      // ignore
-      return;
-    }
-
-    if (cssObject['type'] === 'rule' || cssObject['type'] === 'font-face' || cssObject['type'] === 'page') {
-      if (this.isVisible(cssObject)) {
-        this.extractInfo(cssObject, parentType);
-      } else {
-        this.fillEvaluation(
-          'inapplicable',
-          'A page where CSS transform property is applied to an element that is not visible.',
-          'RC3'
-        );
-      }
-    } else {
-      if (cssObject['type'] === 'stylesheet') {
-        for (const key of cssObject['stylesheet']['rules'] || []) {
-          this.analyseAST(key, parentType);
-        }
-      } else {
-        for (const key of cssObject['rules'] || []) {
-          if (cssObject['type'] && cssObject['type'] === 'media') {
-            this.analyseAST(key, cssObject[cssObject['type']]);
-          } else {
-            this.analyseAST(key);
-          }
-        }
-      }
-    }
-  }
-
-  private extractInfo(cssObject: any, parentType?: string): void {
-    if (cssObject.selectors === undefined) return;
-
-    const declarations = cssObject['declarations'];
-
-    if (declarations) {
-      for (const declaration of declarations || []) {
-        if (declaration['property'] && declaration['value'] && declaration['property'].includes('transform')) {
-          if (
-            parentType &&
-            parentType.includes('orientation') &&
-            (parentType.includes('landscape') || parentType.includes('portrait'))
-          ) {
-            if (declaration['value'].includes('rotateZ')) {
-              let angle = declaration['value'].replace('rotateZ(', '').replace(')', '');
-              angle = this.parseDegrees(angle);
-              const matrix = Rematrix.rotateZ(angle);
-              angle = this.calculateRotationDegree(matrix);
-              this.checkRotation(angle);
-            } else if (declaration['value'].includes('matrix')) {
-              const matrix = Rematrix.fromString(declaration['value']);
-              this.calculateRotationDegree(matrix);
-              const angle = this.calculateRotationDegree(matrix);
-              this.checkRotation(angle);
-            } else if (declaration['value'].includes('rotate')) {
-              if (
-                this.rawMap.hasOwnProperty(cssObject.selectors.toString()) &&
-                this.rawMap[cssObject.selectors.toString()] === declaration['value']
-              ) {
-                this.fillEvaluation(
-                  'passed',
-                  'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
-                  'RC4'
-                );
-                delete this.rawMap[cssObject.selectors.toString()];
-              } else {
-                this.mediaMap[cssObject.selectors.toString()] = declaration['value'];
-              }
-            }
-          } else {
-            if (
-              this.mediaMap.hasOwnProperty(cssObject.selectors.toString()) &&
-              this.mediaMap[cssObject.selectors.toString()] === declaration['value']
-            ) {
-              this.fillEvaluation(
-                'passed',
-                'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which matches the default CSS transform applied on the target element.',
-                'RC5'
-              );
-              delete this.mediaMap[cssObject.selectors.toString()];
-            } else {
-              this.rawMap[cssObject.selectors.toString()] = declaration['value'];
-            }
-          }
-        }
-      }
-    }
   }
 
   private checkRotation(angle: number): void {
@@ -180,23 +51,13 @@ class QW_ACT_R7 extends Rule {
     return Math.abs(degrees); // just ignore the abs
   }
 
-  private fillEvaluation(verdict: '' | 'passed' | 'failed' | 'inapplicable', description: string, resultCode: string) {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
-    evaluation.verdict = verdict;
-    evaluation.description = description;
-    evaluation.resultCode = resultCode;
-
-    super.addEvaluationResult(evaluation);
+  private fillEvaluation(verdict: 'passed' | 'warning' | 'failed', description: string, resultCode: string): void {
+    super.addTestResult(new Test(verdict, description, resultCode));
   }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: QWElement): void {
+  execute(element: typeof window.qwElement): void {
     const rules = element.getCSSRules();
 
     if (!rules) {
@@ -225,13 +86,13 @@ class QW_ACT_R7 extends Rule {
               if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
                 let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
                 angle = this.parseDegrees(angle.toString()).toString();
-                const matrix = Rematrix.rotateZ(
+                const matrix = this.rotateZ(
                   transformValue ? parseFloat(angle) - transformValue : parseFloat(angle)
                 );
                 angle = this.calculateRotationDegree(matrix).toString();
                 this.checkRotation(parseInt(angle));
               } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
-                const matrix = Rematrix.fromString(value);
+                const matrix = this.fromString(value);
                 this.calculateRotationDegree(matrix);
                 const angle = this.calculateRotationDegree(matrix);
                 this.checkRotation(angle);
@@ -243,20 +104,57 @@ class QW_ACT_R7 extends Rule {
     }
   }
 
-  private isVisible(cssObject: any): boolean {
-    const declarations = cssObject['declarations'];
-    if (declarations) {
-      for (const declaration of declarations) {
-        if (declaration['property'] && declaration['value']) {
-          if (declaration['property'] === 'display') {
-            return declaration['value'] !== 'none';
-          } else if (declaration['property'] === 'visibility') {
-            return declaration['value'] !== 'hidden' || declaration['value'] !== 'collapse';
-          }
-        }
+  private identity(): Array<number> {
+    const matrix = new Array<number>();
+    for (let i = 0; i < 16; i++) {
+      i % 5 === 0 ? matrix.push(1) : matrix.push(0);
+    }
+    return matrix;
+  }
+  
+  private rotateZ(angle: number): Array<number> {
+    const theta = (Math.PI / 180) * angle;
+    const matrix = this.identity();
+
+    matrix[0] = matrix[5] = Math.cos(theta);
+    matrix[1] = matrix[4] = Math.sin(theta);
+    matrix[4] *= -1;
+
+    return matrix;
+  }
+
+  private fromString(source: string): Array<number> {
+    if (typeof source === 'string') {
+      const match = source.match(/matrix(3d)?\(([^)]+)\)/);
+      if (match) {
+        const raw = match[2].split(',').map(parseFloat);
+        return this.format(raw);
+      }
+      if (source === 'none' || source === '') {
+        return this.identity();
       }
     }
-    return true;
+    throw new TypeError('Expected a string containing `matrix()` or `matrix3d()')
+  }
+
+  private format(source: Array<number>): Array<number> {
+    const values = source
+      .filter(function (value) { return typeof value === 'number'; })
+      .filter(function (value) { return !isNaN(value); });
+
+    if (source.length === 6 && values.length === 6) {
+      const matrix = this.identity();
+      matrix[0] = values[0];
+      matrix[1] = values[1];
+      matrix[4] = values[2];
+      matrix[5] = values[3];
+      matrix[12] = values[4];
+      matrix[13] = values[5];
+      return matrix;
+    } else if (source.length === 16 && values.length === 16) {
+      return source;
+    }
+    throw new TypeError('Expected a `number[]` with length 6 or 16.')
   }
 }
 

@@ -1,12 +1,10 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R24 extends Rule {
+class QW_ACT_R24 extends AtomicRule {
   private autoCompleteTable = {
     home: [
       'tel',
@@ -182,18 +180,14 @@ class QW_ACT_R24 extends Rule {
     }
   };
 
-  constructor(rule?: any) {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     //if input type = hidden, button,submit or reset
     const tag = element.getElementTagName();
@@ -203,17 +197,9 @@ class QW_ACT_R24 extends Rule {
         const type = element.getElementAttribute('type');
         const disabled = element.elementHasAttribute('disabled');
         if (disabled) {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target is disabled.`;
-          evaluation.resultCode = 'RC2';
-          super.addEvaluationResult(evaluation, element);
           return;
         }
         if (type === 'hidden' || type === 'button' || type === 'submit' || type === 'reset') {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target is an \`input\` element with a type property of \`hidden, button, submit or reset\`.`;
-          evaluation.resultCode = 'RC3';
-          super.addEvaluationResult(evaluation, element);
           return;
         }
       }
@@ -221,22 +207,14 @@ class QW_ACT_R24 extends Rule {
       const ariaDisable = element.getElementAttribute('aria-disabled');
 
       if (ariaDisable === 'true') {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target has an \`aria-disabled='true'\` attribute.`;
-        evaluation.resultCode = 'RC4';
-        super.addEvaluationResult(evaluation);
         return;
       }
 
       //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
-      const widgetRole = AccessibilityUtils.isElementWidget(element, page);
+      const isFocusable = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
+      const widgetRole = window.AccessibilityUtils.isElementWidget(element);
 
       if (!isFocusable && !widgetRole) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not part of sequential focus navigation and has a semantic role that is not a widget role.`;
-        evaluation.resultCode = 'RC5';
-        super.addEvaluationResult(evaluation, element);
         return;
       }
 
@@ -245,33 +223,24 @@ class QW_ACT_R24 extends Rule {
       if (autoComplete) {
         autoComplete = autoComplete.trim();
         if (autoComplete === '') {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target \`autocomplete\` attribute contains no tokens.`;
-          evaluation.resultCode = 'RC6';
-          super.addEvaluationResult(evaluation, element);
           return;
         }
 
         const correctAutocompleteField = this.isCorrectAutocompleteField(element, autoComplete);
         if (!correctAutocompleteField) {
-          evaluation.verdict = 'failed';
-          evaluation.description = `The test target \`autocomplete\` attribute is not valid.`;
-          evaluation.resultCode = 'RC8';
-          super.addEvaluationResult(evaluation, element);
-          return;
+          test.verdict = 'failed';
+          test.description = `The test target \`autocomplete\` attribute is not valid.`;
+          test.resultCode = 'RC2';
         } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target has a valid \`autocomplete\` attribute.`;
-          evaluation.resultCode = 'RC9';
-          super.addEvaluationResult(evaluation, element);
-          return;
+          test.verdict = 'passed';
+          test.description = `The test target has a valid \`autocomplete\` attribute.`;
+          test.resultCode = 'RC1';
         }
+
+        test.addElement(element);
+        super.addTestResult(test);
       }
     } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target is not a \`input, select or textarea\`.`;
-      evaluation.resultCode = 'RC7';
-      super.addEvaluationResult(evaluation, element);
       return;
     }
   }
@@ -301,7 +270,7 @@ class QW_ACT_R24 extends Rule {
     }
   }
 
-  private isText(element: QWElement): boolean {
+  private isText(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -314,7 +283,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isMultiline(element: QWElement): boolean {
+  private isMultiline(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -327,7 +296,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isPassword(element: QWElement): boolean {
+  private isPassword(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -341,7 +310,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isURL(element: QWElement): boolean {
+  private isURL(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -355,7 +324,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isEmail(element: QWElement): boolean {
+  private isEmail(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -369,7 +338,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isTel(element: QWElement): boolean {
+  private isTel(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -383,7 +352,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isNumeric(element: QWElement): boolean {
+  private isNumeric(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -397,7 +366,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isMonth(element: QWElement): boolean {
+  private isMonth(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -411,7 +380,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isDate(element: QWElement): boolean {
+  private isDate(element: typeof window.qwElement): boolean {
     const tag = element.getElementTagName();
     if (tag === 'input') {
       const type = element.getElementAttribute('type');
@@ -425,7 +394,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isAppropriateFieldForTheFormControl(field: string, element: QWElement): boolean {
+  private isAppropriateFieldForTheFormControl(field: string, element: typeof window.qwElement): boolean {
     if (field.toLowerCase() === 'off') {
       return true;
     }
@@ -457,7 +426,7 @@ class QW_ACT_R24 extends Rule {
     return false;
   }
 
-  private isCorrectAutocompleteField(element: QWElement, autoCompleteField: string): boolean {
+  private isCorrectAutocompleteField(element: typeof window.qwElement, autoCompleteField: string): boolean {
     const fields = autoCompleteField.split(' ');
 
     if (fields[0].startsWith('section-')) fields.splice(0, 1);

@@ -4,8 +4,6 @@ import AtomicRule from './lib/AtomicRule.object';
 import CompositeRule from './lib/CompositeRule.object';
 import mapping from './lib/mapping';
 import compositeRules from './lib/mappingComposite';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 
 class ACTRules {
   private readonly rules: { [rule: string]: AtomicRule | CompositeRule };
@@ -105,7 +103,7 @@ class ACTRules {
       // @ts-ignore
       const compositeRule = compositeRules[cr];
       if (this.rulesToExecute[cr]) {
-        for (const ar of compositeRule.rules || []) {
+        for (const ar of compositeRule.rules ?? []) {
           this.rulesToExecute[ar] = true;
         }
       }
@@ -113,40 +111,37 @@ class ACTRules {
   }
 
   public resetConfiguration(): void {
-    for (const rule in this.rulesToExecute || {}) {
+    for (const rule in this.rulesToExecute ?? {}) {
       this.rulesToExecute[rule] = true;
     }
   }
 
-  private executeRule(rule: string, selector: string, page: QWPage): void {
-    const elements = page.getElements(selector);
+  private executeRule(rule: string, selector: string): void {
+    const elements = window.qwPage.getElements(selector);
     if (elements.length > 0) {
-      for (const elem of elements || []) {
-        this.rules[rule].execute(elem, page);
+      for (const elem of elements ?? []) {
+        this.rules[rule].execute(elem);
       }
     } else {
-      this.rules[rule].execute(undefined, page);
+      this.rules[rule].execute(undefined);
     }
 
     this.report.assertions[rule] = this.rules[rule].getFinalResults();
-    //@ts-ignore
     this.report.metadata[this.report.assertions[rule].metadata.outcome]++;
-    this.rules[rule].reset();
   }
 
   private executeCompositeRule(
     rule: string,
     selector: string,
     atomicRules: Array<string>,
-    implementation: string,
-    page: QWPage
+    implementation: string
   ): void {
     const atomicRulesReport = new Array<ACTRule>();
 
-    for (const atomicRule of atomicRules || []) {
+    for (const atomicRule of atomicRules ?? []) {
       atomicRulesReport.push(this.report.assertions[atomicRule]);
     }
-    const elements = page.getElements(selector);
+    const elements = window.qwPage.getElements(selector);
     if (elements.length > 0) {
       for (const elem of elements || []) {
         if (implementation === 'conjunction') {
@@ -154,33 +149,31 @@ class ACTRules {
         } else if (implementation === 'disjunction') {
           (<CompositeRule>this.rules[rule]).disjunction(elem, atomicRulesReport);
         } else {
-          (<CompositeRule>this.rules[rule]).execute(elem, page, atomicRulesReport);
+          (<CompositeRule>this.rules[rule]).execute(elem, atomicRulesReport);
         }
       }
     } else {
-      this.rules[rule].execute(undefined, page);
+      this.rules[rule].execute(undefined);
     }
 
     this.report.assertions[rule] = this.rules[rule].getFinalResults();
-    //@ts-ignore
     this.report.metadata[this.report.assertions[rule].metadata.outcome]++;
-    this.rules[rule].reset();
   }
 
-  public executeAtomicRules(page: QWPage): void {
+  public executeAtomicRules(): void {
     const selectors = Object.keys(mapping);
-    for (const selector of selectors || []) {
-      for (const rule of (<{ [selector: string]: Array<string> }>mapping)[selector] || []) {
+    for (const selector of selectors ?? []) {
+      for (const rule of (<{ [selector: string]: Array<string> }>mapping)[selector] ?? []) {
         if (this.rulesToExecute[rule]) {
-          this.executeRule(rule, selector, page);
+          this.executeRule(rule, selector);
         }
       }
     }
   }
 
-  public executeCompositeRules(page: QWPage): void {
+  public executeCompositeRules(): void {
     const rules = Object.keys(compositeRules);
-    for (const rule of rules || []) {
+    for (const rule of rules ?? []) {
       if (this.rulesToExecute[rule]) {
         this.executeCompositeRule(
           rule,
@@ -189,73 +182,51 @@ class ACTRules {
           //@ts-ignore
           compositeRules[rule].rules,
           //@ts-ignore
-          compositeRules[rule].implementation,
-          page
+          compositeRules[rule].implementation
         );
       }
     }
   }
 
-  public validateMetaElements(metaElements: Array<QWElement>): void {
+  public validateMetaElements(metaElements: Array<typeof window.qwElement>): void {
     if (this.rulesToExecute['QW-ACT-R4'] || this.rulesToExecute['QW-ACT-R71']) {
-      if (metaElements.length > 0) {
-        for (const elem of metaElements || []) {
-          if (this.rulesToExecute['QW-ACT-R4']) {
-            this.rules['QW-ACT-R4'].execute(elem);
-          }
-          if (this.rulesToExecute['QW-ACT-R71']) {
-            this.rules['QW-ACT-R71'].execute(elem);
-          }
-        }
-      } else {
+      for (const elem of metaElements ?? []) {
         if (this.rulesToExecute['QW-ACT-R4']) {
-          this.rules['QW-ACT-R4'].execute(undefined);
+          this.rules['QW-ACT-R4'].execute(elem);
         }
         if (this.rulesToExecute['QW-ACT-R71']) {
-          this.rules['QW-ACT-R71'].execute(undefined);
+          this.rules['QW-ACT-R71'].execute(elem);
         }
       }
       if (this.rulesToExecute['QW-ACT-R4']) {
         this.report.assertions['QW-ACT-R4'] = this.rules['QW-ACT-R4'].getFinalResults();
-        //@ts-ignore
         this.report.metadata[this.report.assertions['QW-ACT-R4'].metadata.outcome]++;
-        this.rules['QW-ACT-R4'].reset();
       }
       if (this.rulesToExecute['QW-ACT-R71']) {
         this.report.assertions['QW-ACT-R71'] = this.rules['QW-ACT-R71'].getFinalResults();
-        //@ts-ignore
         this.report.metadata[this.report.assertions['QW-ACT-R71'].metadata.outcome]++;
-        this.rules['QW-ACT-R71'].reset();
       }
     }
   }
 
-  public validateZoomedTextNodeNotClippedWithCSSOverflow(page: QWPage): void {
+  public validateZoomedTextNodeNotClippedWithCSSOverflow(): void {
     if (this.rulesToExecute['QW-ACT-R40']) {
-      const elements = page.getElements('body *');
+      const elements = window.qwPage.getElements('body *');
 
-      if (elements.length > 0) {
-        for (const elem of elements || []) {
-          this.rules['QW-ACT-R40'].execute(elem, page);
-        }
-      } else {
-        this.rules['QW-ACT-R40'].execute(undefined, page);
+      for (const elem of elements ?? []) {
+        this.rules['QW-ACT-R40'].execute(elem);
       }
 
       this.report.assertions['QW-ACT-R40'] = this.rules['QW-ACT-R40'].getFinalResults();
-      //@ts-ignore
       this.report.metadata[this.report.assertions['QW-ACT-R40'].metadata.outcome]++;
-      this.rules['QW-ACT-R40'].reset();
     }
   }
 
-  public validateFirstFocusableElementIsLinkToNonRepeatedContent(page: QWPage): void {
+  public validateFirstFocusableElementIsLinkToNonRepeatedContent(): void {
     if (this.rulesToExecute['QW-ACT-R72']) {
-      this.rules['QW-ACT-R72'].execute(undefined, page);
+      this.rules['QW-ACT-R72'].execute(undefined);
       this.report.assertions['QW-ACT-R72'] = this.rules['QW-ACT-R72'].getFinalResults();
-      //@ts-ignore
       this.report.metadata[this.report.assertions['QW-ACT-R72'].metadata.outcome]++;
-      this.rules['QW-ACT-R72'].reset();
     }
   }
 

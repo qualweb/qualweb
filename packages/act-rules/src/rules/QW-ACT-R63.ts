@@ -1,22 +1,18 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, IsHTMLDocument } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R63 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R63 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @IsHTMLDocument
   @ElementExists
-  execute(element: QWElement): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     let hasLinks = false;
     const links = element.getElements('a');
@@ -26,14 +22,14 @@ class QW_ACT_R63 extends Rule {
         if (link.elementHasAttribute('href')) {
           const href = (<string>link.getElementAttribute('href')).trim();
           if (!href.startsWith('#') && (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))) {
-            evaluation.verdict = 'warning';
-            evaluation.description = `
+            test.verdict = 'warning';
+            test.description = `
               Check either there is no non-repeated content after repeated content or there exists an element for which all the following are true:
                - the element has semantic role inheriting from landmark; and
                - the first perceivable content (in tree order in the flat tree) which is an inclusive descendant of the element is non-repeated content after repeated content; and
                - the element is included in the accessibility tree.
             `;
-            evaluation.resultCode = 'RC2';
+            test.resultCode = 'RC2';
             hasLinks = true;
             break;
           }
@@ -42,12 +38,13 @@ class QW_ACT_R63 extends Rule {
     }
 
     if (!hasLinks) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The page doesn't have repeated content.`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = `The page doesn't have repeated content.`;
+      test.resultCode = 'RC1';
     }
 
-    super.addEvaluationResult(evaluation, element, false);
+    test.addElement(element, false);
+    super.addTestResult(test);
   }
 }
 

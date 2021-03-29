@@ -1,32 +1,28 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R44 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R44 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
     const links = element.getElements('a[href], [role="link"]');
     const linkDataList = new Array<any>();
 
     for (const link of links || []) {
       let aName, href, context;
-      if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
-        aName = AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else if (AccessibilityUtils.isElementInAT(link, page)) {
-        aName = AccessibilityUtils.getAccessibleName(link, page);
+      if (window.DomUtils.isElementADescendantOf(link, ['svg'], [])) {
+        aName = window.AccessibilityUtils.getAccessibleNameSVG(link);
+      } else if (window.AccessibilityUtils.isElementInAT(link)) {
+        aName = window.AccessibilityUtils.getAccessibleName(link);
       }
       href = link.getElementAttribute('href');
-      context = AccessibilityUtils.getLinkContext(link, page);
+      context = window.AccessibilityUtils.getLinkContext(link);
 
       if (aName) {
         linkDataList.push({
@@ -41,12 +37,9 @@ class QW_ACT_R44 extends Rule {
     let counter = 0;
     const blacklist = new Array<number>();
     for (const linkData of linkDataList || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
-      const elementList = new Array<QWElement>();
+      const test = new Test();
+
+      const elementList = new Array<typeof window.qwElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -64,28 +57,19 @@ class QW_ACT_R44 extends Rule {
           elementList.push(linkDataList[counter].link);
           if (hasEqualHref) {
             //passed
-            evaluation.verdict = 'passed';
-            evaluation.description = `The \`links\` with the same accessible name have equal content.`;
-            evaluation.resultCode = 'RC2';
+            test.verdict = 'passed';
+            test.description = `The \`links\` with the same accessible name have equal content.`;
+            test.resultCode = 'RC2';
           } else {
             //warning
-            evaluation.verdict = 'warning';
-            evaluation.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
-            evaluation.resultCode = 'RC3';
+            test.verdict = 'warning';
+            test.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
+            test.resultCode = 'RC3';
           }
-        } else {
-          //inaplicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `Doesn't exist any other \`link\` with the same accessible name in the same link context.`;
-          evaluation.resultCode = 'RC4';
+
+          test.addElements(elementList);
+          super.addTestResult(test);
         }
-        super.addMultipleElementEvaluationResult(evaluation, elementList);
-      } else {
-        //inaplicable
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The \`link\` doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC5';
-        super.addMultipleElementEvaluationResult(evaluation, elementList);
       }
 
       counter++;

@@ -1,45 +1,38 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import {
   ACTRuleDecorator,
   ElementExists,
   ElementIsInAccessibilityTree,
   ElementHasOneOfTheFollowingRoles
 } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R66 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R66 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @ElementIsInAccessibilityTree
   @ElementHasOneOfTheFollowingRoles(['menuitem'])
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
-    const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
     if (accessibleName) {
-      evaluation.verdict = 'passed';
-      evaluation.description = 'The test target has a non-empty accessible name.';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = 'The test target has a non-empty accessible name.';
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The test target accessible name doesn't exist or it's empty ("").`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = `The test target accessible name doesn't exist or it's empty ("").`;
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element, true, false, true, page);
+    test.addElement(element, true, false, true);
+    super.addTestResult(test);
   }
 }
 

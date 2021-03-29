@@ -1,20 +1,18 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import ariaJSON from '../lib/ariaAttributesRoles.json';
-import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R34 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R34 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
+    const ariaJSON = window.AccessibilityUtils.ariaAttributesRoles;
+    const rolesJSON = window.AccessibilityUtils.roles;
     // get all aria attributes from json to combine it in a css selector
     let ariaSelector = '';
     for (const ariaAttrib of Object.keys(ariaJSON) || []) {
@@ -26,16 +24,13 @@ class QW_ACT_R34 extends Rule {
     const elementsWithAriaAttribs = element.getElements(ariaSelector);
 
     for (const elem of elementsWithAriaAttribs || []) {
-      const isInAT = AccessibilityUtils.isElementInAT(elem, page);
+      const isInAT = window.AccessibilityUtils.isElementInAT(elem);
       let elemAttribs = elem.getElementAttributesName();
       elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
 
-      for (const attrib of elemAttribs || []) {
-        const evaluation: ACTRuleResult = {
-          verdict: '',
-          description: '',
-          resultCode: ''
-        };
+      for (const attrib of elemAttribs ?? []) {
+        const test = new Test();
+
         if (attrib in ariaJSON) {
           //if is in the accessibility tree
           //@ts-ignore
@@ -45,11 +40,7 @@ class QW_ACT_R34 extends Rule {
           const typeValue = ariaJSON[attrib]['typeValue'];
 
           let result = false;
-          if (attrValue === '') {
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = 'The test target `' + attrib + '` attribute is empty.';
-            evaluation.resultCode = 'RC2';
-          } else if (attrValue && isInAT) {
+          if (attrValue && isInAT) {
             if (typeValue === 'value') {
               result = values.includes(attrValue);
             } else if (typeValue === 'string') {
@@ -69,7 +60,7 @@ class QW_ACT_R34 extends Rule {
                 }
               }
             } else {
-              const role = AccessibilityUtils.getElementRole(elem, page);
+              const role = window.AccessibilityUtils.getElementRole(elem);
 
               let requiredAriaList;
               //@ts-ignore
@@ -79,7 +70,7 @@ class QW_ACT_R34 extends Rule {
               }
               if (typeValue === 'id') {
                 const isRequired = requiredAriaList && requiredAriaList.includes(attrib);
-                if (isRequired) result = page.getElement('#' + attrValue) !== null;
+                if (isRequired) result = window.qwPage.getElement('#' + attrValue) !== null;
                 else result = !attrValue.includes(' ');
               } else {
                 //if (typeValue === 'idList')
@@ -88,7 +79,7 @@ class QW_ACT_R34 extends Rule {
                 if (isRequired) {
                   for (const id of list || []) {
                     if (!result) {
-                      result = page.getElement('#' + id) !== null;
+                      result = window.qwPage.getElement('#' + id) !== null;
                     }
                   }
                 } else {
@@ -98,22 +89,18 @@ class QW_ACT_R34 extends Rule {
             }
 
             if (result) {
-              evaluation.verdict = 'passed';
-              evaluation.description = 'The test target `' + attrib + '` attribute has a valid value.';
-              evaluation.resultCode = 'RC3';
+              test.verdict = 'passed';
+              test.description = 'The test target `' + attrib + '` attribute has a valid value.';
+              test.resultCode = 'RC3';
             } else {
-              evaluation.verdict = 'failed';
-              evaluation.description = 'The test target `' + attrib + '` attribute has an invalid value.';
-              evaluation.resultCode = 'RC4';
+              test.verdict = 'failed';
+              test.description = 'The test target `' + attrib + '` attribute has an invalid value.';
+              test.resultCode = 'RC4';
             }
-          } else {
-            //if they are not in the accessibility tree
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = 'The test target is not included in the accessibility tree.';
-            evaluation.resultCode = 'RC5';
-          }
 
-          super.addEvaluationResult(evaluation, elem);
+            test.addElement(elem);
+            super.addTestResult(test);
+          }
         }
       }
     }

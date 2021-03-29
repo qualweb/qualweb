@@ -1,89 +1,91 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R72 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R72 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
-    const elementList = page.getElements('*');
+    const elementList = window.qwPage.getElements('*');
     //mudar para find
-    const inSequentialFocusList = elementList.filter((element) => {
-      return AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
+    const inSequentialFocusList = elementList.filter((element: typeof window.qwElement) => {
+      return window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
     });
 
     if (inSequentialFocusList.length > 0) {
-      const focused = page.getFocusedElement();
+      const focused = window.qwPage.getFocusedElement();
 
       // is keyboard actionable
       if (
-        !AccessibilityUtils.isPartOfSequentialFocusNavigation(focused, page) ||
-        !DomUtils.isElementVisible(focused, page)
+        !window.AccessibilityUtils.isPartOfSequentialFocusNavigation(focused) ||
+        !window.DomUtils.isElementVisible(focused)
       ) {
         // not checking if it is possible to fire an event at the element with the keyboard
-        evaluation.verdict = 'failed';
-        evaluation.description = 'The first focusable element is not keyboard actionable';
-        evaluation.resultCode = 'RC2';
-        super.addEvaluationResult(evaluation, focused, false, false);
-      } else if (!AccessibilityUtils.isElementInAT(focused, page)) {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'The first focusable element is not in the accessibility tree';
-        evaluation.resultCode = 'RC3';
-        super.addEvaluationResult(evaluation, focused, false, false);
-      } else if (AccessibilityUtils.getElementRole(focused, page) !== 'link') {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'The first focusable element does not have the role of link';
-        evaluation.resultCode = 'RC4';
-        super.addEvaluationResult(evaluation, focused, false, false);
+        test.verdict = 'failed';
+        test.description = 'The first focusable element is not keyboard actionable';
+        test.resultCode = 'RC2';
+        
+        test.addElement(focused, false);
+      } else if (!window.AccessibilityUtils.isElementInAT(focused)) {
+        test.verdict = 'failed';
+        test.description = 'The first focusable element is not in the accessibility tree';
+        test.resultCode = 'RC3';
+        
+        test.addElement(focused, false);
+      } else if (window.AccessibilityUtils.getElementRole(focused) !== 'link') {
+        test.verdict = 'failed';
+        test.description = 'The first focusable element does not have the role of link';
+        test.resultCode = 'RC4';
+        
+        test.addElement(focused, false);
       } else if (focused.getElementAttribute('href')) {
         const destination = focused.getElementAttribute('href')?.trim();
         if (destination && destination.startsWith('#')) {
           // only checking that it has an url that starts with # -- other ways of linking to the same page are not considered
-          if (page.getElementByID(destination.substring(1))) {
-            evaluation.verdict = 'warning';
-            evaluation.description =
+          if (window.qwPage.getElementByID(destination.substring(1))) {
+            test.verdict = 'warning';
+            test.description =
               'Check that the first focusable element has an accessible name that communicates that it skips content';
-            evaluation.resultCode = 'RC7';
-            super.addEvaluationResult(evaluation, focused);
+            test.resultCode = 'RC7';
+
+            test.addElement(focused, false);
           } else {
-            evaluation.verdict = 'failed';
-            evaluation.description = 'The first focusable element does not skip to the main content';
-            evaluation.resultCode = 'RC6';
-            super.addEvaluationResult(evaluation, focused, false, false);
+            test.verdict = 'failed';
+            test.description = 'The first focusable element does not skip to the main content';
+            test.resultCode = 'RC6';
+
+            test.addElement(focused, false);
           }
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'The first focusable element does not skip to the main content';
-          evaluation.resultCode = 'RC5';
-          super.addEvaluationResult(evaluation, focused, false, false);
+          test.verdict = 'failed';
+          test.description = 'The first focusable element does not skip to the main content';
+          test.resultCode = 'RC5';
+
+          test.addElement(focused, false);
         }
       } else {
-        evaluation.verdict = 'warning';
-        evaluation.description =
+        test.verdict = 'warning';
+        test.description =
           'Check that the first focusable element skips to the main content and its accessible name communicates so';
-        evaluation.resultCode = 'RC8';
-        super.addEvaluationResult(evaluation, focused);
+        test.resultCode = 'RC8';
+
+        test.addElement(focused)
       }
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = 'The page does not have focusable elements';
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation, element, false, false);
+      test.verdict = 'failed';
+      test.description = 'The page does not have focusable elements';
+      test.resultCode = 'RC1';
+
+      test.addElement(element, false);
     }
+
+    super.addTestResult(test);
   }
 }
 

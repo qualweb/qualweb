@@ -1,40 +1,32 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R39 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R39 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const role = AccessibilityUtils.getElementRole(element, page);
+  execute(element: typeof window.qwElement): void {
+    const role = window.AccessibilityUtils.getElementRole(element);
 
     if (role !== 'columnheader' && role !== 'rowheader') {
       return;
     }
     const cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader'];
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
-    const isInAT = AccessibilityUtils.isElementInAT(element, page);
+    const isInAT = window.AccessibilityUtils.isElementInAT(element);
     if (isInAT) {
-      const isVisible = DomUtils.isElementVisible(element, page);
+      const isVisible = window.DomUtils.isElementVisible(element);
       if (isVisible) {
-        const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, page, [], ['grid', 'table']);
+        const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, [], ['grid', 'table']);
         if (ancestorTableOrGrid !== null) {
-          const isAncestorTableOrGridInAT = AccessibilityUtils.isElementInAT(ancestorTableOrGrid, page);
+          const isAncestorTableOrGridInAT = window.AccessibilityUtils.isElementInAT(ancestorTableOrGrid);
           if (isAncestorTableOrGridInAT) {
             const rowElements = ancestorTableOrGrid.getElements('tr, [role="row"]');
             const elementParent = element.getElementParent();
@@ -61,7 +53,7 @@ class QW_ACT_R39 extends Rule {
                   }
                   for (const cellIndexElement of cellIndexElements) {
                     const cellIndexElementRole = cellIndexElement
-                      ? AccessibilityUtils.getElementRole(cellIndexElement, page)
+                      ? window.AccessibilityUtils.getElementRole(cellIndexElement)
                       : null;
                     const cellHeadersAttribute = cellIndexElement
                       ? cellIndexElement.getElementAttribute('headers')
@@ -80,7 +72,7 @@ class QW_ACT_R39 extends Rule {
                   // if there is not an element in the same index as header, we need to check all row children...
                   for (const cellElement of rowChildrenElements) {
                     if (!found) {
-                      const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
+                      const cellElementRole = window.AccessibilityUtils.getElementRole(cellElement);
                       // verifying if it has a colspan attribute and it matches headerElement's index
                       const cellColspanAttribute = cellElement.getElementAttribute('colspan');
                       const cellElementIndex = getElementIndexOfParentChildren(cellElement);
@@ -101,7 +93,7 @@ class QW_ACT_R39 extends Rule {
                 const elements = rowElements[index].getElements("td,[role='cell'],[role='gridcell']");
                 for (const cellElement of elements) {
                   if (!found) {
-                    const cellElementRole = AccessibilityUtils.getElementRole(cellElement, page);
+                    const cellElementRole = window.AccessibilityUtils.getElementRole(cellElement);
                     // and verifying if it has a headers attribute that includes headerElement's id
                     const headers = cellElement.getElementAttribute('headers');
                     found =
@@ -115,50 +107,31 @@ class QW_ACT_R39 extends Rule {
             }
 
             if (found) {
-              evaluation.verdict = 'passed';
-              evaluation.description = `The column header element has at least one assigned cell`;
-              evaluation.resultCode = 'RC1';
+              test.verdict = 'passed';
+              test.description = `The column header element has at least one assigned cell`;
+              test.resultCode = 'RC1';
             } else {
-              //console.log( element.getElementHtmlCode( true, false)+"\n"+ DomUtils.getElementSelector(element));
-              if (elementParent)
-                /*  console.log( ancestorTableOrGrid.getElementHtmlCode( true, false)+"\n"+ DomUtils.getElementSelector(ancestorTableOrGrid));
-                  console.log( page.accessibility.snapshot({root:element}));
-                  console.log( DomUtils.isElementHidden(element));*/
+              //if (elementParent) // FIX: the hell is this if for?
 
-                evaluation.verdict = 'failed';
-              evaluation.description = `The column header element does not have at least one assigned cell`;
-              evaluation.resultCode = 'RC2';
+              test.verdict = 'failed';
+              test.description = `The column header element does not have at least one assigned cell`;
+              test.resultCode = 'RC2';
             }
-          } else {
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `The test target's closest ancestor is not included in the accessibility tree`;
-            evaluation.resultCode = 'RC3';
+
+            test.addElement(element);
+            super.addTestResult(test);
           }
-        } else {
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target does not have a closest ancestor with a semantic role of either table or grid`;
-          evaluation.resultCode = 'RC4';
         }
-      } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The test target is not visible`;
-        evaluation.resultCode = 'RC5';
       }
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The test target is not included in the accessibility tree.';
-      evaluation.resultCode = 'RC6';
     }
-    super.addEvaluationResult(evaluation, element);
   }
 }
 
 function getFirstAncestorElementByNameOrRoles(
-  element: QWElement,
-  page: QWPage,
+  element: typeof window.qwElement,
   names: string[],
   roles: string[]
-): QWElement | null {
+): (typeof window.qwElement) | null {
   if (!element) {
     throw Error('Element is not defined');
   }
@@ -170,7 +143,7 @@ function getFirstAncestorElementByNameOrRoles(
 
   if (parent !== null) {
     const parentName = parent.getElementTagName();
-    const parentRole = AccessibilityUtils.getElementRole(parent, page);
+    const parentRole = window.AccessibilityUtils.getElementRole(parent);
 
     if (parentName !== null) {
       sameName = names.includes(parentName);
@@ -180,7 +153,7 @@ function getFirstAncestorElementByNameOrRoles(
     }
     result = sameName || sameRole;
     if (!result) {
-      return getFirstAncestorElementByNameOrRoles(parent, page, names, roles);
+      return getFirstAncestorElementByNameOrRoles(parent, names, roles);
     } else {
       return parent;
     }
@@ -189,7 +162,7 @@ function getFirstAncestorElementByNameOrRoles(
   }
 }
 
-function getElementIndexOfParentChildren(element: QWElement): number {
+function getElementIndexOfParentChildren(element: typeof window.qwElement): number {
   let elementIndex = 0;
   let foundIndex = false;
   const elementParent = element.getElementParent();

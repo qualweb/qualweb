@@ -1,46 +1,36 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R10 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R10 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @isInMainContext
-  execute(_element: QWElement, page: QWPage): void {
-    const iframes = page.getElements('iframe');
+  execute(_element: typeof window.qwElement): void {
+    const iframes = window.qwPage.getElements('iframe');
     const accessibleNames = new Array<string>();
 
     // add iframe contents
-    for (const link of iframes || []) {
-      //console.log(AccessibilityUtils.isElementInAT(link,page));
-      if (AccessibilityUtils.isElementInAT(link, page)) {
-        const aName = AccessibilityUtils.getAccessibleName(link, page);
+    for (const link of iframes ?? []) {
+      if (window.AccessibilityUtils.isElementInAT(link)) {
+        const aName = window.AccessibilityUtils.getAccessibleName(link);
         if (aName) {
           accessibleNames.push(aName);
         }
       }
     }
-    //console.log(accessibleNames);
 
     let counter = 0;
     const blacklist = new Array<number>();
-    for (const accessibleName of accessibleNames || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    for (const accessibleName of accessibleNames ?? []) {
+      const test = new Test();
 
-      const elements = new Array<QWElement>();
+      const elements = new Array<typeof window.qwElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -63,39 +53,25 @@ class QW_ACT_R10 extends Rule {
           }
           if (result && hashArray.length !== 0) {
             //passed
-            evaluation.verdict = 'passed';
-            evaluation.description = `The \`iframes\` with the same accessible name have equal content.`;
-            evaluation.resultCode = 'RC2';
+            test.verdict = 'passed';
+            test.description = `The \`iframes\` with the same accessible name have equal content.`;
+            test.resultCode = 'RC2';
           } else {
-            evaluation.verdict = 'warning';
-            evaluation.description = `The \`iframes\` with the same accessible name have different content.`;
-            evaluation.resultCode = 'RC3';
+            test.verdict = 'warning';
+            test.description = `The \`iframes\` with the same accessible name have different content.`;
+            test.resultCode = 'RC3';
           }
-        } else {
-          //inaplicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `Doesn't exist any other \`iframe\` with same the same accessible name.`;
-          evaluation.resultCode = 'RC4';
+
+          test.addElements(elements);
+          super.addTestResult(test);
         }
-      } else {
-        //inaplicable
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The \`iframe\` doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC4';
       }
-      super.addMultipleElementEvaluationResult(evaluation, elements);
       counter++;
     }
-    /* if (iframes.length === 0) {
-       evaluation.verdict = 'inapplicable';
-       evaluation.description = `iframe doesnt have accessible name`;
-       evaluation.resultCode = 'RC4';
-       super.addEvaluationResult(evaluation);
-     }*/
   }
 
-  private getContentHash(elements: QWElement[]): Array<string> {
-    const content: string[] = [];
+  private getContentHash(elements: (typeof window.qwElement)[]): Array<string> {
+    const content = new Array<string>();
     let htmlContent;
     try {
       for (const element of elements) {
@@ -105,9 +81,9 @@ class QW_ACT_R10 extends Rule {
         }
       }
     } catch (e) {
-      // console.log(e);
+      
     }
-    // console.log(content);
+    
     return content;
   }
 

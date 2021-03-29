@@ -1,5 +1,5 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import {
   ACTRuleDecorator,
   ElementExists,
@@ -8,11 +8,11 @@ import {
   IsHTMLDocument,
   isInMainContext
 } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R3 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R3 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
@@ -23,12 +23,8 @@ class QW_ACT_R3 extends Rule {
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
   @isInMainContext
-  execute(element: QWElement): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     const lang = <string>element.getElementAttribute('lang');
     const xmlLang = <string>element.getElementAttribute('xml:lang');
@@ -37,16 +33,17 @@ class QW_ACT_R3 extends Rule {
     const primaryXmlLang = xmlLang.split('-')[0];
 
     if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
-      evaluation.verdict = 'passed';
-      evaluation.description = `The \`lang\` and \`xml:lang\` attributes have the same value.`;
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'passed';
+      test.description = `The \`lang\` and \`xml:lang\` attributes have the same value.`;
+      test.resultCode = 'RC1';
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description = `The \`lang\` and \`xml:lang\` attributes don't have the same value.`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'failed';
+      test.description = `The \`lang\` and \`xml:lang\` attributes don't have the same value.`;
+      test.resultCode = 'RC2';
     }
 
-    super.addEvaluationResult(evaluation, element);
+    test.addElement(element)
+    super.addTestResult(test);
   }
 }
 

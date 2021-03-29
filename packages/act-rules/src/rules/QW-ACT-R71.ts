@@ -1,49 +1,45 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R71 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R71 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: any): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
     const content = element.getElementAttribute('content');
     const httpEquiv = element.getElementAttribute('http-equiv');
 
     if (super.getNumberOfPassedResults() === 1 || super.getNumberOfFailedResults() === 1) {
       // only one meta needs to pass or fail, others will be discarded
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Already exists one valid or invalid test target.';
-      evaluation.resultCode = 'RC1';
+      test.verdict = 'inapplicable';
+      test.description = 'Already exists one valid or invalid test target.';
+      test.resultCode = 'RC1';
     } else if (content === null && httpEquiv === null) {
       // not applicable
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target does not have the attributes \`content\` and \`http-equiv\`.`;
-      evaluation.resultCode = 'RC2';
+      test.verdict = 'inapplicable';
+      test.description = `The test target does not have the attributes \`content\` and \`http-equiv\`.`;
+      test.resultCode = 'RC2';
     } else if (content === null) {
       // not applicable
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target does not have the attribute \`content\`.`;
-      evaluation.resultCode = 'RC3';
+      test.verdict = 'inapplicable';
+      test.description = `The test target does not have the attribute \`content\`.`;
+      test.resultCode = 'RC3';
     } else if (httpEquiv === null) {
       // not applicable
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target does not have the attribute \`http-equiv\`.`;
-      evaluation.resultCode = 'RC4';
+      test.verdict = 'inapplicable';
+      test.description = `The test target does not have the attribute \`http-equiv\`.`;
+      test.resultCode = 'RC4';
     } else if (content.trim() === '') {
       // not applicable
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target's \`content\` attribute is empty ("").`;
-      evaluation.resultCode = 'RC5';
+      test.verdict = 'inapplicable';
+      test.description = `The test target's \`content\` attribute is empty ("").`;
+      test.resultCode = 'RC5';
     } else {
       const indexOf = content.indexOf(';');
       if (indexOf === -1) {
@@ -52,25 +48,25 @@ class QW_ACT_R71 extends Rule {
           const n = Number(content);
           if (n < 0) {
             // not applicable
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `The test target's \`content\` attribute is invalid.`;
-            evaluation.resultCode = 'RC6';
+            test.verdict = 'inapplicable';
+            test.description = `The test target's \`content\` attribute is invalid.`;
+            test.resultCode = 'RC6';
           } else if (n === 0) {
             // passes because the time is 0
-            evaluation.verdict = 'passed';
-            evaluation.description = 'The test target refreshes immediately.';
-            evaluation.resultCode = 'RC7';
+            test.verdict = 'passed';
+            test.description = 'The test target refreshes immediately.';
+            test.resultCode = 'RC7';
           } else {
             // fails because the time is in between 0 and 72000
-            evaluation.verdict = 'failed';
-            evaluation.description = `The test target refreshes after ${n} seconds.`;
-            evaluation.resultCode = 'RC8';
+            test.verdict = 'failed';
+            test.description = `The test target refreshes after ${n} seconds.`;
+            test.resultCode = 'RC8';
           }
         } else {
           // not applicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target's \`content\` attribute is invalid.`;
-          evaluation.resultCode = 'RC9';
+          test.verdict = 'inapplicable';
+          test.description = `The test target's \`content\` attribute is invalid.`;
+          test.resultCode = 'RC9';
         }
       } else {
         // if is a redirect
@@ -78,21 +74,21 @@ class QW_ACT_R71 extends Rule {
 
         if (split.length > 2) {
           // not applicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target's \`content\` attribute is invalid.`;
-          evaluation.resultCode = 'RC10';
+          test.verdict = 'inapplicable';
+          test.description = `The test target's \`content\` attribute is invalid.`;
+          test.resultCode = 'RC10';
         } else if (split[0].trim() === '' || split[1].trim() === '') {
           // not applicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target \`content\` attribute is invalid.`;
-          evaluation.resultCode = 'RC9';
+          test.verdict = 'inapplicable';
+          test.description = `The test target \`content\` attribute is invalid.`;
+          test.resultCode = 'RC9';
         } else if (this.checkIfIsNumber(split[0]) && Number.isInteger(parseInt(split[0], 0))) {
           const n = Number(split[0]);
           if (n < 0) {
             // not applicable
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `The test target \`content\` attribute is invalid.`;
-            evaluation.resultCode = 'RC6';
+            test.verdict = 'inapplicable';
+            test.description = `The test target \`content\` attribute is invalid.`;
+            test.resultCode = 'RC6';
           }
 
           if (content[indexOf + 1] === ' ') {
@@ -108,36 +104,38 @@ class QW_ACT_R71 extends Rule {
             if (url && this.validURL(url)) {
               if (n === 0) {
                 // passes because the time is 0 and the url exists
-                evaluation.verdict = 'passed';
-                evaluation.description = 'The test target redirects immediately.';
-                evaluation.resultCode = 'RC11';
+                test.verdict = 'passed';
+                test.description = 'The test target redirects immediately.';
+                test.resultCode = 'RC11';
               } else {
                 // fails because the time is in between 0 and 72000, but the url exists
-                evaluation.verdict = 'failed';
-                evaluation.description = `The test target redirects after ${n} seconds.`;
-                evaluation.resultCode = 'RC12';
+                test.verdict = 'failed';
+                test.description = `The test target redirects after ${n} seconds.`;
+                test.resultCode = 'RC12';
               }
             } else {
               // not applicable
-              evaluation.verdict = 'inapplicable';
-              evaluation.description = `The test target's \`content\` attribute has an url that is valid.`;
-              evaluation.resultCode = 'RC13';
+              test.verdict = 'inapplicable';
+              test.description = `The test target's \`content\` attribute has an url that is valid.`;
+              test.resultCode = 'RC13';
             }
           } else {
             // not applicable
-            evaluation.verdict = 'inapplicable';
-            evaluation.description = `The test target's \`content\` attribute has an url that is not well formed.`;
-            evaluation.resultCode = 'RC14';
+            test.verdict = 'inapplicable';
+            test.description = `The test target's \`content\` attribute has an url that is not well formed.`;
+            test.resultCode = 'RC14';
           }
         } else {
           // not applicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `The test target's \`content\` attribute is invalid.`;
-          evaluation.resultCode = 'RC9';
+          test.verdict = 'inapplicable';
+          test.description = `The test target's \`content\` attribute is invalid.`;
+          test.resultCode = 'RC9';
         }
       }
     }
-    super.addEvaluationResult(evaluation, element);
+
+    test.addElement(element);
+    super.addTestResult(test);
   }
 
   private validURL(url: string): boolean {

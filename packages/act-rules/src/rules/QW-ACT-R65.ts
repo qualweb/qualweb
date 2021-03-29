@@ -1,15 +1,11 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementHasOneOfTheFollowingRoles } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R65 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R65 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
@@ -30,36 +26,30 @@ class QW_ACT_R65 extends Rule {
     'switch',
     'tab'
   ])
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
     //sem ShadowDom ou iframes
     const elementList = element.getElements('*');
     const inSequentialFocusList = elementList.filter((element) => {
-      return AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page);
+      return window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
     });
-    let evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+
+    const test = new Test();
 
     if (inSequentialFocusList.length === 0) {
-      evaluation.verdict = 'passed';
-      evaluation.description =
+      test.verdict = 'passed';
+      test.description =
         " The doesn't element have descendants in the flat tree that are part of sequential focus navigation.";
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation, element);
-      evaluation = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+      test.resultCode = 'RC1';
+      test.addElement(element);
     } else {
-      evaluation.verdict = 'failed';
-      evaluation.description =
+      test.verdict = 'failed';
+      test.description =
         'The element have descendants in the flat tree that are part of sequential focus navigation.';
-      evaluation.resultCode = 'RC2';
-      super.addEvaluationResult(evaluation, element, false, false);
+      test.resultCode = 'RC2';
+      test.addElement(element, false);
     }
+
+    super.addTestResult(test);
   }
 }
 

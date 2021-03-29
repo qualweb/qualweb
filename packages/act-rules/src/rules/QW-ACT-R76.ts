@@ -1,13 +1,7 @@
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import LanguageDetect from 'languagedetect';
-import pixelWidth from 'string-pixel-width';
+import { ACTRule } from '@qualweb/act-rules';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-
-const detector = new LanguageDetect();
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R76 extends AtomicRule {
@@ -16,8 +10,8 @@ class QW_ACT_R76 extends AtomicRule {
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const disabledWidgets = AccessibilityUtils.getDisabledWidgets(page);
+  execute(element: typeof window.qwElement): void {
+    const disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
 
     const tagName = element.getElementTagName();
 
@@ -33,86 +27,45 @@ class QW_ACT_R76 extends AtomicRule {
       return;
     }
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+    const test = new Test();
 
-    const visible = DomUtils.isElementVisible(element, page);
+    const visible = window.DomUtils.isElementVisible(element);
 
     if (!visible) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element is not visible.';
-      evaluation.resultCode = 'RC1';
-      super.addEvaluationResult(evaluation, element);
-      // continue;
       return;
     }
 
     const hasTextNode = element.hasTextNode();
-    const elementText = DomUtils.getTrimmedText(element, page);
+    const elementText = window.DomUtils.getTrimmedText(element);
 
     if (!hasTextNode && elementText === '') {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `Element doesn't have text.`;
-      evaluation.resultCode = 'RC2';
-      super.addEvaluationResult(evaluation, element);
-      // continue;
       return;
     }
 
     const isHTML = element.isElementHTMLElement();
     if (!isHTML) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element is not an HTML element.';
-      evaluation.resultCode = 'RC3';
-      super.addEvaluationResult(evaluation, element);
-      // continue;
       return;
     }
 
-    const isWidget = AccessibilityUtils.isElementWidget(element, page);
+    const isWidget = window.AccessibilityUtils.isElementWidget(element);
     if (isWidget) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'Element has a semantic role that inherits from widget.';
-      evaluation.resultCode = 'RC4';
-      super.addEvaluationResult(evaluation, element);
-      // continue;
       return;
     }
 
     const elementSelectors = element.getElementSelector();
 
-    let shouldContinue = false;
-
     for (const disableWidget of disabledWidgets || []) {
-      const selectors = AccessibilityUtils.getAccessibleNameSelector(disableWidget, page);
+      const selectors = window.AccessibilityUtils.getAccessibleNameSelector(disableWidget);
       if (disableWidget && selectors && selectors.includes(elementSelectors)) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'This text is part of a label of a disabled widget.';
-        evaluation.resultCode = 'RC5';
-        super.addEvaluationResult(evaluation, element);
-        shouldContinue = true;
-        break;
+        return;
       }
     }
 
-    if (shouldContinue) {
-      // continue;
-      return;
-    }
-
-    const role = AccessibilityUtils.getElementRole(element, page);
+    const role = window.AccessibilityUtils.getElementRole(element);
     if (role === 'group') {
       const disable = element.getElementAttribute('disabled') !== null;
       const ariaDisable = element.getElementAttribute('aria-disabled') !== null;
       if (disable || ariaDisable) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'Element has a semantic role of group and is disabled.';
-        evaluation.resultCode = 'RC6';
-        super.addEvaluationResult(evaluation, element);
-        // continue;
         return;
       }
     }
@@ -135,22 +88,24 @@ class QW_ACT_R76 extends AtomicRule {
         const blur = parseInt(properties[5], 0);
         const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
         if (validateTextShadow) {
-          evaluation.verdict = 'warning';
-          evaluation.description = 'Element has text-shadow that needs manual verification.';
-          evaluation.resultCode = 'RC14';
-          super.addEvaluationResult(evaluation, element);
-          // continue;
+          test.verdict = 'warning';
+          test.description = 'Element has text-shadow that needs manual verification.';
+          test.resultCode = 'RC14';
+
+          test.addElement(element)
+          super.addTestResult(test);
           return;
         }
       }
     }
 
     if (this.isImage(bgColor)) {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Element has an image on background.';
-      evaluation.resultCode = 'RC12';
-      super.addEvaluationResult(evaluation, element);
-      // continue;
+      test.verdict = 'warning';
+      test.description = 'Element has an image on background.';
+      test.resultCode = 'RC12';
+
+      test.addElement(element);
+      super.addTestResult(test);
       return;
     }
 
@@ -164,7 +119,7 @@ class QW_ACT_R76 extends AtomicRule {
       if (this.isHumanLanguage(elementText)) {
         const parsedGradientString = regexGradientMatches[0];
         this.evaluateGradient(
-          evaluation,
+          test,
           element,
           parsedGradientString,
           fgColor,
@@ -176,16 +131,18 @@ class QW_ACT_R76 extends AtomicRule {
           elementText
         );
       } else {
-        evaluation.verdict = 'passed';
-        evaluation.description = `Element doesn't have human language text.`;
-        evaluation.resultCode = 'RC9';
-        super.addEvaluationResult(evaluation, element);
+        test.verdict = 'passed';
+        test.description = `Element doesn't have human language text.`;
+        test.resultCode = 'RC9';
+
+        test.addElement(element)
+        super.addTestResult(test);
       }
     } else {
       let parsedBG = this.parseRGBString(bgColor, opacity);
       let elementAux = element;
       let opacityAUX;
-      shouldContinue = false;
+      
       while (
         parsedBG === undefined ||
         (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)
@@ -194,12 +151,13 @@ class QW_ACT_R76 extends AtomicRule {
         if (parent) {
           bgColor = this.getBackground(parent);
           if (this.isImage(bgColor)) {
-            evaluation.verdict = 'warning';
-            evaluation.description = 'Element has an image on background.';
-            evaluation.resultCode = 'RC12';
-            super.addEvaluationResult(evaluation, element);
-            shouldContinue = true;
-            break;
+            test.verdict = 'warning';
+            test.description = 'Element has an image on background.';
+            test.resultCode = 'RC12';
+
+            test.addElement(element);
+            super.addTestResult(test);
+            return;
           } else {
             //helps visualize
             regexGradientMatches = bgColor.match(regexGradient);
@@ -207,7 +165,7 @@ class QW_ACT_R76 extends AtomicRule {
               const parsedGradientString = regexGradientMatches[0];
               if (
                 this.evaluateGradient(
-                  evaluation,
+                  test,
                   element,
                   parsedGradientString,
                   fgColor,
@@ -219,8 +177,7 @@ class QW_ACT_R76 extends AtomicRule {
                   elementText
                 )
               ) {
-                shouldContinue = true;
-                break;
+                return;
               }
             } else {
               opacityAUX = parseFloat(parent.getElementStyleProperty('opacity', null));
@@ -233,10 +190,6 @@ class QW_ACT_R76 extends AtomicRule {
         }
       }
 
-      if (shouldContinue) {
-        // continue;
-        return;
-      }
 
       // if we cant find a bg color, we assume that is white (default bg page color)
       if (
@@ -249,36 +202,44 @@ class QW_ACT_R76 extends AtomicRule {
       const parsedFG = this.parseRGBString(fgColor, opacity);
 
       if (this.equals(parsedBG, parsedFG)) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'Colors are equal.';
-        evaluation.resultCode = 'RC7';
-        super.addEvaluationResult(evaluation, element);
+        test.verdict = 'inapplicable';
+        test.description = 'Colors are equal.';
+        test.resultCode = 'RC7';
+
+        test.addElement(element);
+        super.addTestResult(test);
       } else {
         if (this.isHumanLanguage(elementText)) {
           const contrastRatio = this.getContrast(parsedBG, parsedFG);
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           if (isValid) {
-            evaluation.verdict = 'passed';
-            evaluation.description = 'Element has contrast ratio higher than minimum.';
-            evaluation.resultCode = 'RC9';
-            super.addEvaluationResult(evaluation, element);
+            test.verdict = 'passed';
+            test.description = 'Element has contrast ratio higher than minimum.';
+            test.resultCode = 'RC9';
+
+            test.addElement(element);
+            super.addTestResult(test);
           } else {
-            evaluation.verdict = 'failed';
-            evaluation.description = 'Element has contrast ratio lower than minimum.';
-            evaluation.resultCode = 'RC11';
-            super.addEvaluationResult(evaluation, element);
+            test.verdict = 'failed';
+            test.description = 'Element has contrast ratio lower than minimum.';
+            test.resultCode = 'RC11';
+            
+            test.addElement(element);
+            super.addTestResult(test);
           }
         } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `Element doesn't have human language text.`;
-          evaluation.resultCode = 'RC9';
-          super.addEvaluationResult(evaluation, element);
+          test.verdict = 'passed';
+          test.description = `Element doesn't have human language text.`;
+          test.resultCode = 'RC9';
+          
+          test.addElement(element);
+          super.addTestResult(test);
         }
       }
     }
   }
 
-  getBackground(element: QWElement): string {
+  getBackground(element: typeof window.qwElement): string {
     const backgroundImage = element.getElementStyleProperty('background-image', null);
     if (backgroundImage === 'none') {
       let bg = element.getElementStyleProperty('background', null);
@@ -302,8 +263,8 @@ class QW_ACT_R76 extends AtomicRule {
   }
 
   evaluateGradient(
-    evaluation: ACTRuleResult,
-    element: QWElement,
+    test: Test,
+    element: typeof window.qwElement,
     parsedGradientString: any,
     fgColor: any,
     opacity: number,
@@ -341,45 +302,37 @@ class QW_ACT_R76 extends AtomicRule {
           }
         }
         if (isValid) {
-          evaluation.verdict = 'passed';
-          evaluation.description = 'Element has gradient with contrast ratio higher than minimum.';
-          evaluation.resultCode = 'RC8';
-          super.addEvaluationResult(evaluation, element);
-          return true;
+          test.verdict = 'passed';
+          test.description = 'Element has gradient with contrast ratio higher than minimum.';
+          test.resultCode = 'RC8';
         } else {
-          evaluation.verdict = 'failed';
-          evaluation.description = 'Element has gradient with contrast ratio lower than minimum.';
-          evaluation.resultCode = 'RC10';
-          super.addEvaluationResult(evaluation, element);
-          return true;
+          test.verdict = 'failed';
+          test.description = 'Element has gradient with contrast ratio lower than minimum.';
+          test.resultCode = 'RC10';
         }
       } else if (gradientDirection === 'to left') {
         //TODO
-        evaluation.verdict = 'warning';
-        evaluation.description = "Element has an gradient that we can't verify.";
-        evaluation.resultCode = 'RC13';
-        super.addEvaluationResult(evaluation, element);
-        return true;
+        test.verdict = 'warning';
+        test.description = "Element has an gradient that we can't verify.";
+        test.resultCode = 'RC13';
       } else {
-        evaluation.verdict = 'warning';
-        evaluation.description = "Element has an gradient that we can't verify.";
-        evaluation.resultCode = 'RC13';
-        super.addEvaluationResult(evaluation, element);
-        return true;
+        test.verdict = 'warning';
+        test.description = "Element has an gradient that we can't verify.";
+        test.resultCode = 'RC13';
       }
     } else {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Element has an gradient that we cant verify.';
-      evaluation.resultCode = 'RC13';
-      super.addEvaluationResult(evaluation, element);
-      return true;
+      test.verdict = 'warning';
+      test.description = 'Element has an gradient that we cant verify.';
+      test.resultCode = 'RC13';
     }
 
-    return false;
+    test.addElement(element);
+    super.addTestResult(test)
+    return true;
   }
 
-  isHumanLanguage(string: string): boolean {
-    return detector.detect(string).length > 0;
+  isHumanLanguage(text: string): boolean {
+    return window.DomUtils.isHumanLanguage(text);
   }
 
   equals(color1: any, color2: any): boolean {
@@ -495,16 +448,8 @@ class QW_ACT_R76 extends AtomicRule {
     return contrast > expectedContrastRatio;
   }
 
-  getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, string: string): number {
-    //firefox fix
-    if (font === 'serif') font = 'times new roman';
-    else if (font === 'sans-serif') font = 'arial';
-    try {
-      //@ts-ignore
-      return pixelWidth(string, { font: font, size: fontSize, bold: bold, italic: italic });
-    } catch (error) {
-      return -1;
-    }
+  getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number {
+    return window.DomUtils.getTextSize(font, fontSize, bold, italic, text);
   }
 
   getColorInGradient(fromColor: any, toColor: any, ratio: number): any {

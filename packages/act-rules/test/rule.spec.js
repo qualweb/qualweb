@@ -114,12 +114,18 @@ describe(`Rule ${rule}`, function () {
           });
 
           await page.addScriptTag({
+            path: require.resolve('@qualweb/util')
+          });
+
+          await page.addScriptTag({
             path: require.resolve('../dist/act.bundle.js')
           });
           
           await page.evaluate((rules) => {
-            window.page = new QWPage(document, window, true);
-            window.act = new ACTRules(rules);
+            window.qwPage = new Module.QWPage(document, window, true);
+            window.DomUtils = Utility.DomUtils;
+            window.AccessibilityUtils = Utility.AccessibilityUtils;
+            window.act = new ACT.ACTRules(rules);
           }, { rules: [rule] });
           
 
@@ -127,7 +133,7 @@ describe(`Rule ${rule}`, function () {
             await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
           }
           await page.evaluate((sourceHtmlHeadContent) => {
-            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent(window.page);
+            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
             const parser = new DOMParser();
             const sourceDoc = parser.parseFromString('', "text/html");
@@ -137,12 +143,12 @@ describe(`Rule ${rule}`, function () {
             const elements = sourceDoc.querySelectorAll("meta");
             const metaElements = new Array();
             for (const element of elements) {
-              metaElements.push(QWPage.createQWElement(element));
+              metaElements.push(Module.QWPage.createQWElement(element));
             }
 
             window.act.validateMetaElements(metaElements);
-            window.act.executeAtomicRules(window.page);
-            window.act.executeCompositeRules(window.page);
+            window.act.executeAtomicRules();
+            window.act.executeCompositeRules();
           }, sourceHtmlHeadContent);
 
           if (ruleId === '59br37') {
@@ -153,7 +159,7 @@ describe(`Rule ${rule}`, function () {
           }
 
           const report = await page.evaluate(() => {
-            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow(window.page);
+            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
             return window.act.getReport();
           });
           

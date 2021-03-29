@@ -1,25 +1,18 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R68 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R68 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  execute(element: typeof window.qwElement): void {
+    const test = new Test();
 
     if (element.hasCSSProperty('line-height')) {
       const styleAttribute = element.getElementAttribute('style');
@@ -29,28 +22,25 @@ class QW_ACT_R68 extends Rule {
       const fontSize = element.getElementStyleProperty('font-size', null);
 
       if (!this.isImportant(computedRawLineHeight, element)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The line-height property is not !important';
-        evaluation.resultCode = 'RC1';
+        test.verdict = 'passed';
+        test.description = 'The line-height property is not !important';
+        test.resultCode = 'RC1';
       } else if (!this.isNormal(computedLineHeight, element) && this.isLarge(computedLineHeight, fontSize)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The line-height is at least 1.5 times the font-size.';
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'passed';
+        test.description = 'The line-height is at least 1.5 times the font-size.';
+        test.resultCode = 'RC2';
       } else if (!this.isCascade(declaredLineHeight, computedRawLineHeight)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = 'The cascaded line-height is not the declared value.';
-        evaluation.resultCode = 'RC3';
+        test.verdict = 'passed';
+        test.description = 'The cascaded line-height is not the declared value.';
+        test.resultCode = 'RC3';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = 'CSS styles prevent the line-height to be above the minimum value.';
-        evaluation.resultCode = 'RC4';
+        test.verdict = 'failed';
+        test.description = 'CSS styles prevent the line-height to be above the minimum value.';
+        test.resultCode = 'RC4';
       }
-      super.addEvaluationResult(evaluation, element, true, false, true, page);
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = 'The style attribute does not declare the line-height property.';
-      evaluation.resultCode = 'RC5';
-      super.addEvaluationResult(evaluation, element, false, false);
+
+      test.addElement(element, true, false, true);
+      super.addTestResult(test);
     }
   }
 
@@ -66,7 +56,7 @@ class QW_ACT_R68 extends Rule {
     return style?.substring(startLS + 12, endLS);
   }
 
-  private isImportant(cssValue: any, element: QWElement): boolean {
+  private isImportant(cssValue: any, element: typeof window.qwElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -75,7 +65,7 @@ class QW_ACT_R68 extends Rule {
     return cssValue.important;
   }
 
-  private isNormal(cssValue: any, element: QWElement): boolean {
+  private isNormal(cssValue: any, element: typeof window.qwElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -94,7 +84,7 @@ class QW_ACT_R68 extends Rule {
     return declaredStyle.includes(computedStyle.value);
   }
 
-  private findParentWithCSSProperty(element: QWElement | null): QWElement | null {
+  private findParentWithCSSProperty(element: typeof window.qwElement | null): typeof window.qwElement | null {
     while (element !== null) {
       if (element?.getCSSProperty('line-height')) {
         return element;

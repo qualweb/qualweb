@@ -1,42 +1,28 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import rolesJSON from '../lib/roles.json';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R28 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R28 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
+    const rolesJSON = window.AccessibilityUtils.roles;
     // get all elements
     const allElements = element.getElements('[role]');
     for (const elem of allElements || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+      const test = new Test();
 
       const elemRole = elem.getElementAttribute('role');
       const elemAttribs = elem.getElementAttributesName();
-      const implicitRole = AccessibilityUtils.getImplicitRole(elem, page, ''); //FIXME
-      const isInAT = AccessibilityUtils.isElementInAT(elem, page);
+      const implicitRole = window.AccessibilityUtils.getImplicitRole(elem, ''); //FIXME
+      const isInAT = window.AccessibilityUtils.isElementInAT(elem);
 
-      if (!isInAT) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'The test target is not in accessibility tree.';
-        evaluation.resultCode = 'RC1';
-      } else if (implicitRole === elemRole) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'The test target explicit role equals the implicit role.';
-        evaluation.resultCode = 'RC2';
-      } else if (elemRole !== null && Object.keys(rolesJSON).includes(elemRole)) {
+      if (isInAT && implicitRole !== elemRole && elemRole !== null && Object.keys(rolesJSON).includes(elemRole)) {
         //@ts-ignore
         if (rolesJSON[elemRole]['requiredAria']) {
           const implicitRoles = new Array<string>();
@@ -49,7 +35,7 @@ class QW_ACT_R28 extends Rule {
           }
           let i = 0;
           //@ts-ignore
-          const requiredAriaList = rolesJSON[elemRole]['requiredAria'];
+          const requiredAriaList = <string[]>rolesJSON[elemRole]['requiredAria'];
           let result = true; // passed until it fails a requirement
           let requiredAria;
 
@@ -64,26 +50,23 @@ class QW_ACT_R28 extends Rule {
             i++;
           }
           if (result) {
-            evaluation.verdict = 'passed';
-            evaluation.description = 'The test target required attributes are listed.';
-            evaluation.resultCode = 'RC3';
+            test.verdict = 'passed';
+            test.description = 'The test target required attributes are listed.';
+            test.resultCode = 'RC1';
           } else {
-            evaluation.verdict = 'failed';
-            evaluation.description = `The test target doesn't list required ${requiredAria}.`;
-            evaluation.resultCode = 'RC4';
+            test.verdict = 'failed';
+            test.description = `The test target doesn't list required ${requiredAria}.`;
+            test.resultCode = 'RC3';
           }
         } else {
-          evaluation.verdict = 'passed';
-          evaluation.description = `The test target \`role\` doesn't have required state or property`;
-          evaluation.resultCode = 'RC5';
+          test.verdict = 'passed';
+          test.description = `The test target \`role\` doesn't have required state or property`;
+          test.resultCode = 'RC2';
         }
-      } else {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = 'The test target `role` is not valid.';
-        evaluation.resultCode = 'RC6';
-      }
 
-      super.addEvaluationResult(evaluation, elem);
+        test.addElement(elem);
+        super.addTestResult(test);
+      }
     }
   }
 }

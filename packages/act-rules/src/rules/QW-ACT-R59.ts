@@ -1,41 +1,29 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import Test from '../lib/Test.object';
 @ACTRuleDecorator
-class QW_ACT_R59 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R59 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
-    const isHidden = DomUtils.isElementHidden(element, page);
-    const isVisible = DomUtils.isElementVisible(element, page);
+  execute(element: typeof window.qwElement): void {
+    const isHidden = window.DomUtils.isElementHidden(element);
+    const isVisible = window.DomUtils.isElementVisible(element);
     const autoPlay = element.getElementProperty('autoplay');
 
     if ((!isHidden && isVisible) || autoPlay) {
-      evaluation.verdict = 'warning';
-      evaluation.description = 'Check if the test target audio is a media alternative for text.';
-      evaluation.resultCode = 'RC1';
-    } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description =
-        'The test target is not a non-streaming `audio` element with autoplay or a play button that is visisble and in the acessiblility tree.';
-      evaluation.resultCode = 'RC2';
-    }
+      const test = new Test();
+      
+      test.verdict = 'warning';
+      test.description = 'Check if the test target audio is a media alternative for text.';
+      test.resultCode = 'RC1';
 
-    super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
+    }
   }
 }
 

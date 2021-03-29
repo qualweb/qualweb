@@ -1,33 +1,25 @@
-import { ACTRuleResult } from '@qualweb/act-rules';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R43 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R43 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
     if (element.getElementTagName().toLowerCase() === 'iframe') {
       return;
     }
 
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
     let hasVisibleChildren = false;
     let isApplicable = false;
     for (const child of element.getElementChildren()) {
-      if (DomUtils.isElementVisible(child, page)) {
+      if (window.DomUtils.isElementVisible(child)) {
         hasVisibleChildren = true;
         break;
       }
@@ -73,30 +65,33 @@ class QW_ACT_R43 extends Rule {
     }
 
     if (isApplicable) {
-      if (this.isInSequentialFocusNavigation(element, page)) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `This scrollable section element is included in sequential focus navigation.`;
-        evaluation.resultCode = 'RC1';
+      const test = new Test();
+      
+      if (this.isInSequentialFocusNavigation(element)) {
+        test.verdict = 'passed';
+        test.description = `This scrollable section element is included in sequential focus navigation.`;
+        test.resultCode = 'RC1';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `This vertically/horizontally scrollable section element is not included in sequential focus navigation, nor does it have any descendants that are.`;
-        evaluation.resultCode = 'RC2';
+        test.verdict = 'failed';
+        test.description = `This vertically/horizontally scrollable section element is not included in sequential focus navigation, nor does it have any descendants that are.`;
+        test.resultCode = 'RC2';
       }
 
-      super.addEvaluationResult(evaluation, element);
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 
-  private isInSequentialFocusNavigation(element: QWElement, page: QWPage): boolean {
-    if (AccessibilityUtils.isPartOfSequentialFocusNavigation(element, page)) {
+  private isInSequentialFocusNavigation(element: typeof window.qwElement): boolean {
+    if (window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element)) {
       return true;
     } else {
       let result = false;
       for (const child of element.getElementChildren()) {
-        if (AccessibilityUtils.isPartOfSequentialFocusNavigation(child, page)) {
+        if (window.AccessibilityUtils.isPartOfSequentialFocusNavigation(child)) {
           return true;
         } else {
-          result = result || this.isInSequentialFocusNavigation(child, page);
+          result = result || this.isInSequentialFocusNavigation(child);
         }
       }
       return result;

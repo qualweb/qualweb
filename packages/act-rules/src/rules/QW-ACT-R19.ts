@@ -1,46 +1,37 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R19 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R19 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
-
+  execute(element: typeof window.qwElement): void {
+    
     const tabIndex = element.getElementAttribute('tabindex');
-    const isInAT = AccessibilityUtils.isElementInAT(element, page);
-    if (!isInAT || (tabIndex && parseInt(tabIndex) < 0)) {
-      evaluation.verdict = 'inapplicable';
-      evaluation.description = `The test target is not included in the accessibility tree.`;
-      evaluation.resultCode = 'RC1';
-    } else {
-      const accessibleName = AccessibilityUtils.getAccessibleName(element, page);
-      if (accessibleName && accessibleName.trim()) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target has an accessible name.`;
-        evaluation.resultCode = 'RC2';
-      } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The test target doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC3';
-      }
-    }
+    const isInAT = window.AccessibilityUtils.isElementInAT(element);
 
-    super.addEvaluationResult(evaluation, element, true, false, true, page);
+    if (isInAT && (tabIndex && parseInt(tabIndex) >= 0)) {
+      const test = new Test();
+
+      const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
+      if (accessibleName?.trim()) {
+        test.verdict = 'passed';
+        test.description = `The test target has an accessible name.`;
+        test.resultCode = 'RC2';
+      } else {
+        test.verdict = 'failed';
+        test.description = `The test target doesn't have an accessible name.`;
+        test.resultCode = 'RC3';
+      }
+
+      test.addElement(element, true, false, true);
+      super.addTestResult(test);
+    }
   }
 }
 export = QW_ACT_R19;

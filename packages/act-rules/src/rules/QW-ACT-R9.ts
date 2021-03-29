@@ -1,33 +1,28 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-
+import Test from '../lib/Test.object';
 @ACTRuleDecorator
-class QW_ACT_R9 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R9 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
   @isInMainContext
-  execute(_element: QWElement, page: QWPage): void {
-    const links = page.getElements('a[href], [role="link"]');
+  execute(_element: typeof window.qwElement): void {
+    const links = window.qwPage.getElements('a[href], [role="link"]');
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string | null>();
-    const aplicableLinks = new Array<QWElement>();
+    const aplicableLinks = new Array<typeof window.qwElement>();
 
     for (const link of links || []) {
       let aName, href;
-      if (DomUtils.isElementADescendantOf(link, page, ['svg'], [])) {
-        aName = AccessibilityUtils.getAccessibleNameSVG(link, page);
-      } else if (AccessibilityUtils.isElementInAT(link, page)) {
-        aName = AccessibilityUtils.getAccessibleName(link, page);
+      if (window.DomUtils.isElementADescendantOf(link, ['svg'], [])) {
+        aName = window.AccessibilityUtils.getAccessibleNameSVG(link);
+      } else if (window.AccessibilityUtils.isElementInAT(link)) {
+        aName = window.AccessibilityUtils.getAccessibleName(link);
       }
       href = link.getElementAttribute('href');
 
@@ -40,13 +35,9 @@ class QW_ACT_R9 extends Rule {
 
     let counter = 0;
     const blacklist = new Array<number>();
-    for (const accessibleName of accessibleNames || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
-      const elementList = new Array<QWElement>();
+    for (const accessibleName of accessibleNames ?? []) {
+      const test = new Test();
+      const elementList = new Array<typeof window.qwElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -64,28 +55,24 @@ class QW_ACT_R9 extends Rule {
           hasEqualAn.push(counter);
           if (hasEqualHref) {
             //passed
-            evaluation.verdict = 'passed';
-            evaluation.description = `The \`links\` with the same accessible name have equal content.`;
-            evaluation.resultCode = 'RC2';
+            test.verdict = 'passed';
+            test.description = `The \`links\` with the same accessible name have equal content.`;
+            test.resultCode = 'RC2';
           } else {
             //warning
-            evaluation.verdict = 'warning';
-            evaluation.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
-            evaluation.resultCode = 'RC3';
+            test.verdict = 'warning';
+            test.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
+            test.resultCode = 'RC3';
           }
         } else {
           //inaplicable
-          evaluation.verdict = 'inapplicable';
-          evaluation.description = `Doesn't exist any other \`link\` with the same accessible name.`;
-          evaluation.resultCode = 'RC4';
+          test.verdict = 'inapplicable';
+          test.description = `Doesn't exist any other \`link\` with the same accessible name.`;
+          test.resultCode = 'RC4';
         }
-        super.addMultipleElementEvaluationResult(evaluation, elementList, true, false, true, page);
-      } else {
-        //inaplicable
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `The \`link\` doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC4';
-        super.addMultipleElementEvaluationResult(evaluation, elementList);
+
+        test.addElements(elementList, true, false, true);
+        super.addTestResult(test);
       }
       counter++;
     }

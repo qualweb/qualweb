@@ -1,71 +1,66 @@
-import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import { ACTRule } from '@qualweb/act-rules';
 import Rule from './Rule.object';
+import Test from './Test.object';
 
 abstract class CompositeRule extends Rule {
   constructor(rule: ACTRule) {
     super(rule);
   }
 
-  abstract execute(element: QWElement | undefined, page?: QWPage, rules?: Array<ACTRule>): void;
+  abstract execute(element: typeof window.qwElement | undefined, rules?: Array<ACTRule>): void;
 
-  public conjunction(element: QWElement, rules: Array<ACTRule>): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  public conjunction(element: typeof window.qwElement, rules: Array<ACTRule>): void {
+    const test = new Test();
 
     const selector = element.getElementSelector();
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     if (results['failed']) {
-      evaluation.verdict = 'failed';
-      evaluation.resultCode = 'RC1';
-      evaluation.description = 'The rule failed because of the rule ' + results['failed'].code;
+      test.verdict = 'failed';
+      test.resultCode = 'RC1';
+      test.description = 'The rule failed because of the rule ' + results['failed'].code;
     } else if (results['warning']) {
-      evaluation.verdict = 'warning';
-      evaluation.resultCode = 'RC2';
-      evaluation.description = "The rule can't tell because of the rule " + results['warning'].code;
+      test.verdict = 'warning';
+      test.resultCode = 'RC2';
+      test.description = "The rule can't tell because of the rule " + results['warning'].code;
     } else if (results['passed']) {
-      evaluation.verdict = 'passed';
-      evaluation.resultCode = 'RC3';
-      evaluation.description = 'The rule passed because of the rule ' + results['passed'].code;
+      test.verdict = 'passed';
+      test.resultCode = 'RC3';
+      test.description = 'The rule passed because of the rule ' + results['passed'].code;
     } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.resultCode = 'RC4';
-      evaluation.description = "The test target doesn't apply to this rule";
+      test.verdict = 'inapplicable';
+      test.resultCode = 'RC4';
+      test.description = "The test target doesn't apply to this rule";
     }
-    super.addEvaluationResult(evaluation, element);
+
+    test.addElement(element);
+    super.addTestResult(test);
   }
 
-  public disjunction(element: QWElement, rules: Array<ACTRule>): void {
-    const evaluation: ACTRuleResult = {
-      verdict: '',
-      description: '',
-      resultCode: ''
-    };
+  public disjunction(element: typeof window.qwElement, rules: Array<ACTRule>): void {
+    const test = new Test();
 
     const selector = element.getElementSelector();
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     if (results['passed']) {
-      evaluation.verdict = 'passed';
-      evaluation.resultCode = 'RC1';
-      evaluation.description = 'The rule passed because of the rule ' + results['passed'].code;
+      test.verdict = 'passed';
+      test.resultCode = 'RC1';
+      test.description = 'The rule passed because of the rule ' + results['passed'].code;
     } else if (results['warning']) {
-      evaluation.verdict = 'warning';
-      evaluation.resultCode = 'RC2';
-      evaluation.description = "The rule can't tell because of the rule " + results['warning'].code;
+      test.verdict = 'warning';
+      test.resultCode = 'RC2';
+      test.description = "The rule can't tell because of the rule " + results['warning'].code;
     } else if (results['failed']) {
-      evaluation.verdict = 'failed';
-      evaluation.resultCode = 'RC3';
-      evaluation.description = 'The rule failed because of the rule ' + results['failed'].code;
+      test.verdict = 'failed';
+      test.resultCode = 'RC3';
+      test.description = 'The rule failed because of the rule ' + results['failed'].code;
     } else {
-      evaluation.verdict = 'inapplicable';
-      evaluation.resultCode = 'RC4';
-      evaluation.description = "The test target doesn't apply to this rule";
+      test.verdict = 'inapplicable';
+      test.resultCode = 'RC4';
+      test.description = "The test target doesn't apply to this rule";
     }
-    super.addEvaluationResult(evaluation, element);
+    
+    test.addElement(element);
+    super.addTestResult(test);
   }
 
   public getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {

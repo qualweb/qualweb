@@ -1,51 +1,40 @@
-'use strict';
-
-import { ACTRuleResult } from '@qualweb/act-rules';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-import Rule from '../lib/AtomicRule.object';
+import { ACTRule } from '@qualweb/act-rules';
+import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
+import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
-class QW_ACT_R21 extends Rule {
-  constructor(rule?: any) {
+class QW_ACT_R21 extends AtomicRule {
+  constructor(rule: ACTRule) {
     super(rule);
   }
 
   @ElementExists
-  execute(element: QWElement, page: QWPage): void {
+  execute(element: typeof window.qwElement): void {
     const roleList = ['img', 'graphics-document', 'graphics-symbol'];
 
     const elementsToEvaluate = element.getElements('svg *');
     elementsToEvaluate.push(element);
 
-    for (const elem of elementsToEvaluate || []) {
-      const evaluation: ACTRuleResult = {
-        verdict: '',
-        description: '',
-        resultCode: ''
-      };
+    for (const elem of elementsToEvaluate ?? []) {
+      const test = new Test();
 
       const role = elem.getElementAttribute('role');
-      const isHidden = DomUtils.isElementHidden(elem, page);
-      const accessibleName = AccessibilityUtils.getAccessibleNameSVG(elem, page);
+      const isHidden = window.DomUtils.isElementHidden(elem);
+      const accessibleName = window.AccessibilityUtils.getAccessibleNameSVG(elem);
 
-      if (!role || (role && roleList.indexOf(role) < 0) || isHidden) {
-        evaluation.verdict = 'inapplicable';
-        evaluation.description = `No test target with this specific roles is included in the accessibility tree.`;
-        evaluation.resultCode = 'RC1';
-      } else if (accessibleName && accessibleName.trim()) {
-        evaluation.verdict = 'passed';
-        evaluation.description = `The test target has an accessible name.`;
-        evaluation.resultCode = 'RC2';
+      if (role && (role && roleList.indexOf(role) >= 0) && !isHidden && accessibleName?.trim()) {
+        test.verdict = 'passed';
+        test.description = `The test target has an accessible name.`;
+        test.resultCode = 'RC2';
       } else {
-        evaluation.verdict = 'failed';
-        evaluation.description = `The test target doesn't have an accessible name.`;
-        evaluation.resultCode = 'RC3';
-      }
+        test.verdict = 'failed';
+        test.description = `The test target doesn't have an accessible name.`;
+        test.resultCode = 'RC3';
+      } 
 
-      super.addEvaluationResult(evaluation, elem, true, false, true, page);
+      test.addElement(elem, true, false, true);
+      super.addTestResult(test);
     }
   }
 }
