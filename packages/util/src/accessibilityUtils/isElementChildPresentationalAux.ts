@@ -1,22 +1,16 @@
 import { childPresentationalRole } from '../accessibilityUtils/constants';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import getElementRole from './getElementRole';
 
-function isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean {
-  if (!element) {
-    throw Error('Element is not defined');
-  }
-
+function isElementChildPresentationalAux(element: typeof window.qwElement): boolean {
   let result;
-  const role = getElementRole(element, page);
+  const role = getElementRole(element);
   let childPresentational;
   if (role !== null) childPresentational = childPresentationalRole.includes(role);
   const parent = element.getElementParent();
   let isParentChildPresentationalVar = false;
 
   if (parent && !childPresentational) {
-    isParentChildPresentationalVar = isElementChildPresentationalAux(parent, page);
+    isParentChildPresentationalVar = isElementChildPresentationalAux(parent);
   }
   result = childPresentational || isParentChildPresentationalVar;
 

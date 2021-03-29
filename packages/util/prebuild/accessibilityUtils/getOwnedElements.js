@@ -5,38 +5,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const getAriaOwner_1 = __importDefault(require("./getAriaOwner"));
 const isElementInAT_1 = __importDefault(require("./isElementInAT"));
-function getOwnedElements(elementQW, pageQW) {
-    let children = elementQW.getElementChildren();
-    let result = [];
-    let ariaOwnedElements = getAriaOwnedElements(elementQW, pageQW);
+function getOwnedElements(element) {
+    const children = element.getElementChildren();
+    const result = new Array();
+    const ariaOwnedElements = getAriaOwnedElements(element);
     result.push(...ariaOwnedElements);
-    for (let child of children) {
-        result.push(...getOwnedElementsAux(child, pageQW, elementQW.getElementSelector()));
+    for (const child of children !== null && children !== void 0 ? children : []) {
+        result.push(...getOwnedElementsAux(child, element.getElementSelector()));
     }
     return result;
 }
-function getOwnedElementsAux(elementQW, pageQW, ownerSelector) {
-    let ariaOwner = getAriaOwner_1.default(elementQW, pageQW);
-    if (isElementInAT_1.default(elementQW, pageQW) &&
-        (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))) {
-        return [elementQW];
+function getOwnedElementsAux(element, ownerSelector) {
+    let ariaOwner = getAriaOwner_1.default(element);
+    if (isElementInAT_1.default(element) && (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))) {
+        return [element];
     }
     else {
-        let children = elementQW.getElementChildren();
-        let result = [];
-        for (let child of children) {
-            result.push(...getOwnedElementsAux(child, pageQW, ownerSelector));
+        let children = element.getElementChildren();
+        let result = new Array();
+        for (const child of children !== null && children !== void 0 ? children : []) {
+            result.push(...getOwnedElementsAux(child, ownerSelector));
         }
         return result;
     }
 }
-function getAriaOwnedElements(elementQW, pageQW) {
-    let ariaOwns = elementQW.getElementAttribute('aria-owns');
-    let elements = [];
+function getAriaOwnedElements(element) {
+    const ariaOwns = element.getElementAttribute('aria-owns');
+    const elements = new Array();
     if (ariaOwns) {
-        let splitted = ariaOwns.split(',');
-        for (let id of splitted) {
-            let elem = pageQW.getElementByID(id);
+        const splitted = ariaOwns.split(',');
+        for (const id of splitted !== null && splitted !== void 0 ? splitted : []) {
+            const elem = window.qwPage.getElementByID(id);
             if (!!elem) {
                 elements.push(elem);
             }

@@ -1,4 +1,3 @@
-'use strict';
 const typesWithLabel = ['text', 'password', 'search', 'tel', 'email', 'url'];
 const tabularElements = ['tr', 'td', 'th'];
 const formElements = ['form', 'select', 'option', 'datalist', 'optgroup', 'input'];
@@ -221,11 +220,12 @@ const notDefaultAT = [
   'var',
   'wbr'
 ];
-const notExposedIfEmpy = ['div', 'p', 'pre'];
+const notExposedIfEmpty = ['div', 'p', 'pre'];
 const needsToBeInsideDetails = ['summary'];
+
 export {
   notDefaultAT,
-  notExposedIfEmpy,
+  notExposedIfEmpty,
   textContainer,
   needsToBeInsideDetails,
   childPresentationalRole,

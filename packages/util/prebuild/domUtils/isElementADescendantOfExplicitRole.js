@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function isElementADescendantOfExplicitRole(elementQW, pageQW, names, roles) {
-    if (!elementQW || !pageQW) {
-        throw Error('Element is not defined');
-    }
+function isElementADescendantOfExplicitRole(elementQW, names, roles) {
     const parent = elementQW.getElementParent();
     let result = false;
-    let sameRole, sameName;
     if (parent !== null) {
+        let sameRole = false;
+        let sameName = false;
         const parentName = parent.getElementTagName();
         const parentRole = parent.getElementAttribute('role');
         if (parentName !== null) {
@@ -18,7 +16,7 @@ function isElementADescendantOfExplicitRole(elementQW, pageQW, names, roles) {
         }
         result = sameName || sameRole;
         if (!result) {
-            return isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
+            return isElementADescendantOfExplicitRole(parent, names, roles);
         }
         else {
             return result;

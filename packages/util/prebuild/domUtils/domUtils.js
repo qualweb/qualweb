@@ -15,41 +15,41 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const getElementReferencedByHREF_1 = __importDefault(require("./getElementReferencedByHREF"));
 const isElementHiddenByCSS_1 = __importDefault(require("./isElementHiddenByCSS"));
 const isElementHiddenByCSSAux_1 = __importDefault(require("./isElementHiddenByCSSAux"));
-const objectElementisNonText_1 = __importDefault(require("./objectElementisNonText"));
+const objectElementIsNonText_1 = __importDefault(require("./objectElementIsNonText"));
 const isElementHidden_1 = __importDefault(require("./isElementHidden"));
 const isFocusableBrowser_1 = __importDefault(require("../accessibilityUtils/isFocusableBrowser"));
 const isElementVisible_1 = __importDefault(require("./isElementVisible"));
-const elementIDIsReferenced_1 = __importDefault(require("./elementIDIsReferenced"));
+const elementIdIsReferenced_1 = __importDefault(require("./elementIdIsReferenced"));
 const isElementADescendantOf_1 = __importDefault(require("./isElementADescendantOf"));
 const isElementADescendantOfExplicitRole_1 = __importDefault(require("./isElementADescendantOfExplicitRole"));
 const getVideoMetadata_1 = __importDefault(require("./getVideoMetadata"));
 const elementHasContent_1 = __importDefault(require("./elementHasContent"));
 const getTrimmedText_1 = __importDefault(require("./getTrimmedText"));
-const objectElementisNonText_2 = __importDefault(require("./objectElementisNonText"));
-const qw_element_1 = require("@qualweb/qw-element");
-const qw_page_1 = require("@qualweb/qw-page");
-const decorator_1 = require("../decorator");
+const objectElementIsNonText_2 = __importDefault(require("./objectElementIsNonText"));
+const isHumanLanguage_1 = __importDefault(require("./isHumanLanguage"));
+const getTextSize_1 = __importDefault(require("./getTextSize"));
+const cache_1 = require("../cache");
 class DomUtils {
-    static isElementHidden(elementQW, pageQW) {
-        return isElementHidden_1.default(elementQW, pageQW);
+    static isElementHidden(element) {
+        return isElementHidden_1.default(element);
     }
-    static isElementHiddenByCSS(elementQW, pageQW) {
-        return isElementHiddenByCSS_1.default(elementQW, pageQW);
+    static isElementHiddenByCSS(element) {
+        return isElementHiddenByCSS_1.default(element);
     }
-    static elementIDIsReferenced(elementQW, pageQW, id, attribute) {
-        return elementIDIsReferenced_1.default(elementQW, pageQW, id, attribute);
+    static elementIdIsReferenced(element, id, attribute) {
+        return elementIdIsReferenced_1.default(element, id, attribute);
     }
-    static isElementADescendantOf(elementQW, pageQW, names, roles) {
-        return isElementADescendantOf_1.default(elementQW, pageQW, names, roles);
+    static isElementADescendantOf(element, names, roles) {
+        return isElementADescendantOf_1.default(element, names, roles);
     }
-    static isElementADescendantOfExplicitRole(elementQW, pageQW, names, roles) {
-        return isElementADescendantOfExplicitRole_1.default(elementQW, pageQW, names, roles);
+    static isElementADescendantOfExplicitRole(element, names, roles) {
+        return isElementADescendantOfExplicitRole_1.default(element, names, roles);
     }
-    static elementHasContent(elementQW, pageQW, checkChildren) {
-        return elementHasContent_1.default(elementQW, pageQW, checkChildren);
+    static elementHasContent(element, checkChildren) {
+        return elementHasContent_1.default(element, checkChildren);
     }
-    static isElementHiddenByCSSAux(elementQW) {
-        return isElementHiddenByCSSAux_1.default(elementQW);
+    static isElementHiddenByCSSAux(element) {
+        return isElementHiddenByCSSAux_1.default(element);
     }
     static getTrimmedText(element) {
         return getTrimmedText_1.default(element);
@@ -57,58 +57,60 @@ class DomUtils {
 }
 DomUtils.getVideoMetadata = getVideoMetadata_1.default;
 DomUtils.getElementReferencedByHREF = getElementReferencedByHREF_1.default;
-DomUtils.videoElementHasAudio = objectElementisNonText_1.default;
+DomUtils.videoElementHasAudio = objectElementIsNonText_1.default;
 DomUtils.isFocusableBrowser = isFocusableBrowser_1.default;
-DomUtils.objectElementisNonText = objectElementisNonText_2.default;
+DomUtils.objectElementIsNonText = objectElementIsNonText_2.default;
+DomUtils.isHumanLanguage = isHumanLanguage_1.default;
+DomUtils.getTextSize = getTextSize_1.default;
 DomUtils.isElementVisible = isElementVisible_1.default;
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementHidden'),
+    cache_1.Cache('DomUtils.isElementHidden'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "isElementHidden", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementHiddenByCSS'),
+    cache_1.Cache('DomUtils.isElementHiddenByCSS'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "isElementHiddenByCSS", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.elementIDIsReferenced'),
+    cache_1.Cache('DomUtils.elementIdIsReferenced'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage, String, String]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Boolean)
-], DomUtils, "elementIDIsReferenced", null);
+], DomUtils, "elementIdIsReferenced", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementADescendantOf'),
+    cache_1.Cache('DomUtils.isElementADescendantOf'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement,
-        qw_page_1.QWPage, Array, Array]),
+    __metadata("design:paramtypes", [Object, Array,
+        Array]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "isElementADescendantOf", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementADescendantOfExplicitRole'),
+    cache_1.Cache('DomUtils.isElementADescendantOfExplicitRole'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement,
-        qw_page_1.QWPage, Array, Array]),
+    __metadata("design:paramtypes", [Object, Array,
+        Array]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "isElementADescendantOfExplicitRole", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.elementHasContent'),
+    cache_1.Cache('DomUtils.elementHasContent'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage, Boolean]),
+    __metadata("design:paramtypes", [Object, Boolean]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "elementHasContent", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementHiddenByCSSAux'),
+    cache_1.Cache('DomUtils.isElementHiddenByCSSAux'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], DomUtils, "isElementHiddenByCSSAux", null);
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.getTrimmedText'),
+    cache_1.Cache('DomUtils.getTrimmedText'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", String)
 ], DomUtils, "getTrimmedText", null);
 exports.default = DomUtils;

@@ -5,16 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const getAriaOwner_1 = __importDefault(require("./getAriaOwner"));
 const isElementInAT_1 = __importDefault(require("./isElementInAT"));
-function getOwnerElement(elementQW, pageQW) {
-    const ariaOwner = getAriaOwner_1.default(elementQW, pageQW);
+function getOwnerElement(element) {
+    const ariaOwner = getAriaOwner_1.default(element);
     let ownerElement;
     if (ariaOwner) {
         ownerElement = ariaOwner;
     }
     else {
-        let parent = elementQW.getElementParent();
+        let parent = element.getElementParent();
         while (!!parent && !ownerElement) {
-            if (isElementInAT_1.default(parent, pageQW))
+            if (isElementInAT_1.default(parent))
                 ownerElement = parent;
             parent = parent.getElementParent();
         }

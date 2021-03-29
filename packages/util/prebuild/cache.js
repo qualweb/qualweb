@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FullMethodCacheDecorator = exports.CacheDecorator = void 0;
-function CacheDecorator(methodName) {
+exports.FullMethodCache = exports.Cache = void 0;
+function Cache(methodName) {
     return function (_target, _propertyKey, descriptor) {
         const method = descriptor.value;
         descriptor.value = function () {
-            const pageQW = arguments[1];
+            const pageQW = window.qwPage;
             const elementQW = arguments[0];
             const selector = elementQW.getElementSelector();
             let result;
@@ -20,12 +20,12 @@ function CacheDecorator(methodName) {
         };
     };
 }
-exports.CacheDecorator = CacheDecorator;
-function FullMethodCacheDecorator(methodName) {
+exports.Cache = Cache;
+function FullMethodCache(methodName) {
     return function (_target, _propertyKey, descriptor) {
         const method = descriptor.value;
         descriptor.value = function () {
-            const pageQW = arguments[1];
+            const pageQW = window.qwPage;
             const elementQW = arguments[0];
             let selector = elementQW.getElementSelector();
             for (let i = 2; i < arguments.length; i++) {
@@ -43,4 +43,4 @@ function FullMethodCacheDecorator(methodName) {
         };
     };
 }
-exports.FullMethodCacheDecorator = FullMethodCacheDecorator;
+exports.FullMethodCache = FullMethodCache;

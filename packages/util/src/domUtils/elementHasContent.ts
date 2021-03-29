@@ -1,27 +1,22 @@
-import { QWElement } from '@qualweb/qw-element';
 import { alwaysNotVisible, needsControls, alwaysVisible, needsOpen } from './constants';
 import textHasTheSameColorOfBackground from './textHasTheSameColorOfBackground';
-import { QWPage } from '@qualweb/qw-page';
 
-function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
+function elementHasContent(element: typeof window.qwElement, checkChildren: boolean): boolean {
   let result = false;
-  const name = elementQW.getElementTagName();
+  const name = element.getElementTagName();
   if (alwaysNotVisible.includes(name)) {
     //Do nothing (dont delete)
   } else if (needsControls.includes(name)) {
-    const controls = elementQW.getElementProperty('controls');
+    const controls = element.getElementProperty('controls');
     result = !!controls;
   } else if (needsOpen.includes(name)) {
-    const open = elementQW.getElementProperty('open');
+    const open = element.getElementProperty('open');
     result = !!open;
   } else if (alwaysVisible.includes(name)) {
     result = true;
   } else {
-    const textHasTheSameColor = textHasTheSameColorOfBackground(elementQW);
-    let text = elementQW.getElementText();
+    const textHasTheSameColor = textHasTheSameColorOfBackground(element);
+    let text = element.getElementText();
     if (text) {
       text = text.trim();
       result = text !== '' && !textHasTheSameColor;
@@ -29,9 +24,9 @@ function elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: 
   }
   const childrenVisible = false;
   if (checkChildren) {
-    const children = elementQW.getElementChildren();
+    const children = element.getElementChildren();
     for (const child of children) {
-      checkChildren = childrenVisible || elementHasContent(child, pageQW, checkChildren);
+      checkChildren = childrenVisible || elementHasContent(child, checkChildren);
     }
   }
   return result || checkChildren;

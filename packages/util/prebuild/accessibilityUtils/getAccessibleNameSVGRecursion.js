@@ -8,23 +8,23 @@ const isElementReferencedByAriaLabel_1 = __importDefault(require("./isElementRef
 const getAccessibleName_1 = __importDefault(require("./getAccessibleName"));
 const getTrimmedText_1 = __importDefault(require("../domUtils/getTrimmedText"));
 const isElementHidden_1 = __importDefault(require("../domUtils/isElementHidden"));
-function getAccessibleNameSVGRecursion(element, page, recursion) {
+function getAccessibleNameSVGRecursion(element, recursion) {
     let AName, ariaLabelBy, tag;
     tag = element.getElementTagName();
     if (!tag)
         tag = '';
     const regex = new RegExp('^fe[a-zA-Z]+');
     ariaLabelBy = element.getElementAttribute('aria-labelledby');
-    if (ariaLabelBy !== null && page.getElementByID(ariaLabelBy) === null) {
+    if (ariaLabelBy !== null && window.qwPage.getElementByID(ariaLabelBy) === null) {
         ariaLabelBy = '';
     }
     const ariaLabel = element.getElementAttribute('aria-label');
-    const referencedByAriaLabel = isElementReferencedByAriaLabel_1.default(element, page);
+    const referencedByAriaLabel = isElementReferencedByAriaLabel_1.default(element);
     const title = element.getElementChildTextContent('title');
     const titleAtt = element.getElementAttribute('xlink:title');
     const href = element.getElementAttribute('href');
     const roleLink = tag === 'a' && href !== undefined;
-    if ((isElementHidden_1.default(element, page) ||
+    if ((isElementHidden_1.default(element) ||
         hasParentOfName(element, constants_1.noAccessibleObjectOrChild) ||
         constants_1.noAccessibleObject.indexOf(tag) >= 0 ||
         constants_1.noAccessibleObjectOrChild.indexOf(tag) >= 0 ||
@@ -32,10 +32,10 @@ function getAccessibleNameSVGRecursion(element, page, recursion) {
         !recursion) {
     }
     else if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
-        AName = getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelBy);
+        AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);
     }
     else if (constants_1.elementsLikeHtml.indexOf(tag) >= 0) {
-        AName = getAccessibleName_1.default(element, page);
+        AName = getAccessibleName_1.default(element);
     }
     else if (ariaLabel && ariaLabel.trim() !== '') {
         AName = ariaLabel;
@@ -47,7 +47,7 @@ function getAccessibleNameSVGRecursion(element, page, recursion) {
         AName = titleAtt;
     }
     else if (roleLink) {
-        AName = getTextFromCss(element, page);
+        AName = getTextFromCss(element);
     }
     else if (tag && tag === 'text') {
         AName = getTrimmedText_1.default(element);
@@ -64,7 +64,7 @@ function hasParentOfName(element, name) {
         return false;
     }
 }
-function getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelId) {
+function getAccessibleNameFromAriaLabelledBy(element, ariaLabelId) {
     const ListIdRefs = ariaLabelId.split(' ');
     let result;
     let accessNameFromId;
@@ -72,9 +72,9 @@ function getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelId) {
     const elementID = element.getElementAttribute('id');
     for (const id of ListIdRefs) {
         if (id !== '' && elementID !== id)
-            elem = page.getElementByID(id);
+            elem = window.qwPage.getElementByID(id);
         if (elem)
-            accessNameFromId = getAccessibleNameSVGRecursion(elem, page, true);
+            accessNameFromId = getAccessibleNameSVGRecursion(elem, true);
         if (accessNameFromId) {
             if (result) {
                 result += accessNameFromId;
@@ -86,15 +86,15 @@ function getAccessibleNameFromAriaLabelledBy(page, element, ariaLabelId) {
     }
     return result;
 }
-function getAccessibleNameFromChildren(element, page) {
+function getAccessibleNameFromChildren(element) {
     let aName;
     const children = element.getElementChildren();
-    const elementAnames = [];
+    const elementAnames = new Array();
     if (children) {
         for (const child of children) {
             const name = child.getElementTagName();
             if (constants_1.textContainer.indexOf(name) >= 0) {
-                aName = getAccessibleNameSVGRecursion(child, page, true);
+                aName = getAccessibleNameSVGRecursion(child, true);
                 if (aName) {
                     elementAnames.push(aName);
                 }
@@ -106,21 +106,18 @@ function getAccessibleNameFromChildren(element, page) {
     }
     return elementAnames;
 }
-function getTextFromCss(element, page) {
+function getTextFromCss(element) {
     let before = element.getElementStyleProperty('content', ':before');
     let after = element.getElementStyleProperty('content', ':after');
-    const aNameList = getAccessibleNameFromChildren(element, page);
-    const textValue = getConcatentedText(element, aNameList);
+    const aNameList = getAccessibleNameFromChildren(element);
+    const textValue = getConcatenatedText(aNameList);
     if (after === 'none')
         after = '';
     if (before === 'none')
         before = '';
     return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
-function getConcatentedText(elementQW, aNames) {
-    if (!elementQW) {
-        throw Error('Element is not defined');
-    }
+function getConcatenatedText(aNames) {
     let result = '';
     for (const aName of aNames) {
         result += aName;

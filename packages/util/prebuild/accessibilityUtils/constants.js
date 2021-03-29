@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nameFromContentRoles = exports.nameFromContentElements = exports.widgetRoles = exports.widgetElements = exports.controlRoles = exports.sectionAndGrouping = exports.formElements = exports.tabularElements = exports.typesWithLabel = exports.noAccessibleObject = exports.noAccessibleObjectOrChild = exports.elementsLikeHtml = exports.childPresentationalRole = exports.needsToBeInsideDetails = exports.textContainer = exports.notExposedIfEmpy = exports.notDefaultAT = void 0;
+exports.nameFromContentRoles = exports.nameFromContentElements = exports.widgetRoles = exports.widgetElements = exports.controlRoles = exports.sectionAndGrouping = exports.formElements = exports.tabularElements = exports.typesWithLabel = exports.noAccessibleObject = exports.noAccessibleObjectOrChild = exports.elementsLikeHtml = exports.childPresentationalRole = exports.needsToBeInsideDetails = exports.textContainer = exports.notExposedIfEmpty = exports.notDefaultAT = void 0;
 const typesWithLabel = ['text', 'password', 'search', 'tel', 'email', 'url'];
 exports.typesWithLabel = typesWithLabel;
 const tabularElements = ['tr', 'td', 'th'];
@@ -238,7 +238,7 @@ const notDefaultAT = [
     'wbr'
 ];
 exports.notDefaultAT = notDefaultAT;
-const notExposedIfEmpy = ['div', 'p', 'pre'];
-exports.notExposedIfEmpy = notExposedIfEmpy;
+const notExposedIfEmpty = ['div', 'p', 'pre'];
+exports.notExposedIfEmpty = notExposedIfEmpty;
 const needsToBeInsideDetails = ['summary'];
 exports.needsToBeInsideDetails = needsToBeInsideDetails;

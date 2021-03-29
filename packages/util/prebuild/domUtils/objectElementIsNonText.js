@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,11 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const image_json_1 = __importDefault(require("./image.json"));
 const video_json_1 = __importDefault(require("./video.json"));
 const audio_json_1 = __importDefault(require("./audio.json"));
-function objectElementisNonText(elementQW) {
-    if (!elementQW) {
-        throw Error('Element is not defined');
-    }
-    const data = elementQW.getElementAttribute('data');
+function objectElementIsNonText(element) {
+    const data = element.getElementAttribute('data');
     let result = false;
     if (data) {
         const splitted = data.split('.');
@@ -21,4 +18,4 @@ function objectElementisNonText(elementQW) {
     }
     return result;
 }
-exports.default = objectElementisNonText;
+exports.default = objectElementIsNonText;

@@ -10,34 +10,34 @@ const elementHasValidRole_1 = __importDefault(require("./elementHasValidRole"));
 const isElementFocusable_1 = __importDefault(require("./isElementFocusable"));
 const elementHasGlobalARIAPropertyOrAttribute_1 = __importDefault(require("./elementHasGlobalARIAPropertyOrAttribute"));
 const isElementHidden_1 = __importDefault(require("../domUtils/isElementHidden"));
-const elementIDIsReferenced_1 = __importDefault(require("../domUtils/elementIDIsReferenced"));
-function isElementInAT(elementQW, pageQW) {
-    const childPresentational = isElementChildPresentational_1.default(elementQW, pageQW);
-    const isHidden = isElementHidden_1.default(elementQW, pageQW);
+const elementIdIsReferenced_1 = __importDefault(require("../domUtils/elementIdIsReferenced"));
+function isElementInAT(element) {
+    const childPresentational = isElementChildPresentational_1.default(element);
+    const isHidden = isElementHidden_1.default(element);
     let result = false;
-    const role = getElementRole_1.default(elementQW, pageQW);
-    const validRole = elementHasValidRole_1.default(elementQW, pageQW);
+    const role = getElementRole_1.default(element);
+    const validRole = elementHasValidRole_1.default(element);
     if (!isHidden && !childPresentational && role !== 'presentation' && role !== 'none') {
-        const name = elementQW.getElementTagName();
-        const notExposedIfEmpyTag = constants_1.notExposedIfEmpy.includes(name);
+        const name = element.getElementTagName();
+        const notExposedIfEmpyTag = constants_1.notExposedIfEmpty.includes(name);
         const needsToBeInsideDetailsTag = constants_1.needsToBeInsideDetails.includes(name);
         if (constants_1.notDefaultAT.includes(name) || notExposedIfEmpyTag || needsToBeInsideDetailsTag) {
             let specialCondition = false;
             if (notExposedIfEmpyTag) {
-                const text = elementQW.getElementText();
+                const text = element.getElementText();
                 specialCondition = !!text && text.trim() !== '';
             }
             else if (needsToBeInsideDetailsTag) {
-                const parent = elementQW.getElementParent();
+                const parent = element.getElementParent();
                 specialCondition = !!parent && parent.getElementTagName() === 'details';
             }
             else if (name === 'picture') {
-                const child = elementQW.getElement('img');
+                const child = element.getElement('img');
                 specialCondition = !!child;
             }
-            const type = elementQW.getElementType();
-            const focusable = isElementFocusable_1.default(elementQW, pageQW);
-            const id = elementQW.getElementAttribute('id');
+            const type = element.getElementType();
+            const focusable = isElementFocusable_1.default(element);
+            const id = element.getElementAttribute('id');
             let ariaActivedescendant = false;
             let ariaControls = false;
             let ariaDescribedby = false;
@@ -47,16 +47,16 @@ function isElementInAT(elementQW, pageQW) {
             let ariaLabelledby = false;
             let ariaOwns = false;
             if (id !== null) {
-                ariaActivedescendant = elementIDIsReferenced_1.default(elementQW, pageQW, id, 'aria-activedescendant');
-                ariaControls = elementIDIsReferenced_1.default(elementQW, pageQW, id, ' aria-controls');
-                ariaDescribedby = elementIDIsReferenced_1.default(elementQW, pageQW, id, ' aria-describedby');
-                ariaDetails = elementIDIsReferenced_1.default(elementQW, pageQW, id, ' aria-details');
-                ariaErrormessage = elementIDIsReferenced_1.default(elementQW, pageQW, id, 'aria-errormessage');
-                ariaFlowto = elementIDIsReferenced_1.default(elementQW, pageQW, id, 'aria-flowto');
-                ariaLabelledby = elementIDIsReferenced_1.default(elementQW, pageQW, id, 'aria-labelledby');
-                ariaOwns = elementIDIsReferenced_1.default(elementQW, pageQW, id, 'aria-owns');
+                ariaActivedescendant = elementIdIsReferenced_1.default(element, id, 'aria-activedescendant');
+                ariaControls = elementIdIsReferenced_1.default(element, id, ' aria-controls');
+                ariaDescribedby = elementIdIsReferenced_1.default(element, id, ' aria-describedby');
+                ariaDetails = elementIdIsReferenced_1.default(element, id, ' aria-details');
+                ariaErrormessage = elementIdIsReferenced_1.default(element, id, 'aria-errormessage');
+                ariaFlowto = elementIdIsReferenced_1.default(element, id, 'aria-flowto');
+                ariaLabelledby = elementIdIsReferenced_1.default(element, id, 'aria-labelledby');
+                ariaOwns = elementIdIsReferenced_1.default(element, id, 'aria-owns');
             }
-            const globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute_1.default(elementQW);
+            const globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute_1.default(element);
             result =
                 specialCondition ||
                     type === 'text' ||

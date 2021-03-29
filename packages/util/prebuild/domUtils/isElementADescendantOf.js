@@ -4,16 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getElementRole_1 = __importDefault(require("../accessibilityUtils/getElementRole"));
-function isElementADescendantOf(elementQW, pageQW, names, roles) {
-    if (!elementQW || !pageQW) {
-        throw Error('Element is not defined');
-    }
+function isElementADescendantOf(elementQW, names, roles) {
     const parent = elementQW.getElementParent();
     let result = false;
-    let sameRole, sameName;
     if (parent !== null) {
+        let sameRole = false;
+        let sameName = false;
         const parentName = parent.getElementTagName();
-        const parentRole = getElementRole_1.default(parent, pageQW);
+        const parentRole = getElementRole_1.default(parent);
         if (parentName !== null) {
             sameName = names.includes(parentName);
         }
@@ -22,7 +20,7 @@ function isElementADescendantOf(elementQW, pageQW, names, roles) {
         }
         result = sameName || sameRole;
         if (!result) {
-            return isElementADescendantOf(parent, pageQW, names, roles);
+            return isElementADescendantOf(parent, names, roles);
         }
         else {
             return result;

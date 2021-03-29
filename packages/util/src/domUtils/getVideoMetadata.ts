@@ -1,12 +1,9 @@
-'use strict';
+import videoElementHasAudio from './objectElementIsNonText';
 
-import videoElementHasAudio from './objectElementisNonText';
-import { QWElement } from '@qualweb/qw-element';
-
-function getVideoMetadata(elementQW: QWElement): any {
+function getVideoMetadata(element: typeof window.qwElement): any {
   //let src =elementQW.getElementProperty('currentSrc');
-  const duration = parseInt(elementQW.getElementProperty('duration'));
-  const hasSoundTrack = videoElementHasAudio(elementQW);
+  const duration = parseInt(element.getElementProperty('duration'));
+  const hasSoundTrack = videoElementHasAudio(element);
   const result = {
     puppeteer: {
       video: { duration: {} },

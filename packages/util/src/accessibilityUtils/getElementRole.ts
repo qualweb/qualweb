@@ -1,11 +1,9 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import getAccessibleName from './getAccessibleName';
 import getElementRoleAName from './getElementRoleAName';
 
-function getElementRole(elementQW: QWElement, pageQW: QWPage): string | null {
-  const aName = getAccessibleName(elementQW, pageQW);
-  return getElementRoleAName(elementQW, pageQW, aName);
+function getElementRole(element: typeof window.qwElement): string | null {
+  const aName = getAccessibleName(element);
+  return getElementRoleAName(element, aName);
 }
 
 export default getElementRole;

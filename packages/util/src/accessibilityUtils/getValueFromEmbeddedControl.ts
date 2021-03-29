@@ -1,10 +1,8 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import getElementRoleAName from './getElementRoleAName';
 import getTrimmedText from '../domUtils/getTrimmedText';
 
-function getValueFromEmbeddedControl(element: QWElement, page: QWPage): string {
-  const role = getElementRoleAName(element, page, '');
+function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
+  const role = getElementRoleAName(element, '');
   let name = element.getElementTagName();
   if (!name) name = '';
   let value = '';
@@ -25,7 +23,7 @@ function getValueFromEmbeddedControl(element: QWElement, page: QWPage): string {
     }
 
     const aria_owns = element.getElementAttribute('[aria-owns]');
-    const elementasToSelect = page.getElement(`[id="${aria_owns}"]`);
+    const elementasToSelect = window.qwPage.getElement(`[id="${aria_owns}"]`);
 
     let elementWithAriaSelected;
     if (elementasToSelect) elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]`);

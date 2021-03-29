@@ -1,14 +1,10 @@
-'use strict';
-import { QWElement } from '@qualweb/qw-element';
-
-function textHasTheSameColorOfBackground(elementQW: QWElement): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
+function textHasTheSameColorOfBackground(element: typeof window.qwElement): boolean {
+  const color = element.getElementStyleProperty('color', '');
+  const background = element.getElementStyleProperty('background-color', '');
+  let text = element.getElementText();
+  if (text) {
+    text = text.trim();
   }
-  const color = elementQW.getElementStyleProperty('color', '');
-  const background = elementQW.getElementStyleProperty('background-color', '');
-  let text = elementQW.getElementText();
-  if (text) text = text.trim();
   return color === background && !!text;
 }
 

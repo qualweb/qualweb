@@ -1,14 +1,11 @@
-'use strict';
+"use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ariaAttributesRoles_json_1 = __importDefault(require("./ariaAttributesRoles.json"));
-function elementHasGlobalARIAPropertyOrAttribute(elementQW) {
-    if (!elementQW) {
-        throw Error('Element is not defined');
-    }
-    let elemAttribs = elementQW.getElementAttributesName();
+function elementHasGlobalARIAPropertyOrAttribute(element) {
+    let elemAttribs = element.getElementAttributesName();
     elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
     let result = false;
     let i = 0;

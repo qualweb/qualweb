@@ -1,15 +1,12 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function elementHasOnePixel(elementQW) {
-    if (!elementQW) {
-        throw Error('Element is not defined');
-    }
-    const height = elementQW.getElementStyleProperty('height', '');
-    const background = elementQW.getElementStyleProperty('background-color', '');
-    const parent = elementQW.getElementParent();
+function elementHasOnePixel(element) {
+    const height = element.getElementStyleProperty('height', '');
+    const background = element.getElementStyleProperty('background-color', '');
+    const parent = element.getElementParent();
     let parentBackGround;
     if (parent) {
-        parentBackGround = elementQW.getElementStyleProperty('background-color', '');
+        parentBackGround = element.getElementStyleProperty('background-color', '');
     }
     return (!!height && height.replace(' ', '') === '1px' && (parentBackGround === background || background === 'transparent'));
 }

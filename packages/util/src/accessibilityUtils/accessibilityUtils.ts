@@ -1,5 +1,3 @@
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
 import allowsNameFromContentFunction from './allowsNameFromContent';
 import getAccessibleNameFunction from './getAccessibleName';
 import getAccessibleNameRecursionFunction from './getAccessibleNameRecursion';
@@ -28,111 +26,119 @@ import getOwnedElementsFunction from './getOwnedElements';
 
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
-import { CacheDecorator, FullMethodCacheDecorator } from '../decorator';
+import ariaAttributesRoles from './ariaAttributesRoles.json';
+import roles from './_roles.json';
+import languages from './language.json';
+
+import { Cache, FullMethodCache } from '../cache';
+import { AriaAttributesRoles, Roles } from '@qualweb/util';
 
 class AccessibilityUtils {
-  @CacheDecorator('AcceUtils.getLinkContext')
-  public static getLinkContext(element: QWElement, page: QWPage): string[] {
-    return getLinkContextFunction(element, page);
+  public static ariaAttributesRoles = <AriaAttributesRoles>ariaAttributesRoles;
+  public static roles = <Roles>roles;
+  public static languages = <{ [lang: string]: number }>languages;
+
+  @Cache('AcceUtils.getLinkContext')
+  public static getLinkContext(element: typeof window.qwElement): string[] {
+    return getLinkContextFunction(element);
   }
   public static allowsNameFromContent = allowsNameFromContentFunction;
-  @CacheDecorator('AcceUtils.elementHasValidRole')
-  public static elementHasValidRole(element: QWElement, page: QWPage): boolean {
-    return elementHasValidRoleFunction(element, page);
+  @Cache('AcceUtils.elementHasValidRole')
+  public static elementHasValidRole(element: typeof window.qwElement): boolean {
+    return elementHasValidRoleFunction(element);
   }
-  @CacheDecorator('AcceUtils.getAccessibleName')
-  public static getAccessibleName(element: QWElement, page: QWPage): string | undefined {
-    return getAccessibleNameFunction(element, page);
+  @Cache('AcceUtils.getAccessibleName')
+  public static getAccessibleName(element: typeof window.qwElement): string | undefined {
+    return getAccessibleNameFunction(element);
   }
 
-  @FullMethodCacheDecorator('AcceUtils.getAccessibleNameRecursion')
+  @FullMethodCache('AcceUtils.getAccessibleNameRecursion')
   public static getAccessibleNameRecursion(
-    element: QWElement,
-    page: QWPage,
+    element: typeof window.qwElement,
     recursion: boolean,
     isWidget: boolean
   ): string | undefined {
-    return getAccessibleNameRecursionFunction(element, page, recursion, isWidget);
+    return getAccessibleNameRecursionFunction(element, recursion, isWidget);
   }
   public static getAccessibleNameSelector = getAccessibleNameSelectorFunction;
-  @CacheDecorator('AcceUtils.getAccessibleNameSVG')
-  public static getAccessibleNameSVG(element: QWElement, page: QWPage): string | undefined {
-    return getAccessibleNameSVGFunction(element, page);
+  @Cache('AcceUtils.getAccessibleNameSVG')
+  public static getAccessibleNameSVG(element: typeof window.qwElement): string | undefined {
+    return getAccessibleNameSVGFunction(element);
   }
   public static getDefaultName = getDefaultNameFunction;
   public static getDisabledWidgets = getDisabledWidgetsFunction;
   public static isFocusableBrowser = isFocusableBrowserFunction;
 
-  @CacheDecorator('AcceUtils.getOwnedElements')
-  public static getOwnedElements(element: QWElement, page: QWPage): QWElement[] {
-    return getOwnedElementsFunction(element, page);
+  @Cache('AcceUtils.getOwnedElements')
+  public static getOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+    return getOwnedElementsFunction(element);
   }
 
-  @CacheDecorator('AcceUtils.getElementRole')
-  public static getElementRole(element: QWElement, page: QWPage): string | null {
-    return getElementRoleFunction(element, page);
+  @Cache('AcceUtils.getElementRole')
+  public static getElementRole(element: typeof window.qwElement): string | null {
+    return getElementRoleFunction(element);
   }
-  @CacheDecorator('AcceUtils.getElementRole')
-  public static getElementRoleAName(element: QWElement, page: QWPage, aName: string | undefined): string | null {
-    return getElementRoleANameFunction(element, page, aName);
-  }
-
-  @CacheDecorator('AcceUtils.isDataTable')
-  public static isDataTable(element: QWElement, page: QWPage): boolean {
-    return isDataTableFunction(element, page);
+  @Cache('AcceUtils.getElementRole')
+  public static getElementRoleAName(element: typeof window.qwElement, aName: string | undefined): string | null {
+    return getElementRoleANameFunction(element, aName);
   }
 
-  @CacheDecorator('AcceUtils.isElementControl')
-  public static isElementControl(element: QWElement, page: QWPage): boolean {
-    return isElementControlFunction(element, page);
-  }
-  @CacheDecorator('AcceUtils.isElementInAT')
-  public static isElementInAT(element: QWElement, page: QWPage): boolean {
-    return isElementInATFunction(element, page);
-  }
-  @CacheDecorator('AcceUtils.isElementReferencedByAriaLabel')
-  public static isElementReferencedByAriaLabel(element: QWElement, page: QWPage): boolean {
-    return isElementReferencedByAriaLabelFunction(element, page);
-  }
-  @CacheDecorator('AcceUtils.isElementWidget')
-  public static isElementWidget(element: QWElement, page: QWPage): boolean {
-    return isElementWidgetFunction(element, page);
-  }
-  @CacheDecorator('AcceUtils.getImplicitRole')
-  public static getImplicitRole(element: QWElement, page: QWPage, accessibleName: string | undefined): string | null {
-    return getImplicitRoleFunction(element, page, accessibleName);
-  }
-  @CacheDecorator('AcceUtils.getOwnerElement')
-  public static getOwnerElement(element: QWElement, page: QWPage): QWElement | null {
-    return getOwnerElementFunction(element, page);
-  }
-  @CacheDecorator('AcceUtils.isElementChildPresentationalAux')
-  public static isElementChildPresentationalAux(element: QWElement, page: QWPage): boolean {
-    return isElementChildPresentationalAuxFunction(element, page);
+  @Cache('AcceUtils.isDataTable')
+  public static isDataTable(element: typeof window.qwElement): boolean {
+    return isDataTableFunction(element);
   }
 
-  @CacheDecorator('AcceUtils.isElementChildPresentational')
-  public static isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementChildPresentationalFunction(elementQW, pageQW);
+  @Cache('AcceUtils.isElementControl')
+  public static isElementControl(element: typeof window.qwElement): boolean {
+    return isElementControlFunction(element);
+  }
+  @Cache('AcceUtils.isElementInAT')
+  public static isElementInAT(element: typeof window.qwElement): boolean {
+    return isElementInATFunction(element);
+  }
+  @Cache('AcceUtils.isElementReferencedByAriaLabel')
+  public static isElementReferencedByAriaLabel(element: typeof window.qwElement): boolean {
+    return isElementReferencedByAriaLabelFunction(element);
+  }
+  @Cache('AcceUtils.isElementWidget')
+  public static isElementWidget(element: typeof window.qwElement): boolean {
+    return isElementWidgetFunction(element);
+  }
+  @Cache('AcceUtils.getImplicitRole')
+  public static getImplicitRole(element: typeof window.qwElement, accessibleName: string | undefined): string | null {
+    return getImplicitRoleFunction(element, accessibleName);
+  }
+  @Cache('AcceUtils.getOwnerElement')
+  public static getOwnerElement(element: typeof window.qwElement): typeof window.qwElement | null {
+    return getOwnerElementFunction(element);
+  }
+  @Cache('AcceUtils.isElementChildPresentationalAux')
+  public static isElementChildPresentationalAux(element: typeof window.qwElement): boolean {
+    return isElementChildPresentationalAuxFunction(element);
   }
 
-  @CacheDecorator('AcceUtils.isElementFocusableByDefault')
-  public static isElementFocusableByDefault(elementQW: QWElement): boolean {
+  @Cache('AcceUtils.isElementChildPresentational')
+  public static isElementChildPresentational(element: typeof window.qwElement): boolean {
+    return isElementChildPresentationalFunction(element);
+  }
+
+  @Cache('AcceUtils.isElementFocusableByDefault')
+  public static isElementFocusableByDefault(elementQW: typeof window.qwElement): boolean {
     return isElementFocusableByDefaultFunction(elementQW);
   }
 
-  @CacheDecorator('AcceUtils.isElementFocusable')
-  public static isElementFocusable(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementFocusableFunction(elementQW, pageQW);
+  @Cache('AcceUtils.isElementFocusable')
+  public static isElementFocusable(element: typeof window.qwElement): boolean {
+    return isElementFocusableFunction(element);
   }
 
-  @CacheDecorator('AcceUtils.isPartOfSequentialFocusNavigation')
-  public static isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isPartOfSequentialFocusNavigationFunction(elementQW, pageQW);
+  @Cache('AcceUtils.isPartOfSequentialFocusNavigation')
+  public static isPartOfSequentialFocusNavigation(element: typeof window.qwElement): boolean {
+    return isPartOfSequentialFocusNavigationFunction(element);
   }
 
-  @CacheDecorator('AcceUtils.elementHasGlobalARIAPropertyOrAttribute')
-  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean {
+  @Cache('AcceUtils.elementHasGlobalARIAPropertyOrAttribute')
+  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: typeof window.qwElement): boolean {
     return elementHasGlobalARIAPropertyOrAttributeFunction(elementQW);
   }
 }

@@ -1,10 +1,8 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import roles from './roles.json';
 import getElementRole from './getElementRole';
 
-function elementHasValidRole(elementQW: QWElement, pageQW: QWPage): boolean {
-  const role = getElementRole(elementQW, pageQW);
+function elementHasValidRole(element: typeof window.qwElement): boolean {
+  const role = getElementRole(element);
   let result = false;
   if (role) {
     if (role.trim().includes(' ')) {

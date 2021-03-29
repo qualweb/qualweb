@@ -1,21 +1,18 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function getElementReferencedByHREF(pageQW, elementQW) {
-    if (!elementQW || !pageQW) {
-        throw Error('Element is not defined');
-    }
-    const href = elementQW.getElementAttribute('href');
-    const url = pageQW.getURL();
+function getElementReferencedByHREF(element) {
+    const href = element.getElementAttribute('href');
+    const url = window.qwPage.getURL();
     const urlConcatWithId = url + '#';
     const lastSlash = url.lastIndexOf('/');
     const filename = url.substring(lastSlash + 1);
-    let result;
+    let result = null;
     if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) || href.startsWith(filename))) {
         const idSymbol = href.indexOf('#');
         if (idSymbol > -1) {
             const idReferenced = href.substring(idSymbol + 1);
             if (idReferenced.length > 0) {
-                const idElementReferenced = pageQW.getElement('#' + idReferenced);
+                const idElementReferenced = window.qwPage.getElement('#' + idReferenced);
                 result = idElementReferenced;
             }
         }

@@ -1,0 +1,733 @@
+{
+    "alert": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-live", "assertive"], ["aria-atomic", "true"]],
+        "requiredOwnedElements": []
+    },
+    "alertdialog": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-modal", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "application": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "article": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "banner": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "button": {
+        "baseConcept": ["button"],
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "aria-pressed", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "cell": {
+        "baseConcept": ["td"],
+        "attribute": "",
+        "requiredContextRole": ["row"],
+        "requiredAria": "",
+        "supportedAria": ["aria-colindex", "aria-colspan", "aria-rowindex", "aria-rowspan", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "checkbox": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-checked"],
+        "supportedAria": ["aria-readonly", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-checked", "false"]],
+        "requiredOwnedElements": []
+    },
+    "columnheader": {
+        "baseConcept": ["th"],
+        "attribute": ["scope=\"col\""],
+        "requiredContextRole": ["row"],
+        "requiredAria": "",
+        "supportedAria": ["aria-sort", "aria-atomic", "aria-busy", "aria-colindex", "aria-colspan", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-readonly", "aria-relevant", "aria-requiredAria", "aria-roledescription", "aria-rowindex", "aria-rowspan", "aria-selected"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "combobox": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-controls", "aria-expanded"],
+        "supportedAria": ["aria-autocomplete", "aria-readonly", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-expanded", "false"], ["aria-haspopup", "listbox"]],
+        "requiredOwnedElements": []
+    },
+    "command": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "complementary": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "composite": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "contentinfo": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "definition": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "dialog": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-modal", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "directory": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "document": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "feed": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["article"]]
+    },
+    "figure": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "form": {
+        "baseConcept": ["form"],
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "grid": {
+        "baseConcept": ["table"],
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-level", "aria-multiselectable", "aria-readonly", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-colcount", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-rowcount"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["row"], ["rowgroup", "row"]]
+    },
+    "gridcell": {
+        "baseConcept": ["td"],
+        "attribute": "",
+        "requiredContextRole": ["row"],
+        "requiredAria": "",
+        "supportedAria": ["aria-readonly", "aria-requiredAria", "aria-selected", "aria-atomic", "aria-busy", "aria-colindex", "aria-colspan", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-rowindex", "aria-rowspan"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "group": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "heading": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-level"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-level", "2"]],
+        "requiredOwnedElements": []
+    },
+    "img": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "input": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "landmark": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "link": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "list": {
+        "baseConcept": ["ol", "ul"],
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredRoles": "",
+        "supportedRoles": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["group", "listitem"], ["listitem"]]
+    },
+    "listbox": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-multiselectable", "aria-readonly", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "vertical"]],
+        "requiredOwnedElements": []
+    },
+    "listitem": {
+        "baseConcept": ["li"],
+        "attribute": "",
+        "requiredContextRole": ["group", "list"],
+        "requiredAria": "",
+        "supportedAria": ["aria-level", "aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "log": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-live", "polite"]],
+        "requiredOwnedElements": []
+    },
+    "main": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "marquee": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "math": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "menu": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "vertical"]],
+        "requiredOwnedElements": [[["group"], ["menuitemradio"]], ["menuitem"], ["menuitemcheckbox"], ["menuitemradio"]]
+    },
+    "menubar": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "horizontal"]],
+        "requiredOwnedElements": [[["group"], ["menuitemradio"]], ["menuitem"], ["menuitemcheckbox"], ["menuitemradio"]]
+    },
+    "menuitem": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": ["group", "menu", "menubar"],
+        "requiredAria": "",
+        "supportedAria": ["aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "menuitemcheckbox": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": ["menu", "menubar"],
+        "requiredAria": ["aria-checked"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-posinset", "aria-readonly", "aria-relevant", "aria-roledescription", "aria-setsize"],
+        "implicitValueRoles": [["aria-checked", "false"]],
+        "requiredOwnedElements": []
+    },
+    "menuitemradio": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": ["group", "menu", "menubar"],
+        "requiredAria": ["aria-checked"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-posinset", "aria-readonly", "aria-relevant", "aria-roledescription", "aria-setsize"],
+        "implicitValueRoles": [["aria-checked", "false"]],
+        "requiredOwnedElements": []
+    },
+    "navigation": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "none": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": "",
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "note": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "option": {
+        "baseConcept": ["option"],
+        "attribute": "",
+        "requiredContextRole": ["listbox"],
+        "requiredAria": ["aria-selected"],
+        "supportedAria": ["aria-checked", "aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-selected", "false"]],
+        "requiredOwnedElements": [["option"]]
+    },
+    "presentation": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "progressbar": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-valuemax", "aria-valuemin", "aria-valuenow", "aria-valuetext"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "radio": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-checked"],
+        "supportedAria": ["aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-checked", "false"]],
+        "requiredOwnedElements": []
+    },
+    "radiogroup": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-readonly", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["radio"]]
+    },
+    "range": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-valuemax", "aria-valuemin", "aria-valuenow", "aria-valuetext", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "region": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "roletype": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "row": {
+        "baseConcept": ["tr"],
+        "attribute": "",
+        "requiredContextRole": ["grid", "rowgroup", "table", "treegrid"],
+        "requiredAria": "",
+        "supportedAria": ["aria-colindex", "aria-level", "aria-rowindex", "aria-selected", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [
+            ["cell"], ["columnheader"], ["gridcell"], ["rowheader"]
+        ]
+    },
+    "rowgroup": {
+        "baseConcept": ["tbody", "tfoot", "thead"],
+        "attribute": "",
+        "requiredContextRole": ["grid", "table", "treegrid"],
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["row"]]
+    },
+    "rowheader": {
+        "baseConcept": ["th"],
+        "attribute": ["scope=\"row\""],
+        "requiredContextRole": ["row"],
+        "requiredAria": "",
+        "supportedAria": ["aria-sort", "aria-atomic", "aria-busy", "aria-colindex", "aria-colspan", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-readonly", "aria-relevant", "aria-requiredAria", "aria-roledescription", "aria-rowindex", "aria-rowspan", "aria-selected"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "scrollbar": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-controls", "aria-orientation", "aria-valuemax", "aria-valuemin", "aria-valuenow"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-valuetext"],
+        "implicitValueRoles": [["aria-orientation", "vertical"], ["aria-valuemin", "0"], ["aria-valuemax", "100"]],
+        "requiredOwnedElements": []
+    },
+    "search": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "searchbox": {
+        "baseConcept": ["input"],
+        "attribute": ["type=\"search\""],
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-autocomplete", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-multiline", "aria-owns", "aria-placeholder", "aria-readonly", "aria-relevant", "aria-requiredAria", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "section": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "sectionhead": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "select": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-orientation", "", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "separator": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-valuemax", "aria-valuemin", "aria-valuenow"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "horizontal"], ["aria-valuemin", "0"], ["aria-valuemax", "100"], ["aria-valuenow", "50"]],
+        "requiredOwnedElements": []
+    },
+    "slider": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-valuemax", "aria-valuemin", "aria-valuenow"],
+        "supportedAria": ["aria-orientation", "aria-readonly", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-valuetext"],
+        "implicitValueRoles": [["aria-orientation", "horizontal"], ["aria-valuemin", "0"], ["aria-valuemax", "100"]],
+        "requiredOwnedElements": []
+    },
+    "spinbutton": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-valuemax", "aria-valuemin", "aria-valuenow"],
+        "supportedAria": ["aria-readonly", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-valuetext"],
+        "implicitValueRoles": [["aria-valuenow", "0"]],
+        "requiredOwnedElements": []
+    },
+    "status": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-live", "polite"], ["aria-atomic", "true"]],
+        "requiredOwnedElements": []
+    },
+    "structure": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "switch": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-checked"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-readonly", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-checked", "false"]],
+        "requiredOwnedElements": []
+    },
+    "tab": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": ["tablist"],
+        "requiredAria": "",
+        "supportedAria": ["aria-posinset", "aria-selected", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-selected", "false"]],
+        "requiredOwnedElements": []
+    },
+    "table": {
+        "baseConcept": ["table"],
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-colcount", "aria-rowcount", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": [["row"], ["rowgroup", "row"]]
+    },
+    "tablist": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-level", "aria-multiselectable", "aria-orientation", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "horizontal"]],
+        "requiredOwnedElements": [["tab"]]
+    },
+    "tabpanel": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "term": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "textbox": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-autocomplete", "aria-multiline", "aria-placeholder", "aria-readonly", "aria-requiredAria", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "timer": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "toolbar": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-orientation", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "horizontal"]],
+        "requiredOwnedElements": []
+    },
+    "tooltip": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "tree": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-multiselectable", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["aria-orientation", "vertical"]],
+        "requiredOwnedElements": [["group", "treeitem"], ["treeitem"]]
+    },
+    "treegrid": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": ["group", "tree"],
+        "requiredAria": "",
+        "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-colcount", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-level", "aria-live", "aria-multiselectable", "aria-orientation", "aria-owns", "aria-readonly", "aria-relevant", "aria-requiredAria", "aria-roledescription", "aria-rowcount"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "treeitem": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": ["aria-selected"],
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-checked", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-level", "aria-live", "aria-owns", "aria-posinset", "aria-relevant", "aria-roledescription", "aria-setsize"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "widget": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    },
+    "window": {
+        "baseConcept": "",
+        "attribute": "",
+        "requiredContextRole": "",
+        "requiredAria": "",
+        "supportedAria": ["aria-expanded", "aria-modal", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+        "implicitValueRoles": [["", ""]],
+        "requiredOwnedElements": []
+    }
+}

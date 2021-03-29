@@ -1,16 +1,10 @@
-'use strict';
-import { QWElement } from '@qualweb/qw-element';
-
-function elementHasOnePixel(elementQW: QWElement): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-  const height = elementQW.getElementStyleProperty('height', '');
-  const background = elementQW.getElementStyleProperty('background-color', '');
-  const parent = elementQW.getElementParent();
-  let parentBackGround;
+function elementHasOnePixel(element: typeof window.qwElement): boolean {
+  const height = element.getElementStyleProperty('height', '');
+  const background = element.getElementStyleProperty('background-color', '');
+  const parent = element.getElementParent();
+  let parentBackGround: string | undefined;
   if (parent) {
-    parentBackGround = elementQW.getElementStyleProperty('background-color', '');
+    parentBackGround = element.getElementStyleProperty('background-color', '');
   }
   return (
     !!height && height.replace(' ', '') === '1px' && (parentBackGround === background || background === 'transparent')

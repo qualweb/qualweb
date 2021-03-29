@@ -1,20 +1,15 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import isElementFocusable from './isElementFocusable';
 import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
 import isElementChildPresentationalAux from './isElementChildPresentationalAux';
 
-function isElementChildPresentational(elementQW: QWElement, pageQW: QWPage): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-  const focusable = isElementFocusable(elementQW, pageQW);
-  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(elementQW);
-  const parent = elementQW.getElementParent();
+function isElementChildPresentational(element: typeof window.qwElement): boolean {
+  const focusable = isElementFocusable(element);
+  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(element);
+  const parent = element.getElementParent();
   let childPresentational = false;
 
   if (parent && !focusable && !hasGlobalARIA) {
-    childPresentational = isElementChildPresentationalAux(parent, pageQW);
+    childPresentational = isElementChildPresentationalAux(parent);
   }
 
   return !focusable && !hasGlobalARIA && childPresentational;

@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const isElementWidget_1 = __importDefault(require("./isElementWidget"));
-function getDisabledWidgets(pageQW) {
-    const elements = pageQW.getElements('*');
-    const disabledElements = [];
+function getDisabledWidgets() {
+    const elements = window.qwPage.getElements('*');
+    const disabledElements = new Array();
     let isWidget, disable, ariaDisable, parent, parentTag;
     for (const element of elements) {
-        isWidget = isElementWidget_1.default(element, pageQW);
+        isWidget = isElementWidget_1.default(element);
         disable = element.getElementAttribute('disabled') !== null;
         ariaDisable = element.getElementAttribute('aria-disabled') !== null;
         parent = element.getElementParent();

@@ -12,8 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const qw_element_1 = require("@qualweb/qw-element");
-const qw_page_1 = require("@qualweb/qw-page");
 const allowsNameFromContent_1 = __importDefault(require("./allowsNameFromContent"));
 const getAccessibleName_1 = __importDefault(require("./getAccessibleName"));
 const getAccessibleNameRecursion_1 = __importDefault(require("./getAccessibleNameRecursion"));
@@ -40,202 +38,207 @@ const isElementFocusable_1 = __importDefault(require("./isElementFocusable"));
 const isFocusableBrowser_1 = __importDefault(require("./isFocusableBrowser"));
 const getOwnedElements_1 = __importDefault(require("./getOwnedElements"));
 const isPartOfSequentialFocusNavigation_1 = __importDefault(require("./isPartOfSequentialFocusNavigation"));
-const decorator_1 = require("../decorator");
+const ariaAttributesRoles_json_1 = __importDefault(require("./ariaAttributesRoles.json"));
+const _roles_json_1 = __importDefault(require("./_roles.json"));
+const language_json_1 = __importDefault(require("./language.json"));
+const cache_1 = require("../cache");
 class AccessibilityUtils {
-    static getLinkContext(element, page) {
-        return getLinkContext_1.default(element, page);
+    static getLinkContext(element) {
+        return getLinkContext_1.default(element);
     }
-    static elementHasValidRole(element, page) {
-        return elementHasValidRole_1.default(element, page);
+    static elementHasValidRole(element) {
+        return elementHasValidRole_1.default(element);
     }
-    static getAccessibleName(element, page) {
-        return getAccessibleName_1.default(element, page);
+    static getAccessibleName(element) {
+        return getAccessibleName_1.default(element);
     }
-    static getAccessibleNameRecursion(element, page, recursion, isWidget) {
-        return getAccessibleNameRecursion_1.default(element, page, recursion, isWidget);
+    static getAccessibleNameRecursion(element, recursion, isWidget) {
+        return getAccessibleNameRecursion_1.default(element, recursion, isWidget);
     }
-    static getAccessibleNameSVG(element, page) {
-        return getAccessibleNameSVG_1.default(element, page);
+    static getAccessibleNameSVG(element) {
+        return getAccessibleNameSVG_1.default(element);
     }
-    static getOwnedElements(element, page) {
-        return getOwnedElements_1.default(element, page);
+    static getOwnedElements(element) {
+        return getOwnedElements_1.default(element);
     }
-    static getElementRole(element, page) {
-        return getElementRole_1.default(element, page);
+    static getElementRole(element) {
+        return getElementRole_1.default(element);
     }
-    static getElementRoleAName(element, page, aName) {
-        return getElementRoleAName_1.default(element, page, aName);
+    static getElementRoleAName(element, aName) {
+        return getElementRoleAName_1.default(element, aName);
     }
-    static isDataTable(element, page) {
-        return isDataTable_1.default(element, page);
+    static isDataTable(element) {
+        return isDataTable_1.default(element);
     }
-    static isElementControl(element, page) {
-        return isElementControl_1.default(element, page);
+    static isElementControl(element) {
+        return isElementControl_1.default(element);
     }
-    static isElementInAT(element, page) {
-        return isElementInAT_1.default(element, page);
+    static isElementInAT(element) {
+        return isElementInAT_1.default(element);
     }
-    static isElementReferencedByAriaLabel(element, page) {
-        return isElementReferencedByAriaLabel_1.default(element, page);
+    static isElementReferencedByAriaLabel(element) {
+        return isElementReferencedByAriaLabel_1.default(element);
     }
-    static isElementWidget(element, page) {
-        return isElementWidget_1.default(element, page);
+    static isElementWidget(element) {
+        return isElementWidget_1.default(element);
     }
-    static getImplicitRole(element, page, accessibleName) {
-        return getImplicitRole_1.default(element, page, accessibleName);
+    static getImplicitRole(element, accessibleName) {
+        return getImplicitRole_1.default(element, accessibleName);
     }
-    static getOwnerElement(element, page) {
-        return getOwnerElement_1.default(element, page);
+    static getOwnerElement(element) {
+        return getOwnerElement_1.default(element);
     }
-    static isElementChildPresentationalAux(element, page) {
-        return isElementChildPresentationalAux_1.default(element, page);
+    static isElementChildPresentationalAux(element) {
+        return isElementChildPresentationalAux_1.default(element);
     }
-    static isElementChildPresentational(elementQW, pageQW) {
-        return isElementChildPresentational_1.default(elementQW, pageQW);
+    static isElementChildPresentational(element) {
+        return isElementChildPresentational_1.default(element);
     }
     static isElementFocusableByDefault(elementQW) {
         return isElementFocusableByDefault_1.default(elementQW);
     }
-    static isElementFocusable(elementQW, pageQW) {
-        return isElementFocusable_1.default(elementQW, pageQW);
+    static isElementFocusable(element) {
+        return isElementFocusable_1.default(element);
     }
-    static isPartOfSequentialFocusNavigation(elementQW, pageQW) {
-        return isPartOfSequentialFocusNavigation_1.default(elementQW, pageQW);
+    static isPartOfSequentialFocusNavigation(element) {
+        return isPartOfSequentialFocusNavigation_1.default(element);
     }
     static elementHasGlobalARIAPropertyOrAttribute(elementQW) {
         return elementHasGlobalARIAPropertyOrAttribute_1.default(elementQW);
     }
 }
+AccessibilityUtils.ariaAttributesRoles = ariaAttributesRoles_json_1.default;
+AccessibilityUtils.roles = _roles_json_1.default;
+AccessibilityUtils.languages = language_json_1.default;
 AccessibilityUtils.allowsNameFromContent = allowsNameFromContent_1.default;
 AccessibilityUtils.getAccessibleNameSelector = getAccessibleNameSelector_1.default;
 AccessibilityUtils.getDefaultName = getDefaultName_1.default;
 AccessibilityUtils.getDisabledWidgets = getDisabledWidgets_1.default;
 AccessibilityUtils.isFocusableBrowser = isFocusableBrowser_1.default;
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getLinkContext'),
+    cache_1.Cache('AcceUtils.getLinkContext'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Array)
 ], AccessibilityUtils, "getLinkContext", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.elementHasValidRole'),
+    cache_1.Cache('AcceUtils.elementHasValidRole'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "elementHasValidRole", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getAccessibleName'),
+    cache_1.Cache('AcceUtils.getAccessibleName'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getAccessibleName", null);
 __decorate([
-    decorator_1.FullMethodCacheDecorator('AcceUtils.getAccessibleNameRecursion'),
+    cache_1.FullMethodCache('AcceUtils.getAccessibleNameRecursion'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement,
-        qw_page_1.QWPage, Boolean, Boolean]),
+    __metadata("design:paramtypes", [Object, Boolean, Boolean]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getAccessibleNameRecursion", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getAccessibleNameSVG'),
+    cache_1.Cache('AcceUtils.getAccessibleNameSVG'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getAccessibleNameSVG", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getOwnedElements'),
+    cache_1.Cache('AcceUtils.getOwnedElements'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Array)
 ], AccessibilityUtils, "getOwnedElements", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getElementRole'),
+    cache_1.Cache('AcceUtils.getElementRole'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getElementRole", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getElementRole'),
+    cache_1.Cache('AcceUtils.getElementRole'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getElementRoleAName", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isDataTable'),
+    cache_1.Cache('AcceUtils.isDataTable'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isDataTable", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementControl'),
+    cache_1.Cache('AcceUtils.isElementControl'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementControl", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementInAT'),
+    cache_1.Cache('AcceUtils.isElementInAT'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementInAT", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementReferencedByAriaLabel'),
+    cache_1.Cache('AcceUtils.isElementReferencedByAriaLabel'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementReferencedByAriaLabel", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementWidget'),
+    cache_1.Cache('AcceUtils.isElementWidget'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementWidget", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getImplicitRole'),
+    cache_1.Cache('AcceUtils.getImplicitRole'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getImplicitRole", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.getOwnerElement'),
+    cache_1.Cache('AcceUtils.getOwnerElement'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Object)
 ], AccessibilityUtils, "getOwnerElement", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementChildPresentationalAux'),
+    cache_1.Cache('AcceUtils.isElementChildPresentationalAux'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementChildPresentationalAux", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementChildPresentational'),
+    cache_1.Cache('AcceUtils.isElementChildPresentational'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementChildPresentational", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementFocusableByDefault'),
+    cache_1.Cache('AcceUtils.isElementFocusableByDefault'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementFocusableByDefault", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isElementFocusable'),
+    cache_1.Cache('AcceUtils.isElementFocusable'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isElementFocusable", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.isPartOfSequentialFocusNavigation'),
+    cache_1.Cache('AcceUtils.isPartOfSequentialFocusNavigation'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "isPartOfSequentialFocusNavigation", null);
 __decorate([
-    decorator_1.CacheDecorator('AcceUtils.elementHasGlobalARIAPropertyOrAttribute'),
+    cache_1.Cache('AcceUtils.elementHasGlobalARIAPropertyOrAttribute'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], AccessibilityUtils, "elementHasGlobalARIAPropertyOrAttribute", null);
 exports.default = AccessibilityUtils;

@@ -1,42 +1,39 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import getAriaOwner from './getAriaOwner';
 import isElementInAT from './isElementInAT';
+
 //elementQW isInAT
-function getOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
-  let children = elementQW.getElementChildren();
-  let result: QWElement[] = [];
-  let ariaOwnedElements = getAriaOwnedElements(elementQW, pageQW);
+function getOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+  const children = element.getElementChildren();
+  const result = new Array<typeof window.qwElement>();
+  const ariaOwnedElements = getAriaOwnedElements(element);
   result.push(...ariaOwnedElements);
-  for (let child of children) {
-    result.push(...getOwnedElementsAux(child, pageQW, elementQW.getElementSelector()));
+  for (const child of children ?? []) {
+    result.push(...getOwnedElementsAux(child, element.getElementSelector()));
   }
   return result;
 }
-function getOwnedElementsAux(elementQW: QWElement, pageQW: QWPage, ownerSelector: string): QWElement[] {
-  let ariaOwner = getAriaOwner(elementQW, pageQW);
-  if (
-    isElementInAT(elementQW, pageQW) &&
-    (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))
-  ) {
-    return [elementQW];
+
+function getOwnedElementsAux(element: typeof window.qwElement, ownerSelector: string): Array<typeof window.qwElement> {
+  let ariaOwner = getAriaOwner(element);
+  if (isElementInAT(element) && (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))) {
+    return [element];
   } else {
-    let children = elementQW.getElementChildren();
-    let result: QWElement[] = [];
-    for (let child of children) {
-      result.push(...getOwnedElementsAux(child, pageQW, ownerSelector));
+    let children = element.getElementChildren();
+    let result = new Array<typeof window.qwElement>();
+    for (const child of children ?? []) {
+      result.push(...getOwnedElementsAux(child, ownerSelector));
     }
     return result;
   }
 }
 
-function getAriaOwnedElements(elementQW: QWElement, pageQW: QWPage): QWElement[] {
-  let ariaOwns = elementQW.getElementAttribute('aria-owns');
-  let elements: QWElement[] = [];
+function getAriaOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+  const ariaOwns = element.getElementAttribute('aria-owns');
+  const elements = new Array<typeof window.qwElement>();
   if (ariaOwns) {
-    let splitted = ariaOwns.split(',');
-    for (let id of splitted) {
-      let elem = pageQW.getElementByID(id);
+    const splitted = ariaOwns.split(',');
+    for (const id of splitted ?? []) {
+      const elem = window.qwPage.getElementByID(id);
       if (!!elem) {
         elements.push(elem);
       }

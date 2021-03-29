@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Utilities module for qualweb",
   "main": "dist/util.bundle.js",
   "files": [
@@ -42,6 +42,7 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clone": "^4.5.6",
     "@types/node": "^14.14.37",
+    "@types/string-pixel-width": "^1.7.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.23.0",
@@ -59,7 +60,8 @@
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "@qualweb/qw-page": "^0.2.3",
-    "lodash.clone": "^4.5.0"
+    "languagedetect": "^2.0.0",
+    "lodash.clone": "^4.5.0",
+    "string-pixel-width": "^1.10.0"
   }
 }

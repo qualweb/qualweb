@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const roles_json_1 = __importDefault(require("./roles.json"));
 const getElementRole_1 = __importDefault(require("./getElementRole"));
-function elementHasValidRole(elementQW, pageQW) {
-    const role = getElementRole_1.default(elementQW, pageQW);
+function elementHasValidRole(element) {
+    const role = getElementRole_1.default(element);
     let result = false;
     if (role) {
         if (role.trim().includes(' ')) {

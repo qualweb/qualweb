@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const getElementRoleAName_1 = __importDefault(require("./getElementRoleAName"));
 const getTrimmedText_1 = __importDefault(require("../domUtils/getTrimmedText"));
-function getValueFromEmbeddedControl(element, page) {
-    const role = getElementRoleAName_1.default(element, page, '');
+function getValueFromEmbeddedControl(element) {
+    const role = getElementRoleAName_1.default(element, '');
     let name = element.getElementTagName();
     if (!name)
         name = '';
@@ -26,7 +26,7 @@ function getValueFromEmbeddedControl(element, page) {
             optionSelected = element.getElement(`[selected]`);
         }
         const aria_owns = element.getElementAttribute('[aria-owns]');
-        const elementasToSelect = page.getElement(`[id="${aria_owns}"]`);
+        const elementasToSelect = window.qwPage.getElement(`[id="${aria_owns}"]`);
         let elementWithAriaSelected;
         if (elementasToSelect)
             elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]`);

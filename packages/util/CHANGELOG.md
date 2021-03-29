@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3] - 29/03/2021
+
+### Updated
+
+- type definitions
+- refactored code to use global qualweb page (qw-page) created on the window object
+
 ## [0.5.2] - 27/03/2021
 
 ### Updated

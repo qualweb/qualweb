@@ -4,11 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getAccessibleName_1 = __importDefault(require("./getAccessibleName"));
-function isDataTable(element, pageQW) {
-    if (!element) {
-        throw Error('Element is not defined');
-    }
-    const accessibleName = getAccessibleName_1.default(element, pageQW);
+function isDataTable(element) {
+    const accessibleName = getAccessibleName_1.default(element);
     const thElem = element.getElements('th');
     const tdHeaders = element.getElements('td[scope]');
     const tdWithHeaders = element.getElements('td[headers]');

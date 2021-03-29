@@ -1,20 +1,14 @@
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-
 function isElementADescendantOfExplicitRole(
-  elementQW: QWElement,
-  pageQW: QWPage,
+  elementQW: typeof window.qwElement,
   names: string[],
   roles: string[]
 ): boolean {
-  if (!elementQW || !pageQW) {
-    throw Error('Element is not defined');
-  }
   const parent = elementQW.getElementParent();
   let result = false;
-  let sameRole, sameName;
 
   if (parent !== null) {
+    let sameRole = false;
+    let sameName = false;
     const parentName = parent.getElementTagName();
     const parentRole = parent.getElementAttribute('role');
 
@@ -26,7 +20,7 @@ function isElementADescendantOfExplicitRole(
     }
     result = sameName || sameRole;
     if (!result) {
-      return isElementADescendantOfExplicitRole(parent, pageQW, names, roles);
+      return isElementADescendantOfExplicitRole(parent, names, roles);
     } else {
       return result;
     }

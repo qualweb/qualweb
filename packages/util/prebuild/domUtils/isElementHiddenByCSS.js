@@ -4,14 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const isElementHiddenByCSSAux_1 = __importDefault(require("./isElementHiddenByCSSAux"));
-function isElementHiddenByCSS(elementQW, pageQW) {
-    const parent = elementQW.getParentAllContexts();
+function isElementHiddenByCSS(element) {
+    const parent = element.getParentAllContexts();
     let parentHidden = false;
-    let result;
     if (parent) {
-        parentHidden = isElementHiddenByCSS(parent, pageQW);
+        parentHidden = isElementHiddenByCSS(parent);
     }
-    result = isElementHiddenByCSSAux_1.default(elementQW) || parentHidden;
-    return result;
+    return isElementHiddenByCSSAux_1.default(element) || parentHidden;
 }
 exports.default = isElementHiddenByCSS;

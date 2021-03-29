@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const constants_1 = require("./constants");
 const getElementRoleAName_1 = __importDefault(require("./getElementRoleAName"));
-function isElementWidget(elementQW, pageQW) {
-    const role = getElementRoleAName_1.default(elementQW, pageQW, '');
+function isElementWidget(element) {
+    const role = getElementRoleAName_1.default(element, '');
     return role !== null && constants_1.widgetRoles.indexOf(role) >= 0;
 }
 exports.default = isElementWidget;

@@ -12,21 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const qw_element_1 = require("@qualweb/qw-element");
 const elementHasOnePixel_1 = __importDefault(require("./elementHasOnePixel"));
 const isElementHiddenByCSS_1 = __importDefault(require("./isElementHiddenByCSS"));
 const elementHasContent_1 = __importDefault(require("./elementHasContent"));
-const qw_page_1 = require("@qualweb/qw-page");
-const decorator_1 = require("../decorator");
-function isElementVisible(elementQW, pageQW) {
-    if (!elementQW) {
-        throw Error('Element is not defined');
-    }
-    const offScreen = elementQW.isOffScreen();
-    const cssHidden = isElementHiddenByCSS_1.default(elementQW, pageQW);
-    const hasContent = elementHasContent_1.default(elementQW, pageQW, true);
-    const hasOnePixelHeight = elementHasOnePixel_1.default(elementQW);
-    const opacityProperty = elementQW.getElementStyleProperty('opacity', '');
+const cache_1 = require("../cache");
+function isElementVisible(element) {
+    const offScreen = element.isOffScreen();
+    const cssHidden = isElementHiddenByCSS_1.default(element);
+    const hasContent = elementHasContent_1.default(element, true);
+    const hasOnePixelHeight = elementHasOnePixel_1.default(element);
+    const opacityProperty = element.getElementStyleProperty('opacity', '');
     let opacity;
     if (opacityProperty) {
         opacity = parseInt(opacityProperty);
@@ -34,14 +29,14 @@ function isElementVisible(elementQW, pageQW) {
     return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0));
 }
 class Utility {
-    static isElementVisible(elementQW, pageQW) {
-        return isElementVisible(elementQW, pageQW);
+    static isElementVisible(element) {
+        return isElementVisible(element);
     }
 }
 __decorate([
-    decorator_1.CacheDecorator('DomUtils.isElementVisible'),
+    cache_1.Cache('DomUtils.isElementVisible'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [qw_element_1.QWElement, qw_page_1.QWPage]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Boolean)
 ], Utility, "isElementVisible", null);
 exports.default = Utility.isElementVisible;
