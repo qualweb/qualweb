@@ -1,9 +1,6 @@
-'use strict';
-
 import { nameFromContentRoles, nameFromContentElements } from './constants';
-import { QWElement } from '@qualweb/qw-element';
 
-function allowsNameFromContent(element: QWElement): boolean {
+function allowsNameFromContent(element: typeof window.qwElement): boolean {
   const name = element.getElementTagName();
   const role = element.getElementAttribute('role');
 

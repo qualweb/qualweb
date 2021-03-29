@@ -1,12 +1,9 @@
-'use strict';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getAccessibleName from './getAccessibleName';
+import getElementRoleAName from './getElementRoleAName';
 
-function getElementRole(elementQW: QWElement, pageQW: QWPage): string | null {
-  const aName = AccessibilityUtils.getAccessibleName(elementQW, pageQW);
-
-  return AccessibilityUtils.getElementRoleAName(elementQW, pageQW, aName);
+function getElementRole(element: typeof window.qwElement): string | null {
+  const aName = getAccessibleName(element);
+  return getElementRoleAName(element, aName);
 }
 
 export default getElementRole;

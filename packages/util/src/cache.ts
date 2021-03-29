@@ -1,10 +1,9 @@
-/* eslint-disable prefer-rest-params */
-function CacheDecorator(methodName: string) {
+function Cache(methodName: string) {
   return function (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): void {
     const method = descriptor.value;
     descriptor.value = function () {
-      const pageQW = arguments[1];
-      const elementQW = arguments[0];
+      const pageQW = window.qwPage;
+      const elementQW = <typeof window.qwElement>arguments[0];
       const selector = elementQW.getElementSelector();
       let result;
       if (pageQW.isValueCached(selector, methodName)) {
@@ -17,17 +16,18 @@ function CacheDecorator(methodName: string) {
     };
   };
 }
-function FullMethodCacheDecorator(methodName: string) {
+
+function FullMethodCache(methodName: string) {
   return function (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): void {
     const method = descriptor.value;
     descriptor.value = function () {
-      const pageQW = arguments[1];
-      const elementQW = arguments[0];
+      const pageQW = window.qwPage;
+      const elementQW = <typeof window.qwElement>arguments[0];
       let selector = elementQW.getElementSelector();
       for (let i = 2; i < arguments.length; i++) {
         selector += arguments[i];
       }
-      let result;
+      let result: string | undefined;
       if (pageQW.isValueCached(selector, methodName)) {
         result = pageQW.getCachedValue(selector, methodName);
       } else {
@@ -39,4 +39,4 @@ function FullMethodCacheDecorator(methodName: string) {
   };
 }
 
-export { CacheDecorator, FullMethodCacheDecorator };
+export { Cache, FullMethodCache };

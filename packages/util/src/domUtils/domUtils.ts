@@ -1,21 +1,21 @@
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
-import videoElementHasAudioFunction from './objectElementisNonText';
+import videoElementHasAudioFunction from './objectElementIsNonText';
 import isElementHiddenFunction from './isElementHidden';
 import isFocusableBrowserFunction from '../accessibilityUtils/isFocusableBrowser';
 import isElementVisibleFunction from './isElementVisible';
-import elementIDIsReferencedFunction from './elementIDIsReferenced';
+import elementIdIsReferencedFunction from './elementIdIsReferenced';
 import isElementADescendantOfFunction from './isElementADescendantOf';
 import isElementADescendantOfExplicitRoleFunction from './isElementADescendantOfExplicitRole';
 import getVideoMetadataFunction from './getVideoMetadata';
 import elementHasContentFunction from './elementHasContent';
 import getTrimmedTextFunction from './getTrimmedText';
-import objectElementisNonTextFunction from './objectElementisNonText';
+import objectElementIsNonTextFunction from './objectElementIsNonText';
+import isHumanLanguageFunction from './isHumanLanguage';
+import getTextSizeFunction from './getTextSize';
 
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-import { CacheDecorator } from '../decorator';
+import { Cache } from '../cache';
 
 /**
  * DOM Utilities namespace
@@ -26,58 +26,55 @@ class DomUtils {
   public static getElementReferencedByHREF = getElementReferencedByHREFFunction;
   public static videoElementHasAudio = videoElementHasAudioFunction;
   public static isFocusableBrowser = isFocusableBrowserFunction;
-  public static objectElementisNonText = objectElementisNonTextFunction;
+  public static objectElementIsNonText = objectElementIsNonTextFunction;
+  public static isHumanLanguage = isHumanLanguageFunction;
+  public static getTextSize = getTextSizeFunction;
 
-  @CacheDecorator('DomUtils.isElementHidden')
-  public static isElementHidden(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementHiddenFunction(elementQW, pageQW);
+  @Cache('DomUtils.isElementHidden')
+  public static isElementHidden(element: typeof window.qwElement): boolean {
+    return isElementHiddenFunction(element);
   }
 
-  @CacheDecorator('DomUtils.isElementHiddenByCSS')
-  public static isElementHiddenByCSS(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementHiddenByCSSFunction(elementQW, pageQW);
+  @Cache('DomUtils.isElementHiddenByCSS')
+  public static isElementHiddenByCSS(element: typeof window.qwElement): boolean {
+    return isElementHiddenByCSSFunction(element);
   }
 
-  @CacheDecorator('DomUtils.isElementVisible')
-  public static isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
-    return isElementVisibleFunction(elementQW, pageQW);
+  public static isElementVisible = isElementVisibleFunction;
+
+  @Cache('DomUtils.elementIdIsReferenced')
+  public static elementIdIsReferenced(element: typeof window.qwElement, id: string, attribute: string): boolean {
+    return elementIdIsReferencedFunction(element, id, attribute);
   }
 
-  @CacheDecorator('DomUtils.elementIDIsReferenced')
-  public static elementIDIsReferenced(elementQW: QWElement, pageQW: QWPage, id: string, attribute: string): boolean {
-    return elementIDIsReferencedFunction(elementQW, pageQW, id, attribute);
-  }
-
-  @CacheDecorator('DomUtils.isElementADescendantOf')
+  @Cache('DomUtils.isElementADescendantOf')
   public static isElementADescendantOf(
-    elementQW: QWElement,
-    pageQW: QWPage,
-    names: string[],
-    roles: string[]
+    element: typeof window.qwElement,
+    names: Array<string>,
+    roles: Array<string>
   ): boolean {
-    return isElementADescendantOfFunction(elementQW, pageQW, names, roles);
+    return isElementADescendantOfFunction(element, names, roles);
   }
 
-  @CacheDecorator('DomUtils.isElementADescendantOfExplicitRole')
+  @Cache('DomUtils.isElementADescendantOfExplicitRole')
   public static isElementADescendantOfExplicitRole(
-    elementQW: QWElement,
-    pageQW: QWPage,
-    names: string[],
-    roles: string[]
+    element: typeof window.qwElement,
+    names: Array<string>,
+    roles: Array<string>
   ): boolean {
-    return isElementADescendantOfExplicitRoleFunction(elementQW, pageQW, names, roles);
+    return isElementADescendantOfExplicitRoleFunction(element, names, roles);
   }
 
-  @CacheDecorator('DomUtils.elementHasContent')
-  public static elementHasContent(elementQW: QWElement, pageQW: QWPage, checkChildren: boolean): boolean {
-    return elementHasContentFunction(elementQW, pageQW, checkChildren);
+  @Cache('DomUtils.elementHasContent')
+  public static elementHasContent(element: typeof window.qwElement, checkChildren: boolean): boolean {
+    return elementHasContentFunction(element, checkChildren);
   }
-  @CacheDecorator('DomUtils.isElementHiddenByCSSAux')
-  public static isElementHiddenByCSSAux(elementQW: QWElement): boolean {
-    return isElementHiddenByCSSAuxFunction(elementQW);
+  @Cache('DomUtils.isElementHiddenByCSSAux')
+  public static isElementHiddenByCSSAux(element: typeof window.qwElement): boolean {
+    return isElementHiddenByCSSAuxFunction(element);
   }
-  @CacheDecorator('DomUtils.getTrimmedText')
-  public static getTrimmedText(element: QWElement): string {
+  @Cache('DomUtils.getTrimmedText')
+  public static getTrimmedText(element: typeof window.qwElement): string {
     return getTrimmedTextFunction(element);
   }
 }

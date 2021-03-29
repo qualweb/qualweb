@@ -1,10 +1,6 @@
-'use strict';
-
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-function isFocusableBrowser(page: QWPage, element: QWElement): boolean {
+function isFocusableBrowser(element: typeof window.qwElement): boolean {
   element.focusElement();
-  const focused = page.getFocusedElement();
+  const focused = window.qwPage.getFocusedElement();
   return element.getElementSelector() === focused.getElementSelector();
 }
 

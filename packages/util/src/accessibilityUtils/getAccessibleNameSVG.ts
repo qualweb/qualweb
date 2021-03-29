@@ -1,10 +1,7 @@
-'use strict';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
 
-function getAccessibleNameSVG(element: QWElement, page: QWPage): string | undefined {
-  return getAccessibleNameSVGRecursion(element, page, false);
+function getAccessibleNameSVG(element: typeof window.qwElement): string | undefined {
+  return getAccessibleNameSVGRecursion(element, false);
 }
 
 export default getAccessibleNameSVG;

@@ -1,37 +1,39 @@
-'use strict';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
+import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpty } from './constants';
+import isElementChildPresentational from './isElementChildPresentational';
+import getElementRole from './getElementRole';
+import elementHasValidRole from './elementHasValidRole';
+import isElementFocusable from './isElementFocusable';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
+import isElementHidden from '../domUtils/isElementHidden';
+import elementIdIsReferenced from '../domUtils/elementIdIsReferenced';
 
-import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpy } from './constants';
-import { AccessibilityUtils, DomUtils } from '@qualweb/util';
-
-function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
-  const childPresentational = AccessibilityUtils.isElementChildPresentational(elementQW, pageQW);
-  const isHidden = DomUtils.isElementHidden(elementQW, pageQW);
+function isElementInAT(element: typeof window.qwElement): boolean {
+  const childPresentational = isElementChildPresentational(element);
+  const isHidden = isElementHidden(element);
   let result = false;
-  const role = AccessibilityUtils.getElementRole(elementQW, pageQW);
-  const validRole = AccessibilityUtils.elementHasValidRole(elementQW, pageQW);
+  const role = getElementRole(element);
+  const validRole = elementHasValidRole(element);
 
   if (!isHidden && !childPresentational && role !== 'presentation' && role !== 'none') {
-    const name = elementQW.getElementTagName();
-    const notExposedIfEmpyTag = notExposedIfEmpy.includes(name);
+    const name = element.getElementTagName();
+    const notExposedIfEmpyTag = notExposedIfEmpty.includes(name);
     const needsToBeInsideDetailsTag = needsToBeInsideDetails.includes(name);
 
     if (notDefaultAT.includes(name) || notExposedIfEmpyTag || needsToBeInsideDetailsTag) {
       let specialCondition = false;
       if (notExposedIfEmpyTag) {
-        const text = elementQW.getElementText();
+        const text = element.getElementText();
         specialCondition = !!text && text.trim() !== '';
       } else if (needsToBeInsideDetailsTag) {
-        const parent = elementQW.getElementParent();
+        const parent = element.getElementParent();
         specialCondition = !!parent && parent.getElementTagName() === 'details';
       } else if (name === 'picture') {
-        const child = elementQW.getElement('img');
+        const child = element.getElement('img');
         specialCondition = !!child;
       }
-      const type = elementQW.getElementType();
-      const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
-      const id = elementQW.getElementAttribute('id');
+      const type = element.getElementType();
+      const focusable = isElementFocusable(element);
+      const id = element.getElementAttribute('id');
       let ariaActivedescendant = false;
       let ariaControls = false;
       let ariaDescribedby = false;
@@ -41,16 +43,16 @@ function isElementInAT(elementQW: QWElement, pageQW: QWPage): boolean {
       let ariaLabelledby = false;
       let ariaOwns = false;
       if (id !== null) {
-        ariaActivedescendant = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-activedescendant');
-        ariaControls = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-controls');
-        ariaDescribedby = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-describedby');
-        ariaDetails = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, ' aria-details');
-        ariaErrormessage = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-errormessage');
-        ariaFlowto = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-flowto');
-        ariaLabelledby = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-labelledby');
-        ariaOwns = DomUtils.elementIDIsReferenced(elementQW, pageQW, id, 'aria-owns');
+        ariaActivedescendant = elementIdIsReferenced(element, id, 'aria-activedescendant');
+        ariaControls = elementIdIsReferenced(element, id, ' aria-controls');
+        ariaDescribedby = elementIdIsReferenced(element, id, ' aria-describedby');
+        ariaDetails = elementIdIsReferenced(element, id, ' aria-details');
+        ariaErrormessage = elementIdIsReferenced(element, id, 'aria-errormessage');
+        ariaFlowto = elementIdIsReferenced(element, id, 'aria-flowto');
+        ariaLabelledby = elementIdIsReferenced(element, id, 'aria-labelledby');
+        ariaOwns = elementIdIsReferenced(element, id, 'aria-owns');
       }
-      const globalWaiARIA = AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW);
+      const globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute(element);
 
       result =
         specialCondition ||

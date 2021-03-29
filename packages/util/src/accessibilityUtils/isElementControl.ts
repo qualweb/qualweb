@@ -1,12 +1,8 @@
-'use strict';
-
 import { controlRoles } from './constants';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRoleAName from './getElementRoleAName';
 
-function isElementControl(elementQW: QWElement, pageQW: QWPage): boolean {
-  const role = AccessibilityUtils.getElementRoleAName(elementQW, pageQW, '');
+function isElementControl(element: typeof window.qwElement): boolean {
+  const role = getElementRoleAName(element, '');
   return role !== null && controlRoles.indexOf(role) >= 0;
 }
 export default isElementControl;

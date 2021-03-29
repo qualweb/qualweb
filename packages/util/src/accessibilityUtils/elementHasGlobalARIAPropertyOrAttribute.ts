@@ -1,13 +1,7 @@
-'use strict';
-
 import ariaJSON from './ariaAttributesRoles.json';
-import { QWElement } from '@qualweb/qw-element';
 
-function elementHasGlobalARIAPropertyOrAttribute(elementQW: QWElement): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-  let elemAttribs = elementQW.getElementAttributesName();
+function elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElement): boolean {
+  let elemAttribs = element.getElementAttributesName();
   elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
   let result = false;
   let i = 0;

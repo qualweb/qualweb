@@ -1,11 +1,10 @@
-'use strict';
 import roles from './elementImplicitRoles.json';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole';
+import isElementFocusable from './isElementFocusable';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
 
-function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: string | undefined): string | null {
-  const name = elementQW.getElementTagName();
+function getImplicitRole(element: typeof window.qwElement, accessibleName: string | undefined): string | null {
+  const name = element.getElementTagName();
   let attributes, role;
   if (name) {
     const roleValues = roles[name.toLocaleLowerCase()];
@@ -13,31 +12,31 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
       for (const roleValue of roleValues) {
         const special = roleValue['special'];
         attributes = roleValue['attributes'];
-        if (attributes.length === 0 || isInList(attributes, elementQW)) {
+        if (attributes.length === 0 || isInList(attributes, element)) {
           if (!special) {
             role = roleValue['role'];
           } else {
             const heading = new RegExp('h[1-6]');
             if (name === 'footer' || name === 'header') {
-              role = getRoleHeaderFooter(elementQW, pageQW, roleValue);
+              role = getRoleHeaderFooter(element, roleValue);
             } else if (name === 'form' || name === 'section') {
               if (accessibleName !== undefined) {
                 role = roleValue['role'];
               }
             } else if (heading.test(name)) {
-              role = getRoleHeading(elementQW, roleValue);
+              role = getRoleHeading(element, roleValue);
             } else if (name === 'img') {
-              role = getRoleImg(elementQW, pageQW, roleValue);
+              role = getRoleImg(element, roleValue);
             } else if (name === 'input') {
-              role = getRoleInput(elementQW, roleValue);
+              role = getRoleInput(element, roleValue);
             } else if (name === 'li') {
-              role = getRoleLi(elementQW, roleValue);
+              role = getRoleLi(element, roleValue);
             } else if (name === 'option') {
-              role = getRoleOption(elementQW, roleValue);
+              role = getRoleOption(element, roleValue);
             } else if (name === 'select') {
-              role = getRoleSelect(elementQW, roleValue);
+              role = getRoleSelect(element, roleValue);
             } else if (name === 'td') {
-              if (DomUtils.isElementADescendantOfExplicitRole(elementQW, pageQW, ['table'], [])) {
+              if (isElementADescendantOfExplicitRole(element, ['table'], [])) {
                 role = roleValue['role'];
               }
             }
@@ -49,8 +48,8 @@ function getImplicitRole(elementQW: QWElement, pageQW: QWPage, accessibleName: s
   return role;
 }
 
-function getRoleHeading(elementQW: QWElement, roleValue) {
-  const ariaLevel = elementQW.getElementAttribute('aria-level');
+function getRoleHeading(element: typeof window.qwElement, roleValue) {
+  const ariaLevel = element.getElementAttribute('aria-level');
   let role;
   if (ariaLevel === null || parseInt(ariaLevel) > 0) {
     role = roleValue['role'];
@@ -58,9 +57,9 @@ function getRoleHeading(elementQW: QWElement, roleValue) {
   return role;
 }
 
-function getRoleSelect(elementQW: QWElement, roleValue) {
-  const size = elementQW.getElementAttribute('size');
-  const multiple = elementQW.getElementAttribute('multiple');
+function getRoleSelect(element: typeof window.qwElement, roleValue) {
+  const size = element.getElementAttribute('size');
+  const multiple = element.getElementAttribute('multiple');
   let role;
 
   if (multiple !== null && size !== null && parseInt(size, 10) > 1) {
@@ -71,12 +70,11 @@ function getRoleSelect(elementQW: QWElement, roleValue) {
   return role;
 }
 
-function getRoleHeaderFooter(elementQW: QWElement, pageQW: QWPage, roleValue) {
+function getRoleHeaderFooter(element: typeof window.qwElement, roleValue) {
   let role;
   if (
-    DomUtils.isElementADescendantOfExplicitRole(
-      elementQW,
-      pageQW,
+    isElementADescendantOfExplicitRole(
+      element,
       ['article', 'aside', 'main', 'nav', 'section'],
       ['article', 'complementary', 'main', 'navigation', 'region']
     )
@@ -87,9 +85,9 @@ function getRoleHeaderFooter(elementQW: QWElement, pageQW: QWPage, roleValue) {
   return role;
 }
 
-function getRoleInput(elementQW: QWElement, roleValue) {
-  const list = elementQW.getElementAttribute('list');
-  const type = elementQW.getElementAttribute('type');
+function getRoleInput(element: typeof window.qwElement, roleValue) {
+  const list = element.getElementAttribute('list');
+  const type = element.getElementAttribute('type');
   let role;
 
   if (list !== null) {
@@ -102,8 +100,8 @@ function getRoleInput(elementQW: QWElement, roleValue) {
   return role;
 }
 
-function getRoleOption(elementQW: QWElement, roleValue) {
-  const parent = elementQW.getElementParent();
+function getRoleOption(element: typeof window.qwElement, roleValue) {
+  const parent = element.getElementParent();
   let parentName;
   let role;
   if (parent !== null) parentName = parent.getElementTagName();
@@ -114,25 +112,22 @@ function getRoleOption(elementQW: QWElement, roleValue) {
   return role;
 }
 
-function getRoleImg(elementQW: QWElement, pageQW: QWPage, roleValue) {
-  const alt = elementQW.getElementAttribute('alt');
+function getRoleImg(element: typeof window.qwElement, roleValue) {
+  const alt = element.getElementAttribute('alt');
   let role;
   if (alt !== '') {
     role = roleValue['role'];
   } else if (
-    elementQW.elementHasAttribute('alt') &&
-    !(
-      AccessibilityUtils.isElementFocusable(elementQW, pageQW) ||
-      AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW)
-    )
+    element.elementHasAttribute('alt') &&
+    !(isElementFocusable(element) || elementHasGlobalARIAPropertyOrAttribute(element))
   ) {
     role = 'presentation';
   }
   return role;
 }
 
-function getRoleLi(elementQW: QWElement, roleValue) {
-  const parent = elementQW.getElementParent();
+function getRoleLi(element: typeof window.qwElement, roleValue) {
+  const parent = element.getElementParent();
   let role;
   const parentNames = ['ol', 'ul', 'menu'];
   let parentName;
@@ -144,7 +139,7 @@ function getRoleLi(elementQW: QWElement, roleValue) {
   return role;
 }
 
-function isInList(attributes, element: QWElement) {
+function isInList(attributes, element: typeof window.qwElement) {
   let result;
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];

@@ -1,18 +1,14 @@
-'use strict';
+import isElementFocusable from './isElementFocusable';
 
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-import { AccessibilityUtils } from '@qualweb/util';
-
-function isPartOfSequentialFocusNavigation(elementQW: QWElement, pageQW: QWPage): boolean {
+function isPartOfSequentialFocusNavigation(element: typeof window.qwElement): boolean {
   let tabIndexLessThanZero = false;
-  const tabindex = elementQW.getElementAttribute('tabindex');
+  const tabindex = element.getElementAttribute('tabindex');
   const tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));
 
   if (tabindex && tabIndexExistsAndIsNumber) {
     tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
   }
-  const focusable = AccessibilityUtils.isElementFocusable(elementQW, pageQW);
+  const focusable = isElementFocusable(element);
   return (focusable && tabIndexExistsAndIsNumber && !tabIndexLessThanZero) || (focusable && !tabIndexExistsAndIsNumber);
 }
 

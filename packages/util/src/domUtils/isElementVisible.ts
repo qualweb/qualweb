@@ -1,19 +1,14 @@
-'use strict';
-
-import { QWElement } from '@qualweb/qw-element';
 import elementHasOnePixel from './elementHasOnePixel';
-import { QWPage } from '@qualweb/qw-page';
-import { DomUtils } from '@qualweb/util';
+import isElementHiddenByCSS from './isElementHiddenByCSS';
+import elementHasContent from './elementHasContent';
+import { Cache } from '../cache';
 
-function isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-  const offScreen = elementQW.isOffScreen();
-  const cssHidden = DomUtils.isElementHiddenByCSS(elementQW, pageQW);
-  const hasContent = DomUtils.elementHasContent(elementQW, pageQW, true);
-  const hasOnePixelHeight = elementHasOnePixel(elementQW);
-  const opacityProperty = elementQW.getElementStyleProperty('opacity', '');
+function isElementVisible(element: typeof window.qwElement): boolean {
+  const offScreen = element.isOffScreen();
+  const cssHidden = isElementHiddenByCSS(element);
+  const hasContent = elementHasContent(element, true);
+  const hasOnePixelHeight = elementHasOnePixel(element);
+  const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity;
   if (opacityProperty) {
     opacity = parseInt(opacityProperty);
@@ -22,4 +17,13 @@ function isElementVisible(elementQW: QWElement, pageQW: QWPage): boolean {
   return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0));
 }
 
-export default isElementVisible;
+//export default isElementVisible;
+
+class Utility {
+  @Cache('DomUtils.isElementVisible')
+  public static isElementVisible(element: typeof window.qwElement): boolean {
+    return isElementVisible(element);
+  }
+}
+
+export default Utility.isElementVisible;

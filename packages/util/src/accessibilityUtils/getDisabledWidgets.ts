@@ -1,15 +1,11 @@
-'use strict';
+import isElementWidget from './isElementWidget';
 
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
-
-function getDisabledWidgets(pageQW: QWPage): QWElement[] {
-  const elements = pageQW.getElements('*');
-  const disabledElements: QWElement[] = [];
+function getDisabledWidgets(): Array<typeof window.qwElement> {
+  const elements = window.qwPage.getElements('*');
+  const disabledElements = new Array<typeof window.qwElement>();
   let isWidget, disable, ariaDisable, parent, parentTag;
   for (const element of elements) {
-    isWidget = AccessibilityUtils.isElementWidget(element, pageQW);
+    isWidget = isElementWidget(element);
     disable = element.getElementAttribute('disabled') !== null;
     ariaDisable = element.getElementAttribute('aria-disabled') !== null;
     parent = element.getElementParent();

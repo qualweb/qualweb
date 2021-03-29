@@ -1,19 +1,12 @@
-'use strict';
+import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
 
-import { QWElement } from '@qualweb/qw-element';
-import { QWPage } from '@qualweb/qw-page';
-import { DomUtils } from '@qualweb/util';
-
-function isElementHiddenByCSS(elementQW: QWElement, pageQW: QWPage): boolean {
-  const parent = elementQW.getParentAllContexts();
+function isElementHiddenByCSS(element: typeof window.qwElement): boolean {
+  const parent = element.getParentAllContexts();
   let parentHidden = false;
-  let result;
   if (parent) {
-    parentHidden = DomUtils.isElementHiddenByCSS(parent, pageQW);
+    parentHidden = isElementHiddenByCSS(parent);
   }
-  result = DomUtils.isElementHiddenByCSSAux(elementQW, pageQW) || parentHidden;
-
-  return result;
+  return isElementHiddenByCSSAux(element) || parentHidden;
 }
 
 export default isElementHiddenByCSS;

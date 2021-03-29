@@ -1,20 +1,17 @@
-'use strict';
-
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRole from './getElementRole';
+import isElementInAT from './isElementInAT';
 
 //incomplete
 //ignores being a header cell assigned to the closest ancestor of the link in the flat tree that has a semantic role of cell or gridcell;
-function getLinkContext(element: QWElement, page: QWPage): string[] {
-  const context: string[] = [];
+function getLinkContext(element: typeof window.qwElement): Array<string> {
+  const context = new Array<string>();
   const parent = element.getElementParent();
   const ariaDescribedByATT = element.getElementAttribute('aria-describedby');
-  let ariaDescribedBy: string[] = [];
+  let ariaDescribedBy = new Array<string>();
   if (ariaDescribedByATT) ariaDescribedBy = ariaDescribedByATT.split(' ');
   if (parent) {
-    const role = AccessibilityUtils.getElementRole(parent, page);
-    const inAT = AccessibilityUtils.isElementInAT(parent, page);
+    const role = getElementRole(parent);
+    const inAT = isElementInAT(parent);
     const tagName = parent.getElementTagName();
     const id = parent.getElementAttribute('id');
     if (
@@ -27,16 +24,20 @@ function getLinkContext(element: QWElement, page: QWPage): string[] {
     ) {
       context.push(parent.getElementSelector());
     }
-    getLinkContextAux(parent, page, ariaDescribedBy, context);
+    getLinkContextAux(parent, ariaDescribedBy, context);
   }
   return context;
 }
 
-function getLinkContextAux(element: QWElement, page: QWPage, ariaDescribedBy: string[], context: string[]): void {
+function getLinkContextAux(
+  element: typeof window.qwElement,
+  ariaDescribedBy: Array<string>,
+  context: Array<string>
+): void {
   const parent = element.getElementParent();
   if (parent) {
-    const role = AccessibilityUtils.getElementRole(parent, page);
-    const inAT = AccessibilityUtils.isElementInAT(parent, page); //isElementInAT(when added html list)
+    const role = getElementRole(parent);
+    const inAT = isElementInAT(parent); //isElementInAT(when added html list)
     const tagName = parent.getElementTagName();
     const id = parent.getElementAttribute('id');
     if (
@@ -49,7 +50,7 @@ function getLinkContextAux(element: QWElement, page: QWPage, ariaDescribedBy: st
     ) {
       context.push(parent.getElementSelector());
     }
-    getLinkContextAux(parent, page, ariaDescribedBy, context);
+    getLinkContextAux(parent, ariaDescribedBy, context);
   }
 }
 

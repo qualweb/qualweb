@@ -1,10 +1,4 @@
-'use strict';
-
-import { QWElement } from '@qualweb/qw-element';
-function getTrimmedText(elementQW: QWElement): string {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
+function getTrimmedText(elementQW: typeof window.qwElement): string {
   let text = elementQW.getElementText();
 
   if (text) {

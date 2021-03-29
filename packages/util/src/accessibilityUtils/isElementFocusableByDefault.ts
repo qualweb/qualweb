@@ -1,21 +1,14 @@
-'use strict';
-import { QWElement } from '@qualweb/qw-element';
-
-function isElementFocusableByDefault(elementQW: QWElement): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-
-  const draggableAttribute = elementQW.getElementAttribute('draggable');
+function isElementFocusableByDefault(element: typeof window.qwElement): boolean {
+  const draggableAttribute = element.getElementAttribute('draggable');
 
   if (draggableAttribute && draggableAttribute === 'true') {
     return true;
   } else {
-    const elementName = elementQW.getElementTagName();
-    const hasHref = elementQW.elementHasAttribute('href');
-    const elementAttributeType = elementQW.getElementAttribute('type');
+    const elementName = element.getElementTagName();
+    const hasHref = element.elementHasAttribute('href');
+    const elementAttributeType = element.getElementAttribute('type');
 
-    const parent = elementQW.getElementParent();
+    const parent = element.getElementParent();
     let parentName;
     let parentChildren;
 
@@ -43,7 +36,7 @@ function isElementFocusableByDefault(elementQW: QWElement): boolean {
           parent &&
           parentName === 'details' &&
           parentChildren &&
-          elementQW.getElementSelector() === parentChildren[0].getElementSelector()
+          element.getElementSelector() === parentChildren[0].getElementSelector()
         );
       case 'textarea':
       case 'select':

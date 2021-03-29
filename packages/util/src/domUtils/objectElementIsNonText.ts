@@ -1,15 +1,9 @@
-'use strict';
-
-import { QWElement } from '@qualweb/qw-element';
 import image from './image.json';
 import video from './video.json';
 import audio from './audio.json';
 
-function objectElementisNonText(elementQW: QWElement): boolean {
-  if (!elementQW) {
-    throw Error('Element is not defined');
-  }
-  const data = elementQW.getElementAttribute('data');
+function objectElementIsNonText(element: typeof window.qwElement): boolean {
+  const data = element.getElementAttribute('data');
   let result = false;
   if (data) {
     const splitted = data.split('.');
@@ -21,4 +15,4 @@ function objectElementisNonText(elementQW: QWElement): boolean {
   return result;
 }
 
-export default objectElementisNonText;
+export default objectElementIsNonText;

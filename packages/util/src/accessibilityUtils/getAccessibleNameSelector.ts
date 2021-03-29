@@ -1,19 +1,18 @@
 import allowsNameFromContent from './allowsNameFromContent';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel } from './constants';
-
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import getElementRoleAName from './getElementRoleAName';
+import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
+import isElementControl from './isElementControl';
+import isElementWidget from './isElementWidget';
 import getDefaultName from './getDefaultName';
 
-function getAccessibleNameSelector(element: QWElement, pageQW: QWPage): string[] | undefined {
-  return getAccessibleNameRecursion(element, pageQW, false, false);
+function getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
+  return getAccessibleNameRecursion(element, false, false);
 }
 
 function getAccessibleNameRecursion(
-  element: QWElement,
-  page: QWPage,
+  element: typeof window.qwElement,
   recursion: boolean,
   isWidget: boolean
 ): string[] | undefined {
@@ -23,7 +22,7 @@ function getAccessibleNameRecursion(
   const allowNameFromContent = allowsNameFromContent(element);
   ariaLabelBy = element.getElementAttribute('aria-labelledby');
 
-  if (ariaLabelBy !== null && !verifyAriaLabel(ariaLabelBy, page)) {
+  if (ariaLabelBy !== null && !verifyAriaLabel(ariaLabelBy)) {
     ariaLabelBy = '';
   }
   const ariaLabel = element.getElementAttribute('aria-label') ? [elementSelector] : null;
@@ -32,17 +31,17 @@ function getAccessibleNameRecursion(
   const alt = element.getElementAttribute('alt') ? [elementSelector] : null;
   const value = element.getElementAttribute('value') ? [elementSelector] : null;
   const placeholder = element.getElementAttribute('placeholder') ? [elementSelector] : null;
-  const role = AccessibilityUtils.getElementRoleAName(element, page, '');
+  const role = getElementRoleAName(element, '');
   const id = element.getElementAttribute('id');
   const defaultName = getDefaultName(element) ? ['default'] : null;
 
-  const referencedByAriaLabel = AccessibilityUtils.isElementReferencedByAriaLabel(element, page);
+  const referencedByAriaLabel = isElementReferencedByAriaLabel(element);
   if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
-    AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy, page);
+    AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);
   } else if (ariaLabel) {
     AName = ariaLabel;
-  } else if (isWidget && AccessibilityUtils.isElementControl(element, page)) {
-    const valueFromEmbeddedControl = getValueFromEmbeddedControl(element, page) ? elementSelector : null;
+  } else if (isWidget && isElementControl(element)) {
+    const valueFromEmbeddedControl = getValueFromEmbeddedControl(element) ? elementSelector : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === 'area' || (name === 'input' && attrType === 'image')) {
     AName = getFirstNotUndefined(alt, title);
@@ -52,30 +51,30 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(value, defaultName, title);
   } else if (name === 'input' && (!attrType || typesWithLabel.indexOf(attrType) >= 0)) {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id), title, placeholder);
     } else {
       AName = getFirstNotUndefined(title, placeholder);
     }
   } else if (name && formElements.indexOf(name) >= 0) {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id), title);
     } else {
       AName = getFirstNotUndefined(title);
     }
   } else if (name === 'textarea') {
     if (!recursion) {
-      AName = getFirstNotUndefined(getValueFromLabel(element, id, page), title, placeholder);
+      AName = getFirstNotUndefined(getValueFromLabel(element, id), title, placeholder);
     } else {
-      AName = getFirstNotUndefined(getTextFromCss(element, page, isWidget), title, placeholder);
+      AName = getFirstNotUndefined(getTextFromCss(element, isWidget), title, placeholder);
     }
   } else if (name === 'figure') {
-    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'figcaption', page) || []), title);
+    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'figcaption') || []), title);
   } else if (name === 'table') {
-    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'caption', page) || []), title);
+    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'caption') || []), title);
   } else if (name === 'fieldset') {
-    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'legend', page) || []), title);
+    AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'legend') || []), title);
   } else if (allowNameFromContent || (((role && allowNameFromContent) || !role) && recursion)) {
-    AName = getFirstNotUndefined(...getTextFromCss(element, page, isWidget), title);
+    AName = getFirstNotUndefined(...getTextFromCss(element, isWidget), title);
   } /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) and all other elements*/ else {
     AName = getFirstNotUndefined(title);
   }
@@ -103,25 +102,25 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-function getValueFromSpecialLabel(element: QWElement, label: string, page: QWPage): Array<string> | undefined {
+function getValueFromSpecialLabel(element: typeof window.qwElement, label: string): Array<string> | undefined {
   const labelElement = element.getElement(label);
   let accessNameFromLabel, result;
 
-  if (labelElement) accessNameFromLabel = getAccessibleNameRecursion(labelElement, page, true, false);
+  if (labelElement) accessNameFromLabel = getAccessibleNameRecursion(labelElement, true, false);
 
   if (accessNameFromLabel) result = [element.getElementSelector()];
 
   return result;
 }
 
-function getValueFromLabel(element: QWElement, id: string | null, page: QWPage): Array<string> {
-  const referencedByLabelList = new Array<QWElement>();
-  const referencedByLabel = page.getElements(`label[for="${id}"]`, element);
+function getValueFromLabel(element: typeof window.qwElement, id: string | null): Array<string> {
+  const referencedByLabelList = new Array<typeof window.qwElement>();
+  const referencedByLabel = window.qwPage.getElements(`label[for="${id}"]`, element);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
   }
   const parent = element.getElementParent();
-  const isWidget = AccessibilityUtils.isElementWidget(element, page);
+  const isWidget = isElementWidget(element);
 
   if (parent && parent.getElementTagName() === 'label' && !isElementPresent(parent, referencedByLabelList)) {
     referencedByLabelList.push(parent);
@@ -129,7 +128,7 @@ function getValueFromLabel(element: QWElement, id: string | null, page: QWPage):
 
   const result = new Array<string>();
   for (const label of referencedByLabelList) {
-    const accessNameFromLabel = getAccessibleNameRecursion(label, page, true, isWidget);
+    const accessNameFromLabel = getAccessibleNameRecursion(label, true, isWidget);
     if (accessNameFromLabel) {
       result.push(label.getElementSelector());
     }
@@ -137,7 +136,7 @@ function getValueFromLabel(element: QWElement, id: string | null, page: QWPage):
 
   return result;
 }
-function isElementPresent(element: QWElement, listElement: QWElement[]): boolean {
+function isElementPresent(element: typeof window.qwElement, listElement: Array<typeof window.qwElement>): boolean {
   let result = false;
   let i = 0;
   const elementSelector = element.getElementSelector();
@@ -148,18 +147,18 @@ function isElementPresent(element: QWElement, listElement: QWElement[]): boolean
   return result;
 }
 
-function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: string, page: QWPage): Array<string> {
+function getAccessibleNameFromAriaLabelledBy(element: typeof window.qwElement, ariaLabelId: string): Array<string> {
   const ListIdRefs = ariaLabelId.split(' ');
   const result = new Array<string>();
   let accessNameFromId;
-  const isWidget = AccessibilityUtils.isElementWidget(element, page);
+  const isWidget = isElementWidget(element);
   const elementID = element.getElementAttribute('id');
 
   for (const id of ListIdRefs || []) {
     if (id !== '' && elementID !== id) {
-      const elem = page.getElementByID(id);
+      const elem = window.qwPage.getElementByID(id);
       if (elem) {
-        accessNameFromId = getAccessibleNameRecursion(elem, page, true, isWidget);
+        accessNameFromId = getAccessibleNameRecursion(elem, true, isWidget);
         if (accessNameFromId) {
           result.push(elem.getElementSelector());
         }
@@ -169,8 +168,8 @@ function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: st
   return result;
 }
 
-function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): Array<string> {
-  const aNameList = getAccessibleNameFromChildren(element, page, isWidget);
+function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): Array<string> {
+  const aNameList = getAccessibleNameFromChildren(element, isWidget);
   const textValue = getConcatenatedText(element, []) ? element.getElementSelector() : null;
 
   if (textValue) aNameList.push(textValue);
@@ -178,16 +177,13 @@ function getTextFromCss(element: QWElement, page: QWPage, isWidget: boolean): Ar
   return aNameList;
 }
 
-function getConcatenatedText(element: QWElement, aNames: Array<string>): string {
-  if (!element) {
-    throw Error('Element is not defined');
-  }
+function getConcatenatedText(element: typeof window.qwElement, aNames: Array<string>): string {
   return element.concatANames(aNames);
 }
 
-function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidget: boolean): Array<string> {
+function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidget: boolean): Array<string> {
   if (!isWidget) {
-    isWidget = AccessibilityUtils.isElementWidget(element, page);
+    isWidget = isElementWidget(element);
   }
   const children = element.getElementChildren();
   const result = new Array<string>();
@@ -195,7 +191,7 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
 
   if (children) {
     for (const child of children) {
-      aName = getAccessibleNameRecursion(child, page, true, isWidget);
+      aName = getAccessibleNameRecursion(child, true, isWidget);
       if (aName) {
         result.push(child.getElementSelector());
       }
@@ -204,12 +200,12 @@ function getAccessibleNameFromChildren(element: QWElement, page: QWPage, isWidge
   return result;
 }
 
-function verifyAriaLabel(ariaLabelBy: string, page: QWPage): boolean {
+function verifyAriaLabel(ariaLabelBy: string): boolean {
   const elementIds = ariaLabelBy.split(' ');
   let result = false;
   for (const id of elementIds) {
     if (!result) {
-      result = page.getElementByID(id) !== null;
+      result = window.qwPage.getElementByID(id) !== null;
     }
   }
 

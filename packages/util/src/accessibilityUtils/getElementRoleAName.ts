@@ -1,18 +1,16 @@
-'use strict';
-import { QWPage } from '@qualweb/qw-page';
-import { QWElement } from '@qualweb/qw-element';
-import { AccessibilityUtils } from '@qualweb/util';
+import isElementFocusable from './isElementFocusable';
+import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
+import getImplicitRole from './getImplicitRole';
 
-function getElementRoleAName(elementQW: QWElement, pageQW: QWPage, aName: string | undefined): string | null {
-  const explicitRole = elementQW.getElementAttribute('role');
+function getElementRoleAName(element: typeof window.qwElement, aName: string | undefined): string | null {
+  const explicitRole = element.getElementAttribute('role');
   let role = explicitRole;
   if (
     explicitRole === null ||
     ((explicitRole === 'none' || explicitRole === 'presentation') &&
-      (AccessibilityUtils.isElementFocusable(elementQW, pageQW) ||
-        AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(elementQW, pageQW)))
+      (isElementFocusable(element) || elementHasGlobalARIAPropertyOrAttribute(element)))
   ) {
-    role = AccessibilityUtils.getImplicitRole(elementQW, pageQW, aName);
+    role = getImplicitRole(element, aName);
   }
   return role;
 }
