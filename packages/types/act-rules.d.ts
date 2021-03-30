@@ -74,8 +74,16 @@ declare module "@qualweb/act-rules" {
     };
   }
 
-  interface ACTRuleMapping {
+  interface ACTAtomicRuleMapping {
     [selector: string]: Array<string>;
+  }
+
+  interface ACTCompositeRuleMapping {
+    [selector: string]: {
+      selector: string;
+      implementation: 'conjunction' | 'disjunction';
+      rules: Array<string>;
+    };
   }
 
   class Test implements ACTRuleResult {
@@ -87,7 +95,9 @@ declare module "@qualweb/act-rules" {
 
     constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string);
 
-    public addElement(element: QWElement, withText: boolean, fullElement: boolean): void;
+    public addElement(element: QWElement, withText: boolean, fullElement: boolean, aName?: boolean): void;
+
+    public addElements(elements: Array<QWElement>, withText: boolean, fullElement: boolean, aName?: boolean): void;
   }
 
   abstract class Rule {
@@ -168,7 +178,8 @@ declare module "@qualweb/act-rules" {
     ACTRule,
     ACTMetadata,
     ACTRulesReport,
-    ACTRuleMapping,
+    ACTAtomicRuleMapping,
+    ACTCompositeRuleMapping,
     Test,
     Rule,
     CompositeRule,

@@ -1,11 +1,16 @@
 # Changelog
 
-## [0.5.6] - 29/03/2020
+## [0.5.8] - 30/03/2020
+
+### Updated
+
+- act-rules interface
+
+## [0.5.7] - 29/03/2020
 
 ### Updated
 
 - several interfaces
-
 
 ## [0.5.6] - 27/03/2020
 
