@@ -30,7 +30,7 @@ import ariaAttributesRoles from './ariaAttributesRoles.json';
 import roles from './_roles.json';
 import languages from './language.json';
 
-import { Cache, FullMethodCache } from '../cache';
+import { Cache } from '../cache';
 import { AriaAttributesRoles, Roles } from '@qualweb/util';
 
 class AccessibilityUtils {
@@ -52,14 +52,8 @@ class AccessibilityUtils {
     return getAccessibleNameFunction(element);
   }
 
-  @FullMethodCache('AcceUtils.getAccessibleNameRecursion')
-  public static getAccessibleNameRecursion(
-    element: typeof window.qwElement,
-    recursion: boolean,
-    isWidget: boolean
-  ): string | undefined {
-    return getAccessibleNameRecursionFunction(element, recursion, isWidget);
-  }
+  //@FullMethodCache('AcceUtils.getAccessibleNameRecursion')
+  public static getAccessibleNameRecursion = getAccessibleNameRecursionFunction;
   public static getAccessibleNameSelector = getAccessibleNameSelectorFunction;
   @Cache('AcceUtils.getAccessibleNameSVG')
   public static getAccessibleNameSVG(element: typeof window.qwElement): string | undefined {
