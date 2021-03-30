@@ -23,18 +23,20 @@ class QW_ACT_R21 extends AtomicRule {
       const isHidden = window.DomUtils.isElementHidden(elem);
       const accessibleName = window.AccessibilityUtils.getAccessibleNameSVG(elem);
 
-      if (role && (role && roleList.indexOf(role) >= 0) && !isHidden && accessibleName?.trim()) {
-        test.verdict = 'passed';
-        test.description = `The test target has an accessible name.`;
-        test.resultCode = 'RC2';
-      } else {
-        test.verdict = 'failed';
-        test.description = `The test target doesn't have an accessible name.`;
-        test.resultCode = 'RC3';
-      } 
+      if (role && role && roleList.indexOf(role) >= 0 && !isHidden) {
+        if (accessibleName?.trim()) {
+          test.verdict = 'passed';
+          test.description = `The test target has an accessible name.`;
+          test.resultCode = 'RC2';
+        } else {
+          test.verdict = 'failed';
+          test.description = `The test target doesn't have an accessible name.`;
+          test.resultCode = 'RC3';
+        }
 
-      test.addElement(elem, true, false, true);
-      super.addTestResult(test);
+        test.addElement(elem, true, false, true);
+        super.addTestResult(test);
+      }
     }
   }
 }

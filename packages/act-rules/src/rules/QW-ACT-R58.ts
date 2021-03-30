@@ -16,14 +16,14 @@ class QW_ACT_R58 extends AtomicRule {
 
     if ((!isHidden && isVisible) || autoPlay) {
       const test = new Test();
-      
+
       test.verdict = 'warning';
       test.description = 'Check if the test target audio has text-alternative.';
       test.resultCode = 'RC1';
 
       test.addElement(element);
       super.addTestResult(test);
-    } 
+    }
   }
 }
 

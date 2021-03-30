@@ -18,7 +18,7 @@ class QW_ACT_R55 extends AtomicRule {
 
     if (isVisible) {
       const test = new Test();
-      
+
       if (!(duration >= 0 && hasSoundTrack)) {
         test.verdict = 'warning';
         test.description = 'Cant colect data from the test target.';

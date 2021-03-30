@@ -70,7 +70,7 @@ class QW_ACT_R10 extends AtomicRule {
     }
   }
 
-  private getContentHash(elements: (typeof window.qwElement)[]): Array<string> {
+  private getContentHash(elements: typeof window.qwElement[]): Array<string> {
     const content = new Array<string>();
     let htmlContent;
     try {
@@ -80,10 +80,8 @@ class QW_ACT_R10 extends AtomicRule {
           content.push(htmlContent.documentElement.outerHTML);
         }
       }
-    } catch (e) {
-      
-    }
-    
+    } catch (e) {}
+
     return content;
   }
 

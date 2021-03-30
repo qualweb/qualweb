@@ -16,7 +16,7 @@ class QW_ACT_R59 extends AtomicRule {
 
     if ((!isHidden && isVisible) || autoPlay) {
       const test = new Test();
-      
+
       test.verdict = 'warning';
       test.description = 'Check if the test target audio is a media alternative for text.';
       test.resultCode = 'RC1';

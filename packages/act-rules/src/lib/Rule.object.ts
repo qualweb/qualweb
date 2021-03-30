@@ -1,4 +1,5 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Level, Principle } from '@qualweb/evaluation';
 
 import Test from './Test.object';
 abstract class Rule {
@@ -12,7 +13,7 @@ abstract class Rule {
     return this.rule.mapping;
   }
 
-  public hasPrincipleAndLevels(principles: Array<string>, levels: Array<string>): boolean {
+  public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean {
     let has = false;
     for (const sc of this.rule.metadata['success-criteria'] ?? []) {
       if (principles.includes(sc.principle) && levels.includes(sc.level)) {

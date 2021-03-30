@@ -43,8 +43,7 @@ class QW_ACT_R65 extends AtomicRule {
       test.addElement(element);
     } else {
       test.verdict = 'failed';
-      test.description =
-        'The element have descendants in the flat tree that are part of sequential focus navigation.';
+      test.description = 'The element have descendants in the flat tree that are part of sequential focus navigation.';
       test.resultCode = 'RC2';
       test.addElement(element, false);
     }

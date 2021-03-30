@@ -17,9 +17,9 @@ class QW_ACT_R51 extends AtomicRule {
 
     const hasPuppeteerApplicableData = duration > 0 && !hasSoundTrack;
 
-    if (!isVisible) {
+    if (isVisible) {
       const test = new Test();
-      
+
       if (!(duration >= 0 && hasSoundTrack)) {
         test.verdict = 'warning';
         test.description = 'Cant collect data from the test target.';

@@ -23,7 +23,7 @@ class QW_ACT_R62 extends AtomicRule {
         test.verdict = 'warning';
         test.description = ' Check if the element has some visible focus indication';
         test.resultCode = 'RC1';
-      
+
         test.addElement(inSequentialFocusElement);
         super.addTestResult(test);
       }

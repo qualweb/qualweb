@@ -15,14 +15,15 @@ class QW_ACT_R44 extends AtomicRule {
     const linkDataList = new Array<any>();
 
     for (const link of links || []) {
-      let aName, href, context;
+      let aName: string | undefined;
       if (window.DomUtils.isElementADescendantOf(link, ['svg'], [])) {
         aName = window.AccessibilityUtils.getAccessibleNameSVG(link);
       } else if (window.AccessibilityUtils.isElementInAT(link)) {
         aName = window.AccessibilityUtils.getAccessibleName(link);
       }
-      href = link.getElementAttribute('href');
-      context = window.AccessibilityUtils.getLinkContext(link);
+
+      const href = link.getElementAttribute('href');
+      const context = window.AccessibilityUtils.getLinkContext(link);
 
       if (aName) {
         linkDataList.push({

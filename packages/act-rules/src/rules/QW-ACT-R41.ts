@@ -31,7 +31,7 @@ class QW_ACT_R41 extends AtomicRule {
       ' Check that text error messages provided, identify the cause of the error or how to fix the error.';
     test.resultCode = 'RC1';
 
-    test.addElement(element)
+    test.addElement(element);
     super.addTestResult(test);
   }
 }

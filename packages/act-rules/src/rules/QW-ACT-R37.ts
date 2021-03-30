@@ -92,7 +92,7 @@ class QW_ACT_R37 extends AtomicRule {
           test.description = 'Element has text-shadow that needs manual verification.';
           test.resultCode = 'RC14';
 
-          test.addElement(element)
+          test.addElement(element);
           super.addTestResult(test);
           return;
         }
@@ -135,14 +135,14 @@ class QW_ACT_R37 extends AtomicRule {
         test.description = `Element doesn't have human language text.`;
         test.resultCode = 'RC9';
 
-        test.addElement(element)
+        test.addElement(element);
         super.addTestResult(test);
       }
     } else {
       let parsedBG = this.parseRGBString(bgColor, opacity);
       let elementAux = element;
       let opacityAUX;
-      
+
       while (
         parsedBG === undefined ||
         (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)
@@ -190,7 +190,6 @@ class QW_ACT_R37 extends AtomicRule {
         }
       }
 
-
       // if we cant find a bg color, we assume that is white (default bg page color)
       if (
         parsedBG === undefined ||
@@ -223,7 +222,7 @@ class QW_ACT_R37 extends AtomicRule {
             test.verdict = 'failed';
             test.description = 'Element has contrast ratio lower than minimum.';
             test.resultCode = 'RC11';
-            
+
             test.addElement(element);
             super.addTestResult(test);
           }
@@ -231,7 +230,7 @@ class QW_ACT_R37 extends AtomicRule {
           test.verdict = 'passed';
           test.description = `Element doesn't have human language text.`;
           test.resultCode = 'RC9';
-          
+
           test.addElement(element);
           super.addTestResult(test);
         }
@@ -327,7 +326,7 @@ class QW_ACT_R37 extends AtomicRule {
     }
 
     test.addElement(element);
-    super.addTestResult(test)
+    super.addTestResult(test);
     return true;
   }
 

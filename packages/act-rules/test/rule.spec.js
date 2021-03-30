@@ -94,7 +94,7 @@ describe(`Rule ${rule}`, function () {
   let tests = null;
 
   it('Starting test bench', async function () {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({ headless: false });
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };

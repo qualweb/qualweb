@@ -34,10 +34,9 @@ class QW_ACT_R18 extends AtomicRule {
           test.resultCode = 'RC2';
         }
 
-        test.addElements(elementsWithSameId)
+        test.addElements(elementsWithSameId);
         super.addTestResult(test);
-      } catch {
-      }
+      } catch {}
       this.idMap.set(id, true);
     }
   }

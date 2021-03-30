@@ -131,7 +131,7 @@ function getFirstAncestorElementByNameOrRoles(
   element: typeof window.qwElement,
   names: string[],
   roles: string[]
-): (typeof window.qwElement) | null {
+): typeof window.qwElement | null {
   if (!element) {
     throw Error('Element is not defined');
   }

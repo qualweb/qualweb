@@ -33,7 +33,7 @@ class QW_ACT_R56 extends AtomicRule {
 
         test.addElement(element);
         super.addTestResult(test);
-      } 
+      }
     }
   }
 }

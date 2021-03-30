@@ -12,7 +12,7 @@ class QW_ACT_R48 extends AtomicRule {
   @ElementExists
   execute(element: typeof window.qwElement): void {
     const test = new Test();
-    
+
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
     if (isInAT) {
       test.verdict = 'failed';

@@ -8,11 +8,11 @@ class QW_ACT_R1 extends AtomicRule {
   constructor(rule: ACTRule) {
     super(rule);
   }
-  
+
   @IsHTMLDocument
   execute(element: typeof window.qwElement | undefined): void {
     const test = new Test();
-    
+
     //the first title element was already tested
     if (super.getNumberOfPassedResults() > 0 || super.getNumberOfFailedResults() > 0) {
       test.verdict = 'inapplicable';

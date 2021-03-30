@@ -66,7 +66,7 @@ class QW_ACT_R43 extends AtomicRule {
 
     if (isApplicable) {
       const test = new Test();
-      
+
       if (this.isInSequentialFocusNavigation(element)) {
         test.verdict = 'passed';
         test.description = `This scrollable section element is included in sequential focus navigation.`;

@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.3] - 30/03/2021
+
+### Updated
+
+- dependencies
+- code refactored
+- bugs fixed
+
+### Removed
+
+- QW-ACT-R8 since it was deprecated
+- most inapplicable results from the report for most rules
+
 ## [0.5.2] - 27/03/2021
 
 ### Updated

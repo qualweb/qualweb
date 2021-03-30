@@ -244,7 +244,9 @@ function ElementIsWidget(_target: any, _propertyKey: string, descriptor: Propert
 function ElementAllowsNameFromContent(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
-    const supportsNameFromContent = window.AccessibilityUtils.allowsNameFromContent(<typeof window.qwElement>arguments[0]);
+    const supportsNameFromContent = window.AccessibilityUtils.allowsNameFromContent(
+      <typeof window.qwElement>arguments[0]
+    );
     if (supportsNameFromContent) {
       return method.apply(this, arguments);
     }

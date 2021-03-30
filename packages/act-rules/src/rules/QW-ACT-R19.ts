@@ -11,11 +11,10 @@ class QW_ACT_R19 extends AtomicRule {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    
     const tabIndex = element.getElementAttribute('tabindex');
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
 
-    if (isInAT && (tabIndex && parseInt(tabIndex) >= 0)) {
+    if (isInAT && (!tabIndex || parseInt(tabIndex) >= 0)) {
       const test = new Test();
 
       const accessibleName = window.AccessibilityUtils.getAccessibleName(element);

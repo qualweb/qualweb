@@ -24,7 +24,12 @@ class Test implements ACTRuleResult {
     this.elements.push({ htmlCode, pointer, accessibleName });
   }
 
-  public addElements(elements: Array<typeof window.qwElement>, withText = true, fullElement = false, aName?: boolean): void {
+  public addElements(
+    elements: Array<typeof window.qwElement>,
+    withText = true,
+    fullElement = false,
+    aName?: boolean
+  ): void {
     for (const element of elements ?? []) {
       this.addElement(element, withText, fullElement, aName);
     }

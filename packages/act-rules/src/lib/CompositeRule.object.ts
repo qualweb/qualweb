@@ -58,7 +58,7 @@ abstract class CompositeRule extends Rule {
       test.resultCode = 'RC4';
       test.description = "The test target doesn't apply to this rule";
     }
-    
+
     test.addElement(element);
     super.addTestResult(test);
   }

@@ -38,7 +38,7 @@ class QW_ACT_R67 extends AtomicRule {
         test.description = 'CSS styles prevent the letter-spacing to be above the minimum value.';
         test.resultCode = 'RC4';
       }
-      
+
       test.addElement(element, true, false, true);
       super.addTestResult(test);
     }

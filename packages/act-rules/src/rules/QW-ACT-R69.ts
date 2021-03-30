@@ -13,7 +13,7 @@ class QW_ACT_R69 extends AtomicRule {
   @ElementIsVisible
   execute(element: typeof window.qwElement): void {
     const test = new Test();
-    
+
     if (element.hasCSSProperty('word-spacing')) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredWordSpacing = this.parseStyle(styleAttribute);

@@ -25,8 +25,8 @@ class QW_ACT_R17 extends AtomicRule {
         test.verdict = 'passed';
         test.description = `The test target is decorative.`;
         test.resultCode = 'RC1';
-        
-        test.addElement(element)
+
+        test.addElement(element);
         super.addTestResult(test);
       } else if (elementInAT) {
         const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
@@ -40,7 +40,7 @@ class QW_ACT_R17 extends AtomicRule {
           test.resultCode = 'RC4';
         }
 
-        test.addElement(element, true, false, true)
+        test.addElement(element, true, false, true);
         super.addTestResult(test);
       }
     } else if (name !== 'svg' && role === 'img') {
@@ -56,7 +56,7 @@ class QW_ACT_R17 extends AtomicRule {
           test.resultCode = 'RC7';
         }
 
-        test.addElement(element, true, false, true)
+        test.addElement(element, true, false, true);
         super.addTestResult(test);
       }
     }

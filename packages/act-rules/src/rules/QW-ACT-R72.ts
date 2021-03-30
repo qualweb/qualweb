@@ -30,19 +30,19 @@ class QW_ACT_R72 extends AtomicRule {
         test.verdict = 'failed';
         test.description = 'The first focusable element is not keyboard actionable';
         test.resultCode = 'RC2';
-        
+
         test.addElement(focused, false);
       } else if (!window.AccessibilityUtils.isElementInAT(focused)) {
         test.verdict = 'failed';
         test.description = 'The first focusable element is not in the accessibility tree';
         test.resultCode = 'RC3';
-        
+
         test.addElement(focused, false);
       } else if (window.AccessibilityUtils.getElementRole(focused) !== 'link') {
         test.verdict = 'failed';
         test.description = 'The first focusable element does not have the role of link';
         test.resultCode = 'RC4';
-        
+
         test.addElement(focused, false);
       } else if (focused.getElementAttribute('href')) {
         const destination = focused.getElementAttribute('href')?.trim();
@@ -75,7 +75,7 @@ class QW_ACT_R72 extends AtomicRule {
           'Check that the first focusable element skips to the main content and its accessible name communicates so';
         test.resultCode = 'RC8';
 
-        test.addElement(focused)
+        test.addElement(focused);
       }
     } else {
       test.verdict = 'failed';

@@ -42,7 +42,7 @@ class QW_ACT_R3 extends AtomicRule {
       test.resultCode = 'RC2';
     }
 
-    test.addElement(element)
+    test.addElement(element);
     super.addTestResult(test);
   }
 }

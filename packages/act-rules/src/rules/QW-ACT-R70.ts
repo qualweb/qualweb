@@ -34,7 +34,7 @@ class QW_ACT_R70 extends AtomicRule {
         test.description =
           ' The nested browsing context does not include elements that are visible and part of the sequential focus navigation.';
         test.resultCode = 'RC1';
-        
+
         test.addElement(element);
       } else {
         test.verdict = 'failed';

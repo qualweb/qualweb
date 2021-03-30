@@ -13,7 +13,7 @@ class QW_ACT_R38 extends AtomicRule {
   @ElementIsInAccessibilityTree
   execute(element: typeof window.qwElement): void {
     const rolesJSON = window.AccessibilityUtils.roles;
-    
+
     const test = new Test();
 
     const explicitRole = element.getElementAttribute('role');
@@ -39,7 +39,7 @@ class QW_ACT_R38 extends AtomicRule {
 
       test.addElement(element);
       super.addTestResult(test);
-    } 
+    }
   }
 
   private checkOwnedElementsRole(ownedRoles: string[][], elements: typeof window.qwElement[]): boolean {

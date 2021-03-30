@@ -5,7 +5,6 @@ import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decora
 import Test from '../lib/Test.object';
 @ACTRuleDecorator
 class QW_ACT_R7 extends AtomicRule {
-
   constructor(rule: ACTRule) {
     super(rule);
   }
@@ -86,9 +85,7 @@ class QW_ACT_R7 extends AtomicRule {
               if (value.startsWith('rotate') || value.startsWith('rotate3d') || value.startsWith('rotateZ')) {
                 let angle = value.replace(value.split('(')[0], '').replace('(', '').replace(')', '');
                 angle = this.parseDegrees(angle.toString()).toString();
-                const matrix = this.rotateZ(
-                  transformValue ? parseFloat(angle) - transformValue : parseFloat(angle)
-                );
+                const matrix = this.rotateZ(transformValue ? parseFloat(angle) - transformValue : parseFloat(angle));
                 angle = this.calculateRotationDegree(matrix).toString();
                 this.checkRotation(parseInt(angle));
               } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
@@ -111,7 +108,7 @@ class QW_ACT_R7 extends AtomicRule {
     }
     return matrix;
   }
-  
+
   private rotateZ(angle: number): Array<number> {
     const theta = (Math.PI / 180) * angle;
     const matrix = this.identity();
@@ -134,13 +131,17 @@ class QW_ACT_R7 extends AtomicRule {
         return this.identity();
       }
     }
-    throw new TypeError('Expected a string containing `matrix()` or `matrix3d()')
+    throw new TypeError('Expected a string containing `matrix()` or `matrix3d()');
   }
 
   private format(source: Array<number>): Array<number> {
     const values = source
-      .filter(function (value) { return typeof value === 'number'; })
-      .filter(function (value) { return !isNaN(value); });
+      .filter(function (value) {
+        return typeof value === 'number';
+      })
+      .filter(function (value) {
+        return !isNaN(value);
+      });
 
     if (source.length === 6 && values.length === 6) {
       const matrix = this.identity();
@@ -154,7 +155,7 @@ class QW_ACT_R7 extends AtomicRule {
     } else if (source.length === 16 && values.length === 16) {
       return source;
     }
-    throw new TypeError('Expected a `number[]` with length 6 or 16.')
+    throw new TypeError('Expected a `number[]` with length 6 or 16.');
   }
 }
 

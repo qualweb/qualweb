@@ -1,4 +1,10 @@
-import { ACTROptions, ACTRulesReport, ACTRule, ACTRuleMapping } from '@qualweb/act-rules';
+import {
+  ACTROptions,
+  ACTRulesReport,
+  ACTRule,
+  ACTAtomicRuleMapping,
+  ACTCompositeRuleMapping
+} from '@qualweb/act-rules';
 import * as rules from './lib/rules';
 import AtomicRule from './lib/AtomicRule.object';
 import CompositeRule from './lib/CompositeRule.object';
@@ -39,15 +45,6 @@ class ACTRules {
 
   public configure(options: ACTROptions): void {
     this.resetConfiguration();
-
-    if (options.principles) {
-      options.principles = options.principles.map((p: string) =>
-        (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim()
-      );
-    }
-    if (options.levels) {
-      options.levels = options.levels.map((l: string) => l.toUpperCase().trim());
-    }
     if (options.rules) {
       options.rules = options.rules.map((r: string) => {
         return r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim();
@@ -100,8 +97,7 @@ class ACTRules {
       }
     }
     for (const cr of Object.keys(compositeRules)) {
-      // @ts-ignore
-      const compositeRule = compositeRules[cr];
+      const compositeRule = (<ACTCompositeRuleMapping>compositeRules)[cr];
       if (this.rulesToExecute[cr]) {
         for (const ar of compositeRule.rules ?? []) {
           this.rulesToExecute[ar] = true;
@@ -134,7 +130,7 @@ class ACTRules {
     rule: string,
     selector: string,
     atomicRules: Array<string>,
-    implementation: string
+    implementation: 'conjunction' | 'disjunction'
   ): void {
     const atomicRulesReport = new Array<ACTRule>();
 
@@ -163,7 +159,7 @@ class ACTRules {
   public executeAtomicRules(): void {
     const selectors = Object.keys(mapping);
     for (const selector of selectors ?? []) {
-      for (const rule of (<ACTRuleMapping>mapping)[selector] ?? []) {
+      for (const rule of (<ACTAtomicRuleMapping>mapping)[selector] ?? []) {
         if (this.rulesToExecute[rule]) {
           this.executeRule(rule, selector);
         }
@@ -177,12 +173,9 @@ class ACTRules {
       if (this.rulesToExecute[rule]) {
         this.executeCompositeRule(
           rule,
-          //@ts-ignore
-          compositeRules[rule].selector,
-          //@ts-ignore
-          compositeRules[rule].rules,
-          //@ts-ignore
-          compositeRules[rule].implementation
+          (<ACTCompositeRuleMapping>compositeRules)[rule].selector,
+          (<ACTCompositeRuleMapping>compositeRules)[rule].rules,
+          (<ACTCompositeRuleMapping>compositeRules)[rule].implementation
         );
       }
     }

@@ -24,19 +24,20 @@ class QW_ACT_R22 extends AtomicRule {
       subTag = langs[0];
     }
 
-    if (subTag.length && this.isSubTagValid(subTag)) {
-      test.verdict = 'passed';
-      test.description = 'The test target has a valid `lang` attribute.';
-      test.resultCode = 'RC2';
-    } else {
-      test.verdict = 'failed';
-      test.description = 'The test target has an invalid `lang` attribute.';
-      test.resultCode = 'RC3';
-    }
-      
+    if (subTag.length) {
+      if (this.isSubTagValid(subTag)) {
+        test.verdict = 'passed';
+        test.description = 'The test target has a valid `lang` attribute.';
+        test.resultCode = 'RC2';
+      } else {
+        test.verdict = 'failed';
+        test.description = 'The test target has an invalid `lang` attribute.';
+        test.resultCode = 'RC3';
+      }
 
-    test.addElement(element);
-    super.addTestResult(test);
+      test.addElement(element);
+      super.addTestResult(test);
+    }
   }
 
   private isSubTagValid(subTag: string): boolean {
