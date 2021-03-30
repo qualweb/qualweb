@@ -1,19 +1,20 @@
 declare module "@qualweb/wcag-techniques" {
   import { QWElement } from "@qualweb/qw-element";
   import { HTMLValidationReport } from "@qualweb/html-validator";
+  import { Level, Principle } from '@qualweb/evaluation';
 
   interface WCAGOptions {
     techniques?: string[];
     exclude?: string[];
-    levels?: string[];
-    principles?: string[];
+    levels?: Array<Level>;
+    principles?: Array<Principle>;
     htmlValidatorEndpoint?: string;
   }
 
   interface SuccessCriteria {
     name: string;
-    level: string;
-    principle: string;
+    level: Level;
+    principle: Principle;
     url: string;
   }
 
@@ -106,7 +107,7 @@ declare module "@qualweb/wcag-techniques" {
 
     public getTechniqueMapping(): string;
 
-    public hasPrincipleAndLevels(principles: Array<string>, levels: Array<string>): boolean;
+    public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean;
 
     protected getNumberOfWarningResults(): number;
 

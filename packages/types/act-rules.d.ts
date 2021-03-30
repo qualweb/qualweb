@@ -1,17 +1,18 @@
 declare module "@qualweb/act-rules" {
   import { QWElement } from "@qualweb/qw-element";
+  import { Level, Principle } from '@qualweb/evaluation';
 
   interface ACTROptions {
     rules?: string[];
     exclude?: string[];
-    levels?: string[];
-    principles?: string[];
+    levels?: Array<Level>;
+    principles?: Array<Principle>;
   }
 
   interface SuccessCriteria {
     name: string;
-    level: string;
-    principle: string;
+    level: Level;
+    principle: Principle;
     url: string;
   }
 
@@ -107,7 +108,7 @@ declare module "@qualweb/act-rules" {
 
     public getRuleMapping(): string;
 
-    public hasPrincipleAndLevels(principles: Array<string>, levels: Array<string>): boolean;
+    public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean;
 
     protected getNumberOfPassedResults(): number;
 
@@ -159,7 +160,7 @@ declare module "@qualweb/act-rules" {
       rule: string,
       selector: string,
       atomicRules: Array<string>,
-      implementation: string
+      implementation: 'conjunction' | 'disjunction'
     ): void;
     public executeAtomicRules(): void;
     public executeCompositeRules(): void;

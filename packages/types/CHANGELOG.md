@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.5.9] - 30/03/2020
+
+### Added
+
+- Level and Principle types
 ## [0.5.8] - 30/03/2020
 
 ### Updated

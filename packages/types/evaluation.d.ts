@@ -11,6 +11,9 @@ declare module "@qualweb/evaluation" {
   import { QWElement } from "@qualweb/qw-element";
   import { DomUtils, AccessibilityUtils } from "@qualweb/util";
   import { Browser, Page } from "puppeteer";
+  
+  type Level = 'A' | 'AA' | 'AAA';
+  type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
 
   global {
     interface Window {
@@ -66,5 +69,5 @@ declare module "@qualweb/evaluation" {
     public getFinalReport(): EvaluationReport;
   }
 
-  export { Evaluation, EvaluationRecord };
+  export { Level, Principle, Evaluation, EvaluationRecord };
 }

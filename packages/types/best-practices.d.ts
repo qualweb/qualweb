@@ -1,6 +1,6 @@
 declare module "@qualweb/best-practices" {
   import { QWElement } from "@qualweb/qw-element";
-
+  
   interface BPOptions {
     bestPractices?: string[];
     exclude?: string[];
