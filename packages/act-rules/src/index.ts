@@ -1,4 +1,4 @@
-import { ACTROptions, ACTRulesReport, ACTRule } from '@qualweb/act-rules';
+import { ACTROptions, ACTRulesReport, ACTRule, ACTRuleMapping } from '@qualweb/act-rules';
 import * as rules from './lib/rules';
 import AtomicRule from './lib/AtomicRule.object';
 import CompositeRule from './lib/CompositeRule.object';
@@ -163,7 +163,7 @@ class ACTRules {
   public executeAtomicRules(): void {
     const selectors = Object.keys(mapping);
     for (const selector of selectors ?? []) {
-      for (const rule of (<{ [selector: string]: Array<string> }>mapping)[selector] ?? []) {
+      for (const rule of (<ACTRuleMapping>mapping)[selector] ?? []) {
         if (this.rulesToExecute[rule]) {
           this.executeRule(rule, selector);
         }

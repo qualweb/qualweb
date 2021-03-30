@@ -17,7 +17,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R5       | [bf051a](https://act-rules.github.io/rules/bf051a) | Validity of HTML Lang attribute                                                     |
 | QW-ACT-R6       | [59796f](https://act-rules.github.io/rules/59796f) | Image button has accessible name                                                    |
 | QW-ACT-R7       | [b33eff](https://act-rules.github.io/rules/b33eff) | Orientation of the page is not restricted using CSS transform property              |
-| QW-ACT-R8       | [9eb3f6](https://act-rules.github.io/rules/9eb3f6) | Image filename is accessible name for image                                         |
 | QW-ACT-R9       | [b20e66](https://act-rules.github.io/rules/b20e66) | Links with identical accessible names have equivalent purpose                       |
 | QW-ACT-R10      | [4b1c6c](https://act-rules.github.io/rules/4b1c6c) | `iframe` elements with identical accessible names have equivalent purpose           |
 | QW-ACT-R11      | [97a4e1](https://act-rules.github.io/rules/97a4e1) | Button has accessible name                                                          |

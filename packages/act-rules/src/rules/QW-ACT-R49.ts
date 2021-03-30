@@ -31,7 +31,7 @@ class QW_ACT_R49 extends AtomicRule {
       src.push(srcAttr);
     }
 
-    if (autoplay && !paused && !muted && (srcAttr && childSrc.length !== 0)) {
+    if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
       if (!(duration >= 0 && hasSoundTrack)) {
         test.verdict = 'warning';
         test.description = `Can't collect data from the test target element.`;

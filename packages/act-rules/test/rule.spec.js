@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
-import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import { expect } from 'chai';
 
 async function getTestCases() {
   const response = await fetch('https://act-rules.github.io/testcases.json');
@@ -93,7 +93,7 @@ describe(`Rule ${rule}`, function () {
   let data = null;
   let tests = null;
 
-  it('Starting testbench', async function () {
+  it('Starting test bench', async function () {
     browser = await puppeteer.launch();
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
@@ -106,73 +106,82 @@ describe(`Rule ${rule}`, function () {
           this.timeout(100 * 1000);
 
           const dom = new Dom();
-          
-          const { page, sourceHtmlHeadContent } = await dom.getDOM(browser, { execute: { act: true } }, test.url, '');
+          try {
+            const { page, sourceHtmlHeadContent } = await dom.getDOM(browser, { 
+              execute: { act: true }, 
+              "act-rules": { 
+                rules: [rule]
+              },
+              waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle2'] : 'load'
+            }, test.url, '');
+            
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/qw-page')
+            });
 
-          await page.addScriptTag({
-            path: require.resolve('@qualweb/qw-page')
-          });
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/util')
+            });
 
-          await page.addScriptTag({
-            path: require.resolve('@qualweb/util')
-          });
+            await page.addScriptTag({
+              path: require.resolve('../dist/act.bundle.js')
+            });
+            
+            await page.evaluate((rules) => {
+              window.qwPage = new Module.QWPage(document, window, true);
+              window.DomUtils = Utility.DomUtils;
+              window.AccessibilityUtils = Utility.AccessibilityUtils;
+              window.act = new ACT.ACTRules(rules);
+            }, { rules: [rule] });
+            
 
-          await page.addScriptTag({
-            path: require.resolve('../dist/act.bundle.js')
-          });
-          
-          await page.evaluate((rules) => {
-            window.qwPage = new Module.QWPage(document, window, true);
-            window.DomUtils = Utility.DomUtils;
-            window.AccessibilityUtils = Utility.AccessibilityUtils;
-            window.act = new ACT.ACTRules(rules);
-          }, { rules: [rule] });
-          
+            if (ruleId === '8a213c') {
+              await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+            }
+            await page.evaluate((sourceHtmlHeadContent) => {
+              window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
-          if (ruleId === '8a213c') {
-            await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-          }
-          await page.evaluate((sourceHtmlHeadContent) => {
-            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
+              const parser = new DOMParser();
+              const sourceDoc = parser.parseFromString('', "text/html");
 
-            const parser = new DOMParser();
-            const sourceDoc = parser.parseFromString('', "text/html");
+              sourceDoc.head.innerHTML = sourceHtmlHeadContent;
 
-            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+              const elements = sourceDoc.querySelectorAll("meta");
+              const metaElements = new Array();
+              for (const element of elements) {
+                metaElements.push(Module.QWPage.createQWElement(element));
+              }
 
-            const elements = sourceDoc.querySelectorAll("meta");
-            const metaElements = new Array();
-            for (const element of elements) {
-              metaElements.push(Module.QWPage.createQWElement(element));
+              window.act.validateMetaElements(metaElements);
+              window.act.executeAtomicRules();
+              window.act.executeCompositeRules();
+            }, sourceHtmlHeadContent);
+
+            if (ruleId === '59br37') {
+              await page.setViewport({
+                width: 640,
+                height: 512
+              });
             }
 
-            window.act.validateMetaElements(metaElements);
-            window.act.executeAtomicRules();
-            window.act.executeCompositeRules();
-          }, sourceHtmlHeadContent);
-
-          if (ruleId === '59br37') {
-            await page.setViewport({
-              width: 640,
-              height: 512
+            const report = await page.evaluate(() => {
+              window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
+              return window.act.getReport();
             });
+
+            expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
+          } finally {
+            await dom.close();
           }
-
-          const report = await page.evaluate(() => {
-            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
-            return window.act.getReport();
-          });
-          
-          await dom.close();
-
-          expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
         });
       });
     });
 
-    describe(`Closing testbench`, async function () {
+    describe(`Closing test bench`, async function () {
       it(`Closed`, async function () {
-        await browser.close();
+        if (browser) {
+          await browser.close();
+        }
       });
     });
   });

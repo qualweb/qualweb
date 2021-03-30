@@ -2,6 +2,7 @@ import { ACTRule } from '@qualweb/act-rules';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
 import Test from '../lib/Test.object';
+
 @ACTRuleDecorator
 class QW_ACT_R9 extends AtomicRule {
   constructor(rule: ACTRule) {
@@ -15,9 +16,9 @@ class QW_ACT_R9 extends AtomicRule {
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string | null>();
-    const aplicableLinks = new Array<typeof window.qwElement>();
+    const applicableLinks = new Array<typeof window.qwElement>();
 
-    for (const link of links || []) {
+    for (const link of links ?? []) {
       let aName, href;
       if (window.DomUtils.isElementADescendantOf(link, ['svg'], [])) {
         aName = window.AccessibilityUtils.getAccessibleNameSVG(link);
@@ -29,7 +30,7 @@ class QW_ACT_R9 extends AtomicRule {
       if (aName) {
         hrefList.push(href);
         accessibleNames.push(aName);
-        aplicableLinks.push(link);
+        applicableLinks.push(link);
       }
     }
 
@@ -49,9 +50,9 @@ class QW_ACT_R9 extends AtomicRule {
           let hasEqualHref = true;
           for (const index of hasEqualAn) {
             hasEqualHref = hrefList[index] === hrefList[counter] && hrefList[counter] !== null;
-            elementList.push(aplicableLinks[index]);
+            elementList.push(applicableLinks[index]);
           }
-          elementList.push(aplicableLinks[counter]);
+          elementList.push(applicableLinks[counter]);
           hasEqualAn.push(counter);
           if (hasEqualHref) {
             //passed
@@ -65,7 +66,7 @@ class QW_ACT_R9 extends AtomicRule {
             test.resultCode = 'RC3';
           }
         } else {
-          //inaplicable
+          //inapplicable
           test.verdict = 'inapplicable';
           test.description = `Doesn't exist any other \`link\` with the same accessible name.`;
           test.resultCode = 'RC4';
@@ -78,7 +79,7 @@ class QW_ACT_R9 extends AtomicRule {
     }
   }
 
-  private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number): Array<number> {
+  private isInListExceptIndex(accessibleName: string, accessibleNames: Array<string>, index: number): Array<number> {
     const result = new Array<number>();
     let counter = 0;
 

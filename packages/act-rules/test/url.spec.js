@@ -11,7 +11,7 @@ describe('Running tests', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();
     const dom = new Dom();
     const { page } = await dom.getDOM(browser, { execute: { act: true }, waitUntil: ["load", "networkidle0"] }, url, '');
 
