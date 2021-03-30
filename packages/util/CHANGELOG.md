@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.4] - 30/03/2021
+
+### Updated
+
+- dependencies
+
+### Fixed
+
+- an issue with the AccessibilityUtils.getAccessibleName function
+
 ## [0.5.3] - 29/03/2021
 
 ### Updated

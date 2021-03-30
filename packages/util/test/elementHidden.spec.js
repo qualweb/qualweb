@@ -6,11 +6,11 @@ describe('Running tests', function () {
   it('Calculates accessible name correctly', async function () {
     this.timeout(100 * 1000);
     
-    const url = 'https://act-rules.github.io/testcases/e086e5/3b4e297ca20e30ab0d1bbf68edd6218a3263ca5d.html';
+    const url = 'https://act-rules.github.io/testcases/674b10/9ba09fb345e5e4fae83776a55049957281def46e.html';
 
     const browser = await puppeteer.launch({ headless: false });
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true }, "act-rules": { rules: ['QW-ACT-R16'] } }, url, '');
+    const { page } = await dom.getDOM(browser, { execute: { act: true }, "act-rules": { rules: ['QW-ACT-R20'] } }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -25,9 +25,9 @@ describe('Running tests', function () {
       window.DomUtils = Utility.DomUtils;
       window.AccessibilityUtils = Utility.AccessibilityUtils;
 
-      const inputs = window.qwPage.getElements('input');
-      for (const input of inputs) {
-        window.console.log(window.AccessibilityUtils.getAccessibleName(input));
+      const elements = window.qwPage.getElements('[role]');
+      for (const elem of elements) {
+        window.console.log(window.AccessibilityUtils.elementHasValidRole(elem));
       }
     });
 

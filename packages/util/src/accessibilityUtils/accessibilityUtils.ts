@@ -27,7 +27,7 @@ import getOwnedElementsFunction from './getOwnedElements';
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
 import ariaAttributesRoles from './ariaAttributesRoles.json';
-import roles from './_roles.json';
+import roles from './roles.json';
 import languages from './language.json';
 
 import { Cache } from '../cache';

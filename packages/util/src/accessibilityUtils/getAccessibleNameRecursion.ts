@@ -5,7 +5,7 @@ import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 import isElementControl from './isElementControl';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import isElementWidget from './isElementWidget';
-import getElementRole from './getElementRole';
+//import getElementRole from './getElementRole';
 import getDefaultName from './getDefaultName';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
 import isElementHidden from '../domUtils/isElementHidden';
@@ -30,7 +30,7 @@ function getAccessibleNameRecursion(
   const attrType = element.getElementAttribute('type');
   const title = element.getElementAttribute('title');
   const role = getElementRoleAName(element, '');
-  
+
   const referencedByAriaLabel = isElementReferencedByAriaLabel(element);
   if (name === 'svg') {
     AName = getAccessibleNameSVGRecursion(element, recursion);
@@ -112,7 +112,8 @@ function getValueFromSpecialLabel(element: typeof window.qwElement, label: strin
   const labelElement = element.getElement(label);
   let accessNameFromLabel;
 
-  if (labelElement) accessNameFromLabel = Utility.getAccessibleNameRecursion(labelElement, true, false);
+  if (labelElement)
+    accessNameFromLabel = window.AccessibilityUtils.getAccessibleNameRecursion(labelElement, true, false);
 
   return accessNameFromLabel;
 }
@@ -132,7 +133,7 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
   }
 
   for (const label of referencedByLabelList ?? []) {
-    accessNameFromLabel = Utility.getAccessibleNameRecursion(label, true, isWidget);
+    accessNameFromLabel = window.AccessibilityUtils.getAccessibleNameRecursion(label, true, isWidget);
     if (accessNameFromLabel) {
       if (result) {
         result += accessNameFromLabel;
@@ -168,7 +169,8 @@ function getAccessibleNameFromAriaLabelledBy(
 
   for (const id of ListIdRefs) {
     if (id !== '' /*&& elementID !== id*/) elem = window.qwPage.getElementByID(id);
-    if (elem) accessNameFromId = Utility.getAccessibleNameRecursion(elem, true, isWidget && elementID !== id);
+    if (elem)
+      accessNameFromId = window.AccessibilityUtils.getAccessibleNameRecursion(elem, true, isWidget && elementID !== id);
     if (accessNameFromId) {
       if (result) {
         result += accessNameFromId.trim() + ' ';
@@ -212,9 +214,9 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidge
 
   if (children) {
     for (const child of children) {
-      const role = getElementRole(child);
+      const role = getElementRoleAName(child, '');
       if (!isElementHidden(child) && role !== 'presentation' && role !== 'none') {
-        aName = Utility.getAccessibleNameRecursion(child, true, isWidget);
+        aName = window.AccessibilityUtils.getAccessibleNameRecursion(child, true, isWidget);
         if (aName) {
           elementAnames.push(aName);
         } else {
