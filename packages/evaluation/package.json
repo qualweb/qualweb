@@ -14,7 +14,7 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "docs": "typedoc --out docs src/index.ts",
     "prebuild": "rimraf dist",
-    "build": "npm run prebuild && tsc --build",
+    "build": "npm run format && npm run prebuild && tsc --build",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/qualweb/evaluation#readme",
@@ -35,13 +35,13 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.0",
-    "@qualweb/types": "^0.5.3",
+    "@qualweb/types": "^0.5.9",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/lodash.clonedeep": "^4.5.6",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@types/puppeteer": "^5.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "chai": "^4.3.4",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
@@ -54,12 +54,12 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.5.0",
-    "@qualweb/best-practices": "^0.4.18",
-    "@qualweb/counter": "^0.1.2",
-    "@qualweb/qw-page": "^0.2.2",
-    "@qualweb/wappalyzer": "^0.2.0",
-    "@qualweb/wcag-techniques": "^0.1.17",
-    "lodash.clonedeep": "^4.5.0"
+    "@qualweb/act-rules": "^0.5.3",
+    "@qualweb/best-practices": "^0.5.2",
+    "@qualweb/counter": "^0.2.0",
+    "@qualweb/qw-page": "^0.2.4",
+    "@qualweb/util": "^0.5.4",
+    "@qualweb/wappalyzer": "^0.3.1",
+    "@qualweb/wcag-techniques": "^0.2.3"
   }
 }

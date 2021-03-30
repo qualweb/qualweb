@@ -1,8 +1,7 @@
-import { Page } from 'puppeteer';
+import { Browser, Page, Serializable } from 'puppeteer';
 import { QualwebOptions, Url, Evaluator, Execute } from '@qualweb/core';
 import { randomBytes } from 'crypto';
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
-import { BrowserUtils } from '@qualweb/util';
 import EvaluationRecord from './evaluationRecord.object';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
@@ -56,13 +55,22 @@ class Evaluation {
     };
   }
 
-  public async addQWPage(page: Page): Promise<void> {
+  public async init(page: Page): Promise<void> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
     });
+    await page.addScriptTag({
+      path: require.resolve('@qualweb/util')
+    });
     await page.evaluate(() => {
-      // @ts-ignore
-      window.page = new QWPage(document, window, true);
+      //@ts-ignore
+      window.qwPage = new Module.QWPage(document, window, true);
+    });
+    await page.evaluate(() => {
+      //@ts-ignore
+      window.DomUtils = Utility.DomUtils;
+      //@ts-ignore
+      window.AccessibilityUtils = Utility.AccessibilityUtils;
     });
   }
 
@@ -75,16 +83,14 @@ class Evaluation {
       path: require.resolve('@qualweb/act-rules')
     });
 
-    await page.evaluate((options) => {
-      // @ts-ignore
-      window.act = new ACTRules(options);
-      // @ts-ignore
-    }, options);
+    await page.evaluate((options: ACTROptions | undefined) => {
+      //@ts-ignore
+      window.act = new ACT.ACTRules(options);
+    }, <Serializable>options);
 
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate((sourceHtmlHeadContent) => {
-      // @ts-ignore
-      window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent(window.page);
+      window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
       const sourceDoc = parser.parseFromString('', 'text/html');
@@ -93,17 +99,14 @@ class Evaluation {
 
       const elements = sourceDoc.querySelectorAll('meta');
       const metaElements = new Array<QWElement>();
-      for (const element of elements) {
-        // @ts-ignore
-        metaElements.push(QWPage.createQWElement(element));
-      }
+      elements.forEach((element: HTMLMetaElement) => {
+        //@ts-ignore
+        metaElements.push(Module.QWPage.createQWElement(element));
+      });
 
-      // @ts-ignore
       window.act.validateMetaElements(metaElements);
-      // @ts-ignore
-      window.act.executeAtomicRules(window.page);
-      // @ts-ignore
-      window.act.executeCompositeRules(window.page);
+      window.act.executeAtomicRules();
+      window.act.executeCompositeRules();
     }, sourceHtmlHeadContent);
 
     if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
@@ -113,8 +116,7 @@ class Evaluation {
         height: 512
       });
       await page.evaluate(() => {
-        // @ts-ignore
-        window.act.validateZoomedTextNodeNotClippedWithCSSOverflow(window.page);
+        window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
       });
       if (viewport) {
         await page.setViewport(viewport);
@@ -122,7 +124,6 @@ class Evaluation {
     }
 
     return page.evaluate(() => {
-      // @ts-ignore
       return window.act.getReport();
     });
   }
@@ -130,25 +131,24 @@ class Evaluation {
   public async executeWCAG(
     page: Page,
     options: WCAGOptions | undefined,
-    validation: HTMLValidationReport | undefined
+    validation: HTMLValidationReport | null
   ): Promise<WCAGTechniquesReport> {
     await page.addScriptTag({
       path: require.resolve('@qualweb/wcag-techniques')
     });
 
     const url = page.url();
-    const newTabWasOpen = await BrowserUtils.detectIfUnwantedTabWasOpened(page.browser(), url);
+    const newTabWasOpen = await this.detectIfUnwantedTabWasOpened(page.browser(), url);
 
     return await page.evaluate(
-      (newTabWasOpen, validation, options) => {
-        // @ts-ignore
-        const html = new WCAGTechniques.WCAGTechniques(JSON.parse(options));
-        // @ts-ignore
-        return html.execute(window.page, newTabWasOpen, JSON.parse(validation));
+      (newTabWasOpen: boolean, validation: HTMLValidationReport, options: WCAGOptions | undefined) => {
+        //@ts-ignore
+        const wcag = new WCAG.WCAGTechniques(options);
+        return wcag.execute(newTabWasOpen, validation);
       },
       newTabWasOpen,
-      JSON.stringify(validation),
-      JSON.stringify(options)
+      <Serializable>validation,
+      <Serializable>options
     );
   }
 
@@ -157,14 +157,11 @@ class Evaluation {
       path: require.resolve('@qualweb/best-practices')
     });
 
-    return await page.evaluate((options) => {
-      // @ts-ignore
-      const bp = new BestPractices.BestPractices();
-      if (options) bp.configure(options);
-      // @ts-ignore
-      return bp.execute(window.page);
-      // @ts-ignore
-    }, options);
+    return await page.evaluate((options: BPOptions | undefined) => {
+      //@ts-ignore
+      const bp = new BP.BestPractices(options);
+      return bp.execute();
+    }, <Serializable>options);
   }
 
   public async executeCounter(page: Page): Promise<CounterReport> {
@@ -172,11 +169,9 @@ class Evaluation {
       path: require.resolve('@qualweb/counter')
     });
 
-    const Counter = <CounterReport>await page.evaluate(() => {
-      //@ts-ignore
-      return Counter.executeCounter(window.page);
+    return await page.evaluate(() => {
+      return window.executeCounter();
     });
-    return Counter;
   }
 
   public async evaluatePage(
@@ -190,7 +185,7 @@ class Evaluation {
     const evaluator = await this.getEvaluator(page, url);
     const evaluation = new EvaluationRecord(evaluator);
 
-    await this.addQWPage(page);
+    await this.init(page);
 
     if (execute.act) {
       evaluation.addModuleEvaluation(
@@ -201,7 +196,7 @@ class Evaluation {
     if (execute.wcag) {
       evaluation.addModuleEvaluation(
         'wcag-techniques',
-        await this.executeWCAG(page, options['wcag-techniques'], validation)
+        await this.executeWCAG(page, options['wcag-techniques'], validation ?? null)
       );
     }
     if (execute.bp) {
@@ -236,6 +231,27 @@ class Evaluation {
       uri,
       completeUrl
     };
+  }
+
+  private async detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean> {
+    const tabs = await browser.pages();
+
+    let wasOpen = false;
+
+    for (const tab of tabs ?? []) {
+      const target = tab.target();
+      const opener = target.opener();
+
+      if (opener) {
+        const openerPage = await opener.page();
+        if (openerPage && openerPage.url() === url) {
+          wasOpen = true;
+          await tab.close();
+        }
+      }
+    }
+
+    return wasOpen;
   }
 }
 

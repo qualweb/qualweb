@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
-
 class Metadata {
   private passed: number;
   private warning: number;
@@ -29,13 +27,13 @@ class Metadata {
     this.inapplicable += results;
   }
 
-  public getResults(): any {
-    return cloneDeep({
+  public getResults(): { passed: number; failed: number; warning: number; inapplicable: number } {
+    return {
       passed: this.passed,
       warning: this.warning,
       failed: this.failed,
       inapplicable: this.inapplicable
-    });
+    };
   }
 }
 
