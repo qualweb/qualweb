@@ -26,12 +26,6 @@ class WCAGTechniques {
   }
 
   public configure(options: WCAGOptions): void {
-    if (options.principles) {
-      options.principles = options.principles.map((p) => (p.charAt(0).toUpperCase() + p.toLowerCase().slice(1)).trim());
-    }
-    if (options.levels) {
-      options.levels = options.levels.map((l) => l.toUpperCase().trim());
-    }
     if (options.techniques) {
       options.techniques = options.techniques.map((t) => t.toUpperCase().trim());
     }

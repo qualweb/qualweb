@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.bundle.js",
   "files": [
@@ -40,12 +40,12 @@
   "devDependencies": {
     "@qualweb/dom": "^0.2.0",
     "@qualweb/qw-page": "^0.2.3",
-    "@qualweb/types": "^0.5.6",
-    "@qualweb/util": "^0.5.3",
+    "@qualweb/types": "^0.5.9",
+    "@qualweb/util": "^0.5.4",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.37",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "chai": "^4.3.4",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",

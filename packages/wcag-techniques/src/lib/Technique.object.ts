@@ -1,3 +1,4 @@
+import { Level, Principle } from '@qualweb/evaluation';
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Test from './Test.object';
 
@@ -12,7 +13,7 @@ abstract class Technique {
     return this.technique.mapping;
   }
 
-  public hasPrincipleAndLevels(principles: Array<string>, levels: Array<string>): boolean {
+  public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean {
     let has = false;
     for (const sc of this.technique.metadata['success-criteria'] ?? []) {
       if (principles.includes(sc.principle) && levels.includes(sc.level)) {
