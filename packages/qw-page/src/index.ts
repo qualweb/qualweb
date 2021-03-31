@@ -6,9 +6,9 @@ import SelectorCalculator from './selectorCalculator.object';
 class QWPage {
   private readonly cache: Cache;
   private readonly document: Document | ShadowRoot;
-  private url: string;
-  private extraDocuments: Map<string, QWPage>;
-  private elementsCSSRules?: Map<Element, CSSProperties>;
+  private readonly url: string;
+  private readonly extraDocuments: Map<string, QWPage>;
+  private readonly elementsCSSRules?: Map<Element, CSSProperties>;
   private readonly window: Window;
 
   constructor(document: Document | ShadowRoot, window: Window, addCSSRulesToElements?: boolean) {
@@ -99,10 +99,10 @@ class QWPage {
     const elements = this.document.querySelectorAll(selector);
     const qwList = new Array<QWElement>();
 
-    for (const element of elements || []) {
+    elements.forEach((element: Element) => {
       this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element, this.elementsCSSRules));
-    }
+    });
 
     return qwList;
   }
@@ -173,16 +173,12 @@ class QWPage {
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
       const iframeKeys = Array.from(this.extraDocuments.keys());
-      let i = 0;
-      let iframePage: QWPage | undefined;
-      let iframeElements: Array<QWElement>;
-      while (i < iframeKeys.length) {
-        iframePage = this.extraDocuments.get(iframeKeys[i]);
+      for (const key of iframeKeys ?? []) {
+        const iframePage = this.extraDocuments.get(key);
         if (iframePage) {
-          iframeElements = iframePage.getElements(selector);
-          this.addIframeAttribute(iframeElements, iframeKeys[i]);
+          const iframeElements = iframePage.getElements(selector);
+          this.addIframeAttribute(iframeElements, key);
           elements.push(...iframeElements);
-          i++;
         }
       }
     }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.5] - 31/03/2021
+
+### Fixed
+
+- some issues with webpages that have iframes
+
 ## [0.2.4] - 29/03/2021
 
 ### Updated

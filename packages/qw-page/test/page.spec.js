@@ -3,7 +3,7 @@ import { Dom } from '@qualweb/dom';
 
 describe('QualWeb page', function() {
   it('Testing qw-page injection on browser', async function() {
-    this.timeout(1000 * 1000);
+    this.timeout(0);
 
     const browser = await puppeteer.launch();
 
@@ -20,7 +20,7 @@ describe('QualWeb page', function() {
     });
 
     await page.evaluate(() => {
-      window.page = new QWPage(document, window, true);
+      window.qwPage = new Module.QWPage(document, window, true);
     });
 
     await dom.close();
