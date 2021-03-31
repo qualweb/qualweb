@@ -1,6 +1,5 @@
 import { QualWeb, generateEARLReport, EvaluationReport, QualwebOptions } from '@qualweb/core';
 import { EarlOptions } from '@qualweb/earl-reporter';
-
 import parse from './lib/parser';
 import { saveReport } from './lib/fileUtils';
 import { printHelp } from './lib/parserUtils';
@@ -41,7 +40,6 @@ async function handleReporting(reports: { [url: string]: EvaluationReport }, opt
       }
     } else if (reportType === 'earl-a') {
       const earlOptions = checkEarlOptions(options, saveName);
-
       const earlReport = generateEARLReport(reports, earlOptions);
       const name = Object.keys(earlReport)[0];
       await saveReport(name, earlReport[name], !!saveName);
@@ -49,9 +47,8 @@ async function handleReporting(reports: { [url: string]: EvaluationReport }, opt
       throw new Error('Invalid reporter format');
     }
   } else {
-    for (const url in reports || {}) {
+    for (const url in reports ?? {}) {
       const report = <EvaluationReport>reports[url];
-      delete report.system.page.dom.source.html.parsed;
       await saveReport(url, report);
     }
   }

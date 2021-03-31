@@ -92,7 +92,9 @@ This command replaces all other commands.
   "modules": {
     "act": true,
     "wcag": true,
-    "bp": true
+    "bp": true,
+    "counter": false,
+    "wappalyzer": false
   },
   "act-rules": {
     "rules": ["QW-ACT-R1"],
@@ -193,7 +195,6 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 | QW-ACT-R5       | [bf051a](https://act-rules.github.io/rules/bf051a) | Validity of HTML Lang attribute                                                     |
 | QW-ACT-R6       | [59796f](https://act-rules.github.io/rules/59796f) | Image button has accessible name                                                    |
 | QW-ACT-R7       | [b33eff](https://act-rules.github.io/rules/b33eff) | Orientation of the page is not restricted using CSS transform property              |
-| QW-ACT-R8       | [9eb3f6](https://act-rules.github.io/rules/9eb3f6) | Image filename is accessible name for image                                         |
 | QW-ACT-R9       | [b20e66](https://act-rules.github.io/rules/b20e66) | Links with identical accessible names have equivalent purpose                       |
 | QW-ACT-R10      | [4b1c6c](https://act-rules.github.io/rules/4b1c6c) | `iframe` elements with identical accessible names have equivalent purpose           |
 | QW-ACT-R11      | [97a4e1](https://act-rules.github.io/rules/97a4e1) | Button has accessible name                                                          |
@@ -230,7 +231,6 @@ This config file can replace commands **--wcag-techniques**, **--wcag-levels** a
 | QW-ACT-R42      | [8fc3b6](https://act-rules.github.io/rules/8fc3b6) | Object element has non-empty accessible name                                        |
 | QW-ACT-R43      | [0ssw9k](https://act-rules.github.io/rules/0ssw9k) | Scrollable element is keyboard accessible                                           |
 | QW-ACT-R44      | [fd3a94](https://act-rules.github.io/rules/fd3a94) | Links with identical accessible names and context serve equivalent purpose          |
-| QW-ACT-R46      | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model                                                  |
 | QW-ACT-R48      | [46ca7f](https://act-rules.github.io/rules/46ca7f) | Element marked as decorative is not exposed                                         |
 | QW-ACT-R49      | [aaa1bf](https://act-rules.github.io/rules/aaa1bf) | Audio or video that plays automatically has no audio that lasts more than 3 seconds |
 | QW-ACT-R50      | [4c31df](https://act-rules.github.io/rules/4c31df) | Audio or video that plays automatically has a control mechanism                     |

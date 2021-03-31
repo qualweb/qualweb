@@ -9,18 +9,7 @@ import commandLineArgs, { CommandLineOptions } from 'command-line-args';
 import { QualwebOptions } from '@qualweb/core';
 import setValue from 'set-value';
 
-async function parse(): Promise<QualwebOptions> {
-  let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
-  const options: QualwebOptions = {};
-
-  if (mainOptions._unknown) {
-    printHelp();
-  }
-
-  if (mainOptions.json) {
-    mainOptions = <CommandLineOptions>await readJsonFile(mainOptions['json']);
-  }
-
+function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.url) {
     options.url = mainOptions.url;
   }
@@ -32,12 +21,14 @@ async function parse(): Promise<QualwebOptions> {
   if (mainOptions.crawl) {
     options.crawl = mainOptions.crawl;
   }
+}
 
+function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.module) {
     options.execute = {};
     const modulesToExecute = mainOptions.module;
 
-    for (const module of modulesToExecute || []) {
+    for (const module of modulesToExecute ?? []) {
       if (!modules.includes(module.replace(',', '').trim())) {
         printError('Module ' + module.replace(',', '').trim() + ' does not exist.');
       } else {
@@ -65,16 +56,17 @@ async function parse(): Promise<QualwebOptions> {
       }
     }
   }
+}
 
+function parseViewport(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.viewport) {
     options.viewport = {
       mobile: false,
       landscape: true,
-      userAgent:
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0', default value for mobile = 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0',
       resolution: {
-        width: 1920,
-        height: 1080
+        width: 1366,
+        height: 768
       }
     };
 
@@ -98,7 +90,9 @@ async function parse(): Promise<QualwebOptions> {
       setValue(options, 'viewport.resolution.height', mainOptions.height);
     }
   }
+}
 
+function parseSystemOptions(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.timeout) {
     options.timeout = mainOptions.timeout;
   }
@@ -110,7 +104,9 @@ async function parse(): Promise<QualwebOptions> {
   if (mainOptions.maxParallelEvaluations) {
     options.maxParallelEvaluations = mainOptions.maxParallelEvaluations;
   }
+}
 
+function parseReportType(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   const reportType = 'report-type';
 
   if (mainOptions[reportType]) {
@@ -120,6 +116,29 @@ async function parse(): Promise<QualwebOptions> {
       printError('Wrong report type selected.');
     }
   }
+}
+
+async function parse(): Promise<QualwebOptions> {
+  let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
+  const options: QualwebOptions = {};
+
+  if (mainOptions._unknown) {
+    printHelp();
+  }
+
+  if (mainOptions.json) {
+    mainOptions = <CommandLineOptions>await readJsonFile(mainOptions['json']);
+  }
+
+  parseInputMethods(mainOptions, options);
+
+  parseModules(mainOptions, options);
+
+  parseViewport(mainOptions, options);
+
+  parseSystemOptions(mainOptions, options);
+
+  parseReportType(mainOptions, options);
 
   //////////////////////////////////////////////////////////////////////////////////
   // ACT ///////////////////////////////////////////////////////////////////////////
