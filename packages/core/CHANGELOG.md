@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.2] - 32/03/2021
+
+### Changes
+
+- Removed QW-ACT-R8 since it was deprecated (https://act-rules.github.io/rules/9eb3f6)
+- Changed dom data structure in the final evaluation report
+  - now it only shows the processed dom information, instead of both source page and processed page
+- Removed a lot of third party dependencies on all modules
+
+### Updated
+
+- dependencies
+
 ## [0.5.1] - 23/03/2021
 
 ### Added

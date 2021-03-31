@@ -1,4 +1,4 @@
-import { QualWeb, generateEarlReport } from '../dist/index';
+import { QualWeb, generateEARLReport } from '../dist/index';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 
@@ -28,7 +28,7 @@ describe('Should do parallel evaluations', function() {
     };
     
     const evaluations = await qualweb.evaluate(options);
-    const earlReport = Object.values(await generateEarlReport(evaluations, { aggregated: true, modules: { act: true }}));
+    const earlReport = Object.values(generateEARLReport(evaluations, { aggregated: true, modules: { act: true }}));
     
     await qualweb.stop();
 

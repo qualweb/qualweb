@@ -6,6 +6,12 @@ import { Evaluation } from '@qualweb/evaluation';
 import Crawl from '@qualweb/crawler';
 import fs from 'fs';
 
+/**
+ * QualWeb engine - Performs web accessibility evaluations using several modules:
+ * - act-rules module (https://github.com/qualweb/act-rules)
+ * - wcag-techniques module (https://github.com/qualweb/wcag-techniques)
+ * - best-practices module (https://github.com/qualweb/best-practices)
+ */
 class QualWeb {
   /**
    * Chromium browser instance
@@ -28,7 +34,8 @@ class QualWeb {
    */
   public async evaluate(options: QualwebOptions): Promise<Evaluations> {
     let numberOfParallelEvaluations = 1;
-    let html: string | undefined = undefined;
+    let html: string | undefined;
+
     const modulesToExecute = {
       act: true,
       wcag: true,
@@ -100,22 +107,22 @@ class QualWeb {
    * - file - file with urls
    * - crawler - domain to crawl and gather urls
    *
-   * @param {QualwebOptions} options -
+   * @param {QualwebOptions} options - qualweb options
    * @returns list of urls
    */
   private async checkUrls(options: QualwebOptions): Promise<Array<string>> {
-    let urls = new Array<string>();
+    const urls = new Array<string>();
     if (options.url) {
       urls.push(decodeURIComponent(options.url).trim());
     }
     if (options.urls) {
-      urls = urls.concat(options.urls.map((url: string) => decodeURIComponent(url).trim()));
+      urls.push(...options.urls.map((url: string) => decodeURIComponent(url).trim()));
     }
     if (options.file) {
-      urls = urls.concat(await getFileUrls(options.file));
+      urls.push(...(await getFileUrls(options.file)));
     }
     if (options.crawl) {
-      urls = urls.concat(await crawlDomain(options.crawl));
+      urls.push(...(await crawlDomain(options.crawl)));
     }
 
     return urls;
@@ -138,23 +145,23 @@ class QualWeb {
     modulesToExecute: Execute
   ): Promise<void> {
     if (this.browser) {
+      const dom = new Dom();
       try {
-        const dom = new Dom();
-
-        const { sourceHtml, page, validation } = await dom.getDOM(this.browser, options, url, html ?? '');
+        const { sourceHtmlHeadContent, page, validation } = await dom.getDOM(this.browser, options, url, html ?? '');
         const evaluation = new Evaluation();
         const evaluationReport = await evaluation.evaluatePage(
-          sourceHtml,
+          sourceHtmlHeadContent,
           page,
           modulesToExecute,
           options,
           url,
           validation
         );
-        await dom.close();
-        evaluations[url ?? 'customHtml'] = evaluationReport.getFinalReport();
+        evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
       } catch (err) {
         console.error(err);
+      } finally {
+        await dom.close();
       }
     }
   }
@@ -187,9 +194,9 @@ async function crawlDomain(domain: string): Promise<Array<string>> {
 }
 
 /**
- * Reads a file to obtain the urls to evaluate
+ * Reads a file
  *
- * @param {string} file - path to file of urls
+ * @param {string} file - path to file
  * @returns file data
  */
 function readFile(file: string): Promise<string> {

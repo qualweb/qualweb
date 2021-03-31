@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -33,13 +33,13 @@
     "a11y"
   ],
   "homepage": "https://github.com/qualweb/core#readme",
-  "bugs": {
-    "url": "https://github.com/qualweb/core/issues",
-    "email": "qualweb@fc.ul.pt"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/qualweb/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/core/issues",
+    "email": "qualweb@fc.ul.pt"
   },
   "author": {
     "name": "João Vicente",
@@ -66,22 +66,20 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "^0.1.1",
-    "@qualweb/dom": "^0.1.35",
+    "@qualweb/dom": "^0.2.0",
     "@qualweb/earl-reporter": "^0.4.1",
-    "@qualweb/evaluation": "^0.1.78",
-    "lodash.clone": "^4.5.0",
-    "lodash.clonedeep": "^4.5.0",
+    "@qualweb/evaluation": "^0.2.0",
     "puppeteer": "^8.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.4.67",
+    "@qualweb/types": "^0.5.9",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^14.14.35",
+    "@types/node": "^14.14.37",
     "@types/puppeteer": "^5.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "chai": "^4.3.4",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
@@ -90,7 +88,7 @@
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.33",
+    "typedoc": "^0.20.34",
     "typescript": "^4.2.3"
   }
 }

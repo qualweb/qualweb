@@ -133,7 +133,7 @@ The available options fot the **generateEARLReport()** function are:
 
 ## Report details
 
-In this section it's explained the evaluation report in detail. For detailed version of the EARL report check [@qualweb/earl-reporter](https://github.com/qualweb/earl-reporter#report-details).
+In this section it's explained the evaluation report in detail. For a detailed version of the EARL report check [@qualweb/earl-reporter](https://github.com/qualweb/earl-reporter#report-details).
 
 ```jsonc
   {
@@ -164,30 +164,9 @@ In this section it's explained the evaluation report in detail. For detailed ver
           }
         },
         "dom": {
-          "source": {
-            "html": {
-              "plain": "html code as a string",
-              "parsed": "html parsed using htmlparser2", // https://github.com/fb55/htmlparser2
-            },
-            "title": "Title of the webpage source code",
-            "elementCount": "Element count of the webpage source code"
-          },
-          "processed": {
-            "html": {
-              "plain": "html code as a string"
-            },
-            "title": "Title of the webpage",
-            "elementCount": "Element count of the webpage"
-          },
-          "stylesheets": [
-            {
-              "file": "path to the stylesheet file",
-              "content": {
-                "plain": "stylesheet file content as a string",
-                "parsed": "stylesheet file content parsed using css" // https://github.com/reworkcss/css
-              }
-            }
-          ]
+          "html": "html code as a string",
+          "title": "Title of the webpage",
+          "elementCount": "Element count of the webpage"
         }
       }
     },
@@ -209,8 +188,8 @@ In this section it's explained the evaluation report in detail. For detailed ver
         "assertions": {
           "QW_ACT_R1": {
             "name": "Name of the rule",
-            "code": "QualWeb rule code",
-            "mapping": "ACT rule code mapping",
+            "code": "QualWeb rule id",
+            "mapping": "ACT rule id mapping",
             "description": "Description of the rule",
             "metadata": {
               "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
@@ -259,7 +238,7 @@ In this section it's explained the evaluation report in detail. For detailed ver
         "assertions": {
           "QW_WCAG_T1": {
             "name": "Name of the technique",
-            "code": "QualWeb technique code",
+            "code": "QualWeb technique id",
             "mapping": "WCAG techniques code mapping",
             "description": "Description of the technique",
             "metadata": {
@@ -308,7 +287,7 @@ In this section it's explained the evaluation report in detail. For detailed ver
         "assertions": {
           "QW_BP1": {
             "name": "Name of the technique",
-            "code": "QualWeb best practices code",
+            "code": "QualWeb best practices id",
             "description": "Description of the best practices",
             "metadata": {
               "target": "Any target, can be one element, multiple elements, attributes, a relation between elements",
@@ -374,7 +353,6 @@ In this section it's explained the evaluation report in detail. For detailed ver
 | QW-ACT-R5       | [bf051a](https://act-rules.github.io/rules/bf051a) | Validity of HTML Lang attribute                                                     |
 | QW-ACT-R6       | [59796f](https://act-rules.github.io/rules/59796f) | Image button has accessible name                                                    |
 | QW-ACT-R7       | [b33eff](https://act-rules.github.io/rules/b33eff) | Orientation of the page is not restricted using CSS transform property              |
-| QW-ACT-R8       | [9eb3f6](https://act-rules.github.io/rules/9eb3f6) | Image filename is accessible name for image                                         |
 | QW-ACT-R9       | [b20e66](https://act-rules.github.io/rules/b20e66) | Links with identical accessible names have equivalent purpose                       |
 | QW-ACT-R10      | [4b1c6c](https://act-rules.github.io/rules/4b1c6c) | `iframe` elements with identical accessible names have equivalent purpose           |
 | QW-ACT-R11      | [97a4e1](https://act-rules.github.io/rules/97a4e1) | Button has accessible name                                                          |
@@ -411,7 +389,6 @@ In this section it's explained the evaluation report in detail. For detailed ver
 | QW-ACT-R42      | [8fc3b6](https://act-rules.github.io/rules/8fc3b6) | Object element has non-empty accessible name                                        |
 | QW-ACT-R43      | [0ssw9k](https://act-rules.github.io/rules/0ssw9k) | Scrollable element is keyboard accessible                                           |
 | QW-ACT-R44      | [fd3a94](https://act-rules.github.io/rules/fd3a94) | Links with identical accessible names and context serve equivalent purpose          |
-| QW-ACT-R46      | [a73be2](https://act-rules.github.io/rules/a73be2) | List elements follow content model                                                  |
 | QW-ACT-R48      | [46ca7f](https://act-rules.github.io/rules/46ca7f) | Element marked as decorative is not exposed                                         |
 | QW-ACT-R49      | [aaa1bf](https://act-rules.github.io/rules/aaa1bf) | Audio or video that plays automatically has no audio that lasts more than 3 seconds |
 | QW-ACT-R50      | [4c31df](https://act-rules.github.io/rules/4c31df) | Audio or video that plays automatically has a control mechanism                     |
@@ -478,6 +455,17 @@ In this section it's explained the evaluation report in detail. For detailed ver
 | QW-WCAG-T30          | [F4](https://www.w3.org/WAI/WCAG21/Techniques/failures/F4)                                                                                                              | Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds                       |
 | QW-WCAG-T31          | [F24](https://www.w3.org/WAI/WCAG21/Techniques/failures/F24)                                                                                                            | Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa           |
 | QW-WCAG-T32          | [H48](https://www.w3.org/WAI/WCAG21/Techniques/html/H48)                                                                                                                | Using ol, ul and dl for lists or groups of links                                                                                                     |
+
+# Evaluation problems
+
+Sometimes, some webpages fail to evaluate, or the evaluation may take a really long time. Before creating an issue verify that:
+
+- The URL is correct, and it uses http or https, or www, or both;
+- The webpage exists;
+- If using https, that the certificate is valid;
+  - If you really want to evaluate the page with an invalid certificate, add "--ignore-certificate-errors" to the `args` in qualweb launch options.
+- The webpage loading is not blocked by a javascript dialog (e.g. alert or confirm dialog).
+  - In this cases, qualweb core can't evaluate the webpage because the loading phase is never finished and the only way to get an evaluation it's by using the qualweb chrome extension mentioned at the beginning.
 
 # License
 

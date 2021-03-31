@@ -1,4 +1,4 @@
-import { QualWeb, generateEarlReport } from '../dist/index';
+import { QualWeb, generateEARLReport } from '../dist/index';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -9,9 +9,9 @@ describe('Core', function () {
 
     await qualweb.start();
 
-    const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt/' });
+    const evaluations = await qualweb.evaluate({ url: 'https://ciencias.ulisboa.pt/', execute: {} });
 
-    const earlReports = await generateEarlReport(evaluations);
+    const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
