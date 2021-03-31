@@ -15,7 +15,7 @@ describe('QualWeb evaluation', function() {
     
     const evaluation = new Evaluation();
     const report = await evaluation.evaluatePage(sourceHtmlHeadContent, page, { act: true, wcag: false, bp: false, counter: false, wappalyzer: false }, {}, url, validation);
-    fs.writeFileSync('wcag-report.json', JSON.stringify(report.getFinalReport(), null, 2));
+    
     await dom.close();
     await browser.close();
   });
