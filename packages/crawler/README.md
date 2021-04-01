@@ -1,6 +1,6 @@
 # QualWeb Crawler
 
-Crawler mechanism for qualweb. Implementation using [simplecrawler](https://github.com/simplecrawler/simplecrawler).
+Crawler mechanism for QualWeb. Implementation using [puppeteer](https://github.com/puppeteer/puppeteer).
 
 ## How to install
 
@@ -13,12 +13,23 @@ Crawler mechanism for qualweb. Implementation using [simplecrawler](https://gith
 ```javascript
   'use strict';
 
-  const Crawl = require('@qualweb/crawler');
+  const puppeteer = require('puppeteer');
+  const Crawler = require('@qualweb/crawler');
 
   (async () => {
-    const crawler = new Crawl('https://lodash.com');
+    const browser = puppeteer.launch();
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
 
-    await crawler.start();
+    const options = {
+      maxDepth?: 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
+      maxUrls?: 100, // max urls to find. Default value = -1 (search everything)
+      maxParallelCrawls?: 10, // max urls to crawl ate the same time. Default value = 5
+      logging?: true // logs current depth and urls found to the terminal
+    };
+
+    await crawler.crawl(options);
+
+    await browser.close();
 
     const urls = crawler.getResults();
 

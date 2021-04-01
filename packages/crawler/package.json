@@ -1,19 +1,28 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
-  "types": "./node_modules/@qualweb/types",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "test": "mocha",
     "tsc": "tsc",
-    "clean": "node clean.js",
-    "build": "npm run clean && tsc --build",
-    "pub": "npm run build && npm publish --access=public"
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prebuild": "rimraf dist && npm run format",
+    "build": "npm run prebuild && tsc --build",
+    "prepare": "npm run build"
   },
+  "homepage": "https://github.com/qualweb/crawler#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qualweb/crawler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/crawler/issues"
   },
   "keywords": [
     "ally",
@@ -24,20 +33,28 @@
   ],
   "author": "João Vicente",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qualweb/crawler/issues"
+  "engines": {
+    "node": ">=12.0.0"
   },
   "dependencies": {
-    "iohook": "^0.6.5",
-    "log-update": "^4.0.0",
-    "simplecrawler": "^1.1.8"
+    "log-update": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.2.10",
-    "@types/node": "^12.7.7",
-    "@types/simplecrawler": "^1.1.1",
-    "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "typescript": "^3.6.3"
+    "@qualweb/types": "^0.5.10",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^14.14.37",
+    "@types/puppeteer": "^5.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-sonarjs": "^0.6.0",
+    "mocha": "^8.3.2",
+    "prettier": "^2.2.1",
+    "puppeteer": "^8.0.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.3"
   }
 }
