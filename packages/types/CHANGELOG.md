@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.10] - 01/04/2020
+
+### Updated
+
+- crawler interface
+
 ## [0.5.9] - 30/03/2020
 
 ### Added

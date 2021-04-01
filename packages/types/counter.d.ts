@@ -1,5 +1,4 @@
 declare module "@qualweb/counter" {
-  import { QWPage } from "@qualweb/qw-page";
 
   interface Roles {
     [role: string]: number;
@@ -19,7 +18,7 @@ declare module "@qualweb/counter" {
     data: CounterResult;
   }
 
-  function executeCounter(page: QWPage): Promise<CounterReport>;
+  function executeCounter(): Promise<CounterReport>;
 
   export { CounterResult, CounterReport, Roles, Tags, executeCounter };
 }
