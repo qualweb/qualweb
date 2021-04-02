@@ -23,7 +23,7 @@ Crawler mechanism for QualWeb. Implementation using [puppeteer](https://github.c
     const options = {
       maxDepth?: 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
       maxUrls?: 100, // max urls to find. Default value = -1 (search everything)
-      maxParallelCrawls?: 10, // max urls to crawl ate the same time. Default value = 5
+      maxParallelCrawls?: 10, // max urls to crawl at the same time. Default value = 5
       logging?: true // logs current depth and urls found to the terminal
     };
 

@@ -233,4 +233,4 @@ class Crawler {
   }
 }
 
-export = Crawler;
+export { Crawler };
