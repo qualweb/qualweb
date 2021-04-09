@@ -23,8 +23,9 @@ Crawler mechanism for QualWeb. Implementation using [puppeteer](https://github.c
     const options = {
       maxDepth?: 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
       maxUrls?: 100, // max urls to find. Default value = -1 (search everything)
+      timeout?: 60, // how many seconds the domain should be crawled before it ends. Default value = -1 (never stops)
       maxParallelCrawls?: 10, // max urls to crawl at the same time. Default value = 5
-      logging?: true // logs current depth and urls found to the terminal
+      logging?: true // logs domain, current depth, urls found and time passed to the terminal
     };
 
     await crawler.crawl(options);
