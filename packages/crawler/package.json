@@ -1,13 +1,13 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --require esm",
     "tsc": "tsc",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -40,21 +40,22 @@
     "log-update": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.5.10",
+    "@qualweb/types": "^0.5.11",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.37",
     "@types/puppeteer": "^5.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
     "chai": "^4.3.4",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
+    "esm": "^3.2.25",
     "mocha": "^8.3.2",
     "prettier": "^2.2.1",
     "puppeteer": "^8.0.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   }
 }

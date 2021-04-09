@@ -1,27 +1,69 @@
-const Crawl = require('../dist/index');
-const puppeteer = require('puppeteer');
-const { expect } = require('chai');
-const fs = require('fs');
+import { Crawler } from '../dist/index';
+import puppeteer from 'puppeteer';
+import { expect } from 'chai';
 
 describe('Testing crawler execution', function() {
-  it('should crawl everything', async function() {
+  let browser;
+
+  before(async function() {
+    browser = await puppeteer.launch();
+  });
+
+  after(async function() {
+    await browser.close();
+  });
+
+  it('maxDepth: 0', async function() {
     this.timeout(0);
-    const crawler = new Crawl('https://ciencias.ulisboa.pt');
-    await crawler.start();
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, maxDepth: 0 });
     const urls = crawler.getResults();
-    console.log(urls);
+    console.log(urls.length);
     expect(urls.length).to.be.greaterThan(1);
   });
 
-  it.only('Should crawl: puppeteer', async function() {
+  it('maxDepth: 1', async function() {
     this.timeout(0);
-    const browser = await puppeteer.launch();
-    const crawler = new Crawl(browser, 'https://lead-me-cost.eu/');
-    await crawler.crawl({  log: true });
-    await browser.close();
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, maxDepth: 1 });
     const urls = crawler.getResults();
     console.log(urls.length);
-    //fs.writeFileSync('urls.txt', urls.join('\n'));
+    expect(urls.length).to.be.greaterThan(1);
+  });
+
+  it('maxUrls: 10', async function() {
+    this.timeout(0);
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, maxUrls: 10 });
+    const urls = crawler.getResults();
+    console.log(urls.length);
+    expect(urls.length).to.be.greaterThan(1);
+  });
+
+  it('MaxUrls: 100', async function() {
+    this.timeout(0);
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, maxUrls: 100 });
+    const urls = crawler.getResults();
+    console.log(urls.length);
+    expect(urls.length).to.be.greaterThan(1);
+  });
+
+  it('Timeout: 20 seconds', async function() {
+    this.timeout(0);
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, timeout: 20 });
+    const urls = crawler.getResults();
+    console.log(urls.length);
+    expect(urls.length).to.be.greaterThan(1);
+  });
+
+  it('Timeout: 1 minute', async function() {
+    this.timeout(0);
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    await crawler.crawl({ logging: true, timeout: 60 });
+    const urls = crawler.getResults();
+    console.log(urls.length);
     expect(urls.length).to.be.greaterThan(1);
   })
 });

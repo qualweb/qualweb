@@ -26,30 +26,52 @@ class Crawler {
     const maxDepth = options?.maxDepth ?? -1;
     const maxUrls = options?.maxUrls ?? -1;
     const parallel = options?.maxParallelCrawls ?? 5;
+    const timeout = options?.timeout ?? -1;
 
     let currentDepth = 0;
-    let currentUrlCount = 0;
+    let currentUrlCount = 1;
     let continueCrawling = true;
     let surpassedMax = false;
+    const timerHandle = setInterval(() => {
+      timer += 2;
+      if (options?.logging) {
+        logUpdate(
+          `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+        );
+      }
+    }, 2000);
+    let timer = 0;
+    let timeoutHandle = null;
+    let timeoutReached = false;
+
+    if (timeout > 0) {
+      timeoutHandle = setTimeout(() => (timeoutReached = true), timeout * 1000);
+    }
 
     if (options?.logging) {
-      logUpdate(`Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}`);
+      logUpdate(
+        `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+      );
     }
 
     const urlsByDepth: { [depth: number]: Array<string> } = {};
     const urlsCrawled: { [url: string]: boolean } = {};
 
+    urlsCrawled[this.domain] = true;
+
     const firstPageUrls = await this.fetchPageLinks(this.domain);
 
     urlsByDepth[currentDepth] = [...firstPageUrls];
     this.addUrlsToCrawl(urlsCrawled, firstPageUrls);
-    currentUrlCount = firstPageUrls.length;
+    currentUrlCount += firstPageUrls.length;
 
     if (options?.logging) {
-      logUpdate(`Current depth: ${currentDepth}   Urls found: ${currentUrlCount}`);
+      logUpdate(
+        `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+      );
     }
 
-    if (maxUrls <= 0 && currentUrlCount >= maxUrls) {
+    if (maxUrls >= 0 && currentUrlCount >= maxUrls) {
       surpassedMax = true;
     }
 
@@ -60,7 +82,9 @@ class Crawler {
       let depthCompleted = false;
 
       if (options?.logging) {
-        logUpdate(`Current depth: ${currentDepth}   Urls found: ${currentUrlCount}`);
+        logUpdate(
+          `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+        );
       }
 
       while (!depthCompleted) {
@@ -95,15 +119,22 @@ class Crawler {
           currentUrlCount = Object.keys(urlsCrawled).length;
 
           if (options?.logging) {
-            logUpdate(`Current depth: ${currentDepth}   Urls found: ${currentUrlCount}`);
+            logUpdate(
+              `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+            );
           }
 
-          if (maxUrls <= 0 && currentUrlCount >= maxUrls) {
+          if (maxUrls >= 0 && currentUrlCount >= maxUrls) {
             surpassedMax = true;
             depthCompleted = true;
             continueCrawling = false;
             break;
           }
+        }
+
+        if (timeoutReached) {
+          continueCrawling = false;
+          break;
         }
       }
 
@@ -111,6 +142,12 @@ class Crawler {
         continueCrawling = false;
       }
     }
+
+    if (timeoutHandle) {
+      clearTimeout(timeoutHandle);
+    }
+
+    clearInterval(timerHandle);
 
     if (surpassedMax) {
       this.urls = Object.keys(urlsCrawled).slice(0, maxUrls);

@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.1] - 9/04/2021
+
+### Added
+
+- timeout option
+- more logging
+
+### Fixed
+
+- some bugs
+
 ## [0.3.1] - 02/04/2021
 
 ### Fixed
