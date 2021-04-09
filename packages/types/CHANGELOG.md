@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.12] - 09/04/2020
+
+### Updated
+
+- QualwebOptions to support CrawlOptions
+
 ## [0.5.11] - 09/04/2020
 
 ### Updated

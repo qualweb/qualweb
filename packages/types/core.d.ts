@@ -1,6 +1,7 @@
 declare module "@qualweb/core" {
   import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
   import { DomData } from "@qualweb/dom";
+  import { CrawlOptions } from '@qualweb/crawler';
   import { WappalyzerReport, WappalyzerOptions } from "@qualweb/wappalyzer";
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
@@ -28,6 +29,7 @@ declare module "@qualweb/core" {
     maxParallelEvaluations?: number;
     validator?: string;
     report?: "earl" | "earl-a";
+    crawlOptions?: CrawlOptions
     "save-name"?: string;
     execute?: Execute;
     wappalyzer?: WappalyzerOptions;
