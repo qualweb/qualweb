@@ -4,6 +4,7 @@ declare module '@qualweb/crawler' {
   interface CrawlOptions {
     maxDepth?: number;
     maxUrls?: number;
+    timeout?: number;
     maxParallelCrawls?: number;
     logging?: boolean;
   }
