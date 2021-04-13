@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.13] - 13/04/2020
+
+### Updated
+
+- crawler interface
+- evaluation interface
+- core documentation
+
 ## [0.5.12] - 09/04/2020
 
 ### Updated

@@ -122,24 +122,33 @@ declare module "@qualweb/core" {
     public start(options?: LaunchOptions): Promise<void>;
 
     /**
-     * Evaluates given options
+     * Closes chromium browser.
+     */
+    public stop(): Promise<void>;
+
+    /**
+     * Evaluates given options.
      *
-     * @param {QualwebOptions} options - options of execution (check https://github.com/qualweb/core#options)
-     * @returns list of evaluations
+     * @param {QualwebOptions} options - Options of execution (check https://github.com/qualweb/core#options).
+     * @returns List of evaluations.
      */
     public evaluate(options: QualwebOptions): Promise<Evaluations>;
 
     /**
-     * Closes chromium browser
+     * Crawls a domain to find all webpages urls.
+     *
+     * @param {string} domain - Web domain to crawl.
+     * @param {CrawlOptions} options - Options for crawling process.
+     * @returns List of decoded urls.
      */
-    public stop(): Promise<void>;
+    public crawlDomain(domain: string, options?: CrawlOptions): Promise<Array<string>>;
 
     /**
      * Checks possible input options and compiles the urls.
      * Possible input options are:
      * - url - single url
      * - urls - multiple urls
-     * - file - file with urls
+     * - filepath - path to file with urls
      * - crawler - domain to crawl and gather urls
      *
      * @param {QualwebOptions} options -
@@ -166,20 +175,12 @@ declare module "@qualweb/core" {
   }
 
   /**
-   * Reads a file to obtain the urls to evaluate
+   * Reads a file to obtain the urls to evaluate.
    *
-   * @param {string} file - path to file of urls
-   * @returns list of decoded urls
+   * @param {string} file - Path to file of urls.
+   * @returns List of decoded urls.
    */
   function getFileUrls(file: string): Promise<Array<string>>;
-
-  /**
-   * Crawls a domain to find all webpages urls
-   *
-   * @param {string} domain - web domain to crawl
-   * @returns list of decoded urls
-   */
-  function crawlDomain(domain: string): Promise<Array<string>>;
 
   export {
     QualwebOptions,
@@ -194,7 +195,6 @@ declare module "@qualweb/core" {
     Evaluations,
     QualWeb,
     getFileUrls,
-    crawlDomain,
     generateEARLReport,
   };
 }

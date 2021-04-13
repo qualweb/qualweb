@@ -1,16 +1,16 @@
 declare module "@qualweb/evaluation" {
-  import { QualwebOptions, EvaluationReport, Evaluator, Execute, Module, Url } from "@qualweb/core";
+  import { QualwebOptions, EvaluationReport, Evaluator, Execute, Modules, Module, Url } from "@qualweb/core";
   import { Report } from '@qualweb/earl-reporter';
-  import { ACTRulesReport, ACTRules } from "@qualweb/act-rules";
+  import { ACTRulesReport, ACTRules, ACTROptions } from "@qualweb/act-rules";
   import { WCAGTechniquesReport, WCAGOptions } from "@qualweb/wcag-techniques";
-  import { BestPracticesReport } from "@qualweb/best-practices";
+  import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { WappalyzerReport } from '@qualweb/wappalyzer';
   import { CounterReport, executeCounter } from "@qualweb/counter";
   import { HTMLValidationReport } from "@qualweb/html-validator";
   import { QWPage } from "@qualweb/qw-page";
   import { QWElement } from "@qualweb/qw-element";
   import { DomUtils, AccessibilityUtils } from "@qualweb/util";
-  import { Browser, Page } from "puppeteer";
+  import { Page } from "puppeteer";
   
   type Level = 'A' | 'AA' | 'AAA';
   type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
@@ -26,48 +26,46 @@ declare module "@qualweb/evaluation" {
     }
   }
 
-  class Evaluation {
-    public evaluatePage(
-      sourceHtmlHeadContent: string,
-      page: Page,
-      execute: Execute,
-      options: QualwebOptions,
-      url: string,
-      validation: HTMLValidationReport | undefined
-    ): Promise<EvaluationRecord>;
+  class Metadata {
+    private passed: number;
+    private warning: number;
+    private failed: number;
+    private inapplicable: number;
 
-    public init(page: Page): Promise<void>;
-
-    public executeBP(
-      page: Page,
-      options: QualwebOptions
-    ): Promise<BestPracticesReport>;
-
-    public executeWCAG(
-      page: Page,
-      options: WCAGOptions | undefined,
-      validation: HTMLValidationReport | undefined
-    ): Promise<WCAGTechniquesReport>;
-
-    public executeACT(
-      page: Page,
-      sourceHtmlHeadContent: string,
-      options: QualwebOptions
-    ): Promise<ACTRulesReport>;
-
-    public executeCounter(page: Page): Promise<CounterReport>;
-
-    public getEvaluator(page: Page, url: string): Promise<Evaluator>;
-
-    private parseUrl(url: string, pageUrl: string): Url;
-
-    private detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean>;
+    public addPassedResults(results: number): void;
+    public addWarningResults(results: number): void;
+    public addFailedResults(results: number): void;
+    public addInapplicableResults(results: number): void;
+    public getResults(): { passed: number; failed: number; warning: number; inapplicable: number };
   }
+
   class EvaluationRecord {
+    private readonly type: 'evaluation';
+    private readonly evaluator: Evaluator;
+    private readonly metadata: Metadata;
+    private readonly modules: Modules;
+
     constructor(evaluator: Evaluator);
     public addModuleEvaluation(module: Module, evaluation: Report | WappalyzerReport | CounterReport): void;
     public getFinalReport(): EvaluationReport;
   }
 
-  export { Level, Principle, Evaluation, EvaluationRecord };
+  class Evaluation {
+    private readonly url: string;
+    private readonly page: Page;
+    private readonly execute: Execute;
+
+    constructor(url: string, page: Page, execute: Execute);
+    public evaluatePage(sourceHtmlHeadContent: string, options: QualwebOptions, validation?: HTMLValidationReport): Promise<EvaluationRecord>;
+    private getEvaluator(): Promise<Evaluator>;
+    private parseUrl(): Url;
+    private init(): Promise<void>;
+    private executeACT(sourceHtmlHeadContent: string, options?: ACTROptions): Promise<ACTRulesReport>;
+    private executeWCAG(validation?: HTMLValidationReport, options?: WCAGOptions): Promise<WCAGTechniquesReport>;
+    private executeBP(options?: BPOptions): Promise<BestPracticesReport>;
+    private executeCounter(): Promise<CounterReport>;
+    private detectIfUnwantedTabWasOpened(): Promise<boolean>;
+  }
+
+  export { Level, Principle, Evaluation, EvaluationRecord, Metadata };
 }
