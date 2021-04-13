@@ -1,6 +1,17 @@
 # Changelog
 
-## [0.3.1] - 9/04/2021
+## [0.3.3] - 13/04/2021
+
+### Added
+
+- viewport options to Crawler class. These options are used when fetching the webpage
+
+### Updated
+
+- dependencies
+
+
+## [0.3.2] - 9/04/2021
 
 ### Added
 

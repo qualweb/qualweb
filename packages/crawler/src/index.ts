@@ -1,15 +1,17 @@
 import logUpdate from 'log-update';
-import { Browser } from 'puppeteer';
+import { Browser, Viewport } from 'puppeteer';
 import { CrawlOptions } from '@qualweb/crawler';
 
 class Crawler {
   private readonly browser: Browser;
+  private readonly viewport?: Viewport;
   private readonly domain: string;
   private urls: Array<string>;
 
-  constructor(browser: Browser, domain: string) {
+  constructor(browser: Browser, domain: string, viewport?: Viewport) {
     this.browser = browser;
     this.domain = this.verifyDomain(domain);
+    this.viewport = viewport;
     this.urls = new Array<string>();
   }
 
@@ -32,6 +34,7 @@ class Crawler {
     let currentUrlCount = 1;
     let continueCrawling = true;
     let surpassedMax = false;
+    let timer = 0;
     const timerHandle = setInterval(() => {
       timer += 2;
       if (options?.logging) {
@@ -40,7 +43,6 @@ class Crawler {
         );
       }
     }, 2000);
-    let timer = 0;
     let timeoutHandle = null;
     let timeoutReached = false;
 
@@ -169,6 +171,9 @@ class Crawler {
 
     try {
       const page = await this.browser.newPage();
+      if (this.viewport) {
+        await page.setViewport(this.viewport);
+      }
       await page.goto(url, {
         waitUntil: 'domcontentloaded'
       });

@@ -17,8 +17,13 @@ Crawler mechanism for QualWeb. Implementation using [puppeteer](https://github.c
   const Crawler = require('@qualweb/crawler');
 
   (async () => {
-    const browser = puppeteer.launch();
-    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt');
+    const browser = await puppeteer.launch();
+
+    const viewport = {
+      // check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagesetviewportviewport
+    };
+
+    const crawler = new Crawler(browser, 'https://ciencias.ulisboa.pt', viewport);
 
     const options = {
       maxDepth?: 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
