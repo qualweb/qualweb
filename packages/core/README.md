@@ -31,13 +31,13 @@ You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http
     await qualweb.start(launchOptions);
 
     // QualWeb evaluation report
-    const evaluationOptions = {
+    const qualwebOptions = {
       url: 'https://act-rules.github.io/pages/about/',
       ...
     };
 
     // Evaluates the given options - will only return after all urls have finished evaluating or resulted in an error
-    const reports = await qualweb.evaluate(evaluationOptions);
+    const reports = await qualweb.evaluate(qualwebOptions);
 
     console.log(reports);
     //  {
@@ -86,6 +86,13 @@ The available options fot the **evaluate()** function are:
   "waitUntil": ["load", "networkidle0"], // Events to wait before starting evaluation, default value = "load". For more check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagegotourl-options
   "maxParallelEvaluations": 5, // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
   "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached after of the given endpoint
+  "crawlOptions": {
+    "maxDepth": 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
+    "maxUrls": 100, // max urls to find. Default value = -1 (search everything)
+    "timeout": 60, // how many seconds the domain should be crawled before it ends. Default value = -1 (never stops)
+    "maxParallelCrawls": 10, // max urls to crawl at the same time. Default value = 5
+    "logging": true // logs domain, current depth, urls found and time passed to the terminal
+  },
   "execute": {
     // choose which modules to execute
     "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
