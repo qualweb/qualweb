@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -35,14 +35,14 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.0",
-    "@qualweb/types": "^0.5.9",
+    "@qualweb/types": "^0.5.13",
     "@tsconfig/recommended": "^1.0.1",
     "@types/puppeteer": "^5.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chai": "^4.3.4",
-    "eslint": "^7.23.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
@@ -50,8 +50,8 @@
     "prettier": "^2.2.1",
     "puppeteer": "^8.0.0",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.34",
-    "typescript": "^4.2.3"
+    "typedoc": "^0.20.35",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@qualweb/act-rules": "^0.5.3",

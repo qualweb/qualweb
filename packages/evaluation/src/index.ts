@@ -1,4 +1,4 @@
-import { Browser, Page, Serializable } from 'puppeteer';
+import { Page, Serializable } from 'puppeteer';
 import { QualwebOptions, Url, Evaluator, Execute } from '@qualweb/core';
 import { randomBytes } from 'crypto';
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
@@ -11,22 +11,61 @@ import { HTMLValidationReport } from '@qualweb/html-validator';
 import { QWElement } from '@qualweb/qw-element';
 
 class Evaluation {
-  public async getEvaluator(page: Page, url: string): Promise<Evaluator> {
-    const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
-      page.evaluate(() => {
-        return document.documentElement.outerHTML;
-      }),
-      page.title(),
-      page.$$('*'),
-      page.browser().userAgent()
-    ]);
+  private readonly url: string;
+  private readonly page: Page;
+  private readonly execute: Execute;
 
-    let urlStructure: Url | undefined = undefined;
-    if (url) {
-      urlStructure = this.parseUrl(url, page.url() !== 'about:blank' ? page.url() : url);
+  constructor(url: string, page: Page, execute: Execute) {
+    this.url = url;
+    this.page = page;
+    this.execute = execute;
+  }
+
+  public async evaluatePage(
+    sourceHtmlHeadContent: string,
+    options: QualwebOptions,
+    validation?: HTMLValidationReport
+  ): Promise<EvaluationRecord> {
+    const evaluator = await this.getEvaluator();
+    const evaluation = new EvaluationRecord(evaluator);
+
+    await this.init();
+
+    if (this.execute.act) {
+      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtmlHeadContent, options['act-rules']));
+    }
+    if (this.execute.wcag) {
+      evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(validation, options['wcag-techniques']));
+    }
+    if (this.execute.bp) {
+      evaluation.addModuleEvaluation('best-practices', await this.executeBP(options['best-practices']));
+    }
+    if (this.execute.wappalyzer) {
+      evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
+    }
+    if (this.execute.counter) {
+      evaluation.addModuleEvaluation('counter', await this.executeCounter());
     }
 
-    const viewport = page.viewport();
+    return evaluation;
+  }
+
+  private async getEvaluator(): Promise<Evaluator> {
+    const [plainHtml, pageTitle, elements, browserUserAgent] = await Promise.all([
+      this.page.evaluate(() => {
+        return document.documentElement.outerHTML;
+      }),
+      this.page.title(),
+      this.page.$$('*'),
+      this.page.browser().userAgent()
+    ]);
+
+    let urlStructure: Url | undefined;
+    if (this.url) {
+      urlStructure = this.parseUrl();
+    }
+
+    const viewport = this.page.viewport();
 
     return {
       name: 'QualWeb',
@@ -34,7 +73,7 @@ class Evaluation {
       version: '3.0.0',
       homepage: 'http://www.qualweb.di.fc.ul.pt/',
       date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
-      hash: randomBytes(40).toString('hex'),
+      hash: randomBytes(64).toString('hex'),
       url: urlStructure,
       page: {
         viewport: {
@@ -55,18 +94,39 @@ class Evaluation {
     };
   }
 
-  public async init(page: Page): Promise<void> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/qw-page')
+  private parseUrl(): Url {
+    const inputUrl = this.url;
+    const completeUrl = this.page.url() !== 'about:blank' ? this.page.url() : this.url;
+
+    const protocol = completeUrl.split('://')[0];
+    const domainName = completeUrl.split('/')[2];
+
+    const tmp = domainName.split('.');
+    const domain = tmp[tmp.length - 1];
+    const uri = completeUrl.split('.' + domain)[1];
+
+    return {
+      inputUrl,
+      protocol,
+      domainName,
+      domain,
+      uri,
+      completeUrl
+    };
+  }
+
+  private async init(): Promise<void> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/qw-page'),
+      type: 'text/javascript'
     });
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/util')
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/util'),
+      type: 'text/javascript'
     });
-    await page.evaluate(() => {
+    await this.page.evaluate(() => {
       //@ts-ignore
       window.qwPage = new Module.QWPage(document, window, true);
-    });
-    await page.evaluate(() => {
       //@ts-ignore
       window.DomUtils = Utility.DomUtils;
       //@ts-ignore
@@ -74,22 +134,19 @@ class Evaluation {
     });
   }
 
-  public async executeACT(
-    page: Page,
-    sourceHtmlHeadContent: string,
-    options: ACTROptions | undefined
-  ): Promise<ACTRulesReport> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/act-rules')
+  private async executeACT(sourceHtmlHeadContent: string, options?: ACTROptions): Promise<ACTRulesReport> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/act-rules'),
+      type: 'text/javascript'
     });
 
-    await page.evaluate((options: ACTROptions | undefined) => {
+    await this.page.evaluate((options?: ACTROptions) => {
       //@ts-ignore
       window.act = new ACT.ACTRules(options);
     }, <Serializable>options);
 
-    await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await page.evaluate((sourceHtmlHeadContent) => {
+    await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
+    await this.page.evaluate((sourceHtmlHeadContent) => {
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
@@ -110,131 +167,73 @@ class Evaluation {
     }, sourceHtmlHeadContent);
 
     if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
-      const viewport = page.viewport();
-      await page.setViewport({
+      const viewport = this.page.viewport();
+
+      await this.page.setViewport({
         width: 640,
         height: 512
       });
-      await page.evaluate(() => {
+
+      await this.page.evaluate(() => {
         window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
       });
+
       if (viewport) {
-        await page.setViewport(viewport);
+        await this.page.setViewport(viewport);
       }
     }
 
-    return page.evaluate(() => {
+    return this.page.evaluate(() => {
       return window.act.getReport();
     });
   }
 
-  public async executeWCAG(
-    page: Page,
-    options: WCAGOptions | undefined,
-    validation: HTMLValidationReport | null
-  ): Promise<WCAGTechniquesReport> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/wcag-techniques')
+  private async executeWCAG(validation?: HTMLValidationReport, options?: WCAGOptions): Promise<WCAGTechniquesReport> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/wcag-techniques'),
+      type: 'text/javascript'
     });
 
-    const url = page.url();
-    const newTabWasOpen = await this.detectIfUnwantedTabWasOpened(page.browser(), url);
+    const newTabWasOpen = await this.detectIfUnwantedTabWasOpened();
 
-    return await page.evaluate(
-      (newTabWasOpen: boolean, validation: HTMLValidationReport, options: WCAGOptions | undefined) => {
+    return await this.page.evaluate(
+      (newTabWasOpen: boolean, validation: HTMLValidationReport, options?: WCAGOptions) => {
         //@ts-ignore
         const wcag = new WCAG.WCAGTechniques(options);
         return wcag.execute(newTabWasOpen, validation);
       },
       newTabWasOpen,
-      <Serializable>validation,
+      <Serializable>(validation ?? null),
       <Serializable>options
     );
   }
 
-  public async executeBP(page: Page, options: BPOptions | undefined): Promise<BestPracticesReport> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/best-practices')
+  private async executeBP(options?: BPOptions): Promise<BestPracticesReport> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/best-practices'),
+      type: 'text/javascript'
     });
 
-    return await page.evaluate((options: BPOptions | undefined) => {
+    return await this.page.evaluate((options?: BPOptions) => {
       //@ts-ignore
       const bp = new BP.BestPractices(options);
       return bp.execute();
     }, <Serializable>options);
   }
 
-  public async executeCounter(page: Page): Promise<CounterReport> {
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/counter')
+  private async executeCounter(): Promise<CounterReport> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/counter'),
+      type: 'text/javascript'
     });
 
-    return await page.evaluate(() => {
+    return this.page.evaluate(() => {
       return window.executeCounter();
     });
   }
 
-  public async evaluatePage(
-    sourceHtmlHeadContent: string,
-    page: Page,
-    execute: Execute,
-    options: QualwebOptions,
-    url: string,
-    validation: HTMLValidationReport | undefined
-  ): Promise<EvaluationRecord> {
-    const evaluator = await this.getEvaluator(page, url);
-    const evaluation = new EvaluationRecord(evaluator);
-
-    await this.init(page);
-
-    if (execute.act) {
-      evaluation.addModuleEvaluation(
-        'act-rules',
-        await this.executeACT(page, sourceHtmlHeadContent, options['act-rules'])
-      );
-    }
-    if (execute.wcag) {
-      evaluation.addModuleEvaluation(
-        'wcag-techniques',
-        await this.executeWCAG(page, options['wcag-techniques'], validation ?? null)
-      );
-    }
-    if (execute.bp) {
-      evaluation.addModuleEvaluation('best-practices', await this.executeBP(page, options['best-practices']));
-    }
-    if (execute.wappalyzer) {
-      evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(url));
-    }
-    if (execute.counter) {
-      evaluation.addModuleEvaluation('counter', await this.executeCounter(page));
-    }
-
-    return evaluation;
-  }
-
-  private parseUrl(url: string, pageUrl: string): Url {
-    const inputUrl = url;
-    const completeUrl: string = pageUrl;
-
-    const protocol = completeUrl.split('://')[0];
-    const domainName = completeUrl.split('/')[2];
-
-    const tmp = domainName.split('.');
-    const domain = tmp[tmp.length - 1];
-    const uri = completeUrl.split('.' + domain)[1];
-
-    return {
-      inputUrl,
-      protocol,
-      domainName,
-      domain,
-      uri,
-      completeUrl
-    };
-  }
-
-  private async detectIfUnwantedTabWasOpened(browser: Browser, url: string): Promise<boolean> {
-    const tabs = await browser.pages();
+  private async detectIfUnwantedTabWasOpened(): Promise<boolean> {
+    const tabs = await this.page.browser().pages();
 
     let wasOpen = false;
 
@@ -244,7 +243,7 @@ class Evaluation {
 
       if (opener) {
         const openerPage = await opener.page();
-        if (openerPage && openerPage.url() === url) {
+        if (openerPage && openerPage.url() === this.page.url()) {
           wasOpen = true;
           await tab.close();
         }
