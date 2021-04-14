@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "main": "dist/act.bundle.js",
   "files": [
@@ -35,16 +35,16 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.0",
-    "@qualweb/qw-page": "^0.2.4",
-    "@qualweb/types": "^0.5.8",
-    "@qualweb/util": "^0.5.4",
+    "@qualweb/qw-page": "^0.2.6",
+    "@qualweb/types": "^0.5.15",
+    "@qualweb/util": "^0.5.5",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.37",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chai": "^4.3.4",
-    "eslint": "^7.23.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
@@ -53,8 +53,8 @@
     "prettier": "^2.2.1",
     "puppeteer": "^8.0.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.3",
-    "webpack": "^5.28.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.32.0",
     "webpack-cli": "^4.6.0"
   }
 }

@@ -11,7 +11,7 @@ class QW_ACT_R76 extends AtomicRule {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    const disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
+    const disabledWidgets = window.disabledWidgets;
 
     const tagName = element.getElementTagName();
 

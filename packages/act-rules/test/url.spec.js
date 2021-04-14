@@ -13,7 +13,7 @@ describe('Running tests', function () {
 
     const browser = await puppeteer.launch();
     const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true }, waitUntil: ["load", "networkidle0"] }, url, '');
+    const { page } = await dom.getDOM(browser, { execute: { act: true }, waitUntil: ["load"] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -30,9 +30,10 @@ describe('Running tests', function () {
     const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
 
     await page.evaluate(() => {
-      window.qwPage = new Module.QWPage(document, window, true);
+      window.qwPage = new Module.QWPage(document, true);
       window.DomUtils = Utility.DomUtils;
       window.AccessibilityUtils = Utility.AccessibilityUtils;
+      window.disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
       window.act = new ACT.ACTRules();
     });
 
