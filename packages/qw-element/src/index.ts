@@ -111,9 +111,13 @@ class QWElement {
   }
 
   public elementHasChild(childName: string): boolean {
-    for (const child of this.element.children || []) {
-      if (child.tagName.toLowerCase() === childName.toLowerCase()) {
-        return true;
+    const children = this.element.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children.item(i);
+      if (child) {
+        if (child.tagName.toLowerCase() === childName.toLowerCase()) {
+          return true;
+        }
       }
     }
     return false;
@@ -130,11 +134,11 @@ class QWElement {
 
   public hasTextNode(): boolean {
     let hasText = false;
-    for (const child of this.element.childNodes || []) {
+    this.element.childNodes.forEach((child: ChildNode) => {
       if (child.nodeType === 3 && child.textContent?.trim() !== '') {
         hasText = true;
       }
-    }
+    });
     return hasText;
   }
 
@@ -144,7 +148,7 @@ class QWElement {
 
   public getElementAttributes(): { [attr: string]: string } {
     const attributes: { [attr: string]: string } = {};
-    for (const attr of this.element.getAttributeNames() || []) {
+    for (const attr of this.element.getAttributeNames() ?? []) {
       const value = this.element.getAttribute(attr);
       if (value) {
         attributes[attr] = value;
@@ -159,18 +163,25 @@ class QWElement {
 
   public getElementChildren(): Array<QWElement> {
     const qwList = new Array<QWElement>();
-    const elements = this.element.children;
-    for (const element of elements ?? []) {
-      this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element, this.elementsCSSRules));
+    const children = this.element.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children.item(i);
+      if (child) {
+        this.addCSSRulesPropertyToElement(child);
+        qwList.push(new QWElement(child, this.elementsCSSRules));
+      }
     }
     return qwList;
   }
 
   public getElementChildTextContent(childName: string): string | undefined {
-    for (const child of this.element.children || []) {
-      if (child.tagName.toLowerCase() === childName.toLowerCase()) {
-        return child.textContent ?? undefined;
+    const children = this.element.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children.item(i);
+      if (child) {
+        if (child.tagName.toLowerCase() === childName.toLowerCase()) {
+          return child.textContent ?? undefined;
+        }
       }
     }
     return undefined;
@@ -188,34 +199,40 @@ class QWElement {
     if (fullElement) {
       const children = this.element.children;
       const attributeArray = new Array<{ [attr: string]: string | null }>();
-      for (const child of children) {
-        const cssRulesValue = child.getAttribute('_cssRules');
-        const selectorValue = child.getAttribute('_selector');
-        const documentSelectorValue = child.getAttribute('_documentSelector');
+      for (let i = 0; i < children.length; i++) {
+        const child = children.item(i);
+        if (child) {
+          const cssRulesValue = child.getAttribute('_cssRules');
+          const selectorValue = child.getAttribute('_selector');
+          const documentSelectorValue = child.getAttribute('_documentSelector');
 
-        attributeArray.push({
-          cssRulesValue,
-          selectorValue,
-          documentSelectorValue
-        });
-        child.removeAttribute('_cssRules');
-        child.removeAttribute('_selector');
-        child.removeAttribute('_documentSelector');
+          attributeArray.push({
+            cssRulesValue,
+            selectorValue,
+            documentSelectorValue
+          });
+          child.removeAttribute('_cssRules');
+          child.removeAttribute('_selector');
+          child.removeAttribute('_documentSelector');
+        }
       }
+
       result = this.element.outerHTML;
-      let i = 0;
-      for (const child of children) {
-        const attributes = attributeArray[i];
-        if (attributes.cssRulesValue) {
-          child.setAttribute('_cssRules', attributes.cssRulesValue);
+
+      for (let i = 0; i < children.length; i++) {
+        const child = children.item(i);
+        if (child) {
+          const attributes = attributeArray[i];
+          if (attributes.cssRulesValue) {
+            child.setAttribute('_cssRules', attributes.cssRulesValue);
+          }
+          if (attributes.selectorValue) {
+            child.setAttribute('_selector', attributes.selectorValue);
+          }
+          if (attributes.documentSelectorValue) {
+            child.setAttribute('_documentSelector', attributes.documentSelectorValue);
+          }
         }
-        if (attributes.selectorValue) {
-          child.setAttribute('_selector', attributes.selectorValue);
-        }
-        if (attributes.documentSelectorValue) {
-          child.setAttribute('_documentSelector', attributes.documentSelectorValue);
-        }
-        i++;
       }
     } else if (withText) {
       const clonedElem = <Element>this.element.cloneNode(false);
@@ -256,10 +273,10 @@ class QWElement {
 
   private convertElementsToQWElement(elements: NodeListOf<Element> | null): Array<QWElement> {
     const qwList = new Array<QWElement>();
-    for (const element of elements ?? []) {
+    elements?.forEach((element: Element) => {
       this.addCSSRulesPropertyToElement(element);
       qwList.push(new QWElement(element, this.elementsCSSRules));
-    }
+    });
     return qwList;
   }
 
@@ -370,10 +387,12 @@ class QWElement {
 
     let result = '';
     let textContent: string | null;
-    for (const child of children || []) {
+    children.forEach((child: ChildNode) => {
       textContent = child.textContent;
-      if (child.nodeType === 3 && !!textContent && textContent.trim() !== '') result = result + textContent.trim();
-    }
+      if (child.nodeType === 3 && !!textContent && textContent?.trim() !== '') {
+        result = result + textContent.trim();
+      }
+    });
 
     if (!result) {
       result = '';
@@ -416,7 +435,7 @@ class QWElement {
     let textContent: string | null;
     let i = 0;
     let counter = 0;
-    for (const child of children || []) {
+    children.forEach((child: ChildNode) => {
       textContent = child.textContent;
       if (child.nodeType === 3 && !!textContent && textContent.trim() !== '') {
         result = result + (counter === 0 ? '' : ' ') + textContent.trim();
@@ -425,7 +444,7 @@ class QWElement {
         result = result + (counter > 0 && !!aNames[i] ? ' ' : '') + aNames[i];
         i++;
       }
-    }
+    });
 
     if (!result) {
       result = '';
@@ -490,13 +509,16 @@ class QWElement {
   }
 
   public elementHasTextNode(): boolean {
+    let hasTextNode = false;
     if (this.element.childNodes !== null) {
-      const nodes = this.element.childNodes;
-      for (const node of nodes) {
-        if (node.nodeType === 3 && node.textContent && node.textContent.trim() !== '') return true;
-      }
+      const children = this.element.childNodes;
+      children.forEach((child: ChildNode) => {
+        if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+          hasTextNode = true;
+        }
+      });
     }
-    return false;
+    return hasTextNode;
   }
 
   private noParentScrolled(offset: number): boolean {
