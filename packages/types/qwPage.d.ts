@@ -2,7 +2,7 @@ declare module "@qualweb/qw-page" {
   import { QWElement } from "@qualweb/qw-element";
 
   class QWPage {
-    constructor(document: Document, window: Window, addCSSRulesToElements?: boolean);
+    constructor(document: Document, addCSSRulesToElements?: boolean);
     public static createQWElement(element: HTMLElement): QWElement;
     public cacheValue(
       selector: string,
@@ -27,8 +27,6 @@ declare module "@qualweb/qw-page" {
     public getURL(): string;
     public getHTMLContent(): string;
     public getFocusedElement(): QWElement;
-    // public changeToDefaultViewport(): void;
-    // public changeViewport(width: number, height: number): void;
   }
 
   export { QWPage };
