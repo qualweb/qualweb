@@ -69,7 +69,7 @@ declare module "@qualweb/util" {
     public static getDisabledWidgets(): Array<QWElement>;
     public static getElementRole(element: QWElement): string | null;
     public static getElementRoleAName(element: QWElement, aName: string | undefined): string | null;
-    public static getValueFromEmbeddedControl(element: QWElement, treeSelector: string): string;
+    public static getValueFromEmbeddedControl(element: QWElement): string;
     public static isDataTable(element: QWElement): boolean;
     public static isElementChildOfDetails(element: Node): boolean;
     public static isElementControl(element: QWElement): boolean;

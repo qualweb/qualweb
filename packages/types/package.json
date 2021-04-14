@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/types",
-  "version": "0.5.13",
+  "version": "0.5.14",
   "description": "Type definitions for qualweb ecosystem",
   "main": "./index.d.ts",
   "keywords": [

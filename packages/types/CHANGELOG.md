@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.13] - 14/04/2020
+
+### Updated
+
+- evaluation interface
+- util interface
+
 ## [0.5.13] - 13/04/2020
 
 ### Updated
