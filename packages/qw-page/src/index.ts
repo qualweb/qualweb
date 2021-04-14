@@ -9,15 +9,13 @@ class QWPage {
   private readonly url: string;
   private readonly extraDocuments: Map<string, QWPage>;
   private readonly elementsCSSRules?: Map<Element, CSSProperties>;
-  private readonly window: Window;
 
-  constructor(document: Document | ShadowRoot, window: Window, addCSSRulesToElements?: boolean) {
+  constructor(document: Document | ShadowRoot, addCSSRulesToElements?: boolean) {
     this.document = document;
     this.cache = new Cache();
     this.extraDocuments = new Map<string, QWPage>();
-    this.window = window;
-    const selectorCalculator = new SelectorCalculator(document);
-    selectorCalculator.processElementSelector();
+
+    new SelectorCalculator(document).processElementSelector();
 
     if (addCSSRulesToElements) {
       this.elementsCSSRules = new CSSMapper(this.document).map();
@@ -34,12 +32,12 @@ class QWPage {
   public processShadowDom(): void {
     const listElements = this.document.querySelectorAll('*');
 
-    for (const element of listElements || []) {
+    for (const element of listElements ?? []) {
       if (element.shadowRoot !== null) {
         element.innerHTML = '';
         const shadowRoot = new QWElement(element);
         const selector = shadowRoot.getElementSelector();
-        const shadowPage = new QWPage(element.shadowRoot, this.window, true);
+        const shadowPage = new QWPage(element.shadowRoot, true);
         this.extraDocuments.set(selector, shadowPage);
       }
     }
@@ -47,14 +45,14 @@ class QWPage {
   private processIframes(): void {
     const elements = this.document.querySelectorAll('iframe');
 
-    for (const iframe of elements || []) {
+    for (const iframe of elements ?? []) {
       try {
         const iframeQW = new QWElement(iframe);
         const contentWindow = iframeQW.getContentFrame();
         const frame = contentWindow;
         if (frame && frame.defaultView) {
           const selector = iframeQW.getElementSelector();
-          const iframePage = new QWPage(frame, frame.defaultView, true);
+          const iframePage = new QWPage(frame, true);
           this.extraDocuments.set(selector, iframePage);
         }
       } catch (e) {
@@ -68,7 +66,7 @@ class QWPage {
       element.setAttribute('_cssRules', 'true');
     }
   }
-  private addIframeAttribute(elements: QWElement[], selector: string): void {
+  private addIframeAttribute(elements: Array<QWElement>, selector: string): void {
     for (const element of elements) {
       element.setElementAttribute('_documentSelector', selector);
     }
@@ -232,8 +230,8 @@ class QWPage {
     }
   }
 
-  private cleanAllElementsAux(elements: Element[]): void {
-    for (const element of elements || []) {
+  private cleanAllElementsAux(elements: Array<Element>): void {
+    for (const element of elements ?? []) {
       element.removeAttribute('_selector');
       element.removeAttribute('_cssRules');
       element.removeAttribute('_documentSelector');
