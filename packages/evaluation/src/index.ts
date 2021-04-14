@@ -98,12 +98,14 @@ class Evaluation {
     const inputUrl = this.url;
     const completeUrl = this.page.url() !== 'about:blank' ? this.page.url() : this.url;
 
-    const protocol = completeUrl.split('://')[0];
-    const domainName = completeUrl.split('/')[2];
+    const urlObject = new URL(completeUrl);
+
+    const protocol = urlObject.protocol.split(':')[0];
+    const domainName = urlObject.origin.split('/')[2];
 
     const tmp = domainName.split('.');
     const domain = tmp[tmp.length - 1];
-    const uri = completeUrl.split('.' + domain)[1];
+    const uri = urlObject.pathname;
 
     return {
       inputUrl,
@@ -126,11 +128,12 @@ class Evaluation {
     });
     await this.page.evaluate(() => {
       //@ts-ignore
-      window.qwPage = new Module.QWPage(document, window, true);
+      window.qwPage = new Module.QWPage(document, true);
       //@ts-ignore
       window.DomUtils = Utility.DomUtils;
       //@ts-ignore
       window.AccessibilityUtils = Utility.AccessibilityUtils;
+      window.disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
     });
   }
 

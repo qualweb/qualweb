@@ -15,7 +15,7 @@ describe('QualWeb evaluation', function() {
     
     const evaluation = new Evaluation(url, page, { act: true, wcag: false, bp: false, counter: false, wappalyzer: false });
     const report = await evaluation.evaluatePage(sourceHtmlHeadContent, {}, validation);
-    
+    console.log(report.getFinalReport().system.url)
     await dom.close();
     await browser.close();
   });
