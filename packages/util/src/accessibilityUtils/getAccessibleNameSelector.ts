@@ -1,11 +1,5 @@
-import allowsNameFromContent from './allowsNameFromContent';
 import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel } from './constants';
-import getElementRoleAName from './getElementRoleAName';
-import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
-import isElementControl from './isElementControl';
-import isElementWidget from './isElementWidget';
-import getDefaultName from './getDefaultName';
 
 function getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
   return getAccessibleNameRecursion(element, false, false);
@@ -19,7 +13,7 @@ function getAccessibleNameRecursion(
   let AName, ariaLabelBy;
   const elementSelector = element.getElementSelector();
   const name = element.getElementTagName();
-  const allowNameFromContent = allowsNameFromContent(element);
+  const allowNameFromContent = window.AccessibilityUtils.allowsNameFromContent(element);
   ariaLabelBy = element.getElementAttribute('aria-labelledby');
 
   if (ariaLabelBy !== null && !verifyAriaLabel(ariaLabelBy)) {
@@ -31,16 +25,16 @@ function getAccessibleNameRecursion(
   const alt = element.getElementAttribute('alt') ? [elementSelector] : null;
   const value = element.getElementAttribute('value') ? [elementSelector] : null;
   const placeholder = element.getElementAttribute('placeholder') ? [elementSelector] : null;
-  const role = getElementRoleAName(element, '');
+  const role = window.AccessibilityUtils.getElementRoleAName(element, '');
   const id = element.getElementAttribute('id');
-  const defaultName = getDefaultName(element) ? ['default'] : null;
+  const defaultName = window.AccessibilityUtils.getDefaultName(element) ? ['default'] : null;
 
-  const referencedByAriaLabel = isElementReferencedByAriaLabel(element);
+  const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
   if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);
   } else if (ariaLabel) {
     AName = ariaLabel;
-  } else if (isWidget && isElementControl(element)) {
+  } else if (isWidget && window.AccessibilityUtils.isElementControl(element)) {
     const valueFromEmbeddedControl = getValueFromEmbeddedControl(element) ? elementSelector : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === 'area' || (name === 'input' && attrType === 'image')) {
@@ -120,7 +114,7 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
     referencedByLabelList.push(...referencedByLabel);
   }
   const parent = element.getElementParent();
-  const isWidget = isElementWidget(element);
+  const isWidget = window.AccessibilityUtils.isElementWidget(element);
 
   if (parent && parent.getElementTagName() === 'label' && !isElementPresent(parent, referencedByLabelList)) {
     referencedByLabelList.push(parent);
@@ -151,7 +145,7 @@ function getAccessibleNameFromAriaLabelledBy(element: typeof window.qwElement, a
   const ListIdRefs = ariaLabelId.split(' ');
   const result = new Array<string>();
   let accessNameFromId;
-  const isWidget = isElementWidget(element);
+  const isWidget = window.AccessibilityUtils.isElementWidget(element);
   const elementID = element.getElementAttribute('id');
 
   for (const id of ListIdRefs || []) {
@@ -183,7 +177,7 @@ function getConcatenatedText(element: typeof window.qwElement, aNames: Array<str
 
 function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidget: boolean): Array<string> {
   if (!isWidget) {
-    isWidget = isElementWidget(element);
+    isWidget = window.AccessibilityUtils.isElementWidget(element);
   }
   const children = element.getElementChildren();
   const result = new Array<string>();

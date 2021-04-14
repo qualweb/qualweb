@@ -1,11 +1,9 @@
-import isElementWidget from './isElementWidget';
-
 function getDisabledWidgets(): Array<typeof window.qwElement> {
   const elements = window.qwPage.getElements('*');
   const disabledElements = new Array<typeof window.qwElement>();
-  let isWidget, disable, ariaDisable, parent, parentTag;
+  let disable, ariaDisable, parent, parentTag;
   for (const element of elements) {
-    isWidget = isElementWidget(element);
+    const isWidget = window.AccessibilityUtils.isElementWidget(element);
     disable = element.getElementAttribute('disabled') !== null;
     ariaDisable = element.getElementAttribute('aria-disabled') !== null;
     parent = element.getElementParent();

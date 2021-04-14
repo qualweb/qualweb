@@ -1,8 +1,5 @@
-import getElementRoleAName from './getElementRoleAName';
-import getTrimmedText from '../domUtils/getTrimmedText';
-
 function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
-  const role = getElementRoleAName(element, '');
+  const role = window.AccessibilityUtils.getElementRoleAName(element, '');
   let name = element.getElementTagName();
   if (!name) name = '';
   let value = '';
@@ -29,11 +26,11 @@ function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
     if (elementasToSelect) elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]`);
 
     if (optionSelected) {
-      value = getTrimmedText(optionSelected);
+      value = window.DomUtils.getTrimmedText(optionSelected);
     } else if (selectedElement) {
-      value = getTrimmedText(selectedElement[0]);
+      value = window.DomUtils.getTrimmedText(selectedElement[0]);
     } else if (elementWithAriaSelected) {
-      value = getTrimmedText(elementWithAriaSelected[0]);
+      value = window.DomUtils.getTrimmedText(elementWithAriaSelected[0]);
     }
   } else if (role === 'listbox') {
     const elementsWithId = element.getElements(`[id]`);
@@ -52,11 +49,11 @@ function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
       optionSelected = element.getElement(`[selected]`);
     }
 
-    if (selectedElement) value = getTrimmedText(elementsWithId[0]);
+    if (selectedElement) value = window.DomUtils.getTrimmedText(elementsWithId[0]);
     else if (elementWithAriaSelected) {
-      value = getTrimmedText(elementWithAriaSelected);
+      value = window.DomUtils.getTrimmedText(elementWithAriaSelected);
     } else if (optionSelected) {
-      value = getTrimmedText(optionSelected);
+      value = window.DomUtils.getTrimmedText(optionSelected);
     }
   } else if (
     role === 'range' ||

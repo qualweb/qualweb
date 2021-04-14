@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.5] - 14/04/2021
+
+### Fixed
+
+- issues related to cache
+- speed issues with some functions
+
+### Updated
+
+- dependencies
+
 ## [0.5.4] - 30/03/2021
 
 ### Updated

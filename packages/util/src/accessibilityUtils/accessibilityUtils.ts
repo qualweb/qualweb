@@ -23,6 +23,7 @@ import isElementFocusableByDefaultFunction from './isElementFocusableByDefault';
 import isElementFocusableFunction from './isElementFocusable';
 import isFocusableBrowserFunction from './isFocusableBrowser';
 import getOwnedElementsFunction from './getOwnedElements';
+import getValueFromEmbeddedControlFunction from './getValueFromEmbeddedControl';
 
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 
@@ -30,7 +31,7 @@ import ariaAttributesRoles from './ariaAttributesRoles.json';
 import roles from './roles.json';
 import languages from './language.json';
 
-import { Cache } from '../cache';
+import { Cache, FullMethodCache } from '../cache';
 import { AriaAttributesRoles, Roles } from '@qualweb/util';
 
 class AccessibilityUtils {
@@ -52,15 +53,31 @@ class AccessibilityUtils {
     return getAccessibleNameFunction(element);
   }
 
-  //@FullMethodCache('AcceUtils.getAccessibleNameRecursion')
-  public static getAccessibleNameRecursion = getAccessibleNameRecursionFunction;
-  public static getAccessibleNameSelector = getAccessibleNameSelectorFunction;
+  @FullMethodCache('AcceUtils.getAccessibleNameRecursion')
+  public static getAccessibleNameRecursion(
+    element: typeof window.qwElement,
+    recursion: boolean,
+    isWidget: boolean
+  ): string | undefined {
+    return getAccessibleNameRecursionFunction(element, recursion, isWidget);
+  }
+
+  @Cache('AcceUtils.getAccessibleNameSelector')
+  public static getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
+    return getAccessibleNameSelectorFunction(element);
+  }
+
   @Cache('AcceUtils.getAccessibleNameSVG')
   public static getAccessibleNameSVG(element: typeof window.qwElement): string | undefined {
     return getAccessibleNameSVGFunction(element);
   }
   public static getDefaultName = getDefaultNameFunction;
-  public static getDisabledWidgets = getDisabledWidgetsFunction;
+
+  //@Cache('AcceUtils.getDisabledWidgets')
+  public static getDisabledWidgets(): Array<typeof window.qwElement> {
+    return getDisabledWidgetsFunction();
+  }
+
   public static isFocusableBrowser = isFocusableBrowserFunction;
 
   @Cache('AcceUtils.getOwnedElements')
@@ -86,6 +103,12 @@ class AccessibilityUtils {
   public static isElementControl(element: typeof window.qwElement): boolean {
     return isElementControlFunction(element);
   }
+
+  @Cache('AcceUtils.getValueFromEmbeddedControl')
+  public static getValueFromEmbeddedControl(element: typeof window.qwElement): string {
+    return getValueFromEmbeddedControlFunction(element);
+  }
+
   @Cache('AcceUtils.isElementInAT')
   public static isElementInAT(element: typeof window.qwElement): boolean {
     return isElementInATFunction(element);

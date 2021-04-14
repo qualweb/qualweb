@@ -40,7 +40,10 @@ class DomUtils {
     return isElementHiddenByCSSFunction(element);
   }
 
-  public static isElementVisible = isElementVisibleFunction;
+  @Cache('DomUtils.isElementVisible')
+  public static isElementVisible(element: typeof window.qwElement): boolean {
+    return isElementVisibleFunction(element);
+  }
 
   @Cache('DomUtils.elementIdIsReferenced')
   public static elementIdIsReferenced(element: typeof window.qwElement, id: string, attribute: string): boolean {
