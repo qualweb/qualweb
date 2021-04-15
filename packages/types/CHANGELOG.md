@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.17] - 15/04/2020
+
+### Updated
+
+- core interface
+- util interface
 ## [0.5.16] - 15/04/2020
 
 ### Updated

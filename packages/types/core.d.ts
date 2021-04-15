@@ -113,10 +113,18 @@ declare module "@qualweb/core" {
   }
 
   class QualWeb {
+    /**
+     * Chromium browser instance
+     */
     private browser: Browser | null;
 
     /**
-     * Opens chromium browser
+     * Incognito context (no cache, no cookies)
+     */
+    private incognito?: BrowserContext;
+
+    /**
+     * Opens chromium browser and starts an incognito context
      * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
      */
     public start(options?: LaunchOptions): Promise<void>;
