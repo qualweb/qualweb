@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.7] - 15/04/2021
+
+### Changes
+
+- QWPage is now automatic initialized 
+
+### Updated
+
+- dependencies
+
 ## [0.2.6] - 14/04/2021
 
 ### Updated

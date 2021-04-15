@@ -16,13 +16,13 @@ class SelectorCalculator {
     }
   }
 
-  private processElementSelectorAux(elements: Element[]): void {
+  private processElementSelectorAux(elements: Array<Element>): void {
     const parent = elements[0].parentElement;
     if (parent) {
       const selector = parent.getAttribute('_selector');
       if (selector) {
         this.addSelectorAttribute(elements, selector);
-        for (const element of elements) {
+        for (const element of elements ?? []) {
           const children = element.children;
           if (children && children.length > 0) {
             this.processElementSelectorAux([...children]);
@@ -32,11 +32,10 @@ class SelectorCalculator {
     }
   }
 
-  private addSelectorAttribute(elements: Element[], selector: string): void {
+  private addSelectorAttribute(elements: Array<Element>, selector: string): void {
     let index = 1;
-    let name;
     for (const element of elements) {
-      name = element.tagName.toLowerCase();
+      const name = element.tagName.toLowerCase();
       element.setAttribute('_selector', selector + ' > ' + name + ':nth-child(' + index + ')');
       index++;
     }

@@ -9,7 +9,7 @@ class Cache {
     return this.cache.get(key);
   }
 
-  public put(key: string, value: string | undefined): void {
+  public put(key: string, value?: string): void {
     this.cache.set(key, value);
   }
 

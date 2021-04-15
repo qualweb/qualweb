@@ -25,7 +25,7 @@ class QWPage {
     this.processShadowDom();
   }
 
-  public static createQWElement(element: HTMLElement): QWElement {
+  public createQWElement(element: HTMLElement): QWElement {
     return new QWElement(element);
   }
 
@@ -42,6 +42,7 @@ class QWPage {
       }
     }
   }
+
   private processIframes(): void {
     const elements = this.document.querySelectorAll('iframe');
 
@@ -66,13 +67,14 @@ class QWPage {
       element.setAttribute('_cssRules', 'true');
     }
   }
+
   private addIframeAttribute(elements: Array<QWElement>, selector: string): void {
     for (const element of elements) {
       element.setElementAttribute('_documentSelector', selector);
     }
   }
 
-  public cacheValue(selector: string, method: string, value: string | undefined): void {
+  public cacheValue(selector: string, method: string, value?: string): void {
     this.cache.put(selector + ',' + method, value);
   }
 
@@ -87,6 +89,7 @@ class QWPage {
   public getURL(): string {
     return this.url;
   }
+
   private getElementFromDocument(selector: string): QWElement | null {
     const element = this.document.querySelector(selector);
     this.addCSSRulesPropertyToElement(element);
@@ -242,5 +245,7 @@ class QWPage {
     }
   }
 }
+
+window.qwPage = new QWPage(document, true);
 
 export { QWPage };
