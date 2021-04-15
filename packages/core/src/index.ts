@@ -1,4 +1,4 @@
-import puppeteer, { Browser, LaunchOptions } from 'puppeteer';
+import puppeteer, { Browser, BrowserContext, LaunchOptions } from 'puppeteer';
 import { QualwebOptions, Evaluations, Execute } from '@qualweb/core';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
@@ -16,20 +16,27 @@ class QualWeb {
   /**
    * Chromium browser instance
    */
-  private browser: Browser | null = null;
+  private browser?: Browser;
 
   /**
-   * Opens chromium browser
+   * Incognito context (no cache, no cookies)
+   */
+  private incognito?: BrowserContext;
+
+  /**
+   * Opens chromium browser and starts an incognito context
    * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
    */
   public async start(options?: LaunchOptions): Promise<void> {
     this.browser = await puppeteer.launch(options);
+    this.incognito = await this.browser.createIncognitoBrowserContext();
   }
 
   /**
    * Closes chromium browser.
    */
   public async stop(): Promise<void> {
+    await this.incognito?.close();
     await this.browser?.close();
   }
 
@@ -151,20 +158,20 @@ class QualWeb {
     options: QualwebOptions,
     modulesToExecute: Execute
   ): Promise<void> {
-    if (!this.browser) {
+    if (!this.browser || !this.incognito) {
       throw new Error(`Chromium browser isn't open.`);
     }
-
-    const dom = new Dom();
+    const page = await this.incognito.newPage();
     try {
-      const { sourceHtmlHeadContent, page, validation } = await dom.getDOM(this.browser, options, url, html ?? '');
+      const dom = new Dom(page, options.validator);
+      const { sourceHtmlHeadContent, validation } = await dom.process(options, url, html ?? '');
       const evaluation = new Evaluation(url, page, modulesToExecute);
       const evaluationReport = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
       evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
     } catch (err) {
       console.error(err);
     } finally {
-      await dom.close();
+      await page.close();
     }
   }
 }
