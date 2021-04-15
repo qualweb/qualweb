@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.16] - 15/04/2020
+
+### Updated
+
+- dom interface
+
 ## [0.5.15] - 14/04/2020
 
 ### Updated

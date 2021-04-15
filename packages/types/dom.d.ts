@@ -11,26 +11,19 @@ declare module "@qualweb/dom" {
 
   interface PageData {
     sourceHtmlHeadContent: string;
-    page: Page;
     validation?: HTMLValidationReport;
   }
 
   class Dom {
-    private page: Page | null;
-    private endpoint: string;
+    private readonly page: Page;
+    private readonly endpoint: string;
 
-    public getDOM(
-      browser: Browser,
-      options: QualwebOptions,
-      url: string,
-      html: string
-    ): Promise<PageData>;
-    public close(): Promise<void>;
-    public navigateToPage(
-      url: string,
-      timeout?: number,
-      waitUntil?: LoadEvent | LoadEvent[]
-    ): Promise<Response | null>;
+    constructor(page: Page, validator?: string);
+
+    public process(options: QualwebOptions, url: string, html: string): Promise<PageData>;
+    
+    private removeUrlAnchor(url: string): string
+    private navigateToPage(url: string, options: QualwebOptions): Promise<Response | null>;
 
     private setPageViewport(options?: PageOptions): Promise<void>;
     private createViewportObject(options: PageOptions): Viewport;
