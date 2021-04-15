@@ -1,14 +1,14 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.2.0",
-  "description": "Obtains a DOM from a given url",
+  "version": "0.2.1",
+  "description": "Processes necessary page data for qualweb accessibility evaluation.",
   "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha",
+    "test": "mocha --require esm",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
@@ -36,26 +36,26 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.5.0",
+    "@qualweb/types": "^0.5.16",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/lodash.clone": "^4.5.6",
-    "@types/node": "^14.14.35",
-    "@types/node-fetch": "^2.5.7",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@types/node": "^14.14.40",
+    "@types/node-fetch": "^2.5.10",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chai": "^4.3.4",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-sonarjs": "^0.6.0",
+    "esm": "^3.2.25",
     "mocha": "^8.3.2",
     "prettier": "^2.2.1",
+    "puppeteer": "^8.0.0",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.33",
-    "typescript": "^4.2.3"
+    "typedoc": "^0.20.35",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
-    "lodash.clone": "^4.5.0",
     "node-fetch": "^2.6.1"
   }
 }

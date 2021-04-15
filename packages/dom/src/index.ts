@@ -1,4 +1,4 @@
-import { Browser, Page, Viewport, Response, LoadEvent } from 'puppeteer';
+import { Page, Viewport, HTTPResponse } from 'puppeteer';
 import { QualwebOptions, PageOptions } from '@qualweb/core';
 import { PageData } from '@qualweb/dom';
 import fetch from 'node-fetch';
@@ -12,124 +12,121 @@ import {
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
 } from './constants';
 import { HTMLValidationReport } from '@qualweb/html-validator';
+import { URL } from 'url';
 
 class Dom {
-  private page: Page | null;
-  private endpoint: string;
+  private readonly page: Page;
+  private readonly endpoint: string;
 
-  constructor() {
-    this.endpoint = 'http://194.117.20.242/validate/';
-    this.page = null;
+  constructor(page: Page, validator?: string) {
+    this.page = page;
+    this.endpoint = validator ?? 'http://194.117.20.242/validate/';
   }
 
-  public async getDOM(browser: Browser, options: QualwebOptions, url: string, html: string): Promise<PageData> {
-    if (options.validator) {
-      this.endpoint = options.validator;
-    }
+  public async process(options: QualwebOptions, url: string, html: string): Promise<PageData> {
+    url = this.removeUrlAnchor(url);
 
-    this.page = await browser.newPage();
     await this.page.setBypassCSP(true);
     await this.setPageViewport(options.viewport);
 
     const needsValidator = this.validatorNeeded(options);
     const needsPreprocessedHTML = this.sourceHTMLNeeded(options);
 
-    let validation: HTMLValidationReport | undefined = undefined;
-    let response: Response | null;
-    let _sourceHtml = '';
+    let validation: HTMLValidationReport | undefined;
+    let response: HTTPResponse | null;
+    let sourceHtml = '';
 
     if (url) {
       if (needsValidator && needsPreprocessedHTML) {
-        [response, validation, _sourceHtml] = await Promise.all([
-          this.navigateToPage(url, options.timeout, options.waitUntil),
+        [response, validation, sourceHtml] = await Promise.all([
+          this.navigateToPage(url, options),
           this.getValidatorResult(url),
           this.getSourceHtml(url, options.viewport)
         ]);
       } else if (needsValidator) {
-        [response, validation] = await Promise.all([
-          this.navigateToPage(url, options.timeout, options.waitUntil),
-          this.getValidatorResult(url)
-        ]);
+        [response, validation] = await Promise.all([this.navigateToPage(url, options), this.getValidatorResult(url)]);
       } else if (needsPreprocessedHTML) {
-        [response, _sourceHtml] = await Promise.all([
-          this.navigateToPage(url, options.timeout, options.waitUntil),
+        [response, sourceHtml] = await Promise.all([
+          this.navigateToPage(url, options),
           this.getSourceHtml(url, options.viewport)
         ]);
       } else {
-        response = await this.navigateToPage(url, options.timeout, options.waitUntil);
+        response = await this.navigateToPage(url, options);
       }
 
       const sourceHTMLPuppeteer = await response?.text();
 
       if (!this.isHtmlDocument(sourceHTMLPuppeteer, url)) {
-        await this.page.close();
-        this.page = await browser.newPage();
+        //await this.page.close();
+        //this.page = await this.page.browser().newPage();
+        await this.page.goBack();
         await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
           timeout: options.timeout
         });
       }
-    } else {
+    } else if (html) {
       await this.page.setContent(html, {
-        timeout: options.timeout ?? 3 * 60 * 1000,
+        timeout: options.timeout ?? 60 * 1000,
         waitUntil: options.waitUntil ?? 'load'
       });
-      _sourceHtml = await this.page.content();
 
-      if (!this.isHtmlDocument(_sourceHtml)) {
+      sourceHtml = await this.page.content();
+      /*if (!this.isHtmlDocument(sourceHtml)) {
         await this.page.close();
-        this.page = await browser.newPage();
+        this.page = await this.page.browser().newPage();
         await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
           timeout: options.timeout
         });
-      }
-    }
-
-    const sourceHtmlHeadContent = this.getHeadContent(_sourceHtml);
-    return { sourceHtmlHeadContent, page: this.page, validation };
-  }
-
-  public async close(): Promise<void> {
-    if (this.page) {
-      await this.page.close();
-    }
-  }
-
-  public async navigateToPage(
-    url: string,
-    timeout?: number,
-    waitUntil?: LoadEvent | LoadEvent[]
-  ): Promise<Response | null> {
-    if (this.page) {
-      return this.page.goto(url, {
-        timeout: timeout ?? 3 * 60 * 1000,
-        waitUntil: waitUntil ?? 'load'
-      });
+      }*/
     } else {
-      return null;
+      throw new Error('Neither a url nor html content was provided.');
     }
+
+    return {
+      sourceHtmlHeadContent: this.getHeadContent(sourceHtml),
+      validation
+    };
+  }
+
+  private removeUrlAnchor(url: string): string {
+    if (url) {
+      const urlObject = new URL(url);
+      return urlObject.origin + urlObject.pathname + urlObject.search;
+    }
+
+    return url;
+  }
+
+  private async navigateToPage(url: string, options: QualwebOptions): Promise<HTTPResponse | null> {
+    this.page.on('dialog', async (dialog) => {
+      await dialog.dismiss();
+    });
+
+    return this.page.goto(url, {
+      timeout: options.timeout ?? 60 * 1000,
+      waitUntil: options.waitUntil ?? 'load'
+    });
   }
 
   private async setPageViewport(options?: PageOptions): Promise<void> {
-    if (this.page) {
-      if (options) {
-        if (options.userAgent) {
-          await this.page.setUserAgent(options.userAgent);
-        } else if (options.mobile) {
-          await this.page.setUserAgent(DEFAULT_MOBILE_USER_AGENT);
-        } else {
-          await this.page.setUserAgent(DEFAULT_DESKTOP_USER_AGENT);
-        }
-
-        await this.page.setViewport(this.createViewportObject(options));
+    if (options) {
+      if (options.userAgent) {
+        await this.page.setUserAgent(options.userAgent);
+      } else if (options.mobile) {
+        await this.page.setUserAgent(DEFAULT_MOBILE_USER_AGENT);
       } else {
-        await this.page.setViewport({
-          width: DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
-          height: DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
-          isMobile: false,
-          hasTouch: false,
-          isLandscape: true
-        });
+        await this.page.setUserAgent(DEFAULT_DESKTOP_USER_AGENT);
       }
+
+      await this.page.setViewport(this.createViewportObject(options));
+    } else {
+      await this.page.setViewport({
+        width: DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
+        height: DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
+        isMobile: false,
+        hasTouch: false,
+        isLandscape: true
+      });
     }
   }
 
@@ -184,13 +181,8 @@ class Dom {
       try {
         fetch(validationUrl, { timeout: 10 * 1000 }).then((response) => {
           if (response && response.status === 200) {
-            response.json().then((response) => {
-              try {
-                const validation = <HTMLValidationReport>JSON.parse(response);
-                resolve(validation);
-              } catch (e) {
-                resolve(undefined);
-              }
+            response.json().then((data) => {
+              resolve(<HTMLValidationReport>JSON.parse(data));
             });
           }
         });
@@ -207,19 +199,17 @@ class Dom {
           return false;
         } else if (options['wcag-techniques'].techniques) {
           return this.moduleIncludesValidatorTechnique(options);
-        } else {
-          return true;
         }
-      } else {
-        return true;
       }
-    } else {
-      return false;
+
+      return true;
     }
+
+    return false;
   }
 
-  private isModuleSetToExecute(options: QualwebOptions, module: string): boolean {
-    return !options.execute || (options.execute && options.execute[module]);
+  private isModuleSetToExecute(options: QualwebOptions, module: 'act' | 'wcag'): boolean {
+    return !options.execute || (options.execute && !!options.execute[module]);
   }
 
   private moduleIncludesValidatorTechnique(options: QualwebOptions): boolean {
@@ -248,15 +238,13 @@ class Dom {
           return false;
         } else if (options['act-rules'].rules) {
           return this.moduleIncludesSourceCodeRule(options);
-        } else {
-          return true;
         }
-      } else {
-        return true;
       }
-    } else {
-      return false;
+
+      return true;
     }
+
+    return false;
   }
 
   private moduleIncludesSourceCodeRule(options: QualwebOptions): boolean {
