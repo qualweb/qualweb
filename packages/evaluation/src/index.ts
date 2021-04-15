@@ -126,15 +126,6 @@ class Evaluation {
       path: require.resolve('@qualweb/util'),
       type: 'text/javascript'
     });
-    await this.page.evaluate(() => {
-      //@ts-ignore
-      window.qwPage = new Module.QWPage(document, true);
-      //@ts-ignore
-      window.DomUtils = Utility.DomUtils;
-      //@ts-ignore
-      window.AccessibilityUtils = Utility.AccessibilityUtils;
-      window.disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
-    });
   }
 
   private async executeACT(sourceHtmlHeadContent: string, options?: ACTROptions): Promise<ACTRulesReport> {
@@ -160,8 +151,7 @@ class Evaluation {
       const elements = sourceDoc.querySelectorAll('meta');
       const metaElements = new Array<QWElement>();
       elements.forEach((element: HTMLMetaElement) => {
-        //@ts-ignore
-        metaElements.push(Module.QWPage.createQWElement(element));
+        metaElements.push(window.qwPage.createQWElement(element));
       });
 
       window.act.validateMetaElements(metaElements);
