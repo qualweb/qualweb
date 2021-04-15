@@ -26,7 +26,7 @@ declare module "@qualweb/qw-page" {
     public getPageRootElement(page: QWPage): QWElement | null;
     public getURL(): string;
     public getHTMLContent(): string;
-    public getFocusedElement(): QWElement;
+    public getFocusedElement(): QWElement | null;
   }
 
   export { QWPage };
