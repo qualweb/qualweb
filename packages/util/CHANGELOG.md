@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.6] - 15/04/2021
+
+### Changes
+
+- Associated DomUtils and AccessibilityUtils to the Window interface
+- performance improvements
+
+### Updated
+
+- dependencies
+
 ## [0.5.5] - 14/04/2021
 
 ### Fixed

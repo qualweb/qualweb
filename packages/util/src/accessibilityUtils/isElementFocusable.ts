@@ -1,12 +1,9 @@
-import isElementFocusableByDefault from './isElementFocusableByDefault';
-import isElementHiddenByCSS from '../domUtils/isElementHiddenByCSS';
-
 function isElementFocusable(element: typeof window.qwElement): boolean {
   const disabled = element.getElementAttribute('disabled') !== null;
 
-  if (disabled || isElementHiddenByCSS(element)) {
+  if (disabled || window.DomUtils.isElementHiddenByCSS(element)) {
     return false;
-  } else if (isElementFocusableByDefault(element)) {
+  } else if (window.AccessibilityUtils.isElementFocusableByDefault(element)) {
     return true;
   } else {
     let tabIndexLessThanZero = false;

@@ -6,7 +6,6 @@ module.exports = {
     filename: 'util.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      name: 'Utility',
       type: 'this'
     }
   },

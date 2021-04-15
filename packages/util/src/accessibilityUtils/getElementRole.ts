@@ -1,8 +1,6 @@
-import getElementRoleAName from './getElementRoleAName';
-
 function getElementRole(element: typeof window.qwElement): string | null {
   const aName = window.AccessibilityUtils.getAccessibleName(element);
-  return getElementRoleAName(element, aName);
+  return window.AccessibilityUtils.getElementRoleAName(element, aName);
 }
 
 export default getElementRole;

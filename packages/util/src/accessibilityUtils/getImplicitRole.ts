@@ -1,7 +1,4 @@
 import roles from './elementImplicitRoles.json';
-import isElementADescendantOfExplicitRole from '../domUtils/isElementADescendantOfExplicitRole';
-import isElementFocusable from './isElementFocusable';
-import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
 
 function getImplicitRole(element: typeof window.qwElement, accessibleName: string | undefined): string | null {
   const name = element.getElementTagName();
@@ -36,7 +33,7 @@ function getImplicitRole(element: typeof window.qwElement, accessibleName: strin
             } else if (name === 'select') {
               role = getRoleSelect(element, roleValue);
             } else if (name === 'td') {
-              if (isElementADescendantOfExplicitRole(element, ['table'], [])) {
+              if (window.DomUtils.isElementADescendantOfExplicitRole(element, ['table'], [])) {
                 role = roleValue['role'];
               }
             }
@@ -73,7 +70,7 @@ function getRoleSelect(element: typeof window.qwElement, roleValue) {
 function getRoleHeaderFooter(element: typeof window.qwElement, roleValue) {
   let role;
   if (
-    isElementADescendantOfExplicitRole(
+    window.DomUtils.isElementADescendantOfExplicitRole(
       element,
       ['article', 'aside', 'main', 'nav', 'section'],
       ['article', 'complementary', 'main', 'navigation', 'region']
@@ -119,7 +116,10 @@ function getRoleImg(element: typeof window.qwElement, roleValue) {
     role = roleValue['role'];
   } else if (
     element.elementHasAttribute('alt') &&
-    !(isElementFocusable(element) || elementHasGlobalARIAPropertyOrAttribute(element))
+    !(
+      window.AccessibilityUtils.isElementFocusable(element) ||
+      window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element)
+    )
   ) {
     role = 'presentation';
   }

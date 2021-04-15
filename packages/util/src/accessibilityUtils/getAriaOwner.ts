@@ -1,5 +1,3 @@
-import isElementInAT from './isElementInAT';
-
 function getAriaOwner(element: typeof window.qwElement): typeof window.qwElement | null {
   const id = element.getElementAttribute('id');
   const ariaOwns = window.qwPage.getElements('[aria-owns]', element);
@@ -10,7 +8,7 @@ function getAriaOwner(element: typeof window.qwElement): typeof window.qwElement
     const ariaOwnsAttribute = ariaElement.getElementAttribute('aria-owns');
     if (ariaOwnsAttribute) {
       const idArray = ariaOwnsAttribute.split(' ');
-      if (idArray.includes(id) && isElementInAT(ariaElement)) {
+      if (idArray.includes(id) && window.AccessibilityUtils.isElementInAT(ariaElement)) {
         ariaOwner = ariaElement;
       }
     }

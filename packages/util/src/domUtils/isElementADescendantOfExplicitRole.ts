@@ -1,10 +1,9 @@
 function isElementADescendantOfExplicitRole(
-  elementQW: typeof window.qwElement,
-  names: string[],
-  roles: string[]
+  element: typeof window.qwElement,
+  names: Array<string>,
+  roles: Array<string>
 ): boolean {
-  const parent = elementQW.getElementParent();
-  let result = false;
+  const parent = element.getElementParent();
 
   if (parent !== null) {
     let sameRole = false;
@@ -18,15 +17,13 @@ function isElementADescendantOfExplicitRole(
     if (parentRole !== null) {
       sameRole = roles.includes(parentRole);
     }
-    result = sameName || sameRole;
-    if (!result) {
-      return isElementADescendantOfExplicitRole(parent, names, roles);
-    } else {
-      return result;
+
+    if (!(sameName || sameRole)) {
+      return window.DomUtils.isElementADescendantOfExplicitRole(parent, names, roles);
     }
-  } else {
-    return result;
   }
+
+  return false;
 }
 
 export default isElementADescendantOfExplicitRole;

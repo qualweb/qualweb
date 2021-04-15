@@ -1,6 +1,3 @@
-import getElementRole from './getElementRole';
-import isElementInAT from './isElementInAT';
-
 //incomplete
 //ignores being a header cell assigned to the closest ancestor of the link in the flat tree that has a semantic role of cell or gridcell;
 function getLinkContext(element: typeof window.qwElement): Array<string> {
@@ -10,8 +7,8 @@ function getLinkContext(element: typeof window.qwElement): Array<string> {
   let ariaDescribedBy = new Array<string>();
   if (ariaDescribedByATT) ariaDescribedBy = ariaDescribedByATT.split(' ');
   if (parent) {
-    const role = getElementRole(parent);
-    const inAT = isElementInAT(parent);
+    const role = window.AccessibilityUtils.getElementRole(parent);
+    const inAT = window.AccessibilityUtils.isElementInAT(parent);
     const tagName = parent.getElementTagName();
     const id = parent.getElementAttribute('id');
     if (
@@ -36,8 +33,8 @@ function getLinkContextAux(
 ): void {
   const parent = element.getElementParent();
   if (parent) {
-    const role = getElementRole(parent);
-    const inAT = isElementInAT(parent); //isElementInAT(when added html list)
+    const role = window.AccessibilityUtils.getElementRole(parent);
+    const inAT = window.AccessibilityUtils.isElementInAT(parent); //isElementInAT(when added html list)
     const tagName = parent.getElementTagName();
     const id = parent.getElementAttribute('id');
     if (

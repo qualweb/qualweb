@@ -1,18 +1,11 @@
 import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpty } from './constants';
-import isElementChildPresentational from './isElementChildPresentational';
-import getElementRole from './getElementRole';
-import elementHasValidRole from './elementHasValidRole';
-import isElementFocusable from './isElementFocusable';
-import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
-import isElementHidden from '../domUtils/isElementHidden';
-import elementIdIsReferenced from '../domUtils/elementIdIsReferenced';
 
 function isElementInAT(element: typeof window.qwElement): boolean {
-  const childPresentational = isElementChildPresentational(element);
-  const isHidden = isElementHidden(element);
+  const childPresentational = window.AccessibilityUtils.isElementChildPresentational(element);
+  const isHidden = window.DomUtils.isElementHidden(element);
   let result = false;
-  const role = getElementRole(element);
-  const validRole = elementHasValidRole(element);
+  const role = window.AccessibilityUtils.getElementRole(element);
+  const validRole = window.AccessibilityUtils.elementHasValidRole(element);
 
   if (!isHidden && !childPresentational && role !== 'presentation' && role !== 'none') {
     const name = element.getElementTagName();
@@ -32,7 +25,7 @@ function isElementInAT(element: typeof window.qwElement): boolean {
         specialCondition = !!child;
       }
       const type = element.getElementType();
-      const focusable = isElementFocusable(element);
+      const focusable = window.AccessibilityUtils.isElementFocusable(element);
       const id = element.getElementAttribute('id');
       let ariaActivedescendant = false;
       let ariaControls = false;
@@ -43,16 +36,16 @@ function isElementInAT(element: typeof window.qwElement): boolean {
       let ariaLabelledby = false;
       let ariaOwns = false;
       if (id !== null) {
-        ariaActivedescendant = elementIdIsReferenced(element, id, 'aria-activedescendant');
-        ariaControls = elementIdIsReferenced(element, id, ' aria-controls');
-        ariaDescribedby = elementIdIsReferenced(element, id, ' aria-describedby');
-        ariaDetails = elementIdIsReferenced(element, id, ' aria-details');
-        ariaErrormessage = elementIdIsReferenced(element, id, 'aria-errormessage');
-        ariaFlowto = elementIdIsReferenced(element, id, 'aria-flowto');
-        ariaLabelledby = elementIdIsReferenced(element, id, 'aria-labelledby');
-        ariaOwns = elementIdIsReferenced(element, id, 'aria-owns');
+        ariaActivedescendant = window.DomUtils.elementIdIsReferenced(element, id, 'aria-activedescendant');
+        ariaControls = window.DomUtils.elementIdIsReferenced(element, id, ' aria-controls');
+        ariaDescribedby = window.DomUtils.elementIdIsReferenced(element, id, ' aria-describedby');
+        ariaDetails = window.DomUtils.elementIdIsReferenced(element, id, ' aria-details');
+        ariaErrormessage = window.DomUtils.elementIdIsReferenced(element, id, 'aria-errormessage');
+        ariaFlowto = window.DomUtils.elementIdIsReferenced(element, id, 'aria-flowto');
+        ariaLabelledby = window.DomUtils.elementIdIsReferenced(element, id, 'aria-labelledby');
+        ariaOwns = window.DomUtils.elementIdIsReferenced(element, id, 'aria-owns');
       }
-      const globalWaiARIA = elementHasGlobalARIAPropertyOrAttribute(element);
+      const globalWaiARIA = window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element);
 
       result =
         specialCondition ||

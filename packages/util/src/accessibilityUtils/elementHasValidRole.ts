@@ -1,8 +1,7 @@
 import roles from './roles.json';
-import getElementRole from './getElementRole';
 
 function elementHasValidRole(element: typeof window.qwElement): boolean {
-  const role = getElementRole(element);
+  const role = window.AccessibilityUtils.getElementRole(element);
   let result = false;
   if (role) {
     if (role.trim().includes(' ')) {

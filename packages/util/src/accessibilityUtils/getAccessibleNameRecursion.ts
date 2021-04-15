@@ -1,4 +1,5 @@
 import { formElements, typesWithLabel } from './constants';
+import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
 
 function getAccessibleNameRecursion(
   element: typeof window.qwElement,
@@ -22,7 +23,7 @@ function getAccessibleNameRecursion(
 
   const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
   if (name === 'svg') {
-    AName = window.AccessibilityUtils.getAccessibleNameSVGRecursion(element, recursion);
+    AName = getAccessibleNameSVGRecursion(element, recursion);
   } else if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     try {
       AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);

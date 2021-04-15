@@ -1,10 +1,8 @@
-import isElementFocusable from './isElementFocusable';
-import elementHasGlobalARIAPropertyOrAttribute from './elementHasGlobalARIAPropertyOrAttribute';
 import isElementChildPresentationalAux from './isElementChildPresentationalAux';
 
 function isElementChildPresentational(element: typeof window.qwElement): boolean {
-  const focusable = isElementFocusable(element);
-  const hasGlobalARIA = elementHasGlobalARIAPropertyOrAttribute(element);
+  const focusable = window.AccessibilityUtils.isElementFocusable(element);
+  const hasGlobalARIA = window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element);
   const parent = element.getElementParent();
   let childPresentational = false;
 

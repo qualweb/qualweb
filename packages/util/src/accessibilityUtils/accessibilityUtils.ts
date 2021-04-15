@@ -24,8 +24,8 @@ import isElementFocusableFunction from './isElementFocusable';
 import isFocusableBrowserFunction from './isFocusableBrowser';
 import getOwnedElementsFunction from './getOwnedElements';
 import getValueFromEmbeddedControlFunction from './getValueFromEmbeddedControl';
-
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
+import getAriaOwnerFunction from './getAriaOwner';
 
 import ariaAttributesRoles from './ariaAttributesRoles.json';
 import roles from './roles.json';
@@ -43,11 +43,14 @@ class AccessibilityUtils {
   public static getLinkContext(element: typeof window.qwElement): string[] {
     return getLinkContextFunction(element);
   }
+
   public static allowsNameFromContent = allowsNameFromContentFunction;
+
   @Cache('AcceUtils.elementHasValidRole')
   public static elementHasValidRole(element: typeof window.qwElement): boolean {
     return elementHasValidRoleFunction(element);
   }
+
   @Cache('AcceUtils.getAccessibleName')
   public static getAccessibleName(element: typeof window.qwElement): string | undefined {
     return getAccessibleNameFunction(element);
@@ -73,10 +76,7 @@ class AccessibilityUtils {
   }
   public static getDefaultName = getDefaultNameFunction;
 
-  //@Cache('AcceUtils.getDisabledWidgets')
-  public static getDisabledWidgets(): Array<typeof window.qwElement> {
-    return getDisabledWidgetsFunction();
-  }
+  public static getDisabledWidgets = getDisabledWidgetsFunction;
 
   public static isFocusableBrowser = isFocusableBrowserFunction;
 
@@ -89,7 +89,7 @@ class AccessibilityUtils {
   public static getElementRole(element: typeof window.qwElement): string | null {
     return getElementRoleFunction(element);
   }
-  @Cache('AcceUtils.getElementRole')
+  @FullMethodCache('AcceUtils.getElementRole')
   public static getElementRoleAName(element: typeof window.qwElement, aName: string | undefined): string | null {
     return getElementRoleANameFunction(element, aName);
   }
@@ -121,7 +121,8 @@ class AccessibilityUtils {
   public static isElementWidget(element: typeof window.qwElement): boolean {
     return isElementWidgetFunction(element);
   }
-  @Cache('AcceUtils.getImplicitRole')
+
+  @FullMethodCache('AcceUtils.getImplicitRole')
   public static getImplicitRole(element: typeof window.qwElement, accessibleName: string | undefined): string | null {
     return getImplicitRoleFunction(element, accessibleName);
   }
@@ -155,8 +156,13 @@ class AccessibilityUtils {
   }
 
   @Cache('AcceUtils.elementHasGlobalARIAPropertyOrAttribute')
-  public static elementHasGlobalARIAPropertyOrAttribute(elementQW: typeof window.qwElement): boolean {
-    return elementHasGlobalARIAPropertyOrAttributeFunction(elementQW);
+  public static elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElement): boolean {
+    return elementHasGlobalARIAPropertyOrAttributeFunction(element);
+  }
+
+  @Cache('AcceUtils.getAriaOwner')
+  public static getAriaOwner(element: typeof window.qwElement): typeof window.qwElement | null {
+    return getAriaOwnerFunction(element);
   }
 }
 

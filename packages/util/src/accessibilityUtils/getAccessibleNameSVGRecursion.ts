@@ -1,8 +1,5 @@
 import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer } from './constants';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
-import getAccessibleName from './getAccessibleName';
-import getTrimmedText from '../domUtils/getTrimmedText';
-import isElementHidden from '../domUtils/isElementHidden';
 
 function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, tag;
@@ -23,7 +20,7 @@ function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursi
 
   //console.log((DomUtil.isElementHidden(element) && !recursion) +"/"+ hasParentOfName(element,noAccessibleObjectOrChild) +"/"+ (noAccessibleObject.indexOf(tag) >= 0) +"/"+ (noAccessibleObjectOrChild.indexOf(tag) >= 0) +"/"+ regex.test(tag))
   if (
-    (isElementHidden(element) ||
+    (window.DomUtils.isElementHidden(element) ||
       hasParentOfName(element, noAccessibleObjectOrChild) ||
       noAccessibleObject.indexOf(tag) >= 0 ||
       noAccessibleObjectOrChild.indexOf(tag) >= 0 ||
@@ -34,7 +31,7 @@ function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursi
   } else if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);
   } else if (elementsLikeHtml.indexOf(tag) >= 0) {
-    AName = getAccessibleName(element);
+    AName = window.AccessibilityUtils.getAccessibleName(element);
   } else if (ariaLabel && ariaLabel.trim() !== '') {
     AName = ariaLabel;
   } else if (title && title.trim() !== '') {
@@ -45,7 +42,7 @@ function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursi
   } else if (roleLink) {
     AName = getTextFromCss(element);
   } else if (tag && tag === 'text') {
-    AName = getTrimmedText(element);
+    AName = window.DomUtils.getTrimmedText(element);
   }
   return AName;
 }

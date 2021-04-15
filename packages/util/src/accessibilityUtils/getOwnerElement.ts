@@ -1,8 +1,5 @@
-import getAriaOwner from './getAriaOwner';
-import isElementInAT from './isElementInAT';
-
 function getOwnerElement(element: typeof window.qwElement): typeof window.qwElement | null {
-  const ariaOwner = getAriaOwner(element);
+  const ariaOwner = window.AccessibilityUtils.getAriaOwner(element);
   let ownerElement;
 
   if (ariaOwner) {
@@ -10,7 +7,7 @@ function getOwnerElement(element: typeof window.qwElement): typeof window.qwElem
   } else {
     let parent = element.getElementParent();
     while (!!parent && !ownerElement) {
-      if (isElementInAT(parent)) ownerElement = parent;
+      if (window.AccessibilityUtils.isElementInAT(parent)) ownerElement = parent;
       parent = parent.getElementParent();
     }
   }

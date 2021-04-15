@@ -1,4 +1,3 @@
-import getValueFromEmbeddedControl from './getValueFromEmbeddedControl';
 import { formElements, typesWithLabel } from './constants';
 
 function getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
@@ -35,7 +34,9 @@ function getAccessibleNameRecursion(
   } else if (ariaLabel) {
     AName = ariaLabel;
   } else if (isWidget && window.AccessibilityUtils.isElementControl(element)) {
-    const valueFromEmbeddedControl = getValueFromEmbeddedControl(element) ? elementSelector : null;
+    const valueFromEmbeddedControl = window.AccessibilityUtils.getValueFromEmbeddedControl(element)
+      ? elementSelector
+      : null;
     AName = getFirstNotUndefined(valueFromEmbeddedControl, title);
   } else if (name === 'area' || (name === 'input' && attrType === 'image')) {
     AName = getFirstNotUndefined(alt, title);

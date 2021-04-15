@@ -1,6 +1,3 @@
-import getAriaOwner from './getAriaOwner';
-import isElementInAT from './isElementInAT';
-
 //elementQW isInAT
 function getOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
   const children = element.getElementChildren();
@@ -14,8 +11,11 @@ function getOwnedElements(element: typeof window.qwElement): Array<typeof window
 }
 
 function getOwnedElementsAux(element: typeof window.qwElement, ownerSelector: string): Array<typeof window.qwElement> {
-  let ariaOwner = getAriaOwner(element);
-  if (isElementInAT(element) && (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))) {
+  let ariaOwner = window.AccessibilityUtils.getAriaOwner(element);
+  if (
+    window.AccessibilityUtils.isElementInAT(element) &&
+    (!ariaOwner || (!!ariaOwner && ariaOwner.getElementSelector() === ownerSelector))
+  ) {
     return [element];
   } else {
     let children = element.getElementChildren();

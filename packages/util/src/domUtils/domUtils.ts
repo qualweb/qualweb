@@ -15,7 +15,7 @@ import objectElementIsNonTextFunction from './objectElementIsNonText';
 import isHumanLanguageFunction from './isHumanLanguage';
 import getTextSizeFunction from './getTextSize';
 
-import { Cache } from '../cache';
+import { Cache, FullMethodCache } from '../cache';
 
 /**
  * DOM Utilities namespace
@@ -45,12 +45,12 @@ class DomUtils {
     return isElementVisibleFunction(element);
   }
 
-  @Cache('DomUtils.elementIdIsReferenced')
+  @FullMethodCache('DomUtils.elementIdIsReferenced')
   public static elementIdIsReferenced(element: typeof window.qwElement, id: string, attribute: string): boolean {
     return elementIdIsReferencedFunction(element, id, attribute);
   }
 
-  @Cache('DomUtils.isElementADescendantOf')
+  @FullMethodCache('DomUtils.isElementADescendantOf')
   public static isElementADescendantOf(
     element: typeof window.qwElement,
     names: Array<string>,
@@ -59,7 +59,7 @@ class DomUtils {
     return isElementADescendantOfFunction(element, names, roles);
   }
 
-  @Cache('DomUtils.isElementADescendantOfExplicitRole')
+  @FullMethodCache('DomUtils.isElementADescendantOfExplicitRole')
   public static isElementADescendantOfExplicitRole(
     element: typeof window.qwElement,
     names: Array<string>,

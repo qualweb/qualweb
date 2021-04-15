@@ -1,5 +1,3 @@
-import isElementFocusable from './isElementFocusable';
-
 function isPartOfSequentialFocusNavigation(element: typeof window.qwElement): boolean {
   let tabIndexLessThanZero = false;
   const tabindex = element.getElementAttribute('tabindex');
@@ -8,7 +6,7 @@ function isPartOfSequentialFocusNavigation(element: typeof window.qwElement): bo
   if (tabindex && tabIndexExistsAndIsNumber) {
     tabIndexLessThanZero = parseInt(tabindex, 10) < 0;
   }
-  const focusable = isElementFocusable(element);
+  const focusable = window.AccessibilityUtils.isElementFocusable(element);
   return (focusable && tabIndexExistsAndIsNumber && !tabIndexLessThanZero) || (focusable && !tabIndexExistsAndIsNumber);
 }
 

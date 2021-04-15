@@ -4,7 +4,7 @@ function isElementHiddenByCSS(element: typeof window.qwElement): boolean {
   const parent = element.getParentAllContexts();
   let parentHidden = false;
   if (parent) {
-    parentHidden = isElementHiddenByCSS(parent);
+    parentHidden = window.DomUtils.isElementHiddenByCSS(parent);
   }
   return isElementHiddenByCSSAux(element) || parentHidden;
 }
