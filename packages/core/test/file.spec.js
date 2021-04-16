@@ -7,7 +7,7 @@ describe('Core input method: file', function() {
 
     const options = { 
       file: './test/urls.txt',
-      maxParallelEvaluations: 9
+      maxParallelEvaluations: 5
     };
 
     const qualweb = new QualWeb();
@@ -16,6 +16,6 @@ describe('Core input method: file', function() {
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
     
-    expect(Object.keys(reports).length).to.be.equal(9);
+    expect(Object.keys(reports).length).to.be.equal(25);
   });
 });
