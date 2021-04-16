@@ -1,4 +1,8 @@
-import puppeteer, { Browser, BrowserContext, LaunchOptions } from 'puppeteer';
+import { Browser, BrowserContext, LaunchOptions } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import { Cluster } from 'puppeteer-cluster';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import AdBlocker from 'puppeteer-extra-plugin-adblocker';
 import { QualwebOptions, Evaluations, Execute } from '@qualweb/core';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
@@ -23,6 +27,17 @@ class QualWeb {
    */
   private incognito?: BrowserContext;
 
+  private cluster?: Cluster;
+
+  constructor(plugins?: { stealth?: boolean; adBlock?: boolean }) {
+    if (plugins?.stealth) {
+      puppeteer.use(StealthPlugin());
+    }
+    if (plugins?.adBlock) {
+      puppeteer.use(AdBlocker({ blockTrackers: true }));
+    }
+  }
+
   /**
    * Opens chromium browser and starts an incognito context
    * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
@@ -30,6 +45,15 @@ class QualWeb {
   public async start(options?: LaunchOptions): Promise<void> {
     this.browser = await puppeteer.launch(options);
     this.incognito = await this.browser.createIncognitoBrowserContext();
+
+    this.cluster = await Cluster.launch({
+      concurrency: Cluster.CONCURRENCY_CONTEXT,
+      maxConcurrency: 5,
+      puppeteerOptions: options,
+      puppeteer: puppeteer,
+      timeout: 60 * 1000,
+      monitor: true
+    });
   }
 
   /**
@@ -38,6 +62,7 @@ class QualWeb {
   public async stop(): Promise<void> {
     await this.incognito?.close();
     await this.browser?.close();
+    await this.cluster?.close();
   }
 
   /**
@@ -81,17 +106,35 @@ class QualWeb {
 
     const evaluations: Evaluations = {};
 
-    for (let i = 0; i < urls.length; i += numberOfParallelEvaluations) {
+    this.cluster?.on('taskerror', (err, data) => {
+      console.error(`Failed to crawl ${data}: ${err.message}`);
+    });
+
+    await this.cluster?.task(async ({ page, data: url }) => {
+      const dom = new Dom(page, options.validator);
+      const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');
+      const evaluation = new Evaluation(url, page, modulesToExecute);
+      const evaluationReport = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
+      evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
+    });
+
+    for (const url of urls) {
+      this.cluster?.queue(url);
+    }
+
+    /*for (let i = 0; i < urls.length; i += numberOfParallelEvaluations) {
       const promises = new Array<Promise<void>>();
       for (let j = 0; j < numberOfParallelEvaluations && i + j < urls.length; j++) {
         promises.push(this.runModules(evaluations, urls[i + j], undefined, options, modulesToExecute));
       }
       await Promise.all(promises);
-    }
+    }*/
 
     if (options.html) {
       await this.runModules(evaluations, '', options.html, options, modulesToExecute);
     }
+
+    await this.cluster?.idle();
 
     return evaluations;
   }

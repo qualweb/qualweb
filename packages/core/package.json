@@ -69,7 +69,11 @@
     "@qualweb/dom": "^0.2.1",
     "@qualweb/earl-reporter": "^0.4.1",
     "@qualweb/evaluation": "^0.2.3",
-    "puppeteer": "^8.0.0"
+    "puppeteer": "^8.0.0",
+    "puppeteer-cluster": "^0.22.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-adblocker": "^2.11.11",
+    "puppeteer-extra-plugin-stealth": "^2.7.6"
   },
   "devDependencies": {
     "@qualweb/types": "^0.5.16",
