@@ -1,5 +1,6 @@
 import { QualWeb } from '../dist/index';
 import { expect } from 'chai';
+import path from 'path';
 
 describe('Core input method: file', function() {
   it('Should evaluate all urls', async function() {
@@ -8,7 +9,7 @@ describe('Core input method: file', function() {
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
     const options = { 
-      file: 'urls.txt',
+      file: path.resolve(__dirname, 'urls.txt'),
       'wcag-techniques': {
         exclude: ['QW-WCAG-T16']
       }
