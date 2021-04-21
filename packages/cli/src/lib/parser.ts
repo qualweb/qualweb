@@ -118,6 +118,12 @@ function parseReportType(mainOptions: CommandLineOptions, options: QualwebOption
   }
 }
 
+function parseSaveName(mainOptions: CommandLineOptions, options: QualwebOptions): void {
+  if (mainOptions['save-name']) {
+    options['save-name'] = mainOptions['save-name'];
+  }
+}
+
 async function parse(): Promise<QualwebOptions> {
   let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
   const options: QualwebOptions = {};
@@ -139,6 +145,8 @@ async function parse(): Promise<QualwebOptions> {
   parseSystemOptions(mainOptions, options);
 
   parseReportType(mainOptions, options);
+
+  parseSaveName(mainOptions, options);
 
   //////////////////////////////////////////////////////////////////////////////////
   // ACT ///////////////////////////////////////////////////////////////////////////
