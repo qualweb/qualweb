@@ -1,14 +1,16 @@
-import { Browser, BrowserContext, LaunchOptions } from 'puppeteer';
+import { LaunchOptions } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdBlocker from 'puppeteer-extra-plugin-adblocker';
-import { QualwebOptions, Evaluations, Execute } from '@qualweb/core';
+import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions } from '@qualweb/core';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
 import { Crawler, CrawlOptions } from '@qualweb/crawler';
-import { readFile } from 'fs';
+import { readFile, writeFile } from 'fs';
+import path from 'path';
+import 'colors';
 
 /**
  * QualWeb engine - Performs web accessibility evaluations using several modules:
@@ -18,18 +20,15 @@ import { readFile } from 'fs';
  */
 class QualWeb {
   /**
-   * Chromium browser instance
+   * Chromium browser cluster
    */
-  private browser?: Browser;
-
-  /**
-   * Incognito context (no cache, no cookies)
-   */
-  private incognito?: BrowserContext;
-
   private cluster?: Cluster;
 
-  constructor(plugins?: { stealth?: boolean; adBlock?: boolean }) {
+  /**
+   * Initializes puppeteer with given plugins
+   * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth
+   */
+  constructor(plugins?: PuppeteerPlugins) {
     if (plugins?.stealth) {
       puppeteer.use(StealthPlugin());
     }
@@ -40,19 +39,17 @@ class QualWeb {
 
   /**
    * Opens chromium browser and starts an incognito context
-   * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+   * @param {ClusterOptions} clusterOptions - Options for cluster initialization
+   * @param {LaunchOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
    */
-  public async start(options?: LaunchOptions): Promise<void> {
-    this.browser = await puppeteer.launch(options);
-    this.incognito = await this.browser.createIncognitoBrowserContext();
-
+  public async start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void> {
     this.cluster = await Cluster.launch({
       concurrency: Cluster.CONCURRENCY_CONTEXT,
-      maxConcurrency: 5,
-      puppeteerOptions: options,
+      maxConcurrency: clusterOptions?.maxConcurrency ?? 1,
+      puppeteerOptions: puppeteerOptions,
       puppeteer: puppeteer,
-      timeout: 60 * 1000,
-      monitor: true
+      timeout: clusterOptions?.timeout ?? 60 * 1000,
+      monitor: clusterOptions?.monitor ?? false
     });
   }
 
@@ -60,8 +57,6 @@ class QualWeb {
    * Closes chromium browser.
    */
   public async stop(): Promise<void> {
-    await this.incognito?.close();
-    await this.browser?.close();
     await this.cluster?.close();
   }
 
@@ -72,8 +67,6 @@ class QualWeb {
    * @returns List of evaluations.
    */
   public async evaluate(options: QualwebOptions): Promise<Evaluations> {
-    let numberOfParallelEvaluations = 1;
-
     const modulesToExecute = {
       act: true,
       wcag: true,
@@ -88,14 +81,6 @@ class QualWeb {
       throw new Error('Invalid input method');
     }
 
-    if (options.maxParallelEvaluations && options.maxParallelEvaluations > 0) {
-      numberOfParallelEvaluations = options.maxParallelEvaluations;
-    }
-
-    if (urls.length < numberOfParallelEvaluations) {
-      numberOfParallelEvaluations = urls.length;
-    }
-
     if (options.execute) {
       modulesToExecute.act = !!options.execute.act;
       modulesToExecute.wcag = !!options.execute.wcag;
@@ -106,35 +91,34 @@ class QualWeb {
 
     const evaluations: Evaluations = {};
 
+    let foundError = false;
+
     this.cluster?.on('taskerror', (err, data) => {
-      console.error(`Failed to crawl ${data}: ${err.message}`);
+      foundError = true;
+      handleError(data.url, err.message);
     });
 
-    await this.cluster?.task(async ({ page, data: url }) => {
+    await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const dom = new Dom(page, options.validator);
-      const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');
+      const { sourceHtmlHeadContent, validation } = await dom.process(options, url ?? '', html ?? '');
       const evaluation = new Evaluation(url, page, modulesToExecute);
       const evaluationReport = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
       evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
     });
 
     for (const url of urls) {
-      this.cluster?.queue(url);
+      this.cluster?.queue({ url });
     }
 
-    /*for (let i = 0; i < urls.length; i += numberOfParallelEvaluations) {
-      const promises = new Array<Promise<void>>();
-      for (let j = 0; j < numberOfParallelEvaluations && i + j < urls.length; j++) {
-        promises.push(this.runModules(evaluations, urls[i + j], undefined, options, modulesToExecute));
-      }
-      await Promise.all(promises);
-    }*/
-
     if (options.html) {
-      await this.runModules(evaluations, '', options.html, options, modulesToExecute);
+      this.cluster?.queue({ html: options.html });
     }
 
     await this.cluster?.idle();
+
+    if (foundError) {
+      console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
+    }
 
     return evaluations;
   }
@@ -147,13 +131,10 @@ class QualWeb {
    * @returns List of decoded urls.
    */
   public async crawlDomain(domain: string, options?: CrawlOptions): Promise<Array<string>> {
-    if (this.browser) {
-      const crawler = new Crawler(this.browser, domain);
-      await crawler.crawl(options);
-      return crawler.getResults();
-    }
-
-    throw new Error(`Chromium browser isn't open.`);
+    const browser = await puppeteer.launch();
+    const crawler = new Crawler(browser, domain);
+    await crawler.crawl(options);
+    return crawler.getResults();
   }
 
   /**
@@ -184,39 +165,6 @@ class QualWeb {
 
     return urls;
   }
-
-  /**
-   * Executes defined modules on the given url or html code and saves the evaluation on the list of evaluations.
-   *
-   * @param {Evaluations} evaluations - list of evaluations
-   * @param {string} url - url to be evaluated
-   * @param {string | undefined} html - html code to be evaluated (optional)
-   * @param {QualwebOptions} options - options of execution (check https://github.com/qualweb/core#options)
-   * @param {Execute} modulesToExecute - modules to execute (act, wcag, best-practices, wappalyzer, counter)
-   */
-  private async runModules(
-    evaluations: Evaluations,
-    url: string,
-    html: string | undefined,
-    options: QualwebOptions,
-    modulesToExecute: Execute
-  ): Promise<void> {
-    if (!this.browser || !this.incognito) {
-      throw new Error(`Chromium browser isn't open.`);
-    }
-    const page = await this.incognito.newPage();
-    try {
-      const dom = new Dom(page, options.validator);
-      const { sourceHtmlHeadContent, validation } = await dom.process(options, url, html ?? '');
-      const evaluation = new Evaluation(url, page, modulesToExecute);
-      const evaluationReport = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
-      evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      await page.close();
-    }
-  }
 }
 
 /**
@@ -229,8 +177,14 @@ async function getFileUrls(file: string): Promise<Array<string>> {
   const content = await readFileData(file);
   return content
     .split('\n')
-    .filter((url: string) => url.trim() !== '')
-    .map((url: string) => decodeURIComponent(url).trim());
+    .map((url: string) => {
+      try {
+        return decodeURIComponent(url).trim();
+      } catch (_err) {
+        return '';
+      }
+    })
+    .filter((url: string) => url.trim() !== '');
 }
 
 /**
@@ -249,6 +203,19 @@ function readFileData(file: string): Promise<string> {
       }
     });
   });
+}
+
+function handleError(url: string, message: string): void {
+  writeFile(
+    path.resolve(process.cwd(), 'error.log'),
+    url + ' : ' + message + '\n',
+    { flag: 'a', encoding: 'utf-8' },
+    (err) => {
+      if (err) {
+        console.error(err);
+      }
+    }
+  );
 }
 
 export { QualWeb, generateEARLReport, getFileUrls };

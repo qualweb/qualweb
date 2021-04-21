@@ -6,12 +6,12 @@ https://ciencias.ulisboa.pt/pt/p%C3%BAblico-escolar-geral/
 https://ciencias.ulisboa.pt/pt/ciencias-nos-media
 https://ciencias.ulisboa.pt/pt/concursos/
 https://ciencias.ulisboa.pt/doc
-https://www.globaldata.pt/
+https://dpul.princeton.edu/
 https://ciencias.ulisboa.pt/pt/provas-academicas
 https://ciencias.ulisboa.pt/pt/horarios-de-atendimento
 http://accessible-serv.lasige.di.fc.ul.pt/~jvicente/test/
 https://accessmonitor.acessibilidade.gov.pt/
-https://www.acessibilidade.gov.pt/
+https://www.portaldiplomatico.mne.gov.pt/
 https://www.youtube.com/
 https://www.facebook.com/
 https://twitter.com/
@@ -21,5 +21,5 @@ https://duckduckgo.com/
 https://metager.de/
 https://www.linkedin.com/
 https://github.com/
-https://www.pcdiga.com/
+https://www.pinterest.com/
 https://www.ola.pt/home.html

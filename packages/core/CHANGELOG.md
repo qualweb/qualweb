@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.6.0-alpha] - 21/04/2021
+
+### Added
+
+- puppeteer-extra with AdBlocker and Stealth plugins (optional)
+- puppeteer-cluster to enable faster evaluations of multiple webpages
+
+### Updated
+
+- puppeteer to version 9.0.0
+
 ## [0.5.5] - 15/04/2021
 
 ### Updated
