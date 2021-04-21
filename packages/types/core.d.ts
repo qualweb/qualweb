@@ -112,22 +112,37 @@ declare module "@qualweb/core" {
     [url: string]: EvaluationReport;
   }
 
+  interface PuppeteerPlugins { 
+    stealth?: boolean; 
+    adBlock?: boolean;
+  }
+
+  interface ClusterOptions {
+    maxConcurrency?: number; 
+    timeout?: number; 
+    monitor?: boolean;
+  }
+
+  class Cluster {}
+
   class QualWeb {
     /**
-     * Chromium browser instance
+     * Chromium browser cluster
      */
-    private browser?: Browser;
+    private cluster?: Cluster;
 
     /**
-     * Incognito context (no cache, no cookies)
+     * Initializes puppeteer with given plugins
+     * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth
      */
-    private incognito?: BrowserContext;
+    constructor(plugins?: PuppeteerPlugins);
 
     /**
      * Opens chromium browser and starts an incognito context
+     * @param {ClusterOptions} clusterOptions - Options for cluster initialization
      * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
      */
-    public start(options?: LaunchOptions): Promise<void>;
+    public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void>;
 
     /**
      * Closes chromium browser.
