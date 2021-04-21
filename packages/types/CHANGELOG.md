@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.19] - 21/04/2020
+
+### Updated
+
+- qwPage interface
+- crawler interface
+- core interface
+
 ## [0.5.18] - 15/04/2020
 
 ### Updated

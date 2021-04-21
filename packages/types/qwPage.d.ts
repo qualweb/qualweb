@@ -3,7 +3,7 @@ declare module "@qualweb/qw-page" {
 
   class QWPage {
     constructor(document: Document, addCSSRulesToElements?: boolean);
-    public static createQWElement(element: HTMLElement): QWElement;
+    public createQWElement(element: HTMLElement): QWElement;
     public cacheValue(
       selector: string,
       method: string,

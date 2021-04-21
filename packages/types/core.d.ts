@@ -6,7 +6,7 @@ declare module "@qualweb/core" {
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { generateEARLReport } from "@qualweb/earl-reporter";
-  import { LaunchOptions, Browser, LoadEvent } from "puppeteer";
+  import { LaunchOptions, Browser, BrowserContext, LoadEvent } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
 
   interface Execute {
@@ -116,7 +116,7 @@ declare module "@qualweb/core" {
     /**
      * Chromium browser instance
      */
-    private browser: Browser | null;
+    private browser?: Browser;
 
     /**
      * Incognito context (no cache, no cookies)

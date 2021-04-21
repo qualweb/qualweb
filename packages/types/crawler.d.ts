@@ -1,5 +1,5 @@
 declare module '@qualweb/crawler' {
-  import { Browser, Viewport} from 'puppeteer';
+  import { Browser, BrowserContext, Viewport} from 'puppeteer';
 
   interface CrawlOptions {
     maxDepth?: number;
@@ -10,12 +10,12 @@ declare module '@qualweb/crawler' {
   }
 
   class Crawler {
-    private readonly browser: Browser;
+    private readonly browser: Browser | BrowserContext;
     private readonly viewport?: Viewport;
     private readonly domain: string;
     private urls: Array<string>;
 
-    constructor(browser: Browser, domain: string, viewport?: Viewport);
+    constructor(browser: Browser | BrowserContext, domain: string, viewport?: Viewport);
 
     public crawl(options?: CrawlOptions): Promise<void>;
     public getResults(): Array<string>;
