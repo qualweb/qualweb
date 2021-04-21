@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.1-alpha] - 21/04/2020
+
+### Updated
+
+- core interface
+
+## [0.6.0-alpha] - 21/04/2020
+
+### Updated
+
+- core interface
+
 ## [0.5.19] - 21/04/2020
 
 ### Updated

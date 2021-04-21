@@ -216,6 +216,8 @@ declare module "@qualweb/core" {
     Module,
     PageOptions,
     Evaluations,
+    PuppeteerPlugins,
+    ClusterOptions,
     QualWeb,
     getFileUrls,
     generateEARLReport,
