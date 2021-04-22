@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.6.0-alpha",
+  "version": "0.6.1-alpha",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -77,7 +77,7 @@
     "puppeteer-extra-plugin-stealth": "^2.7.6"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.6.1-alpha",
+    "@qualweb/types": "^0.6.2-alpha",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^14.14.40",
     "@types/puppeteer": "^5.4.3",

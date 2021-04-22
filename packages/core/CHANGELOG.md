@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1-alpha] - 22/04/2021
+
+### Updated
+
+- @qualweb/types
+- README.md
+
 ## [0.6.0-alpha] - 21/04/2021
 
 ### Added

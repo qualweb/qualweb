@@ -207,7 +207,7 @@ function readFileData(file: string): Promise<string> {
 
 function handleError(url: string, message: string): void {
   writeFile(
-    path.resolve(process.cwd(), 'error.log'),
+    path.resolve(process.cwd(), 'qualweb-errors.log'),
     url + ' : ' + message + '\n',
     { flag: 'a', encoding: 'utf-8' },
     (err) => {
