@@ -23,10 +23,8 @@ declare module "@qualweb/core" {
     file?: string;
     crawl?: string;
     html?: string;
-    timeout?: number;
     waitUntil?: LoadEvent | LoadEvent[];
     viewport?: PageOptions;
-    maxParallelEvaluations?: number;
     validator?: string;
     report?: "earl" | "earl-a";
     crawlOptions?: CrawlOptions
