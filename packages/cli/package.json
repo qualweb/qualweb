@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
@@ -41,7 +41,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "^0.5.2",
+    "@qualweb/core": "^0.5.5",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",
@@ -54,18 +54,18 @@
     "@types/command-line-usage": "^5.0.1",
     "@types/node": "^14.14.37",
     "@types/set-value": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
-    "chai": "^4.3.3",
-    "eslint": "^7.23.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-sonarjs": "^0.6.0",
     "esm": "^3.2.25",
-    "mocha": "^8.3.1",
+    "mocha": "^8.3.2",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.34",
-    "typescript": "^4.2.3"
+    "typedoc": "^0.20.36",
+    "typescript": "^4.2.4"
   }
 }
