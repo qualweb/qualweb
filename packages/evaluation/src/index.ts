@@ -134,31 +134,33 @@ class Evaluation {
       type: 'text/javascript'
     });
 
-    await this.page.evaluate((options?: ACTROptions) => {
-      //@ts-ignore
-      //window.act = new ACT.ACTRules(options);
-      window.act.configure(options);
-    }, <Serializable>options);
-
     await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await this.page.evaluate((sourceHtmlHeadContent) => {
-      window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
+    await this.page.evaluate(
+      (sourceHtmlHeadContent: string, options?: ACTROptions) => {
+        if (options) {
+          window.act.configure(options);
+        }
 
-      const parser = new DOMParser();
-      const sourceDoc = parser.parseFromString('', 'text/html');
+        window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
-      sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+        const parser = new DOMParser();
+        const sourceDoc = parser.parseFromString('', 'text/html');
 
-      const elements = sourceDoc.querySelectorAll('meta');
-      const metaElements = new Array<QWElement>();
-      elements.forEach((element: HTMLMetaElement) => {
-        metaElements.push(window.qwPage.createQWElement(element));
-      });
+        sourceDoc.head.innerHTML = sourceHtmlHeadContent;
 
-      window.act.validateMetaElements(metaElements);
-      window.act.executeAtomicRules();
-      window.act.executeCompositeRules();
-    }, sourceHtmlHeadContent);
+        const elements = sourceDoc.querySelectorAll('meta');
+        const metaElements = new Array<QWElement>();
+        elements.forEach((element: HTMLMetaElement) => {
+          metaElements.push(window.qwPage.createQWElement(element));
+        });
+
+        window.act.validateMetaElements(metaElements);
+        window.act.executeAtomicRules();
+        window.act.executeCompositeRules();
+      },
+      sourceHtmlHeadContent,
+      <Serializable>options
+    );
 
     if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
       const viewport = this.page.viewport();

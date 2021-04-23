@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.7] - 23/04/2021
+
+### Fixed
+
+- bugs related to ACT Object configuration
+
 ## [0.2.6] - 23/04/2021
 
 ### Fixed
