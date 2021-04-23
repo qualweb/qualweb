@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.7] - 23/04/2021
+
+### Fixed
+
+- isElementReferencedByHREF bug
+
+### Updated
+
+- dependencies
+
 ## [0.5.6] - 15/04/2021
 
 ### Changes
