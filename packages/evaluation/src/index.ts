@@ -136,7 +136,8 @@ class Evaluation {
 
     await this.page.evaluate((options?: ACTROptions) => {
       //@ts-ignore
-      window.act = new ACT.ACTRules(options);
+      //window.act = new ACT.ACTRules(options);
+      window.act.configure(options);
     }, <Serializable>options);
 
     await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.6] - 23/04/2021
+
+### Fixed
+
+- ACT is not defined bug
+
 ## [0.2.5] - 23/04/2021
 
 ### Updated
