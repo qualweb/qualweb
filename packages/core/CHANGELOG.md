@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.6] - 23/04/2021
+
+### Updated
+
+- dependencies
+
 ## [0.5.5] - 15/04/2021
 
 ### Updated

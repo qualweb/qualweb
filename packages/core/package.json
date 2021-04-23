@@ -65,10 +65,10 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@qualweb/crawler": "^0.3.3",
+    "@qualweb/crawler": "^0.3.4",
     "@qualweb/dom": "^0.2.1",
     "@qualweb/earl-reporter": "^0.4.1",
-    "@qualweb/evaluation": "^0.2.5",
+    "@qualweb/evaluation": "^0.2.6",
     "puppeteer": "^8.0.0"
   },
   "devDependencies": {
