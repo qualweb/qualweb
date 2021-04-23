@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.4] - 23/04/2021
+
+### Added
+
+- option for BrowserContext in the constructor
+
+### Updated
+
+- dependencies
+
 ## [0.3.3] - 13/04/2021
 
 ### Added

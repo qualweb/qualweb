@@ -1,14 +1,14 @@
 import logUpdate from 'log-update';
-import { Browser, Viewport } from 'puppeteer';
+import { Browser, BrowserContext, Viewport } from 'puppeteer';
 import { CrawlOptions } from '@qualweb/crawler';
 
 class Crawler {
-  private readonly browser: Browser;
+  private readonly browser: Browser | BrowserContext;
   private readonly viewport?: Viewport;
   private readonly domain: string;
   private urls: Array<string>;
 
-  constructor(browser: Browser, domain: string, viewport?: Viewport) {
+  constructor(browser: Browser | BrowserContext, domain: string, viewport?: Viewport) {
     this.browser = browser;
     this.domain = this.verifyDomain(domain);
     this.viewport = viewport;
