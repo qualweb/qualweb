@@ -5,15 +5,17 @@ import { Dom } from '@qualweb/dom';
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
-    this.timeout(100 * 1000);
+    this.timeout(0);
     
     const url = 'https://ciencias.ulisboa.pt';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
     const browser = await puppeteer.launch();
-    const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true }, waitUntil: ["load"] }, url, '');
+    const incognito = await browser.createIncognitoBrowserContext();
+    const page = await incognito.newPage();
+    const dom = new Dom(page);
+    await dom.process({ execute: { act: true }, waitUntil: ["load"] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -29,16 +31,9 @@ describe('Running tests', function () {
 
     const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
 
-    await page.evaluate(() => {
-      window.qwPage = new Module.QWPage(document, true);
-      window.DomUtils = Utility.DomUtils;
-      window.AccessibilityUtils = Utility.AccessibilityUtils;
-      window.disabledWidgets = window.AccessibilityUtils.getDisabledWidgets();
-      window.act = new ACT.ACTRules();
-    });
-
     await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
     await page.evaluate((headContent) => {
+      window.act.configure({ rules: ['QW-ACT-R1'] })
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
@@ -49,7 +44,7 @@ describe('Running tests', function () {
       const elements = sourceDoc.querySelectorAll("meta");
       const metaElements = new Array();
       for (const element of elements) {
-        metaElements.push(Module.QWPage.createQWElement(element));
+        metaElements.push(window.qwPage.createQWElement(element));
       }
 
       window.act.validateMetaElements(metaElements);
@@ -67,7 +62,8 @@ describe('Running tests', function () {
       return window.act.getReport();
     });
 
-    await dom.close();
+    await page.close();
+    await incognito.close();
     await browser.close();
 
     console.log(report);

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.5] - 23/04/2021
+
+### Fixed
+
+- QW-ACT-R72 bug
+
+### Updated
+
+- dependencies
+
 ## [0.5.4] - 14/04/2021
 
 ### Updated

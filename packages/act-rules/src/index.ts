@@ -228,4 +228,7 @@ class ACTRules {
   }
 }
 
+//@ts-ignore
+window.act = new ACTRules();
+
 export { ACTRules };

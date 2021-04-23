@@ -90,11 +90,13 @@ const ruleId = mapping[rule];
 
 describe(`Rule ${rule}`, function () {
   let browser = null;
+  let incognito = null;
   let data = null;
   let tests = null;
 
   it('Starting test bench', async function () {
     browser = await puppeteer.launch({ headless: false });
+    incognito = await browser.createIncognitoBrowserContext();
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
       return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
@@ -103,11 +105,12 @@ describe(`Rule ${rule}`, function () {
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
-          this.timeout(100 * 1000);
+          this.timeout(0);
 
-          const dom = new Dom();
+          const page = incognito.newPage();
           try {
-            const { page, sourceHtmlHeadContent } = await dom.getDOM(browser, { 
+            const dom = new Dom(page);
+            const { sourceHtmlHeadContent } = await dom.process({ 
               execute: { act: true }, 
               "act-rules": { 
                 rules: [rule]
@@ -127,11 +130,11 @@ describe(`Rule ${rule}`, function () {
               path: require.resolve('../dist/act.bundle.js')
             });
             
-            await page.evaluate((rules) => {
-              window.qwPage = new Module.QWPage(document, window, true);
-              window.DomUtils = Utility.DomUtils;
-              window.AccessibilityUtils = Utility.AccessibilityUtils;
-              window.act = new ACT.ACTRules(rules);
+            await page.evaluate((options) => {
+              //window.qwPage = new Module.QWPage(document, window, true);
+              //window.DomUtils = Utility.DomUtils;
+              //window.AccessibilityUtils = Utility.AccessibilityUtils;
+              window.act = new ACT.ACTRules(options);
             }, { rules: [rule] });
             
 
@@ -149,7 +152,7 @@ describe(`Rule ${rule}`, function () {
               const elements = sourceDoc.querySelectorAll("meta");
               const metaElements = new Array();
               for (const element of elements) {
-                metaElements.push(Module.QWPage.createQWElement(element));
+                metaElements.push(window.qwPage.createQWElement(element));
               }
 
               window.act.validateMetaElements(metaElements);
@@ -171,7 +174,7 @@ describe(`Rule ${rule}`, function () {
 
             expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
           } finally {
-            await dom.close();
+            await page.close();
           }
         });
       });
@@ -179,6 +182,9 @@ describe(`Rule ${rule}`, function () {
 
     describe(`Closing test bench`, async function () {
       it(`Closed`, async function () {
+        if (incognito) {
+          await incognito.close();
+        }
         if (browser) {
           await browser.close();
         }

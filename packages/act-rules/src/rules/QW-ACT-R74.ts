@@ -39,7 +39,7 @@ class QW_ACT_R74 extends AtomicRule {
           } finally {
           }
           const focusedElement = window.qwPage.getFocusedElement();
-          if (anchor.getElementSelector() !== focusedElement.getElementSelector()) {
+          if (focusedElement && (anchor.getElementSelector() !== focusedElement.getElementSelector())) {
             nSkipLinks++;
           }
         }
