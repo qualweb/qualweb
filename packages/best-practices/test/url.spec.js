@@ -4,13 +4,17 @@ import { Dom } from '@qualweb/dom';
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
-    this.timeout(100 * 1000);
-    //const url = 'https://act-rules.github.io/testcases/bc659a/cbf6409b0df0b3b6437ab3409af341587b144969.html'
-    const url = 'https://ciencias.ulisboa.pt';
+    this.timeout(0);
+    
+    const url = 'https://www.museu.presidencia.pt/pt/fazer/um-museu-em-movimento-a-caminho-da-cidadania/';
 
-    const browser = await puppeteer.launch({ headless: false });
-    const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { bp: true } }, url, '');
+    const browser = await puppeteer.launch({
+      args: ['--ignore-certificate-errors']
+    });
+    const incognito = await browser.createIncognitoBrowserContext();
+    const page = await incognito.newPage();
+    const dom = new Dom(page);
+    await dom.process({ execute: { bp: true } }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -25,18 +29,16 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate(() => {
-      window.qwPage = new Module.QWPage(document, window, true);
-      window.DomUtils = Utility.DomUtils;
-      window.AccessibilityUtils = Utility.AccessibilityUtils;
-      const bp = new BP.BestPractices();
+      const bp = new BP.BestPractices({ bestPractices: ['QW-BP7'] });
       return bp.execute();
     });
 
 
-    await dom.close();
+    await page.close();
+    await incognito.close();
     await browser.close();
 
-    console.log(report);
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

@@ -14,7 +14,7 @@ class QW_BP7 extends BestPracticeObject {
     const test = new Test();
 
     const titleValue = element.getElementText().replace(/\s/g, '');
-    const regExConsecutiveSymbols = new RegExp("[,\\-;!?'][,\\-;!?']");
+    /*const regExConsecutiveSymbols = new RegExp("[,\\-;!?'][,\\-;!?']");
     const regExAllowedSymbols = new RegExp('^[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\\-;:!?| ]*$');
     const regExAllowBracketsWithText = new RegExp(
       /(\([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\))|(\[[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\])|(\{[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\})|(\"[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\")|(\'[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF0-9.,\-;!?: ]*\')/
@@ -52,6 +52,17 @@ class QW_BP7 extends BestPracticeObject {
         test.description = `The title element doesn't contain ASCII art`;
         test.resultCode = `RC3`;
       }
+    }*/
+
+    const regExp = new RegExp('@([[:punct:]]{4,})@iU');
+    if (regExp.test(titleValue)) {
+      test.verdict = 'failed';
+      test.description = `The title element contains ASCII art`;
+      test.resultCode = `RC2`;
+    } else {
+      test.verdict = 'passed';
+      test.description = `The title element doesn't contain ASCII art`;
+      test.resultCode = `RC3`;
     }
 
     test.addElement(element);

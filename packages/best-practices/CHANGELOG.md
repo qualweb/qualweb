@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.3] - 26/04/2021
+
+### Fixed
+
+- QW-BP7 ASCII art detection in title elements
+
+### Updated
+
+- dependencies
+
 ## [0.5.2] - 29/03/2021
 
 ### Updated
