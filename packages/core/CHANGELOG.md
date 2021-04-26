@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2-alpha] - 26/04/2021
+
+### Changed
+
+- qualweb-errors.log to qualweb-errors-<timestamp>.log
+  - now a new error.log file is created for every call of the evaluate() function
+
 ## [0.6.1-alpha] - 22/04/2021
 
 ### Updated

@@ -15,10 +15,10 @@ describe('Core input method: file', function() {
       }
     };
 
-    await qualweb.start({ maxConcurrency: 5, monitor: true }, { args: ['--no-sandbox', '--ignore-certificate-errors']});
+    await qualweb.start({ maxConcurrency: 8, monitor: true }, { args: ['--no-sandbox', '--ignore-certificate-errors']});
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
     
-    expect(Object.keys(reports).length).to.be.equal(25);
+    expect(Object.keys(reports).length).to.be.equal(26);
   });
 });

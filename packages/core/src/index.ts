@@ -8,7 +8,7 @@ import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
 import { Crawler, CrawlOptions } from '@qualweb/crawler';
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFile, open, fchmod } from 'fs';
 import path from 'path';
 import 'colors';
 
@@ -93,9 +93,17 @@ class QualWeb {
 
     let foundError = false;
 
+    const timestamp = new Date().getTime();
+
+    handleError(
+      'Evaluation errors',
+      new Date(timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '') + '\n-----------',
+      timestamp
+    );
+
     this.cluster?.on('taskerror', (err, data) => {
       foundError = true;
-      handleError(data.url, err.message);
+      handleError(data.url, err.message + '\n-----------', timestamp);
     });
 
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
@@ -120,6 +128,8 @@ class QualWeb {
       console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
     }
 
+    changeFilePermissions(timestamp);
+
     return evaluations;
   }
 
@@ -132,7 +142,8 @@ class QualWeb {
    */
   public async crawlDomain(domain: string, options?: CrawlOptions): Promise<Array<string>> {
     const browser = await puppeteer.launch();
-    const crawler = new Crawler(browser, domain);
+    const incognito = await browser.createIncognitoBrowserContext();
+    const crawler = new Crawler(incognito, domain);
     await crawler.crawl(options);
     return crawler.getResults();
   }
@@ -205,9 +216,9 @@ function readFileData(file: string): Promise<string> {
   });
 }
 
-function handleError(url: string, message: string): void {
+function handleError(url: string, message: string, timestamp: number): void {
   writeFile(
-    path.resolve(process.cwd(), 'qualweb-errors.log'),
+    path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`),
     url + ' : ' + message + '\n',
     { flag: 'a', encoding: 'utf-8' },
     (err) => {
@@ -216,6 +227,19 @@ function handleError(url: string, message: string): void {
       }
     }
   );
+}
+
+function changeFilePermissions(timestamp: number): void {
+  open(path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`), 'r', function (err: Error | null, fd: number) {
+    if (err) {
+      throw err;
+    }
+    fchmod(fd, 0o666, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+  });
 }
 
 export { QualWeb, generateEARLReport, getFileUrls };
