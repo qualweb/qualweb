@@ -3,4 +3,4 @@
 /.yalc
 yalc.lock
 package-lock.json
-qualweb-errors.log
+qualweb-errors-*.log
