@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.8] - 27/04/2021
+
+### Fixed
+
+- DomUtils.isHumanLanguage to detect the language with a minimum of 2 characters
+
+### Updated
+
+- dependencies
+
 ## [0.5.7] - 23/04/2021
 
 ### Fixed
