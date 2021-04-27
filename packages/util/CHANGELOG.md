@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.9] - 27/04/2021
+
+### Fixed
+
+- DomUtils.isElementADescendantOfExplicitRole and isElementADescendantOf bugs 
+
 ## [0.5.8] - 27/04/2021
 
 ### Fixed

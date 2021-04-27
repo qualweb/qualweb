@@ -1,5 +1,5 @@
-function getTrimmedText(elementQW: typeof window.qwElement): string {
-  let text = elementQW.getElementText();
+function getTrimmedText(element: typeof window.qwElement): string {
+  let text = element.getElementText();
 
   if (text) {
     text = text.trim();

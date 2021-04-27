@@ -14,9 +14,11 @@ function isElementADescendantOf(element: typeof window.qwElement, names: Array<s
       sameRole = roles.includes(parentRole);
     }
 
-    if (!(sameName || sameRole)) {
-      return window.DomUtils.isElementADescendantOf(parent, names, roles);
+    if (sameName || sameRole) {
+      return true;
     }
+
+    return window.DomUtils.isElementADescendantOf(parent, names, roles);
   }
 
   return false;

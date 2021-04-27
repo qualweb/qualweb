@@ -18,9 +18,11 @@ function isElementADescendantOfExplicitRole(
       sameRole = roles.includes(parentRole);
     }
 
-    if (!(sameName || sameRole)) {
-      return window.DomUtils.isElementADescendantOfExplicitRole(parent, names, roles);
+    if (sameName || sameRole) {
+      return true;
     }
+
+    return window.DomUtils.isElementADescendantOfExplicitRole(parent, names, roles);
   }
 
   return false;
