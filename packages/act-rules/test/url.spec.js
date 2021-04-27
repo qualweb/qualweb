@@ -7,7 +7,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
     
-    const url = 'https://ciencias.ulisboa.pt';
+    const url = 'https://www.ku.dk/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -33,7 +33,7 @@ describe('Running tests', function () {
 
     await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
     await page.evaluate((headContent) => {
-      window.act.configure({ rules: ['QW-ACT-R1'] })
+      window.act.configure({ rules: ['QW-ACT-R30'] })
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();

@@ -939,7 +939,7 @@
       "related": [],
       "url": "https://act-rules.github.io/rules/d0f69e",
       "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
+      "a11yReq": []
     }
   },
   "QW_ACT_R40": {

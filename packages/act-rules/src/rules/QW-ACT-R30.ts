@@ -26,7 +26,7 @@ class QW_ACT_R30 extends AtomicRule {
     const elementText = window.DomUtils.getTrimmedText(element);
     const hasTextNode = element.elementHasTextNode();
     const isIconValue = this.isIcon(elementText, accessibleName, element);
-
+    
     if (accessibleName === undefined) {
       test.verdict = 'failed';
       test.description = `The test target doesn't have an accessible name.`;
@@ -35,13 +35,13 @@ class QW_ACT_R30 extends AtomicRule {
       !hasTextNode ||
       elementText === undefined ||
       elementText === '' ||
-      (elementText && !this.isHumanLanguage(elementText) && !isIconValue)
+      (elementText && !window.DomUtils.isHumanLanguage(elementText) && !isIconValue)
     ) {
       // CHANGE: remove return and refactor code
       return;
     } else if (
       !!elementText &&
-      (isIconValue || accessibleName.toLowerCase().trim().includes(elementText.toLowerCase()))
+      (isIconValue || this.includesText(accessibleName, elementText))
     ) {
       test.verdict = 'passed';
       test.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
@@ -63,8 +63,10 @@ class QW_ACT_R30 extends AtomicRule {
     return !!accessibleName && (iconMap.includes(elementText.toLowerCase()) || fontStyle.includes('Material Icons'));
   }
 
-  private isHumanLanguage(text: string): boolean {
-    return window.DomUtils.isHumanLanguage(text);
+  private includesText(accessibleName: string, elementText: string): boolean {
+    accessibleName = accessibleName.toLowerCase().trim().replace(/\r?\n|\r|\s+/g, '');
+    elementText = elementText.toLowerCase().trim().replace(/\r?\n|\r|\s+/g, '');
+    return accessibleName.includes(elementText);
   }
 }
 

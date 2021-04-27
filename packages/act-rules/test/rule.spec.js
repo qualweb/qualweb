@@ -95,7 +95,7 @@ describe(`Rule ${rule}`, function () {
   let tests = null;
 
   it('Starting test bench', async function () {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({ headless: true });
     incognito = await browser.createIncognitoBrowserContext();
     data = await getTestCases();
     tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
@@ -107,7 +107,7 @@ describe(`Rule ${rule}`, function () {
         it(test.title, async function () {
           this.timeout(0);
 
-          const page = incognito.newPage();
+          const page = await incognito.newPage();
           try {
             const dom = new Dom(page);
             const { sourceHtmlHeadContent } = await dom.process({ 
@@ -134,7 +134,8 @@ describe(`Rule ${rule}`, function () {
               //window.qwPage = new Module.QWPage(document, window, true);
               //window.DomUtils = Utility.DomUtils;
               //window.AccessibilityUtils = Utility.AccessibilityUtils;
-              window.act = new ACT.ACTRules(options);
+              //window.act = new ACT.ACTRules(options);
+              window.act.configure(options);
             }, { rules: [rule] });
             
 
