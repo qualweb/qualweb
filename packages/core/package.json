@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.6.2-alpha",
+  "version": "0.6.3-alpha",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -74,7 +74,7 @@
     "puppeteer-cluster": "^0.22.0",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-adblocker": "^2.11.11",
-    "puppeteer-extra-plugin-stealth": "^2.7.6"
+    "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
     "@qualweb/types": "^0.6.2-alpha",
@@ -93,7 +93,7 @@
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.35",
+    "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
   }
 }
