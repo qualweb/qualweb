@@ -209,7 +209,7 @@
     "name": "`iframe` elements with identical accessible names have equivalent purpose",
     "code": "QW-ACT-R10",
     "mapping": "4b1c6c",
-    "description": "This rule checks that iframe elements with identical accessible names embed the same resource or equivalent resources.",
+    "description": "This rule checks that `iframe` elements with identical accessible names embed the same resource or equivalent resources.",
     "metadata": {
       "target": {
         "element": "iframe",

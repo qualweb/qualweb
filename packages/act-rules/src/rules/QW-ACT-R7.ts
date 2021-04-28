@@ -1,67 +1,20 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { MediaProperties, CSSProperty, MediaProperty } from '@qualweb/qw-element';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasCSSRules } from '../lib/decorator';
 import Test from '../lib/Test.object';
+
 @ACTRuleDecorator
 class QW_ACT_R7 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
-  }
-
-  private checkRotation(angle: number): void {
-    if (angle === 90 || angle === 270) {
-      this.fillEvaluation(
-        'failed',
-        'A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which restricts the element to landscape orientation.',
-        'RC7'
-      );
-    } else {
-      this.fillEvaluation(
-        'passed',
-        'A page where CSS transform property has rotateZ transform function conditionally applied on the orientation media feature which does not restrict the element to either portrait or landscape orientation.',
-        'RC5'
-      );
-    }
-  }
-
-  private parseDegrees(angle: string): number {
-    angle = angle.toLowerCase();
-    if (angle.includes('deg')) {
-      return parseFloat(angle.replace('deg', ''));
-    } else if (angle.includes('rad')) {
-      const radians = parseFloat(angle.replace('rad', ''));
-      return (radians * 180) / Math.PI;
-    } else if (angle.includes('turn')) {
-      const turnDegrees = 360;
-      const turns = parseFloat(angle.replace('turn', ''));
-      return turns * turnDegrees;
-    } else {
-      return -1;
-    }
-  }
-
-  private calculateRotationDegree(matrix: number[]): number {
-    const radians = Math.atan2(matrix[1], matrix[0]);
-    let degrees = Math.round((radians * 180) / Math.PI);
-    if (degrees < 0) {
-      degrees = 360 + degrees;
-    }
-    return Math.abs(degrees); // just ignore the abs
-  }
-
-  private fillEvaluation(verdict: 'passed' | 'warning' | 'failed', description: string, resultCode: string): void {
-    super.addTestResult(new Test(verdict, description, resultCode));
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
   @ElementIsVisible
+  @ElementHasCSSRules
   execute(element: typeof window.qwElement): void {
     const rules = element.getCSSRules();
-
-    if (!rules) {
-      return;
-    }
 
     let transformValue: number | null = null;
     for (const property in rules || {}) {
@@ -99,6 +52,44 @@ class QW_ACT_R7 extends AtomicRule {
         }
       }
     }
+  }
+
+  private checkRotation(angle: number): void {
+    const test = new Test();
+    if (angle === 90 || angle === 270) {
+      test.verdict = 'failed';
+      test.resultCode = 'RC2';
+    } else {
+      test.verdict = 'passed';
+      test.resultCode = 'RC1';
+    }
+
+    super.addTestResult(test);
+  }
+
+  private parseDegrees(angle: string): number {
+    angle = angle.toLowerCase();
+    if (angle.includes('deg')) {
+      return parseFloat(angle.replace('deg', ''));
+    } else if (angle.includes('rad')) {
+      const radians = parseFloat(angle.replace('rad', ''));
+      return (radians * 180) / Math.PI;
+    } else if (angle.includes('turn')) {
+      const turnDegrees = 360;
+      const turns = parseFloat(angle.replace('turn', ''));
+      return turns * turnDegrees;
+    } else {
+      return -1;
+    }
+  }
+
+  private calculateRotationDegree(matrix: number[]): number {
+    const radians = Math.atan2(matrix[1], matrix[0]);
+    let degrees = Math.round((radians * 180) / Math.PI);
+    if (degrees < 0) {
+      degrees = 360 + degrees;
+    }
+    return Math.abs(degrees); // just ignore the abs
   }
 
   private identity(): Array<number> {

@@ -2,11 +2,16 @@ import { ACTRule } from '@qualweb/act-rules';
 import { Level, Principle } from '@qualweb/evaluation';
 
 import Test from './Test.object';
+
+import en from '../locale/en.json';
+
 abstract class Rule {
   private readonly rule: ACTRule;
+  private readonly locale: any;
 
-  constructor(rule: ACTRule) {
+  constructor(rule: ACTRule, locale?: string) {
     this.rule = rule;
+    this.locale = locale ?? en;
   }
 
   public getRuleMapping(): string {
@@ -36,6 +41,8 @@ abstract class Rule {
   }
 
   protected addTestResult(test: Test): void {
+    test.description = this.locale[this.rule.code][test.resultCode];
+
     this.rule.results.push(test);
 
     if (test.verdict && test.verdict !== 'inapplicable') {
@@ -68,7 +75,7 @@ abstract class Rule {
   private addDescription(): void {
     for (const result of this.rule.results ?? []) {
       if (result.verdict === this.rule.metadata.outcome) {
-        this.rule.metadata.description = result.description;
+        this.rule.metadata.description = this.locale[this.rule.code][result.resultCode];
         break;
       }
     }

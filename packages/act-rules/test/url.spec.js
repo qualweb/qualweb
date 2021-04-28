@@ -11,7 +11,7 @@ describe('Running tests', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
@@ -33,7 +33,7 @@ describe('Running tests', function () {
 
     await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
     await page.evaluate((headContent) => {
-      window.act.configure({ rules: ['QW-ACT-R30'] })
+      window.act.configure({ rules: ['QW-ACT-R1'] })
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
@@ -66,7 +66,7 @@ describe('Running tests', function () {
     await incognito.close();
     await browser.close();
 
-    console.log(report);
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

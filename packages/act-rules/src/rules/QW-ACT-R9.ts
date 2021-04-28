@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R9 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -37,12 +37,9 @@ class QW_ACT_R9 extends AtomicRule {
     let counter = 0;
     const blacklist = new Array<number>();
     for (const accessibleName of accessibleNames ?? []) {
-      const test = new Test();
       const elementList = new Array<typeof window.qwElement>();
 
-      if (blacklist.indexOf(counter) >= 0) {
-        //element already evaluated
-      } else if (!!accessibleName && accessibleName !== '') {
+      if (blacklist.indexOf(counter) < 0 && accessibleName && accessibleName !== '') {
         const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
 
         if (hasEqualAn.length > 0) {
@@ -54,27 +51,21 @@ class QW_ACT_R9 extends AtomicRule {
           }
           elementList.push(applicableLinks[counter]);
           hasEqualAn.push(counter);
-          if (hasEqualHref) {
-            //passed
-            test.verdict = 'passed';
-            test.description = `The \`links\` with the same accessible name have equal content.`;
-            test.resultCode = 'RC2';
-          } else {
-            //warning
-            test.verdict = 'warning';
-            test.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
-            test.resultCode = 'RC3';
-          }
-        } else {
-          //inapplicable
-          test.verdict = 'inapplicable';
-          test.description = `Doesn't exist any other \`link\` with the same accessible name.`;
-          test.resultCode = 'RC4';
-        }
 
-        test.addElements(elementList, true, false, true);
-        super.addTestResult(test);
-      }
+          const test = new Test();
+
+          if (hasEqualHref) {
+            test.verdict = 'passed';
+            test.resultCode = 'RC1';
+          } else {
+            test.verdict = 'warning';
+            test.resultCode = 'RC2';
+          }
+
+          test.addElements(elementList, true, false, true);
+          super.addTestResult(test);
+        } 
+      } 
       counter++;
     }
   }
@@ -83,7 +74,7 @@ class QW_ACT_R9 extends AtomicRule {
     const result = new Array<number>();
     let counter = 0;
 
-    for (const accessibleNameToCompare of accessibleNames || []) {
+    for (const accessibleNameToCompare of accessibleNames ?? []) {
       if (accessibleNameToCompare === accessibleName && counter !== index) {
         result.push(counter);
       }

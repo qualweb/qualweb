@@ -1,21 +1,31 @@
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import rules from './rules.json';
+import en from '../locale/en.json';
 
 function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
-  //@ts-ignore
-  const rule = <ACTRule>rules[constructor.name];
-
-  rule.metadata.passed = 0;
-  rule.metadata.warning = 0;
-  rule.metadata.failed = 0;
-  rule.metadata.inapplicable = 0;
-  rule.metadata.outcome = 'inapplicable';
-  rule.metadata.description = 'No test targets found.';
-  rule.results = new Array<ACTRuleResult>();
-
   const newConstructor: any = function () {
+    console.log(arguments[0])
+    const locale = arguments[0] ?? en;
+    
+    //@ts-ignore
+    const rule = <ACTRule>rules[constructor.name];
+    
+    rule.metadata.passed = 0;
+    rule.metadata.warning = 0;
+    rule.metadata.failed = 0;
+    rule.metadata.inapplicable = 0;
+    rule.metadata.outcome = 'inapplicable';
+    try {
+      rule.name = locale[rule.code].name;
+      rule.description = locale[rule.code].description;
+      rule.metadata.description = locale[rule.code]['RC0'];
+    } catch(err) {
+      console.error(err);
+    }
+    rule.results = new Array<ACTRuleResult>();
+
     const func: any = function () {
-      return new constructor(rule);
+      return new constructor(rule, locale);
     };
     func.prototype = constructor.prototype;
     return new func();
@@ -265,6 +275,16 @@ function IsHTMLDocument(_target: any, _propertyKey: string, descriptor: Property
   };
 }
 
+function ElementHasCSSRules(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    if (element.getCSSRules()) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function IsLangSubTagValid(attribute: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -302,5 +322,6 @@ export {
   isInMainContext,
   ElementNotHidden,
   ElementIsVisibleOrInAccessibilityTree,
-  ElementHasNegativeTabIndex
+  ElementHasNegativeTabIndex,
+  ElementHasCSSRules
 };

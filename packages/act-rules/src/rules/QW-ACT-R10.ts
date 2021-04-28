@@ -5,13 +5,13 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R10 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
   @isInMainContext
-  execute(_element: typeof window.qwElement): void {
+  execute(): void {
     const iframes = window.qwPage.getElements('iframe');
     const accessibleNames = new Array<string>();
 
@@ -40,13 +40,13 @@ class QW_ACT_R10 extends AtomicRule {
           blacklist.push(...hasEqualAn);
           hasEqualAn.push(counter);
 
-          for (const index of hasEqualAn || []) {
+          for (const index of hasEqualAn ?? []) {
             elements.push(iframes[index]);
           }
           const hashArray = this.getContentHash(elements);
           const firstHash = hashArray.pop();
           let result = true;
-          for (const hash of hashArray || []) {
+          for (const hash of hashArray ?? []) {
             if (!firstHash || !hashArray || hash !== firstHash) {
               result = false;
             }
@@ -54,12 +54,10 @@ class QW_ACT_R10 extends AtomicRule {
           if (result && hashArray.length !== 0) {
             //passed
             test.verdict = 'passed';
-            test.description = `The \`iframes\` with the same accessible name have equal content.`;
-            test.resultCode = 'RC2';
+            test.resultCode = 'RC1';
           } else {
             test.verdict = 'warning';
-            test.description = `The \`iframes\` with the same accessible name have different content.`;
-            test.resultCode = 'RC3';
+            test.resultCode = 'RC2';
           }
 
           test.addElements(elements);
@@ -70,12 +68,11 @@ class QW_ACT_R10 extends AtomicRule {
     }
   }
 
-  private getContentHash(elements: typeof window.qwElement[]): Array<string> {
+  private getContentHash(elements: Array<typeof window.qwElement>): Array<string> {
     const content = new Array<string>();
-    let htmlContent;
     try {
-      for (const element of elements) {
-        htmlContent = element.getContentFrame();
+      for (const element of elements ?? []) {
+        const htmlContent = element.getContentFrame();
         if (htmlContent !== null && htmlContent.defaultView) {
           content.push(htmlContent.documentElement.outerHTML);
         }
@@ -85,11 +82,11 @@ class QW_ACT_R10 extends AtomicRule {
     return content;
   }
 
-  private isInListExceptIndex(accessibleName: string, accessibleNames: string[], index: number): Array<number> {
+  private isInListExceptIndex(accessibleName: string, accessibleNames: Array<string>, index: number): Array<number> {
     const result = new Array<number>();
     let counter = 0;
 
-    for (const accessibleNameToCompare of accessibleNames || []) {
+    for (const accessibleNameToCompare of accessibleNames ?? []) {
       if (accessibleNameToCompare === accessibleName && counter !== index) {
         result.push(counter);
       }

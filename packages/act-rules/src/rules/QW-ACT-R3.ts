@@ -12,8 +12,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R3 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -24,21 +24,19 @@ class QW_ACT_R3 extends AtomicRule {
   @IsLangSubTagValid('xml:lang')
   @isInMainContext
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
     const lang = <string>element.getElementAttribute('lang');
     const xmlLang = <string>element.getElementAttribute('xml:lang');
 
     const primaryLang = lang.split('-')[0];
     const primaryXmlLang = xmlLang.split('-')[0];
 
+    const test = new Test();
+
     if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
       test.verdict = 'passed';
-      test.description = `The \`lang\` and \`xml:lang\` attributes have the same value.`;
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = `The \`lang\` and \`xml:lang\` attributes don't have the same value.`;
       test.resultCode = 'RC2';
     }
 

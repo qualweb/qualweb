@@ -5,18 +5,19 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R6 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
   @IsHTMLDocument
   @ElementIsInAccessibilityTree
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
-    if (accessibleName && accessibleName.trim()) {
+
+    const test = new Test();
+    
+    if (accessibleName?.trim()) {
       test.verdict = 'passed';
       test.description = `The \`image button\` has an accessible name.`;
       test.resultCode = 'RC1';
