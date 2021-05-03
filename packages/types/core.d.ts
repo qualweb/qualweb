@@ -6,8 +6,9 @@ declare module "@qualweb/core" {
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { generateEARLReport } from "@qualweb/earl-reporter";
-  import { LaunchOptions, Browser, BrowserContext, LoadEvent } from "puppeteer";
+  import { LaunchOptions, LoadEvent } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
+  import { Locale } from '@qualweb/locale';
 
   interface Execute {
     wappalyzer?: boolean;
@@ -15,6 +16,11 @@ declare module "@qualweb/core" {
     wcag?: boolean;
     bp?: boolean;
     counter?: boolean;
+  }
+
+  interface Translate {
+    translate: Locale | string;
+    fallback: Locale | string;
   }
 
   interface QualwebOptions {
@@ -27,6 +33,7 @@ declare module "@qualweb/core" {
     viewport?: PageOptions;
     validator?: string;
     report?: "earl" | "earl-a";
+    translate?: Locale | string | Translate;
     crawlOptions?: CrawlOptions
     "save-name"?: string;
     execute?: Execute;
@@ -206,6 +213,7 @@ declare module "@qualweb/core" {
   export {
     QualwebOptions,
     Execute,
+    Translate,
     EvaluationReport,
     Evaluator,
     Url,

@@ -1,4 +1,5 @@
 declare module "@qualweb/act-rules" {
+  import { Translate } from '@qualweb/core';
   import { QWElement } from "@qualweb/qw-element";
   import { Level, Principle } from '@qualweb/evaluation';
 
@@ -87,6 +88,10 @@ declare module "@qualweb/act-rules" {
     };
   }
 
+  interface TranslationValues { 
+    [key: string]: string | number | boolean; 
+  }
+
   class Test implements ACTRuleResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable';
     description: string;
@@ -101,14 +106,18 @@ declare module "@qualweb/act-rules" {
     public addElements(elements: Array<QWElement>, withText: boolean, fullElement: boolean, aName?: boolean): void;
   }
 
+
   abstract class Rule {
     private readonly rule: ACTRule;
+    private readonly locale: Translate;
 
-    constructor(rule: ACTRule);
+    constructor(rule: ACTRule, locale: Translate);
 
     public getRuleMapping(): string;
 
     public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean;
+
+    public getFinalResults(): ACTRule;
 
     protected getNumberOfPassedResults(): number;
 
@@ -118,7 +127,7 @@ declare module "@qualweb/act-rules" {
 
     protected addTestResult(test: Test): void;
 
-    public getFinalResults(): ACTRule;
+    protected getTranslation(resultCode: string, values?: TranslationValues): string;
 
     private outcomeRule(): void;
 
@@ -126,7 +135,7 @@ declare module "@qualweb/act-rules" {
   }
 
   abstract class CompositeRule extends Rule {
-    constructor(rule: ACTRule);
+    constructor(rule: ACTRule, locale: Translate);
 
     abstract execute(element: QWElement | undefined, rules?: Array<ACTRule>): void;
 
@@ -140,7 +149,7 @@ declare module "@qualweb/act-rules" {
   }
 
   abstract class AtomicRule extends Rule {
-    constructor(rule: ACTRule);
+    constructor(rule: ACTRule, locale: Translate);
 
     abstract execute(element: QWElement | undefined): void;
   }
@@ -151,7 +160,7 @@ declare module "@qualweb/act-rules" {
 
     private readonly report: ACTRulesReport;
 
-    constructor(options?: ACTROptions);
+    constructor(locale: Translate, options?: ACTROptions);
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
 
@@ -181,6 +190,7 @@ declare module "@qualweb/act-rules" {
     ACTRulesReport,
     ACTAtomicRuleMapping,
     ACTCompositeRuleMapping,
+    TranslationValues,
     Test,
     Rule,
     CompositeRule,

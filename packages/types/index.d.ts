@@ -12,3 +12,4 @@
 /// <reference path="./dom.d.ts" />
 /// <reference path="./evaluation.d.ts" />
 /// <reference path="./counter.d.ts" />
+/// <reference path="./locale.d.ts" />
