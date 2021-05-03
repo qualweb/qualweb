@@ -68,7 +68,7 @@ declare module "@qualweb/qw-element" {
     public getShadowElements(selector: string): Array<QWElement>;
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
-    public getCSSRules(): CSSProperties;
+    public getCSSRules(): CSSProperties | undefined;
     public hasCSSProperty(
       property: string,
       pseudoStyle?: string,
@@ -78,11 +78,11 @@ declare module "@qualweb/qw-element" {
       property: string,
       pseudoStyle?: string,
       media?: string
-    ): CSSProperty;
-    public getCSSMediaRules(): MediaProperties;
+    ): CSSProperty | undefined;
+    public getCSSMediaRules(): MediaProperty | undefined;
     public getCSSPseudoSelectorRules(
       pseudoSelector: string
-    ): PseudoSelectorProperty;
+    ): PseudoSelectorProperty | undefined;
     public getParentAllContexts(): QWElement | null;
   }
 

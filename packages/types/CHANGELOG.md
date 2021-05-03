@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.3] - 03/05/2020
+
+### Updated
+
+- qwElement interface changes
+
 ## [0.6.2-alpha] - 22/04/2020
 
 ### Updated
