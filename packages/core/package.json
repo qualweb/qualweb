@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.5.7",
+  "version": "0.6.4",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -69,10 +69,15 @@
     "@qualweb/dom": "^0.2.1",
     "@qualweb/earl-reporter": "^0.4.1",
     "@qualweb/evaluation": "^0.2.9",
-    "puppeteer": "^8.0.0"
+    "colors": "^1.4.0",
+    "puppeteer": "^9.1.0",
+    "puppeteer-cluster": "^0.22.0",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-adblocker": "^2.11.11",
+    "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.5.19",
+    "@qualweb/types": "^0.6.3",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.0.1",
     "@types/puppeteer": "^5.4.3",
@@ -88,7 +93,7 @@
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.35",
+    "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
   }
 }

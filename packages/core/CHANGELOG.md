@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.4] - 03/04/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.3-alpha] - 27/04/2021
+
+### Updated
+
+- dependencies
+
 ## [0.5.7] - 27/04/2021
 
 ### Updated
@@ -11,6 +23,31 @@
 ### Updated
 
 - dependencies
+
+## [0.6.2-alpha] - 26/04/2021
+
+### Changed
+
+- qualweb-errors.log to qualweb-errors-<timestamp>.log
+  - now a new error.log file is created for every call of the evaluate() function
+
+## [0.6.1-alpha] - 22/04/2021
+
+### Updated
+
+- @qualweb/types
+- README.md
+
+## [0.6.0-alpha] - 21/04/2021
+
+### Added
+
+- puppeteer-extra with AdBlocker and Stealth plugins (optional)
+- puppeteer-cluster to enable faster evaluations of multiple webpages
+
+### Updated
+
+- puppeteer to version 9.0.0
 
 ## [0.5.5] - 15/04/2021
 

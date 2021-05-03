@@ -22,13 +22,27 @@ You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http
   const { QualWeb, generateEARLReport } = require('@qualweb/core');
 
   (async () => {
-    const qualweb = new QualWeb();
-    // Starts the QualWeb core engine - only needs to run once
+    const plugins = {
+      // Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-adblocker
+      adBlock: true, // Default value = false
+      // Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth
+      stealth: true // Default value = false
+    };
+    const qualweb = new QualWeb(plugins);
+
+    const clusterOptions = {
+      maxConcurrency: 5, // Performs several urls evaluations at the same time - the higher the number given, more resources will be used. Default value = 1
+      timeout: 60 * 1000, // Timeout for loading page. Default value = 30 seconds
+      monitor: true // Displays urls information on the terminal. Default value = false
+    };
+
     const launchOptions = {
       ... // check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
-      // in most of the cases there's no need to give additional options. Just leave the field undefined
+      // In most cases there's no need to give additional options. Just leave the field undefined
     };
-    await qualweb.start(launchOptions);
+
+    // Starts the QualWeb core engine
+    await qualweb.start(clusterOptions, launchOptions);
 
     // QualWeb evaluation report
     const qualwebOptions = {
@@ -82,9 +96,7 @@ The available options fot the **evaluate()** function are:
       "height": 1080 // default value for desktop = 768, default value for mobile = 1920
     }
   },
-  "timeout": 60 * 1000, // Timeout for loading page, default value = 30 seconds
   "waitUntil": ["load", "networkidle0"], // Events to wait before starting evaluation, default value = "load". For more check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagegotourl-options
-  "maxParallelEvaluations": 5, // Experimental feature - performs several urls evaluations at the same time - the higher the number given, more resources will be used
   "validator": "http://127.0.0.1/validate", // HTML validator service endpoint. The url will be attached after of the given endpoint
   "crawlOptions": {
     "maxDepth": 2, // max depth to search, 0 to search only the given domain. Default value = -1 (search everything)
@@ -465,14 +477,14 @@ In this section it's explained the evaluation report in detail. For a detailed v
 
 # Evaluation problems
 
-Sometimes, some webpages fail to evaluate, or the evaluation may take a really long time. Before creating an issue verify that:
+Sometimes, some webpages fail to evaluate, or the evaluation may take a really long time. Before creating an issue check the **error.log** file and verify that:
 
 - The URL is correct, and it uses http or https, or www, or both;
 - The webpage exists;
 - If using https, that the certificate is valid;
-  - If you really want to evaluate the page with an invalid certificate, add "--ignore-certificate-errors" to the `args` in qualweb launch options.
-- The webpage loading is not blocked by a javascript dialog (e.g. alert or confirm dialog).
-  - In this cases, qualweb core can't evaluate the webpage because the loading phase is never finished and the only way to get an evaluation it's by using the qualweb chrome extension mentioned at the beginning.
+  - If you really want to evaluate the page with an invalid certificate, add "--ignore-certificate-errors" to the `args` in qualweb puppeteer launch options.
+- The webpage is not password protected;
+- The webpage is an [HTML Document](https://dom.spec.whatwg.org/#concept-document).
 
 # License
 
