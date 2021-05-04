@@ -1,12 +1,14 @@
 declare module "@qualweb/locale" {
 
   interface ModuleTranslation {
-    name?: string;
-    description?: string;
-    results?: {
-      [rc: string]: string;
+    [test: string]: {
+      name?: string;
+      description?: string;
+      results?: {
+        [rc: string]: string;
+      }
     }
-  };
+  }
 
   interface Locale {
     'act-rules'?: ModuleTranslation;
@@ -24,5 +26,7 @@ declare module "@qualweb/locale" {
     fallback: Locale;
   }
 
-  export { ModuleTranslation, Locale, TranslationObject, Translate };
+  type Lang = 'en' | 'pt';
+
+  export { ModuleTranslation, Locale, TranslationObject, Translate, Lang };
 }
