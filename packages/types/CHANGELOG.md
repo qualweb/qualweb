@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.1-alpha] - 04/05/2020
+
+### Updated
+
+- locale, core and act-rules interfaces
+
 ## [0.6.3] - 03/05/2020
 
 ### Updated

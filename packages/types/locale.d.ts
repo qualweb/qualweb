@@ -14,5 +14,15 @@ declare module "@qualweb/locale" {
     'best-practices'?: ModuleTranslation;
   }
 
-  export { ModuleTranslation, Locale };
+  interface TranslationObject {
+    translate: Locale | string;
+    fallback: Locale | string;
+  }
+
+  interface Translate {
+    translate: Locale;
+    fallback: Locale;
+  }
+
+  export { ModuleTranslation, Locale, TranslationObject, Translate };
 }

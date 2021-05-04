@@ -8,7 +8,7 @@ declare module "@qualweb/core" {
   import { generateEARLReport } from "@qualweb/earl-reporter";
   import { LaunchOptions, LoadEvent } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
-  import { Locale } from '@qualweb/locale';
+  import { Locale, TranslationObject } from '@qualweb/locale';
 
   interface Execute {
     wappalyzer?: boolean;
@@ -16,11 +16,6 @@ declare module "@qualweb/core" {
     wcag?: boolean;
     bp?: boolean;
     counter?: boolean;
-  }
-
-  interface Translate {
-    translate: Locale | string;
-    fallback: Locale | string;
   }
 
   interface QualwebOptions {
@@ -33,7 +28,7 @@ declare module "@qualweb/core" {
     viewport?: PageOptions;
     validator?: string;
     report?: "earl" | "earl-a";
-    translate?: Locale | string | Translate;
+    translate?: Locale | string | TranslationObject;
     crawlOptions?: CrawlOptions
     "save-name"?: string;
     execute?: Execute;
@@ -145,7 +140,7 @@ declare module "@qualweb/core" {
     /**
      * Opens chromium browser and starts an incognito context
      * @param {ClusterOptions} clusterOptions - Options for cluster initialization
-     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v9.1.0/docs/api.md#puppeteerlaunchoptions
      */
     public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void>;
 

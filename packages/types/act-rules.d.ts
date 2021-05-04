@@ -1,5 +1,5 @@
 declare module "@qualweb/act-rules" {
-  import { Translate } from '@qualweb/core';
+  import { Translate } from '@qualweb/locale';
   import { QWElement } from "@qualweb/qw-element";
   import { Level, Principle } from '@qualweb/evaluation';
 
