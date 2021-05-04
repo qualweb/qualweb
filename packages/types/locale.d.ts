@@ -28,5 +28,10 @@ declare module "@qualweb/locale" {
 
   type Lang = 'en' | 'pt';
 
-  export { ModuleTranslation, Locale, TranslationObject, Translate, Lang };
+  interface Langs {
+    en: Locale;
+    pt: Locale;
+  }
+
+  export { ModuleTranslation, Locale, TranslationObject, Translate, Lang, Langs };
 }
