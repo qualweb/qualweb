@@ -1,0 +1,46 @@
+{
+  "name": "@qualweb/locale",
+  "version": "0.1.0-alpha",
+  "description": "Locales for @qualweb/core evaluation reports.",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha --require esm",
+    "build": "rimraf dist && tsc --build",
+    "prepare": "npm run build"
+  },
+  "homepage": "https://github.com/qualweb/locale#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/locale.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/locale/issues"
+  },
+  "keywords": [
+    "qualweb",
+    "locale"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@qualweb/types": "^0.7.2-alpha",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/node": "^15.0.1",
+    "chai": "^4.3.4",
+    "esm": "^3.2.25",
+    "mocha": "^8.3.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0"
+  }
+}
