@@ -3,12 +3,12 @@ import { Report } from '@qualweb/earl-reporter';
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
 import { WCAGTechnique, WCAGTechniqueResult } from '@qualweb/wcag-techniques';
 import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
-import { Lang, Locale } from '@qualweb/locale';
+import { Langs, Lang, Locale } from '@qualweb/locale';
 import clone from 'lodash.clonedeep';
 import en from './locales/en.json';
 import pt from './locales/pt.json';
 
-const locales = {
+const locales: Langs = {
   en,
   pt
 };

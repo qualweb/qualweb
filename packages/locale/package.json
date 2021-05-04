@@ -30,7 +30,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.7.2-alpha",
+    "@qualweb/types": "^0.7.3-alpha",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^15.0.1",
