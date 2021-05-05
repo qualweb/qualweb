@@ -1,10 +1,16 @@
 # Changelog
 
+### [0.7.4-alpha] - 05/05/2020
+
+### Updated
+
+- locale interface
+
 ### [0.7.3-alpha] - 04/05/2020
 
 ### Updated
 
-- locale
+- locale interface
 
 ### [0.7.2-alpha] - 04/05/2020
 

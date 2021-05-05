@@ -195,6 +195,12 @@ declare module "@qualweb/core" {
       options: QualwebOptions,
       modulesToExecute: Execute
     ): Promise<void>;
+
+    /**
+     * 
+     * @param {QualwebOptions} options - 
+     */
+    private verifyTranslationObject(options: QualwebOptions): void;
   }
 
   /**

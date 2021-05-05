@@ -33,5 +33,9 @@ declare module "@qualweb/locale" {
     pt: Locale;
   }
 
+  const locales: Langs;
+
   export { ModuleTranslation, Locale, TranslationObject, Translate, Lang, Langs };
+
+  export default locales;
 }
