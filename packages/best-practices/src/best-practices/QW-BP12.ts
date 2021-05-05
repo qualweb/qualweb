@@ -2,18 +2,18 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP12 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
   @ElementHasChild('tr')
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
+    
     const rows = element.getElements('tr');
     let firstRowChildren = new Array<typeof window.qwElement>();
     if (rows.length > 0) {
@@ -45,23 +45,19 @@ class QW_BP12 extends BestPracticeObject {
         }
       }
 
+      const test = new Test();
+
       if (scopeCole && scopeRow) {
         test.verdict = 'passed';
-        test.description = 'The scope attribute is correctly used.';
         test.resultCode = 'RC1';
       } else {
         test.verdict = 'failed';
-        test.description = 'The scope attribute is incorrectly used.';
         test.resultCode = 'RC2';
       }
-    } else {
-      test.verdict = 'inapplicable';
-      test.description = 'The table has no rows.';
-      test.resultCode = 'RC3';
-    }
 
-    test.addElement(element);
-    super.addTestResult(test);
+      test.addElement(element);
+      super.addTestResult(test);
+    }
   }
 }
 

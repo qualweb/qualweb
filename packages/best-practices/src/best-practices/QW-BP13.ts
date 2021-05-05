@@ -2,11 +2,12 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP13 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -26,13 +27,10 @@ class QW_BP13 extends BestPracticeObject {
     if ((aWithImgNext && aWithImgNext.getElementAttribute('href') === href) || 
         (aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href)) {
       test.verdict = 'failed';
-      test.description = 'There are consecutive links with the same href in which one of the links contained an image';
-      test.resultCode = 'RC1';
+      test.resultCode = 'RC2';
     } else {
       test.verdict = 'passed';
-      test.description =
-        'There are no consecutive links with the same href in which one of the links contained an image';
-      test.resultCode = 'RC2';
+      test.resultCode = 'RC1';
     }
 
     if (aWithImg.getElementParent()) {

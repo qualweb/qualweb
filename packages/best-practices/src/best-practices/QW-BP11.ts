@@ -2,11 +2,12 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP11 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -27,13 +28,11 @@ class QW_BP11 extends BestPracticeObject {
       }
     }
 
-    if (result > 3) {
-      test.verdict = 'failed';
-      test.description = 'Br elements are being be used as a list';
+    if (hasBr && result <= 3) {
+      test.verdict = 'passed';
       test.resultCode = 'RC1';
     } else if (hasBr) {
-      test.verdict = 'passed';
-      test.description = 'There are less than 3 consecutive br.';
+      test.verdict = 'failed';
       test.resultCode = 'RC2';
     }
 

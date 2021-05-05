@@ -2,11 +2,12 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP2 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -15,20 +16,14 @@ class QW_BP2 extends BestPracticeObject {
   async execute(element: typeof window.qwElement): Promise<void> {
     const test = new Test();
 
-    const altValue = element.getElementAttribute('alt');
+    const altValue = <string>element.getElementAttribute('alt');
 
-    if (!altValue || altValue === '') {
-      test.verdict = 'inapplicable';
-      test.description = 'The img alt text attribute is empty';
-      test.resultCode = 'RC1';
-    } else if (altValue.trim().length > 100) {
-      test.verdict = 'failed';
-      test.description = 'The img alt text attribute has more than 100 characters';
-      test.resultCode = 'RC2';
-    } else {
+    if (altValue.trim().length <= 100) {
       test.verdict = 'passed';
-      test.description = 'The img alt text attribute has less than 100 characters';
-      test.resultCode = 'RC3';
+      test.resultCode = 'RC1';
+    } else {
+      test.verdict = 'failed';
+      test.resultCode = 'RC2';
     }
 
     test.addElement(element);

@@ -50,9 +50,9 @@
     }
   },
   "QW_BP6": {
-    "name": "title element is not too long (64 characters)",
+    "name": "title element is not too long (100 characters)",
     "code": "QW-BP6",
-    "description": "The webpage title element shouldn't have more than 64 characters",
+    "description": "The webpage title element shouldn't have more than 100 characters",
     "metadata": {
       "target": {
         "element": "title"
@@ -129,26 +129,6 @@
       "target": {
         "element": "a"
       }
-    }
-  },
-  "QW_BP14": {
-    "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
-    "code": "QW-HTML-T37",
-    "mapping": "G123",
-    "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
-    "metadata": {
-      "target": {
-        "element": "a",
-        "attributes": "href"
-      },
-      "success-criteria": [{
-        "name": "2.4.1",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
-      }],
-      "related": ["G1", "G124"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G123"
     }
   },
   "QW_BP15": {

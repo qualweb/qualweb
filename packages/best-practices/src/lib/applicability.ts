@@ -1,7 +1,11 @@
 import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
+import { Translate } from '@qualweb/locale';
 import bestPractices from './bestPractices.json';
 
 function BestPracticeClass<T extends { new (...args: any[]): {} }>(constructor: T) {
+
+  const locale = <Translate>arguments[0];
+
   //@ts-ignore
   const bestPractice = <BestPractice>bestPractices[constructor.name];
 
@@ -10,12 +14,18 @@ function BestPracticeClass<T extends { new (...args: any[]): {} }>(constructor: 
   bestPractice.metadata.failed = 0;
   bestPractice.metadata.inapplicable = 0;
   bestPractice.metadata.outcome = 'inapplicable';
-  bestPractice.metadata.description = 'No test targets found.';
+  try {
+    bestPractice.name = <string>(locale.translate['best-practices']?.[bestPractice.code]?.name ?? locale.fallback['best-practices']?.[bestPractice.code]?.name);
+    bestPractice.description = <string>(locale.translate['best-practices']?.[bestPractice.code]?.description ?? locale.fallback['best-practices']?.[bestPractice.code]?.description);
+    bestPractice.metadata.description = <string>(locale.translate['best-practices']?.[bestPractice.code]?.results?.RC0 ?? locale.fallback['best-practices']?.[bestPractice.code].results?.RC0);
+  } catch(err) {
+    console.error(err);
+  }
   bestPractice.results = new Array<BestPracticeResult>();
 
   const newConstructor: any = function () {
     const func: any = function () {
-      return new constructor(bestPractice);
+      return new constructor(bestPractice, locale);
     };
     func.prototype = constructor.prototype;
     return new func();

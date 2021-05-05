@@ -2,13 +2,14 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP15 extends BestPracticeObject {
   private readonly absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
 
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -20,11 +21,9 @@ class QW_BP15 extends BestPracticeObject {
 
     if (!this.absoluteLengths.includes(unit)) {
       test.verdict = 'passed';
-      test.description = 'The test target `width` attribute uses relative units.';
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = 'The test target `width` attribute uses absolute units.';
       test.resultCode = 'RC2';
     }
 

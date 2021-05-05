@@ -2,11 +2,12 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP8 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -28,13 +29,11 @@ class QW_BP8 extends BestPracticeObject {
       }
 
       const aName = window.AccessibilityUtils.getAccessibleName(element);
-      if (aName || svgANames.length > 0) {
+      if ((aName && aName.trim() !== '') || svgANames.length > 0) {
         test.verdict = 'passed';
-        test.description = `This heading with at least one image has an accessible name`;
         test.resultCode = 'RC1';
       } else {
         test.verdict = 'failed';
-        test.description = `This heading with at least one image does not have an accessible name`;
         test.resultCode = 'RC2';
       }
 

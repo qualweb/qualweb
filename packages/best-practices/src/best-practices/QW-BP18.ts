@@ -2,6 +2,7 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP18 extends BestPracticeObject {
@@ -34,8 +35,8 @@ class QW_BP18 extends BestPracticeObject {
     'figcaption'
   ];
 
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   @ElementExists
@@ -93,13 +94,9 @@ class QW_BP18 extends BestPracticeObject {
         if (hasImportant) {
           if (width.endsWith('%')) {
             test.verdict = 'passed';
-            test.description =
-              'This test target has a `width` css property using percentage value with the important flag.';
             test.resultCode = 'RC1';
           } else {
             test.verdict = 'failed';
-            test.description =
-              'This test target has a `width` css property not using percentage value with the important flag.';
             if (width.endsWith('px')) {
               test.resultCode = 'RC2';
             } else {

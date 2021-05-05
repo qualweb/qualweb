@@ -1,11 +1,21 @@
 import { BestPractice as BestPracticeType } from '@qualweb/best-practices';
+import { Translate, TranslationValues } from '@qualweb/locale';
 import Test from './Test.object';
 
 abstract class BestPractice {
   private readonly bestPractice: BestPracticeType;
+  private readonly locale: Translate;
 
-  constructor(bestPractice: BestPracticeType) {
+  constructor(bestPractice: BestPracticeType, locale: Translate) {
     this.bestPractice = bestPractice;
+    this.locale = locale;
+  }
+
+  public abstract execute(element: typeof window.qwElement | undefined): void;
+
+  public getFinalResults(): BestPracticeType {
+    this.outcomeBestPractice();
+    return this.bestPractice;
   }
 
   protected getNumberOfWarningResults(): number {
@@ -21,11 +31,21 @@ abstract class BestPractice {
     }
   }
 
-  public abstract execute(element: typeof window.qwElement | undefined): void;
+  protected getTranslation(resultCode: string, values?: TranslationValues): string {
+    let translation = '';
+    if (this.locale.translate['best-practices']?.[this.bestPractice.code]?.results?.[resultCode]) {
+      translation = <string>this.locale.translate['best-practices'][this.bestPractice.code].results?.[resultCode];
+    } else {
+      translation = <string>this.locale.fallback['best-practices']?.[this.bestPractice.code].results?.[resultCode];
+    }
 
-  public getFinalResults(): BestPracticeType {
-    this.outcomeBestPractice();
-    return this.bestPractice;
+    if (values) {
+      for (const key of Object.keys(values) || []) {
+        translation = translation.replace(new RegExp(`{${key}}`, 'g'), values[key].toString());
+      }
+    }
+
+    return translation;
   }
 
   private outcomeBestPractice(): void {

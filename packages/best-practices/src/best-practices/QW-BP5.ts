@@ -2,11 +2,12 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP5 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
 
   execute(element: typeof window.qwElement | undefined): void {
@@ -14,11 +15,9 @@ class QW_BP5 extends BestPracticeObject {
 
     if (!element) {
       test.verdict = 'passed';
-      test.description = 'There are not table elements inside other table elements';
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = 'There are table elements inside other table elements';
       test.resultCode = 'RC2';
       test.addElement(element);
     }

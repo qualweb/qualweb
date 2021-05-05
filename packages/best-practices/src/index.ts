@@ -2,19 +2,20 @@ import { BPOptions, BestPracticesReport, BPMapping } from '@qualweb/best-practic
 import * as bestPractices from './lib/bestPractices';
 import mapping from './lib/mapping';
 import BestPracticeObject from './lib/BestPractice.object';
+import { Translate } from '@qualweb/locale';
 
 class BestPractices {
   private readonly bestPractices: { [bp: string]: BestPracticeObject };
   private readonly bestPracticesToExecute: { [bp: string]: boolean };
 
-  constructor(options?: BPOptions) {
+  constructor(locale: Translate, options?: BPOptions) {
     this.bestPractices = {};
     this.bestPracticesToExecute = {};
 
     for (const bp of Object.keys(bestPractices) ?? []) {
       const _bp = bp.replace(/_/g, '-');
       // @ts-ignore
-      this.bestPractices[_bp] = new bestPractices[bp]();
+      this.bestPractices[_bp] = new bestPractices[bp](locale);
       this.bestPracticesToExecute[_bp] = true;
     }
 

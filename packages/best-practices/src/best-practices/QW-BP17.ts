@@ -2,29 +2,30 @@ import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
 class QW_BP17 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice) {
-    super(bestPractice);
+  constructor(bestPractice: BestPractice, locale: Translate) {
+    super(bestPractice, locale);
   }
-
+  
   execute(element: typeof window.qwElement | undefined): void {
     const test = new Test();
 
     if (!element) {
       test.verdict = 'failed';
-      test.description = `This page does not have links`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'RC2';
+      super.addTestResult(test);
     } else {
       const refElement = window.DomUtils.getElementReferencedByHREF(element);
 
       if (refElement) {
         test.verdict = 'warning';
-        test.description = 'This link skips a content block';
-        test.resultCode = 'RC2';
+        test.resultCode = 'RC1';
 
         test.addElement(element);
+        test.addElement(refElement);
         super.addTestResult(test);
       }
     }
