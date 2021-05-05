@@ -1,4 +1,4 @@
-import { QualWeb, generateEARLReport } from '../dist/index';
+import { QualWeb } from '../dist/index';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -9,12 +9,22 @@ describe('Core', function () {
 
     await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
 
-    const evaluations = await qualweb.evaluate({ url: 'http://www.acsa.org.pt/', execute: { act: true }, "act-rules": { rules: ['QW-ACT-R1'] } });
+    const options = { 
+      url: 'http://ciencias.ulisboa.pt',
+      translate: 'pt',
+      execute: { 
+        act: true 
+      }, 
+      "act-rules": { 
+        rules: ['QW-ACT-R1', 'QW-ACT-R2'] 
+      } 
+    };
+
+    const evaluations = await qualweb.evaluate(options);
     console.log(JSON.stringify(evaluations, null, 2))
-    const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
-    expect(earlReports['http://www.acsa.org.pt/']['@graph'].length).to.be.equal(1);
+    expect(true);
   });
 });

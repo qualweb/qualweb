@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.6.4",
+  "version": "0.7.0-alpha",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -17,6 +17,7 @@
     "test:parallel": "mocha --require esm test/parallel.spec.js",
     "test:validator": "mocha --require esm test/validator.spec.js",
     "test:wp": "mocha --require esm test/wappalyzer.spec.js",
+    "test:locale": "mocha --require esm test/locale.spec.js",
     "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -68,7 +69,8 @@
     "@qualweb/crawler": "^0.3.4",
     "@qualweb/dom": "^0.2.1",
     "@qualweb/earl-reporter": "^0.4.1",
-    "@qualweb/evaluation": "^0.2.9",
+    "@qualweb/evaluation": "^0.3.0-alpha",
+    "@qualweb/locale": "^0.1.1-alpha",
     "colors": "^1.4.0",
     "puppeteer": "^9.1.0",
     "puppeteer-cluster": "^0.22.0",
@@ -77,7 +79,7 @@
     "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.6.3",
+    "@qualweb/types": "^0.7.4-alpha",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.0.1",
     "@types/puppeteer": "^5.4.3",

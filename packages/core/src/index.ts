@@ -8,6 +8,7 @@ import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
 import { Crawler, CrawlOptions } from '@qualweb/crawler';
+import locales, { Lang, Locale, TranslationObject } from '@qualweb/locale';
 import { readFile, writeFile, open, fchmod } from 'fs';
 import path from 'path';
 import 'colors';
@@ -40,7 +41,7 @@ class QualWeb {
   /**
    * Opens chromium browser and starts an incognito context
    * @param {ClusterOptions} clusterOptions - Options for cluster initialization
-   * @param {LaunchOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+   * @param {LaunchOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v9.1.0/docs/api.md#puppeteerlaunchoptions
    */
   public async start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void> {
     this.cluster = await Cluster.launch({
@@ -80,6 +81,8 @@ class QualWeb {
     if (!!options.html && urls.length === 0) {
       throw new Error('Invalid input method');
     }
+
+    this.handleLocales(options);
 
     if (options.execute) {
       modulesToExecute.act = !!options.execute.act;
@@ -175,6 +178,54 @@ class QualWeb {
     }
 
     return urls;
+  }
+
+  private handleLocales(options: QualwebOptions): void {
+    if (options.translate) {
+      if (typeof options.translate === 'string') {
+        if (Object.keys(locales).includes(options.translate)) {
+          options.translate = {
+            translate: locales[<Lang>options.translate],
+            fallback: locales.en
+          };
+        } else {
+          throw new Error(`Locale "${options.translate}" not supported.`);
+        }
+      } else if (Object.keys(options.translate).includes('translate')) {
+        this.verifyTranslationObject(options);
+      } else {
+        options.translate = {
+          translate: <Locale>options.translate,
+          fallback: locales.en
+        };
+      }
+    } else {
+      options.translate = {
+        translate: locales.en,
+        fallback: locales.en
+      };
+    }
+  }
+
+  private verifyTranslationObject(options: QualwebOptions): void {
+    if (typeof (<TranslationObject>options.translate).translate === 'string') {
+      if (Object.keys(locales).includes(<string>(<TranslationObject>options.translate).translate)) {
+        options.translate = {
+          translate: locales[<Lang>(<TranslationObject>options.translate).translate],
+          fallback: locales.en
+        };
+      } else {
+        throw new Error(`Locale "${(<TranslationObject>options.translate).translate}" not supported.`);
+      }
+    }
+    if (typeof (<TranslationObject>options.translate).fallback === 'string') {
+      if (Object.keys(locales).includes(<string>(<TranslationObject>options.translate).fallback)) {
+        (<TranslationObject>options.translate).fallback =
+          locales[<Lang>(<TranslationObject>options.translate).fallback];
+      } else {
+        throw new Error(`Locale "${(<TranslationObject>options.translate).fallback}" not supported.`);
+      }
+    }
   }
 }
 
