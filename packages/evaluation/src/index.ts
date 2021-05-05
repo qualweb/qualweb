@@ -9,6 +9,7 @@ import { executeWappalyzer } from '@qualweb/wappalyzer';
 import { CounterReport } from '@qualweb/counter';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import { QWElement } from '@qualweb/qw-element';
+import { Translate } from '@qualweb/locale';
 
 class Evaluation {
   private readonly url: string;
@@ -31,8 +32,13 @@ class Evaluation {
 
     await this.init();
 
+    const locale = <Translate>options.translate;
+
     if (this.execute.act) {
-      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtmlHeadContent, options['act-rules']));
+      evaluation.addModuleEvaluation(
+        'act-rules',
+        await this.executeACT(sourceHtmlHeadContent, locale, options['act-rules'])
+      );
     }
     if (this.execute.wcag) {
       evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(validation, options['wcag-techniques']));
@@ -128,7 +134,11 @@ class Evaluation {
     });
   }
 
-  private async executeACT(sourceHtmlHeadContent: string, options?: ACTROptions): Promise<ACTRulesReport> {
+  private async executeACT(
+    sourceHtmlHeadContent: string,
+    locale: Translate,
+    options?: ACTROptions
+  ): Promise<ACTRulesReport> {
     await this.page.addScriptTag({
       path: require.resolve('@qualweb/act-rules'),
       type: 'text/javascript'
@@ -136,10 +146,9 @@ class Evaluation {
 
     await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await this.page.evaluate(
-      (sourceHtmlHeadContent: string, options?: ACTROptions) => {
-        if (options) {
-          window.act.configure(options);
-        }
+      (sourceHtmlHeadContent: string, locale: string, options?: ACTROptions) => {
+        // @ts-ignore
+        window.act = new ACTRules(JSON.parse(locale), options);
 
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
@@ -159,6 +168,7 @@ class Evaluation {
         window.act.executeCompositeRules();
       },
       sourceHtmlHeadContent,
+      JSON.stringify(locale),
       <Serializable>options
     );
 

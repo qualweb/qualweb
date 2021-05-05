@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.2.9",
+  "version": "0.3.0-alpha",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -35,7 +35,8 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.1",
-    "@qualweb/types": "^0.5.19",
+    "@qualweb/locale": "^0.1.1-alpha",
+    "@qualweb/types": "^0.7.4-alpha",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.0.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
@@ -54,7 +55,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.5.6",
+    "@qualweb/act-rules": "^0.6.0-alpha",
     "@qualweb/best-practices": "^0.5.3",
     "@qualweb/counter": "^0.2.0",
     "@qualweb/qw-page": "^0.2.7",
