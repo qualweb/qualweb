@@ -1,4 +1,5 @@
 declare module "@qualweb/wcag-techniques" {
+  import { Translate, TranslationValues } from '@qualweb/locale';
   import { QWElement } from "@qualweb/qw-element";
   import { HTMLValidationReport } from "@qualweb/html-validator";
   import { Level, Principle } from '@qualweb/evaluation';
@@ -102,12 +103,17 @@ declare module "@qualweb/wcag-techniques" {
 
   abstract class Technique {
     private readonly technique: WCAGTechnique;
+    private readonly locale: Translate;
 
-    constructor(technique: WCAGTechnique);
+    constructor(technique: WCAGTechnique, locale: Translate);
 
     public getTechniqueMapping(): string;
 
     public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean;
+
+    abstract execute(element: QWElement | undefined): void;
+
+    public getFinalResults(): WCAGTechnique;
 
     protected getNumberOfWarningResults(): number;
 
@@ -115,9 +121,7 @@ declare module "@qualweb/wcag-techniques" {
 
     protected addTestResult(result: Test): void;
 
-    abstract execute(element: QWElement | undefined): void;
-
-    public getFinalResults(): WCAGTechnique;
+    protected getTranslation(resultCode: string, values?: TranslationValues): string;
 
     private outcomeTechnique(): void;
 
@@ -128,9 +132,12 @@ declare module "@qualweb/wcag-techniques" {
     private readonly techniques: { [technique: string]: Technique };
     private readonly techniquesToExecute: { [technique: string]: boolean };
 
-    constructor(options?: WCAGOptions);
+    constructor(locale: Translate, options?: WCAGOptions);
+
     public configure(options: WCAGOptions): void;
     public resetConfiguration(): void;
+    public execute(newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport;
+
     private executeTechnique(
       technique: string,
       selector: string,
@@ -138,7 +145,6 @@ declare module "@qualweb/wcag-techniques" {
     ): void;
     private executeMappedTechniques(report: WCAGTechniquesReport): void;
     private executeNotMappedTechniques(report: WCAGTechniquesReport): void;
-    public execute(newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport;
   }
 
   export {

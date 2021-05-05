@@ -1,5 +1,14 @@
 # Changelog
 
+### [0.7.5-alpha] - 05/05/2020
+
+### Updated
+
+- locale interface
+- act-rules interface
+- wcag-techniques interface
+- best-practices interface
+
 ### [0.7.4-alpha] - 05/05/2020
 
 ### Updated

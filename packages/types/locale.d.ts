@@ -1,5 +1,9 @@
 declare module "@qualweb/locale" {
 
+  interface TranslationValues { 
+    [key: string]: string | number | boolean; 
+  }
+
   interface ModuleTranslation {
     [test: string]: {
       name?: string;
@@ -35,7 +39,7 @@ declare module "@qualweb/locale" {
 
   const locales: Langs;
 
-  export { ModuleTranslation, Locale, TranslationObject, Translate, Lang, Langs };
+  export { TranslationValues, ModuleTranslation, Locale, TranslationObject, Translate, Lang, Langs };
 
   export default locales;
 }

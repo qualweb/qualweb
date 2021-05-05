@@ -1,5 +1,5 @@
 declare module "@qualweb/act-rules" {
-  import { Translate } from '@qualweb/locale';
+  import { Translate, TranslationValues } from '@qualweb/locale';
   import { QWElement } from "@qualweb/qw-element";
   import { Level, Principle } from '@qualweb/evaluation';
 
@@ -88,10 +88,6 @@ declare module "@qualweb/act-rules" {
     };
   }
 
-  interface TranslationValues { 
-    [key: string]: string | number | boolean; 
-  }
-
   class Test implements ACTRuleResult {
     verdict: 'passed' | 'failed' | 'warning' | 'inapplicable';
     description: string;
@@ -161,8 +157,15 @@ declare module "@qualweb/act-rules" {
     private readonly report: ACTRulesReport;
 
     constructor(locale: Translate, options?: ACTROptions);
+    
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
+    public executeAtomicRules(): void;
+    public executeCompositeRules(): void;
+    public validateMetaElements(metaElements: Array<QWElement>): void;
+    public validateZoomedTextNodeNotClippedWithCSSOverflow(): void;
+    public validateFirstFocusableElementIsLinkToNonRepeatedContent(): void;
+    public getReport(): ACTRulesReport;
 
     private executeRule(rule: string, selector: string): void;
     private executeCompositeRule(
@@ -171,12 +174,6 @@ declare module "@qualweb/act-rules" {
       atomicRules: Array<string>,
       implementation: 'conjunction' | 'disjunction'
     ): void;
-    public executeAtomicRules(): void;
-    public executeCompositeRules(): void;
-    public validateMetaElements(metaElements: Array<QWElement>): void;
-    public validateZoomedTextNodeNotClippedWithCSSOverflow(): void;
-    public validateFirstFocusableElementIsLinkToNonRepeatedContent(): void;
-    public getReport(): ACTRulesReport;
   }
 
   export {

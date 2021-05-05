@@ -1,4 +1,5 @@
 declare module "@qualweb/best-practices" {
+  import { Translate, TranslationValues } from '@qualweb/locale';
   import { QWElement } from "@qualweb/qw-element";
   
   interface BPOptions {
@@ -98,8 +99,9 @@ declare module "@qualweb/best-practices" {
 
   abstract class BestPracticeObject {
     private readonly bestPractice: BestPractice;
+    private readonly locale: Translate;
 
-    constructor(bestPractice: BestPractice);
+    constructor(bestPractice: BestPractice, locale: Translate);
 
     protected getNumberOfWarningResults(): number;
 
@@ -108,6 +110,8 @@ declare module "@qualweb/best-practices" {
     public abstract execute(element: QWElement | undefined): void;
 
     public getFinalResults(): BestPractice;
+
+    protected getTranslation(resultCode: string, values?: TranslationValues): string;
 
     private outcomeBestPractice(): void;
 
@@ -118,15 +122,17 @@ declare module "@qualweb/best-practices" {
     private readonly bestPractices: { [bp: string]: BestPracticeObject };
     private readonly bestPracticesToExecute: { [bp: string]: boolean };
 
-    constructor(options?: BPOptions);
+    constructor(locale: Translate, options?: BPOptions);
+    
     public configure(options: BPOptions): void;
     public resetConfiguration(): void;
+    public execute(): BestPracticesReport;
+
     private executeBP(
       bestPractice: string,
       selector: string,
       report: BestPracticesReport
     ): void;
-    public execute(): BestPracticesReport;
   }
 
   export {
