@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, IsApplicable, ElementItsDefined } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 
 @BestPracticeClass
@@ -9,10 +9,7 @@ class QW_BP1 extends BestPracticeObject {
     super(bestPractice);
   }
 
-  // experimental decorator for applicability
-  @IsApplicable({
-    if: [ElementItsDefined]
-  })
+  @ElementExists
   execute(element: typeof window.qwElement): void {
     const headings = element.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
 
