@@ -27,7 +27,7 @@ class Crawler {
   public async crawl(options?: CrawlOptions): Promise<void> {
     const maxDepth = options?.maxDepth ?? -1;
     const maxUrls = options?.maxUrls ?? -1;
-    const parallel = options?.maxParallelCrawls ?? 5;
+    const parallel = options?.maxParallelCrawls || 5;
     const timeout = options?.timeout ?? -1;
 
     let currentDepth = 0;
@@ -38,9 +38,7 @@ class Crawler {
     const timerHandle = setInterval(() => {
       timer += 2;
       if (options?.logging) {
-        logUpdate(
-          `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
-        );
+        this.log(currentDepth, currentUrlCount, timer);
       }
     }, 2000);
     let timeoutHandle = null;
@@ -51,9 +49,7 @@ class Crawler {
     }
 
     if (options?.logging) {
-      logUpdate(
-        `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
-      );
+      this.log(currentDepth, currentUrlCount, timer);
     }
 
     const urlsByDepth: { [depth: number]: Array<string> } = {};
@@ -68,9 +64,7 @@ class Crawler {
     currentUrlCount += firstPageUrls.length;
 
     if (options?.logging) {
-      logUpdate(
-        `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
-      );
+      this.log(currentDepth, currentUrlCount, timer);
     }
 
     if (maxUrls >= 0 && currentUrlCount >= maxUrls) {
@@ -84,9 +78,7 @@ class Crawler {
       let depthCompleted = false;
 
       if (options?.logging) {
-        logUpdate(
-          `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
-        );
+        this.log(currentDepth, currentUrlCount, timer);
       }
 
       while (!depthCompleted) {
@@ -121,9 +113,7 @@ class Crawler {
           currentUrlCount = Object.keys(urlsCrawled).length;
 
           if (options?.logging) {
-            logUpdate(
-              `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
-            );
+            this.log(currentDepth, currentUrlCount, timer);
           }
 
           if (maxUrls >= 0 && currentUrlCount >= maxUrls) {
@@ -158,6 +148,12 @@ class Crawler {
     }
   }
 
+  private log(currentDepth: number, currentUrlCount: number, timer: number): void {
+    logUpdate(
+      `Domain: ${this.domain}   Current depth: ${currentDepth}   Urls found: ${currentUrlCount}   Time passed: ${timer} seconds`
+    );
+  }
+
   private addUrlsToCrawl(urlsCrawled: { [url: string]: boolean }, urls: Array<string>): void {
     for (const url of urls ?? []) {
       if (!urlsCrawled[url]) {
@@ -179,7 +175,7 @@ class Crawler {
       });
 
       urls = await page.evaluate((domain) => {
-        const notHtml = 'css|jpg|jpeg|gif|svg|pdf|docx|js|png|ico|xml|mp4|mp3|mkv|wav|rss|php|json|pptx|txt'.split('|');
+        const notHtml = 'css|jpg|jpeg|gif|svg|pdf|docx|js|png|ico|xml|mp4|mp3|mkv|wav|rss|json|pptx|txt'.split('|');
 
         const links = document.querySelectorAll('body a');
 

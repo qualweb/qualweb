@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.5] - 05/05/2021
+
+### Removed
+
+- php extension from being excluded during the crawling process
+
+### Updated
+
+- dependencies
+
 ## [0.3.4] - 23/04/2021
 
 ### Added
