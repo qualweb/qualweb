@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R14 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -21,7 +21,7 @@ class QW_ACT_R14 extends AtomicRule {
     const contentValues = content.split(',');
 
     if (contentValues[0].trim().length > 0) {
-      for (const valueItem of contentValues || []) {
+      for (const valueItem of contentValues ?? []) {
         const value = valueItem.trim().split('=');
         if (value[0] === 'maximum-scale') {
           maximumScale = value[1];
@@ -33,16 +33,13 @@ class QW_ACT_R14 extends AtomicRule {
 
     if ((!maximumScale || parseInt(maximumScale) < 0) && !userScalable) {
       test.verdict = 'passed';
-      test.description = `The \`meta\` element with a \`name="viewport"\` attribute doesn't define the \`maximum-scale\` and \`user-scalable\` values.`;
       test.resultCode = 'RC1';
     } else if (userScalable === 'no' || maximumScale == 'yes' || parseFloat(maximumScale) < 2) {
       test.verdict = 'failed';
-      test.description = `The \`meta\` element with a \`name="viewport"\` attribute abolishes the user agent ability to zoom with user-scalable=no or maximum-scale < 2.`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'RC3';
     } else {
       test.verdict = 'passed';
-      test.description = `The \`meta\` element with a \`name="viewport"\` attribute retains the user agent ability to zoom.`;
-      test.resultCode = 'RC3';
+      test.resultCode = 'RC2';
     }
 
     test.addElement(element);

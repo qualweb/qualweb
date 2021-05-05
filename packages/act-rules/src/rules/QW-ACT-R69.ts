@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R69 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -23,19 +23,15 @@ class QW_ACT_R69 extends AtomicRule {
 
       if (!this.isImportant(computedRawWordSpacing, element)) {
         test.verdict = 'passed';
-        test.description = 'The word-spacing property is not !important';
         test.resultCode = 'RC1';
       } else if (this.isWide(computedWordSpacing, fontSize)) {
         test.verdict = 'passed';
-        test.description = 'The word-spacing is at least 1.5 times the font-size.';
         test.resultCode = 'RC2';
       } else if (!this.isCascade(declaredWordSpacing, computedRawWordSpacing)) {
         test.verdict = 'passed';
-        test.description = 'The cascaded word-spacing is not the declared value.';
         test.resultCode = 'RC3';
       } else {
         test.verdict = 'failed';
-        test.description = 'CSS styles prevent the word-spacing to be above the minimum value.';
         test.resultCode = 'RC4';
       }
 

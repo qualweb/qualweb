@@ -9,7 +9,7 @@ class Test implements ACTRuleResult {
 
   constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string) {
     this.verdict = verdict ?? 'inapplicable';
-    this.description = description ?? 'No test target found.';
+    this.description = description ?? '';
     this.resultCode = resultCode ?? 'RC0';
     this.elements = new Array<ACTRuleResult>();
   }

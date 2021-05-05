@@ -17,13 +17,11 @@ class QW_ACT_R6 extends AtomicRule {
 
     const test = new Test();
     
-    if (accessibleName?.trim()) {
+    if (accessibleName && accessibleName.trim() !== '') {
       test.verdict = 'passed';
-      test.description = `The \`image button\` has an accessible name.`;
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = `The \`image button\` doesn't have an accessible name.`;
       test.resultCode = 'RC2';
     }
 

@@ -5,15 +5,13 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R67 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
   @ElementIsVisible
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
     if (element.hasCSSProperty('letter-spacing')) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredLetterSpacing = this.parseStyle(styleAttribute);
@@ -21,21 +19,19 @@ class QW_ACT_R67 extends AtomicRule {
       const computedLetterSpacing = element.getElementStyleProperty('letter-spacing', null);
       const fontSize = element.getElementStyleProperty('font-size', null);
 
+      const test = new Test();
+
       if (!this.isImportant(computedRawLetterSpacing, element)) {
         test.verdict = 'passed';
-        test.description = 'The letter-spacing property is not !important';
         test.resultCode = 'RC1';
       } else if (this.isWide(computedLetterSpacing, fontSize)) {
         test.verdict = 'passed';
-        test.description = 'The letter-spacing is at least 0.12 times the font-size.';
         test.resultCode = 'RC2';
       } else if (!this.isCascade(declaredLetterSpacing, computedRawLetterSpacing)) {
         test.verdict = 'passed';
-        test.description = 'The cascaded letter-spacing is not the declared value.';
         test.resultCode = 'RC3';
       } else {
         test.verdict = 'failed';
-        test.description = 'CSS styles prevent the letter-spacing to be above the minimum value.';
         test.resultCode = 'RC4';
       }
 

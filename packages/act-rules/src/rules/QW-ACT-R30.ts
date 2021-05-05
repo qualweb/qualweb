@@ -11,8 +11,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R30 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -29,7 +29,6 @@ class QW_ACT_R30 extends AtomicRule {
     
     if (accessibleName === undefined) {
       test.verdict = 'failed';
-      test.description = `The test target doesn't have an accessible name.`;
       test.resultCode = 'RC2';
     } else if (
       !hasTextNode ||
@@ -44,11 +43,9 @@ class QW_ACT_R30 extends AtomicRule {
       (isIconValue || this.includesText(accessibleName, elementText))
     ) {
       test.verdict = 'passed';
-      test.description = `The complete visible text content of the test target either matches or is contained within its accessible name.`;
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = `The complete visible text content of the test target neither matches or is contained within its accessible name.`;
       test.resultCode = 'RC3';
     }
 

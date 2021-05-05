@@ -10,6 +10,7 @@ import AtomicRule from './lib/AtomicRule.object';
 import CompositeRule from './lib/CompositeRule.object';
 import mapping from './lib/mapping';
 import compositeRules from './lib/mappingComposite';
+import { Translate } from '@qualweb/core';
 
 class ACTRules {
   private readonly rules: { [rule: string]: AtomicRule | CompositeRule };
@@ -17,7 +18,7 @@ class ACTRules {
 
   private readonly report: ACTRulesReport;
 
-  constructor(options?: ACTROptions) {
+  constructor(locale: Translate, options?: ACTROptions) {
     this.rules = {};
     this.rulesToExecute = {};
     this.report = {
@@ -34,7 +35,7 @@ class ACTRules {
     for (const rule of Object.keys(rules) || []) {
       const _rule = rule.replace(/_/g, '-');
       //@ts-ignore
-      this.rules[_rule] = new rules[rule]();
+      this.rules[_rule] = new rules[rule](locale);
       this.rulesToExecute[_rule] = true;
     }
 
@@ -227,8 +228,5 @@ class ACTRules {
     return this.report;
   }
 }
-
-//@ts-ignore
-window.act = new ACTRules();
 
 export { ACTRules };

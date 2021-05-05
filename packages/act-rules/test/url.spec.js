@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import enLocale from './locale/en.json';
+import ptLocale from './locale/pt.json';
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
@@ -32,7 +34,8 @@ describe('Running tests', function () {
     const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
 
     await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-    await page.evaluate((headContent) => {
+    await page.evaluate(({ ptLocale, enLocale }, headContent) => {
+      window.act = new ACTRules({ translate: ptLocale, fallback: enLocale });
       window.act.configure({ rules: ['QW-ACT-R1'] })
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
@@ -50,7 +53,7 @@ describe('Running tests', function () {
       window.act.validateMetaElements(metaElements);
       window.act.executeAtomicRules();
       window.act.executeCompositeRules();
-    }, headContent);
+    }, { ptLocale, enLocale }, headContent);
 
     await page.setViewport({
       width: 640,

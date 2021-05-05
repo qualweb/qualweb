@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R34 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -29,14 +29,10 @@ class QW_ACT_R34 extends AtomicRule {
       elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
 
       for (const attrib of elemAttribs ?? []) {
-        const test = new Test();
-
         if (attrib in ariaJSON) {
           //if is in the accessibility tree
-          //@ts-ignore
           const values = ariaJSON[attrib]['values'];
           const attrValue = elem.getElementAttribute(attrib);
-          //@ts-ignore
           const typeValue = ariaJSON[attrib]['typeValue'];
 
           let result = false;
@@ -63,9 +59,7 @@ class QW_ACT_R34 extends AtomicRule {
               const role = window.AccessibilityUtils.getElementRole(elem);
 
               let requiredAriaList;
-              //@ts-ignore
               if (role !== null && !!rolesJSON[role]) {
-                //@ts-ignore
                 requiredAriaList = rolesJSON[role]['requiredAria'];
               }
               if (typeValue === 'id') {
@@ -88,15 +82,16 @@ class QW_ACT_R34 extends AtomicRule {
               }
             }
 
+            const test = new Test();
             if (result) {
               test.verdict = 'passed';
-              test.description = 'The test target `' + attrib + '` attribute has a valid value.';
-              test.resultCode = 'RC3';
+              test.resultCode = 'RC1';
             } else {
               test.verdict = 'failed';
-              test.description = 'The test target `' + attrib + '` attribute has an invalid value.';
-              test.resultCode = 'RC4';
+              test.resultCode = 'RC2';
             }
+
+            test.description = super.getTranslation(test.resultCode, { attr: attrib });
 
             test.addElement(elem);
             super.addTestResult(test);

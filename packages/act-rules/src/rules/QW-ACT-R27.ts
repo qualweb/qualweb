@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R27 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -30,12 +30,10 @@ class QW_ACT_R27 extends AtomicRule {
 
       if (failedAria.length) {
         test.verdict = 'failed';
-        test.description = 'The following aria-* attributes are not defined in ARIA 1.1: ' + failedAria;
-        test.resultCode = 'RC1';
+        test.resultCode = 'RC2';
       } else if (countAria) {
         test.verdict = 'passed';
-        test.description = 'All aria-* attributes in this element are defined in ARIA 1.1';
-        test.resultCode = 'RC2';
+        test.resultCode = 'RC1';
       } else {
         continue;
       }

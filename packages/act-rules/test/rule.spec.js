@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
+import enLocale from './locale/en.json';
 
 async function getTestCases() {
   const response = await fetch('https://act-rules.github.io/testcases.json');
@@ -115,7 +116,7 @@ describe(`Rule ${rule}`, function () {
               "act-rules": { 
                 rules: [rule]
               },
-              waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle2'] : 'load'
+              waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
             }, test.url, '');
             
             await page.addScriptTag({
@@ -130,13 +131,9 @@ describe(`Rule ${rule}`, function () {
               path: require.resolve('../dist/act.bundle.js')
             });
             
-            await page.evaluate((options) => {
-              //window.qwPage = new Module.QWPage(document, window, true);
-              //window.DomUtils = Utility.DomUtils;
-              //window.AccessibilityUtils = Utility.AccessibilityUtils;
-              //window.act = new ACT.ACTRules(options);
-              window.act.configure(options);
-            }, { rules: [rule] });
+            await page.evaluate((locale, options) => {
+              window.act = new ACTRules({ translate: locale, fallback: locale }, options);
+            }, enLocale, { rules: [rule] });
             
 
             if (ruleId === '8a213c') {
@@ -172,7 +169,7 @@ describe(`Rule ${rule}`, function () {
               window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
               return window.act.getReport();
             });
-
+            //console.log(JSON.stringify(report.assertions[rule], null, 2))
             expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
           } finally {
             await page.close();

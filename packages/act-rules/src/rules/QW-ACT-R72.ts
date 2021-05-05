@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R72 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   execute(): void {
@@ -28,20 +28,17 @@ class QW_ACT_R72 extends AtomicRule {
       ) {
         // not checking if it is possible to fire an event at the element with the keyboard
         test.verdict = 'failed';
-        test.description = 'The first focusable element is not keyboard actionable';
-        test.resultCode = 'RC2';
+        test.resultCode = 'RC3';
 
         test.addElement(focused, false);
       } else if (focused && !window.AccessibilityUtils.isElementInAT(focused)) {
         test.verdict = 'failed';
-        test.description = 'The first focusable element is not in the accessibility tree';
-        test.resultCode = 'RC3';
+        test.resultCode = 'RC4';
 
         test.addElement(focused, false);
       } else if (focused && window.AccessibilityUtils.getElementRole(focused) !== 'link') {
         test.verdict = 'failed';
-        test.description = 'The first focusable element does not have the role of link';
-        test.resultCode = 'RC4';
+        test.resultCode = 'RC5';
 
         test.addElement(focused, false);
       } else if (focused?.getElementAttribute('href')) {
@@ -50,30 +47,24 @@ class QW_ACT_R72 extends AtomicRule {
           // only checking that it has an url that starts with # -- other ways of linking to the same page are not considered
           if (window.qwPage.getElementByID(destination.substring(1))) {
             test.verdict = 'warning';
-            test.description =
-              'Check that the first focusable element has an accessible name that communicates that it skips content';
-            test.resultCode = 'RC7';
+            test.resultCode = 'RC1';
 
             test.addElement(focused, false);
           } else {
-            test.verdict = 'failed';
-            test.description = 'The first focusable element does not skip to the main content';
+            test.verdict = 'failed';;
             test.resultCode = 'RC6';
 
             test.addElement(focused, false);
           }
         } else {
           test.verdict = 'failed';
-          test.description = 'The first focusable element does not skip to the main content';
-          test.resultCode = 'RC5';
+          test.resultCode = 'RC6';
 
           test.addElement(focused, false);
         }
       } else {
         test.verdict = 'warning';
-        test.description =
-          'Check that the first focusable element skips to the main content and its accessible name communicates so';
-        test.resultCode = 'RC8';
+        test.resultCode = 'RC2';
         
         if (focused) {
           test.addElement(focused);
@@ -81,8 +72,7 @@ class QW_ACT_R72 extends AtomicRule {
       }
     } else {
       test.verdict = 'failed';
-      test.description = 'The page does not have focusable elements';
-      test.resultCode = 'RC1';
+      test.resultCode = 'RC7';
     }
 
     super.addTestResult(test);

@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R74 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -46,17 +46,9 @@ class QW_ACT_R74 extends AtomicRule {
 
         if (nSkipLinks > 0) {
           test.verdict = 'warning';
-          test.description = `
-            The page has at least ${nSkipLinks} instrument(s) to move focus. 
-            Check if any of these instrument(s) is being used before a block of repeated content, and the focus is moved to just before a block of non-repeated content.
-          `;
           test.resultCode = 'RC2';
         } else {
           test.verdict = 'warning';
-          test.description = `
-            Check if the page has any instrument(s) to move focus. 
-            Check if any of these instrument(s) is being used before a block of repeated content, and the focus is moved to just before a block of non-repeated content.
-          `;
           test.resultCode = 'RC3';
         }
       }
@@ -64,7 +56,6 @@ class QW_ACT_R74 extends AtomicRule {
 
     if (!hasLinks) {
       test.verdict = 'passed';
-      test.description = `The page doesn't have repeated content.`;
       test.resultCode = 'RC1';
     }
 

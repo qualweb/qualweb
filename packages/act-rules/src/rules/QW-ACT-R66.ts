@@ -10,8 +10,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R66 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -21,13 +21,11 @@ class QW_ACT_R66 extends AtomicRule {
     const test = new Test();
 
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
-    if (accessibleName) {
+    if (accessibleName && accessibleName.trim() !== '') {
       test.verdict = 'passed';
-      test.description = 'The test target has a non-empty accessible name.';
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = `The test target accessible name doesn't exist or it's empty ("").`;
       test.resultCode = 'RC2';
     }
 

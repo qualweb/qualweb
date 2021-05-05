@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R33 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -20,7 +20,6 @@ class QW_ACT_R33 extends AtomicRule {
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
     const isValidRole = window.AccessibilityUtils.elementHasValidRole(element);
 
-    //@ts-ignore
     if (
       explicitRole !== null &&
       isValidRole &&
@@ -28,7 +27,6 @@ class QW_ACT_R33 extends AtomicRule {
       isInAT &&
       roles[explicitRole]['requiredContextRole'] !== ''
     ) {
-      //@ts-ignore
       const requiredContextRole = roles[explicitRole]['requiredContextRole'];
       const id = element.getElementAttribute('id');
 
@@ -38,21 +36,17 @@ class QW_ACT_R33 extends AtomicRule {
         const ariaOwnsRole = window.AccessibilityUtils.getElementRole(ariaOwns);
         if (ariaOwnsRole && requiredContextRole.includes(ariaOwnsRole)) {
           test.verdict = 'passed';
-          test.description = `The test target parent has the required context \`role\`.`;
           test.resultCode = 'RC1';
         } else {
           test.verdict = 'failed';
-          test.description = `The test target parent doesn't have the required context \`role\``;
           test.resultCode = 'RC2';
         }
       } else if (this.isElementADescendantOf(element, <string[]>requiredContextRole)) {
         test.verdict = 'passed';
-        test.description = `The test target parent has the required context \`role\`.`;
-        test.resultCode = 'RC3';
+        test.resultCode = 'RC1';
       } else {
         test.verdict = 'failed';
-        test.description = `The test target parent doesn't have the required context \`role\``;
-        test.resultCode = 'RC4';
+        test.resultCode = 'RC2';
       }
 
       test.addElement(element);

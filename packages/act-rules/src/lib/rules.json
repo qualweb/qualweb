@@ -992,7 +992,7 @@
     "name": "Object element has non-empty accessible name",
     "code": "QW-ACT-R42",
     "mapping": "8fc3b6",
-    "description": "This rule checks that each `object` element has a non-empty accessible name. ",
+    "description": "This rule checks that each `object` element has a non-empty accessible name.",
     "metadata": {
       "target": {
         "element": ["object"]
@@ -1154,7 +1154,7 @@
     }
   },
   "QW_ACT_R54": {
-    "name": "video element visual-only content has transcript",
+    "name": "video element visual-only content has audio track alternative",
     "code": "QW-ACT-R54",
     "mapping": "d7ba54",
     "description": "Non-streaming video elements without audio must have an audio alternative.",
@@ -1170,7 +1170,7 @@
     }
   },
   "QW_ACT_R55": {
-    "name": "video element visual-only content has transcript",
+    "name": "video element visual content has audio description",
     "code": "QW-ACT-R55",
     "mapping": "1ea59c",
     "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",

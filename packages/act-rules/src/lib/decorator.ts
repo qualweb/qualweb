@@ -1,11 +1,11 @@
 import { ACTRule, ACTRuleResult } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import rules from './rules.json';
-import en from '../locale/en.json';
 
 function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
   const newConstructor: any = function () {
-    console.log(arguments[0])
-    const locale = arguments[0] ?? en;
+    
+    const locales = <Translate>arguments[0];
     
     //@ts-ignore
     const rule = <ACTRule>rules[constructor.name];
@@ -16,16 +16,16 @@ function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T
     rule.metadata.inapplicable = 0;
     rule.metadata.outcome = 'inapplicable';
     try {
-      rule.name = locale[rule.code].name;
-      rule.description = locale[rule.code].description;
-      rule.metadata.description = locale[rule.code]['RC0'];
+      rule.name = <string>(locales.translate['act-rules']?.[rule.code]?.name ?? locales.fallback['act-rules']?.[rule.code]?.name);
+      rule.description = <string>(locales.translate['act-rules']?.[rule.code]?.description ?? locales.fallback['act-rules']?.[rule.code]?.description);
+      rule.metadata.description = <string>(locales.translate['act-rules']?.[rule.code]?.results?.RC0 ?? locales.fallback['act-rules']?.[rule.code].results?.RC0);
     } catch(err) {
       console.error(err);
     }
     rule.results = new Array<ACTRuleResult>();
 
     const func: any = function () {
-      return new constructor(rule, locale);
+      return new constructor(rule, locales);
     };
     func.prototype = constructor.prototype;
     return new func();
@@ -38,6 +38,16 @@ function ElementExists(_target: any, _propertyKey: string, descriptor: PropertyD
   const method = descriptor.value;
   descriptor.value = function () {
     if (<typeof window.qwElement>arguments[0]) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementIsHTMLElement(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    if (element.isElementHTMLElement()) {
       return method.apply(this, arguments);
     }
   };
@@ -118,6 +128,26 @@ function IfElementHasTagNameMustHaveAttributeRole(tagName: string, role: string)
   };
 }
 
+function ElementHasText(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    if (window.DomUtils.getTrimmedText(element) !== '') {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementHasTextNode(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    if (element.elementHasTextNode()) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -154,7 +184,7 @@ function ElementIsVisibleOrInAccessibilityTree(_target: any, _propertyKey: strin
   };
 }
 
-function ElementNotHidden(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+function ElementIsNotHidden(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
     const notHidden = !window.DomUtils.isElementHidden(<typeof window.qwElement>arguments[0]);
@@ -229,6 +259,18 @@ function ElementIsVisible(_target: any, _propertyKey: string, descriptor: Proper
   };
 }
 
+function ElementIsNot(names: string[]) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = function () {
+      const name = (<typeof window.qwElement>arguments[0]).getElementTagName();
+      if (name && !names.includes(name)) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 function ElementHasOneOfTheFollowingRoles(roles: string[]) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -250,6 +292,17 @@ function ElementIsWidget(_target: any, _propertyKey: string, descriptor: Propert
     }
   };
 }
+
+function ElementIsNotWidget(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isWidget = window.AccessibilityUtils.isElementWidget(<typeof window.qwElement>arguments[0]);
+    if (!isWidget) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 
 function ElementAllowsNameFromContent(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
@@ -302,26 +355,55 @@ function isSubTagValid(subTag: string): boolean {
   return languages.hasOwnProperty(subTag.toLowerCase());
 }
 
+function ElementIsImage(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    const role = window.AccessibilityUtils.getElementRole(element);
+    if (element.getElementTagName() === 'img' || role === 'img') {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementIsNonText(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    const isNonText = window.DomUtils.objectElementIsNonText(element);
+    if (isNonText) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 export {
   ACTRuleDecorator,
   ElementExists,
+  ElementIsHTMLElement,
   ElementHasAttributes,
   ElementHasAttribute,
   ElementHasAttributeRole,
   ElementHasAttributeValue,
   IfElementHasTagNameMustHaveAttributeRole,
   ElementHasNonEmptyAttribute,
+  ElementHasText,
+  ElementHasTextNode,
   ElementIsInAccessibilityTree,
   ElementSrcAttributeFilenameEqualsAccessibleName,
   ElementIsVisible,
+  ElementIsNot,
   ElementHasOneOfTheFollowingRoles,
   ElementIsWidget,
+  ElementIsNotWidget,
   ElementAllowsNameFromContent,
   IsHTMLDocument,
   IsLangSubTagValid,
   isInMainContext,
-  ElementNotHidden,
+  ElementIsNotHidden,
   ElementIsVisibleOrInAccessibilityTree,
   ElementHasNegativeTabIndex,
-  ElementHasCSSRules
+  ElementHasCSSRules,
+  ElementIsImage,
+  ElementIsNonText
 };

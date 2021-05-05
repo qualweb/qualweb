@@ -180,8 +180,8 @@ class QW_ACT_R24 extends AtomicRule {
     }
   };
 
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -189,59 +189,52 @@ class QW_ACT_R24 extends AtomicRule {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    //if input type = hidden, button,submit or reset
     const tag = element.getElementTagName();
 
-    if (tag === 'input' || tag === 'select' || tag === 'textarea') {
-      if (tag === 'input') {
-        const type = element.getElementAttribute('type');
-        const disabled = element.elementHasAttribute('disabled');
-        if (disabled) {
-          return;
-        }
-        if (type === 'hidden' || type === 'button' || type === 'submit' || type === 'reset') {
-          return;
-        }
-      }
-      //aria-disable true
-      const ariaDisable = element.getElementAttribute('aria-disabled');
-
-      if (ariaDisable === 'true') {
+    if (tag === 'input') {
+      const type = element.getElementAttribute('type');
+      const disabled = element.elementHasAttribute('disabled');
+      if (disabled) {
         return;
       }
-
-      //sequencial focus nav and has semantic role that is not widget role
-      const isFocusable = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
-      const widgetRole = window.AccessibilityUtils.isElementWidget(element);
-
-      if (!isFocusable && !widgetRole) {
+      if (type === 'hidden' || type === 'button' || type === 'submit' || type === 'reset') {
         return;
       }
+    }
+    // aria-disable true
+    const ariaDisable = element.getElementAttribute('aria-disabled');
 
-      let autoComplete = element.getElementAttribute('autoComplete');
-
-      if (autoComplete) {
-        autoComplete = autoComplete.trim();
-        if (autoComplete === '') {
-          return;
-        }
-
-        const correctAutocompleteField = this.isCorrectAutocompleteField(element, autoComplete);
-        if (!correctAutocompleteField) {
-          test.verdict = 'failed';
-          test.description = `The test target \`autocomplete\` attribute is not valid.`;
-          test.resultCode = 'RC2';
-        } else {
-          test.verdict = 'passed';
-          test.description = `The test target has a valid \`autocomplete\` attribute.`;
-          test.resultCode = 'RC1';
-        }
-
-        test.addElement(element);
-        super.addTestResult(test);
-      }
-    } else {
+    if (ariaDisable === 'true') {
       return;
+    }
+
+    // sequential focus nav and has semantic role that is not widget role
+    const isFocusable = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
+    const widgetRole = window.AccessibilityUtils.isElementWidget(element);
+
+    if (!isFocusable && !widgetRole) {
+      return;
+    }
+
+    let autoComplete = element.getElementAttribute('autocomplete');
+
+    if (autoComplete) {
+      autoComplete = autoComplete.trim();
+      if (autoComplete === '') {
+        return;
+      }
+
+      const correctAutocompleteField = this.isCorrectAutocompleteField(element, autoComplete);
+      if (correctAutocompleteField) {
+        test.verdict = 'passed';
+        test.resultCode = 'RC1';
+      } else {
+        test.verdict = 'failed';
+        test.resultCode = 'RC2';
+      }
+
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 

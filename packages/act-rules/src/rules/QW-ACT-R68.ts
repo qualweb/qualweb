@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R68 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -23,19 +23,15 @@ class QW_ACT_R68 extends AtomicRule {
 
       if (!this.isImportant(computedRawLineHeight, element)) {
         test.verdict = 'passed';
-        test.description = 'The line-height property is not !important';
         test.resultCode = 'RC1';
       } else if (!this.isNormal(computedLineHeight, element) && this.isLarge(computedLineHeight, fontSize)) {
         test.verdict = 'passed';
-        test.description = 'The line-height is at least 1.5 times the font-size.';
         test.resultCode = 'RC2';
       } else if (!this.isCascade(declaredLineHeight, computedRawLineHeight)) {
         test.verdict = 'passed';
-        test.description = 'The cascaded line-height is not the declared value.';
         test.resultCode = 'RC3';
       } else {
         test.verdict = 'failed';
-        test.description = 'CSS styles prevent the line-height to be above the minimum value.';
         test.resultCode = 'RC4';
       }
 
@@ -53,7 +49,7 @@ class QW_ACT_R68 extends AtomicRule {
     if (endLS === -1) {
       endLS = style.length;
     }
-    return style?.substring(startLS + 12, endLS);
+    return style.substring(startLS + 12, endLS);
   }
 
   private isImportant(cssValue: any, element: typeof window.qwElement): boolean {

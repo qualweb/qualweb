@@ -1,18 +1,20 @@
 import { ACTRule } from '@qualweb/act-rules';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsNotHidden } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R21 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+
+  private readonly roleList = ['img', 'graphics-document', 'graphics-symbol'];
+
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
+  @ElementIsNotHidden
   execute(element: typeof window.qwElement): void {
-    const roleList = ['img', 'graphics-document', 'graphics-symbol'];
-
     const elementsToEvaluate = element.getElements('svg *');
     elementsToEvaluate.push(element);
 
@@ -20,18 +22,14 @@ class QW_ACT_R21 extends AtomicRule {
       const test = new Test();
 
       const role = elem.getElementAttribute('role');
-      const isHidden = window.DomUtils.isElementHidden(elem);
-      const accessibleName = window.AccessibilityUtils.getAccessibleNameSVG(elem);
-
-      if (role && role && roleList.indexOf(role) >= 0 && !isHidden) {
-        if (accessibleName?.trim()) {
+      if (role && this.roleList.includes(role)) {
+        const accessibleName = window.AccessibilityUtils.getAccessibleNameSVG(elem);
+        if (accessibleName && accessibleName.trim() !== '') {
           test.verdict = 'passed';
-          test.description = `The test target has an accessible name.`;
-          test.resultCode = 'RC2';
+          test.resultCode = 'RC1';
         } else {
           test.verdict = 'failed';
-          test.description = `The test target doesn't have an accessible name.`;
-          test.resultCode = 'RC3';
+          test.resultCode = 'RC2';
         }
 
         test.addElement(elem, true, false, true);

@@ -7,8 +7,8 @@ import Test from '../lib/Test.object';
 class QW_ACT_R18 extends AtomicRule {
   private readonly idMap: Map<string, boolean>;
 
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
     this.idMap = new Map<string, boolean>();
   }
 
@@ -16,22 +16,18 @@ class QW_ACT_R18 extends AtomicRule {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    let elementsWithSameId = new Array<typeof window.qwElement>();
-
     const id = element.getElementAttribute('id');
 
     if (id && !this.idMap.get(id)) {
       try {
-        elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
+        const elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
 
         if (elementsWithSameId.length > 1) {
           test.verdict = 'failed';
-          test.description = `Several elements have the same \`id\` attribute (${id}).`;
-          test.resultCode = 'RC1';
+          test.resultCode = 'RC2';
         } else {
           test.verdict = 'passed';
-          test.description = 'The test target has a unique `id` attribute.';
-          test.resultCode = 'RC2';
+          test.resultCode = 'RC1';
         }
 
         test.addElements(elementsWithSameId);

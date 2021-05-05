@@ -1,0 +1,690 @@
+{
+  "act-rules": {
+    "QW-ACT-R1": {
+      "name": "HTML Page has a title",
+      "description": "This rule checks that the HTML page has a title.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `title` element exists and it's not empty ('').",
+        "RC2": "The `title` element doesn't exist.",
+        "RC3": "The `title` element is empty ('').",
+        "RC4": "The `title` element is not in the same context."
+      }
+    },
+    "QW-ACT-R2": {
+      "name": "HTML has lang attribute",
+      "description": "This rule checks that the html element has a non-empty lang or xml:lang attribute.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `lang` attribute exists and has a value.",
+        "RC2": "The `lang` attribute doesn't exist or is empty ('')."
+      }
+    },
+    "QW-ACT-R3": {
+      "name": "HTML lang and xml:lang match",
+      "description": "The rule checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `lang` and `xml:lang` attributes have the same value.",
+        "RC2": "The `lang` and `xml:lang` attributes don't have the same value."
+      }
+    },
+    "QW-ACT-R4": {
+      "name": "Meta-refresh no delay",
+      "description": "This rule checks that the meta element is not used for delayed redirecting or refreshing.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target refreshes/redirects immediately.",
+        "RC2": "The test target refreshes/redirects after more than 20 hours.",
+        "RC3": "The test target refreshes/redirects after {seconds} seconds."
+      }
+    },
+    "QW-ACT-R5": {
+      "name": "Validity of HTML Lang attribute",
+      "description": "This rule checks the lang or xml:lang attribute has a valid language subtag.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `lang` attribute has a valid value.",
+        "RC2": "The `lang` attribute does not have a valid value."
+      }
+    },
+    "QW-ACT-R6": {
+      "name": "Image button has accessible name",
+      "description": "This rule checks that each image button element has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target doesn't have an accessible name."
+      }
+    },
+    "QW-ACT-R7": {
+      "name": "Orientation of the page is not restricted using CSS transform property",
+      "description": "This rule checks that page content is not restricted to either landscape or portrait orientation using CSS transform property.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "A page where CSS transform property has rotateZ transform function conditionally applied on the orientation media feature which does not restrict the element to either portrait or landscape orientation.",
+        "RC2": "A page where CSS transform property has rotate transform function conditionally applied on the orientation media feature which restricts the element to landscape orientation."
+      }
+    },
+    "QW-ACT-R9": {
+      "name": "Links with identical accessible names have equivalent purpose",
+      "description": "This rule checks that links with identical accessible names resolve to the same resource or equivalent resources.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `links` with the same accessible name have equal content.",
+        "RC2": "The `links` with the same accessible name have different content. Verify is the content is equivalent."
+      }
+    },
+    "QW-ACT-R10": {
+      "name": "`iframe` elements with identical accessible names have equivalent purpose",
+      "description": "This rule checks that `iframe` elements with identical accessible names embed the same resource or equivalent resources.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `iframes` with the same accessible name have equal content.",
+        "RC2": "The `iframes` with the same accessible name have different content."
+      }
+    },
+    "QW-ACT-R11": {
+      "name": "Button has accessible name",
+      "description": "This rule checks that each button element has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target doesn't have an accessible name, or it's empty ('')."
+      }
+    },
+    "QW-ACT-R12": {
+      "name": "Link has accessible name",
+      "description": "This rule checks that each link has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target doesn't have an accessible name, or it's empty ('')."
+      }
+    },
+    "QW-ACT-R13": {
+      "name": "Element with `aria-hidden` has no focusable content",
+      "description": "This rule checks that elements with an aria-hidden attribute do not contain focusable elements.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target children are not focusable.",
+        "RC2": "The test target is not focusable.",
+        "RC3": "The test target has focusable children.",
+        "RC4": "This test target is focusable."
+      }
+    },
+    "QW-ACT-R14": {
+      "name": "meta viewport does not prevent zoom",
+      "description": "This rule checks that the meta element retains the user agent ability to zoom.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `meta` element with a `name='viewport'` attribute doesn't define the `maximum-scale` and `user-scalable` values.",
+        "RC2": "The `meta` element with a `name='viewport'` attribute retains the user agent ability to zoom.",
+        "RC3": "The `meta` element with a `name='viewport'` attribute abolishes the user agent ability to zoom with user-scalable=no or maximum-scale < 2."
+      }
+    },
+    "QW-ACT-R15": {
+      "name": "audio or video has no audio that plays automatically",
+      "description": "This rule checks that auto-play audio does not last for more than 3 seconds, or the audio has a control mechanism to stop or mute it.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R16": {
+      "name": "Form control has accessible name",
+      "description": "Form control has accessible name",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R17": {
+      "name": "Image has accessible name",
+      "description": "This rule checks that each image that is not marked as decorative, has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target is decorative.",
+        "RC2": "The test target has an accessible name.",
+        "RC3": "The test target doesn't have an accessible name."
+      }
+    },
+    "QW-ACT-R18": {
+      "name": "`id` attribute value is unique",
+      "description": "This rule checks that all id attribute values on a single page are unique.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a unique `id` attribute.",
+        "RC2": "Several elements have the same `id` attribute."
+      }
+    },
+    "QW-ACT-R19": {
+      "name": "iframe element has accessible name",
+      "description": "This rule checks that each iframe element has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R20": {
+      "name": "role attribute has valid value",
+      "description": "This rule checks that each role attribute has a valid value.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a valid `role` attribute.",
+        "RC2": "The test target has an invalid `role` attribute."
+      }
+    },
+    "QW-ACT-R21": {
+      "name": "svg element with explicit role has accessible name",
+      "description": "This rule checks that each SVG image element that is explicitly included in the accessibility tree has an accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has an accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R22": {
+      "name": "Element within body has valid lang attribute",
+      "description": "This rule checks that the lang attribute of an element in the page body has a valid primary language subtag.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a valid `lang` attribute.",
+        "RC2": "The test target has an invalid `lang` attribute."
+      }
+    },
+    "QW-ACT-R23": {
+      "name": "video element visual content has accessible alternative",
+      "description": "This rule checks that video elements with audio have an alternative for the video content as audio or as text.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R24": {
+      "name": "autocomplete attribute has valid value",
+      "description": "This rule checks that the HTML autocomplete attribute has a correct value.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a valid `autocomplete` attribute.",
+        "RC2": "The test target `autocomplete` attribute is not valid."
+      }
+    },
+    "QW-ACT-R25": {
+      "name": "ARIA state or property is permitted",
+      "description": "This rule checks that WAI-ARIA states or properties are allowed for the element they are specified on.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `{attr}` property is supported or inherited by the `role` {role}.",
+        "RC2": "The `{attr}` property is neither inherited nor supported by the `role` {role}."
+      }
+    },
+    "QW-ACT-R26": {
+      "name": "video element auditory content has accessible alternative",
+      "description": "This rule checks that video elements have an alternative for information conveyed through audio.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R27": {
+      "name": "aria-* attribute is defined in WAI-ARIA",
+      "description": "This rule checks that each aria-* attribute specified is defined in ARIA 1.1.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "All aria-* attributes in this element are defined in ARIA 1.1.",
+        "RC2": "One or more aria-* attributes are not defined in ARIA 1.1."
+      }
+    },
+    "QW-ACT-R28": {
+      "name": "Element with role attribute has required states and properties",
+      "description": "This rule checks that elements that have an explicit role also specify all required states and properties.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target required attributes are listed.",
+        "RC2": "The test target `role` doesn't have required state or property",
+        "RC3": "The test target has unlisted required states or properties."
+      }
+    },
+    "QW-ACT-R29": {
+      "name": "Audio element content has text alternative",
+      "description": "This rule checks if audio only elements have a text alternative available.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R30": {
+      "name": "Visible label is part of accessible name",
+      "description": "This rule checks that interactive elements labeled through their content have their visible label as part of their accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The complete visible text content of the test target either matches or is contained within its accessible name.",
+        "RC2": "The test target doesn't have an accessible name.",
+        "RC3": "The complete visible text content of the test target neither matches or is contained within its accessible name."
+      }
+    },
+    "QW-ACT-R31": {
+      "name": "Video element visual-only content has accessible alternative",
+      "description": "This rule checks that video elements without audio have an alternative available.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R32": {
+      "name": "video element visual content has strict accessible alternative",
+      "description": "This rule checks that video elements with audio have audio description.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R33": {
+      "name": "ARIA required context role",
+      "description": "This rule checks that an element with an explicit semantic role exists inside its required context.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target parent has the required context `role`.",
+        "RC2": "The test target parent doesn't have the required context `role`."
+      }
+    },
+    "QW-ACT-R34": {
+      "name": "ARIA state or property has valid value",
+      "description": "This rule checks that each ARIA state or property has a valid value.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target `{attr}` attribute has a valid value.",
+        "RC2": "The test target `{attr}` attribute has an invalid value."
+      }
+    },
+    "QW-ACT-R35": {
+      "name": "Heading has accessible name",
+      "description": "This rule applies to any HTML element with the semantic role of heading that is included in the accessibility tree.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a non-empty accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R36": {
+      "name": "Headers attribute specified on a cell refers to cells in the same table element",
+      "description": "This rule checks that the headers attribute on a cell refer to other cells in the same table element with a semantic role of columnheader or rowheader.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "All headers attributes refer to a cell with a semantic role of columnheader of rowheader within the same table.",
+        "RC2": "The headers attribute `{attr}` refers to an ID that does not exist within the same table.",
+        "RC3": "The headers attribute `{attr}` refers to an element inside the same table which does not have a role of rowheader or columnheader."
+      }
+    },
+    "QW-ACT-R37": {
+      "name": "Text has minimum contrast",
+      "description": "This rule checks that the highest possible contrast of every text character with its background meets the minimal contrast requirement.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Element has contrast ratio higher than minimum.",
+        "RC2": "Element doesn't have human language text.",
+        "RC3": "Element has gradient with contrast ratio higher than minimum.",
+        "RC4": "Element has text-shadow that needs manual verification.",
+        "RC5": "Element has an image on background.",
+        "RC6": "Element has an gradient that we can't verify.",
+        "RC7": "Element has contrast ratio lower than minimum.",
+        "RC8": "Element has gradient with contrast ratio lower than minimum."
+      }
+    },
+    "QW-ACT-R38": {
+      "name": "ARIA required owned elements",
+      "description": "This rule checks that an element with an explicit semantic role has at least one of its required owned elements.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target only owns elements with correct role.",
+        "RC2": "The test target owns elements that doesn't have the correct role."
+      }
+    },
+    "QW-ACT-R39": {
+      "name": "All table header cells have assigned data cells",
+      "description": "This rule checks that each table header has assigned data cells in a table element.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The column header element has at least one assigned cell.",
+        "RC2": "The column header element does not have at least one assigned cell."
+      }
+    },
+    "QW-ACT-R40": {
+      "name": "Zoomed text node is not clipped with CSS overflow",
+      "description": "This rule checks that text nodes are not unintentionally clipped by overflow, when a page is zoomed to 200% on 1280 by 1024 viewport.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check if each ancestor og the text node is not clipped by overflow."
+      }
+    },
+    "QW-ACT-R41": {
+      "name": "Error message describes invalid form field value",
+      "description": "This rule checks that text error messages provided when the user completes a form field with invalid values or using an invalid format, identify the cause of the error or how to fix the error.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check that text error messages provided, identify the cause of the error or how to fix the error."
+      }
+    },
+    "QW-ACT-R42": {
+      "name": "Object element has non-empty accessible name",
+      "description": "This rule checks that each `object` element has a non-empty accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a non-empty accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R43": {
+      "name": "Scrollable element is keyboard accessible",
+      "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "This scrollable section element is included in sequential focus navigation.",
+        "RC2": "This vertically/horizontally scrollable section element is not included in sequential focus navigation, nor does it have any descendants that are."
+      }
+    },
+    "QW-ACT-R44": {
+      "name": "Links with identical accessible names and context serve equivalent purpose",
+      "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The `links` with the same accessible name have equal content.",
+        "RC2": "The `links` with the same accessible name have different content. Verify is the content is equivalent."
+      }
+    },
+    "QW-ACT-R48": {
+      "name": "Element marked as decorative is not exposed",
+      "description": "This rule checks that elements marked as decorative either are not included in the accessibility tree, or have a presentational role.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target is not in the accessibility tree.",
+        "RC2": "The test target is in the accessibility tree."
+      }
+    },
+    "QW-ACT-R49": {
+      "name": "Audio or video that plays automatically has no audio that lasts more than 3 seconds",
+      "description": "audio or video that plays automatically does not output audio for more than 3 seconds.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target plays for 3 seconds or less.",
+        "RC2": "Can't collect data from the test target element.",
+        "RC3": "Check if test target has a visible control mechanism."
+      }
+    },
+    "QW-ACT-R50": {
+      "name": "audio or video that plays automatically has a control mechanism",
+      "description": "audio or video that plays automatically must have a control mechanism.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a visible control mechanism.",
+        "RC2": "Can't collect data from the test target element.",
+        "RC3": "Check if test target has a visible control mechanism."
+      }
+    },
+    "QW-ACT-R51": {
+      "name": "video element visual-only content is media alternative for text",
+      "description": "This rule checks non-streaming silent video is a media alternative for text on the page.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "Check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R52": {
+      "name": "video element visual-only content has description track",
+      "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "Check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R53": {
+      "name": "video element visual-only content has transcript",
+      "description": "Non-streaming video elements without audio must have all visual information available in a transcript.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "Check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R54": {
+      "name": "video element visual-only content has audio track alternative",
+      "description": "Non-streaming video elements without audio must have an audio alternative.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "Check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R55": {
+      "name": "video element visual content has audio description",
+      "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R56": {
+      "name": "video element content is media alternative for text",
+      "description": "This rule checks non-streaming video is a media alternative for text on the page.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R57": {
+      "name": "video element visual content has description track",
+      "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R58": {
+      "name": "audio element content has transcript",
+      "description": "Non-streaming audio elements must have a text alternative for all included auditory information.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check if the test target audio has text-alternative."
+      }
+    },
+    "QW-ACT-R59": {
+      "name": "audio element content is media alternative for text",
+      "description": "This rule checks audio is a media alternative for text on the page.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check if the test target audio is a media alternative for text."
+      }
+    },
+    "QW-ACT-R60": {
+      "name": "video element auditory content has captions",
+      "description": "This rule checks that captions are available for audio information in non-streaming video elements.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R61": {
+      "name": "video element visual content has transcript",
+      "description": "This rule checks that non-streaming video elements have all audio and visual information available in a transcript.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Cant collect data from the test target.",
+        "RC2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+      }
+    },
+    "QW-ACT-R62": {
+      "name": "Element in sequential focus order has visible focus",
+      "description": "This rule checks that each element in sequential focus order has some visible focus indication.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check if the element has some visible focus indication"
+      }
+    },
+    "QW-ACT-R63": {
+      "name": "Document has a landmark with non-repeated content",
+      "description": "This rule checks that each page has an element with a landmark semantic role starting with non-repeated content",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The page doesn't have repeated content.",
+        "RC2": "Check either there is no non-repeated content after repeated content or there exists an element for which all the following are true: - the element has semantic role inheriting from landmark; and - the first perceivable content (in tree order in the flat tree) which is an inclusive descendant of the element is non-repeated content after repeated content; and - the element is included in the accessibility tree."
+      }
+    },
+    "QW-ACT-R64": {
+      "name": "Document has heading for non-repeated content",
+      "description": "This rule checks that the non-repeated content contains a heading",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The page doesn't have repeated content.",
+        "RC2": "Check either there is no non-repeated content after repeated content or there exists an element for which all the following are true: - the element is non-repeated content after repeated content; and - the element has a semantic role of heading; and - the element is visible; and - the element is included in the accessibility tree."
+      }
+    },
+    "QW-ACT-R65": {
+      "name": "Element with presentational children has no focusable content",
+      "description": "This rule checks that elements with a role that makes its children presentational do not contain focusable elements.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The doesn't element have descendants in the flat tree that are part of sequential focus navigation.",
+        "RC2": "The element have descendants in the flat tree that are part of sequential focus navigation."
+      }
+    },
+    "QW-ACT-R66": {
+      "name": "Menuitem has non-empty accessible name",
+      "description": "This rule checks that each element with a menuitem role has a non-empty accessible name.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target has a non-empty accessible name.",
+        "RC2": "The test target accessible name doesn't exist or it's empty ('')."
+      }
+    },
+    "QW-ACT-R67": {
+      "name": "Letter spacing in style attributes is not !important",
+      "description": "This rule checks that the style attribute is not used to prevent adjusting letter-spacing by using !important, except if it's at least 0.12 times the font size.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The letter-spacing property is not !important.",
+        "RC2": "The letter-spacing is at least 0.12 times the font-size.",
+        "RC3": "The cascaded letter-spacing is not the declared value.",
+        "RC4": "CSS styles prevent the letter-spacing to be above the minimum value."
+      }
+    },
+    "QW-ACT-R68": {
+      "name": "Line height in style attributes is not !important",
+      "description": "This rule checks that the style attribute is not used to prevent adjusting line-height by using !important, except if it's at least 1.5 times the font size.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The line-height property is not !important.",
+        "RC2": "The line-height is at least 1.5 times the font-size.",
+        "RC3": "The cascaded line-height is not the declared value.",
+        "RC4": "CSS styles prevent the line-height to be above the minimum value."
+      }
+    },
+    "QW-ACT-R69": {
+      "name": "Word spacing in style attributes is not !important",
+      "description": "This rule checks that the style attribute is not used to prevent adjusting word-spacing by using !important, except if it's at least 0.16 times the font size.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The word-spacing property is not !important.",
+        "RC2": "The word-spacing is at least 1.5 times the font-size.",
+        "RC3": "The cascaded word-spacing is not the declared value.",
+        "RC4": "CSS styles prevent the word-spacing to be above the minimum value."
+      }
+    },
+    "QW-ACT-R70": {
+      "name": "iframe with negative tabindex has no interactive elements",
+      "description": "This rule checks that `iframe` elements with a negative `tabindex` attribute value contain no interactive elements.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The nested browsing context does not include elements that are visible and part of the sequential focus navigation.",
+        "RC2": "The nested browsing context includes elements that are visible and part of the sequential focus navigation."
+      }
+    },
+    "QW-ACT-R71": {
+      "name": "`meta` element has no refresh delay (no exception)",
+      "description": "This rule checks that the `meta` element is not used for delayed redirecting or refreshing.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target refreshes/redirects immediately.",
+        "RC2": "The test target refreshes/redirects after {seconds} seconds."
+      }
+    },
+    "QW-ACT-R72": {
+      "name": "First focusable element is link to non-repeated content",
+      "description": "This rule checks that the first focusable element is a link to non-repeated content in the page",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check that the first focusable element has an accessible name that communicates that it skips content",
+        "RC2": "Check that the first focusable element skips to the main content and its accessible name communicates so.",
+        "RC3": "The first focusable element is not keyboard actionable.",
+        "RC4": "The first focusable element is not in the accessibility tree.",
+        "RC5": "The first focusable element does not have the role of link.",
+        "RC6": "The first focusable element does not skip to the main content.",
+        "RC7": "The page does not have focusable elements."
+      }
+    },
+    "QW-ACT-R73": {
+      "name": "Block of repeated content is collapsible",
+      "description": "This rule checks that repeated blocks of content are collapsible.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The page doesn't have repeated content.",
+        "RC2": "For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, all the following are true: - there exists an instrument to make all nodes in this block not visible; and - there exists an instrument to remove all nodes in this block from the accessibility tree."
+      }
+    },
+    "QW-ACT-R74": {
+      "name": "Document has an instrument to move focus to non-repeated content",
+      "description": "This rule checks that there is an instrument to move focus to non-repeated content in the page.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The page doesn't have repeated content.",
+        "RC2": "The page has one or more instrument(s) to move focus. Check if any of these instrument(s) is being used before a block of repeated content, and the focus is moved to just before a block of non-repeated content.",
+        "RC3": "Check if the page has any instrument(s) to move focus. Check if any of these instrument(s) is being used before a block of repeated content, and the focus is moved to just before a block of non-repeated content."
+      }
+    },
+    "QW-ACT-R75": {
+      "name": "Bypass Blocks of Repeated Content",
+      "description": "This rule checks that each page has a mechanism to bypass repeated blocks of content.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The rule passed because of the rule ",
+        "RC2": "The rule can't tell because of the rule ",
+        "RC3": "The rule failed because of the rule "
+      }
+    },
+    "QW-ACT-R76": {
+      "name": "Text has enhanced contrast",
+      "description": "This rule checks that the highest possible contrast of every text character with its background meets the enhanced contrast requirement.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Element has contrast ratio higher than minimum.",
+        "RC2": "Element doesn't have human language text.",
+        "RC3": "Element has gradient with contrast ratio higher than minimum.",
+        "RC4": "Element has text-shadow that needs manual verification.",
+        "RC5": "Element has an image on background.",
+        "RC6": "Element has an gradient that we can't verify.",
+        "RC7": "Element has contrast ratio lower than minimum.",
+        "RC8": "Element has gradient with contrast ratio lower than minimum."
+      }
+    }
+  }
+}

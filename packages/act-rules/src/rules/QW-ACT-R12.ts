@@ -10,25 +10,24 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R12 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
   @ElementIsInAccessibilityTree
   @ElementHasAttributeRole('link')
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
 
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
 
+    const test = new Test();
+
     if (accessibleName && accessibleName.trim() !== '') {
       test.verdict = 'passed';
-      test.description = `The test target has a valid accessible name.`;
       test.resultCode = 'RC1';
     } else {
       test.verdict = 'failed';
-      test.description = `The test target doesn't have an accessible name, or it's empty ("").`;
       test.resultCode = 'RC2';
     }
 

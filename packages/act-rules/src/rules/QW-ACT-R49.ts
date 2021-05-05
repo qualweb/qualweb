@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R49 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -34,16 +34,13 @@ class QW_ACT_R49 extends AtomicRule {
     if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
       if (!(duration >= 0 && hasSoundTrack)) {
         test.verdict = 'warning';
-        test.description = `Can't collect data from the test target element.`;
         test.resultCode = 'RC2';
       } else if (hasPuppeteerApplicableData) {
         if (this.srcTimeIsLessThanThree(src)) {
           test.verdict = 'passed';
-          test.description = 'The test target plays for 3 seconds or less.';
           test.resultCode = 'RC1';
         } else {
           test.verdict = 'warning';
-          test.description = 'Check if test target has a visible control mechanism.';
           test.resultCode = 'RC3';
         }
       }

@@ -4,8 +4,8 @@ import { ACTRuleDecorator, ElementExists, IsHTMLDocument } from '../lib/decorato
 
 @ACTRuleDecorator
 class QW_ACT_R75 extends CompositeRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists

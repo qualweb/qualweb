@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R50 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -22,7 +22,7 @@ class QW_ACT_R50 extends AtomicRule {
     const duration = parseInt(element.getElementProperty('duration'));
     const hasSoundTrack = window.DomUtils.videoElementHasAudio(element);
     const hasPuppeteerApplicableData = duration > 3 && hasSoundTrack;
-    const src = new Array<any>();
+    const src = new Array<string | null>();
 
     if (childSrc.length > 0) {
       for (const child of childSrc || []) {
@@ -35,16 +35,13 @@ class QW_ACT_R50 extends AtomicRule {
     if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
       if (!(duration >= 0 && hasSoundTrack)) {
         test.verdict = 'warning';
-        test.description = `Can't collect data from the test target element.`;
         test.resultCode = 'RC2';
       } else if (hasPuppeteerApplicableData) {
         if (controls) {
           test.verdict = 'passed';
-          test.description = 'The test target has a visible control mechanism.';
           test.resultCode = 'RC1';
         } else {
           test.verdict = 'warning';
-          test.description = 'Check if test target has a visible control mechanism.';
           test.resultCode = 'RC3';
         }
       }

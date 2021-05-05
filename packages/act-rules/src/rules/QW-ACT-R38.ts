@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R38 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -29,11 +29,9 @@ class QW_ACT_R38 extends AtomicRule {
 
       if (result) {
         test.verdict = 'passed';
-        test.description = `The test target only owns elements with correct role`;
         test.resultCode = 'RC1';
       } else {
         test.verdict = 'failed';
-        test.description = `The test target owns elements that doesn't have the correct role`;
         test.resultCode = 'RC2';
       }
 

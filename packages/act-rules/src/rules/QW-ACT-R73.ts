@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R73 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -23,11 +23,6 @@ class QW_ACT_R73 extends AtomicRule {
           const href = (<string>link.getElementAttribute('href')).trim();
           if (!href.startsWith('#') && (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))) {
             test.verdict = 'warning';
-            test.description = `
-              For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, all the following are true:
-               - there exists an instrument to make all nodes in this block not visible; and
-               - there exists an instrument to remove all nodes in this block from the accessibility tree.
-            `;
             test.resultCode = 'RC2';
             hasLinks = true;
             break;
@@ -38,7 +33,6 @@ class QW_ACT_R73 extends AtomicRule {
 
     if (!hasLinks) {
       test.verdict = 'passed';
-      test.description = `The page doesn't have repeated content.`;
       test.resultCode = 'RC1';
     }
 

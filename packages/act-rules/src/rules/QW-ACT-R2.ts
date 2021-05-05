@@ -17,7 +17,7 @@ class QW_ACT_R2 extends AtomicRule {
 
     const test = new Test();
 
-    if (lang?.trim()) {
+    if (lang && lang.trim() !== '') {
       test.verdict = 'passed';
       test.resultCode = 'RC1';
     } else {

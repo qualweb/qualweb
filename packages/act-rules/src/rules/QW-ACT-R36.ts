@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R36 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -34,20 +34,14 @@ class QW_ACT_R36 extends AtomicRule {
             idElem = getElementByIdInElement(parentTableElem, headerAttributes[i]);
             if (idElem === null) {
               test.verdict = 'failed';
-              test.description =
-                "The headers attribute '" +
-                headerAttributes[i] +
-                "' refers to an ID that does not exist within the same table";
-              test.resultCode = 'RC5';
+              test.description = super.getTranslation('RC2', { attr: headerAttributes[i] });
+              test.resultCode = 'RC2';
             } else {
               idElemRole = window.AccessibilityUtils.getElementRole(idElem);
               if (idElemRole !== 'rowheader' && idElemRole !== 'columnheader') {
                 test.verdict = 'failed';
-                test.description =
-                  "The headers attribute '" +
-                  headerAttributes[i] +
-                  "' refers to an element inside the same table which does not have a role of rowheader or columnheader";
-                test.resultCode = 'RC6';
+                test.description = super.getTranslation('RC3', { attr: headerAttributes[i] });
+                test.resultCode = 'RC3';
               }
             }
             i++;
@@ -55,9 +49,7 @@ class QW_ACT_R36 extends AtomicRule {
 
           if (test.verdict !== 'failed') {
             test.verdict = 'passed';
-            test.description =
-              'All headers attributes refer to a cell with a semantic role of columnheader of rowheader within the same table';
-            test.resultCode = 'RC7';
+            test.resultCode = 'RC1';
           }
 
           test.addElement(element, true, true);
@@ -73,10 +65,6 @@ function getFirstAncestorElementByNameOrRoles(
   names: string[],
   roles: string[]
 ): typeof window.qwElement | null {
-  if (!element) {
-    throw Error('Element is not defined');
-  }
-
   const parent = element.getElementParent();
   let result = false;
   let sameRole = false,
@@ -107,7 +95,7 @@ function getElementByIdInElement(element: typeof window.qwElement, id: string): 
   if (!id) {
     throw new Error('Invalid id');
   }
-  return element.getElement(`#${id}`);
+  return element.getElement(`[id="${id}"]`);
 }
 
 export = QW_ACT_R36;

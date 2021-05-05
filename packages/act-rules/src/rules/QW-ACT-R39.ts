@@ -8,8 +8,8 @@ class QW_ACT_R39 extends AtomicRule {
 
   private readonly cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader']
 
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -17,9 +17,6 @@ class QW_ACT_R39 extends AtomicRule {
   @ElementIsVisible
   @ElementHasOneOfTheFollowingRoles(['columnheader', 'rowheader'])
   execute(element: typeof window.qwElement): void {
-
-    const test = new Test();
-
     const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, [], ['grid', 'table']);
     if (ancestorTableOrGrid !== null) {
       const isAncestorTableOrGridInAT = window.AccessibilityUtils.isElementInAT(ancestorTableOrGrid);
@@ -106,15 +103,14 @@ class QW_ACT_R39 extends AtomicRule {
           index++;
         }
 
+        const test = new Test();
         if (found) {
           test.verdict = 'passed';
-          test.description = `The column header element has at least one assigned cell`;
           test.resultCode = 'RC1';
         } else {
           //if (elementParent) // FIX: the hell is this if for?
 
           test.verdict = 'failed';
-          test.description = `The column header element does not have at least one assigned cell`;
           test.resultCode = 'RC2';
         }
 

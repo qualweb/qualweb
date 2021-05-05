@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R43 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -69,11 +69,9 @@ class QW_ACT_R43 extends AtomicRule {
 
       if (this.isInSequentialFocusNavigation(element)) {
         test.verdict = 'passed';
-        test.description = `This scrollable section element is included in sequential focus navigation.`;
         test.resultCode = 'RC1';
       } else {
         test.verdict = 'failed';
-        test.description = `This vertically/horizontally scrollable section element is not included in sequential focus navigation, nor does it have any descendants that are.`;
         test.resultCode = 'RC2';
       }
 

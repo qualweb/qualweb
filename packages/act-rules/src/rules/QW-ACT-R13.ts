@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R13 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -14,27 +14,23 @@ class QW_ACT_R13 extends AtomicRule {
     const test = new Test();
 
     const children = element.getElementChildren();
-    if (children && children.length > 0) {
+    if (children.length > 0) {
       const focusable = this.isFocusableChildren(element);
       if (focusable) {
         test.verdict = 'failed';
-        test.description = `The test target has focusable children.`;
-        test.resultCode = 'RC1';
+        test.resultCode = 'RC3';
       } else {
         test.verdict = 'passed';
-        test.description = `The test target children are unfocusable.`;
-        test.resultCode = 'RC2';
+        test.resultCode = 'RC1';
       }
     } else {
       const focusable = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
       if (focusable) {
         test.verdict = 'failed';
-        test.description = `Thie test target is focusable.`;
-        test.resultCode = 'RC3';
+        test.resultCode = 'RC4';
       } else {
         test.verdict = 'passed';
-        test.description = `The test target is unfocusable.`;
-        test.resultCode = 'RC4';
+        test.resultCode = 'RC2';
       }
     }
 

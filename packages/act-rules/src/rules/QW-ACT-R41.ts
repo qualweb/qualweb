@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R41 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -24,13 +24,7 @@ class QW_ACT_R41 extends AtomicRule {
     'textbox'
   ])
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
-    test.verdict = 'warning';
-    test.description =
-      ' Check that text error messages provided, identify the cause of the error or how to fix the error.';
-    test.resultCode = 'RC1';
-
+    const test = new Test('warning', undefined, 'RC1');
     test.addElement(element);
     super.addTestResult(test);
   }

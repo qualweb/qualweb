@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R48 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -14,13 +14,11 @@ class QW_ACT_R48 extends AtomicRule {
     const test = new Test();
 
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
-    if (isInAT) {
-      test.verdict = 'failed';
-      test.description = 'The test target is in the accessibility Tree';
+    if (!isInAT) {
+      test.verdict = 'passed';
       test.resultCode = 'RC1';
     } else {
-      test.verdict = 'passed';
-      test.description = `The test target is not in the accessibility Tree.`;
+      test.verdict = 'failed';
       test.resultCode = 'RC2';
     }
 

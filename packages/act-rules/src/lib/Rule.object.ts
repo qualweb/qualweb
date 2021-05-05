@@ -1,17 +1,16 @@
-import { ACTRule } from '@qualweb/act-rules';
+import { ACTRule, TranslationValues } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import { Level, Principle } from '@qualweb/evaluation';
 
 import Test from './Test.object';
 
-import en from '../locale/en.json';
-
 abstract class Rule {
-  private readonly rule: ACTRule;
-  private readonly locale: any;
+  protected readonly rule: ACTRule;
+  protected readonly locale: Translate;
 
-  constructor(rule: ACTRule, locale?: string) {
+  constructor(rule: ACTRule, locale: Translate) {
     this.rule = rule;
-    this.locale = locale ?? en;
+    this.locale = locale;
   }
 
   public getRuleMapping(): string {
@@ -28,6 +27,11 @@ abstract class Rule {
     return has;
   }
 
+  public getFinalResults(): ACTRule {
+    this.outcomeRule();
+    return this.rule;
+  }
+
   protected getNumberOfPassedResults(): number {
     return this.rule.metadata.passed;
   }
@@ -41,7 +45,9 @@ abstract class Rule {
   }
 
   protected addTestResult(test: Test): void {
-    test.description = this.locale[this.rule.code][test.resultCode];
+    if (!test.description || test.description.trim() === '') {
+      test.description = this.getTranslation(test.resultCode);
+    }
 
     this.rule.results.push(test);
 
@@ -50,9 +56,21 @@ abstract class Rule {
     }
   }
 
-  public getFinalResults(): ACTRule {
-    this.outcomeRule();
-    return this.rule;
+  protected getTranslation(resultCode: string, values?: TranslationValues): string {
+    let translation = '';
+    if (this.locale.translate['act-rules']?.[this.rule.code]?.results?.[resultCode]) {
+      translation = <string>this.locale.translate['act-rules'][this.rule.code].results?.[resultCode];
+    } else {
+      translation = <string>this.locale.fallback['act-rules']?.[this.rule.code].results?.[resultCode];
+    }
+
+    if (values) {
+      for (const key of Object.keys(values) || []) {
+        translation = translation.replace(new RegExp(`{${key}}`, 'g'), values[key].toString());
+      }
+    }
+
+    return translation;
   }
 
   private outcomeRule(): void {
@@ -75,7 +93,7 @@ abstract class Rule {
   private addDescription(): void {
     for (const result of this.rule.results ?? []) {
       if (result.verdict === this.rule.metadata.outcome) {
-        this.rule.metadata.description = this.locale[this.rule.code][result.resultCode];
+        this.rule.metadata.description = result.description;
         break;
       }
     }

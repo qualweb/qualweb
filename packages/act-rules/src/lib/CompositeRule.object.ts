@@ -3,8 +3,9 @@ import Rule from './Rule.object';
 import Test from './Test.object';
 
 abstract class CompositeRule extends Rule {
-  constructor(rule: ACTRule) {
-    super(rule);
+
+  constructor(rule: ACTRule, locales: { translate: any; fallback: any; }) {
+    super(rule, locales);
   }
 
   abstract execute(element: typeof window.qwElement | undefined, rules?: Array<ACTRule>): void;
@@ -16,20 +17,16 @@ abstract class CompositeRule extends Rule {
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     if (results['failed']) {
       test.verdict = 'failed';
-      test.resultCode = 'RC1';
-      test.description = 'The rule failed because of the rule ' + results['failed'].code;
+      test.resultCode = 'RC3';
+      test.description = super.getTranslation(test.resultCode) + results['failed'].code;
     } else if (results['warning']) {
       test.verdict = 'warning';
       test.resultCode = 'RC2';
-      test.description = "The rule can't tell because of the rule " + results['warning'].code;
+      test.description = super.getTranslation(test.resultCode) + results['warning'].code;
     } else if (results['passed']) {
       test.verdict = 'passed';
-      test.resultCode = 'RC3';
-      test.description = 'The rule passed because of the rule ' + results['passed'].code;
-    } else {
-      test.verdict = 'inapplicable';
-      test.resultCode = 'RC4';
-      test.description = "The test target doesn't apply to this rule";
+      test.resultCode = 'RC1';
+      test.description = super.getTranslation(test.resultCode) + results['passed'].code;
     }
 
     test.addElement(element);
@@ -44,19 +41,15 @@ abstract class CompositeRule extends Rule {
     if (results['passed']) {
       test.verdict = 'passed';
       test.resultCode = 'RC1';
-      test.description = 'The rule passed because of the rule ' + results['passed'].code;
+      test.description = super.getTranslation(test.resultCode) + results['passed'].code;
     } else if (results['warning']) {
       test.verdict = 'warning';
       test.resultCode = 'RC2';
-      test.description = "The rule can't tell because of the rule " + results['warning'].code;
+      test.description = super.getTranslation(test.resultCode) + results['warning'].code;
     } else if (results['failed']) {
       test.verdict = 'failed';
       test.resultCode = 'RC3';
-      test.description = 'The rule failed because of the rule ' + results['failed'].code;
-    } else {
-      test.verdict = 'inapplicable';
-      test.resultCode = 'RC4';
-      test.description = "The test target doesn't apply to this rule";
+      test.description = super.getTranslation(test.resultCode) + results['failed'].code;
     }
 
     test.addElement(element);
@@ -65,7 +58,7 @@ abstract class CompositeRule extends Rule {
 
   public getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
     const ruleResult: any = {};
-    for (const rule of rules) {
+    for (const rule of rules ?? []) {
       if (rule) {
         for (const result of rule.results) {
           if (result.elements && result.elements[0].pointer === selector && !ruleResult[result.verdict]) {
@@ -79,11 +72,11 @@ abstract class CompositeRule extends Rule {
 
   public getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
     const ruleResult: any = {};
-    for (const rule of rules || []) {
-      ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: 'inapplicable' };
-      for (const result of rule.results) {
+    for (const rule of rules ?? []) {
+      ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: 'inapplicable' };
+      for (const result of rule.results ?? []) {
         if (result.elements && result.elements[0].pointer === selector) {
-          ruleResult[rule.code] = { title: rule.name, code: rule.mapping, verdict: result.verdict };
+          ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: result.verdict };
         }
       }
     }

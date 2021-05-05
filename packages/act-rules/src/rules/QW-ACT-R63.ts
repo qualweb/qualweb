@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R63 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @IsHTMLDocument
@@ -23,12 +23,6 @@ class QW_ACT_R63 extends AtomicRule {
           const href = (<string>link.getElementAttribute('href')).trim();
           if (!href.startsWith('#') && (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))) {
             test.verdict = 'warning';
-            test.description = `
-              Check either there is no non-repeated content after repeated content or there exists an element for which all the following are true:
-               - the element has semantic role inheriting from landmark; and
-               - the first perceivable content (in tree order in the flat tree) which is an inclusive descendant of the element is non-repeated content after repeated content; and
-               - the element is included in the accessibility tree.
-            `;
             test.resultCode = 'RC2';
             hasLinks = true;
             break;
@@ -39,7 +33,6 @@ class QW_ACT_R63 extends AtomicRule {
 
     if (!hasLinks) {
       test.verdict = 'passed';
-      test.description = `The page doesn't have repeated content.`;
       test.resultCode = 'RC1';
     }
 

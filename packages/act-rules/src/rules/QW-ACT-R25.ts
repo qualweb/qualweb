@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R25 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -23,35 +23,36 @@ class QW_ACT_R25 extends AtomicRule {
     // get all elements that are using aria attributes
     const elementsWithAriaAttribs = element.getElements(ariaSelector);
 
+    const keys = Object.keys(ariaAttributesRoles);
     for (const elem of elementsWithAriaAttribs ?? []) {
-      const elemRole = window.AccessibilityUtils.getElementRole(elem);
       const isInAT = window.AccessibilityUtils.isElementInAT(elem);
-      const elemAttribs = elem.getElementAttributesName();
 
-      for (const attrib of elemAttribs ?? []) {
-        const keys = Object.keys(ariaAttributesRoles);
-        if (!!keys && !!attrib && keys.includes(attrib)) {
-          const test = new Test();
+      //if is in the accessibility tree
+      if (isInAT) {
+        const attrs = elem.getElementAttributesName();
 
-          //if is in the accessibility tree
-          if (isInAT) {
+        for (const attr of attrs ?? []) {
+          if (attr && keys.includes(attr)) {
+            const test = new Test();
+
+            const role = window.AccessibilityUtils.getElementRole(elem);
+
             // if valid aria attribute
-            //@ts-ignore
             if (
-              ariaAttributesRoles[attrib]['global'] === 'yes' ||
-              (elemRole !== null &&
-                !!roles[elemRole] &&
-                ((!!roles[elemRole]['requiredAria'] && roles[elemRole]?.requiredAria?.includes(attrib)) ||
-                  (roles[elemRole]['supportedAria'] && roles[elemRole]?.supportedAria?.includes(attrib))))
+              ariaAttributesRoles[attr]['global'] === 'yes' ||
+              (role !== null &&
+                !!roles[role] &&
+                ((!!roles[role]['requiredAria'] && roles[role]?.requiredAria?.includes(attr)) ||
+                  (roles[role]['supportedAria'] && roles[role]?.supportedAria?.includes(attr))))
             ) {
               test.verdict = 'passed';
-              test.description = `The \`${attrib}\` property is supported or inherited by the \`role\` ${elemRole}.`;
               test.resultCode = 'RC1';
             } else {
               test.verdict = 'failed';
-              test.description = `The \`${attrib}\` property is neither inherited nor supported by the \`role\` ${elemRole}.`;
               test.resultCode = 'RC2';
             }
+
+            test.description = super.getTranslation(test.resultCode, { attr, role: role ?? '' });
 
             test.addElement(elem);
             super.addTestResult(test);

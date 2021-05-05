@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R28 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -51,16 +51,13 @@ class QW_ACT_R28 extends AtomicRule {
           }
           if (result) {
             test.verdict = 'passed';
-            test.description = 'The test target required attributes are listed.';
             test.resultCode = 'RC1';
           } else {
             test.verdict = 'failed';
-            test.description = `The test target doesn't list required ${requiredAria}.`;
             test.resultCode = 'RC3';
           }
         } else {
           test.verdict = 'passed';
-          test.description = `The test target \`role\` doesn't have required state or property`;
           test.resultCode = 'RC2';
         }
 

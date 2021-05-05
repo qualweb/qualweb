@@ -5,8 +5,8 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R44 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locale: any) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -59,13 +59,11 @@ class QW_ACT_R44 extends AtomicRule {
           if (hasEqualHref) {
             //passed
             test.verdict = 'passed';
-            test.description = `The \`links\` with the same accessible name have equal content.`;
-            test.resultCode = 'RC2';
+            test.resultCode = 'RC1';
           } else {
             //warning
             test.verdict = 'warning';
-            test.description = `The \`links\` with the same accessible name have different content. Verify is the content is equivalent.`;
-            test.resultCode = 'RC3';
+            test.resultCode = 'RC2';
           }
 
           test.addElements(elementList);

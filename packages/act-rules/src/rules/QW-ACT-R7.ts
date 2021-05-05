@@ -27,7 +27,7 @@ class QW_ACT_R7 extends AtomicRule {
       }
     }
 
-    const media = <MediaProperties>rules.media;
+    const media = <MediaProperties>rules?.media;
     if (media) {
       for (const condition in media || {}) {
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {

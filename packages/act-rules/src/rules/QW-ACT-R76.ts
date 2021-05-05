@@ -1,56 +1,24 @@
 import { ACTRule } from '@qualweb/act-rules';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementHasText, ElementIsHTMLElement, ElementIsNot, ElementIsVisible, ElementIsNotWidget } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R76 extends AtomicRule {
-  constructor(rule: ACTRule) {
-    super(rule);
+  constructor(rule: ACTRule, locales: any) {
+    super(rule, locales);
   }
 
   @ElementExists
+  @ElementIsHTMLElement
+  @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
+  @ElementIsVisible
+  @ElementIsNotWidget
+  @ElementHasText
   execute(element: typeof window.qwElement): void {
     const disabledWidgets = window.disabledWidgets;
 
-    const tagName = element.getElementTagName();
-
-    if (
-      tagName === 'head' ||
-      tagName === 'body' ||
-      tagName === 'html' ||
-      tagName === 'script' ||
-      tagName === 'style' ||
-      tagName === 'meta'
-    ) {
-      // continue;
-      return;
-    }
-
     const test = new Test();
-
-    const visible = window.DomUtils.isElementVisible(element);
-
-    if (!visible) {
-      return;
-    }
-
-    const hasTextNode = element.hasTextNode();
-    const elementText = window.DomUtils.getTrimmedText(element);
-
-    if (!hasTextNode && elementText === '') {
-      return;
-    }
-
-    const isHTML = element.isElementHTMLElement();
-    if (!isHTML) {
-      return;
-    }
-
-    const isWidget = window.AccessibilityUtils.isElementWidget(element);
-    if (isWidget) {
-      return;
-    }
 
     const elementSelectors = element.getElementSelector();
 
@@ -89,8 +57,7 @@ class QW_ACT_R76 extends AtomicRule {
         const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
         if (validateTextShadow) {
           test.verdict = 'warning';
-          test.description = 'Element has text-shadow that needs manual verification.';
-          test.resultCode = 'RC14';
+          test.resultCode = 'RC4';
 
           test.addElement(element);
           super.addTestResult(test);
@@ -101,8 +68,7 @@ class QW_ACT_R76 extends AtomicRule {
 
     if (this.isImage(bgColor)) {
       test.verdict = 'warning';
-      test.description = 'Element has an image on background.';
-      test.resultCode = 'RC12';
+      test.resultCode = 'RC5';
 
       test.addElement(element);
       super.addTestResult(test);
@@ -112,6 +78,8 @@ class QW_ACT_R76 extends AtomicRule {
     //TODO check char to char
     //TODO check if there is more colors
     //TODO account for margin and padding
+
+    const elementText = window.DomUtils.getTrimmedText(element);
 
     const regexGradient = /((\w-?)*gradient.*)/gm;
     let regexGradientMatches = bgColor.match(regexGradient);
@@ -132,8 +100,7 @@ class QW_ACT_R76 extends AtomicRule {
         );
       } else {
         test.verdict = 'passed';
-        test.description = `Element doesn't have human language text.`;
-        test.resultCode = 'RC9';
+        test.resultCode = 'RC2';
 
         test.addElement(element);
         super.addTestResult(test);
@@ -152,8 +119,7 @@ class QW_ACT_R76 extends AtomicRule {
           bgColor = this.getBackground(parent);
           if (this.isImage(bgColor)) {
             test.verdict = 'warning';
-            test.description = 'Element has an image on background.';
-            test.resultCode = 'RC12';
+            test.resultCode = 'RC5';
 
             test.addElement(element);
             super.addTestResult(test);
@@ -200,36 +166,26 @@ class QW_ACT_R76 extends AtomicRule {
 
       const parsedFG = this.parseRGBString(fgColor, opacity);
 
-      if (this.equals(parsedBG, parsedFG)) {
-        test.verdict = 'inapplicable';
-        test.description = 'Colors are equal.';
-        test.resultCode = 'RC7';
-
-        test.addElement(element);
-        super.addTestResult(test);
-      } else {
+      if (!this.equals(parsedBG, parsedFG)) {
         if (this.isHumanLanguage(elementText)) {
           const contrastRatio = this.getContrast(parsedBG, parsedFG);
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           if (isValid) {
             test.verdict = 'passed';
-            test.description = 'Element has contrast ratio higher than minimum.';
-            test.resultCode = 'RC9';
+            test.resultCode = 'RC1';
 
             test.addElement(element);
             super.addTestResult(test);
           } else {
             test.verdict = 'failed';
-            test.description = 'Element has contrast ratio lower than minimum.';
-            test.resultCode = 'RC11';
+            test.resultCode = 'RC7';
 
             test.addElement(element);
             super.addTestResult(test);
           }
         } else {
           test.verdict = 'passed';
-          test.description = `Element doesn't have human language text.`;
-          test.resultCode = 'RC9';
+          test.resultCode = 'RC2';
 
           test.addElement(element);
           super.addTestResult(test);
@@ -302,27 +258,21 @@ class QW_ACT_R76 extends AtomicRule {
         }
         if (isValid) {
           test.verdict = 'passed';
-          test.description = 'Element has gradient with contrast ratio higher than minimum.';
-          test.resultCode = 'RC8';
+          test.resultCode = 'RC3';
         } else {
           test.verdict = 'failed';
-          test.description = 'Element has gradient with contrast ratio lower than minimum.';
-          test.resultCode = 'RC10';
+          test.resultCode = 'RC8';
         }
       } else if (gradientDirection === 'to left') {
         //TODO
         test.verdict = 'warning';
-        test.description = "Element has an gradient that we can't verify.";
-        test.resultCode = 'RC13';
+        test.resultCode = 'RC6';
       } else {
         test.verdict = 'warning';
-        test.description = "Element has an gradient that we can't verify.";
-        test.resultCode = 'RC13';
+        test.resultCode = 'RC6';
       }
     } else {
-      test.verdict = 'warning';
-      test.description = 'Element has an gradient that we cant verify.';
-      test.resultCode = 'RC13';
+      test.resultCode = 'RC6';
     }
 
     test.addElement(element);
