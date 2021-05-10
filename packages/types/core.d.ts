@@ -214,7 +214,6 @@ declare module "@qualweb/core" {
   export {
     QualwebOptions,
     Execute,
-    Translate,
     EvaluationReport,
     Evaluator,
     Url,
