@@ -6,7 +6,7 @@ declare module "@qualweb/core" {
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { generateEARLReport } from "@qualweb/earl-reporter";
-  import { LaunchOptions, Browser, BrowserContext, LoadEvent } from "puppeteer";
+  import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
 
   interface Execute {
@@ -16,6 +16,8 @@ declare module "@qualweb/core" {
     bp?: boolean;
     counter?: boolean;
   }
+
+  type LoadEvent = 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
 
   interface QualwebOptions {
     url?: string;
@@ -140,7 +142,7 @@ declare module "@qualweb/core" {
      * @param {ClusterOptions} clusterOptions - Options for cluster initialization
      * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
      */
-    public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void>;
+    public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions): Promise<void>;
 
     /**
      * Closes chromium browser.

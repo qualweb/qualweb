@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.4] - 10/05/2020
+
+### Fixed
+
+- general bugs
+
 ## [0.6.3] - 03/05/2020
 
 ### Updated

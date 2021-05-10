@@ -1,7 +1,7 @@
 declare module "@qualweb/dom" {
   import { QualwebOptions, PageOptions } from "@qualweb/core";
   import { HTMLValidationReport } from "@qualweb/html-validator";
-  import { Browser, Page, Viewport, LoadEvent } from "puppeteer";
+  import { Page, Viewport } from "puppeteer";
 
   interface DomData {
     html: string;
