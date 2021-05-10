@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.5] - 10/04/2021
+
+### Updated
+
+- Puppeteer start options interfaces
+- dependencies
+
 ## [0.6.4] - 03/04/2021
 
 ### Updated

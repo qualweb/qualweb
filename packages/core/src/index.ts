@@ -1,4 +1,4 @@
-import { LaunchOptions } from 'puppeteer';
+import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
@@ -42,7 +42,10 @@ class QualWeb {
    * @param {ClusterOptions} clusterOptions - Options for cluster initialization
    * @param {LaunchOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
    */
-  public async start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions): Promise<void> {
+  public async start(
+    clusterOptions?: ClusterOptions,
+    puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions
+  ): Promise<void> {
     this.cluster = await Cluster.launch({
       concurrency: Cluster.CONCURRENCY_CONTEXT,
       maxConcurrency: clusterOptions?.maxConcurrency ?? 1,
