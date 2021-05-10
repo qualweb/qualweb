@@ -140,7 +140,7 @@ declare module "@qualweb/core" {
     /**
      * Opens chromium browser and starts an incognito context
      * @param {ClusterOptions} clusterOptions - Options for cluster initialization
-     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions
      */
     public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions): Promise<void>;
 
