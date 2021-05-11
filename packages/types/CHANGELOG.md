@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.6-alpha] - 11/05/2020
+
+### Updated
+
+- bugs fixed from develop branch
+
 ### [0.7.5-alpha] - 05/05/2020
 
 ### Updated
