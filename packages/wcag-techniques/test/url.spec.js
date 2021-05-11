@@ -9,8 +9,10 @@ describe('Running tests', function () {
     const url = 'https://ciencias.ulisboa.pt';
 
     const browser = await puppeteer.launch({ headless: false });
-    const dom = new Dom();
-    const { page, validation } = await dom.getDOM(browser, { execute: { wcag: true } }, url, '');
+    const incognito = await browser.createIncognitoBrowserContext();
+    const page = await incognito.newPage();
+    const dom = new Dom(page);
+    const { validation } = await dom.process({ execute: { wcag: true }, "wcag-techniques": { exclude: ['QW-WCAG-T16'] } }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -25,15 +27,15 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate((validation) => {
-      window.qwPage = new Module.QWPage(document, window, true);
-      window.DomUtils = Utility.DomUtils;
-      window.AccessibilityUtils = Utility.AccessibilityUtils;
-      const wcag = new WCAG.WCAGTechniques(false, validation);
-      return wcag.execute();
+      const wcag = new WCAG.WCAGTechniques({
+        exclude: ["QW-WCAG-T16"]
+      });
+      return wcag.execute(false, validation);
     }, validation);
 
 
-    await dom.close();
+    await page.close();
+    await incognito.close();
     await browser.close();
 
     console.log(report);

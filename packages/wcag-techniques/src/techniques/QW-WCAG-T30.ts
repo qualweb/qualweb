@@ -38,16 +38,18 @@ class QW_WCAG_T30 extends Technique {
     }
   }
 
-  private findTextDecorationWithBlink(properties: CSSProperties): CSSProperty | undefined {
+  private findTextDecorationWithBlink(properties: CSSProperties | undefined): CSSProperty | undefined {
     for (const property in properties ?? {}) {
-      if (property === 'media') {
-        const mediaRule = this.findInMediaRules(properties.media);
-        if (mediaRule !== undefined) {
-          return mediaRule;
-        }
-      } else if (property === 'text-decoration') {
-        if (properties[property].value === 'blink') {
-          return <CSSProperty>properties[property];
+      if (properties?.[property]) {
+        if (property === 'media') {
+          const mediaRule = this.findInMediaRules(properties.media);
+          if (mediaRule !== undefined) {
+            return mediaRule;
+          }
+        } else if (property === 'text-decoration') {
+          if (properties[property].value === 'blink') {
+            return <CSSProperty>properties[property];
+          }
         }
       }
     }
