@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [0.6.5] - 11/05/2020
+
+### Updated
+
+- core interface
+
 ## [0.6.4] - 10/05/2020
 
 ### Fixed

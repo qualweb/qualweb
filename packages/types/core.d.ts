@@ -125,22 +125,30 @@ declare module "@qualweb/core" {
 
   class Cluster {}
 
+  /**
+   * QualWeb engine - Performs web accessibility evaluations using several modules:
+   * - act-rules module (https://github.com/qualweb/act-rules)
+   * - wcag-techniques module (https://github.com/qualweb/wcag-techniques)
+   * - best-practices module (https://github.com/qualweb/best-practices)
+   */
   class QualWeb {
     /**
-     * Chromium browser cluster
+     * Chromium browser cluster.
      */
     private cluster?: Cluster;
 
     /**
-     * Initializes puppeteer with given plugins
-     * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth
+     * Initializes puppeteer with given plugins.
+     * 
+     * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth.
      */
     constructor(plugins?: PuppeteerPlugins);
 
     /**
-     * Opens chromium browser and starts an incognito context
-     * @param {ClusterOptions} clusterOptions - Options for cluster initialization
-     * @param {LaunchOptions} options - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions
+     * Starts chromium browser cluster.
+     * 
+     * @param {ClusterOptions} clusterOptions - Options for cluster initialization.
+     * @param {LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions} options - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions.
      */
     public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions): Promise<void>;
 
@@ -169,32 +177,15 @@ declare module "@qualweb/core" {
     /**
      * Checks possible input options and compiles the urls.
      * Possible input options are:
-     * - url - single url
-     * - urls - multiple urls
-     * - filepath - path to file with urls
-     * - crawler - domain to crawl and gather urls
+     * - url - single url;
+     * - urls - multiple urls;
+     * - filepath - path to file with urls;
+     * - crawler - domain to crawl and gather urls.
      *
-     * @param {QualwebOptions} options -
-     * @returns list of urls
+     * @param {QualwebOptions} options - QualWeb options.
+     * @returns List of urls.
      */
     private checkUrls(options: QualwebOptions): Promise<Array<string>>;
-
-    /**
-     * Executes defined modules on the given url or html code and saves the evaluation on the list of evaluations.
-     *
-     * @param {Evaluations} evaluations - list of evaluations
-     * @param {string} url - url to be evaluated
-     * @param {string | undefined} html - html code to be evaluated (optional)
-     * @param {QualwebOptions} options - options of execution (check https://github.com/qualweb/core#options)
-     * @param {Execute} modulesToExecute - modules to execute (act, wcag, best-practices, wappalyzer, counter)
-     */
-    private runModules(
-      evaluations: any,
-      url: string,
-      html: string | undefined,
-      options: QualwebOptions,
-      modulesToExecute: Execute
-    ): Promise<void>;
   }
 
   /**
