@@ -5,7 +5,7 @@ class Test implements BestPracticeResult {
   description: string | string[];
   resultCode: string | string[];
   elements: BPElement[];
-  attributes?: string | string[] | undefined;
+  attributes?: string | string[];
 
   constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string) {
     this.verdict = verdict ?? 'inapplicable';

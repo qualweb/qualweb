@@ -24,6 +24,10 @@ abstract class BestPractice {
 
 
   protected addTestResult(test: Test): void {
+    if (!test.description || (<string>test.description).trim() === '') {
+      test.description = this.getTranslation(<string>test.resultCode);
+    }
+
     this.bestPractice.results.push(test);
 
     if (test.verdict !== 'inapplicable') {

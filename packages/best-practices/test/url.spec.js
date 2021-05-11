@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import enLocale from './locales/en.json';
+import ptLocale from './locales/pt.json';
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
@@ -9,6 +11,7 @@ describe('Running tests', function () {
     const url = 'https://www.museu.presidencia.pt/pt/fazer/um-museu-em-movimento-a-caminho-da-cidadania/';
 
     const browser = await puppeteer.launch({
+      headless: true,
       args: ['--ignore-certificate-errors']
     });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -28,17 +31,17 @@ describe('Running tests', function () {
       path: require.resolve('../dist/bp.bundle.js')
     });
 
-    const report = await page.evaluate(() => {
-      const bp = new BP.BestPractices({ bestPractices: ['QW-BP7'] });
+    const report = await page.evaluate(({ ptLocale, enLocale }) => {
+      const bp = new BestPractices({ translate: ptLocale, fallback: enLocale }, { bestPractices: ['QW-BP2'] });
       return bp.execute();
-    });
+    }, { ptLocale, enLocale });
 
 
     await page.close();
     await incognito.close();
     await browser.close();
 
-    console.log(JSON.stringify(report, null, 2));
+    console.log(report);
     expect(report);
   });
 });

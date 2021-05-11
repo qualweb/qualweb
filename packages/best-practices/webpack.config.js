@@ -8,7 +8,6 @@ module.exports = {
     filename: 'bp.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      name: 'BP',
       type: 'this'
     }
   },
