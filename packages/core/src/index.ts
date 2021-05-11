@@ -8,7 +8,7 @@ import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
 import { Crawler, CrawlOptions } from '@qualweb/crawler';
-import { readFile, writeFile, open, fchmod } from 'fs';
+import { readFile, writeFile, unlink } from 'fs';
 import path from 'path';
 import 'colors';
 
@@ -20,13 +20,14 @@ import 'colors';
  */
 class QualWeb {
   /**
-   * Chromium browser cluster
+   * Chromium browser cluster.
    */
   private cluster?: Cluster;
 
   /**
-   * Initializes puppeteer with given plugins
-   * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth
+   * Initializes puppeteer with given plugins.
+   *
+   * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth.
    */
   constructor(plugins?: PuppeteerPlugins) {
     if (plugins?.stealth) {
@@ -38,9 +39,10 @@ class QualWeb {
   }
 
   /**
-   * Opens chromium browser and starts an incognito context
-   * @param {ClusterOptions} clusterOptions - Options for cluster initialization
-   * @param {LaunchOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions
+   * Starts chromium browser cluster.
+   *
+   * @param {ClusterOptions} clusterOptions - Options for cluster initialization.
+   * @param {LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions.
    */
   public async start(
     clusterOptions?: ClusterOptions,
@@ -129,9 +131,9 @@ class QualWeb {
 
     if (foundError) {
       console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
+    } else {
+      deleteErrorLogFile(timestamp);
     }
-
-    changeFilePermissions(timestamp);
 
     return evaluations;
   }
@@ -154,13 +156,13 @@ class QualWeb {
   /**
    * Checks possible input options and compiles the urls.
    * Possible input options are:
-   * - url - single url
-   * - urls - multiple urls
-   * - filepath - path to file with urls
-   * - crawler - domain to crawl and gather urls
+   * - url - single url;
+   * - urls - multiple urls;
+   * - filepath - path to file with urls;
+   * - crawler - domain to crawl and gather urls.
    *
-   * @param {QualwebOptions} options - qualweb options
-   * @returns list of urls
+   * @param {QualwebOptions} options - QualWeb options.
+   * @returns List of urls.
    */
   private async checkUrls(options: QualwebOptions): Promise<Array<string>> {
     const urls = new Array<string>();
@@ -219,6 +221,13 @@ function readFileData(file: string): Promise<string> {
   });
 }
 
+/**
+ * Logs evaluation errors to a error log file.
+ *
+ * @param {string} url - Url that failed to evaluate.
+ * @param {string} message - Error message of the evaluation.
+ * @param {number} timestamp - Date of the evaluation.
+ */
 function handleError(url: string, message: string, timestamp: number): void {
   writeFile(
     path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`),
@@ -232,16 +241,16 @@ function handleError(url: string, message: string, timestamp: number): void {
   );
 }
 
-function changeFilePermissions(timestamp: number): void {
-  open(path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`), 'r', function (err: Error | null, fd: number) {
+/**
+ * Deletes the error log file created at the beginning of the evaluation if there aren't any errors to report.
+ *
+ * @param {number} timestamp - Date of the evaluation.
+ */
+function deleteErrorLogFile(timestamp: number): void {
+  unlink(path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`), (err) => {
     if (err) {
       throw err;
     }
-    fchmod(fd, 0o666, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
   });
 }
 

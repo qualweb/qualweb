@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.6] - 11/04/2021
+
+### Changes
+
+- qualweb error log file is now deleted if every evaluation succeeded
+
+### Updated
+
+- dependencies
+
 ## [0.6.5] - 10/04/2021
 
 ### Updated
