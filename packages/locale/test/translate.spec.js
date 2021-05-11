@@ -1,15 +1,15 @@
-import locales, { translate } from '../dist/index';
+import locales, { translateReport } from '../dist/index';
 import { expect } from 'chai';
 import report from './report.json';
 
 describe('Testing translation', function() {
   it('Should translate to pt: using locales.pt', function() {
-    const translatedReport = translate(report, locales.pt);
+    const translatedReport = translateReport(report, locales.pt);
     expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name);
   });
 
   it('Should translate to pt: using "pt"', function() {
-    const translatedReport = translate(report, 'pt');
+    const translatedReport = translateReport(report, 'pt');
     expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name);
   });
 
@@ -26,12 +26,12 @@ describe('Testing translation', function() {
       }
     };
 
-    const translatedReport = translate(report, ptLocale);
+    const translatedReport = translateReport(report, ptLocale);
     expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name);
   });
 
   it('Should fallback to "en": using "es" which is not supported', function() {
-    const translatedReport = translate(report, 'es');
+    const translatedReport = translateReport(report, 'es');
     expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.equal(translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name);
   });
 
@@ -47,7 +47,7 @@ describe('Testing translation', function() {
       }
     };
 
-    const translatedReport = translate(report,  ptLocale);
+    const translatedReport = translateReport(report,  ptLocale);
     expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.equal(translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name);
   });
 });

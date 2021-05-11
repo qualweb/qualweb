@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/locale",
-  "version": "0.1.1-alpha",
+  "version": "0.1.2-alpha",
   "description": "Locales for @qualweb/core evaluation reports.",
   "main": "dist/index.js",
   "files": [
@@ -9,7 +9,10 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
-    "build": "rimraf dist && tsc --build",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run format && npm run lint && rimraf dist && tsc --build",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
@@ -22,6 +25,8 @@
   },
   "keywords": [
     "qualweb",
+    "accessibility",
+    "a11y",
     "locale"
   ],
   "engines": {
@@ -34,9 +39,16 @@
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
     "chai": "^4.3.4",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-sonarjs": "^0.7.0",
     "esm": "^3.2.25",
     "mocha": "^8.3.2",
+    "prettier": "^2.3.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   },

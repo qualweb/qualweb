@@ -14,7 +14,6 @@ const locales: Langs = {
 };
 
 function translateName(type: 'act-rules' | 'wcag-techniques' | 'best-practices', code: string, locale: Locale): string {
-  
   if (locale[type]?.[code]?.name) {
     return <string>locale[type]?.[code]?.name;
   }
@@ -22,8 +21,11 @@ function translateName(type: 'act-rules' | 'wcag-techniques' | 'best-practices',
   return <string>(<Locale>en)[type]?.[code]?.name;
 }
 
-function translateDescription(type: 'act-rules' | 'wcag-techniques' | 'best-practices', code: string, locale: Locale): string {
-  
+function translateDescription(
+  type: 'act-rules' | 'wcag-techniques' | 'best-practices',
+  code: string,
+  locale: Locale
+): string {
   if (locale[type]?.[code]?.name) {
     return <string>locale[type]?.[code]?.description;
   }
@@ -31,7 +33,12 @@ function translateDescription(type: 'act-rules' | 'wcag-techniques' | 'best-prac
   return <string>(<Locale>en)[type]?.[code]?.description;
 }
 
-function translateTest(test: ACTRuleResult | WCAGTechniqueResult | BestPracticeResult , type: 'act-rules' | 'wcag-techniques' | 'best-practices', code: string, locale: Locale): void {
+function translateTest(
+  test: ACTRuleResult | WCAGTechniqueResult | BestPracticeResult,
+  type: 'act-rules' | 'wcag-techniques' | 'best-practices',
+  code: string,
+  locale: Locale
+): void {
   if (locale[type]?.[code]?.results?.[<string>test.resultCode]) {
     test.description = <string>locale[type]?.[code]?.results?.[<string>test.resultCode];
   } else {
@@ -39,7 +46,11 @@ function translateTest(test: ACTRuleResult | WCAGTechniqueResult | BestPracticeR
   }
 }
 
-function translateAssertion(type: 'act-rules' | 'wcag-techniques' | 'best-practices', assertion: ACTRule | WCAGTechnique | BestPractice, locale: Locale): void {
+function translateAssertion(
+  type: 'act-rules' | 'wcag-techniques' | 'best-practices',
+  assertion: ACTRule | WCAGTechnique | BestPractice,
+  locale: Locale
+): void {
   assertion.name = translateName(type, assertion.code, locale);
   assertion.description = translateDescription(type, assertion.code, locale);
 
@@ -55,25 +66,7 @@ function translateAssertion(type: 'act-rules' | 'wcag-techniques' | 'best-practi
   }
 }
 
-function translateModule(module: Report | undefined, locale: Locale): void {
-  if (module) {
-    for (const code in module.assertions ?? {}) {
-      const assertion = module.assertions[code];
-      if (assertion) {
-        translateAssertion(module.type, assertion, locale);
-      }
-    }
-  }
-}
-
-function translateReport(report: EvaluationReport, locale: Locale): void {
-  translateModule(report.modules['act-rules'], locale);
-  translateModule(report.modules['wcag-techniques'], locale);
-  translateModule(report.modules['best-practices'], locale);
-}
-
-function translate(report: EvaluationReport, locale: Lang | Locale): EvaluationReport {
-
+function getLocale(locale: Lang | Locale): Locale {
   let localeToUse: Locale = locales.en;
 
   if (typeof locale === 'string') {
@@ -84,13 +77,34 @@ function translate(report: EvaluationReport, locale: Lang | Locale): EvaluationR
     localeToUse = locale;
   }
 
+  return localeToUse;
+}
+
+function translateModule(module: Report | undefined, locale: Locale): void {
+  if (module) {
+    const localToUse = getLocale(locale);
+
+    for (const code in module.assertions ?? {}) {
+      const assertion = module.assertions[code];
+      if (assertion) {
+        translateAssertion(module.type, assertion, localToUse);
+      }
+    }
+  }
+}
+
+function translateReport(report: EvaluationReport, locale: Lang | Locale): EvaluationReport {
+  const localeToUse = getLocale(locale);
+
   const reportToTranslate = clone(report);
 
-  translateReport(reportToTranslate, localeToUse);
-  
+  translateModule(reportToTranslate.modules['act-rules'], localeToUse);
+  translateModule(reportToTranslate.modules['wcag-techniques'], localeToUse);
+  translateModule(reportToTranslate.modules['best-practices'], localeToUse);
+
   return reportToTranslate;
 }
 
-export { translate };
+export { translateReport, translateModule };
 
 export default locales;
