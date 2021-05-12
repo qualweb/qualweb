@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.8] - 11/05/2021
+
+### Fixed
+
+- getElement and getElements `iframe` search that caused infinite loops
+
 ## [0.2.7] - 15/04/2021
 
 ### Changes

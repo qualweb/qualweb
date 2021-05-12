@@ -129,8 +129,14 @@ class QWPage {
       element = this.getElementFromDocument(selector);
       if (!element) {
         //search iframes
-        const iframeKeys = Array.from(this.extraDocuments.keys());
-
+        this.extraDocuments.forEach((iframe: QWPage, key: string) => {
+          if (!element) {
+            element = iframe.getElement(selector);
+            iframeSelector = key;
+          }
+        });
+        /*const iframeKeys = Array.from(this.extraDocuments.keys());
+        console.log(iframeKeys);
         let i = 0;
         while (!element && i < iframeKeys.length) {
           const iframePage = this.extraDocuments.get(iframeKeys[i]);
@@ -139,7 +145,7 @@ class QWPage {
             iframeSelector = iframeKeys[i];
             i++;
           }
-        }
+        }*/
       }
     }
 
@@ -173,7 +179,12 @@ class QWPage {
       // console.log(this.getElementsFromDocument(selector));
       elements.push(...this.getElementsFromDocument(selector));
       //search iframes
-      const iframeKeys = Array.from(this.extraDocuments.keys());
+      this.extraDocuments.forEach((iframe: QWPage, key: string) => {
+        const iframeElements = iframe.getElements(selector);
+        this.addIframeAttribute(iframeElements, key);
+        elements.push(...iframeElements);
+      });
+      /*const iframeKeys = Array.from(this.extraDocuments.keys());
       for (const key of iframeKeys ?? []) {
         const iframePage = this.extraDocuments.get(key);
         if (iframePage) {
@@ -181,7 +192,7 @@ class QWPage {
           this.addIframeAttribute(iframeElements, key);
           elements.push(...iframeElements);
         }
-      }
+      }*/
     }
     return elements;
   }
