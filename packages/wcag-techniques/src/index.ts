@@ -4,19 +4,20 @@ import mapping from './lib/mapping';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import Technique from './lib/Technique.object';
 import { QW_WCAG_T16, QW_WCAG_T22 } from './lib/techniques';
+import { Translate } from '@qualweb/core';
 
 class WCAGTechniques {
   private readonly techniques: { [technique: string]: Technique };
   private readonly techniquesToExecute: { [technique: string]: boolean };
 
-  constructor(options?: WCAGOptions) {
+  constructor(locale: Translate, options?: WCAGOptions) {
     this.techniques = {};
     this.techniquesToExecute = {};
 
     for (const technique of Object.keys(techniques) ?? []) {
       const _technique = technique.replace(/_/g, '-');
       //@ts-ignore
-      this.techniques[_technique] = new techniques[technique]();
+      this.techniques[_technique] = new techniques[technique](locale);
       this.techniquesToExecute[_technique] = true;
     }
 

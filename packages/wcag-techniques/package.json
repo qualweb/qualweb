@@ -40,7 +40,7 @@
   "devDependencies": {
     "@qualweb/dom": "^0.2.1",
     "@qualweb/qw-page": "^0.2.7",
-    "@qualweb/types": "^0.6.5",
+    "@qualweb/types": "^0.7.6-alpha",
     "@qualweb/util": "^0.5.10",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.0.2",

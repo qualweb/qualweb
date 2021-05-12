@@ -1,21 +1,39 @@
 import { WCAGTechnique, WCAGTechniqueResult } from '@qualweb/wcag-techniques';
+import { Translate } from '@qualweb/locale';
 import techniques from './techniques.json';
 
 function WCAGTechniqueClass<T extends { new (...args: any[]): {} }>(constructor: T) {
-  //@ts-ignore
-  const technique = <WCAGTechnique>techniques[constructor.name];
-
-  technique.metadata.passed = 0;
-  technique.metadata.warning = 0;
-  technique.metadata.failed = 0;
-  technique.metadata.inapplicable = 0;
-  technique.metadata.outcome = 'inapplicable';
-  technique.metadata.description = 'No test targets found.';
-  technique.results = new Array<WCAGTechniqueResult>();
-
   const newConstructor: any = function () {
+    const locales = <Translate>arguments[0];
+
+    //@ts-ignore
+    const technique = <WCAGTechnique>techniques[constructor.name];
+
+    technique.metadata.passed = 0;
+    technique.metadata.warning = 0;
+    technique.metadata.failed = 0;
+    technique.metadata.inapplicable = 0;
+    technique.metadata.outcome = 'inapplicable';
+    try {
+      technique.name = <string>(
+        (locales.translate['wcag-techniques']?.[technique.code]?.name ??
+          locales.fallback['wcag-techniques']?.[technique.code]?.name)
+      );
+      technique.description = <string>(
+        (locales.translate['wcag-techniques']?.[technique.code]?.description ??
+          locales.fallback['wcag-techniques']?.[technique.code]?.description)
+      );
+      technique.metadata.description = <string>(
+        (locales.translate['wcag-techniques']?.[technique.code]?.results?.RC0 ??
+          locales.fallback['wcag-techniques']?.[technique.code].results?.RC0)
+      );
+    } catch (err) {
+      console.error(err);
+    }
+    technique.results = new Array<WCAGTechniqueResult>();
+
     const func: any = function () {
-      return new constructor(technique);
+      return new constructor(technique, locales);
     };
     func.prototype = constructor.prototype;
     return new func();
