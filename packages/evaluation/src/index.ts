@@ -222,7 +222,7 @@ class Evaluation {
 
     return await this.page.evaluate((options?: BPOptions) => {
       //@ts-ignore
-      const bp = new BP.BestPractices(options);
+      const bp = new BestPractices(options);
       return bp.execute();
     }, <Serializable>options);
   }
