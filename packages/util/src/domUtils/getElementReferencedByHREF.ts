@@ -9,7 +9,7 @@ function getElementReferencedByHREF(element: typeof window.qwElement): typeof wi
     const idSymbol = href.indexOf('#');
     if (idSymbol > -1) {
       const idReferenced = href.substring(idSymbol + 1);
-      if (idReferenced.length > 0) {
+      if (idReferenced.trim().length > 0) {
         const idElementReferenced = window.qwPage.getElement(`[id='${idReferenced}']` /*'#' + idReferenced*/);
         result = idElementReferenced;
       }

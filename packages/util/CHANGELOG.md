@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.11] - 12/05/2021
+
+### Fixed
+
+- getElementreferenceByHREF bug
+
 ## [0.5.10] - 11/05/2021
 
 ### Updated
