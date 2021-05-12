@@ -7,15 +7,15 @@ describe('QualWeb evaluation', function() {
   it('Testing qualweb page evaluation', async function() {
     this.timeout(60 * 1000);
 
-    const url = 'https://ciencias.ulisboa.pt'; // 'https://www.cm-proencanova.pt';
+    const url = 'https://ciencias.ulisboa.pt';
 
     const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors'] });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
-    const { sourceHtmlHeadContent, validation } = await dom.process({ execute: { act: true } }, url, '');
+    const { sourceHtmlHeadContent, validation } = await dom.process({ execute: { act: true, wcag: true, bp: true }, "wcag-techniques": { exclude: ['QW-WCAG-T16'] } }, url, '');
     
-    const evaluation = new Evaluation(url, page, { act: true, wcag: false, bp: false, counter: false, wappalyzer: false });
+    const evaluation = new Evaluation(url, page, { act: true, wcag: true, bp: true, counter: false, wappalyzer: false });
     const report = await evaluation.evaluatePage(sourceHtmlHeadContent, {}, validation);
     
     console.log(report.getFinalReport())
