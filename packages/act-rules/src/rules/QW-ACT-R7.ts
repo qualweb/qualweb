@@ -40,12 +40,12 @@ class QW_ACT_R7 extends AtomicRule {
                 angle = this.parseDegrees(angle.toString()).toString();
                 const matrix = this.rotateZ(transformValue ? parseFloat(angle) - transformValue : parseFloat(angle));
                 angle = this.calculateRotationDegree(matrix).toString();
-                this.checkRotation(parseInt(angle));
+                this.checkRotation(element, parseInt(angle));
               } else if (value.startsWith('matrix(') || value.startsWith('matrix3d(')) {
                 const matrix = this.fromString(value);
                 this.calculateRotationDegree(matrix);
                 const angle = this.calculateRotationDegree(matrix);
-                this.checkRotation(angle);
+                this.checkRotation(element, angle);
               }
             }
           }
@@ -54,7 +54,7 @@ class QW_ACT_R7 extends AtomicRule {
     }
   }
 
-  private checkRotation(angle: number): void {
+  private checkRotation(element: typeof window.qwElement, angle: number): void {
     const test = new Test();
     if (angle === 90 || angle === 270) {
       test.verdict = 'failed';
@@ -64,6 +64,7 @@ class QW_ACT_R7 extends AtomicRule {
       test.resultCode = 'RC1';
     }
 
+    test.addElement(element);
     super.addTestResult(test);
   }
 

@@ -1,11 +1,12 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, IsHTMLDocument } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R1 extends AtomicRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 

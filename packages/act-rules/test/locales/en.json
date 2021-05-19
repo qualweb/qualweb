@@ -686,5 +686,142 @@
         "RC8": "Element has gradient with contrast ratio lower than minimum."
       }
     }
+  },
+  "best-practices": {
+    "QW-BP1": {
+      "name": "Using h1-h6 to identify headings",
+      "description": "It is recommended to use HTML and XHTML heading markup to provide semantic code for headings in the content",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Check that heading markup is used when content is a heading.",
+        "RC2": "This page doesn't use headings."
+      }
+    },
+    "QW-BP2": {
+      "name": "Concise images alt text",
+      "description": "Image alt text attribute with more than 100 characters",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The img alt text attribute has less than 100 characters.",
+        "RC2": "The img alt text attribute has more than 100 characters."
+      }
+    },
+    "QW-BP4": {
+      "name": "Grouped links not within a nav element",
+      "description": "Set of 10 or more links not grouped within a list (nav)",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "It was found a group of 10 or more links not grouped within a nav element."
+      }
+    },
+    "QW-BP5": {
+      "name": "Using table elements inside other table elements",
+      "description": "It is not recommended to use table elements inside other table elements",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "There are not table elements inside other table elements.",
+        "RC2": "There are table elements inside other table elements"
+      }
+    },
+    "QW-BP6": {
+      "name": "title element is not too long (100 characters)",
+      "description": "The webpage title element shouldn't have more than 100 characters",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The page title has less than 100 characters.",
+        "RC2": "The page title has 100 or more characters."
+      }
+    },
+    "QW-BP7": {
+      "name": "Title element contains ASCII-art",
+      "description": "Title element contains ASCII-art",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The title element doesn't contain ASCII art.",
+        "RC2": "The title element contains ASCII art."
+      }
+    },
+    "QW-BP8": {
+      "name": "Headings with images should have an accessible name",
+      "description": "Headings with at least one image should have an accessible name",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "This heading with at least one image has an accessible name.",
+        "RC2": "This heading with at least one image does not have an accessible name."
+      }
+    },
+    "QW-BP9": {
+      "name": "Table element without header cells has a caption",
+      "description": "A table without th elements should have a caption element to describe it.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "Table doesn't have header cells but has a caption.",
+        "RC2": "Table doesn't have header cells or caption."
+      }
+    },
+    "QW-BP10": {
+      "name": "HTML elements are used to control visual presentation of content",
+      "description": "No HTML elements are used to control the visual presentation of content",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The webpage doesn't use elements to control the visual content presentation.",
+        "RC2": "The webpage uses the element {name} to control the visual content presentation."
+      }
+    },
+    "QW-BP11": {
+      "name": "Using br to make a list",
+      "description": "Using 3 consecutive br elements",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "There are less than 3 consecutive br.",
+        "RC2": "`br` elements are being be used as a list."
+      }
+    },
+    "QW-BP12": {
+      "name": "Using scope col and row",
+      "description": "Using scope col in the first row and scope row in the first element of each row",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The scope attribute is correctly used.",
+        "RC2": "The scope attribute is incorrectly used."
+      }
+    },
+    "QW-BP13": {
+      "name": "Using consecutive links with the same href and one contains an image",
+      "description": "Using consecutive links with the same href in which one of the links contains an image",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "There are no consecutive links with the same href in which one of the links contained an image.",
+        "RC2": "There are consecutive links with the same href in which one of the links contained an image."
+      }
+    },
+    "QW-BP15": {
+      "name": "At least one width attribute of an HTML element is expressed in absolute values",
+      "description": "At least one width attribute of an HTML element is expressed in absolute values",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "The test target `width` attribute uses relative units.",
+        "RC2": "The test target `width` attribute uses absolute units."
+      }
+    },
+    "QW-BP17": {
+      "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
+      "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "This link skips a content block.",
+        "RC2": "This page does not have links."
+      }
+    },
+    "QW-BP18": {
+      "name": "Using percentage values in CSS for container sizes",
+      "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+      "results": {
+        "RC0": "No test targets found.",
+        "RC1": "This test target has a `width` css property using percentage value with the important flag.",
+        "RC2": "This test target has a `width` css property using `px` value with the important flag.",
+        "RC3": "This test target has a `width` css property not using percentage value with the important flag."
+      }
+    }
   }
 }

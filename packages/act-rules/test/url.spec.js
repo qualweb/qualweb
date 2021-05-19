@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-import enLocale from './locale/en.json';
-import ptLocale from './locale/pt.json';
+import enLocale from './locales/en.json';
+import ptLocale from './locales/pt.json';
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
