@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -37,9 +37,9 @@
     "@qualweb/dom": "^0.2.1",
     "@qualweb/types": "^0.6.5",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@types/node": "^15.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "chai": "^4.3.4",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
@@ -54,12 +54,12 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.5.6",
-    "@qualweb/best-practices": "^0.5.3",
-    "@qualweb/counter": "^0.2.0",
-    "@qualweb/qw-page": "^0.2.8",
-    "@qualweb/util": "^0.5.11",
-    "@qualweb/wappalyzer": "^0.3.1",
-    "@qualweb/wcag-techniques": "^0.2.3"
+    "@qualweb/act-rules": "0.5.7",
+    "@qualweb/best-practices": "0.5.3",
+    "@qualweb/counter": "0.2.0",
+    "@qualweb/qw-page": "0.2.8",
+    "@qualweb/util": "0.5.11",
+    "@qualweb/wappalyzer": "0.3.1",
+    "@qualweb/wcag-techniques": "0.2.3"
   }
 }
