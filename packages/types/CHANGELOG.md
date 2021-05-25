@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [0.6.6] - 25/05/2020
+
+### Updated
+
+- util interface
+
 ## [0.6.5] - 11/05/2020
 
 ### Updated
