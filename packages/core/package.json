@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -65,10 +65,10 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@qualweb/crawler": "0.3.5",
+    "@qualweb/crawler": "0.3.6",
     "@qualweb/dom": "0.2.1",
     "@qualweb/earl-reporter": "0.4.1",
-    "@qualweb/evaluation": "0.2.12",
+    "@qualweb/evaluation": "0.2.13",
     "colors": "^1.4.0",
     "puppeteer": "^9.1.1",
     "puppeteer-cluster": "^0.22.0",
@@ -77,13 +77,13 @@
     "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.6.5",
+    "@qualweb/types": "^0.6.6",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
+    "@types/node": "^15.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "chai": "^4.3.4",
-    "eslint": "^7.26.0",
+    "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-sonarjs": "^0.7.0",
