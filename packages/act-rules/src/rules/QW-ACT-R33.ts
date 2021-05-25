@@ -15,11 +15,11 @@ class QW_ACT_R33 extends AtomicRule {
 
     const test = new Test();
 
-    const explicitRole = element.getElementAttribute('role');
+    const explicitRole = window.AccessibilityUtils.getElementValidExplicitRole(element)
     const implicitRole = window.AccessibilityUtils.getImplicitRole(element, '');
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
     const isValidRole = window.AccessibilityUtils.elementHasValidRole(element);
-
+    
     //@ts-ignore
     if (
       explicitRole !== null &&
