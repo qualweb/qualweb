@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.12] - 25/05/2021
+
+### Added
+
+- AccessibilityUtils.getElementValidExplicitRole function
+
+### Updated
+
+- dependencies
+
 ## [0.5.11] - 12/05/2021
 
 ### Fixed

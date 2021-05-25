@@ -26,6 +26,7 @@ import getOwnedElementsFunction from './getOwnedElements';
 import getValueFromEmbeddedControlFunction from './getValueFromEmbeddedControl';
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 import getAriaOwnerFunction from './getAriaOwner';
+import getElementValidExplicitRoleFunction from './getElementValidExplicitRole';
 
 import ariaAttributesRoles from './ariaAttributesRoles.json';
 import roles from './roles.json';
@@ -49,6 +50,11 @@ class AccessibilityUtils {
   @Cache('AcceUtils.elementHasValidRole')
   public static elementHasValidRole(element: typeof window.qwElement): boolean {
     return elementHasValidRoleFunction(element);
+  }
+
+  @Cache('AcceUtils.getElementValidExplicitRole')
+  public static getElementValidExplicitRole(element: typeof window.qwElement): string | null {
+    return getElementValidExplicitRoleFunction(element);
   }
 
   @Cache('AcceUtils.getAccessibleName')
