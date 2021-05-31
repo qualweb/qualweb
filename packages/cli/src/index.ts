@@ -8,9 +8,19 @@ async function cli(): Promise<void> {
   try {
     const options = await parse();
 
-    const qualweb = new QualWeb();
+    const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start();
+    await qualweb.start(
+      { maxConcurrency: options.maxParallelEvaluations, timeout: options.timeout },
+      { args: ['--no-sandbox', '--ignore-certificate-errors'] }
+    );
+
+    if (!options['wcag-techniques']) {
+      options['wcag-techniques'] = {};
+    }
+
+    options['wcag-techniques'].exclude = ['QW-WCAG-T16'];
+
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
 
