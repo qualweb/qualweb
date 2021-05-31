@@ -63,7 +63,7 @@ This method will create an aggregated EARL report from all urls.
 | -u    | --url                    | `<url>`                                           | Url to evaluate                                                       |
 | -f    | --file                   | `<path-to-file>`                                  | File with urls to evaluate                                            |
 | -c    | --crawl                  | `<domain>`                                        | Domain to crawl                                                       |
-| -m    | --module                 | `act html css bp`                                 | Choose which modules to execute                                       |
+| -m    | --module                 | `act wcag bp`                                     | Choose which modules to execute                                       |
 | -r    | --report-type            | `"earl" or "earl-a"`                              | Convert the evaluation to `earl` or `earl-a` (_earl-aggregated_)      |
 | -s    | --save-name              | `<name>`                                          | The name to save the aggregated earl reports (_earl-a_)               |
 | -t    | --timeout                | `<number>`                                        | Timeout for page to load                                              |
@@ -136,8 +136,8 @@ This command replaces all other commands.
 | --act-principles  | `Perceivable Operable Understandable Robust`                    | Choose which principles to evaluate regarding the act rules           |
 | --wcag-techniques | `"techniqueId1 techniqueId2 ... techniqueIdx" or <config file>` | Choose which wcag techniques to execute. For config file check below  |
 | --exclude-wcag    | `"techniqueId1 techniqueId2 ... techniqueIdx" or <config file>` | Choose which wcag techniques to exclude. For config file check below  |
-| --wcag-levels     | `A AA AAA`                                                      | Choose which conform levels to evaluate regarding the html techniques |
-| --wcag-principles | `Perceivable Operable Understandable Robust`                    | Choose which principles to evaluate regarding the html techniques     |
+| --wcag-levels     | `A AA AAA`                                                      | Choose which conform levels to evaluate regarding the wcag techniques |
+| --wcag-principles | `Perceivable Operable Understandable Robust`                    | Choose which principles to evaluate regarding the wcag techniques     |
 | --best-practices  | `bestpracticeId1 bestpracticeId2 ... bestpracticeIdx`           | Choose which best practices to execute. For config file check below   |
 | --exclude-bp      | `bestpracticeId1 bestpracticeId2 ... bestpracticeIdx`           | Choose which best practices to exclude. For config file check below   |
 

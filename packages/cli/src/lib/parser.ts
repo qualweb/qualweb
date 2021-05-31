@@ -37,7 +37,7 @@ function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions):
           case 'act':
             options.execute.act = true;
             break;
-          case 'html':
+          case 'wcag':
             options.execute.wcag = true;
             break;
           case 'bp':

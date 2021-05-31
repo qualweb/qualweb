@@ -1,7 +1,17 @@
 # Changelog
 
-## [0.5.2] - 23/04/2021
+## [0.6.1] - 31/04/2021
 
+### Updated
+
+- dependencies
+- README.md
+
+### Fixed
+
+- error when using option "-m wcag"
+
+## [0.5.2] - 23/04/2021
 
 ### Fixed
 
