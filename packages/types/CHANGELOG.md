@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.6.7] - 31/05/2020
+
+### Updated
+
+- core options interface
 
 ## [0.6.6] - 25/05/2020
 
@@ -64,6 +69,7 @@
 
 - core interface
 - util interface
+
 ## [0.5.16] - 15/04/2020
 
 ### Updated
@@ -114,6 +120,7 @@
 ### Added
 
 - Level and Principle types
+
 ## [0.5.8] - 30/03/2020
 
 ### Updated
@@ -143,6 +150,7 @@
 ### Added
 
 - declaration for module wappalyzer
+
 ## [0.5.3] - 25/03/2020
 
 ### Updated
