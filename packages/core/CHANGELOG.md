@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.10] - 14/06/2021
+
+### Fixed
+
+- error when using `html` option
+
+### Updated
+
+- dependencies
+
 ## [0.6.9] - 25/05/2021
 
 ### Updated

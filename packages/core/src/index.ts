@@ -82,7 +82,7 @@ class QualWeb {
 
     const urls = await this.checkUrls(options);
 
-    if (!!options.html && urls.length === 0) {
+    if ((options.html === undefined || options.html.trim() === '') && urls.length === 0) {
       throw new Error('Invalid input method');
     }
 
