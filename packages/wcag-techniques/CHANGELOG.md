@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.4] - 21/06/2021
+
+### Changed
+
+- QW-WCAG-T27 to validate attribute `align` instead of css property `text-align`
+
+### Updated
+
+- dependencies
+
 ## [0.2.3] - 30/03/2021
 
 ### Updated

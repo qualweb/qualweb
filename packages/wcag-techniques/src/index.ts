@@ -163,4 +163,7 @@ class WCAGTechniques {
   }
 }
 
+//@ts-ignore
+window.wcag = new WCAGTechniques();
+
 export { WCAGTechniques };

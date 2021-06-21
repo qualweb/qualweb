@@ -6,7 +6,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(100 * 1000);
     
-    const url = 'https://ciencias.ulisboa.pt';
+    const url = 'http://www.cm-gaviao.pt/pt/turismo/museus/100-turismo/museus/324-museu-do-sabao';
 
     const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();

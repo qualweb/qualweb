@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.bundle.js",
   "files": [
@@ -39,25 +39,25 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.1",
-    "@qualweb/qw-page": "^0.2.7",
-    "@qualweb/types": "^0.6.5",
-    "@qualweb/util": "^0.5.10",
+    "@qualweb/qw-page": "^0.2.8",
+    "@qualweb/types": "^0.6.7",
+    "@qualweb/util": "^0.5.12",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
     "chai": "^4.3.4",
-    "eslint": "^7.26.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-sonarjs": "^0.7.0",
     "esm": "^3.2.25",
     "mocha": "^8.4.0",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "puppeteer": "^9.1.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
-    "webpack": "^5.37.0",
-    "webpack-cli": "^4.7.0"
+    "typescript": "^4.3.4",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
   }
 }
