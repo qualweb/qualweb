@@ -10,7 +10,7 @@ describe('Core', function () {
     await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://kortforsyningen.dk/indhold/english',
+      url: 'https://kortforsyningen.dk/file/520',
       execute: { act: true },
       waitUntil: ['load', 'networkidle0'],
       'wcag-techniques': { exclude: ['QW-WCAG-T16'] },
@@ -21,6 +21,6 @@ describe('Core', function () {
 
     await qualweb.stop();
 
-    expect(earlReports['https://kortforsyningen.dk/indhold/english']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://kortforsyningen.dk/file/520']['@graph'].length).to.be.equal(1);
   });
 });
