@@ -162,7 +162,11 @@ class Evaluation {
       <Serializable>options
     );
 
-    if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
+    if (
+      !options ||
+      ((!options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) &&
+        (!options.exclude || !options.exclude.includes('QW-ACT-R40') || !options.exclude.includes('59br37')))
+    ) {
       const viewport = this.page.viewport();
 
       await this.page.setViewport({
@@ -194,9 +198,12 @@ class Evaluation {
 
     return await this.page.evaluate(
       (newTabWasOpen: boolean, validation: HTMLValidationReport, options?: WCAGOptions) => {
-        //@ts-ignore
-        const wcag = new WCAG.WCAGTechniques(options);
-        return wcag.execute(newTabWasOpen, validation);
+        if (options) {
+          window.wcag.configure(options);
+        }
+
+        //const wcag = new WCAG.WCAGTechniques(options);
+        return window.wcag.execute(newTabWasOpen, validation);
       },
       newTabWasOpen,
       <Serializable>(validation ?? null),
