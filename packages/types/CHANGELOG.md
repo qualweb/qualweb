@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.8] - 21/06/2020
+
+### Updated
+
+- evaluation global interface
+
 ## [0.6.7] - 31/05/2020
 
 ### Updated
