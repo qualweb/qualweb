@@ -6,16 +6,17 @@ import { Dom } from '@qualweb/dom';
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
-    
-    const url = 'https://sonderborgkommune.dk/';
+
+    const url = 'https://cm-felgueiras.pt/ampliacao-da-rede-de-saneamento-em-felgueiras-sendim/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
     const browser = await puppeteer.launch();
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
+
     const dom = new Dom(page);
-    await dom.process({ execute: { act: true }, waitUntil: ["load"] }, url, '');
+    await dom.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -31,17 +32,17 @@ describe('Running tests', function () {
 
     const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
 
-    await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+    await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate((headContent) => {
-      window.act.configure({ rules: ['QW-ACT-R33'] })
+      window.act.configure({ rules: ['QW-ACT-R1'] });
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
-      const sourceDoc = parser.parseFromString('', "text/html");
+      const sourceDoc = parser.parseFromString('', 'text/html');
 
       sourceDoc.head.innerHTML = headContent;
 
-      const elements = sourceDoc.querySelectorAll("meta");
+      const elements = sourceDoc.querySelectorAll('meta');
       const metaElements = new Array();
       for (const element of elements) {
         metaElements.push(window.qwPage.createQWElement(element));
@@ -54,7 +55,7 @@ describe('Running tests', function () {
 
     await page.setViewport({
       width: 640,
-      height: 512,
+      height: 512
     });
 
     const report = await page.evaluate(() => {
@@ -66,7 +67,7 @@ describe('Running tests', function () {
     await incognito.close();
     await browser.close();
 
-    console.log(report);
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });
