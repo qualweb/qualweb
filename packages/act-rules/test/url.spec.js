@@ -7,11 +7,11 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://cm-felgueiras.pt/ampliacao-da-rede-de-saneamento-em-felgueiras-sendim/';
+    const url = 'https://ciencias.ulisboa.pt';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
 
@@ -30,17 +30,15 @@ describe('Running tests', function () {
       path: require.resolve('../dist/act.bundle.js')
     });
 
-    const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
-
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await page.evaluate((headContent) => {
-      window.act.configure({ rules: ['QW-ACT-R1'] });
+    await page.evaluate((sourceCode) => {
+      //window.act.configure({ rules: ['QW-ACT-R4'] });
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();
       const sourceDoc = parser.parseFromString('', 'text/html');
 
-      sourceDoc.head.innerHTML = headContent;
+      sourceDoc.documentElement.innerHTML = sourceCode;
 
       const elements = sourceDoc.querySelectorAll('meta');
       const metaElements = new Array();
@@ -51,7 +49,7 @@ describe('Running tests', function () {
       window.act.validateMetaElements(metaElements);
       window.act.executeAtomicRules();
       window.act.executeCompositeRules();
-    }, headContent);
+    }, sourceCode);
 
     await page.setViewport({
       width: 640,
@@ -67,7 +65,7 @@ describe('Running tests', function () {
     await incognito.close();
     await browser.close();
 
-    console.log(JSON.stringify(report, null, 2));
+    //console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

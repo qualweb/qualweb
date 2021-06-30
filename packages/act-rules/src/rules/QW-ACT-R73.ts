@@ -20,8 +20,12 @@ class QW_ACT_R73 extends AtomicRule {
       const host = location.hostname;
       for (const link of links) {
         if (link.elementHasAttribute('href')) {
-          const href = (<string>link.getElementAttribute('href')).trim();
-          if (!href.startsWith('#') && (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))) {
+          const href = link.getElementAttribute('href')?.trim();
+          if (
+            href &&
+            !this.checkDestination(href) &&
+            (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))
+          ) {
             test.verdict = 'warning';
             test.description = `
               For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, all the following are true:
@@ -44,6 +48,16 @@ class QW_ACT_R73 extends AtomicRule {
 
     test.addElement(element, false);
     super.addTestResult(test);
+  }
+
+  private checkDestination(destination: string): boolean {
+    const url = window.qwPage.getURL();
+    return (
+      destination.startsWith('#') ||
+      destination.startsWith('/#') ||
+      destination.startsWith(url + '#') ||
+      destination.startsWith(url + '/#')
+    );
   }
 }
 

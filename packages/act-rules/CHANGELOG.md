@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.9] - 30/05/2021
+
+### Fixed
+
+- QW-ACT-R74 bug
+
+### Updated
+
+- dependencies
+
 ## [0.5.8] - 25/05/2021
 
 ### Fixed
@@ -58,6 +68,7 @@
 ### Fixed
 
 - issue with webpack config
+
 ## [0.5.0] - 25/03/2021
 
 ### Updated

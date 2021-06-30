@@ -22,9 +22,10 @@ class QW_ACT_R72 extends AtomicRule {
       const focused = window.qwPage.getFocusedElement();
 
       // is keyboard actionable
-      if (focused && (
-        !window.AccessibilityUtils.isPartOfSequentialFocusNavigation(focused) ||
-        !window.DomUtils.isElementVisible(focused))
+      if (
+        focused &&
+        (!window.AccessibilityUtils.isPartOfSequentialFocusNavigation(focused) ||
+          !window.DomUtils.isElementVisible(focused))
       ) {
         // not checking if it is possible to fire an event at the element with the keyboard
         test.verdict = 'failed';
@@ -48,7 +49,7 @@ class QW_ACT_R72 extends AtomicRule {
         const destination = focused.getElementAttribute('href')?.trim();
         if (destination && this.checkDestination(destination)) {
           // only checking that it has an url that starts with # -- other ways of linking to the same page are not considered
-          console.log(destination.split('#')[1]);
+
           if (window.qwPage.getElementByID(destination.split('#')[1])) {
             test.verdict = 'warning';
             test.description =
@@ -75,7 +76,7 @@ class QW_ACT_R72 extends AtomicRule {
         test.description =
           'Check that the first focusable element skips to the main content and its accessible name communicates so';
         test.resultCode = 'RC8';
-        
+
         if (focused) {
           test.addElement(focused);
         }
@@ -91,10 +92,12 @@ class QW_ACT_R72 extends AtomicRule {
 
   private checkDestination(destination: string): boolean {
     const url = window.qwPage.getURL();
-    return destination.startsWith('#') || 
-      destination.startsWith('/#') || 
-      destination.startsWith(url + '#') || 
+    return (
+      destination.startsWith('#') ||
+      destination.startsWith('/#') ||
+      destination.startsWith(url + '#') ||
       destination.startsWith(url + '/#')
+    );
   }
 }
 
