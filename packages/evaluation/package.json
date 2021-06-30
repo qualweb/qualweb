@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -34,12 +34,12 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.2.1",
-    "@qualweb/types": "0.6.8",
+    "@qualweb/dom": "0.2.2",
+    "@qualweb/types": "0.6.9",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.12.4",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "chai": "^4.3.4",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
@@ -47,14 +47,14 @@
     "eslint-plugin-sonarjs": "^0.7.0",
     "esm": "^3.2.25",
     "mocha": "^8.4.0",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "puppeteer": "^9.1.1",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.21.0",
+    "typedoc": "^0.21.2",
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "0.5.8",
+    "@qualweb/act-rules": "0.5.9",
     "@qualweb/best-practices": "0.5.3",
     "@qualweb/counter": "0.2.0",
     "@qualweb/qw-page": "0.2.8",

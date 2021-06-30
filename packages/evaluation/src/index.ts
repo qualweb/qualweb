@@ -22,7 +22,7 @@ class Evaluation {
   }
 
   public async evaluatePage(
-    sourceHtmlHeadContent: string,
+    sourceHtml: string,
     options: QualwebOptions,
     validation?: HTMLValidationReport
   ): Promise<EvaluationRecord> {
@@ -32,7 +32,7 @@ class Evaluation {
     await this.init();
 
     if (this.execute.act) {
-      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtmlHeadContent, options['act-rules']));
+      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtml, options['act-rules']));
     }
     if (this.execute.wcag) {
       evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(validation, options['wcag-techniques']));
@@ -128,7 +128,7 @@ class Evaluation {
     });
   }
 
-  private async executeACT(sourceHtmlHeadContent: string, options?: ACTROptions): Promise<ACTRulesReport> {
+  private async executeACT(sourceHtml: string, options?: ACTROptions): Promise<ACTRulesReport> {
     await this.page.addScriptTag({
       path: require.resolve('@qualweb/act-rules'),
       type: 'text/javascript'
@@ -136,7 +136,7 @@ class Evaluation {
 
     await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await this.page.evaluate(
-      (sourceHtmlHeadContent: string, options?: ACTROptions) => {
+      (sourceHtml: string, options?: ACTROptions) => {
         if (options) {
           window.act.configure(options);
         }
@@ -146,7 +146,7 @@ class Evaluation {
         const parser = new DOMParser();
         const sourceDoc = parser.parseFromString('', 'text/html');
 
-        sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+        sourceDoc.documentElement.innerHTML = sourceHtml;
 
         const elements = sourceDoc.querySelectorAll('meta');
         const metaElements = new Array<QWElement>();
@@ -158,7 +158,7 @@ class Evaluation {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
-      sourceHtmlHeadContent,
+      sourceHtml,
       <Serializable>options
     );
 
