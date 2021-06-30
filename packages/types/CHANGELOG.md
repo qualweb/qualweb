@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.9] - 30/06/2020
+
+### Updated
+
+- dom interface
+
 ## [0.6.8] - 21/06/2020
 
 ### Updated
