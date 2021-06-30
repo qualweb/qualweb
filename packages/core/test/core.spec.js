@@ -10,17 +10,17 @@ describe('Core', function () {
     await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://kortforsyningen.dk/file/520',
+      url: 'https://gribskov.dk/',
       execute: { act: true },
       waitUntil: ['load', 'networkidle0'],
       'wcag-techniques': { exclude: ['QW-WCAG-T16'] },
-      'act-rules': { rules: ['QW-ACT-R37'] }
+      'act-rules': { rules: ['QW-ACT-R40'] }
     });
     console.log(JSON.stringify(evaluations, null, 2));
     const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
-    expect(earlReports['https://kortforsyningen.dk/file/520']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://gribskov.dk/']['@graph'].length).to.be.equal(1);
   });
 });

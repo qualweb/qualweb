@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.6.11",
+  "version": "0.6.12",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -66,9 +66,9 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "0.3.6",
-    "@qualweb/dom": "0.2.1",
+    "@qualweb/dom": "0.2.2",
     "@qualweb/earl-reporter": "0.4.1",
-    "@qualweb/evaluation": "0.2.14",
+    "@qualweb/evaluation": "0.2.15",
     "colors": "^1.4.0",
     "puppeteer": "^9.1.1",
     "puppeteer-cluster": "^0.22.0",
@@ -77,11 +77,11 @@
     "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
-    "@qualweb/types": "0.6.8",
+    "@qualweb/types": "0.6.9",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.12.4",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "chai": "^4.3.4",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
@@ -90,9 +90,9 @@
     "esm": "^3.2.25",
     "mocha": "^8.4.0",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.21.0",
+    "typedoc": "^0.21.2",
     "typescript": "^4.2.4"
   }
 }
