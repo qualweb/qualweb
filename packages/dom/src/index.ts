@@ -83,7 +83,7 @@ class Dom {
     }
 
     return {
-      sourceHtmlHeadContent: this.getHeadContent(sourceHtml),
+      sourceHtml,
       validation
     };
   }
@@ -168,11 +168,6 @@ class Dom {
     } catch (e) {
       return '';
     }
-  }
-
-  private getHeadContent(html: string): string {
-    const sourceHTML = html.trim();
-    return sourceHTML.includes('<head>') ? sourceHTML.split('<head>')[1].split('</head>')[0].trim() : '';
   }
 
   private getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.2] - 30/06/2021
+
+### Changes
+
+- changed sourceHtmlHeadContent for sourceHtml and now all of the source code is returned instead of only the the head content
+
+### Updated
+
+- dependencies
+
 ## [0.2.1] - 15/04/2021
 
 ### Changes
