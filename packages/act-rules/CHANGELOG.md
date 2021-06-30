@@ -6,6 +6,18 @@
 
 - localization support
 
+## [0.5.8] - 25/05/2021
+
+### Fixed
+
+- QW-ACT-R33 bug
+
+## [0.5.7] - 19/05/2021
+
+### Fixed
+
+- QW-ACT-R72 bug
+
 ## [0.5.6] - 27/04/2021
 
 ### Fixed

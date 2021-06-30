@@ -43,9 +43,10 @@ class QW_ACT_R72 extends AtomicRule {
         test.addElement(focused, false);
       } else if (focused?.getElementAttribute('href')) {
         const destination = focused.getElementAttribute('href')?.trim();
-        if (destination && destination.startsWith('#')) {
+        if (destination && this.checkDestination(destination)) {
           // only checking that it has an url that starts with # -- other ways of linking to the same page are not considered
-          if (window.qwPage.getElementByID(destination.substring(1))) {
+          console.log(destination.split('#')[1]);
+          if (window.qwPage.getElementByID(destination.split('#')[1])) {
             test.verdict = 'warning';
             test.resultCode = 'RC1';
 
@@ -76,6 +77,14 @@ class QW_ACT_R72 extends AtomicRule {
     }
 
     super.addTestResult(test);
+  }
+
+  private checkDestination(destination: string): boolean {
+    const url = window.qwPage.getURL();
+    return destination.startsWith('#') || 
+      destination.startsWith('/#') || 
+      destination.startsWith(url + '#') || 
+      destination.startsWith(url + '/#')
   }
 }
 
