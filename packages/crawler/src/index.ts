@@ -183,15 +183,17 @@ class Crawler {
 
         links.forEach((link: Element) => {
           if (link.hasAttribute('href')) {
-            const href = link.getAttribute('href');
+            const href = link.getAttribute('href')?.trim();
 
             if (
               href &&
-              href.trim() &&
               (href.startsWith(domain) ||
                 href.startsWith('/') ||
                 href.startsWith('./') ||
-                (!href.startsWith('http') && !href.startsWith('#')))
+                (!href.startsWith('http') && !href.startsWith('#'))) &&
+              !href.includes('javascript:') &&
+              !href.includes('tel:') &&
+              !href.includes('mailto:')
             ) {
               let valid = true;
               for (const not of notHtml || []) {
@@ -202,12 +204,7 @@ class Crawler {
                 const parts = href.split('/');
                 if (parts.length > 0) {
                   const lastPart = parts[parts.length - 1];
-                  if (
-                    lastPart.startsWith('#') ||
-                    lastPart.startsWith('javascript:') ||
-                    lastPart.startsWith('tel:') ||
-                    lastPart.startsWith('mailto:')
-                  ) {
+                  if (lastPart.startsWith('#')) {
                     valid = false;
                     break;
                   }

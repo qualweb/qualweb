@@ -1,13 +1,14 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
   "scripts": {
-    "test": "mocha --require esm",
+    "test": "mocha",
+    "test:url": "mocha test/url.spec.mjs",
     "tsc": "tsc",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -40,22 +41,22 @@
     "log-update": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.6.5",
+    "@qualweb/types": "^0.6.9",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.0.2",
-    "@types/puppeteer": "^5.4.3",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@types/node": "^16.3.3",
+    "@types/puppeteer": "^5.4.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
     "chai": "^4.3.4",
-    "eslint": "^7.26.0",
+    "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-sonarjs": "^0.7.0",
+    "eslint-plugin-sonarjs": "^0.9.1",
     "esm": "^3.2.25",
-    "mocha": "^8.4.0",
-    "prettier": "^2.3.0",
-    "puppeteer": "^9.1.1",
+    "mocha": "^9.0.2",
+    "prettier": "^2.3.2",
+    "puppeteer": "^10.1.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.5"
   }
 }

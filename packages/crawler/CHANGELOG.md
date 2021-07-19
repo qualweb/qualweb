@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.6] - 19/07/2021
+
+### Fixed
+
+- incorrect urls when href value was not trimmed
+- verification for href with "mailto:", "tel:" and "javascript:"
+
+### Updated
+
+- dependencies
+
 ## [0.3.6] - 12/05/2021
 
 ### Updated
@@ -36,7 +47,6 @@
 
 - dependencies
 
-
 ## [0.3.2] - 9/04/2021
 
 ### Added
@@ -68,30 +78,36 @@
 ## [0.2.2] - 24/04/2020
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.2.1] - 24/04/2020
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.2.0] - 24/04/2020
 
 ### Added
- - feedback messages
- - possibility to interrupt the crawling process
+
+- feedback messages
+- possibility to interrupt the crawling process
 
 ## [0.1.1] - 19/12/2019
 
 ### Updated
- - code optimization
+
+- code optimization
 
 ## [0.1.0] - 18/12/2019
 
 ### Fixed
- - some bugs
+
+- some bugs
 
 ## [0.0.1] - 27/09/2019
 
 ### Added
- - crawling mechanism
+
+- crawling mechanism
