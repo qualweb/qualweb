@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.9] - 19/07/2021
+
+### Updated
+
+- dependencies
+
 ## [0.2.8] - 11/05/2021
 
 ### Fixed
@@ -10,7 +16,7 @@
 
 ### Changes
 
-- QWPage is now automatic initialized 
+- QWPage is now automatic initialized
 
 ### Updated
 
@@ -40,11 +46,13 @@
 ### Updated
 
 - dependencies
+
 ## [0.2.2] - 25/03/2021
 
 ### Updated
 
 - webpack config
+
 ## [0.2.1] - 25/03/2021
 
 ### Updated
