@@ -79,7 +79,7 @@ declare module "@qualweb/evaluation" {
 
     constructor(url: string, page: Page, execute: Execute);
     public evaluatePage(
-      sourceHtmlHeadContent: string,
+      sourceHtml: string,
       options: QualwebOptions,
       validation?: HTMLValidationReport
     ): Promise<EvaluationRecord>;
@@ -87,7 +87,7 @@ declare module "@qualweb/evaluation" {
     private parseUrl(): Url;
     private init(): Promise<void>;
     private executeACT(
-      sourceHtmlHeadContent: string,
+      sourceHtml: string,
       options?: ACTROptions
     ): Promise<ACTRulesReport>;
     private executeWCAG(

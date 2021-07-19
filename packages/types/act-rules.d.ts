@@ -1,6 +1,6 @@
 declare module "@qualweb/act-rules" {
   import { QWElement } from "@qualweb/qw-element";
-  import { Level, Principle } from '@qualweb/evaluation';
+  import { Level, Principle } from "@qualweb/evaluation";
 
   interface ACTROptions {
     rules?: string[];
@@ -49,6 +49,9 @@ declare module "@qualweb/act-rules" {
       value?: string;
     };
     stylesheetFile?: string;
+    additional: {
+      [key: string]: string | number | boolean;
+    };
   }
 
   interface ACTRule {
@@ -82,23 +85,37 @@ declare module "@qualweb/act-rules" {
   interface ACTCompositeRuleMapping {
     [selector: string]: {
       selector: string;
-      implementation: 'conjunction' | 'disjunction';
+      implementation: "conjunction" | "disjunction";
       rules: Array<string>;
     };
   }
 
   class Test implements ACTRuleResult {
-    verdict: 'passed' | 'failed' | 'warning' | 'inapplicable';
+    verdict: "passed" | "failed" | "warning" | "inapplicable";
     description: string;
     resultCode: string;
     elements: ACTElement[];
     attributes?: string | string[] | undefined;
 
-    constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string);
+    constructor(
+      verdict?: "passed" | "failed" | "warning",
+      description?: string,
+      resultCode?: string
+    );
 
-    public addElement(element: QWElement, withText: boolean, fullElement: boolean, aName?: boolean): void;
+    public addElement(
+      element: QWElement,
+      withText: boolean,
+      fullElement: boolean,
+      aName?: boolean
+    ): void;
 
-    public addElements(elements: Array<QWElement>, withText: boolean, fullElement: boolean, aName?: boolean): void;
+    public addElements(
+      elements: Array<QWElement>,
+      withText: boolean,
+      fullElement: boolean,
+      aName?: boolean
+    ): void;
   }
 
   abstract class Rule {
@@ -108,7 +125,10 @@ declare module "@qualweb/act-rules" {
 
     public getRuleMapping(): string;
 
-    public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean;
+    public hasPrincipleAndLevels(
+      principles: Array<Principle>,
+      levels: Array<Level>
+    ): boolean;
 
     protected getNumberOfPassedResults(): number;
 
@@ -128,15 +148,24 @@ declare module "@qualweb/act-rules" {
   abstract class CompositeRule extends Rule {
     constructor(rule: ACTRule);
 
-    abstract execute(element: QWElement | undefined, rules?: Array<ACTRule>): void;
+    abstract execute(
+      element: QWElement | undefined,
+      rules?: Array<ACTRule>
+    ): void;
 
     public conjunction(element: QWElement, rules: Array<ACTRule>): void;
 
     public disjunction(element: QWElement, rules: Array<ACTRule>): void;
 
-    public getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any;
+    public getAtomicRuleResultPerVerdict(
+      selector: string,
+      rules: Array<ACTRule>
+    ): any;
 
-    public getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any;
+    public getAtomicRuleResultForElement(
+      selector: string,
+      rules: Array<ACTRule>
+    ): any;
   }
 
   abstract class AtomicRule extends Rule {
@@ -160,7 +189,7 @@ declare module "@qualweb/act-rules" {
       rule: string,
       selector: string,
       atomicRules: Array<string>,
-      implementation: 'conjunction' | 'disjunction'
+      implementation: "conjunction" | "disjunction"
     ): void;
     public executeAtomicRules(): void;
     public executeCompositeRules(): void;

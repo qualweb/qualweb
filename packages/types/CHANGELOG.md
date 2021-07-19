@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.10] - 19/07/2020
+
+### Updated
+
+- act-rules interface
+- evaluation interface
+- qwElement interface
+- dependencies
+
 ## [0.6.9] - 30/06/2020
 
 ### Updated

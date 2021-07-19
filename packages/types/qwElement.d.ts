@@ -43,6 +43,8 @@ declare module "@qualweb/qw-element" {
     public getElement(selector: string): QWElement | null;
     public getElements(selector: string): Array<QWElement>;
     public getElementNextSibling(): QWElement | null;
+    public getPreviousSibling(): QWElement | string | undefined | null;
+    public getNextSibling(): QWElement | string | undefined | null;
     public getElementParent(): QWElement | null;
     public getElementPreviousSibling(): QWElement | null;
     public getElementProperty(property: string): string;
