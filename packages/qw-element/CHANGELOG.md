@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.4] - 19/07/2021
+
+### Added
+
+- getNextSibling function
+- getPreviousSibling function
+
+### Updated
+
+- dependencies
+
 ## [0.2.3] - 14/04/2021
 
 ### Updated

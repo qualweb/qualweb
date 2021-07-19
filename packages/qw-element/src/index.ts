@@ -288,6 +288,34 @@ class QWElement {
     return this.convertElementToQWElement(this.element.nextElementSibling);
   }
 
+  public getPreviousSibling(): QWElement | string | undefined | null {
+    const sibling = this.element.previousSibling;
+    if (sibling) {
+      if (sibling.nodeType === 1) {
+        return this.convertElementToQWElement(<Element>sibling);
+      } else if (sibling.nodeType === 3) {
+        return sibling.textContent;
+      } else {
+        return undefined;
+      }
+    }
+    return null;
+  }
+
+  public getNextSibling(): QWElement | string | undefined | null {
+    const sibling = this.element.nextSibling;
+    if (sibling) {
+      if (sibling.nodeType === 1) {
+        return this.convertElementToQWElement(<Element>sibling);
+      } else if (sibling.nodeType === 3) {
+        return sibling.textContent;
+      } else {
+        return undefined;
+      }
+    }
+    return null;
+  }
+
   public getElementParent(): QWElement | null {
     return this.convertElementToQWElement(this.element.parentElement);
   }
