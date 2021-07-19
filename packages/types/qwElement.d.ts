@@ -42,9 +42,11 @@ declare module "@qualweb/qw-element" {
     public getElementHtmlCode(withText: boolean, fullElement: boolean): string;
     public getElement(selector: string): QWElement | null;
     public getElements(selector: string): Array<QWElement>;
+    public getAllPreviousSiblings(): Array<QWElement | string>;
+    public getAllNextSiblings(): Array<QWElement | string>;
     public getElementNextSibling(): QWElement | null;
-    public getPreviousSibling(): QWElement | string | undefined | null;
-    public getNextSibling(): QWElement | string | undefined | null;
+    public getPreviousSibling(): QWElement | string | null;
+    public getNextSibling(): QWElement | string | null;
     public getElementParent(): QWElement | null;
     public getElementPreviousSibling(): QWElement | null;
     public getElementProperty(property: string): string;
