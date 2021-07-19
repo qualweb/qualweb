@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Utilities module for qualweb",
   "main": "dist/qw-page.bundle.js",
   "files": [
@@ -34,10 +34,10 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.2",
-    "@qualweb/types": "^0.6.10",
+    "@qualweb/types": "^0.6.11",
     "@tsconfig/recommended": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "chai": "^4.3.4",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
@@ -53,6 +53,6 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@qualweb/qw-element": "^0.2.4"
+    "@qualweb/qw-element": "0.2.5"
   }
 }
