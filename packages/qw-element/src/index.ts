@@ -288,7 +288,47 @@ class QWElement {
     return this.convertElementToQWElement(this.element.nextElementSibling);
   }
 
-  public getPreviousSibling(): QWElement | string | undefined | null {
+  public getAllPreviousSiblings(): Array<QWElement | string> {
+    const siblings = new Array<QWElement | string>();
+
+    let sibling = this.element.previousSibling;
+    while (sibling !== null) {
+      if (sibling.nodeType === 1) {
+        const qwSibling = this.convertElementToQWElement(<Element>sibling);
+        if (qwSibling) {
+          siblings.unshift(qwSibling);
+        }
+      } else if (sibling.nodeType === 3 && sibling.textContent) {
+        siblings.unshift(sibling.textContent);
+      }
+
+      sibling = sibling.previousSibling;
+    }
+
+    return siblings;
+  }
+
+  public getAllNextSiblings(): Array<QWElement | string> {
+    const siblings = new Array<QWElement | string>();
+
+    let sibling = this.element.nextSibling;
+    while (sibling !== null) {
+      if (sibling.nodeType === 1) {
+        const qwSibling = this.convertElementToQWElement(<Element>sibling);
+        if (qwSibling) {
+          siblings.unshift(qwSibling);
+        }
+      } else if (sibling.nodeType === 3 && sibling.textContent) {
+        siblings.unshift(sibling.textContent);
+      }
+
+      sibling = sibling.nextSibling;
+    }
+
+    return siblings;
+  }
+
+  public getPreviousSibling(): QWElement | string | null {
     const sibling = this.element.previousSibling;
     if (sibling) {
       if (sibling.nodeType === 1) {
@@ -296,13 +336,24 @@ class QWElement {
       } else if (sibling.nodeType === 3) {
         return sibling.textContent;
       } else {
-        return undefined;
+        let siblingNode = sibling.previousSibling;
+        let previousSibling = null;
+        while (siblingNode !== null) {
+          if (siblingNode.nodeType === 1) {
+            previousSibling = this.convertElementToQWElement(<Element>siblingNode);
+            break;
+          } else if (siblingNode.nodeType === 3) {
+            previousSibling = siblingNode.textContent;
+          }
+          siblingNode = siblingNode.previousSibling;
+        }
+        return previousSibling;
       }
     }
     return null;
   }
 
-  public getNextSibling(): QWElement | string | undefined | null {
+  public getNextSibling(): QWElement | string | null {
     const sibling = this.element.nextSibling;
     if (sibling) {
       if (sibling.nodeType === 1) {
@@ -310,7 +361,18 @@ class QWElement {
       } else if (sibling.nodeType === 3) {
         return sibling.textContent;
       } else {
-        return undefined;
+        let siblingNode = sibling.nextSibling;
+        let nextSibling = null;
+        while (siblingNode !== null) {
+          if (siblingNode.nodeType === 1) {
+            nextSibling = this.convertElementToQWElement(<Element>siblingNode);
+            break;
+          } else if (siblingNode.nodeType === 3) {
+            nextSibling = siblingNode.textContent;
+          }
+          siblingNode = siblingNode.nextSibling;
+        }
+        return nextSibling;
       }
     }
     return null;
