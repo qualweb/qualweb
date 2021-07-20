@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementIsVisible } from '../lib/applicability';
@@ -52,27 +50,29 @@ class QW_WCAG_T17 extends Technique {
             const text = label.getElementText();
             if (text && text.trim() !== '') {
               const ancestor = this.findFirstCommonAncestor(element, label);
-              if (type && (type === 'radio' || type === 'checkbox')) {
-                const isLabelAfter = this.isLabelAfter(element, label, ancestor);
-                if (isLabelAfter) {
-                  test.verdict = 'passed';
-                  test.description = 'The form field has well positioned label.';
-                  test.resultCode = 'RC1';
+              if (ancestor) {
+                if (type && (type === 'radio' || type === 'checkbox')) {
+                  const isLabelAfter = this.isLabelAfter(element, label, ancestor);
+                  if (isLabelAfter) {
+                    test.verdict = 'passed';
+                    test.description = 'The form field has well positioned label.';
+                    test.resultCode = 'RC1';
+                  } else {
+                    test.verdict = 'failed';
+                    test.description = 'The form field has incorrect positioned label.';
+                    test.resultCode = 'RC3';
+                  }
                 } else {
-                  test.verdict = 'failed';
-                  test.description = 'The form field has incorrect positioned label.';
-                  test.resultCode = 'RC3';
-                }
-              } else {
-                const isLabelBefore = !this.isLabelAfter(element, label, ancestor);
-                if (isLabelBefore) {
-                  test.verdict = 'passed';
-                  test.description = 'The form field has well positioned label.';
-                  test.resultCode = 'RC1';
-                } else {
-                  test.verdict = 'failed';
-                  test.description = 'The form field has incorrect positioned label.';
-                  test.resultCode = 'RC3';
+                  const isLabelBefore = !this.isLabelAfter(element, label, ancestor);
+                  if (isLabelBefore) {
+                    test.verdict = 'passed';
+                    test.description = 'The form field has well positioned label.';
+                    test.resultCode = 'RC1';
+                  } else {
+                    test.verdict = 'failed';
+                    test.description = 'The form field has incorrect positioned label.';
+                    test.resultCode = 'RC3';
+                  }
                 }
               }
             } else {
@@ -120,7 +120,7 @@ class QW_WCAG_T17 extends Technique {
   private hasTextAfter(element: typeof window.qwElement): boolean {
     let hasText = false;
 
-    let parent = element;
+    let parent: typeof window.qwElement | null = element;
     while (parent !== null) {
       if (parent.getElementTagName() === 'label') {
         break;
@@ -150,7 +150,7 @@ class QW_WCAG_T17 extends Technique {
   private hasTextBefore(element: typeof window.qwElement): boolean {
     let hasText = false;
 
-    let parent = element;
+    let parent: typeof window.qwElement | null = element;
     while (parent !== null) {
       if (parent.getElementTagName() === 'label') {
         break;
@@ -180,10 +180,10 @@ class QW_WCAG_T17 extends Technique {
   private findFirstCommonAncestor(
     input: typeof window.qwElement,
     label: typeof window.qwElement
-  ): typeof window.qwElement {
-    let ancestor: typeof window.qwElement;
-
+  ): typeof window.qwElement | null {
     let inputParent = input.getElementParent();
+    let ancestor = inputParent;
+
     while (inputParent !== null) {
       let labelParent = label.getElementParent();
       while (labelParent !== null) {
