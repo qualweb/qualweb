@@ -49,34 +49,41 @@ class QW_WCAG_T17 extends Technique {
         const label = window.qwPage.getElement(`label[for="${id.trim()}"]`);
         if (label) {
           if (window.DomUtils.isElementVisible(label)) {
-            const ancestor = this.findFirstCommonAncestor(element, label);
-            if (type && (type === 'radio' || type === 'checkbox')) {
-              const isLabelAfter = this.isLabelAfter(element, label, ancestor);
-              if (isLabelAfter) {
-                test.verdict = 'passed';
-                test.description = 'The form field has well positioned label.';
-                test.resultCode = 'RC1';
+            const text = label.getElementText();
+            if (text && text.trim() !== '') {
+              const ancestor = this.findFirstCommonAncestor(element, label);
+              if (type && (type === 'radio' || type === 'checkbox')) {
+                const isLabelAfter = this.isLabelAfter(element, label, ancestor);
+                if (isLabelAfter) {
+                  test.verdict = 'passed';
+                  test.description = 'The form field has well positioned label.';
+                  test.resultCode = 'RC1';
+                } else {
+                  test.verdict = 'failed';
+                  test.description = 'The form field has incorrect positioned label.';
+                  test.resultCode = 'RC3';
+                }
               } else {
-                test.verdict = 'failed';
-                test.description = 'The form field has incorrect positioned label.';
-                test.resultCode = 'RC3';
+                const isLabelBefore = !this.isLabelAfter(element, label, ancestor);
+                if (isLabelBefore) {
+                  test.verdict = 'passed';
+                  test.description = 'The form field has well positioned label.';
+                  test.resultCode = 'RC1';
+                } else {
+                  test.verdict = 'failed';
+                  test.description = 'The form field has incorrect positioned label.';
+                  test.resultCode = 'RC3';
+                }
               }
             } else {
-              const isLabelBefore = !this.isLabelAfter(element, label, ancestor);
-              if (isLabelBefore) {
-                test.verdict = 'passed';
-                test.description = 'The form field has well positioned label.';
-                test.resultCode = 'RC1';
-              } else {
-                test.verdict = 'failed';
-                test.description = 'The form field has incorrect positioned label.';
-                test.resultCode = 'RC3';
-              }
+              test.verdict = 'failed';
+              test.description = 'The form field label is empty.';
+              test.resultCode = 'RC5';
             }
           } else {
             test.verdict = 'failed';
             test.description = 'The form field label is not visible.';
-            test.resultCode = 'RC5';
+            test.resultCode = 'RC6';
           }
         } else {
           test.verdict = 'failed';
