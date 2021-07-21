@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.9] - 21/07/2021
+
+### Updated
+
+- tsconfig.json file
+
 ## [0.3.8] - 21/07/2021
 
 ### Removed

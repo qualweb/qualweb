@@ -4,8 +4,8 @@
     /* Basic Options */
     "target": "ES2019",
     "lib": ["ES2019", "DOM"],
-    "declaration": true /* Generates corresponding '.d.ts' file. */,
-    "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
+    "declaration": false /* Generates corresponding '.d.ts' file. */,
+    "declarationMap": false /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
@@ -29,6 +29,6 @@
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     "typeRoots": ["@qualweb/types"] /* List of folders to include type definitions from. */,
-    "types": ["@qualweb/types", "node", "puppeteer"] /* Type declaration files to be included in compilation. */
+    "types": ["@qualweb/types", "node"] /* Type declaration files to be included in compilation. */
   }
 }
