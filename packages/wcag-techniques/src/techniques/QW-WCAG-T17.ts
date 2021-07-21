@@ -41,6 +41,8 @@ class QW_WCAG_T17 extends Technique {
           test.resultCode = 'RC4';
         }
       }
+      test.addElement(element);
+      super.addTestResult(test);
     } else {
       const id = element.getElementAttribute('id');
       if (id) {
@@ -85,20 +87,12 @@ class QW_WCAG_T17 extends Technique {
             test.description = 'The form field label is not visible.';
             test.resultCode = 'RC6';
           }
-        } else {
-          test.verdict = 'failed';
-          test.description = 'The form field does not have a label.';
-          test.resultCode = 'RC2';
+
+          test.addElement(element);
+          super.addTestResult(test);
         }
-      } else {
-        test.verdict = 'failed';
-        test.description = 'The form field does not have a label.';
-        test.resultCode = 'RC2';
       }
     }
-
-    test.addElement(element);
-    super.addTestResult(test);
   }
 
   private isInsideLabelElement(element: typeof window.qwElement): boolean {
@@ -135,7 +129,7 @@ class QW_WCAG_T17 extends Technique {
           }
         } else {
           const qwElement = <typeof window.qwElement>sibling;
-          if (qwElement.getElementProperty('textContent').trim() !== '') {
+          if (qwElement.getElementText().trim() !== '') {
             hasText = true;
           }
         }
@@ -165,7 +159,7 @@ class QW_WCAG_T17 extends Technique {
           }
         } else {
           const qwElement = <typeof window.qwElement>sibling;
-          if (qwElement.getElementProperty('textContent').trim() !== '') {
+          if (qwElement.getElementText().trim() !== '') {
             hasText = true;
           }
         }

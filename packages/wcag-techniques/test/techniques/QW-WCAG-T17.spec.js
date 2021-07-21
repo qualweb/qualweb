@@ -8,6 +8,9 @@ describe('Running tests', function () {
 
     const html = `
       <html>
+        <head>
+          <title><span>Hello world</span></title>
+        </head
         <body>
           <div>
             <form>
