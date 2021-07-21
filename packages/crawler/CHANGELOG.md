@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.3.6] - 19/07/2021
+## [0.3.8] - 21/07/2021
+
+### Removed
+
+- @types/puppeteer from dev-dependencies
+
+## [0.3.7] - 19/07/2021
 
 ### Fixed
 
