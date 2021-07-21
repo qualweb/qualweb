@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.12] - 21/07/2020
+
+### Changes
+
+- downgraded @types/puppeteer to 5.4.3
+
+## [0.6.11] - 19/07/2020
+
+### Updated
+
+- qwElement interface
+
 ## [0.6.10] - 19/07/2020
 
 ### Updated
