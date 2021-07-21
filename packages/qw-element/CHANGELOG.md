@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.6] - 21/07/2021
+
+### Fixed
+
+- getElementText function
+
 ## [0.2.5] - 19/07/2021
 
 ### Added

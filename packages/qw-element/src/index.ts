@@ -316,10 +316,10 @@ class QWElement {
       if (sibling.nodeType === 1) {
         const qwSibling = this.convertElementToQWElement(<Element>sibling);
         if (qwSibling) {
-          siblings.unshift(qwSibling);
+          siblings.push(qwSibling);
         }
       } else if (sibling.nodeType === 3 && sibling.textContent) {
-        siblings.unshift(sibling.textContent);
+        siblings.push(sibling.textContent);
       }
 
       sibling = sibling.nextSibling;
@@ -468,7 +468,13 @@ class QWElement {
   }
 
   public getElementText(): string {
-    let children;
+    if (this.element.shadowRoot) {
+      return this.element.shadowRoot.textContent ?? '';
+    } else {
+      return this.element.textContent ?? '';
+    }
+
+    /*let children;
     if (this.element.shadowRoot) {
       children = this.element.shadowRoot.childNodes;
     } else {
@@ -488,7 +494,7 @@ class QWElement {
       result = '';
     }
 
-    return result;
+    return result;*/
   }
 
   public getElementType(): string {
