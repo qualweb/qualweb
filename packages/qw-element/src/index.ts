@@ -497,6 +497,26 @@ class QWElement {
     return result;*/
   }
 
+  public getElementOwnText(): string {
+    let children;
+    if (this.element.shadowRoot) {
+      children = this.element.shadowRoot.childNodes;
+    } else {
+      children = this.element.childNodes;
+    }
+
+    let result = '';
+    let textContent: string | null;
+    children.forEach((child: ChildNode) => {
+      textContent = child.textContent;
+      if (child.nodeType === 3 && textContent && textContent.trim() !== '') {
+        result += textContent.trim();
+      }
+    });
+
+    return result;
+  }
+
   public getElementType(): string {
     return this.element.nodeType === 1
       ? 'tag'

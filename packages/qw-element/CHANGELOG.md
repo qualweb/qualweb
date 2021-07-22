@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.7] - 22/07/2021
+
+### Added
+
+- getElementOwnText function
+
 ## [0.2.6] - 21/07/2021
 
 ### Fixed
