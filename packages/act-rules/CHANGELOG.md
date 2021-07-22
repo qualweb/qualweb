@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.10] - 22/07/2021
+
+### Updated
+
+- QW-ACT-R35
+- QW-ACT-R37
+- QW-ACT-R76
+
 ## [0.5.9] - 30/05/2021
 
 ### Fixed

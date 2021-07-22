@@ -7,11 +7,11 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://ciencias.ulisboa.pt';
+    const url = 'https://www.washington.edu/accesscomputing/AU/before.html';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
 
@@ -32,7 +32,7 @@ describe('Running tests', function () {
 
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate((sourceCode) => {
-      //window.act.configure({ rules: ['QW-ACT-R4'] });
+      //window.act.configure({ rules: ['QW-ACT-R37'] });
       window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
       const parser = new DOMParser();

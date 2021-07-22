@@ -36,9 +36,9 @@ class QW_ACT_R76 extends AtomicRule {
     }
 
     const hasTextNode = element.hasTextNode();
-    const elementText = window.DomUtils.getTrimmedText(element);
+    const elementText = element.getElementOwnText();
 
-    if (!hasTextNode && elementText === '') {
+    if (!hasTextNode && elementText.trim() === '') {
       return;
     }
 
