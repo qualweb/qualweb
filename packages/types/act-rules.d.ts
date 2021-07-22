@@ -49,7 +49,7 @@ declare module "@qualweb/act-rules" {
       value?: string;
     };
     stylesheetFile?: string;
-    additional: {
+    additional?: {
       [key: string]: string | number | boolean;
     };
   }

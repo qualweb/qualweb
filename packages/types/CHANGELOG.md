@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.13] - 22/07/2020
+
+### Added
+
+- getElementOwnText function to qw-element interface
+
 ## [0.6.12] - 21/07/2020
 
 ### Changes

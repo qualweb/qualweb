@@ -57,6 +57,7 @@ declare module "@qualweb/qw-element" {
     ): string;
     public getElementTagName(): string;
     public getElementText(): string;
+    public getElementOwnText(): string;
     public getElementType(): string;
     public getNumberOfSiblingsWithTheSameTag(): number;
     public setElementAttribute(attribute: string, value: string): void;
