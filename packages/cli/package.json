@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
@@ -41,14 +41,14 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "0.6.13",
+    "@qualweb/core": "0.6.14",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",
     "set-value": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.6.12",
+    "@qualweb/types": "0.6.13",
     "@tsconfig/recommended": "^1.0.1",
     "@types/command-line-args": "^5.0.0",
     "@types/command-line-usage": "^5.0.1",
