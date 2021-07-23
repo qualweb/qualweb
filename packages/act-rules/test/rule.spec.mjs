@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 async function getTestCases() {
   const response = await fetch('https://act-rules.github.io/testcases.json');
@@ -98,10 +100,12 @@ describe(`Rule ${rule}`, function () {
     browser = await puppeteer.launch({ headless: true });
     incognito = await browser.createIncognitoBrowserContext();
     data = await getTestCases();
-    tests = data.testcases.filter(t => t.ruleId === ruleId).map(t => {
-      return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
-    });
-    
+    tests = data.testcases
+      .filter((t) => t.ruleId === ruleId)
+      .map((t) => {
+        return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
+      });
+
     describe('Running tests', function () {
       tests.forEach(function (test) {
         it(test.title, async function () {
@@ -110,14 +114,18 @@ describe(`Rule ${rule}`, function () {
           const page = await incognito.newPage();
           try {
             const dom = new Dom(page);
-            const { sourceHtmlHeadContent } = await dom.process({ 
-              execute: { act: true }, 
-              "act-rules": { 
-                rules: [rule]
+            const { sourceHtmlHeadContent } = await dom.process(
+              {
+                execute: { act: true },
+                'act-rules': {
+                  rules: [rule]
+                },
+                waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle2'] : 'load'
               },
-              waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle2'] : 'load'
-            }, test.url, '');
-            
+              test.url,
+              ''
+            );
+
             await page.addScriptTag({
               path: require.resolve('@qualweb/qw-page')
             });
@@ -129,28 +137,30 @@ describe(`Rule ${rule}`, function () {
             await page.addScriptTag({
               path: require.resolve('../dist/act.bundle.js')
             });
-            
-            await page.evaluate((options) => {
-              //window.qwPage = new Module.QWPage(document, window, true);
-              //window.DomUtils = Utility.DomUtils;
-              //window.AccessibilityUtils = Utility.AccessibilityUtils;
-              //window.act = new ACT.ACTRules(options);
-              window.act.configure(options);
-            }, { rules: [rule] });
-            
+
+            await page.evaluate(
+              (options) => {
+                //window.qwPage = new Module.QWPage(document, window, true);
+                //window.DomUtils = Utility.DomUtils;
+                //window.AccessibilityUtils = Utility.AccessibilityUtils;
+                //window.act = new ACT.ACTRules(options);
+                window.act.configure(options);
+              },
+              { rules: [rule] }
+            );
 
             if (ruleId === '8a213c') {
-              await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
+              await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
             }
             await page.evaluate((sourceHtmlHeadContent) => {
               window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
               const parser = new DOMParser();
-              const sourceDoc = parser.parseFromString('', "text/html");
+              const sourceDoc = parser.parseFromString('', 'text/html');
 
               sourceDoc.head.innerHTML = sourceHtmlHeadContent;
 
-              const elements = sourceDoc.querySelectorAll("meta");
+              const elements = sourceDoc.querySelectorAll('meta');
               const metaElements = new Array();
               for (const element of elements) {
                 metaElements.push(window.qwPage.createQWElement(element));

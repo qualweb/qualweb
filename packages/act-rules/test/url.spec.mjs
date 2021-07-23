@@ -2,12 +2,14 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://www.washington.edu/accesscomputing/AU/before.html';
+    const url = 'https://uidai.gov.in/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -61,9 +63,9 @@ describe('Running tests', function () {
       return window.act.getReport();
     });
 
-    await page.close();
+    /*await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
     //console.log(JSON.stringify(report, null, 2));
     expect(report);
