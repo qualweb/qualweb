@@ -13,7 +13,6 @@ class QW_WCAG_T17 extends Technique {
   @ElementIsVisible
   execute(element: typeof window.qwElement): void {
     const test = new Test();
-
     const insideLabel = this.isInsideLabelElement(element);
     const type = element.getElementAttribute('type');
 
@@ -53,27 +52,28 @@ class QW_WCAG_T17 extends Technique {
             if (text && text.trim() !== '') {
               const ancestor = this.findFirstCommonAncestor(element, label);
               if (ancestor) {
-                if (type && (type === 'radio' || type === 'checkbox')) {
-                  const isLabelAfter = this.isLabelAfter(element, label, ancestor);
-                  if (isLabelAfter) {
-                    test.verdict = 'passed';
-                    test.description = 'The form field has well positioned label.';
-                    test.resultCode = 'RC1';
+                const firstFound = this.findFirstInDepth(ancestor, [element, label]);
+                if (firstFound) {
+                  if (type && (type === 'radio' || type === 'checkbox')) {
+                    if (firstFound.getElementSelector() === element.getElementSelector()) {
+                      test.verdict = 'passed';
+                      test.description = 'The form field has well positioned label.';
+                      test.resultCode = 'RC1';
+                    } else {
+                      test.verdict = 'failed';
+                      test.description = 'The form field has incorrect positioned label.';
+                      test.resultCode = 'RC3';
+                    }
                   } else {
-                    test.verdict = 'failed';
-                    test.description = 'The form field has incorrect positioned label.';
-                    test.resultCode = 'RC3';
-                  }
-                } else {
-                  const isLabelBefore = !this.isLabelAfter(element, label, ancestor);
-                  if (isLabelBefore) {
-                    test.verdict = 'passed';
-                    test.description = 'The form field has well positioned label.';
-                    test.resultCode = 'RC1';
-                  } else {
-                    test.verdict = 'failed';
-                    test.description = 'The form field has incorrect positioned label.';
-                    test.resultCode = 'RC3';
+                    if (firstFound.getElementSelector() === label.getElementSelector()) {
+                      test.verdict = 'passed';
+                      test.description = 'The form field has well positioned label.';
+                      test.resultCode = 'RC1';
+                    } else {
+                      test.verdict = 'failed';
+                      test.description = 'The form field has incorrect positioned label.';
+                      test.resultCode = 'RC3';
+                    }
                   }
                 }
               }
@@ -176,7 +176,7 @@ class QW_WCAG_T17 extends Technique {
     label: typeof window.qwElement
   ): typeof window.qwElement | null {
     let inputParent = input.getElementParent();
-    let ancestor = inputParent;
+    let ancestor = null;
 
     while (inputParent !== null) {
       let labelParent = label.getElementParent();
@@ -199,123 +199,29 @@ class QW_WCAG_T17 extends Technique {
     return ancestor;
   }
 
-  private isLabelAfter(
-    input: typeof window.qwElement,
-    label: typeof window.qwElement,
-    ancestor: typeof window.qwElement
-  ): boolean {
-    let labelAfter = false;
+  private findFirstInDepth(
+    ancestor: typeof window.qwElement,
+    elements: Array<typeof window.qwElement>
+  ): typeof window.qwElement | null {
+    let elementFound: typeof window.qwElement | null = null;
 
     for (const child of ancestor.getElementChildren()) {
-      if (child.getElementSelector() === input.getElementSelector()) {
-        labelAfter = true;
-        break;
-      }
-
-      if (child.getElementSelector() === label.getElementSelector()) {
-        break;
-      }
-
-      labelAfter = this.isLabelAfter(input, label, child);
-      if (labelAfter) {
-        break;
-      }
-    }
-
-    return labelAfter;
-  }
-
-  /*@ElementExists
-  @ElementIsVisible
-  execute(element: typeof window.qwElement): void {
-    const test = new Test();
-
-    const result = this.verifyInputLabelPosition(element);
-
-    if (result === 'checkbox') {
-      test.verdict = 'failed';
-      test.description = 'The checkbox label is not immediately after the field';
-      test.resultCode = 'RC1';
-    } else if (result === 'radio') {
-      test.verdict = 'failed';
-      test.description = 'The radio label is not immediately after the field';
-      test.resultCode = 'RC2';
-    } else if (result === 'other') {
-      test.verdict = 'failed';
-      test.description = 'The form field label is not immediately before the field';
-      test.resultCode = 'RC3';
-    } else if (result === 'noLabel') {
-      test.verdict = 'failed';
-      test.description = 'The form field does not have a label';
-      test.resultCode = 'RC4';
-    } else if (result === 'pass') {
-      test.verdict = 'passed';
-      test.description = 'The form field has well positioned label';
-      test.resultCode = 'RC5';
-    }
-
-    test.addElement(element);
-    super.addTestResult(test);
-  }
-
-  private verifyInputLabelPosition(element: typeof window.qwElement): string | undefined {
-    if (element.elementHasAttributes()) {
-      const type = element.getElementAttribute('type');
-
-      const prevElement = element.getElementPreviousSibling();
-      let prevElementTagName;
-      let prevElementHasAttributes;
-      let prevElementAttributeFor;
-
-      if (prevElement) {
-        prevElementTagName = prevElement.getElementTagName();
-        prevElementHasAttributes = prevElement.elementHasAttributes();
-        prevElementAttributeFor = prevElement.getElementAttribute('for');
-      }
-
-      const nextElement = element.getElementNextSibling();
-      let nextElementTagName: string | undefined;
-      let nextElementHasAttributes: boolean | undefined;
-      let nextElementAttributeFor!: string | null;
-
-      if (nextElement) {
-        nextElementTagName = nextElement.getElementTagName();
-        nextElementHasAttributes = nextElement.elementHasAttributes();
-        nextElementAttributeFor = nextElement.getElementAttribute('for');
-      }
-
-      const elementId = element.getElementAttribute('id');
-
-      if (type && (type === 'radio' || type === 'checkbox')) {
-        if (nextElement) {
-          if (nextElementTagName === 'label' && nextElementHasAttributes && nextElementAttributeFor === elementId) {
-            return 'pass';
-          }
-        } else if (prevElement) {
-          if (prevElementTagName === 'label' && prevElementHasAttributes && prevElementAttributeFor === elementId) {
-            return type;
-          }
-        } else {
-          return 'noLabel';
+      for (const element of elements) {
+        if (child.getElementSelector() === element.getElementSelector()) {
+          elementFound = element;
+          break;
         }
       }
-      if (type && type !== 'checkbox' && type !== 'radio') {
-        if (prevElement) {
-          if (prevElementTagName === 'label' && prevElementHasAttributes && prevElementAttributeFor === elementId) {
-            return 'pass';
-          }
-        } else if (nextElement) {
-          if (nextElementTagName === 'label' && nextElementHasAttributes && nextElementAttributeFor === elementId) {
-            return 'other';
-          }
-        } else {
-          return 'noLabel';
-        }
+
+      if (elementFound) {
+        break;
+      } else {
+        elementFound = this.findFirstInDepth(child, elements);
       }
     }
 
-    return undefined;
-  }*/
+    return elementFound;
+  }
 }
 
 export = QW_WCAG_T17;

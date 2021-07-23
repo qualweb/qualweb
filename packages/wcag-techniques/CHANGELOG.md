@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.6] - 23/07/2021
+
+### Fixed
+
+- QW-WCAG-T17
+
+### Updated
+
+- dependencies
+- test files
+
 ## [0.2.5] - 21/07/2021
 
 ### Fixed

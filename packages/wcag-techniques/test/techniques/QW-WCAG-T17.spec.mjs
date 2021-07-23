@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Running tests', function () {
   it('Evaluates code', async function () {
