@@ -1,12 +1,69 @@
 # Changelog
 
-### [0.7.6-alpha] - 11/05/2020
+### [0.7.7-alpha] - 23/07/2021
+
+### Changes
+
+- merged changes from develop
+
+## [0.6.13] - 22/07/2021
+
+### Added
+
+- getElementOwnText function to qw-element interface
+
+## [0.6.12] - 21/07/2021
+
+### Changes
+
+- downgraded @types/puppeteer to 5.4.3
+
+## [0.6.11] - 19/07/2021
+
+### Updated
+
+- qwElement interface
+
+## [0.6.10] - 19/07/2021
+
+### Updated
+
+- act-rules interface
+- evaluation interface
+- qwElement interface
+- dependencies
+
+## [0.6.9] - 30/06/2021
+
+### Updated
+
+- dom interface
+
+## [0.6.8] - 21/06/2021
+
+### Updated
+
+- evaluation global interface
+
+## [0.6.7] - 31/05/2021
+
+### Updated
+
+- core options interface
+
+## [0.6.6] - 25/05/2021
+
+### Updated
+
+- util interface
+
+### [0.7.6-alpha] - 11/05/2021
 
 ### Updated
 
 - bugs fixed from develop branch
 
-### [0.7.5-alpha] - 05/05/2020
+### [0.7.5-alpha] - 05/05/2021
 
 ### Updated
 
@@ -15,55 +72,55 @@
 - wcag-techniques interface
 - best-practices interface
 
-### [0.7.4-alpha] - 05/05/2020
+### [0.7.4-alpha] - 05/05/2021
 
 ### Updated
 
 - locale interface
 
-### [0.7.3-alpha] - 04/05/2020
+### [0.7.3-alpha] - 04/05/2021
 
 ### Updated
 
 - locale interface
 
-### [0.7.2-alpha] - 04/05/2020
+### [0.7.2-alpha] - 04/05/2021
 
 ### Updated
 
 - locale
 
-### [0.7.1-alpha] - 04/05/2020
+### [0.7.1-alpha] - 04/05/2021
 
 ### Updated
 
 - locale, core and act-rules interfaces
 
-## [0.6.3] - 03/05/2020
+## [0.6.3] - 03/05/2021
 
 ### Updated
 
 - qwElement interface changes
 
-## [0.6.2-alpha] - 22/04/2020
+## [0.6.2-alpha] - 22/04/2021
 
 ### Updated
 
 - core interface
 
-## [0.6.1-alpha] - 21/04/2020
+## [0.6.1-alpha] - 21/04/2021
 
 ### Updated
 
 - core interface
 
-## [0.6.0-alpha] - 21/04/2020
+## [0.6.0-alpha] - 21/04/2021
 
 ### Updated
 
 - core interface
 
-## [0.5.19] - 21/04/2020
+## [0.5.19] - 21/04/2021
 
 ### Updated
 
@@ -71,39 +128,40 @@
 - crawler interface
 - core interface
 
-## [0.5.18] - 15/04/2020
+## [0.5.18] - 15/04/2021
 
 ### Updated
 
 - qwPage interface
 - util interface
 
-## [0.5.17] - 15/04/2020
+## [0.5.17] - 15/04/2021
 
 ### Updated
 
 - core interface
 - util interface
-## [0.5.16] - 15/04/2020
+
+## [0.5.16] - 15/04/2021
 
 ### Updated
 
 - dom interface
 
-## [0.5.15] - 14/04/2020
+## [0.5.15] - 14/04/2021
 
 ### Updated
 
 - qwPage interface
 
-## [0.5.14] - 14/04/2020
+## [0.5.14] - 14/04/2021
 
 ### Updated
 
 - evaluation interface
 - util interface
 
-## [0.5.13] - 13/04/2020
+## [0.5.13] - 13/04/2021
 
 ### Updated
 
@@ -111,13 +169,13 @@
 - evaluation interface
 - core documentation
 
-## [0.5.12] - 09/04/2020
+## [0.5.12] - 09/04/2021
 
 ### Updated
 
 - QualwebOptions to support CrawlOptions
 
-## [0.5.11] - 09/04/2020
+## [0.5.11] - 09/04/2021
 
 ### Updated
 
@@ -129,59 +187,61 @@
 
 - crawler interface
 
-## [0.5.9] - 30/03/2020
+## [0.5.9] - 30/03/2021
 
 ### Added
 
 - Level and Principle types
-## [0.5.8] - 30/03/2020
+
+## [0.5.8] - 30/03/2021
 
 ### Updated
 
 - act-rules interface
 
-## [0.5.7] - 29/03/2020
+## [0.5.7] - 29/03/2021
 
 ### Updated
 
 - several interfaces
 
-## [0.5.6] - 27/03/2020
+## [0.5.6] - 27/03/2021
 
 ### Added
 
 - necessary types for object Window on the evaluation module
 
-## [0.5.5] - 27/03/2020
+## [0.5.5] - 27/03/2021
 
 ### Changes
 
 - several interfaces fixes
 
-## [0.5.4] - 26/03/2020
+## [0.5.4] - 26/03/2021
 
 ### Added
 
 - declaration for module wappalyzer
-## [0.5.3] - 25/03/2020
+
+## [0.5.3] - 25/03/2021
 
 ### Updated
 
 - qw-element styles interface
 
-## [0.5.2] - 25/03/2020
+## [0.5.2] - 25/03/2021
 
 ### Updated
 
 - qw-element styles interface
 
-## [0.5.1] - 24/03/2020
+## [0.5.1] - 24/03/2021
 
 ### Updated
 
 - qw-element styles interface
 
-## [0.5.0] - 24/03/2020
+## [0.5.0] - 24/03/2021
 
 ### Updated
 
@@ -194,37 +254,37 @@
 
 - unused dependencies
 
-## [0.4.68] - 23/03/2020
+## [0.4.68] - 23/03/2021
 
 ### Updated
 
 - qw-element styles interface
 
-## [0.4.67] - 23/03/2020
+## [0.4.67] - 23/03/2021
 
 ### Updated
 
 - earl-reporter interfaces
 
-## [0.4.66] - 23/03/2020
+## [0.4.66] - 23/03/2021
 
 ### Updated
 
 - core interface
 
-## [0.4.65] - 22/03/2020
+## [0.4.65] - 22/03/2021
 
 ### Updated
 
 - core interface
 
-## [0.4.64] - 22/03/2020
+## [0.4.64] - 22/03/2021
 
 ### Updated
 
 - return values for earl-reporter module functions
 
-## [0.4.63] - 22/03/2020
+## [0.4.63] - 22/03/2021
 
 ### Added
 
@@ -239,7 +299,7 @@
 - ACTElement interface
 - BestPracticeResult interface. It now supports multiple elements of type BPElement
 
-## [0.4.62] - 11/03/2020
+## [0.4.62] - 11/03/2021
 
 ### Added
 
@@ -248,37 +308,37 @@
 - waitUntil to QualwebOptions interface
   - you can now choose what events should puppeteer wait before starting the evaluation
 
-## [0.4.61] - 09/03/2020
+## [0.4.61] - 09/03/2021
 
 ### Updated
 
 - qwElement.d.ts
 
-## [0.4.60] - 08/03/2020
+## [0.4.60] - 08/03/2021
 
 ### Updated
 
 - core.d.ts
 
-## [0.4.59] - 01/03/2020
+## [0.4.59] - 01/03/2021
 
 ### Updated
 
 - evaluation.d.ts
 
-## [0.4.58] - 27/02/2020
+## [0.4.58] - 27/02/2021
 
 ### Fixed
 
 - bugs on evaluation.d.ts
 
-## [0.4.57] - 26/02/2020
+## [0.4.57] - 26/02/2021
 
 ### Updated
 
 - wcag-techniques.d.ts
 
-## [0.4.56] - 26/02/2020
+## [0.4.56] - 26/02/2021
 
 ### Added
 
@@ -286,13 +346,13 @@
 - "exclude" option for ACTROptions, WCAGOptions and BPOptions
 - "Execute" interface for core.d.ts
 
-## [0.4.55] - 23/02/2020
+## [0.4.55] - 23/02/2021
 
 ### Updated
 
 - qw-element definition
 
-## [0.4.54] - 18/02/2020
+## [0.4.54] - 18/02/2021
 
 ### Added
 

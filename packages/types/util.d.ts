@@ -60,6 +60,7 @@ declare module "@qualweb/util" {
     public static getLinkContext(element: QWElement): Array<string>;
     public static allowsNameFromContent(element: QWElement): boolean;
     public static elementHasValidRole(element: QWElement): boolean;
+    public static getElementValidExplicitRole(element: QWElement): string | null;
     public static getAccessibleName(element: QWElement): string | undefined;
     public static getAccessibleNameSelector(element: QWElement): Array<string> | undefined;
     public static getAccessibleNameSVG(element: QWElement): string | undefined;

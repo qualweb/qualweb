@@ -10,7 +10,7 @@ declare module "@qualweb/dom" {
   }
 
   interface PageData {
-    sourceHtmlHeadContent: string;
+    sourceHtml: string;
     validation?: HTMLValidationReport;
   }
 
@@ -20,15 +20,21 @@ declare module "@qualweb/dom" {
 
     constructor(page: Page, validator?: string);
 
-    public process(options: QualwebOptions, url: string, html: string): Promise<PageData>;
-    
-    private removeUrlAnchor(url: string): string
-    private navigateToPage(url: string, options: QualwebOptions): Promise<Response | null>;
+    public process(
+      options: QualwebOptions,
+      url: string,
+      html: string
+    ): Promise<PageData>;
+
+    private removeUrlAnchor(url: string): string;
+    private navigateToPage(
+      url: string,
+      options: QualwebOptions
+    ): Promise<Response | null>;
 
     private setPageViewport(options?: PageOptions): Promise<void>;
     private createViewportObject(options: PageOptions): Viewport;
     private getSourceHtml(url: string, options?: PageOptions): Promise<string>;
-    private getHeadContent(html: string): string;
     private getValidatorResult(
       url: string
     ): Promise<HTMLValidationReport | undefined>;

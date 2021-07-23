@@ -1,12 +1,16 @@
 declare module "@qualweb/core" {
   import { WCAGOptions, WCAGTechniquesReport } from "@qualweb/wcag-techniques";
   import { DomData } from "@qualweb/dom";
-  import { CrawlOptions } from '@qualweb/crawler';
+  import { CrawlOptions } from "@qualweb/crawler";
   import { WappalyzerReport, WappalyzerOptions } from "@qualweb/wappalyzer";
   import { ACTRulesReport, ACTROptions } from "@qualweb/act-rules";
   import { BestPracticesReport, BPOptions } from "@qualweb/best-practices";
   import { generateEARLReport } from "@qualweb/earl-reporter";
-  import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from "puppeteer";
+  import {
+    LaunchOptions,
+    BrowserLaunchArgumentOptions,
+    BrowserConnectOptions,
+  } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
   import { Locale, TranslationObject } from '@qualweb/locale';
 
@@ -18,7 +22,11 @@ declare module "@qualweb/core" {
     counter?: boolean;
   }
 
-  type LoadEvent = 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
+  type LoadEvent =
+    | "load"
+    | "domcontentloaded"
+    | "networkidle0"
+    | "networkidle2";
 
   interface QualwebOptions {
     url?: string;
@@ -26,6 +34,8 @@ declare module "@qualweb/core" {
     file?: string;
     crawl?: string;
     html?: string;
+    timeout?: number;
+    maxParallelEvaluations?: number;
     waitUntil?: LoadEvent | LoadEvent[];
     viewport?: PageOptions;
     validator?: string;
@@ -114,14 +124,14 @@ declare module "@qualweb/core" {
     [url: string]: EvaluationReport;
   }
 
-  interface PuppeteerPlugins { 
-    stealth?: boolean; 
+  interface PuppeteerPlugins {
+    stealth?: boolean;
     adBlock?: boolean;
   }
 
   interface ClusterOptions {
-    maxConcurrency?: number; 
-    timeout?: number; 
+    maxConcurrency?: number;
+    timeout?: number;
     monitor?: boolean;
   }
 
@@ -141,18 +151,23 @@ declare module "@qualweb/core" {
 
     /**
      * Initializes puppeteer with given plugins.
-     * 
+     *
      * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth.
      */
     constructor(plugins?: PuppeteerPlugins);
 
     /**
      * Starts chromium browser cluster.
-     * 
+     *
      * @param {ClusterOptions} clusterOptions - Options for cluster initialization.
      * @param {LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions} options - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions.
      */
-    public start(clusterOptions?: ClusterOptions, puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions): Promise<void>;
+    public start(
+      clusterOptions?: ClusterOptions,
+      puppeteerOptions?: LaunchOptions &
+        BrowserLaunchArgumentOptions &
+        BrowserConnectOptions
+    ): Promise<void>;
 
     /**
      * Closes chromium browser.
@@ -174,7 +189,10 @@ declare module "@qualweb/core" {
      * @param {CrawlOptions} options - Options for crawling process.
      * @returns List of decoded urls.
      */
-    public crawlDomain(domain: string, options?: CrawlOptions): Promise<Array<string>>;
+    public crawlDomain(
+      domain: string,
+      options?: CrawlOptions
+    ): Promise<Array<string>>;
 
     /**
      * Checks possible input options and compiles the urls.
