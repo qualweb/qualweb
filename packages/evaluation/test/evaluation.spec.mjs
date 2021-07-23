@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-import { Evaluation } from '../dist/index';
+import { Evaluation } from '../dist/index.js';
 import fs from 'fs';
 
 describe('QualWeb evaluation', function () {
