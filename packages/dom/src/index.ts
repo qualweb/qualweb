@@ -16,11 +16,11 @@ import { URL } from 'url';
 
 class Dom {
   private readonly page: Page;
-  private readonly endpoint: string;
+  private readonly endpoint?: string;
 
   constructor(page: Page, validator?: string) {
     this.page = page;
-    this.endpoint = validator ?? 'http://194.117.20.242/validate/';
+    this.endpoint = validator;
   }
 
   public async process(options: QualwebOptions, url: string, html: string): Promise<PageData> {
@@ -171,24 +171,28 @@ class Dom {
   }
 
   private getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {
-    const validationUrl = this.endpoint + encodeURIComponent(url);
-    return new Promise((resolve) => {
-      try {
-        fetch(validationUrl, { timeout: 10 * 1000 }).then((response) => {
-          if (response && response.status === 200) {
-            response.json().then((data) => {
-              resolve(<HTMLValidationReport>JSON.parse(data));
-            });
-          }
-        });
-      } catch (e) {
-        resolve(undefined);
-      }
-    });
+    if (this.endpoint) {
+      const validationUrl = this.endpoint + encodeURIComponent(url);
+      return new Promise((resolve) => {
+        try {
+          fetch(validationUrl, { timeout: 10 * 1000 }).then((response) => {
+            if (response && response.status === 200) {
+              response.json().then((data) => {
+                resolve(<HTMLValidationReport>JSON.parse(data));
+              });
+            }
+          });
+        } catch (e) {
+          resolve(undefined);
+        }
+      });
+    } else {
+      return Promise.resolve(undefined);
+    }
   }
 
   private validatorNeeded(options: QualwebOptions): boolean {
-    if (this.isModuleSetToExecute(options, 'wcag')) {
+    if (this.isModuleSetToExecute(options, 'wcag') && this.endpoint) {
       if (options['wcag-techniques']) {
         if (this.moduleExcludesValidatorTechnique(options)) {
           return false;

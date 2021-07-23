@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.3] - 23/07/2021
+
+### Removed
+
+- default html validator endpoint. Html validation will only occur if local endpoint service is given
+
+### Updated
+
+- dependencies
+
 ## [0.2.2] - 30/06/2021
 
 ### Changes
