@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.14] - 23/07/2021
+
+### Updated
+
+- dependencies
+- test files
+
 ## [0.6.14] - 22/07/2021
 
 ### Updated

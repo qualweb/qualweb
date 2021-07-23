@@ -1,4 +1,4 @@
-import { QualWeb, generateEARLReport } from '../dist/index';
+import { QualWeb, generateEARLReport } from '../dist/index.js';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -10,17 +10,15 @@ describe('Core', function () {
     await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://gribskov.dk/',
-      execute: { act: true },
-      waitUntil: ['load', 'networkidle0'],
-      'wcag-techniques': { exclude: ['QW-WCAG-T16'] },
-      'act-rules': { rules: ['QW-ACT-R40'] }
+      url: 'https://ciencias.ulisboa.pt',
+      execute: { act: true, wcag: true, bp: true },
+      waitUntil: ['load', 'networkidle0']
     });
-    console.log(JSON.stringify(evaluations, null, 2));
+
     const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
-    expect(earlReports['https://gribskov.dk/']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://ciencias.ulisboa.pt']['@graph'].length).to.be.equal(1);
   });
 });
