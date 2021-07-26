@@ -10,7 +10,7 @@ import AtomicRule from './lib/AtomicRule.object';
 import CompositeRule from './lib/CompositeRule.object';
 import mapping from './lib/mapping';
 import compositeRules from './lib/mappingComposite';
-import { Translate } from '@qualweb/core';
+import { Translate } from '@qualweb/locale';
 
 class ACTRules {
   private readonly rules: { [rule: string]: AtomicRule | CompositeRule };

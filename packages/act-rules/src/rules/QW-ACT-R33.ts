@@ -1,11 +1,12 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R33 extends AtomicRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 
@@ -15,7 +16,7 @@ class QW_ACT_R33 extends AtomicRule {
 
     const test = new Test();
 
-    const explicitRole = window.AccessibilityUtils.getElementValidExplicitRole(element)
+    const explicitRole = window.AccessibilityUtils.getElementValidExplicitRole(element);
     const implicitRole = window.AccessibilityUtils.getImplicitRole(element, '');
     const isInAT = window.AccessibilityUtils.isElementInAT(element);
     const isValidRole = window.AccessibilityUtils.elementHasValidRole(element);
@@ -35,17 +36,17 @@ class QW_ACT_R33 extends AtomicRule {
         const ariaOwnsRole = window.AccessibilityUtils.getElementRole(ariaOwns);
         if (ariaOwnsRole && requiredContextRole.includes(ariaOwnsRole)) {
           test.verdict = 'passed';
-          test.resultCode = 'RC1';
+          test.resultCode = 'P1';
         } else {
           test.verdict = 'failed';
-          test.resultCode = 'RC2';
+          test.resultCode = 'F1';
         }
       } else if (this.isElementADescendantOf(element, <string[]>requiredContextRole)) {
         test.verdict = 'passed';
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else {
         test.verdict = 'failed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

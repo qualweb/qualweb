@@ -1,14 +1,20 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementHasOneOfTheFollowingRoles, ElementIsInAccessibilityTree, ElementIsVisible } from '../lib/decorator';
+import {
+  ACTRuleDecorator,
+  ElementExists,
+  ElementHasOneOfTheFollowingRoles,
+  ElementIsInAccessibilityTree,
+  ElementIsVisible
+} from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R39 extends AtomicRule {
+  private readonly cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader'];
 
-  private readonly cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader']
-
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 
@@ -26,7 +32,7 @@ class QW_ACT_R39 extends AtomicRule {
         const colspan = element.getElementAttribute('colspan');
         const headerElementIndex = getElementIndexOfParentChildren(element);
         const headerElementId = element.getElementAttribute('id');
-        
+
         let found = false;
         let index = 0;
         while (!found && index < rowElements.length) {
@@ -35,11 +41,11 @@ class QW_ACT_R39 extends AtomicRule {
             const rowChildrenElements = rowElements[index].getElementChildren();
 
             // row element with same index as header
-            
+
             // if there is an element in the same index as header...
             if (rowChildrenElements.length > headerElementIndex) {
               const cellIndexElements = [rowChildrenElements[headerElementIndex]];
-              
+
               if (colspan) {
                 let i = headerElementIndex + 1;
                 for (i; i < headerElementIndex + parseInt(colspan) && i < rowChildrenElements.length; i++) {
@@ -47,14 +53,11 @@ class QW_ACT_R39 extends AtomicRule {
                 }
               }
               for (const cellIndexElement of cellIndexElements ?? []) {
-                
                 const cellIndexElementRole = cellIndexElement
                   ? window.AccessibilityUtils.getElementRole(cellIndexElement)
                   : null;
-                const cellHeadersAttribute = cellIndexElement
-                  ? cellIndexElement.getElementAttribute('headers')
-                  : null;
-                
+                const cellHeadersAttribute = cellIndexElement ? cellIndexElement.getElementAttribute('headers') : null;
+
                 // if it does not have a headers attribute, it's found but if it has a headers attribute, we need to verify if it includes headerElement's id
                 found =
                   !!cellIndexElementRole &&
@@ -106,12 +109,12 @@ class QW_ACT_R39 extends AtomicRule {
         const test = new Test();
         if (found) {
           test.verdict = 'passed';
-          test.resultCode = 'RC1';
+          test.resultCode = 'P1';
         } else {
           //if (elementParent) // FIX: the hell is this if for?
 
           test.verdict = 'failed';
-          test.resultCode = 'RC2';
+          test.resultCode = 'F1';
         }
 
         test.addElement(element);
@@ -125,7 +128,7 @@ function getFirstAncestorElementByNameOrRoles(
   element: typeof window.qwElement,
   names: string[],
   roles: string[]
-): (typeof window.qwElement) | null {
+): typeof window.qwElement | null {
   const parent = element.getElementParent();
 
   let sameRole = false;
@@ -134,7 +137,7 @@ function getFirstAncestorElementByNameOrRoles(
   if (parent !== null) {
     const parentName = parent.getElementTagName();
     const parentRole = window.AccessibilityUtils.getElementRole(parent);
-    
+
     if (parentName !== null) {
       sameName = names.includes(parentName);
     }

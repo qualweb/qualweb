@@ -1,10 +1,11 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import CompositeRule from '../lib/CompositeRule.object';
 import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 
 @ACTRuleDecorator
 class QW_ACT_R23 extends CompositeRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 

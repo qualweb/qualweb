@@ -1,11 +1,11 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import Rule from './Rule.object';
 import Test from './Test.object';
 
 abstract class CompositeRule extends Rule {
-
-  constructor(rule: ACTRule, locales: { translate: any; fallback: any; }) {
-    super(rule, locales);
+  constructor(rule: ACTRule, locale: Translate) {
+    super(rule, locale);
   }
 
   abstract execute(element: typeof window.qwElement | undefined, rules?: Array<ACTRule>): void;
@@ -17,15 +17,15 @@ abstract class CompositeRule extends Rule {
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     if (results['failed']) {
       test.verdict = 'failed';
-      test.resultCode = 'RC3';
+      test.resultCode = 'F1';
       test.description = super.getTranslation(test.resultCode) + results['failed'].code;
     } else if (results['warning']) {
       test.verdict = 'warning';
-      test.resultCode = 'RC2';
+      test.resultCode = 'W1';
       test.description = super.getTranslation(test.resultCode) + results['warning'].code;
     } else if (results['passed']) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
       test.description = super.getTranslation(test.resultCode) + results['passed'].code;
     }
 
@@ -40,15 +40,15 @@ abstract class CompositeRule extends Rule {
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     if (results['passed']) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
       test.description = super.getTranslation(test.resultCode) + results['passed'].code;
     } else if (results['warning']) {
       test.verdict = 'warning';
-      test.resultCode = 'RC2';
+      test.resultCode = 'W1';
       test.description = super.getTranslation(test.resultCode) + results['warning'].code;
     } else if (results['failed']) {
       test.verdict = 'failed';
-      test.resultCode = 'RC3';
+      test.resultCode = 'F1';
       test.description = super.getTranslation(test.resultCode) + results['failed'].code;
     }
 

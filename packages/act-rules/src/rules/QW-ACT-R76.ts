@@ -1,11 +1,20 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementHasText, ElementIsHTMLElement, ElementIsNot, ElementIsVisible, ElementIsNotWidget } from '../lib/decorator';
+import {
+  ACTRuleDecorator,
+  ElementExists,
+  ElementHasText,
+  ElementIsHTMLElement,
+  ElementIsNot,
+  ElementIsVisible,
+  ElementIsNotWidget
+} from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R76 extends AtomicRule {
-  constructor(rule: ACTRule, locales: any) {
+  constructor(rule: ACTRule, locales: Translate) {
     super(rule, locales);
   }
 
@@ -19,6 +28,29 @@ class QW_ACT_R76 extends AtomicRule {
     const disabledWidgets = window.disabledWidgets;
 
     const test = new Test();
+
+    const visible = window.DomUtils.isElementVisible(element);
+
+    if (!visible) {
+      return;
+    }
+
+    const hasTextNode = element.hasTextNode();
+    const elementText = element.getElementOwnText();
+
+    if (!hasTextNode && elementText.trim() === '') {
+      return;
+    }
+
+    const isHTML = element.isElementHTMLElement();
+    if (!isHTML) {
+      return;
+    }
+
+    const isWidget = window.AccessibilityUtils.isElementWidget(element);
+    if (isWidget) {
+      return;
+    }
 
     const elementSelectors = element.getElementSelector();
 
@@ -57,7 +89,7 @@ class QW_ACT_R76 extends AtomicRule {
         const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
         if (validateTextShadow) {
           test.verdict = 'warning';
-          test.resultCode = 'RC4';
+          test.resultCode = 'W1';
 
           test.addElement(element);
           super.addTestResult(test);
@@ -68,7 +100,7 @@ class QW_ACT_R76 extends AtomicRule {
 
     if (this.isImage(bgColor)) {
       test.verdict = 'warning';
-      test.resultCode = 'RC5';
+      test.resultCode = 'W2';
 
       test.addElement(element);
       super.addTestResult(test);
@@ -79,7 +111,7 @@ class QW_ACT_R76 extends AtomicRule {
     //TODO check if there is more colors
     //TODO account for margin and padding
 
-    const elementText = window.DomUtils.getTrimmedText(element);
+    //const elementText = window.DomUtils.getTrimmedText(element);
 
     const regexGradient = /((\w-?)*gradient.*)/gm;
     let regexGradientMatches = bgColor.match(regexGradient);
@@ -100,7 +132,7 @@ class QW_ACT_R76 extends AtomicRule {
         );
       } else {
         test.verdict = 'passed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'P2';
 
         test.addElement(element);
         super.addTestResult(test);
@@ -172,13 +204,13 @@ class QW_ACT_R76 extends AtomicRule {
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           if (isValid) {
             test.verdict = 'passed';
-            test.resultCode = 'RC1';
+            test.resultCode = 'P1';
 
             test.addElement(element);
             super.addTestResult(test);
           } else {
             test.verdict = 'failed';
-            test.resultCode = 'RC7';
+            test.resultCode = 'F1';
 
             test.addElement(element);
             super.addTestResult(test);
@@ -258,21 +290,21 @@ class QW_ACT_R76 extends AtomicRule {
         }
         if (isValid) {
           test.verdict = 'passed';
-          test.resultCode = 'RC3';
+          test.resultCode = 'P3';
         } else {
           test.verdict = 'failed';
-          test.resultCode = 'RC8';
+          test.resultCode = 'F2';
         }
       } else if (gradientDirection === 'to left') {
         //TODO
         test.verdict = 'warning';
-        test.resultCode = 'RC6';
+        test.resultCode = 'W3';
       } else {
         test.verdict = 'warning';
-        test.resultCode = 'RC6';
+        test.resultCode = 'W3';
       }
     } else {
-      test.resultCode = 'RC6';
+      test.resultCode = 'W3';
     }
 
     test.addElement(element);

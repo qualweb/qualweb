@@ -1,10 +1,22 @@
 # Changelog
 
-## [0.6.0-alpha] - 05/05/2021
+## [0.5.10] - 22/07/2021
 
-### Added
+### Updated
 
-- localization support
+- QW-ACT-R35
+- QW-ACT-R37
+- QW-ACT-R76
+
+## [0.5.9] - 30/05/2021
+
+### Fixed
+
+- QW-ACT-R74 bug
+
+### Updated
+
+- dependencies
 
 ## [0.5.8] - 25/05/2021
 
@@ -17,6 +29,12 @@
 ### Fixed
 
 - QW-ACT-R72 bug
+
+## [0.6.0-alpha] - 05/05/2021
+
+### Added
+
+- localization support
 
 ## [0.5.6] - 27/04/2021
 
@@ -64,6 +82,7 @@
 ### Fixed
 
 - issue with webpack config
+
 ## [0.5.0] - 25/03/2021
 
 ### Updated

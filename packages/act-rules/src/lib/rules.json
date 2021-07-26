@@ -829,12 +829,6 @@
           "level": "A",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
-        },
-        {
-          "name": "2.4.6",
-          "level": "AA",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html"
         }
       ],
       "related": ["H42"],

@@ -1,4 +1,5 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import {
   ACTRuleDecorator,
@@ -12,7 +13,7 @@ import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R3 extends AtomicRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 
@@ -34,10 +35,10 @@ class QW_ACT_R3 extends AtomicRule {
 
     if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

@@ -1,12 +1,13 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R4 extends AtomicRule {
-  constructor(rule: ACTRule, locales: any) {
-    super(rule, locales);
+  constructor(rule: ACTRule, locale: Translate) {
+    super(rule, locale);
   }
 
   @ElementExists
@@ -35,11 +36,12 @@ class QW_ACT_R4 extends AtomicRule {
       const split = content.split(';');
 
       if (
-        split.length === 2 && 
-        split[0].trim() !== '' && 
-        split[1].trim() !== '' && 
-        this.checkIfIsNumber(split[0]) && 
-        Number.isInteger(parseInt(split[0], 0))) {
+        split.length === 2 &&
+        split[0].trim() !== '' &&
+        split[1].trim() !== '' &&
+        this.checkIfIsNumber(split[0]) &&
+        Number.isInteger(parseInt(split[0], 0))
+      ) {
         n = Number(split[0]);
       }
     }
@@ -50,16 +52,16 @@ class QW_ACT_R4 extends AtomicRule {
       if (n === 0) {
         // passes because the time is 0
         test.verdict = 'passed';
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else if (n > 72000) {
         // passes because the time is bigger than 72000
         test.verdict = 'passed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'P2';
       } else {
         // fails because the time is in between 0 and 72000
         test.verdict = 'failed';
-        test.description = super.getTranslation('RC3', { seconds: n })
-        test.resultCode = 'RC3';
+        test.description = super.getTranslation('RC3', { seconds: n });
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

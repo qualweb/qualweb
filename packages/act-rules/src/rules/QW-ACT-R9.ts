@@ -1,11 +1,12 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R9 extends AtomicRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 
@@ -56,16 +57,16 @@ class QW_ACT_R9 extends AtomicRule {
 
           if (hasEqualHref) {
             test.verdict = 'passed';
-            test.resultCode = 'RC1';
+            test.resultCode = 'P1';
           } else {
             test.verdict = 'warning';
-            test.resultCode = 'RC2';
+            test.resultCode = 'F1';
           }
 
           test.addElements(elementList, true, false, true);
           super.addTestResult(test);
-        } 
-      } 
+        }
+      }
       counter++;
     }
   }

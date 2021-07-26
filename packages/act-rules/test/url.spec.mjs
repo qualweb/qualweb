@@ -4,12 +4,14 @@ import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import enLocale from './locales/en.json';
 import ptLocale from './locales/pt.json';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://cm-felgueiras.pt/ampliacao-da-rede-de-saneamento-em-felgueiras-sendim/';
+    const url = 'https://uidai.gov.in/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -32,35 +34,31 @@ describe('Running tests', function () {
       path: require.resolve('../dist/act.bundle.js')
     });
 
-    const headContent = sourceCode.split('<head>')[1].split('</head>')[0];
-
-<<<<<<< HEAD
-    await page.keyboard.press("Tab"); // for R72 that needs to check the first focusable element
-    await page.evaluate(({ ptLocale, enLocale }, headContent) => {
-      window.act = new ACTRules({ translate: ptLocale, fallback: enLocale });
-      window.act.configure({ rules: ['QW-ACT-R1'] })
-=======
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await page.evaluate((headContent) => {
-      window.act.configure({ rules: ['QW-ACT-R1'] });
->>>>>>> develop
-      window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
+    await page.evaluate(
+      ({ ptLocale, enLocale }, sourceCode) => {
+        window.act = new ACTRules({ translate: ptLocale, fallback: enLocale });
+        window.act.configure({ rules: ['QW-ACT-R1'] });
+        window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
-      const parser = new DOMParser();
-      const sourceDoc = parser.parseFromString('', 'text/html');
+        const parser = new DOMParser();
+        const sourceDoc = parser.parseFromString('', 'text/html');
 
-      sourceDoc.head.innerHTML = headContent;
+        sourceDoc.documentElement.innerHTML = sourceCode;
 
-      const elements = sourceDoc.querySelectorAll('meta');
-      const metaElements = new Array();
-      for (const element of elements) {
-        metaElements.push(window.qwPage.createQWElement(element));
-      }
+        const elements = sourceDoc.querySelectorAll('meta');
+        const metaElements = new Array();
+        for (const element of elements) {
+          metaElements.push(window.qwPage.createQWElement(element));
+        }
 
-      window.act.validateMetaElements(metaElements);
-      window.act.executeAtomicRules();
-      window.act.executeCompositeRules();
-    }, { ptLocale, enLocale }, headContent);
+        window.act.validateMetaElements(metaElements);
+        window.act.executeAtomicRules();
+        window.act.executeCompositeRules();
+      },
+      { ptLocale, enLocale },
+      sourceCode
+    );
 
     await page.setViewport({
       width: 640,
@@ -72,11 +70,11 @@ describe('Running tests', function () {
       return window.act.getReport();
     });
 
-    await page.close();
+    /*await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
-    console.log(JSON.stringify(report, null, 2));
+    //console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

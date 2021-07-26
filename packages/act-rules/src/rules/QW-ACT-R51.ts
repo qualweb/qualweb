@@ -1,11 +1,12 @@
 import { ACTRule } from '@qualweb/act-rules';
+import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
 import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
 class QW_ACT_R51 extends AtomicRule {
-  constructor(rule: ACTRule, locale: any) {
+  constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
 
@@ -20,11 +21,11 @@ class QW_ACT_R51 extends AtomicRule {
     const test = new Test('warning');
 
     if (!(duration >= 0 && hasSoundTrack)) {
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
       test.addElement(element);
       super.addTestResult(test);
     } else if (hasPuppeteerApplicableData) {
-      test.resultCode = 'RC2';
+      test.resultCode = 'W2';
       test.addElement(element);
       super.addTestResult(test);
     }

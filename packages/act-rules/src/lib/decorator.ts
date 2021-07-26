@@ -4,22 +4,29 @@ import rules from './rules.json';
 
 function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {
   const newConstructor: any = function () {
-    
     const locales = <Translate>arguments[0];
-    
+
     //@ts-ignore
     const rule = <ACTRule>rules[constructor.name];
-    
+
     rule.metadata.passed = 0;
     rule.metadata.warning = 0;
     rule.metadata.failed = 0;
     rule.metadata.inapplicable = 0;
     rule.metadata.outcome = 'inapplicable';
     try {
-      rule.name = <string>(locales.translate['act-rules']?.[rule.code]?.name ?? locales.fallback['act-rules']?.[rule.code]?.name);
-      rule.description = <string>(locales.translate['act-rules']?.[rule.code]?.description ?? locales.fallback['act-rules']?.[rule.code]?.description);
-      rule.metadata.description = <string>(locales.translate['act-rules']?.[rule.code]?.results?.RC0 ?? locales.fallback['act-rules']?.[rule.code].results?.RC0);
-    } catch(err) {
+      rule.name = <string>(
+        (locales.translate['act-rules']?.[rule.code]?.name ?? locales.fallback['act-rules']?.[rule.code]?.name)
+      );
+      rule.description = <string>(
+        (locales.translate['act-rules']?.[rule.code]?.description ??
+          locales.fallback['act-rules']?.[rule.code]?.description)
+      );
+      rule.metadata.description = <string>(
+        (locales.translate['act-rules']?.[rule.code]?.results?.I0 ??
+          locales.fallback['act-rules']?.[rule.code].results?.I0)
+      );
+    } catch (err) {
       console.error(err);
     }
     rule.results = new Array<ACTRuleResult>();
@@ -302,7 +309,6 @@ function ElementIsNotWidget(_target: any, _propertyKey: string, descriptor: Prop
     }
   };
 }
-
 
 function ElementAllowsNameFromContent(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
