@@ -1,9 +1,10 @@
 const { BestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
-const {
-  getDom
-} = require('../getDom');
+const { getDom } = require('../getDom');
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 describe('Technique QW-BP14', function () {
   const tests = [
     {
@@ -12,7 +13,7 @@ describe('Technique QW-BP14', function () {
     }
   ];
   let browser;
-  it("pup open", async function () {
+  it('pup open', async function () {
     browser = await puppeteer.launch();
   });
   let i = 0;
@@ -29,21 +30,25 @@ describe('Technique QW-BP14', function () {
         const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
         await page.addScriptTag({
           path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
-        })
+        });
         await page.addScriptTag({
           path: require.resolve('../../dist/bp.js')
-        })
-        const report = await page.evaluate(( rules,stylesheets) => {
-          const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document),stylesheets);
-          return report;
-        }, {bestPractices: ['QW-BP14']},stylesheets);
+        });
+        const report = await page.evaluate(
+          (rules, stylesheets) => {
+            const bp = new BestPractices.BestPractices(rules);
+            let report = bp.execute(new QWPage.QWPage(document), stylesheets);
+            return report;
+          },
+          { bestPractices: ['QW-BP14'] },
+          stylesheets
+        );
 
         expect(report['assertions']['QW-BP14'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
-  describe(``,  function () {
+  describe(``, function () {
     it(`pup shutdown`, async function () {
       await browser.close();
     });

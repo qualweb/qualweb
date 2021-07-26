@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
@@ -30,7 +32,7 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate(() => {
-      const bp = new BP.BestPractices();
+      const bp = new BestPractices();
       return bp.execute();
     });
 

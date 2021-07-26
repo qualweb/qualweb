@@ -1,14 +1,12 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
-
 module.exports = {
   entry: './prebuild/index.js',
   output: {
     filename: 'bp.bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      name: 'BP',
       type: 'this'
     }
   },
@@ -25,7 +23,7 @@ module.exports = {
           }
         }
       })
-    ],
+    ]
   },
   target: 'web'
-}
+};
