@@ -15,7 +15,7 @@ class QW_BP1 extends BestPracticeObject {
 
     for (const heading of headings ?? []) {
       const test = new Test();
-
+      
       if (window.AccessibilityUtils.isElementInAT(heading) || window.DomUtils.isElementVisible(heading)) {
         test.verdict = 'warning';
         test.description = 'Check that heading markup is used when content is a heading.';

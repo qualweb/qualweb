@@ -5,10 +5,11 @@ import { Dom } from '@qualweb/dom';
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
-    
-    const url = 'https://www.museu.presidencia.pt/pt/fazer/um-museu-em-movimento-a-caminho-da-cidadania/';
+
+    const url = 'https://uidai.gov.in/';
 
     const browser = await puppeteer.launch({
+      headless: false,
       args: ['--ignore-certificate-errors']
     });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -29,14 +30,13 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate(() => {
-      const bp = new BP.BestPractices({ bestPractices: ['QW-BP7'] });
+      const bp = new BP.BestPractices();
       return bp.execute();
     });
 
-
-    await page.close();
+    /*await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
     console.log(JSON.stringify(report, null, 2));
     expect(report);

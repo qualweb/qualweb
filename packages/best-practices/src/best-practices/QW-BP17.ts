@@ -16,6 +16,7 @@ class QW_BP17 extends BestPracticeObject {
       test.verdict = 'failed';
       test.description = `This page does not have links`;
       test.resultCode = 'RC1';
+      super.addTestResult(test);
     } else {
       const refElement = window.DomUtils.getElementReferencedByHREF(element);
 
