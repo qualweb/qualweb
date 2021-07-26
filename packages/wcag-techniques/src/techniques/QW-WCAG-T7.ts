@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T7 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -15,14 +16,12 @@ class QW_WCAG_T7 extends Technique {
 
     const title = element.getElementAttribute('title');
 
-    if (title?.trim() !== '') {
+    if (title && title.trim() !== '') {
       test.verdict = 'passed';
-      test.description = `The test target has the definition in the title attribute`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.description = `The test target doesn't have the definition in the title attribute`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T9 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -58,22 +59,18 @@ class QW_WCAG_T9 extends Technique {
     if (!equal) {
       // fails if the headings aren't in the correct order
       test.verdict = 'failed';
-      test.description = `Headings are not in the correct order`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'F1';
     } else if (!complete) {
       // fails if a header number is missing
       test.verdict = 'failed';
-      test.description = `Heading number is missing`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F2';
     } else if (!hasH1) {
       test.verdict = 'failed';
-      test.description = `Headings don't start with h1`;
-      test.resultCode = 'RC3';
+      test.resultCode = 'F3';
     } else {
       // the heading elements are correctly used
       test.verdict = 'warning';
-      test.description = 'Please verify that headers are used to divide the page correctly';
-      test.resultCode = 'RC4';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

@@ -28,13 +28,13 @@ class QW_WCAG_T3 extends Technique {
 
     if (!hasParent && validFormAtt.length === 0) {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     } else if (!hasChild || (childText && childText.trim() === '')) {
       test.verdict = 'failed';
-      test.resultCode = 'RC3';
+      test.resultCode = 'F2';
     } else {
       test.verdict = 'warning';
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

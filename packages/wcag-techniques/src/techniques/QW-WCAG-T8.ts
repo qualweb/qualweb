@@ -7,6 +7,7 @@ import {
   ElementHasAccessibleName
 } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T8 extends Technique {
@@ -18,8 +19,8 @@ class QW_WCAG_T8 extends Technique {
   private readonly pattern3 = new RegExp('^intro#[0-9]+$');
   private readonly pattern4 = new RegExp('^imagem\\s[0-9]+$');
 
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -39,12 +40,10 @@ class QW_WCAG_T8 extends Technique {
       !this.default_title.includes(accessibleName)
     ) {
       test.verdict = 'warning';
-      test.description = `Text alternative needs manual verification`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
     } else {
       test.verdict = 'failed';
-      test.description = 'Text alternative is not actually a text alternative for the non-text content';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

@@ -21,16 +21,13 @@ class QW_WCAG_T4 extends Technique {
 
     if (!summary.trim().length) {
       test.verdict = 'failed';
-      test.description = 'The summary is empty';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     } else if (summary.trim() === caption?.trim()) {
       test.verdict = 'failed';
-      test.description = 'The caption is a duplicate of the summary';
-      test.resultCode = 'RC3';
+      test.resultCode = 'F2';
     } else {
       test.verdict = 'warning';
-      test.description = 'Please verify that the summary is a valid description of the table';
-      test.resultCode = 'RC4';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

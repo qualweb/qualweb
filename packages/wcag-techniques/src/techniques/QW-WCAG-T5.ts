@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T5 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -17,17 +18,13 @@ class QW_WCAG_T5 extends Technique {
 
     if (alt === null) {
       test.verdict = 'failed';
-      test.description = 'The input element does not have an alt attribute';
-      test.resultCode = 'RC1';
+      test.resultCode = 'F1';
     } else if (!alt.trim().length) {
       test.verdict = 'failed';
-      test.description = 'The input element has an empty alt attribute';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F2';
     } else {
       test.verdict = 'warning';
-      test.description =
-        'Please verify that the value of the alt attribute correctly describes the function of the button';
-      test.resultCode = 'RC3';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

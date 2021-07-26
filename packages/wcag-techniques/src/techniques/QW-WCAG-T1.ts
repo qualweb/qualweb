@@ -18,10 +18,10 @@ class QW_WCAG_T1 extends Technique {
 
     if (!alt || alt.trim() === '') {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     } else {
       test.verdict = 'warning';
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

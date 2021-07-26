@@ -19,10 +19,10 @@ class QW_WCAG_T2 extends Technique {
 
     if (!hasChild || (childText && childText.trim() === '')) {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     } else {
       test.verdict = 'warning';
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

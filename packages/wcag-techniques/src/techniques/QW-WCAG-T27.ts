@@ -13,10 +13,10 @@ class QW_WCAG_T27 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const alignAttribute = element.getElementStyleProperty('text-align', null);
+    const alignAttribute = element.getElementAttribute('align');
 
     if (alignAttribute) {
-      if (alignAttribute.includes('justify')) {
+      if (alignAttribute.trim().toLowerCase() === 'justify') {
         test.verdict = 'failed';
         test.description = "This content shouldn't be justified";
         test.resultCode = 'RC1';

@@ -4,7 +4,7 @@ import mapping from './lib/mapping';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import Technique from './lib/Technique.object';
 import { QW_WCAG_T16, QW_WCAG_T22 } from './lib/techniques';
-import { Translate } from '@qualweb/core';
+import { Translate } from '@qualweb/locale';
 
 class WCAGTechniques {
   private readonly techniques: { [technique: string]: Technique };
@@ -163,5 +163,8 @@ class WCAGTechniques {
     return report;
   }
 }
+
+//@ts-ignore
+window.wcag = new WCAGTechniques();
 
 export { WCAGTechniques };

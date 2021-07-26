@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T6 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -139,15 +140,13 @@ class QW_WCAG_T6 extends Technique {
   private fillPassedResult(test: Test): void {
     if (test.verdict === 'inapplicable') {
       test.verdict = 'passed';
-      test.description = `The mouse event attribute has a keyboard equivalent.`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     }
   }
 
   private fillWarningResult(test: Test): void {
     test.verdict = 'warning';
-    test.description = `The test target has a keyboard event, but we can't verify if it's equivalent to the mouse event.`;
-    test.resultCode = 'RC2';
+    test.resultCode = 'W1';
   }
 }
 

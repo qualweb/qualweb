@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import { Level, Principle } from '@qualweb/evaluation';
-import { Translate } from '@qualweb/locale';
+import { Translate, TranslationValues } from '@qualweb/locale';
 import Test from './Test.object';
 
 abstract class Technique {
@@ -42,8 +42,24 @@ abstract class Technique {
   }
 
   protected addTestResult(test: Test): void {
-    if (!test.description || test.description.trim() === '') {
-      test.description = this.getTranslation(test.resultCode);
+    if (
+      (typeof test.description === 'string' && test.description.trim() === '') ||
+      typeof test.description === 'undefined'
+    ) {
+      test.description = this.getTranslation(
+        typeof test.resultCode === 'string' ? test.resultCode : test.resultCode[0]
+      );
+    } else {
+      test.description = new Array<string>();
+      let i = 0;
+      for (const desc of test.description ?? []) {
+        test.description.push(
+          this.getTranslation(
+            typeof test.resultCode === 'string' ? test.resultCode : test.resultCode[i] || test.resultCode[0]
+          )
+        );
+        i++;
+      }
     }
 
     this.technique.results.push(test);
@@ -55,10 +71,10 @@ abstract class Technique {
 
   protected getTranslation(resultCode: string, values?: TranslationValues): string {
     let translation = '';
-    if (this.locale.translate['act-rules']?.[this.rule.code]?.results?.[resultCode]) {
-      translation = <string>this.locale.translate['act-rules'][this.rule.code].results?.[resultCode];
+    if (this.locale.translate['wcag-techniques']?.[this.technique.code]?.results?.[resultCode]) {
+      translation = <string>this.locale.translate['wcag-techniques'][this.technique.code].results?.[resultCode];
     } else {
-      translation = <string>this.locale.fallback['act-rules']?.[this.rule.code].results?.[resultCode];
+      translation = <string>this.locale.fallback['wcag-techniques']?.[this.technique.code].results?.[resultCode];
     }
 
     if (values) {
