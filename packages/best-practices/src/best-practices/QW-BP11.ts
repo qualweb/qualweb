@@ -30,10 +30,10 @@ class QW_BP11 extends BestPracticeObject {
 
     if (hasBr && result <= 3) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else if (hasBr) {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     if (hasBr) {

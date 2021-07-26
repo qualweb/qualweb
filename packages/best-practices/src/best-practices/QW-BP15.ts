@@ -21,10 +21,10 @@ class QW_BP15 extends BestPracticeObject {
 
     if (!this.absoluteLengths.includes(unit)) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

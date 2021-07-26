@@ -13,7 +13,6 @@ class QW_BP12 extends BestPracticeObject {
   @ElementExists
   @ElementHasChild('tr')
   execute(element: typeof window.qwElement): void {
-    
     const rows = element.getElements('tr');
     let firstRowChildren = new Array<typeof window.qwElement>();
     if (rows.length > 0) {
@@ -49,10 +48,10 @@ class QW_BP12 extends BestPracticeObject {
 
       if (scopeCole && scopeRow) {
         test.verdict = 'passed';
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else {
         test.verdict = 'failed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

@@ -15,10 +15,10 @@ class QW_BP5 extends BestPracticeObject {
 
     if (!element) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
       test.addElement(element);
     }
 

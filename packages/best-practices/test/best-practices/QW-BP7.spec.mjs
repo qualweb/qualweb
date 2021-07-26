@@ -2,6 +2,8 @@ const { BestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const playwright = require('playwright');
 const { getDom } = require('../getDom');
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Best Practice QW-BP7', function () {
   const tests = [
@@ -50,10 +52,10 @@ describe('Best Practice QW-BP7', function () {
       outcome: 'failed'
     }*/
   ];
-  let browser,context;
-  it("pup open", async function () {
-       //['chromium', 'firefox', 'webkit']
-    browser = await playwright['webkit'].launch({headless:false});
+  let browser, context;
+  it('pup open', async function () {
+    //['chromium', 'firefox', 'webkit']
+    browser = await playwright['webkit'].launch({ headless: false });
     context = await browser.newContext();
   });
   let i = 0;
@@ -70,21 +72,24 @@ describe('Best Practice QW-BP7', function () {
         const { sourceHtml, page, stylesheets } = await getDom(context, test.url);
         await page.addScriptTag({
           path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
-        })
+        });
         await page.addScriptTag({
           path: require.resolve('../../dist/bp.js')
-        })
-        const report = await page.evaluate(( rules) => {
-          const bp = new BestPractices.BestPractices();//rules
-          let report= bp.execute(new QWPage.QWPage(document, window));
-          return report;
-        }, {bestPractices: ['QW-BP7']});
+        });
+        const report = await page.evaluate(
+          (rules) => {
+            const bp = new BestPractices.BestPractices(); //rules
+            let report = bp.execute(new QWPage.QWPage(document, window));
+            return report;
+          },
+          { bestPractices: ['QW-BP7'] }
+        );
 
         expect(report['assertions']['QW-BP7'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }
-  describe(``,  function () {
+  describe(``, function () {
     it(`pup shutdown`, async function () {
       await browser.close();
     });

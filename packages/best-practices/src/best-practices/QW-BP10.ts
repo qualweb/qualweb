@@ -15,12 +15,12 @@ class QW_BP10 extends BestPracticeObject {
 
     if (element === undefined) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       const name = element.getElementTagName();
       test.verdict = 'failed';
-      test.description = super.getTranslation('RC2', { name });
-      test.resultCode = 'RC2';
+      test.description = super.getTranslation('F1', { name });
+      test.resultCode = 'F1';
       test.attributes = name;
       test.addElement(element);
     }

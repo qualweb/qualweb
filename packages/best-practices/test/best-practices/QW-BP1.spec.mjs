@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 describe('Best practice QW-BP1', function () {
   const tests = [
@@ -31,7 +33,7 @@ describe('Best practice QW-BP1', function () {
     describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
       it(`should have outcome="${test.outcome}"`, async function () {
         this.timeout(0);
-        
+
         const page = await incognito.newPage();
         const dom = new Dom(page);
         await dom.process({ execute: { bp: true } }, test.url, null);

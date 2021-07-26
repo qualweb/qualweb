@@ -24,13 +24,15 @@ class QW_BP13 extends BestPracticeObject {
     const aWithImgNext = aWithImg.getElementNextSibling();
     const aWithImgPrev = aWithImg.getElementPreviousSibling();
 
-    if ((aWithImgNext && aWithImgNext.getElementAttribute('href') === href) || 
-        (aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href)) {
+    if (
+      (aWithImgNext && aWithImgNext.getElementAttribute('href') === href) ||
+      (aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href)
+    ) {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     } else {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     }
 
     if (aWithImg.getElementParent()) {

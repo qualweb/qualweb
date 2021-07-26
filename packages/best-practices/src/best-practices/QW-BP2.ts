@@ -1,6 +1,11 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/applicability';
+import {
+  BestPracticeClass,
+  ElementExists,
+  ElementHasAttribute,
+  ElementHasNonEmptyAttribute
+} from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -20,10 +25,10 @@ class QW_BP2 extends BestPracticeObject {
 
     if (altValue.trim().length <= 100) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

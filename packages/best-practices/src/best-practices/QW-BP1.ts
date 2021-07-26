@@ -16,14 +16,14 @@ class QW_BP1 extends BestPracticeObject {
 
     for (const heading of headings ?? []) {
       if (window.AccessibilityUtils.isElementInAT(heading) || window.DomUtils.isElementVisible(heading)) {
-        const test = new Test('warning', undefined, 'RC1');
+        const test = new Test('warning', undefined, 'W1');
         test.addElement(heading);
         super.addTestResult(test);
       }
     }
 
     if (super.getNumberOfWarningResults() === 0) {
-      const test = new Test('failed', undefined, 'RC2');
+      const test = new Test('failed', undefined, 'F1');
       super.addTestResult(test);
     }
   }

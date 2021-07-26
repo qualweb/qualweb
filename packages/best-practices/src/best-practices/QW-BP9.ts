@@ -22,10 +22,10 @@ class QW_BP9 extends BestPracticeObject {
 
       if (caption.length !== 0) {
         test.verdict = 'passed';
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else {
         test.verdict = 'failed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

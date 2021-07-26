@@ -52,9 +52,7 @@ class BestPractices {
     selector: string,
     report: BestPracticesReport
   ): void {
-    console.log(selector)
     const elements = window.qwPage.getElements(selector);
-    console.log(elements);
     if (elements.length > 0) {
       for (const elem of elements ?? []) {
         this.bestPractices[bestPractice].execute(elem);
@@ -82,7 +80,6 @@ class BestPractices {
     for (const selector of Object.keys(mapping) ?? []) {
       const _mapping = <BPMapping>mapping;
       for (const bestPractice of _mapping[selector] ?? []) {
-        console.log(this.bestPracticesToExecute[bestPractice]);
         if (this.bestPracticesToExecute[bestPractice]) {
           this.executeBP(bestPractice, selector, report);
         }

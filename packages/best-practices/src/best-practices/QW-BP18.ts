@@ -94,13 +94,13 @@ class QW_BP18 extends BestPracticeObject {
         if (hasImportant) {
           if (width.endsWith('%')) {
             test.verdict = 'passed';
-            test.resultCode = 'RC1';
+            test.resultCode = 'P1';
           } else {
             test.verdict = 'failed';
             if (width.endsWith('px')) {
-              test.resultCode = 'RC2';
+              test.resultCode = 'F1';
             } else {
-              test.resultCode = 'RC3';
+              test.resultCode = 'F2';
             }
           }
 

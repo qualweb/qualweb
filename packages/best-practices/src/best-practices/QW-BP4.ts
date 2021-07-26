@@ -13,11 +13,10 @@ class QW_BP4 extends BestPracticeObject {
   @ElementExists
   @ElementIsNotChildOf('nav')
   execute(element: typeof window.qwElement): void {
-
     const aCount = element.getNumberOfSiblingsWithTheSameTag();
     if (aCount >= 10) {
-      const test = new Test('failed', undefined, 'RC1');
-      
+      const test = new Test('failed', undefined, 'F1');
+
       if (element.getElementParent()) {
         test.addElement(element);
       }

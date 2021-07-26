@@ -2,33 +2,30 @@ const { BestPractices } = require('../../dist/index');
 const { expect } = require('chai');
 const puppeteer = require('puppeteer');
 const { getDom } = require('../getDom');
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-
-describe('Best Practice QW-BP3', function () {
+describe('Technique QW-BP13', function () {
   const tests = [
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/passed.html',
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test1.html',
+      outcome: 'failed'
+    },
+    {
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test2.html',
       outcome: 'inapplicable'
     },
     {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed2.html',
-      outcome: 'inapplicable'
-    },
-    {
-      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/inapplicable.html',
-      outcome: 'inapplicable'
+      url: 'http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test3.html',
+      outcome: 'passed'
     }
   ];
   let browser;
-  it("pup open", async function () {
+  it('pup open', async function () {
     browser = await puppeteer.launch();
   });
   let i = 0;
-  let lastOutcome = 'passed';
+  let lastOutcome = 'warning';
   for (const test of tests || []) {
     if (test.outcome !== lastOutcome) {
       lastOutcome = test.outcome;
@@ -41,17 +38,20 @@ describe('Best Practice QW-BP3', function () {
         const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
         await page.addScriptTag({
           path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
-        })
+        });
         await page.addScriptTag({
           path: require.resolve('../../dist/bp.js')
-        })
-        const report = await page.evaluate(( rules) => {
-          const bp = new BestPractices.BestPractices(rules);
-          let report= bp.execute(new QWPage.QWPage(document, window));
-          return report;
-        }, {bestPractices: ['QW-BP3']});
+        });
+        const report = await page.evaluate(
+          (rules) => {
+            const bp = new BestPractices.BestPractices(rules);
+            let report = bp.execute(new QWPage.QWPage(document, window));
+            return report;
+          },
+          { bestPractices: ['QW-BP13'] }
+        );
 
-        expect(report['assertions']['QW-BP3'].metadata.outcome).to.be.equal(test.outcome);
+        expect(report['best-practices']['QW-BP13'].metadata.outcome).to.be.equal(test.outcome);
       });
     });
   }

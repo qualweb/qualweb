@@ -18,10 +18,10 @@ class QW_BP6 extends BestPracticeObject {
 
     if (titleText.length < 100) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);
