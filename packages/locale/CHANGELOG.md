@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.3-alpha] - 27/07/2020
+
+### Updated
+
+- translations
+- dependencies
+
 ### [0.1.2-alpha] - 11/05/2020
 
 ### Added
