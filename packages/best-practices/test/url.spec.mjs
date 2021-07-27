@@ -1,26 +1,18 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-<<<<<<< HEAD:test/url.spec.js
-import enLocale from './locales/en.json';
-import ptLocale from './locales/pt.json';
-=======
+import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
->>>>>>> develop:test/url.spec.mjs
 
 describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://uidai.gov.in/';
+    const url = 'https://ciencias.ulisboa.pt/';
 
     const browser = await puppeteer.launch({
-<<<<<<< HEAD:test/url.spec.js
       headless: true,
-=======
-      headless: false,
->>>>>>> develop:test/url.spec.mjs
       args: ['--ignore-certificate-errors']
     });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -40,19 +32,14 @@ describe('Running tests', function () {
       path: require.resolve('../dist/bp.bundle.js')
     });
 
-<<<<<<< HEAD:test/url.spec.js
-    const report = await page.evaluate(({ ptLocale, enLocale }) => {
-      const bp = new BestPractices({ translate: ptLocale, fallback: enLocale }, { bestPractices: ['QW-BP2'] });
-=======
-    const report = await page.evaluate(() => {
-      const bp = new BestPractices();
->>>>>>> develop:test/url.spec.mjs
+    const report = await page.evaluate((locale) => {
+      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP2'] });
       return bp.execute();
-    }, { ptLocale, enLocale });
+    }, locales.default.en);
 
-    /*await page.close();
+    await page.close();
     await incognito.close();
-    await browser.close();*/
+    await browser.close();
 
     console.log(report);
     expect(report);
