@@ -1,7 +1,6 @@
 declare module "@qualweb/locale" {
-
-  interface TranslationValues { 
-    [key: string]: string | number | boolean; 
+  interface TranslationValues {
+    [key: string]: string | number | boolean;
   }
 
   interface ModuleTranslation {
@@ -10,14 +9,14 @@ declare module "@qualweb/locale" {
       description?: string;
       results?: {
         [rc: string]: string;
-      }
-    }
+      };
+    };
   }
 
   interface Locale {
-    'act-rules'?: ModuleTranslation;
-    'wcag-techniques'?: ModuleTranslation;
-    'best-practices'?: ModuleTranslation;
+    "act-rules"?: ModuleTranslation;
+    "wcag-techniques"?: ModuleTranslation;
+    "best-practices"?: ModuleTranslation;
   }
 
   interface TranslationObject {
@@ -30,16 +29,23 @@ declare module "@qualweb/locale" {
     fallback: Locale;
   }
 
-  type Lang = 'en' | 'pt';
+  type Lang = "en";
 
   interface Langs {
     en: Locale;
-    pt: Locale;
   }
 
   const locales: Langs;
 
-  export { TranslationValues, ModuleTranslation, Locale, TranslationObject, Translate, Lang, Langs };
+  export {
+    TranslationValues,
+    ModuleTranslation,
+    Locale,
+    TranslationObject,
+    Translate,
+    Lang,
+    Langs,
+  };
 
   export default locales;
 }

@@ -1,5 +1,5 @@
 declare module "@qualweb/act-rules" {
-  import { Translate, TranslationValues } from '@qualweb/locale';
+  import { Translate, TranslationValues } from "@qualweb/locale";
   import { QWElement } from "@qualweb/qw-element";
   import { Level, Principle } from "@qualweb/evaluation";
 
@@ -36,8 +36,8 @@ declare module "@qualweb/act-rules" {
     verdict: "passed" | "failed" | "warning" | "inapplicable";
     description: string;
     resultCode: string;
-    elements?: ACTElement[];
-    attributes?: string | string[];
+    elements: Array<ACTElement>;
+    attributes: Array<string>;
   }
   interface ACTElement {
     pointer?: string;
@@ -96,7 +96,7 @@ declare module "@qualweb/act-rules" {
     description: string;
     resultCode: string;
     elements: ACTElement[];
-    attributes?: string | string[] | undefined;
+    attributes: Array<string>;
 
     constructor(
       verdict?: "passed" | "failed" | "warning",
@@ -118,7 +118,6 @@ declare module "@qualweb/act-rules" {
       aName?: boolean
     ): void;
   }
-
 
   abstract class Rule {
     private readonly rule: ACTRule;
@@ -143,7 +142,10 @@ declare module "@qualweb/act-rules" {
 
     protected addTestResult(test: Test): void;
 
-    protected getTranslation(resultCode: string, values?: TranslationValues): string;
+    protected getTranslation(
+      resultCode: string,
+      values?: TranslationValues
+    ): string;
 
     private outcomeRule(): void;
 
@@ -186,7 +188,7 @@ declare module "@qualweb/act-rules" {
     private readonly report: ACTRulesReport;
 
     constructor(locale: Translate, options?: ACTROptions);
-    
+
     public configure(options: ACTROptions): void;
     public resetConfiguration(): void;
     public executeAtomicRules(): void;

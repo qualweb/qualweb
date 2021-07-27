@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.7-alpha] - 27/07/2021
+
+### Changes
+
+- locale changes
+
 ### [0.7.7-alpha] - 23/07/2021
 
 ### Changes
