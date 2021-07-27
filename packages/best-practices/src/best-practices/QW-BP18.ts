@@ -104,7 +104,7 @@ class QW_BP18 extends BestPracticeObject {
             }
           }
 
-          test.attributes = property;
+          test.attributes.push(property);
           test.addElement(element);
           super.addTestResult(test);
         }

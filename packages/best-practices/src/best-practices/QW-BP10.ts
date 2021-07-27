@@ -21,7 +21,7 @@ class QW_BP10 extends BestPracticeObject {
       test.verdict = 'failed';
       test.description = super.getTranslation('F1', { name });
       test.resultCode = 'F1';
-      test.attributes = name;
+      test.attributes.push(name);
       test.addElement(element);
     }
     super.addTestResult(test);
