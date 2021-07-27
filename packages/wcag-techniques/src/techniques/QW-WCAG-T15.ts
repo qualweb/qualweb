@@ -2,6 +2,7 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T15 extends Technique {
@@ -17,8 +18,8 @@ class QW_WCAG_T15 extends Technique {
     'search'
   ];
 
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -47,16 +48,13 @@ class QW_WCAG_T15 extends Technique {
 
         if (!relForNavigation) {
           test.verdict = 'inapplicable';
-          test.description = `The element doesn't contain a rel attribute or doesn't pertains navigation`;
-          test.resultCode = 'RC3';
+          test.resultCode = 'I2';
         } else if (!href) {
           test.verdict = 'failed';
-          test.description = `The element doesn't contain an href attribute and pertains navigation`;
-          test.resultCode = 'RC4';
+          test.resultCode = 'F1';
         } else {
           test.verdict = 'passed';
-          test.description = 'The link has rel and href attributes and pertains navigation';
-          test.resultCode = 'RC5';
+          test.resultCode = 'P1';
         }
       }
 

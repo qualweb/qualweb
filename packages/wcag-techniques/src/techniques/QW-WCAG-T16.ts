@@ -3,11 +3,12 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass } from '../lib/applicability';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T16 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   execute(): void {
@@ -20,10 +21,10 @@ class QW_WCAG_T16 extends Technique {
 
       if (result.type === 'error') {
         test.verdict = 'failed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'F1';
       } else {
         test.verdict = 'warning';
-        test.resultCode = 'RC3';
+        test.resultCode = 'W1';
       }
 
       test.description = result.message;
@@ -32,7 +33,7 @@ class QW_WCAG_T16 extends Technique {
     }
 
     if (super.getNumberOfFailedResults() + super.getNumberOfWarningResults() === 0) {
-      super.addTestResult(new Test('passed', `The HTML document doesn't have errors,`, 'RC1'));
+      super.addTestResult(new Test('passed', undefined, 'P1'));
     }
   }
 }

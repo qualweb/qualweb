@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T22 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   execute(): void {
@@ -18,12 +19,10 @@ class QW_WCAG_T22 extends Technique {
 
     if (!newTabWasOpen) {
       test.verdict = 'passed';
-      test.description = `Browser didn't open new tab`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.description = `Browser opened a new tab`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     super.addTestResult(test);

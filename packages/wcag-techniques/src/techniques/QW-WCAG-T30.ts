@@ -3,11 +3,12 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import { CSSProperties, CSSProperty, MediaProperties } from '@qualweb/qw-element';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T30 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -21,8 +22,7 @@ class QW_WCAG_T30 extends Technique {
 
       if (property !== undefined) {
         test.verdict = 'failed';
-        test.description = 'This test target has a `text-decoration` property with the value `blink';
-        test.resultCode = 'RC1';
+        test.resultCode = 'F1';
         test.elements.push({
           pointer: element.getElementSelector(),
           htmlCode: element.getElementHtmlCode(true, true),

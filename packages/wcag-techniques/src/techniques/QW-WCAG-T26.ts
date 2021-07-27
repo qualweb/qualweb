@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementHasAttributes, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T26 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -17,12 +18,10 @@ class QW_WCAG_T26 extends Technique {
 
     if (window.AccessibilityUtils.isElementControl(element)) {
       test.verdict = 'passed';
-      test.description = `The element is a user interface control with an event handler`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.description = `The element is a forced user interface control without the proper role attribute`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T24 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -19,12 +20,10 @@ class QW_WCAG_T24 extends Technique {
       const keepsFocus = window.AccessibilityUtils.isFocusableBrowser(element);
       if (keepsFocus) {
         test.verdict = 'passed';
-        test.description = `Element kept focus`;
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else {
         test.verdict = 'failed';
-        test.description = `Element didn't keep focus`;
-        test.resultCode = 'RC2';
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

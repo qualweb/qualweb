@@ -7,11 +7,12 @@ import {
   ElementIsInAccessibilityTree
 } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T21 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -26,10 +27,10 @@ class QW_WCAG_T21 extends Technique {
     if (!((aText !== undefined && aText.trim() !== '') || !img)) {
       if (window.AccessibilityUtils.getAccessibleName(element)) {
         test.verdict = 'passed';
-        test.description = `The link has an accessible name`;
+        test.resultCode = 'P1';
       } else {
         test.verdict = 'failed';
-        test.description = `The image doesn't have an accessible name`;
+        test.resultCode = 'F1';
       }
 
       test.addElement(element);

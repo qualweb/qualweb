@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T19 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -18,13 +19,11 @@ class QW_WCAG_T19 extends Technique {
     if (children.length > 0) {
       // the element contains one of the following elements input[type~='submit image'], button[type='submit']
       test.verdict = 'passed';
-      test.description = `The form contains one of the following elements input[type~="submit image"], button[type="submit"]`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     } else {
       // fails if none of the following elements was found input[type~='submit image'], button[type='submit']
       test.verdict = 'failed';
-      test.description = `Form tag doesn't contain any of the following elements input[type~="submit image"], button[type="submit"]`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

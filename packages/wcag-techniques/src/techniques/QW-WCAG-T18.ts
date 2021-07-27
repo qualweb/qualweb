@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T18 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -23,14 +24,12 @@ class QW_WCAG_T18 extends Technique {
     // verificar pelo menos uma ocorrencia de cada elemento
     if (has_td && has_tr && has_th) {
       test.verdict = 'passed';
-      test.description = 'There is at least one occurrence of table, tr, td and th';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
     }
     // elementos em falta
     else {
       test.verdict = 'failed';
-      test.description = 'There are missing table child elements';
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);

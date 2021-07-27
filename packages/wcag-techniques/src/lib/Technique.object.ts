@@ -42,29 +42,13 @@ abstract class Technique {
   }
 
   protected addTestResult(test: Test): void {
-    if (
-      (typeof test.description === 'string' && test.description.trim() === '') ||
-      typeof test.description === 'undefined'
-    ) {
-      test.description = this.getTranslation(
-        typeof test.resultCode === 'string' ? test.resultCode : test.resultCode[0]
-      );
-    } else {
-      test.description = new Array<string>();
-      let i = 0;
-      for (const desc of test.description ?? []) {
-        test.description.push(
-          this.getTranslation(
-            typeof test.resultCode === 'string' ? test.resultCode : test.resultCode[i] || test.resultCode[0]
-          )
-        );
-        i++;
-      }
+    if (!test.description || test.description.trim() === '') {
+      test.description = this.getTranslation(test.resultCode);
     }
 
     this.technique.results.push(test);
 
-    if (test.verdict !== 'inapplicable') {
+    if (test.verdict && test.verdict !== 'inapplicable') {
       this.technique.metadata[test.verdict]++;
     }
   }

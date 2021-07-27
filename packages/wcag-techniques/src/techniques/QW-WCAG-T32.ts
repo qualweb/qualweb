@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T32 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -22,23 +23,16 @@ class QW_WCAG_T32 extends Technique {
     if (hasLi && name === 'ul') {
       // fails if the element doesn't contain an alt attribute
       test.verdict = 'warning';
-      test.description =
-        'Check that content that has the visual appearance of a list (with or without bullets) is marked as an unordered list';
-      test.resultCode = 'RC1';
+      test.resultCode = 'W1';
     } else if (hasLi && name === 'ol') {
       test.verdict = 'warning';
-      test.description =
-        'Check that content that has the visual appearance of a numbered list is marked as an ordered list.';
-      test.resultCode = 'RC2';
+      test.resultCode = 'W2';
     } else if (name === 'dl' && (hasDt || hasDd)) {
       test.verdict = 'warning';
-      test.description =
-        'Check that content is marked as a definition list when terms and their definitions are presented in the form of a list.';
-      test.resultCode = 'RC3';
+      test.resultCode = 'W3';
     } else {
       test.verdict = 'failed';
-      test.description = `A list item is not contained in a correct list element`;
-      test.resultCode = 'RC4';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element, true, true);

@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementHasAttribute } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T20 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -19,16 +20,13 @@ class QW_WCAG_T20 extends Technique {
 
     if (!title) {
       test.verdict = 'failed';
-      test.description = `The element's title attribute is empty`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'F1';
     } else if (title === text) {
       test.verdict = 'failed';
-      test.description = `The element contains a title attribute equal to the text in the link`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F2';
     } else {
       test.verdict = 'warning';
-      test.description = `Please verify that the element's title attribute describes correctly the link`;
-      test.resultCode = 'RC3';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

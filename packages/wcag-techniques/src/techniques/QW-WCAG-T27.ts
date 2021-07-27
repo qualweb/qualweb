@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T27 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -18,12 +19,10 @@ class QW_WCAG_T27 extends Technique {
     if (alignAttribute) {
       if (alignAttribute.trim().toLowerCase() === 'justify') {
         test.verdict = 'failed';
-        test.description = "This content shouldn't be justified";
-        test.resultCode = 'RC1';
+        test.resultCode = 'F1';
       } else {
         test.verdict = 'passed';
-        test.description = 'This content is not justified';
-        test.resultCode = 'RC2';
+        test.resultCode = 'P1';
       }
 
       test.addElement(element);

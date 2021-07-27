@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
+import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -35,12 +36,18 @@ describe('Running tests', function () {
       path: require.resolve('../dist/wcag.bundle.js')
     });
 
-    const report = await page.evaluate(() => {
-      const wcag = new WCAGTechniques({
-        techniques: ['QW-WCAG-T17']
-      });
+    const report = await page.evaluate((locale) => {
+      const wcag = new WCAGTechniques(
+        {
+          translate: locale,
+          fallback: locale
+        },
+        {
+          techniques: ['QW-WCAG-T17']
+        }
+      );
       return wcag.execute(false, undefined);
-    });
+    }, locales.default.en);
 
     await page.close();
     await incognito.close();

@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T23 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -37,39 +38,31 @@ class QW_WCAG_T23 extends Technique {
               if (idElementReferenced !== null) {
                 if (hasMainElementAsParent(idElementReferenced)) {
                   test.verdict = 'warning';
-                  test.description = 'The first focusable control is a visible link to a <main> element.';
-                  test.resultCode = 'RC1';
+                  test.resultCode = 'W1';
                 } else {
                   test.verdict = 'warning';
-                  test.description =
-                    'The first focusable control is a visible link to some content in the Web Page. Verify if it links to the main content.';
-                  test.resultCode = 'RC2';
+                  test.resultCode = 'W2';
                 }
               } else {
                 test.verdict = 'failed';
-                test.description = 'The first focusable control on the Web page links to an inexistent element';
-                test.resultCode = 'RC3';
+                test.resultCode = 'F1';
               }
             } else {
               //todo failed ou inapplicable?
               test.verdict = 'failed';
-              test.description = 'The first focusable control on the Web page links to the top of the page';
-              test.resultCode = 'RC4';
+              test.resultCode = 'F2';
             }
           } else {
             test.verdict = 'failed';
-            test.description = 'The first focusable control on the Web page does not links to local content';
-            test.resultCode = 'RC5';
+            test.resultCode = 'F3';
           }
         } else {
           test.verdict = 'failed';
-          test.description = 'The first focusable control on the Web page is not a link';
-          test.resultCode = 'RC6';
+          test.resultCode = 'F4';
         }
       } else {
         test.verdict = 'failed';
-        test.description = 'This Web page does not have focusable controls';
-        test.resultCode = 'RC7';
+        test.resultCode = 'F5';
       }
 
       if (firstFocusableElem) {

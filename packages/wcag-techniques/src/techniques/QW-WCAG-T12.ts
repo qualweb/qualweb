@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T12 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -26,20 +27,16 @@ class QW_WCAG_T12 extends Technique {
 
     if (summary?.trim() !== '') {
       test.verdict = 'failed';
-      test.description = `The table has a non-empty summary - Amend it if it's a layout table`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'F1';
     } else if (checks['hasTh']) {
       test.verdict = 'failed';
-      test.description = `The table has a th element - Amend it if it's a layout table`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F2';
     } else if (checks['hasCaption']) {
       test.verdict = 'failed';
-      test.description = `The table has a caption element - Amend it if it's a layout table`;
-      test.resultCode = 'RC3';
+      test.resultCode = 'F3';
     } else {
       test.verdict = 'warning';
-      test.description = `No incorrect elements used in layout table`;
-      test.resultCode = 'RC4';
+      test.resultCode = 'W1';
     }
 
     test.addElement(element);

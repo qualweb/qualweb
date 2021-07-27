@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T14 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -19,22 +20,18 @@ class QW_WCAG_T14 extends Technique {
     if (!window.AccessibilityUtils.isDataTable(element)) {
       if (hasIds.length > 0 || hasHeaders.length > 0) {
         test.verdict = 'failed';
-        test.description = 'This table is a layout table with id or headers attributes';
-        test.resultCode = 'RC1';
+        test.resultCode = 'F1';
       } else {
         test.verdict = 'inapplicable';
-        test.description = 'This table is a layout table';
-        test.resultCode = 'RC2';
+        test.resultCode = 'I2';
       }
     } else {
       if (doesTableHaveDuplicateIds(element)) {
         test.verdict = 'failed';
-        test.description = 'There are duplicate `id`s in this data table';
-        test.resultCode = 'RC3';
+        test.resultCode = 'F2';
       } else if (hasHeaders.length <= 0) {
         test.verdict = 'inapplicable';
-        test.description = 'No header attributes are used in this data table';
-        test.resultCode = 'RC4';
+        test.resultCode = 'I3';
       } else {
         const headersElements = element.getElements('[headers]');
         let headersMatchId = true;
@@ -46,12 +43,10 @@ class QW_WCAG_T14 extends Technique {
 
         if (headersMatchId) {
           test.verdict = 'passed';
-          test.description = 'id and headers attributes are correctly used';
-          test.resultCode = 'RC5';
+          test.resultCode = 'P1';
         } else {
           test.verdict = 'failed';
-          test.description = 'id and headers attributes are not correctly used';
-          test.resultCode = 'RC6';
+          test.resultCode = 'F3';
         }
       }
     }

@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T17 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -21,23 +22,19 @@ class QW_WCAG_T17 extends Technique {
         const hasTextAfter = this.hasTextAfter(element);
         if (hasTextAfter) {
           test.verdict = 'passed';
-          test.description = 'The form field has well positioned label.';
-          test.resultCode = 'RC1';
+          test.resultCode = 'P1';
         } else {
           test.verdict = 'failed';
-          test.description = 'The form field has incorrect positioned label.';
-          test.resultCode = 'RC4';
+          test.resultCode = 'F1';
         }
       } else {
         const hasTextBefore = this.hasTextBefore(element);
         if (hasTextBefore) {
           test.verdict = 'passed';
-          test.description = 'The form field has well positioned label.';
-          test.resultCode = 'RC1';
+          test.resultCode = 'P1';
         } else {
           test.verdict = 'failed';
-          test.description = 'The form field has incorrect positioned label.';
-          test.resultCode = 'RC4';
+          test.resultCode = 'F1';
         }
       }
       test.addElement(element);
@@ -57,35 +54,29 @@ class QW_WCAG_T17 extends Technique {
                   if (type && (type === 'radio' || type === 'checkbox')) {
                     if (firstFound.getElementSelector() === element.getElementSelector()) {
                       test.verdict = 'passed';
-                      test.description = 'The form field has well positioned label.';
-                      test.resultCode = 'RC1';
+                      test.resultCode = 'P1';
                     } else {
                       test.verdict = 'failed';
-                      test.description = 'The form field has incorrect positioned label.';
-                      test.resultCode = 'RC3';
+                      test.resultCode = 'F1';
                     }
                   } else {
                     if (firstFound.getElementSelector() === label.getElementSelector()) {
                       test.verdict = 'passed';
-                      test.description = 'The form field has well positioned label.';
-                      test.resultCode = 'RC1';
+                      test.resultCode = 'P1';
                     } else {
                       test.verdict = 'failed';
-                      test.description = 'The form field has incorrect positioned label.';
-                      test.resultCode = 'RC3';
+                      test.resultCode = 'F1';
                     }
                   }
                 }
               }
             } else {
               test.verdict = 'failed';
-              test.description = 'The form field label is empty.';
-              test.resultCode = 'RC5';
+              test.resultCode = 'F2';
             }
           } else {
             test.verdict = 'failed';
-            test.description = 'The form field label is not visible.';
-            test.resultCode = 'RC6';
+            test.resultCode = 'F3';
           }
 
           test.addElement(element);

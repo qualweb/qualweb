@@ -2,11 +2,12 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T31 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -48,22 +49,19 @@ class QW_WCAG_T31 extends Technique {
 
     if (foundColorProperty && foundBackgroundProperty) {
       test.verdict = 'passed';
-      test.description = `The test target has a author defined color and background css properties.`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
 
       test.addElement(element);
       super.addTestResult(test);
     } else if (foundColorProperty) {
       test.verdict = 'failed';
-      test.description = `The test target has a author defined color css property but not a background css property.`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F1';
 
       test.addElement(element);
       super.addTestResult(test);
     } else if (foundBackgroundProperty) {
       test.verdict = 'failed';
-      test.description = `The test target has a author defined background property but not a color css property.`;
-      test.resultCode = 'RC3';
+      test.resultCode = 'F2';
 
       test.addElement(element);
       super.addTestResult(test);

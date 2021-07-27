@@ -2,11 +2,12 @@ import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
+import { Translate } from '@qualweb/locale';
 
 @WCAGTechniqueClass
 class QW_WCAG_T25 extends Technique {
-  constructor(technique: WCAGTechnique) {
-    super(technique);
+  constructor(technique: WCAGTechnique, locale: Translate) {
+    super(technique, locale);
   }
 
   @ElementExists
@@ -20,21 +21,16 @@ class QW_WCAG_T25 extends Technique {
 
     if (name === 'th' && !hasScope) {
       test.verdict = 'failed';
-      test.description = `The element doesn't contain a scope attribute`;
-      test.resultCode = 'RC1';
+      test.resultCode = 'F1';
     } else if (name === 'th' && scope === '') {
       test.verdict = 'failed';
-      test.description = `The element's scope attribute is empty`;
-      test.resultCode = 'RC2';
+      test.resultCode = 'F2';
     } else if (scope && ['col', 'row', 'colgroup', 'rowgroup'].includes(scope)) {
       test.verdict = 'passed';
-      test.description = "The element's scope attribute matches the following values: col, row, colgroup, rowgroup";
-      test.resultCode = 'RC3';
+      test.resultCode = 'P1';
     } else {
       test.verdict = 'failed';
-      test.description =
-        "The element's scope attribute doesn't match any of the following values: col, row, colgroup, rowgroup";
-      test.resultCode = 'RC4';
+      test.resultCode = 'F3';
     }
 
     test.addElement(element);
