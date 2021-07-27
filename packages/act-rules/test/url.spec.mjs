@@ -2,8 +2,7 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-import enLocale from './locales/en.json';
-import ptLocale from './locales/pt.json';
+import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -11,11 +10,11 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://uidai.gov.in/';
+    const url = 'https://ciencias.ulisboa.pt/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
 
@@ -36,8 +35,8 @@ describe('Running tests', function () {
 
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate(
-      ({ ptLocale, enLocale }, sourceCode) => {
-        window.act = new ACTRules({ translate: ptLocale, fallback: enLocale });
+      (enLocale, sourceCode) => {
+        window.act = new ACTRules({ translate: enLocale, fallback: enLocale });
         window.act.configure({ rules: ['QW-ACT-R1'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
@@ -56,7 +55,7 @@ describe('Running tests', function () {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
-      { ptLocale, enLocale },
+      locales.default.en,
       sourceCode
     );
 
@@ -70,11 +69,11 @@ describe('Running tests', function () {
       return window.act.getReport();
     });
 
-    /*await page.close();
+    await page.close();
     await incognito.close();
-    await browser.close();*/
+    await browser.close();
 
-    //console.log(JSON.stringify(report, null, 2));
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

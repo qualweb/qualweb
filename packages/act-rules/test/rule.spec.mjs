@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
-import enLocale from './locale/en.json';
+import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -143,7 +143,7 @@ describe(`Rule ${rule}`, function () {
               (locale, options) => {
                 window.act = new ACTRules({ translate: locale, fallback: locale }, options);
               },
-              enLocale,
+              locales.default.en,
               { rules: [rule] }
             );
 

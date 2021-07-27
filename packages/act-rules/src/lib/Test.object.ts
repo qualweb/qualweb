@@ -4,14 +4,15 @@ class Test implements ACTRuleResult {
   verdict: 'passed' | 'failed' | 'warning' | 'inapplicable';
   description: string;
   resultCode: string;
-  elements: ACTElement[];
-  attributes?: string | string[] | undefined;
+  elements: Array<ACTElement>;
+  attributes: Array<string>;
 
   constructor(verdict?: 'passed' | 'failed' | 'warning', description?: string, resultCode?: string) {
     this.verdict = verdict ?? 'inapplicable';
     this.description = description ?? '';
-    this.resultCode = resultCode ?? 'RC0';
+    this.resultCode = resultCode ?? 'I1';
     this.elements = new Array<ACTRuleResult>();
+    this.attributes = new Array<string>();
   }
 
   public addElement(element: typeof window.qwElement, withText = true, fullElement = false, aName?: boolean): void {
