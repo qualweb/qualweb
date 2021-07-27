@@ -23,7 +23,7 @@ class Evaluation {
   }
 
   public async evaluatePage(
-    sourceHtmlHeadContent: string,
+    sourceHtml: string,
     options: QualwebOptions,
     validation?: HTMLValidationReport
   ): Promise<EvaluationRecord> {
@@ -35,16 +35,16 @@ class Evaluation {
     const locale = <Translate>options.translate;
 
     if (this.execute.act) {
-      evaluation.addModuleEvaluation(
-        'act-rules',
-        await this.executeACT(sourceHtmlHeadContent, locale, options['act-rules'])
-      );
+      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtml, locale, options['act-rules']));
     }
     if (this.execute.wcag) {
-      evaluation.addModuleEvaluation('wcag-techniques', await this.executeWCAG(validation, options['wcag-techniques']));
+      evaluation.addModuleEvaluation(
+        'wcag-techniques',
+        await this.executeWCAG(locale, validation, options['wcag-techniques'])
+      );
     }
     if (this.execute.bp) {
-      evaluation.addModuleEvaluation('best-practices', await this.executeBP(options['best-practices']));
+      evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
     }
     if (this.execute.wappalyzer) {
       evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
@@ -134,11 +134,7 @@ class Evaluation {
     });
   }
 
-  private async executeACT(
-    sourceHtmlHeadContent: string,
-    locale: Translate,
-    options?: ACTROptions
-  ): Promise<ACTRulesReport> {
+  private async executeACT(sourceHtml: string, locale: Translate, options?: ACTROptions): Promise<ACTRulesReport> {
     await this.page.addScriptTag({
       path: require.resolve('@qualweb/act-rules'),
       type: 'text/javascript'
@@ -146,7 +142,7 @@ class Evaluation {
 
     await this.page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await this.page.evaluate(
-      (sourceHtmlHeadContent: string, locale: string, options?: ACTROptions) => {
+      (sourceHtml: string, locale: string, options?: ACTROptions) => {
         // @ts-ignore
         window.act = new ACTRules(JSON.parse(locale), options);
 
@@ -155,7 +151,7 @@ class Evaluation {
         const parser = new DOMParser();
         const sourceDoc = parser.parseFromString('', 'text/html');
 
-        sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+        sourceDoc.documentElement.innerHTML = sourceHtml;
 
         const elements = sourceDoc.querySelectorAll('meta');
         const metaElements = new Array<QWElement>();
@@ -167,12 +163,16 @@ class Evaluation {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
-      sourceHtmlHeadContent,
+      sourceHtml,
       JSON.stringify(locale),
       <Serializable>options
     );
 
-    if (!options || !options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) {
+    if (
+      !options ||
+      ((!options.rules || options.rules.includes('QW-ACT-R40') || options.rules.includes('59br37')) &&
+        (!options.exclude || !options.exclude.includes('QW-ACT-R40') || !options.exclude.includes('59br37')))
+    ) {
       const viewport = this.page.viewport();
 
       await this.page.setViewport({
@@ -194,7 +194,11 @@ class Evaluation {
     });
   }
 
-  private async executeWCAG(validation?: HTMLValidationReport, options?: WCAGOptions): Promise<WCAGTechniquesReport> {
+  private async executeWCAG(
+    locale: Translate,
+    validation?: HTMLValidationReport,
+    options?: WCAGOptions
+  ): Promise<WCAGTechniquesReport> {
     await this.page.addScriptTag({
       path: require.resolve('@qualweb/wcag-techniques'),
       type: 'text/javascript'
@@ -203,28 +207,33 @@ class Evaluation {
     const newTabWasOpen = await this.detectIfUnwantedTabWasOpened();
 
     return await this.page.evaluate(
-      (newTabWasOpen: boolean, validation: HTMLValidationReport, options?: WCAGOptions) => {
+      (locale: string, newTabWasOpen: boolean, validation: HTMLValidationReport, options?: WCAGOptions) => {
         //@ts-ignore
-        const wcag = new WCAG.WCAGTechniques(options);
-        return wcag.execute(newTabWasOpen, validation);
+        window.wcag = new WCAGTechniques(JSON.parse(locale), options);
+        return window.wcag.execute(newTabWasOpen, validation);
       },
+      JSON.stringify(locale),
       newTabWasOpen,
       <Serializable>(validation ?? null),
       <Serializable>options
     );
   }
 
-  private async executeBP(options?: BPOptions): Promise<BestPracticesReport> {
+  private async executeBP(locale: Translate, options?: BPOptions): Promise<BestPracticesReport> {
     await this.page.addScriptTag({
       path: require.resolve('@qualweb/best-practices'),
       type: 'text/javascript'
     });
 
-    return await this.page.evaluate((options?: BPOptions) => {
-      //@ts-ignore
-      const bp = new BestPractices(options);
-      return bp.execute();
-    }, <Serializable>options);
+    return await this.page.evaluate(
+      (locale: string, options?: BPOptions) => {
+        //@ts-ignore
+        const bp = new BestPractices(JSON.parse(locale), options);
+        return bp.execute();
+      },
+      JSON.stringify(locale),
+      <Serializable>options
+    );
   }
 
   private async executeCounter(): Promise<CounterReport> {

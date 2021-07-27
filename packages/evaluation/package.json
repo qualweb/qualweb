@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.3.0-alpha",
+  "version": "0.3.1-alpha",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha --require esm",
+    "test": "mocha",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
@@ -34,33 +34,32 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.2.1",
-    "@qualweb/locale": "^0.1.2-alpha",
-    "@qualweb/types": "^0.7.6-alpha",
+    "@qualweb/dom": "0.2.3",
+    "@qualweb/locale": "0.1.3-alpha",
+    "@qualweb/types": "0.7.8-alpha",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@types/node": "^16.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
     "chai": "^4.3.4",
-    "eslint": "^7.26.0",
+    "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-sonarjs": "^0.7.0",
-    "esm": "^3.2.25",
-    "mocha": "^8.4.0",
-    "prettier": "^2.3.0",
-    "puppeteer": "^9.1.1",
+    "eslint-plugin-sonarjs": "^0.9.1",
+    "mocha": "^9.0.2",
+    "prettier": "^2.3.2",
+    "puppeteer": "^10.1.0",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.36",
-    "typescript": "^4.2.4"
+    "typedoc": "^0.21.4",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@qualweb/act-rules": "^0.6.0-alpha",
-    "@qualweb/best-practices": "^0.6.0-alpha",
-    "@qualweb/counter": "^0.2.0",
-    "@qualweb/qw-page": "^0.2.7",
-    "@qualweb/util": "^0.5.10",
-    "@qualweb/wappalyzer": "^0.3.1",
-    "@qualweb/wcag-techniques": "^0.2.3"
+    "@qualweb/act-rules": "0.6.1-alpha",
+    "@qualweb/best-practices": "0.6.1-alpha",
+    "@qualweb/counter": "0.2.0",
+    "@qualweb/qw-page": "0.2.12",
+    "@qualweb/util": "0.5.12",
+    "@qualweb/wappalyzer": "0.3.1",
+    "@qualweb/wcag-techniques": "0.3.0-alpha"
   }
 }

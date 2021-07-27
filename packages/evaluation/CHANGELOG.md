@@ -1,5 +1,66 @@
 # Changelog
 
+## [0.3.1-alpha] - 27/07/2021
+
+### Updated
+
+- localization support
+- dependencies
+
+## [0.2.18] - 23/07/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.17] - 22/07/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.16] - 21/07/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.15] - 30/06/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.14] - 21/06/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.13] - 25/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.12] - 19/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.11] - 12/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.2.10] - 11/05/2021
+
+### Updated
+
+- dependencies
+
 ## [0.3.0-alpha] - 05/05/2021
 
 ### Added
