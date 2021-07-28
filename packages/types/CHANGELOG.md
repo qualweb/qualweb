@@ -1,6 +1,12 @@
 # Changelog
 
-### [0.7.7-alpha] - 27/07/2021
+### [0.7.9] - 28/07/2021
+
+### Changes
+
+- full localization support added
+
+### [0.7.8-alpha] - 27/07/2021
 
 ### Changes
 
