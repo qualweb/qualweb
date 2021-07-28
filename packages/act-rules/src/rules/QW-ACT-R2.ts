@@ -26,7 +26,7 @@ class QW_ACT_R2 extends AtomicRule {
       test.resultCode = 'F1';
     }
 
-    test.addElement(element);
+    test.addElement(element, false);
     super.addTestResult(test);
   }
 }
