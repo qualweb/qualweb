@@ -12,7 +12,7 @@ declare module "@qualweb/core" {
     BrowserConnectOptions,
   } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
-  import { Locale, TranslationObject } from '@qualweb/locale';
+  import { Locale, Lang, TranslationObject } from "@qualweb/locale";
 
   interface Execute {
     wappalyzer?: boolean;
@@ -40,8 +40,8 @@ declare module "@qualweb/core" {
     viewport?: PageOptions;
     validator?: string;
     report?: "earl" | "earl-a";
-    translate?: Locale | string | TranslationObject;
-    crawlOptions?: CrawlOptions
+    translate?: Locale | Lang | TranslationObject;
+    crawlOptions?: CrawlOptions;
     "save-name"?: string;
     execute?: Execute;
     wappalyzer?: WappalyzerOptions;

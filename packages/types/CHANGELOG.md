@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.10] - 28/07/2021
+
+### Changed
+
+- qualweb options translation value from type string to Lang
+
 ### [0.7.9] - 28/07/2021
 
 ### Changes
