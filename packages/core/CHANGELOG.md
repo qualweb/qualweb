@@ -1,12 +1,104 @@
 # Changelog
 
+## [0.7.2] - 28/07/2021
+
+## BREAKING CHANGES
+
+- result codes from evaluation modules have changed from "RCx" to "Px" (Passed), "Wx" (Warning), "Fx" (Failed) and "Ix" (Inapplicable)
+
+### Updated
+
+- dependencies
+
+## [0.7.1-alpha] - 27/07/2021
+
+### Updated
+
+- localization support
+- dependencies
+
+## [0.6.14] - 23/07/2021
+
+### Updated
+
+- dependencies
+- test files
+
+## [0.6.14] - 22/07/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.13] - 21/07/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.12] - 30/06/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.11] - 21/06/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.10] - 14/06/2021
+
+### Fixed
+
+- error when using `html` option
+
+### Updated
+
+- dependencies
+
+## [0.6.9] - 25/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.8] - 19/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.7] - 12/05/2021
+
+### Updated
+
+- dependencies
+
+## [0.6.6] - 11/05/2021
+
+### Changes
+
+- qualweb error log file is now deleted if every evaluation succeeded
+
+### Updated
+
+- dependencies
+
+## [0.6.5] - 10/05/2021
+
+### Updated
+
+- dependencies
+
 ## [0.7.0-alpha] - 05/05/2021
 
 ### Added
 
 - localization support
 
-## [0.6.4] - 03/04/2021
+## [0.6.4] - 03/05/2021
 
 ### Updated
 

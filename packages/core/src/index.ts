@@ -83,7 +83,7 @@ class QualWeb {
 
     const urls = await this.checkUrls(options);
 
-    if (!!options.html && urls.length === 0) {
+    if ((options.html === undefined || options.html.trim() === '') && urls.length === 0) {
       throw new Error('Invalid input method');
     }
 
@@ -116,9 +116,9 @@ class QualWeb {
 
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const dom = new Dom(page, options.validator);
-      const { sourceHtmlHeadContent, validation } = await dom.process(options, url ?? '', html ?? '');
+      const { sourceHtml, validation } = await dom.process(options, url ?? '', html ?? '');
       const evaluation = new Evaluation(url, page, modulesToExecute);
-      const evaluationReport = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
+      const evaluationReport = await evaluation.evaluatePage(sourceHtml, options, validation);
       evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
     });
 

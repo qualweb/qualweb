@@ -1,4 +1,4 @@
-import { QualWeb } from '../dist/index';
+import { QualWeb } from '../dist/index.js';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -9,19 +9,19 @@ describe('Core', function () {
 
     await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
 
-    const options = { 
+    const options = {
       url: 'http://ciencias.ulisboa.pt',
-      translate: 'pt',
-      execute: { 
-        act: true 
-      }, 
-      "act-rules": { 
-        rules: ['QW-ACT-R1', 'QW-ACT-R2'] 
-      } 
+      translate: 'en',
+      execute: {
+        act: true
+      },
+      'act-rules': {
+        rules: ['QW-ACT-R1']
+      }
     };
 
     const evaluations = await qualweb.evaluate(options);
-    console.log(JSON.stringify(evaluations, null, 2))
+    console.log(JSON.stringify(evaluations, null, 2));
 
     await qualweb.stop();
 
