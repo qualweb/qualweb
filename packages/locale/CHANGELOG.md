@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.1.4] - 28/07/2020
+
+### Updated
+
+- dependencies
+
 ### [0.1.3-alpha] - 27/07/2020
 
 ### Updated
