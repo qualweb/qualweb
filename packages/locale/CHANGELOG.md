@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.5] - 28/07/2020
+
+### Updated
+
+- dependencies
+- README.md
+
 ### [0.1.4] - 28/07/2020
 
 ### Updated

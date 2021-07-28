@@ -2,10 +2,6 @@
 
 Translation module for QualWeb reports.
 
-### Notice
-
-WORK IN PROGRESS.
-
 ## How to install
 
 ```shell
@@ -13,6 +9,15 @@ WORK IN PROGRESS.
 ```
 
 ## Language support
+
+If you want a translation on your own language, follow these steps:
+
+<ol>
+  <li>Make a copy of src/locales/en.json and rename it to use the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">lang code</a> (check 639-1 column)</li>
+  <li>Translate the modules you want</li>
+  <li>Update the README.md language support table</li>
+  <li>Make a pull request with the changes</li>
+</ol>
 
 <table>
   <thead>
