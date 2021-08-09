@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.11] - 09/08/2021
+
+### Added
+
+- logging options to core interface
+
 ### [0.7.10] - 28/07/2021
 
 ### Changed

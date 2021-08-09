@@ -36,6 +36,10 @@ declare module "@qualweb/core" {
     html?: string;
     timeout?: number;
     maxParallelEvaluations?: number;
+    log?: {
+      console?: boolean;
+      file?: boolean;
+    };
     waitUntil?: LoadEvent | LoadEvent[];
     viewport?: PageOptions;
     validator?: string;
