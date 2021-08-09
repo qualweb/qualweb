@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -18,6 +18,7 @@
     "test:validator": "mocha test/validator.spec.mjs",
     "test:wp": "mocha test/wappalyzer.spec.mjs",
     "test:locale": "mocha test/locale.spec.mjs",
+    "test:log": "mocha test/log.spec.mjs",
     "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -79,7 +80,7 @@
     "puppeteer-extra-plugin-stealth": "^2.7.8"
   },
   "devDependencies": {
-    "@qualweb/types": "^0.7.10",
+    "@qualweb/types": "0.7.11",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^16.4.5",
     "@typescript-eslint/eslint-plugin": "^4.28.5",

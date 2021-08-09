@@ -104,6 +104,7 @@ class QualWeb {
     const timestamp = new Date().getTime();
 
     handleError(
+      options,
       'Evaluation errors',
       new Date(timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '') + '\n-----------',
       timestamp
@@ -111,7 +112,7 @@ class QualWeb {
 
     this.cluster?.on('taskerror', (err, data) => {
       foundError = true;
-      handleError(data.url, err.message + '\n-----------', timestamp);
+      handleError(options, data.url, err.message + '\n-----------', timestamp);
     });
 
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
@@ -132,10 +133,12 @@ class QualWeb {
 
     await this.cluster?.idle();
 
-    if (foundError) {
-      console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
-    } else {
-      deleteErrorLogFile(timestamp);
+    if (options.log?.file) {
+      if (foundError) {
+        console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
+      } else {
+        deleteErrorLogFile(timestamp);
+      }
     }
 
     return evaluations;
@@ -275,21 +278,27 @@ function readFileData(file: string): Promise<string> {
 /**
  * Logs evaluation errors to a error log file.
  *
+ * @param {options} QualwebOptions - options to check logging method
  * @param {string} url - Url that failed to evaluate.
  * @param {string} message - Error message of the evaluation.
  * @param {number} timestamp - Date of the evaluation.
  */
-function handleError(url: string, message: string, timestamp: number): void {
-  writeFile(
-    path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`),
-    url + ' : ' + message + '\n',
-    { flag: 'a', encoding: 'utf-8' },
-    (err) => {
-      if (err) {
-        console.error(err);
+function handleError(options: QualwebOptions, url: string, message: string, timestamp: number): void {
+  if (options.log && options.log.file) {
+    writeFile(
+      path.resolve(process.cwd(), `qualweb-errors-${timestamp}.log`),
+      url + ' : ' + message + '\n',
+      { flag: 'a', encoding: 'utf-8' },
+      (err) => {
+        if (err) {
+          console.error(err);
+        }
       }
-    }
-  );
+    );
+  }
+  if (options.log && options.log.console) {
+    console.error(url + ' : ' + message + '\n');
+  }
 }
 
 /**

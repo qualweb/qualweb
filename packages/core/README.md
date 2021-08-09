@@ -86,7 +86,12 @@ The available options fot the **evaluate()** function are:
   "url": "https://act-rules.github.io/pages/about/", // url to evaluate
   "urls": ["https://act-rules.github.io/pages/about/", "https://act-rules.github.io/rules/"], // Array of urls
   "file": "/path/to/file/with/urls", // urls must be separated by a newline (\n)
-  "crawl": "https://act-rules.github.io", // Experimental feature - domain to crawl and obtain the urls
+  "crawl": "https://act-rules.github.io", // Domain to crawl and obtain the urls
+  "html": "<html-code>", // Full webpage html, or just small snippets
+  "log": {
+    "file": true, // Logs errors to a file. Default value = false
+    "console": false // Logs errors to the console. Default value = false
+  },
   "viewport": {
     "mobile": false, // default value = false
     "landscape": true, // default value = viewPort.width > viewPort.height
