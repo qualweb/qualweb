@@ -525,12 +525,12 @@
       }
     },
     "QW-ACT-R61": {
-      "name": "video element visual content has transcript",
+      "name": "Audio and visuals of video element have transcript",
       "description": "This rule checks that non-streaming video elements have all audio and visual information available in a transcript.",
       "results": {
         "I1": "No test targets found.",
         "W1": "Can't collect data from the test target.",
-        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and a transcript. If it does check if the transcript contains all the visual and audio information of the video."
       }
     },
     "QW-ACT-R62": {
