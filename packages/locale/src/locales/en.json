@@ -17,7 +17,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The `lang` attribute exists and has a value.",
-        "F2": "The `lang` attribute doesn't exist or is empty ('')."
+        "F1": "The `lang` attribute doesn't exist or is empty ('')."
       }
     },
     "QW-ACT-R3": {
