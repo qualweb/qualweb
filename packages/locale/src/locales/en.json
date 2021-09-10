@@ -369,7 +369,7 @@
       "description": "This rule checks that text nodes are not unintentionally clipped by overflow, when a page is zoomed to 200% on 1280 by 1024 viewport.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Check if each ancestor og the text node is not clipped by overflow."
+        "W1": "Check if each ancestor or the text node is not clipped by overflow."
       }
     },
     "QW-ACT-R41": {
