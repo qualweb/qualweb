@@ -487,7 +487,7 @@
       "results": {
         "I1": "No test targets found.",
         "W1": "Cant collect data from the test target.",
-        "W2": "Verify that the information the video element provides matches the text content it claims to be a media alternative for."
+        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
     "QW-ACT-R57": {
