@@ -487,7 +487,7 @@
       "results": {
         "I1": "No test targets found.",
         "W1": "Cant collect data from the test target.",
-        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+        "W2": "Verify that the content in the video matches the information in the text."
       }
     },
     "QW-ACT-R57": {
