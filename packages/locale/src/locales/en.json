@@ -441,7 +441,7 @@
       "description": "This rule checks non-streaming silent video is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -450,7 +450,7 @@
       "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -459,7 +459,7 @@
       "description": "Non-streaming video elements without audio must have all visual information available in a transcript.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -468,7 +468,7 @@
       "description": "Non-streaming video elements without audio must have an audio alternative.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -477,7 +477,7 @@
       "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
@@ -486,7 +486,7 @@
       "description": "This rule checks non-streaming video is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Verify that the content in the video matches the information in the text."
       }
     },
@@ -495,7 +495,7 @@
       "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
@@ -520,7 +520,7 @@
       "description": "This rule checks that captions are available for audio information in non-streaming video elements.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
@@ -529,7 +529,7 @@
       "description": "This rule checks that non-streaming video elements have all audio and visual information available in a transcript.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
