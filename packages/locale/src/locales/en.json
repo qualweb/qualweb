@@ -149,7 +149,7 @@
         "I1": "No test targets found.",
         "P1": "The test target is decorative.",
         "P2": "The test target has an accessible name.",
-        "F3": "The test target doesn't have an accessible name."
+        "F1": "The test target doesn't have an accessible name."
       }
     },
     "QW-ACT-R18": {
