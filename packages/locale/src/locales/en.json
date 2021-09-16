@@ -605,7 +605,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The word-spacing property is not !important.",
-        "P2": "The word-spacing is at least 1.5 times the font-size.",
+        "P2": "The word-spacing is at least 0.16 times the font-size.",
         "P3": "The cascaded word-spacing is not the declared value.",
         "F1": "CSS styles prevent the word-spacing to be above the minimum value."
       }
