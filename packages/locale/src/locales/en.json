@@ -564,8 +564,8 @@
       "description": "This rule checks that elements with a role that makes its children presentational do not contain focusable elements.",
       "results": {
         "I1": "No test targets found.",
-        "P1": "The doesn't element have descendants in the flat tree that are part of sequential focus navigation.",
-        "F1": "The element have descendants in the flat tree that are part of sequential focus navigation."
+        "P1": "The element doesn't have descendants in the flat tree that are part of sequential focus navigation.",
+        "F1": "The element has descendants in the flat tree that are part of sequential focus navigation."
       }
     },
     "QW-ACT-R66": {
