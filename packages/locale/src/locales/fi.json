@@ -17,7 +17,7 @@
       "results": {
         "I1": "Kohteita ei löytynyt.",
         "P1": "`Lang`-attribuutti löytyi ja sille on asetettu arvo.",
-        "F2": "`Lang`-attribuuttia ei löydy tai se on tyhjä."
+        "F1": "`Lang`-attribuuttia ei löydy tai se on tyhjä."
       }
     },
     "QW-ACT-R3": {
@@ -149,7 +149,7 @@
         "I1": "Kohteita ei löytynyt.",
         "P1": "Kohde on koristeellinen.",
         "P2": "Kohteella on saavutettava nimi.",
-        "F3": "Kohteella ei ole saavutettavaa nimeä."
+        "F1": "Kohteella ei ole saavutettavaa nimeä."
       }
     },
     "QW-ACT-R18": {
