@@ -465,7 +465,7 @@
     },
     "QW-ACT-R54": {
       "name": "Vain kuvaa sisältävälle videotallenteelle on tarjolla vaihtoehto äänitallenteena",
-      "description": "Ääntä sisältämättömälle videotallenteelle täytyy löytyä vaihtoehto äänitallenteen muodossa.	",
+	  "description": "Ääntä sisältämättömälle videotallenteelle täytyy löytyä vaihtoehto äänitallenteen muodossa.",
       "results": {
         "I1": "Kohteita ei löytynyt.",
         "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
