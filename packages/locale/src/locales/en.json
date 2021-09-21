@@ -442,7 +442,7 @@
       "results": {
         "I1": "No test targets found.",
         "W1": "Can't collect data from the test target.",
-        "W2": "Check if visual content has an accessible alternative."
+        "W2": "Check that the content in the video matches the information in the text."
       }
     },
     "QW-ACT-R52": {
@@ -487,7 +487,7 @@
       "results": {
         "I1": "No test targets found.",
         "W1": "Can't collect data from the test target.",
-        "W2": "Verify that the content in the video matches the information in the text."
+        "W2": "Check that the content in the video matches the information in the text."
       }
     },
     "QW-ACT-R57": {
@@ -512,7 +512,7 @@
       "description": "This rule checks audio is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Check if the test target audio is a media alternative for text."
+        "W1": "Check that the content in the audio matches the information in the text."
       }
     },
     "QW-ACT-R60": {
@@ -648,7 +648,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The page doesn't have repeated content.",
-        "W1": "For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, all the following are true: - there exists an instrument to make all nodes in this block not visible; and - there exists an instrument to remove all nodes in this block from the accessibility tree."
+        "W1": "For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, check that all the following are true: - there exists an instrument to make all nodes in this block not visible; and - there exists an instrument to remove all nodes in this block from the accessibility tree."
       }
     },
     "QW-ACT-R74": {
