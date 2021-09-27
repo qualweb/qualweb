@@ -266,7 +266,7 @@
     },
     "QW-ACT-R30": {
       "name": "Elementin näkyvä nimi on osa sen saavutettavaa nimeä",
-      "description": "Tämä sääntö tarkastaa, että interaktiivisten elementtien,  kohdalla visuaalisesti näkyvissä nimi on osa sen saavutettavaa nimeä.",
+      "description": "Tämä sääntö tarkastaa, että interaktiivisten elementtien kohdalla visuaalisesti näkyvissä nimi on osa sen saavutettavaa nimeä.",
       "results": {
         "I1": "Kohteita ei löytynyt.",
         "P1": "Kohteen näkyvä teksti vastaa kokonaan tai on osa sen saavutettavaa nimeä.",
