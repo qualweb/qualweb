@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.12] - 29/09/2021
+
+### Added
+
+- Finnish lang to locale interface
+
 ### [0.7.11] - 09/08/2021
 
 ### Added

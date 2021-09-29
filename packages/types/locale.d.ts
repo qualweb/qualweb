@@ -29,10 +29,11 @@ declare module "@qualweb/locale" {
     fallback: Locale;
   }
 
-  type Lang = "en";
+  type Lang = "en" | "fi";
 
   interface Langs {
     en: Locale;
+    fi: Locale;
   }
 
   const locales: Langs;
