@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.4] - 29/09/2021
+
+### Added
+
+- Finnish locale to @qualweb/locale package
+
+### Updated
+
+- dependencies
+
 ## [0.7.3] - 09/08/2021
 
 ### Added
