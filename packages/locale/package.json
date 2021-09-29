@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/locale",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Locales for @qualweb/core evaluation reports.",
   "main": "dist/index.js",
   "files": [
@@ -35,21 +35,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.7.10",
+    "@qualweb/types": "0.7.12",
     "@tsconfig/recommended": "^1.0.1",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/node": "^16.4.5",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
+    "@types/node": "^16.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
     "chai": "^4.3.4",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-sonarjs": "^0.9.1",
-    "mocha": "^9.0.3",
-    "prettier": "^2.3.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.10.0",
+    "mocha": "^9.1.2",
+    "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"

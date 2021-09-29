@@ -6,9 +6,11 @@ import { BestPractice, BestPracticeResult } from '@qualweb/best-practices';
 import { Langs, Lang, Locale } from '@qualweb/locale';
 import clone from 'lodash.clonedeep';
 import en from './locales/en.json';
+import fi from './locales/fi.json';
 
 const locales: Langs = {
-  en
+  en,
+  fi
 };
 
 function translateName(type: 'act-rules' | 'wcag-techniques' | 'best-practices', code: string, locale: Locale): string {
@@ -93,7 +95,6 @@ function translateModule(module: Report | undefined, locale: Locale): void {
 
 function translateReport(report: EvaluationReport, locale: Lang | Locale): EvaluationReport {
   const localeToUse = getLocale(locale);
-
   const reportToTranslate = clone(report);
 
   translateModule(reportToTranslate.modules['act-rules'], localeToUse);

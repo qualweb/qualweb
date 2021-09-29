@@ -1,5 +1,15 @@
 # Changelog
 
+### [0.1.6] - 29/09/2020
+
+### Added
+
+- Finnish locale
+
+### Updated
+
+- English locale
+
 ### [0.1.5] - 28/07/2020
 
 ### Updated

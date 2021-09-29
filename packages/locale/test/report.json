@@ -67,13 +67,8 @@
             ],
             "related": [],
             "url": "https://act-rules.github.io/rules/2779a5",
-            "type": [
-              "ACTRule",
-              "TestCase"
-            ],
-            "a11yReq": [
-              "WCAG21:title"
-            ],
+            "type": ["ACTRule", "TestCase"],
+            "a11yReq": ["WCAG21:title"],
             "passed": 1,
             "warning": 0,
             "failed": 0,
@@ -85,7 +80,7 @@
             {
               "verdict": "passed",
               "description": "The `title` element exists and it's not empty (\"\").",
-              "resultCode": "RC1",
+              "resultCode": "P1",
               "elements": [
                 {
                   "htmlCode": "<title>Associação Cultural Surdos Amadora</title>",
