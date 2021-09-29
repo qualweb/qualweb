@@ -21,7 +21,7 @@ describe('QualWeb evaluation', function () {
       'wcag-techniques': { techniques: ['QW-WCAG-T1'] },
       'act-rules': { rules: ['QW-ACT-R1'] },
       'best-practices': { bestPractices: ['QW-BP1'] },
-      translate: { translate: locales.default.en, fallback: locales.default.en }
+      translate: { translate: locales.default.fi, fallback: locales.default.en }
     };
 
     const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');
