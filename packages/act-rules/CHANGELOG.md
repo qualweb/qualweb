@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.3] - 29/09/2021
+
+### Merged
+
+- PR#5 (Added links to the WCAG rules (in addition to the understanding links))
+
+### Updated
+
+- dependencies
+
 ## [0.6.2] - 28/07/2021
 
 ### Updated

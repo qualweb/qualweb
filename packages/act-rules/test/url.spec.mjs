@@ -35,8 +35,8 @@ describe('Running tests', function () {
 
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate(
-      (enLocale, sourceCode) => {
-        window.act = new ACTRules({ translate: enLocale, fallback: enLocale });
+      (fiLocale, enLocale, sourceCode) => {
+        window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
         window.act.configure({ rules: ['QW-ACT-R1'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
@@ -55,6 +55,7 @@ describe('Running tests', function () {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
+      locales.default.fi,
       locales.default.en,
       sourceCode
     );
