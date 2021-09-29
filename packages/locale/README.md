@@ -40,6 +40,13 @@ If you want a translation on your own language, follow these steps:
       <td>Full</td>
       <td>Full</td>
     </tr>
+	<tr>
+      <td>Finnish</td>
+      <td>fi</td>
+      <td>Full</td>
+      <td>none</td>
+      <td>none</td>
+    </tr>
   </tbody>
 </table>
 
