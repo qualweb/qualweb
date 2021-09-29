@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.7.13] - 29/09/2021
+
+### Added
+
+- "url_tr" to the SuccessCriteria interface from act-rules module
+
 ### [0.7.12] - 29/09/2021
 
 ### Added
