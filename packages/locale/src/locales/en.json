@@ -17,7 +17,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The `lang` attribute exists and has a value.",
-        "F2": "The `lang` attribute doesn't exist or is empty ('')."
+        "F1": "The `lang` attribute doesn't exist or is empty ('')."
       }
     },
     "QW-ACT-R3": {
@@ -149,7 +149,7 @@
         "I1": "No test targets found.",
         "P1": "The test target is decorative.",
         "P2": "The test target has an accessible name.",
-        "F3": "The test target doesn't have an accessible name."
+        "F1": "The test target doesn't have an accessible name."
       }
     },
     "QW-ACT-R18": {
@@ -369,7 +369,7 @@
       "description": "This rule checks that text nodes are not unintentionally clipped by overflow, when a page is zoomed to 200% on 1280 by 1024 viewport.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Check if each ancestor og the text node is not clipped by overflow."
+        "W1": "Check if each ancestor or the text node is not clipped by overflow."
       }
     },
     "QW-ACT-R41": {
@@ -441,8 +441,8 @@
       "description": "This rule checks non-streaming silent video is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
-        "W2": "Check if visual content has an accessible alternative."
+        "W1": "Can't collect data from the test target.",
+        "W2": "Check that the content in the video matches the information in the text."
       }
     },
     "QW-ACT-R52": {
@@ -450,7 +450,7 @@
       "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -459,7 +459,7 @@
       "description": "Non-streaming video elements without audio must have all visual information available in a transcript.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -468,7 +468,7 @@
       "description": "Non-streaming video elements without audio must have an audio alternative.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "Check if visual content has an accessible alternative."
       }
     },
@@ -477,7 +477,7 @@
       "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
@@ -486,8 +486,8 @@
       "description": "This rule checks non-streaming video is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
-        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+        "W1": "Can't collect data from the test target.",
+        "W2": "Check that the content in the video matches the information in the text."
       }
     },
     "QW-ACT-R57": {
@@ -495,7 +495,7 @@
       "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
+        "W1": "Can't collect data from the test target.",
         "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
       }
     },
@@ -512,7 +512,7 @@
       "description": "This rule checks audio is a media alternative for text on the page.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Check if the test target audio is a media alternative for text."
+        "W1": "Check that the content in the audio matches the information in the text."
       }
     },
     "QW-ACT-R60": {
@@ -520,17 +520,17 @@
       "description": "This rule checks that captions are available for audio information in non-streaming video elements.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
-        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+        "W1": "Can't collect data from the test target.",
+        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if audio content has matching captions."
       }
     },
     "QW-ACT-R61": {
-      "name": "video element visual content has transcript",
+      "name": "Audio and visuals of video element have transcript",
       "description": "This rule checks that non-streaming video elements have all audio and visual information available in a transcript.",
       "results": {
         "I1": "No test targets found.",
-        "W1": "Cant collect data from the test target.",
-        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and if it does check if visual content has an accessible alternative."
+        "W1": "Can't collect data from the test target.",
+        "W2": "The test target has a sound track but we can't verify the volume. Check if the test target has audio and a transcript. If it does check if the transcript contains all the visual and audio information of the video."
       }
     },
     "QW-ACT-R62": {
@@ -564,8 +564,8 @@
       "description": "This rule checks that elements with a role that makes its children presentational do not contain focusable elements.",
       "results": {
         "I1": "No test targets found.",
-        "P1": "The doesn't element have descendants in the flat tree that are part of sequential focus navigation.",
-        "F1": "The element have descendants in the flat tree that are part of sequential focus navigation."
+        "P1": "The element doesn't have descendants in the flat tree that are part of sequential focus navigation.",
+        "F1": "The element has descendants in the flat tree that are part of sequential focus navigation."
       }
     },
     "QW-ACT-R66": {
@@ -605,7 +605,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The word-spacing property is not !important.",
-        "P2": "The word-spacing is at least 1.5 times the font-size.",
+        "P2": "The word-spacing is at least 0.16 times the font-size.",
         "P3": "The cascaded word-spacing is not the declared value.",
         "F1": "CSS styles prevent the word-spacing to be above the minimum value."
       }
@@ -648,7 +648,7 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The page doesn't have repeated content.",
-        "W1": "For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, all the following are true: - there exists an instrument to make all nodes in this block not visible; and - there exists an instrument to remove all nodes in this block from the accessibility tree."
+        "W1": "For each block of repeated content in each test target, which is before (in the flat tree) at least one node of non-repeated content after repeated content, check that all the following are true: - there exists an instrument to make all nodes in this block not visible; and - there exists an instrument to remove all nodes in this block from the accessibility tree."
       }
     },
     "QW-ACT-R74": {
