@@ -1,5 +1,15 @@
 # Changelog
 
+### [0.1.7] - 01/10/2020
+
+### Added
+
+- new failed error code and description to QW-ACT-R4 and QW-ACT-R71
+
+### Fixed
+
+- some old RC to new codes
+
 ### [0.1.6] - 29/09/2020
 
 ### Added

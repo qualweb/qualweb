@@ -36,7 +36,8 @@
         "I1": "No test targets found.",
         "P1": "The test target refreshes/redirects immediately.",
         "P2": "The test target refreshes/redirects after more than 20 hours.",
-        "F1": "The test target refreshes/redirects after {seconds} seconds."
+        "F1": "The test target refreshes after {seconds} seconds.",
+        "F2": "The test target redirects after {seconds} seconds."
       }
     },
     "QW-ACT-R5": {
@@ -615,8 +616,8 @@
       "description": "This rule checks that `iframe` elements with a negative `tabindex` attribute value contain no interactive elements.",
       "results": {
         "I1": "No test targets found.",
-        "RC1": "The nested browsing context does not include elements that are visible and part of the sequential focus navigation.",
-        "RC2": "The nested browsing context includes elements that are visible and part of the sequential focus navigation."
+        "P1": "The nested browsing context does not include elements that are visible and part of the sequential focus navigation.",
+        "F1": "The nested browsing context includes elements that are visible and part of the sequential focus navigation."
       }
     },
     "QW-ACT-R71": {
@@ -625,7 +626,8 @@
       "results": {
         "I1": "No test targets found.",
         "P1": "The test target refreshes/redirects immediately.",
-        "F1": "The test target refreshes/redirects after {seconds} seconds."
+        "F1": "The test target refreshes after {seconds} seconds.",
+        "F2": "The test target redirects after {seconds} seconds."
       }
     },
     "QW-ACT-R72": {
@@ -1020,8 +1022,8 @@
       "description": "Image alt text attribute with more than 100 characters",
       "results": {
         "I1": "No test targets found.",
-        "RC1": "The img alt text attribute has less than 100 characters.",
-        "RC2": "The img alt text attribute has more than 100 characters."
+        "P1": "The img alt text attribute has less than 100 characters.",
+        "F1": "The img alt text attribute has more than 100 characters."
       }
     },
     "QW-BP4": {

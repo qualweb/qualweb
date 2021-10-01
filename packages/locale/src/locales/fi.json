@@ -465,7 +465,7 @@
     },
     "QW-ACT-R54": {
       "name": "Vain kuvaa sisältävälle videotallenteelle on tarjolla vaihtoehto äänitallenteena",
-	  "description": "Ääntä sisältämättömälle videotallenteelle täytyy löytyä vaihtoehto äänitallenteen muodossa.",
+      "description": "Ääntä sisältämättömälle videotallenteelle täytyy löytyä vaihtoehto äänitallenteen muodossa.",
       "results": {
         "I1": "Kohteita ei löytynyt.",
         "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
@@ -615,8 +615,8 @@
       "description": "Tämä sääntö tarkastaa, että `iframe`-elementti, jonka `tabindex`-attribuutilla on negatiivinen arvo, ei sisällä interaktiivisia elementtejä.",
       "results": {
         "I1": "Kohteita ei löytynyt.",
-        "RC1": "Sisällytetty konteksti ei sisällä elementtejä, jotka olisivat näkyviä ja  järjestyksessä kohdistettavia.",
-        "RC2": "Sisällytetty konteksti sisältää elementtejä, jotka ovat näkyviä ja järjestyksessä kohdistettavia."
+        "P1": "Sisällytetty konteksti ei sisällä elementtejä, jotka olisivat näkyviä ja  järjestyksessä kohdistettavia.",
+        "F1": "Sisällytetty konteksti sisältää elementtejä, jotka ovat näkyviä ja järjestyksessä kohdistettavia."
       }
     },
     "QW-ACT-R71": {
@@ -1020,8 +1020,8 @@
       "description": "Image alt text attribute with more than 100 characters",
       "results": {
         "I1": "Kohteita ei löytynyt.",
-        "RC1": "The img alt text attribute has less than 100 characters.",
-        "RC2": "The img alt text attribute has more than 100 characters."
+        "P1": "The img alt text attribute has less than 100 characters.",
+        "F1": "The img alt text attribute has more than 100 characters."
       }
     },
     "QW-BP4": {
