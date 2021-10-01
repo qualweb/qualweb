@@ -60,8 +60,14 @@ class QW_ACT_R4 extends AtomicRule {
       } else {
         // fails because the time is in between 0 and 72000
         test.verdict = 'failed';
-        test.description = super.getTranslation('RC3', { seconds: n });
-        test.resultCode = 'F1';
+
+        if (indexOf === -1) {
+          test.description = super.getTranslation('F1', { seconds: n });
+          test.resultCode = 'F1';
+        } else {
+          test.description = super.getTranslation('F2', { seconds: n });
+          test.resultCode = 'F2';
+        }
       }
 
       test.addElement(element);

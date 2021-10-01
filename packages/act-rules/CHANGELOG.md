@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.4] - 01/10/2021
+
+### Added
+
+- new code a description for rules QW-ACT-R4 and QW-ACT-R71. You can now differentiate between refresh and redirect errors
+
 ## [0.6.3] - 29/09/2021
 
 ### Merged

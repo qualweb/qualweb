@@ -132,7 +132,7 @@ class QW_ACT_R37 extends AtomicRule {
         );
       } else {
         test.verdict = 'passed';
-        test.resultCode = 'RC2';
+        test.resultCode = 'P2';
 
         test.addElement(element);
         super.addTestResult(test);
@@ -151,7 +151,7 @@ class QW_ACT_R37 extends AtomicRule {
           bgColor = this.getBackground(parent);
           if (this.isImage(bgColor)) {
             test.verdict = 'warning';
-            test.resultCode = 'RC5';
+            test.resultCode = 'W2';
 
             test.addElement(element);
             super.addTestResult(test);

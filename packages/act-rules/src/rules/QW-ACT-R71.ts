@@ -52,12 +52,17 @@ class QW_ACT_R71 extends AtomicRule {
       if (n === 0) {
         // passes because the time is 0
         test.verdict = 'passed';
-        test.resultCode = 'RC1';
+        test.resultCode = 'P1';
       } else {
-        // fails because the time is in between 0 and 72000
+        // fails because the time is bigger than 0
         test.verdict = 'failed';
-        test.description = super.getTranslation('RC2', { seconds: n });
-        test.resultCode = 'RC2';
+        if (indexOf === -1) {
+          test.description = super.getTranslation('F1', { seconds: n });
+          test.resultCode = 'F1';
+        } else {
+          test.description = super.getTranslation('F2', { seconds: n });
+          test.resultCode = 'F2';
+        }
       }
 
       test.addElement(element);

@@ -17,7 +17,7 @@ class QW_ACT_R70 extends AtomicRule {
 
     if (!window.DomUtils.isElementVisible(element)) {
       test.verdict = 'passed';
-      test.resultCode = 'RC1';
+      test.resultCode = 'P1';
       test.addElement(element);
     } else {
       const elementList = window.qwPage.getElements('*', undefined);
