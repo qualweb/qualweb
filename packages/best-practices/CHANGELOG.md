@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.3] - 12/10/2021
+
+### Fixed
+
+- QW-BP15: width attribute without unit was passing instead of failing
+
+### Updated
+
+- dependencies
+
 ## [0.6.2] - 28/07/2021
 
 ### Updated

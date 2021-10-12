@@ -9,10 +9,10 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://ciencias.ulisboa.pt/';
+    const url = 'https://www.sns24.gov.pt/';
 
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       args: ['--ignore-certificate-errors']
     });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -33,15 +33,15 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate((locale) => {
-      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP2'] });
+      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP15'] });
       return bp.execute();
     }, locales.default.en);
 
-    await page.close();
+    /*await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
-    console.log(report);
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

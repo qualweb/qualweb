@@ -15,14 +15,23 @@ function BestPracticeClass<T extends { new (...args: any[]): {} }>(constructor: 
     bestPractice.metadata.inapplicable = 0;
     bestPractice.metadata.outcome = 'inapplicable';
     try {
-      bestPractice.name = <string>(locale.translate['best-practices']?.[bestPractice.code]?.name ?? locale.fallback['best-practices']?.[bestPractice.code]?.name);
-      bestPractice.description = <string>(locale.translate['best-practices']?.[bestPractice.code]?.description ?? locale.fallback['best-practices']?.[bestPractice.code]?.description);
-      bestPractice.metadata.description = <string>(locale.translate['best-practices']?.[bestPractice.code]?.results?.RC0 ?? locale.fallback['best-practices']?.[bestPractice.code].results?.RC0);
-    } catch(err) {
+      bestPractice.name = <string>(
+        (locale.translate['best-practices']?.[bestPractice.code]?.name ??
+          locale.fallback['best-practices']?.[bestPractice.code]?.name)
+      );
+      bestPractice.description = <string>(
+        (locale.translate['best-practices']?.[bestPractice.code]?.description ??
+          locale.fallback['best-practices']?.[bestPractice.code]?.description)
+      );
+      bestPractice.metadata.description = <string>(
+        (locale.translate['best-practices']?.[bestPractice.code]?.results?.RC0 ??
+          locale.fallback['best-practices']?.[bestPractice.code].results?.RC0)
+      );
+    } catch (err) {
       console.error(err);
     }
     bestPractice.results = new Array<BestPracticeResult>();
-    
+
     const func: any = function () {
       return new constructor(bestPractice, locale);
     };
@@ -57,6 +66,16 @@ function ElementExists(_target: any, _propertyKey: string, descriptor: PropertyD
   const method = descriptor.value;
   descriptor.value = function () {
     if (<typeof window.qwElement>arguments[0]) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function ElementIsVisible(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isVisible = window.DomUtils.isElementVisible(<typeof window.qwElement>arguments[0]);
+    if (isVisible) {
       return method.apply(this, arguments);
     }
   };
@@ -135,6 +154,7 @@ function ElementIsNotChildOf(parent: string) {
 }
 
 export {
+  ElementIsVisible,
   BestPracticeClass,
   IsApplicable,
   ElementItsDefined,

@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/applicability';
+import { BestPracticeClass, ElementExists, ElementIsVisible } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -13,13 +13,14 @@ class QW_BP15 extends BestPracticeObject {
   }
 
   @ElementExists
+  @ElementIsVisible
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
     const width = <string>element.getElementAttribute('width');
     const unit = width.trim().substring(width.length - 2, width.length);
 
-    if (!this.absoluteLengths.includes(unit)) {
+    if (!this.absoluteLengths.includes(unit) && parseFloat(width).toString().length !== width.length) {
       test.verdict = 'passed';
       test.resultCode = 'P1';
     } else {
