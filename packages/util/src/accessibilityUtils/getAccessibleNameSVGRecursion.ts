@@ -41,7 +41,7 @@ function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursi
     AName = titleAtt;
   } else if (roleLink) {
     AName = getTextFromCss(element);
-  } else if (tag && tag === 'text') {
+  } else if (tag && (tag === 'text' || tag === 'desc' || tag === 'title')) {
     AName = window.DomUtils.getTrimmedText(element);
   }
   return AName;

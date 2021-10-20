@@ -1,23 +1,28 @@
-const { AccessibilityUtils } = require('../dist/index');
-const {
-  getDom
-} = require('./getDom');
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
+import { Dom } from '@qualweb/dom';
 const { expect } = require('chai');
 
-describe('DOM UTILITIES', function () {
-  describe('Testing Acessible Name function', function () {
-    //const result = ["Reset", "States:", "foo David", "crazy", "crazy 4", "fancy fruit", "t", "foo", "foo baz", "crazy", "crazy", "Flash the screen times.", "Flash the screen times.", "My name is Eli the weird. (QED) Where are my marbles?", "Important stuff", "foo bar baz"];
-    it('should work', async function () {
-      this.timeout(10 * 100000000);
-      browser = await puppeteer.launch();
-      let url = "https://www.cm-alcobaca.pt/pt/menu/1379/declaracao-de-acessibilidade.aspx";
-      const { sourceHtml, page, stylesheets } = await getDom(browser, url);
-      let elem = await page.$("svg");
-      console.log(elem !== null)
-      console.log(await AccessibilityUtils.getAccessibleNameSVG(elem, page));
-      expect("").to.be.equal('');
+describe('DOM UTILITIES', function() {
+  describe('Testing Acessible Name function', function() {
+    it('should work', async function() {
+      this.timeout(0);
+      const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors'] });
+      const incognito = await browser.createIncognitoBrowserContext();
+      const page = await incognito.newPage();
+      const dom = new Dom(page);
+      await dom.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://act-rules.github.io/testcases/7d6734/0fd9df3029d10e81ef1e453902e8f61670939b52.html', '');
 
+      await page.addScriptTag({
+        path: require.resolve('@qualweb/qw-page')
+      });
+
+      await page.addScriptTag({
+        path: require.resolve('../dist/util.bundle.js')
+      });
+
+      await page.addScriptTag({
+        path: require.resolve('./inject.js')
+      });
     });
   });
 });
