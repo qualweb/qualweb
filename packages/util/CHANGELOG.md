@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.13] - 20/10/2021
+
+### Fixed
+
+- accessible name for SVG with attribute `aria-labeledby`
+
 ## [0.5.12] - 25/05/2021
 
 ### Added
@@ -26,7 +32,7 @@
 
 ### Fixed
 
-- DomUtils.isElementADescendantOfExplicitRole and isElementADescendantOf bugs 
+- DomUtils.isElementADescendantOfExplicitRole and isElementADescendantOf bugs
 
 ## [0.5.8] - 27/04/2021
 
