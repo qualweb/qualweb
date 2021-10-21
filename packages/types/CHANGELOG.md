@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.15] - 21/10/2021
+
+### Updated
+
+- core and crawler interfaces
+
 ## [0.7.14] - 21/10/2021
 
 ### Added

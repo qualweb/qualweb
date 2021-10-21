@@ -10,6 +10,7 @@ declare module "@qualweb/core" {
     LaunchOptions,
     BrowserLaunchArgumentOptions,
     BrowserConnectOptions,
+    Viewport,
   } from "puppeteer";
   import { CounterReport } from "@qualweb/counter";
   import { Locale, Lang, TranslationObject } from "@qualweb/locale";
@@ -187,15 +188,19 @@ declare module "@qualweb/core" {
     public evaluate(options: QualwebOptions): Promise<Evaluations>;
 
     /**
-     * Crawls a domain to find all webpages urls.
+     * Crawls a webpage to find all urls.
      *
-     * @param {string} domain - Web domain to crawl.
+     * @param {string} startingUrl - Webpage to crawl.
      * @param {CrawlOptions} options - Options for crawling process.
+     * @Param {Viewport} viewport - Set the viewport of the webpages.
+     * @param {LoadEvent | Array<LoadEvent>} waitUntil - Wait for dom events before starting the crawling process.
      * @returns List of decoded urls.
      */
-    public crawlDomain(
-      domain: string,
-      options?: CrawlOptions
+    public crawl(
+      startingUrl: string,
+      options?: CrawlOptions,
+      viewport?: Viewport,
+      waitUntil?: LoadEvent | Array<LoadEvent>
     ): Promise<Array<string>>;
 
     /**
