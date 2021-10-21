@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.10] - 21/10/2021
+
+### Added
+
+- waitUntil option to Crawler constructor. Wait for dom events before preforming the page search. This will make possible to crawl dynamic pages, but the process will be slower.
+
+### Updated
+
+- dependencies
+
+### Fixed
+
+- known bugs
+
 ## [0.3.9] - 21/07/2021
 
 ### Updated
