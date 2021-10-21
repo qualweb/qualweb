@@ -23,8 +23,8 @@ function ACTRuleDecorator<T extends { new (...args: any[]): {} }>(constructor: T
           locales.fallback['act-rules']?.[rule.code]?.description)
       );
       rule.metadata.description = <string>(
-        (locales.translate['act-rules']?.[rule.code]?.results?.I0 ??
-          locales.fallback['act-rules']?.[rule.code].results?.I0)
+        (locales.translate['act-rules']?.[rule.code]?.results?.I1 ??
+          locales.fallback['act-rules']?.[rule.code].results?.I1)
       );
     } catch (err) {
       console.error(err);
