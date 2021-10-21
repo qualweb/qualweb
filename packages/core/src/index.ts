@@ -1,9 +1,9 @@
-import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from 'puppeteer';
+import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions, Viewport } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdBlocker from 'puppeteer-extra-plugin-adblocker';
-import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions } from '@qualweb/core';
+import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions, LoadEvent } from '@qualweb/core';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
@@ -145,16 +145,23 @@ class QualWeb {
   }
 
   /**
-   * Crawls a domain to find all webpages urls.
+   * Crawls a webpage to find all urls.
    *
-   * @param {string} domain - Web domain to crawl.
+   * @param {string} startingUrl - Webpage to crawl.
    * @param {CrawlOptions} options - Options for crawling process.
+   * @Param {Viewport} viewport - Set the viewport of the webpages.
+   * @param {LoadEvent | Array<LoadEvent>} waitUntil - Wait for dom events before starting the crawling process.
    * @returns List of decoded urls.
    */
-  public async crawlDomain(domain: string, options?: CrawlOptions): Promise<Array<string>> {
+  public async crawl(
+    domain: string,
+    options?: CrawlOptions,
+    viewport?: Viewport,
+    waitUntil?: LoadEvent | Array<LoadEvent>
+  ): Promise<Array<string>> {
     const browser = await puppeteer.launch();
     const incognito = await browser.createIncognitoBrowserContext();
-    const crawler = new Crawler(incognito, domain);
+    const crawler = new Crawler(incognito, domain, viewport, waitUntil);
     await crawler.crawl(options);
     return crawler.getResults();
   }
@@ -182,7 +189,26 @@ class QualWeb {
       urls.push(...(await getFileUrls(options.file)));
     }
     if (options.crawl) {
-      urls.push(...(await this.crawlDomain(options.crawl, options.crawlOptions)));
+      const viewport = {
+        width: 0,
+        height: 0,
+        isMobile: false,
+        isLandscape: true
+      };
+      if (options.viewport) {
+        viewport.width = options?.viewport?.resolution?.width ?? 0;
+        viewport.height = options?.viewport?.resolution?.height ?? 0;
+        viewport.isMobile = options?.viewport?.mobile ?? false;
+        viewport.isLandscape = options?.viewport?.landscape ?? true;
+      }
+      urls.push(
+        ...(await this.crawl(
+          options.crawl,
+          options.crawlOptions,
+          viewport.width + viewport.height !== 0 ? viewport : undefined,
+          options.waitUntil
+        ))
+      );
     }
 
     return urls;

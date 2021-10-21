@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.7] - 21/10/2021
+
+### Updated
+
+- crawler method with viewport and waitUntil options
+- dependencies
+
 ## [0.7.6] - 12/10/2021
 
 ### Updated
