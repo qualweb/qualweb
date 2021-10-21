@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
   "files": [
@@ -41,7 +41,7 @@
     "log-update": "4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.14",
+    "@qualweb/types": "0.7.15",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^16.11.2",
     "@typescript-eslint/eslint-plugin": "^5.1.0",

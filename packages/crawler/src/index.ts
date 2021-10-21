@@ -8,7 +8,7 @@ class Crawler {
   private readonly viewport?: Viewport;
   private readonly startingUrl: string;
   private readonly isDomain: boolean;
-  private readonly waitUntil: LoadEvent | LoadEvent[];
+  private readonly waitUntil: LoadEvent | Array<LoadEvent>;
   private urls: Array<string>;
 
   constructor(
@@ -223,7 +223,6 @@ class Crawler {
           const relativePathsToTest = new Array<string>();
 
           links.forEach((link: Element) => {
-            console.log(link);
             if (link.hasAttribute('href')) {
               const href = link.getAttribute('href')?.trim();
 
@@ -321,9 +320,9 @@ class Crawler {
 
       await page.close();
     } catch (err) {
-      //console.error("err", typeof err);
+      console.error(err);
     }
-    console.log(urls);
+
     return [this.normalizeAndSort(urls), relativePathsToTest];
   }
 

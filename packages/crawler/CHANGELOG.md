@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.11] - 21/10/2021
+
+### Removed
+
+- unnecessary console.log() in the code
+
+### Updated
+
+- dependencies
+
 ## [0.3.10] - 21/10/2021
 
 ### Added

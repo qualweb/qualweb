@@ -10,7 +10,7 @@ describe('Url crawling', function () {
     puppeteer.use(StealthPlugin());
 
     const browser = await puppeteer.launch();
-    const crawler = new Crawler(browser, 'https://www.cm-alcochete.pt/');
+    const crawler = new Crawler(browser, 'http://www.cm-viladoporto.pt/', undefined, 'networkidle0');
     await crawler.crawl({ logging: true, maxDepth: 0 });
     const urls = crawler.getResults();
     console.log(urls);
