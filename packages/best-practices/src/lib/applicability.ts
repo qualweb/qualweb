@@ -24,8 +24,8 @@ function BestPracticeClass<T extends { new (...args: any[]): {} }>(constructor: 
           locale.fallback['best-practices']?.[bestPractice.code]?.description)
       );
       bestPractice.metadata.description = <string>(
-        (locale.translate['best-practices']?.[bestPractice.code]?.results?.RC0 ??
-          locale.fallback['best-practices']?.[bestPractice.code].results?.RC0)
+        (locale.translate['best-practices']?.[bestPractice.code]?.results?.I1 ??
+          locale.fallback['best-practices']?.[bestPractice.code].results?.I1)
       );
     } catch (err) {
       console.error(err);
