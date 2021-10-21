@@ -221,6 +221,7 @@ declare module "@qualweb/core" {
   function getFileUrls(file: string): Promise<Array<string>>;
 
   export {
+    LoadEvent,
     QualwebOptions,
     Execute,
     EvaluationReport,

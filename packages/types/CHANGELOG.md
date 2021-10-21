@@ -1,24 +1,30 @@
 # Changelog
 
-### [0.7.13] - 29/09/2021
+## [0.7.14] - 21/10/2021
+
+### Added
+
+- LoadEvent as an export type in core module
+
+## [0.7.13] - 29/09/2021
 
 ### Added
 
 - "url_tr" to the SuccessCriteria interface from act-rules module
 
-### [0.7.12] - 29/09/2021
+## [0.7.12] - 29/09/2021
 
 ### Added
 
 - Finnish lang to locale interface
 
-### [0.7.11] - 09/08/2021
+## [0.7.11] - 09/08/2021
 
 ### Added
 
 - logging options to core interface
 
-### [0.7.10] - 28/07/2021
+## [0.7.10] - 28/07/2021
 
 ### Changed
 
@@ -30,13 +36,13 @@
 
 - full localization support added
 
-### [0.7.8-alpha] - 27/07/2021
+## [0.7.8-alpha] - 27/07/2021
 
 ### Changes
 
 - locale changes
 
-### [0.7.7-alpha] - 23/07/2021
+## [0.7.7-alpha] - 23/07/2021
 
 ### Changes
 
