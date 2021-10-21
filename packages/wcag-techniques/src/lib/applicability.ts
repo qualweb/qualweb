@@ -24,8 +24,8 @@ function WCAGTechniqueClass<T extends { new (...args: any[]): {} }>(constructor:
           locales.fallback['wcag-techniques']?.[technique.code]?.description)
       );
       technique.metadata.description = <string>(
-        (locales.translate['wcag-techniques']?.[technique.code]?.results?.RC0 ??
-          locales.fallback['wcag-techniques']?.[technique.code].results?.RC0)
+        (locales.translate['wcag-techniques']?.[technique.code]?.results?.I1 ??
+          locales.fallback['wcag-techniques']?.[technique.code].results?.I1)
       );
     } catch (err) {
       console.error(err);
