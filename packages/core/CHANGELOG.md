@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.9] - 28/10/2021
+
+### Updated
+
+- @qualweb/crawler
+
 ## [0.7.8] - 21/10/2021
 
 ### Updated
