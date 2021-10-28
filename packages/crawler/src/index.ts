@@ -386,9 +386,17 @@ class Crawler {
       }
     });
 
-    const unique = [...new Set(normalizedUrls)].map((u: string) => decodeURIComponent(u));
+    const unique = [...new Set(normalizedUrls)]
+      .map((u: string) => {
+        try {
+          return decodeURIComponent(u);
+        } catch (err) {
+          return null;
+        }
+      })
+      .filter((u: string | null) => u !== null);
 
-    return unique.sort();
+    return <string[]>unique.sort();
   }
 
   public getResults(): Array<string> {
