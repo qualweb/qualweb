@@ -124,7 +124,7 @@
       }
     },
     "QW-ACT-R15": {
-      "name": "Ljud- eller videoinnehåll innehåller inte ljud som spelas upp automatiskt,
+      "name": "Ljud- eller videoinnehåll innehåller inte ljud som spelas upp automatiskt",
       "description": "Denna regel kontrollerar att den automatiska uppspelningen av ljudinnehållet inte varar längre än tre (3) sekunder, eller att det finns en mekanism för att stoppa eller dämpa ljudinnehållet.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -162,7 +162,7 @@
       }
     },
     "QW-ACT-R19": {
-      "name": "`Iframe`-elementet har ett tillgängligt namn,
+      "name": "`Iframe`-elementet har ett tillgängligt namn",
       "description": "Denna regel kontrollerar att varje `iframe`-elementet har ett tillgängligt namn.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -189,12 +189,12 @@
       }
     },
     "QW-ACT-R22": {
-      "name": "`Body`-elementin alielementin `lang`-attribuutin arvo on sallittu.",
-      "description": "Tämä sääntö tarkastaa, että sivun `body`-elementin sisällä olevan elementin `lang`-attribuutti sisältää hyväksytyn kielikoodin.",
+      "name": "Värde för `lang`-attributet för element inom `body` element är tillåtet.",
+      "description": "Denna regel kontrollerar att attributet `lang` för element inom sidans `body` innehåller en godkänd språkkod.",
       "results": {
         "I1": "Inga objekt hittades.",
-        "P1": "Kohteen `lang`-attribuutti sisältää hyväksytyn kielikoodin.",
-        "F1": "Kohteen `lang`-attribuutin kielikoodi on virheellinen."
+        "P1": "Objektets `lang`-attribut innehåller en godkänd språkkod.",
+        "F1": "Språkkoden för objektets `lang`-attribut är felaktig."
       }
     },
     "QW-ACT-R23": {
@@ -236,7 +236,7 @@
       }
     },
     "QW-ACT-R27": {
-      "name": "Attributet ARIA finns i WAI-ARIA-dokumentationen,
+      "name": "Attributet ARIA finns i WAI-ARIA-dokumentationen",
       "description": "Denna regel kontrollerar att varje aria-*`-attribut som används har definierats i WAI-ARIA 1.1-dokumentationen.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -333,7 +333,7 @@
     },
     "QW-ACT-R37": {
       "name": "Texten uppfyller minimikraven för kontrast",
-      "description": "Denna regel kontrollerar att den största möjliga kontrasten mot bakgrunden för varje tecken i texten uppfyller minimikraven för kontrast.,
+      "description": "Denna regel kontrollerar att den största möjliga kontrasten mot bakgrunden för varje tecken i texten uppfyller minimikraven för kontrast.",
       "results": {
         "I1": "Inga objekt hittades.",
         "P1": "Elementets kontrast överskrider minimikraven.",
@@ -400,7 +400,7 @@
     },
     "QW-ACT-R44": {
       "name": "Länkar i samma sammanhang och som har samma tillgängliga namn har samma användningsändamål.",
-      "description": "Denna regel kontrollerar att länkar i samma sammanhang och med samma tillgängliga namn returnerar samma eller motsvarande innehåll.,
+      "description": "Denna regel kontrollerar att länkar i samma sammanhang och med samma tillgängliga namn returnerar samma eller motsvarande innehåll.",
       "results": {
         "I1": "Inga objekt hittades.",
         "P1": "Länkar med samma tillgängliga namn hänvisar till samma innehåll.",
@@ -455,7 +455,7 @@
       }
     },
     "QW-ACT-R53": {
-      "name": "Endast video med bild har transkription.",
+      "name": "Video med endast visuellt innehåll har transkription.",
       "description": "All synlig information i en videoinspelningen som inte innehåller ljud ska ha en transkription.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -464,7 +464,7 @@
       }
     },
     "QW-ACT-R54": {
-      "name": "Endast videoinspelningar med bild kan ges alternativt som ljudupptagningar.,
+      "name": "Videoinspelningar med visuellt innehåll kan ges alternativt som ljudupptagningar.",
 	  "description": "För videoinspelningar som inte innehåller ljud måste det finnas ett alternativ i form av en ljudupptagning.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -478,7 +478,7 @@
       "results": {
         "I1": "Inga objekt hittades.",
         "W1": "Det gick inte att få information om målelementet.",
-        "W2": Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det synliga innehållet i videon."
+		"W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det synliga innehållet i videon."
       }
     },
     "QW-ACT-R56": {
@@ -570,7 +570,7 @@
     },
     "QW-ACT-R66": {
       "name": "I menyn finns ett tillgängligt namn som inte är tomt",
-      "description": "Denna regel kontrollerar att varje element som har en `menuitem`-roll har ett tillgängligt namn som inte är tomt.,
+      "description": "Denna regel kontrollerar att varje element som har en `menuitem`-roll har ett tillgängligt namn som inte är tomt.",
       "results": {
         "I1": "Inga objekt hittades.",
         "P1": "Objektet har ett tillgängligt namn som inte är tomt",
@@ -629,7 +629,7 @@
       }
     },
     "QW-ACT-R72": {
-      "name": "Det första fokuserade elementet är en länk till innehåll som inte upprepas,
+      "name": "Det första fokuserade elementet är en länk till innehåll som inte upprepas",
       "description": "Denna regel kontrollerar att det första fokuserade elementet är en länk till innehåll som inte upprepas på sidan.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -637,7 +637,7 @@
         "W2": "Kontrollera att det första fokuserade elementet hoppar till sidans huvudinnehåll och att dess tillgängliga namn också låter förstå detta.",
         "F1": "Det första fokuserade elementet är inte åtkomligt med tangentbord.",
         "F2": "Det första fokuserade elementet ingår inte i innehållsmodellen för tillgänglighet.",
-        "F3": "Det första fokuserade elementet är inte en länk.,
+        "F3": "Det första fokuserade elementet är inte en länk.",
         "F4": "Det första fokuserade elementet hoppar inte till sidans huvudinnehåll.",
         "F5": "På sidan finns inga fokuserade element."
       }
@@ -652,7 +652,7 @@
       }
     },
     "QW-ACT-R74": {
-      "name": "Dokumentet har en mekanism för att flytta fokus till innehåll som inte upprepas,
+      "name": "Dokumentet har en mekanism för att flytta fokus till innehåll som inte upprepas",
       "description": "Denna regel kontrollerar att det finns en mekanism för att flytta fokus till innehåll som inte upprepas på sidan.",
       "results": {
         "I1": "Inga objekt hittades.",
@@ -663,7 +663,7 @@
     },
     "QW-ACT-R75": {
       "name": "Hoppa över block med upprepat innehåll",
-      "description": "Denna regel kontrollerar att det på varje sida finns en mekanism för att hoppa över block med upprepat innehåll.,
+      "description": "Denna regel kontrollerar att det på varje sida finns en mekanism för att hoppa över block med upprepat innehåll.",
       "results": {
         "I1": "Inga objekt hittades.",
         "P1": "Villkoret uppfylls på grund av regeln ",
