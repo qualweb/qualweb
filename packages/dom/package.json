@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Processes necessary page data for qualweb accessibility evaluation.",
   "main": "dist/index.js",
   "files": [
@@ -36,25 +36,25 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "^0.6.13",
+    "@qualweb/types": "0.7.15",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "^16.4.1",
+    "@types/node": "^16.11.7",
     "@types/node-fetch": "^2.5.12",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.4",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "chai": "^4.3.4",
-    "eslint": "^7.31.0",
+    "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-sonarjs": "^0.9.1",
-    "mocha": "^9.0.2",
-    "prettier": "^2.3.2",
-    "puppeteer": "^10.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.10.0",
+    "mocha": "^9.1.3",
+    "prettier": "^2.4.1",
+    "puppeteer": "^10.4.0",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.21.4",
-    "typescript": "^4.3.5"
+    "typedoc": "^0.22.9",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.6"
   }
 }

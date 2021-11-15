@@ -180,6 +180,8 @@ class Dom {
               response.json().then((data) => {
                 resolve(<HTMLValidationReport>JSON.parse(data));
               });
+            } else {
+              resolve(undefined);
             }
           });
         } catch (e) {

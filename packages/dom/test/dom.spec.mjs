@@ -2,8 +2,8 @@ import { Dom } from '../dist/index.js';
 import puppeteer from 'puppeteer';
 import { expect } from 'chai';
 
-describe('DOM Processing', function () {
-  it('HTML validation: should be undefined', async function () {
+describe('HTML validation', function () {
+  it('should be undefined', async function () {
     this.timeout(0);
     const browser = await puppeteer.launch({ headless: true });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -17,7 +17,7 @@ describe('DOM Processing', function () {
 
     expect(validation).to.be.undefined;
   });
-  it('HTML validation: should not be undefined', async function () {
+  it('should not be undefined', async function () {
     this.timeout(0);
     const browser = await puppeteer.launch({ headless: true });
     const incognito = await browser.createIncognitoBrowserContext();

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.4] - 15/11/2021
+
+### Fixed
+
+- a bug where there was no return value from the html validator when the response status was something other than 200
+
+### Updated
+
+- dependencies
+
 ## [0.2.3] - 23/07/2021
 
 ### Removed
