@@ -30,7 +30,7 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R19      | [cae760](https://act-rules.github.io/rules/cae760) | iframe element has accessible name                                                  |
 | QW-ACT-R20      | [674b10](https://act-rules.github.io/rules/674b10) | role attribute has valid value                                                      |
 | QW-ACT-R21      | [7d6734](https://act-rules.github.io/rules/7d6734) | svg element with explicit role has accessible name                                  |
-| QW-ACT-R22      | [de46e4](https://act-rules.github.io/rules/de46e4) | Element within body has valid lang attribute                                        |
+| QW-ACT-R22      | [de46e4](https://act-rules.github.io/rules/de46e4) | Element with lang attribute has valid language tag attribute                                        |
 | QW-ACT-R23      | [c5a4ea](https://act-rules.github.io/rules/c5a4ea) | video element visual content has accessible alternative                             |
 | QW-ACT-R24      | [73f2c2](https://act-rules.github.io/rules/73f2c2) | autocomplete attribute has valid value                                              |
 | QW-ACT-R25      | [5c01ea](https://act-rules.github.io/rules/5c01ea) | ARIA state or property is permitted                                                 |
