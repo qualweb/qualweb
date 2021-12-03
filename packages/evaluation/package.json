@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -54,7 +54,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "0.6.5",
+    "@qualweb/act-rules": "0.6.6",
     "@qualweb/best-practices": "0.6.4",
     "@qualweb/counter": "0.2.0",
     "@qualweb/qw-page": "0.2.12",

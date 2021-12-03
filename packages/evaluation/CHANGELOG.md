@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.7] - 03/12/2021
+
+### Updated
+
+- @qualweb/act-rules
+
 ## [0.3.6] - 21/10/2021
 
 ### Updated
