@@ -36,7 +36,8 @@
         "I1": "Inga objekt hittades.",
         "P1": "Objektet laddas om eller omdirigeras omedelbart.",
         "P2": "Objektet laddas om eller omdirigeras efter mer än 20 timmar.",
-        "F1": "Objektet laddas om eller omdirigeras efter {seconds} sekunder."
+        "F1": "Objektet laddas om efter {seconds} sekunder.",
+        "F2": "Objektet omdirigeras efter {seconds} sekunder."
       }
     },
     "QW-ACT-R5": {
@@ -625,7 +626,8 @@
       "results": {
         "I1": "Inga objekt hittades.",
         "P1": "Objektet laddas om eller omdirigeras omedelbart.",
-        "F1": "Objektet laddas om eller omdirigeras efter {seconds} sekunder."
+        "F1": "Objektet laddas om efter {seconds} sekunder.",
+        "F2": "Objektet omdirigeras efter {seconds} sekunder."
       }
     },
     "QW-ACT-R72": {
