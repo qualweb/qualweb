@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -70,8 +70,8 @@
     "@qualweb/crawler": "0.3.12",
     "@qualweb/dom": "0.2.4",
     "@qualweb/earl-reporter": "0.4.1",
-    "@qualweb/evaluation": "0.3.6",
-    "@qualweb/locale": "0.1.7",
+    "@qualweb/evaluation": "0.3.7",
+    "@qualweb/locale": "0.1.9",
     "colors": "^1.4.0",
     "puppeteer": "^10.4.0",
     "puppeteer-cluster": "^0.22.0",
@@ -80,7 +80,7 @@
     "puppeteer-extra-plugin-stealth": "^2.9.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.15",
+    "@qualweb/types": "0.7.16",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
