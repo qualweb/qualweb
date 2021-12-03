@@ -1,6 +1,12 @@
 # Changelog
 
-### [0.1.7] - 01/10/2020
+### [0.1.8] - 03/12/2021
+
+### Added
+
+- Swedish locale
+
+### [0.1.7] - 01/10/2021
 
 ### Added
 
@@ -10,7 +16,7 @@
 
 - some old RC to new codes
 
-### [0.1.6] - 29/09/2020
+### [0.1.6] - 29/09/2021
 
 ### Added
 
@@ -20,27 +26,27 @@
 
 - English locale
 
-### [0.1.5] - 28/07/2020
+### [0.1.5] - 28/07/2021
 
 ### Updated
 
 - dependencies
 - README.md
 
-### [0.1.4] - 28/07/2020
+### [0.1.4] - 28/07/2021
 
 ### Updated
 
 - dependencies
 
-### [0.1.3-alpha] - 27/07/2020
+### [0.1.3-alpha] - 27/07/2021
 
 ### Updated
 
 - translations
 - dependencies
 
-### [0.1.2-alpha] - 11/05/2020
+### [0.1.2-alpha] - 11/05/2021
 
 ### Added
 
@@ -50,13 +56,13 @@
 
 - dependencies
 
-### [0.1.1-alpha] - 04/05/2020
+### [0.1.1-alpha] - 04/05/2021
 
 ### Fixed
 
 - general bugs
 
-### [0.1.0-alpha] - 04/05/2020
+### [0.1.0-alpha] - 04/05/2021
 
 ### Added
 
