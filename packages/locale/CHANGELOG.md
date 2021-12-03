@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.1.9] - 03/12/2021
+
+### Updated
+
+- @qualweb/types to support Swedish locale
+
 ### [0.1.8] - 03/12/2021
 
 ### Added
