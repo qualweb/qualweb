@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.6] - 03/12/2021
+
+### Updated
+
+- Rule QW-ACT-R22
+
 ## [0.6.5] - 20/10/2021
 
 ### Updated
