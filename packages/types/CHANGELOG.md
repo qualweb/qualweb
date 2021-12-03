@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.16] - 03/12/2021
+
+### Added
+
+- Swedish lang to locale interface
+
 ## [0.7.15] - 21/10/2021
 
 ### Updated
