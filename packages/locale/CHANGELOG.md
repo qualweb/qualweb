@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.1.10] - 06/12/2021
+
+### Updated
+
+- Finnish and Swedish locale
+
 ### [0.1.9] - 03/12/2021
 
 ### Updated
