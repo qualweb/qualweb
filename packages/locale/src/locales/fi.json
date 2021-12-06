@@ -36,7 +36,8 @@
         "I1": "Kohteita ei löytynyt.",
         "P1": "Kohteen uudelleen lataaminen tai uudelleenohjaus tehdään välittömästi.",
         "P2": "Kohteen uudelleen lataaminen tai uudelleenohjaus tapahtuu yli 20 tunnin kuluttua.",
-        "F1": "Kohde uudelleen ladataan tai uudelleenohjataan {seconds} sekunnin jälkeen."
+        "F1": "Kohde uudelleenladataan {seconds} sekunnin jälkeen.",
+        "F2": "Kohde uudelleenohjataan {seconds} sekunnin jälkeen."
       }
     },
     "QW-ACT-R5": {
@@ -625,7 +626,8 @@
       "results": {
         "I1": "Kohteita ei löytynyt.",
         "P1": "Kohteen uudelleen lataaminen tai uudelleenohjaus tehdään välittömästi.",
-        "F1": "Kohde uudelleen ladataan tai uudelleenohjataan {seconds} sekunnin jälkeen."
+        "F1": "Kohde uudelleenladataan {seconds} sekunnin jälkeen.",
+        "F2": "Kohde uudelleenohjataan {seconds} sekunnin jälkeen."
       }
     },
     "QW-ACT-R72": {
