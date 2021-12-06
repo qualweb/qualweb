@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.11] - 06/12/2021
+
+### Updated
+
+- @qualweb/locale
+
 ## [0.7.11] - 03/12/2021
 
 ### Updated
