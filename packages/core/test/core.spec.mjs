@@ -5,12 +5,12 @@ describe('Core', function () {
   it('Should evaluate one url', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: false, stealth: false });
+    const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
     await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'http://www.portalautarquico.pt/',
+      url: 'https://ciencias.ulisboa.pt/',
       execute: { act: true, wcag: false, bp: false },
       waitUntil: ['load', 'networkidle0']
     });
@@ -21,6 +21,6 @@ describe('Core', function () {
 
     await qualweb.stop();
 
-    expect(earlReports['http://www.portalautarquico.pt/']['@graph'].length).to.be.equal(1);
+    expect(earlReports['https://ciencias.ulisboa.pt/']['@graph'].length).to.be.equal(1);
   });
 });

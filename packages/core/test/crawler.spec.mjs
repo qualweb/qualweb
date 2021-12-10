@@ -1,4 +1,4 @@
-import { QualWeb } from '../dist/index';
+import { QualWeb } from '../dist/index.js';
 import { expect } from 'chai';
 
 describe('Core input method: file', function () {

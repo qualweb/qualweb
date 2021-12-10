@@ -1,8 +1,8 @@
-import { QualWeb } from '../dist/index';
+import { QualWeb } from '../dist/index.js';
 import { expect } from 'chai';
 
-describe('Core module: wappalyzer', function() {
-  it('Should find page technologies', async function() {
+describe('Core module: wappalyzer', function () {
+  it('Should find page technologies', async function () {
     this.timeout(0);
 
     const qualweb = new QualWeb();
