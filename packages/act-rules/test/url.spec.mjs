@@ -10,7 +10,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://ciencias.ulisboa.pt/';
+    const url = 'https://bth.se/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -37,7 +37,7 @@ describe('Running tests', function () {
     await page.evaluate(
       (fiLocale, enLocale, sourceCode) => {
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        window.act.configure({ rules: ['QW-ACT-R1'] });
+        //window.act.configure({ rules: ['QW-ACT-R37'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
         const parser = new DOMParser();
@@ -55,7 +55,7 @@ describe('Running tests', function () {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
-      locales.default.fi,
+      locales.default.en,
       locales.default.en,
       sourceCode
     );
