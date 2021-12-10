@@ -59,7 +59,9 @@ class QW_BP18 extends BestPracticeObject {
   }
 
   private checkIfCssSelectorIsApplicable(rule: any): boolean {
-    const selectors = rule.selectorText.split(',').map((s: string) => s.trim()) || [rule.selectorText.trim()];
+    const selectors = rule.selectorText
+      .split(new RegExp(/(?![^)(]*\([^)(]*?\)\)),(?![^\(]*\))/gm))
+      .map((s: string) => s.trim()) || [rule.selectorText.trim()];
     const hasContainers = this.hasContainers(selectors);
     if (hasContainers.length > 0) {
       return true;
@@ -68,6 +70,7 @@ class QW_BP18 extends BestPracticeObject {
     let affectsContainers = false;
     for (const selector of selectors || []) {
       if (selector.startsWith('.') || selector.startsWith('#')) {
+        console.log(selector);
         const elements = window.qwPage.getElements(selector);
         for (const element of elements || []) {
           if (this.containers.includes(element.getElementTagName())) {

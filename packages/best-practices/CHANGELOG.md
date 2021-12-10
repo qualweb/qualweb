@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.5] - 10/12/2021
+
+### Fixed
+
+- issues related to QW-BP18
+
+### Updated
+
+- dependencies
+
 ## [0.6.4] - 21/10/2021
 
 ### Updated
