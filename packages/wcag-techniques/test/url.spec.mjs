@@ -43,7 +43,7 @@ describe('Running tests', function () {
           fallback: locale
         },
         {
-          techniques: ['QW-WCAG-T17']
+          //techniques: ['QW-WCAG-T17']
         }
       );
       return wcag.execute(false, undefined);
