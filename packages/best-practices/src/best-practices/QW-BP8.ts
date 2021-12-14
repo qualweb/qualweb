@@ -23,12 +23,14 @@ class QW_BP8 extends BestPracticeObject {
 
       for (const svg of svgs || []) {
         const aName = window.AccessibilityUtils.getAccessibleNameSVG(svg);
+
         if (aName && aName.trim() !== '') {
           svgANames.push(aName);
         }
       }
 
       const aName = window.AccessibilityUtils.getAccessibleName(element);
+
       if ((aName && aName.trim() !== '') || svgANames.length > 0) {
         test.verdict = 'passed';
         test.resultCode = 'P1';

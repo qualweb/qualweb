@@ -9,7 +9,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://bth.se/';
+    const url = 'https://eportugal.gov.pt/';
 
     const browser = await puppeteer.launch({
       headless: false,
@@ -18,7 +18,7 @@ describe('Running tests', function () {
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
-    await dom.process({ execute: { bp: true } }, url, '');
+    await dom.process({ execute: { bp: false } }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -33,13 +33,13 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate((locale) => {
-      const bp = new BestPractices({ translate: locale, fallback: locale }, {});
+      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP8'] });
       return bp.execute();
     }, locales.default.en);
 
-    await page.close();
+    /*await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
     console.log(JSON.stringify(report, null, 2));
     expect(report);
