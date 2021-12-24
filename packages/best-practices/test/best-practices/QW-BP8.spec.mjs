@@ -1,16 +1,16 @@
-const { BestPractices } = require('../../dist/index');
-const { expect } = require('chai');
-const puppeteer = require('puppeteer');
-const { getDom } = require('../getDom');
+import { expect } from 'chai';
+import puppeteer from 'puppeteer';
+import { Dom } from '@qualweb/dom';
+import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 describe('Best Practice QW-BP8', function () {
   const tests = [
-    {
+    /*{
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithText.html',
       outcome: 'inapplicable'
-    },
+    } ,
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithoutText.html',
       outcome: 'inapplicable'
@@ -42,50 +42,96 @@ describe('Best Practice QW-BP8', function () {
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html',
       outcome: 'failed'
-    },
+    },*/
     {
       url: 'http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithoutAccessibleName.html',
       outcome: 'failed'
     }
   ];
-  let browser;
-  it('pup open', async function () {
-    browser = await puppeteer.launch();
-  });
-  let i = 0;
-  let lastOutcome = 'inapplicable';
-  for (const test of tests || []) {
-    if (test.outcome !== lastOutcome) {
-      lastOutcome = test.outcome;
-      i = 0;
-    }
-    i++;
-    describe(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, function () {
-      it(`should have outcome="${test.outcome}"`, async function () {
-        this.timeout(10 * 1000);
-        const { sourceHtml, page, stylesheets } = await getDom(browser, test.url);
-        await page.addScriptTag({
-          path: require.resolve('@qualweb/qw-page').replace('index.js', 'qwPage.js')
-        });
-        await page.addScriptTag({
-          path: require.resolve('../../dist/bp.js')
-        });
-        const report = await page.evaluate(
-          (rules) => {
-            const bp = new BestPractices.BestPractices(rules);
-            let report = bp.execute(new QWPage.QWPage(document, window));
-            return report;
-          },
-          { bestPractices: ['QW-BP8'] }
-        );
 
-        expect(report['assertions']['QW-BP8'].metadata.outcome).to.be.equal(test.outcome);
+  let browser = null;
+  let incognito = null;
+
+  it('Starting test bench', async function () {
+    this.timeout(0);
+    browser = await puppeteer.launch({ headless: false });
+    incognito = await browser.createIncognitoBrowserContext();
+
+    describe('Running tests', function () {
+      tests.forEach(function (test) {
+        it('Testing', async function () {
+          this.timeout(0);
+
+          const page = await incognito.newPage();
+          try {
+            const dom = new Dom(page);
+            await dom.process(
+              {
+                execute: { bp: true },
+                'best-practices': {
+                  bestPractices: ['QW-BP8']
+                }
+              },
+              '',
+              `
+                <html>
+                  <head></head>
+                  <body>
+                    <h1>
+                      <p id="ola" style="visibility: hidden;">ola</p>
+                      <span>
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink%22%3E">
+                        </svg>
+                      </span>
+                      <p>
+                        <svg viewBox="0 0 100 100" aria-labelledby="ola" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink%22%3E">
+                        </svg>
+                      </p>
+                    </h1>
+                  </body>
+                </html>
+              `
+            );
+
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/qw-page')
+            });
+
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/util')
+            });
+
+            await page.addScriptTag({
+              path: require.resolve('../../dist/bp.bundle.js')
+            });
+
+            const report = await page.evaluate(
+              (locale, options) => {
+                const bp = new BestPractices({ translate: locale, fallback: locale }, options);
+                return bp.execute();
+              },
+              locales.default.en,
+              { bestPractices: ['QW-BP8'] }
+            );
+
+            console.log(JSON.stringify(report, null, 2));
+            expect(report.assertions['QW-BP8'].metadata.outcome).to.be.equal(test.outcome);
+          } finally {
+            //await page.close();
+          }
+        });
       });
     });
-  }
-  describe(``, function () {
-    it(`pup shutdown`, async function () {
-      await browser.close();
+
+    describe(`Closing test bench`, async function () {
+      it(`Closed`, async function () {
+        if (incognito) {
+          //await incognito.close();
+        }
+        if (browser) {
+          //await browser.close();
+        }
+      });
     });
   });
 });

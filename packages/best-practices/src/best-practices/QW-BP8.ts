@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
+import { BestPracticeClass, ElementExists, ElementHasVisibleChild } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -11,14 +11,21 @@ class QW_BP8 extends BestPracticeObject {
   }
 
   @ElementExists
-  @ElementHasChild('img, svg')
+  @ElementHasVisibleChild('img, svg')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
+
+    const descendants = element.getElements('*');
 
     const images = element.getElements('img');
     const svgs = element.getElements('svg');
 
-    if (images.length + svgs.length !== 0) {
+    let hasMoreElements = false;
+    if (descendants.length > images.length + svgs.length) {
+      hasMoreElements = this.checkApplicability(element);
+    }
+
+    if (!hasMoreElements) {
       const svgANames = new Array<string>();
 
       for (const svg of svgs || []) {
@@ -39,9 +46,27 @@ class QW_BP8 extends BestPracticeObject {
         test.resultCode = 'F1';
       }
 
-      test.addElement(element);
+      test.addElement(element, true, true);
       super.addTestResult(test);
     }
+  }
+
+  checkApplicability(element: typeof window.qwElement): boolean {
+    let hasMoreElements = false;
+    for (const child of element.getElementChildren() ?? []) {
+      const tagName = child.getElementTagName();
+      if (tagName !== 'img' && tagName !== 'svg') {
+        const text = child.getElementText();
+        const isVisible = window.DomUtils.isElementVisible(child);
+        const accessibleName = window.AccessibilityUtils.getAccessibleName(child);
+
+        if (isVisible && (text.trim() !== '' || (accessibleName && !this.checkApplicability(child)))) {
+          hasMoreElements = true;
+        }
+      }
+    }
+
+    return hasMoreElements;
   }
 }
 

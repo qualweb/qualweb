@@ -117,6 +117,25 @@ function ElementHasChild(child: string) {
   };
 }
 
+function ElementHasVisibleChild(child: string) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = async function () {
+      const children = (<typeof window.qwElement>arguments[0]).getElements(child);
+      if (children.length !== 0) {
+        let isVisible = false;
+        for (const child of children ?? []) {
+          isVisible ||= window.DomUtils.isElementVisible(child);
+        }
+
+        if (isVisible) {
+          return method.apply(this, arguments);
+        }
+      }
+    };
+  };
+}
+
 function ElementDoesNotHaveChild(child: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -162,6 +181,7 @@ export {
   ElementHasAttribute,
   ElementHasNonEmptyAttribute,
   ElementHasChild,
+  ElementHasVisibleChild,
   ElementDoesNotHaveChild,
   ElementHasParent,
   ElementIsNotChildOf
