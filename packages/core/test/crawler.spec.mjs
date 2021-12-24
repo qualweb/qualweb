@@ -1,14 +1,14 @@
 import { QualWeb } from '../dist/index.js';
 import { expect } from 'chai';
 
-describe('Core input method: file', function () {
+describe('Core input method: crawler', function () {
   it('Should evaluate all urls', async function () {
     this.timeout(0);
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
     const urls = await qualweb.crawl('https://ciencias.ulisboa.pt', {
-      maxDepth: 0,
+      maxUrls: 1000,
       logging: true
     });
 
