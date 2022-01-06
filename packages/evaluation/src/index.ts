@@ -66,11 +66,6 @@ class Evaluation {
       this.page.browser().userAgent()
     ]);
 
-    let urlStructure: Url | undefined;
-    if (this.url) {
-      urlStructure = this.parseUrl();
-    }
-
     const viewport = this.page.viewport();
 
     return {
@@ -80,7 +75,7 @@ class Evaluation {
       homepage: 'http://www.qualweb.di.fc.ul.pt/',
       date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       hash: randomBytes(64).toString('hex'),
-      url: urlStructure,
+      url: this.url ? this.parseUrl() : undefined,
       page: {
         viewport: {
           mobile: viewport?.isMobile,
