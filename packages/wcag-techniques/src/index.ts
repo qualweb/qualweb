@@ -130,7 +130,7 @@ class WCAGTechniques {
   private executeNotMappedTechniques(
     report: WCAGTechniquesReport,
     newTabWasOpen: boolean,
-    validation: HTMLValidationReport
+    validation: HTMLValidationReport | undefined
   ): void {
     if (this.techniquesToExecute['QW-WCAG-T16']) {
       (<QW_WCAG_T16>this.techniques['QW-WCAG-T16']).validate(validation);

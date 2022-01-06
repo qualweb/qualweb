@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4] - 06/01/2022
+
+### Updated
+
+- QW-WCAG-T16
+- dependencies
+
 ## [0.3.3] - 10/12/2021
 
 ### Updated

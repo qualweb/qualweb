@@ -9,7 +9,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://ciencias.ulisboa.pt/';
+    const url = 'https://www.novobanco.pt/particulares'; // 'https://ciencias.ulisboa.pt/';
 
     const browser = await puppeteer.launch({ headless: true });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -17,8 +17,8 @@ describe('Running tests', function () {
     const dom = new Dom(page);
     await dom.process(
       {
-        execute: { wcag: true },
-        'wcag-techniques': { techniques: ['QW-WCAG-T17'] }
+        execute: { wcag: true }
+        //'wcag-techniques': { techniques: ['QW-WCAG-T17'] }
       },
       url,
       ''
@@ -43,7 +43,7 @@ describe('Running tests', function () {
           fallback: locale
         },
         {
-          //techniques: ['QW-WCAG-T17']
+          techniques: ['QW-WCAG-T16']
         }
       );
       return wcag.execute(false, undefined);
@@ -53,7 +53,7 @@ describe('Running tests', function () {
     await incognito.close();
     await browser.close();
 
-    //console.log(JSON.stringify(report, null, 2));
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

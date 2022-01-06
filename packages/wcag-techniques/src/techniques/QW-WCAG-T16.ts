@@ -16,24 +16,26 @@ class QW_WCAG_T16 extends Technique {
   }
 
   validate(validation: HTMLValidationReport | undefined): void {
-    for (const result of validation?.messages ?? []) {
-      const test = new Test();
+    if (validation) {
+      for (const result of validation.messages ?? []) {
+        const test = new Test();
 
-      if (result.type === 'error') {
-        test.verdict = 'failed';
-        test.resultCode = 'F1';
-      } else {
-        test.verdict = 'warning';
-        test.resultCode = 'W1';
+        if (result.type === 'error') {
+          test.verdict = 'failed';
+          test.resultCode = 'F1';
+        } else {
+          test.verdict = 'warning';
+          test.resultCode = 'W1';
+        }
+
+        test.description = result.message;
+
+        super.addTestResult(test);
       }
 
-      test.description = result.message;
-
-      super.addTestResult(test);
-    }
-
-    if (super.getNumberOfFailedResults() + super.getNumberOfWarningResults() === 0) {
-      super.addTestResult(new Test('passed', undefined, 'P1'));
+      if (super.getNumberOfFailedResults() + super.getNumberOfWarningResults() === 0) {
+        super.addTestResult(new Test('passed', undefined, 'P1'));
+      }
     }
   }
 }
