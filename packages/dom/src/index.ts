@@ -170,27 +170,21 @@ class Dom {
     }
   }
 
-  private getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {
+  private async getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {
     if (this.endpoint) {
       const validationUrl = this.endpoint + encodeURIComponent(url);
-      return new Promise((resolve) => {
-        try {
-          fetch(validationUrl, { timeout: 10 * 1000 }).then((response) => {
-            if (response && response.status === 200) {
-              response.json().then((data) => {
-                resolve(<HTMLValidationReport>JSON.parse(data));
-              });
-            } else {
-              resolve(undefined);
-            }
-          });
-        } catch (e) {
-          resolve(undefined);
+      try {
+        const response = await fetch(validationUrl, { timeout: 10 * 1000 });
+        if (response && response.status === 200) {
+          const data = await response.json();
+          return <HTMLValidationReport>JSON.parse(data);
         }
-      });
-    } else {
-      return Promise.resolve(undefined);
+      } catch (e) {
+        console.error('Error fetching HTML Validation: ' + e);
+      }
     }
+
+    return undefined;
   }
 
   private validatorNeeded(options: QualwebOptions): boolean {

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.5] - 05/01/2022
+
+### Fixed
+
+- issue related to the response of html validator
+
 ## [0.2.4] - 15/11/2021
 
 ### Fixed
