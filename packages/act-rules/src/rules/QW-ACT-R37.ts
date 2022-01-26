@@ -426,7 +426,7 @@ class QW_ACT_R37 extends AtomicRule {
     const isSmallFont = (isBold && parseFloat(fontSize) < 18.6667) || (!isBold && parseFloat(fontSize) < 24);
     const expectedContrastRatio = isSmallFont ? 4.5 : 3;
 
-    return contrast > expectedContrastRatio;
+    return contrast >= expectedContrastRatio;
   }
 
   getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number {
