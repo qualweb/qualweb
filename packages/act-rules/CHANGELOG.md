@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.6.6] - 10/12/2021
+## [0.6.8] - 26/01/2022
+
+### Updated
+
+- rules.json metadata
+
+## [0.6.7] - 10/12/2021
 
 ### Updated
 
