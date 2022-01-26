@@ -7,7 +7,7 @@ describe('Core', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors'] });
+    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
 
     const evaluations = await qualweb.evaluate({
       url: 'https://ciencias.ulisboa.pt/',

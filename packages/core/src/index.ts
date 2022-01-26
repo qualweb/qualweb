@@ -1,6 +1,6 @@
 import { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions, Viewport } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
-import { Cluster } from 'puppeteer-cluster3';
+import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdBlocker from 'puppeteer-extra-plugin-adblocker';
 import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions, LoadEvent } from '@qualweb/core';

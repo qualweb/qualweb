@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.17] - 26/01/2022
+
+### Updated
+
+- puppeteer from 10.4.0 to 13.1.2
+- @qualweb/evaluation from 0.3.10 to 0.3.11
+
 ## [0.7.16] - 06/01/2022
 
 ### Updated

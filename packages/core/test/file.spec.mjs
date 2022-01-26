@@ -6,10 +6,10 @@ describe('Core input method: file', function () {
   it('Should evaluate all urls', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: false, stealth: false });
 
     const options = {
-      file: path.resolve(__dirname, 'urls.txt'),
+      file: '/home/node/workspace/qualweb/core/test/urls.txt',
       'wcag-techniques': {
         exclude: ['QW-WCAG-T16']
       }
