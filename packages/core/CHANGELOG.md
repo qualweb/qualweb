@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.18] - 01/02/2022
+
+### Updated
+
+- puppeteer from 13.1.2 to 13.1.3
+
 ## [0.7.17] - 26/01/2022
 
 ### Updated
