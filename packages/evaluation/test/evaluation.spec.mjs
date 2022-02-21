@@ -10,26 +10,26 @@ describe('QualWeb evaluation', function () {
 
     const url = 'https://ciencias.ulisboa.pt ';
 
-    const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors'] });
+    const browser = await puppeteer.launch({ headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
 
     const options = {
       waitUntil: ['load', 'networkidle2'],
-      execute: { act: true, wcag: true, bp: true },
-      'wcag-techniques': { techniques: ['QW-WCAG-T1'] },
-      'act-rules': { rules: ['QW-ACT-R1'] },
-      'best-practices': { bestPractices: ['QW-BP1'] },
-      translate: { translate: locales.default.fi, fallback: locales.default.en }
+      log: { console: true },
+      viewport: { mobile: true, landscape: false },
+      execute: { act: true, wcag: false },
+      'act-rules': { levels: ['A', 'AA'] },
+      translate: { translate: locales.default.en, fallback: locales.default.en }
     };
 
     const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');
 
     const evaluation = new Evaluation(url, page, {
       act: true,
-      wcag: true,
-      bp: true,
+      wcag: false,
+      bp: false,
       counter: false,
       wappalyzer: false
     });

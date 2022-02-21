@@ -172,7 +172,10 @@ class Evaluation {
 
       await this.page.setViewport({
         width: 640,
-        height: 512
+        height: 512,
+        isMobile: viewport?.isMobile,
+        isLandscape: viewport?.isLandscape,
+        hasTouch: viewport?.hasTouch
       });
 
       await this.page.evaluate(() => {

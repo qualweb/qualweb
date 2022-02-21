@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.12] - 21/02/2022
+
+### Fixed
+
+- bug when validating validateZoomedTextNodeNotClippedWithCSSOverflow when using a mobile viewport
+
+### Updated
+
+- dependencies
+
 ## [0.3.11] - 26/01/2022
 
 ### Updated
