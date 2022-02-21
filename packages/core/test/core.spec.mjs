@@ -11,8 +11,10 @@ describe('Core', function () {
 
     const evaluations = await qualweb.evaluate({
       url: 'https://ciencias.ulisboa.pt/',
-      execute: { act: true, wcag: false, bp: false },
-      waitUntil: ['load', 'networkidle0']
+      log: { console: true },
+      viewport: { mobile: true, landscape: false },
+      execute: { act: true, wcag: false },
+      'act-rules': { levels: ['A', 'AA'] }
     });
 
     console.log(evaluations);
