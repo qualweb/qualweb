@@ -3,7 +3,6 @@ import BestPracticeObject from '../lib/BestPractice.object';
 import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
-
 @BestPracticeClass
 class QW_BP18 extends BestPracticeObject {
   private readonly containers = [
@@ -90,9 +89,9 @@ class QW_BP18 extends BestPracticeObject {
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
 
     for (const property of properties || []) {
-      if (property.includes('width')) {
+      if (property?.includes('width')) {
         const width = property.split(':')[1];
-        const hasImportant = width.includes('!important');
+        const hasImportant = width?.includes('!important');
 
         if (hasImportant) {
           if (width.endsWith('%')) {
