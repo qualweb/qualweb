@@ -11,11 +11,11 @@ class QW_BP20 extends BestPracticeObject {
   }
 
   @ElementExists
-  @ElementHasChild('header:not([role]), [role=banner]')
+  @ElementHasChild('main:not([role]), [role=main]')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const landmarkList = window.qwPage.getElements('header:not([role]), [role=banner]');
+    const landmarkList = window.qwPage.getElements('main:not([role]), [role=main]');
 
     if (landmarkList.length < 2) {
       test.verdict = 'passed';
