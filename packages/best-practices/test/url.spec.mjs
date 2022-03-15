@@ -9,7 +9,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://eportugal.gov.pt/';
+    const url = 'https://www.ccb.pt/';
 
     const browser = await puppeteer.launch({
       headless: false,
@@ -33,7 +33,7 @@ describe('Running tests', function () {
     });
 
     const report = await page.evaluate((locale) => {
-      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP8'] });
+      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP18'] });
       return bp.execute();
     }, locales.default.en);
 

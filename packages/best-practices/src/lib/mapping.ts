@@ -11,5 +11,6 @@ export default {
   'a:first-child': ['QW-BP4'],
   '[width]:not(img)': ['QW-BP15'],
   'a[href]': ['QW-BP17'],
-  'style, [style]': ['QW-BP18']
+  'style, [style]': ['QW-BP18'],
+  'header:not([role]), [role=banner]': ['QW-BP19']
 };
