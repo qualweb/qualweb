@@ -25,4 +25,4 @@ const tests = [
     outcome: 'failed'
   }
 ];
-export { tests };
+module.exports = { tests };

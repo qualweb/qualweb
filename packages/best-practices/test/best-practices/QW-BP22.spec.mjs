@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { createRequire } from 'module';
-import  {tests}  from './test-pages/QW_BP19_test.js'
+import  {tests}  from './test-pages/QW_BP22_test.js'
 const require = createRequire(import.meta.url);
 
 describe('Running tests', function () {
@@ -35,10 +35,10 @@ describe('Running tests', function () {
           });
 
           const report = await page.evaluate((locale) => {
-            const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP19'] });
+            const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP22'] });
             return bp.execute();
           }, locales.default.en);
-          expect(report.assertions['QW-BP19'].metadata.outcome).to.be.equal(test.outcome);
+          expect(report.assertions['QW-BP22'].metadata.outcome).to.be.equal(test.outcome);
           /*await page.close();
           await incognito.close();
           await browser.close();*/

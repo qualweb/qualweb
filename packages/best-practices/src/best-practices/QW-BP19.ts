@@ -15,7 +15,6 @@ class QW_BP19 extends BestPracticeObject {
     const test = new Test();
 
     const isTopLevel = this.landmarkIsTopLevelEvaluate(element);
-
     if (isTopLevel) {
       test.verdict = 'passed';
       test.resultCode = 'P1';

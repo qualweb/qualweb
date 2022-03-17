@@ -8,12 +8,14 @@
       "target": {
         "element": ["h1", "h2", "h3", "h4", "h5", "h6"]
       },
-      "success-criteria": [{
-        "name": "1.3.1",
-        "level": "A",
-        "principle": "Perceivable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
-      }],
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        }
+      ],
       "related": ["H69", "G141", "F2", "F43"],
       "url": "https://www.w3.org/TR/WCAG20-TECHS/H42.html"
     }
@@ -97,7 +99,24 @@
     "description": "No HTML elements are used to control the visual presentation of content",
     "metadata": {
       "target": {
-        "element": ["b", "blink", "blockquote", "basefont", "center", "cite", "em", "font", "i", "link", "mark", "strong", "s", "strike", "u", "vlink"]
+        "element": [
+          "b",
+          "blink",
+          "blockquote",
+          "basefont",
+          "center",
+          "cite",
+          "em",
+          "font",
+          "i",
+          "link",
+          "mark",
+          "strong",
+          "s",
+          "strike",
+          "u",
+          "vlink"
+        ]
       }
     }
   },
@@ -152,12 +171,14 @@
         "element": "a",
         "attributes": "href"
       },
-      "success-criteria": [{
-        "name": "2.4.1",
-        "level": "A",
-        "principle": "Operable",
-        "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
-      }],
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
+        }
+      ],
       "related": ["G1", "G124"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G123"
     }
@@ -165,6 +186,91 @@
   "QW_BP18": {
     "name": "Using percentage values in CSS for container sizes",
     "code": "QW-BP18",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
+  "QW_BP19": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP19",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },  "QW_BP20": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP20",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },  "QW_BP21": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP21",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },  "QW_BP22": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP22",
     "mapping": "C24",
     "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
     "metadata": {

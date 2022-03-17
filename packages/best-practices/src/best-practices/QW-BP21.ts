@@ -1,17 +1,16 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
-class QW_BP20 extends BestPracticeObject {
+class QW_BP21 extends BestPracticeObject {
   constructor(bestPractice: BestPractice, locale: Translate) {
     super(bestPractice, locale);
   }
 
   @ElementExists
-  @ElementHasChild('footer:not([role]), [role=contentinfo]')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
@@ -29,4 +28,4 @@ class QW_BP20 extends BestPracticeObject {
   }
 }
 
-export = QW_BP20;
+export = QW_BP21;
