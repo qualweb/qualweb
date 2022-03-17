@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasChild } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 

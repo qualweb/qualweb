@@ -6,7 +6,11 @@ import QW_BP13 from '../best-practices/QW-BP13';
 import QW_BP15 from '../best-practices/QW-BP15';
 import QW_BP17 from '../best-practices/QW-BP17';
 import QW_BP18 from '../best-practices/QW-BP18';
+import QW_BP19 from '../best-practices/QW-BP19';
 import QW_BP2 from '../best-practices/QW-BP2';
+import QW_BP20 from '../best-practices/QW-BP20';
+import QW_BP21 from '../best-practices/QW-BP21';
+import QW_BP22 from '../best-practices/QW-BP22';
 import QW_BP4 from '../best-practices/QW-BP4';
 import QW_BP5 from '../best-practices/QW-BP5';
 import QW_BP6 from '../best-practices/QW-BP6';
@@ -23,7 +27,11 @@ export {
   QW_BP15,
   QW_BP17,
   QW_BP18,
+  QW_BP19,
   QW_BP2,
+  QW_BP20,
+  QW_BP21,
+  QW_BP22,
   QW_BP4,
   QW_BP5,
   QW_BP6,
