@@ -3,23 +3,27 @@ const tests = [
     code: `<!DOCTYPE html>
             <html lang="en">
             <body>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
+              <dl>
+                <dt>Coffee</dt>
+                <dd>Black hot drink</dd>
+                <dt>Milk</dt>
+                <dd>White cold drink</dd>
+              </dl>
             </body>
             </html >`,
     outcome: 'passed'
   },
   {
     code: `<!DOCTYPE html>
-            <html lang="en" >
+            <html lang="en">
             <body>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
+              <dl>
+                <dt>Coffee</dt>
+                <dd>Black hot drink</dd>
+                <dt>Milk</dt>
+                <dd>White cold drink</dd>
+                <li>Milk</li>
+              </dl>
             </body>
             </html >`,
     outcome: 'failed'

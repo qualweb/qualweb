@@ -3,9 +3,11 @@ const tests = [
     code: `<!DOCTYPE html>
             <html lang="en">
             <body>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
+              <ul>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+              </ul>
             </body>
             </html >`,
     outcome: 'passed'
@@ -14,12 +16,11 @@ const tests = [
     code: `<!DOCTYPE html>
             <html lang="en" >
             <body>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
-                <div role="main">
-                <p>This div has role main</p>
-                </div>
+              <ul>
+                <p>Coffee</p>
+                <li>Tea</li>
+                <li>Milk</li>
+              </ul>
             </body>
             </html >`,
     outcome: 'failed'
