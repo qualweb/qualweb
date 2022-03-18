@@ -12,5 +12,9 @@ export default {
   '[width]:not(img)': ['QW-BP15'],
   'a[href]': ['QW-BP17'],
   'style, [style]': ['QW-BP18'],
-  'header:not([role]), [role=banner]': ['QW-BP19']
+  'header:not([role]), [role=banner]': ['QW-BP19'],
+  li: ['QW-BP23'],
+  'ul, ol,menu': ['QW-BP24'],
+  'dd, dt': ['QW-BP25'],
+  dl: ['QW-BP26']
 };

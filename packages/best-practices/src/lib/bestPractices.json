@@ -226,7 +226,8 @@
       "related": ["C20"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
     }
-  },  "QW_BP20": {
+  },
+  "QW_BP20": {
     "name": "Using percentage values in CSS for container sizes",
     "code": "QW-BP20",
     "mapping": "C24",
@@ -247,7 +248,8 @@
       "related": ["C20"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
     }
-  },  "QW_BP21": {
+  },
+  "QW_BP21": {
     "name": "Using percentage values in CSS for container sizes",
     "code": "QW-BP21",
     "mapping": "C24",
@@ -268,7 +270,8 @@
       "related": ["C20"],
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
     }
-  },  "QW_BP22": {
+  },
+  "QW_BP22": {
     "name": "Using percentage values in CSS for container sizes",
     "code": "QW-BP22",
     "mapping": "C24",
@@ -290,4 +293,92 @@
       "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
     }
   },
+  "QW_BP23": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP22",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
+  "QW_BP24": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP22",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
+  "QW_BP25": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP22",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
+  "QW_BP26": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP22",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  }
 }
