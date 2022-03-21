@@ -15,6 +15,9 @@ export default {
   'header:not([role]), [role=banner]': ['QW-BP19'],
   li: ['QW-BP23'],
   'ul, ol,menu': ['QW-BP24'],
-  'dd, dt': ['QW-BP25'],
-  dl: ['QW-BP26']
+  'aside:not([role]), [role=complementary]': ['QW-BP25'],
+  'footer:not([role]), [role=contentinfo]': ['QW-BP26'],
+  'main:not([role]), [role=main]': ['QW-BP27'],
+  'dd, dt': ['QW-BP28'],
+  dl: ['QW-BP29']
 };

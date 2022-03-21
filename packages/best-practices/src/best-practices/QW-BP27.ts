@@ -5,7 +5,7 @@ import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
 @BestPracticeClass
-class QW_BP25 extends BestPracticeObject {
+class QW_BP27 extends BestPracticeObject {
   constructor(bestPractice: BestPractice, locale: Translate) {
     super(bestPractice, locale);
   }
@@ -27,4 +27,4 @@ class QW_BP25 extends BestPracticeObject {
   }
 }
 
-export = QW_BP25;
+export = QW_BP27;
