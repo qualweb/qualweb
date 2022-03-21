@@ -1,9 +1,8 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasParent } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
-import { resourceLimits } from 'worker_threads';
 
 @BestPracticeClass
 class QW_BP25 extends BestPracticeObject {
@@ -12,11 +11,11 @@ class QW_BP25 extends BestPracticeObject {
   }
 
   @ElementExists
-  @ElementHasParent('*')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
     const correctElemments = this.onlyCorrectElementTypes(element);
     const dtToDDOrder = this.onlyCorrectElementTypes(element);
+    console.log({ correctElemments, dtToDDOrder });
 
     if (!correctElemments) {
       test.verdict = 'failed';
@@ -32,8 +31,9 @@ class QW_BP25 extends BestPracticeObject {
     super.addTestResult(test);
   }
   onlyCorrectElementTypes(element: typeof window.qwElement) {
-    const correctList = element.getElements('dt,dl,script,template,div');
+    const correctList = element.getElements('dt,dd,script,template,div');
     const list = element.getElements('*');
+    console.log({ correctList, list });
     return correctList.length === list.length;
   }
 

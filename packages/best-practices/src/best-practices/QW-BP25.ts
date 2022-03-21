@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasParent } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -11,7 +11,6 @@ class QW_BP25 extends BestPracticeObject {
   }
 
   @ElementExists
-  @ElementHasParent('*')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
     const parent = this.getCorrectParent(element);
@@ -19,8 +18,12 @@ class QW_BP25 extends BestPracticeObject {
     if (parent) {
       const parentRole = window.AccessibilityUtils.getElementRole(parent);
       const parentName = parent.getElementTagName();
+      console.log({ parentRole, parentName });
 
-      if (parentName === 'dl' && parentRole && ['presentation', 'none', 'list'].includes(parentRole)) {
+      if (
+        parentName === 'dl' &&
+        ((parentRole && ['presentation', 'none', 'list'].includes(parentRole)) || !parentRole)
+      ) {
         isValidParent = true;
       }
     }

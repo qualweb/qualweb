@@ -1,6 +1,6 @@
 import { BestPractice } from '@qualweb/best-practices';
 import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasParent } from '../lib/applicability';
+import { BestPracticeClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -11,7 +11,6 @@ class QW_BP23 extends BestPracticeObject {
   }
 
   @ElementExists
-  @ElementHasParent('*')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
     const parent = element.getElementParent();

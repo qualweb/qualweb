@@ -295,7 +295,7 @@
   },
   "QW_BP23": {
     "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP22",
+    "code": "QW-BP23",
     "mapping": "C24",
     "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
     "metadata": {
@@ -317,7 +317,7 @@
   },
   "QW_BP24": {
     "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP22",
+    "code": "QW-BP24",
     "mapping": "C24",
     "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
     "metadata": {
@@ -339,7 +339,7 @@
   },
   "QW_BP25": {
     "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP22",
+    "code": "QW-BP25",
     "mapping": "C24",
     "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
     "metadata": {
@@ -361,7 +361,7 @@
   },
   "QW_BP26": {
     "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP22",
+    "code": "QW-BP26",
     "mapping": "C24",
     "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
     "metadata": {
