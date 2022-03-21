@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.14] - 21/03/2022
+
+### Added
+
+- landmarkIsTopLevel
+
 ## [0.5.13] - 20/10/2021
 
 ### Fixed
