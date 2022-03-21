@@ -18,7 +18,6 @@ class QW_BP25 extends BestPracticeObject {
     if (parent) {
       const parentRole = window.AccessibilityUtils.getElementRole(parent);
       const parentName = parent.getElementTagName();
-      console.log({ parentRole, parentName });
 
       if (
         parentName === 'dl' &&

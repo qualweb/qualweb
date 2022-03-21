@@ -15,7 +15,6 @@ class QW_BP25 extends BestPracticeObject {
     const test = new Test();
     const correctElemments = this.onlyCorrectElementTypes(element);
     const dtToDDOrder = this.onlyCorrectElementTypes(element);
-    console.log({ correctElemments, dtToDDOrder });
 
     if (!correctElemments) {
       test.verdict = 'failed';
@@ -33,7 +32,6 @@ class QW_BP25 extends BestPracticeObject {
   onlyCorrectElementTypes(element: typeof window.qwElement) {
     const correctList = element.getElements('dt,dd,script,template,div');
     const list = element.getElements('*');
-    console.log({ correctList, list });
     return correctList.length === list.length;
   }
 

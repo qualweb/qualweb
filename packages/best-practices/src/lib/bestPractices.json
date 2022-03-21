@@ -206,179 +206,83 @@
     }
   },
   "QW_BP19": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Landmark banner is top level",
     "code": "QW-BP19",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures the banner landmark is at top level",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "header:not([role]), [role=banner]"
+      }
     }
   },
   "QW_BP20": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Landmark no duplicate banner",
     "code": "QW-BP20",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures the document has at most one banner landmark",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "body"
+      }
     }
   },
   "QW_BP21": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Landmark no duplicate contentinfo",
     "code": "QW-BP21",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures the document has at most one contentinfo landmark",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "body"
+      }
     }
   },
   "QW_BP22": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Landmark has one main",
     "code": "QW-BP22",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures the document has a main landmark",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "body"
+      }
     }
   },
   "QW_BP23": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Listitems are used semantically",
     "code": "QW-BP23",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures <li> elements are used semantically",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "li"
+      }
     }
   },
   "QW_BP24": {
-    "name": "Using percentage values in CSS for container sizes",
+    "name": "Lists are used correctly",
     "code": "QW-BP24",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "ul, ol,menu"
+      }
     }
   },
   "QW_BP25": {
-    "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP25",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "name": "Lists are used correctly",
+    "code": "QW-BP24",
+    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "ul, ol,menu"
+      }
     }
   },
   "QW_BP26": {
-    "name": "Using percentage values in CSS for container sizes",
-    "code": "QW-BP26",
-    "mapping": "C24",
-    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "name": "Lists are used correctly",
+    "code": "QW-BP24",
+    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
     "metadata": {
       "target": {
-        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
-        "attributes": "width"
-      },
-      "success-criteria": [
-        {
-          "name": "1.4.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
-        }
-      ],
-      "related": ["C20"],
-      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+        "element": "ul, ol,menu"
+      }
     }
   }
 }
