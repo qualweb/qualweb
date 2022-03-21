@@ -27,7 +27,7 @@ import getValueFromEmbeddedControlFunction from './getValueFromEmbeddedControl';
 import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocusNavigation';
 import getAriaOwnerFunction from './getAriaOwner';
 import getElementValidExplicitRoleFunction from './getElementValidExplicitRole';
-
+import landmarkIsTopLevel from './landmarkIsTopLevel';
 import ariaAttributesRoles from './ariaAttributesRoles.json';
 import roles from './roles.json';
 import languages from './language.json';
@@ -169,6 +169,11 @@ class AccessibilityUtils {
   @Cache('AcceUtils.getAriaOwner')
   public static getAriaOwner(element: typeof window.qwElement): typeof window.qwElement | null {
     return getAriaOwnerFunction(element);
+  }
+
+  @Cache('AcceUtils.landmarkIsTopLevel')
+  public static landmarkIsTopLevel(element: typeof window.qwElement): boolean {
+    return landmarkIsTopLevel(element);
   }
 }
 
