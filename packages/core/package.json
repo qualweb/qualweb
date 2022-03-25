@@ -73,7 +73,7 @@
     "@qualweb/evaluation": "0.3.12",
     "@qualweb/locale": "0.1.10",
     "colors": "1.4.0",
-    "puppeteer": "13.3.2",
+    "puppeteer": "13.5.1",
     "puppeteer-cluster": "^0.23.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-adblocker": "^2.12.0",
