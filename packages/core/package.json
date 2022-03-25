@@ -15,6 +15,7 @@
     "test:file": "mocha test/file.spec.mjs",
     "test:urls": "mocha test/urls.spec.mjs",
     "test:parallel": "mocha test/parallel.spec.mjs",
+    "test:plugin": "mocha test/plugin.spec.mjs",
     "test:validator": "mocha test/validator.spec.mjs",
     "test:wp": "mocha test/wappalyzer.spec.mjs",
     "test:locale": "mocha test/locale.spec.mjs",
