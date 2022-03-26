@@ -138,7 +138,7 @@ class QualWeb {
       // call to Qualweb.evaluate() so the user can handle it on their own.
       for (const plugin of this.#qualwebPlugins) {
         if (typeof plugin.beforePageLoad === 'function') {
-          await plugin.beforePageLoad(page);
+          await plugin.beforePageLoad(page, url);
         }
       }
 
@@ -149,7 +149,7 @@ class QualWeb {
       // exceptions apply as they did for beforePageLoad.
       for (const plugin of this.#qualwebPlugins) {
         if (typeof plugin.afterPageLoad === 'function') {
-          await plugin.afterPageLoad(page);
+          await plugin.afterPageLoad(page, url);
         }
       }
 
