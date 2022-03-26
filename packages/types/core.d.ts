@@ -31,7 +31,7 @@ declare module "@qualweb/core" {
     | "networkidle2";
 
 
-  type PageCallback = (page: Page) => Promise<void> | void;
+  type PageCallback = (page: Page, url: string) => Promise<void> | void;
 
   /**
    * Basic interface for a Qualweb plugin. Plugins are useful when you need to
