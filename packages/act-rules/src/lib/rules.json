@@ -1,4 +1,5 @@
 {
+  "$schema": "../../act-rules.schema.json",
   "QW_ACT_R1": {
     "name": "HTML page has non-empty title",
     "code": "QW-ACT-R1",
@@ -532,7 +533,7 @@
     "metadata": {
       "target": {
         "element": "body *",
-        "attribute": ["lang"]
+        "attributes": ["lang"]
       },
       "success-criteria": [
         {
@@ -562,21 +563,21 @@
         {
           "name": "1.2.3",
           "level": "A",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded"
         },
         {
           "name": "1.2.5",
           "level": "AA",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-prerecorded"
         },
         {
           "name": "1.2.8",
           "level": "AAA",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/media-alternative-prerecorded.html"
         }
       ],
@@ -640,7 +641,7 @@
         {
           "name": "1.2.2",
           "level": "A",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded.html"
         }
       ],
@@ -681,7 +682,7 @@
         {
           "name": "4.1.2",
           "level": "A",
-          "principle": "Robust ",
+          "principle": "Robust",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#name-role-value"
         }
@@ -706,7 +707,7 @@
         {
           "name": "1.2.1",
           "level": "A",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded"
         }
@@ -778,7 +779,7 @@
         {
           "name": "1.2.5",
           "level": "AA",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-prerecorded"
         }
@@ -803,7 +804,7 @@
         {
           "name": "1.3.1",
           "level": "A",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
         }
@@ -924,7 +925,7 @@
         {
           "name": "1.3.1",
           "level": "A",
-          "principle": "Perceivable ",
+          "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
         }
@@ -1312,7 +1313,7 @@
       },
       "success-criteria": [
         {
-          "name": "1.2.8 ",
+          "name": "1.2.8",
           "level": "AAA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/TR/WCAG21/#media-alternative-prerecorded",
@@ -1336,7 +1337,7 @@
       },
       "success-criteria": [
         {
-          "name": "2.4.7 ",
+          "name": "2.4.7",
           "level": "AA",
           "principle": "Operable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html",
@@ -1416,7 +1417,7 @@
       },
       "success-criteria": [
         {
-          "name": "4.1.2 ",
+          "name": "4.1.2",
           "level": "A",
           "principle": "Robust",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value",
@@ -1440,7 +1441,7 @@
       },
       "success-criteria": [
         {
-          "name": "1.4.12 ",
+          "name": "1.4.12",
           "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html",
@@ -1464,7 +1465,7 @@
       },
       "success-criteria": [
         {
-          "name": "1.4.12 ",
+          "name": "1.4.12",
           "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html",
@@ -1488,7 +1489,7 @@
       },
       "success-criteria": [
         {
-          "name": "1.4.12 ",
+          "name": "1.4.12",
           "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html",
@@ -1512,7 +1513,7 @@
       },
       "success-criteria": [
         {
-          "name": "2.1.1 ",
+          "name": "2.1.1",
           "level": "A",
           "principle": "Operable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html",
