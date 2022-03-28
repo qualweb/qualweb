@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.7.19",
+  "version": "0.7.20",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -23,7 +23,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "build": "npm run format && npm run lint && tsc --build",
+    "build": "tsc --build",
     "docs": "typedoc --out docs src/index.ts",
     "prepare": "npm run build"
   },
@@ -68,7 +68,7 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "0.3.12",
-    "@qualweb/dom": "0.2.5",
+    "@qualweb/dom": "0.2.6",
     "@qualweb/earl-reporter": "0.4.1",
     "@qualweb/evaluation": "0.3.12",
     "@qualweb/locale": "0.1.10",
