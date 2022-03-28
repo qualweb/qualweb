@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.6] - 28/03/2022
+
+### Fixed
+
+- changed default timeout
+
 ## [0.2.5] - 05/01/2022
 
 ### Fixed

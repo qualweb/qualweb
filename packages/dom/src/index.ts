@@ -103,7 +103,7 @@ class Dom {
     });
 
     return this.page.goto(url, {
-      timeout: options.timeout ?? 60 * 1000,
+      timeout: options.timeout ?? 240 * 1000,
       waitUntil: options.waitUntil ?? 'load'
     });
   }
