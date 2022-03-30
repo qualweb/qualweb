@@ -22,5 +22,7 @@ export default {
   'img[alt], area[alt] ': ['QW-WCAG-T8'],
   'style, [style]': ['QW-WCAG-T28', 'QW-WCAG-T29'],
   '*:not(head):not(style):not(link):not(meta):not(script)': ['QW-WCAG-T31'],
-  '[align]': ['QW-WCAG-T27']
+  '[align]': ['QW-WCAG-T27'],
+  'dd, dt': ['QW-WCAG-T33'],
+  dl: ['QW-WCAG-T34']
 };
