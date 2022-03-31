@@ -17,7 +17,5 @@ export default {
   'ul, ol,menu': ['QW-BP24'],
   'aside:not([role]), [role=complementary]': ['QW-BP25'],
   'footer:not([role]), [role=contentinfo]': ['QW-BP26'],
-  'main:not([role]), [role=main]': ['QW-BP27'],
-  'dd, dt': ['QW-BP28'],
-  dl: ['QW-BP29']
+  'main:not([role]), [role=main]': ['QW-BP27']
 };

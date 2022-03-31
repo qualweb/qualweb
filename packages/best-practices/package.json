@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [
@@ -30,8 +30,6 @@
     "test:bp22": "mocha test/best-practices/QW-BP22.spec.mjs",
     "test:bp23": "mocha test/best-practices/QW-BP23.spec.mjs",
     "test:bp24": "mocha test/best-practices/QW-BP24.spec.mjs",
-    "test:bp25": "mocha test/best-practices/QW-BP25.spec.mjs",
-    "test:bp26": "mocha test/best-practices/QW-BP26.spec.mjs",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
@@ -60,7 +58,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "0.2.4",
-    "@qualweb/locale": "0.1.10",
+    "@qualweb/locale": "0.1.11",
     "@qualweb/qw-page": "0.2.12",
     "@qualweb/types": "0.7.17",
     "@qualweb/util": "0.5.14",

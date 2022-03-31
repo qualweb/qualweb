@@ -266,22 +266,32 @@
     }
   },
   "QW_BP25": {
-    "name": "Lists are used correctly",
-    "code": "QW-BP24",
-    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+    "name": "Landmark complementary is top level",
+    "code": "QW-BP25",
+    "description": "Ensures the complementary landmark or aside is at top level",
     "metadata": {
       "target": {
-        "element": "ul, ol,menu"
+        "element": "aside:not([role]), [role=complementary]"
       }
     }
   },
   "QW_BP26": {
-    "name": "Lists are used correctly",
-    "code": "QW-BP24",
-    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+    "name": "Landmark contentinfo is top level",
+    "code": "QW-BP26",
+    "description": "Ensures the contentinfo landmark is at top level",
     "metadata": {
       "target": {
-        "element": "ul, ol,menu"
+        "element": "footer:not([role]), [role=contentinfo]"
+      }
+    }
+  },
+  "QW_BP27": {
+    "name": "Landmark main is top level",
+    "code": "QW-BP27",
+    "description": "Ensures the main landmark is at top level",
+    "metadata": {
+      "target": {
+        "element": "main:not([role]), [role=main]"
       }
     }
   }
