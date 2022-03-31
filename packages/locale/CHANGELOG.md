@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.1.11] - 31/03/2022
+
+### Updated
+
+- Added new bps and techniques
+
 ### [0.1.10] - 06/12/2021
 
 ### Updated

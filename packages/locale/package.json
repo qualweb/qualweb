@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/locale",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Locales for @qualweb/core evaluation reports.",
   "main": "dist/index.js",
   "files": [
@@ -12,7 +12,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "build": "npm run lint && rimraf dist && tsc --build",
+    "build": "rimraf dist && tsc --build",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
