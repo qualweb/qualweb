@@ -42,7 +42,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "0.2.5",
-    "@qualweb/locale": "0.1.10",
+    "@qualweb/locale": "0.1.11",
     "@qualweb/qw-page": "0.2.12",
     "@qualweb/types": "0.7.16",
     "@qualweb/util": "0.5.13",
