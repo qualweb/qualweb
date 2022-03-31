@@ -466,7 +466,7 @@
     },
     "QW-ACT-R54": {
       "name": "Videoinspelningar med visuellt innehåll kan ges alternativt som ljudupptagningar.",
-	  "description": "För videoinspelningar som inte innehåller ljud måste det finnas ett alternativ i form av en ljudupptagning.",
+      "description": "För videoinspelningar som inte innehåller ljud måste det finnas ett alternativ i form av en ljudupptagning.",
       "results": {
         "I1": "Inga objekt hittades.",
         "W1": "Det gick inte att få information om målelementet.",
@@ -479,7 +479,7 @@
       "results": {
         "I1": "Inga objekt hittades.",
         "W1": "Det gick inte att få information om målelementet.",
-		"W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det synliga innehållet i videon."
+        "W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det synliga innehållet i videon."
       }
     },
     "QW-ACT-R56": {
@@ -1005,6 +1005,25 @@
         "W3": "Check that content is marked as a definition list when terms and their definitions are presented in the form of a list.",
         "F1": "A list item is not contained in a correct list element."
       }
+    },
+    "QW-WCAG-T33": {
+      "name": "Using description lists - dd,dt",
+      "description": "Ensures <dt> and <dd> elements are contained by a <dl>",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target is contained in a correct description list element.",
+        "F1": "The test target is not contained in a correct description list element."
+      }
+    },
+    "QW-WCAG-T34": {
+      "name": "Using description lists - dl",
+      "description": "Ensures <dl> elements are structured correctly. <dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The description list element is structured correctly",
+        "F1": "The description list element contains an incorrect element type",
+        "F2": "The description list element is not ordered correctly"
+      }
     }
   },
   "best-practices": {
@@ -1141,6 +1160,87 @@
         "P1": "This test target has a `width` css property using percentage value with the important flag.",
         "F1": "This test target has a `width` css property using `px` value with the important flag.",
         "F2": "This test target has a `width` css property not using percentage value with the important flag."
+      }
+    },
+    "QW-BP19": {
+      "name": "Landmark banner is top level",
+      "description": "Ensures the banner landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The banner landmark is at top level.",
+        "F1": "The banner landmark is not at top level."
+      }
+    },
+    "QW-BP20": {
+      "name": "Landmark no duplicate banner",
+      "description": "Ensures the document has at most one banner landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one banner landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP21": {
+      "name": "Landmark no duplicate contentinfo",
+      "description": "Ensures the document has at most one contentinfo landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one contentinfo landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP22": {
+      "name": "Landmark has one main",
+      "description": "Ensures the document has a main landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one main landmark.",
+        "F1": "There are multiple main landmarks."
+      }
+    },
+    "QW-BP23": {
+      "name": "Listitems are used semantically",
+      "description": "Ensures <li> elements are used semantically",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Listitem is used semantically",
+        "F1": "Listitem is not used semantically not used semantically"
+      }
+    },
+    "QW-BP24": {
+      "name": "Lists are used correctly",
+      "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "List is used correctly",
+        "F1": "List is not used correctly"
+      }
+    },
+    "QW-BP25": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the complementary landmark or aside is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP26": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the contentinfo landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP27": {
+      "name": "Landmark main is top level",
+      "description": "Ensures the main landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The main landmark is at top level.",
+        "F1": "The main landmark is not at top level."
       }
     }
   }
