@@ -10,7 +10,7 @@ describe('Core', function () {
     await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://ciencias.ulisboa.pt/',
+      url: 'https://www.choeste.min-saude.pt/',
       log: { console: true },
       viewport: { mobile: true, landscape: false },
       execute: { act: true, wcag: false },
