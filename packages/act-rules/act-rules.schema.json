@@ -100,7 +100,7 @@
                 "type": "string"
               },
               "type": {
-                "type": "type",
+                "type": "array",
                 "items": {
                   "type": "string"
                 }
