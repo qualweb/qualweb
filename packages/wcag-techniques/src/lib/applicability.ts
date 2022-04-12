@@ -65,6 +65,16 @@ function ElementHasAttributes(_target: any, _propertyKey: string, descriptor: Pr
   };
 }
 
+function isInMainContext(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const differentContext = (<typeof window.qwElement>arguments[0]).getElementAttribute('_documentSelector');
+    if (!differentContext || !differentContext.includes('>')) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 function ElementHasAttribute(attribute: string) {
   return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
     const method = descriptor.value;
@@ -125,5 +135,6 @@ export {
   ElementIsInAccessibilityTree,
   ElementIsVisible,
   ElementIsDataTable,
-  ElementHasAccessibleName
+  ElementHasAccessibleName,
+  isInMainContext,
 };

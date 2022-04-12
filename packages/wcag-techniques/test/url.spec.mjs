@@ -17,8 +17,8 @@ describe('Running tests', function () {
     const dom = new Dom(page);
     await dom.process(
       {
-        execute: { wcag: true }
-        //'wcag-techniques': { techniques: ['QW-WCAG-T17'] }
+        execute: { wcag: true },
+        'wcag-techniques': { techniques: ['QW-WCAG-T23'] }
       },
       url,
       ''
@@ -43,7 +43,7 @@ describe('Running tests', function () {
           fallback: locale
         },
         {
-          techniques: ['QW-WCAG-T16']
+          techniques: ['QW-WCAG-T23']
         }
       );
       return wcag.execute(false, undefined);

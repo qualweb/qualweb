@@ -1,6 +1,6 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
+import { WCAGTechniqueClass, ElementExists, isInMainContext } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -11,6 +11,7 @@ class QW_WCAG_T23 extends Technique {
   }
 
   @ElementExists
+  @isInMainContext
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
