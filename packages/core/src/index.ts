@@ -25,7 +25,10 @@ class QualWeb {
    */
   private cluster?: Cluster;
 
-  #qualwebPlugins: QualwebPlugin[] = [];
+  /**
+   * Array of plugins added with QualWeb.use().
+   */
+  private qualwebPlugins: QualwebPlugin[] = [];
 
   /**
    * Initializes puppeteer with given plugins.
@@ -62,14 +65,13 @@ class QualWeb {
   }
 
   /**
-   * Adds a plugin to the list of plugins to run when executing a Qualweb
-   * evaluation. Plugins are run in the same order they were added to the
-   * instance.
+   * Adds a plugin to be run when executing a QualWeb evaluation. Plugins are
+   * called in the same order they were added to the instance.
    * @param plugin The plugin to add.
-   * @returns The Qualweb instance itself. Good for chaining.
+   * @returns The QualWeb instance itself. Good for chaining.
    */
   public use(plugin: QualwebPlugin): this {
-    this.#qualwebPlugins.push(plugin);
+    this.qualwebPlugins.push(plugin);
 
     return this;
   }
@@ -136,7 +138,7 @@ class QualWeb {
       // Execute beforePageLoad on all plugins in order. If any exceptions
       // occur during the execution of a plugin, it should bubble up past the
       // call to Qualweb.evaluate() so the user can handle it on their own.
-      for (const plugin of this.#qualwebPlugins) {
+      for (const plugin of this.qualwebPlugins) {
         if (typeof plugin.beforePageLoad === 'function') {
           await plugin.beforePageLoad(page, url || 'customHtml');
         }
@@ -147,7 +149,7 @@ class QualWeb {
 
       // Execute afterPageLoad on all plugins in order. Same assumptions for
       // exceptions apply as they did for beforePageLoad.
-      for (const plugin of this.#qualwebPlugins) {
+      for (const plugin of this.qualwebPlugins) {
         if (typeof plugin.afterPageLoad === 'function') {
           await plugin.afterPageLoad(page, url || 'customHtml');
         }
