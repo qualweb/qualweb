@@ -14,6 +14,7 @@ import {
   ResultSource,
   Report
 } from '@qualweb/earl-reporter';
+import { SC } from './contants';
 
 /**
  * Generates assertions from a given report
@@ -30,7 +31,8 @@ function generateEARLAssertions(report: Report, date?: string): Array<Assertion>
       const test = report.assertions[name];
       if (test) {
         const sources = generateSources(test);
-
+        const sCriterias = test.metadata['success-criteria'];
+        const isPartOf = convertSC(sCriterias);
         const result: TestResult = {
           '@type': 'TestResult',
           outcome: 'earl:' + (test.metadata.outcome !== 'warning' ? test.metadata.outcome : 'cantTell'),
@@ -45,7 +47,8 @@ function generateEARLAssertions(report: Report, date?: string): Array<Assertion>
             '@id': test.metadata.url ?? test.name,
             '@type': 'TestCase',
             title: test.name,
-            description: test.description
+            description: test.description,
+            isPartOf
           },
           mode: 'earl:automatic',
           result
@@ -57,6 +60,15 @@ function generateEARLAssertions(report: Report, date?: string): Array<Assertion>
   }
 
   return assertions;
+}
+
+function convertSC(scList: any[] | undefined) {
+  if (scList)
+    return scList.map((sc) => {
+      const name = sc.name;
+      return SC[name as keyof typeof SC]?.scId;
+    });
+  else return [];
 }
 
 /**

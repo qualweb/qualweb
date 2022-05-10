@@ -13,7 +13,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "build": "npm run format && npm run lint && npm run prebuild && tsc --build",
+    "build": "npm run prebuild && tsc --build",
     "prepare": "npm run build"
   },
   "keywords": [
