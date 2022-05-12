@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.2] - 12/05/2021
+
+### Added
+
+- isPartOf https://act-rules.github.io/pages/implementations/earl-reports/
+
 ## [0.4.1] - 23/03/2021
 
 ### Added
