@@ -32,6 +32,7 @@ declare module "@qualweb/earl-reporter" {
       "@type": "TestCase";
       title: string;
       description: string;
+      isPartOf?: string[];
     };
     mode: string;
     result: TestResult;

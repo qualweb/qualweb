@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.18] - 12/05/2022
+
+### Updated
+
+- Updated earl
+
+## [0.7.17] - 03/03/2022
+
+### Updated
+
+- updated util
+
 ## [0.7.16] - 03/12/2021
 
 ### Added
