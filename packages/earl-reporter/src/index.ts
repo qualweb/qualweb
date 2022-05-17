@@ -14,7 +14,7 @@ import {
   ResultSource,
   Report
 } from '@qualweb/earl-reporter';
-import { SC } from './contants';
+import { SC } from './constants';
 
 /**
  * Generates assertions from a given report
