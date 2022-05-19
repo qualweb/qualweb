@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "files": [

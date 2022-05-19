@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.3] - 19/05/2021
+
+### Updated
+
+- Fixed typo
 ## [0.4.2] - 12/05/2021
 
 ### Added
