@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer-extra';
 import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import AdBlocker from 'puppeteer-extra-plugin-adblocker';
-import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions, LoadEvent } from '@qualweb/core';
+import { QualwebOptions, Evaluations, PuppeteerPlugins, ClusterOptions, LoadEvent, QualwebPlugin } from '@qualweb/core';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Dom } from '@qualweb/dom';
 import { Evaluation } from '@qualweb/evaluation';
@@ -24,6 +24,11 @@ class QualWeb {
    * Chromium browser cluster.
    */
   private cluster?: Cluster;
+
+  /**
+   * Array of plugins added with QualWeb.use().
+   */
+  private qualwebPlugins: QualwebPlugin[] = [];
 
   /**
    * Initializes puppeteer with given plugins.
@@ -57,6 +62,18 @@ class QualWeb {
       timeout: clusterOptions?.timeout ?? 60 * 1000,
       monitor: clusterOptions?.monitor ?? false
     });
+  }
+
+  /**
+   * Adds a plugin to be run when executing a QualWeb evaluation. Plugins are
+   * called in the same order they were added to the instance.
+   * @param plugin The plugin to add.
+   * @returns The QualWeb instance itself. Good for chaining.
+   */
+  public use(plugin: QualwebPlugin): this {
+    this.qualwebPlugins.push(plugin);
+
+    return this;
   }
 
   /**
@@ -117,8 +134,27 @@ class QualWeb {
 
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const dom = new Dom(page, options.validator);
+
+      // Execute beforePageLoad on all plugins in order. If any exceptions
+      // occur during the execution of a plugin, it should bubble up past the
+      // call to Qualweb.evaluate() so the user can handle it on their own.
+      for (const plugin of this.qualwebPlugins) {
+        if (typeof plugin.beforePageLoad === 'function') {
+          await plugin.beforePageLoad(page, url || 'customHtml');
+        }
+      }
+
       const { sourceHtml, validation } = await dom.process(options, url ?? '', html ?? '');
       const evaluation = new Evaluation(url, page, modulesToExecute);
+
+      // Execute afterPageLoad on all plugins in order. Same assumptions for
+      // exceptions apply as they did for beforePageLoad.
+      for (const plugin of this.qualwebPlugins) {
+        if (typeof plugin.afterPageLoad === 'function') {
+          await plugin.afterPageLoad(page, url || 'customHtml');
+        }
+      }
+
       const evaluationReport = await evaluation.evaluatePage(sourceHtml, options, validation);
       evaluations[url || 'customHtml'] = evaluationReport.getFinalReport();
     });
