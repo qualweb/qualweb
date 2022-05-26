@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.18] - 26/05/2022
+
+### Updated
+
+- Updated core
+
 ## [0.7.18] - 12/05/2022
 
 ### Updated
