@@ -376,9 +376,9 @@ class Crawler {
         parts.pop();
         u = parts.join('#');
       }
-      if (!u.endsWith('/')) {
+      /*if (!u.endsWith('/')) {
         u = u + '/';
-      }
+      }fixme*/
       if (u.startsWith(this.startingUrl)) {
         return u.trim();
       } else {
