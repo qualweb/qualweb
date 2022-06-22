@@ -7,7 +7,7 @@ const header = ` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
    |__|                                                         `;
 
 const strings = {};
-const modules = ['act', 'html', 'css', 'bp', 'wappalyzer', 'counter'];
+const modules = ['act', 'html', 'css', 'bp', /*'wappalyzer',*/ 'counter'];
 const reports = ['earl', 'earl-a'];
 const actRules = [...actRulesJson.qualweb_id, ...actRulesJson.act_id];
 const wcagTechniques = [

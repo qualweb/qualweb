@@ -43,8 +43,8 @@ function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions):
           case 'bp':
             options.execute.bp = true;
             break;
-          case 'wappalyzer':
-            options.execute.wappalyzer = true;
+ //         case 'wappalyzer':
+ //           options.execute.wappalyzer = true;
             break;
           case 'counter':
             options.execute.counter = true;

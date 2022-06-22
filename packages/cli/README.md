@@ -94,7 +94,6 @@ This command replaces all other commands.
     "wcag": true,
     "bp": true,
     "counter": false,
-    "wappalyzer": false
   },
   "act-rules": {
     "rules": ["QW-ACT-R1"],
