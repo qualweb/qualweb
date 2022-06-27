@@ -38,9 +38,9 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.2.1",
-    "@qualweb/qw-page": "^0.2.8",
-    "@qualweb/types": "^0.6.6",
+    "@qualweb/dom": "^0.2.6",
+    "@qualweb/qw-page": "^0.2.12",
+    "@qualweb/types": "^0.7.2",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.6.1",
     "@types/string-pixel-width": "^1.7.1",
