@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.15] - 28/06/2022
+
+### Fixed
+
+- fixed AName control inside widget
+
 ## [0.5.14] - 21/03/2022
 
 ### Added
