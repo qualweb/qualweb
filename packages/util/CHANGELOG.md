@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.16] - 29/06/2022
+
+### Fixed
+
+- fixed getRole
+
 ## [0.5.15] - 28/06/2022
 
 ### Fixed
