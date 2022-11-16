@@ -972,7 +972,7 @@
       "success-criteria": [
         {
           "name": "1.4.4",
-          "level": "A",
+          "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#resize-text"
