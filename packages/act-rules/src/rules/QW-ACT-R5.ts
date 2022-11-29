@@ -31,7 +31,8 @@ class QW_ACT_R5 extends AtomicRule {
   }
 
   private checkValidity(lang: string): boolean {
-    const subLangs = lang.split('-');
+    const langLower = lang.toLowerCase();
+    const subLangs = langLower.split('-');
     return this.isSubTagValid(subLangs[0]);
   }
 
