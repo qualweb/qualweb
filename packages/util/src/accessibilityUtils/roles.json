@@ -168,7 +168,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["article"]]
+    "requiredOwnedElements":["article"]
   },
   "figure": {
     "baseConcept":  "",
@@ -195,7 +195,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-level", "aria-multiselectable", "aria-readonly", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-colcount", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription", "aria-rowcount"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["row"],["rowgroup","row"]]
+    "requiredOwnedElements":["row","rowgroup","row"]
   },
   "gridcell": {
     "baseConcept":  ["td"],
@@ -213,7 +213,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":["group"]
   },
   "heading": {
     "baseConcept":  "",
@@ -267,7 +267,7 @@
     "requiredRoles": "",
     "supportedRoles": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["group","listitem"],["listitem"]]
+    "requiredOwnedElements":["group","listitem"]
   },
   "listbox": {
     "baseConcept":  "",
@@ -330,7 +330,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["aria-orientation","vertical"]],
-    "requiredOwnedElements":[[["group"],["menuitemradio"]],["menuitem"],["menuitemcheckbox"],["menuitemradio"]]
+    "requiredOwnedElements":["group","menuitem","menuitemcheckbox","menuitemradio"]
   },
   "menubar": {
     "baseConcept":  "",
@@ -339,7 +339,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["aria-orientation","horizontal"]],
-    "requiredOwnedElements":[[["group"],["menuitemradio"]],["menuitem"],["menuitemcheckbox"],["menuitemradio"]]
+    "requiredOwnedElements":["group","menuitemradio","menuitem","menuitemcheckbox","menuitemradio"]
   },
   "menuitem": {
     "baseConcept":  "",
@@ -402,7 +402,7 @@
     "requiredAria": ["aria-selected"],
     "supportedAria": ["aria-checked", "aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["aria-selected","false"]],
-    "requiredOwnedElements":[["option"]]
+    "requiredOwnedElements":["option"]
   },
   "presentation": {
     "baseConcept":  "",
@@ -438,7 +438,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-readonly", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["radio"]]
+    "requiredOwnedElements":["radio"]
   },
   "range": {
     "baseConcept":  "",
@@ -475,7 +475,7 @@
     "supportedAria": ["aria-colindex", "aria-level", "aria-rowindex", "aria-selected", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
     "requiredOwnedElements":[	
-      ["cell"],["columnheader"],["gridcell"],["rowheader"]]
+      "cell","columnheader","gridcell","rowheader"]
   },
   "rowgroup": {
     "baseConcept":  ["tbody", "tfoot", "thead"],
@@ -484,7 +484,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["row"]]
+    "requiredOwnedElements":["row"]
   },
   "rowheader": {
     "baseConcept":  ["th"],
@@ -619,7 +619,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-colcount", "aria-rowcount", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[["row"],["rowgroup","row"]]
+    "requiredOwnedElements":["row","rowgroup"]
   },
   "tablist": {
     "baseConcept":  "",
@@ -628,7 +628,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-level", "aria-multiselectable", "aria-orientation", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["aria-orientation","horizontal"]],
-    "requiredOwnedElements":[["tab"]]
+    "requiredOwnedElements":["tab"]
   },
   "tabpanel": {
     "baseConcept":  "",
@@ -691,7 +691,7 @@
     "requiredAria": "",
     "supportedAria": ["aria-multiselectable", "aria-requiredAria", "aria-activedescendant", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-errormessage", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-invalid", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-orientation", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["aria-orientation","vertical"]],
-    "requiredOwnedElements":[["group","treeitem"],["treeitem"]]
+    "requiredOwnedElements":["group","treeitem"]
   },
   "treegrid": {
     "baseConcept":  "",
