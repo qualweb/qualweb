@@ -9,12 +9,16 @@ class QW_ACT_R38 extends AtomicRule {
   constructor(rule: ACTRule, locale: Translate) {
     super(rule, locale);
   }
+  /**
+   * 
+   *mudar requiredOwnedElements para ser so um array
+   em caso de group permitir group e required owned do pai
+   */
 
   @ElementExists
   @ElementIsInAccessibilityTree
   execute(element: typeof window.qwElement): void {
     const rolesJSON = window.AccessibilityUtils.roles;
-
     const test = new Test();
 
     const explicitRole = element.getElementAttribute('role');
@@ -35,46 +39,51 @@ class QW_ACT_R38 extends AtomicRule {
         test.verdict = 'failed';
         test.resultCode = 'F1';
       }
+      console.log(test);
 
       test.addElement(element);
       super.addTestResult(test);
     }
   }
 
-  private checkOwnedElementsRole(ownedRoles: string[][], elements: typeof window.qwElement[]): boolean {
-    let result = false,
-      end = false;
-    let i = 0,
-      j = 0;
-    let hasOwnedRole, currentElement, currentOwnedRole;
-    while (i < elements.length && !end) {
+  private checkOwnedElementsRole(ownedRoles: string[], elements: typeof window.qwElement[]): boolean {
+    if (ownedRoles.length === 0) return true;
+    console.log(ownedRoles);
+    const rolesJSON = window.AccessibilityUtils.roles;
+    let onlyOwnedRoles = true;
+    let hasOneOwnedRole = false;
+    let i = 0;
+    let hasOwnedRole, currentElement;
+    while (i < elements.length) {
       hasOwnedRole = false;
       currentElement = elements[i];
       const role = window.AccessibilityUtils.getElementRole(currentElement);
-      while (j < ownedRoles.length && !hasOwnedRole) {
-        currentOwnedRole = ownedRoles[j];
-        if (currentOwnedRole.length === 1) {
-          hasOwnedRole = role === currentOwnedRole[0];
-        } else {
-          hasOwnedRole =
-            role === currentOwnedRole[0] &&
-            this.checkOwnedElementsRole(
-              [[currentOwnedRole[1]]],
-              window.AccessibilityUtils.getOwnedElements(currentElement)
-            );
-        }
-        j++;
+      if (!role || role === 'none') {
+        break;
       }
-      result = hasOwnedRole;
+      console.log({ ownedRoles, role });
+      if (role.includes('group')) {
+        const roles = rolesJSON[role]['requiredOwnedElements'];
+        roles.push(...ownedRoles);
+        hasOwnedRole =
+          ownedRoles.includes(role) &&
+          this.checkOwnedElementsRole(roles, window.AccessibilityUtils.getOwnedElements(currentElement));
+      } else {
+        hasOwnedRole =
+          ownedRoles.includes(role) &&
+          this.checkOwnedElementsRole(
+            rolesJSON[role]['requiredOwnedElements'],
+            window.AccessibilityUtils.getOwnedElements(currentElement)
+          );
+      }
 
-      j = 0;
+      console.log({ role, hasOwnedRole });
+      onlyOwnedRoles = onlyOwnedRoles && !!hasOwnedRole;
+      if (!hasOneOwnedRole) hasOneOwnedRole = !!hasOwnedRole;
       i++;
-      if (result) {
-        end = true;
-      }
     }
 
-    return result;
+    return hasOneOwnedRole && onlyOwnedRoles;
   }
 
   private isElementADescendantOfAriaBusy(element: typeof window.qwElement): boolean {
