@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.17] - 21/12/2022
+
+### Fixed
+
+- changed required owned role
+
 ## [0.5.16] - 29/06/2022
 
 ### Fixed
