@@ -7,13 +7,13 @@ describe('Core', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
+    await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://www.choeste.min-saude.pt/',
+      url: 'https://plejecenterortved.ringsted.dk/borger/omsorg-sundhed/boligerne',
       log: { console: true },
-      viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: false },
+     // viewport: { mobile: true, landscape: false },
+      execute: { act: true, wcag: true,bp:true },
       'act-rules': { levels: ['A', 'AA'] }
     });
 
