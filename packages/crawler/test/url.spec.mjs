@@ -9,13 +9,13 @@ describe('Url crawling', function () {
 
     puppeteer.use(StealthPlugin());
 
-    const browser = await puppeteer.launch();
-    const crawler = new Crawler(browser, 'https://www.erc.pt/');
-    await crawler.crawl({ logging: true, maxDepth: 0 });
+    const browser = await puppeteer.launch({headless:false});
+    const crawler = new Crawler(browser, 'https://www.gns.gov.pt');
+    await crawler.crawl({ logging: false, maxDepth: 0 });
     const urls = crawler.getResults();
     console.log(urls);
 
-    await browser.close();
+    //await browser.close();
 
     expect(urls.length).to.be.greaterThan(1);
   });

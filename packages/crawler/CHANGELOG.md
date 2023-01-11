@@ -1,6 +1,18 @@
 # Changelog
 
-## [0.3.13] - 26/05/2021
+## [0.3.15] - 11/01/2022
+
+### Updated
+
+- bug fixes
+
+## [0.3.14] - 21/09/2022
+
+### Updated
+
+- added url verification
+
+## [0.3.13] - 26/05/2022
 
 ### Fixed
 

@@ -214,7 +214,6 @@ class Crawler {
               return url;
             }
           }
-
           const notHtml = 'css|jpg|jpeg|gif|svg|pdf|docx|js|png|ico|xml|mp4|mp3|mkv|wav|rss|json|pptx|txt'.split('|');
 
           const links = document.querySelectorAll('body a');
@@ -224,8 +223,8 @@ class Crawler {
 
           links.forEach((link: Element) => {
             if (link.hasAttribute('href')) {
-              const href = link.getAttribute('href')?.trim();
-
+              let href = link.getAttribute('href')?.trim();
+              if (href?.startsWith('//')) href = href.replace('//', 'https://');
               if (
                 href &&
                 !isDomain &&
@@ -318,53 +317,55 @@ class Crawler {
         this.isDomain
       );
 
-      await page.close();
+      //await page.close();
     } catch (err) {
       console.error(err);
     }
 
-    return [this.normalizeAndSort(urls), relativePathsToTest];
+    return [[], [...relativePathsToTest, ...this.normalizeAndSort(urls)]];
   }
 
   private async checkRelativePathsUrls(urls: Array<string>): Promise<Array<string>> {
     const newUrlsToValidate = new Array<string>();
-    for (const url of urls ?? []) {
-      try {
-        const page = await this.browser.newPage();
-        if (this.viewport) {
-          await page.setViewport(this.viewport);
-        }
-        await page.goto(url, {
-          waitUntil: this.waitUntil
-        });
+    await Promise.all(
+      urls.map(async (url) => {
+        try {
+          const page = await this.browser.newPage();
 
-        const newUrl = await page.evaluate((startingUrl: string) => {
-          function getUrlWithoutExtension(url: string): string {
-            if (!url.endsWith('/')) {
-              const parts = url.split('/');
-              parts.pop();
-              return parts.join('/') + '/';
-            } else {
-              return url;
+          if (this.viewport) {
+            await page.setViewport(this.viewport);
+          }
+          await page.goto(url, {
+            waitUntil: this.waitUntil
+          });
+
+          const newUrl = await page.evaluate((startingUrl: string) => {
+            function getUrlWithoutExtension(url: string): string {
+              if (!url.endsWith('/')) {
+                const parts = url.split('/');
+                parts.pop();
+                return parts.join('/') + '/';
+              } else {
+                return url;
+              }
             }
-          }
 
-          if (window.location.href.startsWith(getUrlWithoutExtension(startingUrl))) {
-            return window.location.href;
-          } else {
-            return null;
-          }
-        }, this.startingUrl);
+            if (window.location.href.startsWith(getUrlWithoutExtension(startingUrl))) {
+              return window.location.href;
+            } else {
+              return null;
+            }
+          }, this.startingUrl);
 
-        if (newUrl !== null) {
-          newUrlsToValidate.push(newUrl);
+          if (newUrl !== null) {
+            newUrlsToValidate.push(newUrl);
+          }
+          await page.close();
+        } catch (err) {
+          console.error(err);
         }
-
-        await page.close();
-      } catch (err) {
-        console.error(err);
-      }
-    }
+      })
+    );
 
     return newUrlsToValidate;
   }
