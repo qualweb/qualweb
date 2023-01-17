@@ -5,7 +5,6 @@ import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
 import EvaluationRecord from './evaluationRecord.object';
 import { ACTROptions, ACTRulesReport } from '@qualweb/act-rules';
 import { BPOptions, BestPracticesReport } from '@qualweb/best-practices';
-import { executeWappalyzer } from '@qualweb/wappalyzer';
 import { CounterReport } from '@qualweb/counter';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import { QWElement } from '@qualweb/qw-element';
@@ -46,9 +45,9 @@ class Evaluation {
     if (this.execute.bp) {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
     }
-    if (this.execute.wappalyzer) {
+  /*  if (this.execute.wappalyzer) {
       evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
-    }
+    }*/
     if (this.execute.counter) {
       evaluation.addModuleEvaluation('counter', await this.executeCounter());
     }

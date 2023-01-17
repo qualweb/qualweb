@@ -8,19 +8,18 @@ describe('QualWeb evaluation', function () {
   it('Testing qualweb page evaluation', async function () {
     this.timeout(0);
 
-    const url = 'https://ciencias.ulisboa.pt ';
+    const url = 'https://www.vg.no';
 
-    const browser = await puppeteer.launch({ headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
+    const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
 
     const options = {
       waitUntil: ['load', 'networkidle2'],
-      log: { console: true },
-      viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: false },
-      'act-rules': { levels: ['A', 'AA'] },
+       //log: { console: true },
+      //viewport: { mobile: true, landscape: false },
+      execute: { act: true, wcag: true,bp:true },
       translate: { translate: locales.default.en, fallback: locales.default.en }
     };
 
@@ -28,7 +27,7 @@ describe('QualWeb evaluation', function () {
 
     const evaluation = new Evaluation(url, page, {
       act: true,
-      wcag: false,
+      wcag: true,
       bp: false,
       counter: false,
       wappalyzer: false
