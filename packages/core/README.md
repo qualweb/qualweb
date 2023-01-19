@@ -500,4 +500,4 @@ ISC
 
 - 0.7.31 - Removed dependencies on Wappalyzer module (continued)
 - 0.7.30 - Removed dependencies on Wappalyzer module
-- 0.7.29 - Fixed ACT-Rules 
+- 0.7.29 - Fixed ACT-Rules bf051a (R5) and bc4a75 (R38)
