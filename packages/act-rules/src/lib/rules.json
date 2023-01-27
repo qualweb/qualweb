@@ -75,7 +75,7 @@
     }
   },
   "QW_ACT_R4": {
-    "name": "meta element has no refresh delay",
+    "name": "Meta element has no refresh delay",
     "code": "QW-ACT-R4",
     "mapping": "bc659a",
     "description": "This rule checks that the meta element is not used for delayed redirecting or refreshing.",
@@ -218,7 +218,7 @@
     }
   },
   "QW_ACT_R10": {
-    "name": "iframe elements with identical accessible names have equivalent purpose",
+    "name": "Iframe elements with identical accessible names have equivalent purpose",
     "code": "QW-ACT-R10",
     "mapping": "4b1c6c",
     "description": "This rule checks that iframe elements with identical accessible names embed the same resource or equivalent resources.",
@@ -307,7 +307,7 @@
     }
   },
   "QW_ACT_R13": {
-    "name": "Element with aria-hidden has no focusable content",
+    "name": "Element with aria-hidden has no content in sequential focus navigation",
     "code": "QW-ACT-R13",
     "mapping": "6cfa84",
     "description": "This rule checks that elements with an aria-hidden attribute do not contain focusable elements.",
@@ -332,7 +332,7 @@
     }
   },
   "QW_ACT_R14": {
-    "name": "meta viewport allows for zoom",
+    "name": "Meta viewport allows for zoom",
     "code": "QW-ACT-R14",
     "mapping": "b4f0c3",
     "description": "This rule checks that the meta element retains the user agent ability to zoom.",
@@ -357,7 +357,7 @@
     }
   },
   "QW_ACT_R15": {
-    "name": "audio or video avoids automatically playing audio",
+    "name": "Audio or video element avoids automatically playing audio",
     "code": "QW-ACT-R15",
     "mapping": "80f0bf",
     "description": "This rule checks that audio or video that plays automatically does not have audio that lasts for more than 3 seconds or has an audio control mechanism to stop or mute it.",
@@ -453,7 +453,7 @@
     }
   },
   "QW_ACT_R19": {
-    "name": "iframe element has non-empty accessible name",
+    "name": "Iframe element has non-empty accessible name",
     "code": "QW-ACT-R19",
     "mapping": "cae760",
     "description": "This rule checks that each iframe element has a non-empty accessible name.",
@@ -477,7 +477,7 @@
     }
   },
   "QW_ACT_R20": {
-    "name": "role attribute has valid value",
+    "name": "Role attribute has valid value",
     "code": "QW-ACT-R20",
     "mapping": "674b10",
     "description": "This rule checks that each role attribute has a valid value.",
@@ -502,7 +502,7 @@
     }
   },
   "QW_ACT_R21": {
-    "name": "svg element with explicit role has non-empty accessible name",
+    "name": "SVG element with explicit role has non-empty accessible name",
     "code": "QW-ACT-R21",
     "mapping": "7d6734",
     "description": "This rule checks that each SVG image element that is explicitly included in the accessibility tree has a non-empty accessible name.",
@@ -551,7 +551,7 @@
     }
   },
   "QW_ACT_R23": {
-    "name": "video element visual content has accessible alternative",
+    "name": "Video element visual content has accessible alternative",
     "code": "QW-ACT-R23",
     "mapping": "c5a4ea",
     "description": "This rule checks that video elements with audio have an alternative for the video content as audio or as text.",
@@ -629,7 +629,7 @@
     }
   },
   "QW_ACT_R26": {
-    "name": "video element auditory content has accessible alternative",
+    "name": "Video element auditory content has accessible alternative",
     "code": "QW-ACT-R26",
     "mapping": "eac66b",
     "description": "This rule checks that video elements have an alternative for information conveyed through audio.",
@@ -652,7 +652,7 @@
     }
   },
   "QW_ACT_R27": {
-    "name": "aria-* attribute is defined in WAI-ARIA",
+    "name": "ARIA attribute is defined in WAI-ARIA",
     "code": "QW-ACT-R27",
     "mapping": "5f99a7",
     "description": "This rule checks that each aria-* attribute specified is defined in ARIA 1.1.",
@@ -694,7 +694,7 @@
     }
   },
   "QW_ACT_R29": {
-    "name": "audio element content has text alternative",
+    "name": "Audio element content has text alternative",
     "code": "QW-ACT-R29",
     "mapping": "e7aa44",
     "description": "This rule checks if audio only elements have a text alternative available.",
@@ -743,7 +743,7 @@
     }
   },
   "QW_ACT_R31": {
-    "name": "video element visual-only content has accessible alternative",
+    "name": "Video element visual-only content has accessible alternative",
     "code": "QW-ACT-R31",
     "mapping": "c3232f",
     "description": "This rule checks that video elements without audio have an alternative available.",
@@ -767,7 +767,7 @@
     }
   },
   "QW_ACT_R32": {
-    "name": "video element visual content has strict accessible alternative",
+    "name": "Video element visual content has strict accessible alternative",
     "code": "QW-ACT-R32",
     "mapping": "1ec09b",
     "description": "This rule checks that video elements with audio have audio description.",
@@ -1064,7 +1064,7 @@
     }
   },
   "QW_ACT_R44": {
-    "name": "Links with identical accessible names and context serve equivalent purpose",
+    "name": "Links with identical accessible names and same context serve equivalent purpose",
     "code": "QW-ACT-R44",
     "mapping": "fd3a94",
     "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
@@ -1127,7 +1127,7 @@
     }
   },
   "QW_ACT_R50": {
-    "name": "audio or video that plays automatically has a control mechanism",
+    "name": "Audio or video that plays automatically has a control mechanism",
     "code": "QW-ACT-R50",
     "mapping": "4c31df",
     "description": "audio or video that plays automatically must have a control mechanism.",
@@ -1143,7 +1143,7 @@
     }
   },
   "QW_ACT_R51": {
-    "name": "video element visual-only content is media alternative for text",
+    "name": "Video element visual-only content is media alternative for text",
     "code": "QW-ACT-R51",
     "mapping": "fd26cf",
     "description": "This rule checks non-streaming silent video is a media alternative for text on the page.",
@@ -1159,7 +1159,7 @@
     }
   },
   "QW_ACT_R52": {
-    "name": "video element visual-only content has description track",
+    "name": "DEPRECATED — Video element visual-only content has description track",
     "code": "QW-ACT-R52",
     "mapping": "ac7dc6",
     "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
@@ -1175,7 +1175,7 @@
     }
   },
   "QW_ACT_R53": {
-    "name": "video element visual-only content has transcript",
+    "name": "Video element visual-only content has transcript",
     "code": "QW-ACT-R53",
     "mapping": "ee13b5",
     "description": "Non-streaming video elements without audio must have all visual information available in a transcript.",
@@ -1191,7 +1191,7 @@
     }
   },
   "QW_ACT_R54": {
-    "name": "video element visual-only content has audio track alternative",
+    "name": "Video element visual-only content has audio track alternative",
     "code": "QW-ACT-R54",
     "mapping": "d7ba54",
     "description": "Non-streaming video elements without audio must have an audio alternative.",
@@ -1207,7 +1207,7 @@
     }
   },
   "QW_ACT_R55": {
-    "name": "video element visual content has audio description",
+    "name": "Video element visual content has audio description",
     "code": "QW-ACT-R55",
     "mapping": "1ea59c",
     "description": "This rule checks that non-streaming video elements have all visual information also contained in the audio.",
@@ -1223,7 +1223,7 @@
     }
   },
   "QW_ACT_R56": {
-    "name": "video element content is media alternative for text",
+    "name": "Video element content is media alternative for text",
     "code": "QW-ACT-R56",
     "mapping": "ab4d13",
     "description": "This rule checks non-streaming video is a media alternative for text on the page.",
@@ -1239,7 +1239,7 @@
     }
   },
   "QW_ACT_R57": {
-    "name": "video element visual content has description track",
+    "name": "DEPRECATED — Video element visual content has description track",
     "code": "QW-ACT-R57",
     "mapping": "f196ce",
     "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
@@ -1255,7 +1255,7 @@
     }
   },
   "QW_ACT_R58": {
-    "name": "audio element content has transcript",
+    "name": "Audio element content has transcript",
     "code": "QW-ACT-R58",
     "mapping": "2eb176",
     "description": "Non-streaming audio elements must have a text alternative for all included auditory information.",
@@ -1271,7 +1271,7 @@
     }
   },
   "QW_ACT_R59": {
-    "name": "audio element content is media alternative for text",
+    "name": "Audio element content is media alternative for text",
     "code": "QW-ACT-R59",
     "mapping": "afb423",
     "description": "This rule checks audio is a media alternative for text on the page.",
@@ -1287,7 +1287,7 @@
     }
   },
   "QW_ACT_R60": {
-    "name": "video element auditory content has captions",
+    "name": "Video element auditory content has captions",
     "code": "QW-ACT-R60",
     "mapping": "f51b46",
     "description": "This rule checks that captions are available for audio information in non-streaming video elements.",
@@ -1503,7 +1503,7 @@
     }
   },
   "QW_ACT_R70": {
-    "name": "iframe with negative tabindex has no interactive elements",
+    "name": "Iframe with interactive elements is not excluded from tab-order",
     "code": "QW-ACT-R70",
     "mapping": "akn7bn",
     "description": "This rule checks that iframe elements with a negative tabindex attribute value contain no interactive elements.",
@@ -1527,7 +1527,7 @@
     }
   },
   "QW_ACT_R71": {
-    "name": "meta element has no refresh delay (no exception)",
+    "name": "Meta element has no refresh delay (no exception)",
     "code": "QW-ACT-R71",
     "mapping": "bisz58",
     "description": "This rule checks that the meta element is not used for delayed redirecting or refreshing.",
