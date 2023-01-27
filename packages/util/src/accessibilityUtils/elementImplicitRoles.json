@@ -356,6 +356,12 @@
       "role": "button"
     }
   ],
+  "svg": [
+    {
+      "attributes": [],
+      "role": "graphics-document"
+    }
+  ],
   "table": [
     {
       "attributes": [],
