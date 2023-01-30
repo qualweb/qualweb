@@ -6,7 +6,7 @@ function elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElemen
   let result = false;
   let i = 0;
   while (!result && i < elemAttribs.length) {
-    result = elemAttribs[i] in ariaJSON && ariaJSON[elemAttribs[i]].global;
+    result = elemAttribs[i] in ariaJSON && ariaJSON[elemAttribs[i]].global === 'yes';
     i++;
   }
   return result;
