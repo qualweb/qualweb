@@ -21,6 +21,11 @@ class QW_ACT_R68 extends AtomicRule {
       const computedRawLineHeight = element.getCSSProperty('line-height');
       const computedLineHeight = element.getElementStyleProperty('line-height', null);
       const fontSize = element.getElementStyleProperty('font-size', null);
+      const numLines = this.computeLineNumber(element, computedLineHeight);
+      
+      if (numLines < 2) { // no soft-wrap
+        return;
+      }
 
       if (!this.isImportant(computedRawLineHeight, element)) {
         test.verdict = 'passed';
@@ -89,6 +94,18 @@ class QW_ACT_R68 extends AtomicRule {
       element = element.getElementParent();
     }
     return null;
+  }
+
+  private computeLineNumber(element: typeof window.qwElement, lineHeight: string): number {
+    const elementHeight = parseInt(element.getElementProperty('offsetHeight'));
+    const padding_top = parseInt(element.getElementStyleProperty('padding-top', null));
+    const padding_bottom = parseInt(element.getElementStyleProperty('padding-bottom', null));
+    const border_top = parseInt(element.getElementStyleProperty('border-top', null));
+    const border_bottom = parseInt(element.getElementStyleProperty('border-bottom', null));
+    const textHeight = elementHeight - padding_top - padding_bottom - border_top - border_bottom;
+    const numLines = textHeight / parseInt(lineHeight);
+
+    return numLines;
   }
 }
 
