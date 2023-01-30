@@ -221,11 +221,11 @@ class QW_ACT_R24 extends AtomicRule {
 
     if (autoComplete) {
       autoComplete = autoComplete.trim();
-      if (autoComplete === '') {
+      if (autoComplete === '' || autoComplete === 'off' || autoComplete === 'on') {
         return;
       }
 
-      const correctAutocompleteField = this.isCorrectAutocompleteField(element, autoComplete);
+      const correctAutocompleteField = this.isCorrectAutocompleteField(autoComplete);
       if (correctAutocompleteField) {
         test.verdict = 'passed';
         test.resultCode = 'P1';
@@ -264,163 +264,7 @@ class QW_ACT_R24 extends AtomicRule {
     }
   }
 
-  private isText(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-    return false;
-  }
-
-  private isMultiline(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-    return false;
-  }
-
-  private isPassword(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'password') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isURL(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'url') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isEmail(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'email') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isTel(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'tel') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isNumeric(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'number') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isMonth(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'month') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isDate(element: typeof window.qwElement): boolean {
-    const tag = element.getElementTagName();
-    if (tag === 'input') {
-      const type = element.getElementAttribute('type');
-      if (type === null || type === 'hidden' || type === 'text' || type === 'search' || type === 'date') {
-        return true;
-      }
-    } else if (tag === 'textarea' || tag === 'select') {
-      return true;
-    }
-
-    return false;
-  }
-
-  private isAppropriateFieldForTheFormControl(field: string, element: typeof window.qwElement): boolean {
-    if (field.toLowerCase() === 'off') {
-      return true;
-    }
-
-    //@ts-ignore
-    const fieldControl = this.autoCompleteTable.fieldControl[field.toLowerCase()];
-
-    switch (fieldControl) {
-      case 'text':
-        return this.isText(element);
-      case 'multiline':
-        return this.isMultiline(element);
-      case 'password':
-        return this.isPassword(element);
-      case 'url':
-        return this.isURL(element);
-      case 'email':
-        return this.isEmail(element);
-      case 'tel':
-        return this.isTel(element);
-      case 'numeric':
-        return this.isNumeric(element);
-      case 'month':
-        return this.isMonth(element);
-      case 'date':
-        return this.isDate(element);
-    }
-
-    return false;
-  }
-
-  private isCorrectAutocompleteField(element: typeof window.qwElement, autoCompleteField: string): boolean {
+  private isCorrectAutocompleteField(autoCompleteField: string): boolean {
     const fields = autoCompleteField.split(' ');
 
     if (fields[0].startsWith('section-')) fields.splice(0, 1);
@@ -438,11 +282,6 @@ class QW_ACT_R24 extends AtomicRule {
         }
       } else if (!this.isAutoCompleteField(field)) {
         return false;
-      } else {
-        const isAppropriate = this.isAppropriateFieldForTheFormControl(field, element);
-        if (!isAppropriate) {
-          return false;
-        }
       }
 
       lastField = field;
