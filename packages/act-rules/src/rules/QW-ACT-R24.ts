@@ -221,7 +221,7 @@ class QW_ACT_R24 extends AtomicRule {
 
     if (autoComplete) {
       autoComplete = autoComplete.trim();
-      if (autoComplete === '') {
+      if (autoComplete === '' || autoComplete === 'off' || autoComplete === 'on') {
         return;
       }
 
