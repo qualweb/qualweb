@@ -656,6 +656,11 @@ class QWElement {
     htmlElement.focus();
   }
 
+  public dispatchEvent(event: Event): void {
+    const htmlElement = <HTMLElement>this.element;
+    htmlElement.dispatchEvent(event);
+  }
+
   public click(): void {
     const htmlElement = <HTMLElement>this.element;
     htmlElement.click();
