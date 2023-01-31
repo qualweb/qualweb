@@ -5,7 +5,7 @@ import {
   ACTRuleDecorator,
   ElementExists,
   ElementIsInAccessibilityTree,
-  ElementHasAttributeRole
+  ElementIsSemanticLink
 } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
@@ -17,7 +17,7 @@ class QW_ACT_R12 extends AtomicRule {
 
   @ElementExists
   @ElementIsInAccessibilityTree
-  @ElementHasAttributeRole('link')
+  @ElementIsSemanticLink
   execute(element: typeof window.qwElement): void {
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
 

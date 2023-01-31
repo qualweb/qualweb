@@ -383,6 +383,25 @@ function ElementIsNonText(_target: any, _propertyKey: string, descriptor: Proper
   };
 }
 
+const semanticLinkRoles = [
+  'link',
+  'doc-backlink', 
+  'doc-biblioref',
+  'doc-glossref',
+  'doc-noteref'
+]
+
+function ElementIsSemanticLink(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const element = <typeof window.qwElement>arguments[0];
+    const role = window.AccessibilityUtils.getElementRole(element);
+    if (!!role && semanticLinkRoles.includes(role)) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 export {
   ACTRuleDecorator,
   ElementExists,
@@ -411,5 +430,6 @@ export {
   ElementHasNegativeTabIndex,
   ElementHasCSSRules,
   ElementIsImage,
-  ElementIsNonText
+  ElementIsNonText,
+  ElementIsSemanticLink
 };
