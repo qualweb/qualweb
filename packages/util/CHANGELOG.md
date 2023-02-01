@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.19] - 01/02/2023
+
+### Fixed
+
+- added svg implicit role and fixed aria global
+
 ## [0.5.17] - 21/12/2022
 
 ### Fixed
