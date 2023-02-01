@@ -495,3 +495,9 @@ Sometimes, some webpages fail to evaluate, or the evaluation may take a really l
 # License
 
 ISC
+
+# Versions
+
+- 0.7.31 - Removed dependencies on Wappalyzer module (continued)
+- 0.7.30 - Removed dependencies on Wappalyzer module
+- 0.7.29 - Fixed ACT-Rules bf051a (R5) and bc4a75 (R38)
