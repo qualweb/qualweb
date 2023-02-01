@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.8] - 01/02/2022
+
+### Added
+
+- dispach event
 ## [0.2.7] - 22/07/2021
 
 ### Added
