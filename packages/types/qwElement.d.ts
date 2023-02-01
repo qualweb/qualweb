@@ -67,6 +67,7 @@ declare module "@qualweb/qw-element" {
     public elementHasTextNode(): boolean;
     public getContentFrame(): Document | null;
     public focusElement(): void;
+    public dispatchEvent(event: Event): void;
     public click(): void;
     public getBoundingBox(): DOMRect;
     public getShadowElement(selector: string): QWElement | null;
