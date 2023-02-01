@@ -1,6 +1,18 @@
 # Changelog
 
-## [0.7.18] - 26/05/2022
+## [0.7.21] - 01/02/2023
+
+### Updated
+
+- Pupeteer types
+
+## [0.7.20] - 26/05/2022
+
+### Updated
+
+- Pupeteer types
+
+## [0.7.19] - 26/05/2022
 
 ### Updated
 
