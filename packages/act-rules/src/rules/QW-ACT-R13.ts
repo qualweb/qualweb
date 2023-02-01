@@ -45,7 +45,11 @@ class QW_ACT_R13 extends AtomicRule {
     for (const child of children || []) {
       const focusable = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(child);
       if (focusable) {
-        result = true;
+        this.triggerFocus(child);
+        const newFocusedElement = window.qwPage.getFocusedElement();
+        if (child.getElementSelector() === newFocusedElement?.getElementSelector()) {
+          result = true;
+        }
       } else {
         const childFocusable = this.isFocusableChildren(child);
         result = result || childFocusable;
@@ -53,6 +57,13 @@ class QW_ACT_R13 extends AtomicRule {
     }
     return result;
   }
+
+  private triggerFocus(element: typeof window.qwElement) {
+    const event = new Event("focus", { bubbles: false, cancelable: true });
+    element.focusElement();
+    element.dispatchEvent(event);
+}
+
 }
 
 export = QW_ACT_R13;
