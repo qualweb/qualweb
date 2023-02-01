@@ -7,7 +7,8 @@ function getElementRoleAName(element: typeof window.qwElement, aName: string | u
       (window.AccessibilityUtils.isElementFocusable(element) ||
         window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element)))
   ) {
-    role = window.AccessibilityUtils.getImplicitRole(element, aName);
+    const implicitRole = window.AccessibilityUtils.getImplicitRole(element, aName);
+    role = implicitRole || explicitRole;
   }
   return role;
 }

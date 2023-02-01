@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.5.17] - 21/12/2022
+
+### Fixed
+
+- changed required owned role
+
+## [0.5.16] - 29/06/2022
+
+### Fixed
+
+- fixed getRole
+
+## [0.5.15] - 28/06/2022
+
+### Fixed
+
+- fixed AName control inside widget
+
+## [0.5.14] - 21/03/2022
+
+### Added
+
+- landmarkIsTopLevel
+
 ## [0.5.13] - 20/10/2021
 
 ### Fixed

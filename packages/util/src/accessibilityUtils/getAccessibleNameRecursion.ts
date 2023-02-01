@@ -9,7 +9,6 @@ function getAccessibleNameRecursion(
   let AName, alt, value, placeholder;
   const name = element.getElementTagName();
   const allowNameFromContent = window.AccessibilityUtils.allowsNameFromContent(element);
-
   let ariaLabelBy = element.getElementAttribute('aria-labelledby');
   const id = element.getElementAttribute('id');
 
@@ -175,8 +174,8 @@ function getAccessibleNameFromAriaLabelledBy(
 }
 
 function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): string {
-  let before = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':before'));
-  let after = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':after'));
+  const before = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':before'));
+  const after = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':after'));
   const aNameList = getAccessibleNameFromChildren(element, isWidget);
   const textValue = getConcatenatedText(element, aNameList);
 
@@ -201,7 +200,6 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidge
   let aName;
   const children = element.getElementChildren();
   const elementAnames = new Array<string>();
-
   if (children) {
     for (const child of children) {
       const role = window.AccessibilityUtils.getElementRoleAName(child, '');

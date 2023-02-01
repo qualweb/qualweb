@@ -31,7 +31,7 @@ const sectionAndGrouping = [
 ];
 const controlRoles = [
   'textbox',
-  'button',
+  //'menubutton',
   'combobox',
   'listbox',
   'range',

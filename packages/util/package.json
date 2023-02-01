@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.5.13",
+  "version": "0.5.18",
   "description": "Utilities module for qualweb",
   "main": "dist/util.bundle.js",
   "files": [
@@ -16,7 +16,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prebuild": "npm run format && rimraf prebuild && tsc --build",
+    "prebuild": "rimraf prebuild && tsc --build",
     "build": "rimraf dist && npm run prebuild && webpack --mode production && rimraf prebuild",
     "docs": "typedoc --out docs src/index.ts",
     "prepare": "npm run build"
@@ -38,9 +38,9 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "^0.2.1",
-    "@qualweb/qw-page": "^0.2.8",
-    "@qualweb/types": "^0.6.6",
+    "@qualweb/dom": "^0.2.6",
+    "@qualweb/qw-page": "^0.2.12",
+    "@qualweb/types": "^0.7.2",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^15.6.1",
     "@types/string-pixel-width": "^1.7.1",

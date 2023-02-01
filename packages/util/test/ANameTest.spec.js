@@ -5,12 +5,14 @@ import { expect } from 'chai';
 describe('Running tests', function () {
   it('Calculates accessible name correctly', async function () {
     this.timeout(100 * 1000);
-    
-    const url = 'https://act-rules.github.io/testcases/e086e5/3b4e297ca20e30ab0d1bbf68edd6218a3263ca5d.html';
+
+    const url = 'https://qld-mosaico.northeurope.cloudapp.azure.com/homepage';
 
     const browser = await puppeteer.launch({ headless: false });
-    const dom = new Dom();
-    const { page } = await dom.getDOM(browser, { execute: { act: true }, "act-rules": { rules: ['QW-ACT-R16'] } }, url, '');
+    const incognito = await browser.createIncognitoBrowserContext();
+    const page = await incognito.newPage();
+    const dom = new Dom(page);
+    await dom.process({ execute: { act: true }, waitUntil: ['networkidle0'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -21,14 +23,8 @@ describe('Running tests', function () {
     });
 
     await page.evaluate(() => {
-      window.qwPage = new Module.QWPage(document, window, true);
-      window.DomUtils = Utility.DomUtils;
-      window.AccessibilityUtils = Utility.AccessibilityUtils;
-
-      const inputs = window.qwPage.getElements('input');
-      for (const input of inputs) {
-        window.console.log(window.AccessibilityUtils.getAccessibleName(input));
-      }
+      const element = window.qwPage.getElement('html:nth-of-type(1) > body > app-root:nth-of-type(1) > header:nth-of-type(1) > app-homepage-header:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > app-hp-header-left:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1)');
+      window.console.log(window.AccessibilityUtils.getAccessibleName(element));
     });
 
     //await dom.close();
