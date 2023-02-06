@@ -498,6 +498,7 @@ ISC
 
 # Versions
 
+- 0.7.32 - Updated ACT-Rules c487ae(R12), 6cfa84 (R13), 73f2c2 (R24), 46ca7f (R48) and 78fd32 (R68)
 - 0.7.31 - Removed dependencies on Wappalyzer module (continued)
 - 0.7.30 - Removed dependencies on Wappalyzer module
 - 0.7.29 - Fixed ACT-Rules bf051a (R5) and bc4a75 (R38)
