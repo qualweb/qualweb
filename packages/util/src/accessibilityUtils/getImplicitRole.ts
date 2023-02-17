@@ -111,8 +111,11 @@ function getRoleOption(element: typeof window.qwElement, roleValue) {
 
 function getRoleImg(element: typeof window.qwElement, roleValue) {
   const alt = element.getElementAttribute('alt');
+  const ariaLabelledBy = element.getElementAttribute('aria-labelledby');
+  const id = element.getElementAttribute('id');
+
   let role;
-  if (alt !== '') {
+  if (alt !== '' || (ariaLabelledBy !== null && verifyAriaLabel(ariaLabelledBy, id))) {
     role = roleValue['role'];
   } else if (
     element.elementHasAttribute('alt') &&
@@ -148,6 +151,18 @@ function isInList(attributes, element: typeof window.qwElement) {
     const roleSpecificATT = element.getElementAttribute(key);
     if (roleSpecificATT === value || (value === '' && roleSpecificATT !== null)) result = true;
   }
+  return result;
+}
+
+function verifyAriaLabel(ariaLabelBy: string, elementID: string | null) {
+  const elementIds = ariaLabelBy.split(' ');
+  let result = false;
+  for (const id of elementIds) {
+    if (!result && id !== '' && elementID !== id) {
+      result = window.qwPage.getElementByID(id) !== null;
+    }
+  }
+
   return result;
 }
 
