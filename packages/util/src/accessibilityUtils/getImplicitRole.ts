@@ -121,20 +121,24 @@ function getRoleOption(element: typeof window.qwElement, roleValue) {
 }
 
 function getRoleImg(element: typeof window.qwElement, roleValue) {
-    const alt = element.getElementAttribute('alt');
-    let role;
-    if (alt !== '') {
-        role = roleValue['role'];
-    } else if (
-        element.elementHasAttribute('alt') &&
-        !(
-            window.AccessibilityUtils.isElementFocusable(element) ||
-            window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element)
-        )
-    ) {
-        role = 'presentation';
-    }
-    return role;
+
+  const alt = element.getElementAttribute('alt');
+  const ariaLabelledBy = element.getElementAttribute('aria-labelledby');
+  const id = element.getElementAttribute('id');
+
+  let role;
+  if (alt !== '' || (ariaLabelledBy !== null && verifyAriaLabel(ariaLabelledBy, id))) {
+    role = roleValue['role'];
+  } else if (
+    element.elementHasAttribute('alt') &&
+    !(
+      window.AccessibilityUtils.isElementFocusable(element) ||
+      window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element)
+    )
+  ) {
+    role = 'presentation';
+  }
+  return role;
 }
 
 function getRoleA(element: typeof window.qwElement, roleValue) {
@@ -170,6 +174,18 @@ function isInList(attributes, element: typeof window.qwElement) {
         if (roleSpecificATT === value || (value === '' && roleSpecificATT !== null)) result = true;
     }
     return result;
+}
+
+function verifyAriaLabel(ariaLabelBy: string, elementID: string | null) {
+  const elementIds = ariaLabelBy.split(' ');
+  let result = false;
+  for (const id of elementIds) {
+    if (!result && id !== '' && elementID !== id) {
+      result = window.qwPage.getElementByID(id) !== null;
+    }
+  }
+
+  return result;
 }
 
 export default getImplicitRole;
