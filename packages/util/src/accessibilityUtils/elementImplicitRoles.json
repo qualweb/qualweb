@@ -7,7 +7,14 @@
           ""
         ]
       ],
-      "role": "link"
+      "role": "link",
+      "special": true
+    }
+  ],
+  "address": [
+    {
+      "attributes": [],
+      "role": "group"
     }
   ],
   "area": [
@@ -19,6 +26,10 @@
         ]
       ],
       "role": "link"
+    },
+    {
+      "attributes": [],
+      "role": "generic"
     }
   ],
   "article": [
@@ -33,10 +44,34 @@
       "role": "complementary"
     }
   ],
+  "b": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
+  "bdi": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
+  "bdo": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
+  "blockquote": [
+    {
+      "attributes": [],
+      "role": "blockquote"
+    }
+  ],
   "body": [
     {
       "attributes": [],
-      "role": "document"
+      "role": "generic"
     }
   ],
   "button": [
@@ -45,22 +80,34 @@
       "role": "button"
     }
   ],
+  "caption": [
+    {
+      "attributes": [],
+      "role": "caption"
+    }
+  ],
+  "code": [
+    {
+      "attributes": [],
+      "role": "code"
+    }
+  ],
+  "data": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
   "datalist": [
     {
       "attributes": [],
       "role": "listbox"
     }
   ],
-  "dd": [
+  "del": [
     {
       "attributes": [],
-      "role": "definition"
-    }
-  ],
-  "dfn": [
-    {
-      "attributes": [],
-      "role": "term"
+      "role": "deletion"
     }
   ],
   "details": [
@@ -69,16 +116,28 @@
       "role": "group"
     }
   ],
+  "dfn": [
+    {
+      "attributes": [],
+      "role": "term"
+    }
+  ],
   "dialog": [
     {
       "attributes": [],
       "role": "dialog"
     }
   ],
-  "dt": [
+  "div": [
     {
       "attributes": [],
-      "role": "term"
+      "role": "generic"
+    }
+  ],
+  "em": [
+    {
+      "attributes": [],
+      "role": "emphasis"
     }
   ],
   "fieldset": [
@@ -156,10 +215,28 @@
       "special": true
     }
   ],
+  "hgroup": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
   "hr": [
     {
       "attributes": [],
       "role": "separator"
+    }
+  ],
+  "html": [
+    {
+      "attributes": [],
+      "role": "document"
+    }
+  ],
+  "i": [
+    {
+      "attributes": [],
+      "role": "generic"
     }
   ],
   "img": [
@@ -258,22 +335,17 @@
       "special": true
     }
   ],
+  "ins": [
+    {
+      "attributes": [],
+      "role": "insertion"
+    }
+  ],
   "li": [
     {
       "attributes": [],
       "role": "listitem",
       "special": true
-    }
-  ],
-  "link": [
-    {
-      "attributes": [
-        [
-          "href",
-          ""
-        ]
-      ],
-      "role": "link"
     }
   ],
   "main": [
@@ -292,6 +364,12 @@
     {
       "attributes": [],
       "role": "list"
+    }
+  ],
+  "meter": [
+    {
+      "attributes": [],
+      "role": "meter"
     }
   ],
   "nav": [
@@ -325,10 +403,34 @@
       "role": "status"
     }
   ],
+  "p": [
+    {
+      "attributes": [],
+      "role": "paragraph"
+    }
+  ],
+  "pre": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
   "progress": [
     {
       "attributes": [],
       "role": "progressbar"
+    }
+  ],
+  "q": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
+  "samp": [
+    {
+      "attributes": [],
+      "role": "generic"
     }
   ],
   "section": [
@@ -343,17 +445,36 @@
       "attributes": [],
       "role": "combobox",
       "special": true
-    },
-    {
-      "attributes": [],
-      "role": "listbox",
-      "special": true
     }
   ],
-  "summary": [
+  "small": [
     {
       "attributes": [],
-      "role": "button"
+      "role": "generic"
+    }
+  ],
+  "span": [
+    {
+      "attributes": [],
+      "role": "generic"
+    }
+  ],
+  "strong": [
+    {
+      "attributes": [],
+      "role": "strong"
+    }
+  ],
+  "sub": [
+    {
+      "attributes": [],
+      "role": "subscript"
+    }
+  ],
+  "sup": [
+    {
+      "attributes": [],
+      "role": "superscript"
     }
   ],
   "svg": [
@@ -392,6 +513,12 @@
       "role": "rowgroup"
     }
   ],
+  "time": [
+    {
+      "attributes": [],
+      "role": "time"
+    }
+  ],
   "td": [
     {
       "attributes": [],
@@ -402,13 +529,20 @@
   "th": [
     {
       "attributes": [],
-      "role": "columnheader"
+      "role": "columnheader",
+      "special": true
     }
   ],
   "tr": [
     {
       "attributes": [],
       "role": "row"
+    }
+  ],
+  "u": [
+    {
+      "attributes": [],
+      "role": "generic"
     }
   ],
   "ul": [
