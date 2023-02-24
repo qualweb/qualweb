@@ -310,7 +310,7 @@
     "name": "Element with aria-hidden has no content in sequential focus navigation",
     "code": "QW-ACT-R13",
     "mapping": "6cfa84",
-    "description": "This rule checks that elements with an aria-hidden attribute do not contain focusable elements.",
+    "description": "This rule checks that elements with an aria-hidden attribute do not contain elements that are part of the sequential focus navigation and focusable.",
     "metadata": {
       "target": {
         "element": "*",
@@ -622,7 +622,7 @@
         "attributes": "aria-*"
       },
       "success-criteria": [],
-      "related": ["ARIA5", "ARIA 1.1, 7.6"],
+      "related": ["ARIA5", "ARIA 1.1, 6.3"],
       "url": "https://act-rules.github.io/rules/5c01ea",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
@@ -655,7 +655,7 @@
     "name": "ARIA attribute is defined in WAI-ARIA",
     "code": "QW-ACT-R27",
     "mapping": "5f99a7",
-    "description": "This rule checks that each aria-* attribute specified is defined in ARIA 1.1.",
+    "description": "This rule checks that each aria- attribute specified is defined in ARIA 1.2.",
     "metadata": {
       "target": {
         "element": "*",
@@ -697,7 +697,7 @@
     "name": "Audio element content has text alternative",
     "code": "QW-ACT-R29",
     "mapping": "e7aa44",
-    "description": "This rule checks if audio only elements have a text alternative available.",
+    "description": "This rule checks that audio elements have a text alternative available.",
     "metadata": {
       "target": {
         "element": "*",
@@ -1067,7 +1067,7 @@
     "name": "Links with identical accessible names and same context serve equivalent purpose",
     "code": "QW-ACT-R44",
     "mapping": "fd3a94",
-    "description": "This rule checks that links with identical accessible names and context resolve to the same or equivalent resources.",
+    "description": "This rule checks that links with identical accessible names in the same context resolve to the same or equivalent resources.",
     "metadata": {
       "target": {
         "element": "a, [role='link']"
@@ -1258,7 +1258,7 @@
     "name": "Audio element content has transcript",
     "code": "QW-ACT-R58",
     "mapping": "2eb176",
-    "description": "Non-streaming audio elements must have a text alternative for all included auditory information.",
+    "description": "This rule checks that audio elements have a transcript that includes all auditory information.",
     "metadata": {
       "target": {
         "element": "audio"
@@ -1274,7 +1274,7 @@
     "name": "Audio element content is media alternative for text",
     "code": "QW-ACT-R59",
     "mapping": "afb423",
-    "description": "This rule checks audio is a media alternative for text on the page.",
+    "description": "This rule checks that the audio is a media alternative for text on the page.",
     "metadata": {
       "target": {
         "element": "audio"
@@ -1506,7 +1506,7 @@
     "name": "Iframe with interactive elements is not excluded from tab-order",
     "code": "QW-ACT-R70",
     "mapping": "akn7bn",
-    "description": "This rule checks that iframe elements with a negative tabindex attribute value contain no interactive elements.",
+    "description": "This rule checks that iframe elements which contain an interactive (tabbable) element are not excluded from sequential focus navigation.",
     "metadata": {
       "target": {
         "element": "iframe[tabindex]"
