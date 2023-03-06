@@ -16,7 +16,7 @@ class QW_WCAG_T26 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    if (window.AccessibilityUtils.isElementControl(element)) {
+    if (window.AccessibilityUtils.isElementWidget(element)) {
       test.verdict = 'passed';
       test.resultCode = 'P1';
     } else {

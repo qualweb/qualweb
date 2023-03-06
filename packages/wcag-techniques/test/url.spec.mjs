@@ -9,16 +9,16 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://www.novobanco.pt/particulares'; // 'https://ciencias.ulisboa.pt/';
+    const url = 'https://transparencia.gov.pt/pt/'; // 'https://ciencias.ulisboa.pt/';
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
     const dom = new Dom(page);
     await dom.process(
       {
         execute: { wcag: true },
-        'wcag-techniques': { techniques: ['QW-WCAG-T23'] }
+        'wcag-techniques': { techniques: ['QW-WCAG-T26'] }
       },
       url,
       ''
@@ -43,15 +43,15 @@ describe('Running tests', function () {
           fallback: locale
         },
         {
-          techniques: ['QW-WCAG-T23']
+          techniques: ['QW-WCAG-T26']
         }
       );
       return wcag.execute(false, undefined);
     }, locales.default.en);
 
-    await page.close();
+   /* await page.close();
     await incognito.close();
-    await browser.close();
+    await browser.close();*/
 
     console.log(JSON.stringify(report, null, 2));
     expect(report);

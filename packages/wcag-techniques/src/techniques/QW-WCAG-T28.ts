@@ -3,6 +3,7 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
+import { CSSProperties } from '@qualweb/qw-element';
 
 @WCAGTechniqueClass
 class QW_WCAG_T28 extends Technique {
@@ -12,54 +13,36 @@ class QW_WCAG_T28 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    if (element.getElementTagName() === 'style') {
-      const sheet = <any>element.getElementProperty('sheet');
-      for (const rule of sheet.cssRules || []) {
-        const style = rule?.style?.cssText;
-        if (style) {
-          this.checkCssProperty(style, element);
-        }
-      }
-    } else {
-      const style = <string>element.getElementAttribute('style');
-      this.checkCssProperty(style, element);
-    }
+    const cssRules = element.getCSSRules();
+    this.checkCssProperty(cssRules, element);
   }
 
-  private checkCssProperty(style: string, element: typeof window.qwElement): void {
+  private checkCssProperty(cssRules: CSSProperties | undefined, element: typeof window.qwElement): void {
     const test = new Test();
+    const fontSize = cssRules?.['font-size'];
+    if (fontSize) {
+      console.log(fontSize);
+      const value = fontSize.value + '';
+      const hasAbsoluteUnit =
+        value.includes('cm') ||
+        value.includes('mm') ||
+        value.includes('in') ||
+        value.includes('px') ||
+        value.includes('pt') ||
+        value.includes('pc');
 
-    const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
-
-    for (const property of properties) {
-      if (property.includes('font-size')) {
-        const fontSize = property.split(':')[1];
-        const hasImportant = fontSize.includes('!important');
-
-        if (hasImportant) {
-          const value = fontSize.replace('!important', '').trim();
-          const hasAbsoluteUnit =
-            value.endsWith('cm') ||
-            value.endsWith('mm') ||
-            value.endsWith('in') ||
-            value.endsWith('px') ||
-            value.endsWith('pt') ||
-            value.endsWith('pc');
-
-          if (!hasAbsoluteUnit) {
-            test.verdict = 'passed';
-            test.resultCode = 'P1';
-          } else {
-            test.verdict = 'failed';
-            test.resultCode = 'F1';
-          }
-
-          test.addElement(element);
-          test.attributes.push(property);
-
-          super.addTestResult(test);
-        }
+      if (!hasAbsoluteUnit) {
+        test.verdict = 'passed';
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = 'failed';
+        test.resultCode = 'F1';
       }
+
+      test.addElement(element);
+      test.attributes.push(value);
+
+      super.addTestResult(test);
     }
   }
 }
