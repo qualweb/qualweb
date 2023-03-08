@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.33] - 08/03/2023
+
+### Updated
+
+- dependencies
+
 ## [0.7.32] - 01/02/2023
 
 ### Updated

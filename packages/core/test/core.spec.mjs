@@ -10,14 +10,14 @@ describe('Core', function () {
     await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
 
     const evaluations = await qualweb.evaluate({
-      url: 'https://plejecenterortved.ringsted.dk/borger/omsorg-sundhed/boligerne',
+      url: 'https://transparencia.gov.pt/pt/',
       log: { console: true },
      // viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: true,bp:true },
+      execute: { act: false, wcag: true,bp:false },
       'act-rules': { levels: ['A', 'AA'] }
     });
 
-    console.log(evaluations);
+    console.log(evaluations['https://transparencia.gov.pt/pt/'].modules['wcag-techniques'].assertions);
 
     const earlReports = generateEARLReport(evaluations);
 
