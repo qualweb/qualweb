@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.bundle.js",
   "files": [
@@ -41,7 +41,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.5",
+    "@qualweb/dom": "0.2.6",
     "@qualweb/locale": "0.1.11",
     "@qualweb/qw-page": "0.2.12",
     "@qualweb/types": "0.7.16",
