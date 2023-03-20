@@ -14,7 +14,8 @@ Crawler mechanism for QualWeb. Implementation using [puppeteer](https://github.c
   'use strict';
 
   const puppeteer = require('puppeteer');
-  const Crawler = require('@qualweb/crawler');
+  const { Crawler } = require('@qualweb/crawler');
+
 
   (async () => {
     const browser = await puppeteer.launch();
