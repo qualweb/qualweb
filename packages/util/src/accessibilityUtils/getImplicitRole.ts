@@ -45,7 +45,6 @@ function getImplicitRole(element: typeof window.qwElement, accessibleName: strin
                               role = roleValue['role'];
                           } 
                         }
-                      }
                     }
                 }
             }
