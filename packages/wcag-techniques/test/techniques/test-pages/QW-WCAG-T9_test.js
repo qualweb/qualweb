@@ -51,19 +51,17 @@ const tests = [
   </footer>
 </body>
             </html >`,
-    outcome: 'passed'
+    outcome: 'warning'
   },
   {
     code: `<!DOCTYPE html>
             <html lang="en">
             <body>
-              <dl>
-                <dt>Coffee</dt>
-                <dd>Black hot drink</dd>
-                <dt>Milk</dt>
-                <dd>White cold drink</dd>
-                <li>Milk</li>
-              </dl>
+              <h1>Teste</h1>
+              <h3>Teste</h3>
+              <h2>Teste</h2>
+              <h3>Teste</h3>
+              <h4>Teste</h4>
             </body>
             </html >`,
     outcome: 'failed'
