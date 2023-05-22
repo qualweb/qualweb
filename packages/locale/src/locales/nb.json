@@ -272,7 +272,7 @@
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element med visuell ledetekst har et tilgjengelig navn som er identisk med eller inneholder den visuelle ledeteksten.",
         "F1": "Element med visuell ledetekst mangler et tilgjengelig navn.",
-        "F2": "Element med visuell ledetekst har et tilgjengelig navn som ikke er inneholder den visuelle ledeteksten."
+        "F2": "Element med visuell ledetekst har et tilgjengelig navn som ikke inneholder den visuelle ledeteksten."
       }
     },
     "QW-ACT-R31": {
@@ -410,7 +410,7 @@
     },
     "QW-ACT-R48": {
       "name": "Element markert som dekorative er ikke er del av accessibility tree",
-      "description": "Denne regelen sjekker at element som er markert som dekorative ikke er del av accessibility tree.",
+      "description": "Denne regelen sjekker at element markert som dekorative, ikke er del av accessibility tree.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element markert som dekorativt er ikke del av accessibility tree.",
@@ -419,7 +419,7 @@
     },
     "QW-ACT-R49": {
       "name": "Lyd eller video som spilles av automatisk har ikke lyd som varer mer enn 3 sekunder",
-      "description": "Denne regelen sjekker at lyd eller video som spilles av automatisk ikke har lyd som varer mer enn 3 sekunder.",
+      "description": "Denne regelen sjekker at lyd eller video som spilles av automatisk, ikke har lyd som varer mer enn 3 sekunder.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Lyd/video som spilles av automatisk har en avspillingstid på 3 sekunder eller mindre.",
@@ -448,11 +448,11 @@
     },
     "QW-ACT-R52": {
       "name": "Video uten lyd har et beskrivende track-element",
-      "description": "Denne regelen sjekker at forhåndsinnspilte video-element uten lyd inneholder et track-element som gjengir innholdet i videoen.",
+      "description": "Denne regelen sjekker at forhåndsinnspilt video-element uten lyd inneholder et track-element som gjengir innholdet i videoen.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "W1": "Kan ikke samle inn data fra video-element.",
-        "W2": "Sjekk at innholdet i videoen sitt track-element gjengir innholdet i videoen."
+        "W2": "Sjekk at innholdet i videoens track-element gjengir innholdet i videoen."
       }
     },
     "QW-ACT-R53": {
@@ -493,7 +493,7 @@
     },
     "QW-ACT-R57": {
       "name": "Video med lyd har et beskrivende track-element",
-      "description": "Denne regelen sjekker at forhåndsinnspilte video med lyd har et track-element gjengir innholdet i videoen.",
+      "description": "Denne regelen sjekker at forhåndsinnspilt video med lyd har et track-element gjengir innholdet i videoen.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "W1": "Kan ikke samle inn data fra video-element.",
@@ -502,7 +502,7 @@
     },
     "QW-ACT-R58": {
       "name": "Lydklipp har tekstalternativ",
-      "description": "Denne regelen sjekker at forhåndsinnspilte lydklipp har et tekstalternativ som gjengir innholdet i lydklippet.",
+      "description": "Denne regelen sjekker at forhåndsinnspilt lydklipp har et tekstalternativ som gjengir innholdet i lydklippet.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "W1": "Sjekk at tekstalternativet gjengir innholdet i lydklippet."
@@ -536,7 +536,7 @@
     },
     "QW-ACT-R62": {
       "name": "Element som kan nås med tastatur har visuell fokusmarkering",
-      "description": "Denne regelen sjekker at alle element som kan nåes med tastaturet har visuell fokusmarkering.",
+      "description": "Denne regelen sjekker at alle element som kan nås med tastaturet har visuell fokusmarkering.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "W1": "Sjekk at element har visuell fokusmarkering"
@@ -557,7 +557,7 @@
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Siden har ikke gjentatt innhold.",
-        "W1": "Sjekk at det ikke finnes gjentatt innhold som etterfølges av ikke-gjentatt innhold. Dersom ja sjekk om det eksisterer et element der følgende betingelser er oppfylt: - element er ikke-gjentatt innhold etter gjentatt innhold. - element har en semantisk rolle som overskrift. - element er visuelt synlig - element er inkludert i accessibility tree."
+        "W1": "Sjekk at det ikke finnes gjentatt innhold som etterfølges av ikke-gjentatt innhold. Dersom ja, sjekk om det eksisterer et element der følgende betingelser er oppfylt: - element er ikke-gjentatt innhold etter gjentatt innhold. - element har en semantisk rolle som overskrift. - element er visuelt synlig - element er inkludert i accessibility tree."
       }
     },
     "QW-ACT-R65": {
@@ -570,8 +570,8 @@
       }
     },
     "QW-ACT-R66": {
-      "name": "Element med rolle som menuitem et tilgjengelig navn",
-      "description": "Denne regelen sjekket at element med en rolle som menuitem har et tilgjengelig navn.",
+      "name": "Element med rolle som menuitem har et tilgjengelig navn",
+      "description": "Denne regelen sjekker at element med en rolle som menuitem har et tilgjengelig navn.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element med rolle som menuitem har et tilgjengelig navn.",
@@ -580,35 +580,35 @@
     },
     "QW-ACT-R67": {
       "name": "Bokstavavstand i style-attributt bruker ikke !important",
-      "description": "Denne regelen sjekker at style-attributtet angir en bokstavavstand(letter-spacing) på minst minst 0,12 ganger skriftstørrelsen eller at det ikke er brukt !important for å hindre justering av bokstavavstanden.",
+      "description": "Denne regelen sjekker at style-attributtet angir en bokstavavstand (letter-spacing) på minst minst 0,12 ganger skriftstørrelsen eller at det ikke er brukt !important for å hindre justering av bokstavavstanden.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element der letter-spacing i style-attributtet ikke er satt til !important.",
-        "P2": "Element der letter-spacing i style-attributtet er satt til 0.12 ganger skriftstørrelsen  eller mer.",
-        "P3": "Element der letter-spacing er statt i stilarket.",
-        "F1": "Element der letter-spacing i style-attributtet er satt slik at det hindrer at bokstavavstanden kan blir høyere enn 0.12 ganger skriftstørrelsen."
+        "P2": "Element der letter-spacing i style-attributtet er satt til 0.12 ganger skriftstørrelsen eller mer.",
+        "P3": "Element der letter-spacing er satt i stilarket.",
+        "F1": "Element der letter-spacing i style-attributtet er satt slik at det hindrer at bokstavavstanden kan bli høyere enn 0.12 ganger skriftstørrelsen."
       }
     },
     "QW-ACT-R68": {
       "name": "Linjehøyde i style-attributt bruker ikke !important",
-      "description": "Denne regelen sjekker om style-attributtet enten angir en linjehøyde(line-height) på minst 1.5 ganger skriftsstørelse eller at at det ikke er brukt !important for å hindre justering av linjehøyden.",
+      "description": "Denne regelen sjekker om style-attributtet enten angir en linjehøyde (line-height) på minst 1.5 ganger skriftsstørelse eller at at det ikke er brukt !important for å hindre justering av linjehøyden.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element der line-height i style-attributtet ikke er satt til !important.",
         "P2": "Element der line-height er satt til 1.5 ganger skriftstørrelsen eller mer.",
-        "P3": "Element der line-height er statt i stilarket.",
-        "F1": "Element der line-height i style-attributtet er satt slik at det hindrer at linjehøyden kan blir høyere enn 1.5 ganger skriftstørrelsen."
+        "P3": "Element der line-height er satt i stilarket.",
+        "F1": "Element der line-height i style-attributtet er satt slik at det hindrer at linjehøyden kan bli høyere enn 1.5 ganger skriftstørrelsen."
       }
     },
     "QW-ACT-R69": {
       "name": "Ordavstand i style-attributt bruker ikke !important",
-      "description": "Denne regelen sjekker om style-attributtet angir en ordavstand(word-spacing) for å hindre justering av ordavstand ved å bruke !important, med mindre verdien er minst 0.16 ganger skriftstørrelsen.",
+      "description": "Denne regelen sjekker om style-attributtet angir en ordavstand (word-spacing) for å hindre justering av ordavstand ved å bruke !important, med mindre verdien er minst 0.16 ganger skriftstørrelsen.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Element der word-spacing i style-attributtet ikke er satt til !important.",
         "P2": "Element der word-spacing i style-attributtet er satt til 0.16 ganger skriftstørrelsen  eller mer.",
-        "P3": "Element der word-spacing er statt i stilarket.",
-        "F1": "Element der word-spacing i style-attributtet er satt slik at det hindrer at ordavstanden kan blir høyere enn 0.16 ganger skriftstørrelsen."
+        "P3": "Element der word-spacing er satt i stilarket.",
+        "F1": "Element der word-spacing i style-attributtet er satt slik at det hindrer at ordavstanden kan bli høyere enn 0.16 ganger skriftstørrelsen."
       }
     },
     "QW-ACT-R70": {
@@ -636,7 +636,7 @@
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "W1": "Sjekk at første fokuserbare element har et tilgjengelig navn som formidler at det hopper over innhold.",
-        "W2": "Sjekk at første fokuserbare element lenker til sidens hovedinnholdet og at det tilgjengelige navnet formidler dette.",
+        "W2": "Sjekk at første fokuserbare element lenker til sidens hovedinnhold og at det tilgjengelige navnet formidler dette.",
         "F1": "Første fokuserbare element kan ikke aktiveres med tastaturet.",
         "F2": "Første fokuserbare element er ikke i accessibility tree.",
         "F3": "Første fokuserbare element har ikke rolle som lenke.",
@@ -646,11 +646,11 @@
     },
     "QW-ACT-R73": {
       "name": "Blokker med gjentatt innhold kan foldes sammen",
-      "description": "Denne regelen sjekker at blokker med gjentatte innhold kan foldes sammen.",
+      "description": "Denne regelen sjekker at blokker med gjentatt innhold kan foldes sammen.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Siden har ikke gjentatt innhold.",
-        "W1": "For hver blokk med gjentatt innhold som er plassert (i det flate treet) før minst én node med ikke-gjentatt innhold etter gjentatt innhold, sjekk at det finnes en mekanisme for å gjøre alle noder i denne blokken usynlige både visuelt og i accessibility tree."
+        "W1": "For hver blokk med gjentatt innhold som er plassert (in the flat tree) før minst én node med ikke-gjentatt innhold etter gjentatt innhold, sjekk at det finnes en mekanisme for å gjøre alle noder i denne blokken usynlige både visuelt og i accessibility tree."
       }
     },
     "QW-ACT-R74": {
@@ -664,7 +664,7 @@
     },
     "QW-ACT-R75": {
       "name": "Hopp over blokker med gjenntatt innhold",
-      "description": "Denne regelen sjekker at hver side har en mekanisme for å hoppe over blokker med gjentatte innhold.",
+      "description": "Denne regelen sjekker at hver side har en mekanisme for å hoppe over blokker med gjentatt innhold.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
         "P1": "Testobjektet fikk samsvar basert på testregelen ",
@@ -677,14 +677,14 @@
       "description": "Denne regelen sjekker at element med tekst oppfyller kravet til forbedret kontrast.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
-        "P1": "Element med målt kontrast over minstekravet(forbedret).",
+        "P1": "Element med målt kontrast over minstekravet (forbedret).",
         "P2": "Element har ikke tekst på et menneskelig språk.",
-        "P3": "Element har en gradient med kontrast over minstekravet(forbedret).",
+        "P3": "Element har en gradient med kontrast over minstekravet (forbedret).",
         "W1": "Element har tekst-skygge som må verifiseres manuelt.",
         "W2": "Element har bilde som bakgrunn.",
         "W3": "Element har en gradient som ikke kan verifiseres automatisk.",
-        "F1": "Element har målt kontrast under minstekravet(forbedret).",
-        "F2": "Element har en gradient med målt kontrast under minstekravet(forbedret)."
+        "F1": "Element har målt kontrast under minstekravet (forbedret).",
+        "F2": "Element har en gradient med målt kontrast under minstekravet (forbedret)."
       }
     }
   },
