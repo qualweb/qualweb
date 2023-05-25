@@ -16,26 +16,16 @@ class QW_WCAG_T17 extends Technique {
     const test = new Test();
     const insideLabel = this.isInsideLabelElement(element);
     const type = element.getElementAttribute('type');
+    const isRadioOrCheckBox = type && (type === 'radio' || type === 'checkbox');
 
     if (insideLabel) {
-      if (type && (type === 'radio' || type === 'checkbox')) {
-        const hasTextAfter = this.hasTextAfter(element);
-        if (hasTextAfter) {
-          test.verdict = 'passed';
-          test.resultCode = 'P1';
-        } else {
-          test.verdict = 'failed';
-          test.resultCode = 'F1';
-        }
+      const hasText = isRadioOrCheckBox ? this.hasTextAfter(element) : this.hasTextBefore(element);
+      if (hasText) {
+        test.verdict = 'passed';
+        test.resultCode = 'P1';
       } else {
-        const hasTextBefore = this.hasTextBefore(element);
-        if (hasTextBefore) {
-          test.verdict = 'passed';
-          test.resultCode = 'P1';
-        } else {
-          test.verdict = 'failed';
-          test.resultCode = 'F1';
-        }
+        test.verdict = 'failed';
+        test.resultCode = 'F1';
       }
       test.addElement(element);
       super.addTestResult(test);
@@ -44,44 +34,28 @@ class QW_WCAG_T17 extends Technique {
       if (id) {
         const label = window.qwPage.getElement(`label[for="${id.trim()}"]`);
         if (label) {
-          if (window.DomUtils.isElementVisible(label)) {
-            const text = label.getElementText();
-            if (text && text.trim() !== '') {
-              const ancestor = this.findFirstCommonAncestor(element, label);
-              if (ancestor) {
-                const firstFound = this.findFirstInDepth(ancestor, [element, label]);
-                if (firstFound) {
-                  if (type && (type === 'radio' || type === 'checkbox')) {
-                    if (firstFound.getElementSelector() === element.getElementSelector()) {
-                      test.verdict = 'passed';
-                      test.resultCode = 'P1';
-                    } else {
-                      test.verdict = 'failed';
-                      test.resultCode = 'F1';
-                    }
-                  } else {
-                    if (firstFound.getElementSelector() === label.getElementSelector()) {
-                      test.verdict = 'passed';
-                      test.resultCode = 'P1';
-                    } else {
-                      test.verdict = 'failed';
-                      test.resultCode = 'F1';
-                    }
-                  }
-                }
-              }
+          const text = label.getElementText();
+          const visible = window.DomUtils.isElementVisible(label);
+          if (visible && text && text.trim() !== '') {
+            const isOnTop = this.isElementOnTop(element, label);
+            if (isRadioOrCheckBox || isOnTop) {
+              test.verdict = 'passed';
+              test.resultCode = 'P1';
             } else {
               test.verdict = 'failed';
-              test.resultCode = 'F2';
+              test.resultCode = 'F1';
             }
           } else {
             test.verdict = 'failed';
-            test.resultCode = 'F3';
+            test.resultCode = 'F2';
           }
-
-          test.addElement(element);
-          super.addTestResult(test);
+        } else {
+          test.verdict = 'failed';
+          test.resultCode = 'F3';
         }
+
+        test.addElement(element);
+        super.addTestResult(test);
       }
     }
   }
@@ -212,6 +186,24 @@ class QW_WCAG_T17 extends Technique {
     }
 
     return elementFound;
+  }
+  private isElementOnTop(a: typeof window.qwElement, b: typeof window.qwElement) {
+    const selectorElementsA = a.getElementSelector().split('>');
+    const selectorElementsB = b.getElementSelector().split('>');
+    const selectorElementsNA = selectorElementsA.length;
+    const selectorElementsNB = selectorElementsB.length;
+    let compareElementA, compareElementB;
+    if (selectorElementsNA > selectorElementsNB) {
+      compareElementA = selectorElementsA[selectorElementsNB - 1];
+      compareElementB = selectorElementsB[selectorElementsNB - 1];
+    } else {
+      compareElementA = selectorElementsA[selectorElementsNA - 1];
+      compareElementB = selectorElementsB[selectorElementsNA - 1];
+    }
+
+    const compareNumberA = +compareElementA.replace(/[a-z]\d|\D/g, '');
+    const compareNumberB = +compareElementB.replace(/[a-z]\d|\D/g, '');
+    return compareNumberB - compareNumberA;
   }
 }
 
