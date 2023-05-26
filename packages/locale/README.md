@@ -55,8 +55,8 @@ If you want a translation on your own language, follow these steps:
       <td>none</td>
     </tr>
     <tr>
-      <td>Norwegian Bokmål</td>
-      <td>nb</td>
+      <td>Norwegian Nynorsk</td>
+      <td>nn</td>
       <td>Full</td>
       <td>none</td>
       <td>none</td>
