@@ -90,7 +90,7 @@ describe('Running tests', function () {
     await incognito.close();
     await browser.close();
 
-    //console.log(JSON.stringify(report, null, 2));
+    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

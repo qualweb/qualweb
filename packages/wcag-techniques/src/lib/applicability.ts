@@ -127,16 +127,7 @@ function ElementHasAccessibleName(_target: any, _propertyKey: string, descriptor
   };
 }
 
-function ElementHasLabel(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
-  const method = descriptor.value;
-  descriptor.value = function () {
-    const element = <typeof window.qwElement>arguments[0];
-    const id = element.getElementAttribute('id');
-    if (id && window.qwPage.getElement(`label[for="${id.trim()}"]`)) {
-      return method.apply(this, arguments);
-    }
-  };
-}
+
 
 export {
   WCAGTechniqueClass,
@@ -147,6 +138,5 @@ export {
   ElementIsVisible,
   ElementIsDataTable,
   ElementHasAccessibleName,
-  isInMainContext,
-  ElementHasLabel
+  isInMainContext
 };
