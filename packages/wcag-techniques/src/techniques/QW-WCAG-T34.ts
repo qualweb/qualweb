@@ -14,7 +14,7 @@ class QW_WCAG_T34 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
     const correctElemments = this.onlyCorrectElementTypes(element);
-    const dtToDDOrder = this.onlyCorrectElementTypes(element);
+    const dtToDDOrder = this.checkDtToDDOrder(element);
 
     if (!correctElemments) {
       test.verdict = 'failed';
@@ -30,14 +30,15 @@ class QW_WCAG_T34 extends Technique {
     super.addTestResult(test);
   }
   onlyCorrectElementTypes(element: typeof window.qwElement) {
-    const correctList = element.getElements('dt,dd,script,template,div');
-    const list = element.getElements('*');
-    return correctList.length === list.length;
+    const children = element.getElementChildren();
+    return children.reduce((acc, element) => {
+      const name = element.getElementTagName();
+      return acc && ['dt', 'dd', 'script', 'template', 'div'].includes(name);
+    }, true);
   }
-
   checkDtToDDOrder(element: typeof window.qwElement) {
     const dList = element.getElements('dt,dd');
-    dList.reduce((acc, element) => {
+    return dList.reduce((acc, element) => {
       const tagName = element.getElementTagName();
       let result;
       if (tagName === 'dt') {
@@ -48,7 +49,7 @@ class QW_WCAG_T34 extends Technique {
       return acc && result;
     }, true);
   }
-  hasDT(element: typeof window.qwElement): boolean {
+  hasDD(element: typeof window.qwElement): boolean {
     const nextSibling = element.getElementNextSibling();
     let result;
     if (!nextSibling) {
@@ -61,7 +62,7 @@ class QW_WCAG_T34 extends Technique {
     return result;
   }
 
-  hasDD(element: typeof window.qwElement): boolean {
+  hasDT(element: typeof window.qwElement): boolean {
     const previousSibling = element.getElementPreviousSibling();
     let result;
     if (!previousSibling) {
