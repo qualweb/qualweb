@@ -12,61 +12,62 @@ class QW_WCAG_T9 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    if (window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
+    const headingList = window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
+    if (headingList.length === 0) {
       return;
     }
-
-    let equal = true;
-    let complete = true;
-    //let errorElem = element;
-    const hasH1 = window.qwPage.getElements('h1').length > 0;
-    let counter = 0;
-    const htmlList = window.qwPage.getElements('body, body *');
-
-    while (equal && complete && hasH1 && counter < htmlList.length) {
-      const elem = htmlList[counter];
-
-      const regexp = new RegExp('^h[1-6]$');
-      const list = new Array<number>();
-
-      for (const child of elem.getElementChildren() || []) {
-        const name = child.getElementTagName();
-        if (name && regexp.test(name)) {
-          const split = name.split('h');
-          list.push(parseInt(split[1]));
-        }
+    const headingObjectList = [];
+    for (const heading of headingList) {
+      const tagName = heading.getElementTagName();
+      let level;
+      if (tagName.includes('h')) {
+        level = +tagName.replace('h', '');
+      } else {
+        level = 2; //TODO
       }
-
-      if (list.length !== 0) {
-        const sortedArray = list.sort((n1, n2) => n1 - n2);
-
-        for (let i = 0; i < list.length; i++) {
-          if (list[i] !== sortedArray[i]) {
-            equal = false;
-            //errorElem = elem;
-          }
-          if (i > 0 && i - 1 < list.length && sortedArray[i] - sortedArray[i - 1] > 1) {
-            complete = false;
-            //errorElem = elem;
-          }
-        }
-      }
-      counter++;
+      const selector = heading.getElementSelector();
+      headingObjectList.push({ level, selector });
     }
+    const hasH1 = window.qwPage.getElements('h1').length > 0;
+    const orderderByPage = [...headingObjectList].sort((a: any, b: any) => {
+      const selectorElementsA = a.selector.split('>');
+      const selectorElementsB = b.selector.split('>');
+      const selectorElementsNA = selectorElementsA.length;
+      const selectorElementsNB = selectorElementsB.length;
+      let compareElementA, compareElementB;
+      if (selectorElementsNA > selectorElementsNB) {
+        compareElementA = selectorElementsA[selectorElementsNB - 1];
+        compareElementB = selectorElementsB[selectorElementsNB - 1];
+      } else {
+        compareElementA = selectorElementsA[selectorElementsNA - 1];
+        compareElementB = selectorElementsB[selectorElementsNA - 1];
+      }
 
+      const compareNumberA = +compareElementA.replace(/[a-z]\d|\D/g, '');
+      const compareNumberB = +compareElementB.replace(/[a-z]\d|\D/g, '');
+      return compareNumberB - compareNumberA;
+    });
+    let correctOrder = true;
+    for (const [i, element] of orderderByPage.entries()) {
+      const nextIndex = i + 1;
+      if (nextIndex < orderderByPage.length) {
+        const level = element.level;
+        const nextElement = orderderByPage[nextIndex];
+        const nextLevel = nextElement.level;
+        const levelDif = Math.abs(level - nextLevel);
+        console.log(levelDif)
+        correctOrder = correctOrder && levelDif <= 1;
+      }
+    }
     const test = new Test();
 
-    if (!equal) {
+    if (!correctOrder) {
       // fails if the headings aren't in the correct order
       test.verdict = 'failed';
       test.resultCode = 'F1';
-    } else if (!complete) {
-      // fails if a header number is missing
-      test.verdict = 'failed';
-      test.resultCode = 'F2';
     } else if (!hasH1) {
       test.verdict = 'failed';
-      test.resultCode = 'F3';
+      test.resultCode = 'F2';
     } else {
       // the heading elements are correctly used
       test.verdict = 'warning';
