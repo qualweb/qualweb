@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.8] - 29/05/2022
+
+### Updated
+
+- QW-WCAG-T9
+- QW-WCAG-T17
+- QW-WCAG-T34
+
+
 ## [0.3.7] - 08/03/2022
 
 ### Updated
