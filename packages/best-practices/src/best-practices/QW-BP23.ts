@@ -15,12 +15,9 @@ class QW_BP23 extends BestPracticeObject {
     const test = new Test();
     const parent = element.getElementParent();
     let isValidParent = false;
-    if (parent) {
-      const parentRole = window.AccessibilityUtils.getElementRole(parent);
-      if (parentRole && ['presentation', 'none', 'list'].includes(parentRole)) {
-        isValidParent = true;
-      }
-    }
+    const permitedNames = ['ul', 'ol', 'menu'];
+    const parentName = parent?.getElementTagName();
+    if (parentName) isValidParent = permitedNames.includes(parentName);
 
     if (isValidParent) {
       test.verdict = 'passed';

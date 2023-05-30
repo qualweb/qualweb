@@ -261,7 +261,7 @@
     "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
     "metadata": {
       "target": {
-        "element": "ul, ol,menu"
+        "element": "ul,ol,menu"
       }
     }
   },
