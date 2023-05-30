@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.20] - 30/05/2023
+
+### Fixed
+
+- added aria-expanded to menu-item's supported aria
+
 ## [0.5.19] - 01/02/2023
 
 ### Fixed
