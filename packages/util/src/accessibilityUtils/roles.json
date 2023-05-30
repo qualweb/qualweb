@@ -418,7 +418,7 @@
     "attribute": "",
     "requiredContextRole": ["group", "menu", "menubar"],
     "requiredAria": "",
-    "supportedAria": ["aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+    "supportedAria": ["aria-expanded","aria-posinset", "aria-setsize", "aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-disabled", "aria-dropeffect", "aria-expanded", "aria-flowto", "aria-grabbed", "aria-haspopup", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
     "requiredOwnedElements":[]
   },
