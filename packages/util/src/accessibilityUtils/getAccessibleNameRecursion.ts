@@ -9,6 +9,7 @@ function getAccessibleNameRecursion(
   let AName, alt, value, placeholder;
   const name = element.getElementTagName();
   const allowNameFromContent = window.AccessibilityUtils.allowsNameFromContent(element);
+
   let ariaLabelBy = element.getElementAttribute('aria-labelledby');
   const id = element.getElementAttribute('id');
 
@@ -68,7 +69,11 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'caption'), title);
   } else if (name === 'fieldset') {
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'legend'), title);
-  } else if (allowNameFromContent || (((role && allowNameFromContent) || !role) && recursion) || name === 'label') {
+  } else if (
+    allowNameFromContent ||
+    (((role && allowNameFromContent) || !role || role === 'generic') && recursion) ||
+    name === 'label'
+  ) {
     AName = getFirstNotUndefined(getTextFromCss(element, isWidget), title);
   } /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0))*/ else {
     AName = getFirstNotUndefined(title);
