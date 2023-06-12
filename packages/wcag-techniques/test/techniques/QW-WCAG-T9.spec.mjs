@@ -38,6 +38,7 @@ describe('Running tests', function () {
             const wcag = new WCAGTechniques({ translate: locale, fallback: locale }, { techniques: ['QW-WCAG-T9'] });
             return wcag.execute();
           }, locales.default.en);
+          console.log(report.assertions['QW-WCAG-T9'].results[0]);
           expect(report.assertions['QW-WCAG-T9'].metadata.outcome).to.be.equal(test.outcome);
           /*await page.close();
           await incognito.close();

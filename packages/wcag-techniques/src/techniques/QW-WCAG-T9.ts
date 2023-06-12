@@ -3,6 +3,7 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
+import { QWElement } from '@qualweb/qw-element';
 
 @WCAGTechniqueClass
 class QW_WCAG_T9 extends Technique {
@@ -23,13 +24,44 @@ class QW_WCAG_T9 extends Technique {
       if (tagName.includes('h')) {
         level = +tagName.replace('h', '');
       } else {
-        level = 2; //TODO
+        const ariaLevel = heading.getElementAttribute('aria-level');
+        level = ariaLevel ? +ariaLevel : 1;
       }
       const selector = heading.getElementSelector();
-      headingObjectList.push({ level, selector });
+      headingObjectList.push({ level, selector, heading });
     }
-    const hasH1 = window.qwPage.getElements('h1').length > 0;
-    const orderderByPage = [...headingObjectList].sort((a: any, b: any) => {
+    const orderderByPage = this.orderByPage(headingObjectList);
+    const orderErrors = [];
+    for (const [i, element] of orderderByPage.entries()) {
+      const nextIndex = i + 1;
+      if (nextIndex < orderderByPage.length) {
+        const level = element.level;
+        const nextElement = orderderByPage[nextIndex];
+        const nextLevel = nextElement.level;
+        const levelDif = Math.abs(level - nextLevel);
+        if (levelDif > 1) orderErrors.push(element.heading);
+      }
+    }
+    const test = new Test();
+
+    if (orderErrors.length === 0) {
+      // the heading elements are correctly used
+      test.verdict = 'warning';
+      test.resultCode = 'W1';
+      test.addElement(element);
+      super.addTestResult(test);
+    } else {
+      for (const error of orderErrors) {
+        test.verdict = 'failed';
+        test.resultCode = 'F1';
+        test.addElement(error);
+        super.addTestResult(test);
+      }
+    }
+  }
+
+  private orderByPage(headingObjectList: { level: number; selector: string; heading: QWElement }[]) {
+    return [...headingObjectList].sort((a: any, b: any) => {
       const selectorElementsA = a.selector.split('>');
       const selectorElementsB = b.selector.split('>');
       const selectorElementsNA = selectorElementsA.length;
@@ -47,35 +79,6 @@ class QW_WCAG_T9 extends Technique {
       const compareNumberB = +compareElementB.replace(/[a-z]\d|\D/g, '');
       return compareNumberB - compareNumberA;
     });
-    let correctOrder = true;
-    for (const [i, element] of orderderByPage.entries()) {
-      const nextIndex = i + 1;
-      if (nextIndex < orderderByPage.length) {
-        const level = element.level;
-        const nextElement = orderderByPage[nextIndex];
-        const nextLevel = nextElement.level;
-        const levelDif = Math.abs(level - nextLevel);
-        console.log(levelDif)
-        correctOrder = correctOrder && levelDif <= 1;
-      }
-    }
-    const test = new Test();
-
-    if (!correctOrder) {
-      // fails if the headings aren't in the correct order
-      test.verdict = 'failed';
-      test.resultCode = 'F1';
-    } else if (!hasH1) {
-      test.verdict = 'failed';
-      test.resultCode = 'F2';
-    } else {
-      // the heading elements are correctly used
-      test.verdict = 'warning';
-      test.resultCode = 'W1';
-    }
-
-    test.addElement(element);
-    super.addTestResult(test);
   }
 }
 
