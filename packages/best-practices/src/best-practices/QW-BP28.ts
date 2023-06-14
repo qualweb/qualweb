@@ -22,7 +22,6 @@ class QW_BP28 extends BestPracticeObject {
       test.verdict = 'failed';
       test.resultCode = 'F1';
     }
-    console.log(test);
     test.addElement(element);
     super.addTestResult(test);
   }
