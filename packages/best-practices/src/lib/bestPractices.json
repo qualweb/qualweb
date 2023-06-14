@@ -294,5 +294,15 @@
         "element": "main:not([role]), [role=main]"
       }
     }
+  },
+  "QW_BP28": {
+    "name": "H1 element is used and unique",
+    "code": "QW-BP28",
+    "description": "Ensures theres is only one H1",
+    "metadata": {
+      "target": {
+        "element": "h1"
+      }
+    }
   }
 }
