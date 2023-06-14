@@ -38,7 +38,6 @@ describe('Running tests', function () {
           const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP28'] });
           return bp.execute();
           }, locales.default.en);
-          console.log(report.assertions['QW-BP28'])
           expect(report.assertions['QW-BP28'].metadata.outcome).to.be.equal(test.outcome);
           /*await page.close();
           await incognito.close();
