@@ -62,11 +62,11 @@ class QW_ACT_R30 extends AtomicRule {
     accessibleName = accessibleName
       .toLowerCase()
       .trim()
-      .replace(/\r?\n|\r|\s+/g, '');
+      .replace(/\r?\n|\r|\s+|[^\w\s]+/g, '');
     elementText = elementText
       .toLowerCase()
       .trim()
-      .replace(/\r?\n|\r|\s+/g, '');
+      .replace(/\r?\n|\r|\s+|[^\w\s]+/g, '');
     return accessibleName.includes(elementText);
   }
 }
