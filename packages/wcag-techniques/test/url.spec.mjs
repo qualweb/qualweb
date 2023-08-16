@@ -9,7 +9,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://ocde.missaoportugal.mne.gov.pt/pt/'; // 'https://ciencias.ulisboa.pt/';
+    const url = 'https://www.apec.org.pt/index.html'; // 'https://ciencias.ulisboa.pt/';
 
     const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
@@ -18,7 +18,7 @@ describe('Running tests', function () {
     await dom.process(
       {
         execute: { wcag: true },
-        'wcag-techniques': { techniques: ['QW-WCAG-T34'] }
+        'wcag-techniques': { techniques: ['QW-WCAG-T9'] }
       },
       url,
       ''
@@ -43,7 +43,7 @@ describe('Running tests', function () {
           fallback: locale
         },
         {
-          techniques: ['QW-WCAG-T34']
+          techniques: ['QW-WCAG-T9']
         }
       );
       return wcag.execute(false, undefined);

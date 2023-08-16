@@ -50,9 +50,6 @@ class QW_WCAG_T17 extends Technique {
           test.verdict = 'failed';
           test.resultCode = 'F2';
         }
-      } else {
-        test.verdict = 'failed';
-        test.resultCode = 'F3';
       }
     }
 

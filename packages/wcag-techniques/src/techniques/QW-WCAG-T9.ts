@@ -17,6 +17,7 @@ class QW_WCAG_T9 extends Technique {
     if (headingList.length === 0) {
       return;
     }
+    console.log(headingList);
     const headingObjectList = [];
     for (const heading of headingList) {
       const tagName = heading.getElementTagName();
@@ -31,6 +32,7 @@ class QW_WCAG_T9 extends Technique {
       headingObjectList.push({ level, selector, heading });
     }
     const orderderByPage = this.orderByPage(headingObjectList);
+    console.log(orderderByPage);
     const orderErrors = [];
     for (const [i, element] of orderderByPage.entries()) {
       const nextIndex = i + 1;
@@ -64,16 +66,15 @@ class QW_WCAG_T9 extends Technique {
     return [...headingObjectList].sort((a: any, b: any) => {
       const selectorElementsA = a.selector.split('>');
       const selectorElementsB = b.selector.split('>');
-      const selectorElementsNA = selectorElementsA.length;
-      const selectorElementsNB = selectorElementsB.length;
-      let compareElementA, compareElementB;
-      if (selectorElementsNA > selectorElementsNB) {
-        compareElementA = selectorElementsA[selectorElementsNB - 1];
-        compareElementB = selectorElementsB[selectorElementsNB - 1];
-      } else {
-        compareElementA = selectorElementsA[selectorElementsNA - 1];
-        compareElementB = selectorElementsB[selectorElementsNA - 1];
+      console.log(selectorElementsA);
+      let i = 0;
+      let found = false;
+      while (i < selectorElementsA.length && i < selectorElementsB.length && !found) {
+        i++;
+        found = selectorElementsA[i] !== selectorElementsB[i];
       }
+      const compareElementA = selectorElementsA[i];
+      const compareElementB = selectorElementsB[i];
 
       const compareNumberA = +compareElementA.replace(/[a-z]\d|\D/g, '');
       const compareNumberB = +compareElementB.replace(/[a-z]\d|\D/g, '');
