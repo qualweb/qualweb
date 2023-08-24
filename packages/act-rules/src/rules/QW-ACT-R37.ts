@@ -196,6 +196,29 @@ class QW_ACT_R37 extends AtomicRule {
         parsedBG = { red: 255, green: 255, blue: 255, alpha: 1 };
       }
 
+      let secondElement = elementAux;
+      if (parsedBG.alpha !== 1) { // check if there is a solid color in the background and mix the colors
+        let secondOpacity = opacityAUX;
+        let parsedSecondBG = parsedBG;
+        while (parsedSecondBG.alpha !== 1) {
+          const parent = secondElement.getElementParent();
+          if (!parent) {
+            break;
+          } else {
+            secondOpacity = parseFloat(parent.getElementStyleProperty('opacity', null));
+            parsedSecondBG = this.parseRGBString(parent.getElementStyleProperty('background', null), secondOpacity);
+            secondElement = parent;
+          }
+        }
+        if (parsedSecondBG.alpha === 1) {
+          console.log("entrei no second opacity")
+          const outputRed = Math.round((parsedBG.red * parsedBG.alpha) + (parsedSecondBG.red * (1.0 - parsedBG.alpha)));
+          const outputGreen = Math.round((parsedBG.green * parsedBG.alpha) + (parsedSecondBG.green * (1.0 - parsedBG.alpha)));
+          const outputBlue = Math.round((parsedBG.blue * parsedBG.alpha) + (parsedSecondBG.blue * (1.0 - parsedBG.alpha)));
+          parsedBG = { red: outputRed, green: outputGreen, blue: outputBlue, alpha: 1 };
+        }
+      }
+
       const parsedFG = this.parseRGBString(fgColor, opacity);
 
       if (!this.equals(parsedBG, parsedFG)) {
