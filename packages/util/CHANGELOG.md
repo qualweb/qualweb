@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.23] - 04/09/2023
+
+### Fixed
+
+- added 'paragraph' to acessible name
+
 ## [0.5.22] - 18/07/2023
 
 ### Fixed
