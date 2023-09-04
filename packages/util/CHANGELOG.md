@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.22] - 18/07/2023
+
+### Fixed
+
+- fixed role list
+
 ## [0.5.21] - 07/06/2023
 
 ### Fixed
