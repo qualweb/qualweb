@@ -20,6 +20,7 @@ function getAccessibleNameRecursion(
   const attrType = element.getElementAttribute('type');
   const title = element.getElementAttribute('title');
   const role = window.AccessibilityUtils.getElementRoleAName(element, '');
+  console.log({ element, recursion, isWidget, allowNameFromContent, role });
 
   const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
   if (name === 'svg') {
@@ -71,7 +72,7 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'legend'), title);
   } else if (
     allowNameFromContent ||
-    (((role && allowNameFromContent) || !role || role === 'generic') && recursion) ||
+    (((role && allowNameFromContent) || !role || role === 'generic' || role === 'paragraph') && recursion) ||
     name === 'label'
   ) {
     AName = getFirstNotUndefined(getTextFromCss(element, isWidget), title);
