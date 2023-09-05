@@ -3,7 +3,6 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
-import { QWElement } from '@qualweb/qw-element';
 
 @WCAGTechniqueClass
 class QW_WCAG_T9 extends Technique {
@@ -17,7 +16,6 @@ class QW_WCAG_T9 extends Technique {
     if (headingList.length === 0) {
       return;
     }
-    console.log(headingList);
     const headingObjectList = [];
     for (const heading of headingList) {
       const tagName = heading.getElementTagName();
@@ -31,14 +29,13 @@ class QW_WCAG_T9 extends Technique {
       const selector = heading.getElementSelector();
       headingObjectList.push({ level, selector, heading });
     }
-    const orderderByPage = this.orderByPage(headingObjectList);
-    console.log(orderderByPage);
+
     const orderErrors = [];
-    for (const [i, element] of orderderByPage.entries()) {
+    for (const [i, element] of headingObjectList.entries()) {
       const nextIndex = i + 1;
-      if (nextIndex < orderderByPage.length) {
+      if (nextIndex < headingObjectList.length) {
         const level = element.level;
-        const nextElement = orderderByPage[nextIndex];
+        const nextElement = headingObjectList[nextIndex];
         const nextLevel = nextElement.level;
         const levelDif = Math.abs(level - nextLevel);
         if (levelDif > 1) orderErrors.push(element.heading);
@@ -62,25 +59,6 @@ class QW_WCAG_T9 extends Technique {
     }
   }
 
-  private orderByPage(headingObjectList: { level: number; selector: string; heading: QWElement }[]) {
-    return [...headingObjectList].sort((a: any, b: any) => {
-      const selectorElementsA = a.selector.split('>');
-      const selectorElementsB = b.selector.split('>');
-      console.log(selectorElementsA);
-      let i = 0;
-      let found = false;
-      while (i < selectorElementsA.length && i < selectorElementsB.length && !found) {
-        i++;
-        found = selectorElementsA[i] !== selectorElementsB[i];
-      }
-      const compareElementA = selectorElementsA[i];
-      const compareElementB = selectorElementsB[i];
-
-      const compareNumberA = +compareElementA.replace(/[a-z]\d|\D/g, '');
-      const compareNumberB = +compareElementB.replace(/[a-z]\d|\D/g, '');
-      return compareNumberB - compareNumberA;
-    });
-  }
 }
 
 export = QW_WCAG_T9;

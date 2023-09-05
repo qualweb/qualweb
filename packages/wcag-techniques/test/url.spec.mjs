@@ -35,6 +35,7 @@ describe('Running tests', function () {
     await page.addScriptTag({
       path: require.resolve('../dist/wcag.bundle.js')
     });
+    await new Promise(r => setTimeout(r, 2000));
 
     const report = await page.evaluate((locale) => {
       const wcag = new WCAGTechniques(
