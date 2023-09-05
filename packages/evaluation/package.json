@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.3.24",
+  "version": "0.3.25",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -59,6 +59,6 @@
     "@qualweb/counter": "0.2.0",
     "@qualweb/qw-page": "0.2.13",
     "@qualweb/util": "0.5.23",
-    "@qualweb/wcag-techniques": "0.3.9"
+    "@qualweb/wcag-techniques": "0.3.10"
   }
 }
