@@ -113,11 +113,12 @@ The available options fot the **evaluate()** function are:
   "translate": "en", // OR { "translate": "en", "fallback": "en" } OR { own translation object } check https://github.com/qualweb/locale#readme. Default = "en"
   "execute": {
     // choose which modules to execute
-    "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false
-    "act": true, // act-rules module (https://github.com/qualweb/act-rules) - default value = true
-    "wcag": true, // wcag-techniques module (https://github.com/qualweb/wcag-techniques) - default value = true
-    "bp": false, // best-practices module (https://github.com/qualweb/best-practices) - default value = true
-    "counter": false // counter module (https://github.com/qualweb/counter) - default value = false
+    // if this option is not specified, the default values below will be applied, otherwise unspecified values will default to false
+    "wappalyzer": false, // wappalyzer module (https://github.com/qualweb/wappalyzer)
+    "act": true, // act-rules module (https://github.com/qualweb/act-rules)
+    "wcag": true, // wcag-techniques module (https://github.com/qualweb/wcag-techniques)
+    "bp": false, // best-practices module (https://github.com/qualweb/best-practices)
+    "counter": false // counter module (https://github.com/qualweb/counter)
   },
   "act-rules": {
     // More information about this options at https://github.com/qualweb/act-rules
