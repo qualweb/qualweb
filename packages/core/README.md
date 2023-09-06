@@ -129,7 +129,7 @@ The available options fot the **evaluate()** function are:
   },
   "wcag-techniques": {
     // More information about this options at https://github.com/qualweb/wcag-techniques
-    "rules": ["QW-WCAG-T1", "H39"], // Array of techniques to execute, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code
+    "techniques": ["QW-WCAG-T1", "H39"], // Array of techniques to execute, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code
     "exclude": ["QW-WCAG-T1", "H39"], // Array of techniques to exclude, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code
     "levels": ["A", "AA", "AAA"], // Conformance levels to execute,
     "principles": ["Perceivable", "Operable", "Understandable", "Robust"] // Principles to execute
