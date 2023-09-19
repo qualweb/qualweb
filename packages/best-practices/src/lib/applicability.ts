@@ -172,6 +172,18 @@ function ElementIsNotChildOf(parent: string) {
   };
 }
 
+function ElementHasAttributeRole(role: string) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = function () {
+      const _role = window.AccessibilityUtils.getElementRole(<typeof window.qwElement>arguments[0]);
+      if (!_role || _role === role) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
 export {
   ElementIsVisible,
   BestPracticeClass,
@@ -184,5 +196,6 @@ export {
   ElementHasVisibleChild,
   ElementDoesNotHaveChild,
   ElementHasParent,
-  ElementIsNotChildOf
+  ElementIsNotChildOf,
+  ElementHasAttributeRole
 };

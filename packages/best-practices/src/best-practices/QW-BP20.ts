@@ -14,7 +14,10 @@ class QW_BP20 extends BestPracticeObject {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const landmarkList = window.qwPage.getElements('header:not([role]), [role=banner]');
+    const possibleLandmarkList = element.getElements('header:not([role]), [role=banner]');
+    const landmarkList = possibleLandmarkList.filter(
+      (element) => window.AccessibilityUtils.getElementRole(element) === 'banner'
+    );
 
     if (landmarkList.length < 2) {
       test.verdict = 'passed';
@@ -23,7 +26,7 @@ class QW_BP20 extends BestPracticeObject {
       test.verdict = 'failed';
       test.resultCode = 'F1';
     }
-    test.addElement(element);
+    test.addElements(landmarkList);
     super.addTestResult(test);
   }
 }
