@@ -268,6 +268,7 @@ class QW_ACT_R24 extends AtomicRule {
 
   private isCorrectAutocompleteField(autoCompleteField: string): boolean {
     const fields = autoCompleteField.split(' ');
+    let numRequiredTokens = 0;
 
     if (fields[0].startsWith('section-')) fields.splice(0, 1);
 
@@ -284,9 +285,14 @@ class QW_ACT_R24 extends AtomicRule {
         }
       } else if (!this.isAutoCompleteField(field)) {
         return false;
+      } else {
+        numRequiredTokens++;
       }
 
       lastField = field;
+    }
+    if (numRequiredTokens !== 1) {
+      return false;
     }
     return true;
   }
