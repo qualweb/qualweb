@@ -37,6 +37,14 @@ class QW_ACT_R28 extends AtomicRule {
           let i = 0;
           //@ts-ignore
           const requiredAriaList = <string[]>rolesJSON[elemRole]['requiredAria'];
+          if (elemRole === "separator") { // role separator has exceptions when element is focusable
+            if (!window.AccessibilityUtils.isElementFocusable(elem)) {
+              const index = requiredAriaList.indexOf("aria-valuenow");
+              if (index > -1) {
+                requiredAriaList.splice(index, 1);
+              }
+            }
+          }
           let result = true; // passed until it fails a requirement
           let requiredAria;
 
