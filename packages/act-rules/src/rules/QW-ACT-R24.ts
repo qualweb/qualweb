@@ -67,7 +67,7 @@ class QW_ACT_R24 extends AtomicRule {
       'email',
       'impp'
     ],
-    modifiers: ['pager', 'fax', 'mobile', 'work', 'home', 'shipping', 'billing'],
+    modifiers: ['pager', 'fax', 'mobile', 'work', 'home', 'shipping', 'billing', 'webauthn'],
     correctTerms: [
       'name',
       'honorific-prefix',
@@ -76,10 +76,11 @@ class QW_ACT_R24 extends AtomicRule {
       'family-name',
       'honorific-suffix',
       'nickname',
-      'organization-title',
       'username',
       'new-password',
       'current-password',
+      'one-time-code',
+      'organization-title',
       'organization',
       'street-address',
       'address-line1',
@@ -132,10 +133,11 @@ class QW_ACT_R24 extends AtomicRule {
       'family-name': 'text',
       'honorific-suffix': 'text',
       nickname: 'text',
-      'organization-title': 'text',
       username: 'text',
       'new-password': 'password',
       'current-password': 'password',
+      'one-time-code': 'text',
+      'organization-title': 'text',
       organization: 'text',
       'street-address': 'multiline',
       'address-line1': 'text',
@@ -275,7 +277,7 @@ class QW_ACT_R24 extends AtomicRule {
       field = fields[i].toLowerCase();
 
       if (this.isModifier(field)) {
-        if (!(field === 'shipping' || field === 'billing')) {
+        if (!(field === 'shipping' || field === 'billing' || field === 'webauthn')) {
           if (!this.isValidModifier(field, lastField)) {
             return false;
           }
