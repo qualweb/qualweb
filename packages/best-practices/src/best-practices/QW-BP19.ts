@@ -9,8 +9,8 @@ class QW_BP19 extends BestPracticeObject {
   constructor(bestPractice: BestPractice, locale: Translate) {
     super(bestPractice, locale);
   }
-  @ElementHasAttributeRole('banner')
   @ElementExists
+  @ElementHasAttributeRole('banner')
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
