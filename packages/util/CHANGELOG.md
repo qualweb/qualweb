@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.24] - 27/09/2023
+
+### Fixed
+
+- inplicit value roles
+
 ## [0.5.23] - 04/09/2023
 
 ### Fixed
