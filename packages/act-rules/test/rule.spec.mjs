@@ -7,7 +7,8 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 async function getTestCases() {
-  const response = await fetch('https://act-rules.github.io/testcases.json');
+  // const response = await fetch('https://act-rules.github.io/testcases.json');
+  const response = await fetch('https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases.json');
   return await response.json();
 }
 
