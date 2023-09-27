@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.5.23] - 04/09/2023
+
+### Fixed
+
+- added 'paragraph' to acessible name
+
+## [0.5.22] - 18/07/2023
+
+### Fixed
+
+- fixed role list
+
+## [0.5.21] - 07/06/2023
+
+### Fixed
+
+- fixed AName 
+
+## [0.5.20] - 30/05/2023
+
+### Fixed
+
+- added aria-expanded to menu-item's supported aria
+
 ## [0.5.19] - 01/02/2023
 
 ### Fixed
