@@ -17,6 +17,8 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build",
     "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -35,6 +37,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/dom": "0.2.6",
     "@qualweb/locale": "0.1.12",
     "@qualweb/qw-page": "0.2.13",
