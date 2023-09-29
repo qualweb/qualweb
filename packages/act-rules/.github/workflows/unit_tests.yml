@@ -1,6 +1,9 @@
 
 name: Unit Tests
 on:
+  pull_request:
+    branches:
+      - develop
   workflow_call:
     inputs:
       unused:
