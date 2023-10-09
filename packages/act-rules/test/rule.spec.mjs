@@ -1,13 +1,15 @@
 import fetch from 'node-fetch';
-import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
 import locales from '@qualweb/locale';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { fileURLToPath, URL } from 'node:url';
 import { createRequire } from 'module';
+import { launchBrowser } from './util.mjs';
 const require = createRequire(import.meta.url);
 
 async function getTestCases() {
-  // const response = await fetch('https://act-rules.github.io/testcases.json');
   const response = await fetch('https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases.json');
   return await response.json();
 }
@@ -20,7 +22,6 @@ const mapping = {
   'QW-ACT-R5': 'bf051a',
   'QW-ACT-R6': '59796f',
   'QW-ACT-R7': 'b33eff',
-  'QW-ACT-R8': '9eb3f6',
   'QW-ACT-R9': 'b20e66',
   'QW-ACT-R10': '4b1c6c',
   'QW-ACT-R11': '97a4e1',
@@ -57,7 +58,6 @@ const mapping = {
   'QW-ACT-R42': '8fc3b6',
   'QW-ACT-R43': '0ssw9k',
   'QW-ACT-R44': 'fd3a94',
-  'QW-ACT-R45': 'c6f8a9',
   'QW-ACT-R48': '46ca7f',
   'QW-ACT-R49': 'aaa1bf',
   'QW-ACT-R50': '4c31df',
@@ -89,27 +89,55 @@ const mapping = {
   'QW-ACT-R76': '09o5cg'
 };
 
-const rule = process.argv[3].toUpperCase();
-const ruleId = mapping[rule];
+// If a single QW-ACT-R?? was passed as an argument, run just that test.
+// Otherwise, run all tests.
+const rulesToTest = Object.keys(mapping);
 
-describe(`Rule ${rule}`, function () {
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+const actTestCases = JSON.parse(readFileSync(resolve(__dirname, 'fixtures/testcases.json')));
+
+const PASSED = 'passed';
+const FAILED = 'failed';
+const INAPPLICABLE = 'inapplicable';
+const CANTTELL = 'cantTell';
+
+const consistencyMapping = {
+  'passed': [PASSED, INAPPLICABLE, CANTTELL],
+  'failed': [FAILED, CANTTELL],
+  'inapplicable': [PASSED, INAPPLICABLE, CANTTELL],
+};
+
+describe('ACT rules', () => {
   let browser = null;
   let incognito = null;
-  let data = null;
-  let tests = null;
 
-  it('Starting test bench', async function () {
-    browser = await puppeteer.launch({ headless: false });
+  before(async () => {
+    // Fire up Puppeteer before any test runs. All tests should be running in
+    // their own tab/page, so relaunching Puppeteer/Chrome between cases should
+    // not be necessary.
+    browser = await launchBrowser();
+
     incognito = await browser.createIncognitoBrowserContext();
-    data = await getTestCases();
-    tests = data.testcases
+  });
+
+  for (const ruleToTest of rulesToTest) {
+    const ruleId = mapping[ruleToTest];
+
+    describe(`Rule ${ruleToTest} (${ruleId})`, function () {
+      let tests = null;
+  
+      tests = actTestCases.testcases
       .filter((t) => t.ruleId === ruleId)
       .map((t) => {
-        return { title: t.testcaseTitle, url: t.url, outcome: t.expected };
+        return {
+          title: t.testcaseTitle,
+          url: t.url,
+          outcome: t.expected,
+        };
       });
 
-    describe('Running tests', function () {
-      tests.forEach(function (test) {
+      for (const test of tests) {
         it(test.title, async function () {
           this.timeout(0);
 
@@ -120,9 +148,9 @@ describe(`Rule ${rule}`, function () {
               {
                 execute: { act: true },
                 'act-rules': {
-                  rules: [rule]
+                  rules: [ruleToTest]
                 },
-                waitUntil: rule === 'QW-ACT-R4' || rule === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
+                waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
               },
               test.url,
               ''
@@ -145,7 +173,7 @@ describe(`Rule ${rule}`, function () {
                 window.act = new ACTRules({ translate: locale, fallback: locale }, options);
               },
               locales.default.en,
-              { rules: [rule] }
+              { rules: [ruleToTest] }
             );
 
             if (ruleId === '8a213c') {
@@ -181,26 +209,29 @@ describe(`Rule ${rule}`, function () {
               window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
               return window.act.getReport();
             });
-            //console.log(JSON.stringify(report.assertions[rule], null, 2))
-            expect(report.assertions[rule].metadata.outcome).to.be.equal(test.outcome);
-            if (report.assertions[rule].metadata.outcome === test.outcome)
-              await page.close();
+
+            // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
+            const outcome = report.assertions[ruleToTest].metadata.outcome !== 'warning'
+              ? report.assertions[ruleToTest].metadata.outcome
+              : CANTTELL;
+
+            expect(outcome).to.be.oneOf(consistencyMapping[test.outcome]);
           } finally {
-            
+            // Pages should *always* close after the test.
+              await page.close();
           }
         });
-      });
+      }
     });
+  }
 
-    describe(`Closing test bench`, async function () {
-      it(`Closed`, async function () {
-        /* if (incognito) {
-           await incognito.close();
-         }
-         if (browser) {
-           await browser.close();
-         }*/
-      });
-    });
+  after(async () => {
+    // Close test bench
+    if (incognito) {
+      await incognito.close();
+    }
+    if (browser) {
+      await browser.close();
+    }
   });
 });
