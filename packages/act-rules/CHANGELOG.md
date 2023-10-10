@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.6.16
+
+### Patch Changes
+
+- bd701ab: # Fix up unit tests
+
+  - `rule.spec.mjs`
+    - Now runs _all_ QualWeb rules by default (to fit within an automated workflow)
+    - Updated URL for testcases to: https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases.json
+    - Changed use of test cases so they are read from a fixture (`test/fixtures/testcases.json`). This is intended to make sure that the package's code can be documented to have a certain result when compared to a _specific_ set of test cases in time. The test cases can still be updated simply by overwriting the fixture with a newly downloaded copy. Consider writing a convenience script to do this?
+    - Adjusted tests so they pass if they fall within the acceptable range of outcomes, not the exact expected outcome. For example, if an ACT testcase should pass, the equivalent unit test will pass if the outcome is one of "passed", "cantTell", or "inapplicable".
+    - Any "warning" outcome will be converted to "cantTell" to fit EARL specs.
+  - The overall structure of the tests have been mildly refactored to fit better unit testing practices.
+    - Puppeteer launch/close is put into setup/teardown functions (`before` and `after`).
+    - Added a file for utility functions. Initially, just a `launchBrowser()` function to unify the way Puppeteer gets launched across unit tests.
+  - Added .mocharc.js file to specify unit test configuration.
+  - Removed the following QualWeb rules from the test suite:
+    - QW-ACT-R8
+    - QW-ACT-R45
+
+- 2673ce6: # Add changesets and Github Actions
+
+  Under most circumstances I don't think you'd commit an entire package version to changes in the CI/CD configuration. I think the initial addition of the flows warrant a changeset, however, since it demonstrates basic usage and should allow a test run to make sure everything works as intended.
+
 ## [0.6.15] - 27/09/2023
 
 ### Updated
@@ -29,7 +53,6 @@
 ### Updated
 
 - r38, r5, r12, r13, r24 and r68
-
 
 ## [0.6.10] - 17/01/2022
 
