@@ -7,8 +7,7 @@ import {
   ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
-  ElementIsVisible,
-  ElementIsNotWidget
+  ElementIsVisible
 } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
@@ -22,7 +21,6 @@ class QW_ACT_R76 extends AtomicRule {
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
   @ElementIsVisible
-  @ElementIsNotWidget
   @ElementHasText
   execute(element: typeof window.qwElement): void {
     const disabledWidgets = window.disabledWidgets;
@@ -47,17 +45,15 @@ class QW_ACT_R76 extends AtomicRule {
       return;
     }
 
-    const isWidget = window.AccessibilityUtils.isElementWidget(element);
-    if (isWidget) {
-      return;
-    }
-
     const elementSelectors = element.getElementSelector();
 
     for (const disableWidget of disabledWidgets || []) {
       const selectors = window.AccessibilityUtils.getAccessibleNameSelector(disableWidget);
       if (disableWidget && selectors && selectors.includes(elementSelectors)) {
         return;
+      }
+      if (disableWidget.getElementSelector() === elementSelectors) {
+        return;  
       }
     }
 
