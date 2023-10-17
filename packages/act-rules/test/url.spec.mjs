@@ -1,12 +1,18 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import puppeteer from 'puppeteer';
+import { launchBrowser } from './util.mjs';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-describe('Running tests', function () {
+describe('URL evaluation', function () {
+  let browser = null;
+
+  before(async () => {
+    browser = await launchBrowser();
+  });
+
   it('Evaluates url', async function () {
     this.timeout(0);
 
@@ -14,7 +20,6 @@ describe('Running tests', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
 
@@ -77,4 +82,8 @@ describe('Running tests', function () {
     console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
+
+  after(async () => {
+    await browser.close();
+  })
 });

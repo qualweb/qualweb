@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha test/rule.spec.mjs",
+    "test": "mocha",
+    "test:rules": "mocha test/rule.spec.mjs",
     "test:url": "mocha test/url.spec.mjs",
     "validate:rules": "node validate-rules.js",
     "compile:rules": "node compile-rules.js",
@@ -17,6 +18,8 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build",
     "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -35,11 +38,12 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/dom": "0.2.6",
     "@qualweb/locale": "0.1.12",
     "@qualweb/qw-page": "0.2.13",
     "@qualweb/types": "0.7.21",
-    "@qualweb/util": "0.5.23",
+    "@qualweb/util": "0.5.24",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
