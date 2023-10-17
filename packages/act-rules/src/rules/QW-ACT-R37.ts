@@ -7,8 +7,7 @@ import {
   ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
-  ElementIsVisible,
-  ElementIsNotWidget
+  ElementIsVisible
 } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
@@ -22,7 +21,6 @@ class QW_ACT_R37 extends AtomicRule {
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
   @ElementIsVisible
-  @ElementIsNotWidget
   @ElementHasText
   execute(element: typeof window.qwElement): void {
     const disabledWidgets = window.disabledWidgets;
@@ -47,17 +45,15 @@ class QW_ACT_R37 extends AtomicRule {
       return;
     }
 
-    const isWidget = window.AccessibilityUtils.isElementWidget(element);
-    if (isWidget) {
-      return;
-    }
-
     const elementSelectors = element.getElementSelector();
 
     for (const disableWidget of disabledWidgets || []) {
       const selectors = window.AccessibilityUtils.getAccessibleNameSelector(disableWidget);
       if (disableWidget && selectors && selectors.includes(elementSelectors)) {
         return;
+      }
+      if (disableWidget.getElementSelector() === elementSelectors) {
+        return;  
       }
     }
 
@@ -288,7 +284,7 @@ class QW_ACT_R37 extends AtomicRule {
   ): boolean {
     if (parsedGradientString.startsWith('linear-gradient')) {
       const gradientDirection = this.getGradientDirection(parsedGradientString);
-      if (gradientDirection === 'to right') {
+      if (gradientDirection === 'to do') {
         const colors = this.parseGradientString(parsedGradientString, opacity);
         let isValid = true;
         let contrastRatio;
@@ -320,7 +316,7 @@ class QW_ACT_R37 extends AtomicRule {
           test.verdict = 'failed';
           test.resultCode = 'F2';
         }
-      } else if (gradientDirection === 'to left') {
+      } else if (gradientDirection === 'to left' || gradientDirection === 'to right') {
         //TODO
         test.verdict = 'warning';
         test.resultCode = 'W3';
