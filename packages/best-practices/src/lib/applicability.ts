@@ -184,6 +184,16 @@ function ElementHasAttributeRole(role: string) {
   };
 }
 
+function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const isInAT = window.AccessibilityUtils.isElementInAT(<typeof window.qwElement>arguments[0]);
+    if (isInAT) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
 export {
   ElementIsVisible,
   BestPracticeClass,
@@ -197,5 +207,6 @@ export {
   ElementDoesNotHaveChild,
   ElementHasParent,
   ElementIsNotChildOf,
-  ElementHasAttributeRole
+  ElementHasAttributeRole,
+  ElementIsInAccessibilityTree
 };
