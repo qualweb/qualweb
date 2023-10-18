@@ -327,8 +327,8 @@
     "baseConcept":  ["ol", "ul"],
     "attribute": "",
     "requiredContextRole": "",
-    "requiredRoles": "",
-    "supportedRoles": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+    "requiredAria": "",
+    "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
     "requiredOwnedElements":["listitem"]
   },
