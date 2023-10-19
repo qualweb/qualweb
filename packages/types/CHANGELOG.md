@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.23] - 19/10/2023
+
+### Updated
+
+- Added prohibitedAria
+
 ## [0.7.21] - 01/02/2023
 
 ### Updated
