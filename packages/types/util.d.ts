@@ -21,6 +21,7 @@ declare module "@qualweb/util" {
       supportedRoles?: string | Array<string>;
       implicitValueRoles: Array<Array<string>>;
       requiredOwnedElements: any;
+      prohibitedAria?: string | Array<string>;
     };
   }
 
