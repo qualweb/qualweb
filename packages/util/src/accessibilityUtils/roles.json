@@ -69,7 +69,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
 "cell": {
     "baseConcept":  ["td"],
@@ -96,7 +97,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
 "columnheader": {
     "baseConcept":  ["th"],
@@ -168,7 +170,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "dialog": {
     "baseConcept":  "",
@@ -204,7 +207,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "feed": {
     "baseConcept":  "",
@@ -240,7 +244,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby", "aria-roledescription"]
   },
   "grid": {
     "baseConcept":  ["table"],
@@ -303,7 +308,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "landmark": {
     "baseConcept":  "",
@@ -327,8 +333,8 @@
     "baseConcept":  ["ol", "ul"],
     "attribute": "",
     "requiredContextRole": "",
-    "requiredRoles": "",
-    "supportedRoles": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
+    "requiredAria": "",
+    "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-label", "aria-labelledby", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
     "requiredOwnedElements":["listitem"]
   },
@@ -483,7 +489,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "presentation": {
     "baseConcept":  "",
@@ -492,7 +499,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "progressbar": {
     "baseConcept":  "",
@@ -673,7 +681,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "structure": {
     "baseConcept":  "",
@@ -691,7 +700,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "superscript": {
     "baseConcept":  "",
@@ -700,7 +710,8 @@
     "requiredAria": "",
     "supportedAria": ["aria-atomic", "aria-busy", "aria-controls", "aria-current", "aria-describedby", "aria-details", "aria-dropeffect", "aria-flowto", "aria-grabbed", "aria-hidden", "aria-keyshortcuts", "aria-live", "aria-owns", "aria-relevant", "aria-roledescription"],
     "implicitValueRoles": [["",""]],
-    "requiredOwnedElements":[]
+    "requiredOwnedElements":[],
+    "prohibitedAria": ["aria-label", "aria-labelledby"]
   },
   "switch": {
     "baseConcept":  "",
