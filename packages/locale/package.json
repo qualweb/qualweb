@@ -13,7 +13,9 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "rimraf dist && tsc --build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
   "repository": {
