@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
+    "test": "mocha",
     "test:url": "mocha test/url.spec.mjs",
     "test:bp1": "mocha test/best-practices/QW-BP1.spec.mjs",
     "test:bp2": "mocha test/best-practices/QW-BP2.spec.mjs",
