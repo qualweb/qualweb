@@ -48,6 +48,7 @@
     "set-value": "^4.0.0"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/types": "0.7.20",
     "@tsconfig/recommended": "^1.0.1",
     "@types/command-line-args": "^5.0.0",
