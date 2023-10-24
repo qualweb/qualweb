@@ -15,7 +15,9 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prebuild": "rimraf dist",
     "build": "npm run prebuild && tsc --build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
   },
   "homepage": "https://github.com/qualweb/crawler#readme",
   "repository": {
