@@ -81,6 +81,7 @@
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/types": "0.7.22",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^17.0.19",
