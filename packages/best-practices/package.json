@@ -39,7 +39,9 @@
     "prebuild": "rimraf prebuild && npm run compile:bps && rimraf dist",
     "build": "tsc --build && webpack --mode production",
     "postbuild": "rimraf prebuild",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "repository": {
