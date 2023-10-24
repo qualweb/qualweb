@@ -36,6 +36,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/types": "0.7.15",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^16.11.7",
