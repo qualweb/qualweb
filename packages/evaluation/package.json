@@ -34,6 +34,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/dom": "0.2.6",
     "@qualweb/locale": "0.1.10",
     "@qualweb/types": "0.7.23",
