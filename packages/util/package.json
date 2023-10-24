@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.5.25",
+  "version": "0.5.26",
   "description": "Utilities module for qualweb",
   "main": "dist/util.bundle.js",
   "files": [
