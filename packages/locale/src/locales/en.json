@@ -1242,6 +1242,14 @@
         "P1": "The main landmark is at top level.",
         "F1": "The main landmark is not at top level."
       }
+    },
+    "QW-BP28": {
+      "name": "H1 element is used and unique",
+      "description": "Ensures there is only one H1",
+      "results": {
+        "P1": "The H1 element is used and unique",
+        "F1": "The H1 element is not present or used more than one time"
+      }
     }
   }
 }

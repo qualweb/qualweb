@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.1.12] - 07/09/2023
+
+### Updated
+
+- Added new bp
+
 ### [0.1.11] - 31/03/2022
 
 ### Updated
