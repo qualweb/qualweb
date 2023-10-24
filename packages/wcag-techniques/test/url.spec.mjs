@@ -9,7 +9,7 @@ describe('Running tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://mosaico.gov.pt/o-mosaico'; // 'https://ciencias.ulisboa.pt/';
+    const url = 'https://www.apec.org.pt/'; // 'https://ciencias.ulisboa.pt/';
 
     const browser = await puppeteer.launch({ headless: false });
     const incognito = await browser.createIncognitoBrowserContext();
