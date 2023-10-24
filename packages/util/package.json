@@ -19,6 +19,8 @@
     "prebuild": "rimraf prebuild && tsc --build",
     "build": "rimraf dist && npm run prebuild && webpack --mode production && rimraf prebuild",
     "docs": "typedoc --out docs src/index.ts",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/qualweb/util#readme",
@@ -38,6 +40,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@qualweb/dom": "^0.2.6",
     "@qualweb/qw-page": "^0.2.13",
     "@qualweb/types": "^0.7.21",
