@@ -35,4 +35,4 @@ runs:
     # removes node_modules before running.
     - name: Install dependencies
       shell: bash
-      run: npm i
+      run: npm ci
