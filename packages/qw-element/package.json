@@ -15,6 +15,8 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "npm run prebuild && tsc --build",
     "docs": "typedoc --out docs src/index.ts",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/qualweb/qw-element#readme",
