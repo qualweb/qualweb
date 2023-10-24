@@ -18,7 +18,9 @@
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "npm run prebuild && tsc --build",
     "typedoc": "typedoc --out docs src/index.ts",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
   },
   "keywords": [
     "qualweb",
