@@ -10,7 +10,7 @@ describe('Url crawling', function () {
     puppeteer.use(StealthPlugin());
 
     const browser = await puppeteer.launch({headless:false});
-    const crawler = new Crawler(browser, 'https://www.gns.gov.pt');
+    const crawler = new Crawler(browser, 'http://www.cm-gois.pt');
     await crawler.crawl({ logging: false, maxDepth: 0 });
     const urls = crawler.getResults();
     console.log(urls);
