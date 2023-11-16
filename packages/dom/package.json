@@ -1,0 +1,63 @@
+{
+  "name": "@qualweb/dom",
+  "version": "0.2.6",
+  "description": "Processes necessary page data for qualweb accessibility evaluation.",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prebuild": "rimraf dist",
+    "build": "npm run format && npm run lint && tsc --build",
+    "prepare": "npm run build",
+    "release": "npm run build && npx changeset publish",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
+  },
+  "homepage": "https://github.com/qualweb/dom#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/dom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/dom/issues"
+  },
+  "keywords": [
+    "qualweb",
+    "accessibility",
+    "dom",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@qualweb/types": "0.7.15",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^16.11.7",
+    "@types/node-fetch": "^2.5.12",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "chai": "^4.3.4",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.11.0",
+    "mocha": "^9.1.3",
+    "prettier": "^2.4.1",
+    "puppeteer": "^10.4.0",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.22.9",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.6"
+  }
+}
