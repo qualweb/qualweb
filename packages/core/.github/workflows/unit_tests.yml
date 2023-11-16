@@ -1,0 +1,27 @@
+
+name: Unit Tests
+on:
+  pull_request:
+    branches:
+      - develop
+  workflow_call:
+    inputs:
+      unused:
+        type: boolean
+        description: Unused, but it seems you must define *something* for workflow_call.
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (cache, dependencies)
+        uses: ./.github/actions/install_and_cache_dependencies
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test

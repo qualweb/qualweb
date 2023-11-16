@@ -1,0 +1,1024 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@qualweb/core</title>
+	<meta name="description" content="Documentation for @qualweb/core">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@qualweb/core</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@qualweb/core</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#qualweb-core" id="qualweb-core" style="color: inherit; text-decoration: none;">
+					<h1>QualWeb core</h1>
+				</a>
+				<p>The core allows you to perform automatic accessibility evaluations on web pages. It contains 3 evaluation modules:</p>
+				<ul>
+					<li><a href="https://github.com/qualweb/act-rules">@qualweb/act-rules</a></li>
+					<li><a href="https://github.com/qualweb/wcag-techniques">@qualweb/wcag-techniques</a></li>
+					<li><a href="https://github.com/qualweb/best-practices">@qualweb/best-practices</a></li>
+				</ul>
+				<p>You can also perform evaluations at <a href="http://qualweb.di.fc.ul.pt/evaluator/">http://qualweb.di.fc.ul.pt/evaluator/</a>, or by installing the <a href="https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc">chrome extension</a>.</p>
+				<a href="#how-to-install" id="how-to-install" style="color: inherit; text-decoration: none;">
+					<h2>How to install</h2>
+				</a>
+				<pre><code class="language-shell"><span style="color: #000000">  $ npm i @qualweb/core --save</span>
+</code></pre>
+				<a href="#how-to-run" id="how-to-run" style="color: inherit; text-decoration: none;">
+					<h2>How to run</h2>
+				</a>
+				<pre><code class="language-javascript"><span style="color: #000000">  </span><span style="color: #A31515">&#039;use strict&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">QualWeb</span><span style="color: #000000">, </span><span style="color: #0070C1">generateEARLReport</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@qualweb/core&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">  (</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">plugins</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">      </span><span style="color: #008000">// Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-adblocker</span>
+<span style="color: #000000">      </span><span style="color: #001080">adBlock:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Default value = false</span>
+<span style="color: #000000">      </span><span style="color: #008000">// Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth</span>
+<span style="color: #000000">      </span><span style="color: #001080">stealth:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// Default value = false</span>
+<span style="color: #000000">    };</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">qualweb</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">QualWeb</span><span style="color: #000000">(</span><span style="color: #001080">plugins</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">clusterOptions</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">      </span><span style="color: #001080">maxConcurrency:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #008000">// Performs several urls evaluations at the same time - the higher the number given, more resources will be used. Default value = 1</span>
+<span style="color: #000000">      </span><span style="color: #001080">timeout:</span><span style="color: #000000"> </span><span style="color: #098658">60</span><span style="color: #000000"> * </span><span style="color: #098658">1000</span><span style="color: #000000">, </span><span style="color: #008000">// Timeout for loading page. Default value = 30 seconds</span>
+<span style="color: #000000">      </span><span style="color: #001080">monitor:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// Displays urls information on the terminal. Default value = false</span>
+<span style="color: #000000">    };</span>
+
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">launchOptions</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">      ... </span><span style="color: #008000">// check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#puppeteerlaunchoptions</span>
+<span style="color: #000000">      </span><span style="color: #008000">// In most cases there&#039;s no need to give additional options. Just leave the field undefined</span>
+<span style="color: #000000">    };</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// Starts the QualWeb core engine</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">qualweb</span><span style="color: #000000">.</span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">clusterOptions</span><span style="color: #000000">, </span><span style="color: #001080">launchOptions</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// QualWeb evaluation report</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">qualwebOptions</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">      </span><span style="color: #001080">url:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;https://act-rules.github.io/pages/about/&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      ...</span>
+<span style="color: #000000">    };</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// Evaluates the given options - will only return after all urls have finished evaluating or resulted in an error</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">reports</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">qualweb</span><span style="color: #000000">.</span><span style="color: #795E26">evaluate</span><span style="color: #000000">(</span><span style="color: #001080">qualwebOptions</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">reports</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #008000">//  {</span>
+<span style="color: #000000">    </span><span style="color: #008000">//    &quot;url&quot;: &quot;report&quot;,</span>
+<span style="color: #000000">    </span><span style="color: #008000">//    &quot;url2&quot;: &quot;report2&quot;</span>
+<span style="color: #000000">    </span><span style="color: #008000">//  }</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// Stops the QualWeb core engine</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">qualweb</span><span style="color: #000000">.</span><span style="color: #795E26">stop</span><span style="color: #000000">();</span>
+
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">earlOptions</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">      </span><span style="color: #008000">// Check the options in the section below</span>
+<span style="color: #000000">    };</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// if you want an EARL report</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">earlReports</span><span style="color: #000000"> = </span><span style="color: #795E26">generateEARLReport</span><span style="color: #000000">(</span><span style="color: #001080">reports</span><span style="color: #000000">, </span><span style="color: #001080">earlOptions</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">earlReports</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #008000">//  {</span>
+<span style="color: #000000">    </span><span style="color: #008000">//    &quot;url&quot;: &quot;earlReport&quot;,</span>
+<span style="color: #000000">    </span><span style="color: #008000">//    &quot;url2&quot;: &quot;earlReport2&quot;</span>
+<span style="color: #000000">    </span><span style="color: #008000">//  }</span>
+<span style="color: #000000">  })();</span>
+</code></pre>
+				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
+					<h2>Options</h2>
+				</a>
+				<p>The available options fot the <strong>evaluate()</strong> function are:</p>
+				<pre><code class="language-jsonc"><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;https://act-rules.github.io/pages/about/&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// url to evaluate</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;urls&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;https://act-rules.github.io/pages/about/&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;https://act-rules.github.io/rules/&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of urls</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;file&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;/path/to/file/with/urls&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// urls must be separated by a newline (\n)</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;crawl&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;https://act-rules.github.io&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// Experimental feature - domain to crawl and obtain the urls</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;viewport&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;mobile&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// default value = false</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;landscape&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// default value = viewPort.width &gt; viewPort.height</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;userAgent&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;custom user agent&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// default value for desktop = &#039;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:22.0) Gecko/20100101 Firefox/22.0&#039;, default value for mobile = &#039;Mozilla/5.0 (Linux; U; Android 2.2; en-us; DROID2 GLOBAL Build/S273) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1&#039;</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;resolution&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;width&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1920</span><span style="color: #000000">, </span><span style="color: #008000">// default value for desktop = 1366, default value for mobile = 1080</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;height&quot;</span><span style="color: #000000">: </span><span style="color: #098658">1080</span><span style="color: #000000"> </span><span style="color: #008000">// default value for desktop = 768, default value for mobile = 1920</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;waitUntil&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;load&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;networkidle0&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Events to wait before starting evaluation, default value = &quot;load&quot;. For more check https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pagegotourl-options</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;validator&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;http://127.0.0.1/validate&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// HTML validator service endpoint. The url will be attached after of the given endpoint</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;crawlOptions&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;maxDepth&quot;</span><span style="color: #000000">: </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #008000">// max depth to search, 0 to search only the given domain. Default value = -1 (search everything)</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;maxUrls&quot;</span><span style="color: #000000">: </span><span style="color: #098658">100</span><span style="color: #000000">, </span><span style="color: #008000">// max urls to find. Default value = -1 (search everything)</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;timeout&quot;</span><span style="color: #000000">: </span><span style="color: #098658">60</span><span style="color: #000000">, </span><span style="color: #008000">// how many seconds the domain should be crawled before it ends. Default value = -1 (never stops)</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;maxParallelCrawls&quot;</span><span style="color: #000000">: </span><span style="color: #098658">10</span><span style="color: #000000">, </span><span style="color: #008000">// max urls to crawl at the same time. Default value = 5</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;logging&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000"> </span><span style="color: #008000">// logs domain, current depth, urls found and time passed to the terminal</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;execute&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// choose which modules to execute</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;wappalyzer&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// wappalyzer module (https://github.com/qualweb/wappalyzer) - default value = false</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;act&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// act-rules module (https://github.com/qualweb/act-rules) - default value = true</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;wcag&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// wcag-techniques module (https://github.com/qualweb/wcag-techniques) - default value = true</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;bp&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// best-practices module (https://github.com/qualweb/best-practices) - default value = true</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;counter&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000"> </span><span style="color: #008000">// counter module (https://github.com/qualweb/counter) - default value = false</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;act-rules&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// More information about this options at https://github.com/qualweb/act-rules</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;rules&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-ACT-R1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;b5c3f8&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of rules to execute, can be passed the QualWeb Rule ID or the ACT Rule ID</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;exclude&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-ACT-R1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;b5c3f8&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of rules to exclude, can be passed the QualWeb Rule ID or the ACT Rule ID</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;levels&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;A&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;AA&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;AAA&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Conformance levels to execute,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;principles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;Perceivable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Operable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Understandable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Robust&quot;</span><span style="color: #000000">] </span><span style="color: #008000">// Principles to execute</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;wcag-techniques&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// More information about this options at https://github.com/qualweb/wcag-techniques</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;rules&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-WCAG-T1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;H39&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of techniques to execute, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;exclude&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-WCAG-T1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;H39&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of techniques to exclude, can be passed the QualWeb Technique ID or the WCAG 2.1 Technique Code</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;levels&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;A&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;AA&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;AAA&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Conformance levels to execute,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;principles&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;Perceivable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Operable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Understandable&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Robust&quot;</span><span style="color: #000000">] </span><span style="color: #008000">// Principles to execute</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;best-practices&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// More information about this options at https://github.com/qualweb/best-practices</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;bestPractices&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-BP1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;QW-BP2&quot;</span><span style="color: #000000">], </span><span style="color: #008000">// Array of best practices to execute</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;exclude&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;QW-BP1&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;QW-BP2&quot;</span><span style="color: #000000">] </span><span style="color: #008000">// Array of best practices to exclude</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>The available options fot the <strong>generateEARLReport()</strong> function are:</p>
+				<pre><code class="language-jsonc"><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;aggregated&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// default value = false</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;aggregatedName&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;websites.json&quot;</span><span style="color: #000000">, </span><span style="color: #008000">// The name to save the aggregated earl reports. default value = first url of the list</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;modules&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Choose which modules to convert the report to earl, by default all modules are converted if they were executed</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;act&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// default value = true</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;wcag&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// default value = true</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;best-practices&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">false</span><span style="color: #000000"> </span><span style="color: #008000">// default value = true</span>
+<span style="color: #000000">  } </span><span style="color: #008000">// If the &quot;modules&quot; value is given, any missing module value missing it&#039;s automatically set to false</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<a href="#report-details" id="report-details" style="color: inherit; text-decoration: none;">
+					<h2>Report details</h2>
+				</a>
+				<p>In this section it&#39;s explained the evaluation report in detail. For a detailed version of the EARL report check <a href="https://github.com/qualweb/earl-reporter#report-details">@qualweb/earl-reporter</a>.</p>
+				<pre><code class="language-jsonc"><span style="color: #000000">  {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;evaluation&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;system&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb is an automatic accessibility evaluator for webpages.&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;version&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb version&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;homepage&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;http://www.qualweb.di.fc.ul.pt/&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;date&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;date of the evaluation&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;hash&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;unique hash&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;inputUrl&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;inserted url&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;protocol&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;protocol of the url&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;domainName&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;domain name of the url&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;domain&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;domain of the url&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;uri&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;uri of the url&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;completeUrl&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;complete url after all redirects&quot;</span>
+<span style="color: #000000">      },</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;page&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;viewport&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;mobile&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;was evaluated on a mobile context or not&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;landscape&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;was evaluated on a landscape context or not&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;userAgent&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;user agent used&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;resolution&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;width&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;window&#039;s width used&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;height&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;window&#039;s height used&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          }</span>
+<span style="color: #000000">        },</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;dom&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;html&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;html code as a string&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;title&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Title of the webpage&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;elementCount&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element count of the webpage&quot;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of passed rules/techniques/best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of warning rules/techniques/best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of failed rules/techniques/best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;inapplicable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of inapplicable rules/techniques/best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;modules&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;act-rules&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;act-rules&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of passed rules&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of warning rules&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of failed rules&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;inapplicable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of inapplicable rules&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        },</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;assertions&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;QW_ACT_R1&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the rule&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;code&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb rule id&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;mapping&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;ACT rule id mapping&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the rule&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;target&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Any target, can be one element, multiple elements, attributes, a relation between elements&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;success-criteria?&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">                {</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;level&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Level of conformance of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;principle&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Principle of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Url of the success criteria&quot;</span>
+<span style="color: #000000">                }</span>
+<span style="color: #000000">              ],</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;related?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// related WCAG 2.1 techniques</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;url?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Url of the rule&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of passed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of warning results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number ff failed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;type?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// usually &quot;ACTRule&quot; or &quot;TestCase&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;a11yReq?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// WCAG 2.1 relation - something like &quot;WCAG21:language&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;outcome&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the rule&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the outcome&quot;</span><span style="color: #CD3131">;</span>
+<span style="color: #000000">            },</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;results&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">              {</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;verdict&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;resultCode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Test identifier&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;pointer?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element pointer in CSS notation&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;htmlCode?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element html code&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;attributes?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Attributes of the element&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;accessibleName?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Accessible name of the test target&quot;</span>
+<span style="color: #000000">              },</span>
+<span style="color: #000000">              { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">            ]</span>
+<span style="color: #000000">          },</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;...&quot;</span><span style="color: #000000">: { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      },</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;wcag-techniques&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;wcag-techniques&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of passed techniques&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of warning techniques&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of failed techniques&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;inapplicable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of inapplicable techniques&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        },</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;assertions&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;QW_WCAG_T1&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the technique&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;code&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb technique id&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;mapping&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;WCAG techniques code mapping&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the technique&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;target&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Any target, can be one element, multiple elements, attributes, a relation between elements&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;success-criteria?&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">                {</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;level&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Level of conformance of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;principle&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Principle of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Url of the success criteria&quot;</span>
+<span style="color: #000000">                }</span>
+<span style="color: #000000">              ],</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;related?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// related WCAG 2.1 techniques</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;url?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Url of the technique&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of passed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of warning results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number ff failed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;type?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// usually &quot;ACTRule&quot; or &quot;TestCase&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;a11yReq?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// WCAG 2.1 relation - something like &quot;WCAG21:language&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;outcome&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the technique&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the outcome&quot;</span><span style="color: #CD3131">;</span>
+<span style="color: #000000">            },</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;results&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">              {</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;verdict&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;resultCode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Test identifier&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;pointer?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element pointer in CSS notation&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;htmlCode?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element html code&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;attributes?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Attributes of the element&quot;</span><span style="color: #000000"> </span><span style="color: #008000">// if available</span>
+<span style="color: #000000">              },</span>
+<span style="color: #000000">              { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">            ]</span>
+<span style="color: #000000">          },</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;...&quot;</span><span style="color: #000000">: { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      },</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;best-practices&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;best-practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of passed best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of warning best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of failed best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;inapplicable&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;number of inapplicable best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        },</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;assertions&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;QW_BP1&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the technique&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;code&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;QualWeb best practices id&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;metadata&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;target&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Any target, can be one element, multiple elements, attributes, a relation between elements&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;success-criteria?&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">                {</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;name&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Name of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;level&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Level of conformance of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;principle&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Principle of the success criteria&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                  </span><span style="color: #0451A5">&quot;url&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Url of the success criteria&quot;</span>
+<span style="color: #000000">                }</span>
+<span style="color: #000000">              ],</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;related?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// related WCAG 2.1 techniques</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;passed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of passed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;warning&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number of warning results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;failed&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Number ff failed results&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;type?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// usually &quot;ACTRule&quot; or &quot;TestCase&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;a11yReq?&quot;</span><span style="color: #000000">: [], </span><span style="color: #008000">// WCAG 2.1 relation - something like &quot;WCAG21:language&quot;</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;outcome&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the best practices&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">              </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the outcome&quot;</span><span style="color: #CD3131">;</span>
+<span style="color: #000000">            },</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;results&quot;</span><span style="color: #000000">: [</span>
+<span style="color: #000000">              {</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;verdict&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Outcome of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;description&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Description of the test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;resultCode&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Test identifier&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;pointer?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element pointer in CSS notation&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;htmlCode?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Element html code&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">                </span><span style="color: #0451A5">&quot;attributes?&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;Attributes of the element&quot;</span><span style="color: #000000"> </span><span style="color: #008000">// if available</span>
+<span style="color: #000000">              },</span>
+<span style="color: #000000">              { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">            ]</span>
+<span style="color: #000000">          },</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;...&quot;</span><span style="color: #000000">: { </span><span style="color: #CD3131">...</span><span style="color: #000000"> }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      },</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;counter&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;type&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;counter&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0451A5">&quot;data&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;roles&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;button&quot;</span><span style="color: #000000">: </span><span style="color: #098658">2</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;link&quot;</span><span style="color: #000000">: </span><span style="color: #098658">4</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #CD3131">...</span>
+<span style="color: #000000">          },</span>
+<span style="color: #000000">          </span><span style="color: #0451A5">&quot;tags&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;div&quot;</span><span style="color: #000000">: </span><span style="color: #098658">10</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #0451A5">&quot;table&quot;</span><span style="color: #000000">: </span><span style="color: #098658">3</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #CD3131">...</span>
+<span style="color: #000000">          }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  }</span>
+</code></pre>
+				<a href="#implemented-act-rules" id="implemented-act-rules" style="color: inherit; text-decoration: none;">
+					<h2>Implemented ACT Rules</h2>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>QualWeb Rule ID</th>
+							<th>ACT Rule ID</th>
+							<th>ACT Rule Name</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>QW-ACT-R1</td>
+							<td><a href="https://act-rules.github.io/rules/2779a5">2779a5</a></td>
+							<td>HTML Page has a title</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R2</td>
+							<td><a href="https://act-rules.github.io/rules/b5c3f8">b5c3f8</a></td>
+							<td>HTML has lang attribute</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R3</td>
+							<td><a href="https://act-rules.github.io/rules/5b7ae0">5b7ae0</a></td>
+							<td>HTML lang and xml:lang match</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R4</td>
+							<td><a href="https://act-rules.github.io/rules/bc659a">bc659a</a></td>
+							<td>Meta-refresh no delay</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R5</td>
+							<td><a href="https://act-rules.github.io/rules/bf051a">bf051a</a></td>
+							<td>Validity of HTML Lang attribute</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R6</td>
+							<td><a href="https://act-rules.github.io/rules/59796f">59796f</a></td>
+							<td>Image button has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R7</td>
+							<td><a href="https://act-rules.github.io/rules/b33eff">b33eff</a></td>
+							<td>Orientation of the page is not restricted using CSS transform property</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R9</td>
+							<td><a href="https://act-rules.github.io/rules/b20e66">b20e66</a></td>
+							<td>Links with identical accessible names have equivalent purpose</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R10</td>
+							<td><a href="https://act-rules.github.io/rules/4b1c6c">4b1c6c</a></td>
+							<td><code>iframe</code> elements with identical accessible names have equivalent purpose</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R11</td>
+							<td><a href="https://act-rules.github.io/rules/97a4e1">97a4e1</a></td>
+							<td>Button has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R12</td>
+							<td><a href="https://act-rules.github.io/rules/c487ae">c487ae</a></td>
+							<td>Link has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R13</td>
+							<td><a href="https://act-rules.github.io/rules/6cfa84">6cfa84</a></td>
+							<td>Element with <code>aria-hidden</code> has no focusable content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R14</td>
+							<td><a href="https://act-rules.github.io/rules/b4f0c3">b4f0c3</a></td>
+							<td>meta viewport does not prevent zoom</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R15</td>
+							<td><a href="https://act-rules.github.io/rules/80f0bf">80f0bf</a></td>
+							<td>audio or video has no audio that plays automatically</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R16</td>
+							<td><a href="https://act-rules.github.io/rules/e086e5">e086e5</a></td>
+							<td>Form control has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R17</td>
+							<td><a href="https://act-rules.github.io/rules/23a2a8">23a2a8</a></td>
+							<td>Image has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R18</td>
+							<td><a href="https://act-rules.github.io/rules/3ea0c8">3ea0c8</a></td>
+							<td><code>id</code> attribute value is unique</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R19</td>
+							<td><a href="https://act-rules.github.io/rules/cae760">cae760</a></td>
+							<td>iframe element has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R20</td>
+							<td><a href="https://act-rules.github.io/rules/674b10">674b10</a></td>
+							<td>role attribute has valid value</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R21</td>
+							<td><a href="https://act-rules.github.io/rules/7d6734">7d6734</a></td>
+							<td>svg element with explicit role has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R22</td>
+							<td><a href="https://act-rules.github.io/rules/de46e4">de46e4</a></td>
+							<td>Element within body has valid lang attribute</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R23</td>
+							<td><a href="https://act-rules.github.io/rules/c5a4ea">c5a4ea</a></td>
+							<td>video element visual content has accessible alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R24</td>
+							<td><a href="https://act-rules.github.io/rules/73f2c2">73f2c2</a></td>
+							<td>autocomplete attribute has valid value</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R25</td>
+							<td><a href="https://act-rules.github.io/rules/5c01ea">5c01ea</a></td>
+							<td>ARIA state or property is permitted</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R26</td>
+							<td><a href="https://act-rules.github.io/rules/eac66b">eac66b</a></td>
+							<td>video element auditory content has accessible alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R27</td>
+							<td><a href="https://act-rules.github.io/rules/5f99a7">5f99a7</a></td>
+							<td>This rule checks that each aria- attribute specified is defined in ARIA 1.1.</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R28</td>
+							<td><a href="https://act-rules.github.io/rules/4e8ab6">4e8ab6</a></td>
+							<td>Element with role attribute has required states and properties</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R29</td>
+							<td><a href="https://act-rules.github.io/rules/e7aa44">e7aa44</a></td>
+							<td>Audio element content has text alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R30</td>
+							<td><a href="https://act-rules.github.io/rules/2ee8b8">2ee8b8</a></td>
+							<td>Visible label is part of accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R31</td>
+							<td><a href="https://act-rules.github.io/rules/c3232f">c3232f</a></td>
+							<td>Video element visual-only content has accessible alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R32</td>
+							<td><a href="https://act-rules.github.io/rules/1ec09b">1ec09b</a></td>
+							<td>video element visual content has strict accessible alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R33</td>
+							<td><a href="https://act-rules.github.io/rules/ff89c9">ff89c9</a></td>
+							<td>ARIA required context role</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R34</td>
+							<td><a href="https://act-rules.github.io/rules/6a7281">6a7281</a></td>
+							<td>ARIA state or property has valid value</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R35</td>
+							<td><a href="https://act-rules.github.io/rules/ffd0e9">ffd0e9</a></td>
+							<td>Heading has accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R36</td>
+							<td><a href="https://act-rules.github.io/rules/a25f45">a25f45</a></td>
+							<td>Headers attribute specified on a cell refers to cells in the same table element</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R37</td>
+							<td><a href="https://act-rules.github.io/rules/afw4f7">afw4f7</a></td>
+							<td>Text has minimum contrast</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R38</td>
+							<td><a href="https://act-rules.github.io/rules/bc4a75">bc4a75</a></td>
+							<td>ARIA required owned elements</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R39</td>
+							<td><a href="https://act-rules.github.io/rules/d0f69e">d0f69e</a></td>
+							<td>All table header cells have assigned data cells</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R40</td>
+							<td><a href="https://act-rules.github.io/rules/59br37">59br37</a></td>
+							<td>Zoomed text node is not clipped with CSS overflow</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R41</td>
+							<td><a href="https://act-rules.github.io/rules/36b590">36b590</a></td>
+							<td>Error message describes invalid form field value</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R42</td>
+							<td><a href="https://act-rules.github.io/rules/8fc3b6">8fc3b6</a></td>
+							<td>Object element has non-empty accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R43</td>
+							<td><a href="https://act-rules.github.io/rules/0ssw9k">0ssw9k</a></td>
+							<td>Scrollable element is keyboard accessible</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R44</td>
+							<td><a href="https://act-rules.github.io/rules/fd3a94">fd3a94</a></td>
+							<td>Links with identical accessible names and context serve equivalent purpose</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R48</td>
+							<td><a href="https://act-rules.github.io/rules/46ca7f">46ca7f</a></td>
+							<td>Element marked as decorative is not exposed</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R49</td>
+							<td><a href="https://act-rules.github.io/rules/aaa1bf">aaa1bf</a></td>
+							<td>Audio or video that plays automatically has no audio that lasts more than 3 seconds</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R50</td>
+							<td><a href="https://act-rules.github.io/rules/4c31df">4c31df</a></td>
+							<td>Audio or video that plays automatically has a control mechanism</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R51</td>
+							<td><a href="https://act-rules.github.io/rules/fd26cf">fd26cf</a></td>
+							<td>video element visual-only content is media alternative for text</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R52</td>
+							<td><a href="https://act-rules.github.io/rules/ac7dc6">ac7dc6</a></td>
+							<td>video element visual-only content has description track</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R53</td>
+							<td><a href="https://act-rules.github.io/rules/ee13b5">ee13b5</a></td>
+							<td>video element visual-only content has transcript</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R54</td>
+							<td><a href="https://act-rules.github.io/rules/d7ba54">d7ba54</a></td>
+							<td>video element visual-only content has audio track alternative</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R55</td>
+							<td><a href="https://act-rules.github.io/rules/1ea59c">1ea59c</a></td>
+							<td>video element visual content has audio description</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R56</td>
+							<td><a href="https://act-rules.github.io/rules/ab4d13">ab4d13</a></td>
+							<td>video element content is media alternative for text</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R57</td>
+							<td><a href="https://act-rules.github.io/rules/f196ce">f196ce</a></td>
+							<td>video element visual content has description track</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R58</td>
+							<td><a href="https://act-rules.github.io/rules/2eb176">2eb176</a></td>
+							<td>audio element content has transcript</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R59</td>
+							<td><a href="https://act-rules.github.io/rules/afb423">afb423</a></td>
+							<td>audio element content is media alternative for text</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R60</td>
+							<td><a href="https://act-rules.github.io/rules/f51b46">f51b46</a></td>
+							<td>video element auditory content has captions</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R61</td>
+							<td><a href="https://act-rules.github.io/rules/1a02b0">1a02b0</a></td>
+							<td>video element visual content has transcript</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R62</td>
+							<td><a href="https://act-rules.github.io/rules/oj04fd">oj04fd</a></td>
+							<td>Element in sequential focus order has visible focus</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R63</td>
+							<td><a href="https://act-rules.github.io/rules/b40fd1">b40fd1</a></td>
+							<td>Document has a landmark with non-repeated content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R64</td>
+							<td><a href="https://act-rules.github.io/rules/047fe0">047fe0</a></td>
+							<td>Document has heading for non-repeated content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R65</td>
+							<td><a href="https://act-rules.github.io/rules/307n5z">307n5z</a></td>
+							<td>Element with presentational children has no focusable content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R66</td>
+							<td><a href="https://act-rules.github.io/rules/m6b1q3">m6b1q3</a></td>
+							<td>Menuitem has non-empty accessible name</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R67</td>
+							<td><a href="https://act-rules.github.io/rules/24afc2">24afc2</a></td>
+							<td>Letter spacing in style attributes is not !important</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R68</td>
+							<td><a href="https://act-rules.github.io/rules/78fd32">78fd32</a></td>
+							<td>Line height in style attributes is not !important</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R69</td>
+							<td><a href="https://act-rules.github.io/rules/9e45ec">9e45ec</a></td>
+							<td>Word spacing in style attributes is not !important</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R70</td>
+							<td><a href="https://act-rules.github.io/rules/akn7bn">akn7bn</a></td>
+							<td>frame with negative tabindex has no interactive elements</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R71</td>
+							<td><a href="https://act-rules.github.io/rules/bisz58">bisz58</a></td>
+							<td><code>meta</code> element has no refresh delay (no exception)</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R72</td>
+							<td><a href="https://act-rules.github.io/rules/8a213c">8a213c</a></td>
+							<td>First focusable element is link to non-repeated content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R73</td>
+							<td><a href="https://act-rules.github.io/rules/3e12e1">3e12e1</a></td>
+							<td>Block of repeated content is collapsible</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R74</td>
+							<td><a href="https://act-rules.github.io/rules/ye5d6e">ye5d6e</a></td>
+							<td>Document has an instrument to move focus to non-repeated content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R75</td>
+							<td><a href="https://act-rules.github.io/rules/cf77f2">cf77f2</a></td>
+							<td>Bypass Blocks of Repeated Content</td>
+						</tr>
+						<tr>
+							<td>QW-ACT-R76</td>
+							<td><a href="https://act-rules.github.io/rules/09o5cg">09o5cg</a></td>
+							<td>Text has enhanced contrast</td>
+						</tr>
+				</tbody></table>
+				<a href="#implemented-wcag-21-techniques" id="implemented-wcag-21-techniques" style="color: inherit; text-decoration: none;">
+					<h2>Implemented WCAG 2.1 Techniques</h2>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>QualWeb Technique ID</th>
+							<th>WCAG Technique ID</th>
+							<th>WCAG Technique Name</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>QW-WCAG-T1</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H24">H24</a></td>
+							<td>Providing text alternatives for the area elements of image maps</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T2</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H39">H39</a></td>
+							<td>Using caption elements to associate data table captions with data tables</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T3</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H71">H71</a></td>
+							<td>Providing a description for groups of form controls using fieldset and legend elements</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T4</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H73">H73</a></td>
+							<td>Using the summary attribute of the table element to give an overview of data tables</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T5</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H36">H36</a></td>
+							<td>Using alt attributes on images used as submit buttons</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T6</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/client-side-script/SCR20">SCR20</a></td>
+							<td>Using both keyboard and other device-specific functions</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T7</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H28">H28</a></td>
+							<td>Providing definitions for abbreviations by using the abbr element</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T8</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F30">F30</a></td>
+							<td>Failure of Success Criterion 1.1.1 and 1.2.1 due to using text alternatives that are not alternatives</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T9</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G141">G141</a></td>
+							<td>Organizing a page using headings</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T10</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H2">H2</a></td>
+							<td>Combining adjacent image and text links for the same resource</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T11</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H35">H35</a></td>
+							<td>Providing text alternatives on applet elements</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T12</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F46">F46</a></td>
+							<td>Failure of Success Criterion 1.3.1 due to using th elements, caption elements, or non-empty summary attributes in layout tables</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T13</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F47">F47</a></td>
+							<td>Failure of Success Criterion 2.2.2 due to using the blink element</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T14</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H43">H43</a></td>
+							<td>Using id and headers attributes to associate data cells with header cells in data tables</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T15</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H59">H59</a></td>
+							<td>Using the link element and navigation tools</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T16</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H88">H88</a></td>
+							<td>Using HTML according to spec</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T17</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G162">G162</a></td>
+							<td>Positioning labels to maximize predictability of relationships</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T18</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H51">H51</a></td>
+							<td>Using table markup to present tabular information</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T19</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H32">H32</a></td>
+							<td>Providing submit buttons</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T20</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H33">H33</a></td>
+							<td>Supplementing link text with the title attribute</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T21</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F89">F89</a></td>
+							<td>Failure of Success Criteria 2.4.4, 2.4.9 and 4.1.2 due to not providing an accessible name for an image which is the only content in a link</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T22</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F52">F52</a></td>
+							<td>Failure of Success Criterion 3.2.1 and 3.2.5 due to opening a new window as soon as a new page is loaded</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T23</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G1">G1</a></td>
+							<td>Adding a link at the top of each page that goes directly to the main content area</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T24</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F55">F55</a></td>
+							<td>Failure of Success Criteria 2.1.1, 2.4.7, and 3.2.1 due to using script to remove focus when focus is received</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T25</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H63">H63</a></td>
+							<td>Using the scope attribute to associate header cells and data cells in data tables</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T26</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F59">F59</a></td>
+							<td>Failure of Success Criterion 4.1.2 due to using script to make div or span a user interface control in HTML without providing a role for the control</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T27</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F88">F88</a></td>
+							<td>Failure of Success Criterion 1.4.8 due to using text that is justified (aligned to both the left and the right margins)</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T28</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/css/C12">C12</a> <a href="https://www.w3.org/WAI/WCAG21/Techniques/css/C13">C13</a> <a href="https://www.w3.org/WAI/WCAG21/Techniques/css/C14">C14</a></td>
+							<td>Using <code>percent, em, names</code> for font sizes</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T29</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/css/C19">C19</a></td>
+							<td>Specifying alignment either to the left or right in CSS</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T30</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F4">F4</a></td>
+							<td>Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T31</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F24">F24</a></td>
+							<td>Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa</td>
+						</tr>
+						<tr>
+							<td>QW-WCAG-T32</td>
+							<td><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H48">H48</a></td>
+							<td>Using ol, ul and dl for lists or groups of links</td>
+						</tr>
+				</tbody></table>
+				<a href="#evaluation-problems" id="evaluation-problems" style="color: inherit; text-decoration: none;">
+					<h1>Evaluation problems</h1>
+				</a>
+				<p>Sometimes, some webpages fail to evaluate, or the evaluation may take a really long time. Before creating an issue check the <strong>error.log</strong> file and verify that:</p>
+				<ul>
+					<li>The URL is correct, and it uses http or https, or www, or both;</li>
+					<li>The webpage exists;</li>
+					<li>If using https, that the certificate is valid;<ul>
+							<li>If you really want to evaluate the page with an invalid certificate, add &quot;--ignore-certificate-errors&quot; to the <code>args</code> in qualweb puppeteer launch options.</li>
+						</ul>
+					</li>
+					<li>The webpage is not password protected;</li>
+					<li>The webpage is an <a href="https://dom.spec.whatwg.org/#concept-document">HTML Document</a>.</li>
+				</ul>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h1>License</h1>
+				</a>
+				<p>ISC</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/qualweb.html" class="tsd-kind-icon">Qual<wbr>Web</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="modules.html#generateearlreport" class="tsd-kind-icon">generateEARLReport</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#getfileurls" class="tsd-kind-icon">get<wbr>File<wbr>Urls</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
