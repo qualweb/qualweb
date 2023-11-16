@@ -1,0 +1,69 @@
+{
+  "name": "@qualweb/wcag-techniques",
+  "version": "0.3.10",
+  "description": "Implementation of the WCAG 2.1 techniques",
+  "main": "dist/wcag.bundle.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha test/**/*",
+    "test:url": "mocha test/url.spec.mjs",
+    "test:t17": "mocha test/techniques/QW-WCAG-T17.spec.mjs",
+    "test:t9": "mocha test/techniques/QW-WCAG-T9.spec.mjs",
+    "test:t33": "mocha test/techniques/QW-WCAG-T33.spec.mjs",
+    "test:t34": "mocha test/techniques/QW-WCAG-T34.spec.mjs",
+    "compile:techniques": "node compile-techniques.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prebuild": "npm run compile:techniques && rimraf prebuild && rimraf dist ",
+    "build": "tsc --build && webpack --mode production",
+    "postbuild": "rimraf prebuild",
+    "prepare": "npm run build"
+  },
+  "homepage": "https://github.com/qualweb/wcag-techniques#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/wcag-techniques.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/wcag-techniques/issues"
+  },
+  "keywords": [
+    "wcag",
+    "a11y",
+    "accessibility",
+    "wcag-2.1",
+    "techniques",
+    "qualweb",
+    "evaluation"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@qualweb/dom": "0.2.6",
+    "@qualweb/locale": "0.1.11",
+    "@qualweb/qw-page": "0.2.12",
+    "@qualweb/types": "0.7.16",
+    "@qualweb/util": "0.5.14",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "chai": "^4.3.4",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.11.0",
+    "mocha": "^9.1.3",
+    "prettier": "^2.5.1",
+    "puppeteer": "^13.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
