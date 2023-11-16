@@ -1,0 +1,38 @@
+name: Install dependencies
+author: Johannes L. Borresen
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+
+      uses: actions/setup-node@v3.8.1
+      with:
+        node-version: "19"
+
+    # The steps that have been commented out are specific for caching the PNPM
+    # store (central dependency cache) between builds. It has been kept in case
+    # you want to use it.
+
+    # - name: Setup pnpm
+    #   uses: pnpm/action-setup@v2.4.0
+    #   with:
+    #     run_install: false
+
+    # - name: Detect PNPM store directory
+    #   shell: bash
+    #   run: |
+    #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    # - name: Setup cache
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ${{ env.STORE_PATH }}
+    #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-pnpm-store-
+
+    # Note: if caching is re-introduced, avoid use of `npm ci` as this command
+    # removes node_modules before running.
+    - name: Install dependencies
+      shell: bash
+      run: npm i

@@ -1,0 +1,1247 @@
+{
+  "act-rules": {
+    "QW-ACT-R1": {
+      "name": "HTML-sivulla on sivuotsikko",
+      "description": "Tämä sääntö tarkastaa, että HTML-sivulla on 'title'-elementti.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Title`-elementti löytyy eikä se ole tyhjä.",
+        "F1": "`Title`-elementtiä ei löydy.",
+        "F2": "`Title`-elementti on tyhjä.",
+        "F3": "Löytynyt `title`-elementti ei ole sivun otsikkona."
+      }
+    },
+    "QW-ACT-R2": {
+      "name": "`Html` -elementissä on `lang`-attribuutti",
+      "description": "Tämä sääntö tarkastaa, että `html`-elementillä on `lang`- tai `xml:lang`-attribuutti, joka ei ole tyhjä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Lang`-attribuutti löytyi ja sille on asetettu arvo.",
+        "F1": "`Lang`-attribuuttia ei löydy tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R3": {
+      "name": "HTML-elementin `lang` ja `xml:lang` vastaavat toisiaan",
+      "description": "Tämä sääntö tarkastaa, että jos `html`-elementti sisältää sekä `lang`- että `xml:lang`-attribuutit, jotka eivät ole tyhjiä, niiden arvot vastaavat toisiaan.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Lang`- ja `xml:lang`-attribuuteilla on sama arvo.",
+        "F1": "`Lang`- ja `xml:lang`-attribuuttien arvot eivät vastaa toisiaan."
+      }
+    },
+    "QW-ACT-R4": {
+      "name": "`Meta`-elementin uudelleenlatauksessa ei viivettä",
+      "description": "Tämä sääntö tarkastaa, että `meta`-elementtiä ei ole käytetty viivästettyyn uudelleenohjaukseen tai uudelleenlataukseen.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen uudelleen lataaminen tai uudelleenohjaus tehdään välittömästi.",
+        "P2": "Kohteen uudelleen lataaminen tai uudelleenohjaus tapahtuu yli 20 tunnin kuluttua.",
+        "F1": "Kohde uudelleenladataan {seconds} sekunnin jälkeen.",
+        "F2": "Kohde uudelleenohjataan {seconds} sekunnin jälkeen."
+      }
+    },
+    "QW-ACT-R5": {
+      "name": "`Html`-elementin `lang`-attribuutin kelpoisuus",
+      "description": "Tämä sääntö tarkastaa, että `lang` tai `xml:lang` -attribuutilla on hyväksytty kielikoodi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Lang`-attribuutti sisältää hyväksytyn kielikoodin.",
+        "F1": "`Lang`-attribuutti ei sisällä hyväksyttyä kielikoodia."
+      }
+    },
+    "QW-ACT-R6": {
+      "name": "Kuvaa esittävällä painikkeella on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella kuvaa esittävällä painikkeella on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä."
+      }
+    },
+    "QW-ACT-R7": {
+      "name": "Sivun asentoa ei ole rajoitettu CSS:n `transform`-säännöllä",
+      "description": "Tämä sääntö tarkastaa, että sivun sisältöä ei ole rajoitettu vaaka- eikä pystyasentoon CSS:n `transform`-säännöllä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sivulla olevan CSS:n `transform`-säännön `rotateZ`-funktiota käytetään `orientation`-ehdon kanssa tavalla, joka ei rajoita elementtiä pysty- tai vaakasuoraan esitystapaan.",
+        "F1": "Sivulla olevan CSS:n `transform`-säännön `rotate`-funktiota käytetään `orientation`-ehdon kanssa tavalla, joka rajoittaa elementin vaakasuoraan esitystapaan."
+      }
+    },
+    "QW-ACT-R9": {
+      "name": "Linkeillä, joilla on samat saavutettavat nimet, on myös sama merkitys",
+      "description": "Tämä sääntö tarkastaa, että linkit, joilla on samat saavutettavat nimet, johtavat samaan tai vastaavaan sisältöön.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Linkit, joilla on sama saavutettava nimi, johtavat samaan sisältöön.",
+        "F1": "Linkit, joilla on sama saavutettava nimi, johtavat eri sisältöihin. Varmista, että sisällöt vastaavat toisiaan."
+      }
+    },
+    "QW-ACT-R10": {
+      "name": "`Iframe`-elementeillä, joilla on samat saavutettavat nimet, on myös sama tarkoitus",
+      "description": "Tämä sääntö tarkastaa, että `iframe`-elementit, joilla on sama saavutettava nimi, käyttävät upotuksessa samaa tai vastaavaa sisältöä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Iframe`-elementeillä, joilla on sama saavutettava nimi, on sama sisältö.",
+        "F1": "`Iframe`-elementeillä, joilla on sama saavutettava nimi, on eri sisältö."
+      }
+    },
+    "QW-ACT-R11": {
+      "name": "Painikkeella on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella painike-elementillä on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R12": {
+      "name": "Linkillä on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella linkillä on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R13": {
+      "name": "Elementillä, jolle on määritelty `aria-hidden`-attribuutti, ei ole kohdistettavaa sisältöä",
+      "description": "Tämä sääntö tarkastaa, että `aria-hidden` -attribuutin omaavat elementit eivät sisällä kohdistettavia alielementtejä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen alielementit eivät ole kohdistettavia.",
+        "P2": "Kohde ei ole kohdistettava.",
+        "F1": "Kohteella on kohdistettavia alielementtejä.",
+        "F2": "Kohde on kohdistettava."
+      }
+    },
+    "QW-ACT-R14": {
+      "name": "`Meta viewport` ei estä zoomausta",
+      "description": "Tämä sääntö tarkastaa, että `meta`-elementti säilyttää selaimen zoom-toiminnon.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Meta`-elementti, jolla on `name=viewport`-attribuutti, ei määritä `maximum-scale`- tai `user-scalable`-arvoja.",
+        "P2": "`Meta`-elementti, jolla on `name=viewport`-attribuutti mahdollistaa selaimen zoom-toiminnon käytön.",
+        "F1": "`Meta`-elementti, jolla on `name=viewport`-attribuutti, poistaa selaimelta mahdollisuuden zoomata käyttäen määrityksiä `user-scalable=no` tai `maximum-scale < 2`."
+      }
+    },
+    "QW-ACT-R15": {
+      "name": "Ääni- tai videosisältö ei sisällä ääntä, joka käynnistyy automaattisesti",
+      "description": "Tämä sääntö tarkastaa, että äänisisällön automaattitoisto ei kestä yli kolmea (3) sekuntia, tai äänisisällölle on olemassa mekanismi, jonka avulla käyttäjä voi sen pysäyttää tai hiljentää.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voitu todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R16": {
+      "name": "Lomake-elementillä on saavutettava nimi",
+      "description": "Lomake-elementillä on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R17": {
+      "name": "Kuvalla on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että kaikilla kuvilla, joita ei ole merkitty koristeellisiksi, on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohde on koristeellinen.",
+        "P2": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä."
+      }
+    },
+    "QW-ACT-R18": {
+      "name": "`Id`-attribuutin arvo on yksilöllinen",
+      "description": "Tämä sääntö tarkastaa, että jokaisen samalla sivulla esiintyvällä `id`-attribuutilla on yksilöllinen arvo.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen `id`-attribuutin arvo on yksilöllinen.",
+        "F1": "Usealla elementillä on sama `id`-attribuutin arvo."
+      }
+    },
+    "QW-ACT-R19": {
+      "name": "`Iframe`-elementillä on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella `iframe`-elementillä on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R20": {
+      "name": "`Role`-attribuutilla on sallittu arvo",
+      "description": "Tämä sääntö tarkastaa, että jokaisella `role`-attribuutilla on sallittu arvo.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on sallittu arvo `role`-attribuutissa.",
+        "F1": "Kohteen `role`-attribuutin arvo on virheellinen."
+      }
+    },
+    "QW-ACT-R21": {
+      "name": "`Svg`-elementillä, jolla on eksplisiittinen rooli, on saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella `svg`-muotoisella kuvalla, joka on eksplisiittisesti sisällytetty saavutettavuuden sisältömalliin, on saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R22": {
+      "name": "`Body`-elementin alielementin `lang`-attribuutin arvo on sallittu.",
+      "description": "Tämä sääntö tarkastaa, että sivun `body`-elementin sisällä olevan elementin `lang`-attribuutti sisältää hyväksytyn kielikoodin.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen `lang`-attribuutti sisältää hyväksytyn kielikoodin.",
+        "F1": "Kohteen `lang`-attribuutin kielikoodi on virheellinen."
+      }
+    },
+    "QW-ACT-R23": {
+      "name": "Videon näkyvälle sisällölle on saavutettava vaihtoehto",
+      "description": "Tämä sääntö tarkastaa, että ääntä sisältävissä videoissa visuaaliselle sisällölle on tarjolla vaihtoehto myös ääni- tai tekstimuodossa.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R24": {
+      "name": "`Autocomplete`-attribuutilla on sallittu arvo",
+      "description": "Tämä sääntö tarkastaa, että HTML:n `autocomplete` -attribuutilla on sallittu arvo.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen `autocomplete`-attribuutilla on sallittu arvo.",
+        "F1": "Kohteen `autocomplete`-attribuutin arvo on virheellinen."
+      }
+    },
+    "QW-ACT-R25": {
+      "name": "`ARIA-tilan tai -ominaisuuden käyttö on sallittua.",
+      "description": "Tämä sääntö tarkastaa, että WAI-ARIA-tiloja ja -ominaisuuksia on käytetty vain sallituissa elementeissä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`{attr}`-ominaisuus on tuettu tai peritty roolista `{role}`.",
+        "F1": "`{attr}`-ominaisuutta ei ole peritty eikä tuettu roolille `{role}`."
+      }
+    },
+    "QW-ACT-R26": {
+      "name": "Videon äänisisällölle on saavutettava vaihtoehto",
+      "description": "Tämä sääntö tarkastaa, että videon äänisisällöille on olemassa vaihtoehtoinen esitystapa.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R27": {
+      "name": "ARIA-attribuutti löytyy WAI-ARIA -dokumentaatiosta",
+      "description": "Tämä sääntö tarkastaa, että jokainen käytetty `aria-*`-attribuutti on määritelty WAI-ARIA 1.1 -dokumentaatiossa.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kaikki elementissä esiintyvät `aria`-alkuiset attribuutit sisältyvään WAI-ARIA 1.1 -määrityksiin.",
+        "F1": "Yksi tai useampi `aria`-alkuinen attribuutti ei sisälly WAI-ARIA 1.1 -määrityksiin."
+      }
+    },
+    "QW-ACT-R28": {
+      "name": "Elementillä, jolle on määritelty `role`-attribuutti, on annettu myös vaaditut tilat ja ominaisuudet",
+      "description": "Tämä sääntö tarkastaa, että elementeille, joille on määritelty `role`-attribuutti, on myös annettu kaikki kyseisen `role`-attribuutin yhteydessä vaadittavat tilat ja ominaisuudet.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kaikki kohde-elementin vaaditut attribuutit on annettu.",
+        "P2": "Kohde-elementin `role`-attribuuttiin ei liity pakollisia tila- tai ominaisuusmäärityksiä.",
+        "F1": "Kohde-elementiltä puuttuu vaadittuja tila- tai ominaisuusmäärityksiä."
+      }
+    },
+    "QW-ACT-R29": {
+      "name": "Äänielementin sisältö on saatavissa myös tekstinä",
+      "description": "Tämä sääntö tarkastaa, onko pelkkää ääntä sisältävää sisällölle tarjolla myös tekstimuotoinen vaihtoehto.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R30": {
+      "name": "Elementin näkyvä nimi on osa sen saavutettavaa nimeä",
+      "description": "Tämä sääntö tarkastaa, että interaktiivisten elementtien kohdalla visuaalisesti näkyvissä nimi on osa sen saavutettavaa nimeä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen näkyvä teksti vastaa kokonaan tai on osa sen saavutettavaa nimeä.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä.",
+        "F2": "Kohteen näkyvä teksti ei vastaa sen saavutettavaa nimeä eikä ole sen osa."
+      }
+    },
+    "QW-ACT-R31": {
+      "name": "Äänettömän videon näkyvälle sisällölle on saavutettava vaihtoehto",
+      "description": "Tämä sääntö tarkastaa, että tietosisältö videossa, jossa ei ole äänisisältöä, on saatavilla myös saavutettavassa vaihtoehtoisessa muodossa.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R32": {
+      "name": "Videon näkyvälle sisällölle on saavutettava vaihtoehto",
+      "description": "Tämä sääntö tarkastaa, että ääntä sisältävät videot sisältävät myös kuvailutulkkauksen.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R33": {
+      "name": "ARIA:n vaatima rooli kontekstissa",
+      "description": "Tämä sääntö tarkastaa, että elementti, jolla on eksplisiittinen semanttinen rooli, sijaitsee tämän roolin edellyttämässä yhteydessä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen emoelementillä on kontekstin vaatima rooli.",
+        "F1": "Kohteen emoelementillä ei ole kontekstin vaatimaa roolia."
+      }
+    },
+    "QW-ACT-R34": {
+      "name": "ARIA-tilalla tai -ominaisuudella on sallittu arvo",
+      "description": "Tämä sääntö tarkastaa, että jokaisella annetulla ARIA-tilalla ja -ominaisuudella on sallittu arvo.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen `{attr}`-attribuutilla on sallittu arvo.",
+        "F1": "Kohteen `{attr}`-attribuutin arvo on virheellinen."
+      }
+    },
+    "QW-ACT-R35": {
+      "name": "Otsikolla on saavutettava nimi",
+      "description": "Tämä sääntö pätee mihin tahansa semanttiselta merkitykseltään otsikoksi määriteltyyn HTML-elementtiin, joka sisältyy  saavutettavuuden sisältömalliin.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi, joka ei ole tyhjä.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä ('')."
+      }
+    },
+    "QW-ACT-R36": {
+      "name": "Solun `headers`-attribuutti viittaa soluun samassa taulukkoelementissä.",
+      "description": "Tämä sääntö tarkastaa, että solun `headers`-attribuutti viittaa samassa taulukossa olevaan soluun, jolla on sarakkeen tai rivin otsikon semanttinen merkitys.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kaikki `headers`-attribuutin arvot viittaavat samassa taulukossa oleviin sarakkeen ja rivin otsikkosoluihin.",
+        "F1": "`Headers`-attribuutin arvo `{attr}` viittaa elementin `id`-arvoon, jota ei esiinny samassa taulukossa.",
+        "F2": "Headers-attribuutin arvo `{attr}` viittaa samassa taulukossa olevaan elementtiin, joka ei ole sarakkeen tai rivin otsikko."
+      }
+    },
+    "QW-ACT-R37": {
+      "name": "Teksti täyttää kontrastin vähimmäisvaatimukset",
+      "description": "Tämä sääntö tarkastaa, että jokaisen tekstissä esiintyvän kirjoitusmerkin suurin mahdollinen kontrasti taustaansa vasten täyttää vähimmäisvaatimukset kontrastille.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Elementin kontrasti ylittää vähimmäisvaatimukset.",
+        "P2": "Elementin merkeillä ei esitetä tekstiä luonnollisella kielellä.",
+        "P3": "Elementin kontrasti taustan liukuvärin kanssa ylittää vähimmäisvaatimukset.",
+        "W1": "Elementillä on tekstin varjostus, joka vaatii manuaalista tarkistusta.",
+        "W2": "Elementin taustalla on kuva.",
+        "W3": "Elementillä taustalla on liukuväri, jota emme pysty todentamaan.",
+        "F1": "Elementin kontrasti ei täytä vähimmäisvaatimuksia.",
+        "F2": "Elementin kontrasti taustan liukuvärin kanssa ei täytä vähimmäisvaatimuksia."
+      }
+    },
+    "QW-ACT-R38": {
+      "name": "ARIA:n vaatimat omistetut elementit",
+      "description": "Tämä sääntö tarkastaa, että elementillä, jolla on eksplisiittinen semanttinen rooli, on vähintään yksi roolin vaatima omistettu elementti.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohde omistaa vain elementtejä, joilla on vaadittu rooli.",
+        "F1": "Kohde omistaa elementtejä, joilla ei ole vaadittua roolia."
+      }
+    },
+    "QW-ACT-R39": {
+      "name": "Kaikki taulukon otsikkosolut kohdistuvat sisältösoluihin",
+      "description": "Tämä sääntö tarkastaa, että taulukkoelementin jokainen otsikkosolu kohdistuu johonkin sisältösoluun.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sarakkeen otsikkoelementti kohdistuu ainakin yhteen soluun.",
+        "F1": "Sarakkeen otsikkoelementti ei kohdistu yhteenkään soluun."
+      }
+    },
+    "QW-ACT-R40": {
+      "name": "CSS:n `overflow`-määritys ei leikkaa zoomattua tekstiä.",
+      "description": "Tämä sääntö tarkastaa, että tekstit eivät tarkoituksetta leikkaudu `overflow`-määrityksellä, kun sivua zoomataan 200 %:lla 1280 x 1024 -kokoisessa näkymässä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, etteivät tekstit tai niitä kehystävät elementit leikkaudu `overflow`-määrityksellä."
+      }
+    },
+    "QW-ACT-R41": {
+      "name": "Virheilmoitus selittää virheen lomakekentän syötteessä.",
+      "description": "Tämä sääntö tarkastaa, että kun käyttäjä on syöttänyt lomakkeen kenttään virheellisen arvon tai antanut sen virheellisessä muodossa, saatu virheilmoitus kertoo virheen syyn tai miten sen voi korjata.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, että saatu virheilmoitus kertoo virheen syyn tai, miten sen voi korjata."
+      }
+    },
+    "QW-ACT-R42": {
+      "name": "`Object`-elementillä on saavutettava nimi, joka ei ole tyhjä.",
+      "description": "Tämä sääntö tarkastaa, että jokaisella `object`-elementillä on saavutettava nimi, joka ei ole tyhjä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on saavutettava nimi, joka ei ole tyhjä.",
+        "F1": "Kohteelta ei löydy saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R43": {
+      "name": "Vieritettävä elementti on käytettävissä näppäimistöllä",
+      "description": "Tämä sääntö tarkastaa, että vieritettäviä elementtejä voi vierittää pelkän näppäimistön avulla.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Tämä vieritettävä osio sisältyy järjestyksessä kohdistamisella navigoitaviin sisältöihin.",
+        "F1": "Tämä vertikaalisesti tai horisontaalisesti vieritettävä osioelementti ei sisälly järjestyksessä kohdistamisella navigoitaviin sisältöihin eikä sisällä myöskään sellaisia alielementtejä."
+      }
+    },
+    "QW-ACT-R44": {
+      "name": "Samassa yhteydessä sijaitsevilla linkeillä, joilla on sama saavutettava nimi, on sama  käyttötarkoitusta.",
+      "description": "Tämä sääntö tarkastaa, että samassa yhteydessä sijaitsevat linkit, joilla sama saavutettava nimi, palauttavat saman tai vastaavan sisällön.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Linkit, joilla on sama saavutettava nimi, viittaavaan samaan sisältöön.",
+        "W1": "Linkit, joilla on sama saavutettava nimi, viittaavat eri sisältöihin. Varmista, että nämä sisällöt ovat yhteneviä."
+      }
+    },
+    "QW-ACT-R48": {
+      "name": "Koristeelliset elementit eivät näy saavutettavuuspuussa",
+      "description": "Tämä sääntö tarkastaa, että koristeellisiksi merkittyjä elementtejä ei ole sisällytetty saavutettavuuden sisältömalliin tai niillä on ainoastaan visualisoiva rooli.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohde ei sisälly saavutettavuuden sisältömalliin.",
+        "F1": "Kohde sisältyy saavutettavuuden sisältömalliin."
+      }
+    },
+    "QW-ACT-R49": {
+      "name": "Ääni- tai videosisältö, joka käynnistyy automaattisesti, ei sisällä ääntä, joka kestää yli kolme (3) sekuntia",
+      "description": "Ääni- tai videosisältö, joka käynnistyy automaattisesti, ei tuota yli kolme (3) sekuntia kestävää ääntä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen toisto kestää kolme (3) sekuntia tai vähemmän.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että kohteella on näkyvät toiminnot sen hallitsemiseksi."
+      }
+    },
+    "QW-ACT-R50": {
+      "name": "Ääni- tai videosisällöllä, joka käynnistyy automaattisesti, on ohjausvälineet.",
+      "description": "Ääni- tai videosisällölle, joka käynnistyy automaattisesti, täytyy olla tarjolla toiminnallisuudet sen hallitsemiseksi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on näkyvät ohjausvälineet.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että kohteella on näkyvät toiminnot sen hallitsemiseksi."
+      }
+    },
+    "QW-ACT-R51": {
+      "name": "Videon näkyvä sisältö on tekstin mediavastine",
+      "description": "Tämä sääntö tarkastaa, että pelkkää kuvaa sisältävä videotallenne on sivulla olevan tekstin mediavastine.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että videotallenteen sisältö vastaa tekstiä."
+      }
+    },
+    "QW-ACT-R52": {
+      "name": "Ääntä sisältämättömän videon videosisällölle on kuvailutulkkauksen tekstitysraita",
+      "description": "Tämä sääntö tarkastaa, että ääntä sisältämättömien videotallenteiden kuvailutulkkauksen tekstitysraidat kuvailevat näkyvän sisällön.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että näkyvälle sisällölle on tarjolla saavutettava vaihtoehto."
+      }
+    },
+    "QW-ACT-R53": {
+      "name": "Vain kuvaa sisältävälle videolle on tarjolla transkripti",
+      "description": "Ääntä sisältämättömän videotallenteen kaikki näkyvä tieto tulee löytyä transkriptista.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että näkyvälle sisällölle on tarjolla saavutettava vaihtoehto."
+      }
+    },
+    "QW-ACT-R54": {
+      "name": "Vain kuvaa sisältävälle videotallenteelle on tarjolla vaihtoehto äänitallenteena",
+      "description": "Ääntä sisältämättömälle videotallenteelle täytyy löytyä vaihtoehto äänitallenteen muodossa.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että näkyvälle sisällölle on tarjolla saavutettava vaihtoehto."
+      }
+    },
+    "QW-ACT-R55": {
+      "name": "Videon näkyvälle sisällölle on tarjolla kuvailutulkkaus",
+      "description": "Tämä sääntö tarkastaa, että videotallenteen kaikki näkyvä sisältö löytyy myös videon ääniraidalta.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Kohde-elementillä on ääniraita, mutta sen voimakkuuden todentaminen ei onnistunut. Tarkista, että kohteella on ääniraita, ja jos on, että se tarjoaa videon näkyvälle sisällölle saavutettavan vaihtoehdon."
+      }
+    },
+    "QW-ACT-R56": {
+      "name": "Video on tekstin mediavastine",
+      "description": "Tämä sääntö tarkastaa, että videotallenne on sivulla olevan tekstin mediavastine.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Tarkista, että videotallenteen sisältö vastaa tekstiä."
+      }
+    },
+    "QW-ACT-R57": {
+      "name": "Videon näkyvälle sisällölle on kuvailutulkkauksen tekstitysraita",
+      "description": "Tämä sääntö tarkastaa, että videotallenteiden kuvailutulkkauksen tekstitysraidat kuvailevat näkyvän sisällön.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Kohde-elementillä on ääniraita, mutta sen voimakkuuden todentaminen ei onnistunut. Tarkista, että kohteella on ääniraita, ja jos on, että se tarjoaa videon visuaaliselle sisällölle saavutettavan vaihtoehdon."
+      }
+    },
+    "QW-ACT-R58": {
+      "name": "Äänitallenteelle on transkripti",
+      "description": "Äänitallenteille pitää olla tekstimuotoinen vaihtoehto, joka sisältää kaiken ääni-informaation.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, että kohteen ääniraidalle löytyy tekstimuotoinen vaihtoehto."
+      }
+    },
+    "QW-ACT-R59": {
+      "name": "Äänitallenne on tekstin mediavastine",
+      "description": "Tämä sääntö tarkastaa, että äänitallenne on sivulla olevan tekstin mediavastine.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, että äänitallenteen sisältö vastaa tekstiä."
+      }
+    },
+    "QW-ACT-R60": {
+      "name": "Videon äänisisällölle on tekstitys",
+      "description": "Tämä sääntö tarkastaa, että videotallenteen äänisisällölle on tarjolla tekstitys.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Kohde-elementillä on ääniraita, mutta sen voimakkuuden todentaminen ei onnistunut. Tarkista, että kohteella on ääniraita, ja jos on, että  äänisisällölle on sitä vastaava tekstitys."
+      }
+    },
+    "QW-ACT-R61": {
+      "name": "Video elementin ääni- ja kuvasisällölle on olemassa transkripti",
+      "description": "Tämä sääntö tarkastaa, että tallennetulle videosisällölle on transkripti, joka kattaa sen kaiken ääni- ja kuvasisällön.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tiedon saanti kohde-elementistä ei onnistunut.",
+        "W2": "Kohde-elementillä on ääniraita, mutta sen voimakkuuden todentaminen ei onnistunut. Tarkista, että kohteella on ääniraita ja transkripti. Jos on, tarkista, että transkripti kuvaa kaiken videolla olevan ääni- ja kuvasisällön."
+      }
+    },
+    "QW-ACT-R62": {
+      "name": "Järjestyksessä kohdistettaviin sisältöihin kuuluvalla elementillä on näkyvä kohdistus",
+      "description": "Tämä sääntö tarkastaa, että jokaisella järjestyksessä kohdistettavalla elementillä on jokin näkyvä kohdistuksen osoitus.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, että elementillä on jokin näkyvä kohdistuksen osoitus."
+      }
+    },
+    "QW-ACT-R63": {
+      "name": "Dokumentilla on maamerkki ei-toistuvalle sisällölle",
+      "description": "Tämä sääntö tarkastaa, että jokaisella sivulla on elementti, jonka semanttinen merkitys  on olla maamerkki ei-toistuvalle sisällölle.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sivulla ei ole toistuvaa sisältöä.",
+        "W1": "Tarkista, että sivulla ei joko ole ei-toistuvaa sisältöä toistuvan sisällön jälkeen tai esiintyy elementti, joka täyttää seuraavat ehdot: elementillä on maamerkin semanttinen merkitys, elementin tulostusjärjestyksessä ensimmäinen havaittava alielementti  on toistuvaa sisältöä seuraavaa ei-toistuvaa sisältöä ja elementti sisältyy saavutettavuuden sisältömalliin."
+      }
+    },
+    "QW-ACT-R64": {
+      "name": "Dokumentilla on otsikko ei-toistuvalle sisällölle",
+      "description": "Tämä sääntö tarkastaa, että ei-toistuvalle sisällölle on otsikko.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sivulla ei ole toistuvaa sisältöä.",
+        "W1": "Tarkista, että sivulla ei joko ole ei-toistuvaa sisältöä toistuvan sisällön jälkeen tai esiintyy elementti, joka täyttää seuraavat ehdot:  elementti on ei-toistuvaa sisältöä, joka sijaitsee toistuvan sisällön jälkeen; elementillä on otsikon semanttinen merkitys; elementti on näkyvissä ja elementti sisältyy saavutettavuuden sisältömalliin."
+      }
+    },
+    "QW-ACT-R65": {
+      "name": "Elementeillä, jotka sisältävät vain visualisoivia  alielementtejä, ei ole kohdistettavia sisältöjä",
+      "description": "Tämä sääntö tarkastaa, että elementit, joiden rooli tekee niiden alielementeistä vain visualisoivia, eivät sisällä kohdistettavia elementtejä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Elementillä ei ole tulostushierarkiassa alielementtejä, jotka olisivat järjestyksessä kohdistettavia.",
+        "F1": "Elementillä on tulostushierarkiassa alielementtejä, jotka ovat järjestyksessä kohdistettavia."
+      }
+    },
+    "QW-ACT-R66": {
+      "name": "Valikon osalla on ei-tyhjä saavutettava nimi",
+      "description": "Tämä sääntö tarkastaa, että jokaisella elementillä, jolla on `menuitem`-rooli, on ei-tyhjä saavutettava nimi.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteella on ei-tyhjä saavutettava nimi.",
+        "F1": "Kohteella ei ole saavutettavaa nimeä tai se on tyhjä."
+      }
+    },
+    "QW-ACT-R67": {
+      "name": "Tyylimäärityksissä kirjainten välistystä ei ole määritetty `!important`-säännöllä",
+      "description": "Tämä sääntö tarkastaa, että tyylimäärityksissä ei ole estetty kirjainten välityksen muokkaamista `!important`-säännöllä, paitsi jos `letter-spacing`-määreen arvo on vähintään 0,12 kertaa kirjaisimen koko.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Letter-spacing`-ominaisuudella ei ole `!important`-määrettä.",
+        "P2": "`Letter-spacing`-arvo on vähintään 0,12 kertaa kirjaisimen koko.",
+        "P3": "Elementille määräytynyt `letter-spacing`-arvo ei ole sama kuin elementille kirjattu arvo.",
+        "F1": "CSS-säännöt estävät `letter-spacing`-arvoa täyttämästä minimivaatimusta."
+      }
+    },
+    "QW-ACT-R68": {
+      "name": "Tyylimäärityksissä rivin korkeutta ei ole määritetty `!important`-säännöllä",
+      "description": "Tämä sääntö tarkastaa, että tyylimäärityksissä ei ole estetty rivin korkeuden muokkaamista `!important`-säännöllä, paitsi jos rivikorkeus on vähintään 1,5 kertaa kirjaisimen koko.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Line-height`-ominaisuudella ei ole `!important`-määrettä.",
+        "P2": "`Line-height`-arvo on vähintään 1,5 kertaa kirjaisimen koko.",
+        "P3": "Elementille määräytynyt `line-height`-arvo ei ole sama kuin elementille kirjattu arvo.",
+        "F1": "CSS-säännöt estävät `line-height`-arvoa täyttämästä minimivaatimusta."
+      }
+    },
+    "QW-ACT-R69": {
+      "name": "Tyylimäärityksissä sanojen välistystä ei ole määritetty `!important`-säännöllä",
+      "description": "Tämä sääntö tarkastaa, että tyylimäärityksissä ei ole estetty sanojen välistyksen muokkaamista `!important`-säännöllä, paitsi jos `word-spacing`-arvo on vähintään 0,16 kertaa kirjaisimen koko.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "`Word-spacing`-ominaisuudella ei ole `!important`-määrettä.",
+        "P2": "`Word-spacing`-arvo on vähintään 0,16 kertaa kirjaisimen koko.",
+        "P3": "Elementille määräytynyt `word-spacing`-arvo ei ole sama kuin elementille kirjattu arvo.",
+        "F1": "CSS-säännöt estävät `word-spacing`-arvoa täyttämästä minimivaatimusta."
+      }
+    },
+    "QW-ACT-R70": {
+      "name": "`Iframe`, jolla on negatiivinen `tabindex`-attribuutti, ei sisällä interaktiivisia elementtejä",
+      "description": "Tämä sääntö tarkastaa, että `iframe`-elementti, jonka `tabindex`-attribuutilla on negatiivinen arvo, ei sisällä interaktiivisia elementtejä.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sisällytetty konteksti ei sisällä elementtejä, jotka olisivat näkyviä ja  järjestyksessä kohdistettavia.",
+        "F1": "Sisällytetty konteksti sisältää elementtejä, jotka ovat näkyviä ja järjestyksessä kohdistettavia."
+      }
+    },
+    "QW-ACT-R71": {
+      "name": "`Meta`-elementillä ei ole päivitysviivettä (ei poikkeusta)",
+      "description": "Tämä sääntö tarkastaa, että `meta`-elementtiä ei ole käytetty viivästettyyn uudelleenohjaukseen tai uudelleenlataukseen.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Kohteen uudelleen lataaminen tai uudelleenohjaus tehdään välittömästi.",
+        "F1": "Kohde uudelleenladataan {seconds} sekunnin jälkeen.",
+        "F2": "Kohde uudelleenohjataan {seconds} sekunnin jälkeen."
+      }
+    },
+    "QW-ACT-R72": {
+      "name": "Ensimmäinen kohdistettava elementti on linkki ei-toistuvaan sisältöön",
+      "description": "Tämä sääntö tarkastaa, että ensimmäinen kohdistettava elementti on linkki ei-toistuvaan sisältöön sivulla.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Tarkista, että ensimmäisellä kohdistettavalla elementillä on saavutettava nimi, jonka antaa ymmärtää, että sen avulla ohitetaan sisältöjä.",
+        "W2": "Tarkista, että ensimmäinen kohdistettava elementti hyppää sivun pääsisältöön ja että sen saavutettava nimi antaa niin myös ymmärtää.",
+        "F1": "Ensimmäinen kohdistettava elementti ei ole näppäimistöltä käytettävissä.",
+        "F2": "Ensimmäinen kohdistettava elementti ei sisälly saavutettavuuden sisältömalliin.",
+        "F3": "Ensimmäinen kohdistettava elementti ei ole tyypiltään linkki.",
+        "F4": "Ensimmäinen kohdistettava elementti ei hyppää sivun pääsisältöön.",
+        "F5": "Sivulla ei ole kohdistettavia elementtejä."
+      }
+    },
+    "QW-ACT-R73": {
+      "name": "Toistuvan sisällön lohko on kutistettava",
+      "description": "Tämä sääntö tarkastaa, että toistuvien sisältöjen lohkot ovat kutistettavia.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Sivulla ei ole toistuvia sisältöjä.",
+        "W1": "Tarkista jokaisen toistuvan sisällön lohkosta, joka sijaitsee elementissä, jota tulostusjärjestyksessä seuraa vähintään yksi toistuvan sisällön jälkeinen ei-toistuvan sisällön elementti, että seuraavat ehdot täyttyvät: on toiminnallisuus, jolla poistaa kaikkien tämän lohkon osioiden näkyvyys, ja on toiminnallisuus, jolla poistaa nämä osiot saavutettavuuden sisältömallista."
+      }
+    },
+    "QW-ACT-R74": {
+      "name": "Dokumentilla on mekanismi kohdistuksen siirtämiseksi ei-toistuvaan sisältöön",
+      "description": "Tämä sääntö tarkastaa, että on olemassa mekanismi kohdistuksen siirtämiseksi ei-toistuvaan sisältöön sivulla.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Tällä sivulla ei ole toistuvaa sisältöä.",
+        "W1": "Sivulta löytyy yksi tai useampi toiminnallisuus kohdistuksen siirtämiseksi. Tarkista, että jotain näistä käytetään ennen toistuvan sisällön lohkoa ja että kohdistus siirtyy kohtaan juuri ennen ei-toistuvan sisällön lohkoa.",
+        "W2": "Tarkista, että sivulta löytyy vähintään yksi toiminnallisuus kohdistuksen siirtämiseksi. Tarkista, että jotain näistä käytetään ennen toistuvan sisällön lohkoa ja että kohdistus siirtyy kohtaan juuri ennen ei-toistuvan sisällön lohkoa."
+      }
+    },
+    "QW-ACT-R75": {
+      "name": "Ohita toistuvan sisällön lohkot",
+      "description": "Tämä sääntö tarkastaa, että jokaisella sivulla on mekanismi toistuvan sisällön lohkojen ohittamiseen.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Ehto täyttyi johtuen säännöstä ",
+        "W1": "Ehdon täyttymistä ei voida todentaa johtuen säännöstä ",
+        "F1": "Ehto ei täyttynyt johtuen säännöstä "
+      }
+    },
+    "QW-ACT-R76": {
+      "name": "Teksti täyttää parannetun kontrastin vaatimukset",
+      "description": "Tämä sääntö tarkastaa, että jokaisen tekstissä esiintyvän kirjoitusmerkin suurin mahdollinen kontrasti taustaansa vasten täyttää parannetun kontrastin vaatimukset.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Elementin kontrasti ylittää vähimmäisvaatimukset.",
+        "P2": "Elementin merkeillä ei esitetä tekstiä luonnollisella kielellä.",
+        "P3": "Elementin kontrasti taustan liukuvärin kanssa ylittää vähimmäisvaatimukset.",
+        "W1": "Elementillä on tekstin varjostus, joka vaatii manuaalista tarkistusta.",
+        "W2": "Elementin taustalla on kuva.",
+        "W3": "Elementillä taustalla on liukuväri, jota emme pysty todentamaan.",
+        "F1": "Elementin kontrasti ei täytä vähimmäisvaatimuksia.",
+        "F2": "Elementin kontrasti taustan liukuvärin kanssa ei täytä vähimmäisvaatimuksia."
+      }
+    }
+  },
+  "wcag-techniques": {
+    "QW-WCAG-T1": {
+      "name": "Providing text alternatives for the area elements of image maps",
+      "description": "This technique checks the text alternative of area elements of images maps",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the `alt` attribute describes correctly the corresponding area of the image.",
+        "F1": "The `alt` attribute doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T2": {
+      "name": "Using caption elements to associate data table captions with data tables",
+      "description": "This technique checks the caption element is correctly use on tables",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the `caption` element identifies the table correctly.",
+        "F1": "The `caption` element doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T3": {
+      "name": "Providing a description for groups of form controls using `fieldset` and `legend` elements",
+      "description": "This technique checks the correct use of the description element for form controls",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the `legend` description is valid.",
+        "F1": "The `fieldset` element is neither inside nor referencing a `form` element.",
+        "F2": "The `legend` element doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T4": {
+      "name": "Using the summary attribute of the table element to give an overview of data tables",
+      "description": "This technique checks the correct use of the summary attribute for table elements",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the summary is a valid description of the table.",
+        "F1": "The summary is empty.",
+        "F2": "The caption is a duplicate of the summary."
+      }
+    },
+    "QW-WCAG-T5": {
+      "name": "Using alt attributes on images used as submit buttons",
+      "description": "This technique checks all input elements that are buttons use alt text",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the value of the alt attribute correctly describes the function of the button.",
+        "F1": "The input element does not have an alt attribute.",
+        "F2": "The input element has an empty alt attribute."
+      }
+    },
+    "QW-WCAG-T6": {
+      "name": "Using both keyboard and other device-specific functions",
+      "description": "The objective of this technique is to verify the parity of keyboard-specific and mouse-specific events when code that has a scripting function associated with an event is used",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The mouse event attribute has a keyboard equivalent.",
+        "W1": "The test target has a keyboard event, but we can't verify if it's equivalent to the mouse event."
+      }
+    },
+    "QW-WCAG-T7": {
+      "name": "Providing definitions for abbreviations by using the abbr element",
+      "description": "The objective of this technique is to provide expansions or definitions for abbreviations by using the abbr element",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The test target has the definition in the title attribute.",
+        "F1": "The test target doesn't have the definition in the title attribute."
+      }
+    },
+    "QW-WCAG-T8": {
+      "name": "Failure of Success Criterion 1.1.1 and 1.2.1 due to using text alternatives that are not alternatives",
+      "description": "This describes a failure condition for all techniques involving text alternatives. If the text in the \"text alternative\" cannot be used in place of the non-text content without losing information or function then it fails because it is not, in fact, an alternative to the non-text content",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Text alternative needs manual verification.",
+        "F1": "Text alternative is not actually a text alternative for the non-text content."
+      }
+    },
+    "QW-WCAG-T9": {
+      "name": "Organizing a page using headings",
+      "description": "The objective of this technique is to ensure that sections have headings that identify them and that the heading are used in the correct order",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that headers are used to divide the page correctly.",
+        "F1": "Headings are not in the correct order.",
+        "F2": "Heading number is missing.",
+        "F3": "Headings don't start with h1"
+      }
+    },
+    "QW-WCAG-T10": {
+      "name": "Combining adjacent image and text links for the same resource",
+      "description": "The objective of this technique is to provide both text and iconic representations of links without making the web page more confusing or difficult for keyboard users or assistive technology users. Since different users finding text and icons more usable, providing both can improve the accessibility of the link.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The a element contains an image that has an empty alt attribute.",
+        "W1": "The link contains an image that has an alt attribute that should be manually verified.",
+        "F1": "The link text is equal to the image's alternative text."
+      }
+    },
+    "QW-WCAG-T11": {
+      "name": "Providing text alternatives on applet elements",
+      "description": "Provide a text alternative for an applet by using the alt attribute to label an applet and providing the text alternative in the body of the applet element. In this technique, both mechanisms are required due to the varying support of the alt attribute and applet body text by user agents.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the values of the alt attribute and the body text correctly describe the applet element.",
+        "F1": "The applet element does not contain an alt attribute.",
+        "F2": "The applet element has an empty alt attribute.",
+        "F3": "The applet element does not contain alternative text in its body."
+      }
+    },
+    "QW-WCAG-T12": {
+      "name": "Failure of Success Criterion 1.3.1 due to using th elements, caption elements, or non-empty summary attributes in layout tables",
+      "description": "The objective of this technique is to describe a failure that occurs when a table used only for layout includes either th elements, a summary attribute, or a caption element. This is a failure because it uses structural (or semantic) markup only for presentation. The intent of the HTML and XHTML table elements is to present data.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "No incorrect elements used in layout table.",
+        "F1": "The table has a non-empty summary - Amend it if it's a layout table.",
+        "F2": "The table has a th element - Amend it if it's a layout table.",
+        "F3": "The table has a caption element - Amend it if it's a layout table."
+      }
+    },
+    "QW-WCAG-T13": {
+      "name": "Failure of Success Criterion 2.2.2 due to using the blink element",
+      "description": "The blink element, while not part of the official HTML or XHTML specification, is supported by many user agents. It causes any text inside the element to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a preference. The blinking continues as long as the page is displayed. Therefore, content that uses blink fails the Success Criterion because blinking can continue for more than three seconds.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Blink is not used.",
+        "F1": "Used blink element."
+      }
+    },
+    "QW-WCAG-T14": {
+      "name": "Using id and headers attributes to associate data cells with header cells in data tables",
+      "description": "This technique checks if data cells are associated with header cells in data tables.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "I2": "This table is a layout table.",
+        "I3": "No header attributes are used in this data table.",
+        "P1": "id and headers attributes are correctly used.",
+        "F1": "This table is a layout table with id or headers attributes.",
+        "F2": "There are duplicate `id`s in this data table.",
+        "F3": "id and headers attributes are not correctly used."
+      }
+    },
+    "QW-WCAG-T15": {
+      "name": "Using the link element and navigation tools",
+      "description": "The objective of this technique is to describe how the link element can provide metadata about the position of an HTML page within a set of Web pages or can assist in locating content with a set of Web pages.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "I2": "The element doesn't contain a rel attribute or doesn't pertains navigation.",
+        "P1": "The link has rel and href attributes and pertains navigation.",
+        "F1": "The element doesn't contain an href attribute and pertains navigation."
+      }
+    },
+    "QW-WCAG-T16": {
+      "name": "Using HTML according to spec",
+      "description": "This technique checks that the HTML or XHTML web page follows the specification.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The HTML document doesn't have errors.",
+        "W1": "The HTML document has warnings.",
+        "F1": "The HTML document has errors."
+      }
+    },
+    "QW-WCAG-T17": {
+      "name": "Positioning labels to maximize predictability of relationships",
+      "description": "This technique checks the correct position of labels in forms",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The form field has well positioned label.",
+        "F1": "The form field has incorrect positioned label.",
+        "F2": "The form field label is empty.",
+        "F3": "The form field label is not visible."
+      }
+    },
+    "QW-WCAG-T18": {
+      "name": "Using table markup to present tabular information",
+      "description": "The objective of this technique is to present tabular information in a way that preserves relationships within the information even when users cannot see the table or the presentation format is changed. Using the table element with the child elements tr, th, and td makes these relationships perceivable.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "There is at least one occurrence of table, tr, td and th.",
+        "F1": "There are missing table child elements."
+      }
+    },
+    "QW-WCAG-T19": {
+      "name": "Providing submit buttons",
+      "description": "The objective of this technique is to provide a mechanism that allows users to explicitly request changes of context. The intended use of a submit button is to generate an HTTP request that submits data entered in a form, so it is an appropriate control to use for causing a change of context.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The form contains one of the following elements input[type~='submit image'], button[type='submit'].",
+        "F1": "Form tag doesn't contain any of the following elements input[type~='submit image'], button[type='submit']."
+      }
+    },
+    "QW-WCAG-T20": {
+      "name": "Supplementing link text with the title attribute",
+      "description": "Supplementing link text with the title attribute",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Please verify that the element's title attribute describes correctly the link.",
+        "F1": "The element's title attribute is empty.",
+        "F2": "The element contains a title attribute equal to the text in the link"
+      }
+    },
+    "QW-WCAG-T21": {
+      "name": "Failure of Success Criteria 2.4.4, 2.4.9 and 4.1.2 due to not providing an accessible name for an image which is the only content in a link",
+      "description": "This technique checks the text alternative of images which are the only content of a link",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The link has an accessible name.",
+        "F1": "The image doesn't have an accessible name."
+      }
+    },
+    "QW-WCAG-T22": {
+      "name": "Failure of Success Criterion 3.2.1 and 3.2.5 due to opening a new window as soon as a new page is loaded",
+      "description": "The objective of this technique is to ensure that pages do not disorient users by opening up one or more new windows that automatically attain focus as soon as a page is loaded.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Browser didn't open new tab.",
+        "F1": "Browser opened a new tab."
+      }
+    },
+    "QW-WCAG-T23": {
+      "name": "Adding a link at the top of each page that goes directly to the main content area",
+      "description": "The objective of this technique is to provide a mechanism to bypass blocks of material that are repeated on multiple Web pages by skipping directly to the main content of the Web page.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "The first focusable control is a visible link to a <main> element.",
+        "W2": "The first focusable control is a visible link to some content in the Web Page. Verify if it links to the main content.",
+        "F1": "The first focusable control on the Web page links to an inexistent element.",
+        "F2": "The first focusable control on the Web page links to the top of the page.",
+        "F3": "The first focusable control on the Web page does not links to local content.",
+        "F4": "The first focusable control on the Web page is not a link.",
+        "F5": "This Web page does not have focusable controls."
+      }
+    },
+    "QW-WCAG-T24": {
+      "name": "Failure of Success Criteria 2.1.1, 2.4.7, and 3.2.1 due to using script to remove focus when focus is received",
+      "description": "Content that normally receives focus when the content is accessed by keyboard may have this focus removed by scripting.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Element kept focus.",
+        "F1": "Element didn't keep focus."
+      }
+    },
+    "QW-WCAG-T25": {
+      "name": "Using the scope attribute to associate header cells and data cells in data tables",
+      "description": "The objective of this technique is to associate header cells with data cells in complex tables using the scope attribute.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The element's scope attribute matches the following values: col, row, colgroup, rowgroup.",
+        "F1": "The element doesn't contain a scope attribute.",
+        "F2": "The element's scope attribute is empty.",
+        "F3": "The element's scope attribute doesn't match any of the following values: col, row, colgroup, rowgroup."
+      }
+    },
+    "QW-WCAG-T26": {
+      "name": "Failure of Success Criterion 4.1.2 due to using script to make div or span a user interface control in HTML without providing a role for the control",
+      "description": "This failure demonstrates how using generic HTML elements to create user interface controls can make the controls inaccessible to assistive technology.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The element is a user interface control with an event handler.",
+        "F1": "The element is a forced user interface control without the proper role attribute."
+      }
+    },
+    "QW-WCAG-T27": {
+      "name": "Failure of Success Criterion 1.4.8 due to using text that is justified (aligned to both the left and the right margins)",
+      "description": "This failure describes situations where blocks of text that are justified (aligned to both the left and the right margins) occurs in HTML, using the 'align' attribute.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "This content is not justified.",
+        "F1": "This content shouldn't be justified."
+      }
+    },
+    "QW-WCAG-T28": {
+      "name": "Using `percent, em, names` for font sizes",
+      "description": "This technique checks that all font-size attribute uses percent, em or names.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "This test target has a font-size css property using an relative unit value with the important flag.",
+        "F1": "This test target has a font-size css property using an absolute unit value with the important flag."
+      }
+    },
+    "QW-WCAG-T29": {
+      "name": "Specifying alignment either to the left or right in CSS",
+      "description": "This technique describes how to align blocks of text either left or right by setting the CSS text-align property.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "This test target has a text-align css property equal to justify.",
+        "F1": "This test target has a text-align css property not equal to justify."
+      }
+    },
+    "QW-WCAG-T30": {
+      "name": "Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds",
+      "description": "CSS defines the blink value for the text-decoration property. When used, it causes any text in elements with this property to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a user agent preference. The blinking continues as long as the page is displayed. Therefore, content that uses text-decoration:blink fails the Success Criterion because blinking can continue for more than three seconds.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "F1": "This test target has a `text-decoration` property with the value `blink."
+      }
+    },
+    "QW-WCAG-T31": {
+      "name": "Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa",
+      "description": "Users with vision loss or cognitive, language and learning challenges often prefer specific foreground and background color combinations. In some cases, individuals with low vision will find it much easier to see a Web page that has white text on a black background, and they may have set their user agent to present this contrast. Many user agents make it possible for users to choose a preference about the foreground or background colors they would like to see without overriding all author-specified styles. This makes it possible for users to view pages where colors have not been specified by the author in their preferred color combination.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The test target has a author defined color and background css properties.",
+        "F1": "The test target has a author defined color css property but not a background css property.",
+        "F2": "The test target has a author defined background property but not a color css property."
+      }
+    },
+    "QW-WCAG-T32": {
+      "name": "Using ol, ul and dl for lists or groups of links",
+      "description": "The objective of this technique is to create lists of related items using list elements appropriate for their purposes.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Check that content that has the visual appearance of a list (with or without bullets) is marked as an unordered list.",
+        "W2": "Check that content that has the visual appearance of a numbered list is marked as an ordered list.",
+        "W3": "Check that content is marked as a definition list when terms and their definitions are presented in the form of a list.",
+        "F1": "A list item is not contained in a correct list element."
+      }
+    },
+    "QW-WCAG-T33": {
+      "name": "Using description lists - dd,dt",
+      "description": "Ensures <dt> and <dd> elements are contained by a <dl>",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target is contained in a correct description list element.",
+        "F1": "The test target is not contained in a correct description list element."
+      }
+    },
+    "QW-WCAG-T34": {
+      "name": "Using description lists - dl",
+      "description": "Ensures <dl> elements are structured correctly. <dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The description list element is structured correctly",
+        "F1": "The description list element contains an incorrect element type",
+        "F2": "The description list element is not ordered correctly"
+      }
+    }
+  },
+  "best-practices": {
+    "QW-BP1": {
+      "name": "Using h1-h6 to identify headings",
+      "description": "It is recommended to use HTML and XHTML heading markup to provide semantic code for headings in the content",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "Check that heading markup is used when content is a heading.",
+        "F1": "This page doesn't use headings."
+      }
+    },
+    "QW-BP2": {
+      "name": "Concise images alt text",
+      "description": "Image alt text attribute with more than 100 characters",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The img alt text attribute has less than 100 characters.",
+        "F1": "The img alt text attribute has more than 100 characters."
+      }
+    },
+    "QW-BP4": {
+      "name": "Grouped links not within a nav element",
+      "description": "Set of 10 or more links not grouped within a list (nav)",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "F1": "It was found a group of 10 or more links not grouped within a nav element."
+      }
+    },
+    "QW-BP5": {
+      "name": "Using table elements inside other table elements",
+      "description": "It is not recommended to use table elements inside other table elements",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "There are not table elements inside other table elements.",
+        "F1": "There are table elements inside other table elements"
+      }
+    },
+    "QW-BP6": {
+      "name": "title element is not too long (100 characters)",
+      "description": "The webpage title element shouldn't have more than 100 characters",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The page title has less than 100 characters.",
+        "F1": "The page title has 100 or more characters."
+      }
+    },
+    "QW-BP7": {
+      "name": "Title element contains ASCII-art",
+      "description": "Title element contains ASCII-art",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The title element doesn't contain ASCII art.",
+        "F1": "The title element contains ASCII art."
+      }
+    },
+    "QW-BP8": {
+      "name": "Headings with images should have an accessible name",
+      "description": "Headings with at least one image should have an accessible name",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "This heading with at least one image has an accessible name.",
+        "F1": "This heading with at least one image does not have an accessible name."
+      }
+    },
+    "QW-BP9": {
+      "name": "Table element without header cells has a caption",
+      "description": "A table without th elements should have a caption element to describe it.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "Table doesn't have header cells but has a caption.",
+        "F1": "Table doesn't have header cells or caption."
+      }
+    },
+    "QW-BP10": {
+      "name": "HTML elements are used to control visual presentation of content",
+      "description": "No HTML elements are used to control the visual presentation of content",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The webpage doesn't use elements to control the visual content presentation.",
+        "F1": "The webpage uses the element {name} to control the visual content presentation."
+      }
+    },
+    "QW-BP11": {
+      "name": "Using br to make a list",
+      "description": "Using 3 consecutive br elements",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "There are less than 3 consecutive br.",
+        "F1": "`br` elements are being be used as a list."
+      }
+    },
+    "QW-BP12": {
+      "name": "Using scope col and row",
+      "description": "Using scope col in the first row and scope row in the first element of each row",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The scope attribute is correctly used.",
+        "F1": "The scope attribute is incorrectly used."
+      }
+    },
+    "QW-BP13": {
+      "name": "Using consecutive links with the same href and one contains an image",
+      "description": "Using consecutive links with the same href in which one of the links contains an image",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "There are no consecutive links with the same href in which one of the links contained an image.",
+        "F1": "There are consecutive links with the same href in which one of the links contained an image."
+      }
+    },
+    "QW-BP15": {
+      "name": "At least one width attribute of an HTML element is expressed in absolute values",
+      "description": "At least one width attribute of an HTML element is expressed in absolute values",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "The test target `width` attribute uses relative units.",
+        "F1": "The test target `width` attribute uses absolute units."
+      }
+    },
+    "QW-BP17": {
+      "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
+      "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "W1": "This link skips a content block.",
+        "F1": "This page does not have links."
+      }
+    },
+    "QW-BP18": {
+      "name": "Using percentage values in CSS for container sizes",
+      "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+      "results": {
+        "I1": "Kohteita ei löytynyt.",
+        "P1": "This test target has a `width` css property using percentage value with the important flag.",
+        "F1": "This test target has a `width` css property using `px` value with the important flag.",
+        "F2": "This test target has a `width` css property not using percentage value with the important flag."
+      }
+    },
+    "QW-BP19": {
+      "name": "Landmark banner is top level",
+      "description": "Ensures the banner landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The banner landmark is at top level.",
+        "F1": "The banner landmark is not at top level."
+      }
+    },
+    "QW-BP20": {
+      "name": "Landmark no duplicate banner",
+      "description": "Ensures the document has at most one banner landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one banner landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP21": {
+      "name": "Landmark no duplicate contentinfo",
+      "description": "Ensures the document has at most one contentinfo landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one contentinfo landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP22": {
+      "name": "Landmark has one main",
+      "description": "Ensures the document has a main landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one main landmark.",
+        "F1": "There are multiple main landmarks."
+      }
+    },
+    "QW-BP23": {
+      "name": "Listitems are used semantically",
+      "description": "Ensures <li> elements are used semantically",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Listitem is used semantically",
+        "F1": "Listitem is not used semantically not used semantically"
+      }
+    },
+    "QW-BP24": {
+      "name": "Lists are used correctly",
+      "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "List is used correctly",
+        "F1": "List is not used correctly"
+      }
+    },
+    "QW-BP25": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the complementary landmark or aside is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP26": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the contentinfo landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP27": {
+      "name": "Landmark main is top level",
+      "description": "Ensures the main landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The main landmark is at top level.",
+        "F1": "The main landmark is not at top level."
+      }
+    }
+  }
+}
