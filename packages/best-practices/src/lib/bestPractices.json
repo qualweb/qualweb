@@ -1,0 +1,308 @@
+{
+  "QW_BP1": {
+    "name": "Using h1-h6 to identify headings",
+    "code": "QW-BP1",
+    "mapping": "H42",
+    "description": "It is recommended to use HTML and XHTML heading markup to provide semantic code for headings in the content",
+    "metadata": {
+      "target": {
+        "element": ["h1", "h2", "h3", "h4", "h5", "h6"]
+      },
+      "success-criteria": [
+        {
+          "name": "1.3.1",
+          "level": "A",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+        }
+      ],
+      "related": ["H69", "G141", "F2", "F43"],
+      "url": "https://www.w3.org/TR/WCAG20-TECHS/H42.html"
+    }
+  },
+  "QW_BP2": {
+    "name": "Concise images alt text",
+    "code": "QW-BP2",
+    "description": "Image alt text attribute with more than 100 characters",
+    "metadata": {
+      "target": {
+        "element": "img"
+      }
+    }
+  },
+  "QW_BP4": {
+    "name": "Grouped links not within a nav element",
+    "code": "QW-BP4",
+    "description": "Set of 10 or more links not grouped within a list (nav)",
+    "metadata": {
+      "target": {
+        "element": "a"
+      }
+    }
+  },
+  "QW_BP5": {
+    "name": "Using table elements inside other table elements",
+    "code": "QW-BP5",
+    "description": "It is not recommended to use table elements inside other table elements",
+    "metadata": {
+      "target": {
+        "element": "table",
+        "parent": "table"
+      }
+    }
+  },
+  "QW_BP6": {
+    "name": "title element is not too long (100 characters)",
+    "code": "QW-BP6",
+    "description": "The webpage title element shouldn't have more than 100 characters",
+    "metadata": {
+      "target": {
+        "element": "title"
+      }
+    }
+  },
+  "QW_BP7": {
+    "name": "Title element contains ASCII-art",
+    "code": "QW-BP7",
+    "description": "Title element contains ASCII-art",
+    "metadata": {
+      "target": {
+        "element": "title"
+      }
+    }
+  },
+  "QW_BP8": {
+    "name": "Headings with images should have an accessible name",
+    "code": "QW-BP8",
+    "description": "Headings with at least one image should have an accessible name",
+    "metadata": {
+      "target": {
+        "element": ["h1", "h2", "h3", "h4", "h5", "h6", "[role='heading']"],
+        "children": "img"
+      },
+      "related": ["G130"]
+    }
+  },
+  "QW_BP9": {
+    "name": "Table element without header cells has a caption",
+    "code": "QW-BP9",
+    "description": "A table without th elements should have a caption element to describe it.",
+    "metadata": {
+      "target": {
+        "element": "table"
+      }
+    }
+  },
+  "QW_BP10": {
+    "name": "HTML elements are used to control visual presentation of content",
+    "code": "QW-BP10",
+    "description": "No HTML elements are used to control the visual presentation of content",
+    "metadata": {
+      "target": {
+        "element": [
+          "b",
+          "blink",
+          "blockquote",
+          "basefont",
+          "center",
+          "cite",
+          "em",
+          "font",
+          "i",
+          "link",
+          "mark",
+          "strong",
+          "s",
+          "strike",
+          "u",
+          "vlink"
+        ]
+      }
+    }
+  },
+  "QW_BP11": {
+    "name": "Using br to make a list",
+    "code": "QW-BP11",
+    "description": "Using 3 consecutive br elements",
+    "metadata": {
+      "target": {
+        "element": "br"
+      }
+    }
+  },
+  "QW_BP12": {
+    "name": "Using scope col and row",
+    "code": "QW-BP12",
+    "description": "Using scope col in the first row and scope row in the first element of each row",
+    "metadata": {
+      "target": {
+        "element": ["table", "tr"]
+      }
+    }
+  },
+  "QW_BP13": {
+    "name": "Using consecutive links with the same href and one contains an image",
+    "code": "QW-BP13",
+    "description": "Using consecutive links with the same href in which one of the links contains an image",
+    "metadata": {
+      "target": {
+        "element": "a"
+      }
+    }
+  },
+  "QW_BP15": {
+    "name": "At least one width attribute of an HTML element is expressed in absolute values",
+    "code": "QW-BP15",
+    "description": "At least one width attribute of an HTML element is expressed in absolute values",
+    "metadata": {
+      "target": {
+        "element": "*",
+        "attributes": "width"
+      }
+    }
+  },
+  "QW_BP17": {
+    "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
+    "code": "QW-BP17",
+    "mapping": "G123",
+    "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
+    "metadata": {
+      "target": {
+        "element": "a",
+        "attributes": "href"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.1",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks"
+        }
+      ],
+      "related": ["G1", "G124"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/general/G123"
+    }
+  },
+  "QW_BP18": {
+    "name": "Using percentage values in CSS for container sizes",
+    "code": "QW-BP18",
+    "mapping": "C24",
+    "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+    "metadata": {
+      "target": {
+        "element": "span article section nav aside hgroup header footer address p hr blockquote div h1 h2 h3 h4 h5 h6 li ul ol dd dt dl figcaption",
+        "attributes": "width"
+      },
+      "success-criteria": [
+        {
+          "name": "1.4.8",
+          "level": "AAA",
+          "principle": "Perceivable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation"
+        }
+      ],
+      "related": ["C20"],
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C24"
+    }
+  },
+  "QW_BP19": {
+    "name": "Landmark banner is top level",
+    "code": "QW-BP19",
+    "description": "Ensures the banner landmark is at top level",
+    "metadata": {
+      "target": {
+        "element": "header:not([role]), [role=banner]"
+      }
+    }
+  },
+  "QW_BP20": {
+    "name": "Landmark no duplicate banner",
+    "code": "QW-BP20",
+    "description": "Ensures the document has at most one banner landmark",
+    "metadata": {
+      "target": {
+        "element": "body"
+      }
+    }
+  },
+  "QW_BP21": {
+    "name": "Landmark no duplicate contentinfo",
+    "code": "QW-BP21",
+    "description": "Ensures the document has at most one contentinfo landmark",
+    "metadata": {
+      "target": {
+        "element": "body"
+      }
+    }
+  },
+  "QW_BP22": {
+    "name": "Landmark has one main",
+    "code": "QW-BP22",
+    "description": "Ensures the document has a main landmark",
+    "metadata": {
+      "target": {
+        "element": "body"
+      }
+    }
+  },
+  "QW_BP23": {
+    "name": "Listitems are used semantically",
+    "code": "QW-BP23",
+    "description": "Ensures <li> elements are used semantically",
+    "metadata": {
+      "target": {
+        "element": "li"
+      }
+    }
+  },
+  "QW_BP24": {
+    "name": "Lists are used correctly",
+    "code": "QW-BP24",
+    "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+    "metadata": {
+      "target": {
+        "element": "ul,ol,menu"
+      }
+    }
+  },
+  "QW_BP25": {
+    "name": "Landmark complementary is top level",
+    "code": "QW-BP25",
+    "description": "Ensures the complementary landmark or aside is at top level",
+    "metadata": {
+      "target": {
+        "element": "aside:not([role]), [role=complementary]"
+      }
+    }
+  },
+  "QW_BP26": {
+    "name": "Landmark contentinfo is top level",
+    "code": "QW-BP26",
+    "description": "Ensures the contentinfo landmark is at top level",
+    "metadata": {
+      "target": {
+        "element": "footer:not([role]), [role=contentinfo]"
+      }
+    }
+  },
+  "QW_BP27": {
+    "name": "Landmark main is top level",
+    "code": "QW-BP27",
+    "description": "Ensures the main landmark is at top level",
+    "metadata": {
+      "target": {
+        "element": "main:not([role]), [role=main]"
+      }
+    }
+  },
+  "QW_BP28": {
+    "name": "H1 element is used and unique",
+    "code": "QW-BP28",
+    "description": "Ensures theres is only one H1",
+    "metadata": {
+      "target": {
+        "element": "h1"
+      }
+    }
+  }
+}
