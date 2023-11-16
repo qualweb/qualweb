@@ -1,0 +1,39 @@
+{
+  "name": "@qualweb/qualweb",
+  "version": "0.0.1",
+  "description": "Monorepo for the Qualweb Web Accesibility Evaluator. This package should never be published by itself.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qualweb/qualweb.git"
+  },
+  "scripts": {
+    "release": "npm -ws run build && npx changeset publish && git push --follow-tags",
+    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
+  },
+  "keywords": [
+    "qualweb",
+    "accessibility",
+    "wcag",
+    "act"
+  ],
+  "author": "Carlos Duarte <caduarte@campus.ul.pt>",
+  "contributors": [
+    "Antonio Estriga <antonio.estriga@gmail.com>",
+    "João Afonso Vicente <joao.vicente@campus.ul.pt>",
+    "Johannes L. Borresen <jlb@inqludeit.dk>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qualweb/qualweb/issues"
+  },
+  "homepage": "https://github.com/qualweb/qualweb#readme",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "commander": "^11.1.0",
+    "ts-node": "^10.9.1",
+    "@changesets/cli": "^2.26.2"
+  }
+}

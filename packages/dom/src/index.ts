@@ -158,8 +158,8 @@ class Dom {
             ? options.userAgent
               ? options.userAgent
               : options.mobile
-              ? DEFAULT_MOBILE_USER_AGENT
-              : DEFAULT_DESKTOP_USER_AGENT
+                ? DEFAULT_MOBILE_USER_AGENT
+                : DEFAULT_DESKTOP_USER_AGENT
             : DEFAULT_DESKTOP_USER_AGENT
         }
       };

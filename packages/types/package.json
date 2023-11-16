@@ -3,6 +3,9 @@
   "version": "0.7.23",
   "description": "Type definitions for qualweb ecosystem",
   "main": "./index.d.ts",
+  "scripts": {
+    "build": "echo This is a no-op"
+  },
   "keywords": [
     "qualweb",
     "types"
@@ -22,7 +25,7 @@
   "author": "João Afonso Vicente",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^13.5.1"
+    "puppeteer": "^21.5.2"
   },
   "config": {
     "puppeteer_skip_chromium_download": true
