@@ -57,5 +57,4 @@ jobs:
           echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
           npm -ws run build
           npx changeset version --snapshot develop
-          npx changeset tag
-          git push --follow-tags
+          npx changeset publish --tag develop
