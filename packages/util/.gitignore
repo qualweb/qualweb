@@ -1,0 +1,7 @@
+/dist
+/node_modules
+/.yalc
+yalc.lock
+/.idea
+package-lock.json
+/prebuild

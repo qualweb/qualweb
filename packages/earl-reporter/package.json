@@ -1,0 +1,63 @@
+{
+  "name": "@qualweb/earl-reporter",
+  "version": "0.4.3",
+  "description": "Qualweb earl reporter",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha --require esm",
+    "prebuild": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run prebuild && tsc --build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "earl",
+    "json-ld",
+    "a11y",
+    "normalized",
+    "report",
+    "accessibility"
+  ],
+  "homepage": "https://github.com/qualweb/earl-reporter#readme",
+  "bugs": {
+    "url": "https://github.com/qualweb/earl-reporter/issues",
+    "email": "qualweb@fc.ul.pt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qualweb/earl-reporter.git"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@qualweb/types": "0.7.23",
+    "@tsconfig/recommended": "^1.0.3",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/node": "^14.14.35",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "chai": "^4.3.4",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-sonarjs": "^0.23.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.3.2",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.20.33",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0"
+  }
+}

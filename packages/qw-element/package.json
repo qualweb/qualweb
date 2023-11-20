@@ -1,0 +1,54 @@
+{
+  "name": "@qualweb/qw-element",
+  "version": "0.2.8",
+  "description": "QualWeb element interface and utilities",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "test": "mocha --require esm",
+    "prebuild": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "build": "npm run prebuild && tsc --build",
+    "docs": "typedoc --out docs src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "homepage": "https://github.com/qualweb/qw-element#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/qw-element.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/qw-element/issues"
+  },
+  "keywords": [
+    "qualweb",
+    "accessibility",
+    "util",
+    "lib"
+  ],
+  "author": "João Vicente",
+  "license": "ISC",
+  "devDependencies": {
+    "@qualweb/types": "0.7.23",
+    "@tsconfig/recommended": "^1.0.3",
+    "@types/node": "^16.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "chai": "^4.3.4",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-sonarjs": "^0.23.0",
+    "esm": "^3.2.25",
+    "mocha": "^9.0.2",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.21.4",
+    "typescript": "^4.2.4"
+  }
+}

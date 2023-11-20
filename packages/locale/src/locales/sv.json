@@ -1,0 +1,1247 @@
+{
+  "act-rules": {
+    "QW-ACT-R1": {
+      "name": "På HTML-sidan finns en rubrik",
+      "description": "Denna regel kontrollerar att HTML-sidan har ett `title`-element.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Title`-elementet hittas och är inte tomt.",
+        "F1": "`Title`-elementet hittas inte.",
+        "F2": "`Title`-elementet är tomt.",
+        "F3": "`Title`-elementet som hittats är inte sidans rubrik."
+      }
+    },
+    "QW-ACT-R2": {
+      "name": "`Html`-elementet innehåller attributet `lang`",
+      "description": "TDenna regel kontrollerar att elementet `html` har ett `lang`- eller `xml:lang`-attribut som inte är tomt.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Lang`-attributet hittades och ett värde har fastställts för det.",
+        "F1": "`Lang`-attributet hittats inte eller är tomt."
+      }
+    },
+    "QW-ACT-R3": {
+      "name": "HTML-elementets `lang` och `xml:lang` motsvarar varandra",
+      "description": "Denna regel kontrollerar om elementet `html` innehåller både `lang` och `xml:lang`-attribut och de inte är tomma, att deras värden motsvarar varandra.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Attributen `lang` och `xml:lang’ har samma värde.",
+        "F1": "Attributen `lang’ och `xml:lang’ motsvarar inte varandra."
+      }
+    },
+    "QW-ACT-R4": {
+      "name": "Ingen fördröjning vid omladdning av elementet `meta`",
+      "description": "Denna regel kontrollerar att elementet `meta’ inte har använts för fördröjd omdirigering eller omladdning.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet laddas om eller omdirigeras omedelbart.",
+        "P2": "Objektet laddas om eller omdirigeras efter mer än 20 timmar.",
+        "F1": "Objektet laddas om efter {seconds} sekunder.",
+        "F2": "Objektet omdirigeras efter {seconds} sekunder."
+      }
+    },
+    "QW-ACT-R5": {
+      "name": "Dugligheten för `html`-elementets `lang`-attribut",
+      "description": "Denna regel kontrollerar att attributet `lang` eller `xml:lang` har en godkänd språkkod.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Lang`-attributet innehåller en godkänd språkkod.",
+        "F1": "`Lang`-attributet innehåller ingen godkänd språkkod."
+      }
+    },
+    "QW-ACT-R6": {
+      "name": "Knappar i form av bilder har ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att varje knapp som är i form av en bild har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn."
+      }
+    },
+    "QW-ACT-R7": {
+      "name": "Positioneringen på sidan är inte begränsad med CSS:s `transform`-regel",
+      "description": "Denna regel kontrollerar att sidans innehåll inte är begränsat till horisontellt eller vertikalt läge med CSS:s `transform`-regel.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Funktionen `rotateZ` i CSS:s `transform`-regel på sidan används tillsammans med `orientation`-villkoret på ett sätt som inte begränsar elementet vertikalt eller horisontellt till visningssättet.",
+        "F1": "Funktionen `rotate` i CSS:s `transform`-regel på sidan används tillsammans med `orientation`-villkoret på ett sätt som begränsar elementet vertikalt eller horisontellt till visningssättet."
+      }
+    },
+    "QW-ACT-R9": {
+      "name": "Länkar med samma tillgängliga namn har också samma betydelse",
+      "description": "Denna regel kontrollerar att länkar med samma tillgängliga namn leder till samma eller motsvarande innehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Länkar med samma tillgängliga namn leder till samma innehåll.",
+        "F1": "Länkar med samma tillgängliga namn leder till olika innehåll. Kontrollera att innehållen motsvarar varandra."
+      }
+    },
+    "QW-ACT-R10": {
+      "name": "`Iframe`-element med samma tillgängliga namn har också samma syfte",
+      "description": "Denna regel kontrollerar att `iframe`-element med samma tillgängliga namn används samma eller motsvarande innehåll vid inbäddning.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Iframe`-element med samma tillgängliga namn har samma innehåll.",
+        "F1": "`Iframe`-element med samma tillgängliga namn har olika innehåll."
+      }
+    },
+    "QW-ACT-R11": {
+      "name": "Knappen har ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att varje knapp-element har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R12": {
+      "name": "Länken har ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att varje länk har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R13": {
+      "name": "Element för vilka attributet `aria-hidden` har definierats har inget fokuserat innehåll",
+      "description": "Denna regel kontrollerar att element med attributet `aria-hidden` inte innehåller underelement som kan ställas i fokus.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets underelement kan inte ställas i fokus.",
+        "P2": "Objektet kan inte fokuseras.",
+        "F1": "Objektet har underelement som ställas i fokus.",
+        "F2": "Objektet kan ställas i fokus."
+      }
+    },
+    "QW-ACT-R14": {
+      "name": "`Meta viewport’ förhindrar inte zoomning",
+      "description": "Denna regel kontrollerar att `meta`-elementet bibehåller webbläsarens zoomfunktion.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Meta`-element med `name=viewport`-attribut definierar inte värdena `maximum-scale` eller `user-scalable`.",
+        "P2": "Ett `meta`-element med attribut `name=viewport` gör det möjligt att använda webbläsarens zoomfunktion.",
+        "F1": "Ett `meta`-element med attribut `name=viewport` tar bort möjligheten att zooma i webbläsaren med hjälp av definitionerna `user-scalable=no` eller `maximum-scale< 2`."
+      }
+    },
+    "QW-ACT-R15": {
+      "name": "Ljud- eller videoinnehåll innehåller inte ljud som spelas upp automatiskt",
+      "description": "Denna regel kontrollerar att den automatiska uppspelningen av ljudinnehållet inte varar längre än tre (3) sekunder, eller att det finns en mekanism för att stoppa eller dämpa ljudinnehållet.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R16": {
+      "name": "Blankettelementet har ett tillgängligt namn",
+      "description": "Blankettelementet har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R17": {
+      "name": "Bilden har ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att alla bilder som inte är märkta som dekorativa måste ha ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Målet är dekorativt.",
+        "P2": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn."
+      }
+    },
+    "QW-ACT-R18": {
+      "name": "`Id`-attributets värde är unikt",
+      "description": "Denna regel kontrollerar att varje `id`-attribut på samma sida har ett unikt värde.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Värdet för objektets `id`-attributet är unikt",
+        "F1": "Flera element har samma värde för `id`-attributet."
+      }
+    },
+    "QW-ACT-R19": {
+      "name": "`Iframe`-elementet har ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att varje `iframe`-elementet har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R20": {
+      "name": "`Role`-attributet har ett tillåtet värde",
+      "description": "Denna regel kontrollerar att varje `role`-attribut har ett tillåtet värde.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillåtet värde i `role`-attributet.",
+        "F1": "Värdet för objektets `role`-attribut är felaktigt."
+      }
+    },
+    "QW-ACT-R21": {
+      "name": "`Svg `-element med en explicit roll ska ha ett tillgängligt namn",
+      "description": "Denna regel kontrollerar att varje bild i formatet `svg’,  som explicit har inkluderats i innehållsmodellen för tillgänglighet, har ett tillgängligt namn.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R22": {
+      "name": "Värde för `lang`-attributet för element inom `body` element är tillåtet.",
+      "description": "Denna regel kontrollerar att attributet `lang` för element inom sidans `body` innehåller en godkänd språkkod.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets `lang`-attribut innehåller en godkänd språkkod.",
+        "F1": "Språkkoden för objektets `lang`-attribut är felaktig."
+      }
+    },
+    "QW-ACT-R23": {
+      "name": "Det synliga innehållet i videon måste ges ett tillgängligt alternativ",
+      "description": "Denna regel kontrollerar att det i videor som innehåller ljud finns ett alternativ till visuellt innehåll även i ljud- eller textform.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R24": {
+      "name": "`Autocomplete`-attributet har ett tillåtet värde",
+      "description": "Denna regel kontrollerar att HTML:s attribut `autocomplete` har ett tillåtet värde.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets `autocomplete`-attribut har ett tillåtet värde",
+        "F1": "Värdet för objektets `autocomplete`-attribut är felaktigt."
+      }
+    },
+    "QW-ACT-R25": {
+      "name": "Det är tillåtet att använda ARIA-läget eller -egenskapen.",
+      "description": "Denna regel kontrollerar att WAI-ARIA-lägen och -egenskaper har använts endast i tillåtna element.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`{attr}`-egenskapen stöds eller hämtas från rollen `{role}`.",
+        "F1": "`{attr}`-egenskapen har varken hämtats från eller stöds för rollen `{role}`."
+      }
+    },
+    "QW-ACT-R26": {
+      "name": "Videons ljudinnehåll har ett tillgängligt alternativ",
+      "description": "Denna regel kontrollerar att det finns ett alternativt sätt att återge videons ljudinnehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R27": {
+      "name": "Attributet ARIA finns i WAI-ARIA-dokumentationen",
+      "description": "Denna regel kontrollerar att varje aria-*`-attribut som används har definierats i WAI-ARIA 1.1-dokumentationen.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Alla attribut som förekommer i elementet och börjar med `aria` ingår i WAI-ARIA 1.1-definitionerna.",
+        "F1": "Ett eller flera attribut som börjar med `aria` ingår inte i WAI-ARIA 1.1-definitionerna."
+      }
+    },
+    "QW-ACT-R28": {
+      "name": "Ett element för vilket ett `role`-attribut har definierats har också de statusar och egenskaper som krävs",
+      "description": "Denna regel kontrollerar att element för vilka ett `role`-attribut har definierats också har tilldelats alla statusar och egenskaper som krävs i samband med `role`-attributet i fråga.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Alla obligatoriska attribut för objektelementet har angetts.",
+        "P2": "Objektelementets `role`-attribut innehåller inga obligatoriska status- eller egenskapsdefinitioner.",
+        "F1": "Objektets element saknar de status- eller egenskapsdefinitioner som krävs."
+      }
+    },
+    "QW-ACT-R29": {
+      "name": "Ljudelementets innehåll kan också fås som text",
+      "description": "Denna regel kontrollerar om det finns ett textalternativ till innehåll som endast består av ljud.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R30": {
+      "name": "Elementets synliga namn är en del av dess tillgängliga namn",
+      "description": "Denna regel kontrollerar att det är det visuellt synliga namnet som är en del av det tillgängliga namnet för interaktiva element.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets synliga text motsvarar helt och hållet eller är en del av dess tillgängliga namn.",
+        "F1": "Objektet har inte ett tillgängligt namn.",
+        "F2": "Objektets synliga text motsvarar inte det tillgängliga namnet och är inte en del av det."
+      }
+    },
+    "QW-ACT-R31": {
+      "name": "Det synliga innehållet i en ljudlös video måste ges ett tillgängligt alternativ",
+      "description": "Denna regel kontrollerar att datainnehållet i en video som saknar ljudinnehåll också finns tillgängligt i alternativ form.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R32": {
+      "name": "Det synliga innehållet i videon måste ges ett tillgängligt alternativ",
+      "description": "Denna regel kontrollerar att videor som innehåller ljud även innehåller syntolkning.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R33": {
+      "name": "ARIA:s obligatoriska roll i kontexten",
+      "description": "Denna regel kontrollerar att ett element som har en explicit semantisk roll finns i den kontext som denna roll förutsätter.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets moderelement har den roll som kontexten kräver.",
+        "F1": "Objektets moderelement har inte den roll som kontexten kräver."
+      }
+    },
+    "QW-ACT-R34": {
+      "name": "ARIA-statusen eller -egenskap har ett tillåtet värde",
+      "description": "Denna regel kontrollerar att varje angiven ARIA-status och -egenskap har ett tillåtet värde.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets `{attr}`-attribut har ett tillåtet värde",
+        "F1": "Värdet för objektets `{attr}`-attribut är felaktigt."
+      }
+    },
+    "QW-ACT-R35": {
+      "name": "Rubriken har ett tillgängligt namn",
+      "description": "Denna regel gäller alla HTML-element som till sin semantiska betydelse definieras som rubriker och som ingår i innehållsmodellen för tillgänglighet.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn som inte är tomt.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt (``)."
+      }
+    },
+    "QW-ACT-R36": {
+      "name": "Cellens `headers`-attribut avser en cell i samma tabellelement.",
+      "description": "Denna regel kontrollerar att cellens `headers`-attribut avser en cell i samma tabell som är av semantisk betydelse för kolumnens eller radens rubrik.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Alla värden i attributet `headers` hänvisar till rubrikceller i kolumnen och raden i samma tabell.",
+        "F1": "`Headers`-attributets värde `{attr}` hänvisar till elementets `id`-värde som inte förekommer i samma tabell.",
+        "F2": "`Headers`-attributets värde `{attr}` hänvisar till ett element i samma tabell som inte är kolumnens eller radens rubrik."
+      }
+    },
+    "QW-ACT-R37": {
+      "name": "Texten uppfyller minimikraven för kontrast",
+      "description": "Denna regel kontrollerar att den största möjliga kontrasten mot bakgrunden för varje tecken i texten uppfyller minimikraven för kontrast.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Elementets kontrast överskrider minimikraven.",
+        "P2": "Med elementets tecken presenteras inte text på ett naturligt språk.",
+        "P3": "Elementets kontrast mot bakgrundens gradientfärg överskrider minimikraven.",
+        "W1": "Elementets text har skuggning som kräver manuell granskning.",
+        "W2": "Bakom elementet finns en bild.",
+        "W3": "Elementet har en gradientfärg som vi inte kan verifiera.",
+        "F1": "Elementets kontrast uppfyller inte minimikraven.",
+        "F2": "Elementets kontrast mot bakgrundens gradientfärg uppfyller inte minimikraven."
+      }
+    },
+    "QW-ACT-R38": {
+      "name": "Dedikerade element som krävs av ARIA",
+      "description": "Denna regel kontrollerar att ett element som har en explicit semantisk roll har minst ett dedikerat element som rollen kräver.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet tillägnar endast element som har den roll som krävs.",
+        "F1": "Objektet tillägnar element som inte har den roll som krävs."
+      }
+    },
+    "QW-ACT-R39": {
+      "name": "Alla rubrikceller i tabellen riktar sig till innehållsceller",
+      "description": "Denna regel kontrollerar att varje rubrikcell i tabellelementet riktar sig till någon innehållscell.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Kolumnens rubrikelement riktar sig till åtminstone en cell.",
+        "F1": "Kolumnens rubrikelement riktar sig inte till någon cell."
+      }
+    },
+    "QW-ACT-R40": {
+      "name": "CSS:s `overflow`-definition kommer inte att beskära den zoomade texten.",
+      "description": "Denna regel kontrollerar att texterna inte oavsiktligt beskärs med `overflow`-definitionen när sidan zoomas med 200 % i en vy på 1280 x 1024.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att texterna eller de element som ramar in dem inte beskärs med `overflow`-definitionen."
+      }
+    },
+    "QW-ACT-R41": {
+      "name": "Felmeddelandet förklarar felet i blankettfältets inmatning.",
+      "description": "Denna regel kontrollerar att när användaren har matat in ett felaktigt värde i fältet på blanketten eller gett det i felaktig form anger felmeddelandet orsaken till felet eller hur det kan korrigeras.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att felmeddelandet anger orsaken till felet eller hur det kan korrigeras."
+      }
+    },
+    "QW-ACT-R42": {
+      "name": "`Object`-elementet har ett tillgängligt namn som inte är tomt.",
+      "description": "Denna regel kontrollerar att varje `object`-element har ett tillgängligt namn som inte är tomt.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn som inte är tomt.",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R43": {
+      "name": "Skrollbart element är åtkomligt med ett tangentbord",
+      "description": "Denna regel kontrollerar att man kan skrolla skrollbara element enbart med hjälp av tangentbordet.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Denna skrollbara del ingår i navigerbart innehåll som fokuseras in i ordningsföljd.",
+        "F1": "Detta vertikalt eller horisontellt skrollbara delelement ingår inte i det navigerbara innehållet som fokuseras i ordningsföljd och innehåller inte heller sådana underelement."
+      }
+    },
+    "QW-ACT-R44": {
+      "name": "Länkar i samma sammanhang och som har samma tillgängliga namn har samma användningsändamål.",
+      "description": "Denna regel kontrollerar att länkar i samma sammanhang och med samma tillgängliga namn returnerar samma eller motsvarande innehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Länkar med samma tillgängliga namn hänvisar till samma innehåll.",
+        "W1": "Länkar med samma tillgängliga namn hänvisar till olika innehåll. Se till att innehållet stämmer överens."
+      }
+    },
+    "QW-ACT-R48": {
+      "name": "Dekorativa element syns inte i tillgänglighetsträdet",
+      "description": "Denna regel kontrollerar att element som betecknats som dekorativa inte ingår i innehållsmodellen för tillgänglighet eller att de endast har en visualiserande roll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet ingår inte i innehållsmodellen för tillgänglighet.",
+        "F1": "Objektet ingår i innehållsmodellen för tillgänglighet."
+      }
+    },
+    "QW-ACT-R49": {
+      "name": "Ljud- eller videoinnehåll som spelas upp automatiskt innehåller inget ljud som varar över tre (3) sekunder",
+      "description": "Ljud- eller videoinnehåll som spelas upp automatiskt producerar inte ljud som varar mer än tre (3) sekunder.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektets uppspelning tar tre (3) sekunder eller mindre.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att objektet har synliga funktioner för att hantera det."
+      }
+    },
+    "QW-ACT-R50": {
+      "name": "Ljud- eller videoinnehåll som spelas upp automatiskt har styrverktyg.",
+      "description": "För ljud- eller videoinnehåll som spelas upp automatiskt måste det finnas funktioner för att hantera det.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har synliga styrverktyg.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att objektet har synliga funktioner för att hantera det."
+      }
+    },
+    "QW-ACT-R51": {
+      "name": "Videons synliga innehåll är mediemotsvarighet till texten",
+      "description": "Denna regel kontrollerar att en videoinspelning som endast innehåller bild är mediemotsvarighet till texten på sidan.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att innehållet i videoinspelningen motsvarar texten."
+      }
+    },
+    "QW-ACT-R52": {
+      "name": "Det finns textningsspår för syntolkning av videoinnehållet i en video som inte innehåller ljud",
+      "description": "Denna regel kontrollerar att textningsspåren för syntolkning av videoinspelningar som inte innehåller ljud beskriver det synliga innehållet.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att det finns ett tillgängligt alternativ till det synliga innehållet."
+      }
+    },
+    "QW-ACT-R53": {
+      "name": "Video med endast visuellt innehåll har transkription.",
+      "description": "All synlig information i en videoinspelningen som inte innehåller ljud ska ha en transkription.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att det finns ett tillgängligt alternativ till det synliga innehållet."
+      }
+    },
+    "QW-ACT-R54": {
+      "name": "Videoinspelningar med visuellt innehåll kan ges alternativt som ljudupptagningar.",
+      "description": "För videoinspelningar som inte innehåller ljud måste det finnas ett alternativ i form av en ljudupptagning.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att det finns ett tillgängligt alternativ till det synliga innehållet."
+      }
+    },
+    "QW-ACT-R55": {
+      "name": "För synligt innehåll i videon ges syntolkning",
+      "description": "Denna regel kontrollerar att allt synligt innehåll i videoinspelningen också finns på videons ljudspår.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det synliga innehållet i videon."
+      }
+    },
+    "QW-ACT-R56": {
+      "name": "Videon är mediemotsvarigheten till texten",
+      "description": "Denna regel kontrollerar att en videoinspelning är mediemotsvarighet till texten på sidan.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Kontrollera att innehållet i videoinspelningen motsvarar texten."
+      }
+    },
+    "QW-ACT-R57": {
+      "name": "Textspår för syntolkning av videons synliga innehåll",
+      "description": "Denna regel kontrollerar att textningsspåren för syntolkning av videoinspelningar beskriver det synliga innehållet.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och i förekommande fall att det finns ett tillgängligt alternativ till det visuella innehållet i videon."
+      }
+    },
+    "QW-ACT-R58": {
+      "name": "Ljudupptagningen har en transkription",
+      "description": "Ljudupptagningar ska ha ett textalternativ som innehåller all ljudinformation.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att det finns ett textalternativ till objektets ljudspår."
+      }
+    },
+    "QW-ACT-R59": {
+      "name": "Ljudupptagningen är mediemotsvarigheten till texten",
+      "description": "Denna regel kontrollerar att en ljudupptagning är mediemotsvarighet till texten på sidan.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att innehållet i ljudupptagningen motsvarar texten."
+      }
+    },
+    "QW-ACT-R60": {
+      "name": "Videons ljudinnehåll har textning",
+      "description": "TDenna regel kontrollerar att det finns textning för videoinspelningens ljudinnehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ett ljudspår och om det finns en motsvarande textning för ljudinnehållet."
+      }
+    },
+    "QW-ACT-R61": {
+      "name": "Det finns en transkription för videoelementets ljud- och bildinnehåll.",
+      "description": "Denna regel kontrollerar att det inspelade videoinnehållet har en transkription som täcker allt ljud- och bildinnehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Det gick inte att få information om målelementet.",
+        "W2": "Målelementet har ljudspår, men det gick inte att verifiera dess styrka. Kontrollera att objektet har ljudspår och transkription. I förekommande fall, kontrollera att transkriptionen beskriver allt ljud- och bildinnehåll på videon."
+      }
+    },
+    "QW-ACT-R62": {
+      "name": "Ett element som hör till innehåll som fokuseras ordningsföljd har ett synligt fokus",
+      "description": "Denna regel kontrollerar att varje element som fokuseras ordningsföljd har någon synlig indikation på fokuset.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att elementet har någon synlig indikation på fokuset."
+      }
+    },
+    "QW-ACT-R63": {
+      "name": "Dokumentet har ett landmärke för innehåll som inte upprepas",
+      "description": "Denna regel kontrollerar att varje sida har ett element vars semantiska betydelse är att vara ett landmärke för innehåll som inte upprepas.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Sidan innehåller inget innehåll som upprepas.",
+        "W1": "Kontrollera att det antingen inte finns innehåll som inte upprepas på sidan efter upprepat innehåll eller att det förekommer ett element som uppfyller följande villkor: elementet har semantisk betydelse som landmärke, det första underelementet som observeras i elementets utskriftsordning är innehåll som inte upprepas efter upprepat innehåll och elementet ingår i innehållsmodellen för tillgänglighet."
+      }
+    },
+    "QW-ACT-R64": {
+      "name": "Dokumentet har en rubrik för innehåll som inte upprepas",
+      "description": "Denna regel kontrollerar att det finns en rubrik för innehåll som inte upprepas.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Sidan innehåller inget innehåll som upprepas.",
+        "W1": "Kontrollera att det antingen inte finns innehåll som inte upprepas på sidan efter upprepat innehåll eller att det förekommer ett element som uppfyller följande villkor:  elementet är innehåll som inte upprepas efter upprepat innehåll; elementet har semantisk betydelse som rubrik; elementet syns och elementet ingår i innehållsmodellen för tillgänglighet."
+      }
+    },
+    "QW-ACT-R65": {
+      "name": "Element som endast innehåller visualiserande underelement har inget fokuserat innehåll",
+      "description": "Denna regel kontrollerar att element vars roll gör deras underelement endast visualiserande inte innehåller fokuserade element.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "I utskriftshierarkin har elementet inga underelement som fokuseras i ordningsföljd.",
+        "F1": "I utskriftshierarkin har elementet underelement som fokuseras i ordningsföljd."
+      }
+    },
+    "QW-ACT-R66": {
+      "name": "I menyn finns ett tillgängligt namn som inte är tomt",
+      "description": "Denna regel kontrollerar att varje element som har en `menuitem`-roll har ett tillgängligt namn som inte är tomt.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet har ett tillgängligt namn som inte är tomt",
+        "F1": "Objektet har inte ett tillgängligt namn eller är tomt."
+      }
+    },
+    "QW-ACT-R67": {
+      "name": "I stildefinitionerna har mellanrummet mellan bokstäverna inte definierats med `!important`-regeln",
+      "description": "Denna regel kontrollerar att stildefinitionerna inte har hindrat bearbetning av bokstävernas mellanrum med `!important`-regeln, utom när värdet på definitionen `letter-spacing` är minst 0,12 gånger bokstavens storlek.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Letter-spacing`-egenskapen har ingen `!important`-definition.",
+        "P2": "`Letter-spacing`-värdet är minst 0,12 gånger bokstavens storlek.",
+        "P3": "Det `letter-spacing`-värde som fastställts för elementet är inte detsamma som det värde som antecknats för elementet.",
+        "F1": "CSS-reglerna hindrar `letter-spacing`-värdet från att uppfylla minimikravet."
+      }
+    },
+    "QW-ACT-R68": {
+      "name": "I stildefinitionerna har radhöjden inte definierats med `!important`-regeln",
+      "description": "Denna regel kontrollerar att stildefinitionerna inte har hindrat bearbetning av radhöjden med `!important`-regeln, utom när radhöjden är minst 1,5 gånger bokstavens storlek.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Line-height`-egenskapen har ingen `!important`-definition.",
+        "P2": "`Line-height`-värdet är minst 1,5 gånger bokstavens storlek..",
+        "P3": "Det `line-height`-värde som fastställts för elementet är inte detsamma som det värde som antecknats för elementet.",
+        "F1": "CSS-reglerna hindrar `line-height`-värdet från att uppfylla minimikravet."
+      }
+    },
+    "QW-ACT-R69": {
+      "name": "I stildefinitionerna har mellanrummet mellan ord inte definierats med `!important`-regeln",
+      "description": "Denna regel kontrollerar att stildefinitionerna inte har hindrat bearbetning av ordens mellanrum med `!important`-regeln, utom när värdet på definitionen `word-spacing` är minst 0,16 gånger bokstavens storlek.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "`Word-spacing`-egenskapen har ingen `!important`-definition.",
+        "P2": "`Word-spacing`-värdet är minst 0,16 gånger bokstavens storlek.",
+        "P3": "Det `word-spacing`-värde som fastställts för elementet är inte detsamma som det värde som antecknats för elementet.",
+        "F1": "CSS-reglerna hindrar `word-spacing`-värdet från att uppfylla minimikravet."
+      }
+    },
+    "QW-ACT-R70": {
+      "name": "`Iframe` med negativt `tabindex`-attribut innehåller inga interaktiva element",
+      "description": "Denna regel kontrollerar att ett `iframe`-element vars `tabindex`-attribut har ett negativt värde inte innehåller interaktiva element.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "RC1": "Den inkluderade kontexten innehåller inga element som är synliga och fokuseras i ordningsföljd.",
+        "RC2": "Den inkluderade kontexten innehåller element som är synliga och fokuseras i ordningsföljd."
+      }
+    },
+    "QW-ACT-R71": {
+      "name": "`Meta`-elementet har ingen uppdateringsfördröjning (inget undantag)",
+      "description": "Denna regel kontrollerar att elementet `meta’ inte har använts för fördröjd omdirigering eller omladdning.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Objektet laddas om eller omdirigeras omedelbart.",
+        "F1": "Objektet laddas om efter {seconds} sekunder.",
+        "F2": "Objektet omdirigeras efter {seconds} sekunder."
+      }
+    },
+    "QW-ACT-R72": {
+      "name": "Det första fokuserade elementet är en länk till innehåll som inte upprepas",
+      "description": "Denna regel kontrollerar att det första fokuserade elementet är en länk till innehåll som inte upprepas på sidan.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "W1": "Kontrollera att det första fokuserade elementet har ett tillgängligt namn som låter förstå att man hoppar över innehåll med den.",
+        "W2": "Kontrollera att det första fokuserade elementet hoppar till sidans huvudinnehåll och att dess tillgängliga namn också låter förstå detta.",
+        "F1": "Det första fokuserade elementet är inte åtkomligt med tangentbord.",
+        "F2": "Det första fokuserade elementet ingår inte i innehållsmodellen för tillgänglighet.",
+        "F3": "Det första fokuserade elementet är inte en länk.",
+        "F4": "Det första fokuserade elementet hoppar inte till sidans huvudinnehåll.",
+        "F5": "På sidan finns inga fokuserade element."
+      }
+    },
+    "QW-ACT-R73": {
+      "name": "Blocket med upprepat innehåll måste krympas",
+      "description": "Denna regel kontrollerar att block med upprepat innehåll kan krympas.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Sidan innehåller inget innehåll som upprepas.",
+        "W1": "Kontrollera i varje block med upprepat innehåll som finns i ett element som i utskriftsordningen åtföljs av minst ett element med innehåll som upprepas efter upprepat innehåll att följande villkor uppfylls: det finns en funktion för att dölja alla delar av detta block och det finns en funktion för att ta bort dessa delar från innehållsmodellen för tillgänglighet."
+      }
+    },
+    "QW-ACT-R74": {
+      "name": "Dokumentet har en mekanism för att flytta fokus till innehåll som inte upprepas",
+      "description": "Denna regel kontrollerar att det finns en mekanism för att flytta fokus till innehåll som inte upprepas på sidan.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Sidan innehåller inget innehåll som upprepas.",
+        "W1": "På sidan finns en eller flera funktioner för att flytta fokus. Kontrollera att någon av dessa används före blocket med upprepat innehåll och att fokuset placeras strax före blocket med innehåll som inte upprepas.",
+        "W2": "Kontrollera att det finns minst en funktion på sidan för att flytta fokus. Kontrollera att någon av dessa används före blocket med upprepat innehåll och att fokuset placeras strax före blocket med innehåll som inte upprepas."
+      }
+    },
+    "QW-ACT-R75": {
+      "name": "Hoppa över block med upprepat innehåll",
+      "description": "Denna regel kontrollerar att det på varje sida finns en mekanism för att hoppa över block med upprepat innehåll.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Villkoret uppfylls på grund av regeln ",
+        "W1": "Uppfyllandet av villkoret kunde inte verifieras på grund av regeln ",
+        "F1": "Villkoret uppfylls inte på grund av regeln "
+      }
+    },
+    "QW-ACT-R76": {
+      "name": "Texten uppfyller kraven på utökad kontrast",
+      "description": "Denna regel kontrollerar att den största möjliga kontrasten mot bakgrunden för varje tecken i texten uppfyller kraven på utökad kontrast.",
+      "results": {
+        "I1": "Inga objekt hittades.",
+        "P1": "Elementets kontrast överskrider minimikraven.",
+        "P2": "Med elementets tecken presenteras inte text på ett naturligt språk.",
+        "P3": "Elementets kontrast mot bakgrundens gradientfärg överskrider minimikraven.",
+        "W1": "Elementets text har skuggning som kräver manuell granskning.",
+        "W2": "Bakom elementet finns en bild.",
+        "W3": "Elementet har en gradientfärg som vi inte kan verifiera.",
+        "F1": "Elementets kontrast uppfyller inte minimikraven.",
+        "F2": "Elementets kontrast mot bakgrundens gradientfärg uppfyller inte minimikraven."
+      }
+    }
+  },
+  "wcag-techniques": {
+    "QW-WCAG-T1": {
+      "name": "Providing text alternatives for the area elements of image maps",
+      "description": "This technique checks the text alternative of area elements of images maps",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the `alt` attribute describes correctly the corresponding area of the image.",
+        "F1": "The `alt` attribute doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T2": {
+      "name": "Using caption elements to associate data table captions with data tables",
+      "description": "This technique checks the caption element is correctly use on tables",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the `caption` element identifies the table correctly.",
+        "F1": "The `caption` element doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T3": {
+      "name": "Providing a description for groups of form controls using `fieldset` and `legend` elements",
+      "description": "This technique checks the correct use of the description element for form controls",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the `legend` description is valid.",
+        "F1": "The `fieldset` element is neither inside nor referencing a `form` element.",
+        "F2": "The `legend` element doesn't exist or is empty ('')."
+      }
+    },
+    "QW-WCAG-T4": {
+      "name": "Using the summary attribute of the table element to give an overview of data tables",
+      "description": "This technique checks the correct use of the summary attribute for table elements",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the summary is a valid description of the table.",
+        "F1": "The summary is empty.",
+        "F2": "The caption is a duplicate of the summary."
+      }
+    },
+    "QW-WCAG-T5": {
+      "name": "Using alt attributes on images used as submit buttons",
+      "description": "This technique checks all input elements that are buttons use alt text",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the value of the alt attribute correctly describes the function of the button.",
+        "F1": "The input element does not have an alt attribute.",
+        "F2": "The input element has an empty alt attribute."
+      }
+    },
+    "QW-WCAG-T6": {
+      "name": "Using both keyboard and other device-specific functions",
+      "description": "The objective of this technique is to verify the parity of keyboard-specific and mouse-specific events when code that has a scripting function associated with an event is used",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The mouse event attribute has a keyboard equivalent.",
+        "W1": "The test target has a keyboard event, but we can't verify if it's equivalent to the mouse event."
+      }
+    },
+    "QW-WCAG-T7": {
+      "name": "Providing definitions for abbreviations by using the abbr element",
+      "description": "The objective of this technique is to provide expansions or definitions for abbreviations by using the abbr element",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target has the definition in the title attribute.",
+        "F1": "The test target doesn't have the definition in the title attribute."
+      }
+    },
+    "QW-WCAG-T8": {
+      "name": "Failure of Success Criterion 1.1.1 and 1.2.1 due to using text alternatives that are not alternatives",
+      "description": "This describes a failure condition for all techniques involving text alternatives. If the text in the \"text alternative\" cannot be used in place of the non-text content without losing information or function then it fails because it is not, in fact, an alternative to the non-text content",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Text alternative needs manual verification.",
+        "F1": "Text alternative is not actually a text alternative for the non-text content."
+      }
+    },
+    "QW-WCAG-T9": {
+      "name": "Organizing a page using headings",
+      "description": "The objective of this technique is to ensure that sections have headings that identify them and that the heading are used in the correct order",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that headers are used to divide the page correctly.",
+        "F1": "Headings are not in the correct order.",
+        "F2": "Heading number is missing.",
+        "F3": "Headings don't start with h1"
+      }
+    },
+    "QW-WCAG-T10": {
+      "name": "Combining adjacent image and text links for the same resource",
+      "description": "The objective of this technique is to provide both text and iconic representations of links without making the web page more confusing or difficult for keyboard users or assistive technology users. Since different users finding text and icons more usable, providing both can improve the accessibility of the link.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The a element contains an image that has an empty alt attribute.",
+        "W1": "The link contains an image that has an alt attribute that should be manually verified.",
+        "F1": "The link text is equal to the image's alternative text."
+      }
+    },
+    "QW-WCAG-T11": {
+      "name": "Providing text alternatives on applet elements",
+      "description": "Provide a text alternative for an applet by using the alt attribute to label an applet and providing the text alternative in the body of the applet element. In this technique, both mechanisms are required due to the varying support of the alt attribute and applet body text by user agents.",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the values of the alt attribute and the body text correctly describe the applet element.",
+        "F1": "The applet element does not contain an alt attribute.",
+        "F2": "The applet element has an empty alt attribute.",
+        "F3": "The applet element does not contain alternative text in its body."
+      }
+    },
+    "QW-WCAG-T12": {
+      "name": "Failure of Success Criterion 1.3.1 due to using th elements, caption elements, or non-empty summary attributes in layout tables",
+      "description": "The objective of this technique is to describe a failure that occurs when a table used only for layout includes either th elements, a summary attribute, or a caption element. This is a failure because it uses structural (or semantic) markup only for presentation. The intent of the HTML and XHTML table elements is to present data.",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "No incorrect elements used in layout table.",
+        "F1": "The table has a non-empty summary - Amend it if it's a layout table.",
+        "F2": "The table has a th element - Amend it if it's a layout table.",
+        "F3": "The table has a caption element - Amend it if it's a layout table."
+      }
+    },
+    "QW-WCAG-T13": {
+      "name": "Failure of Success Criterion 2.2.2 due to using the blink element",
+      "description": "The blink element, while not part of the official HTML or XHTML specification, is supported by many user agents. It causes any text inside the element to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a preference. The blinking continues as long as the page is displayed. Therefore, content that uses blink fails the Success Criterion because blinking can continue for more than three seconds.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Blink is not used.",
+        "F1": "Used blink element."
+      }
+    },
+    "QW-WCAG-T14": {
+      "name": "Using id and headers attributes to associate data cells with header cells in data tables",
+      "description": "This technique checks if data cells are associated with header cells in data tables.",
+      "results": {
+        "I1": "No test targets found.",
+        "I2": "This table is a layout table.",
+        "I3": "No header attributes are used in this data table.",
+        "P1": "id and headers attributes are correctly used.",
+        "F1": "This table is a layout table with id or headers attributes.",
+        "F2": "There are duplicate `id`s in this data table.",
+        "F3": "id and headers attributes are not correctly used."
+      }
+    },
+    "QW-WCAG-T15": {
+      "name": "Using the link element and navigation tools",
+      "description": "The objective of this technique is to describe how the link element can provide metadata about the position of an HTML page within a set of Web pages or can assist in locating content with a set of Web pages.",
+      "results": {
+        "I1": "No test targets found.",
+        "I2": "The element doesn't contain a rel attribute or doesn't pertains navigation.",
+        "P1": "The link has rel and href attributes and pertains navigation.",
+        "F1": "The element doesn't contain an href attribute and pertains navigation."
+      }
+    },
+    "QW-WCAG-T16": {
+      "name": "Using HTML according to spec",
+      "description": "This technique checks that the HTML or XHTML web page follows the specification.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The HTML document doesn't have errors.",
+        "W1": "The HTML document has warnings.",
+        "F1": "The HTML document has errors."
+      }
+    },
+    "QW-WCAG-T17": {
+      "name": "Positioning labels to maximize predictability of relationships",
+      "description": "This technique checks the correct position of labels in forms",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The form field has well positioned label.",
+        "F1": "The form field has incorrect positioned label.",
+        "F2": "The form field label is empty.",
+        "F3": "The form field label is not visible."
+      }
+    },
+    "QW-WCAG-T18": {
+      "name": "Using table markup to present tabular information",
+      "description": "The objective of this technique is to present tabular information in a way that preserves relationships within the information even when users cannot see the table or the presentation format is changed. Using the table element with the child elements tr, th, and td makes these relationships perceivable.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is at least one occurrence of table, tr, td and th.",
+        "F1": "There are missing table child elements."
+      }
+    },
+    "QW-WCAG-T19": {
+      "name": "Providing submit buttons",
+      "description": "The objective of this technique is to provide a mechanism that allows users to explicitly request changes of context. The intended use of a submit button is to generate an HTTP request that submits data entered in a form, so it is an appropriate control to use for causing a change of context.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The form contains one of the following elements input[type~='submit image'], button[type='submit'].",
+        "F1": "Form tag doesn't contain any of the following elements input[type~='submit image'], button[type='submit']."
+      }
+    },
+    "QW-WCAG-T20": {
+      "name": "Supplementing link text with the title attribute",
+      "description": "Supplementing link text with the title attribute",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Please verify that the element's title attribute describes correctly the link.",
+        "F1": "The element's title attribute is empty.",
+        "F2": "The element contains a title attribute equal to the text in the link"
+      }
+    },
+    "QW-WCAG-T21": {
+      "name": "Failure of Success Criteria 2.4.4, 2.4.9 and 4.1.2 due to not providing an accessible name for an image which is the only content in a link",
+      "description": "This technique checks the text alternative of images which are the only content of a link",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The link has an accessible name.",
+        "F1": "The image doesn't have an accessible name."
+      }
+    },
+    "QW-WCAG-T22": {
+      "name": "Failure of Success Criterion 3.2.1 and 3.2.5 due to opening a new window as soon as a new page is loaded",
+      "description": "The objective of this technique is to ensure that pages do not disorient users by opening up one or more new windows that automatically attain focus as soon as a page is loaded.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Browser didn't open new tab.",
+        "F1": "Browser opened a new tab."
+      }
+    },
+    "QW-WCAG-T23": {
+      "name": "Adding a link at the top of each page that goes directly to the main content area",
+      "description": "The objective of this technique is to provide a mechanism to bypass blocks of material that are repeated on multiple Web pages by skipping directly to the main content of the Web page.",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "The first focusable control is a visible link to a <main> element.",
+        "W2": "The first focusable control is a visible link to some content in the Web Page. Verify if it links to the main content.",
+        "F1": "The first focusable control on the Web page links to an inexistent element.",
+        "F2": "The first focusable control on the Web page links to the top of the page.",
+        "F3": "The first focusable control on the Web page does not links to local content.",
+        "F4": "The first focusable control on the Web page is not a link.",
+        "F5": "This Web page does not have focusable controls."
+      }
+    },
+    "QW-WCAG-T24": {
+      "name": "Failure of Success Criteria 2.1.1, 2.4.7, and 3.2.1 due to using script to remove focus when focus is received",
+      "description": "Content that normally receives focus when the content is accessed by keyboard may have this focus removed by scripting.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Element kept focus.",
+        "F1": "Element didn't keep focus."
+      }
+    },
+    "QW-WCAG-T25": {
+      "name": "Using the scope attribute to associate header cells and data cells in data tables",
+      "description": "The objective of this technique is to associate header cells with data cells in complex tables using the scope attribute.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The element's scope attribute matches the following values: col, row, colgroup, rowgroup.",
+        "F1": "The element doesn't contain a scope attribute.",
+        "F2": "The element's scope attribute is empty.",
+        "F3": "The element's scope attribute doesn't match any of the following values: col, row, colgroup, rowgroup."
+      }
+    },
+    "QW-WCAG-T26": {
+      "name": "Failure of Success Criterion 4.1.2 due to using script to make div or span a user interface control in HTML without providing a role for the control",
+      "description": "This failure demonstrates how using generic HTML elements to create user interface controls can make the controls inaccessible to assistive technology.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The element is a user interface control with an event handler.",
+        "F1": "The element is a forced user interface control without the proper role attribute."
+      }
+    },
+    "QW-WCAG-T27": {
+      "name": "Failure of Success Criterion 1.4.8 due to using text that is justified (aligned to both the left and the right margins)",
+      "description": "This failure describes situations where blocks of text that are justified (aligned to both the left and the right margins) occurs in HTML, using the 'align' attribute.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "This content is not justified.",
+        "F1": "This content shouldn't be justified."
+      }
+    },
+    "QW-WCAG-T28": {
+      "name": "Using `percent, em, names` for font sizes",
+      "description": "This technique checks that all font-size attribute uses percent, em or names.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "This test target has a font-size css property using an relative unit value with the important flag.",
+        "F1": "This test target has a font-size css property using an absolute unit value with the important flag."
+      }
+    },
+    "QW-WCAG-T29": {
+      "name": "Specifying alignment either to the left or right in CSS",
+      "description": "This technique describes how to align blocks of text either left or right by setting the CSS text-align property.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "This test target has a text-align css property equal to justify.",
+        "F1": "This test target has a text-align css property not equal to justify."
+      }
+    },
+    "QW-WCAG-T30": {
+      "name": "Failure of Success Criterion 2.2.2 due to using text-decoration:blink without a mechanism to stop it in less than five seconds",
+      "description": "CSS defines the blink value for the text-decoration property. When used, it causes any text in elements with this property to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a user agent preference. The blinking continues as long as the page is displayed. Therefore, content that uses text-decoration:blink fails the Success Criterion because blinking can continue for more than three seconds.",
+      "results": {
+        "I1": "No test targets found.",
+        "F1": "This test target has a `text-decoration` property with the value `blink."
+      }
+    },
+    "QW-WCAG-T31": {
+      "name": "Failure of Success Criterion 1.4.3, 1.4.6 and 1.4.8 due to specifying foreground colors without specifying background colors or vice versa",
+      "description": "Users with vision loss or cognitive, language and learning challenges often prefer specific foreground and background color combinations. In some cases, individuals with low vision will find it much easier to see a Web page that has white text on a black background, and they may have set their user agent to present this contrast. Many user agents make it possible for users to choose a preference about the foreground or background colors they would like to see without overriding all author-specified styles. This makes it possible for users to view pages where colors have not been specified by the author in their preferred color combination.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target has a author defined color and background css properties.",
+        "F1": "The test target has a author defined color css property but not a background css property.",
+        "F2": "The test target has a author defined background property but not a color css property."
+      }
+    },
+    "QW-WCAG-T32": {
+      "name": "Using ol, ul and dl for lists or groups of links",
+      "description": "The objective of this technique is to create lists of related items using list elements appropriate for their purposes.",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Check that content that has the visual appearance of a list (with or without bullets) is marked as an unordered list.",
+        "W2": "Check that content that has the visual appearance of a numbered list is marked as an ordered list.",
+        "W3": "Check that content is marked as a definition list when terms and their definitions are presented in the form of a list.",
+        "F1": "A list item is not contained in a correct list element."
+      }
+    },
+    "QW-WCAG-T33": {
+      "name": "Using description lists - dd,dt",
+      "description": "Ensures <dt> and <dd> elements are contained by a <dl>",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target is contained in a correct description list element.",
+        "F1": "The test target is not contained in a correct description list element."
+      }
+    },
+    "QW-WCAG-T34": {
+      "name": "Using description lists - dl",
+      "description": "Ensures <dl> elements are structured correctly. <dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The description list element is structured correctly",
+        "F1": "The description list element contains an incorrect element type",
+        "F2": "The description list element is not ordered correctly"
+      }
+    }
+  },
+  "best-practices": {
+    "QW-BP1": {
+      "name": "Using h1-h6 to identify headings",
+      "description": "It is recommended to use HTML and XHTML heading markup to provide semantic code for headings in the content",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "Check that heading markup is used when content is a heading.",
+        "F1": "This page doesn't use headings."
+      }
+    },
+    "QW-BP2": {
+      "name": "Concise images alt text",
+      "description": "Image alt text attribute with more than 100 characters",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The img alt text attribute has less than 100 characters.",
+        "F1": "The img alt text attribute has more than 100 characters."
+      }
+    },
+    "QW-BP4": {
+      "name": "Grouped links not within a nav element",
+      "description": "Set of 10 or more links not grouped within a list (nav)",
+      "results": {
+        "I1": "No test targets found.",
+        "F1": "It was found a group of 10 or more links not grouped within a nav element."
+      }
+    },
+    "QW-BP5": {
+      "name": "Using table elements inside other table elements",
+      "description": "It is not recommended to use table elements inside other table elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There are not table elements inside other table elements.",
+        "F1": "There are table elements inside other table elements"
+      }
+    },
+    "QW-BP6": {
+      "name": "title element is not too long (100 characters)",
+      "description": "The webpage title element shouldn't have more than 100 characters",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The page title has less than 100 characters.",
+        "F1": "The page title has 100 or more characters."
+      }
+    },
+    "QW-BP7": {
+      "name": "Title element contains ASCII-art",
+      "description": "Title element contains ASCII-art",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The title element doesn't contain ASCII art.",
+        "F1": "The title element contains ASCII art."
+      }
+    },
+    "QW-BP8": {
+      "name": "Headings with images should have an accessible name",
+      "description": "Headings with at least one image should have an accessible name",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "This heading with at least one image has an accessible name.",
+        "F1": "This heading with at least one image does not have an accessible name."
+      }
+    },
+    "QW-BP9": {
+      "name": "Table element without header cells has a caption",
+      "description": "A table without th elements should have a caption element to describe it.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Table doesn't have header cells but has a caption.",
+        "F1": "Table doesn't have header cells or caption."
+      }
+    },
+    "QW-BP10": {
+      "name": "HTML elements are used to control visual presentation of content",
+      "description": "No HTML elements are used to control the visual presentation of content",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The webpage doesn't use elements to control the visual content presentation.",
+        "F1": "The webpage uses the element {name} to control the visual content presentation."
+      }
+    },
+    "QW-BP11": {
+      "name": "Using br to make a list",
+      "description": "Using 3 consecutive br elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There are less than 3 consecutive br.",
+        "F1": "`br` elements are being be used as a list."
+      }
+    },
+    "QW-BP12": {
+      "name": "Using scope col and row",
+      "description": "Using scope col in the first row and scope row in the first element of each row",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The scope attribute is correctly used.",
+        "F1": "The scope attribute is incorrectly used."
+      }
+    },
+    "QW-BP13": {
+      "name": "Using consecutive links with the same href and one contains an image",
+      "description": "Using consecutive links with the same href in which one of the links contains an image",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There are no consecutive links with the same href in which one of the links contained an image.",
+        "F1": "There are consecutive links with the same href in which one of the links contained an image."
+      }
+    },
+    "QW-BP15": {
+      "name": "At least one width attribute of an HTML element is expressed in absolute values",
+      "description": "At least one width attribute of an HTML element is expressed in absolute values",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target `width` attribute uses relative units.",
+        "F1": "The test target `width` attribute uses absolute units."
+      }
+    },
+    "QW-BP17": {
+      "name": "Adding a link at the beginning of a block of repeated content to go to the end of the block",
+      "description": "The objective of this technique is to provide a mechanism to bypass a block of material by skipping to the end of the block.",
+      "results": {
+        "I1": "No test targets found.",
+        "W1": "This link skips a content block.",
+        "F1": "This page does not have links."
+      }
+    },
+    "QW-BP18": {
+      "name": "Using percentage values in CSS for container sizes",
+      "description": "The objective of this technique is to enable users to increase the size of text without having to scroll horizontally to read that text. To use this technique, an author specifies the width of text containers using percent values.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "This test target has a `width` css property using percentage value with the important flag.",
+        "F1": "This test target has a `width` css property using `px` value with the important flag.",
+        "F2": "This test target has a `width` css property not using percentage value with the important flag."
+      }
+    },
+    "QW-BP19": {
+      "name": "Landmark banner is top level",
+      "description": "Ensures the banner landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The banner landmark is at top level.",
+        "F1": "The banner landmark is not at top level."
+      }
+    },
+    "QW-BP20": {
+      "name": "Landmark no duplicate banner",
+      "description": "Ensures the document has at most one banner landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one banner landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP21": {
+      "name": "Landmark no duplicate contentinfo",
+      "description": "Ensures the document has at most one contentinfo landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one contentinfo landmark",
+        "F1": "There are multiple banner landmarks"
+      }
+    },
+    "QW-BP22": {
+      "name": "Landmark has one main",
+      "description": "Ensures the document has a main landmark",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "There is one main landmark.",
+        "F1": "There are multiple main landmarks."
+      }
+    },
+    "QW-BP23": {
+      "name": "Listitems are used semantically",
+      "description": "Ensures <li> elements are used semantically",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "Listitem is used semantically",
+        "F1": "Listitem is not used semantically not used semantically"
+      }
+    },
+    "QW-BP24": {
+      "name": "Lists are used correctly",
+      "description": "Ensures that lists are structured correctly. <ul> and <ol> must only directly contain <li>, <script> or <template> elements",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "List is used correctly",
+        "F1": "List is not used correctly"
+      }
+    },
+    "QW-BP25": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the complementary landmark or aside is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP26": {
+      "name": "Landmark complementary is top level",
+      "description": "Ensures the contentinfo landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The complementary landmark is at top level.",
+        "F1": "The complementary landmark is not at top level."
+      }
+    },
+    "QW-BP27": {
+      "name": "Landmark main is top level",
+      "description": "Ensures the main landmark is at top level",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The main landmark is at top level.",
+        "F1": "The main landmark is not at top level."
+      }
+    }
+  }
+}

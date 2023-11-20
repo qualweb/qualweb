@@ -1,0 +1,23 @@
+name: All Unit Tests
+on:
+  workflow_call:
+
+jobs:
+  unit_tests:
+    name: All Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      # Setup/prelims
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (cache, dependencies)
+        uses: ./.github/actions/install_and_cache_dependencies
+
+      # Build all packages.
+      - name: Build
+        run: npm -ws run build
+
+      # Run unit tests in all workspaces.
+      - name: "All unit tests"
+        run: npm -ws test

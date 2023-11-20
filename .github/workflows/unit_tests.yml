@@ -1,0 +1,108 @@
+# This workflow file contains a workflow that will ONLY run unit tests for
+# packages which have seen changes. tj-actions/changed-files *should* correctly
+# list the files that have changed in Git commits that are new to the base
+# branch.
+name: Unit tests
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_call:
+
+jobs:
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      # Setup/prelims
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (cache, dependencies)
+        uses: ./.github/actions/install_and_cache_dependencies
+
+      # Retrieve files that have changed in this branch compared to the base
+      # branch (the base branch should be "main" when pulling from "develop" and
+      # "develop" when pulling from feature branches)
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          write_output_files: true
+
+      # For debug purposes only. List the files that the previous action
+      # identified as having changed.
+      - name: List changed files
+        run: echo ${{ steps.changed-files.outputs.modified_files }}
+
+      - name: List changed files (from output file)
+        run: cat .github/outputs/modified_files.txt
+
+      - name: Get affected workspaces
+        run: echo AFFECTED_WORKSPACES="$(npx ts-node scripts/get_modified_workspaces.ts .github/outputs/modified_files.txt)" >> "$GITHUB_ENV"
+
+      - name: List affected workspaces
+        run: echo $AFFECTED_WORKSPACES
+
+      # Build all packages. Do this AFTER the changed files check. After we
+      # build everything, a lot of things may look changed to the changed-files
+      # action.
+      - name: Build
+        run: npm -ws run build
+
+      - name: "@qualweb/act-rules"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/act-rules')
+        run: npm run -w @qualweb/act-rules test
+
+      - name: "@qualweb/best-practices"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/best-practices')
+        run: npm run -w @qualweb/best-practices test
+
+      - name: "@qualweb/cli"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/cli')
+        run: npm run -w @qualweb/cli test
+
+      - name: "@qualweb/core"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/core')
+        run: npm run -w @qualweb/core test
+
+      - name: "@qualweb/counter"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/counter')
+        run: npm run -w @qualweb/counter test
+
+      - name: "@qualweb/crawler"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/crawler')
+        run: npm run -w @qualweb/crawler test
+
+      - name: "@qualweb/dom"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/dom')
+        run: npm run -w @qualweb/dom test
+
+      - name: "@qualweb/earl-reporter"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/earl-reporter')
+        run: npm run -w @qualweb/earl-reporter test
+
+      - name: "@qualweb/evaluation"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/evaluation')
+        run: npm run -w @qualweb/evaluation test
+
+      - name: "@qualweb/locale"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')
+        run: npm run -w @qualweb/locale test
+
+      - name: "@qualweb/qw-element"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-element')
+        run: npm run -w @qualweb/qw-element test
+
+      - name: "@qualweb/qw-page"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-page')
+        run: npm run -w @qualweb/qw-page test
+
+      - name: "@qualweb/util"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/util')
+        run: npm run -w @qualweb/util test
+
+      - name: "@qualweb/wcag-techniques"
+        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/wcag-techniques')
+        run: npm run -w @qualweb/wcag-techniques test

@@ -1,0 +1,96 @@
+{
+  "type": "evaluation",
+  "system": {
+    "name": "QualWeb",
+    "description": "QualWeb is an automatic accessibility evaluator for webpages.",
+    "version": "3.0.0",
+    "homepage": "http://www.qualweb.di.fc.ul.pt/",
+    "date": "2021-05-04 15:55:38",
+    "hash": "28ea4ca34f0121a6f25d2f0198ec5c32647a6a3de81606fdac3b253a07b86d6fa7b0e8835fcff5e78ce9c90bd8c3252930bdab5df4b84d0233b5b58b09abdc7f",
+    "url": {
+      "inputUrl": "http://www.acsa.org.pt/",
+      "protocol": "http",
+      "domainName": "www.acsa.org.pt",
+      "domain": "pt",
+      "uri": "/",
+      "completeUrl": "http://www.acsa.org.pt/"
+    },
+    "page": {
+      "viewport": {
+        "mobile": false,
+        "landscape": true,
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/91.0.4469.0 Safari/537.36",
+        "resolution": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "dom": {
+        "html": "<html><head>\n<title>Associação Cultural Surdos Amadora</title>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n<script language=\"JavaScript\" type=\"text/JavaScript\">\n<!--\nfunction MM_reloadPage(init) {  //reloads the window if Nav4 resized\n  if (init==true) with (navigator) {if ((appName==\"Netscape\")&&(parseInt(appVersion)==4)) {\n    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}\n  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();\n}\nMM_reloadPage(true);\nfunction MM_preloadImages() { //v3.0\n  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();\n    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)\n    if (a[i].indexOf(\"#\")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}\n}\n\nfunction MM_swapImgRestore() { //v3.0\n  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;\n}\n\nfunction MM_findObj(n, d) { //v4.01\n  var p,i,x;  if(!d) d=document; if((p=n.indexOf(\"?\"))>0&&parent.frames.length) {\n    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}\n  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];\n  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);\n  if(!x && d.getElementById) x=d.getElementById(n); return x;\n}\n\nfunction MM_swapImage() { //v3.0\n  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)\n   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}\n}\n\nfunction MM_CheckFlashVersion(reqVerStr,msg){\n  with(navigator){\n    var isIE  = (appVersion.indexOf(\"MSIE\") != -1 && userAgent.indexOf(\"Opera\") == -1);\n    var isWin = (appVersion.toLowerCase().indexOf(\"win\") != -1);\n    if (!isIE || !isWin){  \n      var flashVer = -1;\n      if (plugins && plugins.length > 0){\n        var desc = plugins[\"Shockwave Flash\"] ? plugins[\"Shockwave Flash\"].description : \"\";\n        desc = plugins[\"Shockwave Flash 2.0\"] ? plugins[\"Shockwave Flash 2.0\"].description : desc;\n        if (desc == \"\") flashVer = -1;\n        else{\n          var descArr = desc.split(\" \");\n          var tempArrMajor = descArr[2].split(\".\");\n          var verMajor = tempArrMajor[0];\n          var tempArrMinor = (descArr[3] != \"\") ? descArr[3].split(\"r\") : descArr[4].split(\"r\");\n          var verMinor = (tempArrMinor[1] > 0) ? tempArrMinor[1] : 0;\n          flashVer =  parseFloat(verMajor + \".\" + verMinor);\n        }\n      }\n      // WebTV has Flash Player 4 or lower -- too low for video\n      else if (userAgent.toLowerCase().indexOf(\"webtv\") != -1) flashVer = 4.0;\n\n      var verArr = reqVerStr.split(\",\");\n      var reqVer = parseFloat(verArr[0] + \".\" + verArr[2]);\n  \n      if (flashVer < reqVer){\n        if (confirm(msg))\n          window.location = \"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\";\n      }\n    }\n  } \n}\n//-->\n</script>\n<link href=\"/acsa.css\" rel=\"stylesheet\" type=\"text/css\">\n<style type=\"text/css\">\n<!--\nbody {\n\tbackground-repeat: no-repeat;\n}\n.style1 {font-size: 12px; color: #000000; font-family: Arial, Helvetica, sans-serif;}\na:link {\n\tcolor: #7EC6CB;\n\ttext-decoration: none;\n}\na:visited {\n\tcolor: #EEE63C;\n\ttext-decoration: none;\n}\na:active {\n\tcolor: #62B84C;\n\ttext-decoration: none;\n}\na:hover {\n\ttext-decoration: none;\n}\n-->\n</style>\n<script src=\"Scripts/AC_RunActiveContent.js\" type=\"text/javascript\"></script>\n</head>\n\n<body onload=\"MM_preloadImages('images/quemsomos_on.png','images/estatutos_on.png','images/regulamento_on.png','images/legislacao_on.png','images/noticias_on.png','images/contactos_on.png','images/actividades_on.png','images/projectos_on.png','images/eventos_on.png','images/ligacoes_on.png','images/banner_top.png','images/logo_activ.png','images/servicos_on.png','images/servicos_activ.png','images/servicos_LG.png','images/contactos_top.png','images/noticias_top.png','images/legislacao_top.png','images/regulamento_top.png','images/estatutos_top.png','images/quemsomos_top.png','images/eventos_foto.png','images/ligacoes_foto.png','images/actividades_foto.png','images/projectos_foto.png','images/actividades_LG.png','images/projectos_LG.png','images/eventos_LG.png','images/ligacoes_LG.png','images/estatutos_LG.png','images/legislacao_LG.png','images/contactos_LG.png','images/perguntas_on.png');MM_CheckFlashVersion('8,0,0,0','O conteúdo desta página necessita da versão mais recente do Adobe Flash Player. Quer instalar agora?');\">\n<table width=\"900\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#FFFFFF\">\n  <!--DWLayoutTable-->\n  <tbody><tr>\n    <td width=\"150\" rowspan=\"2\" valign=\"top\"><img src=\"images/logo.PNG\" alt=\"logo\" name=\"logotipo\" width=\"150\" height=\"150\" id=\"logotipo\" onmouseover=\"MM_swapImage('bannertop','','images/banner_top.png',1);MM_swapImage('emBranco','','images/logo_activ.png',1)\" onmouseout=\"MM_swapImgRestore()\"></td>\n    <td width=\"10\" height=\"120\"></td>\n    <td colspan=\"3\" valign=\"top\"><img src=\"images/banner_top_foto.png\" alt=\"acsa\" name=\"bannertop\" width=\"740\" height=\"120\" id=\"Image1\" onmouseover=\"MM_swapImage('Image1','','images/banner_top.png',1)\" onmouseout=\"MM_swapImgRestore()\"></td>\n  </tr>\n  <tr>\n    <td height=\"30\"></td>\n    <td colspan=\"3\" valign=\"top\"><a href=\"QuemSomos.html\"><img src=\"images/quemsomos.png\" alt=\"Quem Somos?\" name=\"quemsomos\" width=\"115\" height=\"30\" border=\"0\" id=\"quemsomos\" onmouseover=\"MM_swapImage('bannertop','','images/quemsomos_top.png','quemsomos','','images/quemsomos_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a><a href=\"Estatutos.html\"><img src=\"images/estatutos.png\" alt=\"estatutos\" name=\"estatutos\" width=\"115\" height=\"30\" border=\"0\" id=\"estatutos\" onmouseover=\"MM_swapImage('bannertop','','images/estatutos_top.png','estatutos','','images/estatutos_on.png','foto1','','images/estatutos_LG.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a><a href=\"Regulamento.html\"><img src=\"images/regulamento.png\" alt=\"regulamento\" name=\"regulamento\" width=\"115\" height=\"30\" border=\"0\" id=\"regulamento\" onmouseover=\"MM_swapImage('bannertop','','images/regulamento_top.png','regulamento','','images/regulamento_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a><a href=\"Legislacao.html\"><img src=\"images/legislacao.png\" alt=\"legislacao\" name=\"legislacao\" width=\"115\" height=\"30\" border=\"0\" id=\"legislacao\" onmouseover=\"MM_swapImage('bannertop','','images/legislacao_top.png','legislacao','','images/legislacao_on.png','foto1','','images/legislacao_LG.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a><a href=\"Noticias.html\"><img src=\"images/noticias.png\" alt=\"noticias\" name=\"noticias\" width=\"115\" height=\"30\" border=\"0\" id=\"noticias\" onmouseover=\"MM_swapImage('bannertop','','images/noticias_top.png','noticias','','images/noticias_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a><a href=\"Contactos.html\"><img src=\"images/contactos.png\" alt=\"contactos\" name=\"contactos\" width=\"115\" height=\"30\" border=\"0\" id=\"contactos\" onmouseover=\"MM_swapImage('bannertop','','images/contactos_top.png','contactos','','images/contactos_on.png','foto1','','images/contactos_LG.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a></td>\n  </tr>\n  <tr>\n    <td rowspan=\"10\" valign=\"top\" bgcolor=\"#EEE63C\"><a href=\"Servicos.html\"><br>\n      <img src=\"images/servicos.png\" alt=\"servicos\" name=\"servicos\" width=\"150\" height=\"50\" border=\"0\" id=\"servicos\" onmouseover=\"MM_swapImage('foto1','','images/servicos_LG.png','servicos','','images/servicos_on.png','foto2','','images/servicos_activ.png',1)\" onmouseout=\"MM_swapImgRestore()\"><br>\n    </a><a href=\"Actividades.html\"><img src=\"images/actividades.png\" alt=\"actividades\" name=\"actividades\" width=\"150\" height=\"50\" border=\"0\" id=\"actividades\" onmouseover=\"MM_swapImage('foto1','','images/actividades_LG.png','actividades','','images/actividades_on.png','foto2','','images/actividades_foto.png',1)\" onmouseout=\"MM_swapImgRestore()\"><br>\n    </a><a href=\"projectos.html\"><img src=\"images/projectos.png\" alt=\"projectos\" name=\"projectos\" width=\"150\" height=\"50\" border=\"0\" id=\"projectos\" onmouseover=\"MM_swapImage('foto1','','images/projectos_LG.png','projectos','','images/projectos_on.png','foto2','','images/projectos_foto.png',1)\" onmouseout=\"MM_swapImgRestore()\"><br>\n    </a><a href=\"Perguntas.html\"><img src=\"images/perguntas.png\" alt=\"formacao\" name=\"perguntas\" width=\"150\" height=\"50\" border=\"0\" id=\"perguntas\" onmouseover=\"MM_swapImage('perguntas','','images/perguntas_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"><br>\n    </a><a href=\"Formacao.html\"></a><a href=\"Eventos.html\"><img src=\"images/eventos.png\" alt=\"eventos\" name=\"eventos\" width=\"150\" height=\"50\" border=\"0\" id=\"eventos\" onmouseover=\"MM_swapImage('foto1','','images/eventos_LG.png','foto2','','images/eventos_foto.png','eventos','','images/eventos_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"><br>\n    </a><a href=\"Ligacoes.html\"><img src=\"images/ligacoes.png\" alt=\"ligacoes\" name=\"ligacoes\" width=\"150\" height=\"50\" border=\"0\" id=\"ligacoes\" onmouseover=\"MM_swapImage('foto1','','images/ligacoes_LG.png','foto2','','images/ligacoes_foto.png','ligacoes','','images/ligacoes_on.png',1)\" onmouseout=\"MM_swapImgRestore()\"></a></td>\n    <td height=\"50\">&nbsp;</td>\n    <td width=\"529\" rowspan=\"13\" valign=\"top\" background=\"i\"><div align=\"center\">\n      <p align=\"justify\"><br>\n      <span class=\"titulo\">Bem-vindos!</span><span class=\"sub_titulo\"><br>\n            <br>\n            </span><span class=\"texto\">A Associação Cultural de Surdos da Amadora vai passar a uma  nova etapa da sua existência em que irá estar presente na Internet através do  seu site.<br>\n            <br>\n            Gostaríamos de convidá-los a contribuírem com ideias e  sugestões. E porque queremos fazer mais e melhor é que saudamos a vossa  colaboração e a oportunidade de um trabalho conjunto.<br>\n            <br>\n            Aceitamos qualquer crítica mas preferimos as justas que  ajudem a melhorar o nosso trabalho.<br>\n            <br>\n          Obrigado.</span><span class=\"sub_titulo\"><br>\n          <br>  \n          </span><img src=\"images/assinatura.png\" width=\"200\" height=\"43\"><br>        \n          <span class=\"style1\">Presidente da Direcção</span></p>\n      <br>\n    </div>    </td>\n  <td width=\"11\">&nbsp;</td>\n    <td width=\"200\" rowspan=\"13\" valign=\"top\"><br>\n    <script type=\"text/javascript\">\nAC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0','width','200','height','150','id','FLVPlayer','src','FLVPlayer_Progressive','flashvars','&MM_ComponentVersion=1&skinName=Clear_Skin_2&streamName=videos/msg_presidente&autoPlay=false&autoRewind=true','quality','high','scale','noscale','name','FLVPlayer','salign','lt','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','FLVPlayer_Progressive' ); //end AC code\n</script><embed width=\"200\" height=\"150\" src=\"FLVPlayer_Progressive.swf\" flashvars=\"&amp;MM_ComponentVersion=1&amp;skinName=Clear_Skin_2&amp;streamName=videos/msg_presidente&amp;autoPlay=false&amp;autoRewind=true\" quality=\"high\" scale=\"noscale\" name=\"FLVPlayer\" salign=\"lt\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" type=\"application/x-shockwave-flash\"> <noscript><object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0\" width=\"200\" height=\"150\" id=\"FLVPlayer\">\n      <param name=\"movie\" value=\"FLVPlayer_Progressive.swf\" />\n      <param name=\"salign\" value=\"lt\" />\n      <param name=\"quality\" value=\"high\" />\n      <param name=\"scale\" value=\"noscale\" />\n      <param name=\"FlashVars\" value=\"&MM_ComponentVersion=1&skinName=Clear_Skin_2&streamName=videos/msg_presidente&autoPlay=false&autoRewind=true\" />\n      <embed src=\"FLVPlayer_Progressive.swf\" flashvars=\"&MM_ComponentVersion=1&skinName=Clear_Skin_2&streamName=videos/msg_presidente&autoPlay=false&autoRewind=true\" quality=\"high\" scale=\"noscale\" width=\"200\" height=\"150\" name=\"FLVPlayer\" salign=\"LT\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\" />      \n</object></noscript>\n<br>\n  <br>\n  <img src=\"images/foto_presidente1.png\" width=\"200\" height=\"150\"><br>\n  <br>\n  <img src=\"images/foto_presidente2.png\" width=\"200\" height=\"150\"></td>\n  </tr>\n  <tr>\n    <td height=\"50\">&nbsp;</td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"50\">&nbsp;</td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"10\"></td>\n    <td></td>\n  </tr>\n  <tr>\n    <td height=\"19\"></td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"50\">&nbsp;</td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"50\">&nbsp;</td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"10\"></td>\n    <td></td>\n  </tr>\n  <tr>\n    <td height=\"11\"></td>\n    <td></td>\n  </tr>\n  <tr>\n    <td height=\"19\"></td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td rowspan=\"3\" valign=\"top\" bgcolor=\"#EEE63C\"><!--DWLayoutEmptyCell-->&nbsp;</td>\n    <td height=\"50\"></td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"19\">&nbsp;</td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"19\"></td>\n    <td>&nbsp;</td>\n  </tr>\n  <tr>\n    <td height=\"2\"></td>\n    <td></td>\n    <td></td>\n    <td></td>\n    <td></td>\n  </tr>\n  <tr>\n    <td height=\"90\" colspan=\"5\" valign=\"top\"><img src=\"images/simbolos.png\" alt=\"linguagem gestual\" name=\"simbolos\" width=\"900\" height=\"90\" id=\"simbolos\"></td>\n  </tr>\n</tbody></table>\n<br>\n\n\n</body></html>",
+        "title": "Associação Cultural Surdos Amadora",
+        "elementCount": 135
+      }
+    }
+  },
+  "metadata": {
+    "passed": 1,
+    "warning": 0,
+    "failed": 0,
+    "inapplicable": 0
+  },
+  "modules": {
+    "act-rules": {
+      "type": "act-rules",
+      "metadata": {
+        "passed": 1,
+        "warning": 0,
+        "failed": 0,
+        "inapplicable": 0
+      },
+      "assertions": {
+        "QW-ACT-R1": {
+          "name": "HTML Page has a title",
+          "code": "QW-ACT-R1",
+          "mapping": "2779a5",
+          "description": "This rule checks that the HTML page has a title.",
+          "metadata": {
+            "target": {
+              "element": "title"
+            },
+            "success-criteria": [
+              {
+                "name": "2.4.2",
+                "level": "A",
+                "principle": "Operable",
+                "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled"
+              }
+            ],
+            "related": [],
+            "url": "https://act-rules.github.io/rules/2779a5",
+            "type": ["ACTRule", "TestCase"],
+            "a11yReq": ["WCAG21:title"],
+            "passed": 1,
+            "warning": 0,
+            "failed": 0,
+            "inapplicable": 0,
+            "outcome": "passed",
+            "description": "The `title` element exists and it's not empty (\"\")."
+          },
+          "results": [
+            {
+              "verdict": "passed",
+              "description": "The `title` element exists and it's not empty (\"\").",
+              "resultCode": "P1",
+              "elements": [
+                {
+                  "htmlCode": "<title>Associação Cultural Surdos Amadora</title>",
+                  "pointer": "html > head:nth-child(1) > title:nth-child(1)"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
