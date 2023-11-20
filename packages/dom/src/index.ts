@@ -1,7 +1,6 @@
 import { Page, Viewport, HTTPResponse } from 'puppeteer';
 import { QualwebOptions, PageOptions } from '@qualweb/core';
 import { PageData } from '@qualweb/dom';
-import fetch from 'node-fetch';
 
 import {
   DEFAULT_DESKTOP_USER_AGENT,
@@ -13,6 +12,7 @@ import {
 } from './constants';
 import { HTMLValidationReport } from '@qualweb/html-validator';
 import { URL } from 'url';
+import axios from 'axios';
 
 class Dom {
   private readonly page: Page;
@@ -174,10 +174,9 @@ class Dom {
     if (this.endpoint) {
       const validationUrl = this.endpoint + encodeURIComponent(url);
       try {
-        const response = await fetch(validationUrl, { timeout: 10 * 1000 });
+        const response = await axios.get(validationUrl, { timeout: 10 * 1000 });
         if (response && response.status === 200) {
-          const data = await response.json();
-          return <HTMLValidationReport>JSON.parse(data);
+          return <HTMLValidationReport>response.data;
         }
       } catch (e) {
         console.error('Error fetching HTML Validation: ' + e);
