@@ -34,7 +34,6 @@ class QWPage {
 
     for (const element of listElements ?? []) {
       if (element.shadowRoot !== null) {
-        element.innerHTML = '';
         const shadowRoot = new QWElement(element);
         const selector = shadowRoot.getElementSelector();
         const shadowPage = new QWPage(element.shadowRoot, true);
