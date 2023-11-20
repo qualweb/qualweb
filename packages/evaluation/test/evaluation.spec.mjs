@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
-import locales from '@qualweb/locale';
+//import locales from '@qualweb/locale';
 import { Evaluation } from '../dist/index.js';
 import fs from 'fs';
 
@@ -17,10 +17,10 @@ describe('QualWeb evaluation', function () {
 
     const options = {
       waitUntil: ['load', 'networkidle2'],
-       //log: { console: true },
+      //log: { console: true },
       //viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: true,bp:true },
-      translate: { translate: locales.default.en, fallback: locales.default.en }
+      execute: { act: true, wcag: true, bp: true },
+     // translate: { translate: locales.default.en, fallback: locales.default.en }
     };
 
     const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');

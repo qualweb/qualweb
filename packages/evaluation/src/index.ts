@@ -1,4 +1,4 @@
-import { Page, Serializable } from 'puppeteer';
+import { Page } from 'puppeteer';
 import { QualwebOptions, Url, Evaluator, Execute } from '@qualweb/core';
 import { randomBytes } from 'crypto';
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
@@ -45,7 +45,7 @@ class Evaluation {
     if (this.execute.bp) {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
     }
-  /*  if (this.execute.wappalyzer) {
+    /*  if (this.execute.wappalyzer) {
       evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
     }*/
     if (this.execute.counter) {
@@ -159,7 +159,7 @@ class Evaluation {
       },
       sourceHtml,
       JSON.stringify(locale),
-      <Serializable>options
+      options
     );
 
     if (
@@ -204,15 +204,16 @@ class Evaluation {
     const newTabWasOpen = await this.detectIfUnwantedTabWasOpened();
 
     return await this.page.evaluate(
-      (locale: string, newTabWasOpen: boolean, validation: HTMLValidationReport, options?: WCAGOptions) => {
+      (locale: string, newTabWasOpen: boolean, validation: HTMLValidationReport | undefined, options?: WCAGOptions) => {
         //@ts-ignore
         window.wcag = new WCAGTechniques(JSON.parse(locale), options);
+        //@ts-ignore Delete with update
         return window.wcag.execute(newTabWasOpen, validation);
       },
       JSON.stringify(locale),
       newTabWasOpen,
-      <Serializable>(validation ?? null),
-      <Serializable>options
+      validation,
+      options
     );
   }
 
@@ -229,7 +230,7 @@ class Evaluation {
         return bp.execute();
       },
       JSON.stringify(locale),
-      <Serializable>options
+      options
     );
   }
 

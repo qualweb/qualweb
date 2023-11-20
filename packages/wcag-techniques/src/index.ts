@@ -145,7 +145,7 @@ class WCAGTechniques {
     }
   }
 
-  public execute(newTabWasOpen: boolean, validation: HTMLValidationReport): WCAGTechniquesReport {
+  public execute(newTabWasOpen: boolean, validation: HTMLValidationReport | undefined): WCAGTechniquesReport {
     const report: WCAGTechniquesReport = {
       type: 'wcag-techniques',
       metadata: {
