@@ -34,7 +34,7 @@
     "test:bp28": "mocha test/best-practices/QW-BP28.spec.mjs",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "format": "prettier --config .prettierrc src/**/*.ts --write",
     "compile:bps": "node compile-bps.js",
     "prebuild": "rimraf prebuild && npm run compile:bps && rimraf dist",
     "build": "tsc --build && webpack --mode production",

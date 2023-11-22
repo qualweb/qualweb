@@ -15,7 +15,7 @@
     "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "format": "prettier --config .prettierrc src/**/*.ts --write",
     "build": "npm run prebuild && tsc --build",
     "typedoc": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
