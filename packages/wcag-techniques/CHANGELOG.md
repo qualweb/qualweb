@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.11
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.3.10] - 05/09/2022
 
 ### Updated
@@ -19,7 +25,6 @@
 - QW-WCAG-T9
 - QW-WCAG-T17
 - QW-WCAG-T34
-
 
 ## [0.3.7] - 08/03/2022
 

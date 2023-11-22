@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.7
+
+### Patch Changes
+
+- ada7fe4: Replaced node-fetch with axios. Fixed processShadowDom
+
 ## [0.2.6] - 28/03/2022
 
 ### Fixed

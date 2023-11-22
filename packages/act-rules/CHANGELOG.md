@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.18
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## 0.6.16
 
 ### Patch Changes

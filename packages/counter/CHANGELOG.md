@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.2.0] - 29/03/2021
 
 ### Updated

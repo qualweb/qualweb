@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "Utilities module for qualweb",
   "main": "dist/qw-page.bundle.js",
   "files": [
@@ -33,7 +33,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.6",
+    "@qualweb/dom": "0.2.7",
     "@qualweb/types": "0.7.23",
     "@tsconfig/recommended": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
@@ -53,6 +53,6 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@qualweb/qw-element": "0.2.8"
+    "@qualweb/qw-element": "0.2.9"
   }
 }
