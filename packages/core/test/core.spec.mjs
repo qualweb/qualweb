@@ -8,15 +8,17 @@ describe('Core', function () {
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
     await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
-
+    const url = 'https://www.sapo.pt/';
     const evaluations = await qualweb.evaluate({
-      url: 'https://rocketvalidator.com/',
+      url,
       log: { console: true },
-     // viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: false,bp:false }    });
-
-    console.log(evaluations['https://rocketvalidator.com/'].modules['act-rules'].assertions["QW-ACT-R25"]);
-/*
+      // viewport: { mobile: true, landscape: false },
+      execute: { act: true, wcag: false, bp: true },
+      'act-rules': { levels: ['AAA'] }
+    });
+    console.log(evaluations);
+    console.log(evaluations[url].modules['act-rules']);
+    /*
     const evaluations1 = await qualweb.evaluate({
       url: 'https://varsovia.embaixadaportugal.mne.gov.pt/pt/sugestoes-elogios-ou-reclamacoes',
       log: { console: true },
