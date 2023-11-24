@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.14
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+- ada7fe4: Replaced node-fetch with axios. Fixed processShadowDom
+- Updated dependencies [315d70c]
+  - @qualweb/qw-element@0.2.9
+
 ## [0.2.13] - 01/02/2022
 
 ### Updated

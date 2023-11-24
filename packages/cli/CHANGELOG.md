@@ -1,10 +1,19 @@
 # Changelog
 
+## 0.6.7
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+- Updated dependencies [315d70c]
+  - @qualweb/core@0.7.47
+
 ## [0.6.5] - 22/06/2022
 
 ### Updated
 
 - dependencies
+
 ## [0.6.4] - 23/07/2021
 
 ### Updated

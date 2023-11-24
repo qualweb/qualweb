@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.12
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.6.11] - 26/09/2023
 
 ### Added
@@ -11,6 +17,7 @@
 ### Added
 
 - Fixed Bp 19
+
 ## [0.6.9] - 19/06/2023
 
 ### Added

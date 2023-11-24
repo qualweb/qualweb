@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.11",
+  "version": "0.6.12",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [
@@ -59,11 +59,11 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.6",
-    "@qualweb/locale": "0.1.12",
-    "@qualweb/qw-page": "0.2.13",
+    "@qualweb/dom": "0.2.7",
+    "@qualweb/locale": "0.1.13",
+    "@qualweb/qw-page": "0.2.14",
     "@qualweb/types": "0.7.23",
-    "@qualweb/util": "0.5.26",
+    "@qualweb/util": "0.5.27",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^6.11.0",

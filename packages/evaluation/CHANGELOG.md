@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.31
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+- Updated dependencies [315d70c]
+- Updated dependencies [ada7fe4]
+  - @qualweb/wcag-techniques@0.3.11
+  - @qualweb/best-practices@0.6.12
+  - @qualweb/act-rules@0.6.18
+  - @qualweb/counter@0.2.1
+  - @qualweb/qw-page@0.2.14
+  - @qualweb/util@0.5.27
+
 ## [0.3.30] - 19/10/2022
 
 ### Updated
@@ -87,7 +101,6 @@
 ## [0.3.15] - 29/06/2022
 
 ### Updated
-
 
 ## [0.3.14] - 28/06/2022
 

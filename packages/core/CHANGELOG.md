@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.7.47
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+- Updated dependencies [315d70c]
+- Updated dependencies [ada7fe4]
+  - @qualweb/earl-reporter@0.4.4
+  - @qualweb/evaluation@0.3.31
+  - @qualweb/crawler@0.3.16
+  - @qualweb/locale@0.1.13
+  - @qualweb/dom@0.2.7
+
 ## [0.7.46] - 23/10/2023
 
 ### Updated

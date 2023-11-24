@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-element",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "QualWeb element interface and utilities",
   "main": "dist/index.js",
   "files": [
