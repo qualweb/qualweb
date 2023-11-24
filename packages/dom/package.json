@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Processes necessary page data for qualweb accessibility evaluation.",
   "main": "dist/index.js",
   "files": [
@@ -36,7 +36,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.7.23",
+    "@qualweb/types": "0.7.24",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
