@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.24
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
 ## [0.7.23] - 19/10/2023
 
 ### Updated

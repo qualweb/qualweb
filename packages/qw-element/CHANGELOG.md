@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.10
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
 ## 0.2.9
 
 ### Patch Changes

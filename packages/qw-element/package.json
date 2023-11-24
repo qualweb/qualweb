@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-element",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "QualWeb element interface and utilities",
   "main": "dist/index.js",
   "files": [
@@ -34,7 +34,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.7.23",
+    "@qualweb/types": "0.7.24",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.4.0",
     "@typescript-eslint/eslint-plugin": "^6.11.0",

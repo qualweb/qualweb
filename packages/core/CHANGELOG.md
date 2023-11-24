@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.48
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+- Updated dependencies [550429b]
+  - @qualweb/crawler@0.3.17
+  - @qualweb/dom@0.2.8
+  - @qualweb/earl-reporter@0.4.5
+  - @qualweb/evaluation@0.3.32
+  - @qualweb/locale@0.1.14
+
 ## 0.7.47
 
 ### Patch Changes

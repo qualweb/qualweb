@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.8
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+- Updated dependencies [550429b]
+  - @qualweb/core@0.7.48
+
 ## 0.6.7
 
 ### Patch Changes

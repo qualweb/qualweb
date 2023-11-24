@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.32
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+- Updated dependencies [550429b]
+  - @qualweb/wcag-techniques@0.3.12
+  - @qualweb/act-rules@0.6.19
+  - @qualweb/best-practices@0.6.13
+  - @qualweb/counter@0.2.2
+  - @qualweb/qw-page@0.2.15
+  - @qualweb/util@0.5.28
+
 ## 0.3.31
 
 ### Patch Changes
