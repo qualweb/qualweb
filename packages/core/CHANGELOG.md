@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.49
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.33
+
 ## 0.7.48
 
 ### Patch Changes
