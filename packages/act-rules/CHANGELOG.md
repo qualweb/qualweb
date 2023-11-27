@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.20
+
+### Patch Changes
+
+- 5ebd33d: Update ACT rules mappings and links to rule description
+
 ## 0.6.19
 
 ### Patch Changes
