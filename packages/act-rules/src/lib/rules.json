@@ -486,15 +486,7 @@
         "element": "*",
         "attributes": ["role"]
       },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
-        }
-      ],
+      "success-criteria": [],
       "related": ["ARIA4", "G108"],
       "url": "https://act-rules.github.io/rules/674b10",
       "type": ["ACTRule", "TestCase"],
@@ -566,19 +558,6 @@
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded"
-        },
-        {
-          "name": "1.2.5",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-prerecorded"
-        },
-        {
-          "name": "1.2.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/media-alternative-prerecorded.html"
         }
       ],
       "related": ["G8", "G69", "G78", "G173"],
@@ -622,7 +601,7 @@
         "attributes": "aria-*"
       },
       "success-criteria": [],
-      "related": ["ARIA5", "ARIA 1.1, 6.3"],
+      "related": ["ARIA5"],
       "url": "https://act-rules.github.io/rules/5c01ea",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
@@ -678,15 +657,7 @@
         "element": "*",
         "attributes": "role"
       },
-      "success-criteria": [
-        {
-          "name": "4.1.2",
-          "level": "A",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#name-role-value"
-        }
-      ],
+      "success-criteria": [],
       "related": ["ARIA5"],
       "url": "https://act-rules.github.io/rules/4e8ab6",
       "type": ["ACTRule", "TestCase"],
@@ -826,7 +797,7 @@
         "attributes": "aria-*"
       },
       "success-criteria": [],
-      "related": ["ARIA 1.1, 6.3"],
+      "related": [],
       "url": "https://act-rules.github.io/rules/6a7281",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
@@ -841,15 +812,7 @@
       "target": {
         "element": ["h1-h6", "*[role='heading']"]
       },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
-        }
-      ],
+      "success-criteria": [],
       "related": ["H42"],
       "url": "https://act-rules.github.io/rules/ffd0e9",
       "type": ["ACTRule", "TestCase"],
@@ -892,19 +855,11 @@
       "success-criteria": [
         {
           "name": "1.4.3",
-          "level": "A",
+          "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#contrast-minimum"
-        },
-        {
-          "name": "1.4.6",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#contrast-enhanced"
-        }
-      ],
+        }],
       "related": [],
       "url": "https://act-rules.github.io/rules/afw4f7",
       "type": ["ACTRule", "TestCase"],
@@ -1033,10 +988,10 @@
     }
   },
   "QW_ACT_R43": {
-    "name": "Scrollable element is keyboard accessible",
+    "name": "Scrollable content can be reached with sequential focus navigation",
     "code": "QW-ACT-R43",
     "mapping": "0ssw9k",
-    "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+    "description": "This rule checks that scrollable elements or their descendants can be reached with sequential focus navigation so that they can be scrolled by keyboard",
     "metadata": {
       "target": {
         "element": "*"
@@ -1079,13 +1034,6 @@
           "principle": "Operable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#link-purpose-in-context"
-        },
-        {
-          "name": "2.4.9",
-          "level": "AAA",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#link-purpose-link-only"
         }
       ],
       "related": [],
@@ -1111,7 +1059,7 @@
     }
   },
   "QW_ACT_R49": {
-    "name": "Audio or video that plays automatically has no audio that lasts more than 3 seconds",
+    "name": "Audio or video element that plays automatically has no audio that lasts more than 3 seconds",
     "code": "QW-ACT-R49",
     "mapping": "aaa1bf",
     "description": "audio or video that plays automatically does not output audio for more than 3 seconds.",
@@ -1127,7 +1075,7 @@
     }
   },
   "QW_ACT_R50": {
-    "name": "Audio or video that plays automatically has a control mechanism",
+    "name": "Audio or video element that plays automatically has a control mechanism",
     "code": "QW-ACT-R50",
     "mapping": "4c31df",
     "description": "audio or video that plays automatically must have a control mechanism.",
@@ -1431,7 +1379,7 @@
     }
   },
   "QW_ACT_R67": {
-    "name": "Letter spacing in style attributes is not !important",
+    "name": "Important letter spacing in style attributes is wide enough",
     "code": "QW-ACT-R67",
     "mapping": "24afc2",
     "description": "This rule checks that the style attribute is not used to prevent adjusting letter-spacing by using !important, except if it's at least 0.12 times the font size.",
@@ -1455,7 +1403,7 @@
     }
   },
   "QW_ACT_R68": {
-    "name": "Line height in style attributes is not !important",
+    "name": "Important line height in style attributes is wide enough",
     "code": "QW-ACT-R68",
     "mapping": "78fd32",
     "description": "This rule checks that the style attribute is not used to prevent adjusting line-height by using !important, except if it's at least 1.5 times the font size.",
@@ -1479,7 +1427,7 @@
     }
   },
   "QW_ACT_R69": {
-    "name": "Word spacing in style attributes is not !important",
+    "name": "Important word spacing in style attributes is wide enough",
     "code": "QW-ACT-R69",
     "mapping": "9e45ec",
     "description": "This rule checks that the style attribute is not used to prevent adjusting word-spacing by using !important, except if it's at least 0.16 times the font size.",
