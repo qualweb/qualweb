@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Monorepo for the Qualweb Web Accesibility Evaluator. This package should never be published by itself.",
   "private": true,
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/qualweb/qualweb.git"

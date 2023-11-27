@@ -1,6 +1,0 @@
-{
-  "rules": {
-    "prettier/prettier": 2,
-    "sonarjs/no-duplicate-string": 0
-  }
-}
