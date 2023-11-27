@@ -17,7 +17,7 @@
     "compile:techniques": "node compile-techniques.js",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc src/**/*.ts --write",
+    "format": "prettier src/**/*.ts --write",
     "prebuild": "npm run compile:techniques && rimraf prebuild && rimraf dist ",
     "build": "tsc --build && webpack --mode production",
     "postbuild": "rimraf prebuild",

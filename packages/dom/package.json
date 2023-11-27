@@ -11,7 +11,7 @@
     "test": "mocha",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc src/**/*.ts --write",
+    "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf dist",
     "build": "npm run format && npm run lint && tsc --build",
     "prepublishOnly": "npm run build"
