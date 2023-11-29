@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.17
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
+## 0.3.16
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.3.15] - 11/01/2022
 
 ### Updated

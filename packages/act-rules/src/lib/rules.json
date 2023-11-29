@@ -19,7 +19,7 @@
         }
       ],
       "related": ["G88", "H25"],
-      "url": "https://act-rules.github.io/rules/2779a5",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:title"]
     }
@@ -44,7 +44,7 @@
         }
       ],
       "related": ["H57"],
-      "url": "https://act-rules.github.io/rules/b5c3f8",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b5c3f8",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -69,7 +69,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/5b7ae0",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/5b7ae0",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -107,7 +107,7 @@
         }
       ],
       "related": ["G110", "H76"],
-      "url": "https://act-rules.github.io/rules/bc659a",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/bc659a",
       "type": ["ACTRule", "TestCase"]
     }
   },
@@ -131,7 +131,7 @@
         }
       ],
       "related": ["H57"],
-      "url": "https://act-rules.github.io/rules/bf051a",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/bf051a",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -163,7 +163,7 @@
         }
       ],
       "related": ["G94", "G95"],
-      "url": "https://act-rules.github.io/rules/59796f",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/59796f",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -188,7 +188,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/b33eff",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b33eff",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -212,7 +212,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/b20e66",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b20e66",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -237,7 +237,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/4b1c6c",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/4b1c6c",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -262,7 +262,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/97a4e1",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/97a4e1",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -301,7 +301,7 @@
         }
       ],
       "related": ["G91"],
-      "url": "https://act-rules.github.io/rules/c487ae",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/c487ae",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -326,7 +326,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/6cfa84",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -351,7 +351,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/b4f0c3",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b4f0c3",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -375,7 +375,7 @@
         }
       ],
       "related": ["G60", "G170", "G171"],
-      "url": "https://act-rules.github.io/rules/80f0bf",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/80f0bf",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -399,7 +399,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/e086e5",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/e086e5",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -423,7 +423,7 @@
         }
       ],
       "related": ["G94", "G95"],
-      "url": "https://act-rules.github.io/rules/23a2a8",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/23a2a8",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -447,7 +447,7 @@
         }
       ],
       "related": ["H93"],
-      "url": "https://act-rules.github.io/rules/3ea0c8",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/3ea0c8",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -471,7 +471,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/cae760",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/cae760",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -486,17 +486,9 @@
         "element": "*",
         "attributes": ["role"]
       },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
-        }
-      ],
+      "success-criteria": [],
       "related": ["ARIA4", "G108"],
-      "url": "https://act-rules.github.io/rules/674b10",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/674b10",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -520,7 +512,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/7d6734",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/7d6734",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -545,7 +537,7 @@
         }
       ],
       "related": ["H58"],
-      "url": "https://act-rules.github.io/rules/de46e4",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/de46e4",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": ["WCAG21:language"]
     }
@@ -566,23 +558,10 @@
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded"
-        },
-        {
-          "name": "1.2.5",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/audio-description-prerecorded.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#audio-description-prerecorded"
-        },
-        {
-          "name": "1.2.8",
-          "level": "AAA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/media-alternative-prerecorded.html"
         }
       ],
       "related": ["G8", "G69", "G78", "G173"],
-      "url": "https://act-rules.github.io/rules/c5a4ea",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/c5a4ea",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -606,7 +585,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/73f2c2",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/73f2c2",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -622,8 +601,8 @@
         "attributes": "aria-*"
       },
       "success-criteria": [],
-      "related": ["ARIA5", "ARIA 1.1, 6.3"],
-      "url": "https://act-rules.github.io/rules/5c01ea",
+      "related": ["ARIA5"],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/5c01ea",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -646,7 +625,7 @@
         }
       ],
       "related": ["G87", "G93", "H95"],
-      "url": "https://act-rules.github.io/rules/eac66b",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/eac66b",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -663,7 +642,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/5f99a7",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/5f99a7",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -678,17 +657,9 @@
         "element": "*",
         "attributes": "role"
       },
-      "success-criteria": [
-        {
-          "name": "4.1.2",
-          "level": "A",
-          "principle": "Robust",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#name-role-value"
-        }
-      ],
+      "success-criteria": [],
       "related": ["ARIA5"],
-      "url": "https://act-rules.github.io/rules/4e8ab6",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/4e8ab6",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -713,7 +684,7 @@
         }
       ],
       "related": ["G158"],
-      "url": "https://act-rules.github.io/rules/e7aa44",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/e7aa44",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -737,7 +708,7 @@
         }
       ],
       "related": ["G208"],
-      "url": "https://act-rules.github.io/rules/2ee8b8",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2ee8b8",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -761,7 +732,7 @@
         }
       ],
       "related": ["G159", "G166"],
-      "url": "https://act-rules.github.io/rules/c3232f",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/c3232f",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -785,7 +756,7 @@
         }
       ],
       "related": ["G8", "G78", "G173"],
-      "url": "https://act-rules.github.io/rules/1ec09b",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/1ec09b",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -810,7 +781,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/ff89c9",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ff89c9",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -826,8 +797,8 @@
         "attributes": "aria-*"
       },
       "success-criteria": [],
-      "related": ["ARIA 1.1, 6.3"],
-      "url": "https://act-rules.github.io/rules/6a7281",
+      "related": [],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/6a7281",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -841,17 +812,9 @@
       "target": {
         "element": ["h1-h6", "*[role='heading']"]
       },
-      "success-criteria": [
-        {
-          "name": "1.3.1",
-          "level": "A",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#info-and-relationships"
-        }
-      ],
+      "success-criteria": [],
       "related": ["H42"],
-      "url": "https://act-rules.github.io/rules/ffd0e9",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ffd0e9",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -875,7 +838,7 @@
         }
       ],
       "related": ["H43"],
-      "url": "https://act-rules.github.io/rules/a25f45",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/a25f45",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -892,21 +855,13 @@
       "success-criteria": [
         {
           "name": "1.4.3",
-          "level": "A",
+          "level": "AA",
           "principle": "Perceivable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#contrast-minimum"
-        },
-        {
-          "name": "1.4.6",
-          "level": "AA",
-          "principle": "Perceivable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-enhanced.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#contrast-enhanced"
-        }
-      ],
+        }],
       "related": [],
-      "url": "https://act-rules.github.io/rules/afw4f7",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -931,7 +886,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/bc4a75",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/bc4a75",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -955,7 +910,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/d0f69e",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/d0f69e",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -979,7 +934,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/59br37",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/59br37",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1003,7 +958,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/36b590",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/36b590",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1027,16 +982,16 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/8fc3b6",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/8fc3b6",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R43": {
-    "name": "Scrollable element is keyboard accessible",
+    "name": "Scrollable content can be reached with sequential focus navigation",
     "code": "QW-ACT-R43",
     "mapping": "0ssw9k",
-    "description": "This rule checks that scrollable elements can be scrolled by keyboard",
+    "description": "This rule checks that scrollable elements or their descendants can be reached with sequential focus navigation so that they can be scrolled by keyboard",
     "metadata": {
       "target": {
         "element": "*"
@@ -1058,7 +1013,7 @@
         }
       ],
       "related": ["G202"],
-      "url": "https://act-rules.github.io/rules/0ssw9k",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1079,17 +1034,10 @@
           "principle": "Operable",
           "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html",
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#link-purpose-in-context"
-        },
-        {
-          "name": "2.4.9",
-          "level": "AAA",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#link-purpose-link-only"
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/fd3a94",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1105,13 +1053,13 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/46ca7f",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/46ca7f",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R49": {
-    "name": "Audio or video that plays automatically has no audio that lasts more than 3 seconds",
+    "name": "Audio or video element that plays automatically has no audio that lasts more than 3 seconds",
     "code": "QW-ACT-R49",
     "mapping": "aaa1bf",
     "description": "audio or video that plays automatically does not output audio for more than 3 seconds.",
@@ -1121,13 +1069,13 @@
       },
       "success-criteria": [],
       "related": ["G60"],
-      "url": "https://act-rules.github.io/rules/aaa1bf",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/aaa1bf",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R50": {
-    "name": "Audio or video that plays automatically has a control mechanism",
+    "name": "Audio or video element that plays automatically has a control mechanism",
     "code": "QW-ACT-R50",
     "mapping": "4c31df",
     "description": "audio or video that plays automatically must have a control mechanism.",
@@ -1137,7 +1085,7 @@
       },
       "success-criteria": [],
       "related": ["G170"],
-      "url": "https://act-rules.github.io/rules/4c31df",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/4c31df",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1153,7 +1101,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/fd26cf",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd26cf",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1169,7 +1117,7 @@
       },
       "success-criteria": [],
       "related": ["H96"],
-      "url": "https://act-rules.github.io/rules/ac7dc6",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ac7dc6",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1185,7 +1133,7 @@
       },
       "success-criteria": [],
       "related": ["G159"],
-      "url": "https://act-rules.github.io/rules/ee13b5",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ee13b5",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1201,7 +1149,7 @@
       },
       "success-criteria": [],
       "related": ["G166"],
-      "url": "https://act-rules.github.io/rules/d7ba54",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/d7ba54",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1217,7 +1165,7 @@
       },
       "success-criteria": [],
       "related": ["G8", "G78", "G173"],
-      "url": "https://act-rules.github.io/rules/1ea59c",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/1ea59c",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1233,7 +1181,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/ab4d13",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ab4d13",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1249,7 +1197,7 @@
       },
       "success-criteria": [],
       "related": ["G78", "H96"],
-      "url": "https://act-rules.github.io/rules/f196ce",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/f196ce",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1265,7 +1213,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/2eb176",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2eb176",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1281,7 +1229,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/afb423",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/afb423",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1297,7 +1245,7 @@
       },
       "success-criteria": [],
       "related": ["G87", "G93", "H95"],
-      "url": "https://act-rules.github.io/rules/f51b46",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/f51b46",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1321,7 +1269,7 @@
         }
       ],
       "related": ["G69"],
-      "url": "https://act-rules.github.io/rules/1a02b0",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/1a02b0",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1345,7 +1293,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/oj04fd",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/oj04fd",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1361,7 +1309,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/b40fd1",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b40fd1",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1377,7 +1325,7 @@
       },
       "success-criteria": [],
       "related": ["H69"],
-      "url": "https://act-rules.github.io/rules/047fe0",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/047fe0",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1401,7 +1349,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/307n5z",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/307n5z",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1425,13 +1373,13 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/m6b1q3",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/m6b1q3",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R67": {
-    "name": "Letter spacing in style attributes is not !important",
+    "name": "Important letter spacing in style attributes is wide enough",
     "code": "QW-ACT-R67",
     "mapping": "24afc2",
     "description": "This rule checks that the style attribute is not used to prevent adjusting letter-spacing by using !important, except if it's at least 0.12 times the font size.",
@@ -1449,13 +1397,13 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/24afc2",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/24afc2",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R68": {
-    "name": "Line height in style attributes is not !important",
+    "name": "Important line height in style attributes is wide enough",
     "code": "QW-ACT-R68",
     "mapping": "78fd32",
     "description": "This rule checks that the style attribute is not used to prevent adjusting line-height by using !important, except if it's at least 1.5 times the font size.",
@@ -1473,13 +1421,13 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/78fd32",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/78fd32",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
   },
   "QW_ACT_R69": {
-    "name": "Word spacing in style attributes is not !important",
+    "name": "Important word spacing in style attributes is wide enough",
     "code": "QW-ACT-R69",
     "mapping": "9e45ec",
     "description": "This rule checks that the style attribute is not used to prevent adjusting word-spacing by using !important, except if it's at least 0.16 times the font size.",
@@ -1497,7 +1445,7 @@
         }
       ],
       "related": [],
-      "url": "https://act-rules.github.io/rules/9e45ec",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/9e45ec",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1521,7 +1469,7 @@
         }
       ],
       "related": ["G202"],
-      "url": "https://act-rules.github.io/rules/akn7bn",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/akn7bn",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1552,7 +1500,7 @@
         }
       ],
       "related": ["G110", "H76"],
-      "url": "https://act-rules.github.io/rules/bisz58",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/bisz58",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1568,7 +1516,7 @@
       },
       "success-criteria": [],
       "related": [],
-      "url": "https://act-rules.github.io/rules/8a213c",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/8a213c",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1584,7 +1532,7 @@
       },
       "success-criteria": [],
       "related": ["SCR28"],
-      "url": "https://act-rules.github.io/rules/3e12e1",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/3e12e1",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1600,7 +1548,7 @@
       },
       "success-criteria": [],
       "related": ["G1", "G123", "G124"],
-      "url": "https://act-rules.github.io/rules/ye5d6e",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ye5d6e",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1624,7 +1572,7 @@
         }
       ],
       "related": ["G1", "G123", "G124", "H69", "SCR28"],
-      "url": "https://act-rules.github.io/rules/cf77f2",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/cf77f2",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
@@ -1648,7 +1596,7 @@
         }
       ],
       "related": ["G17", "G18"],
-      "url": "https://act-rules.github.io/rules/09o5cg",
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg",
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }

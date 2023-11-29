@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.3.33
+
+### Patch Changes
+
+- Updated dependencies [5ebd33d]
+  - @qualweb/act-rules@0.6.20
+
+## 0.3.32
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+- Updated dependencies [550429b]
+  - @qualweb/wcag-techniques@0.3.12
+  - @qualweb/act-rules@0.6.19
+  - @qualweb/best-practices@0.6.13
+  - @qualweb/counter@0.2.2
+  - @qualweb/qw-page@0.2.15
+  - @qualweb/util@0.5.28
+
+## 0.3.31
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+- Updated dependencies [315d70c]
+- Updated dependencies [ada7fe4]
+  - @qualweb/wcag-techniques@0.3.11
+  - @qualweb/best-practices@0.6.12
+  - @qualweb/act-rules@0.6.18
+  - @qualweb/counter@0.2.1
+  - @qualweb/qw-page@0.2.14
+  - @qualweb/util@0.5.27
+
 ## [0.3.30] - 19/10/2022
 
 ### Updated
@@ -87,7 +121,6 @@
 ## [0.3.15] - 29/06/2022
 
 ### Updated
-
 
 ## [0.3.14] - 28/06/2022
 

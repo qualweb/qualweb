@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.6.20
+
+### Patch Changes
+
+- 5ebd33d: Update ACT rules mappings and links to rule description
+
+## 0.6.19
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
+## 0.6.18
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## 0.6.16
 
 ### Patch Changes

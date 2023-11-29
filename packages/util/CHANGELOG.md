@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.28
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
+## 0.5.27
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.5.26] - 19/10/2023
 
 ### Fixed
@@ -34,7 +46,7 @@
 
 ### Fixed
 
-- fixed AName 
+- fixed AName
 
 ## [0.5.20] - 30/05/2023
 

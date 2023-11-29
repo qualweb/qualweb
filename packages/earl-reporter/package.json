@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "files": [
@@ -12,7 +12,7 @@
     "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc src/**/*.ts --write",
+    "format": "prettier src/**/*.ts --write",
     "build": "npm run prebuild && tsc --build",
     "prepublishOnly": "npm run build"
   },
@@ -39,17 +39,12 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.7.23",
+    "@qualweb/types": "0.7.24",
     "@tsconfig/recommended": "^1.0.3",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^14.14.35",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
     "chai": "^4.3.4",
     "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-sonarjs": "^0.23.0",
     "esm": "^3.2.25",
     "mocha": "^8.3.2",
     "prettier": "^3.1.0",

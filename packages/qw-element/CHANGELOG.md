@@ -1,10 +1,23 @@
 # Changelog
 
+## 0.2.10
+
+### Patch Changes
+
+- 550429b: Monorepo release test
+
+## 0.2.9
+
+### Patch Changes
+
+- 315d70c: Changed prettier command argument
+
 ## [0.2.8] - 01/02/2022
 
 ### Added
 
 - dispach event
+
 ## [0.2.7] - 22/07/2021
 
 ### Added

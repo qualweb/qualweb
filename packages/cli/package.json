@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.6.6",
+  "version": "0.6.9",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/index.js",
   "bin": {
@@ -15,7 +15,7 @@
     "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc src/**/*.ts --write",
+    "format": "prettier src/**/*.ts --write",
     "build": "npm run prebuild && tsc --build",
     "typedoc": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
@@ -41,26 +41,21 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "0.7.46",
+    "@qualweb/core": "0.7.49",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",
     "set-value": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.23",
+    "@qualweb/types": "0.7.24",
     "@tsconfig/recommended": "^1.0.3",
     "@types/command-line-args": "^5.0.0",
     "@types/command-line-usage": "^5.0.1",
     "@types/node": "^16.4.1",
     "@types/set-value": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
     "chai": "^4.3.4",
     "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-sonarjs": "^0.23.0",
     "mocha": "^9.0.2",
     "prettier": "^3.1.0",
     "rimraf": "^5.0.5",
