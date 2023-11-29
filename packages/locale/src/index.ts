@@ -8,11 +8,15 @@ import clone from 'lodash.clonedeep';
 import en from './locales/en.json';
 import fi from './locales/fi.json';
 import sv from './locales/sv.json';
+import nb from './locales/nb.json';
+import nn from './locales/nn.json';
 
 const locales: Langs = {
   en,
   fi,
-  sv
+  sv,
+  nb,
+  nn
 };
 
 function translateName(type: 'act-rules' | 'wcag-techniques' | 'best-practices', code: string, locale: Locale): string {
