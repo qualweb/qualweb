@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.15
+
+### Patch Changes
+
+- 8c1d212: Fixed a bug in T9 where the elements in the result were not properly added
+
 ## 0.1.14
 
 ### Patch Changes
