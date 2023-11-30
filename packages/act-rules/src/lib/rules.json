@@ -50,7 +50,7 @@
     }
   },
   "QW_ACT_R3": {
-    "name": "HTML page lang and xml:lang attributes have matching values",
+    "name": "DEPRECATED - HTML page lang and xml:lang attributes have matching values",
     "code": "QW-ACT-R3",
     "mapping": "5b7ae0",
     "description": "This rule checks that both lang and xml:lang attributes on the root element of a non-embedded HTML page, have the same primary language subtag.",
@@ -429,7 +429,7 @@
     }
   },
   "QW_ACT_R18": {
-    "name": "id attribute value is unique",
+    "name": "DEPRECATED - id attribute value is unique",
     "code": "QW-ACT-R18",
     "mapping": "3ea0c8",
     "description": "This rule checks that all id attribute values on a single page are unique.",
