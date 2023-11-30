@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.50
+
+### Patch Changes
+
+- Updated dependencies [8c1d212]
+  - @qualweb/locale@0.1.15
+  - @qualweb/evaluation@0.3.34
+
 ## 0.7.49
 
 ### Patch Changes
