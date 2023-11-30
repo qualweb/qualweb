@@ -35,6 +35,8 @@ declare module "@qualweb/locale" {
     en: Locale;
     fi: Locale;
     sv: Locale;
+    nb:Locale;
+    nn: Locale;
   }
 
   const locales: Langs;
