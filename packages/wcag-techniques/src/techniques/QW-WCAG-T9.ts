@@ -41,7 +41,7 @@ class QW_WCAG_T9 extends Technique {
         if (levelDif > 1) orderErrors.push(element.heading);
       }
     }
-    const test = new Test();
+    let test = new Test();
 
     if (orderErrors.length === 0) {
       // the heading elements are correctly used
@@ -55,6 +55,7 @@ class QW_WCAG_T9 extends Technique {
         test.resultCode = 'F1';
         test.addElement(error);
         super.addTestResult(test);
+        test = new Test();
       }
     }
   }
