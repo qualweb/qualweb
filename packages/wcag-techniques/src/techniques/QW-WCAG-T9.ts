@@ -12,7 +12,7 @@ class QW_WCAG_T9 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    const headingList = window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
+    const headingList = element.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
     if (headingList.length === 0) {
       return;
     }
@@ -33,12 +33,15 @@ class QW_WCAG_T9 extends Technique {
     const orderErrors = [];
     for (const [i, element] of headingObjectList.entries()) {
       const nextIndex = i + 1;
-      if (nextIndex < headingObjectList.length) {
+      if (
+        nextIndex < headingObjectList.length &&
+        window.AccessibilityUtils.isElementInAT(headingObjectList[nextIndex].heading)
+      ) {
         const level = element.level;
         const nextElement = headingObjectList[nextIndex];
         const nextLevel = nextElement.level;
-        const levelDif = Math.abs(level - nextLevel);
-        if (levelDif > 1) orderErrors.push(element.heading);
+        const levelDif = level - nextLevel; //FIXME h2 -> h4 bem h2 -> H4 mal e verificar AT
+        if (levelDif < -1) orderErrors.push(element.heading);
       }
     }
     let test = new Test();
@@ -47,7 +50,6 @@ class QW_WCAG_T9 extends Technique {
       // the heading elements are correctly used
       test.verdict = 'warning';
       test.resultCode = 'W1';
-      test.addElement(element);
       super.addTestResult(test);
     } else {
       for (const error of orderErrors) {
@@ -59,7 +61,6 @@ class QW_WCAG_T9 extends Technique {
       }
     }
   }
-
 }
 
 export = QW_WCAG_T9;
