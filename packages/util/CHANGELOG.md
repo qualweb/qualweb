@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.30
+
+### Patch Changes
+
+- ac62911: When parent has opacity zero consider element not visible
+
 ## 0.5.28
 
 ### Patch Changes

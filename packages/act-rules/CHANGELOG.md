@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.21
+
+### Patch Changes
+
+- 77fc9fc: Fix URLs to support redirection; Include DEPRECATED in the name of all deprecated rules
+
 ## 0.6.20
 
 ### Patch Changes
