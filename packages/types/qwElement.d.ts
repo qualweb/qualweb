@@ -72,6 +72,9 @@ declare module "@qualweb/qw-element" {
     public getBoundingBox(): DOMRect;
     public getShadowElement(selector: string): QWElement | null;
     public getShadowElements(selector: string): Array<QWElement>;
+    public getSlotElements(): Array<QWElement>;
+    public getSlotNodes(): Node[]
+    public isShadowRoot() : boolean 
     public hasTextNode(): boolean;
     public hasCSSRules(): boolean;
     public getCSSRules(): CSSProperties | undefined;
