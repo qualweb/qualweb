@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.11
+
+### Patch Changes
+
+- d512050: Improve shadow dom support
+
 ## 0.2.10
 
 ### Patch Changes

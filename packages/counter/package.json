@@ -36,9 +36,9 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "0.2.8",
-    "@qualweb/qw-page": "0.2.15",
-    "@qualweb/types": "0.7.24",
-    "@qualweb/util": "0.5.28",
+    "@qualweb/qw-page": "0.2.16",
+    "@qualweb/types": "0.7.25",
+    "@qualweb/util": "0.5.31",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^14.14.37",
     "chai": "^4.3.4",

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.16
+
+### Patch Changes
+
+- Updated dependencies [d512050]
+  - @qualweb/qw-element@0.2.11
+
 ## 0.2.15
 
 ### Patch Changes
