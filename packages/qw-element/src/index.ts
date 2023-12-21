@@ -687,6 +687,28 @@ class QWElement {
     }
     return this.convertElementsToQWElement(elements);
   }
+
+  public getSlotElements(): Array<QWElement> {
+    const slot = this.element as HTMLSlotElement;
+    const slotElements = slot.assignedElements();
+    const qwList = new Array<QWElement>();
+    slotElements?.forEach((element: Element) => {
+      this.addCSSRulesPropertyToElement(element);
+      qwList.push(new QWElement(element, this.elementsCSSRules));
+    });
+    return qwList;
+  }
+
+  public getSlotNodes(): Node[] {
+    const slot = this.element as HTMLSlotElement;
+    return slot.assignedNodes();
+  }
+
+  public isShadowRoot() : boolean {
+    if (this.element.shadowRoot)
+      return true;
+    return false;
+  }
 }
 
 export { QWElement };
