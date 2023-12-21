@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.36
+
+### Patch Changes
+
+- Updated dependencies [d512050]
+  - @qualweb/util@0.5.31
+  - @qualweb/qw-page@0.2.16
+
 ## 0.3.35
 
 ### Patch Changes
