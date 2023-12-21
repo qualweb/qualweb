@@ -20,7 +20,7 @@ function getAccessibleNameRecursion(
   const attrType = element.getElementAttribute('type');
   const title = element.getElementAttribute('title');
   const role = window.AccessibilityUtils.getElementRoleAName(element, '');
-  console.log({ element, recursion, isWidget, allowNameFromContent, role });
+  // console.log({ element, id, recursion, isWidget, allowNameFromContent, role, name, ariaLabelBy, ariaLabel, attrType, title });
 
   const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
   if (name === 'svg') {
@@ -70,6 +70,8 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'caption'), title);
   } else if (name === 'fieldset') {
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'legend'), title);
+  } else if (name === 'slot') {
+    AName = getAccessibleNameForSlot(element);
   } else if (
     allowNameFromContent ||
     (((role && allowNameFromContent) || !role || role === 'generic' || role === 'paragraph') && recursion) ||
@@ -223,6 +225,42 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidge
   }
   return elementAnames;
 }
+
+function getAccessibleNameFromShadowChildren(element: typeof window.qwElement) : string | undefined {
+  const children = element.getShadowElements("*");
+  let finalAName = "";
+  children?.forEach((element) => {
+    const aName = window.AccessibilityUtils.getAccessibleName(element);
+    if (aName)
+      finalAName += aName;
+  });
+  return finalAName;
+}
+
+function getAccessibleNameForSlot(slot: typeof window.qwElement): string | undefined {
+  let elements = slot.getSlotElements();
+  let finalAName = "";
+  elements?.forEach((element) => {
+    let aName = window.AccessibilityUtils.getAccessibleName(element);
+    if (aName) {
+      finalAName += aName;
+    } else if (element.isShadowRoot()) {
+        aName = getAccessibleNameFromShadowChildren(element);
+        if (aName) {
+          finalAName += aName;
+        }
+    }
+  })
+  let nodes : Node[] = slot.getSlotNodes();
+  nodes?.forEach((node) => {
+    let aName = node.textContent;
+    if (aName) {
+      finalAName += aName;
+    }
+  })
+  return finalAName;
+}
+
 
 function verifyAriaLabel(ariaLabelBy: string, elementID: string | null) {
   const elementIds = ariaLabelBy.split(' ');
