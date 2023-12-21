@@ -98,8 +98,6 @@ declare module "@qualweb/util" {
       element: QWElement
     ): Array<string> | undefined;
     public static getAccessibleNameSVG(element: QWElement): string | undefined;
-    public static getAccessibleNameFromShadowChildren(element: typeof window.qwElement) : string | undefined;
-    public static getAccessibleNameForSlot(slot: typeof window.qwElement): string | undefined;
     public static getDefaultName(element: QWElement): string;
     public static getDisabledWidgets(): Array<QWElement>;
     public static getElementRole(element: QWElement): string | null;
