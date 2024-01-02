@@ -27,6 +27,16 @@ Implementation of accessibility best practices for web pages.
 | QW-BP15 | CSS | At least one width attribute of an HTML element is expressed in absolute values |
 | QW-BP17 | HTML | Adding a link at the beginning of a block of repeated content to go to the end of the block |
 | QW-BP18 | CSS | Using percentage values in CSS for container sizes |
+| QW-BP19 | HTML | Landmark banner is top level |
+| QW-BP20 | HTML | Landmark no duplicate banner |
+| QW-BP21 | HTML | Landmark no duplicate contentinfo |
+| QW-BP22 | HTML | Landmark has one main |
+| QW-BP23 | HTML | Listitems are used semantically |
+| QW-BP24 | HTML | Lists are used correctly |
+| QW-BP25 | HTML | Landmark complementary is top level |
+| QW-BP26 | HTML | Landmark contentinfo is top level |
+| QW-BP27 | HTML | Landmark main is top level |
+| QW-BP28 | HTML | H1 element is used and unique |
 
 # License
 
