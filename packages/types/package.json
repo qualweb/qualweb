@@ -25,7 +25,7 @@
   "author": "João Afonso Vicente",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^21.5.2"
+    "puppeteer": "^21.6.1"
   },
   "config": {
     "puppeteer_skip_chromium_download": true
