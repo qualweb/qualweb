@@ -42,10 +42,10 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/core": "0.7.52",
-    "command-line-args": "^5.1.1",
+    "command-line-args": "^5.2.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",
-    "set-value": "^4.0.0"
+    "set-value": "^4.1.0"
   },
   "devDependencies": {
     "@qualweb/types": "0.7.25",
