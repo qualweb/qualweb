@@ -44,7 +44,7 @@
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^15.6.1",
     "@types/string-pixel-width": "^1.7.1",
-    "chai": "^4.3.4",
+    "chai": "^5.0.0",
     "eslint": "^8.56.0",
     "esm": "^3.2.25",
     "mocha": "^10.2.0",

@@ -36,7 +36,7 @@
     "@qualweb/dom": "0.2.8",
     "@qualweb/types": "0.7.25",
     "@tsconfig/recommended": "^1.0.3",
-    "chai": "^4.3.4",
+    "chai": "^5.0.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",

@@ -44,7 +44,7 @@
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.11",
     "ajv": "^6.12.6",
-    "chai": "^4.3.4",
+    "chai": "^5.0.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "node-fetch": "^3.0.0",
