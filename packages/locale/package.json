@@ -37,7 +37,7 @@
   "devDependencies": {
     "@qualweb/types": "0.7.25",
     "@tsconfig/recommended": "^1.0.3",
-    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.clonedeep": "^4.5.9",
     "@types/node": "^16.10.1",
     "chai": "^5.0.0",
     "eslint": "^8.56.0",

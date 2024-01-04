@@ -50,10 +50,10 @@
   "devDependencies": {
     "@qualweb/types": "0.7.25",
     "@tsconfig/recommended": "^1.0.3",
-    "@types/command-line-args": "^5.0.0",
-    "@types/command-line-usage": "^5.0.1",
+    "@types/command-line-args": "^5.2.3",
+    "@types/command-line-usage": "^5.0.4",
     "@types/node": "^16.4.1",
-    "@types/set-value": "^4.0.0",
+    "@types/set-value": "^4.0.3",
     "chai": "^5.0.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
