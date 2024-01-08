@@ -16,7 +16,7 @@ function isElementVisible(element: typeof window.qwElement): boolean {
         opaqueParent = isParentOpaque(element.getElementParent()!);
     }
 
-    return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0) || !opaqueParent);
+    return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0) || opaqueParent);
 }
 
 function isParentOpaque(element: typeof window.qwElement): boolean {
