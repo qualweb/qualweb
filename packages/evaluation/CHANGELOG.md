@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.37
+
+### Patch Changes
+
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+- Updated dependencies [f4675a6]
+- Updated dependencies [295f35f]
+- Updated dependencies [ebe8ac4]
+  - @qualweb/util@0.5.32
+  - @qualweb/wcag-techniques@0.3.14
+  - @qualweb/best-practices@0.6.14
+  - @qualweb/act-rules@0.6.22
+  - @qualweb/counter@0.2.3
+  - @qualweb/qw-page@0.2.17
+
 ## 0.3.36
 
 ### Patch Changes

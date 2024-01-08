@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.13
+
+### Patch Changes
+
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+- Updated dependencies [295f35f]
+  - @qualweb/core@0.7.53
+
 ## 0.6.12
 
 ### Patch Changes

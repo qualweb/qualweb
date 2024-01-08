@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.32
+
+### Patch Changes
+
+- f4675a6: Fix role of area element
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+- ebe8ac4: Fix visibility detection bug
+
 ## 0.5.31
 
 ### Patch Changes
