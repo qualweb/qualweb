@@ -9,7 +9,8 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "test:rules": "mocha test/rule.spec.mjs",
+    "test:allrules": "mocha test/allrules.spec.mjs",
+    "test:rule": "mocha test/rule.spec.mjs",
     "test:url": "mocha test/url.spec.mjs",
     "validate:rules": "node validate-rules.js",
     "compile:rules": "node compile-rules.js",

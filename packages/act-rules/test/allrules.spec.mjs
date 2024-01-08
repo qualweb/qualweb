@@ -89,8 +89,9 @@ const mapping = {
   'QW-ACT-R76': '09o5cg'
 };
 
-// const ruleToTest = Object.keys(mapping);
-const ruleToTest = 'QW-ACT-R37';
+// If a single QW-ACT-R?? was passed as an argument, run just that test.
+// Otherwise, run all tests.
+const rulesToTest = Object.keys(mapping);
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -102,12 +103,12 @@ const INAPPLICABLE = 'inapplicable';
 const CANTTELL = 'cantTell';
 
 const consistencyMapping = {
-  passed: [PASSED, INAPPLICABLE, CANTTELL],
-  failed: [FAILED, CANTTELL],
-  inapplicable: [PASSED, INAPPLICABLE, CANTTELL]
+  'passed': [PASSED, INAPPLICABLE, CANTTELL],
+  'failed': [FAILED, CANTTELL],
+  'inapplicable': [PASSED, INAPPLICABLE, CANTTELL],
 };
 
-describe('Testing ACT rule', () => {
+describe('ACT rules', () => {
   let browser = null;
   let incognito = null;
 
@@ -120,110 +121,109 @@ describe('Testing ACT rule', () => {
     incognito = await browser.createIncognitoBrowserContext();
   });
 
-  const ruleId = mapping[ruleToTest];
+  for (const ruleToTest of rulesToTest) {
+    const ruleId = mapping[ruleToTest];
 
-  describe(`Rule ${ruleToTest} (${ruleId})`, function () {
-    let tests = null;
-
-    tests = actTestCases.testcases
+    describe(`Rule ${ruleToTest} (${ruleId})`, function () {
+      let tests = null;
+  
+      tests = actTestCases.testcases
       .filter((t) => t.ruleId === ruleId)
       .map((t) => {
         return {
           title: t.testcaseTitle,
           url: t.url,
-          outcome: t.expected
+          outcome: t.expected,
         };
       });
 
-    for (const test of tests) {
-      it(test.title, async function () {
-        this.timeout(0);
+      for (const test of tests) {
+        it(test.title, async function () {
+          this.timeout(0);
 
-        const page = await incognito.newPage();
-        try {
-          const dom = new Dom(page);
-          const { sourceHtmlHeadContent } = await dom.process(
-            {
-              execute: { act: true },
-              'act-rules': {
-                rules: [ruleToTest]
+          const page = await incognito.newPage();
+          try {
+            const dom = new Dom(page);
+            const { sourceHtmlHeadContent } = await dom.process(
+              {
+                execute: { act: true },
+                'act-rules': {
+                  rules: [ruleToTest]
+                },
+                waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
               },
-              waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
-            },
-            test.url,
-            ''
-          );
+              test.url,
+              ''
+            );
 
-          await page.addScriptTag({
-            path: require.resolve('@qualweb/qw-page')
-          });
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/qw-page')
+            });
 
-          await page.addScriptTag({
-            path: require.resolve('@qualweb/util')
-          });
+            await page.addScriptTag({
+              path: require.resolve('@qualweb/util')
+            });
 
-          await page.addScriptTag({
-            path: require.resolve('../dist/act.bundle.js')
-          });
+            await page.addScriptTag({
+              path: require.resolve('../dist/act.bundle.js')
+            });
 
-          await page.evaluate(
-            (locale, options) => {
-              window.act = new ACTRules({ translate: locale, fallback: locale }, options);
-            },
-            locales.default.en,
-            { rules: [ruleToTest] }
-          );
+            await page.evaluate(
+              (locale, options) => {
+                window.act = new ACTRules({ translate: locale, fallback: locale }, options);
+              },
+              locales.default.en,
+              { rules: [ruleToTest] }
+            );
 
-          if (ruleId === '8a213c') {
-            await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-          }
-          await page.evaluate((sourceHtmlHeadContent) => {
-            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
+            if (ruleId === '8a213c') {
+              await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
+            }
+            await page.evaluate((sourceHtmlHeadContent) => {
+              window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
-            const parser = new DOMParser();
-            const sourceDoc = parser.parseFromString('', 'text/html');
+              const parser = new DOMParser();
+              const sourceDoc = parser.parseFromString('', 'text/html');
 
-            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+              sourceDoc.head.innerHTML = sourceHtmlHeadContent;
 
-            const elements = sourceDoc.querySelectorAll('meta');
-            const metaElements = new Array();
-            for (const element of elements) {
-              metaElements.push(window.qwPage.createQWElement(element));
+              const elements = sourceDoc.querySelectorAll('meta');
+              const metaElements = new Array();
+              for (const element of elements) {
+                metaElements.push(window.qwPage.createQWElement(element));
+              }
+
+              window.act.validateMetaElements(metaElements);
+              window.act.executeAtomicRules();
+              window.act.executeCompositeRules();
+            }, sourceHtmlHeadContent);
+
+            if (ruleId === '59br37') {
+              await page.setViewport({
+                width: 640,
+                height: 512
+              });
             }
 
-            window.act.validateMetaElements(metaElements);
-            window.act.executeAtomicRules();
-            window.act.executeCompositeRules();
-          }, sourceHtmlHeadContent);
-
-          if (ruleId === '59br37') {
-            await page.setViewport({
-              width: 640,
-              height: 512
+            const report = await page.evaluate(() => {
+              window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
+              return window.act.getReport();
             });
-          }
 
-          const report = await page.evaluate(() => {
-            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
-            return window.act.getReport();
-          });
-
-          // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
-          const outcome =
-            report.assertions[ruleToTest].metadata.outcome !== 'warning'
+            // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
+            const outcome = report.assertions[ruleToTest].metadata.outcome !== 'warning'
               ? report.assertions[ruleToTest].metadata.outcome
               : CANTTELL;
 
-          console.log("expected: ", test.outcome, " got:", outcome);
-
-          expect(outcome).to.be.oneOf(consistencyMapping[test.outcome]);
-        } finally {
-          // Pages should *always* close after the test.
-          await page.close();
-        }
-      });
-    }
-  });
+            expect(outcome).to.be.oneOf(consistencyMapping[test.outcome]);
+          } finally {
+            // Pages should *always* close after the test.
+              await page.close();
+          }
+        });
+      }
+    });
+  }
 
   after(async () => {
     // Close test bench
