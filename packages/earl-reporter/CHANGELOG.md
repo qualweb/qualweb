@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.6
+
+### Patch Changes
+
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+
 ## 0.4.5
 
 ### Patch Changes

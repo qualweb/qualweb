@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.53
+
+### Patch Changes
+
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+- Updated dependencies [295f35f]
+  - @qualweb/earl-reporter@0.4.6
+  - @qualweb/evaluation@0.3.37
+  - @qualweb/crawler@0.3.18
+  - @qualweb/locale@0.1.16
+  - @qualweb/dom@0.2.9
+
 ## 0.7.52
 
 ### Patch Changes

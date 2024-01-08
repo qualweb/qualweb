@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.17
+
+### Patch Changes
+
+- 295f35f: Updated dependencies (eslint, prettier, typedoc, mocha)
+- Updated dependencies [295f35f]
+  - @qualweb/qw-element@0.2.12
+
 ## 0.2.16
 
 ### Patch Changes
