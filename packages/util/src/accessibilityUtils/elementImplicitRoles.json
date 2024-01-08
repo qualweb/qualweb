@@ -25,11 +25,8 @@
           ""
         ]
       ],
-      "role": "link"
-    },
-    {
-      "attributes": [],
-      "role": "generic"
+      "role": "link",
+      "special": true
     }
   ],
   "article": [
