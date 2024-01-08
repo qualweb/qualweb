@@ -44,6 +44,12 @@ function getImplicitRole(element: typeof window.qwElement, accessibleName: strin
               if (window.DomUtils.isElementADescendantOfExplicitRole(element, ['table', 'grid', 'treegrid'], [])) {
                 role = roleValue['role'];
               }
+            } else if (name === 'area') {
+              if (attributes.length === 0) {
+                role = 'generic';
+              } else if (isInList(attributes, element)) {
+                role = roleValue['role'];
+              } 
             }
           }
         }
