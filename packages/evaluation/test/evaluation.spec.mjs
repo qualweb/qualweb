@@ -1,18 +1,36 @@
+import { expect} from 'chai';
+
 import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { Evaluation } from '../dist/index.js';
-import fs from 'fs';
 
 describe('QualWeb evaluation', function () {
+  let browser, incognito, page;
+
+  before(async () => {
+    browser = await puppeteer.launch({
+      headless: 'new',
+      args: [
+        '--ignore-certificate-errors',
+        '--no-sandbox',
+      ],
+    });
+    incognito = await browser.createIncognitoBrowserContext();
+    page = await incognito.newPage();
+  });
+
+  after(async () => {
+    await page.close();
+    await incognito.close();
+    await browser.close();
+  });
+
   it('Testing qualweb page evaluation', async function () {
     this.timeout(0);
 
     const url = 'https://www.vg.no';
 
-    const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
-    const incognito = await browser.createIncognitoBrowserContext();
-    const page = await incognito.newPage();
     const dom = new Dom(page);
 
     const options = {
@@ -32,12 +50,14 @@ describe('QualWeb evaluation', function () {
       counter: false,
       wappalyzer: false
     });
-    const report = await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation);
+    const report = (await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation)).getFinalReport();
 
-    console.log(JSON.stringify(report.getFinalReport(), null, 2));
+    expect(report.modules['act-rules']).to.not.be.undefined;
+    expect(report.modules['best-practices']).to.be.undefined;
+    expect(report.modules.counter).to.be.undefined;
+    expect(report.modules.wappalyzer).to.be.undefined;
+    expect(report.modules['wcag-techniques']).to.not.be.undefined;
 
-    await page.close();
-    await incognito.close();
-    await browser.close();
+    // console.log(JSON.stringify(report.getFinalReport(), null, 2));
   });
 });

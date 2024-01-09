@@ -38,6 +38,8 @@
     "@qualweb/locale": "0.1.16",
     "@qualweb/types": "0.7.25",
     "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^17.0.19",
     "chai": "^5.0.0",
     "eslint": "^8.56.0",
