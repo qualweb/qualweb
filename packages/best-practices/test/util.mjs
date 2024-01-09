@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer';
  * @returns A proxy object that will be populated with a usable browser,
  * incognito context, and page object when a unit test runs.
  */
-export function usePuppeteer() {
+export function usePuppeteer(launchOptions) {
   const proxy = {
     browser: undefined,
     incognito: undefined,
@@ -16,7 +16,8 @@ export function usePuppeteer() {
   before(async () => {
     proxy.browser = await puppeteer.launch({
       headless: 'new',
-      args: ['--ignore-certificate-errors']
+      args: ['--ignore-certificate-errors'],
+      ...launchOptions,
     });
 
     proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
