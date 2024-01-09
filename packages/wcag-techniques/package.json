@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha test/**/*",
+    "test": "mocha --config test/.mocharc.js",
     "test:url": "mocha test/url.spec.mjs",
     "test:t17": "mocha test/techniques/QW-WCAG-T17.spec.mjs",
     "test:t9": "mocha test/techniques/QW-WCAG-T9.spec.mjs",
