@@ -52,57 +52,57 @@ jobs:
         run: npm -ws run build
 
       - name: "@qualweb/act-rules"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/act-rules')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/act-rules')
         run: npm run -w @qualweb/act-rules test
 
       - name: "@qualweb/best-practices"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/best-practices')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/best-practices')
         run: npm run -w @qualweb/best-practices test
 
       - name: "@qualweb/cli"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/cli')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/cli')
         run: npm run -w @qualweb/cli test
 
       - name: "@qualweb/core"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/core')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/core')
         run: npm run -w @qualweb/core test
 
       - name: "@qualweb/counter"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/counter')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/counter')
         run: npm run -w @qualweb/counter test
 
       - name: "@qualweb/crawler"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/crawler')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/crawler')
         run: npm run -w @qualweb/crawler test
 
       - name: "@qualweb/dom"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/dom')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/dom')
         run: npm run -w @qualweb/dom test
 
       - name: "@qualweb/earl-reporter"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/earl-reporter')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/earl-reporter')
         run: npm run -w @qualweb/earl-reporter test
 
       - name: "@qualweb/evaluation"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/evaluation')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/evaluation')
         run: npm run -w @qualweb/evaluation test
 
       - name: "@qualweb/locale"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')
         run: npm run -w @qualweb/locale test
 
       - name: "@qualweb/qw-element"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-element')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-element')
         run: npm run -w @qualweb/qw-element test
 
       - name: "@qualweb/qw-page"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-page')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-page')
         run: npm run -w @qualweb/qw-page test
 
       - name: "@qualweb/util"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/util')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/util')
         run: npm run -w @qualweb/util test
 
       - name: "@qualweb/wcag-techniques"
-        if: contains(env.AFFECTED_WORKSPACES, '@qualweb/wcag-techniques')
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/wcag-techniques')
         run: npm run -w @qualweb/wcag-techniques test
