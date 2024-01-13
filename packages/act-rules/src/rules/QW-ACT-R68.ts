@@ -1,7 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
@@ -12,10 +12,11 @@ class QW_ACT_R68 extends AtomicRule {
 
   @ElementExists
   @ElementIsVisible
+  @ElementHasTextNode
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    if (element.hasCSSProperty('line-height')) {
+    if (element.hasCSSProperty('line-height') || this.findParentWithCSSProperty(element) !== null) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredLineHeight = this.parseStyle(styleAttribute);
       const computedRawLineHeight = element.getCSSProperty('line-height');
@@ -27,7 +28,7 @@ class QW_ACT_R68 extends AtomicRule {
         return;
       }
 
-      if (!this.isImportant(computedRawLineHeight, element)) {
+      if (element.hasCSSProperty('line-height') && !this.isImportant(computedRawLineHeight, element)) {
         test.verdict = 'passed';
         test.resultCode = 'P1';
       } else if (!this.isNormal(computedLineHeight, element) && this.isLarge(computedLineHeight, fontSize)) {
