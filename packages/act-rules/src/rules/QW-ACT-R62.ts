@@ -17,7 +17,7 @@ class QW_ACT_R62 extends AtomicRule {
       return window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
     });
 
-    if (inSequentialFocusList.length > 1) {
+    if (inSequentialFocusList.length >= 1) {
       for (const inSequentialFocusElement of inSequentialFocusList ?? []) {
         const test = new Test('warning', undefined, 'W1');
         test.addElement(inSequentialFocusElement);
