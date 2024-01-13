@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.54
+
+### Patch Changes
+
+- Updated dependencies [cecc88f]
+  - @qualweb/evaluation@0.3.38
+
 ## 0.7.53
 
 ### Patch Changes

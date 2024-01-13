@@ -61,9 +61,9 @@
   "devDependencies": {
     "@qualweb/dom": "0.2.9",
     "@qualweb/locale": "0.1.16",
-    "@qualweb/qw-page": "0.2.17",
+    "@qualweb/qw-page": "0.2.18",
     "@qualweb/types": "0.7.25",
-    "@qualweb/util": "0.5.32",
+    "@qualweb/util": "0.5.33",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.12",
     "chai": "^5.0.0",
