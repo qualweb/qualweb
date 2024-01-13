@@ -2,12 +2,22 @@ import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 
 describe('QualWeb page', function () {
+  let browser, incognito, page;
+
+  before(async () => {
+    browser = await puppeteer.launch({ headless: 'new' });
+    incognito = await browser.createIncognitoBrowserContext();
+    page = await incognito.newPage();
+  });
+
+  after(async () => {
+    await page.close();
+    await incognito.close();
+    await browser.close();
+  });
+
   it('Testing qw-page injection on browser', async function () {
     this.timeout(0);
-
-    const browser = await puppeteer.launch({ headless: false });
-    const incognito = await browser.createIncognitoBrowserContext();
-    const page = await incognito.newPage();
 
     const dom = new Dom(page);
     await dom.process({ execute: {} }, 'https://www.aalborg.dk', '');
@@ -25,9 +35,5 @@ describe('QualWeb page', function () {
         console.log({ button, text: button.getElementText() });
       }
     });
-
-    /* await page.close();
-    await incognito.close();
-    await browser.close();*/
   });
 });
