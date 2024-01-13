@@ -1,7 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
@@ -12,17 +12,18 @@ class QW_ACT_R69 extends AtomicRule {
 
   @ElementExists
   @ElementIsVisible
+  @ElementHasTextNode
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    if (element.hasCSSProperty('word-spacing')) {
+    if (element.hasCSSProperty('word-spacing') || this.findParentWithCSSProperty(element) !== null) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredWordSpacing = this.parseStyle(styleAttribute);
       const computedRawWordSpacing = element.getCSSProperty('word-spacing');
       const computedWordSpacing = element.getElementStyleProperty('word-spacing', null);
       const fontSize = element.getElementStyleProperty('font-size', null);
 
-      if (!this.isImportant(computedRawWordSpacing, element)) {
+      if (element.hasCSSProperty('word-spacing') && !this.isImportant(computedRawWordSpacing, element)) {
         test.verdict = 'passed';
         test.resultCode = 'P1';
       } else if (this.isWide(computedWordSpacing, fontSize)) {
