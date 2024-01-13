@@ -1,7 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
@@ -12,8 +12,9 @@ class QW_ACT_R67 extends AtomicRule {
 
   @ElementExists
   @ElementIsVisible
+  @ElementHasTextNode
   execute(element: typeof window.qwElement): void {
-    if (element.hasCSSProperty('letter-spacing')) {
+    if (element.hasCSSProperty('letter-spacing') || this.findParentWithCSSProperty(element) !== null) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredLetterSpacing = this.parseStyle(styleAttribute);
       const computedRawLetterSpacing = element.getCSSProperty('letter-spacing');
@@ -22,7 +23,7 @@ class QW_ACT_R67 extends AtomicRule {
 
       const test = new Test();
 
-      if (!this.isImportant(computedRawLetterSpacing, element)) {
+      if (element.hasCSSProperty('letter-spacing') && !this.isImportant(computedRawLetterSpacing, element)) {
         test.verdict = 'passed';
         test.resultCode = 'P1';
       } else if (this.isWide(computedLetterSpacing, fontSize)) {
