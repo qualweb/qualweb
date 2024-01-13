@@ -53,8 +53,9 @@ class QW_ACT_R34 extends AtomicRule {
               for (const value of list || []) {
                 if (passed) {
                   result = values.includes(value);
-                  passed = false;
+                  passed = result;
                 }
+                console.log('values:', values, 'value:', value, 'result:', result);
               }
             } else {
               const role = window.AccessibilityUtils.getElementRole(elem);
