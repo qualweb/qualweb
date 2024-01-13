@@ -213,7 +213,7 @@
     "global": "yes",
     "typeValue": "list",
     "values": ["additions", "additions text", "all", "removals", "text"],
-    "defaultValue": ""
+    "defaultValue": "additions text"
   },
   "aria-required": {
     "global": "yes",
