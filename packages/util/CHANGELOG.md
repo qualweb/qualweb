@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.33
+
+### Patch Changes
+
+- c697d5c: Fix list values comparison in R34
+
 ## 0.5.32
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.23
+
+### Patch Changes
+
+- 0b6c21b: Fix applicability
+- c697d5c: Fix list values comparison in R34
+- 075a90a: Fix applicability in R67, R68 and R69
+
 ## 0.6.22
 
 ### Patch Changes

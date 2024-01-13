@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.15
+
+### Patch Changes
+
+- cecc88f: # Fixes to unit tests
+
+  These changes tidy up the unit tests, making them less verbose (and headless), and tries to use less code to do the same work.
+
 ## 0.3.14
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.38
+
+### Patch Changes
+
+- cecc88f: # Fixes to unit tests
+
+  These changes tidy up the unit tests, making them less verbose (and headless), and tries to use less code to do the same work.
+
+- Updated dependencies [0b6c21b]
+- Updated dependencies [cecc88f]
+- Updated dependencies [c697d5c]
+- Updated dependencies [075a90a]
+  - @qualweb/act-rules@0.6.23
+  - @qualweb/wcag-techniques@0.3.15
+  - @qualweb/qw-page@0.2.18
+  - @qualweb/util@0.5.33
+
 ## 0.3.37
 
 ### Patch Changes
