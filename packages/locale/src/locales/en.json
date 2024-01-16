@@ -1259,6 +1259,15 @@
         "P1": "The H1 element is used and unique",
         "F1": "The H1 element is not present or used more than one time"
       }
+    },
+    "QW-BP29": {
+      "name": "HTML lang and xml:lang match",
+      "description": "The best practice checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The `lang` and `xml:lang` attributes have the same value.",
+        "F1": "The `lang` and `xml:lang` attributes don't have the same value."
+      }
     }
   }
 }

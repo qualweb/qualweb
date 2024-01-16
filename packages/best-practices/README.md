@@ -37,6 +37,7 @@ Implementation of accessibility best practices for web pages.
 | QW-BP26 | HTML | Landmark contentinfo is top level |
 | QW-BP27 | HTML | Landmark main is top level |
 | QW-BP28 | HTML | H1 element is used and unique |
+| QW-BP29 | HTML | HTML page lang and xml:lang attributes have matching values |
 
 # License
 

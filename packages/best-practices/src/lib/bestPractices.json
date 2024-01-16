@@ -304,5 +304,15 @@
         "element": "h1"
       }
     }
+  },
+  "QW_BP29": {
+    "name": "HTML page lang and xml:lang attributes have matching values",
+    "code": "QW-BP29",
+    "description": "This best practice checks that both lang and xml:lang attributes on the root element of a non-embedded HTML page, have the same primary language subtag.",
+    "metadata": {
+      "target": {
+        "element": "html"
+      }
+    }
   }
 }
