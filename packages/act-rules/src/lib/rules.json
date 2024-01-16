@@ -1170,22 +1170,6 @@
       "a11yReq": []
     }
   },
-  "QW_ACT_R57": {
-    "name": "DEPRECATED — Video element visual content has description track",
-    "code": "QW-ACT-R57",
-    "mapping": "f196ce",
-    "description": "This rule checks that description tracks that come with non-streaming video elements are descriptive.",
-    "metadata": {
-      "target": {
-        "element": "video"
-      },
-      "success-criteria": [],
-      "related": ["G78", "H96"],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/f196ce/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": []
-    }
-  },
   "QW_ACT_R58": {
     "name": "Audio element content has transcript",
     "code": "QW-ACT-R58",
