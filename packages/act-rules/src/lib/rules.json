@@ -1106,22 +1106,6 @@
       "a11yReq": []
     }
   },
-  "QW_ACT_R52": {
-    "name": "DEPRECATED — Video element visual-only content has description track",
-    "code": "QW-ACT-R52",
-    "mapping": "ac7dc6",
-    "description": "This rule checks that description tracks that come with non-streaming video elements, without audio, are descriptive.",
-    "metadata": {
-      "target": {
-        "element": "video"
-      },
-      "success-criteria": [],
-      "related": ["H96"],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/ac7dc6/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": []
-    }
-  },
   "QW_ACT_R53": {
     "name": "Video element visual-only content has transcript",
     "code": "QW-ACT-R53",

@@ -57,7 +57,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R49      | [aaa1bf](https://act-rules.github.io/rules/aaa1bf) | Audio or video that plays automatically has no audio that lasts more than 3 seconds |
 | QW-ACT-R50      | [4c31df](https://act-rules.github.io/rules/4c31df) | Audio or video that plays automatically has a control mechanism                     |
 | QW-ACT-R51      | [fd26cf](https://act-rules.github.io/rules/fd26cf) | Video element visual-only content is media alternative for text                     |
-| QW-ACT-R52      | [ac7dc6](https://act-rules.github.io/rules/ac7dc6) | Video element visual-only content has description track                             |
 | QW-ACT-R53      | [ee13b5](https://act-rules.github.io/rules/ee13b5) | Video element visual-only content has transcript                                    |
 | QW-ACT-R54      | [d7ba54](https://act-rules.github.io/rules/d7ba54) | Video element visual-only content has audio track alternative                       |
 | QW-ACT-R55      | [1ea59c](https://act-rules.github.io/rules/1ea59c) | Video element visual content has audio description                                  |

@@ -21,7 +21,6 @@ export default {
   '[aria-label], [aria-labelledby]': ['QW-ACT-R30'],
   video: [
     'QW-ACT-R51',
-    'QW-ACT-R52',
     'QW-ACT-R53',
     'QW-ACT-R54',
     'QW-ACT-R55',
