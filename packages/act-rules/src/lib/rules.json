@@ -49,31 +49,6 @@
       "a11yReq": ["WCAG21:language"]
     }
   },
-  "QW_ACT_R3": {
-    "name": "DEPRECATED - HTML page lang and xml:lang attributes have matching values",
-    "code": "QW-ACT-R3",
-    "mapping": "5b7ae0",
-    "description": "This rule checks that both lang and xml:lang attributes on the root element of a non-embedded HTML page, have the same primary language subtag.",
-    "metadata": {
-      "target": {
-        "element": "html",
-        "attributes": ["lang", "xml:lang"]
-      },
-      "success-criteria": [
-        {
-          "name": "3.1.1",
-          "level": "A",
-          "principle": "Understandable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#language-of-page"
-        }
-      ],
-      "related": [],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/5b7ae0/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:language"]
-    }
-  },
   "QW_ACT_R4": {
     "name": "Meta element has no refresh delay",
     "code": "QW-ACT-R4",

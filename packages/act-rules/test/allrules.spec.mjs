@@ -17,7 +17,6 @@ async function getTestCases() {
 const mapping = {
   'QW-ACT-R1': '2779a5',
   'QW-ACT-R2': 'b5c3f8',
-  'QW-ACT-R3': '5b7ae0',
   'QW-ACT-R4': 'bc659a',
   'QW-ACT-R5': 'bf051a',
   'QW-ACT-R6': '59796f',

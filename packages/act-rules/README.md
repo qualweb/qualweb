@@ -12,7 +12,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | --------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | QW-ACT-R1       | [2779a5](https://act-rules.github.io/rules/2779a5) | HTML page has non-empty title                                                       |
 | QW-ACT-R2       | [b5c3f8](https://act-rules.github.io/rules/b5c3f8) | HTML page has lang attribute                                                        |
-| QW-ACT-R3       | [5b7ae0](https://act-rules.github.io/rules/5b7ae0) | HTML page lang and xml:lang attributes have matching values                         |
 | QW-ACT-R4       | [bc659a](https://act-rules.github.io/rules/bc659a) | Meta element has no refresh delay                                                   |
 | QW-ACT-R5       | [bf051a](https://act-rules.github.io/rules/bf051a) | HTML page lang attribute has valid language tag                                     |
 | QW-ACT-R6       | [59796f](https://act-rules.github.io/rules/59796f) | Image button has non-empty accessible name                                          |
