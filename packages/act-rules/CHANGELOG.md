@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.24
+
+### Patch Changes
+
+- a9cbe5b: Deprecate R57
+- 56ee4cc: Deprecate R52
+- 89b3f52: Deprecate R18
+- 71e5028: Deprecate R3
+
 ## 0.6.23
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.17
+
+### Patch Changes
+
+- a304824: Add T35
+- 52360b5: Add BP29
+
 ## 0.1.16
 
 ### Patch Changes
