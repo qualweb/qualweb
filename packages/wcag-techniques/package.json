@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Implementation of the WCAG 2.1 techniques",
   "main": "dist/wcag.bundle.js",
   "files": [
@@ -45,7 +45,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "0.2.9",
-    "@qualweb/locale": "0.1.16",
+    "@qualweb/locale": "0.1.17",
     "@qualweb/qw-page": "0.2.18",
     "@qualweb/types": "0.7.25",
     "@qualweb/util": "0.5.33",

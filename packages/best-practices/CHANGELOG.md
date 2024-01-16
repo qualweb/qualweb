@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.15
+
+### Patch Changes
+
+- 52360b5: Add BP29
+
 ## 0.6.14
 
 ### Patch Changes

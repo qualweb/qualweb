@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.3.38",
+  "version": "0.3.39",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -35,7 +35,7 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "0.2.9",
-    "@qualweb/locale": "0.1.16",
+    "@qualweb/locale": "0.1.17",
     "@qualweb/types": "0.7.25",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
@@ -51,11 +51,11 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "0.6.23",
-    "@qualweb/best-practices": "0.6.14",
+    "@qualweb/act-rules": "0.6.24",
+    "@qualweb/best-practices": "0.6.15",
     "@qualweb/counter": "0.2.3",
     "@qualweb/qw-page": "0.2.18",
     "@qualweb/util": "0.5.33",
-    "@qualweb/wcag-techniques": "0.3.15"
+    "@qualweb/wcag-techniques": "0.3.16"
   }
 }
