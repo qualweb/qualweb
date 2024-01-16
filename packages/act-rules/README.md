@@ -61,7 +61,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R54      | [d7ba54](https://act-rules.github.io/rules/d7ba54) | Video element visual-only content has audio track alternative                       |
 | QW-ACT-R55      | [1ea59c](https://act-rules.github.io/rules/1ea59c) | Video element visual content has audio description                                  |
 | QW-ACT-R56      | [ab4d13](https://act-rules.github.io/rules/ab4d13) | Video element content is media alternative for text                                 |
-| QW-ACT-R57      | [f196ce](https://act-rules.github.io/rules/f196ce) | Video element visual content has description track                                  |
 | QW-ACT-R58      | [2eb176](https://act-rules.github.io/rules/2eb176) | Audio element content has transcript                                                |
 | QW-ACT-R59      | [afb423](https://act-rules.github.io/rules/afb423) | Audio element content is media alternative for text                                 |
 | QW-ACT-R60      | [f51b46](https://act-rules.github.io/rules/f51b46) | Video element auditory content has captions                                         |

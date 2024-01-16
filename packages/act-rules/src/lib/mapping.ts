@@ -25,7 +25,6 @@ export default {
     'QW-ACT-R54',
     'QW-ACT-R55',
     'QW-ACT-R56',
-    'QW-ACT-R57',
     'QW-ACT-R60',
     'QW-ACT-R61'
   ],
