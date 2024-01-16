@@ -26,6 +26,7 @@ import QW_WCAG_T31 from '../techniques/QW-WCAG-T31';
 import QW_WCAG_T32 from '../techniques/QW-WCAG-T32';
 import QW_WCAG_T33 from '../techniques/QW-WCAG-T33';
 import QW_WCAG_T34 from '../techniques/QW-WCAG-T34';
+import QW_WCAG_T35 from '../techniques/QW-WCAG-T35';
 import QW_WCAG_T4 from '../techniques/QW-WCAG-T4';
 import QW_WCAG_T5 from '../techniques/QW-WCAG-T5';
 import QW_WCAG_T6 from '../techniques/QW-WCAG-T6';
@@ -62,6 +63,7 @@ export {
   QW_WCAG_T32,
   QW_WCAG_T33,
   QW_WCAG_T34,
+  QW_WCAG_T35,
   QW_WCAG_T4,
   QW_WCAG_T5,
   QW_WCAG_T6,

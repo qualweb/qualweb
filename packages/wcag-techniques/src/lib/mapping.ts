@@ -24,5 +24,6 @@ export default {
   '*:not(head):not(style):not(link):not(meta):not(script)': ['QW-WCAG-T31'],
   '[align]': ['QW-WCAG-T27'],
   'dd, dt': ['QW-WCAG-T33'],
+  '*[id]': ['QW-WCAG-T35'],
   dl: ['QW-WCAG-T34']
 };
