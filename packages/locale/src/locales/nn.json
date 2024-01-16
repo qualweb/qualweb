@@ -1250,6 +1250,23 @@
           "P1": "The main landmark is at top level.",
           "F1": "The main landmark is not at top level."
         }
+      },
+      "QW-BP28": {
+        "name": "H1 element is used and unique",
+        "description": "Ensures there is only one H1",
+        "results": {
+          "P1": "The H1 element is used and unique",
+          "F1": "The H1 element is not present or used more than one time"
+        }
+      },
+      "QW-BP29": {
+        "name": "HTML lang and xml:lang match",
+        "description": "The best practice checks that for the html element, there is no mismatch between the primary language in non-empty lang and xml:lang attributes, if both are used.",
+        "results": {
+          "I1": "No test targets found.",
+          "P1": "The `lang` and `xml:lang` attributes have the same value.",
+          "F1": "The `lang` and `xml:lang` attributes don't have the same value."
+        }
       }
     }
   }

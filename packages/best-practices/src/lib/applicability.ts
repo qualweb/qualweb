@@ -194,6 +194,47 @@ function ElementIsInAccessibilityTree(_target: any, _propertyKey: string, descri
   };
 }
 
+function IsHTMLDocument(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    let IsNonHTMLDocument = false;
+    const htmlElement = window.qwPage.getElement('html');
+    if (htmlElement) IsNonHTMLDocument = htmlElement.getElementAttribute('nonHTMLPage') === 'true';
+    if (!IsNonHTMLDocument) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+function IsLangSubTagValid(attribute: string) {
+  return function (_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+    descriptor.value = function () {
+      const attr = (<typeof window.qwElement>arguments[0]).getElementAttribute(attribute);
+      if (attr && isSubTagValid(attr.split('-')[0])) {
+        return method.apply(this, arguments);
+      }
+    };
+  };
+}
+
+function isSubTagValid(subTag: string): boolean {
+  const languages = window.AccessibilityUtils.languages;
+  return languages.hasOwnProperty(subTag.toLowerCase());
+}
+
+
+function isInMainContext(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  const method = descriptor.value;
+  descriptor.value = function () {
+    const differentContext = (<typeof window.qwElement>arguments[0]).getElementAttribute('_documentSelector');
+    if (!differentContext || !differentContext.includes('>')) {
+      return method.apply(this, arguments);
+    }
+  };
+}
+
+
 export {
   ElementIsVisible,
   BestPracticeClass,
@@ -208,5 +249,8 @@ export {
   ElementHasParent,
   ElementIsNotChildOf,
   ElementHasAttributeRole,
-  ElementIsInAccessibilityTree
+  ElementIsInAccessibilityTree,
+  IsHTMLDocument,
+  IsLangSubTagValid,
+  isInMainContext
 };
