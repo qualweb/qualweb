@@ -1024,6 +1024,15 @@
         "F1": "The description list element contains an incorrect element type",
         "F2": "The description list element is not ordered correctly"
       }
+    },
+    "QW-WCAG-T35": {
+      "name": "`id` attribute value is unique",
+      "description": "This technique checks that all id attribute values on a single page are unique.",
+      "results": {
+        "I1": "No test targets found.",
+        "P1": "The test target has a unique `id` attribute.",
+        "F1": "Several elements have the same `id` attribute."
+      }
     }
   },
   "best-practices": {

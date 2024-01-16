@@ -21,6 +21,17 @@ class Test implements WCAGTechniqueResult {
     const pointer = element.getElementSelector();
     this.elements.push({ htmlCode, pointer });
   }
+
+  public addElements(
+    elements: Array<typeof window.qwElement>,
+    withText = true,
+    fullElement = false
+  ): void {
+    for (const element of elements ?? []) {
+      this.addElement(element, withText, fullElement);
+    }
+  }
+
 }
 
 export = Test;

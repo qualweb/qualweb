@@ -14,6 +14,7 @@
     "test:t9": "mocha test/techniques/QW-WCAG-T9.spec.mjs",
     "test:t33": "mocha test/techniques/QW-WCAG-T33.spec.mjs",
     "test:t34": "mocha test/techniques/QW-WCAG-T34.spec.mjs",
+    "test:t35": "mocha test/techniques/QW-WCAG-T35.spec.mjs",
     "compile:techniques": "node compile-techniques.js",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
