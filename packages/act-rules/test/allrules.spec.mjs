@@ -62,7 +62,6 @@ const mapping = {
   'QW-ACT-R49': 'aaa1bf',
   'QW-ACT-R50': '4c31df',
   'QW-ACT-R51': 'fd26cf',
-  'QW-ACT-R52': 'ac7dc6',
   'QW-ACT-R53': 'ee13b5',
   'QW-ACT-R54': 'd7ba54',
   'QW-ACT-R55': '1ea59c',
