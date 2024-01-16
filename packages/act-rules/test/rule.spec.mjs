@@ -31,7 +31,6 @@ const mapping = {
   'QW-ACT-R15': '80f0bf',
   'QW-ACT-R16': 'e086e5',
   'QW-ACT-R17': '23a2a8',
-  'QW-ACT-R18': '3ea0c8',
   'QW-ACT-R19': 'cae760',
   'QW-ACT-R20': '674b10',
   'QW-ACT-R21': '7d6734',

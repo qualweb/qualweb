@@ -7,7 +7,6 @@ import QW_ACT_R14 from '../rules/QW-ACT-R14';
 import QW_ACT_R15 from '../rules/QW-ACT-R15';
 import QW_ACT_R16 from '../rules/QW-ACT-R16';
 import QW_ACT_R17 from '../rules/QW-ACT-R17';
-import QW_ACT_R18 from '../rules/QW-ACT-R18';
 import QW_ACT_R19 from '../rules/QW-ACT-R19';
 import QW_ACT_R2 from '../rules/QW-ACT-R2';
 import QW_ACT_R20 from '../rules/QW-ACT-R20';
@@ -78,7 +77,6 @@ export {
   QW_ACT_R15,
   QW_ACT_R16,
   QW_ACT_R17,
-  QW_ACT_R18,
   QW_ACT_R19,
   QW_ACT_R2,
   QW_ACT_R20,

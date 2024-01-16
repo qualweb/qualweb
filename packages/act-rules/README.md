@@ -26,7 +26,6 @@ Implementation of the [ACT rules](https://act-rules.github.io/rules/).
 | QW-ACT-R15      | [80f0bf](https://act-rules.github.io/rules/80f0bf) | Audio or video element avoids automatically playing audio                           |
 | QW-ACT-R16      | [e086e5](https://act-rules.github.io/rules/e086e5) | Form field has non-empty accessible name                                            |
 | QW-ACT-R17      | [23a2a8](https://act-rules.github.io/rules/23a2a8) | Image has non-empty accessible name                                                 |
-| QW-ACT-R18      | [3ea0c8](https://act-rules.github.io/rules/3ea0c8) | Id attribute value is unique                                                        |
 | QW-ACT-R19      | [cae760](https://act-rules.github.io/rules/cae760) | Iframe element has non-empty accessible name                                        |
 | QW-ACT-R20      | [674b10](https://act-rules.github.io/rules/674b10) | Role attribute has valid value                                                      |
 | QW-ACT-R21      | [7d6734](https://act-rules.github.io/rules/7d6734) | SVG element with explicit role has non-empty accessible name                        |

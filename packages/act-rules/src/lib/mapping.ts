@@ -7,7 +7,6 @@ export default {
   'a[href], area[href], [role="link"]': ['QW-ACT-R12'],
   '[aria-hidden="true"]': ['QW-ACT-R13'],
   'meta[name]': ['QW-ACT-R14'],
-  '[id]': ['QW-ACT-R18'],
   svg: ['QW-ACT-R21'],
   'body *[lang]': ['QW-ACT-R22'],
   '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]':
