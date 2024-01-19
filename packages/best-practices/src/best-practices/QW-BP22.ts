@@ -15,7 +15,7 @@ class QW_BP22 extends BestPracticeObject {
     const test = new Test();
 
     const landmarkList = element.getElements('main:not([role]), [role=main]');
-    console.log(landmarkList.length);
+    //console.log(landmarkList.length);
     if (landmarkList.length < 2) {
       test.verdict = 'passed';
       test.resultCode = 'P1';

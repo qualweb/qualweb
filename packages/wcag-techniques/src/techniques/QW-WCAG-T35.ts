@@ -18,10 +18,10 @@ class QW_WCAG_T35 extends Technique {
         const test = new Test();
 
         const id = element.getElementAttribute('id');
-        console.log('id ', id);
+        //console.log('id ', id);
 
         if (id && !this.idMap.get(id)) {
-          console.log('no if');
+          //console.log('no if');
             try {
                 const elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
 
@@ -34,7 +34,7 @@ class QW_WCAG_T35 extends Technique {
                 }
 
                 test.addElements(elementsWithSameId);
-                console.log('test ', test);
+                //console.log('test ', test);
                 super.addTestResult(test);
             } catch { }
             this.idMap.set(id, true);
