@@ -21,7 +21,7 @@ class QW_WCAG_T28 extends Technique {
     const test = new Test();
     const fontSize = cssRules?.['font-size'];
     if (fontSize) {
-      console.log(fontSize);
+      //console.log(fontSize);
       const value = fontSize.value + '';
       const hasAbsoluteUnit =
         value.includes('cm') ||

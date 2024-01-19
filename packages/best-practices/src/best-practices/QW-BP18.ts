@@ -69,7 +69,7 @@ class QW_BP18 extends BestPracticeObject {
     let affectsContainers = false;
     for (const selector of selectors || []) {
       if (selector.startsWith('.') || selector.startsWith('#')) {
-        console.log(selector);
+        //console.log(selector);
         const elements = window.qwPage.getElements(selector);
         for (const element of elements || []) {
           if (this.containers.includes(element.getElementTagName())) {

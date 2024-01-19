@@ -39,7 +39,7 @@ class QW_ACT_R38 extends AtomicRule {
         test.verdict = 'failed';
         test.resultCode = 'F1';
       }
-      console.log(test);
+      //console.log(test);
 
       test.addElement(element);
       super.addTestResult(test);
@@ -48,7 +48,7 @@ class QW_ACT_R38 extends AtomicRule {
 
   private checkOwnedElementsRole(ownedRoles: string[], elements: typeof window.qwElement[]): boolean {
     if (ownedRoles.length === 0) return true;
-    console.log(ownedRoles);
+    //console.log(ownedRoles);
     const rolesJSON = window.AccessibilityUtils.roles;
     let onlyOwnedRoles = true;
     let hasOneOwnedRole = false;
@@ -61,7 +61,7 @@ class QW_ACT_R38 extends AtomicRule {
       if (!role || role === 'none') {
         break;
       }
-      console.log({ ownedRoles, role });
+      //console.log({ ownedRoles, role });
       if (role.includes('group')) {
         const roles = rolesJSON[role]['requiredOwnedElements'];
         roles.push(...ownedRoles);
@@ -77,7 +77,7 @@ class QW_ACT_R38 extends AtomicRule {
           );
       }
 
-      console.log({ role, hasOwnedRole });
+      //console.log({ role, hasOwnedRole });
       onlyOwnedRoles = onlyOwnedRoles && !!hasOwnedRole;
       if (!hasOneOwnedRole) hasOneOwnedRole = !!hasOwnedRole;
       i++;

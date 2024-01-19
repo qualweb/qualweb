@@ -27,7 +27,7 @@ describe('Running tests', function () {
 
     await page.evaluate(() => {
       const element = window.qwPage.getElement('html > body:nth-child(2) > header:nth-child(3) > dnb-header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > dnb-link:nth-child(1)');
-      window.console.log("children:", element.getElement("slot:nth-of-type(1)"));
+      //window.console.log("children:", element.getElement("slot:nth-of-type(1)"));
       //window.console.log(window.AccessibilityUtils.getAccessibleName(element));
     });
 
