@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.19
+
+### Patch Changes
+
+- c345773: Fix R70
+- Updated dependencies [c345773]
+  - @qualweb/qw-element@0.2.13
+
 ## 0.2.18
 
 ### Patch Changes

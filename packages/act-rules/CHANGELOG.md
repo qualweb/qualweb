@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.25
+
+### Patch Changes
+
+- c345773: Fix R70
+- 5366561: Fix bug in R67
+
 ## 0.6.24
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.5.33",
+  "version": "0.5.34",
   "description": "Utilities module for qualweb",
   "main": "dist/util.bundle.js",
   "files": [
@@ -39,8 +39,8 @@
   "license": "ISC",
   "devDependencies": {
     "@qualweb/dom": "^0.2.9",
-    "@qualweb/qw-page": "^0.2.18",
-    "@qualweb/types": "0.7.25",
+    "@qualweb/qw-page": "^0.2.19",
+    "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^15.6.1",
     "@types/string-pixel-width": "^1.10.3",
