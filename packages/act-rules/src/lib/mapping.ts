@@ -15,7 +15,7 @@ export default {
   'input, select, textarea, [role]': ['QW-ACT-R16', 'QW-ACT-R41'],
   '[role]': ['QW-ACT-R20', 'QW-ACT-R33'],
   'img, [role="img"]': ['QW-ACT-R17'],
-  iframe: ['QW-ACT-R19'],
+  iframe: ['QW-ACT-R19', 'QW-ACT-R70'],
   audio: ['QW-ACT-R58', 'QW-ACT-R59'],
   '[aria-label], [aria-labelledby]': ['QW-ACT-R30'],
   video: [
@@ -39,6 +39,5 @@ export default {
   '[role="menuitem"], menuitem, li, a[href], button, img[alt], input[type="button"], input[type="image"]': [
     'QW-ACT-R66'
   ],
-  '*': ['QW-ACT-R7', 'QW-ACT-R37', 'QW-ACT-R65', 'QW-ACT-R76'],
-  'iframe[tabindex]': ['QW-ACT-R70']
+  '*': ['QW-ACT-R7', 'QW-ACT-R37', 'QW-ACT-R65', 'QW-ACT-R76']
 };

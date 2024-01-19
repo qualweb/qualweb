@@ -232,6 +232,17 @@ class QWPage {
     return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null;
   }
 
+  public pageHasOpenDialog() : boolean {
+    const dialogList = this.getElements('dialog');
+    let hasOpenDialog = false;
+    dialogList.forEach((dialog) => {
+      if (dialog.getElementProperty('open')) {
+        hasOpenDialog = true;
+      }
+    });
+    return hasOpenDialog;
+  }
+
   public cleanAllElements(): void {
     const html = this.document.querySelector('html');
     if (html) {

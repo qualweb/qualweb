@@ -27,6 +27,7 @@ declare module "@qualweb/qw-page" {
     public getURL(): string;
     public getHTMLContent(): string;
     public getFocusedElement(): QWElement | null;
+    public pageHasOpenDialog() : boolean
   }
 
   export { QWPage };
