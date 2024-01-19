@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.26
+
+### Patch Changes
+
+- c345773: Fix R70
+
 ## 0.7.25
 
 ### Patch Changes

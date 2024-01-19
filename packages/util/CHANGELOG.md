@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.34
+
+### Patch Changes
+
+- 5366561: Fix bug in R67
+
 ## 0.5.33
 
 ### Patch Changes

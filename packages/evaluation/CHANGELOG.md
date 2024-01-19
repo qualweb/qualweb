@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.40
+
+### Patch Changes
+
+- Updated dependencies [c345773]
+- Updated dependencies [5366561]
+  - @qualweb/act-rules@0.6.25
+  - @qualweb/qw-page@0.2.19
+  - @qualweb/wcag-techniques@0.3.17
+  - @qualweb/best-practices@0.6.16
+  - @qualweb/util@0.5.34
+
 ## 0.3.39
 
 ### Patch Changes

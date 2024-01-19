@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.15",
+  "version": "0.6.16",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [
@@ -62,9 +62,9 @@
   "devDependencies": {
     "@qualweb/dom": "0.2.9",
     "@qualweb/locale": "0.1.17",
-    "@qualweb/qw-page": "0.2.18",
-    "@qualweb/types": "0.7.25",
-    "@qualweb/util": "0.5.33",
+    "@qualweb/qw-page": "0.2.19",
+    "@qualweb/types": "0.7.26",
+    "@qualweb/util": "0.5.34",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.12",
     "chai": "^5.0.0",
