@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.26
+
+### Patch Changes
+
+- 2b4e326: Fix R14
+- 478ef0e: Fix R59
+- 4527439: Fix R58
+- 4453c14: Fix R30
+
 ## 0.6.25
 
 ### Patch Changes
