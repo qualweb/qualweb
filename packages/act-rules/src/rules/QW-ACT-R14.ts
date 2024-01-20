@@ -32,15 +32,18 @@ class QW_ACT_R14 extends AtomicRule {
       }
     }
 
-    if ((!maximumScale || parseInt(maximumScale) < 0) && !userScalable) {
+    if (!maximumScale && !userScalable) {
+      test.verdict = 'inapplicable';
+      test.resultCode = 'I1';
+    } else if (!maximumScale && (!userScalable || userScalable === 'yes' || userScalable === 'device-width' || userScalable === 'device-height' || parseInt(userScalable) < -1 || parseInt(userScalable) > 1)) {
       test.verdict = 'passed';
       test.resultCode = 'P1';
-    } else if (userScalable === 'no' || maximumScale == 'yes' || parseFloat(maximumScale) < 2) {
-      test.verdict = 'failed';
-      test.resultCode = 'F1';
-    } else {
+    } else if (!userScalable && (!maximumScale || maximumScale === 'device-width' || maximumScale === 'device-height' || parseInt(maximumScale) < 0 || parseInt(maximumScale) >= 2)) {
       test.verdict = 'passed';
       test.resultCode = 'P2';
+    } else {
+      test.verdict = 'failed';
+      test.resultCode = 'F1';
     }
 
     test.addElement(element);
