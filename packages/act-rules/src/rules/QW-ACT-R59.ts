@@ -1,7 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsNotHidden, ElementIsVisible } from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
 import Test from '../lib/Test.object';
 @ACTRuleDecorator
 class QW_ACT_R59 extends AtomicRule {
@@ -10,16 +10,15 @@ class QW_ACT_R59 extends AtomicRule {
   }
 
   @ElementExists
-  @ElementIsNotHidden
-  @ElementIsVisible
   execute(element: typeof window.qwElement): void {
-    const autoPlay = element.getElementProperty('autoplay');
+      const autoPlay = element.getElementProperty('autoplay');
+      const controls = element.getElementProperty('controls');
 
-    if (autoPlay) {
-      const test = new Test('warning', undefined, 'W1');
-      test.addElement(element);
-      super.addTestResult(test);
-    }
+      if (autoPlay || (controls && window.DomUtils.isElementVisible(element))) {
+          const test = new Test('warning', undefined, 'W1');
+          test.addElement(element);
+          super.addTestResult(test);
+      }
   }
 }
 
