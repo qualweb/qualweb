@@ -34,11 +34,10 @@ class QW_ACT_R30 extends AtomicRule {
     } else if (
       !hasTextNode ||
       elementText === undefined ||
-      elementText === '' ||
-      (elementText && !window.DomUtils.isHumanLanguage(elementText) && !isIconValue)
+      elementText === '' 
     ) {
-      // CHANGE: remove return and refactor code
-      return;
+      test.verdict = 'inapplicable';
+      test.resultCode = 'I1';
     } else if (!!elementText && (isIconValue || this.includesText(accessibleName, elementText))) {
       test.verdict = 'passed';
       test.resultCode = 'P1';
@@ -46,7 +45,6 @@ class QW_ACT_R30 extends AtomicRule {
       test.verdict = 'failed';
       test.resultCode = 'F2';
     }
-
     test.addElement(element, true, false, true);
     super.addTestResult(test);
   }
@@ -62,11 +60,13 @@ class QW_ACT_R30 extends AtomicRule {
     accessibleName = accessibleName
       .toLowerCase()
       .trim()
-      .replace(/\r?\n|\r|\s+|[^\w\s]+/g, '');
+      .replace(/\r?\n|\r|[^\w\s-]+/g, '')
+      .replace(/s+/g, ' ');
     elementText = elementText
       .toLowerCase()
       .trim()
-      .replace(/\r?\n|\r|\s+|[^\w\s]+/g, '');
+      .replace(/\r?\n|\r|[^\w\s-]+/g, '')
+      .replace(/s+/g, ' ');  
     return accessibleName.includes(elementText);
   }
 }
