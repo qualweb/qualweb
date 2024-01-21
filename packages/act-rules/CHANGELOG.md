@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.27
+
+### Patch Changes
+
+- 494faa3: Fix R7
+- e351e12: Fix R36
+
 ## 0.6.26
 
 ### Patch Changes
