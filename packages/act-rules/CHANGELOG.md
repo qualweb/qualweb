@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.28
+
+### Patch Changes
+
+- ab2c347: Fix getImplicitRole
+
 ## 0.6.27
 
 ### Patch Changes
