@@ -64,7 +64,7 @@
     "@qualweb/locale": "0.1.17",
     "@qualweb/qw-page": "0.2.19",
     "@qualweb/types": "0.7.26",
-    "@qualweb/util": "0.5.34",
+    "@qualweb/util": "0.5.35",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.12",
     "chai": "^5.0.0",

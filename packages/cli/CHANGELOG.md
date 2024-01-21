@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.19
+
+### Patch Changes
+
+- @qualweb/core@0.7.59
+
 ## 0.6.18
 
 ### Patch Changes
