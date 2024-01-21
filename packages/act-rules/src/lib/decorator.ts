@@ -202,7 +202,7 @@ function ElementIsNotInert(_target: any, _propertyKey: string, descriptor: Prope
             return;
         }
         if (window.qwPage.pageHasOpenDialog()) {
-          return;
+            return;
         }
         return method.apply(this, arguments);
     };
