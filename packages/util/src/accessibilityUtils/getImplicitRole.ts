@@ -85,7 +85,7 @@ function getRoleSelect(element: typeof window.qwElement, roleValue) {
 function getRoleHeaderFooter(element: typeof window.qwElement, roleValue) {
   let role;
   if (
-    window.DomUtils.isElementADescendantOfExplicitRole(
+    !window.DomUtils.isElementADescendantOfExplicitRole(
       element,
       ['article', 'aside', 'main', 'nav', 'section'],
       ['article', 'complementary', 'main', 'navigation', 'region']
