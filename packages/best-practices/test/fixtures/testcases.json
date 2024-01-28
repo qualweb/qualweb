@@ -1,254 +1,399 @@
-[
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/warning1.html",
-    "outcome": "warning"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/failed1.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/passed1.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/failed1.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/inapplicable1.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/passed.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed2.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/inapplicable.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed2.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed3.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed4.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/inapplicable.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/passed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/passed2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/failed.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/failed2.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/passed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste1.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed3.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed2.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed3.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed4.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed5.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithText.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithoutText.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithText.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAltWithText.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAlt.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAlts.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAltAndNoAlt.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithAccessibleName.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithoutAccessibleName.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/noThNorCaption.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyCaption.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyTh.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyThEmpty.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/thAndCaption.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/thAndCaptionEmpty.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/passed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/b.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/u.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/strong.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test1.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test3.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test1.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test3.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test1.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test2.html",
-    "outcome": "inapplicable"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test3.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test1.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test3.html",
-    "outcome": "inapplicable"
-  }
-]
+{
+  "testcases": {
+    "qw-bp1": {
+      "name": "QW-BP1",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/warning1.html",
+          "path": "H42/warning1.html",
+          "outcome": "warning"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/failed1.html",
+          "path": "H42/failed1.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp2": {
+      "name": "QW-BP2",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/passed1.html",
+          "path": "BP2/passed1.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/failed1.html",
+          "path": "BP2/failed1.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-2/inapplicable1.html",
+          "path": "BP2/inapplicable1.html",
+          "outcome": "inapplicable"
+        }
+      ]
+    },
+    "qw-bp3": {
+      "name": "QW-BP3",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/passed.html",
+          "path": "BP3/passed.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed.html",
+          "path": "BP3/failed.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed2.html",
+          "path": "BP3/failed2.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/inapplicable.html",
+          "path": "BP3/inapplicable.html",
+          "outcome": "inapplicable"
+        }
+      ]
+    },
+    "qw-bp4": {
+      "name": "QW-BP4",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed.html",
+          "path": "BP4/failed.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed2.html",
+          "path": "BP4/failed2.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed3.html",
+          "path": "BP4/failed3.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/failed4.html",
+          "path": "BP4/failed4.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp4/inapplicable.html",
+          "path": "BP4/inapplicable.html",
+          "outcome": "inapplicable"
+        }
+      ]
+    },
+    "qw-bp5": {
+      "name": "QW-BP5",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/passed.html",
+          "path": "BP5/passed.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/passed2.html",
+          "path": "BP5/passed2.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/failed.html",
+          "path": "BP5/failed.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp5/failed2.html",
+          "path": "BP5/failed2.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp6": {
+      "name": "QW-BP6",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/passed.html",
+          "path": "BP6/passed.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed.html",
+          "path": "BP6/failed.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed2.html",
+          "path": "BP6/failed2.html",
+          "outcome": "passed"
+        }
+      ]
+    },
+    "qw-bp7": {
+      "name": "QW-BP7",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste.html",
+          "path": "BP7/teste.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste1.html",
+          "path": "BP7/teste1.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed.html",
+          "path": "BP7/passed.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed2.html",
+          "path": "BP7/passed2.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed3.html",
+          "path": "BP7/passed3.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed.html",
+          "path": "BP7/failed.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed2.html",
+          "path": "BP7/failed2.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed3.html",
+          "path": "BP7/failed3.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed4.html",
+          "path": "BP7/failed4.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed5.html",
+          "path": "BP7/failed5.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp8": {
+      "name": "QW-BP8",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithText.html",
+          "path": "BP8/headingWithText.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithoutText.html",
+          "path": "BP8/headingWithoutText.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithText.html",
+          "path": "BP8/headingWithImageWithText.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAltWithText.html",
+          "path": "BP8/headingWithImageWithAltWithText.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithAlt.html",
+          "path": "BP8/headingWithImageWithAlt.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAlts.html",
+          "path": "BP8/headingWithImagesAlts.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImagesAltAndNoAlt.html",
+          "path": "BP8/headingWithImagesAltAndNoAlt.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithAccessibleName.html",
+          "path": "BP8/svgWithAccessibleName.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/headingWithImageWithoutText.html",
+          "path": "BP8/headingWithImageWithoutText.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp8/svgWithoutAccessibleName.html",
+          "path": "BP8/svgWithoutAccessibleName.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp9": {
+      "name": "QW-BP9",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/noThNorCaption.html",
+          "path": "BP9/noThNorCaption.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyCaption.html",
+          "path": "BP9/onlyCaption.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyTh.html",
+          "path": "BP9/onlyTh.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/onlyThEmpty.html",
+          "path": "BP9/onlyThEmpty.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/thAndCaption.html",
+          "path": "BP9/thAndCaption.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp9/thAndCaptionEmpty.html",
+          "path": "BP9/thAndCaptionEmpty.html",
+          "outcome": "inapplicable"
+        }
+      ]
+    },
+    "qw-bp10": {
+      "name": "QW-BP10",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/passed.html",
+          "path": "BP10/passed.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/b.html",
+          "path": "BP10/b.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/u.html",
+          "path": "BP10/u.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/strong.html",
+          "path": "BP10/strong.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp11": {
+      "name": "QW-BP11",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test1.html",
+          "path": "BP11/test1.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test2.html",
+          "path": "BP11/test2.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test3.html",
+          "path": "BP11/test3.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp12": {
+      "name": "QW-BP12",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test2.html",
+          "path": "BP12/test2.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test1.html",
+          "path": "BP12/test1.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBp-12/test3.html",
+          "path": "BP12/test3.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp13": {
+      "name": "QW-BP13",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test1.html",
+          "path": "BP13/test1.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test2.html",
+          "path": "BP13/test2.html",
+          "outcome": "inapplicable"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-13/test3.html",
+          "path": "BP13/test3.html",
+          "outcome": "passed"
+        }
+      ]
+    },
+    "qw-bp14": {
+      "name": "QW-BP14",
+      "testcases": [
+        {
+          "url": "https://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP14/test1.html",
+          "path": "BP14/test1.html",
+          "outcome": "failed"
+        }
+      ]
+    },
+    "qw-bp15": {
+      "name": "QW-BP15",
+      "testcases": [
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test1.html",
+          "path": "BP15/test1.html",
+          "outcome": "failed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test2.html",
+          "path": "BP15/test2.html",
+          "outcome": "passed"
+        },
+        {
+          "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test3.html",
+          "path": "BP15/test3.html",
+          "outcome": "inapplicable"
+        }
+      ]
+    }
+  } 
+}
