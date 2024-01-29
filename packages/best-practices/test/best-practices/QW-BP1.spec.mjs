@@ -1,5 +1,7 @@
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { buildTest } from './template.mjs';
 
-import testcases from '../fixtures/testcases/H42/testcases.json' assert { type: 'json' };
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-buildTest('QW-BP1', testcases);
+buildTest('QW-BP1', resolve(__dirname, '../fixtures/testcases/H42/testcases.json'));
