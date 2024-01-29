@@ -1,52 +1,6 @@
 [
   {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste.html",
-    "path": "teste.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/teste1.html",
-    "path": "teste1.html",
+    "url": "https://cm-aljezur.pt/pt/Default.aspx",
     "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed.html",
-    "path": "passed.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed2.html",
-    "path": "passed2.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/passed3.html",
-    "path": "passed3.html",
-    "outcome": "passed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed.html",
-    "path": "failed.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed2.html",
-    "path": "failed2.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed3.html",
-    "path": "failed3.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed4.html",
-    "path": "failed4.html",
-    "outcome": "failed"
-  },
-  {
-    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp7/failed5.html",
-    "path": "failed5.html",
-    "outcome": "failed"
   }
 ]

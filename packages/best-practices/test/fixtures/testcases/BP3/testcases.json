@@ -1,22 +1,22 @@
 [
   {
     "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/passed.html",
-    "path": "BP3/passed.html",
+    "path": "passed.html",
     "outcome": "inapplicable"
   },
   {
     "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed.html",
-    "path": "BP3/failed.html",
+    "path": "failed.html",
     "outcome": "inapplicable"
   },
   {
     "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/failed2.html",
-    "path": "BP3/failed2.html",
+    "path": "failed2.html",
     "outcome": "inapplicable"
   },
   {
     "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp3/inapplicable.html",
-    "path": "BP3/inapplicable.html",
+    "path": "inapplicable.html",
     "outcome": "inapplicable"
   }
 ]
