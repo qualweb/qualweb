@@ -1,0 +1,17 @@
+[
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test1.html",
+    "path": "test1.html",
+    "outcome": "failed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test2.html",
+    "path": "test2.html",
+    "outcome": "passed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~asantos/BP15/test3.html",
+    "path": "test3.html",
+    "outcome": "inapplicable"
+  }
+]

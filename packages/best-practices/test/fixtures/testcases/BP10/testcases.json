@@ -1,0 +1,22 @@
+[
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/passed.html",
+    "path": "passed.html",
+    "outcome": "passed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/b.html",
+    "path": "b.html",
+    "outcome": "failed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/u.html",
+    "path": "u.html",
+    "outcome": "failed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp10/strong.html",
+    "path": "strong.html",
+    "outcome": "failed"
+  }
+]

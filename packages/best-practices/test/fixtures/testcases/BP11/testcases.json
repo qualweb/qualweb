@@ -1,0 +1,17 @@
+[
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test1.html",
+    "path": "test1.html",
+    "outcome": "inapplicable"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test2.html",
+    "path": "test2.html",
+    "outcome": "passed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~aestriga/TesteBP-11/test3.html",
+    "path": "test3.html",
+    "outcome": "failed"
+  }
+]

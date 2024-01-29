@@ -1,0 +1,12 @@
+[
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/warning1.html",
+    "path": "warning1.html",
+    "outcome": "warning"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/h42/failed1.html",
+    "path": "failed1.html",
+    "outcome": "failed"
+  }
+]

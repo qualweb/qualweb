@@ -1,0 +1,17 @@
+[
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/passed.html",
+    "path": "passed.html",
+    "outcome": "passed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed.html",
+    "path": "failed.html",
+    "outcome": "passed"
+  },
+  {
+    "url": "http://accessible-serv.lasige.di.fc.ul.pt/~bandrade/bp6/failed2.html",
+    "path": "failed2.html",
+    "outcome": "passed"
+  }
+]
