@@ -1,12 +1,11 @@
 import { expect } from 'chai';
-import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { createRequire } from 'module';
 import { usePuppeteer } from './util.mjs';
 const require = createRequire(import.meta.url);
 
-describe('Running tests', function () {
+describe('General tests', function () {
   const proxy = usePuppeteer();
 
   it('Evaluates url', async function () {
