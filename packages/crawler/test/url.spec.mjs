@@ -2,21 +2,25 @@ import { Crawler } from '../dist/index.js';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { expect } from 'chai';
+import { createKoaServer, usePuppeteer } from './util.mjs';
 
 describe('Url crawling', function () {
+  const proxy = usePuppeteer();
+
+  const koaServer = createKoaServer({ childLinksPerPage: 10, maxDepth: 10 }).listen();
+  const host = `http://localhost:${koaServer.address().port}`;
+
   it('should have more than 1 urls', async function () {
     this.timeout(0);
 
     puppeteer.use(StealthPlugin());
 
-    const browser = await puppeteer.launch({headless:false});
-    const crawler = new Crawler(browser, 'http://www.cm-gois.pt');
+    const crawler = new Crawler(proxy.browser, host);
     await crawler.crawl({ logging: false, maxDepth: 0 });
     const urls = crawler.getResults();
-    console.log(urls);
 
-    //await browser.close();
-
-    expect(urls.length).to.be.greaterThan(1);
+    expect(urls).to.have.length(11);
   });
+
+  after(() => koaServer.close());
 });

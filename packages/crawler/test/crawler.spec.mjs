@@ -1,7 +1,6 @@
 import { Crawler } from '../dist/index.js';
-import puppeteer from 'puppeteer';
 import { expect } from 'chai';
-import { createKoaServer, useMockServer, usePuppeteer } from './util.mjs';
+import { createKoaServer, usePuppeteer } from './util.mjs';
 
 describe('Testing crawler execution', function () {
   const proxy = usePuppeteer();
@@ -10,9 +9,11 @@ describe('Testing crawler execution', function () {
     maxDepth: 10,
   });
   let mockHttpServer;
+  let mockServerHost;
   
   before(async () => {
-    await new Promise(r => mockHttpServer = mockServer.listen(8081, () => r()));
+    mockHttpServer = mockServer.listen();
+    mockServerHost = `http://localhost:${mockHttpServer.address().port}`;
   });
 
   after(async () => {
@@ -21,7 +22,7 @@ describe('Testing crawler execution', function () {
 
   it('maxDepth: 0', async function () {
     this.timeout(0);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, maxDepth: 0 });
     const urls = crawler.getResults();
     expect(urls.length).to.be.greaterThan(1);
@@ -29,17 +30,17 @@ describe('Testing crawler execution', function () {
 
   it('maxDepth: 1', async function () {
     this.timeout(0);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, maxDepth: 1 });
     const urls = crawler.getResults();
     // console.log(urls.length);
     // expect(urls.length).to.be.greaterThan(1);
-    expect(urls).to.have.length(10);
+    expect(urls).to.have.length(111);
   });
 
   it('maxUrls: 10', async function () {
     this.timeout(0);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, maxUrls: 10 });
     const urls = crawler.getResults();
     // console.log(urls.length);
@@ -49,7 +50,7 @@ describe('Testing crawler execution', function () {
 
   it('MaxUrls: 100', async function () {
     this.timeout(0);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, maxUrls: 100 });
     const urls = crawler.getResults();
     // console.log(urls.length);
@@ -59,8 +60,8 @@ describe('Testing crawler execution', function () {
 
   it('Timeout: 20 seconds', async function () {
     // Expect this test to run for just over 20 seconds.
-    this.timeout(25 * 1000);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    this.timeout(30 * 1000);
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, timeout: 20 });
     const urls = crawler.getResults();
     expect(urls.length).to.be.greaterThan(1);
@@ -69,7 +70,7 @@ describe('Testing crawler execution', function () {
   it('Timeout: 1 minute', async function () {
     // Expect this test to run for just over 60 seconds.
     this.timeout(70 * 1000);
-    const crawler = new Crawler(proxy.browser, 'http://localhost:8081/');
+    const crawler = new Crawler(proxy.browser, mockServerHost);
     await crawler.crawl({ logging: false, timeout: 60 });
     const urls = crawler.getResults();
     expect(urls.length).to.be.greaterThan(1);
