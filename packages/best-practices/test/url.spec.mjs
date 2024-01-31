@@ -1,22 +1,19 @@
 import { expect } from 'chai';
-import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { createRequire } from 'module';
+import { usePuppeteer } from './util.mjs';
 const require = createRequire(import.meta.url);
 
-describe('Running tests', function () {
+describe('General tests', function () {
+  const proxy = usePuppeteer();
+
   it('Evaluates url', async function () {
     this.timeout(0);
 
     const url = 'https://www.ccb.pt/';
 
-    const browser = await puppeteer.launch({
-      headless: false,
-      args: ['--ignore-certificate-errors']
-    });
-    const incognito = await browser.createIncognitoBrowserContext();
-    const page = await incognito.newPage();
+    const page = proxy.page;
     const dom = new Dom(page);
     await dom.process({ execute: { bp: false } }, url, '');
 
@@ -37,11 +34,6 @@ describe('Running tests', function () {
       return bp.execute();
     }, locales.default.en);
 
-    /*await page.close();
-    await incognito.close();
-    await browser.close();*/
-
-    console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 });

@@ -1,6 +1,3 @@
-const { BestPractices } = require('../../dist/index');
-const { expect } = require('chai');
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-
-describe('Technique QW-BP18', function () {});
+describe('QW-BP18', function () {
+  it('Has no tests')
+});
