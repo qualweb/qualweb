@@ -69,8 +69,13 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
 
     const childLinks = [];
 
-    for (let i = 0; i < childLinksPerPage; i++) {
-      childLinks.push(`<li><a href="${(parms || '') + '/' + (i + leafOffset) }">Child #${i}</a></li>`);
+    // Only generate deeper links as long as we haven't reached max depth.
+    if (pathSegments.length < maxDepth) {
+      for (let i = 0; i < childLinksPerPage; i++) {
+        childLinks.push(`<li><a href="${(parms || '') + '/' + (i + leafOffset) }">Child #${i}</a></li>`);
+      }
+    } else {
+      childLinks.push(`<li>Max depth reached</li>`);
     }
 
     ctx.status = 200;
