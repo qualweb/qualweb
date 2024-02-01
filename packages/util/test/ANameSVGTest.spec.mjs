@@ -1,28 +1,38 @@
 import puppeteer from 'puppeteer';
+import { expect } from 'chai';
+
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
 import { Dom } from '@qualweb/dom';
-const { expect } = require('chai');
+import { usePuppeteer } from './util.mjs';
 
-describe('DOM UTILITIES', function () {
-  describe('Testing Acessible Name function', function () {
-    it('should work', async function () {
-      this.timeout(0);
-      const browser = await puppeteer.launch({ headless: false, args: ['--ignore-certificate-errors'] });
-      const incognito = await browser.createIncognitoBrowserContext();
-      const page = await incognito.newPage();
-      const dom = new Dom(page);
-      await dom.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://www.ipleiria.pt/', '');
+describe('ANameSVGTest', function () {
+  const proxy = usePuppeteer();
 
-      await page.addScriptTag({
-        path: require.resolve('@qualweb/qw-page')
-      });
+  // What is this test *really* supposed to check? Currently, it injects code
+  // from inject.js, which in turn runs AccessibilityUtils.getAccessibleNameSVG
+  // for all SVG elements on the page. Is this purely to test execution of
+  // injected code?
+  it('Should correctly run injected code (inject.js)', async function () {
+    this.timeout(0);
 
-      await page.addScriptTag({
-        path: require.resolve('../dist/util.bundle.js')
-      });
+    const { page } = proxy;
 
-      await page.addScriptTag({
-        path: require.resolve('./inject.js')
-      });
+    const dom = new Dom(page);
+    await dom.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://www.ipleiria.pt/', '');
+
+    await page.addScriptTag({
+      path: require.resolve('@qualweb/qw-page')
+    });
+
+    await page.addScriptTag({
+      path: require.resolve('../dist/util.bundle.js')
+    });
+
+    await page.addScriptTag({
+      path: require.resolve('./fixtures/inject.js')
     });
   });
 });

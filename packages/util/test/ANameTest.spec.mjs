@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-describe('Running tests', function () {
+describe('ANameTest', function () {
   it('Calculates accessible name correctly', async function () {
     this.timeout(100 * 1000);
 
