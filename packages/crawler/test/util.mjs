@@ -107,32 +107,43 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
   return app;
 }
 
-/**
- * Sets up a Koa server with specified {@link koaOptions}, then invokes the
- * callback with the address to the server. When the callback promise resolves
- * (or throws), the server is cleaned up.
- * @param {*} koaOptions 
- * @param {Promise<any>} cb 
- */
-export function useMockServer(koaOptions, cb) {
-  const koaApp = createKoaServer(koaOptions);
+export async function withMockServer(mockServerOptions, callback) {
+  const mockServer = createKoaServer(mockServerOptions);
+  const mockHttpServer = mockServer.listen();
 
-  console.debug('Opening mock server');
-  const httpServer = koaApp.listen();
+  console.debug('Set up mock server');
 
-  console.debug('Passing control to callback');
-  
-  cb(`http://localhost:${httpServer.address().port}`)
-    .then(() => console.debug('DONE'))
-    .finally(() => {
-      console.error('Closing mock server');
-      httpServer.close();
-    });
+  try {
+    await callback(`http://localhost:${mockHttpServer.address().port}`);
+  } catch (err) {
+    console.warn('withMockServer: inner callback failed.');
+  } finally {
+    console.debug('Closing mock server');
+    mockHttpServer.close();
+  }
 }
 
-// useMockServer({}, (hostname) => {
-//   throw new Error('Code fucked up!');
-// });
+export function mockServerIt(title, mockServerOptions, testCallback) {
+  // Empty describe section means we can setup/teardown for a single test within.
+  describe('_', () => {
+    const mockServer = createKoaServer(mockServerOptions);
+    let mockHttpServer;
+
+    before(() => {
+      console.debug('Opening mock server');
+      mockHttpServer = mockServer.listen();
+    });
+
+    after(() => {
+      console.debug('Closing mock server');
+      mockHttpServer.close();
+    });
+
+    it(title, async () => {
+      testCallback(`http://localhost:${mockHttpServer.address().port}`);
+    });
+  });
+}
 
 // const a = createKoaServer({
 //   childLinksPerPage: 10,
