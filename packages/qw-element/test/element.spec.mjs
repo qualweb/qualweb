@@ -1,7 +1,5 @@
 import { expect } from 'chai';
 
-describe('QualWeb element', function() {
-  it('Should work', function() {
-    expect(true);
-  });
+describe('@qualweb/qw-element', function() {
+  it('No tests implemented, yet');
 });
