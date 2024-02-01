@@ -6,6 +6,17 @@ import Router from '@koa/router';
 /**
  * Sets up a proxy object that will be populated with browser object, incognito
  * context, and page object before a unit test runs.
+ * 
+ * Call this function in the body of a describe() section and assign its return
+ * value to a variable ("proxy"). For all unit tests in that describe() section,
+ * this variable will contain a *unique*:
+ * - puppeteer browser instance
+ * - incognito context
+ * - page object from that incognito context
+ * All objects will be properly disposed after each unit test.
+ * 
+ * The proxy object is *not* thread-safe. Attempting to use it with parallel
+ * tests in the same describe() section will probably fail.
  * @returns A proxy object that will be populated with a usable browser,
  * incognito context, and page object when a unit test runs.
  */
@@ -37,6 +48,23 @@ export function usePuppeteer(launchOptions) {
   return proxy;
 }
 
+
+/**
+ * Sets up a web server for use in crawler testing. The server is set up with a
+ * root page ('/'). Every page served (root and all children) has a number of
+ * links ({@link childLinksPerPage}) that all point to a unique URL one nesting
+ * level deeper into the site's structure (so the root '/' points to a deeper
+ * page '/3/', which in turn points to a deeper page '/3/1/', and so on). Once
+ * a depth of {@link maxDepth} has been reached (the root has depth 0), no more
+ * pages will be served. Trying to go to a deeper level will yield 404, and
+ * pages at the deepest level will not link to any deeper URLs.
+ * 
+ * As a reference, this formula describes the total number of unique URLs that
+ * can be accessed: 1 + {@link childLinksPerPage} * ({@link maxDepth} + 1).
+ * (10, 10) => 111 links
+ * @param {*} options
+ * @returns A Koa application. Run {@link listen()} to start the server itself.
+ */
 export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
   const app = new Koa();
 
