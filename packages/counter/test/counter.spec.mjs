@@ -1,9 +1,17 @@
-import { createRequire } from 'module';
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
-import { Dom } from '@qualweb/dom';
+import { expect } from 'chai';
+
 import puppeteer from 'puppeteer';
 
+import { Dom } from '@qualweb/dom';
+
 const require = createRequire(import.meta.url);
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('QualWeb counter', async () => {
   let browser;
@@ -15,19 +23,17 @@ describe('QualWeb counter', async () => {
   });
 
   after(async () => {
+    await page.close();
     await browser.close();
-    try {
-      await page.close();
-    } catch (err) {
-      // Why err?
-    }
   })
 
   it('Testing qualweb counter module', async function() {
     this.timeout(60 * 1000);
 
+    const html = readFileSync(resolve(__dirname, 'fixtures/loremipsum.html'));
+
     const dom = new Dom(page);
-    await dom.process({ execute: { counter: true } }, 'https://ciencias.ulisboa.pt', '');
+    await dom.process({ execute: { counter: true } }, '', html);
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -42,13 +48,18 @@ describe('QualWeb counter', async () => {
     });
 
     const report = await page.evaluate(() => {
-      // Unnecessary? the modules seems to do this on load.
-      // window.qwPage = new Module.QWPage(document, window, true);
-      // window.DomUtils = Utility.DomUtils;
-      // window.AccessibilityUtils = Utility.AccessibilityUtils;
       return executeCounter();
     });
 
-    console.debug(report);
+    // These expectations are mapped directly to the fixture file loremipsum.html
+
+    expect(report.type).to.equal('counter');
+    expect(report.data.roles.document).to.equal(1);
+    expect(report.data.roles.generic).to.equal(1);
+
+    expect(report.data.tags.html).to.equal(1);
+    expect(report.data.tags.head).to.equal(1);
+    expect(report.data.tags.script).to.equal(3);
+    expect(report.data.tags.body).to.equal(1);
   });
 });
