@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.7.59",
+  "version": "0.7.60",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -69,9 +69,9 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "0.3.18",
-    "@qualweb/dom": "0.2.9",
+    "@qualweb/dom": "0.2.10",
     "@qualweb/earl-reporter": "0.4.6",
-    "@qualweb/evaluation": "0.3.43",
+    "@qualweb/evaluation": "0.3.44",
     "@qualweb/locale": "0.1.17",
     "colors": "1.4.0",
     "puppeteer": "21.6.1",

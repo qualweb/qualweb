@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.36
+
+### Patch Changes
+
+- 002774a2: Fix R15
+
 ## 0.5.35
 
 ### Patch Changes

@@ -60,11 +60,11 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.9",
+    "@qualweb/dom": "0.2.10",
     "@qualweb/locale": "0.1.17",
     "@qualweb/qw-page": "0.2.19",
     "@qualweb/types": "0.7.26",
-    "@qualweb/util": "0.5.35",
+    "@qualweb/util": "0.5.36",
     "@tsconfig/recommended": "^1.0.3",
     "@types/node": "^16.11.12",
     "chai": "^5.0.0",

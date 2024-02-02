@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.29
+
+### Patch Changes
+
+- 960eb1e0: Fix redirect rules
+- 002774a2: Fix R15
+
 ## 0.6.28
 
 ### Patch Changes
