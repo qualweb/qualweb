@@ -14,7 +14,7 @@ describe('util.spec.mjs', () => {
     const { page } = proxy;
 
     const dom = new Dom(page);
-    await dom.process({}, 'https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html');
+    await dom.process({}, 'https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html', '');
     let svg = await page.$('svg');
     let children;
     if(svg!== null)
@@ -34,7 +34,7 @@ describe('util.spec.mjs', () => {
     const { page } = proxy;
 
     const dom = new Dom(page);
-    await dom.process({}, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml');
+    await dom.process({}, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml', '');
 
     const rootElement = await DomUtils.getPageRootElement(page);
     const tagName = await DomUtils.getElementTagName(rootElement);
@@ -47,7 +47,7 @@ describe('util.spec.mjs', () => {
     const { page } = proxy;
 
     const dom = new Dom(page);
-    await dom.process({}, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml');
+    await dom.process({}, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml', '');
 
     const isMath = await DomUtils.isMathDocument(await page.url());
     
@@ -71,7 +71,7 @@ describe('util.spec.mjs', () => {
     const { page } = proxy;
 
     const dom = new Dom(page);
-    const { sourceHtml } = await dom.process({}, 'https://nav.no');
+    const { sourceHtml } = await dom.process({}, 'https://nav.no', '');
     const metas = CSSselect('meta', sourceHtml.html.parsed);
     const html = DomUtils.getSourceElementHtmlCode(metas[0]);
     
