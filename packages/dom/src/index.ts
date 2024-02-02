@@ -57,8 +57,6 @@ class Dom {
       const sourceHTMLPuppeteer = await response?.text();
 
       if (!this.isHtmlDocument(sourceHTMLPuppeteer, url)) {
-        //await this.page.close();
-        //this.page = await this.page.browser().newPage();
         await this.page.goBack();
         await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
           timeout: options.timeout
@@ -71,13 +69,6 @@ class Dom {
       });
 
       sourceHtml = await this.page.content();
-      /*if (!this.isHtmlDocument(sourceHtml)) {
-        await this.page.close();
-        this.page = await this.page.browser().newPage();
-        await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
-          timeout: options.timeout
-        });
-      }*/
     } else {
       throw new Error('Neither a url nor html content was provided.');
     }
