@@ -1,7 +1,7 @@
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
-import videoElementHasAudioFunction from './objectElementIsNonText';
+import videoElementHasAudioFunction from './videoElementHasAudio';
 import isElementHiddenFunction from './isElementHidden';
 import isFocusableBrowserFunction from '../accessibilityUtils/isFocusableBrowser';
 import isElementVisibleFunction from './isElementVisible';
@@ -80,6 +80,7 @@ class DomUtils {
   public static getTrimmedText(element: typeof window.qwElement): string {
     return getTrimmedTextFunction(element);
   }
+
 }
 
 export default DomUtils;
