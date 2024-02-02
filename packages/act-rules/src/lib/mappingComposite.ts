@@ -1,5 +1,5 @@
 export default {
-  'QW-ACT-R15': { selector: 'video, audio', implementation: 'conjunction', rules: ['QW-ACT-R49', 'QW-ACT-R50'] },
+  'QW-ACT-R15': { selector: 'video, audio', implementation: 'disjunction', rules: ['QW-ACT-R49', 'QW-ACT-R50'] },
   'QW-ACT-R23': {
     selector: 'video',
     implementation: 'conjunction',
