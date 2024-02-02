@@ -8,29 +8,33 @@ import { usePuppeteer } from './util';
 describe('util.spec.mjs', () => {
   const proxy = usePuppeteer();
 
-  it('should work', async function() {
+  it('should work', async function () {
     this.timeout(10 * 1000);
 
     const { page } = proxy;
 
     const dom = new Dom(page);
-    await dom.process({}, 'https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html', '');
-    let svg = await page.$('svg');
-    let children;
-    if(svg!== null)
-    children = await DomUtils.getElementChildren(svg);
+    await dom.process(
+      {},
+      'https://act-rules.github.io/testcases/b20e66/f8bd8641691aa2916a2faa639fabb479d3baa54f.html',
+      ''
+    );
 
-    for(let elemt of children){
-      console.log(await DomUtils.getElementTagName(elemt))
-      console.log(await AccessibilityTreeUtils.getAccessibleNameSVG(elemt,page))
+    const svg = await page.$('svg');
+    let children;
+    if (svg !== null) children = await DomUtils.getElementChildren(svg);
+
+    for (const elemt of children) {
+      console.log(await DomUtils.getElementTagName(elemt));
+      console.log(await AccessibilityTreeUtils.getAccessibleNameSVG(elemt, page));
     }
-    
+
     expect('').to.be.equal('');
   });
 
-  it('test getPageRootElement', async function() {
+  it('test getPageRootElement', async function () {
     this.timeout(1000 * 1000);
-    
+
     const { page } = proxy;
 
     const dom = new Dom(page);
@@ -41,16 +45,16 @@ describe('util.spec.mjs', () => {
 
     // console.log(tagName);
   });
-  it('test isMathDocument', async function() {
+  it('test isMathDocument', async function () {
     this.timeout(1000 * 1000);
-    
+
     const { page } = proxy;
 
     const dom = new Dom(page);
     await dom.process({}, 'https://act-rules.github.io/testcases/b5c3f8/580a61d57084cdbbe6b27c3dc35d4cc51d078c41.xml', '');
 
     const isMath = await DomUtils.isMathDocument(await page.url());
-    
+
     console.log(isMath);
   });
 
@@ -65,16 +69,16 @@ describe('util.spec.mjs', () => {
   //   console.log(AccessibilityUtils);
   // });
 
-  it('getSourceElementHtmlCode', async function() {
+  it('getSourceElementHtmlCode', async function () {
     this.timeout(100 * 1000);
-    
+
     const { page } = proxy;
 
     const dom = new Dom(page);
     const { sourceHtml } = await dom.process({}, 'https://nav.no', '');
     const metas = CSSselect('meta', sourceHtml.html.parsed);
     const html = DomUtils.getSourceElementHtmlCode(metas[0]);
-    
-    // console.log(html);
+
+    console.log(html);
   });
 });
