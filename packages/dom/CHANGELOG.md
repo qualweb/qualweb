@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.10
+
+### Patch Changes
+
+- 960eb1e0: Fix redirect rules
+
 ## 0.2.9
 
 ### Patch Changes

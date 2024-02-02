@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.60
+
+### Patch Changes
+
+- Updated dependencies [960eb1e0]
+  - @qualweb/dom@0.2.10
+  - @qualweb/evaluation@0.3.44
+
 ## 0.7.59
 
 ### Patch Changes
