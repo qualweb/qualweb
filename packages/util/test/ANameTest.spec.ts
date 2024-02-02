@@ -1,18 +1,16 @@
-import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { usePuppeteer } from './util';
 
 describe('ANameTest', function () {
+  const proxy = usePuppeteer();
+
   it('Calculates accessible name correctly', async function () {
     this.timeout(100 * 1000);
 
     const url = 'https://www.nationalbanken.dk/da/viden-og-nyheder/publikationer-og-taler/arkiv-publikationer/2022/stigende-renter-og-priser-kan-udfordre-bankernes-kunder';
 
-    const browser = await puppeteer.launch({ headless: false });
-    const incognito = await browser.createIncognitoBrowserContext();
-    const page = await incognito.newPage();
+    const page = proxy.page;
     const dom = new Dom(page);
     await dom.process({ execute: { act: true }, waitUntil: ['networkidle0'] }, url, '');
 
@@ -30,9 +28,6 @@ describe('ANameTest', function () {
       //window.console.log("children:", element.getElement("slot:nth-of-type(1)"));
       //window.console.log(window.AccessibilityUtils.getAccessibleName(element));
     });
-
-    //await dom.close();
-    //await browser.close();
 
     expect(true);
   });

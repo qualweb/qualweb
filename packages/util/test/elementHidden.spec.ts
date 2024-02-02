@@ -1,11 +1,7 @@
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
 
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-
-import { usePuppeteer } from './util.mjs';
+import { usePuppeteer } from './util';
 
 describe('Running tests', function () {
   const proxy = usePuppeteer();

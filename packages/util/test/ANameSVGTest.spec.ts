@@ -1,12 +1,8 @@
 import puppeteer from 'puppeteer';
 import { expect } from 'chai';
 
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-
 import { Dom } from '@qualweb/dom';
-import { usePuppeteer } from './util.mjs';
+import { usePuppeteer } from './util';
 
 describe('ANameSVGTest', function () {
   const proxy = usePuppeteer();

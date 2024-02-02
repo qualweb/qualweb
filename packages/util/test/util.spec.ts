@@ -1,10 +1,9 @@
 // Can't import code that's meant for the browser (?)
 // import { AccessibilityUtils , DomUtils, Optimization } from '../dist/index';
-import puppeteer from 'puppeteer';
 import CSSselect from 'css-select';
 import { expect } from 'chai';
 import { Dom } from '@qualweb/dom';
-import { usePuppeteer } from './util.mjs';
+import { usePuppeteer } from './util';
 
 describe('util.spec.mjs', () => {
   const proxy = usePuppeteer();
