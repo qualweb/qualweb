@@ -86,7 +86,7 @@ const mapping = {
 };
 
 // const ruleToTest = Object.keys(mapping);
-const ruleToTest = 'QW-ACT-R37';
+const ruleToTest = 'QW-ACT-R71';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -138,7 +138,7 @@ describe('Testing ACT rule', () => {
         const page = await incognito.newPage();
         try {
           const dom = new Dom(page);
-          const { sourceHtmlHeadContent } = await dom.process(
+          const { sourceHtml } = await dom.process(
             {
               execute: { act: true },
               'act-rules': {
@@ -173,13 +173,13 @@ describe('Testing ACT rule', () => {
           if (ruleId === '8a213c') {
             await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
           }
-          await page.evaluate((sourceHtmlHeadContent) => {
+          await page.evaluate((sourceHtml) => {
             window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
             const parser = new DOMParser();
             const sourceDoc = parser.parseFromString('', 'text/html');
 
-            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
+            sourceDoc.head.innerHTML = sourceHtml;
 
             const elements = sourceDoc.querySelectorAll('meta');
             const metaElements = new Array();
@@ -190,7 +190,7 @@ describe('Testing ACT rule', () => {
             window.act.validateMetaElements(metaElements);
             window.act.executeAtomicRules();
             window.act.executeCompositeRules();
-          }, sourceHtmlHeadContent);
+          }, sourceHtml);
 
           if (ruleId === '59br37') {
             await page.setViewport({
