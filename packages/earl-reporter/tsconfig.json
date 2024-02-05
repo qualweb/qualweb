@@ -26,7 +26,15 @@
 
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    "typeRoots": ["@qualweb/types"] /* List of folders to include type definitions from. */,
-    "types": ["@qualweb/types", "node", "lodash.clonedeep"] /* Type declaration files to be included in compilation. */
+
+    /* Allow import of JSON fixtures in unit tests. */
+    "resolveJsonModule": true,
+
+    "types": [
+      "@qualweb/types",
+      "node",
+      "lodash.clonedeep",
+      "mocha",
+    ] /* Type declaration files to be included in compilation. */
   }
 }
