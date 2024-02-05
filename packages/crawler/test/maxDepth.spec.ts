@@ -1,6 +1,7 @@
-import { Crawler } from '../dist/index.js';
+import { Crawler } from '../src';
 import { expect } from 'chai';
-import { createKoaServer, koaServerPageCount, usePuppeteer } from './util.mjs';
+import { createKoaServer, koaServerPageCount, usePuppeteer } from './util';
+import { Server } from 'http';
 
 describe('Depth tests (maxDepth)', function () {
   const proxy = usePuppeteer();
@@ -13,12 +14,18 @@ describe('Depth tests (maxDepth)', function () {
     maxDepth,
   });
 
-  let mockHttpServer;
-  let mockHttpServerHost;
+  let mockHttpServer: Server;
+  let mockHttpServerHost: string;
 
   beforeEach(async () => {
-    mockHttpServer = mockServer.listen();
-    mockHttpServerHost = `http://localhost:${mockHttpServer.address().port}`;
+    await new Promise(r => mockHttpServer = mockServer.listen(r));
+
+    const address = mockHttpServer.address();
+
+    mockHttpServerHost = typeof(address) === 'string'
+      ? address
+      : `http://localhost:${address!.port}`
+      ;
   });
 
   afterEach(async () => {
@@ -27,7 +34,7 @@ describe('Depth tests (maxDepth)', function () {
 
   it('Should only crawl the surface level of URLs (maxDepth: 0)', async function () {
     this.timeout(0);
-    const crawler = new Crawler(proxy.browser, `http://localhost:${mockHttpServer.address().port}`);
+    const crawler = new Crawler(proxy.browser, mockHttpServerHost);
     await crawler.crawl({ logging: false, maxDepth: 0 });
     const urls = crawler.getResults();
     

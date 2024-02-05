@@ -8,13 +8,13 @@
   ],
   "scripts": {
     "test": "mocha",
-    "test:url": "mocha test/url.spec.mjs",
+    "test:url": "mocha test/url.spec.ts",
     "tsc": "tsc",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf dist",
-    "build": "npm run prebuild && tsc --build",
+    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/crawler#readme",

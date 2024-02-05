@@ -1,6 +1,7 @@
-import { Crawler } from '../dist/index.js';
+import { Crawler } from '../src';
 import { expect } from 'chai';
-import { createKoaServer, usePuppeteer } from './util.mjs';
+import { createKoaServer, usePuppeteer } from './util';
+import { Server } from 'http';
 
 describe('Slow tests (timeouts)', () => {
   const proxy = usePuppeteer();
@@ -8,12 +9,18 @@ describe('Slow tests (timeouts)', () => {
     childLinksPerPage: 1,
     maxDepth: 1,
   });
-  let mockHttpServer;
-  let mockHttpServerHost;
+  let mockHttpServer: Server;
+  let mockHttpServerHost: string;
 
   beforeEach(async () => {
     await new Promise(r => mockHttpServer = mockServer.listen(r));
-    mockHttpServerHost = `http://localhost:${mockHttpServer.address().port}`;
+
+    const address = mockHttpServer.address();
+
+    mockHttpServerHost = typeof(address) === 'string'
+      ? address
+      : `http://localhost:${address!.port}`
+      ;
   });
 
   afterEach(async () => {

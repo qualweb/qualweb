@@ -1,9 +1,16 @@
 import assert from 'node:assert';
 
 import puppeteer from 'puppeteer';
+import type { Browser, BrowserContext, Page, PuppeteerLaunchOptions } from 'puppeteer';
 
 import Koa from 'koa';
 import Router from '@koa/router';
+
+type PuppeteerProxy = {
+  browser: Browser;
+  incognito: BrowserContext;
+  page: Page;
+}
 
 /**
  * Sets up a proxy object that will be populated with browser object, incognito
@@ -22,8 +29,8 @@ import Router from '@koa/router';
  * @returns A proxy object that will be populated with a usable browser,
  * incognito context, and page object when a unit test runs.
  */
-export function usePuppeteer(launchOptions) {
-  const proxy = {
+export function usePuppeteer(launchOptions: PuppeteerLaunchOptions = {}): PuppeteerProxy {
+  const proxy: Partial<PuppeteerProxy> = {
     browser: undefined,
     incognito: undefined,
     page: undefined,
@@ -47,7 +54,7 @@ export function usePuppeteer(launchOptions) {
     await proxy.browser?.close();
   });
 
-  return proxy;
+  return proxy as PuppeteerProxy;
 }
 
 /**
@@ -57,7 +64,7 @@ export function usePuppeteer(launchOptions) {
  * @param {Number} maxDepth 
  * @returns Total expected page count for a mock server with these parameters.
  */
-export function koaServerPageCount(linksPerPage, maxDepth) {
+export function koaServerPageCount(linksPerPage: number, maxDepth: number) {
   assert(Number.isInteger(linksPerPage));
   assert(Number.isInteger(maxDepth));
 
@@ -68,6 +75,11 @@ export function koaServerPageCount(linksPerPage, maxDepth) {
     sum += Math.pow(linksPerPage, s);
 
   return sum;
+}
+
+type MockServerOptions = {
+  childLinksPerPage?: number;
+  maxDepth?: number;
 }
 
 /**
@@ -86,7 +98,7 @@ export function koaServerPageCount(linksPerPage, maxDepth) {
  * @param {*} options
  * @returns A Koa application. Run {@link listen()} to start the server itself.
  */
-export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
+export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 }: MockServerOptions = {}) {
   const app = new Koa();
 
   const router = new Router();
@@ -105,7 +117,7 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
     // The difference is linear vs exponential URL-space.
     const leafOffset = pathSegments
       .map(segment => Number.parseInt(segment))
-      .filter(segment => segment != NaN)
+      .filter(segment => Number.isNaN(segment) === false)
       .reduce((prev, current) => prev + current, 0);
 
     const parentLink = parms
@@ -155,14 +167,21 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 } = {}) {
   return app;
 }
 
-export async function withMockServer(mockServerOptions, callback) {
+export async function withMockServer(mockServerOptions: MockServerOptions, callback: (hostname: string) => unknown) {
   const mockServer = createKoaServer(mockServerOptions);
   const mockHttpServer = mockServer.listen();
+
+  const address = mockHttpServer.address();
+
+  const hostname = typeof(address) === 'string'
+    ? address
+    : `http://localhost:${address!.port}`
+    ;
 
   console.debug('Set up mock server');
 
   try {
-    await callback(`http://localhost:${mockHttpServer.address().port}`);
+    await callback(hostname);
   } catch (err) {
     console.warn('withMockServer: inner callback failed.');
   } finally {
@@ -171,11 +190,11 @@ export async function withMockServer(mockServerOptions, callback) {
   }
 }
 
-export function mockServerIt(title, mockServerOptions, testCallback) {
+export function mockServerIt(title: string, mockServerOptions: MockServerOptions, testCallback: (hostname: string) => unknown) {
   // Empty describe section means we can setup/teardown for a single test within.
   describe('_', () => {
     const mockServer = createKoaServer(mockServerOptions);
-    let mockHttpServer;
+    let mockHttpServer: any; // FIXME: bad typing
 
     before(() => {
       console.debug('Opening mock server');
