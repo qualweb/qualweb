@@ -3,7 +3,7 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "ES2019",
-    "lib": ["ES2019"],
+    "lib": ["ES2019", "DOM"],
     "resolveJsonModule": true,
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
