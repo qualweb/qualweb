@@ -12,7 +12,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "build": "rimraf dist && tsc --build",
+    "build": "rimraf dist && tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
