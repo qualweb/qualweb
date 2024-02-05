@@ -13,7 +13,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build",
+    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.4.0",
     "chai": "^4.4.1",
