@@ -1,22 +1,24 @@
-import locales, { translateReport } from '../dist/index.js';
+import locales, { translateReport } from '../src';
 import { expect } from 'chai';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
-const report = JSON.parse(readFileSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'report.json')));
+
+import reportJson from './report.json';
+import type { EvaluationReport } from '@qualweb/core';
+
+const report = reportJson as unknown as EvaluationReport;
 
 describe('Testing translation', function () {
   it('Should translate to fi: using locales.fi', function () {
-    const translatedReport = translateReport(report, locales.default.fi);
-    expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(
-      translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name
+    const translatedReport = translateReport(report, locales.fi);
+    
+    expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
+      translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 
   it('Should translate to fi: using "fi"', function () {
     const translatedReport = translateReport(report, 'fi');
-    expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(
-      translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name
+    expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
+      translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 
@@ -34,15 +36,16 @@ describe('Testing translation', function () {
     };
 
     const translatedReport = translateReport(report, fiLocale);
-    expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.not.equal(
-      translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name
+
+    expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
+      translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 
   it('Should fallback to "en": using "es" which is not supported', function () {
-    const translatedReport = translateReport(report, 'es');
-    expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.equal(
-      translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name
+    const translatedReport = translateReport(report, 'es' as any);
+    expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.equal(
+      translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 
@@ -59,8 +62,8 @@ describe('Testing translation', function () {
     };
 
     const translatedReport = translateReport(report, ptLocale);
-    expect(report.modules['act-rules'].assertions['QW-ACT-R1'].name).to.be.equal(
-      translatedReport.modules['act-rules'].assertions['QW-ACT-R1'].name
+    expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.equal(
+      translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 });
