@@ -1,10 +1,7 @@
 import { expect } from 'chai';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
-import { usePuppeteer } from '../util.mjs';
-
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { usePuppeteer } from '../util';
 
 /**
  * Constructs a test suite for a given WCAG technique. This is a generalized
@@ -12,12 +9,20 @@ const require = createRequire(import.meta.url);
  * @param {string} wcagTechnique 
  * @param {{ code: string, outcome: string }[]} testCases 
  */
-export function buildTest(wcagTechnique, testCases) {
+export function buildTest(wcagTechnique: string, testCases: { code: string, outcome: string }[]) {
   describe(wcagTechnique, () => {
     const proxy = usePuppeteer();
 
+    const outcomeCounters: Record<string, number> = {};
+
     testCases.forEach((test) => {
-      it(test.outcome, async function () {
+      if (outcomeCounters[test.outcome]) {
+        outcomeCounters[test.outcome] += 1;
+      } else {
+        outcomeCounters[test.outcome] = 1;
+      }
+
+      it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
         this.timeout(0);
   
         const dom = new Dom(proxy.page);
@@ -36,9 +41,10 @@ export function buildTest(wcagTechnique, testCases) {
         });
   
         const report = await proxy.page.evaluate((locale, wcagTechnique) => {
+          // @ts-expect-error: WCAGTechniques should be defined within the executing context (injected above).
           const wcag = new WCAGTechniques({ translate: locale, fallback: locale }, { techniques: [wcagTechnique] });
           return wcag.execute();
-        }, locales.default.en, wcagTechnique);
+        }, locales.en, wcagTechnique);
         
         expect(report.assertions[wcagTechnique].metadata.outcome).to.be.equal(test.outcome);
       });

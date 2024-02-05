@@ -1,4 +1,4 @@
-const tests = [
+export default [
   {
     code: `<!DOCTYPE html>
             <html lang="en">
@@ -43,4 +43,3 @@ const tests = [
     outcome: 'failed'
   }
 ];
-module.exports = { tests };

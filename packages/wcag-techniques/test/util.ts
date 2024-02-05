@@ -1,7 +1,14 @@
 import puppeteer from 'puppeteer';
+import type { Browser, BrowserContext, Page } from 'puppeteer';
 
-export function usePuppeteer() {
-  const proxy = {
+type PuppeteerProxy = {
+  browser: Browser;
+  incognito: BrowserContext,
+  page: Page,
+}
+
+export function usePuppeteer(): PuppeteerProxy {
+  const proxy: Partial<PuppeteerProxy> = {
     browser: undefined,
     incognito: undefined,
     page: undefined,
@@ -24,5 +31,5 @@ export function usePuppeteer() {
     await proxy.browser?.close();
   });
 
-  return proxy;
+  return proxy as PuppeteerProxy;
 }

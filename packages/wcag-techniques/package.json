@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha test/.mocharc.js",
+    "test": "mocha",
     "test:url": "mocha test/url.spec.mjs",
     "test:t17": "mocha test/techniques/QW-WCAG-T17.spec.mjs",
     "test:t9": "mocha test/techniques/QW-WCAG-T9.spec.mjs",
@@ -20,7 +20,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "npm run compile:techniques && rimraf prebuild && rimraf dist ",
-    "build": "tsc --build && webpack --mode production",
+    "build": "tsc --build tsconfig.prod.json && webpack --mode production",
     "postbuild": "rimraf prebuild",
     "prepublishOnly": "npm run build"
   },

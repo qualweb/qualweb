@@ -1,10 +1,7 @@
 import { expect } from 'chai';
-import puppeteer from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
-import { createRequire } from 'module';
-import { usePuppeteer } from './util.mjs';
-const require = createRequire(import.meta.url);
+import { usePuppeteer } from './util';
 
 describe('url.spec.js', function () {
   const proxy = usePuppeteer();
@@ -38,6 +35,7 @@ describe('url.spec.js', function () {
     await new Promise(r => setTimeout(r, 2000));
 
     const report = await proxy.page.evaluate((locale) => {
+      // @ts-expect-error: WCAGTechniques should be defined within the executing context.
       const wcag = new WCAGTechniques(
         {
           translate: locale,
@@ -48,7 +46,7 @@ describe('url.spec.js', function () {
         }
       );
       return wcag.execute(false, undefined);
-    }, locales.default.en);
+    }, locales.en);
     
     expect(report);
   });

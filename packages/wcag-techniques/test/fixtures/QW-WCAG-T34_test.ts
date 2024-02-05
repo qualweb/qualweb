@@ -1,4 +1,4 @@
-const tests = [
+export default [
   {
     code: `<!DOCTYPE html>
             <html lang="en">
@@ -15,17 +15,17 @@ const tests = [
   },
   {
     code: `<!DOCTYPE html>
-            <html lang="en" >
+            <html lang="en">
             <body>
-            <ul>
-              <dt>Coffee</dt>
-              <dd>Black hot drink</dd>
-              <dt>Milk</dt>
-              <dd>White cold drink</dd>
-            </ul>
+              <dl>
+                <dt>Coffee</dt>
+                <dd>Black hot drink</dd>
+                <dt>Milk</dt>
+                <dd>White cold drink</dd>
+                <li>Milk</li>
+              </dl>
             </body>
             </html >`,
     outcome: 'failed'
   }
 ];
-module.exports = { tests };
