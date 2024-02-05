@@ -1,8 +1,8 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, BrowserContext, Page } from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 
 describe('QualWeb page', function () {
-  let browser, incognito, page;
+  let browser: Browser, incognito: BrowserContext, page: Page;
 
   before(async () => {
     browser = await puppeteer.launch({ headless: 'new' });
@@ -28,6 +28,7 @@ describe('QualWeb page', function () {
     });
 
     await page.evaluate(() => {
+      // @ts-expect-error: QWPage will be defined in the executing context (injected previously).
       window.qwPage = new QWPage(document, window, true);
       const buttons = window.qwPage.getElements("button")
       console.log(buttons);
