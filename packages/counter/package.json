@@ -8,11 +8,11 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha --require esm test/counter.spec.js",
+    "test": "mocha test/counter.spec.ts",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "npm run format && npm run lint:fix && rimraf prebuild && tsc --build",
+    "prebuild": "npm run format && npm run lint:fix && rimraf prebuild && tsc --build tsconfig.prod.json",
     "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
@@ -40,6 +40,7 @@
     "@qualweb/types": "0.7.26",
     "@qualweb/util": "0.5.37",
     "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
     "@types/node": "^14.14.37",
     "chai": "^4.4.1",

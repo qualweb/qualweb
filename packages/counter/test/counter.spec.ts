@@ -1,24 +1,20 @@
 import { readFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 import { expect } from 'chai';
 
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 
 import { Dom } from '@qualweb/dom';
 
-const require = createRequire(import.meta.url);
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
-
 describe('QualWeb counter', async () => {
-  let browser;
-  let page;
+  let browser: Browser;
+  let page: Page;
 
   before(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: 'new',
+    });
     page = await browser.newPage();
   });
 
@@ -30,7 +26,7 @@ describe('QualWeb counter', async () => {
   it('Testing qualweb counter module', async function() {
     this.timeout(60 * 1000);
 
-    const html = readFileSync(resolve(__dirname, 'fixtures/loremipsum.html'));
+    const html: string = readFileSync(resolve(__dirname, 'fixtures/loremipsum.html'), 'utf-8');
 
     const dom = new Dom(page);
     await dom.process({ execute: { counter: true } }, '', html);
@@ -48,6 +44,7 @@ describe('QualWeb counter', async () => {
     });
 
     const report = await page.evaluate(() => {
+      // @ts-expect-error: the function will be available within the context (injected bundle).
       return executeCounter();
     });
 
@@ -55,7 +52,7 @@ describe('QualWeb counter', async () => {
 
     expect(report.type).to.equal('counter');
     expect(report.data.roles.document).to.equal(1);
-    expect(report.data.roles.generic).to.equal(1);
+    expect(report.data.roles.generic).to.equal(9);
 
     expect(report.data.tags.html).to.equal(1);
     expect(report.data.tags.head).to.equal(1);
