@@ -14,7 +14,7 @@
     "format": "prettier src/**/*.ts --write",
     "docs": "typedoc --out docs src/index.ts",
     "prebuild": "rimraf dist",
-    "build": "tsc --build",
+    "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/evaluation#readme",

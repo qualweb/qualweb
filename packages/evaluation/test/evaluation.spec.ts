@@ -1,12 +1,13 @@
 import { expect} from 'chai';
 
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, BrowserContext, Page } from 'puppeteer';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
-import { Evaluation } from '../dist/index.js';
+import { Evaluation } from '../src';
+import type { QualwebOptions } from '@qualweb/core';
 
 describe('QualWeb evaluation', function () {
-  let browser, incognito, page;
+  let browser: Browser, incognito: BrowserContext, page: Page;
 
   before(async () => {
     browser = await puppeteer.launch({
@@ -33,15 +34,15 @@ describe('QualWeb evaluation', function () {
 
     const dom = new Dom(page);
 
-    const options = {
+    const options: QualwebOptions = {
       waitUntil: ['load', 'networkidle2'],
       //log: { console: true },
       //viewport: { mobile: true, landscape: false },
       execute: { act: true, wcag: true, bp: true },
-      translate: { translate: locales.default.en, fallback: locales.default.en }
+      translate: { translate: locales.en, fallback: locales.en }
     };
 
-    const { sourceHtmlHeadContent, validation } = await dom.process(options, url, '');
+    const { sourceHtml, validation } = await dom.process(options, url, '');
 
     const evaluation = new Evaluation(url, page, {
       act: true,
@@ -50,7 +51,7 @@ describe('QualWeb evaluation', function () {
       counter: false,
       wappalyzer: false
     });
-    const report = (await evaluation.evaluatePage(sourceHtmlHeadContent, options, validation)).getFinalReport();
+    const report = (await evaluation.evaluatePage(sourceHtml, options, validation)).getFinalReport();
 
     expect(report.modules['act-rules']).to.not.be.undefined;
     expect(report.modules['best-practices']).to.be.undefined;
