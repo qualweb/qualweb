@@ -1,18 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import { expect } from 'chai';
 
 import { Dom } from '../dist/index.js';
-import puppeteer from 'puppeteer';
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+import puppeteer, { Browser, BrowserContext, Page } from 'puppeteer';
 
 describe('dom.process()', () => {
-  let browser;
-  let incognito;
-  let page;
+  let browser: Browser;
+  let incognito: BrowserContext;
+  let page: Page;
 
   beforeEach(async () => {
     browser = await puppeteer.launch({
@@ -31,7 +28,7 @@ describe('dom.process()', () => {
   it('No ACT/WCAG execution intent should not yield validation', async function () {
     this.timeout(0);
     
-    const emptyHtmlFile = readFileSync(resolve(__dirname, 'fixtures/empty.html'));
+    const emptyHtmlFile = readFileSync(resolve(__dirname, 'fixtures/empty.html'), 'utf-8');
 
     const dom = new Dom(page);
 
@@ -42,7 +39,7 @@ describe('dom.process()', () => {
   it('ACT/WCAG execution intent must yield validation', async function () {
     this.timeout(0);
 
-    const emptyHtmlFile = readFileSync(resolve(__dirname, 'fixtures/empty.html'));
+    const emptyHtmlFile = readFileSync(resolve(__dirname, 'fixtures/empty.html'), 'utf-8');
 
     const dom = new Dom(page, /** MISSING VALIDATOR HERE! */);
 
