@@ -1,9 +1,7 @@
 import { expect } from 'chai';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
-import { createRequire } from 'module';
-import { usePuppeteer } from './util.mjs';
-const require = createRequire(import.meta.url);
+import { usePuppeteer } from './util';
 
 describe('General tests', function () {
   const proxy = usePuppeteer();
@@ -30,9 +28,10 @@ describe('General tests', function () {
     });
 
     const report = await page.evaluate((locale) => {
+      // @ts-expect-error: BestPractices will be defined within the executing context (see above).
       const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP18'] });
       return bp.execute();
-    }, locales.default.en);
+    }, locales.en);
 
     expect(report);
   });
