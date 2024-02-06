@@ -38,7 +38,7 @@
     "format": "prettier src/**/*.ts --write",
     "compile:bps": "node compile-bps.js",
     "prebuild": "rimraf prebuild && npm run compile:bps && rimraf dist",
-    "build": "tsc --build && webpack --mode production",
+    "build": "tsc --build tsconfig.prod.json && webpack --mode production",
     "postbuild": "rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
