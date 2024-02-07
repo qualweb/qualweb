@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.30
+
+### Patch Changes
+
+- 682a26a3: Fix isCascade
+
 ## 0.6.29
 
 ### Patch Changes
