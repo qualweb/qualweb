@@ -1,0 +1,68 @@
+{
+	"folders": [
+    {
+      "name": "@qualweb/act-rules",
+      "path": "packages/act-rules",
+    },
+    {
+      "name": "@qualweb/best-practices",
+      "path": "packages/best-practices",
+    },
+    {
+      "name": "@qualweb/cli",
+      "path": "packages/cli",
+    },
+    {
+      "name": "@qualweb/core",
+      "path": "packages/core",
+    },
+    {
+      "name": "@qualweb/counter",
+      "path": "packages/counter",
+    },
+    {
+      "name": "@qualweb/crawler",
+      "path": "packages/crawler",
+    },
+    {
+      "name": "@qualweb/dom",
+      "path": "packages/dom",
+    },
+    {
+      "name": "@qualweb/earl-reporter",
+      "path": "packages/earl-reporter",
+    },
+    {
+      "name": "@qualweb/evaluation",
+      "path": "packages/evaluation",
+    },
+    {
+      "name": "@qualweb/locale",
+      "path": "packages/locale",
+    },
+    {
+      "name": "@qualweb/qw-element",
+      "path": "packages/qw-element",
+    },
+    {
+      "name": "@qualweb/qw-page",
+      "path": "packages/qw-page",
+    },
+    {
+      "name": "@qualweb/types",
+      "path": "packages/types",
+    },
+    {
+      "name": "@qualweb/util",
+      "path": "packages/util",
+    },
+    {
+      "name": "@qualweb/wcag-techniques",
+      "path": "packages/wcag-techniques",
+    },
+    {
+      "name": "Monorepo",
+      "path": ".",
+    },
+  ]
+}
