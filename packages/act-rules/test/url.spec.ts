@@ -1,13 +1,12 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { launchBrowser } from './util.mjs';
+import { launchBrowser } from './util';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { Browser } from 'puppeteer';
 
 describe('URL evaluation', function () {
-  let browser = null;
+  let browser: Browser;
 
   before(async () => {
     browser = await launchBrowser();
@@ -41,6 +40,7 @@ describe('URL evaluation', function () {
     await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
     await page.evaluate(
       (fiLocale, enLocale, sourceCode) => {
+        // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
         //window.act.configure({ rules: ['QW-ACT-R37'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
@@ -51,7 +51,7 @@ describe('URL evaluation', function () {
         sourceDoc.documentElement.innerHTML = sourceCode;
 
         const elements = sourceDoc.querySelectorAll('meta');
-        const metaElements = new Array();
+        const metaElements = [];
         for (const element of elements) {
           metaElements.push(window.qwPage.createQWElement(element));
         }
@@ -60,8 +60,8 @@ describe('URL evaluation', function () {
         window.act.executeAtomicRules();
         window.act.executeCompositeRules();
       },
-      locales.default.en,
-      locales.default.en,
+      locales.en,
+      locales.en,
       sourceCode
     );
 
@@ -75,15 +75,11 @@ describe('URL evaluation', function () {
       return window.act.getReport();
     });
 
-    await page.close();
-    await incognito.close();
-    await browser.close();
-
-    console.log(JSON.stringify(report, null, 2));
+    // console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 
   after(async () => {
     await browser.close();
-  })
+  });
 });
