@@ -1,4 +1,4 @@
-import { QualWeb } from '../dist/index.js';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 
 describe('Core module: wappalyzer', function () {
