@@ -4,6 +4,10 @@ import { readFileSync } from 'fs';
 import { Protocol } from 'puppeteer';
 
 describe('Plugins', function () {
+  // All tests seem to be somewhat time sensitive. 10 seconds *should* be enough
+  // for any one test on most setups.
+  this.timeout(10000);
+
   // Re-usable "execute nothing" options for calls to evaluate()
   const executeOptions = {
     wappalyzer: false,
@@ -35,9 +39,6 @@ describe('Plugins', function () {
   });
 
   it('Should run beforePageLoad for a plugin', async function () {
-    // Running a default evaluate is *very* slow.
-    this.timeout(3000);
-
     const plugin = {
       pluginWasCalled: false,
 
@@ -57,8 +58,6 @@ describe('Plugins', function () {
   });
 
   it('Should run afterPageLoad for a plugin', async function () {
-    this.timeout(3000);
-
     const plugin = {
       pluginWasCalled: false,
 
@@ -80,16 +79,13 @@ describe('Plugins', function () {
   });
 
   it('Should run beforePageLoad once for each plugin that was added', async function () {
-    // Running a default evaluate is *very* slow.
-    this.timeout(3000);
-
     let pluginCallCount = 0;
 
     const plugin = {
       async beforePageLoad() {
         pluginCallCount++;
       }
-    }
+    };
 
     // Three uses. The fact that it's the same plugin doesn't matter
     qualweb.use(plugin);
@@ -105,9 +101,6 @@ describe('Plugins', function () {
   });
 
   it('Should run afterPageLoad once for each plugin that was added', async function () {
-    // Running a default evaluate is *very* slow.
-    this.timeout(3000);
-
     let pluginCallCount = 0;
 
     const plugin = {
@@ -130,8 +123,6 @@ describe('Plugins', function () {
   });
 
   it('Should run both beforePageLoad and afterPageLoad in the same plugin', async function () {
-    this.timeout(3000);
-
     let beforeWasCalled = false;
     let afterWasCalled = false;
 
@@ -142,7 +133,7 @@ describe('Plugins', function () {
       afterPageLoad() {
         afterWasCalled = true;
       }
-    })
+    });
 
     await qualweb.evaluate({
       html,
@@ -154,9 +145,6 @@ describe('Plugins', function () {
   });
 
   it('Should pass target URL to a plugin (single URL)', async function () {
-    // Even minimal evaluations (with no modules) take a few seconds.
-    this.timeout(3000);
-
     const targetUrl = 'https://www.github.com';
     let reportedUrl;
 
@@ -164,7 +152,7 @@ describe('Plugins', function () {
       async beforePageLoad(_: unknown, url: string) {
         reportedUrl = url;
       }
-    }
+    };
 
     qualweb.use(plugin);
 
@@ -177,10 +165,7 @@ describe('Plugins', function () {
   });
 
   it('Should pass target URLs to a plugin', async function () {
-    // Even minimal evaluations (with no modules) take a few seconds.
-    this.timeout(7000);
-
-    const targetUrls = [
+    const targetUrls: string[] = [
       'https://ciencias.ulisboa.pt',
       'https://www.github.com',
     ];
@@ -204,9 +189,6 @@ describe('Plugins', function () {
   });
 
   it('Should pass "customHtml" as URL to the plugin (when raw HTML is passed)', async function () {
-    // Even minimal evaluations (with no modules) take a few seconds.
-    this.timeout(3000);
-
     let reportedUrl;
 
     const plugin = {
@@ -226,8 +208,6 @@ describe('Plugins', function () {
   });
 
   it('A cookie that was injected prior to page load should be visble after page load', async function () {
-    this.timeout(3000);
-
     let cookies: Protocol.Network.Cookie[] = [];
 
     const testCookie = {
