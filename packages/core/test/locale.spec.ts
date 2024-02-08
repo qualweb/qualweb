@@ -1,4 +1,5 @@
-import { QualWeb } from '../dist/index.js';
+import { QualwebOptions } from '@qualweb/core';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -7,9 +8,9 @@ describe('Core', function () {
 
     const qualweb = new QualWeb();
 
-    await qualweb.start({ headless: true, args: ['--ignore-certificate-errors'] });
+    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors'] });
 
-    const options = {
+    const options: QualwebOptions = {
       url: 'http://ciencias.ulisboa.pt',
       translate: 'en',
       execute: {

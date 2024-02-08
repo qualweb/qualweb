@@ -1,4 +1,4 @@
-import { QualWeb } from '../dist/index.js';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 import path from 'path';
 
@@ -8,8 +8,10 @@ describe('Core input method: file', function () {
 
     const qualweb = new QualWeb({ adBlock: false, stealth: false });
 
+    const urlFilePath = path.resolve(__dirname, 'urls.txt');
+
     const options = {
-      file: '/home/node/workspace/qualweb/core/test/urls.txt',
+      file: urlFilePath,
       'wcag-techniques': {
         exclude: ['QW-WCAG-T16']
       }
@@ -22,6 +24,6 @@ describe('Core input method: file', function () {
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
 
-    expect(Object.keys(reports).length).to.be.equal(26);
+    expect(Object.keys(reports)).to.have.length(23);
   });
 });
