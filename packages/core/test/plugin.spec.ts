@@ -1,6 +1,7 @@
 import { QualWeb } from '../dist/index.js';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
+import { Protocol } from 'puppeteer';
 
 describe('Plugins', function () {
   // Re-usable "execute nothing" options for calls to evaluate()
@@ -13,7 +14,7 @@ describe('Plugins', function () {
   }
 
   // Load up the html file prior to running the tests. Saves on I/O time.
-  let html;
+  let html: string;
   before(() => {
     html = readFileSync('./test/test.html').toString();
   });
@@ -21,7 +22,7 @@ describe('Plugins', function () {
   // Initialize a new QualWeb instance for every test. Important, since there's
   // no mechanism to remove a plugin once added (by design).
 
-  let qualweb;
+  let qualweb: QualWeb;
 
   beforeEach(async () => {
     qualweb = new QualWeb({ });
@@ -30,7 +31,7 @@ describe('Plugins', function () {
   
   afterEach(async () => {
     await qualweb.stop();
-    qualweb = null;
+    qualweb = null as any;
   });
 
   it('Should run beforePageLoad for a plugin', async function () {
@@ -40,7 +41,7 @@ describe('Plugins', function () {
     const plugin = {
       pluginWasCalled: false,
 
-      async beforePageLoad(page) {
+      async beforePageLoad() {
         this.pluginWasCalled = true;
       }
     }
@@ -61,7 +62,7 @@ describe('Plugins', function () {
     const plugin = {
       pluginWasCalled: false,
 
-      async afterPageLoad(page) {
+      async afterPageLoad() {
         this.pluginWasCalled = true;
       }
     }
@@ -85,7 +86,7 @@ describe('Plugins', function () {
     let pluginCallCount = 0;
 
     const plugin = {
-      async beforePageLoad(page) {
+      async beforePageLoad() {
         pluginCallCount++;
       }
     }
@@ -110,7 +111,7 @@ describe('Plugins', function () {
     let pluginCallCount = 0;
 
     const plugin = {
-      async afterPageLoad(page) {
+      async afterPageLoad() {
         pluginCallCount++;
       }
     }
@@ -160,7 +161,7 @@ describe('Plugins', function () {
     let reportedUrl;
 
     const plugin = {
-      async beforePageLoad(_, url) {
+      async beforePageLoad(_: unknown, url: string) {
         reportedUrl = url;
       }
     }
@@ -184,10 +185,10 @@ describe('Plugins', function () {
       'https://www.github.com',
     ];
 
-    let reportedUrls = [];
+    let reportedUrls: string[] = [];
 
     const plugin = {
-      async beforePageLoad(_, url) {
+      async beforePageLoad(_: unknown, url: string) {
         reportedUrls.push(url);
       }
     }
@@ -209,7 +210,7 @@ describe('Plugins', function () {
     let reportedUrl;
 
     const plugin = {
-      async beforePageLoad(_, url) {
+      async beforePageLoad(_: unknown, url: string) {
         reportedUrl = url;
       }
     }
@@ -227,7 +228,7 @@ describe('Plugins', function () {
   it('A cookie that was injected prior to page load should be visble after page load', async function () {
     this.timeout(3000);
 
-    let cookies;
+    let cookies: Protocol.Network.Cookie[] = [];
 
     const testCookie = {
       name: 'OurTestCookie',
