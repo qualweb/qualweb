@@ -1,4 +1,4 @@
-import { QualWeb, generateEARLReport } from '../dist/index.js';
+import { QualWeb, generateEARLReport } from '../src';
 import { expect } from 'chai';
 
 describe('Core', function () {
@@ -16,8 +16,8 @@ describe('Core', function () {
       execute: { act: true, wcag: false, bp: true },
       'act-rules': { levels: ['AAA'] }
     });
-    console.log(evaluations);
-    console.log(evaluations[url].modules['act-rules']);
+    // console.log(evaluations);
+    // console.log(evaluations[url].modules['act-rules']);
     /*
     const evaluations1 = await qualweb.evaluate({
       url: 'https://varsovia.embaixadaportugal.mne.gov.pt/pt/sugestoes-elogios-ou-reclamacoes',
@@ -44,6 +44,6 @@ describe('Core', function () {
 
     await qualweb.stop();
 
-    expect(earlReports['https://ciencias.ulisboa.pt/']['@graph'].length).to.be.equal(1);
+    expect(earlReports[url]['@graph']).to.have.length(1);
   });
 });
