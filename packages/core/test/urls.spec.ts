@@ -1,4 +1,4 @@
-import { QualWeb } from '../dist/index.js';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import { resolve } from 'node:path';
