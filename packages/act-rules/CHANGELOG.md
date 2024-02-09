@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.31
+
+### Patch Changes
+
+- 47d679d3: Create QW-ACT-R77
+- 10942e33: Fix accessible name computation for noscript element
+
 ## 0.6.30
 
 ### Patch Changes

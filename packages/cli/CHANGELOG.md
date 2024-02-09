@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.22
+
+### Patch Changes
+
+- 47d679d3: Create QW-ACT-R77
+- Updated dependencies [47d679d3]
+  - @qualweb/core@0.7.62
+
 ## 0.6.21
 
 ### Patch Changes
