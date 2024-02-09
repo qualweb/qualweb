@@ -444,6 +444,7 @@ In this section it's explained the evaluation report in detail. For a detailed v
 | QW-ACT-R74      | [ye5d6e](https://act-rules.github.io/rules/ye5d6e) | Document has an instrument to move focus to non-repeated content                    |
 | QW-ACT-R75      | [cf77f2](https://act-rules.github.io/rules/cf77f2) | Bypass Blocks of Repeated Content                                                   |
 | QW-ACT-R76      | [09o5cg](https://act-rules.github.io/rules/09o5cg) | Text has enhanced contrast                                                          |
+| QW-ACT-R77      | [in6db8](https://act-rules.github.io/rules/in6db8) | ARIA required ID references exist                                                   |
 
 ## Implemented WCAG 2.1 Techniques
 
