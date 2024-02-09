@@ -1519,5 +1519,21 @@
       "type": ["ACTRule", "TestCase"],
       "a11yReq": []
     }
+  },
+  "QW_ACT_R77": {
+    "name": "ARIA required ID references exist",
+    "code": "QW-ACT-R77",
+    "mapping": "in6db8",
+    "description": "This rule checks that every ID reference required by WAI-ARIA exists.",
+    "metadata": {
+      "target": {
+        "element": "*[aria-controls]"
+      },
+      "success-criteria": [],
+      "related": ["ARIA5"],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/in6db8/",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": []
+    }
   }
 }

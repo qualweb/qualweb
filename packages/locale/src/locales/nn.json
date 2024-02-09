@@ -686,6 +686,15 @@
           "F1": "Element har målt kontrast under minstekravet (forbedra).",
           "F2": "Element har ein gradient med målt kontrast under minstekravet (forbedra)."
         }
+      },
+      "QW-ACT-R77": {
+        "name": "ARIA required ID references exist",
+        "description": "This rule checks that every ID reference required by WAI-ARIA exists.",
+        "results": {
+          "I1": "No test targets found.",
+          "P1": "Referenced element exists.",
+          "F1": "Referenced element does not exist."
+        }
       }
     },
     "wcag-techniques": {

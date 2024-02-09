@@ -82,7 +82,8 @@ const mapping = {
   'QW-ACT-R73': '3e12e1',
   'QW-ACT-R74': 'ye5d6e',
   'QW-ACT-R75': 'cf77f2',
-  'QW-ACT-R76': '09o5cg'
+  'QW-ACT-R76': '09o5cg',
+  'QW-ACT-R77': 'in6db8'
 };
 
 // If a single QW-ACT-R?? was passed as an argument, run just that test.

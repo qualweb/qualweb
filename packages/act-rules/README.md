@@ -8,8 +8,8 @@ Implementation of the [ACT rules](https://www.w3.org/WAI/standards-guidelines/ac
 
 ## Implemented rules
 
-| QualWeb Rule ID | ACT Rule ID                                        | ACT Rule Name                                                                       |
-| --------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| QualWeb Rule ID | ACT Rule ID                                                             | ACT Rule Name                                                                       |
+| --------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | QW-ACT-R1       | [2779a5](https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/) | HTML page has non-empty title                                                       |
 | QW-ACT-R2       | [b5c3f8](https://www.w3.org/WAI/standards-guidelines/act/rules/b5c3f8/) | HTML page has lang attribute                                                        |
 | QW-ACT-R4       | [bc659a](https://www.w3.org/WAI/standards-guidelines/act/rules/bc659a/) | Meta element has no refresh delay                                                   |
@@ -78,6 +78,7 @@ Implementation of the [ACT rules](https://www.w3.org/WAI/standards-guidelines/ac
 | QW-ACT-R74      | [ye5d6e](https://www.w3.org/WAI/standards-guidelines/act/rules/ye5d6e/) | Document has an instrument to move focus to non-repeated content                    |
 | QW-ACT-R75      | [cf77f2](https://www.w3.org/WAI/standards-guidelines/act/rules/cf77f2/) | Bypass Blocks of Repeated Content                                                   |
 | QW-ACT-R76      | [09o5cg](https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/) | Text has enhanced contrast                                                          |
+| QW-ACT-R77      | [in6db8](https://www.w3.org/WAI/standards-guidelines/act/rules/in6db8/) | ARIA required ID references exist                                                   |
 
 # License
 
