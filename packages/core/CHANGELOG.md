@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.62
+
+### Patch Changes
+
+- 47d679d3: Create QW-ACT-R77
+- Updated dependencies [47d679d3]
+  - @qualweb/locale@0.1.18
+  - @qualweb/evaluation@0.3.46
+
 ## 0.7.61
 
 ### Patch Changes

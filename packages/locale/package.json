@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/locale",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Locales for @qualweb/core evaluation reports.",
   "main": "dist/index.js",
   "files": [

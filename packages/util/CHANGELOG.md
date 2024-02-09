@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.37
+
+### Patch Changes
+
+- 10942e33: Fix accessible name computation for noscript element
+
 ## 0.5.36
 
 ### Patch Changes
