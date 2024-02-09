@@ -72,6 +72,8 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(getValueFromSpecialLabel(element, 'legend'), title);
   } else if (name === 'slot') {
     AName = getAccessibleNameForSlot(element);
+  } else if (name === 'noscript') {
+    AName = "";
   } else if (
     allowNameFromContent ||
     (((role && allowNameFromContent) || !role || role === 'generic' || role === 'paragraph') && recursion) ||
