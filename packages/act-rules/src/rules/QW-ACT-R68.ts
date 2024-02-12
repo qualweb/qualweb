@@ -23,8 +23,9 @@ class QW_ACT_R68 extends AtomicRule {
       const computedLineHeight = element.getElementStyleProperty('line-height', null);
       const fontSize = element.getElementStyleProperty('font-size', null);
       const numLines = this.computeLineNumber(element, computedLineHeight);
-      
-      if (numLines < 2) { // no soft-wrap
+
+      if (numLines < 2) {
+        // no soft-wrap
         return;
       }
 

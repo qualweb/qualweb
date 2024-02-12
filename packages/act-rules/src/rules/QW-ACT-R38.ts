@@ -46,7 +46,7 @@ class QW_ACT_R38 extends AtomicRule {
     }
   }
 
-  private checkOwnedElementsRole(ownedRoles: string[], elements: typeof window.qwElement[]): boolean {
+  private checkOwnedElementsRole(ownedRoles: string[], elements: (typeof window.qwElement)[]): boolean {
     if (ownedRoles.length === 0) return true;
     //console.log(ownedRoles);
     const rolesJSON = window.AccessibilityUtils.roles;

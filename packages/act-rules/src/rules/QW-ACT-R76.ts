@@ -53,7 +53,7 @@ class QW_ACT_R76 extends AtomicRule {
         return;
       }
       if (disableWidget.getElementSelector() === elementSelectors) {
-        return;  
+        return;
       }
     }
 

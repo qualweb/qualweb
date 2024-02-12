@@ -59,11 +59,10 @@ class QW_ACT_R13 extends AtomicRule {
   }
 
   private triggerFocus(element: typeof window.qwElement) {
-    const event = new Event("focus", { bubbles: false, cancelable: true });
+    const event = new Event('focus', { bubbles: false, cancelable: true });
     element.focusElement();
     element.dispatchEvent(event);
-}
-
+  }
 }
 
 export = QW_ACT_R13;

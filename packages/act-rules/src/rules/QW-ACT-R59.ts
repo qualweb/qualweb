@@ -11,14 +11,14 @@ class QW_ACT_R59 extends AtomicRule {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-      const autoPlay = element.getElementProperty('autoplay');
-      const controls = element.getElementProperty('controls');
+    const autoPlay = element.getElementProperty('autoplay');
+    const controls = element.getElementProperty('controls');
 
-      if (autoPlay || (controls && window.DomUtils.isElementVisible(element))) {
-          const test = new Test('warning', undefined, 'W1');
-          test.addElement(element);
-          super.addTestResult(test);
-      }
+    if (autoPlay || (controls && window.DomUtils.isElementVisible(element))) {
+      const test = new Test('warning', undefined, 'W1');
+      test.addElement(element);
+      super.addTestResult(test);
+    }
   }
 }
 

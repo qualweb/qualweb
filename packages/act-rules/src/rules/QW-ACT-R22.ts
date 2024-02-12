@@ -1,11 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import {
-  ACTRuleDecorator,
-  ElementExists,
-  ElementHasAttribute
-} from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementHasAttribute } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator
@@ -49,7 +45,10 @@ class QW_ACT_R22 extends AtomicRule {
     let hasTextOrAccessibleName = false;
 
     for (const child of element.getElementChildren() || []) {
-      if (child.getElementAttribute('lang') === null && (window.DomUtils.isElementVisible(child) || window.AccessibilityUtils.isElementInAT(child))) {
+      if (
+        child.getElementAttribute('lang') === null &&
+        (window.DomUtils.isElementVisible(child) || window.AccessibilityUtils.isElementInAT(child))
+      ) {
         const text = child.getElementOwnText();
         const accessibleName = window.AccessibilityUtils.getAccessibleName(child);
         if ((text && text.trim() !== '') || (accessibleName && accessibleName.trim() !== '')) {
@@ -67,7 +66,6 @@ class QW_ACT_R22 extends AtomicRule {
     const languages = window.AccessibilityUtils.languages;
     return languages.hasOwnProperty(subTag);
   }
-
 }
 
 export = QW_ACT_R22;

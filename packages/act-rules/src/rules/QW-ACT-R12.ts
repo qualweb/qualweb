@@ -1,12 +1,7 @@
 import { ACTRule } from '@qualweb/act-rules';
 import { Translate } from '@qualweb/locale';
 import AtomicRule from '../lib/AtomicRule.object';
-import {
-  ACTRuleDecorator,
-  ElementExists,
-  ElementIsInAccessibilityTree,
-  ElementIsSemanticLink
-} from '../lib/decorator';
+import { ACTRuleDecorator, ElementExists, ElementIsInAccessibilityTree, ElementIsSemanticLink } from '../lib/decorator';
 import Test from '../lib/Test.object';
 
 @ACTRuleDecorator

@@ -31,11 +31,7 @@ class QW_ACT_R30 extends AtomicRule {
     if (accessibleName === undefined) {
       test.verdict = 'failed';
       test.resultCode = 'F1';
-    } else if (
-      !hasTextNode ||
-      elementText === undefined ||
-      elementText === '' 
-    ) {
+    } else if (!hasTextNode || elementText === undefined || elementText === '') {
       test.verdict = 'inapplicable';
       test.resultCode = 'I1';
     } else if (!!elementText && (isIconValue || this.includesText(accessibleName, elementText))) {
@@ -66,7 +62,7 @@ class QW_ACT_R30 extends AtomicRule {
       .toLowerCase()
       .trim()
       .replace(/\r?\n|\r|[^\w\s-]+/g, '')
-      .replace(/s+/g, ' ');  
+      .replace(/s+/g, ' ');
     return accessibleName.includes(elementText);
   }
 }

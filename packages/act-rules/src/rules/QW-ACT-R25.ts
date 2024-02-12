@@ -40,8 +40,13 @@ class QW_ACT_R25 extends AtomicRule {
 
             // if valid aria attribute
             if (
-              (ariaAttributesRoles[attr]['global'] === 'yes' && !(role !== null && !!roles[role] &&
-                ((!!roles[role]['prohibitedAria'] && roles[role]?.prohibitedAria?.includes(attr))))) ||
+              (ariaAttributesRoles[attr]['global'] === 'yes' &&
+                !(
+                  role !== null &&
+                  !!roles[role] &&
+                  !!roles[role]['prohibitedAria'] &&
+                  roles[role]?.prohibitedAria?.includes(attr)
+                )) ||
               (role !== null &&
                 !!roles[role] &&
                 ((!!roles[role]['requiredAria'] && roles[role]?.requiredAria?.includes(attr)) ||
