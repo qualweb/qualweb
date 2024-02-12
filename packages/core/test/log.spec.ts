@@ -81,11 +81,11 @@ describe('Log', function () {
     const evaluations = await qualweb.evaluate({
       urls: [
         mockHttpServerHost,
-        'http://localhost:4200/1',
-        'http://localhost:4200/2',
-        'http://localhost:4200/3',
-        'http://localhost:4200/4',
-        'http://localhost:4200/5'
+        mockHttpServerHost + '/1',
+        mockHttpServerHost + '/2',
+        mockHttpServerHost + '/3',
+        mockHttpServerHost + '/4',
+        mockHttpServerHost + '/5'
       ],
       execute: { act: true, wcag: true, bp: true },
       waitUntil: ['load', 'networkidle0'],
