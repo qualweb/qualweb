@@ -132,8 +132,8 @@ describe('ACT rules', () => {
 
       // Make sure the browser contexts are shut down, as well.
       afterEach(async () => {
-        if (browser) {
-          await browser.close();
+        if (incognito) {
+          await incognito.close();
         }
       });
 
