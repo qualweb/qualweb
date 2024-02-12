@@ -11,7 +11,7 @@ describe('Core', function () {
     const url = 'https://www.sapo.pt/';
     const evaluations = await qualweb.evaluate({
       url,
-      log: { console: true },
+      log: { console: false },
       // viewport: { mobile: true, landscape: false },
       execute: { act: true, wcag: false, bp: true },
       'act-rules': { levels: ['AAA'] }
