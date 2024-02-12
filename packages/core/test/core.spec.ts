@@ -7,7 +7,7 @@ describe('Core', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: false, args: ['--ignore-certificate-errors', '--no-sandbox'] });
+    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors', '--no-sandbox'] });
     const url = 'https://www.sapo.pt/';
     const evaluations = await qualweb.evaluate({
       url,
