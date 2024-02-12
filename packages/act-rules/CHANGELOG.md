@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.32
+
+### Patch Changes
+
+- f9855123: Fix bug in R37
+
 ## 0.6.31
 
 ### Patch Changes
