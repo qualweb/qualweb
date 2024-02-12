@@ -20,6 +20,6 @@ describe('Core input method: file', function () {
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
 
-    expect(Object.keys(reports)).to.have.length(23);
+    expect(Object.keys(reports)).to.have.length(25);
   });
 });
