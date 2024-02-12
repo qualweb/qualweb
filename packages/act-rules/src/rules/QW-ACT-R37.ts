@@ -23,19 +23,13 @@ class QW_ACT_R37 extends AtomicRule {
   @ElementIsVisible
   @ElementHasText
   execute(element: typeof window.qwElement): void {
-    const disabledWidgets = window.disabledWidgets;
-
-    const test = new Test();
-
     const visible = window.DomUtils.isElementVisible(element);
-
     if (!visible) {
       return;
     }
 
     const hasTextNode = element.hasTextNode();
     const elementText = element.getElementOwnText();
-
     if (!hasTextNode && elementText.trim() === '') {
       return;
     }
@@ -45,6 +39,7 @@ class QW_ACT_R37 extends AtomicRule {
       return;
     }
 
+    const disabledWidgets = window.disabledWidgets;
     const elementSelectors = element.getElementSelector();
 
     for (const disableWidget of disabledWidgets || []) {
@@ -53,7 +48,7 @@ class QW_ACT_R37 extends AtomicRule {
         return;
       }
       if (disableWidget.getElementSelector() === elementSelectors) {
-        return;  
+        return;
       }
     }
 
@@ -65,6 +60,8 @@ class QW_ACT_R37 extends AtomicRule {
         return;
       }
     }
+
+    const test = new Test();
 
     const fgColor = element.getElementStyleProperty('color', null);
     let bgColor = this.getBackground(element);
@@ -107,7 +104,7 @@ class QW_ACT_R37 extends AtomicRule {
     //TODO check if there is more colors
     //TODO account for margin and padding
 
-    //const elementText = window.DomUtils.getTrimmedText(element);
+    // const elementText = window.DomUtils.getTrimmedText(element);
 
     const regexGradient = /((\w-?)*gradient.*)/gm;
     let regexGradientMatches = bgColor.match(regexGradient);
@@ -197,7 +194,7 @@ class QW_ACT_R37 extends AtomicRule {
         // check if there is a solid color in the background and mix the colors
         let secondOpacity = opacityAUX;
         let parsedSecondBG = parsedBG;
-        while (parsedSecondBG.alpha !== 1) {
+        while (parsedSecondBG && parsedSecondBG.alpha !== 1) {
           const parent = secondElement.getElementParent();
           if (!parent) {
             break;
@@ -207,7 +204,7 @@ class QW_ACT_R37 extends AtomicRule {
             secondElement = parent;
           }
         }
-        if (parsedSecondBG.alpha === 1) {
+        if (parsedSecondBG && parsedSecondBG.alpha === 1) {
           const outputRed = Math.round(parsedBG.red * parsedBG.alpha + parsedSecondBG.red * (1.0 - parsedBG.alpha));
           const outputGreen = Math.round(
             parsedBG.green * parsedBG.alpha + parsedSecondBG.green * (1.0 - parsedBG.alpha)
@@ -441,8 +438,8 @@ class QW_ACT_R37 extends AtomicRule {
 
   hasValidContrastRatio(contrast: number, fontSize: string, isBold: boolean): boolean {
     /*const isSmallFont =
-      (isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 14) ||
-      (!isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 18);*/
+          (isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 14) ||
+          (!isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 18);*/
 
     const isSmallFont = (isBold && parseFloat(fontSize) < 18.6667) || (!isBold && parseFloat(fontSize) < 24);
     const expectedContrastRatio = isSmallFont ? 4.5 : 3;
