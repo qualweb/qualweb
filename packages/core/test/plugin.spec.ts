@@ -30,7 +30,7 @@ describe('Plugins', function () {
 
   beforeEach(async () => {
     qualweb = new QualWeb({ });
-    await qualweb.start(undefined, { headless: true });
+    await qualweb.start(undefined, { headless: 'new' });
   });
   
   afterEach(async () => {
