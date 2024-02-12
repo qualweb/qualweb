@@ -9,8 +9,8 @@ describe('Should do parallel evaluations', function () {
     const response = await fetch('https://act-rules.github.io/testcases.json');
     const testCases = await response.json();
     const rule = '2779a5';
-    const tcs = testCases.testcases.filter((tc) => tc.ruleId === rule);
-    const urls = tcs.map((tc) => tc.url);
+    const tcs = testCases.testcases.filter((tc: any) => tc.ruleId === rule);
+    const urls = tcs.map((tc: any) => tc.url);
 
     const qualweb = new QualWeb();
 
