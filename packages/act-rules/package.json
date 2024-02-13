@@ -17,7 +17,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build",
+    "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build tsconfig.prod.json",
     "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
@@ -46,6 +46,7 @@
     "@types/node": "^16.11.11",
     "ajv": "^6.12.6",
     "chai": "^5.0.0",
+    "commander": "^12.0.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "node-fetch": "^3.0.0",
