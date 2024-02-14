@@ -15,7 +15,7 @@
       "runtimeArgs": [
         "ts-node",
       ],
-      "program": "scripts/single-act-rule.ts",
+      "program": "scripts/run_act_rule.ts",
       "args": [
         "--url",
         "${input:url}",
