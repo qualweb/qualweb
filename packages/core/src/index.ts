@@ -199,7 +199,13 @@ class QualWeb {
     const incognito = await browser.createIncognitoBrowserContext();
     const crawler = new Crawler(incognito, domain, viewport, waitUntil);
     await crawler.crawl(options);
-    return crawler.getResults();
+
+    const results = crawler.getResults();
+
+    await incognito.close();
+    await browser.close();
+
+    return results;
   }
 
   /**

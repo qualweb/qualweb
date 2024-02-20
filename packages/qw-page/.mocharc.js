@@ -1,5 +1,3 @@
-module.exports = {
-  "color": true,
-  "ui": "bdd",
-  "spec": "test/**/*.spec.mjs",
-}
+const baseOptions = require('../../.mocharc.base.js');
+
+module.exports = baseOptions;
