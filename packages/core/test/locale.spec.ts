@@ -2,8 +2,8 @@ import { QualwebOptions } from '@qualweb/core';
 import { QualWeb } from '../src';
 import { expect } from 'chai';
 
-describe('Core', function () {
-  it('Should evaluate one url', async function () {
+describe('Core locale', function () {
+  it('Should give a report in en', async function () {
     this.timeout(0);
 
     const qualweb = new QualWeb();
