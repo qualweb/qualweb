@@ -80,7 +80,6 @@ class DomUtils {
   public static getTrimmedText(element: typeof window.qwElement): string {
     return getTrimmedTextFunction(element);
   }
-
 }
 
 export default DomUtils;

@@ -21,7 +21,6 @@ function getAccessibleNameRecursion(
   const title = element.getElementAttribute('title');
   const role = window.AccessibilityUtils.getElementRoleAName(element, '');
   // console.log({ element, id, recursion, isWidget, allowNameFromContent, role, name, ariaLabelBy, ariaLabel, attrType, title });
-
   const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
   if (name === 'svg') {
     AName = getAccessibleNameSVGRecursion(element, recursion);
@@ -73,7 +72,7 @@ function getAccessibleNameRecursion(
   } else if (name === 'slot') {
     AName = getAccessibleNameForSlot(element);
   } else if (name === 'noscript') {
-    AName = "";
+    AName = '';
   } else if (
     allowNameFromContent ||
     (((role && allowNameFromContent) || !role || role === 'generic' || role === 'paragraph') && recursion) ||
@@ -123,9 +122,13 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
   }
-  const parent = element.getElementParent();
+  let parent = element.getElementParent();
   let result, accessNameFromLabel;
   const isWidget = window.AccessibilityUtils.isElementWidget(element);
+
+  while (parent && parent.getElementTagName() !== 'label') {
+    parent = parent.getElementParent();
+  }
 
   if (parent && parent.getElementTagName() === 'label' && !isElementPresent(parent, referencedByLabelList)) {
     referencedByLabelList.push(parent);
@@ -188,7 +191,6 @@ function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): st
   const after = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':after'));
   const aNameList = getAccessibleNameFromChildren(element, isWidget);
   const textValue = getConcatenatedText(element, aNameList);
-
   return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
 
@@ -228,41 +230,39 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidge
   return elementAnames;
 }
 
-function getAccessibleNameFromShadowChildren(element: typeof window.qwElement) : string | undefined {
-  const children = element.getShadowElements("*");
-  let finalAName = "";
+function getAccessibleNameFromShadowChildren(element: typeof window.qwElement): string | undefined {
+  const children = element.getShadowElements('*');
+  let finalAName = '';
   children?.forEach((element) => {
     const aName = window.AccessibilityUtils.getAccessibleName(element);
-    if (aName)
-      finalAName += aName;
+    if (aName) finalAName += aName;
   });
   return finalAName;
 }
 
 function getAccessibleNameForSlot(slot: typeof window.qwElement): string | undefined {
   let elements = slot.getSlotElements();
-  let finalAName = "";
+  let finalAName = '';
   elements?.forEach((element) => {
     let aName = window.AccessibilityUtils.getAccessibleName(element);
     if (aName) {
       finalAName += aName;
     } else if (element.isShadowRoot()) {
-        aName = getAccessibleNameFromShadowChildren(element);
-        if (aName) {
-          finalAName += aName;
-        }
+      aName = getAccessibleNameFromShadowChildren(element);
+      if (aName) {
+        finalAName += aName;
+      }
     }
-  })
-  let nodes : Node[] = slot.getSlotNodes();
+  });
+  let nodes: Node[] = slot.getSlotNodes();
   nodes?.forEach((node) => {
     let aName = node.textContent;
     if (aName) {
       finalAName += aName;
     }
-  })
+  });
   return finalAName;
 }
-
 
 function verifyAriaLabel(ariaLabelBy: string, elementID: string | null) {
   const elementIds = ariaLabelBy.split(' ');

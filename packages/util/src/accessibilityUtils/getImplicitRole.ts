@@ -49,7 +49,7 @@ function getImplicitRole(element: typeof window.qwElement, accessibleName: strin
                 role = 'generic';
               } else if (isInList(attributes, element)) {
                 role = roleValue['role'];
-              } 
+              }
             }
           }
         }
