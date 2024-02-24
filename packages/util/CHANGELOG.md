@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.38
+
+### Patch Changes
+
+- 7801f294: Misc test stuff
+
 ## 0.5.37
 
 ### Patch Changes
