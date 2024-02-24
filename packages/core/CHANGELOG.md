@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.7.64
+
+### Patch Changes
+
+- 3ef622f7: # QualWeb#crawl() doesn't close browser after use
+
+  The method launches a fresh puppeteer instance, but does not close it. This
+  causes any program that uses the crawl function to hang after finishing the
+  rest of its execution.
+
+- 7801f294: Misc test stuff
+  - @qualweb/evaluation@0.3.48
+
 ## 0.7.63
 
 ### Patch Changes
