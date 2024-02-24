@@ -12,7 +12,7 @@ describe('ANameTestWiki', function () {
   it('getAccessibleName', async function () {
     this.timeout(10 * 100000000);
 
-    let url = " https://www.accessibility.nl/wai-tools/validation-test-sites/low-fare-calendar-sas/";
+    let url = "http://localhost/test.html";
 
     const dom = new Dom(proxy.page);
 
@@ -26,10 +26,10 @@ describe('ANameTestWiki', function () {
       path: require.resolve('../dist/util.bundle.js')
     });
 
-    const results = await proxy.page.$$eval('a', (elements) => {
-      return elements.map(el => window.AccessibilityUtils.getAccessibleName(window.qwPage.createQWElement(el)));
+    const results = await proxy.page.$$eval('*', (elements) => {
+      return elements.map(el => window.AccessibilityUtils.getAccessibleName(window.qwPage.createQWElement(el as HTMLElement)));
     });
 
-    // console.debug(results);
+    console.debug(results);
   });
 });

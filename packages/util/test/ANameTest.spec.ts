@@ -8,7 +8,7 @@ describe('ANameTest', function () {
   it('Calculates accessible name correctly', async function () {
     this.timeout(100 * 1000);
 
-    const url = 'https://www.nationalbanken.dk/da/viden-og-nyheder/publikationer-og-taler/arkiv-publikationer/2022/stigende-renter-og-priser-kan-udfordre-bankernes-kunder';
+    const url = 'http://localhost/test.html';
 
     const page = proxy.page;
     const dom = new Dom(page);
@@ -22,13 +22,17 @@ describe('ANameTest', function () {
       path: require.resolve('../dist/util.bundle.js')
     });
     await new Promise(r => setTimeout(r, 2000));
-
-    await page.evaluate(() => {
-      const element = window.qwPage.getElement('html > body:nth-child(2) > header:nth-child(3) > dnb-header:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > dnb-link:nth-child(1)');
+    
+    const aName = await page.evaluate(() => {
+      const element = window.qwPage.getElement('html > body:nth-child(2) > div:nth-child(1) > label:nth-child(1) > span:nth-child(1) > input:nth-child(1)');
       //window.console.log("children:", element.getElement("slot:nth-of-type(1)"));
       //window.console.log(window.AccessibilityUtils.getAccessibleName(element));
+      
+      if (element)
+        return console.debug(window.AccessibilityUtils.getAccessibleName(element));
+      return null;
     });
-
+    console.debug(aName); 
     expect(true);
   });
 });
