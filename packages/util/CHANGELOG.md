@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.39
+
+### Patch Changes
+
+- ef4a24db: Fix aname computation for input
+
 ## 0.5.38
 
 ### Patch Changes

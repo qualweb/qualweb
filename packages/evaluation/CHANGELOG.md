@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.49
+
+### Patch Changes
+
+- Updated dependencies [ef4a24db]
+  - @qualweb/util@0.5.39
+
 ## 0.3.48
 
 ### Patch Changes
