@@ -8,7 +8,7 @@
 import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
 import locales from '@qualweb/locale';
-import { launchBrowser } from './util';
+import { launchBrowser, processForR62 } from './util';
 
 import actTestCases from './fixtures/testcases.json';
 import type { Browser, BrowserContext } from 'puppeteer';
@@ -102,7 +102,7 @@ const CANTTELL = 'cantTell';
 const consistencyMapping = {
   passed: [PASSED, INAPPLICABLE, CANTTELL],
   failed: [FAILED, CANTTELL],
-  inapplicable: [PASSED, INAPPLICABLE, CANTTELL],
+  inapplicable: [PASSED, INAPPLICABLE, CANTTELL]
 };
 
 describe('ACT rules', () => {
@@ -223,6 +223,13 @@ describe('ACT rules', () => {
             });
           }
 
+          if (ruleId === 'oj04fd') {
+            await processForR62(page);
+            await page.evaluate(() => {
+              window.act.validateVisibleFocus();
+            });
+          }
+
           const report = await page.evaluate(() => {
             window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
             return window.act.getReport();
@@ -234,6 +241,7 @@ describe('ACT rules', () => {
               ? report.assertions[ruleToTest].metadata.outcome
               : CANTTELL;
 
+          console.log(`Test outcome: ${outcome}`);
           // These implementation tests pass if the result from the ACT rule
           // falls within a range of acceptable outcomes.
           expect(outcome).to.be.oneOf(consistencyMapping[test.outcome as keyof typeof consistencyMapping]);

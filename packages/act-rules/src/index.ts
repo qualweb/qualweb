@@ -216,6 +216,21 @@ class ACTRules {
     }
   }
 
+  public validateVisibleFocus(): void {
+    if (this.rulesToExecute['QW-ACT-R62']) {
+      const elements = window.qwPage.getElements('*');
+
+      for (const elem of elements ?? []) {
+        if (window.AccessibilityUtils.isPartOfSequentialFocusNavigation(elem)) {
+          this.rules['QW-ACT-R62'].execute(elem);
+        }
+      }
+
+      this.report.assertions['QW-ACT-R62'] = this.rules['QW-ACT-R62'].getFinalResults();
+      this.report.metadata[this.report.assertions['QW-ACT-R62'].metadata.outcome]++;
+    }
+  }
+
   public validateFirstFocusableElementIsLinkToNonRepeatedContent(): void {
     if (this.rulesToExecute['QW-ACT-R72']) {
       this.rules['QW-ACT-R72'].execute(undefined);
