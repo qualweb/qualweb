@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { launchBrowser } from './util';
+import { launchBrowser, processForR62 } from './util';
 import { Dom } from '@qualweb/dom';
 import locales from '@qualweb/locale';
 import { Browser } from 'puppeteer';
@@ -15,7 +15,9 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://bth.se/';
+    const testingR62: boolean = true;
+
+    const url = 'http://www.worten.pt/';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -42,7 +44,7 @@ describe('URL evaluation', function () {
       (fiLocale, enLocale, sourceCode) => {
         // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        //window.act.configure({ rules: ['QW-ACT-R37'] });
+        window.act.configure({ rules: ['QW-ACT-R62'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
         const parser = new DOMParser();
@@ -69,6 +71,13 @@ describe('URL evaluation', function () {
       width: 640,
       height: 512
     });
+
+    if (testingR62) {
+      await processForR62(page);
+      await page.evaluate(() => {
+        window.act.validateVisibleFocus();
+      });
+    }
 
     const report = await page.evaluate(() => {
       window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();

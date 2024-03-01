@@ -12,17 +12,18 @@ class QW_ACT_R62 extends AtomicRule {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    const elementList = element.getElements('*');
-    const inSequentialFocusList = elementList.filter((element) => {
-      return window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
-    });
-
-    if (inSequentialFocusList.length >= 1) {
-      for (const inSequentialFocusElement of inSequentialFocusList ?? []) {
-        const test = new Test('warning', undefined, 'W1');
-        test.addElement(inSequentialFocusElement);
-        super.addTestResult(test);
-      }
+    const diff = element.getElementAttribute('data-qw-act-r62');
+    if (diff === null) {
+      return;
+    }
+    if (diff === 'true') {
+      const test = new Test('passed', undefined, 'P1');
+      test.addElement(element);
+      super.addTestResult(test);
+    } else {
+      const test = new Test('failed', undefined, 'F1');
+      test.addElement(element);
+      super.addTestResult(test);
     }
   }
 }

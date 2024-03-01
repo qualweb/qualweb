@@ -656,6 +656,11 @@ class QWElement {
     htmlElement.focus();
   }
 
+  public blurElement(): void {
+    const htmlElement = <HTMLElement>this.element;
+    htmlElement.blur();
+  }
+
   public dispatchEvent(event: Event): void {
     const htmlElement = <HTMLElement>this.element;
     htmlElement.dispatchEvent(event);

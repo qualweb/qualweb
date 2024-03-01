@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { Page, ScreenshotClip, ScreenshotOptions } from 'puppeteer';
 import { QualwebOptions, Url, Evaluator, Execute } from '@qualweb/core';
 import { randomBytes } from 'crypto';
 import { WCAGOptions, WCAGTechniquesReport } from '@qualweb/wcag-techniques';
@@ -46,8 +46,8 @@ class Evaluation {
       evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
     }
     /*  if (this.execute.wappalyzer) {
-      evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
-    }*/
+          evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
+        }*/
     if (this.execute.counter) {
       evaluation.addModuleEvaluation('counter', await this.executeCounter());
     }
@@ -161,6 +161,67 @@ class Evaluation {
       JSON.stringify(locale),
       options
     );
+
+    // for QW-ACT-R62
+    // get selectors of all elements that are part of the sequential focus navigation
+    const selectors: string[] = await this.page.evaluate(() => {
+      const selectors: string[] = [];
+      const elements = window.qwPage.getElements('*');
+      for (const elem of elements ?? []) {
+        if (window.AccessibilityUtils.isPartOfSequentialFocusNavigation(elem)) {
+          selectors.push(elem.getElementSelector());
+        }
+      }
+      return selectors;
+    });
+    const extraMargin = 30;
+    const body = await this.page.$('body');
+    for (const selector of selectors) {
+      // get the bounding box of the element
+      const el = await this.page.$(selector);
+      if (el === null) {
+        process.stdout.write('.');
+        continue;
+      }
+      await this.page.waitForSelector(selector);
+      const rect = await el.boundingBox();
+      if (rect === null) {
+        continue;
+      }
+      // increase the bounding box to take a screenshot
+      const screenClip: ScreenshotClip = {
+        x: rect.x - extraMargin,
+        y: rect.y - extraMargin,
+        width: rect.width + extraMargin * 2,
+        height: rect.height + extraMargin * 2
+      };
+      const options: ScreenshotOptions = {
+        clip: screenClip,
+        type: 'webp',
+        quality: 0,
+        optimizeForSpeed: true
+      };
+      // take a screenshot of the element
+      const originalScreenshot = await this.page.screenshot(options);
+      // focus the element
+      el.focus();
+      // take another screenshot of the element
+      const focusedScreenshot = await this.page.screenshot(options);
+      body?.focus();
+      // compare the screenshots
+      const diff = originalScreenshot.compare(focusedScreenshot) === 0 ? 'false' : 'true';
+      await this.page.evaluate(
+        (selector, diff) => {
+          const elem = window.qwPage.getElement(selector)!;
+          elem.setElementAttribute('data-qw-act-r62', diff);
+        },
+        selector,
+        diff
+      );
+    }
+    await this.page.evaluate(() => {
+      window.act.validateVisibleFocus();
+    });
 
     if (
       !options ||
