@@ -1,22 +1,15 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test } from '@qualweb/lib';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP17 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
-  execute(element: typeof window.qwElement | undefined): void {
+class QW_BP17 extends BestPractice {
+  execute(element?: QWElement): void {
     const test = new Test();
 
     if (!element) {
       test.verdict = 'failed';
       test.resultCode = 'F1';
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else {
       const refElement = window.DomUtils.getElementReferencedByHREF(element);
 
@@ -26,10 +19,10 @@ class QW_BP17 extends BestPracticeObject {
 
         test.addElement(element);
         test.addElement(refElement);
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
 }
 
-export = QW_BP17;
+export { QW_BP17 };

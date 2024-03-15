@@ -1,10 +1,8 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
+
 class QW_WCAG_T15 extends Technique {
   private readonly relNavigationValues = [
     'alternate',
@@ -18,12 +16,8 @@ class QW_WCAG_T15 extends Technique {
     'search'
   ];
 
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const parent = element.getElementParent();
@@ -34,7 +28,7 @@ class QW_WCAG_T15 extends Technique {
       if (parentName !== 'head') {
         test.verdict = 'warning';
         test.description = `The element is not contained in the head element. Verify if this link is used for navigation, and if it is, it must be inside the <head>`;
-        test.resultCode = 'RC1';
+        test.resultCode = 'W1';
       } else if (!element.elementHasAttributes()) {
         // fails if the element doesn't contain an attribute
         test.verdict = 'inapplicable';
@@ -59,9 +53,9 @@ class QW_WCAG_T15 extends Technique {
       }
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_WCAG_T15;
+export { QW_WCAG_T15 };

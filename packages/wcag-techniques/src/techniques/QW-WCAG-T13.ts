@@ -1,16 +1,9 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T13 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
-  execute(element: typeof window.qwElement | undefined): void {
+  execute(element?: QWElement): void {
     const test = new Test();
 
     if (element) {
@@ -18,13 +11,12 @@ class QW_WCAG_T13 extends Technique {
       test.resultCode = 'F1';
       test.addElement(element);
     } else {
-      // success if refresh element doesn't exist
       test.verdict = 'passed';
       test.resultCode = 'P1';
     }
 
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_WCAG_T13;
+export { QW_WCAG_T13 };

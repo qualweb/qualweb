@@ -1,14 +1,8 @@
-class SelectorCalculator {
-  private document: Document | ShadowRoot;
-
-  constructor(document: Document | ShadowRoot) {
-    this.document = document;
-  }
-
-  public processElementSelector(): void {
-    const html = this.document.querySelector('html');
+export class SelectorCalculator {
+  public static processElementSelector(document: Document | ShadowRoot): void {
+    const html = document.querySelector('html');
     if (html) {
-      html.setAttribute('_selector', 'html');
+      html.setAttribute('@qw-selector', 'html');
       const children = html.children;
       if (children) {
         this.processElementSelectorAux([...children]);
@@ -16,10 +10,10 @@ class SelectorCalculator {
     }
   }
 
-  private processElementSelectorAux(elements: Array<Element>): void {
+  private static processElementSelectorAux(elements: Array<Element>): void {
     const parent = elements[0].parentElement;
     if (parent) {
-      const selector = parent.getAttribute('_selector');
+      const selector = parent.getAttribute('@qw-selector');
       if (selector) {
         this.addSelectorAttribute(elements, selector);
         for (const element of elements ?? []) {
@@ -32,14 +26,12 @@ class SelectorCalculator {
     }
   }
 
-  private addSelectorAttribute(elements: Array<Element>, selector: string): void {
+  private static addSelectorAttribute(elements: Array<Element>, selector: string): void {
     let index = 1;
     for (const element of elements) {
       const name = element.tagName.toLowerCase();
-      element.setAttribute('_selector', selector + ' > ' + name + ':nth-child(' + index + ')');
+      element.setAttribute('@qw-selector', selector + ' > ' + name + ':nth-child(' + index + ')');
       index++;
     }
   }
 }
-
-export = SelectorCalculator;

@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.6.33",
+  "version": "0.7.0",
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "main": "dist/act.bundle.js",
   "files": [
@@ -9,15 +9,14 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "test:rule": "mocha test/rule.spec.mjs",
-    "test:url": "mocha test/url.spec.mjs",
+    "test:rule": "mocha test/rule.spec.ts",
+    "test:url": "mocha test/url.spec.ts",
     "validate:rules": "node validate-rules.js",
-    "compile:rules": "node compile-rules.js",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "prebuild": "npm run validate:rules && rimraf prebuild && tsc --build tsconfig.prod.json",
+    "build": "rimraf dist && webpack && rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

@@ -1,19 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasTextNode, ElementIsVisible, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R68 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsVisible
   @ElementHasTextNode
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     if (element.hasCSSProperty('line-height') || this.findParentWithCSSProperty(element) !== null) {
@@ -44,7 +38,7 @@ class QW_ACT_R68 extends AtomicRule {
       }
 
       test.addElement(element, true, false, true);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
@@ -60,7 +54,7 @@ class QW_ACT_R68 extends AtomicRule {
     return style.substring(startLS + 12, endLS);
   }
 
-  private isImportant(cssValue: any, element: typeof window.qwElement): boolean {
+  private isImportant(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -69,7 +63,7 @@ class QW_ACT_R68 extends AtomicRule {
     return cssValue.important;
   }
 
-  private isNormal(cssValue: any, element: typeof window.qwElement): boolean {
+  private isNormal(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -91,7 +85,7 @@ class QW_ACT_R68 extends AtomicRule {
     return false;
   }
 
-  private findParentWithCSSProperty(element: typeof window.qwElement | null): typeof window.qwElement | null {
+  private findParentWithCSSProperty(element: QWElement | null): QWElement | null {
     while (element !== null) {
       if (element?.getCSSProperty('line-height')) {
         return element;
@@ -101,7 +95,7 @@ class QW_ACT_R68 extends AtomicRule {
     return null;
   }
 
-  private computeLineNumber(element: typeof window.qwElement, lineHeight: string): number {
+  private computeLineNumber(element: QWElement, lineHeight: string): number {
     const elementHeight = parseInt(element.getElementProperty('offsetHeight'));
     const padding_top = parseInt(element.getElementStyleProperty('padding-top', null));
     const padding_bottom = parseInt(element.getElementStyleProperty('padding-bottom', null));
@@ -114,4 +108,4 @@ class QW_ACT_R68 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R68;
+export { QW_ACT_R68 };

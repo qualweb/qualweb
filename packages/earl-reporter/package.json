@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "files": [
@@ -34,7 +34,7 @@
     "url": "https://github.com/qualweb/earl-reporter.git"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "author": "João Vicente",
   "license": "ISC",

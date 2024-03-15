@@ -2,10 +2,10 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
-    "target": "ES2019",
-    "lib": ["ES2019", "DOM"],
-    "declaration": false /* Generates corresponding '.d.ts' file. */,
-    "declarationMap": false /* Generates a sourcemap for each corresponding '.d.ts' file. */,
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,

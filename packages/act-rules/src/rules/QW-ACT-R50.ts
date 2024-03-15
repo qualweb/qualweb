@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R50 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const autoplay = element.getElementProperty('autoplay');
@@ -24,15 +18,15 @@ class QW_ACT_R50 extends AtomicRule {
     const hasSoundTrack = window.DomUtils.videoElementHasAudio(element);
     const isAudioElement = element.getElementTagName() === 'audio';
     const hasPuppeteerApplicableData = duration > 3 && (hasSoundTrack || isAudioElement);
-    const src = new Array<string | null>();
+    // const src = new Array<string | null>();
 
-    if (childSrc.length > 0) {
-      for (const child of childSrc || []) {
-        src.push(child.getElementAttribute('src'));
-      }
-    } else {
-      src.push(srcAttr);
-    }
+    // if (childSrc.length > 0) {
+    //   for (const child of childSrc || []) {
+    //     src.push(child.getElementAttribute('src'));
+    //   }
+    // } else {
+    //   src.push(srcAttr);
+    // }
 
     if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
       if (!(duration > 0 && (hasSoundTrack || isAudioElement))) {
@@ -49,14 +43,14 @@ class QW_ACT_R50 extends AtomicRule {
       }
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
   // determines if is there a button element in the page with the label or accessible name equal to "play", "pause", "mute" or "unmute"
-  private hasPlayOrMuteButton(element: typeof window.qwElement): boolean {
+  private hasPlayOrMuteButton(element: QWElement): boolean {
     const labels: string[] = ['play', 'pause', 'mute', 'unmute'];
-    let rootElement: typeof window.qwElement = element;
+    let rootElement = element;
     while (rootElement && rootElement.getElementTagName() !== 'body') {
       rootElement = rootElement.getElementParent()!;
     }
@@ -76,4 +70,4 @@ class QW_ACT_R50 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R50;
+export { QW_ACT_R50 };

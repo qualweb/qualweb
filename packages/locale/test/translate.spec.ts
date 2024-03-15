@@ -1,4 +1,4 @@
-import locales, { translateReport } from '../src';
+import { LocaleFetcher, ReportTranslator } from '../src';
 import { expect } from 'chai';
 
 import reportJson from './report.json';
@@ -8,15 +8,15 @@ const report = reportJson as unknown as EvaluationReport;
 
 describe('Testing translation', function () {
   it('Should translate to fi: using locales.fi', function () {
-    const translatedReport = translateReport(report, locales.fi);
-    
+    const translatedReport = new ReportTranslator(LocaleFetcher.get('fi')).translate(report);
+
     expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
       translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
   });
 
   it('Should translate to fi: using "fi"', function () {
-    const translatedReport = translateReport(report, 'fi');
+    const translatedReport = new ReportTranslator('fi').translate(report);
     expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
       translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
@@ -35,7 +35,7 @@ describe('Testing translation', function () {
       }
     };
 
-    const translatedReport = translateReport(report, fiLocale);
+    const translatedReport = new ReportTranslator(fiLocale).translate(report);
 
     expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.not.equal(
       translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
@@ -43,7 +43,7 @@ describe('Testing translation', function () {
   });
 
   it('Should fallback to "en": using "es" which is not supported', function () {
-    const translatedReport = translateReport(report, 'es' as any);
+    const translatedReport = new ReportTranslator('es' as any).translate(report);
     expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.equal(
       translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );
@@ -61,7 +61,7 @@ describe('Testing translation', function () {
       }
     };
 
-    const translatedReport = translateReport(report, ptLocale);
+    const translatedReport = new ReportTranslator(ptLocale).translate(report);
     expect(report.modules['act-rules']!.assertions['QW-ACT-R1'].name).to.be.equal(
       translatedReport.modules['act-rules']!.assertions['QW-ACT-R1'].name
     );

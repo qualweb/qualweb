@@ -1,49 +1,56 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import { Level, Principle } from '@qualweb/evaluation';
-import { Translate, TranslationValues } from '@qualweb/locale';
-import Test from './Test.object';
+import type { Assertion, Level, Principle } from '@qualweb/evaluation';
+import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { Test, TestResult } from '@qualweb/lib';
+import type { QWElement } from '@qualweb/qw-element';
+import techniques from './techniques.json';
 
 abstract class Technique {
-  private readonly technique: WCAGTechnique;
-  protected readonly locale: Translate;
+  protected readonly technique: Assertion;
+  private readonly translator: ModuleTranslator;
 
-  constructor(technique: WCAGTechnique, locale: Translate) {
+  constructor(translator: ModuleTranslator) {
+    this.translator = translator;
+    const technique = techniques[new.target.name as keyof typeof techniques] as Assertion;
+    technique.metadata.passed = 0;
+    technique.metadata.warning = 0;
+    technique.metadata.failed = 0;
+    technique.metadata.inapplicable = 0;
+    technique.metadata.outcome = 'inapplicable';
+    technique.results = new Array<TestResult>();
+
     this.technique = technique;
-    this.locale = locale;
+
+    this.translator.translateAssertion(this.technique);
   }
 
-  public getTechniqueMapping(): string {
+  protected translate(resultCode: string, values?: TranslationValues): string {
+    return this.translator.translateTest(this.technique.code, resultCode, values);
+  }
+
+  public getCode(): string {
+    return this.technique.code;
+  }
+
+  public getMapping(): string {
     return this.technique.mapping;
   }
 
-  public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean {
-    let has = false;
-    for (const sc of this.technique.metadata['success-criteria'] ?? []) {
-      if (principles.includes(sc.principle) && levels.includes(sc.level)) {
-        has = true;
-      }
-    }
-    return has;
+  public hasPrincipleAndLevels(principles: Principle[], levels: Level[]): boolean {
+    return this.technique.metadata['success-criteria'].some(
+      (sc) => principles.includes(sc.principle) && levels.includes(sc.level)
+    );
   }
 
-  public abstract execute(element: typeof window.qwElement | undefined): void;
+  public abstract execute(element?: QWElement): void;
 
-  public getFinalResults(): WCAGTechnique {
-    this.outcomeTechnique();
+  public getFinalResults(): Assertion {
+    this.generateOutcome();
     return this.technique;
-  }
-
-  protected getNumberOfWarningResults(): number {
-    return this.technique.metadata.warning;
-  }
-
-  protected getNumberOfFailedResults(): number {
-    return this.technique.metadata.failed;
   }
 
   protected addTestResult(test: Test): void {
     if (!test.description || test.description.trim() === '') {
-      test.description = this.getTranslation(test.resultCode);
+      test.description = this.translate(test.resultCode);
     }
 
     this.technique.results.push(test);
@@ -53,24 +60,7 @@ abstract class Technique {
     }
   }
 
-  protected getTranslation(resultCode: string, values?: TranslationValues): string {
-    let translation = '';
-    if (this.locale.translate['wcag-techniques']?.[this.technique.code]?.results?.[resultCode]) {
-      translation = <string>this.locale.translate['wcag-techniques'][this.technique.code].results?.[resultCode];
-    } else {
-      translation = <string>this.locale.fallback['wcag-techniques']?.[this.technique.code].results?.[resultCode];
-    }
-
-    if (values) {
-      for (const key of Object.keys(values) || []) {
-        translation = translation.replace(new RegExp(`{${key}}`, 'g'), values[key].toString());
-      }
-    }
-
-    return translation;
-  }
-
-  private outcomeTechnique(): void {
+  private generateOutcome(): void {
     if (this.technique.metadata.failed) {
       this.technique.metadata.outcome = 'failed';
     } else if (this.technique.metadata.warning) {
@@ -90,11 +80,11 @@ abstract class Technique {
   private addDescription(): void {
     for (const result of this.technique.results ?? []) {
       if (result.verdict === this.technique.metadata.outcome) {
-        this.technique.metadata.description = <string>result.description;
+        this.technique.metadata.description = result.description;
         break;
       }
     }
   }
 }
 
-export = Technique;
+export { Technique };

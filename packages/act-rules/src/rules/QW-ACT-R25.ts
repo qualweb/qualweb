@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R25 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const ariaAttributesRoles = window.AccessibilityUtils.ariaAttributesRoles;
     const roles = window.AccessibilityUtils.roles;
     // get all aria attributes from json to combine it in a css selector
@@ -59,10 +53,10 @@ class QW_ACT_R25 extends AtomicRule {
               test.resultCode = 'F1';
             }
 
-            test.description = super.getTranslation(test.resultCode, { attr, role: role ?? '' });
+            test.description = this.translate(test.resultCode, { attr, role: role ?? '' });
 
             test.addElement(elem);
-            super.addTestResult(test);
+            this.addTestResult(test);
           }
         }
       }
@@ -70,4 +64,4 @@ class QW_ACT_R25 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R25;
+export { QW_ACT_R25 };

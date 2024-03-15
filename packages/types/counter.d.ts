@@ -1,24 +1,21 @@
-declare module "@qualweb/counter" {
-
-  interface Roles {
+declare module '@qualweb/counter' {
+  export type Roles = {
     [role: string]: number;
-  }
+  };
 
-  interface Tags {
+  export type Tags = {
     [tag: string]: number;
-  }
+  };
 
-  interface CounterResult {
+  export type CounterResult = {
     roles: Roles;
     tags: Tags;
-  }
+  };
 
-  interface CounterReport {
-    type: "counter";
+  type CounterReport = {
+    type: 'counter';
     data: CounterResult;
-  }
+  };
 
-  function executeCounter(): Promise<CounterReport>;
-
-  export { CounterResult, CounterReport, Roles, Tags, executeCounter };
+  export function executeCounter(): Promise<CounterReport>;
 }

@@ -2,15 +2,12 @@ import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { launchBrowser } from './util';
 import { Dom } from '@qualweb/dom';
-import locales from '@qualweb/locale';
 import { Browser } from 'puppeteer';
 
 describe('URL evaluation', function () {
   let browser: Browser;
 
-  before(async () => {
-    browser = await launchBrowser();
-  });
+  before(async () => (browser = await launchBrowser()));
 
   it('Evaluates url', async function () {
     this.timeout(0);
@@ -34,36 +31,18 @@ describe('URL evaluation', function () {
     });
 
     await page.addScriptTag({
+      path: require.resolve('@qualweb/locale')
+    });
+
+    await page.addScriptTag({
       path: require.resolve('../dist/act.bundle.js')
     });
 
-    await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await page.evaluate(
-      (fiLocale, enLocale, sourceCode) => {
-        // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
-        window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        //window.act.configure({ rules: ['QW-ACT-R37'] });
-        window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
-
-        const parser = new DOMParser();
-        const sourceDoc = parser.parseFromString('', 'text/html');
-
-        sourceDoc.documentElement.innerHTML = sourceCode;
-
-        const elements = sourceDoc.querySelectorAll('meta');
-        const metaElements = [];
-        for (const element of elements) {
-          metaElements.push(window.qwPage.createQWElement(element));
-        }
-
-        window.act.validateMetaElements(metaElements);
-        window.act.executeAtomicRules();
-        window.act.executeCompositeRules();
-      },
-      locales.en,
-      locales.en,
-      sourceCode
-    );
+    await page.evaluate((sourceHtml) => {
+      //@ts-expect-error the object ACTRules is defined inside the page
+      window.act = new ACTRules('fi');
+      window.act.test({ sourceHtml });
+    }, sourceCode);
 
     await page.setViewport({
       width: 640,
@@ -71,7 +50,7 @@ describe('URL evaluation', function () {
     });
 
     const report = await page.evaluate(() => {
-      window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
+      window.act.testSpecial();
       return window.act.getReport();
     });
 

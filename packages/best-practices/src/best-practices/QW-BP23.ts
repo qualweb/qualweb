@@ -1,18 +1,11 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementIsInAccessibilityTree } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsInAccessibilityTree, Test } from '@qualweb/lib';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP23 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP23 extends BestPractice {
   @ElementExists
   @ElementIsInAccessibilityTree
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
     const parent = element.getElementParent();
     let isValidParent = false;
@@ -28,8 +21,8 @@ class QW_BP23 extends BestPracticeObject {
       test.resultCode = 'F1';
     }
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP23;
+export { QW_BP23 };

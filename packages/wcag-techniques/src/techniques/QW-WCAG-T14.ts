@@ -1,17 +1,10 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T14 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const hasIds = element.getElements('[id]');
@@ -52,11 +45,11 @@ class QW_WCAG_T14 extends Technique {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-function doesTableHaveDuplicateIds(table: typeof window.qwElement): boolean {
+function doesTableHaveDuplicateIds(table: QWElement): boolean {
   const elementsId = table.getElements('[id]');
   let duplicate = false;
   let counter: number;
@@ -76,7 +69,7 @@ function doesTableHaveDuplicateIds(table: typeof window.qwElement): boolean {
   return duplicate;
 }
 
-function doesHeadersMatchId(table: typeof window.qwElement, headers: string | null): boolean {
+function doesHeadersMatchId(table: QWElement, headers: string | null): boolean {
   let outcome = false;
   let result = 0;
   if (headers && headers.trim() !== '') {
@@ -106,4 +99,4 @@ function doesHeadersMatchId(table: typeof window.qwElement, headers: string | nu
   return outcome;
 }
 
-export = QW_WCAG_T14;
+export { QW_WCAG_T14 };

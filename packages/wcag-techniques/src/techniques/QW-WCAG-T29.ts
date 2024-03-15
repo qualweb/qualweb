@@ -1,17 +1,10 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T29 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (element.getElementTagName() === 'style') {
       const sheet = <any>element.getElementProperty('sheet');
       for (const rule of sheet.cssRules || []) {
@@ -26,7 +19,7 @@ class QW_WCAG_T29 extends Technique {
     }
   }
 
-  private checkCssProperty(style: string, element: typeof window.qwElement): void {
+  private checkCssProperty(style: string, element: QWElement): void {
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
 
     for (const property of properties) {
@@ -47,10 +40,10 @@ class QW_WCAG_T29 extends Technique {
         test.addElement(element);
         test.attributes.push(property);
 
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
 }
 
-export = QW_WCAG_T29;
+export { QW_WCAG_T29 };

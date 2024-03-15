@@ -1,17 +1,10 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP13 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP13 extends BestPractice {
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const aWithImg = element.getElementParent();
 
     if (!aWithImg) {
@@ -38,8 +31,8 @@ class QW_BP13 extends BestPracticeObject {
     if (aWithImg.getElementParent()) {
       test.addElement(element);
     }
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP13;
+export { QW_BP13 };

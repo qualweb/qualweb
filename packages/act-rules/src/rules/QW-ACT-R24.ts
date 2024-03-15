@@ -1,10 +1,7 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R24 extends AtomicRule {
   private readonly autoCompleteTable = {
     home: [
@@ -183,13 +180,9 @@ class QW_ACT_R24 extends AtomicRule {
     }
   };
 
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementIsVisible
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const tag = element.getElementTagName();
@@ -237,7 +230,7 @@ class QW_ACT_R24 extends AtomicRule {
       }
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
@@ -298,4 +291,4 @@ class QW_ACT_R24 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R24;
+export { QW_ACT_R24 };

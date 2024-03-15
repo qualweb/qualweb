@@ -1,21 +1,13 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import { CSSProperties, CSSProperty, MediaProperties } from '@qualweb/qw-element';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import { Technique } from '../lib/Technique.object';
+import { ElementExists, Test } from '@qualweb/lib';
 
-@WCAGTechniqueClass
 class QW_WCAG_T30 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
-    if (element.elementHasAttribute('_cssRules')) {
+    if (element.elementHasAttribute('@qw-css-rules')) {
       const cssRules = element.getCSSRules();
 
       const property = this.findTextDecorationWithBlink(cssRules);
@@ -33,7 +25,7 @@ class QW_WCAG_T30 extends Technique {
           stylesheetFile: property.pointer
         });
 
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
@@ -72,4 +64,4 @@ class QW_WCAG_T30 extends Technique {
   }
 }
 
-export = QW_WCAG_T30;
+export { QW_WCAG_T30 };

@@ -1,5 +1,5 @@
-declare module "@qualweb/util" {
-  import { QWElement } from "@qualweb/qw-element";
+declare module '@qualweb/util' {
+  import { QWElement } from '@qualweb/qw-element';
 
   interface AriaAttributesRoles {
     [attribute: string]: {
@@ -30,28 +30,12 @@ declare module "@qualweb/util" {
   }
 
   class DomUtils {
-    public static elementIdIsReferenced(
-      element: QWElement,
-      id: string,
-      attribute: string
-    ): boolean;
-    public static getElementReferencedByHREF(
-      element: QWElement
-    ): QWElement | null;
+    public static elementIdIsReferenced(element: QWElement, id: string, attribute: string): boolean;
+    public static getElementReferencedByHREF(element: QWElement): QWElement | null;
     public static getVideoMetadata(element: QWElement): any;
     public static isHumanLanguage(text: string): boolean;
-    public static getTextSize(
-      font: string,
-      fontSize: number,
-      bold: boolean,
-      italic: boolean,
-      text: string
-    ): number;
-    public static isElementADescendantOf(
-      element: QWElement,
-      names: Array<string>,
-      roles: Array<string>
-    ): boolean;
+    public static getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number;
+    public static isElementADescendantOf(element: QWElement, names: Array<string>, roles: Array<string>): boolean;
     public static isElementADescendantOfExplicitRole(
       element: QWElement,
       names: Array<string>,
@@ -62,10 +46,7 @@ declare module "@qualweb/util" {
     public static isElementHiddenByCSSAux(element: QWElement): boolean;
     public static isElementVisible(element: QWElement): boolean;
     public static videoElementHasAudio(element: QWElement): boolean;
-    public static elementHasContent(
-      element: QWElement,
-      checkChildren: boolean
-    ): boolean;
+    public static elementHasContent(element: QWElement, checkChildren: boolean): boolean;
     public static getTrimmedText(element: QWElement): string;
     public static objectElementIsNonText(element: QWElement): boolean;
   }
@@ -79,9 +60,7 @@ declare module "@qualweb/util" {
     public static isFocusableBrowser(element: QWElement): boolean;
     public static isElementFocusable(element: QWElement): boolean;
     public static isElementFocusableByDefault(element: QWElement): boolean;
-    public static elementHasGlobalARIAPropertyOrAttribute(
-      element: QWElement
-    ): boolean;
+    public static elementHasGlobalARIAPropertyOrAttribute(element: QWElement): boolean;
     public static getAccessibleNameRecursion(
       element: QWElement,
       recursion: boolean,
@@ -90,35 +69,23 @@ declare module "@qualweb/util" {
     public static getLinkContext(element: QWElement): Array<string>;
     public static allowsNameFromContent(element: QWElement): boolean;
     public static elementHasValidRole(element: QWElement): boolean;
-    public static getElementValidExplicitRole(
-      element: QWElement
-    ): string | null;
+    public static getElementValidExplicitRole(element: QWElement): string | null;
     public static getAccessibleName(element: QWElement): string | undefined;
-    public static getAccessibleNameSelector(
-      element: QWElement
-    ): Array<string> | undefined;
+    public static getAccessibleNameSelector(element: QWElement): Array<string> | undefined;
     public static getAccessibleNameSVG(element: QWElement): string | undefined;
     public static getDefaultName(element: QWElement): string;
     public static getDisabledWidgets(): Array<QWElement>;
     public static getElementRole(element: QWElement): string | null;
-    public static getElementRoleAName(
-      element: QWElement,
-      aName: string | undefined
-    ): string | null;
+    public static getElementRoleAName(element: QWElement, aName: string | undefined): string | null;
     public static getValueFromEmbeddedControl(element: QWElement): string;
     public static isDataTable(element: QWElement): boolean;
     public static isElementControl(element: QWElement): boolean;
     public static isElementInAT(element: QWElement): boolean;
     public static isElementReferencedByAriaLabel(element: QWElement): boolean;
     public static isElementWidget(element: QWElement): boolean;
-    public static getImplicitRole(
-      element: QWElement,
-      accessibleName: string | undefined
-    ): string | null;
+    public static getImplicitRole(element: QWElement, accessibleName: string | undefined): string | null;
     public static getOwnerElement(element: QWElement): QWElement | null;
-    public static isPartOfSequentialFocusNavigation(
-      element: QWElement
-    ): boolean;
+    public static isPartOfSequentialFocusNavigation(element: QWElement): boolean;
     public static getAriaOwner(element: QWElement): QWElement | null;
     public static getOwnedElements(element: QWElement): Array<QWElement>;
     public static landmarkIsTopLevel(element: QWElement): boolean;
