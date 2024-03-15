@@ -1,19 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, IsHTMLDocument } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { IsHTMLDocument, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R1 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @IsHTMLDocument
-  execute(element: typeof window.qwElement | undefined): void {
+  execute(element?: QWElement): void {
     //the first title element was already tested
-    if (super.getNumberOfPassedResults() + super.getNumberOfFailedResults() === 0) {
+    if (this.rule.metadata.passed + this.rule.metadata.failed === 0) {
       const test = new Test();
       // the first title element was not tested yet
       if (!element) {
@@ -38,9 +32,9 @@ class QW_ACT_R1 extends AtomicRule {
         test.addElement(element);
       }
 
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_ACT_R1;
+export { QW_ACT_R1 };

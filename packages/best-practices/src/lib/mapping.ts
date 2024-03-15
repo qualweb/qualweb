@@ -18,5 +18,5 @@ export default {
   'aside:not([role]), [role=complementary]': ['QW-BP25'],
   'footer:not([role]), [role=contentinfo]': ['QW-BP26'],
   'main:not([role]), [role=main]': ['QW-BP27'],
-  html: ['QW-BP29'],
+  html: ['QW-BP29']
 };

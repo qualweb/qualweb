@@ -1,31 +1,56 @@
-import { BestPractice as BestPracticeType } from '@qualweb/best-practices';
-import { Translate, TranslationValues } from '@qualweb/locale';
-import Test from './Test.object';
+import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { Assertion } from '@qualweb/evaluation';
+import type { Level, Principle, Test, TestResult } from '@qualweb/lib';
+import type { QWElement } from '@qualweb/qw-element';
+import bestPractices from './bestPractices.json';
 
 abstract class BestPractice {
-  private readonly bestPractice: BestPracticeType;
-  private readonly locale: Translate;
+  protected readonly bestPractice: Assertion;
+  private readonly translator: ModuleTranslator;
 
-  constructor(bestPractice: BestPracticeType, locale: Translate) {
+  constructor(translator: ModuleTranslator) {
+    this.translator = translator;
+    const bestPractice = bestPractices[new.target.name as keyof typeof bestPractices] as Assertion;
+    bestPractice.metadata.passed = 0;
+    bestPractice.metadata.warning = 0;
+    bestPractice.metadata.failed = 0;
+    bestPractice.metadata.inapplicable = 0;
+    bestPractice.metadata.outcome = 'inapplicable';
+    bestPractice.results = new Array<TestResult>();
+
     this.bestPractice = bestPractice;
-    this.locale = locale;
+
+    this.translator.translateAssertion(this.bestPractice);
   }
 
-  public abstract execute(element: typeof window.qwElement | undefined): void;
+  protected translate(resultCode: string, values?: TranslationValues): string {
+    return this.translator.translateTest(this.bestPractice.code, resultCode, values);
+  }
 
-  public getFinalResults(): BestPracticeType {
-    this.outcomeBestPractice();
+  public getCode(): string {
+    return this.bestPractice.code;
+  }
+
+  public getMapping(): string {
+    return this.bestPractice.mapping;
+  }
+
+  public hasPrincipleAndLevels(principles: Principle[], levels: Level[]): boolean {
+    return this.bestPractice.metadata['success-criteria'].some(
+      (sc) => principles.includes(sc.principle) && levels.includes(sc.level)
+    );
+  }
+
+  public getFinalResults(): Assertion {
+    this.generateOutcome();
     return this.bestPractice;
   }
 
-  protected getNumberOfWarningResults(): number {
-    return this.bestPractice.metadata.warning;
-  }
-
+  public abstract execute(element?: QWElement): void;
 
   protected addTestResult(test: Test): void {
     if (!test.description || (<string>test.description).trim() === '') {
-      test.description = this.getTranslation(<string>test.resultCode);
+      test.description = this.translate(test.resultCode);
     }
 
     this.bestPractice.results.push(test);
@@ -35,24 +60,7 @@ abstract class BestPractice {
     }
   }
 
-  protected getTranslation(resultCode: string, values?: TranslationValues): string {
-    let translation = '';
-    if (this.locale.translate['best-practices']?.[this.bestPractice.code]?.results?.[resultCode]) {
-      translation = <string>this.locale.translate['best-practices'][this.bestPractice.code].results?.[resultCode];
-    } else {
-      translation = <string>this.locale.fallback['best-practices']?.[this.bestPractice.code].results?.[resultCode];
-    }
-
-    if (values) {
-      for (const key of Object.keys(values) || []) {
-        translation = translation.replace(new RegExp(`{${key}}`, 'g'), values[key].toString());
-      }
-    }
-
-    return translation;
-  }
-
-  private outcomeBestPractice(): void {
+  private generateOutcome(): void {
     if (this.bestPractice.metadata.failed > 0) {
       this.bestPractice.metadata.outcome = 'failed';
     } else if (this.bestPractice.metadata.warning > 0) {
@@ -79,4 +87,4 @@ abstract class BestPractice {
   }
 }
 
-export = BestPractice;
+export { BestPractice };

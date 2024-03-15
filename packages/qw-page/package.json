@@ -13,7 +13,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf prebuild  && tsc --build tsconfig.prod.json",
-    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "build": "rimraf dist && webpack && rimraf prebuild",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },

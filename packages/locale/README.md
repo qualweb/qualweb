@@ -13,7 +13,7 @@ Translation module for QualWeb reports.
 If you want a translation on your own language, follow these steps:
 
 <ol>
-  <li>Make a copy of src/locales/en.json and rename it to use the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">lang code</a> (check 639-1 column)</li>
+  <li>Make a copy of src/locales/en.ts and rename it to use the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">lang code</a> (check 639-1 column)</li>
   <li>Translate the modules you want</li>
   <li>Update the README.md language support table</li>
   <li>Make a pull request with the changes</li>
@@ -84,14 +84,14 @@ async () => {
   // EvaluationReport only. EARL report is not currently supported. If you need a EARL report, convert the evaluation report after the translation. Check https://github.com/qualweb/earl-reporter
   const report = 'Evaluation report obtained from @qualweb/cli or @qualweb/core';
 
-  const translatedReport = translateReport(report, 'en');
+  const translatedReport = new ReportTranslator('en').translate(report);
   // OR
-  const translatedReport = translateReport(report, locales.en);
+  const translatedReport = new ReportTranslator(locales.en).translate(report);
   // OR
   const ownLocale = {
     // If you have a compatible locale object
   };
-  const translatedReport = translateReport(report, ownLocale);
+  const translatedReport = new ReportTranslator(ownLocale).translate(report);
 
   console.log(translatedReport);
 };

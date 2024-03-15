@@ -2,6 +2,7 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
+    "target": "ESNext",
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
@@ -31,7 +32,6 @@
     "resolveJsonModule": true,
 
     "types": [
-      "@qualweb/types",
       "node",
       "lodash.clonedeep",
       "mocha",

@@ -1,18 +1,12 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementIsNotChildOf } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsNotChildOf, Test } from '@qualweb/lib';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP4 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
+class QW_BP4 extends BestPractice {
 
   @ElementExists
   @ElementIsNotChildOf('nav')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const aCount = element.getNumberOfSiblingsWithTheSameTag();
     if (aCount >= 10) {
       const test = new Test('failed', undefined, 'F1');
@@ -21,9 +15,9 @@ class QW_BP4 extends BestPracticeObject {
         test.addElement(element);
       }
 
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_BP4;
+export { QW_BP4 };

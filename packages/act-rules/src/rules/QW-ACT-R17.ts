@@ -1,18 +1,12 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsImage } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsImage, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R17 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsImage
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const name = element.getElementTagName();
@@ -27,7 +21,7 @@ class QW_ACT_R17 extends AtomicRule {
       test.resultCode = 'P1';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else if (elementInAT) {
       const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
       if (accessibleName && accessibleName.trim() !== '') {
@@ -39,9 +33,9 @@ class QW_ACT_R17 extends AtomicRule {
       }
 
       test.addElement(element, true, false, true);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_ACT_R17;
+export { QW_ACT_R17 };

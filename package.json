@@ -1,7 +1,7 @@
 {
   "name": "@qualweb/qualweb",
   "version": "0.0.1",
-  "description": "Monorepo for the Qualweb Web Accesibility Evaluator. This package should never be published by itself.",
+  "description": "Monorepo for the Qualweb Web Accessibility Evaluator. This package should never be published by itself.",
   "private": true,
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "author": "Carlos Duarte <caduarte@campus.ul.pt>",
   "contributors": [
     "Antonio Estriga <antonio.estriga@gmail.com>",
-    "João Afonso Vicente <joao.vicente@campus.ul.pt>",
+    "João Afonso Vicente <joao.vicente@edu.ulisboa.pt>",
     "Johannes L. Borresen <jlb@inqludeit.dk>"
   ],
   "license": "ISC",

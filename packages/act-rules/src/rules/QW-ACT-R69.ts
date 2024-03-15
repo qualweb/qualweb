@@ -1,19 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasTextNode, ElementIsVisible, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R69 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsVisible
   @ElementHasTextNode
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     if (element.hasCSSProperty('word-spacing') || this.findParentWithCSSProperty(element) !== null) {
@@ -38,7 +32,7 @@ class QW_ACT_R69 extends AtomicRule {
       }
 
       test.addElement(element, true, false, true);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
@@ -54,7 +48,7 @@ class QW_ACT_R69 extends AtomicRule {
     return style?.substring(startLS + 13, endLS);
   }
 
-  private isImportant(cssValue: any, element: typeof window.qwElement): boolean {
+  private isImportant(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -76,7 +70,7 @@ class QW_ACT_R69 extends AtomicRule {
     return false;
   }
 
-  private findParentWithCSSProperty(element: typeof window.qwElement | null): typeof window.qwElement | null {
+  private findParentWithCSSProperty(element: QWElement | null): QWElement | null {
     while (element !== null) {
       if (element?.getCSSProperty('word-spacing')) {
         return element;
@@ -87,4 +81,4 @@ class QW_ACT_R69 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R69;
+export { QW_ACT_R69 };

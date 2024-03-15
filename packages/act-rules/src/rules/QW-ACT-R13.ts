@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R13 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const children = element.getElementChildren();
@@ -36,10 +30,10 @@ class QW_ACT_R13 extends AtomicRule {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 
-  private isFocusableChildren(element: typeof window.qwElement): boolean {
+  private isFocusableChildren(element: QWElement): boolean {
     let result = window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element);
     const children = element.getElementChildren();
     for (const child of children || []) {
@@ -58,11 +52,11 @@ class QW_ACT_R13 extends AtomicRule {
     return result;
   }
 
-  private triggerFocus(element: typeof window.qwElement) {
+  private triggerFocus(element: QWElement) {
     const event = new Event('focus', { bubbles: false, cancelable: true });
     element.focusElement();
     element.dispatchEvent(event);
   }
 }
 
-export = QW_ACT_R13;
+export { QW_ACT_R13 };

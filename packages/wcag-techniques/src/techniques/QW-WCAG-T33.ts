@@ -1,17 +1,10 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T33 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
     const parent = this.getCorrectParent(element);
     let isValidParent = false;
@@ -34,9 +27,9 @@ class QW_WCAG_T33 extends Technique {
       test.resultCode = 'F1';
     }
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
-  getCorrectParent(element: typeof window.qwElement) {
+  getCorrectParent(element: QWElement) {
     let parent = element.getElementParent();
     if (parent) {
       const parentRole = window.AccessibilityUtils.getElementRole(parent);
@@ -48,4 +41,4 @@ class QW_WCAG_T33 extends Technique {
   }
 }
 
-export = QW_WCAG_T33;
+export { QW_WCAG_T33 };

@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R77 extends AtomicRule {
-  constructor(rule: ACTRule, locales: Translate) {
-    super(rule, locales);
-  }
 
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const role = element.getElementAttribute('role');
 
     if (
@@ -49,7 +43,7 @@ class QW_ACT_R77 extends AtomicRule {
     }
 
     test.addElement(element, true, false, true);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
-export = QW_ACT_R77;
+export { QW_ACT_R77 };

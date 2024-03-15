@@ -1,20 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import { MediaProperties, CSSProperty, MediaProperty } from '@qualweb/qw-element';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasCSSRules } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasCSSRules, ElementIsVisible, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R7 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsVisible
   @ElementHasCSSRules
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const rules = element.getCSSRules();
 
     let transformValue: number | null = null;
@@ -35,7 +28,7 @@ class QW_ACT_R7 extends AtomicRule {
 
     const media = <MediaProperties>rules?.media;
     if (media) {
-      for (const condition in media || {}) {
+      for (const condition in media) {
         if (condition.includes('orientation:') && (condition.includes('portrait') || condition.includes('landscape'))) {
           for (const property in media[condition] || {}) {
             if (property === 'transform') {
@@ -65,7 +58,7 @@ class QW_ACT_R7 extends AtomicRule {
     }
   }
 
-  private checkRotation(element: typeof window.qwElement, angle: number): void {
+  private checkRotation(element: QWElement, angle: number): void {
     const test = new Test();
     if (angle === 90 || angle === 270) {
       test.verdict = 'failed';
@@ -76,7 +69,7 @@ class QW_ACT_R7 extends AtomicRule {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 
   private parseDegrees(angle: string): number {
@@ -104,7 +97,7 @@ class QW_ACT_R7 extends AtomicRule {
     return Math.abs(degrees); // just ignore the abs
   }
 
-  private identity(): Array<number> {
+  private identity(): number[] {
     const matrix = new Array<number>();
     for (let i = 0; i < 16; i++) {
       i % 5 === 0 ? matrix.push(1) : matrix.push(0);
@@ -112,7 +105,7 @@ class QW_ACT_R7 extends AtomicRule {
     return matrix;
   }
 
-  private rotateZ(angle: number): Array<number> {
+  private rotateZ(angle: number): number[] {
     const theta = (Math.PI / 180) * angle;
     const matrix = this.identity();
 
@@ -123,7 +116,7 @@ class QW_ACT_R7 extends AtomicRule {
     return matrix;
   }
 
-  private fromString(source: string): Array<number> {
+  private fromString(source: string): number[] {
     if (typeof source === 'string') {
       const match = source.match(/matrix(3d)?\(([^)]+)\)/);
       if (match) {
@@ -137,7 +130,7 @@ class QW_ACT_R7 extends AtomicRule {
     throw new TypeError('Expected a string containing `matrix()` or `matrix3d()');
   }
 
-  private format(source: Array<number>): Array<number> {
+  private format(source: number[]): number[] {
     const values = source
       .filter(function (value) {
         return typeof value === 'number';
@@ -162,4 +155,4 @@ class QW_ACT_R7 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R7;
+export { QW_ACT_R7 };

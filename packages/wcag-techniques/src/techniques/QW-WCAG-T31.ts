@@ -1,17 +1,10 @@
-import Technique from '../lib/Technique.object';
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T31 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (
       element.getElementTagName() === 'head' ||
       element.getElementParent()?.getElementTagName() === 'head' ||
@@ -25,7 +18,7 @@ class QW_WCAG_T31 extends Technique {
     let foundColorProperty = false;
     let foundBackgroundProperty = false;
 
-    let parent: typeof window.qwElement | null = element;
+    let parent: QWElement | null = element;
     while (parent !== null) {
       const hasColor = parent.hasCSSProperty('color');
       const hasBackgroundColor = parent.hasCSSProperty('background-color');
@@ -52,21 +45,21 @@ class QW_WCAG_T31 extends Technique {
       test.resultCode = 'P1';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else if (foundColorProperty) {
       test.verdict = 'failed';
       test.resultCode = 'F1';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else if (foundBackgroundProperty) {
       test.verdict = 'failed';
       test.resultCode = 'F2';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_WCAG_T31;
+export { QW_WCAG_T31 };

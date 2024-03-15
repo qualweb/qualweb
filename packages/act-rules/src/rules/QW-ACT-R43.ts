@@ -1,18 +1,12 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R43 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (element.getElementTagName().toLowerCase() === 'iframe') {
       return;
     }
@@ -77,11 +71,11 @@ class QW_ACT_R43 extends AtomicRule {
       }
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
-  private isInSequentialFocusNavigation(element: typeof window.qwElement): boolean {
+  private isInSequentialFocusNavigation(element: QWElement): boolean {
     if (window.AccessibilityUtils.isPartOfSequentialFocusNavigation(element)) {
       return true;
     } else {
@@ -98,4 +92,4 @@ class QW_ACT_R43 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R43;
+export { QW_ACT_R43 };

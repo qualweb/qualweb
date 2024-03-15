@@ -1,229 +1,47 @@
-declare module "@qualweb/act-rules" {
-  import { Translate, TranslationValues } from "@qualweb/locale";
-  import { QWElement } from "@qualweb/qw-element";
-  import { Level, Principle } from "@qualweb/evaluation";
+declare module '@qualweb/act-rules' {
+  import type { EvaluationModule, ModuleOptions, ModuleReport, Tester, TestingData } from '@qualweb/lib';
+  import type { ModuleTranslator, TranslationOptions } from '@qualweb/locale';
+  import type { Assertion, EvaluationReport, Level, Principle } from '@qualweb/evaluation';
+  import type { QWElement } from '@qualweb/qw-element';
 
-  interface ACTROptions {
-    rules?: string[];
-    exclude?: string[];
-    levels?: Array<Level>;
-    principles?: Array<Principle>;
-  }
-
-  interface SuccessCriteria {
-    name: string;
-    level: Level;
-    principle: Principle;
-    url: string;
-    url_tr: string;
-  }
-
-  interface ACTRuleMetadata {
-    target: any;
-    "success-criteria": SuccessCriteria[];
-    related: string[];
-    url: string;
-    passed: number;
-    warning: number;
-    failed: number;
-    inapplicable: number;
-    type?: string[];
-    a11yReq?: string[];
-    outcome: "passed" | "failed" | "warning" | "inapplicable";
-    description: string;
-  }
-
-  interface ACTRuleResult {
-    verdict: "passed" | "failed" | "warning" | "inapplicable";
-    description: string;
-    resultCode: string;
-    elements: Array<ACTElement>;
-    attributes: Array<string>;
-  }
-  interface ACTElement {
-    pointer?: string;
-    htmlCode?: string;
-    accessibleName?: string;
-    attributes?: string | string[];
-    cssCode?: string;
-    property?: {
-      name?: string;
-      value?: string;
-    };
-    stylesheetFile?: string;
-    additional?: {
-      [key: string]: string | number | boolean;
-    };
-  }
-
-  interface ACTRule {
-    name: string;
-    code: string;
-    mapping: string;
-    description: string;
-    metadata: ACTRuleMetadata;
-    results: ACTRuleResult[];
-  }
-
-  interface ACTMetadata {
-    passed: number;
-    warning: number;
-    failed: number;
-    inapplicable: number;
-  }
-
-  interface ACTRulesReport {
-    type: "act-rules";
-    metadata: ACTMetadata;
-    assertions: {
-      [rule: string]: ACTRule;
-    };
-  }
-
-  interface ACTAtomicRuleMapping {
-    [selector: string]: Array<string>;
-  }
-
-  interface ACTCompositeRuleMapping {
-    [selector: string]: {
-      selector: string;
-      implementation: "conjunction" | "disjunction";
-      rules: Array<string>;
-    };
-  }
-
-  class Test implements ACTRuleResult {
-    verdict: "passed" | "failed" | "warning" | "inapplicable";
-    description: string;
-    resultCode: string;
-    elements: ACTElement[];
-    attributes: Array<string>;
-
-    constructor(
-      verdict?: "passed" | "failed" | "warning",
-      description?: string,
-      resultCode?: string
-    );
-
-    public addElement(
-      element: QWElement,
-      withText: boolean,
-      fullElement: boolean,
-      aName?: boolean
-    ): void;
-
-    public addElements(
-      elements: Array<QWElement>,
-      withText: boolean,
-      fullElement: boolean,
-      aName?: boolean
-    ): void;
-  }
-
-  abstract class Rule {
-    private readonly rule: ACTRule;
-    private readonly locale: Translate;
-
-    constructor(rule: ACTRule, locale: Translate);
-
-    public getRuleMapping(): string;
-
-    public hasPrincipleAndLevels(
-      principles: Array<Principle>,
-      levels: Array<Level>
-    ): boolean;
-
-    public getFinalResults(): ACTRule;
-
-    protected getNumberOfPassedResults(): number;
-
-    protected getNumberOfWarningResults(): number;
-
-    protected getNumberOfFailedResults(): number;
-
-    protected addTestResult(test: Test): void;
-
-    protected getTranslation(
-      resultCode: string,
-      values?: TranslationValues
-    ): string;
-
-    private outcomeRule(): void;
-
-    private addDescription(): void;
-  }
-
-  abstract class CompositeRule extends Rule {
-    constructor(rule: ACTRule, locale: Translate);
-
-    abstract execute(
-      element: QWElement | undefined,
-      rules?: Array<ACTRule>
-    ): void;
-
-    public conjunction(element: QWElement, rules: Array<ACTRule>): void;
-
-    public disjunction(element: QWElement, rules: Array<ACTRule>): void;
-
-    public getAtomicRuleResultPerVerdict(
-      selector: string,
-      rules: Array<ACTRule>
-    ): any;
-
-    public getAtomicRuleResultForElement(
-      selector: string,
-      rules: Array<ACTRule>
-    ): any;
-  }
-
-  abstract class AtomicRule extends Rule {
-    constructor(rule: ACTRule, locale: Translate);
-
-    abstract execute(element: QWElement | undefined): void;
-  }
-
-  class ACTRules {
-    private readonly rules: { [rule: string]: AtomicRule | CompositeRule };
-    private readonly rulesToExecute: { [rule: string]: boolean };
-
-    private readonly report: ACTRulesReport;
-
-    constructor(locale: Translate, options?: ACTROptions);
-
-    public configure(options: ACTROptions): void;
-    public resetConfiguration(): void;
-    public executeAtomicRules(): void;
-    public executeCompositeRules(): void;
-    public validateMetaElements(metaElements: Array<QWElement>): void;
-    public validateZoomedTextNodeNotClippedWithCSSOverflow(): void;
-    public validateFirstFocusableElementIsLinkToNonRepeatedContent(): void;
-    public getReport(): ACTRulesReport;
-
-    private executeRule(rule: string, selector: string): void;
-    private executeCompositeRule(
-      rule: string,
-      selector: string,
-      atomicRules: Array<string>,
-      implementation: "conjunction" | "disjunction"
-    ): void;
-  }
-
-  export {
-    ACTROptions,
-    SuccessCriteria,
-    ACTRuleMetadata,
-    ACTRuleResult,
-    ACTElement,
-    ACTRule,
-    ACTMetadata,
-    ACTRulesReport,
-    ACTAtomicRuleMapping,
-    ACTCompositeRuleMapping,
-    TranslationValues,
-    Test,
-    Rule,
-    CompositeRule,
-    AtomicRule,
-    ACTRules,
+  export type RuleResult = {
+    passed?: { title: string; code: string };
+    warning?: { title: string; code: string };
+    failed?: { title: string; code: string };
+    inapplicable?: { title: string; code: string };
   };
+
+  export type ElementResult = {
+    [code: string]: { title: string; code: string; verdict?: string };
+  };
+
+  export abstract class Rule {
+    constructor(translator: ModuleTranslator);
+    public getCode(): string;
+    public getMapping(): string;
+    public hasPrincipleAndLevels(principles: Principle[], levels: Level[]): boolean;
+    public getFinalResults(): Assertion;
+  }
+
+  export abstract class CompositeRule extends Rule {
+    abstract execute(element?: QWElement, rules?: Assertion[]): void;
+    public conjunction(element: QWElement, rules: Assertion[]): void;
+    public disjunction(element: QWElement, rules: Assertion[]): void;
+    public getAtomicRuleResultPerVerdict(selector: string, rules: Assertion[]): RuleResult;
+    public getAtomicRuleResultForElement(selector: string, rules: Assertion[]): ElementResult;
+  }
+
+  export abstract class AtomicRule extends Rule {
+    abstract execute(element?: QWElement): void;
+  }
+
+  export class ACTRules extends EvaluationModule<Rule> {
+    protected report: ModuleReport<Rule>;
+    protected tester: Tester<Rule>;
+    constructor(locale: TranslationOptions);
+    public configure(options: ModuleOptions): this;
+    public test(data: TestingData): this;
+    public testSpecial(): this;
+    public getReport(): EvaluationReport;
+  }
 }

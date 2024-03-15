@@ -1,28 +1,21 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
 import {
-  ACTRuleDecorator,
   ElementExists,
-  ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
-  ElementIsVisible
-} from '../lib/decorator';
-import Test from '../lib/Test.object';
+  ElementIsVisible,
+  ElementHasText,
+  Test
+} from '@qualweb/lib';
+import type { QWElement } from '@qualweb/qw-element';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R76 extends AtomicRule {
-  constructor(rule: ACTRule, locales: Translate) {
-    super(rule, locales);
-  }
-
   @ElementExists
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
   @ElementIsVisible
   @ElementHasText
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const disabledWidgets = window.disabledWidgets;
 
     const test = new Test();
@@ -88,7 +81,7 @@ class QW_ACT_R76 extends AtomicRule {
           test.resultCode = 'W1';
 
           test.addElement(element);
-          super.addTestResult(test);
+          this.addTestResult(test);
           return;
         }
       }
@@ -99,7 +92,7 @@ class QW_ACT_R76 extends AtomicRule {
       test.resultCode = 'W2';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
       return;
     }
 
@@ -131,7 +124,7 @@ class QW_ACT_R76 extends AtomicRule {
         test.resultCode = 'P2';
 
         test.addElement(element);
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     } else {
       let parsedBG = this.parseRGBString(bgColor, opacity);
@@ -150,7 +143,7 @@ class QW_ACT_R76 extends AtomicRule {
             test.resultCode = 'W2';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
             return;
           } else {
             //helps visualize
@@ -203,26 +196,26 @@ class QW_ACT_R76 extends AtomicRule {
             test.resultCode = 'P1';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
           } else {
             test.verdict = 'failed';
             test.resultCode = 'F1';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
           }
         } else {
           test.verdict = 'passed';
           test.resultCode = 'P2';
 
           test.addElement(element);
-          super.addTestResult(test);
+          this.addTestResult(test);
         }
       }
     }
   }
 
-  getBackground(element: typeof window.qwElement): string {
+  getBackground(element: QWElement): string {
     const backgroundImage = element.getElementStyleProperty('background-image', null);
     if (backgroundImage === 'none') {
       let bg = element.getElementStyleProperty('background', null);
@@ -247,7 +240,7 @@ class QW_ACT_R76 extends AtomicRule {
 
   evaluateGradient(
     test: Test,
-    element: typeof window.qwElement,
+    element: QWElement,
     parsedGradientString: any,
     fgColor: any,
     opacity: number,
@@ -304,7 +297,7 @@ class QW_ACT_R76 extends AtomicRule {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
     return true;
   }
 
@@ -438,4 +431,4 @@ class QW_ACT_R76 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R76;
+export { QW_ACT_R76 };

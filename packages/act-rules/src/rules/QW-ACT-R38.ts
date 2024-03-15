@@ -1,14 +1,9 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsInAccessibilityTree } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsInAccessibilityTree, Test } from '@qualweb/lib';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R38 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
+
   /**
    * 
    *mudar requiredOwnedElements para ser so um array
@@ -17,7 +12,7 @@ class QW_ACT_R38 extends AtomicRule {
 
   @ElementExists
   @ElementIsInAccessibilityTree
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const rolesJSON = window.AccessibilityUtils.roles;
     const test = new Test();
 
@@ -42,11 +37,11 @@ class QW_ACT_R38 extends AtomicRule {
       //console.log(test);
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
-  private checkOwnedElementsRole(ownedRoles: string[], elements: (typeof window.qwElement)[]): boolean {
+  private checkOwnedElementsRole(ownedRoles: string[], elements: (QWElement)[]): boolean {
     if (ownedRoles.length === 0) return true;
     //console.log(ownedRoles);
     const rolesJSON = window.AccessibilityUtils.roles;
@@ -86,7 +81,7 @@ class QW_ACT_R38 extends AtomicRule {
     return hasOneOwnedRole && onlyOwnedRoles;
   }
 
-  private isElementADescendantOfAriaBusy(element: typeof window.qwElement): boolean {
+  private isElementADescendantOfAriaBusy(element: QWElement): boolean {
     const parent = element.getElementParent();
     let result = false;
 
@@ -106,4 +101,4 @@ class QW_ACT_R38 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R38;
+export { QW_ACT_R38 };

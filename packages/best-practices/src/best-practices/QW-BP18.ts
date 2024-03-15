@@ -1,10 +1,8 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
-@BestPracticeClass
-class QW_BP18 extends BestPracticeObject {
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, Test } from '@qualweb/lib';
+import { BestPractice } from '../lib/BestPractice.object';
+
+class QW_BP18 extends BestPractice {
   private readonly containers = [
     'span',
     'article',
@@ -34,12 +32,8 @@ class QW_BP18 extends BestPracticeObject {
     'figcaption'
   ];
 
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (element.getElementTagName() === 'style') {
       const sheet = <any>element.getElementProperty('sheet');
 
@@ -83,7 +77,7 @@ class QW_BP18 extends BestPracticeObject {
     return affectsContainers;
   }
 
-  private checkCssProperty(style: string, element: typeof window.qwElement): void {
+  private checkCssProperty(style: string, element: QWElement): void {
     const test = new Test();
 
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
@@ -108,7 +102,7 @@ class QW_BP18 extends BestPracticeObject {
 
           test.attributes.push(property);
           test.addElement(element);
-          super.addTestResult(test);
+          this.addTestResult(test);
         }
       }
     }
@@ -129,4 +123,4 @@ class QW_BP18 extends BestPracticeObject {
   }
 }
 
-export = QW_BP18;
+export { QW_BP18 };

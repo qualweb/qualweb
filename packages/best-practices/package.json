@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.16",
+  "version": "0.7.0",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [
@@ -36,10 +36,8 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "compile:bps": "node compile-bps.js",
-    "prebuild": "rimraf prebuild && npm run compile:bps && rimraf dist",
-    "build": "tsc --build tsconfig.prod.json && webpack --mode production",
-    "postbuild": "rimraf prebuild",
+    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
+    "build": "rimraf dist && webpack && rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
