@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.34
+
+### Patch Changes
+
+- 6b247839: ShadowDom support in getElementParent
+
 ## 0.6.33
 
 ### Patch Changes
