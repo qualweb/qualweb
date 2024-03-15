@@ -379,8 +379,13 @@ class QWElement {
   }
 
   public getElementParent(): QWElement | null {
-    return this.convertElementToQWElement(this.element.parentElement);
+    if (this.element.assignedSlot) {
+      return this.convertElementToQWElement(this.element.assignedSlot.parentElement);
+    } else {
+      return this.convertElementToQWElement(this.element.parentElement);
+    }    
   }
+  
   public getParentAllContexts(): QWElement | null {
     let parent = this.element.parentElement;
     if (!parent) {

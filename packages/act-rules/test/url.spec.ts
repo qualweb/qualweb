@@ -15,7 +15,7 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://bth.se/';
+    const url = 'https://fredensborgmusikskole.fredensborg.dk';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -42,7 +42,7 @@ describe('URL evaluation', function () {
       (fiLocale, enLocale, sourceCode) => {
         // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        //window.act.configure({ rules: ['QW-ACT-R37'] });
+        window.act.configure({ rules: ['QW-ACT-R37'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
         const parser = new DOMParser();
