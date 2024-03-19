@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.15
+
+### Patch Changes
+
+- d87991a0: Fix shadow dom processing for getting text nodes
+
 ## 0.2.14
 
 ### Patch Changes

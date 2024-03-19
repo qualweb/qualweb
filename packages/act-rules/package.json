@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.6.34",
+  "version": "0.6.35",
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "main": "dist/act.bundle.js",
   "files": [
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@qualweb/dom": "0.2.10",
     "@qualweb/locale": "0.1.18",
-    "@qualweb/qw-page": "0.2.20",
+    "@qualweb/qw-page": "0.2.21",
     "@qualweb/types": "0.7.26",
     "@qualweb/util": "0.5.39",
     "@tsconfig/recommended": "^1.0.3",

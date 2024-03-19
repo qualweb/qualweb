@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/evaluation",
-  "version": "0.3.50",
+  "version": "0.3.51",
   "description": "Evaluates chosen modules",
   "main": "dist/index.js",
   "files": [
@@ -52,10 +52,10 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@qualweb/act-rules": "0.6.34",
+    "@qualweb/act-rules": "0.6.35",
     "@qualweb/best-practices": "0.6.16",
     "@qualweb/counter": "0.2.3",
-    "@qualweb/qw-page": "0.2.20",
+    "@qualweb/qw-page": "0.2.21",
     "@qualweb/util": "0.5.39",
     "@qualweb/wcag-techniques": "0.3.17"
   }
