@@ -473,33 +473,23 @@ class QWElement {
   }
 
   public getElementText(): string {
-    if (this.element.shadowRoot) {
-      return this.element.shadowRoot.textContent ?? '';
+    if (this.elementHasShadowDescendant() && !this.element.shadowRoot) {
+      let textContent: string = '';
+      this.element.childNodes.forEach((child: ChildNode) => {
+        if (child.nodeType === 1) {
+          textContent += this.convertElementToQWElement(<Element>child)!.getElementText();
+        } else {
+          textContent += child.textContent ?? '';
+        }
+      });
+      return textContent;
     } else {
-      return this.element.textContent ?? '';
+      if (this.element.shadowRoot) {
+        return this.element.shadowRoot.textContent ?? '';
+      } else {
+        return this.element.textContent ?? '';
+      }  
     }
-
-    /*let children;
-    if (this.element.shadowRoot) {
-      children = this.element.shadowRoot.childNodes;
-    } else {
-      children = this.element.childNodes;
-    }
-
-    let result = '';
-    let textContent: string | null;
-    children.forEach((child: ChildNode) => {
-      textContent = child.textContent;
-      if (child.nodeType === 3 && !!textContent && textContent?.trim() !== '') {
-        result = result + textContent.trim();
-      }
-    });
-
-    if (!result) {
-      result = '';
-    }
-
-    return result;*/
   }
 
   public getElementOwnText(): string {
@@ -713,6 +703,20 @@ class QWElement {
     if (this.element.shadowRoot)
       return true;
     return false;
+  }
+
+  public elementHasShadowDescendant(): boolean {
+    let hasShadowDescendant = false;
+    this.element.childNodes.forEach((child: ChildNode) => {
+      if (child.nodeType === 1) {
+        if ((<Element>child).shadowRoot) {
+          hasShadowDescendant = true;
+        } else {
+          hasShadowDescendant = this.convertElementToQWElement(<Element>child)!.elementHasShadowDescendant();
+        }
+      }
+    });
+    return hasShadowDescendant;
   }
 }
 

@@ -25,13 +25,12 @@ class QW_ACT_R30 extends AtomicRule {
 
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
     const elementText = window.DomUtils.getTrimmedText(element);
-    const hasTextNode = element.elementHasTextNode();
     const isIconValue = this.isIcon(elementText, accessibleName, element);
 
     if (accessibleName === undefined) {
       test.verdict = 'failed';
       test.resultCode = 'F1';
-    } else if (!hasTextNode || elementText === undefined || elementText === '') {
+    } else if (elementText === undefined || elementText === '') {
       test.verdict = 'inapplicable';
       test.resultCode = 'I1';
     } else if (!!elementText && (isIconValue || this.includesText(accessibleName, elementText))) {
