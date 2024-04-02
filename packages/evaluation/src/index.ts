@@ -33,23 +33,46 @@ class Evaluation {
 
     const locale = <Translate>options.translate;
 
-    if (this.execute.act) {
-      evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtml, locale, options['act-rules']));
+    try {
+      if (this.execute.act) {
+        evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtml, locale, options['act-rules']));
+      }
+    } catch (error) {
+      console.log('Error in ACT-Rules');
+      console.log(error);
     }
-    if (this.execute.wcag) {
-      evaluation.addModuleEvaluation(
-        'wcag-techniques',
-        await this.executeWCAG(locale, validation, options['wcag-techniques'])
-      );
+
+    try {
+      if (this.execute.wcag) {
+        evaluation.addModuleEvaluation(
+          'wcag-techniques',
+          await this.executeWCAG(locale, validation, options['wcag-techniques'])
+        );
+      }
+    } catch (error) {
+      console.log('Error in WCAG-Techniques');
+      console.log(error);
     }
-    if (this.execute.bp) {
-      evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
+
+    try {
+      if (this.execute.bp) {
+        evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
+      }
+    } catch (error) {
+      console.log('Error in Best Practices');
+      console.log(error);
     }
     /*  if (this.execute.wappalyzer) {
       evaluation.addModuleEvaluation('wappalyzer', await executeWappalyzer(this.url));
     }*/
-    if (this.execute.counter) {
-      evaluation.addModuleEvaluation('counter', await this.executeCounter());
+
+    try {
+      if (this.execute.counter) {
+        evaluation.addModuleEvaluation('counter', await this.executeCounter());
+      }
+    } catch (error) {
+      console.log('Error in Counter');
+      console.log(error);
     }
 
     return evaluation;
