@@ -114,7 +114,8 @@ const nameFromContentElements = [
   'time',
   'u',
   'var',
-  'wbr'
+  'wbr',
+  'label'
 ];
 const nameFromContentRoles = [
   'button',

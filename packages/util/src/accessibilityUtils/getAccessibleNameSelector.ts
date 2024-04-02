@@ -9,7 +9,8 @@ function getAccessibleNameRecursion(
   recursion: boolean,
   isWidget: boolean
 ): string[] | undefined {
-  let AName, ariaLabelBy;
+  let AName; 
+  let ariaLabelBy;
   const elementSelector = element.getElementSelector();
   const name = element.getElementTagName();
   const allowNameFromContent = window.AccessibilityUtils.allowsNameFromContent(element);
@@ -24,11 +25,10 @@ function getAccessibleNameRecursion(
   const alt = element.getElementAttribute('alt') ? [elementSelector] : null;
   const value = element.getElementAttribute('value') ? [elementSelector] : null;
   const placeholder = element.getElementAttribute('placeholder') ? [elementSelector] : null;
-  const role = window.AccessibilityUtils.getElementRoleAName(element, '');
   const id = element.getElementAttribute('id');
   const defaultName = window.AccessibilityUtils.getDefaultName(element) ? ['default'] : null;
-
   const referencedByAriaLabel = window.AccessibilityUtils.isElementReferencedByAriaLabel(element);
+
   if (ariaLabelBy && ariaLabelBy !== '' && !(referencedByAriaLabel && recursion)) {
     AName = getAccessibleNameFromAriaLabelledBy(element, ariaLabelBy);
   } else if (ariaLabel) {
@@ -68,9 +68,9 @@ function getAccessibleNameRecursion(
     AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'caption') || []), title);
   } else if (name === 'fieldset') {
     AName = getFirstNotUndefined(...(getValueFromSpecialLabel(element, 'legend') || []), title);
-  } else if (allowNameFromContent || (((role && allowNameFromContent) || !role) && recursion)) {
+  } else if (allowNameFromContent) {
     AName = getFirstNotUndefined(...getTextFromCss(element, isWidget), title);
-  } /*if (name && (sectionAndGrouping.indexOf(name) >= 0 || name === "iframe" || tabularElements.indexOf(name) >= 0)) and all other elements*/ else {
+  } else {
     AName = getFirstNotUndefined(title);
   }
 
@@ -120,7 +120,6 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
   if (parent && parent.getElementTagName() === 'label' && !isElementPresent(parent, referencedByLabelList)) {
     referencedByLabelList.push(parent);
   }
-
   const result = new Array<string>();
   for (const label of referencedByLabelList) {
     const accessNameFromLabel = getAccessibleNameRecursion(label, true, isWidget);
