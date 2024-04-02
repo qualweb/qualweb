@@ -15,7 +15,7 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://fagfolk.aalborg.dk/boern-og-unge';
+    const url = 'https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/afw4f7/328b967c5b544b48f7acd8e42f2f05d355501f2a.html';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -42,7 +42,7 @@ describe('URL evaluation', function () {
       (fiLocale, enLocale, sourceCode) => {
         // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        window.act.configure({ rules: ['QW-ACT-R30'] });
+        window.act.configure({ rules: ['QW-ACT-R37'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
         const parser = new DOMParser();
