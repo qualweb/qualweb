@@ -9,7 +9,7 @@ describe('General tests', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://www.ccb.pt/';
+    const url = 'https://maiambiente.pt';
 
     const page = proxy.page;
     const dom = new Dom(page);
@@ -29,7 +29,7 @@ describe('General tests', function () {
 
     const report = await page.evaluate((locale) => {
       // @ts-expect-error: BestPractices will be defined within the executing context (see above).
-      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP18'] });
+      const bp = new BestPractices({ translate: locale, fallback: locale }, { bestPractices: ['QW-BP17'] });
       return bp.execute();
     }, locales.en);
 

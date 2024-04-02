@@ -5,7 +5,7 @@ function getElementReferencedByHREF(element: typeof window.qwElement): typeof wi
   const lastSlash = url.lastIndexOf('/');
   const filename = url.substring(lastSlash + 1);
   let result: typeof window.qwElement | null = null;
-  if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) || href.startsWith(filename))) {
+  if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) || (filename && filename !== '' && href.startsWith(filename)))) {
     const idSymbol = href.indexOf('#');
     if (idSymbol > -1) {
       const idReferenced = href.substring(idSymbol + 1);
