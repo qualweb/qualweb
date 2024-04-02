@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.17
+
+### Patch Changes
+
+- eb596a97: Fix reference getter when javascript is used inside href
+
 ## 0.6.16
 
 ### Patch Changes
