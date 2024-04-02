@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.52
+
+### Patch Changes
+
+- 375f20c3: Catch evaluation atempts on urls that do not evaluate
+- Updated dependencies [636b402e]
+- Updated dependencies [eb596a97]
+  - @qualweb/act-rules@0.6.36
+  - @qualweb/util@0.5.40
+  - @qualweb/best-practices@0.6.17
+
 ## 0.3.51
 
 ### Patch Changes

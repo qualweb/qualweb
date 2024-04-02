@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.36
+
+### Patch Changes
+
+- 636b402e: Fix infinite loop in accessible name computation
+
 ## 0.6.35
 
 ### Patch Changes
