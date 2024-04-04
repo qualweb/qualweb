@@ -15,7 +15,7 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/afw4f7/328b967c5b544b48f7acd8e42f2f05d355501f2a.html';
+    const url = 'https://www.dgeec.medu.pt/pedidodados';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
