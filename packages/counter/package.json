@@ -38,7 +38,7 @@
     "@qualweb/dom": "0.2.10",
     "@qualweb/qw-page": "0.2.21",
     "@qualweb/types": "0.7.26",
-    "@qualweb/util": "0.5.40",
+    "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",

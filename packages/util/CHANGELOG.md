@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.41
+
+### Patch Changes
+
+- 18577530: Fix checking aria-disabled
+
 ## 0.5.40
 
 ### Patch Changes
