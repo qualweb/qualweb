@@ -2,6 +2,7 @@ import type { QWElement } from '@qualweb/qw-element';
 import { EvaluationModule, ModuleOptions, ModuleReport, TestingData } from '@qualweb/lib';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 import { Rule } from './lib/Rule.object';
+
 class ACTRules extends EvaluationModule<Rule> {
   private readonly moduleTranslator = new window.ModuleTranslator('act-rules', this.locale);
   protected readonly report = new ModuleReport<Rule>('act-rules');
@@ -24,9 +25,9 @@ class ACTRules extends EvaluationModule<Rule> {
     if (sourceHtml) {
       const parser = new DOMParser();
       const sourceDoc = parser.parseFromString('', 'text/html');
-  
+
       sourceDoc.documentElement.innerHTML = sourceHtml;
-  
+
       const elements = sourceDoc.querySelectorAll('meta');
       const metaElements = new Array<QWElement>();
       elements.forEach((element) => metaElements.push(window.qwPage.createQWElement(element)));

@@ -105,7 +105,8 @@ class QualWeb {
     errorManager.handle(this.cluster);
 
     await this.handlePageEvaluations(evaluations, options);
-    this.addPagesToEvaluate(urls, options.html);
+    this.addUrlsToEvaluate(urls);
+    this.addHtmlCodeToEvaluate(options.html);
 
     await this.cluster?.idle();
 
@@ -115,33 +116,31 @@ class QualWeb {
   }
 
   private async handlePageEvaluations(evaluations: Evaluations, options: QualwebOptions): Promise<void> {
-    const modulesToExecute = {
-      act: options.execute?.act ?? true,
-      wcag: options.execute?.wcag ?? true,
-      bp: options.execute?.bp ?? true,
-      counter: options.execute?.counter ?? false
-    };
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const qwPage = new QualwebPage(page, options.validator);
 
-      this.qualwebPlugins.executeBeforePageLoad(page, url);
+      await this.qualwebPlugins.executeBeforePageLoad(page, url);
 
-      const { sourceHtml, validation } = await qwPage.process(options, url ?? '', html ?? '');
-      const evaluation = new Evaluation(url, page, modulesToExecute);
+      const { sourceHtml, validation } = await qwPage.process(options, url, html);
+      const evaluation = new Evaluation(url, page, {
+        act: options.execute?.act ?? true,
+        wcag: options.execute?.wcag ?? true,
+        bp: options.execute?.bp ?? true,
+        counter: options.execute?.counter ?? false
+      });
 
-      this.qualwebPlugins.executeAfterPageLoad(page, url);
+      await this.qualwebPlugins.executeAfterPageLoad(page, url);
 
-      const evaluationReport = await evaluation.evaluatePage(sourceHtml, options, validation);
-      evaluations[url || 'customHtml'] = evaluationReport;
+      evaluations[url ?? 'customHtml'] = await evaluation.evaluatePage(sourceHtml, options, validation);
     });
   }
 
-  private addPagesToEvaluate(urls: string[], html?: string): void {
+  private addUrlsToEvaluate(urls: string[]): void {
     urls.forEach((url) => this.cluster?.queue({ url }));
+  }
 
-    if (html) {
-      this.cluster?.queue({ html });
-    }
+  private addHtmlCodeToEvaluate(html?: string): void {
+    this.cluster?.queue({ html });
   }
 
   /**

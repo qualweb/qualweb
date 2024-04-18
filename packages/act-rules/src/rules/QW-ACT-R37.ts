@@ -10,7 +10,6 @@ import {
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R37 extends AtomicRule {
-
   @ElementExists
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])

@@ -3,7 +3,6 @@ import { ElementExists, IsHTMLDocument, ElementIsInAccessibilityTree, Test } fro
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R6 extends AtomicRule {
-  
   @ElementExists
   @IsHTMLDocument
   @ElementIsInAccessibilityTree

@@ -20,6 +20,10 @@ export class QualwebPage {
   }
 
   public async process(options: QualwebOptions, url: string, html: string): Promise<PageData> {
+    if (!url && !html) {
+      throw new Error('Neither a url nor html content was provided.');
+    }
+
     url = this.removeUrlAnchor(url);
 
     await this.page.setBypassCSP(true);
@@ -65,8 +69,6 @@ export class QualwebPage {
       });
 
       sourceHtml = await this.page.content();
-    } else {
-      throw new Error('Neither a url nor html content was provided.');
     }
 
     return {
