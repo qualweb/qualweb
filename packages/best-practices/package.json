@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.7.0",
+  "version": "0.6.17",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [
@@ -38,6 +38,7 @@
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
     "build": "rimraf dist && webpack && rimraf prebuild",
+    "postbuild": "rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
@@ -60,9 +61,9 @@
   "devDependencies": {
     "@qualweb/dom": "0.2.10",
     "@qualweb/locale": "0.1.18",
-    "@qualweb/qw-page": "0.2.19",
+    "@qualweb/qw-page": "0.2.21",
     "@qualweb/types": "0.7.26",
-    "@qualweb/util": "0.5.39",
+    "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.11.12",
