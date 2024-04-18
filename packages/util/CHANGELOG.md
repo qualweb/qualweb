@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.41
+
+### Patch Changes
+
+- 18577530: Fix checking aria-disabled
+
+## 0.5.40
+
+### Patch Changes
+
+- 636b402e: Fix infinite loop in accessible name computation
+- eb596a97: Fix reference getter when javascript is used inside href
+
 ## 0.5.39
 
 ### Patch Changes

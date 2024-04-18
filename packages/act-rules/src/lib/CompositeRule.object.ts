@@ -1,4 +1,4 @@
-import type { Assertion } from '@qualweb/evaluation';
+import type { Assertion } from '@qualweb/lib';
 import type { QWElement } from '@qualweb/qw-element';
 import type { ElementResult, RuleResult } from '@qualweb/act-rules';
 import { Test } from '@qualweb/lib';

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { launchBrowser } from './util';
-import { Dom } from '@qualweb/dom';
 import { Browser } from 'puppeteer';
+import { QualWeb } from '@qualweb/core';
+import { launchBrowser } from './util';
 
 describe('URL evaluation', function () {
   let browser: Browser;
@@ -12,15 +12,15 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://bth.se/';
+    const url = 'https://www.dgeec.medu.pt/pedidodados';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
     const incognito = await browser.createIncognitoBrowserContext();
     const page = await incognito.newPage();
 
-    const dom = new Dom(page);
-    await dom.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
+    const qwPage = QualWeb.createPage(page);
+    await qwPage.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')

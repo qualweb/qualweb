@@ -1,5 +1,5 @@
 import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { Assertion, Level, Principle } from '@qualweb/evaluation';
+import type { Assertion, Level, Principle } from '@qualweb/lib';
 import type { TestResult, Test } from '@qualweb/lib';
 import rules from './rules.json';
 

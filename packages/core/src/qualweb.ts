@@ -1,4 +1,4 @@
-import type { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions, Viewport } from 'puppeteer';
+import type { Page, LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions, Viewport } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { Cluster } from 'puppeteer-cluster';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
@@ -221,6 +221,17 @@ class QualWeb {
     }
 
     return urls;
+  }
+
+  /**
+   * Converts a Puppeteer page to a QualwebPage
+   * (Only used for testing purposes)
+   *
+   * @param {Page} page - Puppeteer page to convert
+   * @returns Qualweb Page
+   */
+  public static createPage(page: Page): QualwebPage {
+    return new QualwebPage(page);
   }
 }
 

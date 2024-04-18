@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.7.69
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.53
+
+## 0.7.68
+
+### Patch Changes
+
+- 375f20c3: Catch evaluation atempts on urls that do not evaluate
+- 636b402e: Fix infinite loop in accessible name computation
+- eb596a97: Fix reference getter when javascript is used inside href
+- Updated dependencies [375f20c3]
+  - @qualweb/evaluation@0.3.52
+
+## 0.7.67
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.51
+
+## 0.7.66
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.50
+
 ## 0.7.65
 
 ### Patch Changes
