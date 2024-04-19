@@ -127,8 +127,6 @@ function ElementHasAccessibleName(_target: any, _propertyKey: string, descriptor
   };
 }
 
-
-
 export {
   WCAGTechniqueClass,
   ElementExists,

@@ -223,7 +223,6 @@ function isSubTagValid(subTag: string): boolean {
   return languages.hasOwnProperty(subTag.toLowerCase());
 }
 
-
 function isInMainContext(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
   const method = descriptor.value;
   descriptor.value = function () {
@@ -233,7 +232,6 @@ function isInMainContext(_target: any, _propertyKey: string, descriptor: Propert
     }
   };
 }
-
 
 export {
   ElementIsVisible,

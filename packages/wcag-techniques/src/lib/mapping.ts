@@ -11,7 +11,7 @@ export default {
   abbr: ['QW-WCAG-T7'],
   link: ['QW-WCAG-T15'],
   blink: ['QW-WCAG-T13'],
-  input: ['QW-WCAG-T17'],//Tirar button e submit
+  input: ['QW-WCAG-T17'], //Tirar button e submit
   'ol, ul, dl': ['QW-WCAG-T32'],
   form: ['QW-WCAG-T19'],
   'body, body *': ['QW-WCAG-T24', 'QW-WCAG-T30'],

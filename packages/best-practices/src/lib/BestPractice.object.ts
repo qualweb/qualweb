@@ -22,7 +22,6 @@ abstract class BestPractice {
     return this.bestPractice.metadata.warning;
   }
 
-
   protected addTestResult(test: Test): void {
     if (!test.description || (<string>test.description).trim() === '') {
       test.description = this.getTranslation(<string>test.resultCode);

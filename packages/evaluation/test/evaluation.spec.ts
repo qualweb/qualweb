@@ -19,6 +19,11 @@ describe('QualWeb evaluation', function () {
     });
     incognito = await browser.createIncognitoBrowserContext();
     page = await incognito.newPage();
+    const client = await page.target().createCDPSession();
+    await client.send('Network.enable', {
+      maxResourceBufferSize: 1024 * 1024 * 200,
+      maxTotalBufferSize: 1024 * 1024 * 200    
+    });
   });
 
   after(async () => {
@@ -30,7 +35,7 @@ describe('QualWeb evaluation', function () {
   it('Testing qualweb page evaluation', async function () {
     this.timeout(0);
 
-    const url = 'https://www.vg.no';
+    const url = 'https://valpacos.pt/';
 
     const dom = new Dom(page);
 
@@ -47,18 +52,18 @@ describe('QualWeb evaluation', function () {
     const evaluation = new Evaluation(url, page, {
       act: true,
       wcag: true,
-      bp: false,
+      bp: true,
       counter: false,
       wappalyzer: false
     });
     const report = (await evaluation.evaluatePage(sourceHtml, options, validation)).getFinalReport();
 
     expect(report.modules['act-rules']).to.not.be.undefined;
-    expect(report.modules['best-practices']).to.be.undefined;
+    expect(report.modules['best-practices']).to.not.be.undefined;
     expect(report.modules.counter).to.be.undefined;
     expect(report.modules.wappalyzer).to.be.undefined;
     expect(report.modules['wcag-techniques']).to.not.be.undefined;
 
-    // console.log(JSON.stringify(report.getFinalReport(), null, 2));
+    console.log(JSON.stringify(report, null, 2));
   });
 });
