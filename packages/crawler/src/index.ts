@@ -122,8 +122,18 @@ class Crawler {
           depthCompleted = true;
         }
 
+        let delay = 0; 
+        const delayIncrement = 1000;
+        // throttle requests
         for (const url of letsCrawl ?? []) {
-          promises.push(this.fetchPageLinks(url));
+          delay += delayIncrement;
+          promises.push(
+            new Promise((resolve) => {
+              setTimeout(async () => {
+                resolve(await this.fetchPageLinks(url));
+              }, delay);
+            })
+          );
         }
 
         const listUrls = await Promise.all(promises);
