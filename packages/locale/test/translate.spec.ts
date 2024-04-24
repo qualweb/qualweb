@@ -1,10 +1,10 @@
-import { LocaleFetcher, ReportTranslator } from '../src';
 import { expect } from 'chai';
+import type { QualwebReport } from '@qualweb/lib';
+import { LocaleFetcher, ReportTranslator } from '../src';
 
 import reportJson from './report.json';
-import type { EvaluationReport } from '@qualweb/core';
 
-const report = reportJson as unknown as EvaluationReport;
+const report = reportJson as unknown as QualwebReport;
 
 describe('Testing translation', function () {
   it('Should translate to fi: using locales.fi', function () {

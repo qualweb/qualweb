@@ -6,6 +6,7 @@
   "files": [
     "dist/*"
   ],
+  "types": "./src/lib/types.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --spec=test/**/*.spec.ts",

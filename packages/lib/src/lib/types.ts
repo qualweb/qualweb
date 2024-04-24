@@ -1,5 +1,4 @@
 import type { CounterReport } from '@qualweb/counter';
-import type { CrawlOptions } from '@qualweb/crawler';
 import type { TranslationOptions } from '@qualweb/locale';
 import { Page } from 'puppeteer';
 
@@ -262,4 +261,12 @@ export type Message = {
 
 export type HTMLValidationReport = {
   messages: Message[];
+};
+
+export type CrawlOptions = {
+  maxDepth?: number;
+  maxUrls?: number;
+  timeout?: number;
+  maxParallelCrawls?: number;
+  logging?: boolean;
 };

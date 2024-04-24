@@ -1,7 +1,6 @@
 import logUpdate from 'log-update';
 import { Browser, BrowserContext, Viewport } from 'puppeteer';
-import { LoadEvent } from '@qualweb/lib';
-import { CrawlOptions } from '.';
+import type { LoadEvent, CrawlOptions } from '@qualweb/lib';
 
 class Crawler {
   private readonly browser: Browser | BrowserContext;
