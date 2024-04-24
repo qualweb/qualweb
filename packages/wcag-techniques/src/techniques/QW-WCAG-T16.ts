@@ -1,6 +1,5 @@
-import { Test } from '@qualweb/lib';
+import { Test, type HTMLValidationReport } from '@qualweb/lib';
 import { Technique } from '../lib/Technique.object';
-import { HTMLValidationReport } from '@qualweb/html-validator';
 
 class QW_WCAG_T16 extends Technique {
   execute(): void {

@@ -1,4 +1,4 @@
-import type { Assertion, Level, Principle } from '@qualweb/evaluation';
+import type { Assertion, Level, Principle } from '@qualweb/lib';
 import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
 import type { Test, TestResult } from '@qualweb/lib';
 import type { QWElement } from '@qualweb/qw-element';

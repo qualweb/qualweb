@@ -6,7 +6,7 @@ import parseWCAG from './wcagParser';
 import parseBP from './bpParser';
 
 import commandLineArgs, { CommandLineOptions } from 'command-line-args';
-import { QualwebOptions } from '@qualweb/core';
+import type { QualwebOptions } from '@qualweb/lib';
 import setValue from 'set-value';
 
 function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOptions): void {
@@ -42,9 +42,6 @@ function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions):
             break;
           case 'bp':
             options.execute.bp = true;
-            break;
- //         case 'wappalyzer':
- //           options.execute.wappalyzer = true;
             break;
           case 'counter':
             options.execute.counter = true;

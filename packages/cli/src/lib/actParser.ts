@@ -1,7 +1,7 @@
 import { validateACT, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { ACTRJsonFile, readJsonFile, fileExists } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import { QualwebOptions } from '@qualweb/core';
+import type { QualwebOptions } from '@qualweb/lib';
 import setValue from 'set-value';
 
 async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
@@ -33,15 +33,15 @@ async function validateACTRules(mainOptions: CommandLineOptions, options: Qualwe
     if (mainOptions['act-rules'].length === 1) {
       if (await fileExists(mainOptions['act-rules'][0])) {
         const rules = <ACTRJsonFile>await readJsonFile(mainOptions['act-rules'][0]);
-        options['act-rules'].rules = [...(rules['act-rules'].rules ?? [])];
+        options['act-rules'].include = [...(rules['act-rules'].include ?? [])];
       } else {
-        options['act-rules'].rules = [...mainOptions['act-rules']];
+        options['act-rules'].include = [...mainOptions['act-rules']];
       }
     } else {
-      options['act-rules'].rules = [...mainOptions['act-rules']];
+      options['act-rules'].include = [...mainOptions['act-rules']];
     }
 
-    validateACT(options['act-rules'].rules);
+    validateACT(options['act-rules'].include);
   }
 }
 

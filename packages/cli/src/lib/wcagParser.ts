@@ -1,7 +1,7 @@
 import { validateWCAG, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { readJsonFile, fileExists, WCAGTJsonFile } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import { QualwebOptions } from '@qualweb/core';
+import type { QualwebOptions } from '@qualweb/lib';
 import setValue from 'set-value';
 
 async function parseWCAG(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
@@ -33,15 +33,15 @@ async function validateWCAGTechniques(mainOptions: CommandLineOptions, options: 
     if (mainOptions['wcag-techniques'].length === 1) {
       if (await fileExists(mainOptions['wcag-techniques'][0])) {
         const techniques = <WCAGTJsonFile>await readJsonFile(mainOptions['wcag-techniques'][0]);
-        options['wcag-techniques'].techniques = [...(techniques['wcag-techniques'].techniques ?? [])];
+        options['wcag-techniques'].include = [...(techniques['wcag-techniques'].include ?? [])];
       } else {
-        options['wcag-techniques'].techniques = [...mainOptions['wcag-techniques']];
+        options['wcag-techniques'].include = [...mainOptions['wcag-techniques']];
       }
     } else {
-      options['wcag-techniques'].techniques = [...mainOptions['wcag-techniques']];
+      options['wcag-techniques'].include = [...mainOptions['wcag-techniques']];
     }
 
-    validateWCAG(options['wcag-techniques'].techniques);
+    validateWCAG(options['wcag-techniques'].include);
   }
 }
 

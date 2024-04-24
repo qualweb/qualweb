@@ -1,23 +1,28 @@
 import fs from 'node:fs';
-import path from 'path';import { expect } from 'chai';
-import { Dom } from '@qualweb/dom';import locales from '@qualweb/locale';
+import path from 'path';
+import { expect } from 'chai';
+import { Dom } from '@qualweb/dom';
+import locales from '@qualweb/locale';
 import { usePuppeteer } from '../util';
-import { BestPracticesReport } from '@qualweb/best-practices';/**
+import { ModuleReport } from '@qualweb/lib';
+import { BestPractice } from '@qualweb/best-practices';
+
+/**
  * Builds a simple test suite for a BP rule. Use this for the general case where
  * a test case just needs to load up puppeteer, inject BP files, run a test,
  * and expect a specific outcome.
- * @param {string} bestpracticeName Name of the best practice, like "QW-BP2".
- * @param {string} testcasesPath Path to the testcases.json file that contains
+ * @param {string} bestPracticeName Name of the best practice, like "QW-BP2".
+ * @param {string} testCasesPath Path to the testcases.json file that contains
  * all the test cases. It will be treated as the base path for any file paths
  * within the file.
  */
-export function buildTest(bestpracticeName: string, testcasesPath: string): void {
+export function buildTest(bestPracticeName: string, testCasesPath: string): void {
   // Uppercase the rule name, just in case.
-  bestpracticeName = bestpracticeName.toUpperCase();  const testcases = JSON.parse(fs.readFileSync(testcasesPath, 'utf-8'));  const proxy = usePuppeteer();  describe(bestpracticeName, () => {
+  bestPracticeName = bestPracticeName.toUpperCase();  const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf-8'));  const proxy = usePuppeteer();  describe(bestPracticeName, () => {
     // Simple map to help count the occurrences of outcomes. It is used to
     // ensure unique test case names (so two "inapplicable" tests can exist,
     // with their own number).
-    const outcomeCounters: Record<string, number> = {};    for (const test of testcases) {
+    const outcomeCounters: Record<string, number> = {};    for (const test of testCases) {
       if (outcomeCounters[test.outcome]) {
         outcomeCounters[test.outcome] += 1;
       } else {
@@ -25,7 +30,7 @@ export function buildTest(bestpracticeName: string, testcasesPath: string): void
       }      // it(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, async function () {
       it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
         this.timeout(0);        const dom = new Dom(proxy.page);        if (test.path) {
-          const testfilePath = path.resolve(path.dirname(testcasesPath), test.path);          await dom.process({ execute: { bp: true } }, '', fs.readFileSync(testfilePath, 'utf-8'));
+          const testFilePath = path.resolve(path.dirname(testCasesPath), test.path);          await dom.process({ execute: { bp: true } }, '', fs.readFileSync(testFilePath, 'utf-8'));
         } else if (test.url) {
           await dom.process({ execute: { bp: true } }, test.url, '');
         }        await proxy.page.addScriptTag({
@@ -36,15 +41,15 @@ export function buildTest(bestpracticeName: string, testcasesPath: string): void
         });
         await proxy.page.addScriptTag({
           path: require.resolve('../../dist/bp.bundle.js')
-        });        const report: BestPracticesReport = await proxy.page.evaluate(
+        });        const report: ModuleReport<BestPractice> = await proxy.page.evaluate(
           (rules, locales) => {
             // @ts-expect-error: BestPractices will be defined within the executing context (see above).
             const bp = new BestPractices({ translate: locales.en, fallback: locales.en }, rules);
             return bp.execute();
           },
-          { bestPractices: [bestpracticeName] },
+          { bestPractices: [bestPracticeName] },
           locales,
-        );        expect(report['assertions'][bestpracticeName].metadata.outcome).to.be.equal(test.outcome);
+        );        expect(report['assertions'][bestPracticeName].metadata.outcome).to.be.equal(test.outcome);
       });
     }
   });

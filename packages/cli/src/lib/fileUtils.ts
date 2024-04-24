@@ -1,20 +1,17 @@
-import { ACTROptions } from '@qualweb/act-rules';
-import { BPOptions } from '@qualweb/best-practices';
-import { EvaluationReport } from '@qualweb/core';
 import { EarlReport } from '@qualweb/earl-reporter';
-import { WCAGOptions } from '@qualweb/wcag-techniques';
+import type { ModuleOptions, QualwebReport } from '@qualweb/lib';
 import fs from 'fs';
 
 interface ACTRJsonFile {
-  'act-rules': ACTROptions;
+  'act-rules': ModuleOptions;
 }
 
 interface WCAGTJsonFile {
-  'wcag-techniques': WCAGOptions;
+  'wcag-techniques': ModuleOptions;
 }
 
 interface BPJsonFile {
-  'best-practices': BPOptions;
+  'best-practices': ModuleOptions;
 }
 
 function writeFile(file: string, data: string): Promise<void> {
@@ -26,7 +23,7 @@ function writeFile(file: string, data: string): Promise<void> {
   });
 }
 
-async function saveReport(name: string, report: EvaluationReport | EarlReport, overrideName = false): Promise<void> {
+async function saveReport(name: string, report: QualwebReport | EarlReport, overrideName = false): Promise<void> {
   const path = process.cwd();
   const filename = overrideName ? name : `${encodeURIComponent(name)}_${new Date().getTime()}.json`;
 

@@ -1,4 +1,5 @@
-import { QualWeb, generateEARLReport, EvaluationReport, QualwebOptions } from '@qualweb/core';
+import { QualWeb, generateEARLReport } from '@qualweb/core';
+import type { Evaluations, QualwebOptions, QualwebReport } from '@qualweb/lib';
 import { EarlOptions } from '@qualweb/earl-reporter';
 import parse from './lib/parser';
 import { saveReport } from './lib/fileUtils';
@@ -26,7 +27,6 @@ async function cli(): Promise<void> {
 
     await handleReporting(reports, options);
   } catch (err) {
-    
     if (err?.message === 'Invalid input method') {
       printHelp();
     } else {
@@ -37,7 +37,7 @@ async function cli(): Promise<void> {
   process.exit(0);
 }
 
-async function handleReporting(reports: { [url: string]: EvaluationReport }, options: QualwebOptions): Promise<void> {
+async function handleReporting(reports: Evaluations, options: QualwebOptions): Promise<void> {
   const reportType = options.report;
   const saveName = options['save-name'];
   delete options.report;
@@ -59,7 +59,7 @@ async function handleReporting(reports: { [url: string]: EvaluationReport }, opt
     }
   } else {
     for (const url in reports ?? {}) {
-      const report = <EvaluationReport>reports[url];
+      const report = <QualwebReport>reports[url];
       await saveReport(url, report);
     }
   }

@@ -1,7 +1,7 @@
 import { validateBP, printError } from './parserUtils';
 import { BPJsonFile, readJsonFile, fileExists } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import { QualwebOptions } from '@qualweb/core';
+import type { QualwebOptions } from '@qualweb/lib';
 import setValue from 'set-value';
 
 async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
@@ -31,15 +31,15 @@ async function validateBestPractices(mainOptions: CommandLineOptions, options: Q
     if (mainOptions['best-practices'].length === 1) {
       if (await fileExists(mainOptions['best-practices'][0])) {
         const bps = <BPJsonFile>await readJsonFile(mainOptions['best-practices'][0]);
-        options['best-practices'].bestPractices = [...(bps['best-practices'].bestPractices ?? [])];
+        options['best-practices'].include = [...(bps['best-practices'].include ?? [])];
       } else {
-        options['best-practices'].bestPractices = [...mainOptions['best-practices']];
+        options['best-practices'].include = [...mainOptions['best-practices']];
       }
     } else {
-      options['best-practices'].bestPractices = [...mainOptions['best-practices']];
+      options['best-practices'].include = [...mainOptions['best-practices']];
     }
 
-    validateBP(options['best-practices'].bestPractices);
+    validateBP(options['best-practices'].include);
   }
 }
 
