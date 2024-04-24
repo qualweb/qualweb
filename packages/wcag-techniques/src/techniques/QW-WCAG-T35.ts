@@ -24,7 +24,6 @@ class QW_WCAG_T35 extends Technique {
         }
 
         test.addElements(elementsWithSameId);
-        //console.log('test ', test);
         this.addTestResult(test);
       } finally {
         this.idMap.set(id, true);

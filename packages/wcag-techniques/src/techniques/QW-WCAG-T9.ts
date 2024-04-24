@@ -23,7 +23,7 @@ class QW_WCAG_T9 extends Technique {
       headingObjectList.push({ level, selector, heading });
     }
 
-    const orderErrors = [];
+    const orderErrors: QWElement[] = [];
     for (const [i, element] of headingObjectList.entries()) {
       const nextIndex = i + 1;
       if (nextIndex < headingObjectList.length) {
@@ -31,7 +31,9 @@ class QW_WCAG_T9 extends Technique {
         const nextElement = headingObjectList[nextIndex];
         const nextLevel = nextElement.level;
         const levelDif = Math.abs(level - nextLevel);
-        if (levelDif > 1) orderErrors.push(element.heading);
+        if (levelDif > 1 && !orderErrors.includes(element.heading)) {
+          orderErrors.push(element.heading);
+        }
       }
     }
     let test = new Test();
@@ -52,7 +54,6 @@ class QW_WCAG_T9 extends Technique {
       }
     }
   }
-
 }
 
 export { QW_WCAG_T9 };

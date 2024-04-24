@@ -33,4 +33,3 @@ export * from '../techniques/QW-WCAG-T6';
 export * from '../techniques/QW-WCAG-T7';
 export * from '../techniques/QW-WCAG-T8';
 export * from '../techniques/QW-WCAG-T9';
-export * from '../techniques/index';
