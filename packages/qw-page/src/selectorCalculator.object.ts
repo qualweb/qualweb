@@ -2,7 +2,7 @@ export class SelectorCalculator {
   public static processElementSelector(document: Document | ShadowRoot): void {
     const html = document.querySelector('html');
     if (html) {
-      html.setAttribute('@qw-selector', 'html');
+      html.setAttribute('qw-selector', 'html');
       const children = html.children;
       if (children) {
         this.processElementSelectorAux([...children]);
@@ -13,7 +13,7 @@ export class SelectorCalculator {
   private static processElementSelectorAux(elements: Array<Element>): void {
     const parent = elements[0].parentElement;
     if (parent) {
-      const selector = parent.getAttribute('@qw-selector');
+      const selector = parent.getAttribute('qw-selector');
       if (selector) {
         this.addSelectorAttribute(elements, selector);
         for (const element of elements ?? []) {
@@ -30,7 +30,7 @@ export class SelectorCalculator {
     let index = 1;
     for (const element of elements) {
       const name = element.tagName.toLowerCase();
-      element.setAttribute('@qw-selector', selector + ' > ' + name + ':nth-child(' + index + ')');
+      element.setAttribute('qw-selector', selector + ' > ' + name + ':nth-child(' + index + ')');
       index++;
     }
   }

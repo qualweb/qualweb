@@ -75,17 +75,9 @@ jobs:
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/crawler')
         run: npm run -w @qualweb/crawler test
 
-      - name: "@qualweb/dom"
-        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/dom')
-        run: npm run -w @qualweb/dom test
-
       - name: "@qualweb/earl-reporter"
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/earl-reporter')
         run: npm run -w @qualweb/earl-reporter test
-
-      - name: "@qualweb/evaluation"
-        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/evaluation')
-        run: npm run -w @qualweb/evaluation test
 
       - name: "@qualweb/locale"
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')

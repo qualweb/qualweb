@@ -70,6 +70,7 @@
     "@qualweb/crawler": "0.3.18",
     "@qualweb/earl-reporter": "0.4.6",
     "@qualweb/locale": "0.1.18",
+    "axios": "^1.6.8",
     "colors": "1.4.0",
     "puppeteer": "^21.11.0",
     "puppeteer-cluster": "^0.23.0",

@@ -8,7 +8,7 @@ export class QWElement {
   constructor(element: Element, elementsCSSRules?: Map<Element, CSSProperties>) {
     this.element = element;
     this.elementsCSSRules = elementsCSSRules;
-    const selector = element.getAttribute('@qw-selector');
+    const selector = element.getAttribute('qw-selector');
     if (selector) {
       this.selector = selector;
     }
@@ -16,12 +16,12 @@ export class QWElement {
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules?.has(element)) {
-      element.setAttribute('@qw-css-rules', 'true');
+      element.setAttribute('qw-css-rules', 'true');
     }
   }
 
   public hasCSSRules(): boolean {
-    return this.element.getAttribute('@qw-css-rules') === 'true';
+    return this.element.getAttribute('qw-css-rules') === 'true';
   }
 
   public getCSSRules(): CSSProperties | undefined {
@@ -177,11 +177,11 @@ export class QWElement {
   }
 
   public getElementHtmlCode(withText: boolean, fullElement: boolean): string {
-    const cssRules = this.element.getAttribute('@qw-css-rules');
-    const selector = this.element.getAttribute('@qw-selector');
+    const cssRules = this.element.getAttribute('qw-css-rules');
+    const selector = this.element.getAttribute('qw-selector');
     const documentSelector = this.element.getAttribute('_documentSelector');
-    this.element.removeAttribute('@qw-css-rules');
-    this.element.removeAttribute('@qw-selector');
+    this.element.removeAttribute('qw-css-rules');
+    this.element.removeAttribute('qw-selector');
     this.element.removeAttribute('_documentSelector');
 
     let result;
@@ -191,8 +191,8 @@ export class QWElement {
       for (let i = 0; i < children.length; i++) {
         const child = children.item(i);
         if (child) {
-          const cssRulesValue = child.getAttribute('@qw-css-rules');
-          const selectorValue = child.getAttribute('@qw-selector');
+          const cssRulesValue = child.getAttribute('qw-css-rules');
+          const selectorValue = child.getAttribute('qw-selector');
           const documentSelectorValue = child.getAttribute('_documentSelector');
 
           attributeArray.push({
@@ -200,8 +200,8 @@ export class QWElement {
             selectorValue,
             documentSelectorValue
           });
-          child.removeAttribute('@qw-css-rules');
-          child.removeAttribute('@qw-selector');
+          child.removeAttribute('qw-css-rules');
+          child.removeAttribute('qw-selector');
           child.removeAttribute('_documentSelector');
         }
       }
@@ -213,10 +213,10 @@ export class QWElement {
         if (child) {
           const attributes = attributeArray[i];
           if (attributes.cssRulesValue) {
-            child.setAttribute('@qw-css-rules', attributes.cssRulesValue);
+            child.setAttribute('qw-css-rules', attributes.cssRulesValue);
           }
           if (attributes.selectorValue) {
-            child.setAttribute('@qw-selector', attributes.selectorValue);
+            child.setAttribute('qw-selector', attributes.selectorValue);
           }
           if (attributes.documentSelectorValue) {
             child.setAttribute('_documentSelector', attributes.documentSelectorValue);
@@ -234,10 +234,10 @@ export class QWElement {
       result = clonedElem.outerHTML;
     }
     if (cssRules) {
-      this.element.setAttribute('@qw-css-rules', cssRules);
+      this.element.setAttribute('qw-css-rules', cssRules);
     }
     if (selector) {
-      this.element.setAttribute('@qw-selector', selector);
+      this.element.setAttribute('qw-selector', selector);
     }
     if (documentSelector) {
       this.element.setAttribute('_documentSelector', documentSelector);

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 
 import puppeteer, { Browser, Page } from 'puppeteer';
 
-import { Dom } from '@qualweb/dom';
+import { QualWeb } from '@qualweb/core';
 
 describe('QualWeb counter', async () => {
   let browser: Browser;
@@ -28,8 +28,8 @@ describe('QualWeb counter', async () => {
 
     const html: string = readFileSync(resolve(__dirname, 'fixtures/loremipsum.html'), 'utf-8');
 
-    const dom = new Dom(page);
-    await dom.process({ execute: { counter: true } }, '', html);
+    const qwPage = QualWeb.createPage(page);
+    await qwPage.process({ execute: { counter: true } }, '', html);
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -38,7 +38,7 @@ describe('QualWeb counter', async () => {
     await page.addScriptTag({
       path: require.resolve('@qualweb/util')
     });
-    
+
     await page.addScriptTag({
       path: require.resolve('../dist/counter.bundle.js')
     });

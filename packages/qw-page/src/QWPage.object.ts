@@ -1,19 +1,17 @@
 import { CSSProperties, QWElement } from '@qualweb/qw-element';
-import { Cache } from './Cache.object';
+import { Cache } from './cache.object';
 import { CSSMapper } from './CssMapper.object';
-import { SelectorCalculator } from './SelectorCalculator.object';
+import { SelectorCalculator } from './selectorCalculator.object';
 
 export class QWPage {
-  private readonly cache: Cache;
+  private readonly cache = new Cache();
   private readonly document: Document | ShadowRoot;
   private readonly url: string;
-  private readonly extraDocuments: Map<string, QWPage>;
+  private readonly extraDocuments = new Map<string, QWPage>();
   private readonly elementsCSSRules?: Map<Element, CSSProperties>;
 
   constructor(document: Document | ShadowRoot, addCSSRulesToElements?: boolean) {
     this.document = document;
-    this.cache = new Cache();
-    this.extraDocuments = new Map<string, QWPage>();
 
     SelectorCalculator.processElementSelector(this.document);
 
@@ -63,7 +61,7 @@ export class QWPage {
 
   private addCSSRulesPropertyToElement(element: Element | null): void {
     if (element && this.elementsCSSRules?.has(element)) {
-      element.setAttribute('@qw-css-rules', 'true');
+      element.setAttribute('qw-css-rules', 'true');
     }
   }
 
@@ -232,7 +230,7 @@ export class QWPage {
     return activeElement ? new QWElement(activeElement, this.elementsCSSRules) : null;
   }
 
-  public pageHasOpenDialog() : boolean {
+  public pageHasOpenDialog(): boolean {
     const dialogList = this.getElements('dialog');
     let hasOpenDialog = false;
     dialogList.forEach((dialog) => {
@@ -246,8 +244,8 @@ export class QWPage {
   public cleanAllElements(): void {
     const html = this.document.querySelector('html');
     if (html) {
-      html.removeAttribute('@qw-selector');
-      html.removeAttribute('@qw-css-rules');
+      html.removeAttribute('qw-selector');
+      html.removeAttribute('qw-css-rules');
       html.removeAttribute('_documentSelector');
       const children = html.children;
       if (children) this.cleanAllElementsAux([...children]);
@@ -256,8 +254,8 @@ export class QWPage {
 
   private cleanAllElementsAux(elements: Array<Element>): void {
     for (const element of elements ?? []) {
-      element.removeAttribute('@qw-selector');
-      element.removeAttribute('@qw-css-rules');
+      element.removeAttribute('qw-selector');
+      element.removeAttribute('qw-css-rules');
       element.removeAttribute('_documentSelector');
       const children = element.children;
       if (children && children.length > 0) {

@@ -1,7 +1,16 @@
 declare module '@qualweb/best-practices' {
-  import type { EvaluationModule, ModuleOptions, ModuleReport, Tester, TestingData } from '@qualweb/lib';
+  import type {
+    EvaluationModule,
+    ModuleOptions,
+    ModuleReport,
+    Tester,
+    TestingData,
+    Assertion,
+    EvaluationReport,
+    Level,
+    Principle
+  } from '@qualweb/lib';
   import type { ModuleTranslator, TranslationOptions } from '@qualweb/locale';
-  import type { Assertion, EvaluationReport, Level, Principle } from '@qualweb/evaluation';
   import type { QWElement } from '@qualweb/qw-element';
 
   export abstract class BestPractice {

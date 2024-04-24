@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 import { expect } from 'chai';
 
-import { Dom } from '@qualweb/dom';
+import { QualWeb } from '@qualweb/core';
 import { usePuppeteer } from './util';
 
 describe('ANameSVGTest', function () {
@@ -16,8 +16,8 @@ describe('ANameSVGTest', function () {
 
     const { page } = proxy;
 
-    const dom = new Dom(page);
-    await dom.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://www.ipleiria.pt/', '');
+    const qwPage = QualWeb.createPage(page);
+    await qwPage.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://www.ipleiria.pt/', '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')

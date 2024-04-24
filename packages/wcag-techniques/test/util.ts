@@ -1,35 +1,12 @@
 import puppeteer from 'puppeteer';
-import type { Browser, BrowserContext, Page } from 'puppeteer';
 
-type PuppeteerProxy = {
-  browser: Browser;
-  incognito: BrowserContext,
-  page: Page,
-}
+export async function launchBrowser() {
+  const args = [];
 
-export function usePuppeteer(): PuppeteerProxy {
-  const proxy: Partial<PuppeteerProxy> = {
-    browser: undefined,
-    incognito: undefined,
-    page: undefined,
-  };
+  if (process.env.CI) args.push('--no-sandbox');
 
-  before(async () => {
-    proxy.browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--ignore-certificate-errors']
-    });
-
-    proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
-
-    proxy.page = await proxy.incognito.newPage();
-  })
-
-  after(async () => {
-    await proxy.page?.close();
-    await proxy.incognito?.close();
-    await proxy.browser?.close();
+  return await puppeteer.launch({
+    headless: process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || 'new',
+    args
   });
-
-  return proxy as PuppeteerProxy;
 }

@@ -12,7 +12,6 @@
     "types": [
       "@qualweb/types",
       "node",
-      "string-pixel-width",
     ] /* Type declaration files to be included in compilation. */,
   },
   "include": [

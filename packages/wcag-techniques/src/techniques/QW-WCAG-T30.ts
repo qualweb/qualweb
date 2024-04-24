@@ -7,7 +7,7 @@ class QW_WCAG_T30 extends Technique {
   execute(element: QWElement): void {
     const test = new Test();
 
-    if (element.elementHasAttribute('@qw-css-rules')) {
+    if (element.elementHasAttribute('qw-css-rules')) {
       const cssRules = element.getCSSRules();
 
       const property = this.findTextDecorationWithBlink(cssRules);
