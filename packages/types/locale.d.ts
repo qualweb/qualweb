@@ -1,6 +1,6 @@
 declare module '@qualweb/locale' {
   import type { QualwebReport, Module } from '@qualweb/core';
-  import type { Assertion } from '@qualweb/lib';
+  import type { Assertion } from '@shared/types';
 
   export type TranslationValues = {
     [key: string]: string | number | boolean;

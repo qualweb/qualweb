@@ -35,9 +35,6 @@
   },
   "author": "João Vicente",
   "license": "ISC",
-  "dependencies": {
-    "@qualweb/lib": "^0.1.0"
-  },
   "devDependencies": {
     "@qualweb/core": "0.7.69",
     "@qualweb/locale": "0.1.18",

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import type { QualwebReport } from '@qualweb/lib';
+import type { QualwebReport } from '@shared/types';
 import { LocaleFetcher, ReportTranslator } from '../src';
 
 import reportJson from './report.json';

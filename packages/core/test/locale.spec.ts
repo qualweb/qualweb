@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import { QualWeb } from '../src';
 
 describe('Core locale', function () {

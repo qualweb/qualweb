@@ -9,7 +9,7 @@ declare module '@qualweb/wcag-techniques' {
     EvaluationReport,
     Level,
     Principle
-  } from '@qualweb/lib';
+  } from '@shared/types';
   import type { ModuleTranslator, TranslationOptions } from '@qualweb/locale';
   import type { QWElement } from '@qualweb/qw-element';
 
