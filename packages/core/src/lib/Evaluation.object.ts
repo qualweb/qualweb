@@ -11,7 +11,7 @@ import type {
   EvaluationReport,
   HTMLValidationReport,
   QualwebReport
-} from '@qualweb/lib';
+} from '@shared/types';
 import { ACTRules } from '@qualweb/act-rules';
 import { WCAGTechniques } from '@qualweb/wcag-techniques';
 import { BestPractices } from '@qualweb/best-practices';

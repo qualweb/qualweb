@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasOneOfTheFollowingRoles, Test } from '@qualweb/lib';
+import { ElementExists, ElementHasOneOfTheFollowingRoles } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R41 extends AtomicRule {
-
   @ElementExists
   @ElementHasOneOfTheFollowingRoles([
     'checkbox',

@@ -3,11 +3,10 @@ import {
   ElementExists,
   ElementHasOneOfTheFollowingRoles,
   ElementIsInAccessibilityTree,
-  ElementIsVisible,
-  Test
-} from '@qualweb/lib';
+  ElementIsVisible
+} from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
-
 
 class QW_ACT_R39 extends AtomicRule {
   private readonly cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader'];

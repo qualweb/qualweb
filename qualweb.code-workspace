@@ -29,10 +29,6 @@
       "path": "packages/earl-reporter",
     },
     {
-      "name": "@qualweb/lib",
-      "path": "packages/lib",
-    },
-    {
       "name": "@qualweb/locale",
       "path": "packages/locale",
     },

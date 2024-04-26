@@ -1,5 +1,5 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { Test } from '@qualweb/lib';
+import { Test } from '@shared/classes';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP17 extends BestPractice {

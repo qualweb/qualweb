@@ -1,5 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasAttributes, ElementIsVisible, Test, ElementIsNotWidget } from '@qualweb/lib';
+import { ElementExists, ElementHasAttributes, ElementIsVisible, ElementIsNotWidget } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T6 extends Technique {

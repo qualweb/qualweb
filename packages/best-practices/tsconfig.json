@@ -4,7 +4,7 @@
     /* Basic Options */
     "resolveJsonModule": true,
     "outDir": "./prebuild" /* Redirect output structure to the directory. */,
-    "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    // "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "removeComments": true /* Do not emit comments to output. */,
 
     /* Strict Type-Checking Options */
@@ -24,6 +24,11 @@
       "node",
       "mocha",
     ] /* Type declaration files to be included in compilation. */,
+
+    "paths": {
+      "@shared": ["../shared"],
+      "@shared/*": ["../shared/*"],
+    },
 
     /* Experimental Options */
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,

@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, IsHTMLDocument, IsInMainContext, Test } from '@qualweb/lib';
+import { ElementExists, IsHTMLDocument, IsInMainContext } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R74 extends AtomicRule {
-
   @ElementExists
   @IsHTMLDocument
   @IsInMainContext

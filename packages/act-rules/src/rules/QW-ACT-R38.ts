@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementIsInAccessibilityTree, Test } from '@qualweb/lib';
+import { ElementExists, ElementIsInAccessibilityTree } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R38 extends AtomicRule {
-
   /**
    * 
    *mudar requiredOwnedElements para ser so um array

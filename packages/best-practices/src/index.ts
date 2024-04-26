@@ -1,5 +1,5 @@
 import type { BestPractice } from '@qualweb/best-practices';
-import { EvaluationModule, ModuleReport } from '@qualweb/lib';
+import { EvaluationModule, ModuleReport } from '@shared/classes';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
 
 class BestPractices extends EvaluationModule<BestPractice> {

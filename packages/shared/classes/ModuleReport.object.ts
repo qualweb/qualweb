@@ -1,6 +1,6 @@
 import type { Rule } from '@qualweb/act-rules';
 import type { Technique } from '@qualweb/wcag-techniques';
-import type { Module, Assertion, EvaluationReport } from '.';
+import type { Module, Assertion, EvaluationReport } from '../types';
 
 export class ModuleReport<T extends Rule | Technique> {
   private readonly report: EvaluationReport;

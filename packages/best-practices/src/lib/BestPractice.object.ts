@@ -1,6 +1,6 @@
 import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { Assertion } from '@qualweb/lib';
-import type { Level, Principle, Test, TestResult } from '@qualweb/lib';
+import type { Level, Principle, TestResult, Assertion } from '@shared/types';
+import type { Test } from '@shared/classes';
 import type { QWElement } from '@qualweb/qw-element';
 import bestPractices from './bestPractices.json';
 

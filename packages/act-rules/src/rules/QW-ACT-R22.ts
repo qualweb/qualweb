@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasAttribute, Test } from '@qualweb/lib';
+import { ElementExists, ElementHasAttribute } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R22 extends AtomicRule {
-
   @ElementExists
   @ElementHasAttribute('lang')
   execute(element: QWElement): void {

@@ -2,7 +2,7 @@
   "name": "@qualweb/core",
   "version": "0.7.69",
   "description": "QualWeb evaluator core engine",
-  "main": "dist/index.js",
+  "main": "dist/core/src/index.js",
   "files": [
     "dist/*"
   ],

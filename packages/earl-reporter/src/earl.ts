@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
-import type { Assertion as EvaluationAssertion, EvaluationReport, Evaluations, QualwebReport } from '@qualweb/lib';
+import type { Assertion as EvaluationAssertion, EvaluationReport, Evaluations, QualwebReport } from '@shared/types';
 import type {
   EarlEvaluations,
   EarlReport,

@@ -1,5 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, IsHTMLDocument, ElementIsInAccessibilityTree, Test } from '@qualweb/lib';
+import { ElementExists, IsHTMLDocument, ElementIsInAccessibilityTree } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R6 extends AtomicRule {

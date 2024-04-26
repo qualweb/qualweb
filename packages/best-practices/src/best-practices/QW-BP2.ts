@@ -1,5 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute, Test } from '@qualweb/lib';
+import { ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP2 extends BestPractice {

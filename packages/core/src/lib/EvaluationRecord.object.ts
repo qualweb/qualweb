@@ -1,4 +1,4 @@
-import type { Module, EvaluationReport, Evaluator, Modules, QualwebReport } from '@qualweb/lib';
+import type { Module, EvaluationReport, Evaluator, Modules, QualwebReport } from '@shared/types';
 import type { CounterReport } from '@qualweb/counter';
 import { Metadata } from './Metadata.object';
 

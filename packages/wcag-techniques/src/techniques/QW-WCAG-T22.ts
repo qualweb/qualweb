@@ -1,4 +1,4 @@
-import { Test } from '@qualweb/lib';
+import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T22 extends Technique {

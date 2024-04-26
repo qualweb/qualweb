@@ -1,6 +1,6 @@
 import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { Assertion, Level, Principle } from '@qualweb/lib';
-import type { TestResult, Test } from '@qualweb/lib';
+import type { TestResult, Assertion, Level, Principle } from '@shared/types';
+import type { Test } from '@shared/classes';
 import rules from './rules.json';
 
 abstract class Rule {

@@ -1,5 +1,5 @@
 import type { Technique } from '@qualweb/wcag-techniques';
-import { EvaluationModule, ModuleReport } from '@qualweb/lib';
+import { EvaluationModule, ModuleReport } from '@shared/classes';
 import { WCAGTechniquesTester } from './lib/WCAGTechniquesTester.object';
 
 class WCAGTechniques extends EvaluationModule<Technique> {

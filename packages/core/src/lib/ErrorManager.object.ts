@@ -1,4 +1,4 @@
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import type { Cluster } from 'puppeteer-cluster';
 import { writeFile, unlink } from 'fs';
 import path from 'path';

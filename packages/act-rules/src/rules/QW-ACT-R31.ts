@@ -1,8 +1,7 @@
-import { ElementExists } from '@qualweb/lib';
+import { ElementExists } from '@shared/applicability';
 import { CompositeRule } from '../lib/CompositeRule.object';
 
 class QW_ACT_R31 extends CompositeRule {
-
   @ElementExists
   execute(): void {
     throw new Error('Method not implemented.');

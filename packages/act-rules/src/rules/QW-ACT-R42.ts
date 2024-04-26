@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementIsInAccessibilityTree, ElementIsNonText, Test } from '@qualweb/lib';
+import { ElementExists, ElementIsInAccessibilityTree, ElementIsNonText } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R42 extends AtomicRule {
-
   @ElementExists
   @ElementIsInAccessibilityTree
   @ElementIsNonText

@@ -1,4 +1,4 @@
-import type { Module } from '@qualweb/lib';
+import type { Module } from '@shared/types';
 import type { Translate, TranslationValues } from '@qualweb/locale';
 import { Translator } from './translator';
 

@@ -1,4 +1,4 @@
-import type { Module, QualwebReport } from '@qualweb/lib';
+import type { Module, QualwebReport } from '@shared/types';
 import type { Translate, TranslationOptions } from '@qualweb/locale';
 import clone from 'lodash.clonedeep';
 import { ModuleTranslator } from './module-translator';

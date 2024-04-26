@@ -1,5 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { EvaluationModule, ModuleOptions, ModuleReport, TestingData } from '@qualweb/lib';
+import type { ModuleOptions, TestingData } from '@shared/types';
+import { EvaluationModule, ModuleReport } from '@shared/classes';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 import { Rule } from './lib/Rule.object';
 

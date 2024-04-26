@@ -4,9 +4,9 @@ import {
   ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
-  ElementIsVisible,
-  Test
-} from '@qualweb/lib';
+  ElementIsVisible
+} from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R37 extends AtomicRule {

@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, Test } from '@qualweb/lib';
+import { ElementExists } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R33 extends AtomicRule {
-
   @ElementExists
   execute(element: QWElement): void {
     const roles = window.AccessibilityUtils.roles;

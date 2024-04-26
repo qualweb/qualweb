@@ -1,13 +1,13 @@
+import { QWElement } from '@qualweb/qw-element';
 import {
   ElementExists,
   ElementHasNonEmptyAttribute,
   IsHTMLDocument,
   IsInMainContext,
-  IsLangSubTagValid,
-  Test
-} from '@qualweb/lib';
+  IsLangSubTagValid
+} from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { BestPractice } from '../lib/BestPractice.object';
-import { QWElement } from '@qualweb/qw-element';
 
 class QW_BP29 extends BestPractice {
   @ElementExists

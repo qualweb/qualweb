@@ -1,6 +1,6 @@
-import type { Assertion, Level, Principle } from '@qualweb/lib';
+import type { Test } from '@shared/classes';
+import type { Assertion, Level, Principle, TestResult } from '@shared/types';
 import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { Test, TestResult } from '@qualweb/lib';
 import type { QWElement } from '@qualweb/qw-element';
 import techniques from './techniques.json';
 

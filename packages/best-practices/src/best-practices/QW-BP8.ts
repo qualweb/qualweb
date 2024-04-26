@@ -1,5 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasVisibleChild, Test } from '@qualweb/lib';
+import { ElementExists, ElementHasVisibleChild } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP8 extends BestPractice {

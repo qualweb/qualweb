@@ -1,6 +1,7 @@
 import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';
-import { ElementExists, Test } from '@qualweb/lib';
 
 class QW_WCAG_T30 extends Technique {
   @ElementExists

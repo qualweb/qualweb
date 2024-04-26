@@ -1,4 +1,4 @@
-import type { QualwebOptions, PageOptions, PageData, HTMLValidationReport } from '@qualweb/lib';
+import type { QualwebOptions, PageOptions, PageData, HTMLValidationReport } from '@shared/types';
 import axios from 'axios';
 import type { Page, HTTPResponse, Viewport } from 'puppeteer';
 import {

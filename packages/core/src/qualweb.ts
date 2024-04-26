@@ -11,10 +11,11 @@ import type {
   PuppeteerPlugins,
   ClusterOptions,
   LoadEvent,
-  QualwebPlugin
-} from '@qualweb/lib';
+  QualwebPlugin,
+  CrawlOptions
+} from '@shared/types';
 import { generateEARLReport } from '@qualweb/earl-reporter';
-import { Crawler, type CrawlOptions } from '@qualweb/crawler';
+import { Crawler } from '@qualweb/crawler';
 import { QualwebPage } from './lib/QualwebPage.object';
 import { Evaluation } from './lib/Evaluation.object';
 import { PluginManager } from './lib/PluginManager.object';

@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists, ElementHasAttribute, ElementHasAttributeValue, Test } from '@qualweb/lib';
+import { ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R14 extends AtomicRule {
-
   @ElementExists
   @ElementHasAttribute('content')
   @ElementHasAttributeValue('name', 'viewport')

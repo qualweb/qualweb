@@ -1,12 +1,12 @@
+import type { QWElement } from '@qualweb/qw-element';
 import {
   ElementExists,
   ElementIsHTMLElement,
   ElementIsNot,
   ElementIsVisible,
-  ElementHasText,
-  Test
-} from '@qualweb/lib';
-import type { QWElement } from '@qualweb/qw-element';
+  ElementHasText
+} from '@shared/applicability';
+import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R76 extends AtomicRule {

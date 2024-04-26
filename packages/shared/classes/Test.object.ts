@@ -1,5 +1,5 @@
 import type { QWElement } from '@qualweb/qw-element';
-import type { EvaluationElement, TestResult, Verdict } from '.';
+import type { EvaluationElement, TestResult, Verdict } from '../types';
 
 class Test implements TestResult {
   verdict: Verdict;

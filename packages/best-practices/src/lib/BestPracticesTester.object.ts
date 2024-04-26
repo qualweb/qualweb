@@ -1,5 +1,5 @@
 import type { ModuleTranslator } from '@qualweb/locale';
-import { Tester } from '@qualweb/lib';
+import { Tester } from '@shared/classes';
 import { BestPractice } from './BestPractice.object';
 import mapping from './mapping';
 import * as bestPractices from '../best-practices';

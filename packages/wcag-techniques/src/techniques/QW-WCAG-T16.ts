@@ -1,4 +1,5 @@
-import { Test, type HTMLValidationReport } from '@qualweb/lib';
+import type { HTMLValidationReport } from '@shared/types';
+import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T16 extends Technique {

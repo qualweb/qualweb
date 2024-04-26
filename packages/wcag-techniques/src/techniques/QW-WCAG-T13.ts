@@ -1,5 +1,5 @@
 import type { QWElement } from '@qualweb/qw-element';
-import { Test } from '@qualweb/lib';
+import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T13 extends Technique {

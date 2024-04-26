@@ -2,7 +2,7 @@
   "name": "@qualweb/crawler",
   "version": "0.3.18",
   "description": "Webpage crawler for qualweb",
-  "main": "dist/index.js",
+  "main": "dist/crawler/src/index.js",
   "files": [
     "dist/*"
   ],

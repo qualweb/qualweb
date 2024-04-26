@@ -2,7 +2,8 @@ import type { ModuleTranslator } from '@qualweb/locale';
 import type { Rule } from '@qualweb/act-rules';
 import type { Technique } from '@qualweb/wcag-techniques';
 import type { BestPractice } from '@qualweb/best-practices';
-import type { ModuleReport, TestingData, Level, Principle } from '.';
+import type { TestingData, Level, Principle } from '../types';
+import type { ModuleReport } from '.';
 
 export abstract class Tester<T extends Rule | Technique | BestPractice> {
   protected readonly assertions: Map<string, T>;

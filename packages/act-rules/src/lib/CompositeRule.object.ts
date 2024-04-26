@@ -1,7 +1,7 @@
-import type { Assertion } from '@qualweb/lib';
+import type { Assertion } from '@shared/types';
 import type { QWElement } from '@qualweb/qw-element';
 import type { ElementResult, RuleResult } from '@qualweb/act-rules';
-import { Test } from '@qualweb/lib';
+import { Test } from '@shared/classes';
 import { Rule } from './Rule.object';
 
 abstract class CompositeRule extends Rule {

@@ -3,7 +3,7 @@ import type { Technique } from '@qualweb/wcag-techniques';
 import type { Rule } from '@qualweb/act-rules';
 import type { BestPractice } from '@qualweb/best-practices';
 import { ModuleReport } from './ModuleReport.object';
-import { ModuleOptions, TestingData, EvaluationReport } from '.';
+import { ModuleOptions, TestingData, EvaluationReport } from '../types';
 import { Tester } from './Tester.object';
 
 export abstract class EvaluationModule<T extends Rule | Technique | BestPractice> {
