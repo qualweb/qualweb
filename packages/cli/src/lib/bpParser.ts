@@ -1,7 +1,7 @@
 import { validateBP, printError } from './parserUtils';
 import { BPJsonFile, readJsonFile, fileExists } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import setValue from 'set-value';
 
 async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {

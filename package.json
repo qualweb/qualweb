@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/qualweb/qualweb#readme",
   "workspaces": [
+    "packages/qw-element",
     "packages/*"
   ],
   "devDependencies": {

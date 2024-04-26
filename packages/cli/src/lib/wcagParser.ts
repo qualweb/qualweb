@@ -1,7 +1,7 @@
 import { validateWCAG, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { readJsonFile, fileExists, WCAGTJsonFile } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import setValue from 'set-value';
 
 async function parseWCAG(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {

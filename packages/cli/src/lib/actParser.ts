@@ -1,7 +1,7 @@
 import { validateACT, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { ACTRJsonFile, readJsonFile, fileExists } from './fileUtils';
 import { CommandLineOptions } from 'command-line-args';
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import setValue from 'set-value';
 
 async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {

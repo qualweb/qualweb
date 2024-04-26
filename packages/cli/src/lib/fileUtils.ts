@@ -1,5 +1,5 @@
 import { EarlReport } from '@qualweb/earl-reporter';
-import type { ModuleOptions, QualwebReport } from '@qualweb/lib';
+import type { ModuleOptions, QualwebReport } from '@shared/types';
 import fs from 'fs';
 
 interface ACTRJsonFile {

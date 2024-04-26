@@ -2,7 +2,7 @@
   "name": "@qualweb/cli",
   "version": "0.6.29",
   "description": "QualWeb evaluator command line interface",
-  "main": "dist/index.js",
+  "main": "dist/cli/src/index.js",
   "bin": {
     "qw": "./bin/cli.js"
   },
@@ -16,7 +16,8 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
+    "build": "tsc --build tsconfig.prod.json",
+    "postbuild": "rimraf dist",
     "typedoc": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },

@@ -6,7 +6,7 @@ import parseWCAG from './wcagParser';
 import parseBP from './bpParser';
 
 import commandLineArgs, { CommandLineOptions } from 'command-line-args';
-import type { QualwebOptions } from '@qualweb/lib';
+import type { QualwebOptions } from '@shared/types';
 import setValue from 'set-value';
 
 function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOptions): void {
