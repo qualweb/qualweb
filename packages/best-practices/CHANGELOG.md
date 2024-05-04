@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.18
+
+### Patch Changes
+
+- 9d4df478: Landmark BPs only return when applicable
+
 ## 0.6.17
 
 ### Patch Changes
