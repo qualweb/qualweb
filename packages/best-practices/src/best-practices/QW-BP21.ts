@@ -12,19 +12,21 @@ class QW_BP21 extends BestPracticeObject {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    const test = new Test();
 
     const landmarkList = element.getElements('footer:not([role]), [role=contentinfo]');
 
-    if (landmarkList.length < 2) {
-      test.verdict = 'passed';
-      test.resultCode = 'P1';
-    } else {
-      test.verdict = 'failed';
-      test.resultCode = 'F1';
+    if (landmarkList.length > 0) {
+      const test = new Test();
+      if (landmarkList.length < 2) {
+        test.verdict = 'passed';
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = 'failed';
+        test.resultCode = 'F1';
+      }
+      test.addElements(landmarkList);
+      super.addTestResult(test);
     }
-    test.addElements(landmarkList);
-    super.addTestResult(test);
   }
 }
 
