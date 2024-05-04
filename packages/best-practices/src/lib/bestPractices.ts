@@ -51,5 +51,5 @@ export {
   QW_BP6,
   QW_BP7,
   QW_BP8,
-  QW_BP9
+  QW_BP9,
 };
