@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.55
+
+### Patch Changes
+
+- Updated dependencies [9d4df478]
+  - @qualweb/best-practices@0.6.18
+
 ## 0.3.54
 
 ### Patch Changes
