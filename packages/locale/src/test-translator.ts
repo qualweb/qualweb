@@ -1,5 +1,4 @@
-import type { Module } from '@shared/types';
-import type { Translate, TranslationValues } from '@qualweb/locale';
+import type { Module, Translate, TranslationValues } from '@shared/types';
 import { Translator } from './translator';
 
 export class TestTranslator {

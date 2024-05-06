@@ -1,4 +1,4 @@
-import { QWElement } from '@qualweb/qw-element';
+import { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasChild } from '@shared/applicability';
 import { Test } from '@shared/classes';
 import { BestPractice } from '../lib/BestPractice.object';

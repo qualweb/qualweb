@@ -13,7 +13,11 @@ export const output = {
 export const resolve = {
   alias: {
     '@shared': path.resolve(__dirname, './prebuild/shared'),
-    '@shared/*': path.resolve(__dirname, './prebuild/shared/*')
+    '@shared/*': path.resolve(__dirname, './prebuild/shared/*'),
+    '@packages/qw-page/src': path.resolve(__dirname, './prebuild/qw-page/src'),
+    '@packages/qw-element/src': path.resolve(__dirname, './prebuild/qw-element/src'),
+    '@packages/util/src': path.resolve(__dirname, './prebuild/util/src'),
+    '@packages/locale/src': path.resolve(__dirname, './prebuild/locale/src')
   }
 };
 export const optimization = {

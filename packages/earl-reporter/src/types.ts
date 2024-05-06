@@ -1,4 +1,4 @@
-export interface EarlOptions {
+export type EarlOptions = {
   aggregated?: boolean;
   aggregatedName?: string;
   modules?: {
@@ -6,7 +6,7 @@ export interface EarlOptions {
     wcag?: boolean;
     'best-practices'?: boolean;
   };
-}
+};
 
 export interface Assertor {
   '@id': string;

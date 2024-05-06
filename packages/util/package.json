@@ -40,7 +40,6 @@
   "devDependencies": {
     "@qualweb/core": "0.7.69",
     "@qualweb/qw-page": "^0.2.19",
-    "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
@@ -61,7 +60,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "franc-min": "3.1.0",
+    "franc-min": "^6.2.0",
     "string-pixel-width": "^1.10.0"
   }
 }

@@ -1,4 +1,4 @@
-import type { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasAttribute } from '@shared/applicability';
 import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';

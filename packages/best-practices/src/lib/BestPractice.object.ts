@@ -1,14 +1,15 @@
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { Level, Principle, TestResult, Assertion } from '@shared/types';
-import type { Test } from '@shared/classes';
-import type { QWElement } from '@qualweb/qw-element';
+import type { ModuleTranslator } from '@packages/locale/src';
+import type { Level, Principle, TestResult, Assertion, TranslationValues } from '@shared/types';
+import { Guideline, type Test } from '@shared/classes';
+import type { QWElement } from '@packages/qw-element/src';
 import bestPractices from './bestPractices.json';
 
-abstract class BestPractice {
+abstract class BestPractice extends Guideline {
   protected readonly bestPractice: Assertion;
   private readonly translator: ModuleTranslator;
 
   constructor(translator: ModuleTranslator) {
+    super();
     this.translator = translator;
     const bestPractice = bestPractices[new.target.name as keyof typeof bestPractices] as Assertion;
     bestPractice.metadata.passed = 0;

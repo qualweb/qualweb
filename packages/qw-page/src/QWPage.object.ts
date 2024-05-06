@@ -1,4 +1,4 @@
-import { CSSProperties, QWElement } from '@qualweb/qw-element';
+import { type CSSProperties, QWElement } from '@packages/qw-element/src';
 import { Cache } from './cache.object';
 import { CSSMapper } from './CssMapper.object';
 import { SelectorCalculator } from './selectorCalculator.object';
@@ -30,7 +30,8 @@ export class QWPage {
   public processShadowDom(): void {
     const listElements = this.document.querySelectorAll('*');
 
-    for (const element of listElements ?? []) {
+    for (let i = 0; i < listElements.length; i++) {
+      const element = listElements.item(i);
       if (element.shadowRoot !== null) {
         const shadowRoot = new QWElement(element);
         const selector = shadowRoot.getElementSelector();
@@ -42,9 +43,9 @@ export class QWPage {
 
   private processIframes(): void {
     const elements = this.document.querySelectorAll('iframe');
-
-    for (const iframe of elements ?? []) {
+    for (let i = 0; i < elements.length; i++) {
       try {
+        const iframe = elements.item(i);
         const iframeQW = new QWElement(iframe);
         const contentWindow = iframeQW.getContentFrame();
         const frame = contentWindow;
@@ -248,18 +249,21 @@ export class QWPage {
       html.removeAttribute('qw-css-rules');
       html.removeAttribute('_documentSelector');
       const children = html.children;
-      if (children) this.cleanAllElementsAux([...children]);
+      if (children) this.cleanAllElementsAux(children);
     }
   }
 
-  private cleanAllElementsAux(elements: Array<Element>): void {
-    for (const element of elements ?? []) {
-      element.removeAttribute('qw-selector');
-      element.removeAttribute('qw-css-rules');
-      element.removeAttribute('_documentSelector');
-      const children = element.children;
-      if (children && children.length > 0) {
-        this.cleanAllElementsAux([...children]);
+  private cleanAllElementsAux(elements: HTMLCollection): void {
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements.item(i);
+      if (element) {
+        element.removeAttribute('qw-selector');
+        element.removeAttribute('qw-css-rules');
+        element.removeAttribute('_documentSelector');
+        const children = element.children;
+        if (children && children.length > 0) {
+          this.cleanAllElementsAux(children);
+        }
       }
     }
   }

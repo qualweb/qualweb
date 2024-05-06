@@ -37,7 +37,6 @@
   "devDependencies": {
     "@qualweb/core": "0.7.69",
     "@qualweb/qw-page": "0.2.21",
-    "@qualweb/types": "0.7.26",
     "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",

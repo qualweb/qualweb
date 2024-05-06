@@ -1,6 +1,6 @@
 import { formElements, typesWithLabel } from './constants';
 
-function getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
+function getAccessibleNameSelector(element: typeof window.qwElement): string | string[] | undefined {
   return getAccessibleNameRecursion(element, false, false);
 }
 
@@ -8,8 +8,8 @@ function getAccessibleNameRecursion(
   element: typeof window.qwElement,
   recursion: boolean,
   isWidget: boolean
-): string[] | undefined {
-  let AName; 
+): string | string[] | undefined {
+  let AName;
   let ariaLabelBy;
   const elementSelector = element.getElementSelector();
   const name = element.getElementTagName();

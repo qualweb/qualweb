@@ -1,11 +1,8 @@
-import type { ModuleTranslator } from '@qualweb/locale';
-import type { Rule } from '@qualweb/act-rules';
-import type { Technique } from '@qualweb/wcag-techniques';
-import type { BestPractice } from '@qualweb/best-practices';
+import type { ModuleTranslator } from '@packages/locale/src';
 import type { TestingData, Level, Principle } from '../types';
-import type { ModuleReport } from '.';
+import type { ModuleReport, Guideline } from '.';
 
-export abstract class Tester<T extends Rule | Technique | BestPractice> {
+export abstract class Tester<T extends Guideline> {
   protected readonly assertions: Map<string, T>;
   protected readonly toExecute: { [key: string]: boolean };
 

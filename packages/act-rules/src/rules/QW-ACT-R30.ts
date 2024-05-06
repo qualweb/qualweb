@@ -1,4 +1,4 @@
-import type { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@packages/qw-element/src';
 import { ElementAllowsNameFromContent, ElementExists, ElementIsVisible, ElementIsWidget } from '@shared/applicability';
 import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';

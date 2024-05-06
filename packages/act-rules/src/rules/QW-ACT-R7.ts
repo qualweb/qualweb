@@ -1,4 +1,4 @@
-import type { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@qualweb/qw-element';
+import type { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasCSSRules, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
 import { AtomicRule } from '../lib/AtomicRule.object';

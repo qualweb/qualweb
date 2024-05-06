@@ -1,4 +1,4 @@
-import roles from './roles.json';
+import { roles } from './roles';
 
 function getElementValidExplicitRole(element: typeof window.qwElement): string | null {
   const role = element.getElementAttribute('role');

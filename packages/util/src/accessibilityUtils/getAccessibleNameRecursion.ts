@@ -106,7 +106,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-function getValueFromSpecialLabel(element: typeof window.qwElement, label: string): string {
+function getValueFromSpecialLabel(element: typeof window.qwElement, label: string): string | undefined {
   const labelElement = element.getElement(label);
   let accessNameFromLabel;
 
@@ -116,7 +116,7 @@ function getValueFromSpecialLabel(element: typeof window.qwElement, label: strin
   return accessNameFromLabel;
 }
 
-function getValueFromLabel(element: typeof window.qwElement, id: string | null): string {
+function getValueFromLabel(element: typeof window.qwElement, id: string | null): string | undefined {
   const referencedByLabelList = new Array<typeof window.qwElement>();
   const referencedByLabel = window.qwPage.getElements(`label[for="${id}"]`, element);
   if (referencedByLabel) {

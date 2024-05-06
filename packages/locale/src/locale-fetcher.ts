@@ -1,4 +1,4 @@
-import type { Lang, Locale, Translate, TranslationObject, TranslationOptions } from '@qualweb/locale';
+import type { TranslationOptions, Lang, Locale, Translate, TranslationObject } from '@shared/types';
 import * as locales from './locales';
 
 export class LocaleFetcher {

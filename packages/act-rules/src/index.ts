@@ -1,8 +1,21 @@
-import type { QWElement } from '@qualweb/qw-element';
 import type { ModuleOptions, TestingData } from '@shared/types';
 import { EvaluationModule, ModuleReport } from '@shared/classes';
+import type { QWElement } from '@packages/qw-element/src';
+import type { ModuleTranslator } from '@packages/locale/src';
+import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
+import { QWPage } from '@packages/qw-page/src';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
-import { Rule } from './lib/Rule.object';
+import type { Rule } from './lib/Rule.object';
+
+declare global {
+  interface Window {
+    qwPage: QWPage;
+    ModuleTranslator: typeof ModuleTranslator;
+    DomUtils: typeof DomUtils;
+    AccessibilityUtils: typeof AccessibilityUtils;
+    disabledWidgets: QWElement[];
+  }
+}
 
 class ACTRules extends EvaluationModule<Rule> {
   private readonly moduleTranslator = new window.ModuleTranslator('act-rules', this.locale);

@@ -1,4 +1,4 @@
-import type { Translate } from '@qualweb/locale';
+import type { Translate } from '@shared/types';
 
 export class Translator {
   private readonly locale: Translate;

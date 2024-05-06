@@ -1,13 +1,14 @@
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { TestResult, Assertion, Level, Principle } from '@shared/types';
-import type { Test } from '@shared/classes';
+import type { ModuleTranslator } from '@packages/locale/src';
+import type { TestResult, Assertion, Level, Principle, TranslationValues } from '@shared/types';
+import { Guideline, type Test } from '@shared/classes';
 import rules from './rules.json';
 
-abstract class Rule {
+abstract class Rule extends Guideline {
   protected readonly rule: Assertion;
   private readonly translator: ModuleTranslator;
 
   constructor(translator: ModuleTranslator) {
+    super();
     this.translator = translator;
     const rule = rules[new.target.name as keyof typeof rules] as Assertion;
     rule.metadata.passed = 0;

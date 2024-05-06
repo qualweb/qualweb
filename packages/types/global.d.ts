@@ -1,11 +1,11 @@
 declare module '@qualweb/global' {
-  import type { TestTranslator, AssertionTranslator, ModuleTranslator, LocaleFetcher } from '@qualweb/locale';
+  import type { TestTranslator, AssertionTranslator, ModuleTranslator, LocaleFetcher } from '@packages/locale/src';
   import type { QWElement } from '@qualweb/qw-element';
   import type { QWPage } from '@qualweb/qw-page';
   import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
   import type { executeCounter } from '@qualweb/counter';
-  import type { ACTRules } from '@qualweb/act-rules';
-  import type { WCAGTechniques } from '@qualweb/wcag-techniques';
+  import type { ACTRules } from '@packages/act-rules/src';
+  import type { WCAGTechniques } from '@packages/wcag-techniques/src';
 
   global {
     interface Window {

@@ -12,13 +12,7 @@
     /* JSON imports only necessary in unit tests. Disable for production. */
     "resolveJsonModule": true,
 
-    "types": [
-      "@qualweb/types",
-      "node",
-      "string-pixel-width",
-    ] /* Type declaration files to be included in compilation. */,
+    "types": ["node"] /* Type declaration files to be included in compilation. */,
   },
-  "include": [
-    "src",
-  ],
+  "include": ["src"],
 }

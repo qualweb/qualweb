@@ -326,7 +326,7 @@ export class QWElement {
         return sibling.textContent;
       } else {
         let siblingNode = sibling.previousSibling;
-        let previousSibling = null;
+        let previousSibling: QWElement | string | null = null;
         while (siblingNode !== null) {
           if (siblingNode.nodeType === 1) {
             previousSibling = this.convertElementToQWElement(<Element>siblingNode);
@@ -351,7 +351,7 @@ export class QWElement {
         return sibling.textContent;
       } else {
         let siblingNode = sibling.nextSibling;
-        let nextSibling = null;
+        let nextSibling: QWElement | string | null = null;
         while (siblingNode !== null) {
           if (siblingNode.nodeType === 1) {
             nextSibling = this.convertElementToQWElement(<Element>siblingNode);
@@ -386,9 +386,8 @@ export class QWElement {
   }
 
   public getElementProperty(property: string): string {
-    //@ts-expect-error Property might not exist
-    const propertyValue = this.element[property];
-    return propertyValue === null ? '' : propertyValue;
+    const propertyValue = this.element[property as keyof typeof this.element];
+    return propertyValue === null ? '' : propertyValue.toString();
   }
 
   public getElementSelector(): string {

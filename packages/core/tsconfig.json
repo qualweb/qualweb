@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
+    "resolveJsonModule": true,
     /* Basic Options */
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
@@ -30,14 +31,18 @@
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
 
     "types": [
-      "@qualweb/types",
       "node",
       "mocha",
     ] /* Type declaration files to be included in compilation. */,
     "paths": {
       "@shared": ["../shared"],
       "@shared/*": ["../shared/*"],
-    }
+      "@packages/*": ["../*"]
+    },
+
+    /* Experimental Options */
+    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
+    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
     "src/**/*.ts",

@@ -1,8 +1,8 @@
 import { Page } from 'puppeteer';
 import { randomBytes } from 'crypto';
-import type { CounterReport } from '@qualweb/counter';
-import type { TranslationOptions } from '@qualweb/locale';
 import type {
+  CounterReport,
+  TranslationOptions,
   ModuleOptions,
   QualwebOptions,
   Url,
@@ -12,9 +12,6 @@ import type {
   HTMLValidationReport,
   QualwebReport
 } from '@shared/types';
-import { ACTRules } from '@qualweb/act-rules';
-import { WCAGTechniques } from '@qualweb/wcag-techniques';
-import { BestPractices } from '@qualweb/best-practices';
 import { EvaluationRecord } from './EvaluationRecord.object';
 
 class Evaluation {
@@ -165,6 +162,7 @@ class Evaluation {
 
     await this.page.evaluate(
       (sourceHtml: string, locale: TranslationOptions, options?: ModuleOptions) => {
+        //@ts-expect-error The package exists inside the context of the WebPage
         window.act = new ACTRules(locale).configure(options ?? {}).test({ sourceHtml });
       },
       sourceHtml,
@@ -216,6 +214,7 @@ class Evaluation {
         validation?: HTMLValidationReport,
         options?: ModuleOptions
       ) => {
+        //@ts-expect-error The package exists inside the context of the WebPage
         return new WCAGTechniques(locale)
           .configure(options ?? {})
           .test({ newTabWasOpen, validation })
@@ -236,6 +235,7 @@ class Evaluation {
 
     return await this.page.evaluate(
       (locale: TranslationOptions, options?: ModuleOptions) => {
+        //@ts-expect-error The package exists inside the context of the WebPage
         return new BestPractices(locale)
           .configure(options ?? {})
           .test({})

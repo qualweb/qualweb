@@ -1,6 +1,6 @@
 import type { Assertion } from '@shared/types';
-import type { QWElement } from '@qualweb/qw-element';
-import type { ElementResult, RuleResult } from '@qualweb/act-rules';
+import type { QWElement } from '@packages/qw-element/src';
+import type { ElementResult, RuleResult } from './types';
 import { Test } from '@shared/classes';
 import { Rule } from './Rule.object';
 
@@ -56,7 +56,7 @@ abstract class CompositeRule extends Rule {
   }
 
   public getAtomicRuleResultPerVerdict(selector: string, rules: Assertion[]): RuleResult {
-    const ruleResult: RuleResult = {};
+    const ruleResult = {} as RuleResult;
     for (const rule of rules ?? []) {
       if (rule) {
         for (const result of rule.results) {

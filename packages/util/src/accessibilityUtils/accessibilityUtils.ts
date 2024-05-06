@@ -28,16 +28,15 @@ import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocus
 import getAriaOwnerFunction from './getAriaOwner';
 import getElementValidExplicitRoleFunction from './getElementValidExplicitRole';
 import landmarkIsTopLevel from './landmarkIsTopLevel';
-import ariaAttributesRoles from './ariaAttributesRoles.json';
-import roles from './roles.json';
+import { ariaAttributesRoles } from './ariaAttributesRoles';
+import { roles } from './roles';
 import languages from './language.json';
 
 import { Cache, FullMethodCache } from '../cache';
-import { AriaAttributesRoles, Roles } from '@qualweb/util';
 
 class AccessibilityUtils {
-  public static ariaAttributesRoles = <AriaAttributesRoles>ariaAttributesRoles;
-  public static roles = <Roles>roles;
+  public static ariaAttributesRoles = ariaAttributesRoles;
+  public static roles = roles;
   public static languages = <{ [lang: string]: number }>languages;
 
   @Cache('AcceUtils.getLinkContext')
@@ -72,7 +71,7 @@ class AccessibilityUtils {
   }
 
   @Cache('AcceUtils.getAccessibleNameSelector')
-  public static getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
+  public static getAccessibleNameSelector(element: typeof window.qwElement): string | string[] | undefined {
     return getAccessibleNameSelectorFunction(element);
   }
 

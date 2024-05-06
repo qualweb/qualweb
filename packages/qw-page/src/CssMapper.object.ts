@@ -1,4 +1,4 @@
-import { CSSProperties, CSSProperty, PseudoSelectorProperty, QWElement } from '@qualweb/qw-element';
+import { CSSProperties, CSSProperty, PseudoSelectorProperty, QWElement } from '@packages/qw-element/src';
 
 export class CSSMapper {
   private readonly pseudoSelectors = [
@@ -42,14 +42,18 @@ export class CSSMapper {
   }
 
   private mapExternalStylesheets(): void {
-    for (const stylesheet of this.document.styleSheets || []) {
-      if ((<CSSStyleSheet>stylesheet).ownerNode?.nodeName.toLowerCase() === 'link') {
+    for (let i = 0; i < this.document.styleSheets.length; i++) {
+      const stylesheet = this.document.styleSheets.item(i);
+      if (stylesheet && (<CSSStyleSheet>stylesheet).ownerNode?.nodeName.toLowerCase() === 'link') {
         const rules = this.getCSSRules(stylesheet);
-        for (const rule of rules || []) {
-          if (rule.type === 1) {
-            this.mapNormalCSSRule(<CSSStyleRule>rule, undefined, 'file', stylesheet.href);
-          } else if (rule.type === 4) {
-            this.mapMediaCSSRule(<CSSMediaRule>rule, 'file', stylesheet.href);
+        if (rules) {
+          for (let j = 0; j < rules.length; j++) {
+            const rule = rules.item(j);
+            if (rule?.type === 1) {
+              this.mapNormalCSSRule(<CSSStyleRule>rule, undefined, 'file', stylesheet.href);
+            } else if (rule?.type === 4) {
+              this.mapMediaCSSRule(<CSSMediaRule>rule, 'file', stylesheet.href);
+            }
           }
         }
       }
@@ -58,13 +62,19 @@ export class CSSMapper {
 
   private mapHeadStyles(): void {
     const styles = this.document.querySelectorAll('style');
-    for (const style of styles || []) {
+    for (let i = 0; i < styles.length; i++) {
+      const style = styles.item(i);
       const rules = this.getCSSRules(style.sheet);
-      for (const rule of rules || []) {
-        if (rule.type === 1) {
-          this.mapNormalCSSRule(<CSSStyleRule>rule, undefined, 'head', new QWElement(style).getElementSelector());
-        } else if (rule.type === 4) {
-          this.mapMediaCSSRule(<CSSMediaRule>rule, 'head', new QWElement(style).getElementSelector());
+      if (rules) {
+        for (let j = 0; j < rules.length; j++) {
+          const rule = rules.item(j);
+          if (rule) {
+            if (rule.type === 1) {
+              this.mapNormalCSSRule(<CSSStyleRule>rule, undefined, 'head', new QWElement(style).getElementSelector());
+            } else if (rule.type === 4) {
+              this.mapMediaCSSRule(<CSSMediaRule>rule, 'head', new QWElement(style).getElementSelector());
+            }
+          }
         }
       }
     }
@@ -72,7 +82,8 @@ export class CSSMapper {
 
   private mapInlineStyles(): void {
     const elements = this.document.querySelectorAll('[style]');
-    for (const element of elements || []) {
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements.item(i);
       const style = element.getAttribute('style');
       if (style) {
         const properties = style
@@ -104,8 +115,9 @@ export class CSSMapper {
 
   private mapMediaCSSRule(rule: CSSMediaRule, location: 'file' | 'head' | 'inline', pointer: string | null): void {
     const subRules = rule['cssRules'] || new CSSRuleList();
-    for (const subRule of subRules || []) {
-      if (subRule.type === 1) {
+    for (let i = 0; i < subRules.length; i++) {
+      const subRule = subRules.item(i);
+      if (subRule?.type === 1) {
         this.mapNormalCSSRule(<CSSStyleRule>subRule, rule['conditionText'], location, pointer);
       }
     }
@@ -149,11 +161,14 @@ export class CSSMapper {
         pseudoSelector = ':' + split[1].trim();
       }
       const elements = this.getElements(selector);
-      for (const element of elements || []) {
-        if (this.elementsCSSRules.has(element)) {
-          this.addElementCSSRules(element, properties, media, pseudoSelector, location, pointer || '');
-        } else {
-          this.createElementCSSMapping(element, properties, media, pseudoSelector, location, pointer || '');
+      if (elements) {
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements.item(i);
+          if (this.elementsCSSRules.has(element)) {
+            this.addElementCSSRules(element, properties, media, pseudoSelector, location, pointer || '');
+          } else {
+            this.createElementCSSMapping(element, properties, media, pseudoSelector, location, pointer || '');
+          }
         }
       }
     }

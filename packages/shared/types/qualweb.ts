@@ -1,5 +1,4 @@
-import type { TranslationOptions } from '@qualweb/locale';
-import { CrawlOptions, HTMLValidationReport, ModuleOptions, QualwebReport } from '.';
+import type { CrawlOptions, HTMLValidationReport, ModuleOptions, QualwebReport, TranslationOptions } from '.';
 
 export type Execute = {
   act?: boolean;

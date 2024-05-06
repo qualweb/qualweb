@@ -1,5 +1,4 @@
-import type { CounterReport } from '@qualweb/counter';
-import { Module } from '.';
+import type { Module, CounterReport } from '.';
 
 export type Level = 'A' | 'AA' | 'AAA';
 export type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
@@ -11,7 +10,7 @@ export type SuccessCriteria = {
   level: Level;
   principle: Principle;
   url: string;
-  url_tr: string;
+  url_tr?: string;
 };
 
 export type EvaluationElement = {

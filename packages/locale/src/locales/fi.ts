@@ -1,4 +1,4 @@
-import { Locale } from '@qualweb/locale';
+import { Locale } from '@shared/types';
 
 export const fi: Locale = {
   'act-rules': {

@@ -1,14 +1,15 @@
-import type { Test } from '@shared/classes';
-import type { Assertion, Level, Principle, TestResult } from '@shared/types';
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { QWElement } from '@qualweb/qw-element';
+import { Guideline, type Test } from '@shared/classes';
+import type { Assertion, Level, Principle, TestResult, TranslationValues } from '@shared/types';
+import type { ModuleTranslator } from '@packages/locale/src';
+import type { QWElement } from '@packages/qw-element/src';
 import techniques from './techniques.json';
 
-abstract class Technique {
+abstract class Technique extends Guideline {
   protected readonly technique: Assertion;
   private readonly translator: ModuleTranslator;
 
   constructor(translator: ModuleTranslator) {
+    super();
     this.translator = translator;
     const technique = techniques[new.target.name as keyof typeof techniques] as Assertion;
     technique.metadata.passed = 0;

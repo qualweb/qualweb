@@ -1,4 +1,4 @@
-import type { ModuleTranslator } from '@qualweb/locale';
+import type { ModuleTranslator } from '@packages/locale/src';
 import { Tester } from '@shared/classes';
 import { BestPractice } from './BestPractice.object';
 import mapping from './mapping';

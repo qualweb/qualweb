@@ -1,6 +1,6 @@
 import type { Assertion } from '@shared/types';
-import type { ModuleTranslator } from '@qualweb/locale';
-import type { QWElement } from '@qualweb/qw-element';
+import type { ModuleTranslator } from '@packages/locale/src';
+import type { QWElement } from '@packages/qw-element/src';
 import { Tester } from '@shared/classes';
 import { AtomicRule } from './AtomicRule.object';
 import { CompositeRule } from './CompositeRule.object';

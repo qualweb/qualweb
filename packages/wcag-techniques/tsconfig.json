@@ -26,7 +26,6 @@
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
 
     "types": [
-      "@qualweb/types",
       "node",
       "mocha",
     ] /* Type declaration files to be included in compilation. */,
@@ -38,6 +37,7 @@
     "paths": {
       "@shared": ["../shared"],
       "@shared/*": ["../shared/*"],
+      "@packages/*": ["../*"]
     }
   },
   "include": [

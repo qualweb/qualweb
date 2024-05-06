@@ -1,4 +1,4 @@
-import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
 import { Technique } from '../lib/Technique.object';

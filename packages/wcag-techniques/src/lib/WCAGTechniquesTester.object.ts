@@ -1,4 +1,4 @@
-import type { ModuleTranslator } from '@qualweb/locale';
+import type { ModuleTranslator } from '@packages/locale/src';
 import type { TestingData, HTMLValidationReport } from '@shared/types';
 import { Tester } from '@shared/classes';
 import { Technique } from './Technique.object';

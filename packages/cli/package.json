@@ -7,7 +7,7 @@
     "qw": "./bin/cli.js"
   },
   "files": [
-    "dist/*"
+    "dist/cli/src*"
   ],
   "scripts": {
     "tsc": "tsc",
@@ -17,7 +17,6 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "build": "tsc --build tsconfig.prod.json",
-    "postbuild": "rimraf dist",
     "typedoc": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -49,7 +48,6 @@
     "set-value": "^4.1.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
     "@types/command-line-args": "^5.2.3",
     "@types/command-line-usage": "^5.0.4",

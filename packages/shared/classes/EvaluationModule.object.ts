@@ -1,12 +1,7 @@
-import type { Translate, TranslationOptions } from '@qualweb/locale';
-import type { Technique } from '@qualweb/wcag-techniques';
-import type { Rule } from '@qualweb/act-rules';
-import type { BestPractice } from '@qualweb/best-practices';
-import { ModuleReport } from './ModuleReport.object';
-import { ModuleOptions, TestingData, EvaluationReport } from '../types';
-import { Tester } from './Tester.object';
+import type { Translate, TranslationOptions, ModuleOptions, TestingData, EvaluationReport } from '../types';
+import { Tester, Guideline, ModuleReport } from '.';
 
-export abstract class EvaluationModule<T extends Rule | Technique | BestPractice> {
+export abstract class EvaluationModule<T extends Guideline> {
   protected abstract readonly report: ModuleReport<T>;
   protected abstract readonly tester: Tester<T>;
 

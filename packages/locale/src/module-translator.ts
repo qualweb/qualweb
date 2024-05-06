@@ -1,5 +1,4 @@
-import type { Module, QualwebReport, Assertion } from '@shared/types';
-import type { Translate, TranslationValues } from '@qualweb/locale';
+import type { Module, QualwebReport, Assertion, Translate, TranslationValues } from '@shared/types';
 import { AssertionTranslator } from './assertion-translator';
 import { TestTranslator } from './test-translator';
 

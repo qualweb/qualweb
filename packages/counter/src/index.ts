@@ -1,4 +1,11 @@
-import { CounterReport } from '@qualweb/counter';
+import { CounterReport } from '@shared/types';
+import type { AccessibilityUtils } from '@packages/util/src';
+
+declare global {
+  interface Window {
+    AccessibilityUtils: typeof AccessibilityUtils;
+  }
+}
 
 function executeCounter(): CounterReport {
   const report: CounterReport = {

@@ -5,33 +5,39 @@ export class SelectorCalculator {
       html.setAttribute('qw-selector', 'html');
       const children = html.children;
       if (children) {
-        this.processElementSelectorAux([...children]);
+        this.processElementSelectorAux(children);
       }
     }
   }
 
-  private static processElementSelectorAux(elements: Array<Element>): void {
+  private static processElementSelectorAux(elements: HTMLCollection): void {
     const parent = elements[0].parentElement;
     if (parent) {
       const selector = parent.getAttribute('qw-selector');
       if (selector) {
         this.addSelectorAttribute(elements, selector);
-        for (const element of elements ?? []) {
-          const children = element.children;
-          if (children && children.length > 0) {
-            this.processElementSelectorAux([...children]);
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements.item(i);
+          if (element) {
+            const children = element.children;
+            if (children && children.length > 0) {
+              this.processElementSelectorAux(children);
+            }
           }
         }
       }
     }
   }
 
-  private static addSelectorAttribute(elements: Array<Element>, selector: string): void {
+  private static addSelectorAttribute(elements: HTMLCollection, selector: string): void {
     let index = 1;
-    for (const element of elements) {
-      const name = element.tagName.toLowerCase();
-      element.setAttribute('qw-selector', selector + ' > ' + name + ':nth-child(' + index + ')');
-      index++;
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements.item(i);
+      if (element) {
+        const name = element.tagName.toLowerCase();
+        element.setAttribute('qw-selector', selector + ' > ' + name + ':nth-child(' + index + ')');
+        index++;
+      }
     }
   }
 }

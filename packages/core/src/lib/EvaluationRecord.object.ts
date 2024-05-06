@@ -1,5 +1,4 @@
-import type { Module, EvaluationReport, Evaluator, Modules, QualwebReport } from '@shared/types';
-import type { CounterReport } from '@qualweb/counter';
+import type { Module, EvaluationReport, Evaluator, Modules, QualwebReport, CounterReport } from '@shared/types';
 import { Metadata } from './Metadata.object';
 
 class EvaluationRecord {

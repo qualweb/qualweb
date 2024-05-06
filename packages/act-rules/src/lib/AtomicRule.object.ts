@@ -1,4 +1,4 @@
-import type { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@packages/qw-element/src';
 import { Rule } from './Rule.object';
 
 abstract class AtomicRule extends Rule {

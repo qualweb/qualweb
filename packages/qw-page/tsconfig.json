@@ -4,7 +4,7 @@
     /* Basic Options */
     "resolveJsonModule": true,
     "outDir": "./prebuild" /* Redirect output structure to the directory. */,
-    "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    // "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "removeComments": true /* Do not emit comments to output. */,
 
     /* Strict Type-Checking Options */
@@ -25,8 +25,13 @@
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
 
+    "paths": {
+      "@shared": ["../shared"],
+      "@shared/*": ["../shared/*"],
+      "@packages/*": ["../*"]
+    },
+
     "types": [
-      "@qualweb/types",
       "node",
       "mocha",
     ] /* Type declaration files to be included in compilation. */

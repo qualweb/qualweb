@@ -1,6 +1,6 @@
 import { QualWeb, generateEARLReport } from '@qualweb/core';
 import type { Evaluations, QualwebOptions, QualwebReport } from '@shared/types';
-import { EarlOptions } from '@qualweb/earl-reporter';
+import type { EarlOptions } from '@packages/earl-reporter/src';
 import parse from './lib/parser';
 import { saveReport } from './lib/fileUtils';
 import { printHelp } from './lib/parserUtils';

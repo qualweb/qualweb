@@ -1,4 +1,4 @@
-import type { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@packages/qw-element/src';
 import type { EvaluationElement, TestResult, Verdict } from '../types';
 
 class Test implements TestResult {

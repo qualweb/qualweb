@@ -41,10 +41,6 @@
       "path": "packages/qw-page",
     },
     {
-      "name": "@qualweb/types",
-      "path": "packages/types",
-    },
-    {
       "name": "@qualweb/util",
       "path": "packages/util",
     },
