@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.6.29",
+  "version": "0.6.31",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/cli/src/index.js",
   "bin": {
@@ -41,7 +41,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/core": "0.7.69",
+    "@qualweb/core": "0.7.71",
     "command-line-args": "^5.2.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",

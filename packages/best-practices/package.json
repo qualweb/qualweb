@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.17",
+  "version": "0.6.18",
   "description": "QualWeb best practices",
   "main": "dist/bp.bundle.js",
   "files": [

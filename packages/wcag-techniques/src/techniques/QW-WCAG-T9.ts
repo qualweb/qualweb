@@ -31,7 +31,7 @@ class QW_WCAG_T9 extends Technique {
         const level = element.level;
         const nextElement = headingObjectList[nextIndex];
         const nextLevel = nextElement.level;
-        const levelDif = Math.abs(level - nextLevel);
+        const levelDif = nextLevel - level;
         if (levelDif > 1 && !orderErrors.includes(element.heading)) {
           orderErrors.push(element.heading);
         }

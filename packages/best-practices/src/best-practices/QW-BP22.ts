@@ -6,18 +6,20 @@ import { BestPractice } from '../lib/BestPractice.object';
 class QW_BP22 extends BestPractice {
   @ElementExists
   execute(element: QWElement): void {
-    const test = new Test();
 
     const landmarkList = element.getElements('main:not([role]), [role=main]');
-    if (landmarkList.length < 2) {
-      test.verdict = 'passed';
-      test.resultCode = 'P1';
-    } else {
-      test.verdict = 'failed';
-      test.resultCode = 'F1';
+    if (landmarkList.length > 0) {
+      const test = new Test();
+      if (landmarkList.length < 2) {
+        test.verdict = 'passed';
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = 'failed';
+        test.resultCode = 'F1';
+      }
+      test.addElements(landmarkList);
+      super.addTestResult(test);
     }
-    test.addElements(landmarkList);
-    this.addTestResult(test);
   }
 }
 

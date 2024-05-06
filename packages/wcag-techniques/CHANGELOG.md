@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.18
+
+### Patch Changes
+
+- 12ede1fb: Uupdate T9
+- ac1f3f33: Prevent duplicate results in T9
+
 ## 0.3.17
 
 ### Patch Changes
