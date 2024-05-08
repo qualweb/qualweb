@@ -9,7 +9,6 @@ import compositeRules from './mappingComposite';
 import * as rules from '../rules';
 
 export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
-
   public init(translator: ModuleTranslator): this {
     for (const rule in rules) {
       const ruleObject = new rules[rule as keyof typeof rules](translator);
@@ -123,10 +122,9 @@ export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
 
   public validateZoomedTextNodeNotClippedWithCSSOverflow(): void {
     if (this.toExecute['QW-ACT-R40']) {
-      const elements = window.qwPage.getElements('body *');
-
       const r40 = this.assertions.get('QW-ACT-R40');
       if (r40) {
+        const elements = window.qwPage.getElements('body *');
         elements.forEach((element) => r40?.execute(element));
         this.report.addAssertionResult(r40);
       }

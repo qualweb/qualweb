@@ -3,7 +3,7 @@ import { EvaluationModule, ModuleReport } from '@shared/classes';
 import type { QWElement } from '@packages/qw-element/src';
 import type { ModuleTranslator } from '@packages/locale/src';
 import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
-import { QWPage } from '@packages/qw-page/src';
+import type { QWPage } from '@packages/qw-page/src';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 import type { Rule } from './lib/Rule.object';
 
