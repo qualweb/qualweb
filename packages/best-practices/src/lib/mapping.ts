@@ -4,7 +4,7 @@ export default {
   'table table': ['QW-BP5'],
   ':not(svg) > title': ['QW-BP6', 'QW-BP7'],
   'h1, h2, h3, h4, h5, h6, [role="heading"]': ['QW-BP8'],
-  'basefont, big, blink, center, font, marquee, multicol, nobr, spacer, tt': ['QW-BP10'],
+  'basefont, big, blink, center, font, marquee, multicol, nobr, spacer, tt, b, u, strong': ['QW-BP10'],
   'body, body *': ['QW-BP11'],
   body: ['QW-BP1', 'QW-BP20', 'QW-BP21', 'QW-BP22', 'QW-BP28'],
   'a > img': ['QW-BP13'],

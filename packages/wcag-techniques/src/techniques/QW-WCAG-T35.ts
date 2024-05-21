@@ -1,27 +1,18 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T35 extends Technique {
-  private readonly idMap: Map<string, boolean>;
-
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-    this.idMap = new Map<string, boolean>();
-  }
+  private readonly idMap = new Map<string, boolean>();
 
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const id = element.getElementAttribute('id');
-    //console.log('id ', id);
 
     if (id && !this.idMap.get(id)) {
-      //console.log('no if');
       try {
         const elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
 
@@ -34,12 +25,12 @@ class QW_WCAG_T35 extends Technique {
         }
 
         test.addElements(elementsWithSameId);
-        //console.log('test ', test);
-        super.addTestResult(test);
-      } catch {}
-      this.idMap.set(id, true);
+        this.addTestResult(test);
+      } finally {
+        this.idMap.set(id, true);
+      }
     }
   }
 }
 
-export = QW_WCAG_T35;
+export { QW_WCAG_T35 };

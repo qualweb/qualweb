@@ -1,6 +1,6 @@
 // import { expect } from 'chai';
 import { usePuppeteer } from './util';
-import { Dom } from '@qualweb/dom';
+import { QualWeb } from '@qualweb/core';
 
 describe('ANameTestWiki', function () {
   const proxy = usePuppeteer();
@@ -14,9 +14,9 @@ describe('ANameTestWiki', function () {
 
     let url = "http://localhost/test.html";
 
-    const dom = new Dom(proxy.page);
-
-    await dom.process({}, url, '');
+    const page = proxy.page;
+    const qwPage = QualWeb.createPage(page);
+    await qwPage.process({}, url, '');
 
     await proxy.page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')

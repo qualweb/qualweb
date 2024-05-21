@@ -1,18 +1,19 @@
+import { QWElement } from '@packages/qw-element/src';
+
 function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
   const role = window.AccessibilityUtils.getElementRoleAName(element, '');
-  let name = element.getElementTagName();
-  if (!name) name = '';
+  const name = element.getElementTagName() ?? '';
   let value = '';
 
   if (role === 'textbox') {
     const valueAT = element.getElementAttribute('value');
     value = valueAT ? valueAT : '';
   } else if (role === 'combobox') {
-    const refrencedByLabel = element.getElement(`[aria-activedescendant]`);
-    let aria_descendendant, selectedElement, optionSelected;
-    if (refrencedByLabel) {
-      aria_descendendant = refrencedByLabel.getElementAttribute('role');
-      selectedElement = element.getElement(`[id="${aria_descendendant}"]`);
+    const referencedByLabel = element.getElement(`[aria-activedescendant]`);
+    let aria_descendant, selectedElement, optionSelected;
+    if (referencedByLabel) {
+      aria_descendant = referencedByLabel.getElementAttribute('role');
+      selectedElement = element.getElement(`[id="${aria_descendant}"]`);
     }
 
     if (name === 'select') {
@@ -20,17 +21,19 @@ function getValueFromEmbeddedControl(element: typeof window.qwElement): string {
     }
 
     const aria_owns = element.getElementAttribute('[aria-owns]');
-    const elementasToSelect = window.qwPage.getElement(`[id="${aria_owns}"]`);
+    const elementsToSelect = window.qwPage.getElement(`[id="${aria_owns}"]`);
 
-    let elementWithAriaSelected;
-    if (elementasToSelect) elementWithAriaSelected = elementasToSelect.getElement(`[aria-selected="true"]`);
+    let elementWithAriaSelected: QWElement | null = null;
+    if (elementsToSelect) {
+      elementWithAriaSelected = elementsToSelect.getElement(`[aria-selected="true"]`);
+    }
 
     if (optionSelected) {
       value = window.DomUtils.getTrimmedText(optionSelected);
     } else if (selectedElement) {
-      value = window.DomUtils.getTrimmedText(selectedElement[0]);
+      value = window.DomUtils.getTrimmedText(selectedElement);
     } else if (elementWithAriaSelected) {
-      value = window.DomUtils.getTrimmedText(elementWithAriaSelected[0]);
+      value = window.DomUtils.getTrimmedText(elementWithAriaSelected);
     }
   } else if (role === 'listbox') {
     const elementsWithId = element.getElements(`[id]`);

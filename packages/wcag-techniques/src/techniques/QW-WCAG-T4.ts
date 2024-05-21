@@ -1,19 +1,13 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists, ElementIsDataTable, ElementHasAttribute } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists, ElementHasAttribute, ElementIsDataTable } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T4 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
   @ElementIsDataTable
   @ElementHasAttribute('summary')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const caption = element.getElementChildTextContent('caption');
@@ -31,8 +25,8 @@ class QW_WCAG_T4 extends Technique {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_WCAG_T4;
+export { QW_WCAG_T4 };

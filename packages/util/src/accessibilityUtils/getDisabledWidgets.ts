@@ -11,8 +11,8 @@ function getDisabledWidgets(): Array<typeof window.qwElement> {
       parentTag = parent.getElementTagName();
       if (parentTag === 'label') {
         parent = parent.getElementParent();
-        disable = parent.getElementAttribute('disabled') !== null;
-        ariaDisable = parent.getElementAttribute('aria-disabled') === 'true';
+        disable = parent?.getElementAttribute('disabled') !== null;
+        ariaDisable = parent?.getElementAttribute('aria-disabled') === 'true';
       }
     }
     if (isWidget && (disable || ariaDisable)) {

@@ -1,32 +1,25 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
+import { QWElement } from '@packages/qw-element/src';
 import {
-  BestPracticeClass,
   ElementExists,
-  IsHTMLDocument,
   ElementHasNonEmptyAttribute,
-  IsLangSubTagValid,
-  isInMainContext
-} from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+  IsHTMLDocument,
+  IsInMainContext,
+  IsLangSubTagValid
+} from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP29 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP29 extends BestPractice {
   @ElementExists
   @IsHTMLDocument
+  @IsInMainContext
   @ElementHasNonEmptyAttribute('lang')
   @ElementHasNonEmptyAttribute('xml:lang')
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
-  @isInMainContext
-  execute(element: typeof window.qwElement): void {
-    const lang = <string>element.getElementAttribute('lang');
-    const xmlLang = <string>element.getElementAttribute('xml:lang');
+  execute(element: QWElement): void {
+    const lang = element.getElementAttribute('lang')!;
+    const xmlLang = element.getElementAttribute('xml:lang')!;
 
     const primaryLang = lang.split('-')[0];
     const primaryXmlLang = xmlLang.split('-')[0];
@@ -41,8 +34,8 @@ class QW_BP29 extends BestPracticeObject {
       test.resultCode = 'F1';
     }
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP29;
+export { QW_BP29 };

@@ -1,4 +1,4 @@
-import ariaJSON from './ariaAttributesRoles.json';
+import { ariaAttributesRoles } from './ariaAttributesRoles';
 
 function elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElement): boolean {
   let elemAttribs = element.getElementAttributesName();
@@ -6,7 +6,9 @@ function elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElemen
   let result = false;
   let i = 0;
   while (!result && i < elemAttribs.length) {
-    result = elemAttribs[i] in ariaJSON && ariaJSON[elemAttribs[i]].global === 'yes';
+    result =
+      elemAttribs[i] in ariaAttributesRoles &&
+      ariaAttributesRoles[elemAttribs[i] as keyof typeof ariaAttributesRoles].global === 'yes';
     i++;
   }
   return result;

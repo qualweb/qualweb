@@ -2,12 +2,12 @@
   "name": "@qualweb/cli",
   "version": "0.6.31",
   "description": "QualWeb evaluator command line interface",
-  "main": "dist/index.js",
+  "main": "dist/cli/src/index.js",
   "bin": {
     "qw": "./bin/cli.js"
   },
   "files": [
-    "dist/*"
+    "dist/cli/src*"
   ],
   "scripts": {
     "tsc": "tsc",
@@ -16,7 +16,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
+    "build": "tsc --build tsconfig.prod.json",
     "typedoc": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -36,7 +36,7 @@
     "url": "https://github.com/qualweb/cli.git"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "author": "João Vicente",
   "license": "ISC",
@@ -48,7 +48,6 @@
     "set-value": "^4.1.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
     "@types/command-line-args": "^5.2.3",
     "@types/command-line-usage": "^5.0.4",

@@ -2,9 +2,9 @@
   "name": "@qualweb/core",
   "version": "0.7.71",
   "description": "QualWeb evaluator core engine",
-  "main": "dist/index.js",
+  "main": "dist/core/src/index.js",
   "files": [
-    "dist/*"
+    "dist/core/src/*"
   ],
   "scripts": {
     "tsc": "tsc",
@@ -17,7 +17,6 @@
     "test:parallel": "mocha test/parallel.spec.mjs",
     "test:plugin": "mocha test/plugin.spec.mjs",
     "test:validator": "mocha test/validator.spec.mjs",
-    "test:wp": "mocha test/wappalyzer.spec.mjs",
     "test:locale": "mocha test/locale.spec.mjs",
     "test:log": "mocha test/log.spec.mjs",
     "prebuild": "rimraf dist",
@@ -64,24 +63,22 @@
     }
   ],
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "license": "ISC",
   "dependencies": {
     "@qualweb/crawler": "0.3.18",
-    "@qualweb/dom": "0.2.10",
     "@qualweb/earl-reporter": "0.4.6",
-    "@qualweb/evaluation": "0.3.55",
     "@qualweb/locale": "0.1.18",
+    "axios": "^1.6.8",
     "colors": "1.4.0",
-    "puppeteer": "21.6.1",
+    "puppeteer": "^21.11.0",
     "puppeteer-cluster": "^0.23.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-adblocker": "^2.13.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.26",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^17.0.19",

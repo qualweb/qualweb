@@ -13,7 +13,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf prebuild  && tsc --build tsconfig.prod.json",
-    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "build": "rimraf dist && webpack && rimraf prebuild",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -33,8 +33,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.10",
-    "@qualweb/types": "0.7.26",
+    "@qualweb/core": "0.7.69",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "chai": "^4.4.1",

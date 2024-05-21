@@ -1,20 +1,14 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsNotHidden } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists, ElementIsNotHidden } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R21 extends AtomicRule {
   private readonly roleList = ['img', 'graphics-document', 'graphics-symbol'];
 
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementIsNotHidden
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const elementsToEvaluate = element.getElements('svg *');
     elementsToEvaluate.push(element);
 
@@ -33,10 +27,10 @@ class QW_ACT_R21 extends AtomicRule {
         }
 
         test.addElement(elem, true, false, true);
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
 }
 
-export = QW_ACT_R21;
+export { QW_ACT_R21 };

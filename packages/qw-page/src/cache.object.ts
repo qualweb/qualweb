@@ -1,4 +1,4 @@
-class Cache {
+export class Cache {
   private readonly cache: Map<string, string | undefined>;
 
   constructor() {
@@ -17,5 +17,3 @@ class Cache {
     return this.cache.has(key);
   }
 }
-
-export = Cache;

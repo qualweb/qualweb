@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { generateEARLReport } from '../src';
+import { generateEARLReport } from '../src/earl';
 
 // https://ciencias.ulisboa.pt - 05/08/2019 15:31
 import evaluationReport from './fixtures/evaluationreport.json';

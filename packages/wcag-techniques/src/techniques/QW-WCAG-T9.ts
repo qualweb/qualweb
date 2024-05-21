@@ -1,18 +1,11 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
-import { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T9 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const headingList = window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
     if (headingList.length === 0) {
       return;
@@ -51,17 +44,17 @@ class QW_WCAG_T9 extends Technique {
       test.verdict = 'warning';
       test.resultCode = 'W1';
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else {
       for (const error of orderErrors) {
         test.verdict = 'failed';
         test.resultCode = 'F1';
         test.addElement(error);
-        super.addTestResult(test);
+        this.addTestResult(test);
         test = new Test();
       }
     }
   }
 }
 
-export = QW_WCAG_T9;
+export { QW_WCAG_T9 };

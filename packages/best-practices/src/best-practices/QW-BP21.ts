@@ -1,18 +1,11 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP21 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP21 extends BestPractice {
   @ElementExists
-  execute(element: typeof window.qwElement): void {
-
+  execute(element: QWElement): void {
     const landmarkList = element.getElements('footer:not([role]), [role=contentinfo]');
 
     if (landmarkList.length > 0) {
@@ -30,4 +23,4 @@ class QW_BP21 extends BestPracticeObject {
   }
 }
 
-export = QW_BP21;
+export { QW_BP21 };

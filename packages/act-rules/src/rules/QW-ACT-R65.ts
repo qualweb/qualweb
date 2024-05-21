@@ -1,15 +1,9 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementHasOneOfTheFollowingRoles } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@packages/qw-element/src';
+import { ElementExists, ElementHasOneOfTheFollowingRoles } from '@shared/applicability';
+import { Test } from '@shared/classes';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R65 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementHasOneOfTheFollowingRoles([
     'button',
@@ -27,7 +21,7 @@ class QW_ACT_R65 extends AtomicRule {
     'switch',
     'tab'
   ])
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     // Without ShadowDom or iframes
     const elementList = element.getElements('*');
     const inSequentialFocusList = elementList.filter((element) => {
@@ -46,8 +40,8 @@ class QW_ACT_R65 extends AtomicRule {
       test.addElement(element, false);
     }
 
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_ACT_R65;
+export { QW_ACT_R65 };

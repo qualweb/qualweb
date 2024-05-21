@@ -5,9 +5,8 @@
  * saves a lot of copy-pasted code for dozens of virtually identical tests.
  */
 
-import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
-import locales from '@qualweb/locale';
+import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from './util';
 
 import actTestCases from './fixtures/testcases.json';
@@ -77,7 +76,6 @@ const mapping: Record<string, string> = {
   'QW-ACT-R69': '9e45ec',
   'QW-ACT-R70': 'akn7bn',
   'QW-ACT-R71': 'bisz58',
-  'QW-ACT-R72': '8a213c',
   'QW-ACT-R73': '3e12e1',
   'QW-ACT-R74': 'ye5d6e',
   'QW-ACT-R75': 'cf77f2',
@@ -102,7 +100,7 @@ const CANTTELL = 'cantTell';
 const consistencyMapping = {
   passed: [PASSED, INAPPLICABLE, CANTTELL],
   failed: [FAILED, CANTTELL],
-  inapplicable: [PASSED, INAPPLICABLE, CANTTELL],
+  inapplicable: [PASSED, INAPPLICABLE, CANTTELL]
 };
 
 describe('ACT rules', () => {
@@ -116,26 +114,16 @@ describe('ACT rules', () => {
       // Fire up Puppeteer before any test runs. All tests are run in their
       // own browser contexts, so restarting puppeteer itself should not be
       // necessary between tests.
-      before(async () => {
-        browser = await launchBrowser();
-      });
+      before(async () => browser = await launchBrowser());
 
       // Close the puppeteer instance once all tests have run.
-      after(async () => {
-        await browser.close();
-      });
+      after(async () => await browser.close());
 
       // Create a unique browser context for each test.
-      beforeEach(async () => {
-        incognito = await browser.createIncognitoBrowserContext();
-      });
+      beforeEach(async () => incognito = await browser.createIncognitoBrowserContext());
 
       // Make sure the browser contexts are shut down, as well.
-      afterEach(async () => {
-        if (incognito) {
-          await incognito.close();
-        }
-      });
+      afterEach(async () => await incognito?.close());
 
       // Filter the W3C/ACT-R test cases down to just their title, the URL to
       // the test case HTML, and the expected outcome.
@@ -155,12 +143,12 @@ describe('ACT rules', () => {
 
           const page = await incognito.newPage();
 
-          const dom = new Dom(page);
-          const { sourceHtml } = await dom.process(
+          const qwPage = QualWeb.createPage(page);
+          const { sourceHtml } = await qwPage.process(
             {
               execute: { act: true },
               'act-rules': {
-                rules: [ruleToTest]
+                include: [ruleToTest]
               },
               waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
             },
@@ -179,42 +167,20 @@ describe('ACT rules', () => {
           });
 
           await page.addScriptTag({
+            path: require.resolve('@qualweb/locale')
+          });
+
+          await page.addScriptTag({
             path: require.resolve('../dist/act.bundle.js')
           });
 
           // Set up the ACTRules package within the loaded page.
-          await page.evaluate(
-            (locale, options) => {
-              // @ts-expect-error: ACTRules isn't defined in the TS context, but will be defined within the puppeteer evaluation context.
-              window.act = new ACTRules({ translate: locale, fallback: locale }, options);
-            },
-            locales.en,
-            { rules: [ruleToTest] }
-          );
+          //@ts-ignore
+          await page.evaluate((options) => (window.act = new ACTRules('en').configure(options)), {
+            include: [ruleToTest]
+          });
 
-          // Special case only for rule QW-ACT-R72.
-          if (ruleId === '8a213c') {
-            await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-          }
-
-          await page.evaluate((sourceHtmlHeadContent) => {
-            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
-
-            const parser = new DOMParser();
-            const sourceDoc = parser.parseFromString('', 'text/html');
-
-            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
-
-            const elements = sourceDoc.querySelectorAll('meta');
-            const metaElements = [];
-            for (const element of elements) {
-              metaElements.push(window.qwPage.createQWElement(element));
-            }
-
-            window.act.validateMetaElements(metaElements);
-            window.act.executeAtomicRules();
-            window.act.executeCompositeRules();
-          }, sourceHtml);
+          await page.evaluate((sourceHtml) => window.act.test({ sourceHtml }), sourceHtml);
 
           if (ruleId === '59br37') {
             await page.setViewport({
@@ -224,7 +190,7 @@ describe('ACT rules', () => {
           }
 
           const report = await page.evaluate(() => {
-            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
+            window.act.testSpecial();
             return window.act.getReport();
           });
 

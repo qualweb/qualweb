@@ -36,9 +36,8 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "compile:bps": "node compile-bps.js",
-    "prebuild": "rimraf prebuild && npm run compile:bps && rimraf dist",
-    "build": "tsc --build tsconfig.prod.json && webpack --mode production",
+    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
+    "build": "rimraf dist && webpack && rimraf prebuild",
     "postbuild": "rimraf prebuild",
     "prepublishOnly": "npm run build"
   },
@@ -60,10 +59,9 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.10",
+    "@qualweb/core": "0.7.69",
     "@qualweb/locale": "0.1.18",
     "@qualweb/qw-page": "0.2.21",
-    "@qualweb/types": "0.7.26",
     "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
