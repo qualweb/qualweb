@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasAttribute, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T17 extends Technique {
@@ -18,10 +19,10 @@ class QW_WCAG_T17 extends Technique {
     if (insideLabel) {
       const hasCorrectText = isRadioOrCheckBox ? this.hasTextAfter(element) : this.hasTextBefore(element);
       if (hasCorrectText) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
       test.addElement(element);
@@ -34,14 +35,14 @@ class QW_WCAG_T17 extends Technique {
         if (visible && text && text.trim() !== '') {
           const isOnTop = this.isElementOnTop(element, label);
           if (isRadioOrCheckBox || isOnTop) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F1';
           }
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F2';
         }
       }

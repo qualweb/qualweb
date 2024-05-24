@@ -1,11 +1,10 @@
 import type { ModuleTranslator } from '@packages/locale/src';
 import type { TestingData, HTMLValidationReport } from '@shared/types';
 import { Tester } from '@shared/classes';
-import { Technique } from './Technique.object';
 import mapping from './mapping';
 import * as techniques from '../techniques';
 
-export class WCAGTechniquesTester extends Tester<Technique> {
+export class WCAGTechniquesTester extends Tester {
   public init(translator: ModuleTranslator): this {
     for (const technique in techniques) {
       const techniqueObject = new techniques[technique as keyof typeof techniques](translator);
@@ -37,9 +36,9 @@ export class WCAGTechniquesTester extends Tester<Technique> {
     if (techniqueObject) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => techniqueObject.execute(element));
+        elements.forEach((element) => techniqueObject.execute?.(element));
       } else {
-        techniqueObject.execute();
+        techniqueObject.execute?.();
       }
 
       this.report.addAssertionResult(techniqueObject);

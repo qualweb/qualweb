@@ -2,11 +2,11 @@ import type { TranslationOptions, Lang, Locale, Translate, TranslationObject } f
 import * as locales from './locales';
 
 export class LocaleFetcher {
-  static get(lang: Lang): Locale {
+  public static get(lang: Lang): Locale {
     return locales[lang];
   }
 
-  static transform(options: TranslationOptions): Translate {
+  public static transform(options: TranslationOptions): Translate {
     if (options) {
       if (typeof options === 'string') {
         if (options in locales) {
@@ -59,5 +59,3 @@ export class LocaleFetcher {
     return translation;
   }
 }
-
-window.LocaleFetcher = LocaleFetcher;

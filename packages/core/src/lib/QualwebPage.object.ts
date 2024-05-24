@@ -1,101 +1,137 @@
-import type { QualwebOptions, PageOptions, PageData, HTMLValidationReport } from '@shared/types';
 import axios from 'axios';
-import type { Page, HTTPResponse, Viewport } from 'puppeteer';
+import type { Page, HTTPResponse, Viewport, Awaitable, InnerParams } from 'puppeteer';
+import type { QualwebOptions, PageOptions, HTMLValidationReport, TestingData } from '@shared/types';
 import {
   DEFAULT_MOBILE_USER_AGENT,
   DEFAULT_DESKTOP_USER_AGENT,
   DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
   DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
   DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH,
-  DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT
-} from './constants';
+  DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT,
+  PluginManager
+} from '.';
+
+type EvaluateFunc<T extends unknown[]> = (...params: InnerParams<T>) => Awaitable<unknown>;
 
 export class QualwebPage {
+  private readonly pluginManager: PluginManager;
   private readonly page: Page;
-  private readonly endpoint?: string;
+  private readonly url: string;
+  private readonly html?: string;
 
-  constructor(page: Page, validator?: string) {
-    this.page = page;
-    this.endpoint = validator;
-  }
-
-  public async process(options: QualwebOptions, url: string, html: string): Promise<PageData> {
-    if (!url && !html) {
+  constructor(pluginManager: PluginManager, page: Page, html?: string) {
+    if (!page.url() && !html) {
       throw new Error('Neither a url nor html content was provided.');
     }
+    this.pluginManager = pluginManager;
+    this.page = page;
+    this.url = page.url();
+    this.html = html;
+  }
 
-    url = this.removeUrlAnchor(url);
+  public getUrl(): string {
+    return this.url;
+  }
 
+  public getTitle(): Promise<string> {
+    return this.page.title();
+  }
+
+  public async getNumberOfHTMLElements(): Promise<number> {
+    return (await this.page.$$('*')).length;
+  }
+
+  public getOuterHTML(): Promise<string> {
+    return this.page.evaluate(() => document.documentElement.outerHTML);
+  }
+
+  public getUserAgent(): Promise<string> {
+    return this.page.browser().userAgent();
+  }
+
+  public async getTestingData(options: QualwebOptions): Promise<TestingData> {
     await this.page.setBypassCSP(true);
-    await this.setPageViewport(options.viewport);
+    await this.setViewport(options.viewport);
 
-    const needsValidator = this.validatorNeeded(options);
-    const needsPreprocessedHTML = this.sourceHTMLNeeded(options);
+    await this.pluginManager.executeBeforePageLoad(this.page);
 
-    let validation: HTMLValidationReport | undefined;
-    let response: HTTPResponse | null;
-    let sourceHtml = '';
+    const testingData: TestingData = {};
 
-    if (url) {
-      if (needsValidator && needsPreprocessedHTML) {
-        [response, validation, sourceHtml] = await Promise.all([
-          this.navigateToPage(url, options),
-          this.getValidatorResult(url),
-          this.getSourceHtml(url, options.viewport)
-        ]);
-      } else if (needsValidator) {
-        [response, validation] = await Promise.all([this.navigateToPage(url, options), this.getValidatorResult(url)]);
-      } else if (needsPreprocessedHTML) {
-        [response, sourceHtml] = await Promise.all([
-          this.navigateToPage(url, options),
-          this.getSourceHtml(url, options.viewport)
-        ]);
-      } else {
-        response = await this.navigateToPage(url, options);
-      }
+    if (this.url) {
+      const [response, validation, sourceHtml] = await Promise.all([
+        this.navigateToPage(options),
+        this.getValidatorResult(options.validator),
+        this.getSourceHtml(options.viewport)
+      ]);
+
+      testingData.validation = validation;
+      testingData.sourceHtml = sourceHtml;
 
       const sourceHTMLPuppeteer = await response?.text();
 
-      if (!this.isHtmlDocument(sourceHTMLPuppeteer, url)) {
+      if (!this.isHtmlDocument(sourceHTMLPuppeteer)) {
         await this.page.goBack();
         await this.page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body></body></html>', {
           timeout: options.timeout
         });
       }
-    } else if (html) {
-      await this.page.setContent(html, {
+    } else if (this.html) {
+      await this.page.setContent(this.html, {
         timeout: options.timeout ?? 60 * 1000,
         waitUntil: options.waitUntil ?? 'load'
       });
 
-      sourceHtml = await this.page.content();
+      testingData.sourceHtml = await this.page.content();
     }
 
-    return {
-      sourceHtml,
-      validation
-    };
+    testingData.newTabWasOpen = await this.extraTabOpened();
+
+    await this.pluginManager.executeAfterPageLoad(this.page);
+
+    this.addNecessaryScripts();
+
+    return testingData;
   }
 
-  private removeUrlAnchor(url: string): string {
-    if (url) {
-      const urlObject = new URL(url);
-      return urlObject.origin + urlObject.pathname + urlObject.search;
-    }
-
-    return url;
+  private async addNecessaryScripts(): Promise<void> {
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/qw-page'),
+      type: 'text/javascript'
+    });
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/util'),
+      type: 'text/javascript'
+    });
   }
 
-  private async navigateToPage(url: string, options: QualwebOptions): Promise<HTTPResponse | null> {
+  public async addEvaluationScript(module: string): Promise<void> {
+    await this.page.addScriptTag({
+      path: require.resolve(module),
+      type: 'text/javascript'
+    });
+  }
+
+  public evaluate<Params extends unknown[], Func extends EvaluateFunc<Params> = EvaluateFunc<Params>>(
+    pageFunction: Func | string,
+    ...args: Params
+  ): Promise<Awaited<ReturnType<Func>>> {
+    return this.page.evaluate<Params, Func>(pageFunction, ...args);
+  }
+
+  private async navigateToPage(options: QualwebOptions): Promise<HTTPResponse | null> {
     this.page.on('dialog', (dialog) => dialog.dismiss());
 
-    return this.page.goto(url, {
+    return this.page.goto(this.url, {
       timeout: options.timeout ?? 240 * 1000,
       waitUntil: options.waitUntil ?? 'load'
     });
   }
 
-  private async setPageViewport(options?: PageOptions): Promise<void> {
+  public getViewport(): Viewport | null {
+    return this.page.viewport();
+  }
+
+  public async setViewport(options?: PageOptions): Promise<void> {
     if (options) {
       if (options.userAgent) {
         await this.page.setUserAgent(options.userAgent);
@@ -137,7 +173,28 @@ export class QualwebPage {
     return viewport;
   }
 
-  private async getSourceHtml(url: string, options?: PageOptions): Promise<string> {
+  private async extraTabOpened(): Promise<boolean> {
+    const tabs = await this.page.browser().pages();
+
+    let extraTabOpened = false;
+
+    for (const tab of tabs ?? []) {
+      const target = tab.target();
+      const opener = target.opener();
+
+      if (opener) {
+        const openerPage = await opener.page();
+        if (openerPage && openerPage.url() === this.page.url()) {
+          extraTabOpened = true;
+          await tab.close();
+        }
+      }
+    }
+
+    return extraTabOpened;
+  }
+
+  private async getSourceHtml(options?: PageOptions): Promise<string> {
     try {
       const fetchOptions = {
         headers: {
@@ -150,16 +207,16 @@ export class QualwebPage {
             : DEFAULT_DESKTOP_USER_AGENT
         }
       };
-      const response = await axios.get(url, fetchOptions);
+      const response = await axios.get(this.url, fetchOptions);
       return response.data.trim();
     } catch (e) {
       return '';
     }
   }
 
-  private async getValidatorResult(url: string): Promise<HTMLValidationReport | undefined> {
-    if (this.endpoint) {
-      const validationUrl = this.endpoint + encodeURIComponent(url);
+  private async getValidatorResult(endpoint?: string): Promise<HTMLValidationReport | undefined> {
+    if (endpoint) {
+      const validationUrl = endpoint + encodeURIComponent(this.url);
       try {
         const response = await axios.get(validationUrl, { timeout: 10 * 1000 });
         if (response && response.status === 200) {
@@ -173,86 +230,8 @@ export class QualwebPage {
     return undefined;
   }
 
-  private validatorNeeded(options: QualwebOptions): boolean {
-    if (this.isModuleSetToExecute(options, 'wcag') && this.endpoint) {
-      if (options['wcag-techniques']) {
-        if (this.moduleExcludesValidatorTechnique(options)) {
-          return false;
-        } else if (options['wcag-techniques'].include) {
-          return this.moduleIncludesValidatorTechnique(options);
-        }
-      }
-
-      return true;
-    }
-
-    return false;
-  }
-
-  private isModuleSetToExecute(options: QualwebOptions, module: 'act' | 'wcag'): boolean {
-    return !options.execute || (options.execute && !!options.execute[module]);
-  }
-
-  private moduleIncludesValidatorTechnique(options: QualwebOptions): boolean {
-    return !!(
-      options &&
-      options['wcag-techniques'] &&
-      options['wcag-techniques'].include &&
-      (options['wcag-techniques'].include.includes('QW-WCAG-T16') || options['wcag-techniques'].include.includes('H88'))
-    );
-  }
-
-  private moduleExcludesValidatorTechnique(options: QualwebOptions): boolean {
-    return !!(
-      options &&
-      options['wcag-techniques'] &&
-      options['wcag-techniques'].exclude &&
-      (options['wcag-techniques'].exclude.includes('QW-WCAG-T16') || options['wcag-techniques'].exclude.includes('H88'))
-    );
-  }
-
-  private sourceHTMLNeeded(options: QualwebOptions): boolean {
-    if (this.isModuleSetToExecute(options, 'act')) {
-      if (options['act-rules']) {
-        if (this.moduleExcludesSourceCodeRule(options)) {
-          return false;
-        } else if (options['act-rules'].include) {
-          return this.moduleIncludesSourceCodeRule(options);
-        }
-      }
-
-      return true;
-    }
-
-    return false;
-  }
-
-  private moduleIncludesSourceCodeRule(options: QualwebOptions): boolean {
-    return !!(
-      options &&
-      options['act-rules'] &&
-      options['act-rules'].include &&
-      (options['act-rules'].include.includes('QW-ACT-R4') ||
-        options['act-rules'].include.includes('bc659a') ||
-        options['act-rules'].include.includes('QW-ACT-R71') ||
-        options['act-rules'].include.includes('bisz58'))
-    );
-  }
-
-  private moduleExcludesSourceCodeRule(options: QualwebOptions): boolean {
-    return !!(
-      options &&
-      options['act-rules'] &&
-      options['act-rules'].exclude &&
-      (options['act-rules'].exclude.includes('QW-ACT-R4') ||
-        options['act-rules'].exclude.includes('bc659a') ||
-        options['act-rules'].exclude.includes('QW-ACT-R71') ||
-        options['act-rules'].exclude.includes('bisz58'))
-    );
-  }
-
-  private isHtmlDocument(content?: string, url?: string): boolean {
-    if (url && (url.endsWith('.svg') || url.endsWith('.xml') || url.endsWith('.xhtml'))) {
+  private isHtmlDocument(content?: string): boolean {
+    if (this.url && (this.url.endsWith('.svg') || this.url.endsWith('.xml') || this.url.endsWith('.xhtml'))) {
       return false;
     }
 

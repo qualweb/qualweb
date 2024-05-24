@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 class QW_WCAG_T12 extends Technique {
   @ElementExists
@@ -19,16 +20,16 @@ class QW_WCAG_T12 extends Technique {
     const summary = element.getElementAttribute('summary');
 
     if (summary?.trim() !== '') {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else if (checks['hasTh']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
     } else if (checks['hasCaption']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F3';
     } else {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     }
 

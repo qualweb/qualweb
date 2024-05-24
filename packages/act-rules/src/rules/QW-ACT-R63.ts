@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, IsHTMLDocument } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R63 extends AtomicRule {
@@ -21,7 +22,7 @@ class QW_ACT_R63 extends AtomicRule {
             !this.checkDestination(href) &&
             (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))
           ) {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W1';
             hasLinks = true;
             break;
@@ -31,7 +32,7 @@ class QW_ACT_R63 extends AtomicRule {
     }
 
     if (!hasLinks) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 

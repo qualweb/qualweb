@@ -1,7 +1,8 @@
 import type { QWElement } from '@packages/qw-element/src';
-import { Technique } from '../lib/Technique.object';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
+import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T2 extends Technique {
   @ElementExists
@@ -12,10 +13,10 @@ class QW_WCAG_T2 extends Technique {
     const childText = element.getElementChildTextContent('caption');
 
     if (!hasChild || (childText && childText.trim() === '')) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     }
 

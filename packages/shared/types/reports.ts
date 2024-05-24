@@ -1,9 +1,13 @@
-import type { Module, CounterReport } from '.';
+import type { CounterReport, ModuleType } from '.';
 
 export type Level = 'A' | 'AA' | 'AAA';
 export type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
-export type Verdict = 'passed' | 'failed' | 'warning' | 'inapplicable';
-
+export enum Verdict {
+  PASSED = 'passed',
+  WARNING = 'warning',
+  FAILED = 'failed',
+  INAPPLICABLE = 'inapplicable'
+}
 
 export type SuccessCriteria = {
   name: string;
@@ -49,6 +53,9 @@ export type AssertionMetadata = {
   'success-criteria': SuccessCriteria[];
   related: string[];
   url: string;
+  results: {
+    [verdict in Verdict]: number;
+  };
   passed: number;
   warning: number;
   failed: number;
@@ -69,15 +76,11 @@ export type Assertion = {
 };
 
 export type ModuleMetadata = {
-  passed: number;
-  warning: number;
-  failed: number;
-  inapplicable: number;
+  [verdict in Verdict]: number;
 };
 
-
 export type EvaluationReport = {
-  type: Module;
+  type: ModuleType;
   metadata: ModuleMetadata;
   assertions: {
     [key: string]: Assertion;
@@ -107,7 +110,7 @@ export type DomData = {
   elementCount?: number;
 };
 
-export type Evaluator = {
+export type SystemData = {
   name: string;
   description: string;
   version: string;
@@ -130,7 +133,6 @@ export type Evaluator = {
 };
 
 export type Url = {
-  inputUrl: string;
   protocol: string;
   domainName: string;
   domain: string;
@@ -139,13 +141,10 @@ export type Url = {
 };
 
 export type Metadata = {
-  passed: number;
-  warning: number;
-  failed: number;
-  inapplicable: number;
+  [verdict in Verdict]: number;
 };
 
-export type Modules = {
+export type ModulesData = {
   'act-rules'?: EvaluationReport;
   'wcag-techniques'?: EvaluationReport;
   'best-practices'?: EvaluationReport;
@@ -154,7 +153,7 @@ export type Modules = {
 
 export type QualwebReport = {
   type: 'evaluation';
-  system: Evaluator;
+  system: SystemData;
   metadata: Metadata;
-  modules: Modules;
+  modules: ModulesData;
 };

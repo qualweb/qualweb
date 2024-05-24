@@ -2,16 +2,14 @@ import type { ModuleTranslator } from '@packages/locale/src';
 import type { TestingData, Level, Principle } from '../types';
 import type { ModuleReport, Guideline } from '.';
 
-export abstract class Tester<T extends Guideline> {
-  protected readonly assertions: Map<string, T>;
-  protected readonly toExecute: { [key: string]: boolean };
+export abstract class Tester {
+  protected readonly assertions = new Map<string, Guideline>();
+  protected readonly toExecute: { [key: string]: boolean } = {};
 
-  protected readonly report: ModuleReport<T>;
+  protected readonly report: ModuleReport;
 
-  constructor(report: ModuleReport<T>) {
+  constructor(report: ModuleReport) {
     this.report = report;
-    this.assertions = new Map<string, T>();
-    this.toExecute = {};
   }
 
   public configureByPrinciplesAndLevels(principles?: Principle[], levels?: Level[]): void {
@@ -36,8 +34,8 @@ export abstract class Tester<T extends Guideline> {
 
   public configureIncluded(assertions?: string[]): void {
     if (this.assertions?.size !== 0) {
-      const _assertions = assertions?.map((r) =>
-        r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim()
+      const _assertions = assertions?.map((a) =>
+        a.toLowerCase().startsWith('qw') ? a.toUpperCase().trim() : a.trim()
       );
       for (const [key, assertion] of this.assertions) {
         this.toExecute[key] = !!(
@@ -49,7 +47,7 @@ export abstract class Tester<T extends Guideline> {
 
   public configureExcluded(assertions?: string[]): void {
     if (assertions && assertions.length !== 0) {
-      const _assertions = assertions.map((r) => (r.toLowerCase().startsWith('qw') ? r.toUpperCase().trim() : r.trim()));
+      const _assertions = assertions.map((a) => (a.toLowerCase().startsWith('qw') ? a.toUpperCase().trim() : a.trim()));
       for (const [key, assertion] of this.assertions) {
         this.toExecute[key] =
           !_assertions.includes(assertion.getCode()) && !_assertions.includes(assertion.getMapping());

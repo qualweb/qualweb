@@ -1,10 +1,10 @@
-import type { Module, Assertion, EvaluationReport } from '../types';
+import type { ModuleType, Assertion, EvaluationReport } from '../types';
 import { Guideline } from '.';
 
-export class ModuleReport<T extends Guideline> {
+export class ModuleReport {
   private readonly report: EvaluationReport;
 
-  constructor(module: Module) {
+  constructor(module: ModuleType) {
     this.report = {
       type: module,
       metadata: {
@@ -21,7 +21,7 @@ export class ModuleReport<T extends Guideline> {
     return this.report.assertions[assertion];
   }
 
-  public addAssertionResult(assertion: T): void {
+  public addAssertionResult(assertion: Guideline): void {
     const code = assertion.getCode();
     this.report.assertions[code] = assertion.getFinalResults();
     this.report.metadata[this.report.assertions[code].metadata.outcome]++;

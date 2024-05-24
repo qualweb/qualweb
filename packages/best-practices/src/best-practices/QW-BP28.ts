@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP28 extends BestPractice {
@@ -10,10 +11,10 @@ class QW_BP28 extends BestPractice {
 
     const hasH1 = element.getElements('h1');
     if (hasH1.length === 1) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
     test.addElement(element);

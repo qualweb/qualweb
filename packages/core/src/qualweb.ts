@@ -7,19 +7,15 @@ import { readFile } from 'fs';
 import 'colors';
 import type {
   QualwebOptions,
-  Evaluations,
+  QualwebReports,
   PuppeteerPlugins,
   ClusterOptions,
   LoadEvent,
   QualwebPlugin,
   CrawlOptions
 } from '@shared/types';
-import { generateEARLReport } from '@qualweb/earl-reporter';
 import { Crawler } from '@qualweb/crawler';
-import { QualwebPage } from './lib/QualwebPage.object';
-import { Evaluation } from './lib/Evaluation.object';
-import { PluginManager } from './lib/PluginManager.object';
-import { ErrorManager } from './lib/ErrorManager.object';
+import { EvaluationManager, QualwebPage, PluginManager, ErrorManager } from './lib';
 
 /**
  * QualWeb engine - Performs web accessibility evaluations using several modules:
@@ -27,7 +23,7 @@ import { ErrorManager } from './lib/ErrorManager.object';
  * - wcag-techniques module (https://github.com/qualweb/qualweb/tree/main/packages/wcag-techniques)
  * - best-practices module (https://github.com/qualweb/qualweb/tree/main/packages/best-practices)
  */
-class QualWeb {
+export class QualWeb {
   /**
    * Chromium browser cluster.
    */
@@ -36,7 +32,7 @@ class QualWeb {
   /**
    * Array of plugins added with QualWeb.use().
    */
-  private readonly qualwebPlugins = new PluginManager();
+  private readonly pluginManager = new PluginManager();
 
   /**
    * Initializes puppeteer with given plugins.
@@ -48,7 +44,7 @@ class QualWeb {
       puppeteer.use(StealthPlugin());
     }
     if (plugins?.adBlock) {
-      puppeteer.use(AdBlocker({ blockTrackers: true }));
+      puppeteer.use(AdBlocker({ blockTrackersAndAnnoyances: true }));
     }
   }
 
@@ -80,7 +76,7 @@ class QualWeb {
    * @returns The Qualweb instance itself. Good for chaining.
    */
   public use(plugin: QualwebPlugin): this {
-    this.qualwebPlugins.use(plugin);
+    this.pluginManager.use(plugin);
     return this;
   }
 
@@ -95,17 +91,17 @@ class QualWeb {
    * Evaluates given options.
    *
    * @param {QualwebOptions} options - Options of execution (check https://github.com/qualweb/core#options).
-   * @returns List of evaluations.
+   * @returns List of reports.
    */
-  public async evaluate(options: QualwebOptions): Promise<Evaluations> {
+  public async evaluate(options: QualwebOptions): Promise<QualwebReports> {
     const urls = await this.checkUrls(options);
 
-    const evaluations: Evaluations = {};
-
-    const errorManager = new ErrorManager(options);
+    const errorManager = new ErrorManager(options.log);
     errorManager.handle(this.cluster);
 
-    await this.handlePageEvaluations(evaluations, options);
+    const reports: QualwebReports = {};
+
+    await this.handlePageEvaluations(reports, options);
     this.addUrlsToEvaluate(urls);
     this.addHtmlCodeToEvaluate(options.html);
 
@@ -113,26 +109,14 @@ class QualWeb {
 
     errorManager.showErrorsIfAny();
 
-    return evaluations;
+    return reports;
   }
 
-  private async handlePageEvaluations(evaluations: Evaluations, options: QualwebOptions): Promise<void> {
+  private async handlePageEvaluations(reports: QualwebReports, options: QualwebOptions): Promise<void> {
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
-      const qwPage = new QualwebPage(page, options.validator);
-
-      await this.qualwebPlugins.executeBeforePageLoad(page, url);
-
-      const { sourceHtml, validation } = await qwPage.process(options, url, html);
-      const evaluation = new Evaluation(url, page, {
-        act: options.execute?.act ?? true,
-        wcag: options.execute?.wcag ?? true,
-        bp: options.execute?.bp ?? true,
-        counter: options.execute?.counter ?? false
-      });
-
-      await this.qualwebPlugins.executeAfterPageLoad(page, url);
-
-      evaluations[url ?? 'customHtml'] = await evaluation.evaluatePage(sourceHtml, options, validation);
+      const qwPage = new QualwebPage(this.pluginManager, page, html);
+      const evaluationManager = new EvaluationManager(qwPage, options.modulesToExecute);
+      reports[url ?? 'customHtml'] = await evaluationManager.evaluate(options);
     });
   }
 
@@ -232,7 +216,7 @@ class QualWeb {
    * @returns Qualweb Page
    */
   public static createPage(page: Page): QualwebPage {
-    return new QualwebPage(page);
+    return new QualwebPage(new PluginManager(), page);
   }
 }
 
@@ -242,7 +226,7 @@ class QualWeb {
  * @param {string} file - Path to file of urls.
  * @returns List of decoded urls.
  */
-async function getFileParsedUrls(file: string): Promise<Array<string>> {
+export async function getFileParsedUrls(file: string): Promise<Array<string>> {
   const content = await readFileData(file);
   return content
     .split('\n')
@@ -273,5 +257,3 @@ function readFileData(file: string): Promise<string> {
     });
   });
 }
-
-export { QualWeb, generateEARLReport, getFileParsedUrls };

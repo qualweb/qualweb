@@ -1,11 +1,11 @@
-import type { Assertion, Module, Translate } from '@shared/types';
-import { Translator } from './translator';
+import type { Assertion, ModuleType, Translate } from '@shared/types';
+import { Translator } from '.';
 
 export class AssertionTranslator {
-  private readonly module: Module;
+  private readonly module: ModuleType;
   private readonly translator: Translator;
 
-  constructor(module: Module, locale: Translate) {
+  constructor(module: ModuleType, locale: Translate) {
     this.module = module;
     this.translator = new Translator(locale);
   }
@@ -17,5 +17,3 @@ export class AssertionTranslator {
       this.translator.get([this.module, assertion.code, 'results', 'I1']) ?? assertion.metadata.description;
   }
 }
-
-window.AssertionTranslator = AssertionTranslator;

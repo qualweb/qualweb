@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, IsInMainContext } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T23 extends Technique {
@@ -33,31 +34,31 @@ class QW_WCAG_T23 extends Technique {
               const idElementReferenced = element.getElement('[id="' + idReferenced + '"]');
               if (idElementReferenced !== null) {
                 if (hasMainElementAsParent(idElementReferenced)) {
-                  test.verdict = 'warning';
+                  test.verdict = Verdict.WARNING;
                   test.resultCode = 'W1';
                 } else {
-                  test.verdict = 'warning';
+                  test.verdict = Verdict.WARNING;
                   test.resultCode = 'W2';
                 }
               } else {
-                test.verdict = 'failed';
+                test.verdict = Verdict.FAILED;
                 test.resultCode = 'F1';
               }
             } else {
               //todo failed ou inapplicable?
-              test.verdict = 'failed';
+              test.verdict = Verdict.FAILED;
               test.resultCode = 'F2';
             }
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F3';
           }
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F4';
         }
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F5';
       }
 

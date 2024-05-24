@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R54 extends AtomicRule {
@@ -12,7 +13,7 @@ class QW_ACT_R54 extends AtomicRule {
 
     const hasPuppeteerApplicableData = duration > 0 && !hasSoundTrack;
 
-    const test = new Test('warning');
+    const test = new Test(Verdict.WARNING);
 
     if (!(duration >= 0 && hasSoundTrack)) {
       test.resultCode = 'W1';

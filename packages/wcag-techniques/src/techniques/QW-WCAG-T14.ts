@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T14 extends Technique {
@@ -13,18 +14,18 @@ class QW_WCAG_T14 extends Technique {
 
     if (!window.AccessibilityUtils.isDataTable(element)) {
       if (hasIds.length > 0 || hasHeaders.length > 0) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       } else {
-        test.verdict = 'inapplicable';
+        test.verdict = Verdict.INAPPLICABLE;
         test.resultCode = 'I2';
       }
     } else {
       if (doesTableHaveDuplicateIds(element)) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F2';
       } else if (hasHeaders.length <= 0) {
-        test.verdict = 'inapplicable';
+        test.verdict = Verdict.INAPPLICABLE;
         test.resultCode = 'I3';
       } else {
         const headersElements = element.getElements('[headers]');
@@ -36,10 +37,10 @@ class QW_WCAG_T14 extends Technique {
         }
 
         if (headersMatchId) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F3';
         }
       }

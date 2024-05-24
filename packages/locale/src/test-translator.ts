@@ -1,13 +1,13 @@
-import type { Module, Translate, TranslationValues } from '@shared/types';
-import { Translator } from './translator';
+import type { ModuleType, Translate, TranslationValues } from '@shared/types';
+import { Translator } from '.';
 
 export class TestTranslator {
-  private readonly module: Module;
+  private readonly module: ModuleType;
   private readonly translator: Translator;
 
-  constructor(module: Module, translator: Translator);
-  constructor(module: Module, locale: Translate);
-  constructor(module: Module, translator: Translate | Translator) {
+  constructor(module: ModuleType, translator: Translator);
+  constructor(module: ModuleType, locale: Translate);
+  constructor(module: ModuleType, translator: Translate | Translator) {
     this.module = module;
     this.translator = translator instanceof Translator ? translator : new Translator(translator);
   }
@@ -24,5 +24,3 @@ export class TestTranslator {
     return description ?? '';
   }
 }
-
-window.TestTranslator = TestTranslator;

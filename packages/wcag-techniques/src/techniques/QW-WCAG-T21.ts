@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasAttributes, ElementIsInAccessibilityTree } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T21 extends Technique {
@@ -15,10 +16,10 @@ class QW_WCAG_T21 extends Technique {
 
     if (!((aText !== undefined && aText.trim() !== '') || !img)) {
       if (window.AccessibilityUtils.getAccessibleName(element)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 
