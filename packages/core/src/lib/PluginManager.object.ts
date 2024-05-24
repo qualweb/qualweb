@@ -23,10 +23,9 @@ export class PluginManager {
    * call to Qualweb.evaluate() so the user can handle it on their own.
    *
    * @param {Page} page - Puppeteer page
-   * @param {string | undefined} url - Url being evaluated
    */
-  public async executeBeforePageLoad(page: Page, url?: string): Promise<void> {
-    this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, url || 'customHtml'));
+  public async executeBeforePageLoad(page: Page): Promise<void> {
+    this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, page.url() || 'customHtml'));
   }
 
   /**
@@ -34,9 +33,8 @@ export class PluginManager {
    * Same assumptions for exceptions apply as they did for beforePageLoad.
    *
    * @param {Page} page - Puppeteer page
-   * @param {string | undefined} url - Url being evaluated
    */
-  public async executeAfterPageLoad(page: Page, url?: string): Promise<void> {
-    this.plugins.forEach(async (plugin) => await plugin.afterPageLoad?.(page, url || 'customHtml'));
+  public async executeAfterPageLoad(page: Page): Promise<void> {
+    this.plugins.forEach(async (plugin) => await plugin.afterPageLoad?.(page, page.url() || 'customHtml'));
   }
 }

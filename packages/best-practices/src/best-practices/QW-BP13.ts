@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP13 extends BestPractice {
@@ -22,10 +23,10 @@ class QW_BP13 extends BestPractice {
       (aWithImgNext && aWithImgNext.getElementAttribute('href') === href) ||
       (aWithImgPrev && aWithImgPrev.getElementAttribute('href') === href)
     ) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 

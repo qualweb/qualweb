@@ -1,14 +1,15 @@
-import type { Translate, TranslationOptions, ModuleOptions, TestingData, EvaluationReport } from '../types';
-import { Tester, Guideline, ModuleReport } from '.';
+import { ModuleTranslator } from '@packages/locale/src';
+import type { ModuleOptions, TestingData, EvaluationReport } from '../types';
+import { Tester, ModuleReport } from '.';
 
-export abstract class EvaluationModule<T extends Guideline> {
-  protected abstract readonly report: ModuleReport<T>;
-  protected abstract readonly tester: Tester<T>;
+export abstract class EvaluationModule {
+  protected abstract readonly report: ModuleReport;
+  protected abstract readonly tester: Tester;
 
-  protected readonly locale: Translate;
+  protected readonly translator: ModuleTranslator;
 
-  constructor(options: TranslationOptions) {
-    this.locale = window.LocaleFetcher.transform(options);
+  constructor(translator: ModuleTranslator) {
+    this.translator = translator;
   }
 
   public configure(options: ModuleOptions): this {

@@ -6,6 +6,7 @@ import {
   ElementIsVisible
 } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R39 extends AtomicRule {
@@ -101,12 +102,12 @@ class QW_ACT_R39 extends AtomicRule {
 
         const test = new Test();
         if (found) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
           //if (elementParent) // FIX: the hell is this if for?
 
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         }
 

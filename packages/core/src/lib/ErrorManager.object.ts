@@ -1,18 +1,16 @@
-import type { QualwebOptions } from '@shared/types';
-import type { Cluster } from 'puppeteer-cluster';
-import { writeFile, unlink } from 'fs';
 import path from 'path';
+import { writeFile, unlink } from 'fs';
+import type { Cluster } from 'puppeteer-cluster';
+import type { LogOptions } from '@shared/types';
 
 export class ErrorManager {
-  private readonly log?: {
-    console?: boolean;
-    file?: boolean;
-  };
+  private readonly logOptions?: LogOptions;
   private readonly timestamp = new Date().getTime();
+  private readonly fileName = `qualweb-errors-${this.timestamp}.log`;
   private error = false;
 
-  constructor(options: QualwebOptions) {
-    this.log = options.log;
+  constructor(logOptions?: LogOptions) {
+    this.logOptions = logOptions;
     const formattedDate = new Date(this.timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '');
     this.writeErrorToFile('Evaluation errors', `${formattedDate}\n-----------`);
   }
@@ -31,14 +29,14 @@ export class ErrorManager {
    * @param {string} message - Error message of the evaluation.
    */
   private writeErrorToFile(url: string, message: string): void {
-    if (this.log?.file) {
-      const _path = path.resolve(process.cwd(), `qualweb-errors-${this.timestamp}.log`);
+    if (this.logOptions?.file) {
+      const _path = path.resolve(process.cwd(), this.fileName);
       const data = url + ' : ' + message + '\n';
       writeFile(_path, data, { flag: 'a', encoding: 'utf-8' }, (err) => {
         if (err) console.error(err);
       });
     }
-    if (this.log?.console) {
+    if (this.logOptions?.console) {
       console.error(url + ' : ' + message + '\n');
     }
   }
@@ -48,7 +46,7 @@ export class ErrorManager {
    * If there are no errors the log file is deleted.
    */
   public showErrorsIfAny(): void {
-    if (this.log?.file) {
+    if (this.logOptions?.file) {
       if (this.error) {
         console.warn('One or more urls failed to evaluate. Check the error.log for more information.'.yellow);
       } else {
@@ -61,7 +59,7 @@ export class ErrorManager {
    * Deletes the error log file created at the beginning of the evaluation.
    */
   private deleteErrorLogFile(): void {
-    unlink(path.resolve(process.cwd(), `qualweb-errors-${this.timestamp}.log`), (err) => {
+    unlink(path.resolve(process.cwd(), this.fileName), (err) => {
       if (err) {
         throw err;
       }

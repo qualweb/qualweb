@@ -1,6 +1,7 @@
 import type { MediaProperties, CSSProperty, MediaProperty, QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasCSSRules, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R7 extends AtomicRule {
@@ -62,10 +63,10 @@ class QW_ACT_R7 extends AtomicRule {
   private checkRotation(element: QWElement, angle: number): void {
     const test = new Test();
     if (angle === 90 || angle === 270) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 

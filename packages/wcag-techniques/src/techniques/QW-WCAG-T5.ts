@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T5 extends Technique {
@@ -11,13 +12,13 @@ class QW_WCAG_T5 extends Technique {
     const alt = element.getElementAttribute('alt');
 
     if (alt === null) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else if (!alt.trim().length) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
     } else {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     }
 

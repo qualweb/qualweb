@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R36 extends AtomicRule {
@@ -13,7 +14,7 @@ class QW_ACT_R36 extends AtomicRule {
       const role = window.AccessibilityUtils.getElementRole(parentTableElem);
       const applicableRoles = ['table', 'grid', 'treegrid'];
       if (role !== null && !applicableRoles.includes(role)) {
-        test.verdict = 'inapplicable';
+        test.verdict = Verdict.INAPPLICABLE;
         test.resultCode = 'I1';
       } else {
         const isInAT = window.AccessibilityUtils.isElementInAT(parentTableElem);
@@ -34,13 +35,13 @@ class QW_ACT_R36 extends AtomicRule {
             while (test.verdict !== 'failed' && i < headerAttributes.length) {
               idElem = getElementByIdInElement(parentTableElem, headerAttributes[i]);
               if (idElem === null) {
-                test.verdict = 'failed';
+                test.verdict = Verdict.FAILED;
                 test.description = this.translate('F1', { attr: headerAttributes[i] });
                 test.resultCode = 'F1';
               } else {
                 idElemRole = window.AccessibilityUtils.getElementRole(idElem);
                 if (idElemRole !== 'rowheader' && idElemRole !== 'columnheader') {
-                  test.verdict = 'failed';
+                  test.verdict = Verdict.FAILED;
                   test.description = this.translate('F2', { attr: headerAttributes[i] });
                   test.resultCode = 'F2';
                 }
@@ -49,7 +50,7 @@ class QW_ACT_R36 extends AtomicRule {
             }
 
             if (test.verdict !== 'failed') {
-              test.verdict = 'passed';
+              test.verdict = Verdict.PASSED;
               test.resultCode = 'P1';
             }
 

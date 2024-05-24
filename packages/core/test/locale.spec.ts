@@ -13,7 +13,7 @@ describe('Core locale', function () {
     const options: QualwebOptions = {
       url: 'http://ciencias.ulisboa.pt',
       translate: 'en',
-      execute: {
+      modulesToExecute: {
         act: true
       },
       'act-rules': {

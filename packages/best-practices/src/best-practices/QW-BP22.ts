@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP22 extends BestPractice {
@@ -11,10 +12,10 @@ class QW_BP22 extends BestPractice {
     if (landmarkList.length > 0) {
       const test = new Test();
       if (landmarkList.length < 2) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
       test.addElements(landmarkList);

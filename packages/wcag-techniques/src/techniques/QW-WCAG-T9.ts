@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T9 extends Technique {
@@ -41,13 +42,13 @@ class QW_WCAG_T9 extends Technique {
 
     if (orderErrors.length === 0) {
       // the heading elements are correctly used
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
       test.addElement(element);
       this.addTestResult(test);
     } else {
       for (const error of orderErrors) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
         test.addElement(error);
         this.addTestResult(test);

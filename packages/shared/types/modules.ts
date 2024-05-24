@@ -1,6 +1,11 @@
 import { Level, Principle } from '.';
 
-export type Module = 'act-rules' | 'wcag-techniques' | 'best-practices';
+export enum ModuleType {
+  ACT_RULES = 'act-rules',
+  WCAG_TECHNIQUES = 'wcag-techniques',
+  BEST_PRACTICES = 'best-practices',
+  COUNTER = 'counter'
+}
 
 export type ModuleOptions = {
   include?: string[];

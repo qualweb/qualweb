@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R34 extends AtomicRule {
@@ -80,10 +81,10 @@ class QW_ACT_R34 extends AtomicRule {
 
             const test = new Test();
             if (result) {
-              test.verdict = 'passed';
+              test.verdict = Verdict.PASSED;
               test.resultCode = 'P1';
             } else {
-              test.verdict = 'failed';
+              test.verdict = Verdict.FAILED;
               test.resultCode = 'F1';
             }
 

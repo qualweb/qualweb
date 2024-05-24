@@ -1,21 +1,18 @@
 import { EvaluationModule, ModuleReport } from '@shared/classes';
-import type { ModuleTranslator } from '@packages/locale/src';
 import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
 import type { QWPage } from '@packages/qw-page/src';
-import type { BestPractice } from './lib/BestPractice.object';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
+import { ModuleType } from '@shared/types';
 
 declare global {
   interface Window {
     qwPage: QWPage;
-    ModuleTranslator: typeof ModuleTranslator;
     DomUtils: typeof DomUtils;
     AccessibilityUtils: typeof AccessibilityUtils;
   }
 }
 
-export class BestPractices extends EvaluationModule<BestPractice> {
-  private readonly moduleTranslator = new window.ModuleTranslator('best-practices', this.locale);
-  protected readonly report = new ModuleReport<BestPractice>('best-practices');
-  protected readonly tester = new BestPracticesTester(this.report).init(this.moduleTranslator);
+export class BestPractices extends EvaluationModule {
+  protected readonly report = new ModuleReport(ModuleType.BEST_PRACTICES);
+  protected readonly tester = new BestPracticesTester(this.report).init(this.translator);
 }

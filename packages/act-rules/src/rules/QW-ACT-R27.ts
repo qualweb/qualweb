@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R27 extends AtomicRule {
@@ -24,10 +25,10 @@ class QW_ACT_R27 extends AtomicRule {
       }
 
       if (failedAria.length) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       } else if (countAria) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
         continue;

@@ -1,5 +1,6 @@
 import type { ModuleTranslator } from '@packages/locale/src';
 import type { Level, Principle, TestResult, Assertion, TranslationValues } from '@shared/types';
+import { Verdict } from '@shared/types';
 import { Guideline, type Test } from '@shared/classes';
 import type { QWElement } from '@packages/qw-element/src';
 import bestPractices from './bestPractices.json';
@@ -16,7 +17,7 @@ abstract class BestPractice extends Guideline {
     bestPractice.metadata.warning = 0;
     bestPractice.metadata.failed = 0;
     bestPractice.metadata.inapplicable = 0;
-    bestPractice.metadata.outcome = 'inapplicable';
+    bestPractice.metadata.outcome = Verdict.INAPPLICABLE;
     bestPractice.results = new Array<TestResult>();
 
     this.bestPractice = bestPractice;
@@ -50,26 +51,26 @@ abstract class BestPractice extends Guideline {
   public abstract execute(element?: QWElement): void;
 
   protected addTestResult(test: Test): void {
-    if (!test.description || (<string>test.description).trim() === '') {
+    if (!test.description || test.description.trim() === '') {
       test.description = this.translate(test.resultCode);
     }
 
-    this.bestPractice.results.push(test);
+    this.rule.results.push(test);
 
-    if (test.verdict !== 'inapplicable') {
-      this.bestPractice.metadata[test.verdict]++;
+    if (test.verdict && test.verdict !== Verdict.INAPPLICABLE) {
+      this.rule.metadata[test.verdict]++;
     }
   }
 
   private generateOutcome(): void {
-    if (this.bestPractice.metadata.failed > 0) {
-      this.bestPractice.metadata.outcome = 'failed';
-    } else if (this.bestPractice.metadata.warning > 0) {
-      this.bestPractice.metadata.outcome = 'warning';
-    } else if (this.bestPractice.metadata.passed > 0) {
-      this.bestPractice.metadata.outcome = 'passed';
+    if (this.bestPractice.metadata.failed) {
+      this.bestPractice.metadata.outcome = Verdict.FAILED;
+    } else if (this.bestPractice.metadata.warning) {
+      this.bestPractice.metadata.outcome = Verdict.WARNING;
+    } else if (this.bestPractice.metadata.passed) {
+      this.bestPractice.metadata.outcome = Verdict.PASSED;
     } else {
-      this.bestPractice.metadata.outcome = 'inapplicable';
+      this.bestPractice.metadata.outcome = Verdict.INAPPLICABLE;
       this.bestPractice.metadata.inapplicable = 1;
     }
 
@@ -81,7 +82,7 @@ abstract class BestPractice extends Guideline {
   private addDescription(): void {
     for (const result of this.bestPractice.results ?? []) {
       if (result.verdict === this.bestPractice.metadata.outcome) {
-        this.bestPractice.metadata.description = <string>result.description;
+        this.bestPractice.metadata.description = result.description;
         break;
       }
     }

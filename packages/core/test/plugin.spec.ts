@@ -51,7 +51,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(plugin.pluginWasCalled).to.be.true;
@@ -70,7 +70,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     qualweb.stop();
@@ -94,7 +94,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -116,7 +116,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -137,7 +137,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(beforeWasCalled).to.be.true;
@@ -158,7 +158,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       url: targetUrl,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal(targetUrl);
@@ -182,7 +182,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       urls: targetUrls,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrls).to.have.members(targetUrls);
@@ -201,7 +201,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal('customHtml');
@@ -230,7 +230,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(cookies).to.be.an('array').and.have.length.at.least(1);

@@ -1,15 +1,15 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementIsInAccessibilityTree } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R38 extends AtomicRule {
   /**
-   * 
-   *mudar requiredOwnedElements para ser so um array
-   em caso de group permitir group e required owned do pai
+   *
+   * mudar requiredOwnedElements para ser so um array
+   * em caso de group permitir group e required owned do pai
    */
-
   @ElementExists
   @ElementIsInAccessibilityTree
   execute(element: QWElement): void {
@@ -27,10 +27,10 @@ class QW_ACT_R38 extends AtomicRule {
       );
 
       if (result) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

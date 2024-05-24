@@ -13,7 +13,7 @@ describe('Core', function () {
       url,
       log: { console: true },
       // viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: true, bp: false },
+      modulesToExecute: { act: true, wcag: true, bp: false },
       'act-rules': { levels: ['AAA'] }
     });
 

@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R4 extends AtomicRule {
@@ -45,15 +46,15 @@ class QW_ACT_R4 extends AtomicRule {
 
       if (n === 0) {
         // passes because the time is 0
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else if (n > 72000) {
         // passes because the time is bigger than 72000
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
       } else {
         // fails because the time is in between 0 and 72000
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
 
         if (indexOf === -1) {
           test.description = this.translate('F1', { seconds: n });

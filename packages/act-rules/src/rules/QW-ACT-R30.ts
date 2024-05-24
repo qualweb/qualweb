@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementAllowsNameFromContent, ElementExists, ElementIsVisible, ElementIsWidget } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R30 extends AtomicRule {
@@ -16,16 +17,16 @@ class QW_ACT_R30 extends AtomicRule {
     const isIconValue = this.isIcon(elementText, accessibleName, element);
 
     if (accessibleName === undefined) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else if (elementText === undefined || elementText === '') {
-      test.verdict = 'inapplicable';
+      test.verdict = Verdict.INAPPLICABLE;
       test.resultCode = 'I1';
     } else if (!!elementText && (isIconValue || this.includesText(accessibleName, elementText))) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
     }
     test.addElement(element, true, false, true);

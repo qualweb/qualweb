@@ -7,6 +7,7 @@ import {
   ElementHasText
 } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R76 extends AtomicRule {
@@ -77,7 +78,7 @@ class QW_ACT_R76 extends AtomicRule {
         const blur = parseInt(properties[5], 0);
         const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
         if (validateTextShadow) {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
 
           test.addElement(element);
@@ -88,7 +89,7 @@ class QW_ACT_R76 extends AtomicRule {
     }
 
     if (this.isImage(bgColor)) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W2';
 
       test.addElement(element);
@@ -120,7 +121,7 @@ class QW_ACT_R76 extends AtomicRule {
           elementText
         );
       } else {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
 
         test.addElement(element);
@@ -139,7 +140,7 @@ class QW_ACT_R76 extends AtomicRule {
         if (parent) {
           bgColor = this.getBackground(parent);
           if (this.isImage(bgColor)) {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W2';
 
             test.addElement(element);
@@ -192,20 +193,20 @@ class QW_ACT_R76 extends AtomicRule {
           const contrastRatio = this.getContrast(parsedBG, parsedFG);
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           if (isValid) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
 
             test.addElement(element);
             this.addTestResult(test);
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F1';
 
             test.addElement(element);
             this.addTestResult(test);
           }
         } else {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P2';
 
           test.addElement(element);
@@ -278,18 +279,18 @@ class QW_ACT_R76 extends AtomicRule {
           }
         }
         if (isValid) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P3';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F2';
         }
       } else if (gradientDirection === 'to left') {
         //TODO
-        test.verdict = 'warning';
+        test.verdict = Verdict.WARNING;
         test.resultCode = 'W3';
       } else {
-        test.verdict = 'warning';
+        test.verdict = Verdict.WARNING;
         test.resultCode = 'W3';
       }
     } else {

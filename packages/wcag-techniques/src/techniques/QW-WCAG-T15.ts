@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 
@@ -27,12 +28,12 @@ class QW_WCAG_T15 extends Technique {
       const parentName = parent.getElementTagName();
 
       if (parentName !== 'head') {
-        test.verdict = 'warning';
+        test.verdict = Verdict.WARNING;
         test.description = `The element is not contained in the head element. Verify if this link is used for navigation, and if it is, it must be inside the <head>`;
         test.resultCode = 'W1';
       } else if (!element.elementHasAttributes()) {
         // fails if the element doesn't contain an attribute
-        test.verdict = 'inapplicable';
+        test.verdict = Verdict.INAPPLICABLE;
         test.description = `The element doesn't contain a rel or an href attribute`;
         test.resultCode = 'RC2';
       } else {
@@ -42,13 +43,13 @@ class QW_WCAG_T15 extends Technique {
         const relForNavigation = rel && this.relNavigationValues.includes(rel.toLowerCase());
 
         if (!relForNavigation) {
-          test.verdict = 'inapplicable';
+          test.verdict = Verdict.INAPPLICABLE;
           test.resultCode = 'I2';
         } else if (!href) {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         } else {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         }
       }

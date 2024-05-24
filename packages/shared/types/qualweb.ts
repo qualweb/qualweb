@@ -1,10 +1,7 @@
-import type { CrawlOptions, HTMLValidationReport, ModuleOptions, QualwebReport, TranslationOptions } from '.';
+import type { CrawlOptions, ModuleOptions, ModuleType, QualwebReport, TranslationOptions } from '.';
 
-export type Execute = {
-  act?: boolean;
-  wcag?: boolean;
-  bp?: boolean;
-  counter?: boolean;
+export type ModulesToExecute = {
+  [module in ModuleType]: boolean;
 };
 
 export type LoadEvent = 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
@@ -12,11 +9,17 @@ export type LoadEvent = 'load' | 'domcontentloaded' | 'networkidle0' | 'networki
 export type PageOptions = {
   mobile?: boolean;
   landscape?: boolean;
+  touch?: boolean;
   userAgent?: string;
   resolution?: {
     width?: number;
     height?: number;
   };
+};
+
+export type LogOptions = {
+  console?: boolean;
+  file?: boolean;
 };
 
 export type QualwebOptions = {
@@ -27,10 +30,7 @@ export type QualwebOptions = {
   html?: string;
   timeout?: number;
   maxParallelEvaluations?: number;
-  log?: {
-    console?: boolean;
-    file?: boolean;
-  };
+  log?: LogOptions;
   waitUntil?: LoadEvent | LoadEvent[];
   viewport?: PageOptions;
   validator?: string;
@@ -38,13 +38,13 @@ export type QualwebOptions = {
   translate?: TranslationOptions;
   crawlOptions?: CrawlOptions;
   'save-name'?: string;
-  execute?: Execute;
-  'act-rules'?: ModuleOptions;
-  'wcag-techniques'?: ModuleOptions;
-  'best-practices'?: ModuleOptions;
+  modulesToExecute?: ModulesToExecute;
+  modules?: {
+    [module in ModuleType]: ModuleOptions;
+  };
 };
 
-export type Evaluations = {
+export type QualwebReports = {
   [url: string]: QualwebReport;
 };
 
@@ -57,9 +57,4 @@ export type ClusterOptions = {
   maxConcurrency?: number;
   timeout?: number;
   monitor?: boolean;
-};
-
-export type PageData = {
-  sourceHtml: string;
-  validation?: HTMLValidationReport;
 };

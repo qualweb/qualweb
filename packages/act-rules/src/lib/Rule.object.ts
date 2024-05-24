@@ -1,5 +1,6 @@
 import type { ModuleTranslator } from '@packages/locale/src';
 import type { TestResult, Assertion, Level, Principle, TranslationValues } from '@shared/types';
+import { Verdict } from '@shared/types';
 import { Guideline, type Test } from '@shared/classes';
 import rules from './rules.json';
 
@@ -15,7 +16,7 @@ abstract class Rule extends Guideline {
     rule.metadata.warning = 0;
     rule.metadata.failed = 0;
     rule.metadata.inapplicable = 0;
-    rule.metadata.outcome = 'inapplicable';
+    rule.metadata.outcome = Verdict.INAPPLICABLE;
     rule.results = new Array<TestResult>();
 
     this.rule = rule;
@@ -53,20 +54,20 @@ abstract class Rule extends Guideline {
 
     this.rule.results.push(test);
 
-    if (test.verdict && test.verdict !== 'inapplicable') {
+    if (test.verdict && test.verdict !== Verdict.INAPPLICABLE) {
       this.rule.metadata[test.verdict]++;
     }
   }
 
   private generateOutcome(): void {
-    if (this.rule.metadata.failed > 0) {
-      this.rule.metadata.outcome = 'failed';
-    } else if (this.rule.metadata.warning > 0) {
-      this.rule.metadata.outcome = 'warning';
-    } else if (this.rule.metadata.passed > 0) {
-      this.rule.metadata.outcome = 'passed';
+    if (this.rule.metadata.failed) {
+      this.rule.metadata.outcome = Verdict.FAILED;
+    } else if (this.rule.metadata.warning) {
+      this.rule.metadata.outcome = Verdict.WARNING;
+    } else if (this.rule.metadata.passed) {
+      this.rule.metadata.outcome = Verdict.PASSED;
     } else {
-      this.rule.metadata.outcome = 'inapplicable';
+      this.rule.metadata.outcome = Verdict.INAPPLICABLE;
       this.rule.metadata.inapplicable = 1;
     }
 

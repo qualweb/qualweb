@@ -1,7 +1,8 @@
 import type { Assertion } from '@shared/types';
 import type { QWElement } from '@packages/qw-element/src';
-import type { ElementResult, RuleResult } from './types';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
+import type { ElementResult, RuleResult } from './types';
 import { Rule } from './Rule.object';
 
 abstract class CompositeRule extends Rule {
@@ -14,15 +15,15 @@ abstract class CompositeRule extends Rule {
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const translation = this.translate(test.resultCode);
     if (results['failed']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
       test.description = translation + results['failed'].code;
     } else if (results['warning']) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
       test.description = translation + results['warning'].code;
     } else if (results['passed']) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
       test.description = translation + results['passed'].code;
     }
@@ -38,15 +39,15 @@ abstract class CompositeRule extends Rule {
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
     const translation = this.translate(test.resultCode);
     if (results['passed']) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
       test.description = translation + results['passed'].code;
     } else if (results['warning']) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
       test.description = translation + results['warning'].code;
     } else if (results['failed']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
       test.description = translation + results['failed'].code;
     }
@@ -72,7 +73,7 @@ abstract class CompositeRule extends Rule {
   public getAtomicRuleResultForElement(selector: string, rules: Assertion[]): ElementResult {
     const ruleResult: ElementResult = {};
     for (const rule of rules ?? []) {
-      ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: 'inapplicable' };
+      ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: Verdict.INAPPLICABLE };
       for (const result of rule.results ?? []) {
         if (result.elements && result.elements[0].pointer === selector) {
           ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: result.verdict };

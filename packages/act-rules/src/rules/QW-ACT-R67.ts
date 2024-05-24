@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R67 extends AtomicRule {
@@ -18,16 +19,16 @@ class QW_ACT_R67 extends AtomicRule {
       const test = new Test();
 
       if (element.hasCSSProperty('letter-spacing') && !this.isImportant(computedRawLetterSpacing, element)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else if (this.isWide(computedLetterSpacing, fontSize)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
       } else if (!this.isCascade(declaredLetterSpacing, computedRawLetterSpacing)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P3';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

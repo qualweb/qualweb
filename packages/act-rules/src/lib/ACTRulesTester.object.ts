@@ -2,13 +2,12 @@ import type { Assertion } from '@shared/types';
 import type { ModuleTranslator } from '@packages/locale/src';
 import type { QWElement } from '@packages/qw-element/src';
 import { Tester } from '@shared/classes';
-import { AtomicRule } from './AtomicRule.object';
 import { CompositeRule } from './CompositeRule.object';
 import mapping from './mapping';
 import compositeRules from './mappingComposite';
 import * as rules from '../rules';
 
-export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
+export class ACTRulesTester extends Tester {
   public init(translator: ModuleTranslator): this {
     for (const rule in rules) {
       const ruleObject = new rules[rule as keyof typeof rules](translator);
@@ -50,9 +49,9 @@ export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
     if (ruleToExecute) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => ruleToExecute?.execute(element));
+        elements.forEach((element) => ruleToExecute?.execute?.(element));
       } else {
-        ruleToExecute?.execute();
+        ruleToExecute?.execute?.();
       }
 
       this.report.addAssertionResult(ruleToExecute);
@@ -92,7 +91,7 @@ export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
           }
         }
       } else {
-        ruleToExecute?.execute();
+        ruleToExecute?.execute?.();
       }
 
       this.report.addAssertionResult(ruleToExecute);
@@ -105,10 +104,10 @@ export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
       const r71 = this.assertions.get('QW-ACT-R71');
       for (const elem of metaElements ?? []) {
         if (this.toExecute['QW-ACT-R4']) {
-          r4?.execute(elem);
+          r4?.execute?.(elem);
         }
         if (this.toExecute['QW-ACT-R71']) {
-          r71?.execute(elem);
+          r71?.execute?.(elem);
         }
       }
       if (this.toExecute['QW-ACT-R4'] && r4) {
@@ -125,7 +124,7 @@ export class ACTRulesTester extends Tester<AtomicRule | CompositeRule> {
       const r40 = this.assertions.get('QW-ACT-R40');
       if (r40) {
         const elements = window.qwPage.getElements('body *');
-        elements.forEach((element) => r40?.execute(element));
+        elements.forEach((element) => r40?.execute?.(element));
         this.report.addAssertionResult(r40);
       }
     }

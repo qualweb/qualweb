@@ -1,6 +1,7 @@
 import type { QWElement } from '@packages/qw-element/src';
 import { ElementExists, ElementIsNotInert, ElementIsVisible } from '@shared/applicability';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R70 extends AtomicRule {
@@ -17,17 +18,17 @@ class QW_ACT_R70 extends AtomicRule {
       );
     });
     if (childrenInSequentialFocusList.length === 0) {
-      test.verdict = 'inapplicable';
+      test.verdict = Verdict.INAPPLICABLE;
       test.resultCode = 'I1';
       test.addElement(element);
     } else {
       const tabindex = (<QWElement>arguments[0]).getElementAttribute('tabindex');
       if (tabindex && parseInt(tabindex) <= -1) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
         test.addElement(element, false);
       } else {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
         test.addElement(element);
       }

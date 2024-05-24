@@ -1,5 +1,6 @@
 import type { HTMLValidationReport } from '@shared/types';
 import { Test } from '@shared/classes';
+import { Verdict } from '@shared/types';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T16 extends Technique {
@@ -13,10 +14,10 @@ class QW_WCAG_T16 extends Technique {
         const test = new Test();
 
         if (result.type === 'error') {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         } else {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
         }
 
@@ -26,7 +27,7 @@ class QW_WCAG_T16 extends Technique {
       }
 
       if (this.technique.metadata.failed + this.technique.metadata.warning === 0) {
-        this.addTestResult(new Test('passed', undefined, 'P1'));
+        this.addTestResult(new Test(Verdict.PASSED, undefined, 'P1'));
       }
     }
   }

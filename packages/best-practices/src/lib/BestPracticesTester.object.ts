@@ -1,10 +1,9 @@
 import type { ModuleTranslator } from '@packages/locale/src';
 import { Tester } from '@shared/classes';
-import { BestPractice } from './BestPractice.object';
 import mapping from './mapping';
 import * as bestPractices from '../best-practices';
 
-export class BestPracticesTester extends Tester<BestPractice> {
+export class BestPracticesTester extends Tester {
 
   public init(translator: ModuleTranslator): this {
     for (const bestPractice in bestPractices) {
@@ -30,9 +29,9 @@ export class BestPracticesTester extends Tester<BestPractice> {
     if (bestPracticeObject) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => bestPracticeObject.execute(element));
+        elements.forEach((element) => bestPracticeObject.execute?.(element));
       } else {
-        bestPracticeObject.execute();
+        bestPracticeObject.execute?.();
       }
 
       this.report.addAssertionResult(bestPracticeObject);
