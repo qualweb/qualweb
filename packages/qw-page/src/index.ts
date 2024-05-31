@@ -96,14 +96,16 @@ class QWPage {
   }
 
   private getElementsFromDocument(selector: string): Array<QWElement> {
-    const elements = this.document.querySelectorAll(selector);
     const qwList = new Array<QWElement>();
-
-    elements.forEach((element: Element) => {
-      this.addCSSRulesPropertyToElement(element);
-      qwList.push(new QWElement(element, this.elementsCSSRules));
-    });
-
+    try {
+      const elements = this.document.querySelectorAll(selector);
+      elements.forEach((element: Element) => {
+        this.addCSSRulesPropertyToElement(element);
+        qwList.push(new QWElement(element, this.elementsCSSRules));
+      });
+      } catch (error) {
+        console.log(error);
+    }
     return qwList;
   }
 
