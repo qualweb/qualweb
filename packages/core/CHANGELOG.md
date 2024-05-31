@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.72
+
+### Patch Changes
+
+- Updated dependencies [c65210b2]
+  - @qualweb/evaluation@0.3.56
+
 ## 0.7.71
 
 ### Patch Changes

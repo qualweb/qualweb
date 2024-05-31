@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.32
+
+### Patch Changes
+
+- 4c764f07: Fix modules available to cli
+  - @qualweb/core@0.7.72
+
 ## 0.6.31
 
 ### Patch Changes

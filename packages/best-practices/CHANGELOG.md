@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.19
+
+### Patch Changes
+
+- f336aacb: Add passed test for BP25
+
 ## 0.6.18
 
 ### Patch Changes
