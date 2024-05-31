@@ -35,7 +35,8 @@ class Evaluation {
 
     try {
       if (this.execute.act) {
-        evaluation.addModuleEvaluation('act-rules', await this.executeACT(sourceHtml, locale, options['act-rules']));
+        const actEvaluation = await this.executeACT(sourceHtml, locale, options['act-rules']);
+        evaluation.addModuleEvaluation('act-rules', actEvaluation);
       }
     } catch (error) {
       console.log('Error in ACT-Rules');
@@ -44,10 +45,8 @@ class Evaluation {
 
     try {
       if (this.execute.wcag) {
-        evaluation.addModuleEvaluation(
-          'wcag-techniques',
-          await this.executeWCAG(locale, validation, options['wcag-techniques'])
-        );
+        const wcagEvaluation = await this.executeWCAG(locale, validation, options['wcag-techniques']);
+        evaluation.addModuleEvaluation('wcag-techniques', wcagEvaluation);
       }
     } catch (error) {
       console.log('Error in WCAG-Techniques');
@@ -56,7 +55,8 @@ class Evaluation {
 
     try {
       if (this.execute.bp) {
-        evaluation.addModuleEvaluation('best-practices', await this.executeBP(locale, options['best-practices']));
+        const bpEvaluation = await this.executeBP(locale, options['best-practices']);
+        evaluation.addModuleEvaluation('best-practices', bpEvaluation);
       }
     } catch (error) {
       console.log('Error in Best Practices');
@@ -68,7 +68,8 @@ class Evaluation {
 
     try {
       if (this.execute.counter) {
-        evaluation.addModuleEvaluation('counter', await this.executeCounter());
+        const counterEvaluation = await this.executeCounter();
+        evaluation.addModuleEvaluation('counter', counterEvaluation);
       }
     } catch (error) {
       console.log('Error in Counter');
