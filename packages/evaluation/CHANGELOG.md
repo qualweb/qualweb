@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.56
+
+### Patch Changes
+
+- c65210b2: one evaluation breaking does not break all
+- Updated dependencies [f336aacb]
+- Updated dependencies [9502ca85]
+  - @qualweb/best-practices@0.6.19
+  - @qualweb/qw-page@0.2.22
+
 ## 0.3.55
 
 ### Patch Changes

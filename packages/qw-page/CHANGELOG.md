@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.22
+
+### Patch Changes
+
+- 9502ca85: Catch ids with new line during accessible name computation
+
 ## 0.2.21
 
 ### Patch Changes
