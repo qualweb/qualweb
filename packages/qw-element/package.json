@@ -6,6 +6,7 @@
   "files": [
     "dist/*"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",

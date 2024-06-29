@@ -1,5 +1,6 @@
-import type { ModuleType, Translate, TranslationValues } from '@shared/types';
-import { Translator } from '.';
+import type { ModuleType } from '@qualweb/common';
+import type { Translate, TranslationValues } from './types';
+import { Translator } from './translator';
 
 export class TestTranslator {
   private readonly module: ModuleType;

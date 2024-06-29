@@ -1,4 +1,8 @@
-import type { CrawlOptions, ModuleOptions, ModuleType, QualwebReport, TranslationOptions } from '.';
+import type { TranslationOptions } from '@qualweb/locale';
+import type { CrawlOptions } from './crawler';
+import type { ModuleType } from './enums';
+import type { ModuleOptions } from './modules';
+import type { QualwebReport } from './reports';
 
 export type ModulesToExecute = {
   [module in ModuleType]: boolean;
@@ -22,6 +26,10 @@ export type LogOptions = {
   file?: boolean;
 };
 
+export type ModulesOptions = {
+  [module in ModuleType]: ModuleOptions;
+};
+
 export type QualwebOptions = {
   url?: string;
   urls?: string[];
@@ -39,9 +47,7 @@ export type QualwebOptions = {
   crawlOptions?: CrawlOptions;
   'save-name'?: string;
   modulesToExecute?: ModulesToExecute;
-  modules?: {
-    [module in ModuleType]: ModuleOptions;
-  };
+  modules?: ModulesOptions;
 };
 
 export type QualwebReports = {

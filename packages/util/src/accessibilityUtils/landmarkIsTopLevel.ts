@@ -1,4 +1,6 @@
-function landmarkIsTopLevel(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function landmarkIsTopLevel(element: QWElement): boolean {
   const landmarks = ['application', 'banner', 'contentinfo', 'main', 'complementary', 'form', 'navigation', 'region'];
   let parent = element.getElementParent();
   const nodeRole = window.AccessibilityUtils.getElementRole(element);

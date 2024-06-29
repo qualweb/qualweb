@@ -1,8 +1,8 @@
-import type { EvaluationReport, ModuleOptions, TestingData } from '@shared/types';
-import { ModuleType } from '@shared/types';
-import type { ModuleTranslator } from '@packages/locale/src';
+import type { EvaluationReport, ModuleOptions, TestingData } from '@qualweb/common';
+import { ModuleType } from '@qualweb/common';
+import { ModuleTranslator, type Translate } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
-import { Module } from '.';
+import { Module } from './Module.object';
 
 export class ACTRulesModule extends Module {
   public readonly name = ModuleType.ACT_RULES;
@@ -14,15 +14,16 @@ export class ACTRulesModule extends Module {
   protected async runModule(
     page: QualwebPage,
     options: ModuleOptions,
-    translator: ModuleTranslator,
+    translate: Translate,
     data: TestingData
   ): Promise<EvaluationReport> {
     await page.evaluate(
-      (translator: ModuleTranslator, options: ModuleOptions, data: TestingData) => {
+      (translate: Translate, options: ModuleOptions, data: TestingData) => {
+        const translator = new ModuleTranslator(ModuleType.ACT_RULES, translate);
         //@ts-expect-error The package exists inside the context of the WebPage
         window.act = new ACTRules(translator).configure(options).test(data);
       },
-      translator,
+      translate,
       options,
       data
     );
@@ -40,7 +41,10 @@ export class ACTRulesModule extends Module {
         touch: viewport?.hasTouch
       });
 
-      await page.evaluate(() => window.act.testSpecial?.());
+      await page.evaluate(() => {
+        //@ts-expect-error The package exists inside the context of the WebPage
+        window.act.testSpecial?.()
+      });
 
       if (viewport) {
         await page.setViewport({
@@ -55,7 +59,10 @@ export class ACTRulesModule extends Module {
       }
     }
 
-    return page.evaluate(() => window.act.getReport());
+    return page.evaluate(() => {
+      //@ts-expect-error The package exists inside the context of the WebPage
+      return window.act.getReport()
+    });
   }
 
   private testSpecialCases(options: ModuleOptions): boolean {

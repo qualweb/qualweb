@@ -1,4 +1,4 @@
-import { HTMLValidationReport } from '.';
+import { HTMLValidationReport } from './reports';
 
 export type TestingData = {
   newTabWasOpen?: boolean;

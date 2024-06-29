@@ -1,7 +1,6 @@
-import type { Assertion } from '@shared/types';
-import type { QWElement } from '@packages/qw-element/src';
-import { Test } from '@shared/classes';
-import { Verdict } from '@shared/types';
+import type { Assertion } from '@qualweb/common';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test, Verdict } from '@qualweb/common';
 import type { ElementResult, RuleResult } from './types';
 import { Rule } from './Rule.object';
 

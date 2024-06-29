@@ -1,7 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsInAccessibilityTree } from '@shared/applicability';
-import { Test } from '@shared/classes';
-import { Verdict } from '@shared/types';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsInAccessibilityTree } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP23 extends BestPractice {

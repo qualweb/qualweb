@@ -1,8 +1,9 @@
+import type { QWElement } from '@qualweb/qw-element';
 import image from './image.json';
 import video from './video.json';
 import audio from './audio.json';
 
-function objectElementIsNonText(element: typeof window.qwElement): boolean {
+function objectElementIsNonText(element: QWElement): boolean {
   const data = element.getElementAttribute('data');
   let result = false;
   if (data) {

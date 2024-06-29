@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { Page, HTTPResponse, Viewport, Awaitable, InnerParams } from 'puppeteer';
-import type { QualwebOptions, PageOptions, HTMLValidationReport, TestingData } from '@shared/types';
+import type { QualwebOptions, PageOptions, HTMLValidationReport, TestingData } from '@qualweb/common';
+import { PluginManager } from './PluginManager.object';
 import {
   DEFAULT_MOBILE_USER_AGENT,
   DEFAULT_DESKTOP_USER_AGENT,
@@ -8,29 +9,32 @@ import {
   DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT,
   DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH,
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT,
-  PluginManager
-} from '.';
+} from './constants';
 
 type EvaluateFunc<T extends unknown[]> = (...params: InnerParams<T>) => Awaitable<unknown>;
 
 export class QualwebPage {
   private readonly pluginManager: PluginManager;
-  private readonly page: Page;
-  private readonly url: string;
+  public readonly page: Page;
+  private readonly url?: string;
   private readonly html?: string;
 
-  constructor(pluginManager: PluginManager, page: Page, html?: string) {
-    if (!page.url() && !html) {
+  constructor(pluginManager: PluginManager, page: Page, url?: string, html?: string) {
+    if (!url && !html) {
       throw new Error('Neither a url nor html content was provided.');
     }
     this.pluginManager = pluginManager;
     this.page = page;
-    this.url = page.url();
+    this.url = url;
     this.html = html;
   }
 
-  public getUrl(): string {
+  public getInputUrl(): string | undefined {
     return this.url;
+  }
+
+  public getFinalUrl(): string {
+    return this.page.url();
   }
 
   public getTitle(): Promise<string> {
@@ -121,7 +125,7 @@ export class QualwebPage {
   private async navigateToPage(options: QualwebOptions): Promise<HTTPResponse | null> {
     this.page.on('dialog', (dialog) => dialog.dismiss());
 
-    return this.page.goto(this.url, {
+    return this.page.goto(this.url ?? '', {
       timeout: options.timeout ?? 240 * 1000,
       waitUntil: options.waitUntil ?? 'load'
     });
@@ -207,7 +211,7 @@ export class QualwebPage {
             : DEFAULT_DESKTOP_USER_AGENT
         }
       };
-      const response = await axios.get(this.url, fetchOptions);
+      const response = await axios.get(this.url ?? '', fetchOptions);
       return response.data.trim();
     } catch (e) {
       return '';
@@ -216,7 +220,7 @@ export class QualwebPage {
 
   private async getValidatorResult(endpoint?: string): Promise<HTMLValidationReport | undefined> {
     if (endpoint) {
-      const validationUrl = endpoint + encodeURIComponent(this.url);
+      const validationUrl = endpoint + encodeURIComponent(this.url ?? '');
       try {
         const response = await axios.get(validationUrl, { timeout: 10 * 1000 });
         if (response && response.status === 200) {

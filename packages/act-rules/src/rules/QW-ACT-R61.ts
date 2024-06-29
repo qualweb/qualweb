@@ -1,8 +1,8 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible } from '@qualweb/common';
+import { Test } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
-import { Verdict } from '@shared/types';
+import { Verdict } from '@qualweb/common';
 
 class QW_ACT_R61 extends AtomicRule {
   @ElementExists

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const cli = require('../dist/cli/src/index');
+import { cli } from '../dist/cli/src/index.js';
 
 (async () => {
   const args = Array.from(process.argv).slice(2);

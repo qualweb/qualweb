@@ -1,8 +1,7 @@
-import { Guideline, type Test } from '@shared/classes';
-import type { Assertion, Level, Principle, TestResult, TranslationValues } from '@shared/types';
-import { Verdict } from '@shared/types';
-import type { ModuleTranslator } from '@packages/locale/src';
-import type { QWElement } from '@packages/qw-element/src';
+import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/common';
+import { Guideline, Verdict } from '@qualweb/common';
 import techniques from './techniques.json';
 
 abstract class Technique extends Guideline {

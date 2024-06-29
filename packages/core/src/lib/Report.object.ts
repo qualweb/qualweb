@@ -1,5 +1,5 @@
-import type { EvaluationReport, SystemData, QualwebReport, CounterReport, ModulesData, Metadata } from '@shared/types';
-import { Verdict } from '@shared/types';
+import type { EvaluationReport, SystemData, QualwebReport, CounterReport, ModulesData, Metadata } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 
 export class Report {
   private readonly systemData: SystemData;

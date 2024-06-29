@@ -1,4 +1,4 @@
-import type { QualwebPlugin } from '@shared/types';
+import type { QualwebPlugin } from '@qualweb/common';
 import type { Page } from 'puppeteer';
 
 export class PluginManager {

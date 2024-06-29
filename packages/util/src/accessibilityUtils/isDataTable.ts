@@ -1,4 +1,6 @@
-function isDataTable(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isDataTable(element: QWElement): boolean {
   // based on https://www.w3.org/TR/WCAG20-TECHS/H43.html
   // and https://fae.disability.illinois.edu/rulesets/TABLE_5/
   // it is considered that AccessibilityUtils element is already a <table> element

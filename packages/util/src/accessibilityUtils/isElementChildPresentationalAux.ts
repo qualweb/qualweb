@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { childPresentationalRole } from '../accessibilityUtils/constants';
 
-function isElementChildPresentationalAux(element: typeof window.qwElement): boolean {
+function isElementChildPresentationalAux(element: QWElement): boolean {
   const role = window.AccessibilityUtils.getElementRole(element);
 
   let childPresentational = false;

@@ -1,6 +1,7 @@
-import { ModuleTranslator } from '@packages/locale/src';
+import type { ModuleTranslator } from '@qualweb/locale';
 import type { ModuleOptions, TestingData, EvaluationReport } from '../types';
-import { Tester, ModuleReport } from '.';
+import { ModuleReport } from './ModuleReport.object';
+import { Tester } from './Tester.object';
 
 export abstract class EvaluationModule {
   protected abstract readonly report: ModuleReport;

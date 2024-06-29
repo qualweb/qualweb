@@ -1,9 +1,10 @@
 import { randomBytes } from 'crypto';
-import type { QualwebOptions, Url, SystemData, ModulesToExecute, QualwebReport } from '@shared/types';
-import { ModuleType } from '@shared/types';
-import { LocaleFetcher, ModuleTranslator } from '@packages/locale/src';
+import type { QualwebOptions, Url, SystemData, ModulesToExecute, QualwebReport } from '@qualweb/common';
+import { ModuleType } from '@qualweb/common';
+import { LocaleFetcher } from '@qualweb/locale';
 import { Module, ModuleFactory } from '../modules/';
-import { Report, QualwebPage } from '.';
+import { QualwebPage } from './QualwebPage.object';
+import { Report } from './Report.object';
 
 export class EvaluationManager {
   /**
@@ -20,11 +21,16 @@ export class EvaluationManager {
     this.page = page;
 
     for (const moduleName in ModuleType) {
-      if (!modulesToExecute || modulesToExecute[moduleName as ModuleType]) {
-        const evaluationModule = ModuleFactory.createModule(moduleName as ModuleType, page);
+      const name = this.getModuleName(moduleName) as ModuleType;
+      if (!modulesToExecute || modulesToExecute[name]) {
+        const evaluationModule = ModuleFactory.createModule(name, page);
         this.modules[evaluationModule.name] = evaluationModule;
       }
     }
+  }
+
+  private getModuleName(module: string): string {
+    return module.toLocaleLowerCase().replace(/_/g, '-');
   }
 
   public async evaluate(options: QualwebOptions): Promise<QualwebReport> {
@@ -36,12 +42,12 @@ export class EvaluationManager {
     const testingData = await this.page.getTestingData(options);
 
     for (const name in this.modules) {
-      const translator = new ModuleTranslator(name as ModuleType, translate);
       const moduleReport = await this.modules[name as ModuleType].execute(
         options.modules?.[name as ModuleType] ?? {},
-        translator,
+        translate,
         testingData
       );
+
       report.addModuleReport(moduleReport);
     }
 
@@ -65,7 +71,7 @@ export class EvaluationManager {
       homepage: 'http://www.qualweb.di.fc.ul.pt/',
       date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       hash: randomBytes(64).toString('hex'),
-      url: this.page.getUrl() ? this.parseUrl() : undefined,
+      url: this.page.getInputUrl() ? this.parseUrl() : undefined,
       page: {
         viewport: {
           mobile: viewport?.isMobile,
@@ -86,7 +92,8 @@ export class EvaluationManager {
   }
 
   private parseUrl(): Url {
-    const completeUrl = this.page.getUrl();
+    const inputUrl = this.page.getInputUrl() ?? '';
+    const completeUrl = this.page.getFinalUrl();
 
     const urlObject = new URL(completeUrl);
 
@@ -98,6 +105,7 @@ export class EvaluationManager {
     const uri = urlObject.pathname;
 
     return {
+      inputUrl,
       protocol,
       domainName,
       domain,

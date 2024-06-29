@@ -1,4 +1,4 @@
-import { ElementExists } from '@shared/applicability';
+import { ElementExists } from '@qualweb/common';
 import { CompositeRule } from '../lib/CompositeRule.object';
 
 class QW_ACT_R23 extends CompositeRule {

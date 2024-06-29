@@ -1,4 +1,4 @@
-import actRulesJson from './act-rules.options.json';
+import { actRulesIds } from './act-rules.ids';
 
 const header = ` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
 |     |  |  |  _  |  |  | | | |   __| __  |  |     |  |  |     |
@@ -6,11 +6,11 @@ const header = ` _____ _____ _____ __    _ _ _ _____ _____    _____ __    _____
 |__  _|_____|__|__|_____|_____|_____|_____|  |_____|_____|_____|
    |__|                                                         `;
 
-const strings = {};
-const modules = ['act', 'html', 'css', 'bp', /*'wappalyzer',*/ 'counter'];
-const reports = ['earl', 'earl-a'];
-const actRules = [...actRulesJson.qualweb_id, ...actRulesJson.act_id];
-const wcagTechniques = [
+export const strings = {};
+export const modules = ['act', 'wcag', 'bp', 'counter'];
+export const reports = ['earl', 'earl-a'];
+export const actRules = [...actRulesIds.qualweb_id, ...actRulesIds.act_id];
+export const wcagTechniques = [
   'QW-WCAG-T1',
   'QW-WCAG-T2',
   'QW-WCAG-T3',
@@ -44,7 +44,7 @@ const wcagTechniques = [
   'QW-WCAG-T31',
   'QW-WCAG-T32'
 ];
-const bps = [
+export const bps = [
   'QW-BP1',
   'QW-BP2',
   'QW-BP4',
@@ -61,9 +61,9 @@ const bps = [
   'QW-BP17',
   'QW-BP18'
 ];
-const levels = ['A', 'AA', 'AAA'];
-const principles = ['Perceivable', 'Operable', 'Understandable', 'Robust'];
-const viewport = [
+export const levels = ['A', 'AA', 'AAA'];
+export const principles = ['Perceivable', 'Operable', 'Understandable', 'Robust'];
+export const viewport = [
   {
     name: 'viewport',
     alias: 'v',
@@ -98,11 +98,11 @@ const viewport = [
     type: Number
   }
 ];
-const moduleFilters = [
+export const moduleFilters = [
   {
     name: 'act-rules',
     typeLabel:
-      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
+      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesIds.qualweb_id.length + ' ] or [ ACT Rule ID ]',
     type: String,
     multiple: true,
     description: 'Choose which ACT rules to execute. Can be multiple.'
@@ -110,7 +110,7 @@ const moduleFilters = [
   {
     name: 'exclude-act',
     typeLabel:
-      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesJson.qualweb_id.length + ' ] or [ ACT Rule ID ]',
+      '{underline file-path} or [ QW-ACT-R1 ... QW-ACT-R' + actRulesIds.qualweb_id.length + ' ] or [ ACT Rule ID ]',
     type: String,
     multiple: true,
     description: 'Choose which ACT rules to exclude. Can be multiple.'
@@ -172,7 +172,7 @@ const moduleFilters = [
     description: 'Choose which best-practices to exclude. Can be multiple.'
   }
 ];
-const options = [
+export const options = [
   {
     name: 'url',
     alias: 'u',
@@ -251,7 +251,7 @@ const options = [
     type: Boolean
   }
 ];
-const sections = [
+export const sections = [
   {
     content: header,
     raw: true
@@ -284,6 +284,4 @@ const sections = [
   }
 ];
 
-const optionList = [...options, ...viewport, ...moduleFilters];
-
-export { optionList, sections, strings, actRules, wcagTechniques, bps, reports, levels, principles, modules };
+export const optionList = [...options, ...viewport, ...moduleFilters];

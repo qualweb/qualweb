@@ -1,5 +1,5 @@
-import type { CounterReport, EvaluationReport, ModuleOptions, TestingData, ModuleType } from '@shared/types';
-import type { ModuleTranslator } from '@packages/locale/src';
+import type { CounterReport, EvaluationReport, ModuleOptions, TestingData, ModuleType } from '@qualweb/common';
+import type { Translate } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 
 export abstract class Module {
@@ -12,21 +12,21 @@ export abstract class Module {
 
   public async execute(
     options: ModuleOptions,
-    translator: ModuleTranslator,
+    translate: Translate,
     data: TestingData
   ): Promise<EvaluationReport | CounterReport> {
     const modulePackage = this.getModulePackage?.();
     if (modulePackage) {
       await this.page.addEvaluationScript(modulePackage);
     }
-    return this.runModule(this.page, options, translator, data);
+    return this.runModule(this.page, options, translate, data);
   }
 
   protected abstract getModulePackage?(): string;
   protected abstract runModule(
     page: QualwebPage,
     options: ModuleOptions,
-    translator: ModuleTranslator,
+    translate: Translate,
     data: TestingData
   ): Promise<EvaluationReport | CounterReport>;
 }

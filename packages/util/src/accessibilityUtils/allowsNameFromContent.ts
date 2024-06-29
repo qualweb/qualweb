@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { nameFromContentRoles, nameFromContentElements } from './constants';
 
-function allowsNameFromContent(element: typeof window.qwElement): boolean {
+function allowsNameFromContent(element: QWElement): boolean {
   const name = element.getElementTagName();
   const role = element.getElementAttribute('role');
 

@@ -4,6 +4,6 @@ export * from './modules';
 export * from './qualweb';
 export * from './tests';
 export * from './reports';
-export * from './locale';
 export * from './counter';
 export * from './util';
+export * from './enums';

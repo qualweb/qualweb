@@ -1,4 +1,4 @@
-import type { TranslationOptions, Lang, Locale, Translate, TranslationObject } from '@shared/types';
+import type { TranslationOptions, Lang, Locale, Translate, TranslationObject } from './types';
 import * as locales from './locales';
 
 export class LocaleFetcher {

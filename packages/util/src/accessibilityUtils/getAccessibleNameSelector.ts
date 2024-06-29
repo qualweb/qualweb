@@ -1,11 +1,12 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { formElements, typesWithLabel } from './constants';
 
-function getAccessibleNameSelector(element: typeof window.qwElement): string | string[] | undefined {
+function getAccessibleNameSelector(element: QWElement): string | string[] | undefined {
   return getAccessibleNameRecursion(element, false, false);
 }
 
 function getAccessibleNameRecursion(
-  element: typeof window.qwElement,
+  element: QWElement,
   recursion: boolean,
   isWidget: boolean
 ): string | string[] | undefined {
@@ -97,7 +98,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-function getValueFromSpecialLabel(element: typeof window.qwElement, label: string): Array<string> | undefined {
+function getValueFromSpecialLabel(element: QWElement, label: string): Array<string> | undefined {
   const labelElement = element.getElement(label);
   let accessNameFromLabel, result;
 
@@ -108,8 +109,8 @@ function getValueFromSpecialLabel(element: typeof window.qwElement, label: strin
   return result;
 }
 
-function getValueFromLabel(element: typeof window.qwElement, id: string | null): Array<string> {
-  const referencedByLabelList = new Array<typeof window.qwElement>();
+function getValueFromLabel(element: QWElement, id: string | null): Array<string> {
+  const referencedByLabelList = new Array<QWElement>();
   const referencedByLabel = window.qwPage.getElements(`label[for="${id}"]`, element);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
@@ -130,7 +131,7 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
 
   return result;
 }
-function isElementPresent(element: typeof window.qwElement, listElement: Array<typeof window.qwElement>): boolean {
+function isElementPresent(element: QWElement, listElement: Array<QWElement>): boolean {
   let result = false;
   let i = 0;
   const elementSelector = element.getElementSelector();
@@ -141,7 +142,7 @@ function isElementPresent(element: typeof window.qwElement, listElement: Array<t
   return result;
 }
 
-function getAccessibleNameFromAriaLabelledBy(element: typeof window.qwElement, ariaLabelId: string): Array<string> {
+function getAccessibleNameFromAriaLabelledBy(element: QWElement, ariaLabelId: string): Array<string> {
   const ListIdRefs = ariaLabelId.split(' ');
   const result = new Array<string>();
   let accessNameFromId;
@@ -162,7 +163,7 @@ function getAccessibleNameFromAriaLabelledBy(element: typeof window.qwElement, a
   return result;
 }
 
-function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): Array<string> {
+function getTextFromCss(element: QWElement, isWidget: boolean): Array<string> {
   const aNameList = getAccessibleNameFromChildren(element, isWidget);
   const textValue = getConcatenatedText(element, []) ? element.getElementSelector() : null;
 
@@ -171,11 +172,11 @@ function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): Ar
   return aNameList;
 }
 
-function getConcatenatedText(element: typeof window.qwElement, aNames: Array<string>): string {
+function getConcatenatedText(element: QWElement, aNames: Array<string>): string {
   return element.concatANames(aNames);
 }
 
-function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidget: boolean): Array<string> {
+function getAccessibleNameFromChildren(element: QWElement, isWidget: boolean): Array<string> {
   if (!isWidget) {
     isWidget = window.AccessibilityUtils.isElementWidget(element);
   }

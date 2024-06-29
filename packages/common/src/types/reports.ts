@@ -1,13 +1,8 @@
-import type { CounterReport, ModuleType } from '.';
+import type { CounterReport } from './counter';
+import type { ModuleType, Verdict } from './enums';
 
 export type Level = 'A' | 'AA' | 'AAA';
 export type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
-export enum Verdict {
-  PASSED = 'passed',
-  WARNING = 'warning',
-  FAILED = 'failed',
-  INAPPLICABLE = 'inapplicable'
-}
 
 export type SuccessCriteria = {
   name: string;
@@ -133,6 +128,7 @@ export type SystemData = {
 };
 
 export type Url = {
+  inputUrl: string;
   protocol: string;
   domainName: string;
   domain: string;

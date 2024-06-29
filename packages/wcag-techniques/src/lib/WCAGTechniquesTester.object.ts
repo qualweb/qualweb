@@ -1,6 +1,6 @@
-import type { ModuleTranslator } from '@packages/locale/src';
-import type { TestingData, HTMLValidationReport } from '@shared/types';
-import { Tester } from '@shared/classes';
+import type { ModuleTranslator } from '@qualweb/locale';
+import type { TestingData, HTMLValidationReport } from '@qualweb/common';
+import { Tester } from '@qualweb/common';
 import mapping from './mapping';
 import * as techniques from '../techniques';
 
