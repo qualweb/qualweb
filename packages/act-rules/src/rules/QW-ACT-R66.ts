@@ -1,7 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasOneOfTheFollowingRoles, ElementIsInAccessibilityTree } from '@shared/applicability';
-import { Test } from '@shared/classes';
-import { Verdict } from '@shared/types';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasOneOfTheFollowingRoles, ElementIsInAccessibilityTree } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R66 extends AtomicRule {

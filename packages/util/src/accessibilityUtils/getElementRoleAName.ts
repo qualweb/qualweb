@@ -1,4 +1,6 @@
-function getElementRoleAName(element: typeof window.qwElement, aName: string | undefined): string | null {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getElementRoleAName(element: QWElement, aName: string | undefined): string | null {
   const explicitRole = element.getElementAttribute('role');
   let role = explicitRole;
   if (

@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import isElementChildPresentationalAux from './isElementChildPresentationalAux';
 
-function isElementChildPresentational(element: typeof window.qwElement): boolean {
+function isElementChildPresentational(element: QWElement): boolean {
   const focusable = window.AccessibilityUtils.isElementFocusable(element);
   const hasGlobalARIA = window.AccessibilityUtils.elementHasGlobalARIAPropertyOrAttribute(element);
   const parent = element.getElementParent();

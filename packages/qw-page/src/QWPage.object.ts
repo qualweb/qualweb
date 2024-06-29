@@ -1,4 +1,4 @@
-import { type CSSProperties, QWElement } from '@packages/qw-element/src';
+import { type CSSProperties, QWElement } from '@qualweb/qw-element';
 import { Cache } from './cache.object';
 import { CSSMapper } from './CssMapper.object';
 import { SelectorCalculator } from './selectorCalculator.object';

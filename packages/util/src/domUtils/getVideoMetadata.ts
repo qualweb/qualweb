@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import videoElementHasAudio from './objectElementIsNonText';
 
-function getVideoMetadata(element: typeof window.qwElement): any {
+function getVideoMetadata(element: QWElement): any {
   //let src =elementQW.getElementProperty('currentSrc');
   const duration = parseInt(element.getElementProperty('duration'));
   const hasSoundTrack = videoElementHasAudio(element);

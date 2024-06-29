@@ -1,8 +1,8 @@
-import type { EvaluationReport, ModuleOptions } from '@shared/types';
-import { ModuleType } from '@shared/types';
-import type { ModuleTranslator } from '@packages/locale/src';
+import type { EvaluationReport, ModuleOptions } from '@qualweb/common';
+import { ModuleType } from '@qualweb/common';
+import { ModuleTranslator, type Translate } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
-import { Module } from '.';
+import { Module } from './Module.object';
 
 export class BestPracticesModule extends Module {
   public readonly name = ModuleType.BEST_PRACTICES;
@@ -14,14 +14,14 @@ export class BestPracticesModule extends Module {
   protected runModule(
     page: QualwebPage,
     options: ModuleOptions,
-    translator: ModuleTranslator
+    translate: Translate
   ): Promise<EvaluationReport> {
     return page.evaluate(
-      (translator: ModuleTranslator, options: ModuleOptions) => {
+      (options: ModuleOptions) => {
+        const translator = new ModuleTranslator(ModuleType.BEST_PRACTICES, translate);
         //@ts-expect-error The package exists inside the context of the WebPage
         return new BestPractices(translator).configure(options).test({}).getReport();
       },
-      translator,
       options
     );
   }

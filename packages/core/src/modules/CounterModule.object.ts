@@ -1,7 +1,7 @@
-import type { CounterReport } from '@shared/types';
-import { ModuleType } from '@shared/types';
+import type { CounterReport } from '@qualweb/common';
+import { ModuleType } from '@qualweb/common';
 import type { QualwebPage } from '../lib';
-import { Module } from '.';
+import { Module } from './Module.object';
 
 export class CounterModule extends Module {
   public readonly name = ModuleType.COUNTER;
@@ -11,6 +11,9 @@ export class CounterModule extends Module {
   }
 
   protected runModule(page: QualwebPage): Promise<CounterReport> {
-    return page.evaluate(() => window.executeCounter());
+    return page.evaluate(() => {
+      //@ts-expect-error The package exists inside the context of the WebPage
+      return window.executeCounter()
+    });
   }
 }

@@ -1,7 +1,9 @@
+import type { QWElement } from '@qualweb/qw-element';
+
 //elementQW isInAT
-function getOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+function getOwnedElements(element: QWElement): Array<QWElement> {
   const children = element.getElementChildren();
-  const result = new Array<typeof window.qwElement>();
+  const result = new Array<QWElement>();
   const ariaOwnedElements = getAriaOwnedElements(element);
   result.push(...ariaOwnedElements);
   for (const child of children ?? []) {
@@ -10,7 +12,7 @@ function getOwnedElements(element: typeof window.qwElement): Array<typeof window
   return result;
 }
 
-function getOwnedElementsAux(element: typeof window.qwElement, ownerSelector: string): Array<typeof window.qwElement> {
+function getOwnedElementsAux(element: QWElement, ownerSelector: string): Array<QWElement> {
   let ariaOwner = window.AccessibilityUtils.getAriaOwner(element);
   if (
     window.AccessibilityUtils.isElementInAT(element) &&
@@ -19,7 +21,7 @@ function getOwnedElementsAux(element: typeof window.qwElement, ownerSelector: st
     return [element];
   } else {
     let children = element.getElementChildren();
-    let result = new Array<typeof window.qwElement>();
+    let result = new Array<QWElement>();
     for (const child of children ?? []) {
       result.push(...getOwnedElementsAux(child, ownerSelector));
     }
@@ -27,9 +29,9 @@ function getOwnedElementsAux(element: typeof window.qwElement, ownerSelector: st
   }
 }
 
-function getAriaOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+function getAriaOwnedElements(element: QWElement): Array<QWElement> {
   const ariaOwns = element.getElementAttribute('aria-owns');
-  const elements = new Array<typeof window.qwElement>();
+  const elements = new Array<QWElement>();
   if (ariaOwns) {
     const splitted = ariaOwns.split(',');
     for (const id of splitted ?? []) {

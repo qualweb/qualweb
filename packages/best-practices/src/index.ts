@@ -1,8 +1,7 @@
-import { EvaluationModule, ModuleReport } from '@shared/classes';
-import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
-import type { QWPage } from '@packages/qw-page/src';
+import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import type { QWPage } from '@qualweb/qw-page';
+import { EvaluationModule, ModuleReport, ModuleType } from '@qualweb/common';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
-import { ModuleType } from '@shared/types';
 
 declare global {
   interface Window {

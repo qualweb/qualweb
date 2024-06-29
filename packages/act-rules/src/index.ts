@@ -1,9 +1,8 @@
-import type { ModuleOptions, TestingData } from '@shared/types';
-import { ModuleType } from '@shared/types';
-import { EvaluationModule, ModuleReport } from '@shared/classes';
-import type { QWElement } from '@packages/qw-element/src';
-import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
-import type { QWPage } from '@packages/qw-page/src';
+import type { ModuleOptions, TestingData } from '@qualweb/common';
+import { ModuleType, EvaluationModule, ModuleReport } from '@qualweb/common';
+import type { QWElement } from '@qualweb/qw-element';
+import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import type { QWPage } from '@qualweb/qw-page';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 
 declare global {

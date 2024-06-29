@@ -6,6 +6,7 @@
   "files": [
     "dist/*"
   ],
+  "types": "prebuild/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -19,8 +20,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && webpack && rimraf prebuild",
-    "postbuild": "rimraf prebuild",
+    "build": "rimraf dist && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
@@ -43,7 +43,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "0.7.69",
+    "@qualweb/core": "^0.7.43",
     "@qualweb/locale": "0.1.18",
     "@qualweb/qw-page": "0.2.21",
     "@qualweb/util": "0.5.41",
@@ -54,7 +54,7 @@
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",
-    "puppeteer": "^21.6.1",
+    "puppeteer": "^22.12.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^4.5.4",

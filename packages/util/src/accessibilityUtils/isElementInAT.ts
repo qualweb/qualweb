@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { notDefaultAT, needsToBeInsideDetails, notExposedIfEmpty } from './constants';
 
-function isElementInAT(element: typeof window.qwElement): boolean {
+function isElementInAT(element: QWElement): boolean {
   const childPresentational = window.AccessibilityUtils.isElementChildPresentational(element);
   const isHidden = window.DomUtils.isElementHidden(element);
   let result = false;

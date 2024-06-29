@@ -1,8 +1,7 @@
-import type { ModuleTranslator } from '@packages/locale/src';
-import type { Level, Principle, TestResult, Assertion, TranslationValues } from '@shared/types';
-import { Verdict } from '@shared/types';
-import { Guideline, type Test } from '@shared/classes';
-import type { QWElement } from '@packages/qw-element/src';
+import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import type { Level, Principle, TestResult, Assertion, Test } from '@qualweb/common';
+import { Verdict, Guideline } from '@qualweb/common';
 import bestPractices from './bestPractices.json';
 
 abstract class BestPractice extends Guideline {
@@ -55,10 +54,10 @@ abstract class BestPractice extends Guideline {
       test.description = this.translate(test.resultCode);
     }
 
-    this.rule.results.push(test);
+    this.bestPractice.results.push(test);
 
     if (test.verdict && test.verdict !== Verdict.INAPPLICABLE) {
-      this.rule.metadata[test.verdict]++;
+      this.bestPractice.metadata[test.verdict]++;
     }
   }
 

@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { ariaAttributesRoles } from './ariaAttributesRoles';
 
-function elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElement): boolean {
+function elementHasGlobalARIAPropertyOrAttribute(element: QWElement): boolean {
   let elemAttribs = element.getElementAttributesName();
   elemAttribs = elemAttribs.filter((elem) => elem.startsWith('ar'));
   let result = false;

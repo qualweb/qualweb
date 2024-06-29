@@ -1,6 +1,8 @@
+import type { QWElement } from '@qualweb/qw-element';
+
 //incomplete
 //ignores being a header cell assigned to the closest ancestor of the link in the flat tree that has a semantic role of cell or gridcell;
-function getLinkContext(element: typeof window.qwElement): Array<string> {
+function getLinkContext(element: QWElement): Array<string> {
   const context = new Array<string>();
   const parent = element.getElementParent();
   const ariaDescribedByATT = element.getElementAttribute('aria-describedby');
@@ -26,11 +28,7 @@ function getLinkContext(element: typeof window.qwElement): Array<string> {
   return context;
 }
 
-function getLinkContextAux(
-  element: typeof window.qwElement,
-  ariaDescribedBy: Array<string>,
-  context: Array<string>
-): void {
+function getLinkContextAux(element: QWElement, ariaDescribedBy: Array<string>, context: Array<string>): void {
   const parent = element.getElementParent();
   if (parent) {
     const role = window.AccessibilityUtils.getElementRole(parent);

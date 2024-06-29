@@ -1,5 +1,5 @@
-import { Test } from '@shared/classes';
-import { Verdict } from '@shared/types';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T22 extends Technique {

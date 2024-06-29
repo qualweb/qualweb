@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { roles } from './roles';
 
-function elementHasValidRole(element: typeof window.qwElement): boolean {
+function elementHasValidRole(element: QWElement): boolean {
   const role = window.AccessibilityUtils.getElementRole(element);
   let result = false;
   if (role) {

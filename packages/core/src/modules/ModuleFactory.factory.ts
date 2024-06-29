@@ -1,7 +1,10 @@
-import type { ModuleType } from '@shared/types';
+import type { ModuleType } from '@qualweb/common';
 import type { QualwebPage } from '../lib';
-import type { Module } from '.';
-import { ACTRulesModule, WCAGTechniquesModule, BestPracticesModule, CounterModule } from '.';
+import type { Module } from './Module.object';
+import { ACTRulesModule } from './ACTRulesModule.object';
+import { WCAGTechniquesModule } from './WCAGTechniquesModule.object';
+import { BestPracticesModule } from './BestPracticesModule.object';
+import { CounterModule } from './CounterModule.object';
 
 export class ModuleFactory {
   private static readonly mapping = {

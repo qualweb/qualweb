@@ -13,7 +13,7 @@ import type {
   LoadEvent,
   QualwebPlugin,
   CrawlOptions
-} from '@shared/types';
+} from '@qualweb/common';
 import { Crawler } from '@qualweb/crawler';
 import { EvaluationManager, QualwebPage, PluginManager, ErrorManager } from './lib';
 
@@ -114,7 +114,7 @@ export class QualWeb {
 
   private async handlePageEvaluations(reports: QualwebReports, options: QualwebOptions): Promise<void> {
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
-      const qwPage = new QualwebPage(this.pluginManager, page, html);
+      const qwPage = new QualwebPage(this.pluginManager, page, url, html);
       const evaluationManager = new EvaluationManager(qwPage, options.modulesToExecute);
       reports[url ?? 'customHtml'] = await evaluationManager.evaluate(options);
     });
@@ -144,7 +144,7 @@ export class QualWeb {
     waitUntil?: LoadEvent | LoadEvent[]
   ): Promise<string[]> {
     const browser = await puppeteer.launch();
-    const incognito = await browser.createIncognitoBrowserContext();
+    const incognito = await browser.createBrowserContext();
     const crawler = new Crawler(incognito, domain, viewport, waitUntil);
     await crawler.crawl(options);
 
