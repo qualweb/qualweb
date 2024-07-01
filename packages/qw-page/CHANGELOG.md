@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.23
+
+### Patch Changes
+
+- Updated dependencies [fda645a7]
+  - @qualweb/qw-element@0.2.16
+
 ## 0.2.22
 
 ### Patch Changes

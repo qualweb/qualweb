@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.57
+
+### Patch Changes
+
+- Updated dependencies [fda645a7]
+  - @qualweb/wcag-techniques@0.3.19
+  - @qualweb/qw-page@0.2.23
+
 ## 0.3.56
 
 ### Patch Changes
