@@ -22,7 +22,9 @@ class QW_WCAG_T29 extends Technique {
       }
     } else {
       const style = <string>element.getElementAttribute('style');
-      this.checkCssProperty(style, element);
+      if (style) {
+        this.checkCssProperty(style, element);
+      }
     }
   }
 
@@ -42,10 +44,14 @@ class QW_WCAG_T29 extends Technique {
         } else {
           test.verdict = 'failed';
           test.resultCode = 'F1';
-        }
+          test.addElement(element);
+          test.attributes.push(property);
+          }
 
-        test.addElement(element);
-        test.attributes.push(property);
+        // Commented out because it was leading to an apparent lack of memory when there were too many applicable elements.
+        // Solution was to include this information only when the test failed.
+        // test.addElement(element);
+        // test.attributes.push(property);
 
         super.addTestResult(test);
       }

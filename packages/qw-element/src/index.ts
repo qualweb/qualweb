@@ -610,8 +610,7 @@ class QWElement {
     if (this.getElementTagName() === 'iframe') {
       const element = <HTMLIFrameElement>this.element;
       const contentWindow = element.contentWindow;
-
-      if (contentWindow) {
+      if (contentWindow && contentWindow.document) {
         page = contentWindow.document;
       }
     }
