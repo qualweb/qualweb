@@ -4,7 +4,6 @@ import mapping from './mapping';
 import * as bestPractices from '../best-practices';
 
 export class BestPracticesTester extends Tester {
-
   public init(translator: ModuleTranslator): this {
     for (const bestPractice in bestPractices) {
       const bestPracticeObject = new bestPractices[bestPractice as keyof typeof bestPractices](translator);

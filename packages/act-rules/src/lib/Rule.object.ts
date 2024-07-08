@@ -16,7 +16,7 @@ abstract class Rule extends Guideline {
     rule.metadata.warning = 0;
     rule.metadata.failed = 0;
     rule.metadata.inapplicable = 0;
-    rule.metadata.outcome = Verdict.INAPPLICABLE;
+    rule.metadata.outcome = Verdict.INAPPLICABLE.valueOf();
     rule.results = new Array<TestResult>();
 
     this.rule = rule;

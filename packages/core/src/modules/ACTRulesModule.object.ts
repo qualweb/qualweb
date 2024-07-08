@@ -1,6 +1,6 @@
 import type { EvaluationReport, ModuleOptions, TestingData } from '@qualweb/common';
 import { ModuleType } from '@qualweb/common';
-import { ModuleTranslator, type Translate } from '@qualweb/locale';
+import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';
 
@@ -14,14 +14,13 @@ export class ACTRulesModule extends Module {
   protected async runModule(
     page: QualwebPage,
     options: ModuleOptions,
-    translate: Translate,
+    translate: TranslationOptions,
     data: TestingData
   ): Promise<EvaluationReport> {
     await page.evaluate(
-      (translate: Translate, options: ModuleOptions, data: TestingData) => {
-        const translator = new ModuleTranslator(ModuleType.ACT_RULES, translate);
+      (translate: TranslationOptions, options: ModuleOptions, data: TestingData) => {
         //@ts-expect-error The package exists inside the context of the WebPage
-        window.act = new ACTRules(translator).configure(options).test(data);
+        window.act = new ACTRules(translate).configure(options).test(data);
       },
       translate,
       options,

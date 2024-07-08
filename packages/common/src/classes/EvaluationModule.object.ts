@@ -1,16 +1,17 @@
-import type { ModuleTranslator } from '@qualweb/locale';
-import type { ModuleOptions, TestingData, EvaluationReport } from '../types';
+import type { Translate, TranslationOptions } from '@qualweb/locale';
+import type { ModuleOptions, TestingData, EvaluationReport, ModuleType } from '../types';
 import { ModuleReport } from './ModuleReport.object';
 import { Tester } from './Tester.object';
 
 export abstract class EvaluationModule {
+  protected abstract type: ModuleType;
   protected abstract readonly report: ModuleReport;
   protected abstract readonly tester: Tester;
 
-  protected readonly translator: ModuleTranslator;
+  protected readonly translate: Translate;
 
-  constructor(translator: ModuleTranslator) {
-    this.translator = translator;
+  constructor(translationOptions: TranslationOptions) {
+    this.translate = window.LocaleFetcher.transform(translationOptions);
   }
 
   public configure(options: ModuleOptions): this {

@@ -57,7 +57,7 @@ export type AssertionMetadata = {
   inapplicable: number;
   type?: string[];
   a11yReq?: string[];
-  outcome: Verdict;
+  outcome: string;
   description: string;
 };
 

@@ -19,7 +19,7 @@ class QW_WCAG_T8 extends Technique {
   execute(element: QWElement): void {
     const test = new Test();
 
-    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element)).toLocaleLowerCase();
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(element)!.toLocaleLowerCase();
 
     if (
       !this.pattern4.test(accessibleName) &&

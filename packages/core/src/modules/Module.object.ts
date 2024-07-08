@@ -1,5 +1,5 @@
 import type { CounterReport, EvaluationReport, ModuleOptions, TestingData, ModuleType } from '@qualweb/common';
-import type { Translate } from '@qualweb/locale';
+import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 
 export abstract class Module {
@@ -12,7 +12,7 @@ export abstract class Module {
 
   public async execute(
     options: ModuleOptions,
-    translate: Translate,
+    translate: TranslationOptions,
     data: TestingData
   ): Promise<EvaluationReport | CounterReport> {
     const modulePackage = this.getModulePackage?.();
@@ -26,7 +26,7 @@ export abstract class Module {
   protected abstract runModule(
     page: QualwebPage,
     options: ModuleOptions,
-    translate: Translate,
+    translate: TranslationOptions,
     data: TestingData
   ): Promise<EvaluationReport | CounterReport>;
 }
