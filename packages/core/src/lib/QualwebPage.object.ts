@@ -106,6 +106,10 @@ export class QualwebPage {
       path: require.resolve('@qualweb/util'),
       type: 'text/javascript'
     });
+    await this.page.addScriptTag({
+      path: require.resolve('@qualweb/locale'),
+      type: 'text/javascript'
+    });
   }
 
   public async addEvaluationScript(module: string): Promise<void> {

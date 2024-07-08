@@ -233,37 +233,29 @@ export class QWPage {
 
   public pageHasOpenDialog(): boolean {
     const dialogList = this.getElements('dialog');
-    let hasOpenDialog = false;
-    dialogList.forEach((dialog) => {
-      if (dialog.getElementProperty('open')) {
-        hasOpenDialog = true;
-      }
-    });
-    return hasOpenDialog;
+    return dialogList.some((dialog) => dialog.getElementProperty('open'));
   }
 
   public cleanAllElements(): void {
-    const html = this.document.querySelector('html');
-    if (html) {
-      html.removeAttribute('qw-selector');
-      html.removeAttribute('qw-css-rules');
-      html.removeAttribute('_documentSelector');
-      const children = html.children;
-      if (children) this.cleanAllElementsAux(children);
-    }
+    const element = this.document.querySelector('html');
+    this.cleanElement(element);
   }
 
   private cleanAllElementsAux(elements: HTMLCollection): void {
     for (let i = 0; i < elements.length; i++) {
       const element = elements.item(i);
-      if (element) {
-        element.removeAttribute('qw-selector');
-        element.removeAttribute('qw-css-rules');
-        element.removeAttribute('_documentSelector');
-        const children = element.children;
-        if (children && children.length > 0) {
-          this.cleanAllElementsAux(children);
-        }
+      this.cleanElement(element);
+    }
+  }
+
+  private cleanElement(element: Element | null): void {
+    if (element) {
+      element.removeAttribute('qw-selector');
+      element.removeAttribute('qw-css-rules');
+      element.removeAttribute('_documentSelector');
+      const children = element.children;
+      if (children && children.length > 0) {
+        this.cleanAllElementsAux(children);
       }
     }
   }

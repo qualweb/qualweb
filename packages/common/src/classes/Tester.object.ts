@@ -34,7 +34,7 @@ export abstract class Tester {
   }
 
   public configureIncluded(assertions?: string[]): void {
-    if (this.assertions?.size !== 0) {
+    if (this.assertions?.size !== 0 && assertions && assertions.length !== 0) {
       const _assertions = assertions?.map((a) =>
         a.toLowerCase().startsWith('qw') ? a.toUpperCase().trim() : a.trim()
       );

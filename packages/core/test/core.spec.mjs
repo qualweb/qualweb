@@ -14,14 +14,14 @@ describe('Core', function () {
       url,
       log: { console: true },
       // viewport: { mobile: true, landscape: false },
-      modulesToExecute: { "act-rules": true, "wcag-techniques": false, "best-practices": false, counter: false },
+      modulesToExecute: { "act-rules": true, "wcag-techniques": true, "best-practices": true, counter: false },
     });
 
-    // const earlReports = generateEARLReport(evaluations);
+    const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
-    // expect(earlReports[url]['@graph']).to.have.length(1);
+    expect(earlReports[url]['@graph']).to.have.length(1);
     console.log("🚀 ~ earlReports[url]['@graph']:", evaluations)
   });
 });

@@ -1,8 +1,9 @@
-import type { ModuleOptions, TestingData } from '@qualweb/common';
-import { ModuleType, EvaluationModule, ModuleReport } from '@qualweb/common';
-import type { QWElement } from '@qualweb/qw-element';
 import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
+import type { QWElement } from '@qualweb/qw-element';
+import type { ModuleTranslator } from '@qualweb/locale';
+import type { ModuleOptions, TestingData } from '@qualweb/common';
+import { ModuleType, EvaluationModule, ModuleReport } from '@qualweb/common';
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 
 declare global {
@@ -11,11 +12,14 @@ declare global {
     DomUtils: typeof DomUtils;
     AccessibilityUtils: typeof AccessibilityUtils;
     disabledWidgets: QWElement[];
+    ModuleTranslator: typeof ModuleTranslator;
   }
 }
 
 export class ACTRules extends EvaluationModule {
-  protected readonly report = new ModuleReport(ModuleType.ACT_RULES);
+  protected readonly type = ModuleType.ACT_RULES;
+  protected readonly report = new ModuleReport(this.type);
+  protected readonly translator = new window.ModuleTranslator(this.type, this.translate);
   protected readonly tester = new ACTRulesTester(this.report).init(this.translator);
 
   public override configure(options: ModuleOptions): this {

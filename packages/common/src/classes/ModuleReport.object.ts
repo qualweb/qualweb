@@ -1,4 +1,4 @@
-import type { ModuleType, Assertion, EvaluationReport } from '../types';
+import type { ModuleType, Assertion, EvaluationReport, Verdict } from '../types';
 import { Guideline } from './Guideline.object';
 
 export class ModuleReport {
@@ -24,7 +24,7 @@ export class ModuleReport {
   public addAssertionResult(assertion: Guideline): void {
     const code = assertion.getCode();
     this.report.assertions[code] = assertion.getFinalResults();
-    this.report.metadata[this.report.assertions[code].metadata.outcome]++;
+    this.report.metadata[this.report.assertions[code].metadata.outcome as Verdict]++;
   }
 
   public getCopy(): EvaluationReport {

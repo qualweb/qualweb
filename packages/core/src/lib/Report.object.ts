@@ -21,9 +21,8 @@ export class Report {
       this.modules[module] = moduleReport as CounterReport;
     } else {
       this.modules[module] = moduleReport as EvaluationReport;
-      for (const verdict in Verdict) {
-        const _verdict = verdict as Verdict;
-        this.metadata[_verdict] += this.modules[module]?.metadata[_verdict] ?? 0;
+      for (const verdict of Object.values(Verdict)) {
+        this.metadata[verdict] += this.modules[module]?.metadata[verdict] ?? 0;
       }
     }
   }
