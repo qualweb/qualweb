@@ -7,7 +7,7 @@ import { Translate } from '@qualweb/locale';
 import * as rules from './lib/rules';
 
 class CUIChecks {
-  private readonly rules: { [rule: string]: CUIChecks };
+  private readonly rules: { [rule: string]: CUICheck };
   private readonly rulesToExecute: { [rule: string]: boolean };
 
   private readonly report: CUIChecksReport;
@@ -111,17 +111,6 @@ class CUIChecks {
 
     this.report.assertions[rule] = this.rules[rule].getFinalResults();
     this.report.metadata[this.report.assertions[rule].metadata.outcome]++;
-  }
-
-  public executeAtomicRules(): void {
-    const selectors = Object.keys(mapping);
-    for (const selector of selectors ?? []) {
-      for (const rule of (<ACTAtomicRuleMapping>mapping)[selector] ?? []) {
-        if (this.rulesToExecute[rule]) {
-          this.executeRule(rule, selector);
-        }
-      }
-    }
   }
 
   public getReport(): CUIChecksReport {

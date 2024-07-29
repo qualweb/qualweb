@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CUI Checks for Qualweb schema",
+  "description": "Defines the valid structure of CUI Checks for use in Qualweb",
+  "type": "object",
+  "allOf": [{
+    "patternProperties": {
+      "^QW_CUI_C\\d+$": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "code",
+          "description",
+          "metadata"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^QW-CUI-C\\d+$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "required": [
+                "target",
+                "success-criteria",
+                "related",
+                "url",
+                "type",
+                "a11yReq"
+              ],
+              "target": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "required": ["element"],
+                  "element": {
+                    "type": ["string", "array"],
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "attributes": {
+                    "type": ["string", "array"],
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "success-criteria": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["name", "level", "principle", "url"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                    },
+                    "level": {
+                      "type": "string",
+                      "enum": ["A", "AA", "AAA"]
+                    },
+                    "principle": {
+                      "type": "string",
+                      "enum": ["Perceivable", "Operable", "Understandable", "Robust"]
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "url_tr": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "related": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": "string"
+              },
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "a11yReq": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }]
+}
