@@ -2,9 +2,10 @@ import { CUICheck } from '@qualweb/cui-checks';
 import { Translate } from '@qualweb/locale';
 import { CUICheckDecorator, IsHTMLDocument } from '../lib/decorator';
 import Test from '../lib/Test.object';
+import Check from '../lib/Check.object';
 
 @CUICheckDecorator
-class QW_CUI_C1 extends CUICheck {
+class QW_CUI_C1 extends Check {
   constructor(rule: CUICheck, locale: Translate) {
     super(rule, locale);
   }
