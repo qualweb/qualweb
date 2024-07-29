@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cui-checks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Accessibility tests for conversational user interfaces",
   "main": "dist/cui.bundle.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "@qualweb/dom": "0.2.10",
     "@qualweb/locale": "0.1.18",
     "@qualweb/qw-page": "0.2.23",
-    "@qualweb/types": "0.7.26",
+    "@qualweb/types": "0.7.27",
     "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
@@ -41,6 +41,6 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "@qualweb/cui-checks": "^0.1.0"
+    "@qualweb/cui-checks": "^0.1.1"
   }
 }

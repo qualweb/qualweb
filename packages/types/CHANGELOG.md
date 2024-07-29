@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.27
+
+### Patch Changes
+
+- ba87c9b4: CUI types
+
 ## 0.7.26
 
 ### Patch Changes
