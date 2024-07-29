@@ -1,13 +1,13 @@
 import {
   CUIOptions,
-  CUIChecksReport,
-  CUICheck
+  CUIChecksReport
 } from '@qualweb/cui-checks';
 import { Translate } from '@qualweb/locale';
 import * as rules from './lib/rules';
+import Check from './lib/Check.object';
 
 class CUIChecks {
-  private readonly rules: { [rule: string]: CUICheck };
+  private readonly rules: { [rule: string]: Check };
   private readonly rulesToExecute: { [rule: string]: boolean };
 
   private readonly report: CUIChecksReport;
@@ -99,7 +99,7 @@ class CUIChecks {
     }
   }
 
-  private executeRule(rule: string, selector: string): void {
+  public executeRule(rule: string, selector: string): void {
     const elements = window.qwPage.getElements(selector);
     if (elements.length > 0) {
       for (const elem of elements ?? []) {
