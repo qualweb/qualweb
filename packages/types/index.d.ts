@@ -13,3 +13,4 @@
 /// <reference path="./evaluation.d.ts" />
 /// <reference path="./counter.d.ts" />
 /// <reference path="./locale.d.ts" />
+/// <reference path="./cui-checks.d.ts" />
