@@ -224,7 +224,7 @@ class Crawler {
               return url;
             }
           }
-          const notHtml = 'css|jpg|jpeg|gif|svg|pdf|docx|js|png|ico|xml|mp4|mp3|mkv|wav|rss|json|pptx|txt'.split('|');
+          const notHtml = 'css|jpg|jpeg|gif|svg|pdf|docx|js|png|ico|xml|mp4|mp3|mkv|wav|rss|json|pptx|txt|zip'.split('|');
 
           const links = document.querySelectorAll('body a');
 
