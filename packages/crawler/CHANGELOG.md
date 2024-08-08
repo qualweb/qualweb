@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.19
+
+### Patch Changes
+
+- b5b79f1f: Add zip to not crawl list
+
 ## 0.3.18
 
 ### Patch Changes
