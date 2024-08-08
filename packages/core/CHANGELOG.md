@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.74
+
+### Patch Changes
+
+- Updated dependencies [b5b79f1f]
+  - @qualweb/crawler@0.3.19
+
 ## 0.7.73
 
 ### Patch Changes

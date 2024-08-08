@@ -1,5 +1,13 @@
 # @qualweb/cui-checks
 
+## 0.1.2
+
+### Patch Changes
+
+- e3dc9b4f: Allow build
+- Updated dependencies [e3dc9b4f]
+  - @qualweb/cui-checks@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

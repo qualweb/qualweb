@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cui-checks",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Accessibility tests for conversational user interfaces",
   "main": "dist/cui.bundle.js",
   "scripts": {
@@ -41,6 +41,6 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "@qualweb/cui-checks": "^0.1.1"
+    "@qualweb/cui-checks": "^0.1.2"
   }
 }
