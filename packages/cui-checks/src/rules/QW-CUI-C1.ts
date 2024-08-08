@@ -11,6 +11,7 @@ class QW_CUI_C1 extends Check {
   }
 
   execute(element: typeof window.qwElement | undefined): void {
+    console.log(element);
     const test = new Test();
     test.verdict = 'warning';
     test.resultCode = 'W1';
