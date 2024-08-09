@@ -246,7 +246,7 @@ class Crawler {
               ) {
                 let valid = true;
                 for (const not of notHtml || []) {
-                  if (href.endsWith(not)) {
+                  if (href.endsWith(not) || href.includes('.' + not + '/')) {
                     valid = false;
                     break;
                   }
@@ -283,7 +283,7 @@ class Crawler {
               ) {
                 let valid = true;
                 for (const not of notHtml || []) {
-                  if (href.endsWith(not)) {
+                  if (href.endsWith(not) || href.includes('.' + not + '/')) {
                     valid = false;
                     break;
                   }
