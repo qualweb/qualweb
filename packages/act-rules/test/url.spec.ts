@@ -15,7 +15,7 @@ describe('URL evaluation', function () {
   it('Evaluates url', async function () {
     this.timeout(0);
 
-    const url = 'https://www.dgeec.medu.pt/pedidodados';
+    const url = 'https://observatorio.acessibilidade.leadershipbt.com/directories/1';
     const response = await fetch(url);
     const sourceCode = await response.text();
 
@@ -42,7 +42,7 @@ describe('URL evaluation', function () {
       (fiLocale, enLocale, sourceCode) => {
         // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
         window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        window.act.configure({ rules: ['QW-ACT-R37'] });
+        // window.act.configure({ rules: ['QW-ACT-R36'] });
         window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
 
         const parser = new DOMParser();
@@ -75,7 +75,8 @@ describe('URL evaluation', function () {
       return window.act.getReport();
     });
 
-    // console.log(JSON.stringify(report, null, 2));
+    console.log(JSON.stringify(report, null, 2));
+    // console.log(report.assertions['QW-ACT-R7'].results.length);
     expect(report);
   });
 

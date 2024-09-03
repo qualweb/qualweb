@@ -101,7 +101,7 @@ function getFirstAncestorElementByNameOrRoles(
 
 function getElementByIdInElement(element: typeof window.qwElement, id: string): typeof window.qwElement | null {
   if (!id) {
-    throw new Error('Invalid id');
+    return null;
   }
   return element.getElement(`[id="${id}"]`);
 }
