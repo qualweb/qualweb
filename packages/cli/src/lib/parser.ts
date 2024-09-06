@@ -1,6 +1,6 @@
 import commandLineArgs, { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesToExecute, QualwebOptions } from '@shared/types';
+import type { ModulesToExecute, QualwebOptions } from '@qualweb/common';
 import { optionList, reports, modules } from './options';
 import { readJsonFile } from './fileUtils';
 import { printHelp, printError } from './parserUtils';

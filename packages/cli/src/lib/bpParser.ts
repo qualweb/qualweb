@@ -1,6 +1,6 @@
 import { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesOptions, QualwebOptions } from '@shared/types';
+import type { ModulesOptions, QualwebOptions } from '@qualweb/common';
 import { validateBP, printError } from './parserUtils';
 import { BPJsonFile, readJsonFile, fileExists } from './fileUtils';
 
