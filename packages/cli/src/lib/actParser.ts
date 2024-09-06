@@ -1,6 +1,6 @@
 import { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesOptions, QualwebOptions } from '@shared/types';
+import type { ModulesOptions, QualwebOptions } from '@qualweb/common';
 import { validateACT, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { ACTRJsonFile, readJsonFile, fileExists } from './fileUtils';
 

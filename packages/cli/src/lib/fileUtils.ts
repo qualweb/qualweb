@@ -1,6 +1,6 @@
 import fs from 'fs';
 import type { EarlReport } from '@qualweb/earl-reporter';
-import type { ModuleOptions, QualwebReport } from '@shared/types';
+import type { ModuleOptions, QualwebReport } from '@qualweb/common';
 
 export type ACTRJsonFile = {
   'act-rules': ModuleOptions;

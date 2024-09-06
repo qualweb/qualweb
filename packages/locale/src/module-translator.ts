@@ -1,5 +1,4 @@
-import type { QualwebReport, Assertion, EvaluationReport, ModuleType } from '@qualweb/common';
-import type { Translate, TranslationValues } from './types';
+import type { Translate, TranslationValues, QualwebReport, Assertion, EvaluationReport, ModuleType } from './types';
 import { AssertionTranslator } from './assertion-translator';
 import { TestTranslator } from './test-translator';
 export class ModuleTranslator {
