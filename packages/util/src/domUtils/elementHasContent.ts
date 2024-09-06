@@ -1,7 +1,8 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { alwaysNotVisible, needsControls, alwaysVisible, needsOpen } from './constants';
 import textHasTheSameColorOfBackground from './textHasTheSameColorOfBackground';
 
-function elementHasContent(element: typeof window.qwElement, checkChildren: boolean): boolean {
+function elementHasContent(element: QWElement, checkChildren: boolean): boolean {
   let result = false;
   const name = element.getElementTagName();
   if (alwaysNotVisible.includes(name)) {

@@ -1,4 +1,4 @@
-import { Verdict } from '@shared/types';
+import { Verdict } from '@qualweb/common';
 
 export type RuleResult = {
   [verdict in Verdict]: { title: string; code: string };

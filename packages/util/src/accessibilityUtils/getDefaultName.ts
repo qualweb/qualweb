@@ -1,4 +1,6 @@
-function getDefaultName(element: typeof window.qwElement): string {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getDefaultName(element: QWElement): string {
   let name = element.getElementTagName();
   if (!name) name = '';
   let type;

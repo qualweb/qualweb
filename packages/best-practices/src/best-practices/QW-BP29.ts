@@ -1,12 +1,13 @@
-import { QWElement } from '@packages/qw-element/src';
+import { QWElement } from '@qualweb/qw-element';
 import {
   ElementExists,
   ElementHasNonEmptyAttribute,
   IsHTMLDocument,
   IsInMainContext,
   IsLangSubTagValid
-} from '@shared/applicability';
-import { Test } from '@shared/classes';
+} from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP29 extends BestPractice {
@@ -27,10 +28,10 @@ class QW_BP29 extends BestPractice {
     const test = new Test();
 
     if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
     test.addElement(element);

@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import { Verdict } from '@qualweb/common';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP1 extends BestPractice {
@@ -10,14 +11,14 @@ class QW_BP1 extends BestPractice {
 
     for (const heading of headings ?? []) {
       if (window.AccessibilityUtils.isElementInAT(heading) || window.DomUtils.isElementVisible(heading)) {
-        const test = new Test('warning', undefined, 'W1');
+        const test = new Test(Verdict.WARNING, undefined, 'W1');
         test.addElement(heading);
         this.addTestResult(test);
       }
     }
 
     if (this.bestPractice.metadata.warning === 0) {
-      this.addTestResult(new Test('failed', undefined, 'F1'));
+      this.addTestResult(new Test(Verdict.FAILED, undefined, 'F1'));
     }
   }
 }

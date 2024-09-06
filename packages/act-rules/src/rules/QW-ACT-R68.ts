@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R68 extends AtomicRule {
@@ -24,16 +25,16 @@ class QW_ACT_R68 extends AtomicRule {
       }
 
       if (element.hasCSSProperty('line-height') && !this.isImportant(computedRawLineHeight, element)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else if (!this.isNormal(computedLineHeight, element) && this.isLarge(computedLineHeight, fontSize)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
       } else if (!this.isCascade(declaredLineHeight, computedRawLineHeight)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P3';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

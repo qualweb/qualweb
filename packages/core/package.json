@@ -2,10 +2,11 @@
   "name": "@qualweb/core",
   "version": "0.7.71",
   "description": "QualWeb evaluator core engine",
-  "main": "dist/core/src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "dist/core/src/*"
+    "dist/*"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -67,29 +68,34 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@qualweb/act-rules": "^0.6.37",
+    "@qualweb/best-practices": "^0.6.18",
+    "@qualweb/counter": "^0.2.3",
     "@qualweb/crawler": "0.3.18",
     "@qualweb/earl-reporter": "0.4.6",
     "@qualweb/locale": "0.1.18",
-    "axios": "^1.6.8",
+    "@qualweb/wcag-techniques": "^0.3.18",
+    "axios": "^1.7.2",
     "colors": "1.4.0",
-    "puppeteer": "^21.11.0",
-    "puppeteer-cluster": "^0.23.0",
+    "puppeteer": "^22.12.1",
+    "puppeteer-cluster": "^0.24.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-adblocker": "^2.13.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^17.0.19",
-    "chai": "^4.4.1",
-    "eslint": "^8.56.0",
+    "@types/node": "^20.12.12",
+    "chai": "^5.1.1",
+    "eslint": "^9.3.0",
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.7",
     "prettier": "^3.1.1",
-    "rimraf": "^5.0.5",
+    "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.6",
-    "typescript": "^4.5.4"
+    "typescript": "^5.4.5"
   }
 }

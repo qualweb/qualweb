@@ -1,4 +1,6 @@
-function isElementReferencedByAriaLabel(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementReferencedByAriaLabel(element: QWElement): boolean {
   const id = element.getElementAttribute('id');
   let result = false;
   try {

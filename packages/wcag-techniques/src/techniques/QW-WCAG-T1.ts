@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T1 extends Technique {
@@ -11,10 +12,10 @@ class QW_WCAG_T1 extends Technique {
     const alt = element.getElementAttribute('alt');
 
     if (!alt || alt.trim() === '') {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     }
 

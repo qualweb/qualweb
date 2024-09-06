@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R62 extends AtomicRule {
@@ -13,7 +14,7 @@ class QW_ACT_R62 extends AtomicRule {
 
     if (inSequentialFocusList.length >= 1) {
       for (const inSequentialFocusElement of inSequentialFocusList ?? []) {
-        const test = new Test('warning', undefined, 'W1');
+        const test = new Test(Verdict.WARNING, undefined, 'W1');
         test.addElement(inSequentialFocusElement);
         this.addTestResult(test);
       }

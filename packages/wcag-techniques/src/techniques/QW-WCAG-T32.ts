@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T32 extends Technique {
@@ -16,16 +17,16 @@ class QW_WCAG_T32 extends Technique {
 
     if (hasLi && name === 'ul') {
       // fails if the element doesn't contain an alt attribute
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     } else if (hasLi && name === 'ol') {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W2';
     } else if (name === 'dl' && (hasDt || hasDd)) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W3';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

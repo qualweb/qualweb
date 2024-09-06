@@ -1,4 +1,4 @@
-import type { CSSProperties, CSSProperty, MediaProperties, MediaProperty, PseudoSelectorProperty } from '.';
+import type { CSSProperties, CSSProperty, MediaProperties, MediaProperty, PseudoSelectorProperty } from './types';
 
 export class QWElement {
   private readonly element: Element;

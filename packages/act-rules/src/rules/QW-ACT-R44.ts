@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R44 extends AtomicRule {
@@ -53,11 +54,11 @@ class QW_ACT_R44 extends AtomicRule {
           elementList.push(linkDataList[counter].link);
           if (hasEqualHref) {
             //passed
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
             //warning
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W1';
           }
 

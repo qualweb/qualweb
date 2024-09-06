@@ -6,14 +6,15 @@
   "files": [
     "dist/*"
   ],
+  "types": "prebuild/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf prebuild  && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && webpack --mode production && rimraf prebuild",
+    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
+    "build": "rimraf dist && npm run prebuild && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
@@ -44,11 +45,10 @@
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^4.4.3",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@qualweb/common": "^0.1.0",
     "lodash.clonedeep": "^4.5.0"
   }
 }

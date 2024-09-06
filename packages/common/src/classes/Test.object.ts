@@ -1,7 +1,8 @@
-import type { QWElement } from '@packages/qw-element/src';
-import type { EvaluationElement, TestResult, Verdict } from '../types';
+import type { QWElement } from '@qualweb/qw-element';
+import type { EvaluationElement, TestResult } from '../types';
+import { Verdict }from '../types';
 
-class Test implements TestResult {
+export class Test implements TestResult {
   verdict: Verdict;
   description: string;
   resultCode: string;
@@ -9,7 +10,7 @@ class Test implements TestResult {
   attributes: string[];
 
   constructor(verdict?: Verdict, description?: string, resultCode?: string) {
-    this.verdict = verdict ?? 'inapplicable';
+    this.verdict = verdict ?? Verdict.INAPPLICABLE;
     this.description = description ?? '';
     this.resultCode = resultCode ?? 'I1';
     this.elements = [];
@@ -28,11 +29,7 @@ class Test implements TestResult {
   }
 
   public addElements(elements: QWElement[], withText = true, fullElement = false, aName?: boolean): this {
-    for (const element of elements ?? []) {
-      this.addElement(element, withText, fullElement, aName);
-    }
+    elements.forEach((element) => this.addElement(element, withText, fullElement, aName));
     return this;
   }
 }
-
-export { Test };

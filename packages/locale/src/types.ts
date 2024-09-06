@@ -1,9 +1,63 @@
-import type { Module, CounterReport } from '.';
+export type TranslationValues = {
+  [key: string]: string | number | boolean;
+};
+
+export type ModuleTranslation = {
+  [test: string]: {
+    name?: string;
+    description?: string;
+    results?: {
+      [rc: string]: string;
+    };
+  };
+};
+
+export type Locale = {
+  'act-rules'?: ModuleTranslation;
+  'wcag-techniques'?: ModuleTranslation;
+  'best-practices'?: ModuleTranslation;
+};
+
+export type TranslationObject = {
+  translate: Locale | string;
+  fallback: Locale | string;
+};
+
+export type Translate = {
+  translate: Locale;
+  fallback: Locale;
+};
+
+export type Langs = {
+  en: Locale;
+  fi: Locale;
+  sv: Locale;
+  nb: Locale;
+  nn: Locale;
+};
+
+export type Lang = keyof Langs;
+
+export type TranslationOptions = Locale | Lang | TranslationObject | undefined;
+
+// TEMPORARY
+
+export enum Verdict {
+  PASSED = 'passed',
+  WARNING = 'warning',
+  FAILED = 'failed',
+  INAPPLICABLE = 'inapplicable'
+}
+
+export enum ModuleType {
+  ACT_RULES = 'act-rules',
+  WCAG_TECHNIQUES = 'wcag-techniques',
+  BEST_PRACTICES = 'best-practices',
+  COUNTER = 'counter'
+}
 
 export type Level = 'A' | 'AA' | 'AAA';
 export type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
-export type Verdict = 'passed' | 'failed' | 'warning' | 'inapplicable';
-
 
 export type SuccessCriteria = {
   name: string;
@@ -49,13 +103,16 @@ export type AssertionMetadata = {
   'success-criteria': SuccessCriteria[];
   related: string[];
   url: string;
+  results: {
+    [verdict in Verdict]: number;
+  };
   passed: number;
   warning: number;
   failed: number;
   inapplicable: number;
   type?: string[];
   a11yReq?: string[];
-  outcome: Verdict;
+  outcome: string;
   description: string;
 };
 
@@ -69,15 +126,11 @@ export type Assertion = {
 };
 
 export type ModuleMetadata = {
-  passed: number;
-  warning: number;
-  failed: number;
-  inapplicable: number;
+  [verdict in Verdict]: number;
 };
 
-
 export type EvaluationReport = {
-  type: Module;
+  type: ModuleType;
   metadata: ModuleMetadata;
   assertions: {
     [key: string]: Assertion;
@@ -107,7 +160,7 @@ export type DomData = {
   elementCount?: number;
 };
 
-export type Evaluator = {
+export type SystemData = {
   name: string;
   description: string;
   version: string;
@@ -139,13 +192,10 @@ export type Url = {
 };
 
 export type Metadata = {
-  passed: number;
-  warning: number;
-  failed: number;
-  inapplicable: number;
+  [verdict in Verdict]: number;
 };
 
-export type Modules = {
+export type ModulesData = {
   'act-rules'?: EvaluationReport;
   'wcag-techniques'?: EvaluationReport;
   'best-practices'?: EvaluationReport;
@@ -154,7 +204,25 @@ export type Modules = {
 
 export type QualwebReport = {
   type: 'evaluation';
-  system: Evaluator;
+  system: SystemData;
   metadata: Metadata;
-  modules: Modules;
+  modules: ModulesData;
+};
+
+export type RolesCount = {
+  [role: string]: number;
+};
+
+export type TagsCount = {
+  [tag: string]: number;
+};
+
+export type CounterResult = {
+  roles: RolesCount;
+  tags: TagsCount;
+};
+
+export type CounterReport = {
+  type: 'counter';
+  data: CounterResult;
 };

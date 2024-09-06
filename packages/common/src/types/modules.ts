@@ -1,6 +1,4 @@
-import { Level, Principle } from '.';
-
-export type Module = 'act-rules' | 'wcag-techniques' | 'best-practices';
+import { Level, Principle } from './reports';
 
 export type ModuleOptions = {
   include?: string[];

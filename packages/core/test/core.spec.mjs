@@ -1,5 +1,6 @@
-import { QualWeb, generateEARLReport } from '../src';
 import { expect } from 'chai';
+import { generateEARLReport } from '@qualweb/earl-reporter';
+import { QualWeb } from '../dist/index.js';
 
 describe('Core', function () {
   it('Should evaluate one url', async function () {
@@ -7,14 +8,13 @@ describe('Core', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors', '--no-sandbox'] });
-    const url = 'https://aveiroexpo.com/feed';
+    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
+    const url = 'https://ciencias.ulisboa.pt';
     const evaluations = await qualweb.evaluate({
       url,
       log: { console: true },
       // viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: true, bp: false },
-      'act-rules': { levels: ['AAA'] }
+      modulesToExecute: { "act-rules": true, "wcag-techniques": true, "best-practices": true, counter: false },
     });
 
     const earlReports = generateEARLReport(evaluations);
@@ -22,5 +22,6 @@ describe('Core', function () {
     await qualweb.stop();
 
     expect(earlReports[url]['@graph']).to.have.length(1);
+    console.log("🚀 ~ earlReports[url]['@graph']:", evaluations)
   });
 });

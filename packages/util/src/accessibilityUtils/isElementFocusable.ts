@@ -1,4 +1,6 @@
-function isElementFocusable(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementFocusable(element: QWElement): boolean {
   const disabled = element.getElementAttribute('disabled') !== null;
 
   if (disabled || window.DomUtils.isElementHiddenByCSS(element)) {

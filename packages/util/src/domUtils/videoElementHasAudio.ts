@@ -1,4 +1,6 @@
-function videoElementHasAudio(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function videoElementHasAudio(element: QWElement): boolean {
   return parseInt(element.getElementProperty('webkitAudioDecodedByteCount')) > 120;
 }
 

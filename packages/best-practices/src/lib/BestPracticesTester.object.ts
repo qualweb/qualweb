@@ -1,11 +1,9 @@
-import type { ModuleTranslator } from '@packages/locale/src';
-import { Tester } from '@shared/classes';
-import { BestPractice } from './BestPractice.object';
+import type { ModuleTranslator } from '@qualweb/locale';
+import { Tester } from '@qualweb/common';
 import mapping from './mapping';
 import * as bestPractices from '../best-practices';
 
-export class BestPracticesTester extends Tester<BestPractice> {
-
+export class BestPracticesTester extends Tester {
   public init(translator: ModuleTranslator): this {
     for (const bestPractice in bestPractices) {
       const bestPracticeObject = new bestPractices[bestPractice as keyof typeof bestPractices](translator);
@@ -30,9 +28,9 @@ export class BestPracticesTester extends Tester<BestPractice> {
     if (bestPracticeObject) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => bestPracticeObject.execute(element));
+        elements.forEach((element) => bestPracticeObject.execute?.(element));
       } else {
-        bestPracticeObject.execute();
+        bestPracticeObject.execute?.();
       }
 
       this.report.addAssertionResult(bestPracticeObject);

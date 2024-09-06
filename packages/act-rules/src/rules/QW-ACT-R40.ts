@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R40 extends AtomicRule {
@@ -42,7 +43,7 @@ class QW_ACT_R40 extends AtomicRule {
     }
 
     if (isApplicable) {
-      const test = new Test('warning', undefined, 'W1');
+      const test = new Test(Verdict.WARNING, undefined, 'W1');
       test.addElement(element);
       this.addTestResult(test);
     }

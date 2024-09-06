@@ -1,4 +1,5 @@
-function elementHasOnePixel(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+function elementHasOnePixel(element: QWElement): boolean {
   const height = element.getElementStyleProperty('height', '');
   const background = element.getElementStyleProperty('background-color', '');
   const parent = element.getElementParent();

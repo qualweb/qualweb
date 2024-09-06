@@ -1,5 +1,5 @@
-import { CounterReport } from '@shared/types';
-import type { AccessibilityUtils } from '@packages/util/src';
+import type { CounterReport } from '@qualweb/common';
+import type { AccessibilityUtils } from '@qualweb/util';
 
 declare global {
   interface Window {

@@ -1,6 +1,7 @@
-import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { CSSProperties, CSSProperty, MediaProperties, QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T30 extends Technique {
@@ -14,7 +15,7 @@ class QW_WCAG_T30 extends Technique {
       const property = this.findTextDecorationWithBlink(cssRules);
 
       if (property !== undefined) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
         test.elements.push({
           pointer: element.getElementSelector(),

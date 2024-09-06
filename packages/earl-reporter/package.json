@@ -2,18 +2,19 @@
   "name": "@qualweb/earl-reporter",
   "version": "0.4.6",
   "description": "Qualweb earl reporter",
-  "main": "dist/earl-reporter/src/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "prebuild": "rimraf dist",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
+    "prebuild": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

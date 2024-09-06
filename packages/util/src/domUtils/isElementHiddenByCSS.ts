@@ -1,6 +1,7 @@
+import type { QWElement } from '@qualweb/qw-element';
 import isElementHiddenByCSSAux from './isElementHiddenByCSSAux';
 
-function isElementHiddenByCSS(element: typeof window.qwElement): boolean {
+function isElementHiddenByCSS(element: QWElement): boolean {
   const parent = element.getParentAllContexts();
   let parentHidden = false;
   if (parent) {

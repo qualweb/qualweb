@@ -1,6 +1,7 @@
-import { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasChild } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasChild } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP12 extends BestPractice {
@@ -41,10 +42,10 @@ class QW_BP12 extends BestPractice {
       const test = new Test();
 
       if (scopeCole && scopeRow) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

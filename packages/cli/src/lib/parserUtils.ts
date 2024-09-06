@@ -1,19 +1,19 @@
-import { sections, actRules, wcagTechniques, bps, levels, principles } from './options';
 import commandLineUsage from 'command-line-usage';
+import { sections, actRules, wcagTechniques, bps, levels, principles } from './options';
 
-function printHelp(): void {
+export function printHelp(): void {
   console.log(commandLineUsage(sections));
   process.exit(0);
 }
 
-function printError(err: string): void {
+export function printError(err: string): void {
   console.error(err);
   console.log('To get help please run');
   console.log('  $ qw --help');
   process.exit(0);
 }
 
-function validatePrinciples(arrayPrinciples: string[] | undefined): void {
+export function validatePrinciples(arrayPrinciples: string[] | undefined): void {
   if (arrayPrinciples) {
     const valid = arrayContainsArray(arrayPrinciples, principles);
     if (!valid) {
@@ -22,7 +22,7 @@ function validatePrinciples(arrayPrinciples: string[] | undefined): void {
   }
 }
 
-function validateLevels(arrayLevels: string[] | undefined): void {
+export function validateLevels(arrayLevels: string[] | undefined): void {
   if (arrayLevels) {
     const valid = arrayContainsArray(arrayLevels, levels);
     if (!valid) {
@@ -31,7 +31,7 @@ function validateLevels(arrayLevels: string[] | undefined): void {
   }
 }
 
-function validateACT(rules: string[] | undefined): void {
+export function validateACT(rules: string[] | undefined): void {
   if (rules) {
     const valid = arrayContainsArray(rules, actRules);
     if (!valid) {
@@ -40,7 +40,7 @@ function validateACT(rules: string[] | undefined): void {
   }
 }
 
-function validateWCAG(techniques: string[] | undefined): void {
+export function validateWCAG(techniques: string[] | undefined): void {
   if (techniques) {
     const valid = arrayContainsArray(techniques, wcagTechniques);
     if (!valid) {
@@ -49,7 +49,7 @@ function validateWCAG(techniques: string[] | undefined): void {
   }
 }
 
-function validateBP(bestPractices: string[] | undefined): void {
+export function validateBP(bestPractices: string[] | undefined): void {
   if (bestPractices) {
     const valid = arrayContainsArray(bestPractices, bps);
     if (!valid) {
@@ -64,5 +64,3 @@ function validateBP(bestPractices: string[] | undefined): void {
 function arrayContainsArray(arr1: string[], arr2: string[]): boolean {
   return arr1.some((r) => arr2.includes(r));
 }
-
-export { printHelp, printError, validatePrinciples, validateLevels, validateACT, validateWCAG, validateBP };

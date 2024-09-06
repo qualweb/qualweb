@@ -2,7 +2,7 @@ import * as path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 
 export const mode = 'production';
-export const entry = './prebuild/act-rules/src/index.js';
+export const entry = './prebuild/index.js';
 export const output = {
   filename: 'act.bundle.js',
   path: path.resolve(__dirname, 'dist'),
@@ -10,16 +10,7 @@ export const output = {
     type: 'this'
   }
 };
-export const resolve = {
-  alias: {
-    '@shared': path.resolve(__dirname, './prebuild/shared'),
-    '@shared/*': path.resolve(__dirname, './prebuild/shared/*'),
-    '@packages/qw-page/src': path.resolve(__dirname, './prebuild/qw-page/src'),
-    '@packages/qw-element/src': path.resolve(__dirname, './prebuild/qw-element/src'),
-    '@packages/util/src': path.resolve(__dirname, './prebuild/util/src'),
-    '@packages/locale/src': path.resolve(__dirname, './prebuild/locale/src')
-  }
-};
+
 export const optimization = {
   minimize: true,
   minimizer: [
@@ -35,4 +26,5 @@ export const optimization = {
     })
   ]
 };
+
 export const target = 'web';

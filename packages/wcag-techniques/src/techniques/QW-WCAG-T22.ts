@@ -1,4 +1,5 @@
-import { Test } from '@shared/classes';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T22 extends Technique {
@@ -11,10 +12,10 @@ class QW_WCAG_T22 extends Technique {
     const test = new Test();
 
     if (!newTabWasOpen) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

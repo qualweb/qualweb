@@ -6,6 +6,7 @@
   "files": [
     "dist/*"
   ],
+  "types": "./prebuild/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -13,7 +14,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf prebuild  && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && webpack && rimraf prebuild",
+    "build": "rimraf dist && webpack",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -33,14 +34,14 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "0.7.69",
+    "@qualweb/core": "^0.7.43",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "chai": "^4.4.1",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",
-    "puppeteer": "^21.6.1",
+    "puppeteer": "^22.12.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.6",

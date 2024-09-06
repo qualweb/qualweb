@@ -1,4 +1,4 @@
-import { Locale } from '@shared/types';
+import { Locale } from '..';
 
 export const nn: Locale = {
   'act-rules': {

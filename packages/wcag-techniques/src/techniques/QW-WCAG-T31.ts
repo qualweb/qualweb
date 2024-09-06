@@ -1,6 +1,7 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/common';
+import { Test } from '@qualweb/common';
+import { Verdict } from '@qualweb/common';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T31 extends Technique {
@@ -42,19 +43,19 @@ class QW_WCAG_T31 extends Technique {
     }
 
     if (foundColorProperty && foundBackgroundProperty) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
 
       test.addElement(element);
       this.addTestResult(test);
     } else if (foundColorProperty) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
 
       test.addElement(element);
       this.addTestResult(test);
     } else if (foundBackgroundProperty) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
 
       test.addElement(element);
