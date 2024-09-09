@@ -135,5 +135,5 @@ export {
   QW_ACT_R75,
   QW_ACT_R76,
   QW_ACT_R77,
-  QW_ACT_R9
+  QW_ACT_R9,
 };
