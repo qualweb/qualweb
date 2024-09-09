@@ -75,7 +75,7 @@ class QW_ACT_R34 extends AtomicRule {
                 if (isRequired) {
                   for (const id of list || []) {
                     if (!result) {
-                      result = window.qwPage.getElement('#' + id) !== null;
+                      result = window.qwPage.getElement('#' + CSS.escape(id)) !== null;
                     }
                   }
                 } else {
