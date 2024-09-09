@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.39
+
+### Patch Changes
+
+- b368b355: Escape selector in R34
+
 ## 0.6.38
 
 ### Patch Changes
