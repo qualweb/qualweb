@@ -9,7 +9,7 @@ function isElementVisible(element: typeof window.qwElement): boolean {
   const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity: number | undefined;
   if (opacityProperty) {
-    opacity = parseInt(opacityProperty);
+    opacity = parseFloat(opacityProperty);
   }
   let opaqueParent: boolean = false;
   if (element.getElementParent()) {
@@ -23,7 +23,7 @@ function isParentOpaque(element: typeof window.qwElement): boolean {
   const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity: number | undefined;
   if (opacityProperty) {
-    opacity = parseInt(opacityProperty);
+    opacity = parseFloat(opacityProperty);
   }
   if (opacity != undefined && opacity === 0) {
     return true;
