@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { generateEARLReport } from '@qualweb/earl-reporter';
-import { QualWeb } from '../dist/index.js';
+import { QualWeb } from '../src';
 
 describe('Core', function () {
   it('Should evaluate one url', async function () {
