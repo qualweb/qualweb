@@ -1,5 +1,5 @@
-import type { EvaluationReport, ModuleOptions } from '@qualweb/common';
-import { ModuleType } from '@qualweb/common';
+import type { EvaluationReport, ModuleOptions } from '../lib/evaluation';
+import { ModuleType } from '../lib/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';

@@ -1,4 +1,4 @@
-import type { ModuleType } from '@qualweb/common';
+import type { ModuleType } from '../lib/evaluation';
 import type { QualwebPage } from '../lib';
 import type { Module } from './Module.object';
 import { ACTRulesModule } from './ACTRulesModule.object';

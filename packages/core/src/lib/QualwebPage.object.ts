@@ -1,6 +1,8 @@
 import axios from 'axios';
 import type { Page, HTTPResponse, Viewport, Awaitable, InnerParams } from 'puppeteer';
-import type { QualwebOptions, PageOptions, HTMLValidationReport, TestingData } from '@qualweb/common';
+import type { HTMLValidationReport, TestingData } from '../lib/evaluation';
+import type { QualwebOptions } from './QualwebOptions';
+import { PageOptions } from './PageOptions';
 import { PluginManager } from './PluginManager.object';
 import {
   DEFAULT_MOBILE_USER_AGENT,
