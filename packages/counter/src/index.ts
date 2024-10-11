@@ -1,6 +1,9 @@
-import type { CounterReport } from '@qualweb/common';
+import type { CounterReport } from '@qualweb/core';
 import type { AccessibilityUtils } from '@qualweb/util';
 
+// FIXME: this should be imported from utils, not declare externally. Unless
+// we're defining the variable, we should not make assumptions abut its
+// presence.
 declare global {
   interface Window {
     AccessibilityUtils: typeof AccessibilityUtils;
