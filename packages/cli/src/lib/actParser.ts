@@ -1,12 +1,22 @@
 import { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesOptions, QualwebOptions } from '@qualweb/common';
+import type { QualwebOptions } from '@qualweb/core';
 import { validateACT, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { ACTRJsonFile, readJsonFile, fileExists } from './fileUtils';
 
 async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
-  options.modules ??= {} as ModulesOptions;
-  options.modules['act-rules'] = {};
+  // TODO: revisit the type. It should not be necessary to specify options for
+  // all modules if you're only running one.
+  if (!options.modules) {
+    options.modules = {
+      'act-rules': {},
+      'best-practices': {},
+      'wcag-techniques': {},
+      counter: {},
+    };
+  } else {
+    options.modules['act-rules'] = {};
+  }
 
   await validateACTRules(mainOptions, options);
   validateACTExclusions(mainOptions, options);

@@ -1,6 +1,6 @@
 import commandLineArgs, { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesToExecute, QualwebOptions } from '@qualweb/common';
+import type { QualwebOptions } from '@qualweb/core';
 import { optionList, reports, modules } from './options';
 import { readJsonFile } from './fileUtils';
 import { printHelp, printError } from './parserUtils';
@@ -24,7 +24,14 @@ function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOpti
 
 function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.module) {
-    options.modulesToExecute = {} as ModulesToExecute;
+    // TODO: revisit the type. It shouldn't be necessary to explicitly opt in or
+    // out for everything by default.
+    options.modulesToExecute = {
+      "act-rules": false,
+      "best-practices": false,
+      "wcag-techniques": false,
+      counter: false,
+    };
     const modulesToExecute = mainOptions.module;
 
     for (const module of modulesToExecute ?? []) {
