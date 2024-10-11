@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import type { QualwebOptions } from '@qualweb/common';
-import { QualWeb } from '../src';
+import { QualWeb, QualwebOptions } from '../src';
 
 describe('Core locale', function () {
   it('Should give a report in en', async function () {
