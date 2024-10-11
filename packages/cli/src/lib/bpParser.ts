@@ -1,12 +1,22 @@
 import { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { ModulesOptions, QualwebOptions } from '@qualweb/common';
+import type { QualwebOptions } from '@qualweb/core';
 import { validateBP, printError } from './parserUtils';
 import { BPJsonFile, readJsonFile, fileExists } from './fileUtils';
 
 async function parseBP(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
-  options.modules ??= {} as ModulesOptions;
-  options.modules['best-practices'] = {};
+  // TODO: revisit the type. It should not be necessary to specify options for
+  // all modules if you're only running one.
+  if (!options.modules) {
+    options.modules = {
+      'act-rules': {},
+      'best-practices': {},
+      'wcag-techniques': {},
+      counter: {},
+    };
+  } else {
+    options.modules['best-practices'] = {};
+  }
 
   await validateBestPractices(mainOptions, options);
   validateBPExclusions(mainOptions, options);

@@ -1,6 +1,9 @@
-import { QualWeb } from '@qualweb/core';
+import {
+  QualWeb,
+  QualwebOptions,
+} from '@qualweb/core';
 import { type EarlOptions, generateEARLReport } from '@qualweb/earl-reporter';
-import type { ModulesOptions, QualwebOptions, QualwebReport, QualwebReports } from '@qualweb/common';
+import type { QualwebReport } from '@qualweb/core';
 import { parse } from './lib/parser';
 import { saveReport } from './lib/fileUtils';
 import { printHelp } from './lib/parserUtils';
@@ -17,8 +20,12 @@ export async function cli(): Promise<void> {
     );
 
     if (!options.modules?.['wcag-techniques']) {
-      options.modules ??= {} as ModulesOptions;
-      options.modules['wcag-techniques'] = {};
+      options.modules = {
+        'act-rules': {},
+        'best-practices': {},
+        'wcag-techniques': {},
+        counter: {},
+      };
     }
 
     options.modules['wcag-techniques'].exclude = ['QW-WCAG-T16'];
@@ -38,7 +45,7 @@ export async function cli(): Promise<void> {
   process.exit(0);
 }
 
-async function handleReporting(reports: QualwebReports, options: QualwebOptions): Promise<void> {
+async function handleReporting(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
   const reportType = options.report;
   const saveName = options['save-name'];
   delete options.report;
