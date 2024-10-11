@@ -1,4 +1,5 @@
-import { Level, Principle } from './reports';
+import { Level } from './Level';
+import { Principle } from './Principle';
 
 export type ModuleOptions = {
   include?: string[];

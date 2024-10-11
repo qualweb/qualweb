@@ -1,5 +1,7 @@
 import type { QWElement } from '@qualweb/qw-element';
-import type { Assertion, Principle, Level } from '../types';
+import type { Assertion } from './Assertion';
+import type { Principle } from './Principle';
+import type { Level } from './Level';
 
 export abstract class Guideline {
   public abstract getCode(): string;

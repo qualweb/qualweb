@@ -13,10 +13,6 @@
       "path": "packages/cli",
     },
     {
-      "name": "@qualweb/common",
-      "path": "packages/common",
-    },
-    {
       "name": "@qualweb/core",
       "path": "packages/core",
     },

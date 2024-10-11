@@ -1,5 +1,8 @@
-import type { ModuleType, Assertion, EvaluationReport, Verdict } from '../types';
-import { Guideline } from './Guideline.object';
+import type { ModuleType } from './ModuleType';
+import type { Assertion } from './Assertion';
+import type { EvaluationReport } from './EvaluationReport';
+import type { Verdict } from './Verdict';
+import type { Guideline } from './Guideline';
 
 export class ModuleReport {
   private readonly report: EvaluationReport;

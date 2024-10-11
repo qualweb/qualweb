@@ -33,7 +33,6 @@
     "packages/qw-page",
     "packages/util",
     "packages/locale",
-    "packages/common",
     "packages/act-rules",
     "packages/best-practices",
     "packages/wcag-techniques",
