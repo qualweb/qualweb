@@ -6,7 +6,9 @@
   "files": [
     "dist/*"
   ],
-  "types": "prebuild/index.d.ts",
+  "exports": {
+    "types": "./prebuild/index.d.ts"
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -48,7 +50,6 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@qualweb/common": "^0.1.0",
     "lodash.clonedeep": "^4.5.0"
   }
 }
