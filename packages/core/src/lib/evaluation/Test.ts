@@ -1,6 +1,15 @@
 import type { QWElement } from '@qualweb/qw-element';
-import type { EvaluationElement, TestResult } from '../types';
-import { Verdict }from '../types';
+import type { EvaluationElement } from './EvaluationElement';
+import type { TestResult } from './TestResult';
+import { Verdict }from './Verdict';
+
+// FIXME: this should come from importing @qualweb/util, and definitely not be
+// an "any" type.
+declare global {
+  interface Window {
+    AccessibilityUtils: any;
+  }
+}
 
 export class Test implements TestResult {
   verdict: Verdict;

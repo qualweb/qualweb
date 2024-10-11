@@ -1,10 +1,4 @@
-export enum Verdict {
-  PASSED = 'passed',
-  WARNING = 'warning',
-  FAILED = 'failed',
-  INAPPLICABLE = 'inapplicable'
-}
-
+// TODO: Not sure this is needed in an agnostic model.
 export enum ModuleType {
   ACT_RULES = 'act-rules',
   WCAG_TECHNIQUES = 'wcag-techniques',

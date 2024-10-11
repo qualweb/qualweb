@@ -1,7 +1,9 @@
-import type { ModuleTranslator } from '@qualweb/locale';
-import type { TestingData, Level, Principle } from '../types';
-import type { Guideline } from './Guideline.object';
-import type { ModuleReport } from './ModuleReport.object';
+import type { ModuleTranslator } from '../i18n/ModuleTranslator';
+import type { TestingData } from './TestingData';
+import type { Level } from './Level';
+import type { Principle } from './Principle';
+import type { Guideline } from './Guideline';
+import type { ModuleReport } from './ModuleReport';
 
 export abstract class Tester {
   protected readonly assertions = new Map<string, Guideline>();
