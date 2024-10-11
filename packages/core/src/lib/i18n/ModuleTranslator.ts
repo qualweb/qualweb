@@ -1,6 +1,11 @@
-import type { Translate, TranslationValues, QualwebReport, Assertion, EvaluationReport, ModuleType } from './types';
-import { AssertionTranslator } from './assertion-translator';
-import { TestTranslator } from './test-translator';
+import { Translate, TranslationValues } from '@qualweb/locale';
+import { AssertionTranslator } from './AssertionTranslator';
+import { TestTranslator } from './TestTranslator';
+import type { QualwebReport } from '../evaluation/QualwebReport';
+import type { Assertion } from '../evaluation/Assertion';
+import type { EvaluationReport } from '../evaluation/EvaluationReport';
+import type { ModuleType } from '../evaluation/ModuleType';
+
 export class ModuleTranslator {
   private readonly module: ModuleType;
   private readonly assertionTranslator: AssertionTranslator;
