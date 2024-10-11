@@ -6,16 +6,20 @@ import AdBlocker from 'puppeteer-extra-plugin-adblocker';
 import { readFile } from 'fs';
 import 'colors';
 import type {
+  QualwebReport,
+} from './lib/evaluation/QualwebReport';
+import { PuppeteerLifeCycleEvent as LoadEvent } from 'puppeteer';
+import { Crawler, CrawlOptions } from '@qualweb/crawler';
+import {
+  EvaluationManager,
+  QualwebPage,
+  PluginManager,
+  ErrorManager,
   QualwebOptions,
-  QualwebReports,
+  QualwebPlugin,
   PuppeteerPlugins,
   ClusterOptions,
-  LoadEvent,
-  QualwebPlugin,
-  CrawlOptions
-} from '@qualweb/common';
-import { Crawler } from '@qualweb/crawler';
-import { EvaluationManager, QualwebPage, PluginManager, ErrorManager } from './lib';
+} from './lib';
 
 /**
  * QualWeb engine - Performs web accessibility evaluations using several modules:
@@ -93,13 +97,13 @@ export class QualWeb {
    * @param {QualwebOptions} options - Options of execution (check https://github.com/qualweb/core#options).
    * @returns List of reports.
    */
-  public async evaluate(options: QualwebOptions): Promise<QualwebReports> {
+  public async evaluate(options: QualwebOptions): Promise<Record<string, QualwebReport>> {
     const urls = await this.checkUrls(options);
 
     const errorManager = new ErrorManager(options.log);
     errorManager.handle(this.cluster);
 
-    const reports: QualwebReports = {};
+    const reports: Record<string, QualwebReport> = {};
 
     await this.handlePageEvaluations(reports, options);
     this.addUrlsToEvaluate(urls);
@@ -112,7 +116,7 @@ export class QualWeb {
     return reports;
   }
 
-  private async handlePageEvaluations(reports: QualwebReports, options: QualwebOptions): Promise<void> {
+  private async handlePageEvaluations(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const qwPage = new QualwebPage(this.pluginManager, page, url, html);
       const evaluationManager = new EvaluationManager(qwPage, options.modulesToExecute);

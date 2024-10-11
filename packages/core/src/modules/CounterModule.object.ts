@@ -1,5 +1,5 @@
-import type { CounterReport } from '@qualweb/common';
-import { ModuleType } from '@qualweb/common';
+import type { CounterReport } from '../lib/evaluation';
+import { ModuleType } from '../lib/evaluation';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';
 

@@ -1,7 +1,7 @@
 import path from 'path';
 import { writeFile, unlink } from 'fs';
 import type { Cluster } from 'puppeteer-cluster';
-import type { LogOptions } from '@qualweb/common';
+import type { LogOptions } from './LogOptions';
 
 export class ErrorManager {
   private readonly logOptions?: LogOptions;

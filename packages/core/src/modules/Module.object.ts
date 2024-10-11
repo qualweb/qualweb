@@ -1,4 +1,10 @@
-import type { CounterReport, EvaluationReport, ModuleOptions, TestingData, ModuleType } from '@qualweb/common';
+import type {
+  CounterReport,
+  EvaluationReport,
+  ModuleOptions,
+  TestingData,
+  ModuleType,
+} from '../lib/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 

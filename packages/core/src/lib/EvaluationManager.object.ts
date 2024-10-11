@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto';
-import type { QualwebOptions, Url, SystemData, ModulesToExecute, QualwebReport } from '@qualweb/common';
-import { ModuleType } from '@qualweb/common';
+import type { QualwebOptions } from './QualwebOptions';
+import type { Url, SystemData, QualwebReport } from './evaluation';
+import { ModuleType } from './evaluation';
 import { Module, ModuleFactory } from '../modules/';
 import { QualwebPage } from './QualwebPage.object';
 import { Report } from './Report.object';
@@ -16,7 +17,7 @@ export class EvaluationManager {
    */
   private readonly modules = {} as { [module in ModuleType]: Module };
 
-  constructor(page: QualwebPage, modulesToExecute?: ModulesToExecute) {
+  constructor(page: QualwebPage, modulesToExecute?: Record<ModuleType, boolean>) {
     this.page = page;
 
     for (const moduleName of Object.values(ModuleType)) {
