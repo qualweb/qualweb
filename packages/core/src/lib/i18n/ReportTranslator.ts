@@ -1,8 +1,8 @@
 import clone from 'lodash.clonedeep';
-import type { Translate, TranslationOptions, QualwebReport } from './types';
-import { ModuleType } from './types';
-import { ModuleTranslator } from './module-translator';
-import { LocaleFetcher } from './locale-fetcher';
+import type { Translate, TranslationOptions } from '@qualweb/locale';
+import { LocaleFetcher } from '@qualweb/locale';
+import { QualwebReport, ModuleType } from '../evaluation';
+import { ModuleTranslator } from './ModuleTranslator';
 
 export class ReportTranslator {
   private readonly locale: Translate;

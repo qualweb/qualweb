@@ -1,5 +1,7 @@
-import type { Translate, Assertion, ModuleType } from './types';
-import { Translator } from './translator';
+import type { Translate } from '@qualweb/locale';
+import { Translator } from '@qualweb/locale';
+import type { Assertion } from '../evaluation/Assertion';
+import { ModuleType } from '../evaluation/ModuleType';
 
 export class AssertionTranslator {
   private readonly module: ModuleType;
