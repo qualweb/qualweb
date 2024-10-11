@@ -5,6 +5,7 @@ import AccessibilityUtils from './accessibilityUtils/accessibilityUtils';
 
 declare global {
   interface Window {
+    // TODO: package shouldn't declare fields it won't define.
     qwPage: QWPage;
     qwElement: QWElement;
     DomUtils: typeof DomUtils;
