@@ -2,9 +2,8 @@ import cloneDeep from 'lodash.clonedeep';
 import type {
   Assertion as EvaluationAssertion,
   EvaluationReport,
-  QualwebReports,
   QualwebReport
-} from '@qualweb/common';
+} from '@qualweb/core';
 import type {
   EarlEvaluations,
   EarlReport,
@@ -207,7 +206,7 @@ function generateAggregatedEarlReport(reports: QualwebReport[], options?: EarlOp
  * @param {EarlOptions} options - options of conversion (check https://github.com/qualweb/core#options)
  * @returns list of earl evaluation reports
  */
-export function generateEARLReport(reports: QualwebReports, options?: EarlOptions): EarlEvaluations {
+export function generateEARLReport(reports: Record<string, QualwebReport>, options?: EarlOptions): EarlEvaluations {
   const earlReports: EarlEvaluations = {};
   if (options && options.aggregated) {
     const firstUrl = Object.keys(reports)[0];
