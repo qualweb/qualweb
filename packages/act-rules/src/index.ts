@@ -2,8 +2,18 @@ import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
 import type { QWElement } from '@qualweb/qw-element';
 import type { ModuleTranslator } from '@qualweb/locale';
-import type { ModuleOptions, TestingData } from '@qualweb/common';
-import { ModuleType, EvaluationModule, ModuleReport } from '@qualweb/common';
+
+import type {
+  ModuleOptions,
+  TestingData,
+} from '@qualweb/core';
+
+import {
+  ModuleType,
+  EvaluationModule,
+  ModuleReport,
+} from '@qualweb/core';
+
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 
 declare global {
