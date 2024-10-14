@@ -61,7 +61,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "franc-min": "^6.2.0",
+    "franc-min": "5.0.0",
     "string-pixel-width": "^1.10.0"
   }
 }
