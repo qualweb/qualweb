@@ -4,9 +4,9 @@ import type {
   ModuleOptions,
   TestingData,
   ModuleType,
-} from '../lib/evaluation';
+} from '.';
 import type { TranslationOptions } from '@qualweb/locale';
-import type { QualwebPage } from '../lib';
+import type { QualwebPage } from '..';
 
 export abstract class Module {
   public abstract readonly name: ModuleType;

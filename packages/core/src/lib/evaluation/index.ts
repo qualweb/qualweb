@@ -5,6 +5,7 @@ export * from './DomData';
 export * from './EvaluationElement';
 export * from './EvaluationModule';
 export * from './EvaluationReport';
+export * from './ExecutableModule';
 export * from './Guideline';
 export * from './HTMLValidationReport';
 export * from './Level';
