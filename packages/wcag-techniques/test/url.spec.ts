@@ -9,13 +9,13 @@ describe('url.spec.js', function() {
     it('Evaluates url', async function() {
         this.timeout(0);
 
-        const url = 'https://www.sgambiente.gov.pt/contactos/'; // 'https://ciencias.ulisboa.pt/';
+        const url = 'https://amagovpt.github.io/booka11y/testes/tabela-2throws.html';
 
         const dom = new Dom(proxy.page);
         await dom.process(
             {
                 execute: { wcag: true },
-                'wcag-techniques': { techniques: ['QW-WCAG-T9'] }
+                'wcag-techniques': { techniques: ['QW-WCAG-T14'] }
             },
             url,
             ''
@@ -42,14 +42,14 @@ describe('url.spec.js', function() {
                     fallback: locale
                 },
                 {
-                    techniques: ['QW-WCAG-T9']
+                    techniques: ['QW-WCAG-T14']
                 }
             );
             return wcag.execute(false, undefined);
         }, locales.en);
 
         console.log(report);
-        console.log(report.assertions['QW-WCAG-T9'].results);
+        console.log(report.assertions['QW-WCAG-T14'].results);
         expect(report);
     });
 });
