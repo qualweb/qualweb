@@ -3,6 +3,7 @@ import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
+import { AccessibilityUtils } from '@qualweb/util';
 
 @WCAGTechniqueClass
 class QW_WCAG_T14 extends Technique {
@@ -84,21 +85,14 @@ function doesHeadersMatchId(table: typeof window.qwElement, headers: string | nu
     for (const header of splitHeaders || []) {
       const matchingIdElem = table.getElement('[id="' + header + '"]');
       if (matchingIdElem !== null) {
-        const matchingIdElemHeaders = matchingIdElem.getElementAttribute('headers');
-        if (splitHeaders.length === 1 && !matchingIdElemHeaders) {
-          outcome = true;
-        } else if (matchingIdElemHeaders !== null) {
-          for (const headerIdElem of matchingIdElemHeaders.split(' ') || []) {
-            if (splitHeaders.indexOf(headerIdElem) >= 0 && headerIdElem !== header) {
-              result++;
-            }
-          }
-          if (result === matchingIdElemHeaders.split(' ').length) {
-            outcome = true;
-            break;
-          }
+        const role = AccessibilityUtils.getElementRole(matchingIdElem);
+        if (role === "columnheader" || role === "rowheader") {
+          result++;
         }
       }
+    }
+    if (splitHeaders.length === result) {
+      outcome = true;
     }
   } else {
     outcome = true;
