@@ -26,7 +26,7 @@ declare global {
   }
 }
 
-export class ACTRules extends EvaluationModule {
+export class ACTRules extends EvaluationModuleDefinition {
   protected readonly type = ModuleType.ACT_RULES;
   protected readonly report = new ModuleReport(this.type);
   protected readonly translator = new window.ModuleTranslator(this.type, this.translate);

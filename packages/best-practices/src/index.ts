@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export class BestPractices extends EvaluationModule {
+export class BestPractices extends EvaluationModuleDefinition {
   protected readonly type = ModuleType.BEST_PRACTICES;
   protected readonly report = new ModuleReport(this.type);
   protected readonly translator = new window.ModuleTranslator(this.type, this.translate);

@@ -8,7 +8,7 @@ import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';
 
-export class ACTRulesModule extends Module {
+export class ACTRulesModule extends ExecutableModuleContext {
   public readonly name = ModuleType.ACT_RULES;
 
   protected getModulePackage(): string {

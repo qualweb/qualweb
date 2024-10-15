@@ -4,7 +4,7 @@ import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';
 
-export class WCAGTechniquesModule extends Module {
+export class WCAGTechniquesModule extends ExecutableModuleContext {
   public readonly name = ModuleType.WCAG_TECHNIQUES;
 
   protected getModulePackage(): string {
