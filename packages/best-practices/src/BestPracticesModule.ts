@@ -4,7 +4,7 @@ import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '../lib';
 import { Module } from './Module.object';
 
-export class BestPracticesModule extends Module {
+export class BestPracticesModule extends ExecutableModuleContext {
   public readonly name = ModuleType.BEST_PRACTICES;
 
   protected getModulePackage(): string {
