@@ -70,13 +70,9 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "^0.6.37",
-    "@qualweb/best-practices": "^0.6.18",
-    "@qualweb/counter": "^0.2.3",
     "@qualweb/crawler": "0.3.18",
     "@qualweb/locale": "0.1.18",
     "@qualweb/qw-element": "^0.2.15",
-    "@qualweb/wcag-techniques": "^0.3.18",
     "axios": "^1.7.2",
     "colors": "1.4.0",
     "puppeteer": "^22.12.1",
