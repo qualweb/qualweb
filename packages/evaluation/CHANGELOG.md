@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.60
+
+### Patch Changes
+
+- Updated dependencies [00bad92]
+  - @qualweb/wcag-techniques@0.3.21
+  - @qualweb/counter@0.2.4
+
 ## 0.3.59
 
 ### Patch Changes

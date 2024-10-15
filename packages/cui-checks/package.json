@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.10",
+    "@qualweb/dom": "0.2.11",
     "@qualweb/locale": "0.1.18",
     "@qualweb/qw-page": "0.2.23",
     "@qualweb/types": "0.7.27",
