@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/dom",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Processes necessary page data for qualweb accessibility evaluation.",
   "main": "dist/index.js",
   "files": [

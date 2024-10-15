@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.11
+
+### Patch Changes
+
+- 00bad92: Update T12
+
 ## 0.2.10
 
 ### Patch Changes
