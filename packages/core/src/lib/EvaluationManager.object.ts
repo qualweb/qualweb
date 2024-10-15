@@ -2,7 +2,8 @@ import { randomBytes } from 'crypto';
 import type { QualwebOptions } from './QualwebOptions';
 import type { Url, SystemData, QualwebReport } from './evaluation';
 import { ModuleType } from './evaluation';
-import { Module, ModuleFactory } from '../modules/';
+import { EvaluationModuleDefinition } from '../lib/evaluation/EvaluationModule';
+import { ExecutableModuleContext } from '../lib/evaluation/ExecutableModule';
 import { QualwebPage } from './QualwebPage.object';
 import { Report } from './Report.object';
 
@@ -15,17 +16,12 @@ export class EvaluationManager {
   /**
    * Modules to execute
    */
-  private readonly modules = {} as { [module in ModuleType]: Module };
+  private readonly modules: ExecutableModuleContext[] = [];
 
-  constructor(page: QualwebPage, modulesToExecute?: Record<ModuleType, boolean>) {
+  constructor(page: QualwebPage, modulesToExecute: EvaluationModuleDefinition[] = []) {
     this.page = page;
 
-    for (const moduleName of Object.values(ModuleType)) {
-      if (!modulesToExecute || modulesToExecute[moduleName]) {
-        const evaluationModule = ModuleFactory.createModule(moduleName, page);
-        this.modules[evaluationModule.name] = evaluationModule;
-      }
-    }
+    modulesToExecute.map((moduleToExecute) => moduleToExecute.getInstance(page));
   }
 
   public async evaluate(options: QualwebOptions): Promise<QualwebReport> {
@@ -34,9 +30,8 @@ export class EvaluationManager {
     const systemData = await this.getSystemData();
     const report = new Report(systemData);
 
-    for (const name in this.modules) {
-      const moduleReport = await this.modules[name as ModuleType].execute(
-        options.modules?.[name as ModuleType] ?? {},
+    for (const moduleToExecute of this.modules) {
+      const moduleReport = await moduleToExecute.execute(
         options.translate,
         testingData
       );

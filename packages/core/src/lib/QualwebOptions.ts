@@ -1,11 +1,8 @@
 import { CrawlOptions } from '@qualweb/crawler';
 import { LogOptions } from './LogOptions';
 import { PageOptions } from './PageOptions';
+import { EvaluationModuleDefinition } from './evaluation/EvaluationModule';
 import { TranslationOptions } from '@qualweb/locale';
-import {
-  ModuleType,
-  ModuleOptions,
-} from './evaluation';
 import { PuppeteerLifeCycleEvent } from 'puppeteer';
 
 export type QualwebOptions = {
@@ -24,6 +21,10 @@ export type QualwebOptions = {
   translate?: TranslationOptions;
   crawlOptions?: CrawlOptions;
   'save-name'?: string;
-  modulesToExecute?: Record<ModuleType, boolean>;
-  modules?: Record<ModuleType, ModuleOptions>;
+  /**
+   * Array of modules to run for each URL in the configuration. See the
+   * individual module's readme for specific usage, but it generally boils down
+   * to passing a new instance of the module with a desired configuration.
+   */
+  modules?: EvaluationModuleDefinition[];
 };

@@ -119,7 +119,7 @@ export class QualWeb {
   private async handlePageEvaluations(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const qwPage = new QualwebPage(this.pluginManager, page, url, html);
-      const evaluationManager = new EvaluationManager(qwPage, options.modulesToExecute);
+      const evaluationManager = new EvaluationManager(qwPage, options.modules);
       reports[url ?? 'customHtml'] = await evaluationManager.evaluate(options);
     });
   }
