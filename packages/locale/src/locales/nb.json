@@ -199,7 +199,7 @@
       }
     },
     "QW-ACT-R23": {
-      "name": "Visuelt innhold i video med lyd er synstolket eller har et tekstalternativ.",
+      "name": "Visuelt innhold i video med lyd er synstolket eller har et tekstalternativ",
       "description": "Denne regelen sjekker at alle video-element med lyd har et alternativ for det visuelle innholdet i form av lyd eller tekst.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -366,7 +366,7 @@
       }
     },
     "QW-ACT-R40": {
-      "name": "CSS-overflow fører ikke til tap av innhold ved zooming.",
+      "name": "CSS-overflow fører ikke til tap av innhold ved zooming",
       "description": "Denne regelen sjekker at bruk av CSS-overflow på tekst-elementer ikke fører til tap av innhold når siden blir zoomet inn med 200% på en 1280 x 1024 piksel stor viewport.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -400,7 +400,7 @@
       }
     },
     "QW-ACT-R44": {
-      "name": "Lenker med samme tilgjengelige navn går til samme eller tilsvarende lenkemål.",
+      "name": "Lenker med samme tilgjengelige navn går til samme eller tilsvarende lenkemål",
       "description": "Denne regelen sjekker at lenker med samme tilgjengelige navn går til samme eller tilsvarende lenkemål.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -428,7 +428,7 @@
       }
     },
     "QW-ACT-R50": {
-      "name": "Lyd eller video som spilles av automatisk har en kontrollmekanisme.",
+      "name": "Lyd eller video som spilles av automatisk har en kontrollmekanisme",
       "description": "Denne regelen sjekker at lyd eller video som spilles av automatisk har en synlig kontrollmekanisme.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -483,7 +483,7 @@
       }
     },
     "QW-ACT-R56": {
-      "name": "Video er et mediealternativ for tekst.",
+      "name": "Video er et mediealternativ for tekst",
       "description": "Denne regelen sjekker at forhåndsinnspilt video er et mediealternativ for tekst på siden.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -612,7 +612,7 @@
       }
     },
     "QW-ACT-R70": {
-      "name": "iframe-element med negativ tabindex har ingen interaktive elementer.",
+      "name": "iframe-element med negativ tabindex har ingen interaktive elementer",
       "description": "Denne regelen sjekker om `iframe`-element med en negativ `tabindex`-attributtverdi inneholder interaktive elementer.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -631,7 +631,7 @@
       }
     },
     "QW-ACT-R72": {
-      "name": "Første fokuserbare element på nettsiden er en lenke til ikke-gjentatt innhold.",
+      "name": "Første fokuserbare element på nettsiden er en lenke til ikke-gjentatt innhold",
       "description": "Denne regelen sjekker om første fokuserbare element på nettsiden er en lenke til ikke-gjentatt innhold.",
       "results": {
         "I1": "Ingen testobjekt funnet.",
@@ -688,12 +688,12 @@
       }
     },
     "QW-ACT-R77": {
-      "name": "ARIA required ID references exist",
-      "description": "This rule checks that every ID reference required by WAI-ARIA exists.",
+      "name": "ARIA-påkrevde ID-referanser eksisterer",
+      "description": "Denne regelen sjekker at hver ID-referanse som kreves av WAI-ARIA, eksisterer.",
       "results": {
-        "I1": "No test targets found.",
-        "P1": "Referenced element exists.",
-        "F1": "Referenced element does not exist."
+        "I1": "Ingen testobjekt funnet.",
+        "P1": "Referert element eksisterer.",
+        "F1": "Referert element eksisterer ikke."
       }
     }
   },
