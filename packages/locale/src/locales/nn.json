@@ -692,8 +692,8 @@
         "description": "Denne regelen sjekkar at kvar ID-referanse som blir kravd av WAI-ARIA, finst.",
         "results": {
           "I1": "Testobjekt ikkje funne.",
-          "P1": "Referert element finst.",
-          "F1": "Referert element finst ikkje."
+          "P1": "Det refererte elementet finst.",
+          "F1": "Det refererte elementet eksisterer ikkje."
         }
       }
     },
