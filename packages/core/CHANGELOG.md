@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.80
+
+### Patch Changes
+
+- Updated dependencies [a605c89]
+  - @qualweb/locale@0.1.19
+
 ## 0.7.79
 
 ### Patch Changes
