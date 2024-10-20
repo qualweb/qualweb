@@ -1,4 +1,4 @@
-import type { CounterReport } from '@qualweb/core';
+import type { CounterReport } from '@qualweb/core/evaluation';
 import type { AccessibilityUtils } from '@qualweb/util';
 
 // FIXME: this should be imported from utils, not declare externally. Unless
