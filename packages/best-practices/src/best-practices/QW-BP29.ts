@@ -5,9 +5,8 @@ import {
   IsHTMLDocument,
   IsInMainContext,
   IsLangSubTagValid
-} from '@qualweb/common';
-import { Test } from '@qualweb/common';
-import { Verdict } from '@qualweb/common';
+} from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP29 extends BestPractice {

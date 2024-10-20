@@ -1,14 +1,16 @@
-import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import type { DomUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
-import type { ModuleTranslator } from '@qualweb/locale';
-import { EvaluationModule, ModuleReport, ModuleType } from '@qualweb/common';
+import { ModuleTranslator } from '@qualweb/core/locale';
+import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
+import { QualwebPage } from '@qualweb/core/lib';
+import { BestPracticesModule } from './BestPracticesModule';
 
+// TODO: these definitions should be pulled from the packages that define them.
 declare global {
   interface Window {
     qwPage: QWPage;
     DomUtils: typeof DomUtils;
-    AccessibilityUtils: typeof AccessibilityUtils;
     ModuleTranslator: typeof ModuleTranslator;
   }
 }

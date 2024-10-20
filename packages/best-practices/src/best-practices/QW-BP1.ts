@@ -1,7 +1,6 @@
-import { Verdict } from '@qualweb/common';
+import { Verdict, Test } from '@qualweb/core/evaluation';
 import type { QWElement } from '@qualweb/qw-element';
-import { ElementExists } from '@qualweb/common';
-import { Test } from '@qualweb/common';
+import { ElementExists } from '@qualweb/util/applicability';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP1 extends BestPractice {
