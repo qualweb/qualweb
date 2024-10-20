@@ -51,7 +51,6 @@ describe('URL evaluation', function () {
     });
 
     await page.evaluate(function (sourceHtml) {
-      console.debug('Inside of puppeteer');
       // @ts-expect-error Since we are only importing the ACTRules type, tsc will warn that we can't actually use it. The class is injected elsewhere, but tsc can't see in its analysis.
       window.act = new ACTRules('fi');
       window.act.test({ sourceHtml });
