@@ -1,8 +1,14 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { Browser } from 'puppeteer';
-import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from './util';
+import { ACTRules } from '../src/index';
+
+declare global {
+  interface Window {
+    act: ACTRules;
+  }
+}
 
 describe('URL evaluation', function () {
   let browser: Browser;
@@ -16,11 +22,9 @@ describe('URL evaluation', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const incognito = await browser.createIncognitoBrowserContext();
+    // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+    const incognito = await browser.createBrowserContext();
     const page = await incognito.newPage();
-
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
