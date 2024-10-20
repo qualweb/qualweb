@@ -145,6 +145,8 @@ describe('ACT rules', () => {
 
           const sourceHtml = (await (await fetch(test.url)).text());
 
+          await page.goto(test.url);
+
           // Inject @qualweb/act-rules and its dependencies into the page.
 
           await page.addScriptTag({
