@@ -1,6 +1,5 @@
 import { Browser, BrowserContext } from 'puppeteer';
 import { expect } from 'chai';
-import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from '../util';
 
 /**
@@ -23,7 +22,8 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
     after(async () => await browser.close());
 
     // Create a unique browser context for each test.
-    beforeEach(async () => incognito = await browser.createIncognitoBrowserContext());
+    // createIncognitoBrowserContext() is no longer supported. Is that a problem?
+    beforeEach(async () => incognito = await browser.createBrowserContext());
 
     // Make sure the browser contexts are shut down, as well.
     afterEach(async () => await incognito?.close());
@@ -42,8 +42,7 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
 
         const page = await incognito.newPage();
 
-        const qwPage = QualWeb.createPage(page);
-        await qwPage.process({ execute: { wcag: true }, 'wcag-techniques': { include: [wcagTechnique] } }, '', test.code);
+        page.setContent(test.code);
 
         await page.addScriptTag({
           path: require.resolve('@qualweb/qw-page')
