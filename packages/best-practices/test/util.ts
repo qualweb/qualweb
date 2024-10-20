@@ -15,11 +15,12 @@ export function usePuppeteer(): PuppeteerProxy {
 
   before(async () => {
     proxy.browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       args: ['--ignore-certificate-errors']
     });
 
-    proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
+    // TODO: createIncognitoBrowserContext() is no longer avilable. Is this a problem?
+    proxy.incognito = await proxy.browser.createBrowserContext();
 
     proxy.page = await proxy.incognito.newPage();
   })
