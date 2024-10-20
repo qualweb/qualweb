@@ -6,7 +6,7 @@ export async function launchBrowser() {
   if (process.env.CI) args.push('--no-sandbox');
 
   return await puppeteer.launch({
-    headless: process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || 'new',
+    headless: process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || true,
     args
   });
 }
