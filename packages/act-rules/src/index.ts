@@ -27,7 +27,6 @@ declare global {
     DomUtils: typeof DomUtils;
     // AccessibilityUtils: typeof AccessibilityUtils;
     disabledWidgets: QWElement[];
-    ModuleTranslator: typeof ModuleTranslator;
   }
 }
 
