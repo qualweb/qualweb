@@ -1,4 +1,4 @@
-import { ElementExists, IsHTMLDocument } from '@qualweb/common';
+import { ElementExists, IsHTMLDocument } from '@qualweb/util/applicability';
 import { CompositeRule } from '../lib/CompositeRule.object';
 
 class QW_ACT_R75 extends CompositeRule {
