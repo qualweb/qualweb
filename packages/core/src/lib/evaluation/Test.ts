@@ -3,11 +3,13 @@ import type { EvaluationElement } from './EvaluationElement';
 import type { TestResult } from './TestResult';
 import { Verdict }from './Verdict';
 
+import type { AccessibilityUtils } from '@qualweb/util';
+
 // FIXME: this should come from importing @qualweb/util, and definitely not be
 // an "any" type.
 declare global {
   interface Window {
-    AccessibilityUtils: any;
+    AccessibilityUtils: typeof AccessibilityUtils;
   }
 }
 
