@@ -18,6 +18,10 @@ declare global {
 export class WCAGTechniques extends EvaluationModuleDefinition {
   protected readonly type = ModuleType.WCAG_TECHNIQUES;
   protected readonly report = new ModuleReport(this.type);
-  protected readonly translator = new window.ModuleTranslator(this.type, this.translate);
+  protected readonly translator = new ModuleTranslator(this.type, this.translate);
   protected readonly tester = new WCAGTechniquesTester(this.report).init(this.translator);
+
+  getInstance(page: QualwebPage): ExecutableModuleContext {
+    return new WCAGTechniquesModule(page, {});
+  }
 }
