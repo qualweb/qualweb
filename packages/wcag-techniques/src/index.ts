@@ -1,8 +1,10 @@
 import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
-import type { ModuleTranslator } from '@qualweb/locale';
-import { EvaluationModuleDefinition, ModuleReport, ModuleType } from '@qualweb/core';
+import { ModuleTranslator } from '@qualweb/core/locale';
+import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { WCAGTechniquesTester } from './lib/WCAGTechniquesTester.object';
+import { QualwebPage } from '@qualweb/core/lib';
+import { WCAGTechniquesModule } from './WcagTechniquesModule';
 
 declare global {
   interface Window {
