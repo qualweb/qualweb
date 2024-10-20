@@ -11,6 +11,20 @@ import { launchBrowser } from './util';
 import actTestCases from './fixtures/testcases.json';
 import type { Browser, BrowserContext } from 'puppeteer';
 
+/**
+ * We *must* import as type or not at all. Importing ACTRules triggers an import
+ * of code from @qualweb/locale, which expects to be run in a browser
+ * environment.
+ */
+import type { ACTRules } from '../src';
+
+// We define the global window object here to avoid TypeScript errors.
+declare global {
+  interface Window {
+    act: ACTRules;
+  }
+}
+
 const mapping: Record<string, string> = {
   'QW-ACT-R1': '2779a5',
   'QW-ACT-R2': 'b5c3f8',
@@ -167,11 +181,11 @@ describe('ACT rules', () => {
 
           // Set up the ACTRules package within the loaded page.
           //@ts-ignore
-          await page.evaluate((options) => ((window as any).act = new ACTRules('en').configure(options)), {
+          await page.evaluate((options) => (window.act = new ACTRules('en').configure(options)), {
             include: [ruleToTest]
           });
 
-          await page.evaluate((sourceHtml) => (window as any).act.test({ sourceHtml }), sourceHtml);
+          await page.evaluate((sourceHtml) => window.act.test({ sourceHtml }), sourceHtml);
 
           if (ruleId === '59br37') {
             await page.setViewport({
@@ -181,8 +195,8 @@ describe('ACT rules', () => {
           }
 
           const report = await page.evaluate(() => {
-            (window as any).act.testSpecial();
-            return (window as any).act.getReport();
+            window.act.testSpecial();
+            return window.act.getReport();
           });
 
           // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
