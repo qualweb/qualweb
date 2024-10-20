@@ -1,7 +1,7 @@
 import { QualWeb } from '../src';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
-import { Protocol } from 'puppeteer';
+import { Cookie } from 'puppeteer';
 
 describe('Plugins', function () {
   // All tests seem to be somewhat time sensitive. 10 seconds *should* be enough
@@ -10,10 +10,9 @@ describe('Plugins', function () {
 
   // Re-usable "execute nothing" options for calls to evaluate()
   const executeOptions = {
-    wappalyzer: false,
-    act: false,
-    wcag: false,
-    bp: false,
+    "act-rules": false,
+    "wcag-techniques": false,
+    "best-practices": false,
     counter: false,
   }
 
@@ -30,7 +29,7 @@ describe('Plugins', function () {
 
   beforeEach(async () => {
     qualweb = new QualWeb({ });
-    await qualweb.start(undefined, { headless: 'new' });
+    await qualweb.start(undefined, { headless: true });
   });
   
   afterEach(async () => {
@@ -51,7 +50,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(plugin.pluginWasCalled).to.be.true;
@@ -70,7 +69,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     qualweb.stop();
@@ -94,7 +93,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -116,7 +115,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -137,7 +136,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(beforeWasCalled).to.be.true;
@@ -158,7 +157,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       url: targetUrl,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal(targetUrl);
@@ -182,7 +181,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       urls: targetUrls,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrls).to.have.members(targetUrls);
@@ -201,14 +200,14 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal('customHtml');
   });
 
   it('A cookie that was injected prior to page load should be visble after page load', async function () {
-    let cookies: Protocol.Network.Cookie[] = [];
+    let cookies: Cookie[] = [];
 
     const testCookie = {
       name: 'OurTestCookie',
@@ -230,7 +229,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      execute: executeOptions,
+      modulesToExecute: executeOptions,
     });
 
     expect(cookies).to.be.an('array').and.have.length.at.least(1);

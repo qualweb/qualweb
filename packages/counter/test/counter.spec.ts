@@ -1,11 +1,6 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-
 import { expect } from 'chai';
-
+import { resolve } from 'path';
 import puppeteer, { Browser, Page } from 'puppeteer';
-
-import { QualWeb } from '@qualweb/core';
 
 describe('QualWeb counter', async () => {
   let browser: Browser;
@@ -13,7 +8,7 @@ describe('QualWeb counter', async () => {
 
   before(async () => {
     browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
     });
     page = await browser.newPage();
   });
@@ -26,10 +21,7 @@ describe('QualWeb counter', async () => {
   it('Testing qualweb counter module', async function() {
     this.timeout(60 * 1000);
 
-    const html: string = readFileSync(resolve(__dirname, 'fixtures/loremipsum.html'), 'utf-8');
-
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { counter: true } }, '', html);
+    await page.goto(`file://${resolve(__dirname, 'fixtures/loremipsum.html')}`);
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')

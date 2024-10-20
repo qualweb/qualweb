@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T34 extends Technique {
@@ -11,13 +11,13 @@ class QW_WCAG_T34 extends Technique {
     const dtToDDOrder = this.checkDtToDDOrder(element);
 
     if (!correctElemments) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else if (!dtToDDOrder) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
     } else {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
     test.addElement(element);

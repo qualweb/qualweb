@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasAttributes, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttributes, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T26 extends Technique {
@@ -11,10 +11,10 @@ class QW_WCAG_T26 extends Technique {
     const test = new Test();
 
     if (window.AccessibilityUtils.isElementWidget(element)) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

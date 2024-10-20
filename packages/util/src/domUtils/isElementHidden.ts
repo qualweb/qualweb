@@ -1,4 +1,6 @@
-function isElementHidden(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementHidden(element: QWElement): boolean {
   const name = element.getElementTagName();
   const type = element.getElementAttribute('type');
   const typeHidden = name === 'input' && type === 'hidden';

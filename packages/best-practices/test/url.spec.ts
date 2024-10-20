@@ -11,8 +11,8 @@ describe('General tests', function () {
     const url = 'https://valpacos.pt/';
 
     const page = proxy.page;
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { bp: false } }, url, '');
+    await page.goto(url);
+
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
     });

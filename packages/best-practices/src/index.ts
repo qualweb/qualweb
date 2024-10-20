@@ -1,21 +1,27 @@
-import { EvaluationModule, ModuleReport } from '@shared/classes';
-import type { ModuleTranslator } from '@packages/locale/src';
-import type { DomUtils, AccessibilityUtils } from '@packages/util/src';
-import type { QWPage } from '@packages/qw-page/src';
-import type { BestPractice } from './lib/BestPractice.object';
+import type { DomUtils } from '@qualweb/util';
+import type { QWPage } from '@qualweb/qw-page';
+import { ModuleTranslator } from '@qualweb/core/locale';
+import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
+import { QualwebPage } from '@qualweb/core/lib';
+import { BestPracticesModule } from './BestPracticesModule';
 
+// TODO: these definitions should be pulled from the packages that define them.
 declare global {
   interface Window {
     qwPage: QWPage;
-    ModuleTranslator: typeof ModuleTranslator;
     DomUtils: typeof DomUtils;
-    AccessibilityUtils: typeof AccessibilityUtils;
+    ModuleTranslator: typeof ModuleTranslator;
   }
 }
 
-export class BestPractices extends EvaluationModule<BestPractice> {
-  private readonly moduleTranslator = new window.ModuleTranslator('best-practices', this.locale);
-  protected readonly report = new ModuleReport<BestPractice>('best-practices');
-  protected readonly tester = new BestPracticesTester(this.report).init(this.moduleTranslator);
+export class BestPractices extends EvaluationModuleDefinition {
+  protected readonly type = ModuleType.BEST_PRACTICES;
+  protected readonly report = new ModuleReport(this.type);
+  protected readonly translator = new ModuleTranslator(this.type, this.translate);
+  protected readonly tester = new BestPracticesTester(this.report).init(this.translator);
+
+  getInstance(page: QualwebPage): ExecutableModuleContext {
+    return new BestPracticesModule(page, {});
+  }
 }

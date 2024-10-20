@@ -1,6 +1,6 @@
-import type { CSSProperties, QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { CSSProperties, QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T28 extends Technique {
@@ -24,10 +24,10 @@ class QW_WCAG_T28 extends Technique {
         value.includes('pc');
 
       if (!hasAbsoluteUnit) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

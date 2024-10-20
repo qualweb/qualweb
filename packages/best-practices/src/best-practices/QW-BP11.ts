@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasChild } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasChild } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP11 extends BestPractice {
@@ -23,10 +23,10 @@ class QW_BP11 extends BestPractice {
     }
 
     if (hasBr && result <= 3) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else if (hasBr) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

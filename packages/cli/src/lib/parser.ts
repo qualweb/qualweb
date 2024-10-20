@@ -1,13 +1,12 @@
+import commandLineArgs, { CommandLineOptions } from 'command-line-args';
+import setValue from 'set-value';
+import type { QualwebOptions } from '@qualweb/core';
 import { optionList, reports, modules } from './options';
 import { readJsonFile } from './fileUtils';
 import { printHelp, printError } from './parserUtils';
 import parseACT from './actParser';
 import parseWCAG from './wcagParser';
 import parseBP from './bpParser';
-
-import commandLineArgs, { CommandLineOptions } from 'command-line-args';
-import type { QualwebOptions } from '@shared/types';
-import setValue from 'set-value';
 
 function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.url) {
@@ -25,7 +24,14 @@ function parseInputMethods(mainOptions: CommandLineOptions, options: QualwebOpti
 
 function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions): void {
   if (mainOptions.module) {
-    options.execute = {};
+    // TODO: revisit the type. It shouldn't be necessary to explicitly opt in or
+    // out for everything by default.
+    options.modulesToExecute = {
+      "act-rules": false,
+      "best-practices": false,
+      "wcag-techniques": false,
+      counter: false,
+    };
     const modulesToExecute = mainOptions.module;
 
     for (const module of modulesToExecute ?? []) {
@@ -35,16 +41,16 @@ function parseModules(mainOptions: CommandLineOptions, options: QualwebOptions):
         const mod = module.replace(',', '').trim();
         switch (mod) {
           case 'act':
-            options.execute.act = true;
+            options.modulesToExecute['act-rules'] = true;
             break;
           case 'wcag':
-            options.execute.wcag = true;
+            options.modulesToExecute['wcag-techniques'] = true;
             break;
           case 'bp':
-            options.execute.bp = true;
+            options.modulesToExecute['best-practices'] = true;
             break;
           case 'counter':
-            options.execute.counter = true;
+            options.modulesToExecute.counter = true;
             break;
           default:
             printError('Module ' + mod + ' does not exist.');
@@ -121,7 +127,7 @@ function parseSaveName(mainOptions: CommandLineOptions, options: QualwebOptions)
   }
 }
 
-async function parse(): Promise<QualwebOptions> {
+export async function parse(): Promise<QualwebOptions> {
   let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
   const options: QualwebOptions = {};
 
@@ -173,5 +179,3 @@ async function parse(): Promise<QualwebOptions> {
 
   return options;
 }
-
-export = parse;

@@ -6,11 +6,24 @@
  */
 
 import { expect } from 'chai';
-import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from './util';
 
 import actTestCases from './fixtures/testcases.json';
 import type { Browser, BrowserContext } from 'puppeteer';
+
+/**
+ * We *must* import as type or not at all. Importing ACTRules triggers an import
+ * of code from @qualweb/locale, which expects to be run in a browser
+ * environment.
+ */
+import type { ACTRules } from '../src';
+
+// We define the global window object here to avoid TypeScript errors.
+declare global {
+  interface Window {
+    act: ACTRules;
+  }
+}
 
 const mapping: Record<string, string> = {
   'QW-ACT-R1': '2779a5',
@@ -120,7 +133,8 @@ describe('ACT rules', () => {
       after(async () => await browser.close());
 
       // Create a unique browser context for each test.
-      beforeEach(async () => incognito = await browser.createIncognitoBrowserContext());
+      // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+      beforeEach(async () => incognito = await browser.createBrowserContext());
 
       // Make sure the browser contexts are shut down, as well.
       afterEach(async () => await incognito?.close());
@@ -143,18 +157,9 @@ describe('ACT rules', () => {
 
           const page = await incognito.newPage();
 
-          const qwPage = QualWeb.createPage(page);
-          const { sourceHtml } = await qwPage.process(
-            {
-              execute: { act: true },
-              'act-rules': {
-                include: [ruleToTest]
-              },
-              waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
-            },
-            test.url,
-            ''
-          );
+          const sourceHtml = (await (await fetch(test.url)).text());
+
+          await page.goto(test.url);
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 

@@ -1,8 +1,21 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 import { Browser } from 'puppeteer';
-import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from './util';
+
+/**
+ * We *must* import as type or not at all. Importing ACTRules triggers an import
+ * of code from @qualweb/locale, which expects to be run in a browser
+ * environment.
+ */
+import type { ACTRules } from '../src';
+
+// We define the global window object here to avoid TypeScript errors.
+declare global {
+  interface Window {
+    act: ACTRules;
+  }
+}
 
 describe('URL evaluation', function () {
   let browser: Browser;
@@ -16,11 +29,10 @@ describe('URL evaluation', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const incognito = await browser.createIncognitoBrowserContext();
+    // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+    const incognito = await browser.createBrowserContext();
     const page = await incognito.newPage();
-
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
+    await page.goto(url);
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -38,8 +50,8 @@ describe('URL evaluation', function () {
       path: require.resolve('../dist/act.bundle.js')
     });
 
-    await page.evaluate((sourceHtml) => {
-      //@ts-expect-error the object ACTRules is defined inside the page
+    await page.evaluate(function (sourceHtml) {
+      // @ts-expect-error Since we are only importing the ACTRules type, tsc will warn that we can't actually use it. The class is injected elsewhere, but tsc can't see in its analysis.
       window.act = new ACTRules('fi');
       window.act.test({ sourceHtml });
     }, sourceCode);
@@ -54,7 +66,6 @@ describe('URL evaluation', function () {
       return window.act.getReport();
     });
 
-    // console.log(JSON.stringify(report, null, 2));
     expect(report);
   });
 

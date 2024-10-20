@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, IsInMainContext } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsInMainContext } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R10 extends AtomicRule {
@@ -48,10 +48,10 @@ class QW_ACT_R10 extends AtomicRule {
           }
           if (result && hashArray.length !== 0) {
             //passed
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'F1';
           }
 

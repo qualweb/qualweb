@@ -1,4 +1,5 @@
-import { QualWeb, generateEARLReport } from '../dist/index.js';
+import { generateEARLReport } from '@qualweb/earl-reporter';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 

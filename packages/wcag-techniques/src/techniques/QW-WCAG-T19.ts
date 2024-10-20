@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T19 extends Technique {
@@ -13,10 +13,10 @@ class QW_WCAG_T19 extends Technique {
     const children = element.getElements(`input[type="submit"], input[type="image"], button[type="submit"]`);
 
     if (children.length > 0) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

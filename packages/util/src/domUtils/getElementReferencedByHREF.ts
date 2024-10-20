@@ -1,10 +1,12 @@
-function getElementReferencedByHREF(element: typeof window.qwElement): typeof window.qwElement | null {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getElementReferencedByHREF(element: QWElement): QWElement | null {
   const href = element.getElementAttribute('href');
   const url = window.qwPage.getURL();
   const urlConcatWithId = url + '#';
   const lastSlash = url.lastIndexOf('/');
   const filename = url.substring(lastSlash + 1);
-  let result: typeof window.qwElement | null = null;
+  let result: QWElement | null = null;
   if (href && (href.startsWith('#') || href.startsWith(urlConcatWithId) || (filename && filename !== '' && href.startsWith(filename)))) {
     const idSymbol = href.indexOf('#');
     if (idSymbol > -1) {

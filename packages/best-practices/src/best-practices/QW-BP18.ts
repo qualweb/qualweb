@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP18 extends BestPractice {
@@ -90,10 +90,10 @@ class QW_BP18 extends BestPractice {
 
         if (hasImportant) {
           if (width.endsWith('%')) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             if (width.endsWith('px')) {
               test.resultCode = 'F1';
             } else {

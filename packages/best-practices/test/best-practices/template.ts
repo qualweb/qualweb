@@ -1,7 +1,5 @@
 import fs from 'node:fs';
-import path from 'path';
 import { expect } from 'chai';
-import { QualWeb } from '@qualweb/core';
 import { usePuppeteer } from '../util';
 
 /**
@@ -31,13 +29,7 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
       } // it(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, async function () {
       it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
         this.timeout(0);
-        const qwPage = QualWeb.createPage(proxy.page);
-        if (test.path) {
-          const testFilePath = path.resolve(path.dirname(testCasesPath), test.path);
-          await qwPage.process({ execute: { bp: true } }, '', fs.readFileSync(testFilePath, 'utf-8'));
-        } else if (test.url) {
-          await qwPage.process({ execute: { bp: true } }, test.url, '');
-        }
+
         await proxy.page.addScriptTag({
           path: require.resolve('@qualweb/qw-page')
         });

@@ -1,7 +1,8 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { noAccessibleObjectOrChild, noAccessibleObject, elementsLikeHtml, textContainer } from './constants';
 import isElementReferencedByAriaLabel from './isElementReferencedByAriaLabel';
 
-function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursion: boolean): string | undefined {
+function getAccessibleNameSVGRecursion(element: QWElement, recursion: boolean): string | undefined {
   let AName, ariaLabelBy, tag;
 
   tag = element.getElementTagName();
@@ -47,7 +48,7 @@ function getAccessibleNameSVGRecursion(element: typeof window.qwElement, recursi
   return AName;
 }
 
-function hasParentOfName(element: typeof window.qwElement, name: Array<string>): boolean {
+function hasParentOfName(element: QWElement, name: Array<string>): boolean {
   const parent = element.getElementParent();
   if (parent) {
     const parentName = parent.getElementTagName();
@@ -58,7 +59,7 @@ function hasParentOfName(element: typeof window.qwElement, name: Array<string>):
 }
 
 function getAccessibleNameFromAriaLabelledBy(
-  element: typeof window.qwElement,
+  element: QWElement,
   ariaLabelId: string
 ): string | undefined {
   const ListIdRefs = ariaLabelId.split(' ');
@@ -82,7 +83,7 @@ function getAccessibleNameFromAriaLabelledBy(
   return result;
 }
 
-function getAccessibleNameFromChildren(element: typeof window.qwElement): Array<string> {
+function getAccessibleNameFromChildren(element: QWElement): Array<string> {
   let aName;
   const children = element.getElementChildren();
   const elementAnames = new Array<string>();
@@ -102,7 +103,7 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement): Array<
   return elementAnames;
 }
 
-function getTextFromCss(element: typeof window.qwElement): string {
+function getTextFromCss(element: QWElement): string {
   let before = element.getElementStyleProperty('content', ':before');
   let after = element.getElementStyleProperty('content', ':after');
   const aNameList = getAccessibleNameFromChildren(element);

@@ -1,4 +1,4 @@
-import type { Translate } from '@shared/types';
+import type { Translate } from './types';
 
 export class Translator {
   private readonly locale: Translate;

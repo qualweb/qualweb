@@ -1,4 +1,4 @@
-import { QWElement } from '@packages/qw-element/src';
+import type { QWElement } from '@qualweb/qw-element';
 import { ImplicitRoleInfo, implicitRoles } from './implicitRoles';
 
 function getImplicitRole(element: QWElement, accessibleName: string | undefined): string | null {

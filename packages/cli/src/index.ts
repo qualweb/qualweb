@@ -1,11 +1,14 @@
-import { QualWeb, generateEARLReport } from '@qualweb/core';
-import type { Evaluations, QualwebOptions, QualwebReport } from '@shared/types';
-import type { EarlOptions } from '@packages/earl-reporter/src';
-import parse from './lib/parser';
+import {
+  QualWeb,
+  QualwebOptions,
+} from '@qualweb/core';
+import { type EarlOptions, generateEARLReport } from '@qualweb/earl-reporter';
+import type { QualwebReport } from '@qualweb/core';
+import { parse } from './lib/parser';
 import { saveReport } from './lib/fileUtils';
 import { printHelp } from './lib/parserUtils';
 
-async function cli(): Promise<void> {
+export async function cli(): Promise<void> {
   try {
     const options = await parse();
 
@@ -16,11 +19,16 @@ async function cli(): Promise<void> {
       { args: ['--no-sandbox', '--ignore-certificate-errors'] }
     );
 
-    if (!options['wcag-techniques']) {
-      options['wcag-techniques'] = {};
+    if (!options.modules?.['wcag-techniques']) {
+      options.modules = {
+        'act-rules': {},
+        'best-practices': {},
+        'wcag-techniques': {},
+        counter: {},
+      };
     }
 
-    options['wcag-techniques'].exclude = ['QW-WCAG-T16'];
+    options.modules['wcag-techniques'].exclude = ['QW-WCAG-T16'];
 
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
@@ -37,7 +45,7 @@ async function cli(): Promise<void> {
   process.exit(0);
 }
 
-async function handleReporting(reports: Evaluations, options: QualwebOptions): Promise<void> {
+async function handleReporting(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
   const reportType = options.report;
   const saveName = options['save-name'];
   delete options.report;
@@ -67,14 +75,12 @@ async function handleReporting(reports: Evaluations, options: QualwebOptions): P
 
 function checkEarlOptions(options: QualwebOptions, saveName?: string): EarlOptions {
   const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
-  if (options.execute) {
+  if (options.modulesToExecute) {
     earlOptions.modules = {};
-    earlOptions.modules.act = !!options?.execute?.act;
-    earlOptions.modules.wcag = !!options?.execute?.wcag;
-    earlOptions.modules['best-practices'] = !!options?.execute?.bp;
+    earlOptions.modules.act = !!options?.modulesToExecute?.['act-rules'];
+    earlOptions.modules.wcag = !!options?.modulesToExecute?.['wcag-techniques'];
+    earlOptions.modules['best-practices'] = !!options?.modulesToExecute?.['best-practices'];
   }
 
   return earlOptions;
 }
-
-export = cli;

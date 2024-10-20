@@ -1,4 +1,6 @@
-function isElementADescendantOf(element: typeof window.qwElement, names: Array<string>, roles: Array<string>): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementADescendantOf(element: QWElement, names: Array<string>, roles: Array<string>): boolean {
   const parent = element.getElementParent();
 
   if (parent !== null) {

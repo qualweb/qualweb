@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsNotHidden } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsNotHidden } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R21 extends AtomicRule {
@@ -19,10 +19,10 @@ class QW_ACT_R21 extends AtomicRule {
       if (role && this.roleList.includes(role)) {
         const accessibleName = window.AccessibilityUtils.getAccessibleNameSVG(elem);
         if (accessibleName && accessibleName.trim() !== '') {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         }
 

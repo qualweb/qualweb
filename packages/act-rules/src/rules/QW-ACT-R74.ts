@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, IsHTMLDocument, IsInMainContext } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsHTMLDocument, IsInMainContext } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R74 extends AtomicRule {
@@ -48,17 +48,17 @@ class QW_ACT_R74 extends AtomicRule {
         }
 
         if (nSkipLinks > 0) {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
         } else {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W2';
         }
       }
     }
 
     if (!hasLinks) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 

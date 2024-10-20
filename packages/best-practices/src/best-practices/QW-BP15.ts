@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP15 extends BestPractice {
@@ -15,10 +15,10 @@ class QW_BP15 extends BestPractice {
     const unit = width.trim().substring(width.length - 2, width.length);
 
     if (!this.absoluteLengths.includes(unit) && parseFloat(width).toString().length !== width.length) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

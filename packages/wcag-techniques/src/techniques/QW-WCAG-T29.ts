@@ -1,22 +1,24 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T29 extends Technique {
   @ElementExists
   execute(element: QWElement): void {
     if (element.getElementTagName() === 'style') {
-      const sheet = <any>element.getElementProperty('sheet');
+      const sheet = element.getElementProperty('sheet') as unknown as CSSStyleSheet;
       for (const rule of sheet.cssRules || []) {
-        const style = rule?.style?.cssText;
+        const style = (rule as CSSStyleRule)?.style?.cssText;
         if (style) {
           this.checkCssProperty(style, element);
         }
       }
     } else {
-      const style = <string>element.getElementAttribute('style');
-      this.checkCssProperty(style, element);
+      const style = element.getElementAttribute('style');
+      if (style) {
+        this.checkCssProperty(style, element);
+      }
     }
   }
 
@@ -31,10 +33,10 @@ class QW_WCAG_T29 extends Technique {
         const test = new Test();
 
         if (!isJustified) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         }
 

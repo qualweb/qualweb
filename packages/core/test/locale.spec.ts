@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import type { QualwebOptions } from '@shared/types';
-import { QualWeb } from '../src';
+import { QualWeb, QualwebOptions } from '../src';
 
 describe('Core locale', function () {
   it('Should give a report in en', async function () {
@@ -8,16 +7,24 @@ describe('Core locale', function () {
 
     const qualweb = new QualWeb();
 
-    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors'] });
+    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors'] });
 
     const options: QualwebOptions = {
       url: 'http://ciencias.ulisboa.pt',
       translate: 'en',
-      execute: {
-        act: true
+      modulesToExecute: {
+        "act-rules": true,
+        "best-practices": false,
+        "wcag-techniques": false,
+        counter: false,
       },
-      'act-rules': {
-        rules: ['QW-ACT-R1']
+      modules: {
+        'act-rules': {
+          include: ['QW-ACT-R1']
+        },
+        "best-practices": {},
+        "wcag-techniques": {},
+        counter: {},
       }
     };
 

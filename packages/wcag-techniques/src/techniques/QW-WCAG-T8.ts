@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasAccessibleName, ElementHasAttributes } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAccessibleName, ElementHasAttributes } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T8 extends Technique {
@@ -18,7 +18,7 @@ class QW_WCAG_T8 extends Technique {
   execute(element: QWElement): void {
     const test = new Test();
 
-    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element)).toLocaleLowerCase();
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(element)!.toLocaleLowerCase();
 
     if (
       !this.pattern4.test(accessibleName) &&
@@ -28,10 +28,10 @@ class QW_WCAG_T8 extends Technique {
       !this.pattern.test(accessibleName) &&
       !this.default_title.includes(accessibleName)
     ) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

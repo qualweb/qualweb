@@ -3,11 +3,12 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "ESNext",
+    "module": "Node16",
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
-    // "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "removeComments": true /* Do not emit comments to output. */,
 
     /* Strict Type-Checking Options */
@@ -26,7 +27,7 @@
     "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
 
     /* Module Resolution Options */
-    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+    "moduleResolution": "Node16",
 
     /* Allow import of JSON fixtures in unit tests. */
     "resolveJsonModule": true,
@@ -36,9 +37,9 @@
       "lodash.clonedeep",
       "mocha",
     ] /* Type declaration files to be included in compilation. */,
-    "paths": {
-      "@shared": ["../shared"],
-      "@shared/*": ["../shared/*"],
-    }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+  ],
 }

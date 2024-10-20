@@ -1,8 +1,6 @@
-function isElementADescendantOfExplicitRole(
-  element: typeof window.qwElement,
-  names: Array<string>,
-  roles: Array<string>
-): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementADescendantOfExplicitRole(element: QWElement, names: Array<string>, roles: Array<string>): boolean {
   const parent = element.getElementParent();
 
   if (parent !== null) {

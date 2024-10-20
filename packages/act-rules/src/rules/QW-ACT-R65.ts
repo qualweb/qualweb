@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasOneOfTheFollowingRoles } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasOneOfTheFollowingRoles } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R65 extends AtomicRule {
@@ -31,11 +31,11 @@ class QW_ACT_R65 extends AtomicRule {
     const test = new Test();
 
     if (inSequentialFocusList.length === 0) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
       test.addElement(element);
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
       test.addElement(element, false);
     }

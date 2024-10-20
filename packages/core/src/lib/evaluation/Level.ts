@@ -1,0 +1,1 @@
+export type Level = 'A' | 'AA' | 'AAA';

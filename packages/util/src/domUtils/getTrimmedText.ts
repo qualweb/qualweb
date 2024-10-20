@@ -1,4 +1,6 @@
-function getTrimmedText(element: typeof window.qwElement): string {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getTrimmedText(element: QWElement): string {
   let text = element.getElementText();
 
   if (text) {

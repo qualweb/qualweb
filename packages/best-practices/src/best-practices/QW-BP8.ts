@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasVisibleChild } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasVisibleChild } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP8 extends BestPractice {
@@ -33,10 +33,10 @@ class QW_BP8 extends BestPractice {
       const aName = window.AccessibilityUtils.getAccessibleName(element);
 
       if ((aName && aName.trim() !== '') || svgANames.length > 0) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 

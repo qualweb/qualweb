@@ -4,10 +4,10 @@
   "description": "QualWeb evaluator command line interface",
   "main": "dist/cli/src/index.js",
   "bin": {
-    "qw": "./bin/cli.js"
+    "qw": "./bin/cli.mjs"
   },
   "files": [
-    "dist/cli/src*"
+    "dist/cli/src/*"
   ],
   "scripts": {
     "tsc": "tsc",
@@ -42,6 +42,7 @@
   "license": "ISC",
   "dependencies": {
     "@qualweb/core": "0.7.71",
+    "@qualweb/earl-reporter": "0.4.6",
     "command-line-args": "^5.2.1",
     "command-line-usage": "^6.1.1",
     "log-update": "^4.0.0",

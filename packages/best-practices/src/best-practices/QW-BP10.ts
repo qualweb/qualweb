@@ -1,5 +1,5 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { BestPractice } from '../lib/BestPractice.object';
 
 class QW_BP10 extends BestPractice {
@@ -7,11 +7,11 @@ class QW_BP10 extends BestPractice {
     const test = new Test();
 
     if (element === undefined) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
       const name = element.getElementTagName();
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.description = this.translate('F1', { name });
       test.resultCode = 'F1';
       test.attributes.push(name);

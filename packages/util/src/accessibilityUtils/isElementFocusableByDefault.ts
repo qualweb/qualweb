@@ -1,4 +1,6 @@
-function isElementFocusableByDefault(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isElementFocusableByDefault(element: QWElement): boolean {
   const draggableAttribute = element.getElementAttribute('draggable');
 
   if (draggableAttribute && draggableAttribute === 'true') {

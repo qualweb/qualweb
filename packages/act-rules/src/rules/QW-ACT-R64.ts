@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, IsHTMLDocument } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsHTMLDocument } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R64 extends AtomicRule {
@@ -21,7 +21,7 @@ class QW_ACT_R64 extends AtomicRule {
             !this.checkDestination(href) &&
             (href.startsWith('/') || href.startsWith('.') || href.startsWith(host))
           ) {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W1';
             hasLinks = true;
             break;
@@ -31,7 +31,7 @@ class QW_ACT_R64 extends AtomicRule {
     }
 
     if (!hasLinks) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 

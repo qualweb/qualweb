@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasAttributes, ElementIsVisible, ElementIsNotWidget } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttributes, ElementIsVisible, ElementIsNotWidget } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
 
 class QW_WCAG_T6 extends Technique {
@@ -16,7 +16,7 @@ class QW_WCAG_T6 extends Technique {
     const hasOnkeyup = element.elementHasAttribute('onkeyup');
 
     if (!hasOnkeypress && !hasOnkeydown && !hasOnkeyup) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.description = `The mouse event attribute doesn't have a keyboard equivalent.`;
       test.resultCode = 'RC3';
     } else {
@@ -55,13 +55,13 @@ class QW_WCAG_T6 extends Technique {
 
   private fillPassedResult(test: Test): void {
     if (test.verdict === 'inapplicable') {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
   }
 
   private fillWarningResult(test: Test): void {
-    test.verdict = 'warning';
+    test.verdict = Verdict.WARNING;
     test.resultCode = 'W1';
   }
 }

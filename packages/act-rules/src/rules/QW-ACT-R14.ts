@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R14 extends AtomicRule {
@@ -27,7 +27,7 @@ class QW_ACT_R14 extends AtomicRule {
     }
 
     if (!maximumScale && !userScalable) {
-      test.verdict = 'inapplicable';
+      test.verdict = Verdict.INAPPLICABLE;
       test.resultCode = 'I1';
     } else if (
       !maximumScale &&
@@ -38,7 +38,7 @@ class QW_ACT_R14 extends AtomicRule {
         parseInt(userScalable) < -1 ||
         parseInt(userScalable) > 1)
     ) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else if (
       !userScalable &&
@@ -48,10 +48,10 @@ class QW_ACT_R14 extends AtomicRule {
         parseInt(maximumScale) < 0 ||
         parseInt(maximumScale) >= 2)
     ) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P2';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 

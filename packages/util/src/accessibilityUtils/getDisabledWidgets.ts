@@ -1,6 +1,8 @@
-function getDisabledWidgets(): Array<typeof window.qwElement> {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getDisabledWidgets(): Array<QWElement> {
   const elements = window.qwPage.getElements('*');
-  const disabledElements = new Array<typeof window.qwElement>();
+  const disabledElements = new Array<QWElement>();
   let disable, ariaDisable, parent, parentTag;
   for (const element of elements) {
     const isWidget = window.AccessibilityUtils.isElementWidget(element);

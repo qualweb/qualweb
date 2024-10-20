@@ -1,4 +1,6 @@
-function isPartOfSequentialFocusNavigation(element: typeof window.qwElement): boolean {
+import type { QWElement } from '@qualweb/qw-element';
+
+function isPartOfSequentialFocusNavigation(element: QWElement): boolean {
   let tabIndexLessThanZero = false;
   const tabindex = element.getElementAttribute('tabindex');
   const tabIndexExistsAndIsNumber = tabindex !== null && !isNaN(parseInt(tabindex, 10));

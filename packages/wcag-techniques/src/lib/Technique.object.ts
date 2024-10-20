@@ -1,7 +1,8 @@
-import { Guideline, type Test } from '@shared/classes';
-import type { Assertion, Level, Principle, TestResult, TranslationValues } from '@shared/types';
-import type { ModuleTranslator } from '@packages/locale/src';
-import type { QWElement } from '@packages/qw-element/src';
+import type { ModuleTranslator } from '@qualweb/core/locale';
+import type { TranslationValues } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/core/evaluation';
+import { Guideline, Verdict } from '@qualweb/core/evaluation';
 import techniques from './techniques.json';
 
 abstract class Technique extends Guideline {
@@ -16,7 +17,7 @@ abstract class Technique extends Guideline {
     technique.metadata.warning = 0;
     technique.metadata.failed = 0;
     technique.metadata.inapplicable = 0;
-    technique.metadata.outcome = 'inapplicable';
+    technique.metadata.outcome = Verdict.INAPPLICABLE;
     technique.results = new Array<TestResult>();
 
     this.technique = technique;
@@ -56,20 +57,20 @@ abstract class Technique extends Guideline {
 
     this.technique.results.push(test);
 
-    if (test.verdict && test.verdict !== 'inapplicable') {
+    if (test.verdict && test.verdict !== Verdict.INAPPLICABLE) {
       this.technique.metadata[test.verdict]++;
     }
   }
 
   private generateOutcome(): void {
     if (this.technique.metadata.failed) {
-      this.technique.metadata.outcome = 'failed';
+      this.technique.metadata.outcome = Verdict.FAILED;
     } else if (this.technique.metadata.warning) {
-      this.technique.metadata.outcome = 'warning';
+      this.technique.metadata.outcome = Verdict.WARNING;
     } else if (this.technique.metadata.passed) {
-      this.technique.metadata.outcome = 'passed';
+      this.technique.metadata.outcome = Verdict.PASSED;
     } else {
-      this.technique.metadata.outcome = 'inapplicable';
+      this.technique.metadata.outcome = Verdict.INAPPLICABLE;
       this.technique.metadata.inapplicable = 1;
     }
 

@@ -1,6 +1,6 @@
-import type { QWElement } from '@packages/qw-element/src';
-import { ElementExists, ElementIsVisible } from '@shared/applicability';
-import { Test } from '@shared/classes';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 
 class QW_ACT_R56 extends AtomicRule {
@@ -11,7 +11,7 @@ class QW_ACT_R56 extends AtomicRule {
     const hasSoundTrack = window.DomUtils.videoElementHasAudio(element);
     const hasPuppeteerApplicableData = duration > 0 && hasSoundTrack;
 
-    const test = new Test('warning');
+    const test = new Test(Verdict.WARNING);
 
     if (!(duration >= 0 && hasSoundTrack)) {
       test.resultCode = 'W1';
