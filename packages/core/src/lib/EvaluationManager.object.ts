@@ -1,7 +1,6 @@
 import { randomBytes } from 'crypto';
 import type { QualwebOptions } from './QualwebOptions';
 import type { Url, SystemData, QualwebReport } from './evaluation';
-import { ModuleType } from './evaluation';
 import { EvaluationModuleDefinition } from '../lib/evaluation/EvaluationModule';
 import { ExecutableModuleContext } from '../lib/evaluation/ExecutableModule';
 import { QualwebPage } from './QualwebPage.object';
