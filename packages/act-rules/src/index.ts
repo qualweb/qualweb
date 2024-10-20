@@ -34,13 +34,23 @@ declare global {
 export class ACTRules extends EvaluationModuleDefinition {
   protected readonly type = ModuleType.ACT_RULES;
   protected readonly report = new ModuleReport(this.type);
-  protected readonly translator = new window.ModuleTranslator(this.type, this.translate);
+  // TODO: this used to use a constructor function that was expected to be
+  // present on window.ModuleTranslator. Is it important that a global variable
+  // be used here instead of just importing directly from locale?
+  // protected readonly translator = new ModuleTranslator(this.type, this.translate);
+  protected readonly translator = new ModuleTranslator(this.type, this.translate);
   protected readonly tester = new ACTRulesTester(this.report).init(this.translator);
 
   public override configure(options: ModuleOptions): this {
     super.configure(options);
     this.tester.configureCompositeRules();
     return this;
+  }
+
+  getInstance(page: QualwebPage): ExecutableModuleContext {
+    console.warn('MISSING: PASS IN OPTIONS!');
+    // FIXME: options aren't being set!
+    return new ACTRulesModule(page, {});
   }
 
   public override test(data: TestingData): this {
