@@ -2,11 +2,13 @@ import type {
   EvaluationReport,
   ModuleOptions,
   TestingData,
-} from '../lib/evaluation';
-import { ModuleType } from '../lib/evaluation';
+} from '@qualweb/core/evaluation';
+import {
+  ModuleType,
+  ExecutableModuleContext,
+} from '@qualweb/core/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
-import type { QualwebPage } from '../lib';
-import { Module } from './Module.object';
+import type { QualwebPage } from '@qualweb/core/lib';
 
 export class ACTRulesModule extends ExecutableModuleContext {
   public readonly name = ModuleType.ACT_RULES;

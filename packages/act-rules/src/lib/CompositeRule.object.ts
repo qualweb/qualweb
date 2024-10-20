@@ -1,6 +1,6 @@
-import type { Assertion } from '@qualweb/common';
+import type { Assertion } from '@qualweb/core/evaluation';
 import type { QWElement } from '@qualweb/qw-element';
-import { Test, Verdict } from '@qualweb/common';
+import { Test, Verdict } from '@qualweb/core/evaluation';
 import type { ElementResult, RuleResult } from './types';
 import { Rule } from './Rule.object';
 

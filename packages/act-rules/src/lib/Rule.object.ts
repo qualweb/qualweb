@@ -1,7 +1,11 @@
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
-import type { TestResult, Assertion, Level, Principle } from '@qualweb/common';
-import { Verdict } from '@qualweb/common';
-import { Guideline, type Test } from '@qualweb/common';
+import type { ModuleTranslator } from '@qualweb/core/locale';
+import type { TranslationValues } from '@qualweb/locale';
+import type { TestResult, Assertion, Level, Principle } from '@qualweb/core/evaluation';
+import {
+  Verdict,
+  Guideline,
+  type Test,
+} from '@qualweb/core/evaluation';
 import rules from './rules.json';
 
 abstract class Rule extends Guideline {
