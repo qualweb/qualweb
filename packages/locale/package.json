@@ -7,7 +7,10 @@
     "dist/*"
   ],
   "exports": {
-    "types": "./prebuild/index.d.ts"
+    ".": {
+      "require": "./dist/locale.bundle.js",
+      "types": "./prebuild/index.d.ts"
+    }
   },
   "scripts": {
     "tsc": "tsc",
