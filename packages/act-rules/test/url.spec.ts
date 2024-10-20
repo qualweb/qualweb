@@ -4,11 +4,11 @@ import { Browser } from 'puppeteer';
 import { launchBrowser } from './util';
 import { ACTRules } from '../src/index';
 
-declare global {
-  interface Window {
-    act: ACTRules;
-  }
-}
+// declare global {
+//   interface Window {
+//     act: ACTRules;
+//   }
+// }
 
 describe('URL evaluation', function () {
   let browser: Browser;
@@ -43,8 +43,8 @@ describe('URL evaluation', function () {
     });
 
     await page.evaluate((sourceHtml) => {
-      window.act = new ACTRules('fi');
-      window.act.test({ sourceHtml });
+      (window as any).act = new ACTRules('fi');
+      (window as any).act.test({ sourceHtml });
     }, sourceCode);
 
     await page.setViewport({
@@ -53,8 +53,8 @@ describe('URL evaluation', function () {
     });
 
     const report = await page.evaluate(() => {
-      window.act.testSpecial();
-      return window.act.getReport();
+      (window as any).act.testSpecial();
+      return (window as any).act.getReport();
     });
 
     // console.log(JSON.stringify(report, null, 2));

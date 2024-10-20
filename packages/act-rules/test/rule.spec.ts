@@ -6,7 +6,6 @@
  */
 
 import { expect } from 'chai';
-import { QualWeb } from '@qualweb/core';
 import { launchBrowser } from './util';
 
 import actTestCases from './fixtures/testcases.json';
@@ -120,7 +119,8 @@ describe('ACT rules', () => {
       after(async () => await browser.close());
 
       // Create a unique browser context for each test.
-      beforeEach(async () => incognito = await browser.createIncognitoBrowserContext());
+      // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+      beforeEach(async () => incognito = await browser.createBrowserContext());
 
       // Make sure the browser contexts are shut down, as well.
       afterEach(async () => await incognito?.close());
@@ -143,18 +143,7 @@ describe('ACT rules', () => {
 
           const page = await incognito.newPage();
 
-          const qwPage = QualWeb.createPage(page);
-          const { sourceHtml } = await qwPage.process(
-            {
-              execute: { act: true },
-              'act-rules': {
-                include: [ruleToTest]
-              },
-              waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
-            },
-            test.url,
-            ''
-          );
+          const sourceHtml = (await (await fetch(test.url)).text());
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 
@@ -176,11 +165,11 @@ describe('ACT rules', () => {
 
           // Set up the ACTRules package within the loaded page.
           //@ts-ignore
-          await page.evaluate((options) => (window.act = new ACTRules('en').configure(options)), {
+          await page.evaluate((options) => ((window as any).act = new ACTRules('en').configure(options)), {
             include: [ruleToTest]
           });
 
-          await page.evaluate((sourceHtml) => window.act.test({ sourceHtml }), sourceHtml);
+          await page.evaluate((sourceHtml) => (window as any).act.test({ sourceHtml }), sourceHtml);
 
           if (ruleId === '59br37') {
             await page.setViewport({
@@ -190,8 +179,8 @@ describe('ACT rules', () => {
           }
 
           const report = await page.evaluate(() => {
-            window.act.testSpecial();
-            return window.act.getReport();
+            (window as any).act.testSpecial();
+            return (window as any).act.getReport();
           });
 
           // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
