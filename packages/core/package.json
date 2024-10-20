@@ -7,7 +7,26 @@
     "dist/*"
   ],
   "exports": {
-    "types": "./dist/index.d.ts"
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./evaluation": {
+      "require": "./dist/lib/evaluation/index.js",
+      "types": "./dist/lib/evaluation/index.d.ts"
+    },
+    "./evaluation/*": {
+      "require": "./dist/lib/evaluation/*.js",
+      "types": "./dist/lib/evaluation/*.d.ts"
+    },
+    "./lib": {
+      "require": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./locale": {
+      "require": "./dist/lib/i18n/index.js",
+      "types": "./dist/lib/i18n/index.d.ts"
+    }
   },
   "scripts": {
     "tsc": "tsc",
