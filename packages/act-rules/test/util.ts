@@ -1,12 +1,21 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { PuppeteerLaunchOptions } from 'puppeteer';
 
-export async function launchBrowser() {
-  const args = [];
+const defaultOptions: PuppeteerLaunchOptions = {
+  devtools: false,
+  headless: true,
+};
 
-  if (process.env.CI) args.push('--no-sandbox');
+export async function launchBrowser(launchOptions: PuppeteerLaunchOptions = {}) {
+  // Overwrite default options with the ones provided, if any.
+  const options = { ...defaultOptions, ...launchOptions };
 
-  return await puppeteer.launch({
-    headless: process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || true,
-    args
-  });
+  if (!options.headless) {
+    options.headless = process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || false;
+  }
+
+  if (!options.args) {
+    options.args = ['--no-sandbox']
+  }
+
+  return await puppeteer.launch(options);
 }
