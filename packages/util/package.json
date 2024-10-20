@@ -2,11 +2,32 @@
   "name": "@qualweb/util",
   "version": "0.5.41",
   "description": "Utilities module for qualweb",
-  "main": "dist/util.bundle.js",
+  "main": "dist/__webpack/util.bundle.js",
   "files": [
     "dist/*"
   ],
-  "types": "prebuild/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/util.bundle.js",
+      "require": "./dist/util.bundle.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./applicability": {
+      "import": "./dist/applicability/applicability.js",
+      "require": "./dist/applicability/applicability.js",
+      "types": "./dist/applicability/applicability.d.ts"
+    },
+    "./accessibilityUtils": {
+      "import": "./dist/accessibilityUtils/accessibilityUtils.js",
+      "require": "./dist/accessibilityUtils/accessibilityUtils.js",
+      "types": "./dist/accessibilityUtils/accessibilityUtils.d.ts"
+    },
+    "./domUtils": {
+      "import": "./dist/domUtils/domUtils.js",
+      "require": "./dist/domUtils/domUtils.js",
+      "types": "./dist/domUtils/domUtils.d.ts"
+    }
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --spec=test/**/*.spec.ts",
@@ -47,6 +68,7 @@
     "@types/node": "^15.6.1",
     "@types/string-pixel-width": "^1.10.3",
     "chai": "^4.4.1",
+    "copy-webpack-plugin": "^12.0.2",
     "css-select": "^5.1.0",
     "eslint": "^8.56.0",
     "esm": "^3.2.25",
