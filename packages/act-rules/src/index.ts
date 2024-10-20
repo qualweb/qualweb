@@ -1,26 +1,31 @@
-import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
+import type { DomUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
 import type { QWElement } from '@qualweb/qw-element';
-import type { ModuleTranslator } from '@qualweb/locale';
+import { ModuleTranslator } from '@qualweb/core/locale';
 
 import type {
+  ExecutableModuleContext,
   ModuleOptions,
   TestingData,
-} from '@qualweb/core';
+} from '@qualweb/core/evaluation';
 
 import {
   ModuleType,
-  EvaluationModule,
+  EvaluationModuleDefinition,
   ModuleReport,
-} from '@qualweb/core';
+} from '@qualweb/core/evaluation';
 
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
+import { QualwebPage } from '@qualweb/core/lib';
+import { ACTRulesModule } from './ACTRulesModule';
 
+// TODO: this should be imported from the packages that actually set these
+// global variables
 declare global {
   interface Window {
     qwPage: QWPage;
     DomUtils: typeof DomUtils;
-    AccessibilityUtils: typeof AccessibilityUtils;
+    // AccessibilityUtils: typeof AccessibilityUtils;
     disabledWidgets: QWElement[];
     ModuleTranslator: typeof ModuleTranslator;
   }
