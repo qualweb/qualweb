@@ -18,6 +18,10 @@ declare global {
 export class BestPractices extends EvaluationModuleDefinition {
   protected readonly type = ModuleType.BEST_PRACTICES;
   protected readonly report = new ModuleReport(this.type);
-  protected readonly translator = new window.ModuleTranslator(this.type, this.translate);
+  protected readonly translator = new ModuleTranslator(this.type, this.translate);
   protected readonly tester = new BestPracticesTester(this.report).init(this.translator);
+
+  getInstance(page: QualwebPage): ExecutableModuleContext {
+    return new BestPracticesModule(page, {});
+  }
 }
