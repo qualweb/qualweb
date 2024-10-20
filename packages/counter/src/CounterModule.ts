@@ -13,7 +13,7 @@ export class CounterModule extends ExecutableModuleContext {
   protected runModule(page: QualwebPage): Promise<CounterReport> {
     return page.evaluate(() => {
       //@ts-expect-error The package exists inside the context of the WebPage
-      return window.executeCounter()
+      return window.executeCounter();
     });
   }
 }
