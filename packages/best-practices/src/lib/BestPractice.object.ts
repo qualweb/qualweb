@@ -1,7 +1,8 @@
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { TranslationValues } from '@qualweb/locale';
 import type { QWElement } from '@qualweb/qw-element';
-import type { Level, Principle, TestResult, Assertion, Test } from '@qualweb/common';
-import { Verdict, Guideline } from '@qualweb/common';
+import type { Level, Principle, TestResult, Assertion, Test } from '@qualweb/core/evaluation';
+import { Verdict, Guideline } from '@qualweb/core/evaluation';
+import { ModuleTranslator } from '@qualweb/core/locale';
 import bestPractices from './bestPractices.json';
 
 abstract class BestPractice extends Guideline {
