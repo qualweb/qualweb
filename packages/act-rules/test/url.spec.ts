@@ -43,7 +43,6 @@ describe('URL evaluation', function () {
     });
 
     await page.evaluate((sourceHtml) => {
-      //@ts-expect-error the object ACTRules is defined inside the page
       window.act = new ACTRules('fi');
       window.act.test({ sourceHtml });
     }, sourceCode);
