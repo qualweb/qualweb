@@ -1,7 +1,8 @@
-import type { ModuleTranslator, TranslationValues } from '@qualweb/locale';
+import type { ModuleTranslator } from '@qualweb/core/locale';
+import type { TranslationValues } from '@qualweb/locale';
 import type { QWElement } from '@qualweb/qw-element';
-import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/common';
-import { Guideline, Verdict } from '@qualweb/common';
+import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/core/evaluation';
+import { Guideline, Verdict } from '@qualweb/core/evaluation';
 import techniques from './techniques.json';
 
 abstract class Technique extends Guideline {

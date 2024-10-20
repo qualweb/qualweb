@@ -1,8 +1,7 @@
-import type { EvaluationReport, ModuleOptions, TestingData } from '../lib/evaluation';
-import { ModuleType } from '../lib/evaluation';
+import type { EvaluationReport, ModuleOptions, TestingData } from '@qualweb/core/evaluation';
+import { ExecutableModuleContext, ModuleType } from '@qualweb/core/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
-import type { QualwebPage } from '../lib';
-import { Module } from './Module.object';
+import type { QualwebPage } from '@qualweb/core/lib';
 
 export class WCAGTechniquesModule extends ExecutableModuleContext {
   public readonly name = ModuleType.WCAG_TECHNIQUES;
