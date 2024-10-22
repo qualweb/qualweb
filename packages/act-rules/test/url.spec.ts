@@ -3,20 +3,6 @@ import fetch from 'node-fetch';
 import { Browser } from 'puppeteer';
 import { launchBrowser } from './util';
 
-/**
- * We *must* import as type or not at all. Importing ACTRules triggers an import
- * of code from @qualweb/locale, which expects to be run in a browser
- * environment.
- */
-import type { ACTRules } from '../src';
-
-// We define the global window object here to avoid TypeScript errors.
-declare global {
-  interface Window {
-    act: ACTRules;
-  }
-}
-
 describe('URL evaluation', function () {
   let browser: Browser;
 
@@ -50,11 +36,20 @@ describe('URL evaluation', function () {
       path: require.resolve('../dist/act.bundle.js')
     });
 
-    await page.evaluate(function (sourceHtml) {
-      // @ts-expect-error Since we are only importing the ACTRules type, tsc will warn that we can't actually use it. The class is injected elsewhere, but tsc can't see in its analysis.
-      window.act = new ACTRules('fi');
-      window.act.test({ sourceHtml });
-    }, sourceCode);
+    try {
+      await page.evaluate(function (sourceHtml) {
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act = new ACTRules({}, 'fi');
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act.configure();
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act.test({ sourceHtml });
+      }, sourceCode);
+    } catch (_error: unknown) {
+      const error = _error as Error;
+      console.error(error);
+      expect.fail(error.message);
+    }
 
     await page.setViewport({
       width: 640,
@@ -62,7 +57,9 @@ describe('URL evaluation', function () {
     });
 
     const report = await page.evaluate(() => {
+      // @ts-expect-error - window.act is not declared as a field on window.
       window.act.testSpecial();
+      // @ts-expect-error - window.act is not declared as a field on window.
       return window.act.getReport();
     });
 

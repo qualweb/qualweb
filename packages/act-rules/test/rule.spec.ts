@@ -11,20 +11,6 @@ import { launchBrowser } from './util';
 import actTestCases from './fixtures/testcases.json';
 import type { Browser, BrowserContext } from 'puppeteer';
 
-/**
- * We *must* import as type or not at all. Importing ACTRules triggers an import
- * of code from @qualweb/locale, which expects to be run in a browser
- * environment.
- */
-import type { ACTRules } from '../src';
-
-// We define the global window object here to avoid TypeScript errors.
-declare global {
-  interface Window {
-    act: ACTRules;
-  }
-}
-
 const mapping: Record<string, string> = {
   'QW-ACT-R1': '2779a5',
   'QW-ACT-R2': 'b5c3f8',
@@ -153,6 +139,10 @@ describe('ACT rules', () => {
 
       for (const test of tests) {
         it(test.title, async function () {
+          if (test.url.endsWith('.html') === false) {
+            expect.fail('NYI: Cannot test non-HTML content');
+          }
+
           this.timeout(0);
 
           const page = await incognito.newPage();
@@ -179,14 +169,6 @@ describe('ACT rules', () => {
             path: require.resolve('../dist/act.bundle.js')
           });
 
-          // Set up the ACTRules package within the loaded page.
-          //@ts-ignore
-          await page.evaluate((options) => (window.act = new ACTRules('en').configure(options)), {
-            include: [ruleToTest]
-          });
-
-          await page.evaluate((sourceHtml) => window.act.test({ sourceHtml }), sourceHtml);
-
           if (ruleId === '59br37') {
             await page.setViewport({
               width: 640,
@@ -194,10 +176,21 @@ describe('ACT rules', () => {
             });
           }
 
-          const report = await page.evaluate(() => {
-            window.act.testSpecial();
-            return window.act.getReport();
-          });
+          // Set up ACT rule module and run test for single rule.
+          const report = await page.evaluate((ruleToTest, sourceHtml) => {
+            // @ts-expect-error - ACTRules is injected via puppeteer.
+            const actModule = new ACTRules({ include: [ruleToTest] }, 'en');
+            actModule.configure();
+            actModule.test({ sourceHtml });
+            actModule.testSpecial();
+            return actModule.getReport();
+          }, ruleToTest, sourceHtml);
+
+          expect(report.assertions).to.have.property(ruleToTest);
+
+          // TODO: would be useful to check that atomic rules only report their
+          // one result, while composite rules report its constituents.
+          // expect(Object.keys(report.assertions)).to.have.lengthOf(1);
 
           // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
           const outcome =
