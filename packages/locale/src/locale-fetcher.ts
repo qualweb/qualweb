@@ -59,11 +59,3 @@ export class LocaleFetcher {
     return translation;
   }
 }
-
-declare global {
-  interface Window {
-    LocaleFetcher: typeof LocaleFetcher;
-  }
-}
-
-window.LocaleFetcher = LocaleFetcher;
