@@ -46,7 +46,7 @@
     "@types/node": "^16.11.11",
     "@types/node-fetch": "^2.6.11",
     "ajv": "^6.12.6",
-    "chai": "^4.4.1",
+    "chai": "4.5.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.7",

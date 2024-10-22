@@ -105,7 +105,7 @@
     "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.12",
-    "chai": "^5.1.1",
+    "chai": "4.5.0",
     "eslint": "^9.3.0",
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.7",
