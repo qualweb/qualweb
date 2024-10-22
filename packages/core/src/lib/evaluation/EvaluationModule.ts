@@ -9,15 +9,19 @@ import { Tester } from './Tester';
 import { QualwebPage } from '../QualwebPage.object';
 import { ExecutableModuleContext } from './ExecutableModule';
 
-export abstract class EvaluationModuleDefinition {
-  protected abstract type: ModuleType;
-  protected abstract readonly report: ModuleReport;
-  protected abstract readonly tester: Tester;
-
+export abstract class EvaluationModuleDefinition<TesterT extends Tester = Tester> {
   protected readonly translate: Translate;
 
-  constructor(translationOptions: TranslationOptions) {
+  constructor(
+    protected readonly type: ModuleType,
+    protected readonly moduleOptions: ModuleOptions, // TODO: how strictly do we want to control writability?
+    translationOptions: TranslationOptions,
+    protected readonly report: ModuleReport,
+    protected readonly tester: TesterT,
+  ) {
     this.translate = LocaleFetcher.transform(translationOptions);
+
+    this.configure(moduleOptions);
   }
 
   public configure(options: ModuleOptions): this {
