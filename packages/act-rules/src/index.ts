@@ -18,6 +18,7 @@ import {
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
 import { QualwebPage } from '@qualweb/core/lib';
 import { ACTRulesModule } from './ACTRulesModule';
+import { TranslationOptions } from '@qualweb/locale';
 
 // TODO: this should be imported from the packages that actually set these
 // global variables
@@ -30,26 +31,40 @@ declare global {
   }
 }
 
-export class ACTRules extends EvaluationModuleDefinition {
-  protected readonly type = ModuleType.ACT_RULES;
-  protected readonly report = new ModuleReport(this.type);
+export class ACTRules extends EvaluationModuleDefinition<ACTRulesTester> {
   // TODO: this used to use a constructor function that was expected to be
   // present on window.ModuleTranslator. Is it important that a global variable
   // be used here instead of just importing directly from locale?
   // protected readonly translator = new ModuleTranslator(this.type, this.translate);
-  protected readonly translator = new ModuleTranslator(this.type, this.translate);
-  protected readonly tester = new ACTRulesTester(this.report).init(this.translator);
+  protected readonly translator;
 
-  public override configure(options: ModuleOptions): this {
-    super.configure(options);
+  public constructor(moduleOptions: ModuleOptions, translationOptions: TranslationOptions) {
+    const moduleType = ModuleType.ACT_RULES;
+    const report = new ModuleReport(moduleType);
+    const tester = new ACTRulesTester(report);
+
+    super(
+      moduleType,
+      moduleOptions,
+      translationOptions,
+      report,
+      tester,
+    );
+
+    this.translator = new ModuleTranslator(this.type, this.translate);
+    this.tester.init(this.translator);
+  }
+
+  public override configure(options?: ModuleOptions): this {
+    super.configure(options || this.moduleOptions);
     this.tester.configureCompositeRules();
     return this;
   }
 
   getInstance(page: QualwebPage): ExecutableModuleContext {
-    console.warn('MISSING: PASS IN OPTIONS!');
-    // FIXME: options aren't being set!
-    return new ACTRulesModule(page, {});
+    // FIXME: how does tester get propagated here?! Configure sets a lot of
+    // fields but doesn't seem to have any direct effect here?!
+    return new ACTRulesModule(page, this.moduleOptions);
   }
 
   public override test(data: TestingData): this {
