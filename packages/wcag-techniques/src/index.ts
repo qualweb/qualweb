@@ -1,10 +1,11 @@
 import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
 import { ModuleTranslator } from '@qualweb/core/locale';
-import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
+import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleOptions, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { WCAGTechniquesTester } from './lib/WCAGTechniquesTester.object';
 import { QualwebPage } from '@qualweb/core/lib';
 import { WCAGTechniquesModule } from './WcagTechniquesModule';
+import { TranslationOptions } from '@qualweb/locale';
 
 declare global {
   interface Window {
@@ -15,11 +16,25 @@ declare global {
   }
 }
 
-export class WCAGTechniques extends EvaluationModuleDefinition {
-  protected readonly type = ModuleType.WCAG_TECHNIQUES;
-  protected readonly report = new ModuleReport(this.type);
+export class WCAGTechniques extends EvaluationModuleDefinition<WCAGTechniquesTester> {
   protected readonly translator = new ModuleTranslator(this.type, this.translate);
-  protected readonly tester = new WCAGTechniquesTester(this.report).init(this.translator);
+
+  public constructor(moduleOptions: ModuleOptions, translationOptions: TranslationOptions) {
+    const moduleType = ModuleType.WCAG_TECHNIQUES;
+    const report = new ModuleReport(moduleType);
+    const tester = new WCAGTechniquesTester(report);
+
+    super(
+      moduleType,
+      moduleOptions,
+      translationOptions,
+      report,
+      tester,
+    );
+
+    this.translator = new ModuleTranslator(this.type, this.translate);
+    this.tester.init(this.translator);
+  }
 
   getInstance(page: QualwebPage): ExecutableModuleContext {
     return new WCAGTechniquesModule(page, {});
