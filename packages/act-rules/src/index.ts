@@ -36,7 +36,7 @@ export class ACTRules extends EvaluationModuleDefinition<ACTRulesTester> {
   // present on window.ModuleTranslator. Is it important that a global variable
   // be used here instead of just importing directly from locale?
   // protected readonly translator = new ModuleTranslator(this.type, this.translate);
-  protected readonly translator;
+  protected readonly translator: ModuleTranslator;
 
   public constructor(moduleOptions: ModuleOptions, translationOptions: TranslationOptions) {
     const moduleType = ModuleType.ACT_RULES;
