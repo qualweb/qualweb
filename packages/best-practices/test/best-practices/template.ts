@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import { expect } from 'chai';
 import { usePuppeteer } from '../util';
 
@@ -22,11 +23,19 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
     // with their own number).
     const outcomeCounters: Record<string, number> = {};
     for (const test of testCases) {
+      // Counter to indicate which test case number we are on.
       if (outcomeCounters[test.outcome]) {
         outcomeCounters[test.outcome] += 1;
       } else {
         outcomeCounters[test.outcome] = 1;
-      } // it(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, async function () {
+      }
+
+      // Load the test's HTML code into the page.
+      before(async () => {
+        await proxy.page.setContent(fs.readFileSync(path.resolve(path.dirname(testCasesPath), test.path), 'utf-8'));
+      });
+      
+      // it(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, async function () {
       it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
         this.timeout(0);
 
