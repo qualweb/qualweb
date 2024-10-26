@@ -1,8 +1,9 @@
 import { expect } from 'chai';
-import type { QualwebReport } from '../../common/types';
-import { LocaleFetcher, ReportTranslator } from '../src';
+import type { QualwebReport } from '../src';
+import { ReportTranslator } from '../src';
+import { LocaleFetcher } from '@qualweb/locale';
 
-import reportJson from './report.json';
+import reportJson from './fixtures/reportTranslator.report.json';
 
 const report = reportJson as unknown as QualwebReport;
 
