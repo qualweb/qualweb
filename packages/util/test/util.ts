@@ -2,31 +2,32 @@ import puppeteer, { Browser, Page } from 'puppeteer';
 
 type PuppeteerProxy = {
   browser: Browser;
-  incognito: Awaited<ReturnType<Browser['createIncognitoBrowserContext']>>;
+  browserContext: Awaited<ReturnType<Browser['createBrowserContext']>>;
   page: Page;
 };
 
 export function usePuppeteer(): PuppeteerProxy {
   const proxy: Partial<PuppeteerProxy> = {
     browser: undefined,
-    incognito: undefined,
+    browserContext: undefined,
     page: undefined
   };
 
   before(async () => {
     proxy.browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       args: ['--ignore-certificate-errors']
     });
 
-    proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
+    // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+    proxy.browserContext = await proxy.browser.createBrowserContext();
 
-    proxy.page = await proxy.incognito.newPage();
+    proxy.page = await proxy.browserContext.newPage();
   });
 
   after(async () => {
     await proxy.page?.close();
-    await proxy.incognito?.close();
+    await proxy.browserContext?.close();
     await proxy.browser?.close();
   });
 
