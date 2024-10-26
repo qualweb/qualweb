@@ -1,7 +1,4 @@
-import puppeteer from 'puppeteer';
 import { expect } from 'chai';
-
-import { QualWeb } from '@qualweb/core';
 import { usePuppeteer } from './util';
 
 describe('ANameSVGTest', function () {
@@ -11,24 +8,27 @@ describe('ANameSVGTest', function () {
   // from inject.js, which in turn runs AccessibilityUtils.getAccessibleNameSVG
   // for all SVG elements on the page. Is this purely to test execution of
   // injected code?
-  it('Should correctly run injected code (inject.js)', async function () {
+  it('Should correctly run injected code (inject.js)', function (done) {
     this.timeout(0);
 
     const { page } = proxy;
 
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { act: true }, waitUntil: ['load'] }, 'https://www.ipleiria.pt/', '');
-
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/qw-page')
-    });
-
-    await page.addScriptTag({
-      path: require.resolve('../dist/util.bundle.js')
-    });
-
-    await page.addScriptTag({
-      path: require.resolve('./fixtures/inject.js')
+    Promise.all([
+      page.addScriptTag({
+        path: require.resolve('@qualweb/qw-page')
+      }),
+  
+      page.addScriptTag({
+        path: require.resolve('../dist/util.bundle.js')
+      }),
+  
+      page.addScriptTag({
+        path: require.resolve('./fixtures/inject.js')
+      }),
+    ]).catch((err) => {
+      expect.fail(err);
+    }).then(() => {
+      done();
     });
   });
 });
