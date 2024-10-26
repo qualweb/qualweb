@@ -17,7 +17,7 @@ describe('ANameTest', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/util.bundle.js')
+      path: require.resolve('../dist/__webpack/util.bundle.js')
     });
     await new Promise(r => setTimeout(r, 2000));
     

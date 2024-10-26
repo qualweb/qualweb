@@ -21,7 +21,7 @@ describe('ANameTestWiki', function () {
     });
 
     await proxy.page.addScriptTag({
-      path: require.resolve('../dist/util.bundle.js')
+      path: require.resolve('../dist/__webpack/util.bundle.js')
     });
 
     const results = await proxy.page.$$eval('*', (elements) => {
