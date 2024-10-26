@@ -19,7 +19,7 @@ describe('Running tests', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/util.bundle.js')
+      path: require.resolve('../dist/__webpack/util.bundle.js')
     });
 
     await page.evaluate(() => {
