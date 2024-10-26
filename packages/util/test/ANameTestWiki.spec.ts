@@ -15,8 +15,6 @@ describe('ANameTestWiki', function () {
     let url = "http://localhost/test.html";
 
     const page = proxy.page;
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({}, url, '');
 
     await proxy.page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
