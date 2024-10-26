@@ -11,8 +11,6 @@ describe('ANameTest', function () {
     const url = 'http://localhost/test.html';
 
     const page = proxy.page;
-    const qwPage = QualWeb.createPage(page);
-    await qwPage.process({ execute: { act: true }, waitUntil: ['networkidle0'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
