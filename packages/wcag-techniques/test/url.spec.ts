@@ -4,7 +4,7 @@ import { launchBrowser } from './util';
 
 describe('url.spec.js', function () {
   let browser: Browser;
-  let incognito: BrowserContext;
+  let browserContext: BrowserContext;
 
   // Fire up Puppeteer before any test runs. All tests are run in their
   // own browser contexts, so restarting puppeteer itself should not be
@@ -16,17 +16,17 @@ describe('url.spec.js', function () {
 
   // Create a unique browser context for each test.
   // createIncognitoBrowserContext() is no longer supported. Is that a problem?
-  beforeEach(async () => incognito = await browser.createBrowserContext());
+  beforeEach(async () => browserContext = await browser.createBrowserContext());
 
   // Make sure the browser contexts are shut down, as well.
-  afterEach(async () => await incognito?.close());
+  afterEach(async () => await browserContext?.close());
 
   it('Evaluates url', async function () {
     this.timeout(0);
 
     const url = 'https://www.sgambiente.gov.pt/contactos/';
 
-    const page = await incognito.newPage();
+    const page = await browserContext.newPage();
 
     await page.goto(url);
 
