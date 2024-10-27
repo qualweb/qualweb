@@ -3,6 +3,7 @@ import { QualWeb, QualwebOptions } from '../src';
 
 describe('Core locale', function () {
   it('Should give a report in en', async function () {
+    expect.fail('FIXME: missing dummy module for translation');
     this.timeout(0);
 
     const qualweb = new QualWeb();
@@ -12,20 +13,17 @@ describe('Core locale', function () {
     const options: QualwebOptions = {
       url: 'http://ciencias.ulisboa.pt',
       translate: 'en',
-      modulesToExecute: {
-        "act-rules": true,
-        "best-practices": false,
-        "wcag-techniques": false,
-        counter: false,
-      },
-      modules: {
-        'act-rules': {
-          include: ['QW-ACT-R1']
-        },
-        "best-practices": {},
-        "wcag-techniques": {},
-        counter: {},
-      }
+      modules: [
+        // FIXME: add a dummy module to test localization on.
+      ],
+      // modules: {
+      //   'act-rules': {
+      //     include: ['QW-ACT-R1']
+      //   },
+      //   "best-practices": {},
+      //   "wcag-techniques": {},
+      //   counter: {},
+      // }
     };
 
     const evaluations = await qualweb.evaluate(options);
