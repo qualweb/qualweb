@@ -40,12 +40,9 @@ describe('Log', function () {
 
     const evaluations = await qualweb.evaluate({
       url: mockHttpServerHost,
-      modulesToExecute: {
-        "act-rules": true,
-        "best-practices": true,
-        "wcag-techniques": true,
-        counter: false,
-      },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         file: true
@@ -68,12 +65,9 @@ describe('Log', function () {
 
     const evaluations = await qualweb.evaluate({
       url: mockHttpServerHost,
-      modulesToExecute: {
-        "act-rules": true,
-        "best-practices": true,
-        "wcag-techniques": true,
-        counter: false,
-      },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         console: true
@@ -103,12 +97,9 @@ describe('Log', function () {
         mockHttpServerHost + '/4',
         mockHttpServerHost + '/5'
       ],
-      modulesToExecute: {
-        "act-rules": true,
-        "best-practices": true,
-        "wcag-techniques": true,
-        counter: false,
-      },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         console: true

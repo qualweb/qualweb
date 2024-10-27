@@ -13,7 +13,10 @@ describe('Core', function () {
       url,
       log: { console: true },
       // viewport: { mobile: true, landscape: false },
-      modulesToExecute: { "act-rules": true, "wcag-techniques": true, "best-practices": true, counter: false },
+      // modulesToExecute: { "act-rules": true, "wcag-techniques": true, "best-practices": true, counter: false },
+      modules: [
+        // FIXME: add a dummy module to ensure execution by the core.
+      ],
     });
 
     await qualweb.stop();

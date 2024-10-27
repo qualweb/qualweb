@@ -1,4 +1,4 @@
-import { QualWeb } from '../src';
+import { QualWeb, QualwebOptions } from '../src';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import { Cookie } from 'puppeteer';
@@ -9,12 +9,9 @@ describe('Plugins', function () {
   this.timeout(10000);
 
   // Re-usable "execute nothing" options for calls to evaluate()
-  const executeOptions = {
-    "act-rules": false,
-    "wcag-techniques": false,
-    "best-practices": false,
-    counter: false,
-  }
+  const executeOptions: QualwebOptions['modules'] = [
+    // FIXME: missing dummy module to test execution.
+  ]
 
   // Load up the html file prior to running the tests. Saves on I/O time.
   let html: string;
@@ -50,7 +47,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(plugin.pluginWasCalled).to.be.true;
@@ -69,7 +66,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     qualweb.stop();
@@ -93,7 +90,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -115,7 +112,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(pluginCallCount).to.equal(3);
@@ -136,7 +133,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(beforeWasCalled).to.be.true;
@@ -157,7 +154,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       url: targetUrl,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal(targetUrl);
@@ -181,7 +178,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       urls: targetUrls,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(reportedUrls).to.have.members(targetUrls);
@@ -200,7 +197,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(reportedUrl).to.be.a('string').and.equal('customHtml');
@@ -229,7 +226,7 @@ describe('Plugins', function () {
 
     await qualweb.evaluate({
       html,
-      modulesToExecute: executeOptions,
+      modules: executeOptions,
     });
 
     expect(cookies).to.be.an('array').and.have.length.at.least(1);
