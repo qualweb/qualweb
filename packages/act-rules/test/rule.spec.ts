@@ -108,7 +108,7 @@ describe('ACT rules', () => {
 
     describe(`${ruleToTest} (${ruleId})`, function () {
       let browser: Browser;
-      let incognito: BrowserContext;
+      let browserContext: BrowserContext;
 
       // Fire up Puppeteer before any test runs. All tests are run in their
       // own browser contexts, so restarting puppeteer itself should not be
@@ -120,10 +120,10 @@ describe('ACT rules', () => {
 
       // Create a unique browser context for each test.
       // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
-      beforeEach(async () => incognito = await browser.createBrowserContext());
+      beforeEach(async () => browserContext = await browser.createBrowserContext());
 
       // Make sure the browser contexts are shut down, as well.
-      afterEach(async () => await incognito?.close());
+      afterEach(async () => await browserContext?.close());
 
       // Filter the W3C/ACT-R test cases down to just their title, the URL to
       // the test case HTML, and the expected outcome.
@@ -145,7 +145,7 @@ describe('ACT rules', () => {
 
           this.timeout(0);
 
-          const page = await incognito.newPage();
+          const page = await browserContext.newPage();
 
           const sourceHtml = (await (await fetch(test.url)).text());
 
