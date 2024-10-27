@@ -11,7 +11,7 @@ import { launchBrowser } from '../util';
 export function buildTest(wcagTechnique: string, testCases: { code: string, outcome: string }[]) {
   describe(wcagTechnique, () => {
     let browser: Browser;
-    let incognito: BrowserContext;
+    let browserContext: BrowserContext;
 
     // Fire up Puppeteer before any test runs. All tests are run in their
     // own browser contexts, so restarting puppeteer itself should not be
@@ -23,10 +23,10 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
 
     // Create a unique browser context for each test.
     // createIncognitoBrowserContext() is no longer supported. Is that a problem?
-    beforeEach(async () => incognito = await browser.createBrowserContext());
+    beforeEach(async () => browserContext = await browser.createBrowserContext());
 
     // Make sure the browser contexts are shut down, as well.
-    afterEach(async () => await incognito?.close());
+    afterEach(async () => await browserContext?.close());
 
     const outcomeCounters: Record<string, number> = {};
 
@@ -40,7 +40,7 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
       it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
         this.timeout(0);
 
-        const page = await incognito.newPage();
+        const page = await browserContext.newPage();
 
         page.setContent(test.code);
 
