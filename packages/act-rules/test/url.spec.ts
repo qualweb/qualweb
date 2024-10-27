@@ -16,8 +16,8 @@ describe('URL evaluation', function () {
     const sourceCode = await response.text();
 
     // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
-    const incognito = await browser.createBrowserContext();
-    const page = await incognito.newPage();
+    const browserContext = await browser.createBrowserContext();
+    const page = await browserContext.newPage();
     await page.goto(url);
 
     await page.addScriptTag({
