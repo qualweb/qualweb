@@ -16,8 +16,12 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
   // Uppercase the rule name, just in case.
   bestPracticeName = bestPracticeName.toUpperCase();
   const testCases = JSON.parse(fs.readFileSync(testCasesPath, 'utf-8'));
-  const proxy = usePuppeteer();
-  describe(bestPracticeName, () => {
+  
+  describe(bestPracticeName, function () {
+    // Set a high timeout early. Particularly where URLs have to be loaded in
+    // the before() hook, it can take some time to load it up.
+    this.timeout(60 * 1000);
+
     // Simple map to help count the occurrences of outcomes. It is used to
     // ensure unique test case names (so two "inapplicable" tests can exist,
     // with their own number).
@@ -30,15 +34,24 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
         outcomeCounters[test.outcome] = 1;
       }
 
+      const proxy = usePuppeteer();
+
       // Load the test's HTML code into the page.
       before(async () => {
-        await proxy.page.setContent(fs.readFileSync(path.resolve(path.dirname(testCasesPath), test.path), 'utf-8'));
+        if (test.path) {
+          // Prefer local copy of the test case, since it should always be
+          // available.
+          await proxy.page.setContent(fs.readFileSync(path.resolve(path.dirname(testCasesPath), test.path), 'utf-8'));
+        } else if (test.url) {
+          // Fall back to the URL, if set.
+          await proxy.page.goto(test.url);
+        } else {
+          throw new Error(`${bestPracticeName} ${outcomeCounters[test.outcome]} does not have a path or URL to the test contents.`);
+        }
       });
       
       // it(`${test.outcome.charAt(0).toUpperCase() + test.outcome.slice(1)} example ${i}`, async function () {
       it(`${test.outcome} ${outcomeCounters[test.outcome]}`, async function () {
-        this.timeout(0);
-
         await proxy.page.addScriptTag({
           path: require.resolve('@qualweb/qw-page')
         });
