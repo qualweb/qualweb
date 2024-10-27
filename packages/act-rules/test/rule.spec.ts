@@ -8,6 +8,8 @@
 import { expect } from 'chai';
 import { launchBrowser } from './util';
 
+import { extname } from 'node:path';
+
 import actTestCases from './fixtures/testcases.json';
 import type { Browser, BrowserContext } from 'puppeteer';
 
@@ -140,7 +142,7 @@ describe('ACT rules', () => {
       for (const test of tests) {
         it(test.title, async function () {
           if (test.url.endsWith('.html') === false) {
-            expect.fail('NYI: Cannot test non-HTML content');
+            expect.fail(`NYI: Cannot test non-HTML content (was: "${extname(test.url)}") (url: "${test.url}")`);
           }
 
           this.timeout(0);
