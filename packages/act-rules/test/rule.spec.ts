@@ -151,7 +151,12 @@ describe('ACT rules', () => {
 
           const sourceHtml = (await (await fetch(test.url)).text());
 
-          await page.goto(test.url);
+          // Script injection doesn't work on non-HTML pages. Instead, we insert
+          // some empty HTML stuff and let the rule take over from there.
+          if (test.url.endsWith('html'))
+            await page.goto(test.url, { waitUntil: 'networkidle2' });
+          else
+            await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 
