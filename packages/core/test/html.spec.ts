@@ -7,7 +7,9 @@ describe('Core input method: html', function () {
     this.timeout(0);
 
     const options = {
-      html: readFileSync('./test/test.html').toString()
+      html: readFileSync('./test/test.html').toString(),
+      // TODO: consider mock/dummy module to help ensure all URLs covered.
+      modules: [],
     };
 
     const qualweb = new QualWeb();

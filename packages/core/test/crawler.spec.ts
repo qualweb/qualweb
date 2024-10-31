@@ -50,9 +50,8 @@ describe('Core input method: crawler', function () {
 
     const options = {
       urls,
-      'wcag-techniques': {
-        exclude: ['QW-WCAG-T16']
-      }
+      // TODO: consider mock/dummy module to help ensure all URLs covered.
+      modules: [],
     };
 
     await qualweb.start(
