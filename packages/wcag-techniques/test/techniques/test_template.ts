@@ -62,7 +62,7 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
 
         const report = await page.evaluate((wcagTechnique) => {
           // @ts-expect-error: WCAGTechniques should be defined within the executing context (injected above).
-          const wcag = new WCAGTechniques('en').configure({ include: [wcagTechnique] });
+          const wcag = new WCAGTechniquesRunner({ include: [wcagTechnique] }, 'en').configure({ include: [wcagTechnique] });
           return wcag.test({}).getReport();
         }, wcagTechnique);
 

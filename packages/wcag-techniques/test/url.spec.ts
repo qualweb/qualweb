@@ -50,7 +50,7 @@ describe('url.spec.js', function () {
 
     const report = await page.evaluate(() => {
       // @ts-expect-error: WCAGTechniques should be defined within the executing context.
-      const wcag = new WCAGTechniques('en').configure({
+      const wcag = new WCAGTechniquesRunner({}, 'en').configure({
         include: ['QW-WCAG-T9']
       });
       return wcag.test({}).getReport();
