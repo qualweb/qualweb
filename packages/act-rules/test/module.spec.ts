@@ -12,7 +12,7 @@ describe('Module in core', () => {
       // headless: false,
     });
 
-    const actRuleInstance = new ACTRules();
+    const actRuleInstance = new ACTRules({}, 'en');
 
     const urlToEvaluate = 'https://www.google.com';
 
