@@ -181,7 +181,7 @@ describe('ACT rules', () => {
           // Set up ACT rule module and run test for single rule.
           const report = await page.evaluate((ruleToTest, sourceHtml) => {
             // @ts-expect-error - ACTRules is injected via puppeteer.
-            const actModule = new ACTRules({ include: [ruleToTest] }, 'en');
+            const actModule = new ACTRulesRunner({ include: [ruleToTest] }, 'en');
             actModule.configure();
             actModule.test({ sourceHtml });
             actModule.testSpecial();

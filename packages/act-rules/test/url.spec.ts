@@ -39,7 +39,7 @@ describe('URL evaluation', function () {
     try {
       await page.evaluate(function (sourceHtml) {
         // @ts-expect-error - window.act is not declared as a field on window.
-        window.act = new ACTRules({}, 'fi');
+        window.act = new ACTRulesRunner({}, 'fi');
         // @ts-expect-error - window.act is not declared as a field on window.
         window.act.configure();
         // @ts-expect-error - window.act is not declared as a field on window.
