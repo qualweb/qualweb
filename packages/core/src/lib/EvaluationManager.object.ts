@@ -1,27 +1,11 @@
 import { randomBytes } from 'crypto';
 import type { QualwebOptions } from './QualwebOptions';
 import type { Url, SystemData, QualwebReport } from './evaluation';
-import { EvaluationModuleDefinition } from '../lib/evaluation/EvaluationModule';
-import { ExecutableModuleContext } from '../lib/evaluation/ExecutableModule';
 import { QualwebPage } from './QualwebPage.object';
 import { Report } from './Report.object';
 
 export class EvaluationManager {
-  /**
-   * Qualweb page abstraction around a Puppeteer page
-   */
-  private readonly page: QualwebPage;
-
-  /**
-   * Modules to execute
-   */
-  private readonly modules: ExecutableModuleContext[] = [];
-
-  constructor(page: QualwebPage, modulesToExecute: EvaluationModuleDefinition[] = []) {
-    this.page = page;
-
-    modulesToExecute.map((moduleToExecute) => moduleToExecute.getInstance(page));
-  }
+  constructor(private readonly page: QualwebPage) {}
 
   public async evaluate(options: QualwebOptions): Promise<QualwebReport> {
     const testingData = await this.page.getTestingData(options);
@@ -29,10 +13,12 @@ export class EvaluationManager {
     const systemData = await this.getSystemData();
     const report = new Report(systemData);
 
-    for (const moduleToExecute of this.modules) {
-      const moduleReport = await moduleToExecute.execute(
+    for (const moduleToExecute of options.modules) {
+      const moduleInstance = moduleToExecute.getInstance(this.page);
+
+      const moduleReport = await moduleInstance.execute(
         options.translate,
-        testingData
+        testingData,
       );
       report.addModuleReport(moduleReport);
     }
