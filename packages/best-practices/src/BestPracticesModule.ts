@@ -21,7 +21,7 @@ export class BestPracticesModule extends ExecutableModuleContext {
     return page.evaluate(
       (options: ModuleOptions, translate: TranslationOptions) => {
         //@ts-expect-error The package exists inside the context of the WebPage
-        return new BestPractices(options, translate).configure(options).test({}).getReport();
+        return new BestPracticesRunner(options, translate).configure(options).test({}).getReport();
       },
       options,
       translate

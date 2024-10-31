@@ -67,7 +67,7 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
         const report= await proxy.page.evaluate(
           (bps) => {
             // @ts-expect-error: BestPractices will be defined within the executing context (see above).
-            const bp = new BestPractices('en').configure(bps);
+            const bp = new BestPracticesRunner({}, 'en').configure(bps);
             return bp.test().getReport();
           },
           { include: [bestPracticeName] }
