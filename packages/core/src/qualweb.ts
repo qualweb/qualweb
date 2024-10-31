@@ -100,6 +100,11 @@ export class QualWeb {
   public async evaluate(options: QualwebOptions): Promise<Record<string, QualwebReport>> {
     const urls = await this.checkUrls(options);
 
+    if (!options.translate) {
+      // WARN: no language set, defaulting to English.
+      options.translate = 'en';
+    }
+
     const errorManager = new ErrorManager(options.log);
     errorManager.handle(this.cluster);
 
@@ -119,7 +124,7 @@ export class QualWeb {
   private async handlePageEvaluations(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
     await this.cluster?.task(async ({ page, data: { url, html } }) => {
       const qwPage = new QualwebPage(this.pluginManager, page, url, html);
-      const evaluationManager = new EvaluationManager(qwPage, options.modules);
+      const evaluationManager = new EvaluationManager(qwPage);
       reports[url ?? 'customHtml'] = await evaluationManager.evaluate(options);
     });
   }
