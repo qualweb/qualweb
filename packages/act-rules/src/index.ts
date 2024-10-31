@@ -4,7 +4,6 @@ import type { QWElement } from '@qualweb/qw-element';
 import { ModuleTranslator } from '@qualweb/core/locale';
 
 import type {
-  ExecutableModuleContext,
   ModuleOptions,
   TestingData,
 } from '@qualweb/core/evaluation';
@@ -16,8 +15,6 @@ import {
 } from '@qualweb/core/evaluation';
 
 import { ACTRulesTester } from './lib/ACTRulesTester.object';
-import { QualwebPage } from '@qualweb/core/lib';
-import { ACTRulesModule } from './ACTRulesModule';
 import { TranslationOptions } from '@qualweb/locale';
 
 // TODO: this should be imported from the packages that actually set these
@@ -59,12 +56,6 @@ export class ACTRules extends EvaluationModuleDefinition<ACTRulesTester> {
     super.configure(options || this.moduleOptions);
     this.tester.configureCompositeRules();
     return this;
-  }
-
-  getInstance(page: QualwebPage): ExecutableModuleContext {
-    // FIXME: how does tester get propagated here?! Configure sets a lot of
-    // fields but doesn't seem to have any direct effect here?!
-    return new ACTRulesModule(page, this.moduleOptions);
   }
 
   public override test(data: TestingData): this {

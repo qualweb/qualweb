@@ -1,10 +1,8 @@
 import type { DomUtils, AccessibilityUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
 import { ModuleTranslator } from '@qualweb/core/locale';
-import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleOptions, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
+import { EvaluationModuleDefinition, ModuleOptions, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { WCAGTechniquesTester } from './lib/WCAGTechniquesTester.object';
-import { QualwebPage } from '@qualweb/core/lib';
-import { WCAGTechniquesModule } from './WcagTechniquesModule';
 import { TranslationOptions } from '@qualweb/locale';
 
 declare global {
@@ -34,9 +32,5 @@ export class WCAGTechniques extends EvaluationModuleDefinition<WCAGTechniquesTes
 
     this.translator = new ModuleTranslator(this.type, this.translate);
     this.tester.init(this.translator);
-  }
-
-  getInstance(page: QualwebPage): ExecutableModuleContext {
-    return new WCAGTechniquesModule(page, {});
   }
 }
