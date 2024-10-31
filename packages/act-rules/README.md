@@ -4,7 +4,44 @@ Implementation of the [ACT rules](https://www.w3.org/WAI/standards-guidelines/ac
 
 ## How to use
 
-**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core). You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http://qualweb.di.fc.ul.pt/evaluator/), or by installing the [chrome extension](https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc).**
+This package is intended to be used with [@qualweb/core](https://github.com/qualweb/core).
+
+Add both packages to your project: 
+
+```shell
+npm i --save @qualweb/core @qualweb/act-rules
+```
+
+In your own code, pass an instance of the `ACTRules` class to QualWeb's evaluate method:
+
+```typescript
+import { ACTRules } from '@qualweb/act-rules';
+import QualWeb from '@qualweb/core';
+
+async function main() {
+  const qw = new QualWeb();
+
+  await qw.start();
+
+  const actRuleInstance = new ACTRules({
+    // Include/exclude specific rules here. Omitting any filters implies *all*
+    // rules are included.
+    levels: ['A', 'AA'],
+    exclude: ['QW-ACT-R3'],
+  });
+
+  const urlToEvaluate = 'https://www.google.com';
+
+  const report = await qw.evaluate({
+    url: urlToEvaluate,
+    modules: [actRuleInstance],
+  });
+
+  await qw.stop();
+
+  console.debug(report[urlToEvaluate].metadata);
+}
+```
 
 ## Implemented rules
 
