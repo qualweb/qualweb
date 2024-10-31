@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { QualWeb } from '@qualweb/core';
-import { ACTRulesModule } from '../src/ACTRulesModule';
+import { ACTRules } from '../src';
 
 describe('Module in core', () => {
   it('Runs an evaluation via @qualweb/core', async function () {
@@ -12,7 +12,7 @@ describe('Module in core', () => {
       // headless: false,
     });
 
-    const actRuleInstance = new ACTRulesModule();
+    const actRuleInstance = new ACTRules();
 
     const urlToEvaluate = 'https://www.google.com';
 
