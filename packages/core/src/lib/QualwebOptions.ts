@@ -26,5 +26,5 @@ export type QualwebOptions = {
    * individual module's readme for specific usage, but it generally boils down
    * to passing a new instance of the module with a desired configuration.
    */
-  modules?: EvaluationModuleDefinition[];
+  modules: EvaluationModuleDefinition[];
 };
