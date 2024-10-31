@@ -13,9 +13,9 @@ export class ReportTranslator {
 
   public translate(report: QualwebReport): QualwebReport {
     const reportToTranslate = clone(report);
-    this.translateModule(report, ModuleType.ACT_RULES);
-    this.translateModule(report, ModuleType.WCAG_TECHNIQUES);
-    this.translateModule(report, ModuleType.BEST_PRACTICES);
+    this.translateModule(reportToTranslate, ModuleType.ACT_RULES);
+    this.translateModule(reportToTranslate, ModuleType.WCAG_TECHNIQUES);
+    this.translateModule(reportToTranslate, ModuleType.BEST_PRACTICES);
     return reportToTranslate;
   }
 
