@@ -26,7 +26,7 @@ export class ACTRulesModule extends ExecutableModuleContext {
     await page.evaluate(
       (translate: TranslationOptions, options: ModuleOptions, data: TestingData) => {
         //@ts-expect-error The package exists inside the context of the WebPage
-        window.act = new ACTRules(translate).configure(options).test(data);
+        window.act = new ACTRules(options, translate).configure(options).test(data);
       },
       translate,
       options,

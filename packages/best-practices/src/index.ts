@@ -1,10 +1,8 @@
 import type { DomUtils } from '@qualweb/util';
 import type { QWPage } from '@qualweb/qw-page';
 import { ModuleTranslator } from '@qualweb/core/locale';
-import { EvaluationModuleDefinition, ExecutableModuleContext, ModuleOptions, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
+import { EvaluationModuleDefinition, ModuleOptions, ModuleReport, ModuleType } from '@qualweb/core/evaluation';
 import { BestPracticesTester } from './lib/BestPracticesTester.object';
-import { QualwebPage } from '@qualweb/core/lib';
-import { BestPracticesModule } from './BestPracticesModule';
 import { TranslationOptions } from '@qualweb/locale';
 
 // TODO: these definitions should be pulled from the packages that define them.
@@ -34,9 +32,5 @@ export class BestPractices extends EvaluationModuleDefinition<BestPracticesTeste
 
     this.translator = new ModuleTranslator(this.type, this.translate);
     this.tester.init(this.translator);
-  }
-
-  getInstance(page: QualwebPage): ExecutableModuleContext {
-    return new BestPracticesModule(page, {});
   }
 }

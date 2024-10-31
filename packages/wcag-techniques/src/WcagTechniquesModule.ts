@@ -19,7 +19,7 @@ export class WCAGTechniquesModule extends ExecutableModuleContext {
     return page.evaluate(
       (data: TestingData, options: ModuleOptions, translate: TranslationOptions) => {
         //@ts-expect-error The package exists inside the context of the WebPage
-        return new WCAGTechniques(translate).configure(options).test(data).getReport();
+        return new WCAGTechniques(options, translate).configure(options).test(data).getReport();
       },
       data,
       options,

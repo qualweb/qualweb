@@ -1,9 +1,9 @@
 import { CrawlOptions } from '@qualweb/crawler';
 import { LogOptions } from './LogOptions';
 import { PageOptions } from './PageOptions';
-import { EvaluationModuleDefinition } from './evaluation/EvaluationModule';
 import { TranslationOptions } from '@qualweb/locale';
 import { PuppeteerLifeCycleEvent } from 'puppeteer';
+import { ExecutableModuleContext } from './evaluation';
 
 export type QualwebOptions = {
   url?: string;
@@ -26,5 +26,5 @@ export type QualwebOptions = {
    * individual module's readme for specific usage, but it generally boils down
    * to passing a new instance of the module with a desired configuration.
    */
-  modules: EvaluationModuleDefinition[];
+  modules: ExecutableModuleContext[];
 };

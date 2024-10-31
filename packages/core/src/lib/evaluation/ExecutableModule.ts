@@ -16,21 +16,20 @@ import type { QualwebPage } from '..';
  */
 export abstract class ExecutableModuleContext {
   public abstract readonly name: ModuleType;
-  private readonly page: QualwebPage;
 
-  constructor(page: QualwebPage, public readonly options: ModuleOptions) {
-    this.page = page;
-  }
+  constructor(public readonly options: ModuleOptions = {})
+    {}
 
   public async execute(
+    page: QualwebPage,
     translate: TranslationOptions,
     data: TestingData
   ): Promise<EvaluationReport | CounterReport> {
     const modulePackage = this.getModulePackage?.();
     if (modulePackage) {
-      await this.page.addEvaluationScript(modulePackage);
+      await page.addEvaluationScript(modulePackage);
     }
-    return this.runModule(this.page, this.options, translate, data);
+    return this.runModule(page, this.options, translate, data);
   }
 
   protected abstract getModulePackage?(): string;

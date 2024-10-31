@@ -14,9 +14,8 @@ export class EvaluationManager {
     const report = new Report(systemData);
 
     for (const moduleToExecute of options.modules) {
-      const moduleInstance = moduleToExecute.getInstance(this.page);
-
-      const moduleReport = await moduleInstance.execute(
+      const moduleReport = await moduleToExecute.execute(
+        this.page,
         options.translate,
         testingData,
       );
