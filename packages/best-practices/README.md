@@ -6,6 +6,46 @@ Implementation of accessibility best practices for web pages.
 
 **This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core).**
 
+## How to use
+
+This package is intended to be used with [@qualweb/core](https://github.com/qualweb/core).
+
+Add both packages to your project: 
+
+```bash
+npm i --save @qualweb/core @qualweb/best-practices
+```
+
+In your own code, pass an instance of the `BestPractices` class to QualWeb's evaluate method:
+
+```typescript
+import { BestPractices } from '@qualweb/best-practices';
+import { QualWeb } from '@qualweb/core';
+
+async function main() {
+  const qw = new QualWeb();
+
+  await qw.start();
+
+  const bpInstance = new BestPractices({
+    // Include/exclude specific rules here. Omitting any filters implies *all*
+    // rules are included.
+    levels: ['A', 'AA'],
+  });
+
+  const urlToEvaluate = 'https://www.google.com';
+
+  const report = await qw.evaluate({
+    url: urlToEvaluate,
+    modules: [bpInstance],
+  });
+
+  await qw.stop();
+
+  console.debug(report[urlToEvaluate].metadata);
+}
+```
+
 ## Implemented best practices
 
 | QualWeb best practice ID | Related to | Best practice Name |

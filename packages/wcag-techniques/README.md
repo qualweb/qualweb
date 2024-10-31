@@ -4,7 +4,44 @@ Implementation of the [WCAG 2.1 techniques](https://www.w3.org/WAI/WCAG21/Techni
 
 ## How to use
 
-**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core). You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http://qualweb.di.fc.ul.pt/evaluator/), or by installing the [chrome extension](https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc).**
+This package is intended to be used with [@qualweb/core](https://github.com/qualweb/core).
+
+Add both packages to your project: 
+
+```bash
+npm i --save @qualweb/core @qualweb/wcag-techniques
+```
+
+In your own code, pass an instance of the `WCAGTechniques` class to QualWeb's evaluate method:
+
+```typescript
+import { WCAGTechniques } from '@qualweb/wcag-techniques';
+import { QualWeb } from '@qualweb/core';
+
+async function main() {
+  const qw = new QualWeb();
+
+  await qw.start();
+
+  const bpInstance = new WCAGTechniques({
+    // Include/exclude specific rules here. Omitting any filters implies *all*
+    // rules are included.
+    levels: ['A', 'AA'],
+    includes: ['QW-WCAG-T5'],
+  });
+
+  const urlToEvaluate = 'https://www.google.com';
+
+  const report = await qw.evaluate({
+    url: urlToEvaluate,
+    modules: [bpInstance],
+  });
+
+  await qw.stop();
+
+  console.debug(report[urlToEvaluate].metadata);
+}
+```
 
 ## Implemented techniques
 
