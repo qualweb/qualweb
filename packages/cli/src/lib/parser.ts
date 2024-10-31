@@ -129,7 +129,9 @@ function parseSaveName(mainOptions: CommandLineOptions, options: QualwebOptions)
 
 export async function parse(): Promise<QualwebOptions> {
   let mainOptions = commandLineArgs(optionList, { stopAtFirstUnknown: true });
-  const options: QualwebOptions = {};
+  const options: QualwebOptions = {
+    modules: [],
+  };
 
   if (mainOptions._unknown) {
     printHelp();

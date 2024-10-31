@@ -19,16 +19,8 @@ export async function cli(): Promise<void> {
       { args: ['--no-sandbox', '--ignore-certificate-errors'] }
     );
 
-    if (!options.modules?.['wcag-techniques']) {
-      options.modules = {
-        'act-rules': {},
-        'best-practices': {},
-        'wcag-techniques': {},
-        counter: {},
-      };
-    }
-
-    options.modules['wcag-techniques'].exclude = ['QW-WCAG-T16'];
+    // FIXME: why is there are hard-coded exclude here?
+    // options.modules['wcag-techniques'].exclude = ['QW-WCAG-T16'];
 
     const reports = await qualweb.evaluate(options);
     await qualweb.stop();
@@ -75,11 +67,21 @@ async function handleReporting(reports: Record<string, QualwebReport>, options: 
 
 function checkEarlOptions(options: QualwebOptions, saveName?: string): EarlOptions {
   const earlOptions: EarlOptions = { aggregated: true, aggregatedName: saveName };
-  if (options.modulesToExecute) {
+
+  if (options.modules.length > 0) {
     earlOptions.modules = {};
-    earlOptions.modules.act = !!options?.modulesToExecute?.['act-rules'];
-    earlOptions.modules.wcag = !!options?.modulesToExecute?.['wcag-techniques'];
-    earlOptions.modules['best-practices'] = !!options?.modulesToExecute?.['best-practices'];
+
+    if (options.modules.find(m => m.name === 'act-rules')) {
+      earlOptions.modules.act = true;
+    }
+
+    if (options.modules.find(m => m.name === 'wcag-techniques')) {
+      earlOptions.modules.wcag = true;
+    }
+
+    if (options.modules.find(m => m.name === 'best-practices')) {
+      earlOptions.modules['best-practices'] = true;
+    }
   }
 
   return earlOptions;
