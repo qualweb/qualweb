@@ -12,9 +12,8 @@ describe('Core input method: file', function () {
 
     const options = {
       file: urlFilePath,
-      'wcag-techniques': {
-        exclude: ['QW-WCAG-T16']
-      }
+      // TODO: consider mock/dummy module to help ensure all URLs covered.
+      modules: [],
     };
 
     await qualweb.start(
