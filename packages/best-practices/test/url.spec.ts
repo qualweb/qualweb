@@ -31,7 +31,7 @@ describe('General tests', function () {
 
     const report = await page.evaluate(() => {
       // @ts-expect-error: BestPractices will be defined within the executing context (see above).
-      const bp = new BestPractices('en');
+      const bp = new BestPracticesRunner({}, 'en');
       return bp.test().getReport();
     });
 
