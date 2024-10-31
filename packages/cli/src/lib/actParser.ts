@@ -1,27 +1,16 @@
 import { CommandLineOptions } from 'command-line-args';
 import setValue from 'set-value';
-import type { QualwebOptions } from '@qualweb/core';
+import type { ModuleOptions, QualwebOptions } from '@qualweb/core';
 import { validateACT, validatePrinciples, validateLevels, printError } from './parserUtils';
 import { ACTRJsonFile, readJsonFile, fileExists } from './fileUtils';
 
 async function parseACT(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
-  // TODO: revisit the type. It should not be necessary to specify options for
-  // all modules if you're only running one.
-  if (!options.modules) {
-    options.modules = {
-      'act-rules': {},
-      'best-practices': {},
-      'wcag-techniques': {},
-      counter: {},
-    };
-  } else {
-    options.modules['act-rules'] = {};
-  }
+  const actRuleOptions: ModuleOptions = {};
 
-  await validateACTRules(mainOptions, options);
-  validateACTExclusions(mainOptions, options);
-  validateACTLevels(mainOptions, options);
-  validateACTPrinciples(mainOptions, options);
+  await validateACTRules(mainOptions, actRuleOptions);
+  validateACTExclusions(mainOptions, actRuleOptions);
+  validateACTLevels(mainOptions, actRuleOptions);
+  validateACTPrinciples(mainOptions, actRuleOptions);
 }
 
 function validateModule(mainOptions: CommandLineOptions, options: QualwebOptions): void {
@@ -33,7 +22,7 @@ function validateModule(mainOptions: CommandLineOptions, options: QualwebOptions
   }
 }
 
-async function validateACTRules(mainOptions: CommandLineOptions, options: QualwebOptions): Promise<void> {
+async function validateACTRules(mainOptions: CommandLineOptions, options: ModuleOptions): Promise<void> {
   if (mainOptions['act-rules'] && options.modules?.['act-rules']) {
     validateModule(mainOptions, options);
 
@@ -52,7 +41,7 @@ async function validateACTRules(mainOptions: CommandLineOptions, options: Qualwe
   }
 }
 
-function validateACTExclusions(mainOptions: CommandLineOptions, options: QualwebOptions): void {
+function validateACTExclusions(mainOptions: CommandLineOptions, options: ModuleOptions): void {
   if (mainOptions['exclude-act'] && options.modules?.['act-rules']) {
     validateModule(mainOptions, options);
     options.modules['act-rules'].exclude = [...mainOptions['exclude-act']];
@@ -60,7 +49,7 @@ function validateACTExclusions(mainOptions: CommandLineOptions, options: Qualweb
   }
 }
 
-function validateACTLevels(mainOptions: CommandLineOptions, options: QualwebOptions): void {
+function validateACTLevels(mainOptions: CommandLineOptions, options: ModuleOptions): void {
   if (mainOptions['act-levels'] && options.modules?.['act-rules']) {
     validateModule(mainOptions, options);
     options.modules['act-rules'].levels = [...mainOptions['act-levels']];
@@ -68,7 +57,7 @@ function validateACTLevels(mainOptions: CommandLineOptions, options: QualwebOpti
   }
 }
 
-function validateACTPrinciples(mainOptions: CommandLineOptions, options: QualwebOptions): void {
+function validateACTPrinciples(mainOptions: CommandLineOptions, options: ModuleOptions): void {
   if (mainOptions['act-principles'] && options.modules?.['act-rules']) {
     validateModule(mainOptions, options);
     options.modules['act-rules'].principles = [...mainOptions['act-principles']];
