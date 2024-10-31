@@ -8,7 +8,7 @@ This package is intended to be used with [@qualweb/core](https://github.com/qual
 
 Add both packages to your project: 
 
-```shell
+```bash
 npm i --save @qualweb/core @qualweb/act-rules
 ```
 
@@ -16,7 +16,7 @@ In your own code, pass an instance of the `ACTRules` class to QualWeb's evaluate
 
 ```typescript
 import { ACTRules } from '@qualweb/act-rules';
-import QualWeb from '@qualweb/core';
+import { QualWeb } from '@qualweb/core';
 
 async function main() {
   const qw = new QualWeb();
