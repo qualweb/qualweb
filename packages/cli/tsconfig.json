@@ -22,6 +22,8 @@
     "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
     "useUnknownInCatchVariables": false,
 
+    "resolveJsonModule": true,
+
     /* Module Resolution Options */
     "moduleResolution": "Node16",
 
