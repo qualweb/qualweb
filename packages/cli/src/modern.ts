@@ -176,7 +176,7 @@ function fixMissingImpliedActModule(opts: OptionValues): OptionValues {
 }
 
 async function main(): Promise<void> {
-  const program = new MyCommand('qualweb-cli');
+  const program = new Command('qualweb-cli');
 
   // If set to true, the program will abort after parsing args but before
   // running QualWeb. This is so we can report all user input errors at once
@@ -184,6 +184,12 @@ async function main(): Promise<void> {
   let bailAfterParsing: boolean = false;
 
   addInputOptionsToCommand(program);
+
+  // Use a set to check for modules to run. Since the "imply" for Options don't
+  // have good semantics for arrays/inclusion, we instead populate this set
+  // right after parsing (from --module) and when checking/validating module
+  // options (in essence, our own "imply" logic).
+  const modulesToRun: Set<ModuleOptionsEnum> = new Set();
 
   const moduleToRunOption = new Option('-m, --module <modules...>', 'Modules to run')
     // Use enum values for choices to avoid typos and string repetition.
@@ -198,6 +204,10 @@ async function main(): Promise<void> {
 
   const opts = program.opts();
 
+  opts.modules.forEach((module: ModuleOptionsEnum) => {
+    modulesToRun.add(module);
+  });
+
   console.debug(opts);
 
   const qualwebOptions: QualwebOptions = {
@@ -206,7 +216,7 @@ async function main(): Promise<void> {
     modules: [],
   };
 
-  if (opts.module.includes('act-rules')) {
+  if (modulesToRun.has(ModuleOptionsEnum.ACTRules)) {
     // Set bailAfterParsing to true if already true or validation failed.
     bailAfterParsing = bailAfterParsing || validateActRuleOptions(opts) === false;
 
