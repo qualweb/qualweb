@@ -2,11 +2,18 @@
   "name": "@qualweb/best-practices",
   "version": "0.6.18",
   "description": "QualWeb best practices",
-  "main": "dist/bp.bundle.js",
   "files": [
     "dist/*"
   ],
-  "types": "prebuild/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/__webpack/bp.bundle.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./lib/*": {
+      "require": "./dist/lib/*"
+    }
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
@@ -36,8 +43,7 @@
     "test:bp29": "mocha test/best-practices/QW-BP29.spec.mjs",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && webpack",
+    "build": "rimraf dist && tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/best-practices#readme",
