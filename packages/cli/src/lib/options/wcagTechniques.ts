@@ -4,7 +4,7 @@ import {
 } from 'commander';
 
 import wcagTechniquesJson from '@qualweb/wcag-techniques/lib/techniques.json';
-import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from './types';
+import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from '../types';
 
 /**
  * Reducer function for parsing WCAG techniques. Pass to

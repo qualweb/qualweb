@@ -4,7 +4,7 @@ import {
 } from 'commander';
 
 import actRulesJson from '@qualweb/act-rules/lib/rules.json';
-import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from './types';
+import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from '../types';
 
 /**
  * Reducer function for parsing ACT rules. Pass to {@link Option.argParser}.
