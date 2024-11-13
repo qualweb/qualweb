@@ -5,6 +5,11 @@ import { TranslationOptions } from '@qualweb/locale';
 import { PuppeteerLifeCycleEvent } from 'puppeteer';
 import { ExecutableModuleContext } from './evaluation';
 
+// Re-export the lifecycle event type we use. Allows clients to rely more
+// directly on @qualweb/core instead of pulling this from a potentially
+// incompatible version of puppeteer.
+export { PuppeteerLifeCycleEvent };
+
 export type QualwebOptions = {
   /**
    * Single URL to evaluate.
