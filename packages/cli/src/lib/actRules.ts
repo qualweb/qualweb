@@ -4,14 +4,9 @@ import {
 } from 'commander';
 
 import actRulesJson from '@qualweb/act-rules/lib/rules.json';
-import { ConformanceLevelEnum, ModuleOptionsEnum } from './types';
+import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from './types';
 
 const allActRules = Object.values(actRulesJson);
-
-type ActRuleListParseHelperAccumulator = {
-  ok: string[],
-  error: string[],
-};
 
 /**
  * Reducer function for parsing ACT rules. Pass to {@link Option.argParser}.
@@ -21,7 +16,7 @@ type ActRuleListParseHelperAccumulator = {
  * @param previousValue Accumulator value.
  * @returns 
  */
-function actRulesListParseHelper(value: string, previousValue: ActRuleListParseHelperAccumulator): ActRuleListParseHelperAccumulator {
+function actRulesListParseHelper(value: string, previousValue: RuleListParseResult): RuleListParseResult {
   // Initialize result array if undefined.
   if (!previousValue)
     previousValue = { error: [], ok: [] };
@@ -60,26 +55,16 @@ function actRulesListParseHelper(value: string, previousValue: ActRuleListParseH
 }
 
 /**
- * Adds input options (URL, file, crawl) to a command.
- * @param command The command to add the options to. This *will* modify the
- * {@link Command} object.
- * @returns The modified {@link Command} object. Good for chaining.
+ * The types added to {@link Command.opts()} by
+ * {@link addActRuleOptionsToCommand}. Optimally, this would flow naturally
+ * from a call to {@link addActRuleOptionsToCommand} but that's not simply
+ * supported in TypeScript.
  */
-
-export function addInputOptionsToCommand(command: Command): Command {
-  const urlInputOption = new Option('-u, --url <url>', 'URL to test');
-  const fileInputOption = new Option('-f, --file <file>', 'File to test');
-  const crawlInputOption = new Option('-c, --crawl <crawl>', 'Crawl a website');
-
-  urlInputOption.conflicts([fileInputOption.attributeName(), crawlInputOption.attributeName()]);
-  fileInputOption.conflicts([urlInputOption.attributeName(), crawlInputOption.attributeName()]);
-  crawlInputOption.conflicts([urlInputOption.attributeName(), fileInputOption.attributeName()]);
-
-  command.addOption(urlInputOption);
-  command.addOption(fileInputOption);
-  command.addOption(crawlInputOption);
-
-  return command;
+export type ActRuleOptions = {
+  actRules?: RuleListParseResult,
+  excludeAct?: RuleListParseResult,
+  actLevels?: ConformanceLevelEnum[],
+  actPrinciples?: PrincipleEnum[],
 }
 
 /**
@@ -91,17 +76,22 @@ export function addInputOptionsToCommand(command: Command): Command {
 export function addActRuleOptionsToCommand(command: Command): Command {
   const actRuleIncludeOption = new Option('--act-rules <rules...>', 'ACT rules to include')
     .argParser(actRulesListParseHelper)
-    .implies({ module: ModuleOptionsEnum.ACTRules })
+    .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
     ;
 
-  const actRuleExcludeOption = new Option('--exclude-act <rules...>', 'ACT rules to include')
+  const actRuleExcludeOption = new Option('--exclude-act <rules...>', 'ACT rules to exclude')
     .argParser(actRulesListParseHelper)
-    .implies({ module: ModuleOptionsEnum.ACTRules })
+    .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
     ;
 
   const actRuleLevelOption = new Option('--act-levels <levels...>', 'ACT level to test')
     .choices(Object.values(ConformanceLevelEnum))
-    .implies({ module: ModuleOptionsEnum.ACTRules })
+    .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
+    ;
+
+  const actRulePrincipleOption = new Option('--act-principles <principles...>', 'Which principles to test for in ACT rules. Only ACT rules matching the principle will be tested.')
+    .choices(Object.values(PrincipleEnum))
+    .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
     ;
 
   // Should we note conflicting options here, or let @qualweb/core determine how
@@ -118,6 +108,7 @@ export function addActRuleOptionsToCommand(command: Command): Command {
   command.addOption(actRuleIncludeOption);
   command.addOption(actRuleExcludeOption);
   command.addOption(actRuleLevelOption);
+  command.addOption(actRulePrincipleOption);
 
   return command;
 }
