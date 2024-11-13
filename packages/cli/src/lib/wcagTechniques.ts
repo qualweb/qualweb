@@ -6,8 +6,6 @@ import {
 import wcagTechniquesJson from '@qualweb/wcag-techniques/lib/techniques.json';
 import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from './types';
 
-const allWcagTechniques = Object.values(wcagTechniquesJson);
-
 /**
  * Reducer function for parsing WCAG techniques. Pass to
  * {@link Option.argParser}. Gathers all inputs in an accumulator object with
@@ -20,6 +18,8 @@ function wcagTechniquesListParseHelper(value: string, previousValue: RuleListPar
   // Initialize result array if undefined.
   if (!previousValue)
     previousValue = { error: [], ok: [] };
+
+  const allWcagTechniques = Object.values(wcagTechniquesJson);
 
   if (value.match(/^QW-WCAG-T\d+$/i)) {
     // parse as QualWeb internal name.
@@ -96,25 +96,6 @@ export function addWcagTechniqueOptionsToCommand(command: Command): Command {
   command.addOption(wcagTechniqueExcludeOption);
   command.addOption(wcagTechniqueLevelOption);
   command.addOption(wcagTechniquePrincipleOption);
-
-  return command;
-}
-
-export function addListWcagTechniquesSubcommand(command: Command): Command {
-  const subCommand = new Command('list-wcag-techniques')
-    .description('Lists all the WCAG techniques known to this program and exits.')
-    .action(() => {
-      console.info('WCAG techniques:');
-      
-      for (const rule of allWcagTechniques) {
-        console.info(`${rule.code} (${rule.mapping}) - ${rule.name}`);
-      }
-
-      process.exit(0);
-    })
-    ;
-
-  command.addCommand(subCommand);
 
   return command;
 }

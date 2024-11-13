@@ -3,20 +3,23 @@
  */
 import { promises as fs } from 'node:fs';
 
-import { Command, InvalidOptionArgumentError, Option, OptionValues } from 'commander';
+import { Command, InvalidOptionArgumentError, Option } from 'commander';
 import { ACTRules } from '@qualweb/act-rules';
 import { QualWeb, QualwebOptions } from '@qualweb/core';
-import { ActRuleOptions, addActRuleOptionsToCommand, addListActRulesSubcommand } from './lib/actRules';
+import { ActRuleOptions, addActRuleOptionsToCommand } from './lib/actRules';
 import { ModuleOptionsEnum } from './lib/types';
-import { addOutputOptions, OutputFormatEnum, OutputOptions } from './lib/outputOptions';
+import { addOutputOptions, OutputOptions } from './lib/outputOptions';
 import { addInputOptionsToCommand, InputOptions } from './lib/inputOptions';
-import { addListWcagTechniquesSubcommand, addWcagTechniqueOptionsToCommand, WcagTechniqueOptions } from './lib/wcagTechniques';
+import { addWcagTechniqueOptionsToCommand, WcagTechniqueOptions } from './lib/wcagTechniques';
 import { WCAGTechniques } from '@qualweb/wcag-techniques';
-import { addBestPracticeOptionsToCommand, addListBestPracticesSubcommand, BestPracticesOptions } from './lib/bestPractices';
+import { addBestPracticeOptionsToCommand, BestPracticesOptions } from './lib/bestPractices';
 import { BestPractices } from '@qualweb/best-practices';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 import { addViewportOptions, ViewportOptions } from './lib/viewportOptions';
 import { addPuppeteerOptions, PuppeteerOptions } from './lib/puppeteerOptions';
+import { ListActRulesCommand } from './lib/commands/listActRules';
+import { ListWcagTechniquesCommand } from './lib/commands/listWcagTechniques';
+import { ListBestPracticesCommand } from './lib/commands/listBestPractices';
 
 /**
  * Aggregate type containing all option types that have been separately imported
@@ -69,9 +72,9 @@ async function main(): Promise<void> {
 
   // Add "list-x" subcommands. These just list out the known rules for a given
   // module, then exit.
-  addListActRulesSubcommand(program);
-  addListWcagTechniquesSubcommand(program);
-  addListBestPracticesSubcommand(program);
+  program.addCommand(ListActRulesCommand);
+  program.addCommand(ListWcagTechniquesCommand);
+  program.addCommand(ListBestPracticesCommand);
 
   // Set the default callback to run when the command is run. This is the
   // regular evaluation flow, as opposed to a subcommand.

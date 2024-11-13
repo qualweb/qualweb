@@ -6,8 +6,6 @@ import {
 import bestPracticesJson from '@qualweb/best-practices/lib/bestPractices.json';
 import { ModuleOptionsEnum, RuleListParseResult } from './types';
 
-const allBestPractices = Object.values(bestPracticesJson);
-
 /**
  * Reducer function for parsing best practices. Pass to
  * {@link Option.argParser}. Gathers all inputs in an accumulator object with
@@ -21,6 +19,8 @@ function bestPracticesListParseHelper(value: string, previousValue: RuleListPars
   // Initialize result array if undefined.
   if (!previousValue)
     previousValue = { error: [], ok: [] };
+
+  const allBestPractices = Object.values(bestPracticesJson);
 
   if (value.match(/^QW-BP\d+$/i)) {
     // parse as QualWeb internal name.
@@ -84,28 +84,6 @@ export function addBestPracticeOptionsToCommand(command: Command): Command {
 
   command.addOption(bestPracticeIncludeOption);
   command.addOption(bestPracticeExcludeOption);
-
-  return command;
-}
-
-export function addListBestPracticesSubcommand(command: Command): Command {
-  const subCommand = new Command('list-best-practices')
-    .description('Lists all the best practices known to this program and exits.')
-    .action(() => {
-      console.info('Best Practices:');
-      
-      for (const rule of allBestPractices) {
-        if ('mapping' in rule)
-          console.info(`${rule.code} (${rule.mapping}) - ${rule.name}`);
-        else
-          console.info(`${rule.code} - ${rule.name}`);
-      }
-
-      process.exit(0);
-    })
-    ;
-
-  command.addCommand(subCommand);
 
   return command;
 }
