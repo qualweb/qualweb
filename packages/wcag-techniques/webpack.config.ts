@@ -2,10 +2,10 @@ import * as path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 
 export const mode = 'production';
-export const entry = './prebuild/index.js';
+export const entry = './dist/index.js';
 export const output = {
   filename: 'wcag.bundle.js',
-  path: path.resolve(__dirname, 'dist'),
+  path: path.resolve(__dirname, 'dist/__webpack'),
   library: {
     type: 'this'
   }
