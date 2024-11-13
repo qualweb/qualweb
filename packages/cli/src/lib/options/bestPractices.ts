@@ -4,7 +4,7 @@ import {
 } from 'commander';
 
 import bestPracticesJson from '@qualweb/best-practices/lib/bestPractices.json';
-import { ModuleOptionsEnum, RuleListParseResult } from './types';
+import { ModuleOptionsEnum, RuleListParseResult } from '../types';
 
 /**
  * Reducer function for parsing best practices. Pass to

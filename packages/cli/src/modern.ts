@@ -4,19 +4,23 @@
 import { promises as fs } from 'node:fs';
 
 import { Command, InvalidOptionArgumentError, Option } from 'commander';
+
 import { ACTRules } from '@qualweb/act-rules';
-import { QualWeb, QualwebOptions } from '@qualweb/core';
-import { ActRuleOptions, addActRuleOptionsToCommand } from './lib/actRules';
-import { ModuleOptionsEnum } from './lib/types';
-import { addOutputOptions, OutputOptions } from './lib/outputOptions';
-import { addInputOptionsToCommand, InputOptions } from './lib/inputOptions';
-import { addWcagTechniqueOptionsToCommand, WcagTechniqueOptions } from './lib/wcagTechniques';
-import { WCAGTechniques } from '@qualweb/wcag-techniques';
-import { addBestPracticeOptionsToCommand, BestPracticesOptions } from './lib/bestPractices';
 import { BestPractices } from '@qualweb/best-practices';
 import { generateEARLReport } from '@qualweb/earl-reporter';
-import { addViewportOptions, ViewportOptions } from './lib/viewportOptions';
-import { addPuppeteerOptions, PuppeteerOptions } from './lib/puppeteerOptions';
+import { QualWeb, QualwebOptions } from '@qualweb/core';
+import { WCAGTechniques } from '@qualweb/wcag-techniques';
+
+import { ModuleOptionsEnum } from './lib/types';
+
+import { ActRuleOptions, addActRuleOptionsToCommand } from './lib/options/actRules';
+import { addBestPracticeOptionsToCommand, BestPracticesOptions } from './lib/options/bestPractices';
+import { addWcagTechniqueOptionsToCommand, WcagTechniqueOptions } from './lib/options/wcagTechniques';
+import { addOutputOptions, OutputOptions } from './lib/options/output';
+import { addInputOptionsToCommand, InputOptions } from './lib/options/input';
+import { addViewportOptions, ViewportOptions } from './lib/options/viewport';
+import { addPuppeteerOptions, PuppeteerOptions } from './lib/options/puppeteer';
+
 import { ListActRulesCommand } from './lib/commands/listActRules';
 import { ListWcagTechniquesCommand } from './lib/commands/listWcagTechniques';
 import { ListBestPracticesCommand } from './lib/commands/listBestPractices';
