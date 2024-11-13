@@ -6,8 +6,6 @@ import {
 import actRulesJson from '@qualweb/act-rules/lib/rules.json';
 import { ConformanceLevelEnum, ModuleOptionsEnum, PrincipleEnum, RuleListParseResult } from './types';
 
-const allActRules = Object.values(actRulesJson);
-
 /**
  * Reducer function for parsing ACT rules. Pass to {@link Option.argParser}.
  * Gathers all inputs in an accumulator object with two arrays, one for valid
@@ -20,6 +18,8 @@ function actRulesListParseHelper(value: string, previousValue: RuleListParseResu
   // Initialize result array if undefined.
   if (!previousValue)
     previousValue = { error: [], ok: [] };
+
+  const allActRules = Object.values(actRulesJson);
 
   if (value.match(/^QW-ACT-R\d+$/i)) {
     // parse as QualWeb internal name.
@@ -109,25 +109,6 @@ export function addActRuleOptionsToCommand(command: Command): Command {
   command.addOption(actRuleExcludeOption);
   command.addOption(actRuleLevelOption);
   command.addOption(actRulePrincipleOption);
-
-  return command;
-}
-
-export function addListActRulesSubcommand(command: Command): Command {
-  const subCommand = new Command('list-act-rules')
-    .description('Lists all the ACT rules known to this program and exits.')
-    .action(() => {
-      console.info('ACT rules:');
-      
-      for (const rule of allActRules) {
-        console.info(`${rule.code} (${rule.mapping}) - ${rule.name}`);
-      }
-
-      process.exit(0);
-    })
-    ;
-
-  command.addCommand(subCommand);
 
   return command;
 }
