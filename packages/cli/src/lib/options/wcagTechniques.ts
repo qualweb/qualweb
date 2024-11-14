@@ -21,7 +21,7 @@ function wcagTechniquesListParseHelper(value: string, previousValue: RuleListPar
 
   const allWcagTechniques = Object.values(wcagTechniquesJson);
 
-  if (value.match(/^QW-WCAG-T\d+$/i)) {
+  if (/^QW-WCAG-T\d+$/i.exec(value)) {
     // parse as QualWeb internal name.
 
     // QW codes are all upper case.

@@ -21,7 +21,7 @@ function actRulesListParseHelper(value: string, previousValue: RuleListParseResu
 
   const allActRules = Object.values(actRulesJson);
 
-  if (value.match(/^QW-ACT-R\d+$/i)) {
+  if (/^QW-ACT-R\d+$/i.exec(value)) {
     // parse as QualWeb internal name.
 
     // QW codes are all upper case.

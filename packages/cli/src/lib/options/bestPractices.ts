@@ -22,7 +22,7 @@ function bestPracticesListParseHelper(value: string, previousValue: RuleListPars
 
   const allBestPractices = Object.values(bestPracticesJson);
 
-  if (value.match(/^QW-BP\d+$/i)) {
+  if (/^QW-BP\d+$/i.exec(value)) {
     // parse as QualWeb internal name.
 
     // QW codes are all upper case.
