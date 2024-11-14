@@ -4,7 +4,7 @@
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "files": [
     "dist/*"
-  ],  
+  ],
   "exports": {
     ".": {
       "require": "./dist/__webpack/act.bundle.js",
