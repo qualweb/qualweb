@@ -2,7 +2,9 @@
   "name": "@qualweb/wcag-techniques",
   "version": "0.3.22",
   "description": "Implementation of the WCAG 2.1 techniques",
-  "main": "dist/wcag.bundle.js",
+  "files": [
+    "dist/*"
+  ],
   "exports": {
     ".": {
       "require": "./dist/__webpack/wcag.bundle.js",
