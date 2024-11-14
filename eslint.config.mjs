@@ -43,8 +43,8 @@ export const defaultConfig = [
       // Some class names break with SonarJS recommendations but are probably
       // readable just the way they are. QW_ACT_R7 and the like.
       'sonarjs/class-name': 'off',
-    }
-  }
+    },
+  },
 ];
 
 export default tseslint.config(defaultConfig);
