@@ -33,13 +33,13 @@
     "packages/qw-page",
     "packages/util",
     "packages/locale",
+    "packages/crawler",
+    "packages/core",
     "packages/act-rules",
     "packages/best-practices",
     "packages/wcag-techniques",
     "packages/counter",
     "packages/earl-reporter",
-    "packages/crawler",
-    "packages/core",
     "packages/cli"
   ],
   "devDependencies": {
