@@ -57,7 +57,7 @@ export function buildTest(wcagTechnique: string, testCases: { code: string, outc
         });
 
         await page.addScriptTag({
-          path: require.resolve('../../dist/wcag.bundle.js')
+          path: require.resolve('../../dist/__webpack/wcag.bundle.js')
         });
 
         const report = await page.evaluate((wcagTechnique) => {
