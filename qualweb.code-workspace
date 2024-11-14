@@ -25,6 +25,10 @@
       "path": "packages/crawler",
     },
     {
+      "name": "@qualweb/cui-checks",
+      "path": "packages/cui-checks",
+    },
+    {
       "name": "@qualweb/earl-reporter",
       "path": "packages/earl-reporter",
     },
@@ -52,5 +56,8 @@
       "name": "Monorepo",
       "path": ".",
     },
-  ]
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "@qualweb/cli"
+  }
 }

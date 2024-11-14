@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/qw-page",
-  "version": "0.2.21",
+  "version": "0.2.23",
   "description": "Utilities module for qualweb",
   "main": "dist/qw-page.bundle.js",
   "files": [
@@ -47,6 +47,6 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@qualweb/qw-element": "0.2.15"
+    "@qualweb/qw-element": "0.2.16"
   }
 }

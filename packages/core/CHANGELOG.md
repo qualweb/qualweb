@@ -1,5 +1,65 @@
 # Changelog
 
+## 0.7.80
+
+### Patch Changes
+
+- Updated dependencies [a605c89]
+  - @qualweb/locale@0.1.19
+
+## 0.7.79
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.61
+
+## 0.7.78
+
+### Patch Changes
+
+- Updated dependencies [00bad92]
+  - @qualweb/dom@0.2.11
+  - @qualweb/evaluation@0.3.60
+
+## 0.7.77
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.59
+
+## 0.7.76
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.58
+
+## 0.7.75
+
+### Patch Changes
+
+- Updated dependencies [2b34d754]
+  - @qualweb/crawler@0.3.20
+
+## 0.7.74
+
+### Patch Changes
+
+- Updated dependencies [b5b79f1f]
+  - @qualweb/crawler@0.3.19
+
+## 0.7.73
+
+### Patch Changes
+
+- @qualweb/evaluation@0.3.57
+
+## 0.7.72
+
+### Patch Changes
+
+- Updated dependencies [c65210b2]
+  - @qualweb/evaluation@0.3.56
+
 ## 0.7.71
 
 ### Patch Changes

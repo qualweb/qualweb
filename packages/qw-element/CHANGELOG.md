@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.16
+
+### Patch Changes
+
+- fda645a7: Fix lack of memory when too many applicable elements in T29
+
 ## 0.2.15
 
 ### Patch Changes

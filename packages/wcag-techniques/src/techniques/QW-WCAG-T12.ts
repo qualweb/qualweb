@@ -18,18 +18,18 @@ class QW_WCAG_T12 extends Technique {
 
     const summary = element.getElementAttribute('summary');
 
-    if (summary?.trim() !== '') {
-      test.verdict = Verdict.FAILED;
-      test.resultCode = 'F1';
-    } else if (checks['hasTh']) {
-      test.verdict = Verdict.FAILED;
-      test.resultCode = 'F2';
-    } else if (checks['hasCaption']) {
-      test.verdict = Verdict.FAILED;
-      test.resultCode = 'F3';
-    } else {
+    if (summary && summary.trim() !== '') {
       test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
+    } else if (checks['hasTh']) {
+      test.verdict = Verdict.WARNING;
+      test.resultCode = 'W2';
+    } else if (checks['hasCaption']) {
+      test.verdict = Verdict.WARNING;
+      test.resultCode = 'W3';
+    } else {
+      test.verdict = Verdict.WARNING;
+      test.resultCode = 'W4';
     }
 
     test.addElement(element);

@@ -648,7 +648,7 @@ export const nn: Locale = {
       }
     },
     'QW-ACT-R70': {
-      name: 'iframe-element med negativ tabindex har ingen interaktive element.',
+      name: 'iframe-element med negativ tabindex har ingen interaktive element',
       description:
         'Denne regelen sjekkar om `iframe`-element med ein negativ `tabindex`-attributtverdi inneheld interaktive element.',
       results: {
@@ -669,7 +669,7 @@ export const nn: Locale = {
       }
     },
     'QW-ACT-R72': {
-      name: 'Første fokuserbare element på nettsida er ei lenke til ikkje-gjenteke innhald.',
+      name: 'Første fokuserbare element på nettsida er ei lenke til ikkje-gjenteke innhald',
       description:
         'Denne regelen sjekkar om første fokuserbare element på nettsia er ei lenke til ikkje-gjenteke innhald.',
       results: {
@@ -729,12 +729,12 @@ export const nn: Locale = {
       }
     },
     'QW-ACT-R77': {
-      name: 'ARIA required ID references exist',
-      description: 'This rule checks that every ID reference required by WAI-ARIA exists.',
+      name: 'ARIA-påkravde ID-referansar finst',
+      description: 'Denne regelen sjekkar at kvar ID-referanse som blir kravd av WAI-ARIA, finst.',
       results: {
-        I1: 'No test targets found.',
-        P1: 'Referenced element exists.',
-        F1: 'Referenced element does not exist.'
+        I1: 'Testobjekt ikkje funne.',
+        P1: 'Det refererte elementet finst.',
+        F1: 'Det refererte elementet eksisterer ikkje.'
       }
     }
   }

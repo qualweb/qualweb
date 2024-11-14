@@ -95,7 +95,7 @@ function getFirstAncestorElementByNameOrRoles(
 
 function getElementByIdInElement(element: QWElement, id: string): QWElement | null {
   if (!id) {
-    throw new Error('Invalid id');
+    return null;
   }
   return element.getElement(`[id="${id}"]`);
 }

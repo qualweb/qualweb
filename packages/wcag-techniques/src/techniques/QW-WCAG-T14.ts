@@ -2,7 +2,7 @@ import type { QWElement } from '@qualweb/qw-element';
 import { ElementExists } from '@qualweb/util/applicability';
 import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
-
+import { AccessibilityUtils } from '@qualweb/util';
 class QW_WCAG_T14 extends Technique {
   @ElementExists
   execute(element: QWElement): void {
@@ -78,21 +78,14 @@ function doesHeadersMatchId(table: QWElement, headers: string | null): boolean {
     for (const header of splitHeaders || []) {
       const matchingIdElem = table.getElement('[id="' + header + '"]');
       if (matchingIdElem !== null) {
-        const matchingIdElemHeaders = matchingIdElem.getElementAttribute('headers');
-        if (splitHeaders.length === 1 && !matchingIdElemHeaders) {
-          outcome = true;
-        } else if (matchingIdElemHeaders !== null) {
-          for (const headerIdElem of matchingIdElemHeaders.split(' ') || []) {
-            if (splitHeaders.indexOf(headerIdElem) >= 0 && headerIdElem !== header) {
-              result++;
-            }
-          }
-          if (result === matchingIdElemHeaders.split(' ').length) {
-            outcome = true;
-            break;
-          }
+        const role = AccessibilityUtils.getElementRole(matchingIdElem);
+        if (role === "columnheader" || role === "rowheader") {
+          result++;
         }
       }
+    }
+    if (splitHeaders.length === result) {
+      outcome = true;
     }
   } else {
     outcome = true;

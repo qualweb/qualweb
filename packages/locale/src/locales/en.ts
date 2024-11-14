@@ -853,10 +853,10 @@ export const en: Locale = {
         'The objective of this technique is to describe a failure that occurs when a table used only for layout includes either th elements, a summary attribute, or a caption element. This is a failure because it uses structural (or semantic) markup only for presentation. The intent of the HTML and XHTML table elements is to present data.',
       results: {
         I1: 'No test targets found.',
-        W1: 'No incorrect elements used in layout table.',
-        F1: "The table has a non-empty summary - Amend it if it's a layout table.",
-        F2: "The table has a th element - Amend it if it's a layout table.",
-        F3: "The table has a caption element - Amend it if it's a layout table."
+        W4: 'No incorrect elements used in layout table.',
+        W1: "The table has a non-empty summary - Amend it if it's a layout table.",
+        W2: "The table has a th element - Amend it if it's a layout table.",
+        W3: "The table has a caption element - Amend it if it's a layout table."
       }
     },
     'QW-WCAG-T13': {

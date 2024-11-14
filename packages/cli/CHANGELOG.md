@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.6.40
+
+### Patch Changes
+
+- @qualweb/core@0.7.80
+
+## 0.6.39
+
+### Patch Changes
+
+- @qualweb/core@0.7.79
+
+## 0.6.38
+
+### Patch Changes
+
+- @qualweb/core@0.7.78
+
+## 0.6.37
+
+### Patch Changes
+
+- @qualweb/core@0.7.77
+
+## 0.6.36
+
+### Patch Changes
+
+- @qualweb/core@0.7.76
+
+## 0.6.35
+
+### Patch Changes
+
+- @qualweb/core@0.7.75
+
+## 0.6.34
+
+### Patch Changes
+
+- @qualweb/core@0.7.74
+
+## 0.6.33
+
+### Patch Changes
+
+- @qualweb/core@0.7.73
+
+## 0.6.32
+
+### Patch Changes
+
+- 4c764f07: Fix modules available to cli
+  - @qualweb/core@0.7.72
+
 ## 0.6.31
 
 ### Patch Changes

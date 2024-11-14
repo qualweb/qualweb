@@ -40,6 +40,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts",
+    "test/**/*.ts", "../cui-checks/src/lib/Rule.object.ts",
   ],
 }

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.23
+
+### Patch Changes
+
+- Updated dependencies [fda645a7]
+  - @qualweb/qw-element@0.2.16
+
+## 0.2.22
+
+### Patch Changes
+
+- 9502ca85: Catch ids with new line during accessible name computation
+
 ## 0.2.21
 
 ### Patch Changes

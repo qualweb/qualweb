@@ -38,10 +38,14 @@ class QW_WCAG_T29 extends Technique {
         } else {
           test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
-        }
+          test.addElement(element);
+          test.attributes.push(property);
+          }
 
-        test.addElement(element);
-        test.attributes.push(property);
+        // Commented out because it was leading to an apparent lack of memory when there were too many applicable elements.
+        // Solution was to include this information only when the test failed.
+        // test.addElement(element);
+        // test.attributes.push(property);
 
         this.addTestResult(test);
       }

@@ -43,7 +43,7 @@
     "packages/cli"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.26.2",
+    "@changesets/cli": "^2.27.9",
     "@eslint/js": "^9.13.0",
     "@types/eslint__js": "^8.42.3",
     "commander": "^11.1.0",

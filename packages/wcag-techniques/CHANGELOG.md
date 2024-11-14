@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.3.22
+
+### Patch Changes
+
+- 0c3c9b9: Fix T14
+
+## 0.3.21
+
+### Patch Changes
+
+- 00bad92: Update T12
+
+## 0.3.20
+
+### Patch Changes
+
+- b368b355: Escape selector in R34
+
+## 0.3.19
+
+### Patch Changes
+
+- fda645a7: Fix lack of memory when too many applicable elements in T29
+
 ## 0.3.18
 
 ### Patch Changes

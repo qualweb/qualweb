@@ -1,0 +1,25 @@
+{
+  "QW_CUI_C1": {
+    "name": "Testing check",
+    "code": "QW-CUI-C1",
+    "description": "This is a test.",
+    "metadata": {
+      "target": {
+        "element": "title"
+      },
+      "success-criteria": [
+        {
+          "name": "2.4.2",
+          "level": "A",
+          "principle": "Operable",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled",
+		      "url_tr": "https://www.w3.org/TR/WCAG21/#page-titled"
+        }
+      ],
+      "related": ["G88", "H25"],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/",
+      "type": ["ACTRule", "TestCase"],
+      "a11yReq": ["WCAG21:title"]
+    }
+  }
+}
