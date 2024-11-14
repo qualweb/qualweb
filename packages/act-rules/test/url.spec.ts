@@ -33,7 +33,7 @@ describe('URL evaluation', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/act.bundle.js')
+      path: require.resolve('../dist/__webpack/act.bundle.js')
     });
 
     try {

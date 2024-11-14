@@ -168,7 +168,7 @@ describe('ACT rules', () => {
           });
 
           await page.addScriptTag({
-            path: require.resolve('../dist/act.bundle.js')
+            path: require.resolve('../dist/__webpack/act.bundle.js')
           });
 
           if (ruleId === '59br37') {
