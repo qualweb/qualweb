@@ -43,7 +43,7 @@ describe('url.spec.js', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/wcag.bundle.js')
+      path: require.resolve('../dist/__webpack/wcag.bundle.js')
     });
 
     await new Promise((r) => setTimeout(r, 2000));
