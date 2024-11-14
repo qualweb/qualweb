@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import {
   Command,
   Option,
@@ -47,6 +49,17 @@ function actRulesListParseHelper(value: string, previousValue: RuleListParseResu
     } else {
       previousValue.error.push(value);
     }
+  } else if (fs.existsSync(value)) {
+    // Looks like a file. Parse as newline-separated rules.
+    const fileContents = fs.readFileSync(value, 'utf8')
+      .split(/\r?\n/)
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      ;
+
+    // Reduce the list of rules in the file using this function (recursion!) and
+    // return the result
+    return fileContents.reduce<RuleListParseResult>((prev, current) => actRulesListParseHelper(current, prev), previousValue);
   } else {
     previousValue.error.push(value);
   }
@@ -74,12 +87,12 @@ export type ActRuleOptions = {
  * @returns The modified {@link Command} object. Good for chaining.
  */
 export function addActRuleOptionsToCommand(command: Command): Command {
-  const actRuleIncludeOption = new Option('--act-rules <rules...>', 'ACT rules to include')
+  const actRuleIncludeOption = new Option('--act-rules <rules...>', 'ACT rules to include. Can be multiple. If a path to a FILE, it will be read as a newline-separated list of rules.')
     .argParser(actRulesListParseHelper)
     .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
     ;
 
-  const actRuleExcludeOption = new Option('--exclude-act <rules...>', 'ACT rules to exclude')
+  const actRuleExcludeOption = new Option('--exclude-act <rules...>', 'ACT rules to exclude. Can be multiple. If a path to a FILE, it will be read as a newline-separated list of rules.')
     .argParser(actRulesListParseHelper)
     .implies({ module: [ ModuleOptionsEnum.ACTRules ] })
     ;
