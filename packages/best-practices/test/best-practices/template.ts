@@ -62,7 +62,7 @@ export function buildTest(bestPracticeName: string, testCasesPath: string): void
           path: require.resolve('@qualweb/locale')
         });
         await proxy.page.addScriptTag({
-          path: require.resolve('../../dist/bp.bundle.js')
+          path: require.resolve('../../dist/__webpack/bp.bundle.js')
         });
         const report= await proxy.page.evaluate(
           (bps) => {

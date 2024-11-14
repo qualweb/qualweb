@@ -26,7 +26,7 @@ describe('General tests', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/bp.bundle.js')
+      path: require.resolve('../dist/__webpack/bp.bundle.js')
     });
 
     const report = await page.evaluate(() => {
