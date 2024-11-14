@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import {
   Command,
   Option,
@@ -46,6 +48,17 @@ function bestPracticesListParseHelper(value: string, previousValue: RuleListPars
 
     if (foundTechnique) {
       previousValue.ok.push(foundTechnique.code);
+    } else if (fs.existsSync(value)) {
+      // If the value is a file, read it instead and parse each line as a practice.
+      const fileContents = fs.readFileSync(value, 'utf8')
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(line => line.length > 0)
+        ;
+  
+      // Reduce the list of rules in the file using this function (recursion!) and
+      // return the result
+      return fileContents.reduce<RuleListParseResult>((prev, current) => bestPracticesListParseHelper(current, prev), previousValue);
     } else {
       previousValue.error.push(value);
     }
@@ -72,12 +85,12 @@ export type BestPracticesOptions = {
  * @returns The modified {@link Command} object. Good for chaining.
  */
 export function addBestPracticeOptionsToCommand(command: Command): Command {
-  const bestPracticeIncludeOption = new Option('--best-practices <practices...>', 'Which tests for best practices to execute. Can be multiple.')
+  const bestPracticeIncludeOption = new Option('--best-practices <practices...>', 'Which tests for best practices to execute. Can be multiple. If a path to a FILE, it will be read as a newline-separated list of practices.')
     .argParser(bestPracticesListParseHelper)
     .implies({ module: [ ModuleOptionsEnum.BestPractices ] })
     ;
 
-  const bestPracticeExcludeOption = new Option('--exclude-bp <practices...>', 'Which tests for best practices to exclude. Can be multiple.')
+  const bestPracticeExcludeOption = new Option('--exclude-bp <practices...>', 'Which tests for best practices to exclude. Can be multiple. If a path to a FILE, it will be read as a newline-separated list of practices.')
     .argParser(bestPracticesListParseHelper)
     .implies({ module: [ ModuleOptionsEnum.BestPractices ] })
     ;
