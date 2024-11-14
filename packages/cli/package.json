@@ -2,12 +2,12 @@
   "name": "@qualweb/cli",
   "version": "0.6.31",
   "description": "QualWeb evaluator command line interface",
-  "main": "dist/cli/src/index.js",
+  "main": "dist/cli.js",
   "bin": {
-    "qw": "./bin/cli.mjs"
+    "qw": "./dist/cli.js"
   },
   "files": [
-    "dist/cli/src/*"
+    "dist/*"
   ],
   "scripts": {
     "tsc": "tsc",
