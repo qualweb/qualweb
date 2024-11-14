@@ -32,152 +32,245 @@ type ParsedCommandOptions = { module: ModuleOptionsEnum[] }
   & BestPracticesOptions
   ;
 
+/**
+ * Wraps the process of converting the parsed command line options into a
+ * {@link QualwebOptions} object.
+ * 
+ * @example
+ * ```ts
+ * const optionsParser = new QualwebOptionsBuilder(opts);
+ * optionsParser.parse(); // Will throw if there are any validation errors.
+ * const qwOptions = optionsParser.getQualwebOptions();
+ * ```
+ */
+class QualwebOptionsBuilder {
+  /**
+   * QualwebOptions object that can be passed to {@link QualWeb.evaluate}. It
+   * is populated with a call to {@link parse}.
+   */
+  protected readonly qualwebOptions: QualwebOptions;
+
+  protected readonly modulesToRun: Set<string>;
+
+  constructor(protected readonly opts: ParsedCommandOptions) {
+    this.qualwebOptions = {
+      modules: [],
+    };
+
+    // Use a set to check for modules to run. Since the "imply" for Options don't
+    // have good semantics for arrays/inclusion, we instead populate this set
+    // right after parsing (from --module) and when checking/validating module
+    // options (in essence, our own "imply" logic).
+    this.modulesToRun = new Set(this.opts.module);
+  }
+
+  /**
+   * Adds an ACTRules module to the QualwebOptions object if any ACT rule
+   * options were set.
+   * @returns True if there were any validation errors.
+   */
+  protected validateActRuleOptions(): boolean {
+    let hasValidationErrors: boolean = false;
+
+    // Set up ACT rules module if it was set explicitly (--module) or implicitly
+    // (via any of the ACT rule filtering options).
+    if (this.modulesToRun.has(ModuleOptionsEnum.ACTRules) || this.opts.actLevels || this.opts.actPrinciples || this.opts.excludeAct || this.opts.actRules) {
+      // We don't make any assumptions about conflicts between include/exclude here.
+      // We're only concerned with whether they contain any invalid rules.
+      
+      if (this.opts.actRules && this.opts.actRules.error.length > 0) {
+        console.error(`Unknown ACT rules in inclusion list: ${this.opts.actRules.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+    
+      if (this.opts.excludeAct && this.opts.excludeAct.error.length > 0) {
+        console.error(`Unknown ACT rules in exclusion list: ${this.opts.excludeAct.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+
+      // I'm not sure how the ACTRules module handles conflicting filter lists,
+      // but at this point in execution it's better to defer to it than add
+      // additional validations of our own.
+      this.qualwebOptions.modules.push(new ACTRules({
+        include: this.opts.actRules?.ok,
+        exclude: this.opts.excludeAct?.ok,
+        levels: this.opts.actLevels,
+      }));
+    }
+
+    return hasValidationErrors;
+  }
+
+  /**
+   * Adds a WCAGTechniques module to the QualwebOptions object if any WCAG
+   * technique options were set.
+   * @returns True if there were any validation errors.
+   */
+  protected validateWcagTechniqueOptions(): boolean {
+    let hasValidationErrors: boolean = false;
+
+    if (this.modulesToRun.has(ModuleOptionsEnum.WCAGTechniques) || this.opts.wcagLevels || this.opts.wcagPrinciples || this.opts.wcagTechniques || this.opts.excludeWcag) {
+      if (this.opts.wcagTechniques && this.opts.wcagTechniques.error.length > 0) {
+        console.error(`Unknown WCAG techniques in inclusion list: ${this.opts.wcagTechniques.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+    
+      if (this.opts.excludeWcag && this.opts.excludeWcag.error.length > 0) {
+        console.error(`Unknown WCAG techniques in exclusion list: ${this.opts.excludeWcag.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+
+      this.qualwebOptions.modules.push(new WCAGTechniques({
+        include: this.opts.actRules?.ok,
+        exclude: this.opts.excludeAct?.ok,
+        levels: this.opts.actLevels,
+      }));
+    }
+
+    return hasValidationErrors;
+  }
+
+  /**
+   * Adds a BestPractices module to the QualwebOptions object if any relevant
+   * options were set by the user.
+   * @returns True if there were any validation errors.
+   */
+  protected validateBestPracticeOptions(): boolean {
+    let hasValidationErrors: boolean = false;
+
+    if (this.modulesToRun.has(ModuleOptionsEnum.BestPractices) || this.opts.bestPractices || this.opts.excludeBp) {
+      if (this.opts.bestPractices && this.opts.bestPractices.error.length > 0) {
+        console.error(`Unknown best practices in inclusion list: ${this.opts.bestPractices.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+    
+      if (this.opts.excludeWcag && this.opts.excludeWcag.error.length > 0) {
+        console.error(`Unknown best practices in exclusion list: ${this.opts.excludeWcag.error.join(', ')}`);
+        hasValidationErrors = true;
+      }
+
+      this.qualwebOptions.modules.push(new BestPractices({
+        include: this.opts.actRules?.ok,
+        exclude: this.opts.excludeAct?.ok,
+      }));
+    }
+
+    return hasValidationErrors;
+  }
+
+  /**
+   * Transfers viewport options to the QualwebOptions object.
+   */
+  protected validateViewportOptions(): void {
+    // Set viewport options, if any one option was set.
+    if (this.opts.viewportResolution || this.opts.mobile || this.opts.orientation || this.opts.userAgent) {
+      this.qualwebOptions.viewport = {
+        mobile: this.opts.mobile,
+        landscape: this.opts.orientation === 'landscape',
+        userAgent: this.opts.userAgent,
+        resolution: this.opts.viewportResolution,
+      };
+    }
+  }
+
+  /**
+   * Transfers Puppeteer options to the QualwebOptions object.
+   */
+  protected validatePuppeteerOptions(): void {
+    this.qualwebOptions.maxParallelEvaluations = this.opts.maxParallelEvaluations;
+    this.qualwebOptions.waitUntil = this.opts.waitUntil;
+    this.qualwebOptions.timeout = this.opts.timeout;
+  }
+
+  /**
+   * Transfers input options to the QualwebOptions object.
+   */
+  protected validateInputOptions(): void {
+    this.qualwebOptions.url = this.opts.url;
+    this.qualwebOptions.file = this.opts.file;
+  }
+
+  /**
+   * Parses the options that were passed during construction and puts together
+   * a {@link QualwebOptions} object to be retrieved with
+   * {@link getQualwebOptions}.
+   * This method throws if there are any validation errors. If it returns
+   * without issue, the final {@link QualwebOptions} object can be pulled via
+   * {@link getQualwebOptions}.
+   */
+  public parse(): void {
+    // Process simple options.
+    this.validateViewportOptions();
+    this.validatePuppeteerOptions();
+    this.validateInputOptions();
+
+    // Process options that require a validation check. If any of these return
+    // a validation error, they'll have printed the error to stderr and we can
+    // throw at the end to stop more processing.
+    const hasValidationErrors =
+      this.validateActRuleOptions() ||
+      this.validateWcagTechniqueOptions() ||
+      this.validateBestPracticeOptions()
+      ;
+
+    if (hasValidationErrors) {
+      throw new Error('One or more inputs were invalid. Please correct them and try again.');
+    }
+
+    // If NO modules were set explicitly OR implicitly, enable all of them as
+    // a default.
+    if (this.modulesToRun.size === 0) {
+      this.qualwebOptions.modules.push(
+        new ACTRules(),
+        new BestPractices(),
+        new WCAGTechniques(),
+      );
+    }
+  }
+
+  public getQualwebOptions(): QualwebOptions {
+    return this.qualwebOptions;
+  }
+}
+
+/**
+ * Should not be called directly, but used as an action handler/callback for
+ * a {@link Command} object.
+ * Runs validation on the parsed options and runs them through
+ * {@link QualWeb.evaluate}. The results are then output to the console or
+ * written to file, depending on options.
+ * @param this Should be passed by {@link Command.action} when used as a
+ * callback.
+ */
 export async function EvaluateAction(this: Command): Promise<void> {
+  // Validate the CLI options.
   const opts = this.opts<ParsedCommandOptions>();
 
-  // If set to true, the program will abort after parsing args but before
-  // running QualWeb. This is so we can report all user input errors at once
-  // instead of halting at every one.
-  let bailAfterParsing: boolean = false;
+  const optionsParser = new QualwebOptionsBuilder(opts);
 
-  // Use a set to check for modules to run. Since the "imply" for Options don't
-  // have good semantics for arrays/inclusion, we instead populate this set
-  // right after parsing (from --module) and when checking/validating module
-  // options (in essence, our own "imply" logic).
-  const modulesToRun: Set<ModuleOptionsEnum> = new Set();
-
-  // Dump the list of modules into a set instead. Simpler to check/set values
-  // without having to iterate ourselves.
-  opts.module.forEach((module: ModuleOptionsEnum) => {
-    modulesToRun.add(module);
-  });
-
-  const qualwebOptions: QualwebOptions = {
-    url: opts.url,
-    file: opts.file,
-    modules: [],
-    
-    maxParallelEvaluations: opts.maxParallelEvaluations,
-    waitUntil: opts.waitUntil,
-    timeout: opts.timeout,
-  };
-
-  // Set viewport options, if any one option was set.
-  if (opts.viewportResolution || opts.mobile || opts.orientation || opts.userAgent) {
-    qualwebOptions.viewport = {
-      mobile: opts.mobile,
-      landscape: opts.orientation === 'landscape',
-      userAgent: opts.userAgent,
-      resolution: opts.viewportResolution,
-    };
-  }
-
-  // Set ACTRules module flag if any of the ACT options were set.
-  if (opts.actLevels || opts.actPrinciples || opts.excludeAct || opts.actRules) {
-    modulesToRun.add(ModuleOptionsEnum.ACTRules);
-  }
-
-  if (modulesToRun.has(ModuleOptionsEnum.ACTRules)) {
-    // We don't make any assumptions about conflicts between include/exclude here.
-    // We're only concerned with whether they contain any invalid rules.
-    
-    if (opts.actRules && opts.actRules.error.length > 0) {
-      console.error(`Unknown ACT rules in inclusion list: ${opts.actRules.error.join(', ')}`);
-      bailAfterParsing = true;
-    }
-  
-    if (opts.excludeAct && opts.excludeAct.error.length > 0) {
-      console.error(`Unknown ACT rules in exclusion list: ${opts.excludeAct.error.join(', ')}`);
-      bailAfterParsing = true;
-    }
-
-    // Build ACT rule module for QW.
-
-    // I'm not sure how the ACTRules module handles conflicting filter lists,
-    // but at this point in execution it's better to defer to it than add
-    // additional validations of our own.
-    qualwebOptions.modules.push(new ACTRules({
-      include: opts.actRules?.ok,
-      exclude: opts.excludeAct?.ok,
-      levels: opts.actLevels,
-    }));
-  }
-
-  // Set WcagTechniques module flag if any of the WCAG techniques options were set.
-  if (opts.wcagLevels && opts.wcagPrinciples || opts.wcagTechniques || opts.excludeWcag) {
-    modulesToRun.add(ModuleOptionsEnum.WCAGTechniques);
-  }
-
-  if (modulesToRun.has(ModuleOptionsEnum.WCAGTechniques)) {
-    // Check for errors in lists and set the error/bail flag if so.
-
-    if (opts.wcagTechniques && opts.wcagTechniques.error.length > 0) {
-      console.error(`Unknown WCAG techniques in inclusion list: ${opts.wcagTechniques.error.join(', ')}`);
-      bailAfterParsing = false;
-    }
-  
-    if (opts.excludeWcag && opts.excludeWcag.error.length > 0) {
-      console.error(`Unknown WCAG techniques in exclusion list: ${opts.excludeWcag.error.join(', ')}`);
-      bailAfterParsing = false;
-    }
-
-    qualwebOptions.modules.push(new WCAGTechniques({
-      include: opts.actRules?.ok,
-      exclude: opts.excludeAct?.ok,
-      levels: opts.actLevels,
-    }));
-  }
-
-  // Set BestPractices module flag if any of the BP options were set.
-  if (opts.bestPractices || opts.excludeBp) {
-    modulesToRun.add(ModuleOptionsEnum.BestPractices);
-  }
-
-  if (modulesToRun.has(ModuleOptionsEnum.BestPractices)) {
-    // Check for errors in lists and set the error/bail flag if so.
-
-    if (opts.bestPractices && opts.bestPractices.error.length > 0) {
-      console.error(`Unknown best practices in inclusion list: ${opts.bestPractices.error.join(', ')}`);
-      bailAfterParsing = false;
-    }
-  
-    if (opts.excludeWcag && opts.excludeWcag.error.length > 0) {
-      console.error(`Unknown best practices in exclusion list: ${opts.excludeWcag.error.join(', ')}`);
-      bailAfterParsing = false;
-    }
-
-    qualwebOptions.modules.push(new BestPractices({
-      include: opts.actRules?.ok,
-      exclude: opts.excludeAct?.ok,
-    }));
-  }
-
-  if (modulesToRun.size === 0) {
-    // If NO modules were set explicitly OR implicitly, enable all of them.
-    qualwebOptions.modules.push(
-      new ACTRules(),
-      new BestPractices(),
-      new WCAGTechniques(),
-    );
-  }
-
-  if (bailAfterParsing) {
+  try {
+    optionsParser.parse();
+  } catch {
     console.error('One or more inputs were invalid. Please correct them and try again.');
     return;
   }
 
-  /** Run QualWeb with options */
+  const qwOptions = optionsParser.getQualwebOptions();
+
+  // Set up and run QualWeb with the validated options.
 
   const qw = new QualWeb();
 
   await qw.start();
 
-  const reports = await qw.evaluate(qualwebOptions);
+  const reports = await qw.evaluate(qwOptions);
 
   await qw.stop();
 
-  /** Return data to user */
+  // Return data to user.
 
+  // Construct final output. This is independent of whether we're writing to
+  // file or stdout.
   let outputString: string;
 
   switch (opts.format) {
@@ -191,6 +284,7 @@ export async function EvaluateAction(this: Command): Promise<void> {
       throw new InvalidOptionArgumentError(`Invalid output format: ${opts.format}`);
   }
 
+  // Dump the serialized data to file or stdout.
   if (opts.outFile) {
     await fs.writeFile(opts.outFile, outputString, 'utf-8');
   } else {
