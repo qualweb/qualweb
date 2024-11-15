@@ -1,5 +1,12 @@
-import type { EvaluationReport, ModuleOptions, TestingData } from '@qualweb/core/evaluation';
-import { ExecutableModuleContext, ModuleType } from '@qualweb/core/evaluation';
+import type {
+  EvaluationReport,
+  ModuleOptions,
+  TestingData,
+} from '@qualweb/core/evaluation';
+import {
+  ModuleType,
+  ExecutableModuleContext,
+} from '@qualweb/core/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '@qualweb/core/lib';
 
