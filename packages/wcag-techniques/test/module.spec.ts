@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { QualWeb } from '@qualweb/core';
-import { WCAGTechniques } from '../src';
+import { WCAGTechniquesModule } from '../src/WcagTechniquesModule';WCAGTechniquesModule
 
 describe('Module in core', () => {
   it('Runs an evaluation via @qualweb/core', async function () {
@@ -12,7 +12,7 @@ describe('Module in core', () => {
       // headless: false,
     });
 
-    const wTechInstance = new WCAGTechniques();
+    const wTechInstance = new WCAGTechniquesModule();
 
     const urlToEvaluate = 'https://www.google.com';
 
