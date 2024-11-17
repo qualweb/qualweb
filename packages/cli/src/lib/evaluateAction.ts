@@ -92,11 +92,13 @@ class QualwebOptionsBuilder {
       // I'm not sure how the ACTRules module handles conflicting filter lists,
       // but at this point in execution it's better to defer to it than add
       // additional validations of our own.
-      this.qualwebOptions.modules.push(new ACTRules({
-        include: this.opts.actRules?.ok,
-        exclude: this.opts.excludeAct?.ok,
-        levels: this.opts.actLevels,
-      }));
+      this.qualwebOptions.modules.push(
+        new ACTRules({
+          include: this.opts.actRules?.ok,
+          exclude: this.opts.excludeAct?.ok,
+          levels: this.opts.actLevels,
+        }),
+      );
     }
 
     return hasValidationErrors;
@@ -121,7 +123,13 @@ class QualwebOptionsBuilder {
         hasValidationErrors = true;
       }
 
+      this.qualwebOptions.modules.push(
         new WCAGTechniquesModule({
+          include: this.opts.actRules?.ok,
+          exclude: this.opts.excludeAct?.ok,
+          levels: this.opts.actLevels,
+        }),
+      );
     }
 
     return hasValidationErrors;
@@ -146,10 +154,12 @@ class QualwebOptionsBuilder {
         hasValidationErrors = true;
       }
 
-      this.qualwebOptions.modules.push(new BestPractices({
-        include: this.opts.actRules?.ok,
-        exclude: this.opts.excludeAct?.ok,
-      }));
+      this.qualwebOptions.modules.push(
+        new BestPractices({
+          include: this.opts.actRules?.ok,
+          exclude: this.opts.excludeAct?.ok,
+        }),
+      );
     }
 
     return hasValidationErrors;
