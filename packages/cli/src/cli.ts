@@ -1,7 +1,3 @@
-/**
- * Newer CommanderJS-based approach. Allows for better control of options.
- */
-
 import { Command, Option } from 'commander';
 
 import { ModuleOptionsEnum } from './lib/types';
