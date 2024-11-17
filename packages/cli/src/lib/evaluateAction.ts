@@ -11,7 +11,7 @@ import { WcagTechniqueOptions } from './options/wcagTechniques';
 import { ModuleOptionsEnum } from './types';
 import { QualWeb, QualwebOptions } from '@qualweb/core';
 import { ACTRules } from '@qualweb/act-rules';
-import { WCAGTechniques } from '@qualweb/wcag-techniques';
+import { WCAGTechniquesModule } from '@qualweb/wcag-techniques/WcagTechniquesModule';
 import { BestPractices } from '@qualweb/best-practices';
 import { generateEARLReport } from '@qualweb/earl-reporter';
 
@@ -120,11 +120,7 @@ class QualwebOptionsBuilder {
         hasValidationErrors = true;
       }
 
-      this.qualwebOptions.modules.push(new WCAGTechniques({
-        include: this.opts.actRules?.ok,
-        exclude: this.opts.excludeAct?.ok,
-        levels: this.opts.actLevels,
-      }));
+        new WCAGTechniquesModule({
     }
 
     return hasValidationErrors;
@@ -223,7 +219,7 @@ class QualwebOptionsBuilder {
       this.qualwebOptions.modules.push(
         new ACTRules(),
         new BestPractices(),
-        new WCAGTechniques(),
+        new WCAGTechniquesModule(),
       );
     }
   }
