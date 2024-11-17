@@ -12,6 +12,10 @@
     },
     "./lib/*": {
       "require": "./dist/lib/*"
+    },
+    "./WcagTechniquesModule": {
+      "require": "./dist/WcagTechniquesModule.js",
+      "types": "./dist/WcagTechniquesModule.d.ts"
     }
   },
   "scripts": {
