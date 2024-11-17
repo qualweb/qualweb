@@ -14,6 +14,7 @@ import { ACTRules } from '@qualweb/act-rules';
 import { WCAGTechniquesModule } from '@qualweb/wcag-techniques/WcagTechniquesModule';
 import { BestPractices } from '@qualweb/best-practices';
 import { generateEARLReport } from '@qualweb/earl-reporter';
+import { Counter } from '@qualweb/counter';
 
 /**
  * Aggregate type containing all option types that have been separately imported
@@ -154,6 +155,14 @@ class QualwebOptionsBuilder {
     return hasValidationErrors;
   }
 
+  protected validateCounterOptions(): boolean {
+    if (this.modulesToRun.has(ModuleOptionsEnum.Counter)) {
+      this.qualwebOptions.modules.push(new Counter());
+    }
+
+    return false;
+  }
+
   /**
    * Transfers viewport options to the QualwebOptions object.
    */
@@ -206,7 +215,8 @@ class QualwebOptionsBuilder {
     const hasValidationErrors =
       this.validateActRuleOptions() ||
       this.validateWcagTechniqueOptions() ||
-      this.validateBestPracticeOptions()
+      this.validateBestPracticeOptions() ||
+      this.validateCounterOptions()
       ;
 
     if (hasValidationErrors) {
@@ -220,6 +230,7 @@ class QualwebOptionsBuilder {
         new ACTRules(),
         new BestPractices(),
         new WCAGTechniquesModule(),
+        new Counter(),
       );
     }
   }
