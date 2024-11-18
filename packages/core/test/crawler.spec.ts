@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import { createKoaServer, koaServerPageCount } from './util';
 import { Server } from 'http';
+import DummyModule from './lib/DummyModule';
 
 describe('Core input method: crawler', function () {
   // Mock server set up.
@@ -48,10 +49,11 @@ describe('Core input method: crawler', function () {
 
     expect(urls).to.have.length(actualUrlCount);
 
+    const dummyModule = new DummyModule();
+
     const options = {
       urls,
-      // TODO: consider mock/dummy module to help ensure all URLs covered.
-      modules: [],
+      modules: [dummyModule],
     };
 
     await qualweb.start(
