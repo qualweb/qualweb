@@ -23,9 +23,12 @@ export class PluginManager {
    * call to Qualweb.evaluate() so the user can handle it on their own.
    *
    * @param {Page} page - Puppeteer page
+   * @param {string} url - URL currently being evaluated. Note that the page's
+   * URL is probably "about:blank" at this point, since we haven't navigated to
+   * the URL yet.
    */
-  public async executeBeforePageLoad(page: Page): Promise<void> {
-    this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, page.url() || 'customHtml'));
+  public async executeBeforePageLoad(page: Page, url?: string): Promise<void> {
+    this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, url || 'customHtml'));
   }
 
   /**

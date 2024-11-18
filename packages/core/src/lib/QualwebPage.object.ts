@@ -59,7 +59,7 @@ export class QualwebPage {
     await this.page.setBypassCSP(true);
     await this.setViewport(options.viewport);
 
-    await this.pluginManager.executeBeforePageLoad(this.page);
+    await this.pluginManager.executeBeforePageLoad(this.page, this.url);
 
     const testingData: TestingData = {};
 
