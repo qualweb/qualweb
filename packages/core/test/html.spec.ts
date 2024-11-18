@@ -9,7 +9,7 @@ describe('Core input method: html', function () {
 
     let wasRun: boolean = false;
 
-    const dummyModule = new DummyModule(undefined, (_page, _options, _translate, data) => {
+    const dummyModule = new DummyModule(undefined, () => {
       wasRun = true;
       return DummyModule.emptyReport();
     });
