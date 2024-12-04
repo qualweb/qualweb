@@ -4,7 +4,44 @@ Implementation of the [ACT rules](https://www.w3.org/WAI/standards-guidelines/ac
 
 ## How to use
 
-**This is an internal module of QualWeb. To use it check either [@qualweb/cli](https://github.com/qualweb/cli) or [@qualweb/core](https://github.com/qualweb/core). You can also perform evaluations at [http://qualweb.di.fc.ul.pt/evaluator/](http://qualweb.di.fc.ul.pt/evaluator/), or by installing the [chrome extension](https://chrome.google.com/webstore/detail/qualweb-extension/ljgilomdnehokancdcbkmbndkkiggioc).**
+This package is intended to be used with [@qualweb/core](https://github.com/qualweb/core).
+
+Add both packages to your project: 
+
+```bash
+npm i --save @qualweb/core @qualweb/act-rules
+```
+
+In your own code, pass an instance of the `ACTRules` class to QualWeb's evaluate method:
+
+```typescript
+import { ACTRules } from '@qualweb/act-rules';
+import { QualWeb } from '@qualweb/core';
+
+async function main() {
+  const qw = new QualWeb();
+
+  await qw.start();
+
+  const actRuleInstance = new ACTRules({
+    // Include/exclude specific rules here. Omitting any filters implies *all*
+    // rules are included.
+    levels: ['A', 'AA'],
+    exclude: ['QW-ACT-R3'],
+  });
+
+  const urlToEvaluate = 'https://www.google.com';
+
+  const report = await qw.evaluate({
+    url: urlToEvaluate,
+    modules: [actRuleInstance],
+  });
+
+  await qw.stop();
+
+  console.debug(report[urlToEvaluate].metadata);
+}
+```
 
 ## Implemented rules
 
@@ -73,7 +110,6 @@ Implementation of the [ACT rules](https://www.w3.org/WAI/standards-guidelines/ac
 | QW-ACT-R69      | [9e45ec](https://www.w3.org/WAI/standards-guidelines/act/rules/9e45ec/) | Word spacing in style attributes is not !important                                  |
 | QW-ACT-R70      | [akn7bn](https://www.w3.org/WAI/standards-guidelines/act/rules/akn7bn/) | Iframe with interactive elements is not excluded from tab-order                     |
 | QW-ACT-R71      | [bisz58](https://www.w3.org/WAI/standards-guidelines/act/rules/bisz58/) | Meta element has no refresh delay (no exception)                                    |
-| QW-ACT-R72      | [8a213c](https://www.w3.org/WAI/standards-guidelines/act/rules/8a213c/) | First focusable element is link to non-repeated content                             |
 | QW-ACT-R73      | [3e12e1](https://www.w3.org/WAI/standards-guidelines/act/rules/3e12e1/) | Block of repeated content is collapsible                                            |
 | QW-ACT-R74      | [ye5d6e](https://www.w3.org/WAI/standards-guidelines/act/rules/ye5d6e/) | Document has an instrument to move focus to non-repeated content                    |
 | QW-ACT-R75      | [cf77f2](https://www.w3.org/WAI/standards-guidelines/act/rules/cf77f2/) | Bypass Blocks of Repeated Content                                                   |

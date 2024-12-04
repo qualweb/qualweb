@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R34 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const ariaJSON = window.AccessibilityUtils.ariaAttributesRoles;
     const rolesJSON = window.AccessibilityUtils.roles;
     // get all aria attributes from json to combine it in a css selector
@@ -86,17 +80,17 @@ class QW_ACT_R34 extends AtomicRule {
 
             const test = new Test();
             if (result) {
-              test.verdict = 'passed';
+              test.verdict = Verdict.PASSED;
               test.resultCode = 'P1';
             } else {
-              test.verdict = 'failed';
+              test.verdict = Verdict.FAILED;
               test.resultCode = 'F1';
             }
 
-            test.description = super.getTranslation(test.resultCode, { attr: attrib });
+            test.description = this.translate(test.resultCode, { attr: attrib });
 
             test.addElement(elem);
-            super.addTestResult(test);
+            this.addTestResult(test);
           }
         }
       }
@@ -104,4 +98,4 @@ class QW_ACT_R34 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R34;
+export { QW_ACT_R34 };

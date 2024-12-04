@@ -1,34 +1,28 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T29 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (element.getElementTagName() === 'style') {
-      const sheet = <any>element.getElementProperty('sheet');
+      const sheet = element.getElementProperty('sheet') as unknown as CSSStyleSheet;
       for (const rule of sheet.cssRules || []) {
-        const style = rule?.style?.cssText;
+        const style = (rule as CSSStyleRule)?.style?.cssText;
         if (style) {
           this.checkCssProperty(style, element);
         }
       }
     } else {
-      const style = <string>element.getElementAttribute('style');
+      const style = element.getElementAttribute('style');
       if (style) {
         this.checkCssProperty(style, element);
       }
     }
   }
 
-  private checkCssProperty(style: string, element: typeof window.qwElement): void {
+  private checkCssProperty(style: string, element: QWElement): void {
     const properties = style.split(';').filter((p) => p.trim() !== '') || [style];
 
     for (const property of properties) {
@@ -39,10 +33,10 @@ class QW_WCAG_T29 extends Technique {
         const test = new Test();
 
         if (!isJustified) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
           test.addElement(element);
           test.attributes.push(property);
@@ -53,10 +47,10 @@ class QW_WCAG_T29 extends Technique {
         // test.addElement(element);
         // test.attributes.push(property);
 
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
 }
 
-export = QW_WCAG_T29;
+export { QW_WCAG_T29 };

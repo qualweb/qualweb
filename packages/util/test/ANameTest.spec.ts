@@ -1,5 +1,5 @@
-import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
+import { QualWeb } from '@qualweb/core';
 import { usePuppeteer } from './util';
 
 describe('ANameTest', function () {
@@ -11,15 +11,13 @@ describe('ANameTest', function () {
     const url = 'http://localhost/test.html';
 
     const page = proxy.page;
-    const dom = new Dom(page);
-    await dom.process({ execute: { act: true }, waitUntil: ['networkidle0'] }, url, '');
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/util.bundle.js')
+      path: require.resolve('../dist/__webpack/util.bundle.js')
     });
     await new Promise(r => setTimeout(r, 2000));
     

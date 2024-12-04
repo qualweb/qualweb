@@ -1,4 +1,4 @@
-import { Crawler } from '../src';
+import { Crawler } from '../src/Crawler.object';
 import { expect } from 'chai';
 import { createKoaServer, usePuppeteer } from './util';
 import { Server } from 'http';

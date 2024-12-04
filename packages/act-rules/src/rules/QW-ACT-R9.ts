@@ -1,23 +1,17 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, isInMainContext } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsInMainContext } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R9 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
-  @isInMainContext
+  @IsInMainContext
   execute(): void {
     const links = window.qwPage.getElements('a[href], [role="link"]');
 
     const accessibleNames = new Array<string>();
     const hrefList = new Array<string | null>();
-    const applicableLinks = new Array<typeof window.qwElement>();
+    const applicableLinks = new Array<QWElement>();
 
     for (const link of links ?? []) {
       let aName;
@@ -38,7 +32,7 @@ class QW_ACT_R9 extends AtomicRule {
     let counter = 0;
     const blacklist = new Array<number>();
     for (const accessibleName of accessibleNames ?? []) {
-      const elementList = new Array<typeof window.qwElement>();
+      const elementList = new Array<QWElement>();
 
       if (blacklist.indexOf(counter) < 0 && accessibleName && accessibleName !== '') {
         const hasEqualAn = this.isInListExceptIndex(accessibleName, accessibleNames, counter);
@@ -56,15 +50,15 @@ class QW_ACT_R9 extends AtomicRule {
           const test = new Test();
 
           if (hasEqualHref) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'F1';
           }
 
           test.addElements(elementList, true, false, true);
-          super.addTestResult(test);
+          this.addTestResult(test);
         }
       }
       counter++;
@@ -86,4 +80,4 @@ class QW_ACT_R9 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R9;
+export { QW_ACT_R9 };

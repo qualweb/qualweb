@@ -1,24 +1,18 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R4 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementHasAttribute('content')
   @ElementHasNonEmptyAttribute('content')
   @ElementHasAttribute('http-equiv')
   @ElementHasNonEmptyAttribute('http-equiv')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const content = <string>element.getElementAttribute('content');
 
-    if (super.getNumberOfPassedResults() + super.getNumberOfFailedResults() > 0) {
+    if (this.rule.metadata.passed + this.rule.metadata.failed > 0) {
       // only one meta needs to pass or fail, others will be discarded
       return;
     }
@@ -51,27 +45,27 @@ class QW_ACT_R4 extends AtomicRule {
 
       if (n === 0) {
         // passes because the time is 0
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else if (n > 72000) {
         // passes because the time is bigger than 72000
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
       } else {
         // fails because the time is in between 0 and 72000
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
 
         if (indexOf === -1) {
-          test.description = super.getTranslation('F1', { seconds: n });
+          test.description = this.translate('F1', { seconds: n });
           test.resultCode = 'F1';
         } else {
-          test.description = super.getTranslation('F2', { seconds: n });
+          test.description = this.translate('F2', { seconds: n });
           test.resultCode = 'F2';
         }
       }
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
@@ -88,4 +82,4 @@ class QW_ACT_R4 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R4;
+export { QW_ACT_R4 };

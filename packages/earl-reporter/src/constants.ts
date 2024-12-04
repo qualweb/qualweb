@@ -1,4 +1,4 @@
-const SC = {
+export const SC = {
   '1.1.1': {
     num: '1.1.1',
     url: 'https://www.w3.org/TR/WCAG21/#non-text-content',
@@ -937,5 +937,5 @@ const SC = {
     wcagType: '2.1'
   }
 };
-const WCAG2 = 'WCAG2:';
-export { SC, WCAG2 };
+
+export const WCAG2 = 'WCAG2:';

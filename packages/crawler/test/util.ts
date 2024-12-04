@@ -8,7 +8,7 @@ import Router from '@koa/router';
 
 type PuppeteerProxy = {
   browser: Browser;
-  incognito: BrowserContext;
+  browserContext: BrowserContext;
   page: Page;
 }
 
@@ -32,25 +32,25 @@ type PuppeteerProxy = {
 export function usePuppeteer(launchOptions: PuppeteerLaunchOptions = {}): PuppeteerProxy {
   const proxy: Partial<PuppeteerProxy> = {
     browser: undefined,
-    incognito: undefined,
+    browserContext: undefined,
     page: undefined,
   };
 
   beforeEach(async () => {
     proxy.browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       args: ['--ignore-certificate-errors'],
       ...launchOptions,
     });
 
-    proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
+    proxy.browserContext = await proxy.browser.createBrowserContext();
 
-    proxy.page = await proxy.incognito.newPage();
+    proxy.page = await proxy.browserContext.newPage();
   })
 
   afterEach(async () => {
     await proxy.page?.close();
-    await proxy.incognito?.close();
+    await proxy.browserContext?.close();
     await proxy.browser?.close();
   });
 
@@ -103,7 +103,7 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 }: MockSe
 
   const router = new Router();
 
-  router.get('(/[^\/]+)*', (ctx, next) => {
+  router.get('/([^\/]+)*', (ctx, next) => {
     const parms = ctx.params[0];
       
     const pathSegments = parms

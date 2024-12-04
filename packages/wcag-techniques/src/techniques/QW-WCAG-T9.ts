@@ -1,18 +1,11 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
-import { QWElement } from '@qualweb/qw-element';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T9 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const headingList = window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]');
     if (headingList.length === 0) {
       return;
@@ -48,20 +41,20 @@ class QW_WCAG_T9 extends Technique {
 
     if (orderErrors.length === 0) {
       // the heading elements are correctly used
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else {
       for (const error of orderErrors) {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
         test.addElement(error);
-        super.addTestResult(test);
+        this.addTestResult(test);
         test = new Test();
       }
     }
   }
 }
 
-export = QW_WCAG_T9;
+export { QW_WCAG_T9 };

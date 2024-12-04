@@ -1,3 +1,4 @@
+import type { QWElement } from '@qualweb/qw-element';
 import allowsNameFromContentFunction from './allowsNameFromContent';
 import getAccessibleNameFunction from './getAccessibleName';
 import getAccessibleNameRecursionFunction from './getAccessibleNameRecursion';
@@ -28,43 +29,42 @@ import isPartOfSequentialFocusNavigationFunction from './isPartOfSequentialFocus
 import getAriaOwnerFunction from './getAriaOwner';
 import getElementValidExplicitRoleFunction from './getElementValidExplicitRole';
 import landmarkIsTopLevel from './landmarkIsTopLevel';
-import ariaAttributesRoles from './ariaAttributesRoles.json';
-import roles from './roles.json';
+import { ariaAttributesRoles } from './ariaAttributesRoles';
+import { roles } from './roles';
 import languages from './language.json';
 
 import { Cache, FullMethodCache } from '../cache';
-import { AriaAttributesRoles, Roles } from '@qualweb/util';
 
 class AccessibilityUtils {
-  public static ariaAttributesRoles = <AriaAttributesRoles>ariaAttributesRoles;
-  public static roles = <Roles>roles;
+  public static ariaAttributesRoles = ariaAttributesRoles;
+  public static roles = roles;
   public static languages = <{ [lang: string]: number }>languages;
 
   @Cache('AcceUtils.getLinkContext')
-  public static getLinkContext(element: typeof window.qwElement): string[] {
+  public static getLinkContext(element: QWElement): string[] {
     return getLinkContextFunction(element);
   }
 
   public static allowsNameFromContent = allowsNameFromContentFunction;
 
   @Cache('AcceUtils.elementHasValidRole')
-  public static elementHasValidRole(element: typeof window.qwElement): boolean {
+  public static elementHasValidRole(element: QWElement): boolean {
     return elementHasValidRoleFunction(element);
   }
 
   @Cache('AcceUtils.getElementValidExplicitRole')
-  public static getElementValidExplicitRole(element: typeof window.qwElement): string | null {
+  public static getElementValidExplicitRole(element: QWElement): string | null {
     return getElementValidExplicitRoleFunction(element);
   }
 
   @Cache('AcceUtils.getAccessibleName')
-  public static getAccessibleName(element: typeof window.qwElement): string | undefined {
+  public static getAccessibleName(element: QWElement): string | undefined {
     return getAccessibleNameFunction(element);
   }
 
   @FullMethodCache('AcceUtils.getAccessibleNameRecursion')
   public static getAccessibleNameRecursion(
-    element: typeof window.qwElement,
+    element: QWElement,
     recursion: boolean,
     isWidget: boolean
   ): string | undefined {
@@ -72,12 +72,12 @@ class AccessibilityUtils {
   }
 
   @Cache('AcceUtils.getAccessibleNameSelector')
-  public static getAccessibleNameSelector(element: typeof window.qwElement): Array<string> | undefined {
+  public static getAccessibleNameSelector(element: QWElement): string | string[] | undefined {
     return getAccessibleNameSelectorFunction(element);
   }
 
   @Cache('AcceUtils.getAccessibleNameSVG')
-  public static getAccessibleNameSVG(element: typeof window.qwElement): string | undefined {
+  public static getAccessibleNameSVG(element: QWElement): string | undefined {
     return getAccessibleNameSVGFunction(element);
   }
   public static getDefaultName = getDefaultNameFunction;
@@ -87,92 +87,92 @@ class AccessibilityUtils {
   public static isFocusableBrowser = isFocusableBrowserFunction;
 
   @Cache('AcceUtils.getOwnedElements')
-  public static getOwnedElements(element: typeof window.qwElement): Array<typeof window.qwElement> {
+  public static getOwnedElements(element: QWElement): Array<QWElement> {
     return getOwnedElementsFunction(element);
   }
 
   @Cache('AcceUtils.getElementRole')
-  public static getElementRole(element: typeof window.qwElement): string | null {
+  public static getElementRole(element: QWElement): string | null {
     return getElementRoleFunction(element);
   }
   @FullMethodCache('AcceUtils.getElementRole')
-  public static getElementRoleAName(element: typeof window.qwElement, aName: string | undefined): string | null {
+  public static getElementRoleAName(element: QWElement, aName: string | undefined): string | null {
     return getElementRoleANameFunction(element, aName);
   }
 
   @Cache('AcceUtils.isDataTable')
-  public static isDataTable(element: typeof window.qwElement): boolean {
+  public static isDataTable(element: QWElement): boolean {
     return isDataTableFunction(element);
   }
 
   @Cache('AcceUtils.isElementControl')
-  public static isElementControl(element: typeof window.qwElement): boolean {
+  public static isElementControl(element: QWElement): boolean {
     return isElementControlFunction(element);
   }
 
   @Cache('AcceUtils.getValueFromEmbeddedControl')
-  public static getValueFromEmbeddedControl(element: typeof window.qwElement): string {
+  public static getValueFromEmbeddedControl(element: QWElement): string {
     return getValueFromEmbeddedControlFunction(element);
   }
 
   @Cache('AcceUtils.isElementInAT')
-  public static isElementInAT(element: typeof window.qwElement): boolean {
+  public static isElementInAT(element: QWElement): boolean {
     return isElementInATFunction(element);
   }
   @Cache('AcceUtils.isElementReferencedByAriaLabel')
-  public static isElementReferencedByAriaLabel(element: typeof window.qwElement): boolean {
+  public static isElementReferencedByAriaLabel(element: QWElement): boolean {
     return isElementReferencedByAriaLabelFunction(element);
   }
   @Cache('AcceUtils.isElementWidget')
-  public static isElementWidget(element: typeof window.qwElement): boolean {
+  public static isElementWidget(element: QWElement): boolean {
     return isElementWidgetFunction(element);
   }
 
   @FullMethodCache('AcceUtils.getImplicitRole')
-  public static getImplicitRole(element: typeof window.qwElement, accessibleName: string | undefined): string | null {
+  public static getImplicitRole(element: QWElement, accessibleName: string | undefined): string | null {
     return getImplicitRoleFunction(element, accessibleName);
   }
   @Cache('AcceUtils.getOwnerElement')
-  public static getOwnerElement(element: typeof window.qwElement): typeof window.qwElement | null {
+  public static getOwnerElement(element: QWElement): QWElement | null {
     return getOwnerElementFunction(element);
   }
   @Cache('AcceUtils.isElementChildPresentationalAux')
-  public static isElementChildPresentationalAux(element: typeof window.qwElement): boolean {
+  public static isElementChildPresentationalAux(element: QWElement): boolean {
     return isElementChildPresentationalAuxFunction(element);
   }
 
   @Cache('AcceUtils.isElementChildPresentational')
-  public static isElementChildPresentational(element: typeof window.qwElement): boolean {
+  public static isElementChildPresentational(element: QWElement): boolean {
     return isElementChildPresentationalFunction(element);
   }
 
   @Cache('AcceUtils.isElementFocusableByDefault')
-  public static isElementFocusableByDefault(elementQW: typeof window.qwElement): boolean {
+  public static isElementFocusableByDefault(elementQW: QWElement): boolean {
     return isElementFocusableByDefaultFunction(elementQW);
   }
 
   @Cache('AcceUtils.isElementFocusable')
-  public static isElementFocusable(element: typeof window.qwElement): boolean {
+  public static isElementFocusable(element: QWElement): boolean {
     return isElementFocusableFunction(element);
   }
 
   @Cache('AcceUtils.isPartOfSequentialFocusNavigation')
-  public static isPartOfSequentialFocusNavigation(element: typeof window.qwElement): boolean {
+  public static isPartOfSequentialFocusNavigation(element: QWElement): boolean {
     return isPartOfSequentialFocusNavigationFunction(element);
   }
 
   @Cache('AcceUtils.elementHasGlobalARIAPropertyOrAttribute')
-  public static elementHasGlobalARIAPropertyOrAttribute(element: typeof window.qwElement): boolean {
+  public static elementHasGlobalARIAPropertyOrAttribute(element: QWElement): boolean {
     return elementHasGlobalARIAPropertyOrAttributeFunction(element);
   }
 
   @Cache('AcceUtils.getAriaOwner')
-  public static getAriaOwner(element: typeof window.qwElement): typeof window.qwElement | null {
+  public static getAriaOwner(element: QWElement): QWElement | null {
     return getAriaOwnerFunction(element);
   }
 
   @Cache('AcceUtils.landmarkIsTopLevel')
-  public static landmarkIsTopLevel(element: typeof window.qwElement): boolean {
+  public static landmarkIsTopLevel(element: QWElement): boolean {
     return landmarkIsTopLevel(element);
   }
 }

@@ -1,3 +1,4 @@
+import type { QWElement } from '@qualweb/qw-element';
 import getElementReferencedByHREFFunction from './getElementReferencedByHREF';
 import isElementHiddenByCSSFunction from './isElementHiddenByCSS';
 import isElementHiddenByCSSAuxFunction from './isElementHiddenByCSSAux';
@@ -31,28 +32,28 @@ class DomUtils {
   public static getTextSize = getTextSizeFunction;
 
   @Cache('DomUtils.isElementHidden')
-  public static isElementHidden(element: typeof window.qwElement): boolean {
+  public static isElementHidden(element: QWElement): boolean {
     return isElementHiddenFunction(element);
   }
 
   @Cache('DomUtils.isElementHiddenByCSS')
-  public static isElementHiddenByCSS(element: typeof window.qwElement): boolean {
+  public static isElementHiddenByCSS(element: QWElement): boolean {
     return isElementHiddenByCSSFunction(element);
   }
 
   @Cache('DomUtils.isElementVisible')
-  public static isElementVisible(element: typeof window.qwElement): boolean {
+  public static isElementVisible(element: QWElement): boolean {
     return isElementVisibleFunction(element);
   }
 
   @FullMethodCache('DomUtils.elementIdIsReferenced')
-  public static elementIdIsReferenced(element: typeof window.qwElement, id: string, attribute: string): boolean {
+  public static elementIdIsReferenced(element: QWElement, id: string, attribute: string): boolean {
     return elementIdIsReferencedFunction(element, id, attribute);
   }
 
   @FullMethodCache('DomUtils.isElementADescendantOf')
   public static isElementADescendantOf(
-    element: typeof window.qwElement,
+    element: QWElement,
     names: Array<string>,
     roles: Array<string>
   ): boolean {
@@ -61,7 +62,7 @@ class DomUtils {
 
   @FullMethodCache('DomUtils.isElementADescendantOfExplicitRole')
   public static isElementADescendantOfExplicitRole(
-    element: typeof window.qwElement,
+    element: QWElement,
     names: Array<string>,
     roles: Array<string>
   ): boolean {
@@ -69,15 +70,15 @@ class DomUtils {
   }
 
   @Cache('DomUtils.elementHasContent')
-  public static elementHasContent(element: typeof window.qwElement, checkChildren: boolean): boolean {
+  public static elementHasContent(element: QWElement, checkChildren: boolean): boolean {
     return elementHasContentFunction(element, checkChildren);
   }
   @Cache('DomUtils.isElementHiddenByCSSAux')
-  public static isElementHiddenByCSSAux(element: typeof window.qwElement): boolean {
+  public static isElementHiddenByCSSAux(element: QWElement): boolean {
     return isElementHiddenByCSSAuxFunction(element);
   }
   @Cache('DomUtils.getTrimmedText')
-  public static getTrimmedText(element: typeof window.qwElement): string {
+  public static getTrimmedText(element: QWElement): string {
     return getTrimmedTextFunction(element);
   }
 }

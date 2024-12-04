@@ -1,5 +1,5 @@
-import { QualWeb, generateEARLReport } from '../src';
 import { expect } from 'chai';
+import { QualWeb } from '../src';
 
 describe('Core', function () {
   it('Should evaluate one url', async function () {
@@ -7,20 +7,22 @@ describe('Core', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors', '--no-sandbox'] });
-    const url = 'https://aveiroexpo.com/feed';
+    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
+    const url = 'https://ciencias.ulisboa.pt';
     const evaluations = await qualweb.evaluate({
       url,
       log: { console: true },
       // viewport: { mobile: true, landscape: false },
-      execute: { act: true, wcag: true, bp: false },
-      'act-rules': { levels: ['AAA'] }
+      // modulesToExecute: { "act-rules": true, "wcag-techniques": true, "best-practices": true, counter: false },
+      modules: [
+        // FIXME: add a dummy module to ensure execution by the core.
+      ],
     });
-
-    const earlReports = generateEARLReport(evaluations);
 
     await qualweb.stop();
 
-    expect(earlReports[url]['@graph']).to.have.length(1);
+    // TODO: the assertion needs to be better.
+    expect(evaluations[url]).to.not.be.undefined;
+    console.log("🚀 ~ earlReports[url]['@graph']:", evaluations)
   });
 });

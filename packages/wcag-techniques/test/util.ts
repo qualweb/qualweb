@@ -1,35 +1,21 @@
-import puppeteer from 'puppeteer';
-import type { Browser, BrowserContext, Page } from 'puppeteer';
+import puppeteer, { PuppeteerLaunchOptions } from 'puppeteer';
 
-type PuppeteerProxy = {
-  browser: Browser;
-  incognito: BrowserContext,
-  page: Page,
-}
+const defaultOptions: PuppeteerLaunchOptions = {
+  devtools: false,
+  headless: true,
+};
 
-export function usePuppeteer(): PuppeteerProxy {
-  const proxy: Partial<PuppeteerProxy> = {
-    browser: undefined,
-    incognito: undefined,
-    page: undefined,
-  };
+export async function launchBrowser(launchOptions: PuppeteerLaunchOptions = {}) {
+  // Overwrite default options with the ones provided, if any.
+  const options = { ...defaultOptions, ...launchOptions };
 
-  before(async () => {
-    proxy.browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--ignore-certificate-errors']
-    });
+  if (!options.headless) {
+    options.headless = process.env.TEST_PUPPETEER_HEADLESS?.toLowerCase() === 'false' || false;
+  }
 
-    proxy.incognito = await proxy.browser.createIncognitoBrowserContext();
+  if (!options.args) {
+    options.args = ['--no-sandbox']
+  }
 
-    proxy.page = await proxy.incognito.newPage();
-  })
-
-  after(async () => {
-    await proxy.page?.close();
-    await proxy.incognito?.close();
-    await proxy.browser?.close();
-  });
-
-  return proxy as PuppeteerProxy;
+  return await puppeteer.launch(options);
 }

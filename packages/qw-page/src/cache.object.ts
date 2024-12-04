@@ -1,9 +1,5 @@
-class Cache {
-  private readonly cache: Map<string, string | undefined>;
-
-  constructor() {
-    this.cache = new Map<string, string | undefined>();
-  }
+export class Cache {
+  private readonly cache = new Map<string, string | undefined>();
 
   public get(key: string): string | undefined {
     return this.cache.get(key);
@@ -17,5 +13,3 @@ class Cache {
     return this.cache.has(key);
   }
 }
-
-export = Cache;

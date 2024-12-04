@@ -1,17 +1,11 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R44 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const links = element.getElements('a[href], [role="link"]');
     const linkDataList = new Array<any>();
 
@@ -41,7 +35,7 @@ class QW_ACT_R44 extends AtomicRule {
     for (const linkData of linkDataList || []) {
       const test = new Test();
 
-      const elementList = new Array<typeof window.qwElement>();
+      const elementList = new Array<QWElement>();
 
       if (blacklist.indexOf(counter) >= 0) {
         //element already evaluated
@@ -59,16 +53,16 @@ class QW_ACT_R44 extends AtomicRule {
           elementList.push(linkDataList[counter].link);
           if (hasEqualHref) {
             //passed
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
             //warning
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W1';
           }
 
           test.addElements(elementList);
-          super.addTestResult(test);
+          this.addTestResult(test);
         }
       }
 
@@ -94,4 +88,4 @@ class QW_ACT_R44 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R44;
+export { QW_ACT_R44 };

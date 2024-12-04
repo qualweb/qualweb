@@ -1,26 +1,20 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, IsHTMLDocument, isInMainContext } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsHTMLDocument, IsInMainContext } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R74 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @IsHTMLDocument
-  @isInMainContext
-  execute(element: typeof window.qwElement): void {
+  @IsInMainContext
+  execute(element: QWElement): void {
     const test = new Test();
 
     let hasLinks = false;
     const links = window.qwPage.getElements('a');
     if (links) {
       const host = location.hostname;
-      const linksWithAnchors = new Array<typeof window.qwElement>();
+      const linksWithAnchors = new Array<QWElement>();
       for (const link of links) {
         if (link.elementHasAttribute('href')) {
           const href = link.getElementAttribute('href')?.trim();
@@ -54,22 +48,22 @@ class QW_ACT_R74 extends AtomicRule {
         }
 
         if (nSkipLinks > 0) {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
         } else {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W2';
         }
       }
     }
 
     if (!hasLinks) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
 
     test.addElement(element, false);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 
   private checkDestination(destination: string): boolean {
@@ -83,4 +77,4 @@ class QW_ACT_R74 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R74;
+export { QW_ACT_R74 };

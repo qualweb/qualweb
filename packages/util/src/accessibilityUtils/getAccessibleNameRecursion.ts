@@ -1,11 +1,8 @@
+import type { QWElement } from '@qualweb/qw-element';
 import { formElements, typesWithLabel } from './constants';
 import getAccessibleNameSVGRecursion from './getAccessibleNameSVGRecursion';
 
-function getAccessibleNameRecursion(
-  element: typeof window.qwElement,
-  recursion: boolean,
-  isWidget: boolean
-): string | undefined {
+function getAccessibleNameRecursion(element: QWElement, recursion: boolean, isWidget: boolean): string | undefined {
   let AName, alt, value, placeholder;
   const name = element.getElementTagName();
   const allowNameFromContent = window.AccessibilityUtils.allowsNameFromContent(element);
@@ -106,7 +103,7 @@ function getFirstNotUndefined(...args: any[]): string | undefined {
   return result;
 }
 
-function getValueFromSpecialLabel(element: typeof window.qwElement, label: string): string {
+function getValueFromSpecialLabel(element: QWElement, label: string): string | undefined {
   const labelElement = element.getElement(label);
   let accessNameFromLabel;
 
@@ -116,8 +113,8 @@ function getValueFromSpecialLabel(element: typeof window.qwElement, label: strin
   return accessNameFromLabel;
 }
 
-function getValueFromLabel(element: typeof window.qwElement, id: string | null): string {
-  const referencedByLabelList = new Array<typeof window.qwElement>();
+function getValueFromLabel(element: QWElement, id: string | null): string | undefined {
+  const referencedByLabelList = new Array<QWElement>();
   const referencedByLabel = window.qwPage.getElements(`label[for="${id}"]`, element);
   if (referencedByLabel) {
     referencedByLabelList.push(...referencedByLabel);
@@ -147,7 +144,7 @@ function getValueFromLabel(element: typeof window.qwElement, id: string | null):
 
   return result;
 }
-function isElementPresent(element: typeof window.qwElement, listElement: Array<typeof window.qwElement>): boolean {
+function isElementPresent(element: QWElement, listElement: Array<QWElement>): boolean {
   let result = false;
   let i = 0;
   const elementSelector = element.getElementSelector();
@@ -159,7 +156,7 @@ function isElementPresent(element: typeof window.qwElement, listElement: Array<t
 }
 
 function getAccessibleNameFromAriaLabelledBy(
-  element: typeof window.qwElement,
+  element: QWElement,
   ariaLabelId: string
 ): string | undefined {
   const ListIdRefs = ariaLabelId.split(' ');
@@ -186,7 +183,7 @@ function getAccessibleNameFromAriaLabelledBy(
   return result ? result.trim() : result;
 }
 
-function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): string {
+function getTextFromCss(element: QWElement, isWidget: boolean): string {
   const before = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':before'));
   const after = cleanSVGAndNoneCode(element.getElementStyleProperty('content', ':after'));
   const aNameList = getAccessibleNameFromChildren(element, isWidget);
@@ -194,7 +191,7 @@ function getTextFromCss(element: typeof window.qwElement, isWidget: boolean): st
   return before.replace(/["']/g, '') + textValue + after.replace(/["']/g, '');
 }
 
-function getConcatenatedText(element: typeof window.qwElement, aNames: Array<string>): string {
+function getConcatenatedText(element: QWElement, aNames: Array<string>): string {
   return element.concatANames(aNames);
 }
 
@@ -205,7 +202,7 @@ function cleanSVGAndNoneCode(text: string): string {
   return text;
 }
 
-function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidget: boolean): Array<string> {
+function getAccessibleNameFromChildren(element: QWElement, isWidget: boolean): Array<string> {
   if (!isWidget) {
     isWidget = window.AccessibilityUtils.isElementWidget(element);
   }
@@ -230,7 +227,7 @@ function getAccessibleNameFromChildren(element: typeof window.qwElement, isWidge
   return elementAnames;
 }
 
-function getAccessibleNameFromShadowChildren(element: typeof window.qwElement): string | undefined {
+function getAccessibleNameFromShadowChildren(element: QWElement): string | undefined {
   const children = element.getShadowElements('*');
   let finalAName = '';
   children?.forEach((element) => {
@@ -240,7 +237,7 @@ function getAccessibleNameFromShadowChildren(element: typeof window.qwElement): 
   return finalAName;
 }
 
-function getAccessibleNameForSlot(slot: typeof window.qwElement): string | undefined {
+function getAccessibleNameForSlot(slot: QWElement): string | undefined {
   let elements = slot.getSlotElements();
   let finalAName = '';
   elements?.forEach((element) => {

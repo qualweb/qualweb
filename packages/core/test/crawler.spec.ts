@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import { createKoaServer, koaServerPageCount } from './util';
 import { Server } from 'http';
+import DummyModule from './lib/DummyModule';
 
 describe('Core input method: crawler', function () {
   // Mock server set up.
@@ -48,11 +49,11 @@ describe('Core input method: crawler', function () {
 
     expect(urls).to.have.length(actualUrlCount);
 
+    const dummyModule = new DummyModule();
+
     const options = {
       urls,
-      'wcag-techniques': {
-        exclude: ['QW-WCAG-T16']
-      }
+      modules: [dummyModule],
     };
 
     await qualweb.start(

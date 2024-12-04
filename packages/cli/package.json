@@ -2,9 +2,9 @@
   "name": "@qualweb/cli",
   "version": "0.6.40",
   "description": "QualWeb evaluator command line interface",
-  "main": "dist/index.js",
+  "main": "dist/cli.js",
   "bin": {
-    "qw": "./bin/cli.js"
+    "qw": "./dist/cli.js"
   },
   "files": [
     "dist/*"
@@ -13,11 +13,9 @@
     "tsc": "tsc",
     "test": "mocha",
     "prebuild": "rimraf dist",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
-    "typedoc": "typedoc --out docs src/index.ts",
+    "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -36,32 +34,29 @@
     "url": "https://github.com/qualweb/cli.git"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
+    "@qualweb/act-rules": "0.6.39",
+    "@qualweb/best-practices": "0.6.19",
     "@qualweb/core": "0.7.80",
-    "command-line-args": "^5.2.1",
-    "command-line-usage": "^6.1.1",
-    "log-update": "^4.0.0",
-    "set-value": "^4.1.0"
+    "@qualweb/counter": "0.2.4",
+    "@qualweb/earl-reporter": "0.4.6",
+    "@qualweb/wcag-techniques": "0.3.22",
+    "commander": "^12.1.0",
+    "log-update": "^4.0.0"
   },
   "devDependencies": {
-    "@qualweb/types": "0.7.27",
     "@tsconfig/recommended": "^1.0.3",
-    "@types/command-line-args": "^5.2.3",
-    "@types/command-line-usage": "^5.0.4",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.4.1",
-    "@types/set-value": "^4.0.3",
-    "chai": "^4.4.1",
-    "eslint": "^8.56.0",
+    "chai": "4.5.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
-    "ts-node": "^10.9.2",
-    "typedoc": "^0.25.6",
-    "typescript": "^4.3.5"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   }
 }

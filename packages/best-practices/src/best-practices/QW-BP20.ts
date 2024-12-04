@@ -1,18 +1,11 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP20 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP20 extends BestPractice {
   @ElementExists
-  execute(element: typeof window.qwElement): void {
-
+  execute(element: QWElement): void {
     const possibleLandmarkList = element.getElements('header:not([role]), [role=banner]');
     const landmarkList = possibleLandmarkList.filter(
       (element) => window.AccessibilityUtils.getElementRole(element) === 'banner'
@@ -21,10 +14,10 @@ class QW_BP20 extends BestPracticeObject {
     if (landmarkList.length > 0) {
       const test = new Test();
       if (landmarkList.length < 2) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
       test.addElements(landmarkList);
@@ -33,4 +26,4 @@ class QW_BP20 extends BestPracticeObject {
   }
 }
 
-export = QW_BP20;
+export { QW_BP20 };

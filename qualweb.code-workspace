@@ -29,16 +29,8 @@
       "path": "packages/cui-checks",
     },
     {
-      "name": "@qualweb/dom",
-      "path": "packages/dom",
-    },
-    {
       "name": "@qualweb/earl-reporter",
       "path": "packages/earl-reporter",
-    },
-    {
-      "name": "@qualweb/evaluation",
-      "path": "packages/evaluation",
     },
     {
       "name": "@qualweb/locale",
@@ -51,10 +43,6 @@
     {
       "name": "@qualweb/qw-page",
       "path": "packages/qw-page",
-    },
-    {
-      "name": "@qualweb/types",
-      "path": "packages/types",
     },
     {
       "name": "@qualweb/util",

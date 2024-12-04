@@ -1,15 +1,8 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import {
-  WCAGTechniqueClass,
-  ElementExists,
-  ElementHasAttributes,
-  ElementHasAccessibleName
-} from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAccessibleName, ElementHasAttributes } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T8 extends Technique {
   private readonly default_title = ['spacer', 'image', 'picture', 'separador', 'imagem', 'fotografia'];
 
@@ -19,17 +12,13 @@ class QW_WCAG_T8 extends Technique {
   private readonly pattern3 = new RegExp('^intro#[0-9]+$');
   private readonly pattern4 = new RegExp('^imagem\\s[0-9]+$');
 
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
   @ElementHasAttributes
   @ElementHasAccessibleName
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
-    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element)).toLocaleLowerCase();
+    const accessibleName = window.AccessibilityUtils.getAccessibleName(element)!.toLocaleLowerCase();
 
     if (
       !this.pattern4.test(accessibleName) &&
@@ -39,16 +28,16 @@ class QW_WCAG_T8 extends Technique {
       !this.pattern.test(accessibleName) &&
       !this.default_title.includes(accessibleName)
     ) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_WCAG_T8;
+export { QW_WCAG_T8 };

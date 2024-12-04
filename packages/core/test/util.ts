@@ -49,7 +49,7 @@ export function createKoaServer({ childLinksPerPage = 3, maxDepth = 10 }: MockSe
 
   const router = new Router();
 
-  router.get('(/[^\/]+)*', (ctx, next) => {
+  router.get('/([^\/]+)*', (ctx, next) => {
     const parms = ctx.params[0];
       
     const pathSegments = parms

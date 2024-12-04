@@ -1,27 +1,19 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
-import { CSSProperties } from '@qualweb/qw-element';
+import type { CSSProperties, QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T28 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const cssRules = element.getCSSRules();
     this.checkCssProperty(cssRules, element);
   }
 
-  private checkCssProperty(cssRules: CSSProperties | undefined, element: typeof window.qwElement): void {
+  private checkCssProperty(cssRules: CSSProperties | undefined, element: QWElement): void {
     const test = new Test();
     const fontSize = cssRules?.['font-size'];
     if (fontSize) {
-      //console.log(fontSize);
       const value = fontSize.value + '';
       const hasAbsoluteUnit =
         value.includes('cm') ||
@@ -32,19 +24,19 @@ class QW_WCAG_T28 extends Technique {
         value.includes('pc');
 
       if (!hasAbsoluteUnit) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 
       test.addElement(element);
       test.attributes.push(value);
 
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-export = QW_WCAG_T28;
+export { QW_WCAG_T28 };
