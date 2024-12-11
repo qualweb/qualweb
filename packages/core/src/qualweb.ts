@@ -112,7 +112,10 @@ export class QualWeb {
 
     await this.handlePageEvaluations(reports, options);
     this.addUrlsToEvaluate(urls);
-    this.addHtmlCodeToEvaluate(options.html);
+
+    if (options.html) {
+      this.addHtmlCodeToEvaluate(options.html);
+    }
 
     await this.cluster?.idle();
 
