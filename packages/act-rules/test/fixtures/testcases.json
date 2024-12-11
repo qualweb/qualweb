@@ -3,7 +3,7 @@
   "website": "https://www.w3.org/WAI/standards-guidelines/act/rules/",
   "license": "https://act-rules.github.io/pages/license/",
   "description": "Accessibility conformance testing rules for HTML",
-  "count": 1132,
+  "count": 1166,
   "testcases": [
     {
       "ruleId": "674b10",
@@ -14108,10 +14108,10 @@
         }
       },
       "expected": "passed",
-      "testcaseId": "d05f912754cdcfbf5f79b346d1418275e31fb8d5",
+      "testcaseId": "854ec3db8780fe5be957fc1c29f279a3e5fc7969",
       "testcaseTitle": "Passed Example 2",
-      "relativePath": "testcases/bc4a75/d05f912754cdcfbf5f79b346d1418275e31fb8d5.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/bc4a75/d05f912754cdcfbf5f79b346d1418275e31fb8d5.html",
+      "relativePath": "testcases/bc4a75/854ec3db8780fe5be957fc1c29f279a3e5fc7969.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/bc4a75/854ec3db8780fe5be957fc1c29f279a3e5fc7969.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/bc4a75/proposed/"
     },
     {
@@ -15914,10 +15914,10 @@
         }
       },
       "expected": "inapplicable",
-      "testcaseId": "ac8baf8eb7fe7a8a6cd88e956797e438257a6d96",
+      "testcaseId": "7d3d7214d9fca81a8a09a819665871a474f85548",
       "testcaseTitle": "Inapplicable Example 2",
-      "relativePath": "testcases/4c31df/ac8baf8eb7fe7a8a6cd88e956797e438257a6d96.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/4c31df/ac8baf8eb7fe7a8a6cd88e956797e438257a6d96.html",
+      "relativePath": "testcases/4c31df/7d3d7214d9fca81a8a09a819665871a474f85548.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/4c31df/7d3d7214d9fca81a8a09a819665871a474f85548.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/4c31df/proposed/"
     },
     {
@@ -16212,6 +16212,42 @@
       "relativePath": "testcases/efbfc7/0d1564a1311c77d8693a9f839e1d752df501d441.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/efbfc7/0d1564a1311c77d8693a9f839e1d752df501d441.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/efbfc7/proposed/"
+    },
+    {
+      "ruleId": "73f2c2",
+      "ruleName": "Autocomplete attribute has valid value",
+      "ruleAccessibilityRequirements": {
+        "wcag21:1.3.5": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "cd80cea25465f393871872ab3cc202d765e5d11d",
+      "testcaseTitle": "Inapplicable Example 8",
+      "relativePath": "testcases/73f2c2/cd80cea25465f393871872ab3cc202d765e5d11d.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/73f2c2/cd80cea25465f393871872ab3cc202d765e5d11d.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/73f2c2/proposed/"
+    },
+    {
+      "ruleId": "73f2c2",
+      "ruleName": "Autocomplete attribute has valid value",
+      "ruleAccessibilityRequirements": {
+        "wcag21:1.3.5": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "87773383afa97f86ca5a0811cbe77c4f14ec1524",
+      "testcaseTitle": "Inapplicable Example 9",
+      "relativePath": "testcases/73f2c2/87773383afa97f86ca5a0811cbe77c4f14ec1524.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/73f2c2/87773383afa97f86ca5a0811cbe77c4f14ec1524.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/73f2c2/proposed/"
     },
     {
       "ruleId": "3e12e1",
@@ -19068,10 +19104,10 @@
       "ruleName": "Focusable element has no keyboard trap via standard navigation",
       "ruleAccessibilityRequirements": null,
       "expected": "passed",
-      "testcaseId": "fb76f71a94bf95f5cfef22f3db6655e7b0a57b0c",
+      "testcaseId": "d26e3cbd39acb781e77c93ea99cc37b4c886c0c5",
       "testcaseTitle": "Passed Example 2",
-      "relativePath": "testcases/a1b64e/fb76f71a94bf95f5cfef22f3db6655e7b0a57b0c.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/a1b64e/fb76f71a94bf95f5cfef22f3db6655e7b0a57b0c.html",
+      "relativePath": "testcases/a1b64e/d26e3cbd39acb781e77c93ea99cc37b4c886c0c5.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/a1b64e/d26e3cbd39acb781e77c93ea99cc37b4c886c0c5.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/a1b64e/proposed/"
     },
     {
@@ -19083,6 +19119,17 @@
       "testcaseTitle": "Passed Example 3",
       "relativePath": "testcases/a1b64e/4b93a866e14ad4c9ed8efa13c080a1e05350fa2f.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/a1b64e/4b93a866e14ad4c9ed8efa13c080a1e05350fa2f.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/a1b64e/proposed/"
+    },
+    {
+      "ruleId": "a1b64e",
+      "ruleName": "Focusable element has no keyboard trap via standard navigation",
+      "ruleAccessibilityRequirements": null,
+      "expected": "passed",
+      "testcaseId": "6ee6cdfc0ae79ec72379b9ee4df9c1920b09ba15",
+      "testcaseTitle": "Passed Example 4",
+      "relativePath": "testcases/a1b64e/6ee6cdfc0ae79ec72379b9ee4df9c1920b09ba15.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/a1b64e/6ee6cdfc0ae79ec72379b9ee4df9c1920b09ba15.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/a1b64e/proposed/"
     },
     {
@@ -19497,6 +19544,30 @@
       "relativePath": "testcases/cc0f0a/e3debccdca560d85dc223b86e9355db89b505350.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/cc0f0a/e3debccdca560d85dc223b86e9355db89b505350.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/cc0f0a/proposed/"
+    },
+    {
+      "ruleId": "e086e5",
+      "ruleName": "Form field has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:1.3.1": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because 1.3.1 Info and Relationship requires that information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text, while 4.1.2 Name, Role, Value only requires an accessible name."
+        },
+        "wcag20:2.5.3": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because 2.5.3 Label in Name requires that if a label is visible, the accessible name contains the label that is presented visually, while 4.1.2 Name, Role, Value only requires an accessible name."
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "cfb1790405bb1ff793ed15a73372d53e79d2d7e0",
+      "testcaseTitle": "Passed Example 8",
+      "relativePath": "testcases/e086e5/cfb1790405bb1ff793ed15a73372d53e79d2d7e0.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/e086e5/cfb1790405bb1ff793ed15a73372d53e79d2d7e0.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/e086e5/proposed/"
     },
     {
       "ruleId": "b49b2e",
@@ -20396,6 +20467,66 @@
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/ucwvc8/proposed/"
     },
     {
+      "ruleId": "2779a5",
+      "ruleName": "HTML page has non-empty title",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G88": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:H25": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "94ff40484422832c2910086d4387163aa2d9dd7d",
+      "testcaseTitle": "Passed Example 2",
+      "relativePath": "testcases/2779a5/94ff40484422832c2910086d4387163aa2d9dd7d.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/94ff40484422832c2910086d4387163aa2d9dd7d.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/proposed/"
+    },
+    {
+      "ruleId": "2779a5",
+      "ruleName": "HTML page has non-empty title",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G88": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:H25": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "9c5eeb535181f3709e13b548a04b9d0054532cdd",
+      "testcaseTitle": "Failed Example 6",
+      "relativePath": "testcases/2779a5/9c5eeb535181f3709e13b548a04b9d0054532cdd.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/9c5eeb535181f3709e13b548a04b9d0054532cdd.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/proposed/"
+    },
+    {
       "ruleId": "4b1c6c",
       "ruleName": "Iframe elements with identical accessible names have equivalent purpose",
       "ruleAccessibilityRequirements": {
@@ -21006,6 +21137,30 @@
       "relativePath": "testcases/cae760/058668cee446d08989bf24d5ce3413dc2cda9975.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/cae760/058668cee446d08989bf24d5ce3413dc2cda9975.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/cae760/proposed/"
+    },
+    {
+      "ruleId": "akn7bn",
+      "ruleName": "Iframe with interactive elements is not excluded from tab-order",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "a13349ef619df6256bd52acb8008760c3711f5dd",
+      "testcaseTitle": "Inapplicable Example 6",
+      "relativePath": "testcases/akn7bn/a13349ef619df6256bd52acb8008760c3711f5dd.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/akn7bn/a13349ef619df6256bd52acb8008760c3711f5dd.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/akn7bn/proposed/"
     },
     {
       "ruleId": "e88epe",
@@ -22683,9 +22838,9 @@
           "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
         }
       },
-      "expected": "failed",
+      "expected": "passed",
       "testcaseId": "228c0a3d78557fb48a855d6733d50848a86f0d62",
-      "testcaseTitle": "Failed Example 1",
+      "testcaseTitle": "Passed Example 9",
       "relativePath": "testcases/fd3a94/228c0a3d78557fb48a855d6733d50848a86f0d62.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/228c0a3d78557fb48a855d6733d50848a86f0d62.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
@@ -22705,10 +22860,31 @@
         }
       },
       "expected": "failed",
-      "testcaseId": "8d14f906398220f1ba52ef34b7f8e40d654312bd",
+      "testcaseId": "9ceacbea5df44a14dc17df2089edb134f22decd3",
+      "testcaseTitle": "Failed Example 1",
+      "relativePath": "testcases/fd3a94/9ceacbea5df44a14dc17df2089edb134f22decd3.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/9ceacbea5df44a14dc17df2089edb134f22decd3.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
+    },
+    {
+      "ruleId": "fd3a94",
+      "ruleName": "Links with identical accessible names and same context serve equivalent purpose",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.4": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.4.9": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "8dc58c481c594488a331cd267974a324b97c9c98",
       "testcaseTitle": "Failed Example 2",
-      "relativePath": "testcases/fd3a94/8d14f906398220f1ba52ef34b7f8e40d654312bd.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/8d14f906398220f1ba52ef34b7f8e40d654312bd.html",
+      "relativePath": "testcases/fd3a94/8dc58c481c594488a331cd267974a324b97c9c98.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/8dc58c481c594488a331cd267974a324b97c9c98.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
     },
     {
@@ -22726,10 +22902,10 @@
         }
       },
       "expected": "failed",
-      "testcaseId": "109577c05513f09ec5360d02ef463d7f5350578c",
+      "testcaseId": "ef75d42424140b163d7939aacc6a80c8dbc8816a",
       "testcaseTitle": "Failed Example 3",
-      "relativePath": "testcases/fd3a94/109577c05513f09ec5360d02ef463d7f5350578c.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/109577c05513f09ec5360d02ef463d7f5350578c.html",
+      "relativePath": "testcases/fd3a94/ef75d42424140b163d7939aacc6a80c8dbc8816a.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/ef75d42424140b163d7939aacc6a80c8dbc8816a.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
     },
     {
@@ -22747,10 +22923,10 @@
         }
       },
       "expected": "failed",
-      "testcaseId": "fdc1c4461c1b874a94df693c72a8483cb39a8aab",
+      "testcaseId": "f92350be3a294ad1a41de6d7202f09bdd4e5d6c0",
       "testcaseTitle": "Failed Example 4",
-      "relativePath": "testcases/fd3a94/fdc1c4461c1b874a94df693c72a8483cb39a8aab.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/fdc1c4461c1b874a94df693c72a8483cb39a8aab.html",
+      "relativePath": "testcases/fd3a94/f92350be3a294ad1a41de6d7202f09bdd4e5d6c0.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/f92350be3a294ad1a41de6d7202f09bdd4e5d6c0.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
     },
     {
@@ -22768,10 +22944,73 @@
         }
       },
       "expected": "failed",
-      "testcaseId": "0a465c71c47198030c8212fdd1122e35e06c4ee0",
+      "testcaseId": "0b01e772dff47d4fd971ca4cfda2a9810843c10a",
       "testcaseTitle": "Failed Example 5",
-      "relativePath": "testcases/fd3a94/0a465c71c47198030c8212fdd1122e35e06c4ee0.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/0a465c71c47198030c8212fdd1122e35e06c4ee0.html",
+      "relativePath": "testcases/fd3a94/0b01e772dff47d4fd971ca4cfda2a9810843c10a.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/0b01e772dff47d4fd971ca4cfda2a9810843c10a.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
+    },
+    {
+      "ruleId": "fd3a94",
+      "ruleName": "Links with identical accessible names and same context serve equivalent purpose",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.4": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.4.9": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "dddcd76a61f61fa6652f847b66cd77fdcf7724cf",
+      "testcaseTitle": "Failed Example 6",
+      "relativePath": "testcases/fd3a94/dddcd76a61f61fa6652f847b66cd77fdcf7724cf.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/dddcd76a61f61fa6652f847b66cd77fdcf7724cf.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
+    },
+    {
+      "ruleId": "fd3a94",
+      "ruleName": "Links with identical accessible names and same context serve equivalent purpose",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.4": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.4.9": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "7ebe961dbb4fb0e259fc3bc98a8f048170b063af",
+      "testcaseTitle": "Failed Example 7",
+      "relativePath": "testcases/fd3a94/7ebe961dbb4fb0e259fc3bc98a8f048170b063af.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/7ebe961dbb4fb0e259fc3bc98a8f048170b063af.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
+    },
+    {
+      "ruleId": "fd3a94",
+      "ruleName": "Links with identical accessible names and same context serve equivalent purpose",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.4": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.4.9": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "1379913f0770843f89d37ceaad3a63e36f07924e",
+      "testcaseTitle": "Failed Example 8",
+      "relativePath": "testcases/fd3a94/1379913f0770843f89d37ceaad3a63e36f07924e.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/1379913f0770843f89d37ceaad3a63e36f07924e.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
     },
     {
@@ -22898,6 +23137,27 @@
       "testcaseTitle": "Inapplicable Example 6",
       "relativePath": "testcases/fd3a94/58087cbeb108ebf723ffc232c9996123a6eb168b.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/58087cbeb108ebf723ffc232c9996123a6eb168b.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
+    },
+    {
+      "ruleId": "fd3a94",
+      "ruleName": "Links with identical accessible names and same context serve equivalent purpose",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.4": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.4.9": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because the rule also considers the context of the link, in addition to the link text. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "9abd9bcfa7c5eb5000df1bd7e72440c6233566a5",
+      "testcaseTitle": "Inapplicable Example 7",
+      "relativePath": "testcases/fd3a94/9abd9bcfa7c5eb5000df1bd7e72440c6233566a5.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/fd3a94/9abd9bcfa7c5eb5000df1bd7e72440c6233566a5.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/fd3a94/proposed/"
     },
     {
@@ -23743,10 +24003,10 @@
         }
       },
       "expected": "passed",
-      "testcaseId": "f3c5ba4e097be5eee694024808a962972f037670",
+      "testcaseId": "5b39aa37000933c7b9a766970b829ce5fada62d6",
       "testcaseTitle": "Passed Example 2",
-      "relativePath": "testcases/4e8ab6/f3c5ba4e097be5eee694024808a962972f037670.html",
-      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/4e8ab6/f3c5ba4e097be5eee694024808a962972f037670.html",
+      "relativePath": "testcases/4e8ab6/5b39aa37000933c7b9a766970b829ce5fada62d6.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/4e8ab6/5b39aa37000933c7b9a766970b829ce5fada62d6.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/4e8ab6/proposed/"
     },
     {
@@ -24140,6 +24400,408 @@
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/4e8ab6/proposed/"
     },
     {
+      "ruleId": "0ssw9k",
+      "ruleName": "Scrollable content can be reached with sequential focus navigation",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.1.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "270a22a8e4ce4d9f073e1484a0d807705207a1d7",
+      "testcaseTitle": "Passed Example 2",
+      "relativePath": "testcases/0ssw9k/270a22a8e4ce4d9f073e1484a0d807705207a1d7.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/0ssw9k/270a22a8e4ce4d9f073e1484a0d807705207a1d7.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/"
+    },
+    {
+      "ruleId": "0ssw9k",
+      "ruleName": "Scrollable content can be reached with sequential focus navigation",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.1.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "c5f649f91ebe4979270972db7c42279a74efc6c5",
+      "testcaseTitle": "Passed Example 3",
+      "relativePath": "testcases/0ssw9k/c5f649f91ebe4979270972db7c42279a74efc6c5.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/0ssw9k/c5f649f91ebe4979270972db7c42279a74efc6c5.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/"
+    },
+    {
+      "ruleId": "0ssw9k",
+      "ruleName": "Scrollable content can be reached with sequential focus navigation",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.1.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "a7da5f9dbc260d633787386b6041c70cb9fbdc32",
+      "testcaseTitle": "Inapplicable Example 2",
+      "relativePath": "testcases/0ssw9k/a7da5f9dbc260d633787386b6041c70cb9fbdc32.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/0ssw9k/a7da5f9dbc260d633787386b6041c70cb9fbdc32.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/"
+    },
+    {
+      "ruleId": "0ssw9k",
+      "ruleName": "Scrollable content can be reached with sequential focus navigation",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.1.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "345fec9a44fb17add404996fe985e87d884f55d0",
+      "testcaseTitle": "Inapplicable Example 3",
+      "relativePath": "testcases/0ssw9k/345fec9a44fb17add404996fe985e87d884f55d0.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/0ssw9k/345fec9a44fb17add404996fe985e87d884f55d0.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/"
+    },
+    {
+      "ruleId": "0ssw9k",
+      "ruleName": "Scrollable content can be reached with sequential focus navigation",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.1.1": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:2.1.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G202": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "349a8b4b881ab5380ed63e4e0d8e26d8bd1ad025",
+      "testcaseTitle": "Inapplicable Example 6",
+      "relativePath": "testcases/0ssw9k/349a8b4b881ab5380ed63e4e0d8e26d8bd1ad025.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/0ssw9k/349a8b4b881ab5380ed63e4e0d8e26d8bd1ad025.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/0ssw9k/proposed/"
+    },
+    {
+      "ruleId": "oj04fd",
+      "ruleName": "Element in sequential focus order has visible focus",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.7": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "8f296b7a417523e9c769761dd41b703c75d90019",
+      "testcaseTitle": "Passed Example 4",
+      "relativePath": "testcases/oj04fd/8f296b7a417523e9c769761dd41b703c75d90019.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/oj04fd/8f296b7a417523e9c769761dd41b703c75d90019.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/oj04fd/proposed/"
+    },
+    {
+      "ruleId": "oj04fd",
+      "ruleName": "Element in sequential focus order has visible focus",
+      "ruleAccessibilityRequirements": {
+        "wcag20:2.4.7": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "eb4f387bfa2459fb12dc5b0cbda478238b3eeeda",
+      "testcaseTitle": "Inapplicable Example 2",
+      "relativePath": "testcases/oj04fd/eb4f387bfa2459fb12dc5b0cbda478238b3eeeda.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/oj04fd/eb4f387bfa2459fb12dc5b0cbda478238b3eeeda.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/oj04fd/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "174322a2ade5e022c611bdb8389419ce299e3267",
+      "testcaseTitle": "Passed Example 1",
+      "relativePath": "testcases/2t702h/174322a2ade5e022c611bdb8389419ce299e3267.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/174322a2ade5e022c611bdb8389419ce299e3267.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "83d39ed6bf5538f6d251150530112b9f66fca6fa",
+      "testcaseTitle": "Passed Example 2",
+      "relativePath": "testcases/2t702h/83d39ed6bf5538f6d251150530112b9f66fca6fa.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/83d39ed6bf5538f6d251150530112b9f66fca6fa.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "61d7129d076b8cc168168d92734e1ae6ec72cf59",
+      "testcaseTitle": "Passed Example 3",
+      "relativePath": "testcases/2t702h/61d7129d076b8cc168168d92734e1ae6ec72cf59.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/61d7129d076b8cc168168d92734e1ae6ec72cf59.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "b1c41028fa588755e96a256917da173183aafeca",
+      "testcaseTitle": "Passed Example 4",
+      "relativePath": "testcases/2t702h/b1c41028fa588755e96a256917da173183aafeca.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/b1c41028fa588755e96a256917da173183aafeca.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "d165641d4faa4b52b97ef661f94b9f7d039c63f7",
+      "testcaseTitle": "Passed Example 5",
+      "relativePath": "testcases/2t702h/d165641d4faa4b52b97ef661f94b9f7d039c63f7.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/d165641d4faa4b52b97ef661f94b9f7d039c63f7.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "f0f5f9e727e46e257e5d6420a8ab11b760c75617",
+      "testcaseTitle": "Failed Example 1",
+      "relativePath": "testcases/2t702h/f0f5f9e727e46e257e5d6420a8ab11b760c75617.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/f0f5f9e727e46e257e5d6420a8ab11b760c75617.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "a7fd233a404e737baaee10e34c35e40bbe7f14bb",
+      "testcaseTitle": "Failed Example 2",
+      "relativePath": "testcases/2t702h/a7fd233a404e737baaee10e34c35e40bbe7f14bb.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/a7fd233a404e737baaee10e34c35e40bbe7f14bb.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "f76f484c92eec764dbd1ee3e5ee3421f230a56d7",
+      "testcaseTitle": "Failed Example 3",
+      "relativePath": "testcases/2t702h/f76f484c92eec764dbd1ee3e5ee3421f230a56d7.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/f76f484c92eec764dbd1ee3e5ee3421f230a56d7.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "d0f1dd469c5e48feec2db9ef84a98e143212f574",
+      "testcaseTitle": "Inapplicable Example 1",
+      "relativePath": "testcases/2t702h/d0f1dd469c5e48feec2db9ef84a98e143212f574.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/d0f1dd469c5e48feec2db9ef84a98e143212f574.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "eb98ae3dbf17cb6ca91f27b0ae8d9d05f81cbb4d",
+      "testcaseTitle": "Inapplicable Example 2",
+      "relativePath": "testcases/2t702h/eb98ae3dbf17cb6ca91f27b0ae8d9d05f81cbb4d.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/eb98ae3dbf17cb6ca91f27b0ae8d9d05f81cbb4d.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "8d8611c7fdca07f6aa3bf3df3850921b9a35356b",
+      "testcaseTitle": "Inapplicable Example 3",
+      "relativePath": "testcases/2t702h/8d8611c7fdca07f6aa3bf3df3850921b9a35356b.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/8d8611c7fdca07f6aa3bf3df3850921b9a35356b.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
+      "ruleId": "2t702h",
+      "ruleName": "Summary element has non-empty accessible name",
+      "ruleAccessibilityRequirements": {
+        "wcag20:4.1.2": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        }
+      },
+      "expected": "inapplicable",
+      "testcaseId": "2fb5a6c2e2e4f6c70ac9e26f2d0617892972cd56",
+      "testcaseTitle": "Inapplicable Example 4",
+      "relativePath": "testcases/2t702h/2fb5a6c2e2e4f6c70ac9e26f2d0617892972cd56.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/2t702h/2fb5a6c2e2e4f6c70ac9e26f2d0617892972cd56.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/2t702h/proposed/"
+    },
+    {
       "ruleId": "d0f69e",
       "ruleName": "Table header cell has assigned cells",
       "ruleAccessibilityRequirements": {
@@ -24450,6 +25112,81 @@
       "relativePath": "testcases/a25f45/17e68991f57cd20cd5c9fcf564d5a23ebb08c0f0.html",
       "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/a25f45/17e68991f57cd20cd5c9fcf564d5a23ebb08c0f0.html",
       "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/a25f45/proposed/"
+    },
+    {
+      "ruleId": "afw4f7",
+      "ruleName": "Text has minimum contrast",
+      "ruleAccessibilityRequirements": {
+        "wcag20:1.4.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:1.4.6": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because this criterion has a higher minimum contrast. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "eb4bfbbeba4e803fef10ebad17427f32e306ae82",
+      "testcaseTitle": "Passed Example 7",
+      "relativePath": "testcases/afw4f7/eb4bfbbeba4e803fef10ebad17427f32e306ae82.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/afw4f7/eb4bfbbeba4e803fef10ebad17427f32e306ae82.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/"
+    },
+    {
+      "ruleId": "afw4f7",
+      "ruleName": "Text has minimum contrast",
+      "ruleAccessibilityRequirements": {
+        "wcag20:1.4.3": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:1.4.6": {
+          "secondary": "This success criterion is **more strict** than this rule. This is because this criterion has a higher minimum contrast. Some of the passed examples do not satisfy this success criterion."
+        }
+      },
+      "expected": "failed",
+      "testcaseId": "8c33a0af471cc3c1abbb9f709afa6629b13daf3a",
+      "testcaseTitle": "Failed Example 11",
+      "relativePath": "testcases/afw4f7/8c33a0af471cc3c1abbb9f709afa6629b13daf3a.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/afw4f7/8c33a0af471cc3c1abbb9f709afa6629b13daf3a.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/"
+    },
+    {
+      "ruleId": "09o5cg",
+      "ruleName": "Text has enhanced contrast",
+      "ruleAccessibilityRequirements": {
+        "wcag20:1.4.6": {
+          "forConformance": true,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G17": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag-technique:G18": {
+          "forConformance": false,
+          "failed": "not satisfied",
+          "passed": "further testing needed",
+          "inapplicable": "further testing needed"
+        },
+        "wcag20:1.4.3": {
+          "secondary": "This success criterion is **less strict** than this rule. This is because this criterion has a lower minimum contrast. Some of the failed examples may satisfy this success criterion."
+        }
+      },
+      "expected": "passed",
+      "testcaseId": "5cd71d7ee71bddaed9ff5fbd349ce0809141e425",
+      "testcaseTitle": "Passed Example 6",
+      "relativePath": "testcases/09o5cg/5cd71d7ee71bddaed9ff5fbd349ce0809141e425.html",
+      "url": "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases/09o5cg/5cd71d7ee71bddaed9ff5fbd349ce0809141e425.html",
+      "rulePage": "https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/proposed/"
     },
     {
       "ruleId": "eac66b",

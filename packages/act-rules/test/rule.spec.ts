@@ -6,6 +6,7 @@
  */
 
 import { expect } from 'chai';
+import fetch from 'node-fetch';
 import { launchBrowser } from './util';
 
 import actTestCases from './fixtures/testcases.json';

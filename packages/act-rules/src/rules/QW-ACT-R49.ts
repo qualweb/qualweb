@@ -8,9 +8,9 @@ class QW_ACT_R49 extends AtomicRule {
   execute(element: QWElement): void {
     const test = new Test();
 
-    const autoplay = element.getElementProperty('autoplay');
-    const paused = element.getElementAttribute('paused');
-    const muted = element.getElementProperty('muted');
+    const autoplay = element.getElementProperty('autoplay') === "true";
+    const paused = element.getElementAttribute('paused') === "true";
+    const muted = element.getElementProperty('muted') === "true";
     const srcAttr = element.getElementAttribute('src');
     const childSrc = element.getElements('source[src]');
     const duration = parseInt(element.getElementProperty('duration'));
@@ -27,23 +27,20 @@ class QW_ACT_R49 extends AtomicRule {
       src.push(srcAttr);
     }
 
-    if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
-      if (!(duration >= 0 && (hasSoundTrack || isAudioElement))) {
-        test.verdict = Verdict.INAPPLICABLE;
-        test.resultCode = 'I1';
-      } else if (hasPuppeteerApplicableData) {
-        if (this.srcTimeIsLessThanThree(src, duration)) {
-          test.verdict = Verdict.PASSED;
-          test.resultCode = 'P1';
-        } else {
-          test.verdict = Verdict.FAILED;
-          test.resultCode = 'F1';
-        }
+    if (!(!autoplay || paused || muted || !hasPuppeteerApplicableData)) {
+      if (this.srcTimeIsLessThanThree(src, duration)) {
+        test.verdict = Verdict.PASSED;
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = Verdict.FAILED;
+        test.resultCode = 'F1';
       }
-
-      test.addElement(element);
-      this.addTestResult(test);
+    } else {
+      test.verdict = Verdict.INAPPLICABLE;
+      test.resultCode = 'I1';
     }
+    test.addElement(element);
+    this.addTestResult(test);
   }
 
   private srcTimeIsLessThanThree(src: any[], duration: number): boolean {

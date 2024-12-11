@@ -8,43 +8,30 @@ class QW_ACT_R50 extends AtomicRule {
   execute(element: QWElement): void {
     const test = new Test();
 
-    const autoplay = element.getElementProperty('autoplay');
-    const paused = element.getElementAttribute('paused');
-    const muted = element.getElementProperty('muted');
-    const srcAttr = element.getElementAttribute('src');
-    const childSrc = element.getElements('source[src]');
-    const controls = element.getElementProperty('controls') || this.hasPlayOrMuteButton(element);
+    const autoplay = element.getElementProperty('autoplay') === "true";
+    const paused = element.getElementAttribute('paused') === "true";
+    const muted = element.getElementProperty('muted') === "true";
+    const controls = (element.getElementProperty('controls') === "true") || this.hasPlayOrMuteButton(element); 
     const duration = parseInt(element.getElementProperty('duration'));
     const hasSoundTrack = window.DomUtils.videoElementHasAudio(element);
     const isAudioElement = element.getElementTagName() === 'audio';
     const hasPuppeteerApplicableData = duration > 3 && (hasSoundTrack || isAudioElement);
-    // const src = new Array<string | null>();
 
-    // if (childSrc.length > 0) {
-    //   for (const child of childSrc || []) {
-    //     src.push(child.getElementAttribute('src'));
-    //   }
-    // } else {
-    //   src.push(srcAttr);
-    // }
-
-    if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
-      if (!(duration > 0 && (hasSoundTrack || isAudioElement))) {
-        test.verdict = Verdict.INAPPLICABLE;
-        test.resultCode = 'I1';
-      } else if (hasPuppeteerApplicableData) {
-        if (controls) {
-          test.verdict = Verdict.PASSED;
-          test.resultCode = 'P1';
-        } else {
-          test.verdict = Verdict.FAILED;
-          test.resultCode = 'F1';
-        }
+    if (!(!autoplay || paused || muted || !hasPuppeteerApplicableData)) {
+      if (controls) {
+        test.verdict = Verdict.PASSED;
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = Verdict.FAILED;
+        test.resultCode = 'F1';
       }
-
-      test.addElement(element);
-      this.addTestResult(test);
+    } else {
+      test.verdict = Verdict.INAPPLICABLE;
+      test.resultCode = 'I1';
     }
+
+    test.addElement(element);
+    this.addTestResult(test);
   }
 
   // determines if is there a button element in the page with the label or accessible name equal to "play", "pause", "mute" or "unmute"
