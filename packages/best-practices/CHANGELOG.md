@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1
+
+### Patch Changes
+
+- cef0718: Fix way BP28 updates results
+
 ## 0.7.0
 
 ### Minor Changes
