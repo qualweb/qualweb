@@ -16,7 +16,8 @@ class QW_BP28 extends BestPractice {
       test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
-    test.addElement(element);
+    hasH1.forEach((element) => test.addElement(element));
+    // test.addElement(element);
     this.addTestResult(test);
   }
 }
