@@ -1,105 +1,92 @@
-import { CUICheck, TranslationValues } from '@qualweb/cui-checks';
-import { Translate } from '@qualweb/locale';
-import { Level, Principle } from '@qualweb/evaluation';
+import type { ModuleTranslator } from '@qualweb/core/locale';
+import type { TranslationValues } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/core/evaluation';
+import { Guideline, Verdict } from '@qualweb/core/evaluation';
+import checks from './checks.json';
 
-import Test from '@qualweb/act-rules/src/lib/Test.object';
 
-abstract class Check {
-  protected readonly rule: CUICheck;
-  protected readonly locale: Translate;
+abstract class Check extends Guideline{
+  protected readonly check: Assertion;
+  protected readonly translator: ModuleTranslator;
 
-  constructor(rule: CUICheck, locale: Translate) {
-    this.rule = rule;
-    this.locale = locale;
+  constructor(translator: ModuleTranslator) {
+    super();
+    this.translator = translator;
+    const check = checks[new.target.name as keyof typeof checks] as Assertion;
+    check.metadata.passed = 0;
+    check.metadata.warning = 0;
+    check.metadata.failed = 0;
+    check.metadata.inapplicable = 0;
+    check.metadata.outcome = Verdict.INAPPLICABLE;
+    check.results = new Array<TestResult>();
+
+    this.check = check;
+    this.translator.translateAssertion(this.check);
   }
 
-  abstract execute(element: typeof window.qwElement | undefined): void;
-  
-  public getRuleMapping(): string {
-    return this.rule.mapping;
+  protected translate(resultCode: string, values?: TranslationValues): string {
+    return this.translator.translateTest(this.check.code, resultCode, values);
   }
 
-  public hasPrincipleAndLevels(principles: Array<Principle>, levels: Array<Level>): boolean {
-    let has = false;
-    for (const sc of this.rule.metadata['success-criteria'] ?? []) {
-      if (principles.includes(sc.principle) && levels.includes(sc.level)) {
-        has = true;
-      }
-    }
-    return has;
+  public getCode(): string {
+    return this.check.code;
   }
 
-  public getFinalResults(): CUICheck {
-    this.outcomeRule();
-    return this.rule;
+  public getMapping(): string {
+    return this.check.mapping;
   }
 
-  protected getNumberOfPassedResults(): number {
-    return this.rule.metadata.passed;
+  public hasPrincipleAndLevels(principles: Principle[], levels: Level[]): boolean {
+    return this.check.metadata['success-criteria'].some(
+      (sc) => principles.includes(sc.principle) && levels.includes(sc.level)
+    );
   }
 
-  protected getNumberOfWarningResults(): number {
-    return this.rule.metadata.warning;
-  }
+  public abstract execute(element?: QWElement): void;
 
-  protected getNumberOfFailedResults(): number {
-    return this.rule.metadata.failed;
+  public getFinalResults(): Assertion {
+    this.generateOutcome();
+    return this.check;
   }
 
   protected addTestResult(test: Test): void {
     if (!test.description || test.description.trim() === '') {
-      test.description = this.getTranslation(test.resultCode);
+      test.description = this.translate(test.resultCode);
     }
 
-    this.rule.results.push(test);
+    this.check.results.push(test);
 
-    if (test.verdict && test.verdict !== 'inapplicable') {
-      this.rule.metadata[test.verdict]++;
+    if (test.verdict && test.verdict !== Verdict.INAPPLICABLE) {
+      this.check.metadata[test.verdict]++;
     }
   }
 
-  protected getTranslation(resultCode: string, values?: TranslationValues): string {
-    let translation = '';
-    if (this.locale.translate['act-rules']?.[this.rule.code]?.results?.[resultCode]) {
-      translation = <string>this.locale.translate['act-rules'][this.rule.code].results?.[resultCode];
+  private generateOutcome(): void {
+    if (this.check.metadata.failed) {
+      this.check.metadata.outcome = Verdict.FAILED;
+    } else if (this.check.metadata.warning) {
+      this.check.metadata.outcome = Verdict.WARNING;
+    } else if (this.check.metadata.passed) {
+      this.check.metadata.outcome = Verdict.PASSED;
     } else {
-      translation = <string>this.locale.fallback['act-rules']?.[this.rule.code].results?.[resultCode];
+      this.check.metadata.outcome = Verdict.INAPPLICABLE;
+      this.check.metadata.inapplicable = 1;
     }
 
-    if (values) {
-      for (const key of Object.keys(values) || []) {
-        translation = translation.replace(new RegExp(`{${key}}`, 'g'), values[key].toString());
-      }
-    }
-
-    return translation;
-  }
-
-  private outcomeRule(): void {
-    if (this.rule.metadata.failed > 0) {
-      this.rule.metadata.outcome = 'failed';
-    } else if (this.rule.metadata.warning > 0) {
-      this.rule.metadata.outcome = 'warning';
-    } else if (this.rule.metadata.passed > 0) {
-      this.rule.metadata.outcome = 'passed';
-    } else {
-      this.rule.metadata.outcome = 'inapplicable';
-      this.rule.metadata.inapplicable = 1;
-    }
-
-    if (this.rule.results.length > 0) {
+    if (this.check.results.length > 0) {
       this.addDescription();
     }
   }
 
   private addDescription(): void {
-    for (const result of this.rule.results ?? []) {
-      if (result.verdict === this.rule.metadata.outcome) {
-        this.rule.metadata.description = result.description;
+    for (const result of this.check.results ?? []) {
+      if (result.verdict === this.check.metadata.outcome) {
+        this.check.metadata.description = result.description;
         break;
       }
     }
   }
 }
 
-export = Check;
+export { Check };
