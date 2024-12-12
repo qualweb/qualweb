@@ -6,19 +6,24 @@ import { BestPractice } from '../lib/BestPractice.object';
 class QW_BP28 extends BestPractice {
   @ElementExists
   execute(element: QWElement): void {
-    const test = new Test();
+    let verdict;
+    let resultCode;
 
     const hasH1 = element.getElements('h1');
     if (hasH1.length === 1) {
-      test.verdict = Verdict.PASSED;
-      test.resultCode = 'P1';
+      verdict = Verdict.PASSED;
+      resultCode = 'P1';
     } else {
-      test.verdict = Verdict.FAILED;
-      test.resultCode = 'F1';
+      verdict = Verdict.FAILED;
+      resultCode = 'F1';
     }
-    hasH1.forEach((element) => test.addElement(element));
-    // test.addElement(element);
-    this.addTestResult(test);
+    hasH1.forEach((element) => {
+      const test = new Test();
+      test.verdict = verdict;
+      test.resultCode = resultCode;
+      test.addElement(element)
+      this.addTestResult(test);
+    });
   }
 }
 
