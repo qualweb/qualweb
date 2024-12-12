@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/util",
-  "version": "0.5.41",
+  "version": "0.6.0",
   "description": "Utilities module for qualweb",
   "main": "dist/__webpack/util.bundle.js",
   "files": [
@@ -55,8 +55,8 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.7.80",
-    "@qualweb/qw-page": "^0.2.19",
+    "@qualweb/core": "^0.8.0",
+    "@qualweb/qw-page": "^0.3.0",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",

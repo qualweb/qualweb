@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/counter",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Counts elements of a webpage by role and by tag",
   "main": "dist/counter.bundle.js",
   "files": [
@@ -35,9 +35,9 @@
   "author": "Pedro Santos",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.7.80",
-    "@qualweb/qw-page": "0.2.23",
-    "@qualweb/util": "0.5.41",
+    "@qualweb/core": "^0.8.0",
+    "@qualweb/qw-page": "0.3.0",
+    "@qualweb/util": "0.6.0",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",

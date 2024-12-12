@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/earl-reporter",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Qualweb earl reporter",
   "main": "dist/index.js",
   "files": [
@@ -53,7 +53,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@qualweb/core": "0.7.80",
+    "@qualweb/core": "0.8.0",
     "lodash.clonedeep": "^4.5.0"
   }
 }

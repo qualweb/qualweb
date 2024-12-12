@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.6.19",
+  "version": "0.7.0",
   "description": "QualWeb best practices",
   "files": [
     "dist/*"
@@ -64,10 +64,10 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.7.80",
-    "@qualweb/locale": "0.1.19",
-    "@qualweb/qw-page": "0.2.23",
-    "@qualweb/util": "0.5.41",
+    "@qualweb/core": "^0.8.0",
+    "@qualweb/locale": "0.2.0",
+    "@qualweb/qw-page": "0.3.0",
+    "@qualweb/util": "0.6.0",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.11.12",
