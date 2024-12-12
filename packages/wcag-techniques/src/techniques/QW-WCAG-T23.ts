@@ -1,18 +1,13 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists, isInMainContext } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, IsInMainContext } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T23 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
 
   @ElementExists
-  @isInMainContext
-  execute(element: typeof window.qwElement): void {
+  @IsInMainContext
+  execute(element: QWElement): void {
     const test = new Test();
 
     const children = element.getElementChildren();
@@ -38,31 +33,31 @@ class QW_WCAG_T23 extends Technique {
               const idElementReferenced = element.getElement('[id="' + idReferenced + '"]');
               if (idElementReferenced !== null) {
                 if (hasMainElementAsParent(idElementReferenced)) {
-                  test.verdict = 'warning';
+                  test.verdict = Verdict.WARNING;
                   test.resultCode = 'W1';
                 } else {
-                  test.verdict = 'warning';
+                  test.verdict = Verdict.WARNING;
                   test.resultCode = 'W2';
                 }
               } else {
-                test.verdict = 'failed';
+                test.verdict = Verdict.FAILED;
                 test.resultCode = 'F1';
               }
             } else {
               //todo failed ou inapplicable?
-              test.verdict = 'failed';
+              test.verdict = Verdict.FAILED;
               test.resultCode = 'F2';
             }
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F3';
           }
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F4';
         }
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F5';
       }
 
@@ -70,14 +65,14 @@ class QW_WCAG_T23 extends Technique {
         test.addElement(firstFocusableElem);
       }
 
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 }
 
-function findFirstFocusableElement(element: typeof window.qwElement): typeof window.qwElement | undefined {
+function findFirstFocusableElement(element: QWElement): QWElement | undefined {
   let foundFirstFocusableElem = false;
-  let firstFocusableElem: typeof window.qwElement | undefined;
+  let firstFocusableElem: QWElement | undefined;
   const children = element.getElementChildren();
 
   if (children && children.length > 0) {
@@ -102,7 +97,7 @@ function findFirstFocusableElement(element: typeof window.qwElement): typeof win
   return firstFocusableElem;
 }
 
-function hasMainElementAsParent(element: typeof window.qwElement | undefined): boolean {
+function hasMainElementAsParent(element: QWElement | undefined): boolean {
   if (element) {
     const pointer = element.getElementSelector();
     return pointer.indexOf('main:') > 0;
@@ -110,4 +105,4 @@ function hasMainElementAsParent(element: typeof window.qwElement | undefined): b
 
   return false;
 }
-export = QW_WCAG_T23;
+export { QW_WCAG_T23 };

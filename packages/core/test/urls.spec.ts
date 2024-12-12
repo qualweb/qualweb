@@ -10,8 +10,10 @@ describe('Core input method: file', function () {
     const urlsPath = resolve(__dirname, 'urls.txt');
 
     const options = {
-      urls: readFileSync(urlsPath).toString().split('\n'),
-      maxParallelEvaluations: 9
+      urls: readFileSync(urlsPath).toString().split('\r\n').map((url) => url.trim()),
+      maxParallelEvaluations: 9,
+      // TODO: consider mock/dummy module to help ensure all URLs covered.
+      modules: [],
     };
 
     const qualweb = new QualWeb();

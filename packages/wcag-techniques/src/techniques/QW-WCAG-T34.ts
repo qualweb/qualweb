@@ -1,42 +1,36 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T34 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
     const correctElemments = this.onlyCorrectElementTypes(element);
     const dtToDDOrder = this.checkDtToDDOrder(element);
 
     if (!correctElemments) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     } else if (!dtToDDOrder) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
     } else {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     }
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
-  onlyCorrectElementTypes(element: typeof window.qwElement) {
+  onlyCorrectElementTypes(element: QWElement) {
     const children = element.getElementChildren();
     return children.reduce((acc, element) => {
       const name = element.getElementTagName();
       return acc && ['dt', 'dd', 'script', 'template', 'div'].includes(name);
     }, true);
   }
-  checkDtToDDOrder(element: typeof window.qwElement) {
+  checkDtToDDOrder(element: QWElement) {
     const dList = element.getElements('dt,dd');
     return dList.reduce((acc, element) => {
       const tagName = element.getElementTagName();
@@ -49,7 +43,7 @@ class QW_WCAG_T34 extends Technique {
       return acc && result;
     }, true);
   }
-  hasDD(element: typeof window.qwElement): boolean {
+  hasDD(element: QWElement): boolean {
     const nextSibling = element.getElementNextSibling();
     let result;
     if (!nextSibling) {
@@ -62,7 +56,7 @@ class QW_WCAG_T34 extends Technique {
     return result;
   }
 
-  hasDT(element: typeof window.qwElement): boolean {
+  hasDT(element: QWElement): boolean {
     const previousSibling = element.getElementPreviousSibling();
     let result;
     if (!previousSibling) {
@@ -76,4 +70,4 @@ class QW_WCAG_T34 extends Technique {
   }
 }
 
-export = QW_WCAG_T34;
+export { QW_WCAG_T34 };

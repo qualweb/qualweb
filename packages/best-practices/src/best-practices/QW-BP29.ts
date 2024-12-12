@@ -1,32 +1,25 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
+import { QWElement } from '@qualweb/qw-element';
 import {
-  BestPracticeClass,
   ElementExists,
-  IsHTMLDocument,
   ElementHasNonEmptyAttribute,
-  IsLangSubTagValid,
-  isInMainContext
-} from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+  IsHTMLDocument,
+  IsInMainContext,
+  IsLangSubTagValid
+} from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP29 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP29 extends BestPractice {
   @ElementExists
   @IsHTMLDocument
+  @IsInMainContext
   @ElementHasNonEmptyAttribute('lang')
   @ElementHasNonEmptyAttribute('xml:lang')
   @IsLangSubTagValid('lang')
   @IsLangSubTagValid('xml:lang')
-  @isInMainContext
-  execute(element: typeof window.qwElement): void {
-    const lang = <string>element.getElementAttribute('lang');
-    const xmlLang = <string>element.getElementAttribute('xml:lang');
+  execute(element: QWElement): void {
+    const lang = element.getElementAttribute('lang')!;
+    const xmlLang = element.getElementAttribute('xml:lang')!;
 
     const primaryLang = lang.split('-')[0];
     const primaryXmlLang = xmlLang.split('-')[0];
@@ -34,15 +27,15 @@ class QW_BP29 extends BestPracticeObject {
     const test = new Test();
 
     if (primaryLang.toLowerCase() === primaryXmlLang.toLowerCase()) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP29;
+export { QW_BP29 };

@@ -1,63 +1,62 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import Rule from './Rule.object';
-import Test from './Test.object';
+import type { Assertion } from '@qualweb/core/evaluation';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import type { ElementResult, RuleResult } from './types';
+import { Rule } from './Rule.object';
 
 abstract class CompositeRule extends Rule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
+  abstract execute(element?: QWElement, rules?: Assertion[]): void;
 
-  abstract execute(element: typeof window.qwElement | undefined, rules?: Array<ACTRule>): void;
-
-  public conjunction(element: typeof window.qwElement, rules: Array<ACTRule>): void {
+  public conjunction(element: QWElement, rules: Assertion[]): void {
     const test = new Test();
 
     const selector = element.getElementSelector();
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
+    const translation = this.translate(test.resultCode);
     if (results['failed']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
-      test.description = super.getTranslation(test.resultCode) + results['failed'].code;
+      test.description = translation + results['failed'].code;
     } else if (results['warning']) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
-      test.description = super.getTranslation(test.resultCode) + results['warning'].code;
+      test.description = translation + results['warning'].code;
     } else if (results['passed']) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
-      test.description = super.getTranslation(test.resultCode) + results['passed'].code;
+      test.description = translation + results['passed'].code;
     }
 
     test.addElement(element);
     super.addTestResult(test);
   }
 
-  public disjunction(element: typeof window.qwElement, rules: Array<ACTRule>): void {
+  public disjunction(element: QWElement, rules: Assertion[]): void {
     const test = new Test();
 
     const selector = element.getElementSelector();
     const results = this.getAtomicRuleResultPerVerdict(selector, rules);
+    const translation = this.translate(test.resultCode);
     if (results['passed']) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
-      test.description = super.getTranslation(test.resultCode) + results['passed'].code;
+      test.description = translation + results['passed'].code;
     } else if (results['warning']) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W1';
-      test.description = super.getTranslation(test.resultCode) + results['warning'].code;
+      test.description = translation + results['warning'].code;
     } else if (results['failed']) {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
-      test.description = super.getTranslation(test.resultCode) + results['failed'].code;
+      test.description = translation + results['failed'].code;
     }
 
     test.addElement(element);
     super.addTestResult(test);
   }
 
-  public getAtomicRuleResultPerVerdict(selector: string, rules: Array<ACTRule>): any {
-    const ruleResult: any = {};
+  public getAtomicRuleResultPerVerdict(selector: string, rules: Assertion[]): RuleResult {
+    const ruleResult = {} as RuleResult;
     for (const rule of rules ?? []) {
       if (rule) {
         for (const result of rule.results) {
@@ -70,10 +69,10 @@ abstract class CompositeRule extends Rule {
     return ruleResult;
   }
 
-  public getAtomicRuleResultForElement(selector: string, rules: Array<ACTRule>): any {
-    const ruleResult: any = {};
+  public getAtomicRuleResultForElement(selector: string, rules: Assertion[]): ElementResult {
+    const ruleResult: ElementResult = {};
     for (const rule of rules ?? []) {
-      ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: 'inapplicable' };
+      ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: Verdict.INAPPLICABLE };
       for (const result of rule.results ?? []) {
         if (result.elements && result.elements[0].pointer === selector) {
           ruleResult[rule.code] = { title: rule.name, code: rule.code, verdict: result.verdict };
@@ -84,4 +83,4 @@ abstract class CompositeRule extends Rule {
   }
 }
 
-export = CompositeRule;
+export { CompositeRule };

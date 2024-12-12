@@ -1,18 +1,12 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementHasVisibleChild } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasVisibleChild } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP8 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
+class QW_BP8 extends BestPractice {
   @ElementExists
   @ElementHasVisibleChild('img, svg')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const descendants = element.getElements('*');
@@ -39,19 +33,19 @@ class QW_BP8 extends BestPracticeObject {
       const aName = window.AccessibilityUtils.getAccessibleName(element);
 
       if ((aName && aName.trim() !== '') || svgANames.length > 0) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 
       test.addElement(element, true, true);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
-  checkApplicability(element: typeof window.qwElement): boolean {
+  checkApplicability(element: QWElement): boolean {
     let hasMoreElements = false;
     for (const child of element.getElementChildren() ?? []) {
       const tagName = child.getElementTagName();
@@ -70,4 +64,4 @@ class QW_BP8 extends BestPracticeObject {
   }
 }
 
-export = QW_BP8;
+export { QW_BP8 };

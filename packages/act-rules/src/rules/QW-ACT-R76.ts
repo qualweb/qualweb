@@ -1,28 +1,21 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
+import type { QWElement } from '@qualweb/qw-element';
 import {
-  ACTRuleDecorator,
   ElementExists,
-  ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
-  ElementIsVisible
-} from '../lib/decorator';
-import Test from '../lib/Test.object';
+  ElementIsVisible,
+  ElementHasText
+} from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R76 extends AtomicRule {
-  constructor(rule: ACTRule, locales: Translate) {
-    super(rule, locales);
-  }
-
   @ElementExists
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
   @ElementIsVisible
   @ElementHasText
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const disabledWidgets = window.disabledWidgets;
 
     const test = new Test();
@@ -84,22 +77,22 @@ class QW_ACT_R76 extends AtomicRule {
         const blur = parseInt(properties[5], 0);
         const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
         if (validateTextShadow) {
-          test.verdict = 'warning';
+          test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
 
           test.addElement(element);
-          super.addTestResult(test);
+          this.addTestResult(test);
           return;
         }
       }
     }
 
     if (this.isImage(bgColor)) {
-      test.verdict = 'warning';
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W2';
 
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
       return;
     }
 
@@ -127,11 +120,11 @@ class QW_ACT_R76 extends AtomicRule {
           elementText
         );
       } else {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
 
         test.addElement(element);
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     } else {
       let parsedBG = this.parseRGBString(bgColor, opacity);
@@ -146,11 +139,11 @@ class QW_ACT_R76 extends AtomicRule {
         if (parent) {
           bgColor = this.getBackground(parent);
           if (this.isImage(bgColor)) {
-            test.verdict = 'warning';
+            test.verdict = Verdict.WARNING;
             test.resultCode = 'W2';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
             return;
           } else {
             //helps visualize
@@ -199,30 +192,30 @@ class QW_ACT_R76 extends AtomicRule {
           const contrastRatio = this.getContrast(parsedBG, parsedFG);
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
           if (isValid) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F1';
 
             test.addElement(element);
-            super.addTestResult(test);
+            this.addTestResult(test);
           }
         } else {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P2';
 
           test.addElement(element);
-          super.addTestResult(test);
+          this.addTestResult(test);
         }
       }
     }
   }
 
-  getBackground(element: typeof window.qwElement): string {
+  getBackground(element: QWElement): string {
     const backgroundImage = element.getElementStyleProperty('background-image', null);
     if (backgroundImage === 'none') {
       let bg = element.getElementStyleProperty('background', null);
@@ -247,7 +240,7 @@ class QW_ACT_R76 extends AtomicRule {
 
   evaluateGradient(
     test: Test,
-    element: typeof window.qwElement,
+    element: QWElement,
     parsedGradientString: any,
     fgColor: any,
     opacity: number,
@@ -285,18 +278,18 @@ class QW_ACT_R76 extends AtomicRule {
           }
         }
         if (isValid) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P3';
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F2';
         }
       } else if (gradientDirection === 'to left') {
         //TODO
-        test.verdict = 'warning';
+        test.verdict = Verdict.WARNING;
         test.resultCode = 'W3';
       } else {
-        test.verdict = 'warning';
+        test.verdict = Verdict.WARNING;
         test.resultCode = 'W3';
       }
     } else {
@@ -304,7 +297,7 @@ class QW_ACT_R76 extends AtomicRule {
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
     return true;
   }
 
@@ -438,4 +431,4 @@ class QW_ACT_R76 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R76;
+export { QW_ACT_R76 };

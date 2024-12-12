@@ -1,19 +1,13 @@
-import { WCAGTechnique } from '@qualweb/wcag-techniques';
-import Technique from '../lib/Technique.object';
-import { WCAGTechniqueClass, ElementExists, ElementIsVisible, ElementHasAttribute } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttribute, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { Technique } from '../lib/Technique.object';
 
-@WCAGTechniqueClass
 class QW_WCAG_T17 extends Technique {
-  constructor(technique: WCAGTechnique, locale: Translate) {
-    super(technique, locale);
-  }
-
   @ElementExists
   @ElementIsVisible
   @ElementHasAttribute('id')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
     const id = element.getElementAttribute('id');
     if (!id) return; //impossible
@@ -24,14 +18,14 @@ class QW_WCAG_T17 extends Technique {
     if (insideLabel) {
       const hasCorrectText = isRadioOrCheckBox ? this.hasTextAfter(element) : this.hasTextBefore(element);
       if (hasCorrectText) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
       test.addElement(element);
-      super.addTestResult(test);
+      this.addTestResult(test);
     } else {
       const label = window.qwPage.getElement(`label[for="${id.trim()}"]`);
       if (label) {
@@ -40,24 +34,24 @@ class QW_WCAG_T17 extends Technique {
         if (visible && text && text.trim() !== '') {
           const isOnTop = this.isElementOnTop(element, label);
           if (isRadioOrCheckBox || isOnTop) {
-            test.verdict = 'passed';
+            test.verdict = Verdict.PASSED;
             test.resultCode = 'P1';
           } else {
-            test.verdict = 'failed';
+            test.verdict = Verdict.FAILED;
             test.resultCode = 'F1';
           }
         } else {
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F2';
         }
       }
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 
-  private isInsideLabelElement(element: typeof window.qwElement): boolean {
+  private isInsideLabelElement(element: QWElement): boolean {
     let labelFound = false;
 
     let parent = element.getElementParent();
@@ -73,7 +67,7 @@ class QW_WCAG_T17 extends Technique {
     return labelFound;
   }
 
-  private isElementOnTop(a: typeof window.qwElement, b: typeof window.qwElement) {
+  private isElementOnTop(a: QWElement, b: QWElement) {
     const selectorElementsA = a.getElementSelector().split('>');
     const selectorElementsB = b.getElementSelector().split('>');
     const selectorElementsNA = selectorElementsA.length;
@@ -92,10 +86,10 @@ class QW_WCAG_T17 extends Technique {
     return compareNumberB - compareNumberA;
   }
 
-  private hasTextAfter(element: typeof window.qwElement): boolean {
+  private hasTextAfter(element: QWElement): boolean {
     let hasText = false;
 
-    let parent: typeof window.qwElement | null = element;
+    let parent: QWElement | null = element;
     while (parent !== null) {
       if (parent.getElementTagName() === 'label') {
         break;
@@ -109,7 +103,7 @@ class QW_WCAG_T17 extends Technique {
             hasText = true;
           }
         } else {
-          const qwElement = <typeof window.qwElement>sibling;
+          const qwElement = <QWElement>sibling;
           if (qwElement.getElementText().trim() !== '') {
             hasText = true;
           }
@@ -122,10 +116,10 @@ class QW_WCAG_T17 extends Technique {
     return hasText;
   }
 
-  private hasTextBefore(element: typeof window.qwElement): boolean {
+  private hasTextBefore(element: QWElement): boolean {
     let hasText = false;
 
-    let parent: typeof window.qwElement | null = element;
+    let parent: QWElement | null = element;
     while (parent !== null) {
       if (parent.getElementTagName() === 'label') {
         break;
@@ -139,7 +133,7 @@ class QW_WCAG_T17 extends Technique {
             hasText = true;
           }
         } else {
-          const qwElement = <typeof window.qwElement>sibling;
+          const qwElement = <QWElement>sibling;
           if (qwElement.getElementText().trim() !== '') {
             hasText = true;
           }
@@ -153,4 +147,4 @@ class QW_WCAG_T17 extends Technique {
   }
 }
 
-export = QW_WCAG_T17;
+export { QW_WCAG_T17 };

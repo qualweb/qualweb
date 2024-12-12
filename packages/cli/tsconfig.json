@@ -2,14 +2,14 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
-    "resolveJsonModule": true,
-    "target": "ES2019",
-    "lib": ["ES2019"],
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "module": "Node16",
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
-    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    // "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "removeComments": true /* Do not emit comments to output. */,
 
     /* Strict Type-Checking Options */
@@ -22,13 +22,16 @@
     "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
     "useUnknownInCatchVariables": false,
 
-    /* Module Resolution Options */
-    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+    "resolveJsonModule": true,
 
-    "types": [
-      "@qualweb/types",
-      "node",
-      "mocha",
-    ] /* Type declaration files to be included in compilation. */
+    /* Module Resolution Options */
+    "moduleResolution": "Node16",
+
+    "types": ["node", "mocha"] /* Type declaration files to be included in compilation. */,
+
+    "paths": {
+      "@shared": ["../shared"],
+      "@shared/*": ["../shared/*"]
+    },
   }
 }

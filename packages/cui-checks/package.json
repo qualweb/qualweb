@@ -2,45 +2,49 @@
   "name": "@qualweb/cui-checks",
   "version": "0.1.2",
   "description": "Accessibility tests for conversational user interfaces",
-  "main": "dist/cui.bundle.js",
+  "files": [
+    "dist/*"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/__webpack/cui.bundle.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./lib/*": {
+      "require": "./dist/lib/*"
+    },
+    "./CuiChecksModule": {
+      "require": "./dist/CuiChecksModule.js",
+      "types": "./dist/CuiChecksModule.d.ts"
+    }
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "validate:rules": "node validate-rules.js",
-    "compile:rules": "node compile-rules.js",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "npm run validate:rules && npm run compile:rules && rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "npm run prebuild && rimraf dist && webpack --mode production && rimraf prebuild",
+    "build": "rimraf dist && tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/dom": "0.2.11",
+    "@qualweb/core": "^0.7.80",
     "@qualweb/locale": "0.1.19",
     "@qualweb/qw-page": "0.2.23",
-    "@qualweb/types": "0.7.27",
     "@qualweb/util": "0.5.41",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.11.11",
     "@types/node-fetch": "^2.6.11",
-    "ajv": "^6.12.6",
     "chai": "^4.4.1",
-    "eslint": "^8.56.0",
     "mocha": "^10.2.0",
-    "node-fetch": "^2.6.7",
     "prettier": "^3.1.1",
-    "puppeteer": "^21.6.1",
+    "puppeteer": "^22.12.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^4.7.4",
     "webpack": "^5.89.0",
     "webpack-cli": "^4.9.1"
-  },
-  "dependencies": {
-    "@qualweb/cui-checks": "^0.1.2"
   }
 }

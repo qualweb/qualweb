@@ -1,19 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasAttribute, ElementHasAttributeValue } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R14 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementHasAttribute('content')
   @ElementHasAttributeValue('name', 'viewport')
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const content = <string>element.getElementAttribute('content');
@@ -33,7 +27,7 @@ class QW_ACT_R14 extends AtomicRule {
     }
 
     if (!maximumScale && !userScalable) {
-      test.verdict = 'inapplicable';
+      test.verdict = Verdict.INAPPLICABLE;
       test.resultCode = 'I1';
     } else if (
       !maximumScale &&
@@ -44,7 +38,7 @@ class QW_ACT_R14 extends AtomicRule {
         parseInt(userScalable) < -1 ||
         parseInt(userScalable) > 1)
     ) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else if (
       !userScalable &&
@@ -54,16 +48,16 @@ class QW_ACT_R14 extends AtomicRule {
         parseInt(maximumScale) < 0 ||
         parseInt(maximumScale) >= 2)
     ) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P2';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_ACT_R14;
+export { QW_ACT_R14 };

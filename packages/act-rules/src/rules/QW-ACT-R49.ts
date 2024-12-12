@@ -1,22 +1,16 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R49 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
-    const autoplay = element.getElementProperty('autoplay');
-    const paused = element.getElementAttribute('paused');
-    const muted = element.getElementProperty('muted');
+    const autoplay = element.getElementProperty('autoplay') === "true";
+    const paused = element.getElementAttribute('paused') === "true";
+    const muted = element.getElementProperty('muted') === "true";
     const srcAttr = element.getElementAttribute('src');
     const childSrc = element.getElements('source[src]');
     const duration = parseInt(element.getElementProperty('duration'));
@@ -33,23 +27,20 @@ class QW_ACT_R49 extends AtomicRule {
       src.push(srcAttr);
     }
 
-    if (!(!autoplay || paused || muted || (!srcAttr && childSrc.length === 0))) {
-      if (!(duration >= 0 && (hasSoundTrack || isAudioElement))) {
-        test.verdict = 'inapplicable';
-        test.resultCode = 'I1';
-      } else if (hasPuppeteerApplicableData) {
-        if (this.srcTimeIsLessThanThree(src, duration)) {
-          test.verdict = 'passed';
-          test.resultCode = 'P1';
-        } else {
-          test.verdict = 'failed';
-          test.resultCode = 'F1';
-        }
+    if (!(!autoplay || paused || muted || !hasPuppeteerApplicableData)) {
+      if (this.srcTimeIsLessThanThree(src, duration)) {
+        test.verdict = Verdict.PASSED;
+        test.resultCode = 'P1';
+      } else {
+        test.verdict = Verdict.FAILED;
+        test.resultCode = 'F1';
       }
-
-      test.addElement(element);
-      super.addTestResult(test);
+    } else {
+      test.verdict = Verdict.INAPPLICABLE;
+      test.resultCode = 'I1';
     }
+    test.addElement(element);
+    this.addTestResult(test);
   }
 
   private srcTimeIsLessThanThree(src: any[], duration: number): boolean {
@@ -74,4 +65,4 @@ class QW_ACT_R49 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R49;
+export { QW_ACT_R49 };

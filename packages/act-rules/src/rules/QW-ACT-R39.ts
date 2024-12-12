@@ -1,28 +1,21 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
+import type { QWElement } from '@qualweb/qw-element';
 import {
-  ACTRuleDecorator,
   ElementExists,
   ElementHasOneOfTheFollowingRoles,
   ElementIsInAccessibilityTree,
   ElementIsVisible
-} from '../lib/decorator';
-import Test from '../lib/Test.object';
+} from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R39 extends AtomicRule {
   private readonly cellRoles = ['cell', 'gridcell', 'rowheader', 'columnheader'];
-
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
 
   @ElementExists
   @ElementIsInAccessibilityTree
   @ElementIsVisible
   @ElementHasOneOfTheFollowingRoles(['columnheader', 'rowheader'])
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const ancestorTableOrGrid = getFirstAncestorElementByNameOrRoles(element, [], ['grid', 'table']);
     if (ancestorTableOrGrid !== null) {
       const isAncestorTableOrGridInAT = window.AccessibilityUtils.isElementInAT(ancestorTableOrGrid);
@@ -108,27 +101,27 @@ class QW_ACT_R39 extends AtomicRule {
 
         const test = new Test();
         if (found) {
-          test.verdict = 'passed';
+          test.verdict = Verdict.PASSED;
           test.resultCode = 'P1';
         } else {
           //if (elementParent) // FIX: the hell is this if for?
 
-          test.verdict = 'failed';
+          test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         }
 
         test.addElement(element);
-        super.addTestResult(test);
+        this.addTestResult(test);
       }
     }
   }
 }
 
 function getFirstAncestorElementByNameOrRoles(
-  element: typeof window.qwElement,
+  element: QWElement,
   names: string[],
   roles: string[]
-): typeof window.qwElement | null {
+): QWElement | null {
   const parent = element.getElementParent();
 
   let sameRole = false;
@@ -155,7 +148,7 @@ function getFirstAncestorElementByNameOrRoles(
   }
 }
 
-function getElementIndexOfParentChildren(element: typeof window.qwElement): number {
+function getElementIndexOfParentChildren(element: QWElement): number {
   let elementIndex = 0;
   let foundIndex = false;
   const elementParent = element.getElementParent();
@@ -170,4 +163,4 @@ function getElementIndexOfParentChildren(element: typeof window.qwElement): numb
   return elementIndex++;
 }
 
-export = QW_ACT_R39;
+export { QW_ACT_R39 };

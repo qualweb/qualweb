@@ -1,6 +1,7 @@
-import roles from './roles.json';
+import type { QWElement } from '@qualweb/qw-element';
+import { roles } from './roles';
 
-function getElementValidExplicitRole(element: typeof window.qwElement): string | null {
+function getElementValidExplicitRole(element: QWElement): string | null {
   const role = element.getElementAttribute('role');
   let validRole: string | null = null;
   if (role) {

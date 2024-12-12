@@ -6,15 +6,15 @@
   "files": [
     "dist/*"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha",
     "test:url": "mocha test/url.spec.ts",
     "tsc": "tsc",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "rimraf dist",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
+    "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/crawler#readme",
@@ -35,29 +35,28 @@
   "author": "João Vicente",
   "license": "ISC",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "log-update": "4.0.0"
   },
   "devDependencies": {
     "@koa/router": "^12.0.1",
-    "@qualweb/types": "0.7.27",
     "@tsconfig/recommended": "^1.0.3",
+    "@types/chai": "^4.3.16",
     "@types/koa": "^2.14.0",
     "@types/koa__router": "^12.0.4",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^16.11.2",
-    "chai": "^4.4.1",
-    "eslint": "^8.56.0",
+    "@types/node": "^20.12.12",
+    "chai": "4.5.0",
     "koa": "^2.15.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",
-    "puppeteer": "^21.6.1",
+    "puppeteer": "^22.10.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^4.4.4"
+    "typescript": "^5.6.3"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@qualweb/qualweb",
-  "version": "0.0.1",
-  "description": "Monorepo for the Qualweb Web Accesibility Evaluator. This package should never be published by itself.",
+  "version": "0.1.0",
+  "description": "Monorepo for the Qualweb Web Accessibility Evaluator. This package should never be published by itself.",
   "private": true,
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "author": "Carlos Duarte <caduarte@campus.ul.pt>",
   "contributors": [
     "Antonio Estriga <antonio.estriga@gmail.com>",
-    "João Afonso Vicente <joao.vicente@campus.ul.pt>",
+    "João Afonso Vicente <joao.vicente@edu.ulisboa.pt>",
     "Johannes L. Borresen <jlb@inqludeit.dk>"
   ],
   "license": "ISC",
@@ -29,22 +29,29 @@
   },
   "homepage": "https://github.com/qualweb/qualweb#readme",
   "workspaces": [
-    "packages/*"
+    "packages/qw-element",
+    "packages/qw-page",
+    "packages/util",
+    "packages/locale",
+    "packages/crawler",
+    "packages/core",
+    "packages/act-rules",
+    "packages/best-practices",
+    "packages/wcag-techniques",
+    "packages/counter",
+    "packages/earl-reporter",
+    "packages/cli",
+    "packages/cui-checks"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
+    "@eslint/js": "^9.13.0",
+    "@types/eslint__js": "^8.42.3",
     "commander": "^11.1.0",
-    "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-standard-with-typescript": "^40.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-n": "^16.3.1",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-sonarjs": "^0.23.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-sonarjs": "^2.0.4",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "typescript-eslint": "^8.12.2"
   }
 }

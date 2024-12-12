@@ -1,16 +1,12 @@
 import { expect } from 'chai';
 import fetch from 'node-fetch';
-import { launchBrowser } from './util';
-import { Dom } from '@qualweb/dom';
-import locales from '@qualweb/locale';
 import { Browser } from 'puppeteer';
+import { launchBrowser } from './util';
 
 describe('URL evaluation', function () {
   let browser: Browser;
 
-  before(async () => {
-    browser = await launchBrowser();
-  });
+  before(async () => (browser = await launchBrowser()));
 
   it('Evaluates url', async function () {
     this.timeout(0);
@@ -19,11 +15,10 @@ describe('URL evaluation', function () {
     const response = await fetch(url);
     const sourceCode = await response.text();
 
-    const incognito = await browser.createIncognitoBrowserContext();
-    const page = await incognito.newPage();
-
-    const dom = new Dom(page);
-    await dom.process({ execute: { act: true }, waitUntil: ['load'] }, url, '');
+    // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+    const browserContext = await browser.createBrowserContext();
+    const page = await browserContext.newPage();
+    await page.goto(url);
 
     await page.addScriptTag({
       path: require.resolve('@qualweb/qw-page')
@@ -34,36 +29,27 @@ describe('URL evaluation', function () {
     });
 
     await page.addScriptTag({
-      path: require.resolve('../dist/act.bundle.js')
+      path: require.resolve('@qualweb/locale')
     });
 
-    await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-    await page.evaluate(
-      (fiLocale, enLocale, sourceCode) => {
-        // @ts-expect-error: ACTRules will be defined within the puppeteer execution context.
-        window.act = new ACTRules({ translate: fiLocale, fallback: enLocale });
-        // window.act.configure({ rules: ['QW-ACT-R36'] });
-        window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
+    await page.addScriptTag({
+      path: require.resolve('../dist/__webpack/act.bundle.js')
+    });
 
-        const parser = new DOMParser();
-        const sourceDoc = parser.parseFromString('', 'text/html');
-
-        sourceDoc.documentElement.innerHTML = sourceCode;
-
-        const elements = sourceDoc.querySelectorAll('meta');
-        const metaElements = [];
-        for (const element of elements) {
-          metaElements.push(window.qwPage.createQWElement(element));
-        }
-
-        window.act.validateMetaElements(metaElements);
-        window.act.executeAtomicRules();
-        window.act.executeCompositeRules();
-      },
-      locales.en,
-      locales.en,
-      sourceCode
-    );
+    try {
+      await page.evaluate(function (sourceHtml) {
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act = new ACTRulesRunner({}, 'fi');
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act.configure();
+        // @ts-expect-error - window.act is not declared as a field on window.
+        window.act.test({ sourceHtml });
+      }, sourceCode);
+    } catch (_error: unknown) {
+      const error = _error as Error;
+      console.error(error);
+      expect.fail(error.message);
+    }
 
     await page.setViewport({
       width: 640,
@@ -71,12 +57,12 @@ describe('URL evaluation', function () {
     });
 
     const report = await page.evaluate(() => {
-      window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
+      // @ts-expect-error - window.act is not declared as a field on window.
+      window.act.testSpecial();
+      // @ts-expect-error - window.act is not declared as a field on window.
       return window.act.getReport();
     });
 
-    console.log(JSON.stringify(report, null, 2));
-    // console.log(report.assertions['QW-ACT-R7'].results.length);
     expect(report);
   });
 

@@ -1,19 +1,13 @@
-import { ACTRule } from '@qualweb/act-rules';
-import { Translate } from '@qualweb/locale';
-import AtomicRule from '../lib/AtomicRule.object';
-import { ACTRuleDecorator, ElementExists, ElementIsVisible, ElementHasTextNode } from '../lib/decorator';
-import Test from '../lib/Test.object';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementHasTextNode, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { AtomicRule } from '../lib/AtomicRule.object';
 
-@ACTRuleDecorator
 class QW_ACT_R67 extends AtomicRule {
-  constructor(rule: ACTRule, locale: Translate) {
-    super(rule, locale);
-  }
-
   @ElementExists
   @ElementIsVisible
   @ElementHasTextNode
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     if (element.hasCSSProperty('letter-spacing') || this.findParentWithCSSProperty(element) !== null) {
       const styleAttribute = element.getElementAttribute('style');
       const declaredLetterSpacing = this.parseStyle(styleAttribute);
@@ -24,21 +18,21 @@ class QW_ACT_R67 extends AtomicRule {
       const test = new Test();
 
       if (element.hasCSSProperty('letter-spacing') && !this.isImportant(computedRawLetterSpacing, element)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
       } else if (this.isWide(computedLetterSpacing, fontSize)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
       } else if (!this.isCascade(declaredLetterSpacing, computedRawLetterSpacing)) {
-        test.verdict = 'passed';
+        test.verdict = Verdict.PASSED;
         test.resultCode = 'P3';
       } else {
-        test.verdict = 'failed';
+        test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
       }
 
       test.addElement(element, true, false, true);
-      super.addTestResult(test);
+      this.addTestResult(test);
     }
   }
 
@@ -54,7 +48,7 @@ class QW_ACT_R67 extends AtomicRule {
     return style?.substring(startLS + 15, endLS);
   }
 
-  private isImportant(cssValue: any, element: typeof window.qwElement): boolean {
+  private isImportant(cssValue: any, element: QWElement): boolean {
     if (cssValue.value === 'inherit' || cssValue.value === 'unset') {
       const parent = this.findParentWithCSSProperty(element.getElementParent());
       if (parent === null) return false;
@@ -76,7 +70,7 @@ class QW_ACT_R67 extends AtomicRule {
     return false;
   }
 
-  private findParentWithCSSProperty(element: typeof window.qwElement | null): typeof window.qwElement | null {
+  private findParentWithCSSProperty(element: QWElement | null): QWElement | null {
     while (element !== null) {
       if (element?.getCSSProperty('letter-spacing')) {
         return element;
@@ -87,4 +81,4 @@ class QW_ACT_R67 extends AtomicRule {
   }
 }
 
-export = QW_ACT_R67;
+export { QW_ACT_R67 };

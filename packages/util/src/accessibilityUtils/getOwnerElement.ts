@@ -1,4 +1,6 @@
-function getOwnerElement(element: typeof window.qwElement): typeof window.qwElement | null {
+import type { QWElement } from '@qualweb/qw-element';
+
+function getOwnerElement(element: QWElement): QWElement | null {
   const ariaOwner = window.AccessibilityUtils.getAriaOwner(element);
   let ownerElement;
 

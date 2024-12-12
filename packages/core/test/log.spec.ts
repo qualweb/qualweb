@@ -36,11 +36,13 @@ describe('Log', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start(undefined, { headless: 'new', args: ['--ignore-certificate-errors'] });
+    await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors'] });
 
     const evaluations = await qualweb.evaluate({
       url: mockHttpServerHost,
-      execute: { act: true, wcag: true, bp: true },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         file: true
@@ -56,11 +58,16 @@ describe('Log', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start({ monitor: true }, { headless: 'new', args: ['--ignore-certificate-errors'] });
+    await qualweb.start({ monitor: true }, {
+      headless: true,
+      args: ['--ignore-certificate-errors'],
+    });
 
     const evaluations = await qualweb.evaluate({
       url: mockHttpServerHost,
-      execute: { act: true, wcag: true, bp: true },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         console: true
@@ -76,7 +83,10 @@ describe('Log', function () {
 
     const qualweb = new QualWeb({ adBlock: true, stealth: true });
 
-    await qualweb.start({ monitor: true }, { headless: 'new', args: ['--ignore-certificate-errors'] });
+    await qualweb.start({ monitor: true }, {
+      headless: true,
+      args: ['--ignore-certificate-errors'],
+    });
 
     const evaluations = await qualweb.evaluate({
       urls: [
@@ -87,7 +97,9 @@ describe('Log', function () {
         mockHttpServerHost + '/4',
         mockHttpServerHost + '/5'
       ],
-      execute: { act: true, wcag: true, bp: true },
+      modules: [
+        // FIXME: missing dummy module to test logging.
+      ],
       waitUntil: ['load', 'networkidle0'],
       log: {
         console: true

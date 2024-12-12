@@ -1,5 +1,8 @@
+.vscode
 node_modules
 */**/node_modules
 
-packages/*/dist
-packages/*/prebuild
+dist
+prebuild
+
+tsconfig.prod.tsbuildinfo

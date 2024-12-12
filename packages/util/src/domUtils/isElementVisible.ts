@@ -1,7 +1,8 @@
+import type { QWElement } from '@qualweb/qw-element';
 import elementHasOnePixel from './elementHasOnePixel';
 import elementHasContent from './elementHasContent';
 
-function isElementVisible(element: typeof window.qwElement): boolean {
+function isElementVisible(element: QWElement): boolean {
   const offScreen = element.isOffScreen();
   const cssHidden = window.DomUtils.isElementHiddenByCSS(element);
   const hasContent = elementHasContent(element, true);
@@ -19,7 +20,7 @@ function isElementVisible(element: typeof window.qwElement): boolean {
   return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0) || opaqueParent);
 }
 
-function isParentOpaque(element: typeof window.qwElement): boolean {
+function isParentOpaque(element: QWElement): boolean {
   const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity: number | undefined;
   if (opacityProperty) {

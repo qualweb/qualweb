@@ -2,17 +2,22 @@
   "name": "@qualweb/locale",
   "version": "0.1.19",
   "description": "Locales for @qualweb/core evaluation reports.",
-  "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
+  "exports": {
+    ".": {
+      "require": "./dist/locale.bundle.js",
+      "types": "./prebuild/index.d.ts"
+    }
+  },
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "build": "rimraf dist && tsc --build tsconfig.prod.json",
+    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
+    "build": "rimraf dist && npm run prebuild && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",
@@ -29,25 +34,20 @@
     "a11y",
     "locale"
   ],
-  "engines": {
-    "node": ">=12.0.0"
-  },
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/types": "0.7.27",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/lodash.clonedeep": "^4.5.9",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.10.1",
-    "chai": "^4.4.1",
-    "eslint": "^8.56.0",
+    "chai": "4.5.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^4.4.3"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"

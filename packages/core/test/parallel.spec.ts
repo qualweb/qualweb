@@ -1,4 +1,5 @@
-import { QualWeb, generateEARLReport } from '../dist/index.js';
+import { generateEARLReport } from '@qualweb/earl-reporter';
+import { QualWeb } from '../src';
 import { expect } from 'chai';
 import fetch from 'node-fetch';
 
@@ -18,13 +19,9 @@ describe('Should do parallel evaluations', function () {
 
     const options = {
       urls,
-      execute: {
-        act: true
-      },
-      'act-rules': {
-        rules: [rule]
-      },
-      maxParallelEvaluations: urls.length
+      // TODO: consider mock/dummy module to help ensure all URLs covered.
+      modules: [],
+      maxParallelEvaluations: urls.length,
     };
 
     const evaluations = await qualweb.evaluate(options);

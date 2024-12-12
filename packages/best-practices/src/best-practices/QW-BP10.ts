@@ -1,31 +1,24 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP10 extends BestPracticeObject {
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
-
-  async execute(element: typeof window.qwElement | undefined): Promise<void> {
+class QW_BP10 extends BestPractice {
+  async execute(element?: QWElement): Promise<void> {
     const test = new Test();
 
     if (element === undefined) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
       const name = element.getElementTagName();
-      test.verdict = 'failed';
-      test.description = super.getTranslation('F1', { name });
+      test.verdict = Verdict.FAILED;
+      test.description = this.translate('F1', { name });
       test.resultCode = 'F1';
       test.attributes.push(name);
       test.addElement(element);
     }
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP10;
+export { QW_BP10 };

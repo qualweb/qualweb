@@ -5,9 +5,8 @@
  * saves a lot of copy-pasted code for dozens of virtually identical tests.
  */
 
-import { Dom } from '@qualweb/dom';
 import { expect } from 'chai';
-import locales from '@qualweb/locale';
+import fetch from 'node-fetch';
 import { launchBrowser } from './util';
 
 import actTestCases from './fixtures/testcases.json';
@@ -77,7 +76,6 @@ const mapping: Record<string, string> = {
   'QW-ACT-R69': '9e45ec',
   'QW-ACT-R70': 'akn7bn',
   'QW-ACT-R71': 'bisz58',
-  'QW-ACT-R72': '8a213c',
   'QW-ACT-R73': '3e12e1',
   'QW-ACT-R74': 'ye5d6e',
   'QW-ACT-R75': 'cf77f2',
@@ -102,7 +100,7 @@ const CANTTELL = 'cantTell';
 const consistencyMapping = {
   passed: [PASSED, INAPPLICABLE, CANTTELL],
   failed: [FAILED, CANTTELL],
-  inapplicable: [PASSED, INAPPLICABLE, CANTTELL],
+  inapplicable: [PASSED, INAPPLICABLE, CANTTELL]
 };
 
 describe('ACT rules', () => {
@@ -111,31 +109,22 @@ describe('ACT rules', () => {
 
     describe(`${ruleToTest} (${ruleId})`, function () {
       let browser: Browser;
-      let incognito: BrowserContext;
+      let browserContext: BrowserContext;
 
       // Fire up Puppeteer before any test runs. All tests are run in their
       // own browser contexts, so restarting puppeteer itself should not be
       // necessary between tests.
-      before(async () => {
-        browser = await launchBrowser();
-      });
+      before(async () => browser = await launchBrowser());
 
       // Close the puppeteer instance once all tests have run.
-      after(async () => {
-        await browser.close();
-      });
+      after(async () => await browser.close());
 
       // Create a unique browser context for each test.
-      beforeEach(async () => {
-        incognito = await browser.createIncognitoBrowserContext();
-      });
+      // FIXME: puppeteer no longer has createIncognitoBrowserContext() - is this a problem?
+      beforeEach(async () => browserContext = await browser.createBrowserContext());
 
       // Make sure the browser contexts are shut down, as well.
-      afterEach(async () => {
-        if (incognito) {
-          await incognito.close();
-        }
-      });
+      afterEach(async () => await browserContext?.close());
 
       // Filter the W3C/ACT-R test cases down to just their title, the URL to
       // the test case HTML, and the expected outcome.
@@ -153,20 +142,17 @@ describe('ACT rules', () => {
         it(test.title, async function () {
           this.timeout(0);
 
-          const page = await incognito.newPage();
+          const page = await browserContext.newPage();
+          await page.setBypassCSP(true);
 
-          const dom = new Dom(page);
-          const { sourceHtml } = await dom.process(
-            {
-              execute: { act: true },
-              'act-rules': {
-                rules: [ruleToTest]
-              },
-              waitUntil: ruleToTest === 'QW-ACT-R4' || ruleToTest === 'QW-ACT-R71' ? ['load', 'networkidle0'] : 'load'
-            },
-            test.url,
-            ''
-          );
+          const sourceHtml = (await (await fetch(test.url)).text());
+
+          // Script injection doesn't work on non-HTML pages. Instead, we insert
+          // some empty HTML stuff and let the rule take over from there.
+          if (test.url.endsWith('html'))
+            await page.goto(test.url, { waitUntil: 'networkidle2' });
+          else
+            await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 
@@ -179,42 +165,12 @@ describe('ACT rules', () => {
           });
 
           await page.addScriptTag({
-            path: require.resolve('../dist/act.bundle.js')
+            path: require.resolve('@qualweb/locale')
           });
 
-          // Set up the ACTRules package within the loaded page.
-          await page.evaluate(
-            (locale, options) => {
-              // @ts-expect-error: ACTRules isn't defined in the TS context, but will be defined within the puppeteer evaluation context.
-              window.act = new ACTRules({ translate: locale, fallback: locale }, options);
-            },
-            locales.en,
-            { rules: [ruleToTest] }
-          );
-
-          // Special case only for rule QW-ACT-R72.
-          if (ruleId === '8a213c') {
-            await page.keyboard.press('Tab'); // for R72 that needs to check the first focusable element
-          }
-
-          await page.evaluate((sourceHtmlHeadContent) => {
-            window.act.validateFirstFocusableElementIsLinkToNonRepeatedContent();
-
-            const parser = new DOMParser();
-            const sourceDoc = parser.parseFromString('', 'text/html');
-
-            sourceDoc.head.innerHTML = sourceHtmlHeadContent;
-
-            const elements = sourceDoc.querySelectorAll('meta');
-            const metaElements = [];
-            for (const element of elements) {
-              metaElements.push(window.qwPage.createQWElement(element));
-            }
-
-            window.act.validateMetaElements(metaElements);
-            window.act.executeAtomicRules();
-            window.act.executeCompositeRules();
-          }, sourceHtml);
+          await page.addScriptTag({
+            path: require.resolve('../dist/__webpack/act.bundle.js')
+          });
 
           if (ruleId === '59br37') {
             await page.setViewport({
@@ -223,10 +179,21 @@ describe('ACT rules', () => {
             });
           }
 
-          const report = await page.evaluate(() => {
-            window.act.validateZoomedTextNodeNotClippedWithCSSOverflow();
-            return window.act.getReport();
-          });
+          // Set up ACT rule module and run test for single rule.
+          const report = await page.evaluate((ruleToTest, sourceHtml) => {
+            // @ts-expect-error - ACTRules is injected via puppeteer.
+            const actModule = new ACTRulesRunner({ include: [ruleToTest] }, 'en');
+            actModule.configure();
+            actModule.test({ sourceHtml });
+            actModule.testSpecial();
+            return actModule.getReport();
+          }, ruleToTest, sourceHtml);
+
+          expect(report.assertions).to.have.property(ruleToTest);
+
+          // TODO: would be useful to check that atomic rules only report their
+          // one result, while composite rules report its constituents.
+          // expect(Object.keys(report.assertions)).to.have.lengthOf(1);
 
           // Retrieve the outcome. "warning" is QW-specific, so treat that as "cantTell" for these tests.
           const outcome =

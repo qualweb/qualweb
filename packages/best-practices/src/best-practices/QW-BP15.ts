@@ -1,36 +1,30 @@
-import { BestPractice } from '@qualweb/best-practices';
-import BestPracticeObject from '../lib/BestPractice.object';
-import { BestPracticeClass, ElementExists, ElementIsVisible } from '../lib/applicability';
-import Test from '../lib/Test.object';
-import { Translate } from '@qualweb/locale';
+import type { QWElement } from '@qualweb/qw-element';
+import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
+import { Test, Verdict } from '@qualweb/core/evaluation';
+import { BestPractice } from '../lib/BestPractice.object';
 
-@BestPracticeClass
-class QW_BP15 extends BestPracticeObject {
+class QW_BP15 extends BestPractice {
   private readonly absoluteLengths = ['cm', 'mm', 'in', 'px', 'pt', 'pc'];
-
-  constructor(bestPractice: BestPractice, locale: Translate) {
-    super(bestPractice, locale);
-  }
 
   @ElementExists
   @ElementIsVisible
-  execute(element: typeof window.qwElement): void {
+  execute(element: QWElement): void {
     const test = new Test();
 
     const width = <string>element.getElementAttribute('width');
     const unit = width.trim().substring(width.length - 2, width.length);
 
     if (!this.absoluteLengths.includes(unit) && parseFloat(width).toString().length !== width.length) {
-      test.verdict = 'passed';
+      test.verdict = Verdict.PASSED;
       test.resultCode = 'P1';
     } else {
-      test.verdict = 'failed';
+      test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
     }
 
     test.addElement(element);
-    super.addTestResult(test);
+    this.addTestResult(test);
   }
 }
 
-export = QW_BP15;
+export { QW_BP15 };

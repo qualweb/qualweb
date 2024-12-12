@@ -1,0 +1,1 @@
+export type Principle = 'Perceivable' | 'Operable' | 'Understandable' | 'Robust';
