@@ -11,6 +11,7 @@
 '@qualweb/core': minor
 '@qualweb/util': minor
 '@qualweb/cli': minor
+'@qualweb/cui-checks': minor
 ---
 
 # Major refactor and code cleanup
