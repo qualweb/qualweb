@@ -40,7 +40,8 @@
     "packages/wcag-techniques",
     "packages/counter",
     "packages/earl-reporter",
-    "packages/cli"
+    "packages/cli",
+    "packages/cui-checks"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
