@@ -12,7 +12,6 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha",
-    "prebuild": "rimraf dist",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "clean": "rimraf dist",

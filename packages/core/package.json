@@ -41,7 +41,6 @@
     "test:validator": "mocha test/validator.spec.mjs",
     "test:locale": "mocha test/locale.spec.mjs",
     "test:log": "mocha test/log.spec.mjs",
-    "prebuild": "rimraf dist",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "clean": "rimraf dist",
