@@ -55,6 +55,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-          npm -ws run build
           npx changeset version --snapshot develop
-          npx changeset publish --tag develop
+          npx changeset publish --tag develop --no-git-tag
