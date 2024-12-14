@@ -16,8 +16,8 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && npm run prebuild && webpack",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/locale#readme",

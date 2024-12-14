@@ -23,7 +23,8 @@
     "test": "mocha",
     "lint": "eslint",
     "format": "prettier src/**/*.ts --write",
-    "build": "rimraf dist && tsc --build tsconfig.prod.json && webpack",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "author": "",

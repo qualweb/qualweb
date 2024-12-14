@@ -15,6 +15,7 @@
     "prebuild": "rimraf dist",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
+    "clean": "rimraf dist",
     "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
