@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies [cef0718]
+  - @qualweb/best-practices@0.7.1
+
 ## 0.7.0
 
 ### Minor Changes
