@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.7.2
+
+### Patch Changes
+
+- 38078bb: Clean up build scripts
+- 38078bb: Update build scripts
+
+  Removed the cleanup step of all build scripts and added a "clean" script for
+  them all instead. This change means that the build scripts will no longer create
+  a clean output folder. Since the output folders aren't under version control,
+  this won't mess with history, and CI/CD pipelines should build from a clean
+  checkout so this shouldn't cause pollution in final releases, either.
+
+- Updated dependencies [38078bb]
+- Updated dependencies [38078bb]
+  - @qualweb/core@0.8.1
+  - @qualweb/wcag-techniques@0.4.1
+  - @qualweb/best-practices@0.7.2
+  - @qualweb/earl-reporter@0.5.1
+  - @qualweb/act-rules@0.7.1
+  - @qualweb/counter@0.3.1
+
 ## 0.7.1
 
 ### Patch Changes

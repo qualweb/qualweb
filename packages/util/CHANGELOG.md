@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.1
+
+### Patch Changes
+
+- 38078bb: Util package should not depend on core
+- 38078bb: Update build scripts
+
+  Removed the cleanup step of all build scripts and added a "clean" script for
+  them all instead. This change means that the build scripts will no longer create
+  a clean output folder. Since the output folders aren't under version control,
+  this won't mess with history, and CI/CD pipelines should build from a clean
+  checkout so this shouldn't cause pollution in final releases, either.
+
 ## 0.6.0
 
 ### Minor Changes
