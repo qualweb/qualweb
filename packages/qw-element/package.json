@@ -10,10 +10,10 @@
   "scripts": {
     "tsc": "tsc",
     "test": "mocha --require esm",
-    "prebuild": "rimraf dist",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "build": "npm run prebuild && tsc --build tsconfig.prod.json",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },

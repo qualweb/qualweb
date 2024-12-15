@@ -12,7 +12,7 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf dist",
+    "clean": "rimraf dist",
     "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },

@@ -33,8 +33,8 @@
     "test:elementHidden": "mocha --spec=test/elementHidden.spec.ts",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && npm run prebuild && webpack",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -55,7 +55,6 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.8.0",
     "@qualweb/qw-page": "^0.3.0",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",

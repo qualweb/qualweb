@@ -12,8 +12,8 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "rimraf prebuild  && tsc --build tsconfig.prod.json",
-    "build": "rimraf dist && webpack",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },

@@ -12,8 +12,9 @@
     "test": "mocha test/counter.spec.ts",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
-    "prebuild": "npm run format && rimraf prebuild && tsc --build tsconfig.prod.json",
-    "build": "npm run prebuild && rimraf dist && webpack",
+    "clean": "rimraf dist",
+    "prebuild": "npm run format",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "homepage": "https://github.com/qualweb/counter#readme",

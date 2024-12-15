@@ -24,7 +24,8 @@
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "prebuild": "npm run validate:rules",
-    "build": "rimraf dist && tsc --build tsconfig.prod.json && webpack",
+    "clean": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
