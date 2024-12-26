@@ -20,7 +20,8 @@
   "homepage": "https://github.com/qualweb/counter#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/counter.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/counter"
   },
   "bugs": {
     "url": "https://github.com/qualweb/counter/issues"

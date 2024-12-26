@@ -50,7 +50,8 @@
   "homepage": "https://github.com/qualweb/best-practices#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/best-practices.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/best-practices"
   },
   "bugs": {
     "url": "https://github.com/qualweb/best-practices/issues"

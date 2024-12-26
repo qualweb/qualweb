@@ -23,7 +23,8 @@
   "homepage": "https://github.com/qualweb/locale#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/locale.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/locale"
   },
   "bugs": {
     "url": "https://github.com/qualweb/locale/issues"

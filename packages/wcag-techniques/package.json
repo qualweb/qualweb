@@ -36,7 +36,8 @@
   "homepage": "https://github.com/qualweb/wcag-techniques#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/wcag-techniques.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/wcag-techniques"
   },
   "bugs": {
     "url": "https://github.com/qualweb/wcag-techniques/issues"

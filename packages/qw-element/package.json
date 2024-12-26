@@ -20,7 +20,8 @@
   "homepage": "https://github.com/qualweb/qw-element#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/qw-element.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/qw-element"
   },
   "bugs": {
     "url": "https://github.com/qualweb/qw-element/issues"

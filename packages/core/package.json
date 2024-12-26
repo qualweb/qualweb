@@ -58,7 +58,8 @@
   "homepage": "https://github.com/qualweb/core#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qualweb/core.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/qualweb/core/issues",

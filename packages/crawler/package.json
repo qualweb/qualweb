@@ -20,7 +20,8 @@
   "homepage": "https://github.com/qualweb/crawler#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/crawler.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/crawler"
   },
   "bugs": {
     "url": "https://github.com/qualweb/crawler/issues"

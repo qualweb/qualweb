@@ -20,7 +20,8 @@
   "homepage": "https://github.com/qualweb/qw-page#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/qw-page.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/qw-page"
   },
   "bugs": {
     "url": "https://github.com/qualweb/qw-page/issues"
