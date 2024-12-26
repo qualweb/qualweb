@@ -26,7 +26,7 @@
   ],
   "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/cli",
   "bugs": {
-    "url": "https://github.com/qualweb/cli/issues",
+    "url": "https://github.com/qualweb/qualweb/issues",
     "email": "qualweb@fc.ul.pt"
   },
   "repository": {

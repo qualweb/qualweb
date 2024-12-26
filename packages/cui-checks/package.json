@@ -33,6 +33,9 @@
     "url": "git+https://github.com/qualweb/qualweb.git",
     "directory": "packages/cui-checks"
   },
+  "bugs": {
+    "url": "https://github.com/qualweb/qualweb/issues"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

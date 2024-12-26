@@ -40,7 +40,7 @@
     "directory": "packages/wcag-techniques"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/wcag-techniques/issues"
+    "url": "https://github.com/qualweb/qualweb/issues"
   },
   "keywords": [
     "wcag",
