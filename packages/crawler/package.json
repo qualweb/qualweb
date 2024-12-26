@@ -17,7 +17,7 @@
     "build": "tsc --build tsconfig.prod.json",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/crawler#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/crawler",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qualweb/qualweb.git",

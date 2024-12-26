@@ -55,7 +55,7 @@
     "accessibility",
     "a11y"
   ],
-  "homepage": "https://github.com/qualweb/core#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/core",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qualweb/qualweb.git",

@@ -47,7 +47,7 @@
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/best-practices#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/best-practices",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qualweb/qualweb.git",

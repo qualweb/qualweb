@@ -24,7 +24,7 @@
     "report",
     "accessibility"
   ],
-  "homepage": "https://github.com/qualweb/earl-reporter#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/earl-reporter",
   "bugs": {
     "url": "https://github.com/qualweb/earl-reporter/issues",
     "email": "qualweb@fc.ul.pt"

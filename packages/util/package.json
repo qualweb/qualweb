@@ -38,7 +38,7 @@
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/util#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/util",
   "bugs": {
     "url": "https://github.com/qualweb/util/issues"
   },

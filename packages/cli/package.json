@@ -24,7 +24,7 @@
     "a11y",
     "accessibility"
   ],
-  "homepage": "https://github.com/qualweb/cli#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/cli",
   "bugs": {
     "url": "https://github.com/qualweb/cli/issues",
     "email": "qualweb@fc.ul.pt"
