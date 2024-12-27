@@ -27,6 +27,15 @@
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/cui-checks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/cui-checks"
+  },
+  "bugs": {
+    "url": "https://github.com/qualweb/qualweb/issues"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

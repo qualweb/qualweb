@@ -24,14 +24,15 @@
     "report",
     "accessibility"
   ],
-  "homepage": "https://github.com/qualweb/earl-reporter#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/earl-reporter",
   "bugs": {
-    "url": "https://github.com/qualweb/earl-reporter/issues",
+    "url": "https://github.com/qualweb/qualweb/issues",
     "email": "qualweb@fc.ul.pt"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/qualweb/earl-reporter.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/earl-reporter"
   },
   "engines": {
     "node": ">=18.0.0"

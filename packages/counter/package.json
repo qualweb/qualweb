@@ -17,13 +17,14 @@
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/counter#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/counter",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/counter.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/counter"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/counter/issues"
+    "url": "https://github.com/qualweb/qualweb/issues"
   },
   "keywords": [
     "qualweb",

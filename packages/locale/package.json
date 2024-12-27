@@ -20,13 +20,14 @@
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/locale#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/locale",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/locale.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/locale"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/locale/issues"
+    "url": "https://github.com/qualweb/qualweb/issues"
   },
   "keywords": [
     "qualweb",
