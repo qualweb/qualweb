@@ -55,13 +55,14 @@
     "accessibility",
     "a11y"
   ],
-  "homepage": "https://github.com/qualweb/core#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/core",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qualweb/core.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/core/issues",
+    "url": "https://github.com/qualweb/qualweb/issues",
     "email": "qualweb@fc.ul.pt"
   },
   "author": {
@@ -91,6 +92,8 @@
     "@qualweb/crawler": "0.4.1",
     "@qualweb/locale": "0.2.1",
     "@qualweb/qw-element": "0.3.1",
+    "@qualweb/qw-page": "0.3.1",
+    "@qualweb/util": "0.6.1",
     "axios": "^1.7.2",
     "colors": "1.4.0",
     "puppeteer": "^22.12.1",

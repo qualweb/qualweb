@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/qualweb/qualweb.git"
+    "url": "git+https://github.com/qualweb/qualweb.git"
   },
   "scripts": {
     "release": "npm -ws run build && npx changeset publish && git push --follow-tags",

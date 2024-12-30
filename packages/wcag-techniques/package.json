@@ -33,13 +33,14 @@
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/wcag-techniques#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/wcag-techniques",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/wcag-techniques.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/wcag-techniques"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/wcag-techniques/issues"
+    "url": "https://github.com/qualweb/qualweb/issues"
   },
   "keywords": [
     "wcag",

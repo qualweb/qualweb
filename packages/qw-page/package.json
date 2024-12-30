@@ -17,13 +17,14 @@
     "docs": "typedoc --out docs src/index.ts",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/qualweb/qw-page#readme",
+  "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/qw-page",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qualweb/qw-page.git"
+    "url": "git+https://github.com/qualweb/qualweb.git",
+    "directory": "packages/qw-page"
   },
   "bugs": {
-    "url": "https://github.com/qualweb/qw-page/issues"
+    "url": "https://github.com/qualweb/qualweb/issues"
   },
   "keywords": [
     "qualweb",
