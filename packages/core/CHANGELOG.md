@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.2
+
+### Patch Changes
+
+- 63a0b5d: Add missing @qualweb/qw-page dependency
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+- Updated dependencies [40efb72]
+  - @qualweb/qw-element@0.3.2
+  - @qualweb/crawler@0.4.2
+  - @qualweb/qw-page@0.3.2
+  - @qualweb/locale@0.2.2
+  - @qualweb/util@0.6.2
+
 ## 0.8.1
 
 ### Patch Changes

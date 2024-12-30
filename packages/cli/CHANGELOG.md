@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.7.3
+
+### Patch Changes
+
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+- Updated dependencies [63a0b5d]
+- Updated dependencies [40efb72]
+  - @qualweb/core@0.8.2
+  - @qualweb/wcag-techniques@0.4.2
+  - @qualweb/best-practices@0.7.3
+  - @qualweb/earl-reporter@0.5.2
+  - @qualweb/act-rules@0.7.2
+  - @qualweb/counter@0.3.2
+
 ## 0.7.2
 
 ### Patch Changes
