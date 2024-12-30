@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cli",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/cli.js",
   "bin": {
@@ -40,12 +40,12 @@
   "author": "João Vicente",
   "license": "ISC",
   "dependencies": {
-    "@qualweb/act-rules": "0.7.1",
-    "@qualweb/best-practices": "0.7.2",
-    "@qualweb/core": "0.8.1",
-    "@qualweb/counter": "0.3.1",
-    "@qualweb/earl-reporter": "0.5.1",
-    "@qualweb/wcag-techniques": "0.4.1",
+    "@qualweb/act-rules": "0.7.2",
+    "@qualweb/best-practices": "0.7.3",
+    "@qualweb/core": "0.8.2",
+    "@qualweb/counter": "0.3.2",
+    "@qualweb/earl-reporter": "0.5.2",
+    "@qualweb/wcag-techniques": "0.4.2",
     "commander": "^12.1.0",
     "log-update": "^4.0.0"
   },

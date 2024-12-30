@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+### Patch Changes
+
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+
 ## 0.4.1
 
 ### Patch Changes

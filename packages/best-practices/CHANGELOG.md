@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.3
+
+### Patch Changes
+
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+
 ## 0.7.2
 
 ### Patch Changes
