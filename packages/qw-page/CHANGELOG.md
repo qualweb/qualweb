@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+- Updated dependencies [40efb72]
+  - @qualweb/qw-element@0.3.2
+
 ## 0.3.1
 
 ### Patch Changes

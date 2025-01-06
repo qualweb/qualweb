@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.2
+
+### Patch Changes
+
+- 40efb72: Updated repository, bugs, and homepage fields for all package.json files
+- Updated dependencies [63a0b5d]
+- Updated dependencies [40efb72]
+  - @qualweb/core@0.8.2
+
 ## 0.5.1
 
 ### Patch Changes
