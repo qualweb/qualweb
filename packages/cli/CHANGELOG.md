@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.4
+
+### Patch Changes
+
+- Updated dependencies [55573c9]
+  - @qualweb/act-rules@0.7.3
+
 ## 0.7.3
 
 ### Patch Changes
