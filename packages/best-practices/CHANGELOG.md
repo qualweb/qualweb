@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.6
+
+### Patch Changes
+
+- dddec31: Do not consider iFrames for BP28
+
 ## 0.7.5
 
 ### Patch Changes
