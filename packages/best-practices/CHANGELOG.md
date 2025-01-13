@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.5
+
+### Patch Changes
+
+- b3dbcb4: Update applicability of BP28
+
 ## 0.7.4
 
 ### Patch Changes
