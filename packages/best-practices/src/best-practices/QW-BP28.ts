@@ -13,10 +13,17 @@ class QW_BP28 extends BestPractice {
     if (hasH1.length === 1) {
       verdict = Verdict.PASSED;
       resultCode = 'P1';
-    } else {
+    } else if (hasH1.length === 0) {
       verdict = Verdict.FAILED;
       resultCode = 'F1';
-    }
+      const test = new Test();
+      test.verdict = verdict;
+      test.resultCode = resultCode;
+      this.addTestResult(test);
+    } else {
+      verdict = Verdict.FAILED;
+      resultCode = 'F2';
+    } 
     hasH1.forEach((element) => {
       const test = new Test();
       test.verdict = verdict;
