@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.6
+
+### Patch Changes
+
+- Updated dependencies [b3dbcb4]
+  - @qualweb/best-practices@0.7.5
+
 ## 0.7.5
 
 ### Patch Changes
