@@ -9,7 +9,8 @@ class QW_BP28 extends BestPractice {
     let verdict;
     let resultCode;
 
-    const hasH1 = element.getElements('h1');
+    const hasH1 = element.getElements('[role="heading"][aria-level="1"], h1');
+    hasH1.filter((e) => !window.DomUtils.isElementADescendantOf(e, ['iframe'], [])); // filter out elements that have an iframe as ancestor
     if (hasH1.length === 1) {
       verdict = Verdict.PASSED;
       resultCode = 'P1';
