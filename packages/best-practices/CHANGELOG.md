@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.4
+
+### Patch Changes
+
+- 5158560: Update BP28
+  - Distinguish errors between not having an h1 and having more than one h1
+
 ## 0.7.3
 
 ### Patch Changes
