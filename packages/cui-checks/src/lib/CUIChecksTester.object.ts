@@ -1,9 +1,13 @@
 import type { ModuleTranslator } from '@qualweb/core/locale';
 import { Tester } from '@qualweb/core/evaluation';
-import mapping from './mapping';
+import {generateMappings} from './mapping';
 import * as checks from '../checks';
+import { QWCUI_Selectors } from './selectors';
+
 
 export class CUIChecksTester extends Tester {
+
+  private mapping: { [key: string]: string[] } = {};
   public init(translator: ModuleTranslator): this {
     for (const check in checks) {
       const checkObject = new checks[check as keyof typeof checks](translator);
@@ -17,10 +21,17 @@ export class CUIChecksTester extends Tester {
     this.executeChecks();
   }
 
+  public configureSelectors(uiSelectors: QWCUI_Selectors): void {
+    this.mapping = generateMappings(uiSelectors);
+    console.log("Generated mapping",this.mapping);
+  }
+  
+
+
   private executeChecks(): void {
-    const selectors = Object.keys(mapping);
+    const selectors = Object.keys(this.mapping);
     for (const selector of selectors ?? []) {
-      for (const check of mapping[selector as keyof typeof mapping] ?? []) {
+      for (const check of this.mapping[selector as keyof typeof this.mapping] ?? []) {
         if (this.toExecute[check]) {
           this.executeCheck(check, selector);
         }
