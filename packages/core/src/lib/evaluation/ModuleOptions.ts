@@ -6,4 +6,5 @@ export type ModuleOptions = {
   exclude?: string[];
   levels?: Level[];
   principles?: Principle[];
+  selectors?: { [key: string]: string };
 };
