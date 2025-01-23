@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.8
+
+### Patch Changes
+
+- Updated dependencies [70e29dc]
+  - @qualweb/act-rules@0.7.4
+  - @qualweb/core@0.8.3
+  - @qualweb/earl-reporter@0.5.3
+
 ## 0.7.7
 
 ### Patch Changes

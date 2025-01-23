@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3
+
+### Patch Changes
+
+- edf0c1c: Build(deps): Bump franc-min from 5.0.0 to 6.2.1
+
 ## 0.6.2
 
 ### Patch Changes
