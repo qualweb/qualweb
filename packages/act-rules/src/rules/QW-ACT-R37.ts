@@ -58,6 +58,9 @@ class QW_ACT_R37 extends AtomicRule {
       }
     }
 
+    console.log("element", element);
+    console.log("disabledWidgets", disabledWidgets);
+
     const role = window.AccessibilityUtils.getElementRole(element);
     if (role === 'group') {
       const disable = element.getElementAttribute('disabled') !== null;
