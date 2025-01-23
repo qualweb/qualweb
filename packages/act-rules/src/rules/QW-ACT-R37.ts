@@ -43,6 +43,15 @@ class QW_ACT_R37 extends AtomicRule {
       if (disableWidget.getElementSelector() === elementSelectors) {
         return;
       }
+      // check if the element is a child of any of the disabledWidgets
+      const children = disableWidget.getElementChildren();
+      if (children) {
+        for (const child of children) {
+          if (child.getElementSelector() === elementSelectors) {
+            return;
+          }
+        }
+      }
     }
 
     const role = window.AccessibilityUtils.getElementRole(element);
