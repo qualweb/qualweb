@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.7.8
+
+### Patch Changes
+
+- Updated dependencies [70e29dc]
+  - @qualweb/act-rules@0.7.4
+  - @qualweb/core@0.8.3
+  - @qualweb/earl-reporter@0.5.3
+
+## 0.7.7
+
+### Patch Changes
+
+- Updated dependencies [dddec31]
+  - @qualweb/best-practices@0.7.6
+
+## 0.7.6
+
+### Patch Changes
+
+- Updated dependencies [b3dbcb4]
+  - @qualweb/best-practices@0.7.5
+
+## 0.7.5
+
+### Patch Changes
+
+- Updated dependencies [5158560]
+  - @qualweb/best-practices@0.7.4
+
+## 0.7.4
+
+### Patch Changes
+
+- Updated dependencies [55573c9]
+  - @qualweb/act-rules@0.7.3
+
 ## 0.7.3
 
 ### Patch Changes
