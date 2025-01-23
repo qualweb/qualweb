@@ -45,10 +45,10 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.8.3",
+    "@qualweb/core": "^0.8.4",
     "@qualweb/locale": "0.2.2",
     "@qualweb/qw-page": "0.3.2",
-    "@qualweb/util": "0.6.3",
+    "@qualweb/util": "0.6.4",
     "@tsconfig/recommended": "^1.0.3",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.11.11",

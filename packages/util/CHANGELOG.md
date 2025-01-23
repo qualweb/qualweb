@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4
+
+### Patch Changes
+
+- 411d717: Update util dependency
+
 ## 0.6.3
 
 ### Patch Changes
