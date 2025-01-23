@@ -43,23 +43,16 @@ class QW_ACT_R37 extends AtomicRule {
       if (disableWidget.getElementSelector() === elementSelectors) {
         return;
       }
-      if (selectors) {
-        if (typeof selectors === 'string') {
-          // convert to array
-          const selectorsArray = [selectors];
-          if (window.DomUtils.isElementADescendantOf(element, selectorsArray, [])) {
-            return;
-          }
-        } else {
-          if (window.DomUtils.isElementADescendantOf(element, selectors, [])) {
+      // check if the element is a child of any of the disabledWidgets
+      const children = disableWidget.getElementChildren();
+      if (children) {
+        for (const child of children) {
+          if (child.getElementSelector() === elementSelectors) {
             return;
           }
         }
       }
     }
-
-    console.log("element", element);
-    console.log("disabledWidgets", disabledWidgets);
 
     const role = window.AccessibilityUtils.getElementRole(element);
     if (role === 'group') {
