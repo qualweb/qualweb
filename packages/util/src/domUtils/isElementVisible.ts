@@ -10,23 +10,23 @@ function isElementVisible(element: QWElement): boolean {
   const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity: number | undefined;
   if (opacityProperty) {
-    opacity = parseInt(opacityProperty);
+    opacity = parseFloat(opacityProperty);
   }
   let opaqueParent: boolean = false;
   if (element.getElementParent()) {
     opaqueParent = isParentOpaque(element.getElementParent()!);
   }
 
-  return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity && opacity === 0) || opaqueParent);
+  return !(offScreen || hasOnePixelHeight || cssHidden || !hasContent || (opacity != undefined && opacity === 0) || opaqueParent);
 }
 
 function isParentOpaque(element: QWElement): boolean {
   const opacityProperty = element.getElementStyleProperty('opacity', '');
   let opacity: number | undefined;
   if (opacityProperty) {
-    opacity = parseInt(opacityProperty);
+    opacity = parseFloat(opacityProperty);
   }
-  if (opacity && opacity === 0) {
+  if (opacity != undefined && opacity === 0) {
     return true;
   }
   if (element.getElementParent()) {
