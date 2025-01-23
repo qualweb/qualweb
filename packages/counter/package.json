@@ -37,9 +37,9 @@
   "author": "Pedro Santos",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.8.2",
+    "@qualweb/core": "^0.8.3",
     "@qualweb/qw-page": "0.3.2",
-    "@qualweb/util": "0.6.2",
+    "@qualweb/util": "0.6.3",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
