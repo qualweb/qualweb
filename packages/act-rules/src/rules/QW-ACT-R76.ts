@@ -8,6 +8,7 @@ import {
 } from '@qualweb/util/applicability';
 import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
+import Color from 'colorjs.io';
 
 class QW_ACT_R76 extends AtomicRule {
   @ElementExists
@@ -340,6 +341,8 @@ class QW_ACT_R76 extends AtomicRule {
   parseRGBString(colorString: string, opacity: number): any {
     const rgbRegex = /^rgb\((\d+), (\d+), (\d+)\)/;
     const rgbaRegex = /^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/;
+    const oklchRegex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?)\)/;
+    const oklch2Regex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?) \/ (\d*(\.\d+)?)\)/;
 
     // IE can pass transparent as value instead of rgba
     if (colorString === 'transparent') {
@@ -358,9 +361,6 @@ class QW_ACT_R76 extends AtomicRule {
 
     match = colorString.match(rgbaRegex);
     if (match) {
-      // if(match[1] === "0" && match[2] === "0" && match[3] === "0" && match[4] === "0")
-      //   return{"red": 255, "green": 255, "blue": 255, "alpha": 1};
-      // else
       return {
         red: parseInt(match[1], 10),
         green: parseInt(match[2], 10),
@@ -368,6 +368,31 @@ class QW_ACT_R76 extends AtomicRule {
         alpha: Math.round(parseFloat(match[4]) * 100) / 100
       };
     }
+
+    match = colorString.match(oklch2Regex);
+    if (match) {
+      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
+      const rgba = oklchColor.to("srgb");
+      return {
+        red: rgba.srgb.red,
+        green: rgba.srgb.green,
+        blue: rgba.srgb.blue,
+        alpha: parseFloat(match[4])
+      };
+    }
+
+    match = colorString.match(oklchRegex);
+    if (match) {
+      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
+      const rgba = oklchColor.to("srgb");
+      return {
+        red: rgba.srgb.red,
+        green: rgba.srgb.green,
+        blue: rgba.srgb.blue,
+        alpha: rgba.alpha
+      };
+    }
+
   }
 
   getRelativeLuminance(red: number, green: number, blue: number): number {
