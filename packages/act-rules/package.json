@@ -55,6 +55,7 @@
     "@types/node-fetch": "^2.6.11",
     "ajv": "^6.12.6",
     "chai": "4.5.0",
+    "colorjs.io": "^0.5.2",
     "mocha": "^10.2.0",
     "node-fetch": "^2.7.0",
     "prettier": "^3.1.1",
