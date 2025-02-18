@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.5
+
+### Patch Changes
+
+- 34f8415: Add support to OKLCH colorspace for contrast checks
+
 ## 0.7.4
 
 ### Patch Changes
