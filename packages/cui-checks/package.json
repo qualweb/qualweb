@@ -7,14 +7,14 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/__webpack/cui.bundle.js",
+      "default": "./dist/__webpack/cui.bundle.js",
       "types": "./dist/index.d.ts"
     },
     "./lib/*": {
-      "require": "./dist/lib/*"
+      "default": "./dist/lib/*"
     },
     "./CuiChecksModule": {
-      "require": "./dist/CuiChecksModule.js",
+      "default": "./dist/CuiChecksModule.js",
       "types": "./dist/CuiChecksModule.d.ts"
     }
   },

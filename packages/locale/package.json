@@ -7,7 +7,7 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/locale.bundle.js",
+      "default": "./dist/locale.bundle.js",
       "types": "./prebuild/index.d.ts"
     }
   },
