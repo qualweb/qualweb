@@ -9,6 +9,7 @@ import {
 } from '@qualweb/core/evaluation';
 import type { TranslationOptions } from '@qualweb/locale';
 import type { QualwebPage } from '@qualweb/core/lib';
+import { CUIChecksRunner } from './CuiChecksRunner';
 
 export class CUIChecksModule extends ExecutableModuleContext {
   public readonly name = ModuleType.CUI_CHECKS;
@@ -21,12 +22,12 @@ export class CUIChecksModule extends ExecutableModuleContext {
     page: QualwebPage,
     options: ModuleOptions,
     translate: TranslationOptions,
-    data: TestingData
+    data: TestingData,
   ): Promise<EvaluationReport> {
     return page.evaluate(
       (data: TestingData, options: ModuleOptions, translate: TranslationOptions) => {
         //@ts-expect-error The package exists inside the context of the WebPage
-        return new CUIChecksRunner(options, translate).configure(options).test(data).getReport();
+        return new CUIChecksRunner(options, translate).configure(options).executeTests(data).getReport();
       },
       data,
       options,
