@@ -69,4 +69,18 @@
 
     }
   },
+  "QW_CUI_C5": {
+    "name": "ChatBot Responses are in same language as user's questions.",
+    "code": "QW-CUI-C5",
+    "description": "Test if Responses are in the language of the website.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+  
+      ],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+    }
+  }
 }
