@@ -5,15 +5,15 @@ import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/cor
 import { Guideline, Verdict } from '@qualweb/core/evaluation';
 import checks from './checks.json';
 
-
-abstract class Check extends Guideline{
+abstract class Check extends Guideline {
   protected readonly check: Assertion;
   protected readonly translator: ModuleTranslator;
-
-  constructor(translator: ModuleTranslator) {
+  protected readonly settings: { [key: string]: string | number | boolean };
+  constructor(translator: ModuleTranslator, settings: { [key: string]: string | number | boolean }) {
     super();
     this.translator = translator;
     const check = checks[new.target.name as keyof typeof checks] as Assertion;
+    this.settings = settings;
     check.metadata.passed = 0;
     check.metadata.warning = 0;
     check.metadata.failed = 0;
@@ -43,7 +43,7 @@ abstract class Check extends Guideline{
     );
   }
 
-  public abstract execute(element?: QWElement): void;
+  public abstract execute(element?: QWElement): Promise<void>;
 
   public getFinalResults(): Assertion {
     this.generateOutcome();
