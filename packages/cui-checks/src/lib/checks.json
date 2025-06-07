@@ -1,8 +1,36 @@
 {
   "QW_CUI_C1": {
-    "name": "Testing check",
+    "name": "Chatbot Has Voice input.",
     "code": "QW-CUI-C1",
-    "description": "This is a test.",
+    "description": "Test if chatbot has Voice input system.",
+    "metadata": {
+      "target": {
+        "element": "button"
+      },
+     "success-criteria": [
+
+      ],
+
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C2": {
+    "name": "ChatBot Responses Readability.",
+    "code": "QW-CUI-C2",
+    "description": "Test if Responses of chatbot are readable.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+       "success-criteria": [
+      
+      ],
+   
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  },
     "metadata": {
       "target": {
         "element": "title"
