@@ -31,11 +31,15 @@
 
     }
   },
+  "QW_CUI_C3": {
+    "name": "ChatBot Date Response is in User's Local Date.",
+    "code": "QW-CUI-C3",
+    "description": "Test if Responses of chatbot are readable.",
     "metadata": {
       "target": {
-        "element": "title"
+        "element": "div"
       },
-      "success-criteria": [
+    "success-criteria": [
         {
           "name": "2.4.2",
           "level": "A",
@@ -44,10 +48,11 @@
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#page-titled"
         }
       ],
-      "related": ["G88", "H25"],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:title"]
+
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+   
+    }
+  },
     }
   }
 }
