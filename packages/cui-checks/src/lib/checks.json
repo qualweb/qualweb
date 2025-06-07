@@ -83,4 +83,22 @@
       "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
     }
   }
+  , 
+  "QW_CUI_C6": {
+    "name": "ChatBot presents currency responses in the user's locale",
+    "code": "QW-CUI-C6",
+    "description": "Test if Currency responses are displayed in the user's locale.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  }
+  
+  
 }
