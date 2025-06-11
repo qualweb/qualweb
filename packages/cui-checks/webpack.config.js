@@ -11,6 +11,14 @@ module.exports = {
       type: 'this'
     }
   },
+    resolve: {
+      alias: {
+     "@microsoft/recognizers-text-number-with-unit": path.resolve(
+        __dirname,
+        "../../node_modules/@microsoft/recognizers-text-number-with-unit/dist/recognizers-text-number-with-unit.es5.js"
+      ),
+    },
+  },
   optimization: {
     minimize: true,
     usedExports: true,
