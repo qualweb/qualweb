@@ -38,6 +38,7 @@ export class CUIChecksRunner extends EvaluationModuleDefinition<CUIChecksTester>
       QW_CURRENCY: moduleOptions.selectors.QW_CURRENCY,
       QW_QUESTIONS: moduleOptions.selectors.QW_QUESTIONS,
       QW_DATE: moduleOptions.selectors.QW_DATE,
+      QW_UNIT: moduleOptions.selectors.QW_UNIT,
      
     }
   

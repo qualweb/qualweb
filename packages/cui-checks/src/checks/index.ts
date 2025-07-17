@@ -4,3 +4,4 @@ export * from './QW-CUI-C3';
 export * from './QW-CUI-C4';
 export * from './QW-CUI-C5';
 export * from './QW-CUI-C6';
+export * from './QW-CUI-C7';

@@ -7,4 +7,5 @@ export interface QWCUI_Selectors {
   QW_QUESTIONS?: string;
   QW_CURRENCY?: string;
   QW_DATE?: string;
+  QW_UNIT?: string;
 }

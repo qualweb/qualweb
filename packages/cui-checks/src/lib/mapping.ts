@@ -5,7 +5,8 @@ let mapping: { [key: string]: string[] } = {
   QW_CC_MESSAGES: ['QW-CUI-C2', 'QW-CUI-C4'],
   QW_QUESTIONS: ['QW-CUI-C5'],
   QW_CURRENCY: ['QW-CUI-C6'],
-  QW_DATE: ['QW-CUI-C3']
+  QW_DATE: ['QW-CUI-C3'],
+  QW_UNIT: ['QW-CUI-C7'],
 };
 
 function generateMappings(uiSelectors: QWCUI_Selectors): { [key: string]: string[] } {
