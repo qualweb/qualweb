@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.7
+
+### Patch Changes
+
+- eaa3821: Remove strong from list of elements for BP-10
+
 ## 0.7.6
 
 ### Patch Changes
