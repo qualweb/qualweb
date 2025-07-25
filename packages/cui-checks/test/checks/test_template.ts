@@ -60,9 +60,10 @@ export function buildTest(cuiCheck: string, testCases: { code: string, selectors
        
 await page.setRequestInterception(true);
 await page.setBypassCSP(true);
+
+        // Intercept requests to serve the test HTML and the common words file.
 page.on("request", (request) => {
   let url = request.url();
-
 
   if (request.url().includes('palavras-mais-comuns-utf8.txt')) {
     const filePath = path.resolve(__dirname, "../", "palavras-mais-comuns-utf8.txt");
@@ -86,6 +87,9 @@ page.on("request", (request) => {
   }
 });
  ;
+page.on('console', msg => {
+    console.log(`PAGE LOG: ${msg.text()}`);
+  });
 await page.goto(FAKE_ORIGIN);
 
         await page.addScriptTag({
@@ -100,9 +104,12 @@ await page.goto(FAKE_ORIGIN);
           path: require.resolve('@qualweb/locale')
         });
 
+        
+
         await page.addScriptTag({
           path: require.resolve('../../dist/__webpack/cui.bundle.js')
         });
+      
         
         const selector = test.selectors;
 
@@ -114,6 +121,7 @@ await page.goto(FAKE_ORIGIN);
 
       // @ts-expect-error: CUIChecksRunner should be defined within the executing context (injected above).
       const cui = new CUIChecksRunner({ include: [cuiCheck] ,selectors:selector,settings:settingsTests}, 'en',`${FAKE_ORIGIN}/palavras-mais-comuns-utf8.txt`).configure({ include: [cuiCheck] });
+
       let results = await cui.executeTests();
       return results.getReport();
     }, cuiCheck, selector,settingsTests,FAKE_ORIGIN);
