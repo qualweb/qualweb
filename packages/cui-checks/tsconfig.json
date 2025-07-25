@@ -2,6 +2,7 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
+    "target": "es2018",
     "module": "Node16",
     "resolveJsonModule": true,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
@@ -9,7 +10,6 @@
     "removeComments": true /* Do not emit comments to output. */,
     "declaration": true,
     "declarationMap": true,
-
     /* Strict Type-Checking Options */
     "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true /* Enable strict null checks. */,
@@ -38,5 +38,7 @@
   "include": [
     "src/**/*.ts",
     "test/**/*.ts",
+    "global.d.ts"
+    
   ],
 }

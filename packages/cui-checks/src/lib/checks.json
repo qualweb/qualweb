@@ -1,13 +1,45 @@
 {
   "QW_CUI_C1": {
-    "name": "Testing check",
+    "name": "Chatbot Has Voice input.",
     "code": "QW-CUI-C1",
-    "description": "This is a test.",
+    "description": "Test if chatbot has Voice input system.",
     "metadata": {
       "target": {
-        "element": "title"
+        "element": "button"
       },
-      "success-criteria": [
+     "success-criteria": [
+
+      ],
+
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C2": {
+    "name": "ChatBot Responses Readability.",
+    "code": "QW-CUI-C2",
+    "description": "Test if Responses of chatbot are readable.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+       "success-criteria": [
+      
+      ],
+   
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  },
+  "QW_CUI_C3": {
+    "name": "ChatBot Date Response is in User's Local Date.",
+    "code": "QW-CUI-C3",
+    "description": "Test if Responses of chatbot are readable.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+    "success-criteria": [
         {
           "name": "2.4.2",
           "level": "A",
@@ -16,10 +48,72 @@
 		      "url_tr": "https://www.w3.org/TR/WCAG21/#page-titled"
         }
       ],
-      "related": ["G88", "H25"],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:title"]
+
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+   
+    }
+  },
+  "QW_CUI_C4": {
+    "name": "ChatBot Responses in Language of website Local language.",
+    "code": "QW-CUI-C4",
+    "description": "Test if Responses are in the language of the website.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+      "success-criteria": [
+
+      ],
+
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  },
+  "QW_CUI_C5": {
+    "name": "ChatBot Responses are in same language as user's questions.",
+    "code": "QW-CUI-C5",
+    "description": "Test if Responses are in the language of the website.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+  
+      ],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
     }
   }
+  , 
+  "QW_CUI_C6": {
+    "name": "ChatBot presents currency responses in the user's locale",
+    "code": "QW-CUI-C6",
+    "description": "Test if Currency responses are displayed in the user's locale.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  },
+   "QW_CUI_C7": {
+    "name": "ChatBot presents units responses in the user's locale",
+    "code": "QW-CUI-C7",
+    "description": "Test if Unit responses are displayed in the user's locale.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+
+    }
+  }
+  
+  
 }

@@ -7,4 +7,5 @@ export type ModuleOptions = {
   levels?: Level[];
   principles?: Principle[];
   selectors?: { [key: string]: string };
+  settings?: { [key: string]: string | number | boolean; }
 };
