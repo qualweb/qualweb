@@ -88,7 +88,7 @@ page.on("request", (request) => {
 });
  ;
 page.on('console', msg => {
-    console.log(`PAGE LOG: ${msg.text()}`);
+   // console.log(`PAGE LOG: ${msg.text()}`);
   });
 await page.goto(FAKE_ORIGIN);
 

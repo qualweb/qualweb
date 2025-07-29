@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import {setBrowserFilePath, getCommonWords, extractWords, countLetters, calculateReadabilityScores, countComplexWordsPT, IReadibiltyScores, readability, getCounters } from '../src/lib/readability';
 
-import { awaitSync } from '@kaciras/deasync';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -24,11 +23,11 @@ describe('Readability Functions', () => {
     }
     );
     describe('getCommonWords', () => {
-        
-        it('should identify commonWords in Portuguese file ', () => {
+
+        it('should identify commonWords in Portuguese file ', async () => {
             let commonWords =['de','para','praia','sol','música'];
             
-            const result = awaitSync(getCommonWords());   
+            const result = await getCommonWords();   
             for(let word of commonWords){
              expect(result.includes(word)).to.be.true;
             }
@@ -37,10 +36,10 @@ describe('Readability Functions', () => {
 
         
         // Non complex words are the ones that are in the first 5000 words of the file
-        it('should identify non complex words in Portuguese file ', () => {
+        it('should identify non complex words in Portuguese file ', async() => {
 
             let commonWords =['de','para','praia','sol','música'];
-            let commonWordsText  = awaitSync(getCommonWords());
+            let commonWordsText  = await getCommonWords();
             
             for (let word of commonWords) { 
                 expect(commonWordsText.includes(word)).to.be.true;
@@ -50,7 +49,7 @@ describe('Readability Functions', () => {
 
         });
         // Complex words are those that are absent or after the first 5000 words of the file
-        it('should identify complex words ', () => {
+        it('should identify complex words ', async () => {
 
             let commonWords =['Anticonstitucionalissimamente ',
                 'Inconstitucionalissimamente ',
@@ -61,7 +60,7 @@ describe('Readability Functions', () => {
                 
                 for (let word of commonWords) {
                     
-                     let wordsText = awaitSync(getCommonWords());
+                     let wordsText = await getCommonWords();
                      expect(wordsText.includes(word)).to.be.false;
                       
                     
@@ -69,11 +68,11 @@ describe('Readability Functions', () => {
 
         });
 
-        it('Count complex words in a phrase ', () => {
+        it('Count complex words in a phrase ', async () => {
             const textContent = 'O desenvolvimento de novas tecnologias, como a inteligência artificial e a computação quântica, está avançando rapidamente; mas, será que estamos preparados para lidar com seus impactos? Muitos especialistas afirmam que, se não houver regulamentação e uma abordagem ética, poderemos enfrentar sérias consequências, como a perda de empregos e a invasão da privacidade! Além disso, o que fazer com os dados que estamos constantemente gerando? Precisamos de mais transparência e controle sobre como essas informações são utilizadas!';
             const words = extractWords(textContent);   
             const expectedValue = 6;
-            const result = awaitSync(countComplexWordsPT(words));
+            const result = await countComplexWordsPT(words);
             expect(result).to.equal(expectedValue);
         });
 
@@ -154,8 +153,8 @@ describe('Readability Functions', () => {
 
         });
 
-            
-        it('should calculate counters of a text provided syllable-pt', () => {
+
+        it('should calculate counters of a text provided syllable-pt', async () => {
             const str = 'O desenvolvimento de novas tecnologias, como a inteligência artificial e a computação quântica, está avançando rapidamente; mas, será que estamos preparados para lidar com seus impactos? Muitos especialistas afirmam que, se não houver regulamentação e uma abordagem ética, poderemos enfrentar sérias consequências, como a perda de empregos e a invasão da privacidade! Além disso, o que fazer com os dados que estamos constantemente gerando? Precisamos de mais transparência e controle sobre como essas informações são utilizadas!';
                         
             const expectedCounters = {
@@ -165,7 +164,7 @@ describe('Readability Functions', () => {
                 complexWords: 17,
                 phrases: 4
             };
-            const counters = awaitSync(getCounters(str,'pt'));
+            const counters = await getCounters(str,'pt');
 
             expect(counters.letters).to.equal(expectedCounters.letters);
             expect(counters.words).to.equal(expectedCounters.words);
@@ -176,10 +175,10 @@ describe('Readability Functions', () => {
 
             
         });
-        it('should calculate readability score of given phrase in Portuguse',  () => {
+        it('should calculate readability score of given phrase in Portuguse', async  () => {
             const str = 'O desenvolvimento de novas tecnologias, como a inteligência artificial e a computação quântica, está avançando rapidamente; mas, será que estamos preparados para lidar com seus impactos? Muitos especialistas afirmam que, se não houver regulamentação e uma abordagem ética, poderemos enfrentar sérias consequências, como a perda de empregos e a invasão da privacidade! Além disso, o que fazer com os dados que estamos constantemente gerando? Precisamos de mais transparência e controle sobre como essas informações são utilizadas!';
            
-            const metrics = awaitSync(readability(str,'pt'));
+            const metrics = await readability(str,'pt');
 
             const expectedMetrics = {
                 resultGrade: "Média legibilidade",
@@ -193,10 +192,10 @@ describe('Readability Functions', () => {
             
         });
 
-        it('Low readability text test in Portuguese',  () => {
+        it('Low readability text test in Portuguese', async () => {
             const str = 'Os meandros da complexidade regem os constructos do saber. Percebe-se uma proliferação de nuances semânticas. Sua intrincada tessitura desafia a hermenêutica convencional. A intertextualidade subjacente gera significações polissêmicas. A decodificação exige um hermeneuta experiente. A dialética entre signos e referentes revela uma macroestrutura cognitiva.';
-           
-            const metrics = awaitSync(readability(str,'pt'));
+
+            const metrics = await readability(str,'pt');
 
             const expectedMetrics = {
                 resultGrade: "Baixa legibilidade",
@@ -208,11 +207,11 @@ describe('Readability Functions', () => {
 
         });
 
-        it('High readability text test in Portuguse',  () => {
+        it('High readability text test in Portuguse',  async () => {
             const str = 'Com a internet, podemos aprender coisas novas, falar com amigos e brincar. Mas é bom usar com cuidado para não ficar tempo demais.';
-           
-            const metrics = awaitSync(readability(str,'pt'));
-         
+
+            const metrics = await readability(str,'pt');
+
             const expectedMetrics = {
                 resultGrade: "Alta legibilidade",
                 result: 7
@@ -224,7 +223,7 @@ describe('Readability Functions', () => {
 
             
         });
-        it('should calculate counters of a text in portuguse from real chatbot message', () => {
+        it('should calculate counters of a text in portuguse from real chatbot message', async () => {
             const str = 'O meu nome é CaTia e sou a assistente virtual da AT, Autoridade Tributária e Aduaneira. Em que posso ajudar?';
            
             const expectedCounters = {
@@ -234,7 +233,7 @@ describe('Readability Functions', () => {
                 complexWords: 0,
                 phrases: 2
             };
-            const counters = awaitSync(getCounters(str,'pt'));
+            const counters = await getCounters(str,'pt');
 
             expect(counters.letters).to.equal(expectedCounters.letters);
             expect(counters.words).to.equal(expectedCounters.words);
@@ -248,7 +247,7 @@ describe('Readability Functions', () => {
         
 
     });    describe('Readability Scores - English', () => {
-        it('should calculate counters of a text in English', () => {
+        it('should calculate counters of a text in English', async () => {
             const str = 'The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet!';
             const expectedCounters = {
                 letters: 79,
@@ -257,7 +256,7 @@ describe('Readability Functions', () => {
                 complexWords: 1,
                 phrases: 2
             };
-            const counters = awaitSync(getCounters(str, 'en'));
+            const counters = await getCounters(str, 'en');
             expect(counters.letters).to.equal(expectedCounters.letters);
             expect(counters.words).to.equal(expectedCounters.words);
             expect(counters.syllables).to.be.closeTo(expectedCounters.syllables, 2);
@@ -265,9 +264,9 @@ describe('Readability Functions', () => {
             expect(counters.phrases).to.equal(expectedCounters.phrases);
         });
 
-        it('should calculate readability score of a simple English phrase', () => {
+        it('should calculate readability score of a simple English phrase', async () => {
             const str = 'The cat sat on the mat. It was a sunny day.';
-            const metrics = awaitSync(readability(str, 'en'));
+            const metrics = await readability(str, 'en');
             const expectedMetrics = {
                 resultGrade: "Alta legibilidade",
                 result: 5
@@ -277,9 +276,9 @@ describe('Readability Functions', () => {
             //expect(metrics.result).to.be.closeTo(expectedMetrics.result, 2);
         });
 
-        it('should calculate readability score of a complex English phrase', () => {
+        it('should calculate readability score of a complex English phrase', async () => {
             const str = 'The proliferation of semantic nuances challenges conventional hermeneutics. Intertextuality generates polysemic meanings, requiring an experienced interpreter.';
-            const metrics = awaitSync(readability(str, 'en'));
+            const metrics = await readability(str, 'en');
             const expectedMetrics = {
                 resultGrade: "Baixa legibilidade",
                 result: 22
@@ -289,7 +288,7 @@ describe('Readability Functions', () => {
             expect(metrics.result).to.be.closeTo(expectedMetrics.result, 4);
         });
 
-        it('should calculate counters for a chatbot-like English message', () => {
+        it('should calculate counters for a chatbot-like English message', async () => {
             const str = 'Hello! My name is Alex and I am your virtual assistant. How can I help you today?';
             const expectedCounters = {
                 letters: 62,
@@ -298,7 +297,7 @@ describe('Readability Functions', () => {
                 complexWords: 2,
                 phrases: 3
             };
-            const counters = awaitSync(getCounters(str, 'en'));
+            const counters = await getCounters(str, 'en');
             expect(counters.letters).to.equal(expectedCounters.letters);
             expect(counters.words).to.equal(expectedCounters.words);
             expect(counters.syllables).to.be.closeTo(expectedCounters.syllables, 2);
@@ -306,9 +305,9 @@ describe('Readability Functions', () => {
             expect(counters.phrases).to.equal(expectedCounters.phrases);
         });
 
-        it('should calculate readability score for a chatbot-like English message', () => {
+        it('should calculate readability score for a chatbot-like English message', async () => {
             const str = 'Hello! My name is Alex and I am your virtual assistant. How can I help you today?';
-            const metrics = awaitSync(readability(str, 'en'));
+            const metrics = await readability(str, 'en');
             expect(metrics.resultGrade).to.equal('Alta legibilidade');
             expect(metrics.result).to.be.lessThan(13);
         });
