@@ -17,16 +17,17 @@ class QW_CUI_C3 extends Check {
     } else {
       const locale = (this.settings?.['locale'] as string) || 'en-US';
 
-      let attributeValue = element.getElementAttribute('data-qw-date');
-      if (attributeValue === null) {
-        test.verdict = Verdict.INAPPLICABLE;
-        test.resultCode = 'I1';
-        this.addTestResult(test);
-        return;
-      }
+      let text = element.getElementText();
 
-      let localeDate = detectLocaleFromDateString(attributeValue, locale);
-      if (localeDate === null) {
+      let localeDates:Record<string,boolean> | null = detectLocaleFromDateString(text, locale);
+
+      if(localeDates === null) {
+       test.verdict = Verdict.INAPPLICABLE;
+       test.resultCode = 'I1';
+
+      }else{
+       // check if any false in localeDates
+      if (Object.values(localeDates).some(v => v === false)) {
         test.verdict = Verdict.FAILED;
         test.resultCode = 'F1';
         test.addElement(element);
@@ -35,6 +36,7 @@ class QW_CUI_C3 extends Check {
         test.resultCode = 'P1';
         test.addElement(element);
       }
+    }
       this.addTestResult(test);
     }
   }
