@@ -3,10 +3,10 @@ import { QWCUI_Selectors } from './selectors';
 let mapping: { [key: string]: string[] } = {
   QW_CC_MIC: ['QW-CUI-C1'],
   QW_CC_MESSAGES: ['QW-CUI-C2', 'QW-CUI-C4'],
-  QW_QUESTIONS: ['QW-CUI-C5'],
-  QW_CURRENCY: ['QW-CUI-C6'],
-  QW_DATE: ['QW-CUI-C3'],
-  QW_UNIT: ['QW-CUI-C7'],
+  "[qw-cui-question]": ['QW-CUI-C5'],
+  "[qw-cui-currency]": ['QW-CUI-C6'],
+  "[qw-cui-date]": ['QW-CUI-C3'],
+  "[qw-cui-unit]": ['QW-CUI-C7'],
 };
 
 function generateMappings(uiSelectors: QWCUI_Selectors): { [key: string]: string[] } {

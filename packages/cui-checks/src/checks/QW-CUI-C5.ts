@@ -27,7 +27,7 @@ class QW_CUI_C5 extends Check {
 
       const questionNumber = element.getElementAttribute('qw-cui-question');
 
-      const answerElements = document.querySelectorAll(`[qw-cui-answer="${questionNumber}"]`);
+      const answerElements = document.querySelectorAll(`[qw-cui-response="${questionNumber}"]`);
 
       if (answerElements.length === 0) {
         test.verdict = Verdict.INAPPLICABLE;

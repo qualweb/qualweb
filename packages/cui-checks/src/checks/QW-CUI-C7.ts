@@ -7,7 +7,7 @@ import { ElementExists, ElementHasAttribute } from '@qualweb/util/applicability'
 //check if measurements are in format of users locale
 class QW_CUI_C7 extends Check {
       @ElementExists
-      @ElementHasAttribute('qw-unit')
+      @ElementHasAttribute('qw-cui-unit')
     async execute(element?: QWElement): Promise<void> {
       const test = new Test();
     

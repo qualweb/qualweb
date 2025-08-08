@@ -35,11 +35,6 @@ export class CUIChecksRunner extends EvaluationModuleDefinition<CUIChecksTester>
       QW_CC_MESSAGES: moduleOptions.selectors.QW_CC_MESSAGES,
       QW_CC_MIC: moduleOptions.selectors.QW_CC_MIC,
       QW_CC_INPUT: moduleOptions.selectors.QW_CC_INPUT,
-      QW_CURRENCY: moduleOptions.selectors.QW_CURRENCY,
-      QW_QUESTIONS: moduleOptions.selectors.QW_QUESTIONS,
-      QW_DATE: moduleOptions.selectors.QW_DATE,
-      QW_UNIT: moduleOptions.selectors.QW_UNIT,
-     
     }
   
       this.tester.configureSelectors(selectors);

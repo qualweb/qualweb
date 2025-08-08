@@ -2,13 +2,12 @@ import type { QWElement } from '@qualweb/qw-element';
 import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Check } from '../lib/Check.object';
 import { detectLocaleFromDateString } from '../lib/dates';
-import { ElementExists, ElementHasAttribute, ElementHasNonEmptyAttribute } from '@qualweb/util/applicability';
+import { ElementExists, ElementHasAttribute } from '@qualweb/util/applicability';
 // Check if date is in format of users locale
 
 class QW_CUI_C3 extends Check {
   @ElementExists
-  @ElementHasAttribute('data-qw-date')
-  @ElementHasNonEmptyAttribute('data-qw-date')
+  @ElementHasAttribute('qw-cui-date')
   async execute(element?: QWElement): Promise<void> {
     const test = new Test();
 

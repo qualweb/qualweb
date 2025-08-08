@@ -8,7 +8,7 @@ import { ElementExists, ElementHasAttribute } from '@qualweb/util/applicability'
 
 class QW_CUI_C6 extends Check {
     @ElementExists
-    @ElementHasAttribute('qw-currency')
+    @ElementHasAttribute('qw-cui-currency')
   async execute(element?: QWElement): Promise<void> {
     const test = new Test();
   
