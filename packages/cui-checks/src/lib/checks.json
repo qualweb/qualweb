@@ -1,8 +1,8 @@
 {
   "QW_CUI_C1": {
-    "name": "Chatbot Has Voice input.",
+    "name": "Voice Input Availability",
     "code": "QW-CUI-C1",
-    "description": "Test if chatbot has Voice input system.",
+    "description": "This test checks whether the chatbot includes a voice input option, such as a microphone button.",
     "metadata": {
       "target": {
         "element": "button"
@@ -16,9 +16,9 @@
     }
   },
   "QW_CUI_C2": {
-    "name": "ChatBot Responses Readability.",
+    "name": "Clarity of Chatbot Responses",
     "code": "QW-CUI-C2",
-    "description": "Test if Responses of chatbot are readable.",
+    "description": "This test checks whether the chatbot's responses are written in clear and simple language.",
     "metadata": {
       "target": {
         "element": "div"
@@ -27,36 +27,29 @@
       
       ],
    
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
 
     }
   },
   "QW_CUI_C3": {
-    "name": "ChatBot Date Response is in User's Local Date.",
+    "name": "Localized Date Format in Chatbot Responses",
     "code": "QW-CUI-C3",
-    "description": "Test if Responses of chatbot are readable.",
+    "description": "This test checks whether the chatbot displays dates using the user's local format.",
     "metadata": {
       "target": {
         "element": "div"
       },
-    "success-criteria": [
-        {
-          "name": "2.4.2",
-          "level": "A",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#page-titled"
-        }
+    "success-criteria": [    
       ],
 
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
    
     }
   },
   "QW_CUI_C4": {
-    "name": "ChatBot Responses in Language of website Local language.",
+    "name": "Chatbot Response Language Consistency",
     "code": "QW-CUI-C4",
-    "description": "Test if Responses are in the language of the website.",
+    "description": "This test checks whether the chatbot replies in the same language as the website.",
     "metadata": {
       "target": {
         "element": "div"
@@ -65,14 +58,14 @@
 
       ],
 
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
 
     }
   },
   "QW_CUI_C5": {
-    "name": "ChatBot Responses are in same language as user's questions.",
+    "name": "Chatbot Response Matches User Language",
     "code": "QW-CUI-C5",
-    "description": "Test if Responses are in the language of the website.",
+    "description": "This test checks whether the chatbot replies in the same language used by the user.",
     "metadata": {
       "target": {
         "element": "div"
@@ -80,14 +73,14 @@
      "success-criteria": [
   
       ],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
     }
   }
   , 
   "QW_CUI_C6": {
-    "name": "ChatBot presents currency responses in the user's locale",
+    "name": "Localized Currency Format in Chatbot Responses",
     "code": "QW-CUI-C6",
-    "description": "Test if Currency responses are displayed in the user's locale.",
+    "description": "This test checks whether the chatbot displays currency values using the user's local format.",
     "metadata": {
       "target": {
         "element": "div"
@@ -95,14 +88,14 @@
      "success-criteria": [
     
       ],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
 
     }
   },
    "QW_CUI_C7": {
-    "name": "ChatBot presents units responses in the user's locale",
+    "name": "Localized Units of Measurement in Chatbot Responses",
     "code": "QW-CUI-C7",
-    "description": "Test if Unit responses are displayed in the user's locale.",
+    "description": "This test checks whether the chatbot displays units of measurement according to the user's local format.",
     "metadata": {
       "target": {
         "element": "div"
@@ -110,7 +103,7 @@
      "success-criteria": [
     
       ],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/"
+      "url": ""
 
     }
   }

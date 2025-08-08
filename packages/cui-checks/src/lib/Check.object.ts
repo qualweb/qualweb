@@ -12,7 +12,8 @@ abstract class Check extends Guideline {
   constructor(translator: ModuleTranslator, settings: { [key: string]: string | number | boolean }) {
     super();
     this.translator = translator;
-    const check = checks[new.target.name as keyof typeof checks] as Assertion;
+    const check = checks[new.target.name as keyof typeof checks] as unknown as Assertion;
+
     this.settings = settings;
     check.metadata.passed = 0;
     check.metadata.warning = 0;
