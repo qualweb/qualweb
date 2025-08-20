@@ -38,7 +38,7 @@ export function detectLocaleFromDateString(text: string, systemLocale: string):R
 
   if(dates.length === 0) return null;
   
-  const dateResult:Record<string,boolean> = Object.fromEntries(dates.map((date) => ([date,false])));
+  const dateResult:Record<string,boolean> = Object.fromEntries(dates.map((date) => ([date.trim(),false])));
   for(const  [date, _ ] of Object.entries(dateResult)){
 
     const locale = systemLocale;
