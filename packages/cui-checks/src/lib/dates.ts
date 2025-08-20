@@ -105,7 +105,7 @@ function buildMultiLangDateRegex(locales = ['pt-PT', 'en-US', 'fr-FR', 'es-ES', 
 
 function getDatesFromText(text:string):string[] {
   const dateRegex = buildMultiLangDateRegex(['pt-PT', 'en-US', 'fr-FR', 'es-ES', 'de-DE']);
-  const numericDateRegex = /\b(\d{1,2})([\/\-.])(\d{1,2})\2(\d{4})\b/g;
+  const numericDateRegex = /\b(\d{1,2})([\/\-.])(\d{1,2})\2(\d{4}|\d{2})\b/g;
 
   const textDates = [...text.matchAll(dateRegex)].map(m => m[0]);
   const numericDates = [...text.matchAll(numericDateRegex)].map(m => m[0]);
