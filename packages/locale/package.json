@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/locale",
+  "name": "@deranged/qualweb-locale",
   "version": "0.2.2",
   "description": "Locales for @qualweb/core evaluation reports.",
   "files": [

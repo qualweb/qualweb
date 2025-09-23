@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/util",
+  "name": "@deranged/qualweb-util",
   "version": "0.6.5",
   "description": "Utilities module for qualweb",
   "main": "dist/__webpack/util.bundle.js",

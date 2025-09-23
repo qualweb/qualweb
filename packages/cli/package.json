@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/cli",
+  "name": "@deranged/qualweb-cli",
   "version": "0.7.13",
   "description": "QualWeb evaluator command line interface",
   "main": "dist/cli.js",

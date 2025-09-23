@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/core",
+  "name": "@deranged/qualweb-core",
   "version": "0.8.6",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
@@ -89,6 +89,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@deranged/qualweb-core": "^0.8.4",
     "@qualweb/crawler": "0.4.2",
     "@qualweb/locale": "0.2.2",
     "@qualweb/qw-element": "0.3.2",

@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/counter",
+  "name": "@deranged/qualweb-counter",
   "version": "0.3.2",
   "description": "Counts elements of a webpage by role and by tag",
   "main": "dist/counter.bundle.js",

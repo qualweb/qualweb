@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/qw-element",
+  "name": "@deranged/qualweb-qw-element",
   "version": "0.3.2",
   "description": "QualWeb element interface and utilities",
   "main": "dist/index.js",

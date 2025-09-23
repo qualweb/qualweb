@@ -1,5 +1,5 @@
 {
-  "name": "@qualweb/wcag-techniques",
+  "name": "@deranged/qualweb-wcag-techniques",
   "version": "0.4.2",
   "description": "Implementation of the WCAG 2.1 techniques",
   "files": [
