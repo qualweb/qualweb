@@ -34,7 +34,7 @@ export function recognizeUnitByLocale(locale: string,text:string): boolean | nul
 
   // get Information about currency from INTL
   let results = recognizeDimension(text, cultureMapping[language] as string);
-  console.log(`Recognized units for input "${text}":`, results);
+
   if (results.length === 0) {
     return false; // Return null if no dimension is recognized
   }

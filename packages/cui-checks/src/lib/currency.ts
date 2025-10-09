@@ -34,9 +34,7 @@ const cultureMapping: CultureMapping = {
 export function recognizeCurrencyByLocale(locale: string,text:string): boolean | null {
   const language = locale.split('-')[0]; // Extract the language part of the locale
   
-  if (! (language in cultureMapping)) {
-    return null;
-  }
+  if (! (language in cultureMapping))  return null; // Return null if language is not supported}
   // get Locale format 
   let symbolCodeCurrency  = localeCurrency.getCurrency(locale);
   console.log(`Recognizing currency for locale: ${locale}, symbolCodeCurrency: ${symbolCodeCurrency}`);
@@ -45,27 +43,30 @@ export function recognizeCurrencyByLocale(locale: string,text:string): boolean |
   }
   // get Information about currency from INTL
   let currencyInfo:CurrencyInfo | null = getCurrencyInfo(locale,symbolCodeCurrency);
-  if (!currencyInfo) {
-    return null; // Return null if currency info is not found
-  }
+
+  if (!currencyInfo)   return null; // Return null if currency info is not found
   // Recognize the currency in the text using microsoft recognizers
   const culture = cultureMapping[language];
   const results = recognizeCurrency(text, culture as string);
  
+  let result = false;
+
+  if (results.length === 0)   return null; // No currency recognized  
+
    // is there a recognized currency?
-  if (results.length > 0) {
-
-    const recognizedCurrency = results[0].resolution.unit;
-    const isoCurrency = results[0].resolution?.isoCurrency ?? '';
-
-    return (
-      currencyInfo.name.toLowerCase().includes(recognizedCurrency.toLowerCase()) ||
-      currencyInfo.code.toLowerCase().includes(isoCurrency.toLowerCase())
-    );
+  for(const  recognizedCurrency of results) {
+    const unitCurrency =  recognizedCurrency.resolution?.unit ?? {};
+    const isoCurrency = recognizedCurrency.resolution?.isoCurrency ?? '';
+    if ( currencyInfo.name.toLowerCase().includes(unitCurrency.toLowerCase()) ||
+      currencyInfo.code.toLowerCase().includes(isoCurrency.toLowerCase())) {
+      result = true;
+      break;
+    }
   }
 
-  return null;
+  return result;
 }
+
 
 export function getCurrencyInfo(locale: string, currencyCode: string): CurrencyInfo | null {
   try {
