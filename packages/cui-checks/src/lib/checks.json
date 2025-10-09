@@ -106,7 +106,51 @@
       "url": ""
 
     }
+  },
+  "QW_CUI_C8": {
+    "name": "Comprehensive Service and Assistance Capabilities in Chatbot",
+    "code": "QW-CUI-C8",
+    "description": ".",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C9": {
+    "name": "Privacy Terms and Policies Disclosure by the Assistant",
+    "code": "QW-CUI-C9",
+    "description": ".",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C10": {
+    "name": "Human Agent Escalation Capability in Chatbot",
+    "code": "QW-CUI-C10",
+    "description": ".",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
   }
-  
   
 }

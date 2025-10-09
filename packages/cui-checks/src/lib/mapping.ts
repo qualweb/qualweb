@@ -7,6 +7,9 @@ let mapping: { [key: string]: string[] } = {
   "[qw-cui-currency]": ['QW-CUI-C6'],
   "[qw-cui-date]": ['QW-CUI-C3'],
   "[qw-cui-unit]": ['QW-CUI-C7'],
+  "[qw-cui-services-list]": ['QW-CUI-C8'],
+  "[qw-cui-privacy-terms]": ['QW-CUI-C9'],
+  "[qw-cui-human-assistance]": ['QW-CUI-C10']
 };
 
 function generateMappings(uiSelectors: QWCUI_Selectors): { [key: string]: string[] } {
