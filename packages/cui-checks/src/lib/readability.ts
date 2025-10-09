@@ -54,29 +54,27 @@ function isNotComplexHeuristicPT(word: string): boolean {
   }
   return false;
 }
+let commonWordsSet: Set<string> | null = null;
 
 export async function countComplexWordsPT(phrases: string[]): Promise<number> {
-  const commonWords = await getCommonWords();
-  const commonWordsArray = commonWords.split('\n');
+  // Cria o Set apenas se ainda não existir
+  if (!commonWordsSet) {
+    const commonWordsText = await getCommonWords();
+    commonWordsSet = new Set(
+      commonWordsText
+        .split(/\r?\n/)
+        .map(word => word.toLowerCase().trim())
+    );
+  }
+
   let complexWords = 0;
 
-  for (let phrase of phrases) {
-    let words = extractWords(phrase);
-    for (let i = 0; i < words.length; i++) {
-      for (let j = 0; j < commonWordsArray.length; j++) {
-        if (i !== 0) {
-          if (isNotComplexHeuristicPT(words[i])) {
-            break;
-          }
-        }
-
-        if (j + 1 > 10929) {
-          complexWords += 1;
-          break;
-        }
-        if (commonWordsArray[j].toLowerCase() === words[i].toLowerCase()) {
-          break;
-        }
+  for (const phrase of phrases) {
+    const words = extractWords(phrase);
+    for (const word of words) {
+      if (isNotComplexHeuristicPT(word)) continue;
+      if (commonWordsSet.has(word.toLowerCase())) {
+        complexWords++;
       }
     }
   }
@@ -167,7 +165,7 @@ const getCountersMap: Record<string, (text: string) => Promise<ITextCounters>> =
 };
 
 export async function getCounters(text: string, language: string): Promise<ITextCounters> {
-  const fn = getCountersMap[language] || getCountersMap[language];
+  const fn = getCountersMap[language] ;
   return fn(text);
 }
 
