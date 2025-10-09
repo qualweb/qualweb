@@ -9,10 +9,17 @@ import * as path from "path";
 /**
  * Constructs a test suite for a given CUI check. This is a generalized
  * builder, based on the case that many CXX unit tests are close to identical.
- * @param {string} cuiCheck
- * @param {{ code: string,locale:string, outcome: string }[]} testCases
+ 
+ * @param {string} cuiCheck - The name of the CUI check.
+ * @param {{
+ *   code: string,
+ *   selectors: { [key: string]: string },
+ *   locale: string,
+ *   outcome: string,
+ *   testedRules?: { code: string, selector: string, result: string }[],
+ * }[]} testCases - The test cases to include in the suite.
  */
-export function buildTest(cuiCheck: string, testCases: { code: string, selectors:{ [key: string]: string },locale:string, outcome: string }[]) {
+export function buildTest(cuiCheck: string, testCases: { code: string, selectors:{ [key: string]: string }, locale: string, outcome: string,testedRules?: {code:string,selector:string,result:string}[] }[]) {
   const FAKE_ORIGIN = 'https://qualweb.localhost';
   describe(cuiCheck, () => {
     let browser: Browser;
@@ -88,7 +95,8 @@ page.on("request", (request) => {
 });
  ;
 page.on('console', msg => {
-   // console.log(`PAGE LOG: ${msg.text()}`);
+  //msg.type() === 'error' && console.error(`PAGE ERROR: ${msg.text()}`);
+    console.log(`PAGE LOG: ${msg.text()}`);
   });
 await page.goto(FAKE_ORIGIN);
 
@@ -116,18 +124,16 @@ await page.goto(FAKE_ORIGIN);
         const settingsTests = {
           locale: test.locale,
         }
+        const testedResults = test.testedRules;
 
-  const report = await page.evaluate(async (cuiCheck, selector,settingsTests,FAKE_ORIGIN) => {
+  const report = await page.evaluate(async (cuiCheck, selector,settingsTests,FAKE_ORIGIN,testedResults) => {
 
       // @ts-expect-error: CUIChecksRunner should be defined within the executing context (injected above).
-      const cui = new CUIChecksRunner({ include: [cuiCheck] ,selectors:selector,settings:settingsTests}, 'en',`${FAKE_ORIGIN}/palavras-mais-comuns-utf8.txt`).configure({ include: [cuiCheck] });
+      const cui = new CUIChecksRunner({ include: [cuiCheck] ,selectors:selector,settings:settingsTests}, 'en',`${FAKE_ORIGIN}/palavras-mais-comuns-utf8.txt`,testedResults).configure({ include: [cuiCheck] });
 
       let results = await cui.executeTests();
       return results.getReport();
-    }, cuiCheck, selector,settingsTests,FAKE_ORIGIN);
-      
-        
-        console.log(report);
+    }, cuiCheck, selector,settingsTests,FAKE_ORIGIN,testedResults);
         expect(report.assertions[cuiCheck].metadata.outcome).to.be.equal(test.outcome);
       });
     });

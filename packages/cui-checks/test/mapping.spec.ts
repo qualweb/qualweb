@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import {  CUIChecksRunner } from '../src';
 import { QWCUI_Selectors } from '../src/lib/selectors';
 import { mapping } from '../src/lib/mapping';
+import { RuleTest } from '../src/lib/types';
 
 describe('Mapping from selectors in core', () => {
   it('Running mapping ', async function () {
@@ -19,11 +20,23 @@ describe('Mapping from selectors in core', () => {
         QW_DATE: 'div.rw-date-container',
         QW_UNIT: 'div.rw-unit-container',
       }
-    
+     const rules:RuleTest[] = [
+       {
+         code: "QW_TEST1",
+         selector: "div.rw-test-container",
+         result: "Test result"
+       },
+       {
+         code: "QW_TEST2",
+         selector: "div.rw-test-container",
+         result: "Test result"
+       },
+       
+     ]
 
-    const cuiCheckInstance = new CUIChecksRunner({selectors:cuiSelectors}, {});
+    const cuiCheckInstance = new CUIChecksRunner({selectors:cuiSelectors}, {},"",rules);
     let mappingGenerated = (cuiCheckInstance as any).tester.mapping || {};
-
+     console.log(mappingGenerated);
     Object.entries(mapping).forEach(([key, _]) => {
       if(key in cuiSelectors){
       expect(mappingGenerated[cuiSelectors.QW_CC_WINDOW + ' ' + cuiSelectors[key as keyof QWCUI_Selectors] ]).to.exist;
