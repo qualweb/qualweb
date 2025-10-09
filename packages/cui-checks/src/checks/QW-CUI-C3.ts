@@ -26,14 +26,15 @@ class QW_CUI_C3 extends Check {
        test.resultCode = 'I1';
 
       }else{
-       // check if any false in localeDates
-      if (Object.values(localeDates).some(v => v === false)) {
-        test.verdict = Verdict.FAILED;
-        test.resultCode = 'F1';
-        test.addElement(element);
-      } else {
+       // check if at least one is true in localeDates
+      if (Object.values(localeDates).some(v => v === true)) {
         test.verdict = Verdict.PASSED;
         test.resultCode = 'P1';
+        test.addElement(element);
+      } else {
+      
+        test.verdict = Verdict.FAILED;
+        test.resultCode = 'F1';
         test.addElement(element);
       }
     }
