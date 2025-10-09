@@ -4,13 +4,16 @@ import { generateMappings } from './mapping';
 import * as checks from '../checks';
 import { QWCUI_Selectors } from './selectors';
 import { Check } from './Check.object';
+import { RuleTest } from './types';
 
 export class CUIChecksTester extends Tester {
   private mapping: { [key: string]: string[] } = {};
   private settings: { [key: string]: string | number | boolean } = {};
+  private rules: Record<string, RuleTest> = {};
   public init(translator: ModuleTranslator): this {
     for (const check in checks) {
-      const checkObject = new checks[check as keyof typeof checks](translator, this.settings);
+      const normalizedCode = check.replace(/_/g, "-");
+      const checkObject = new checks[check as keyof typeof checks](translator, this.settings,this.rules[normalizedCode]);
       this.assertions.set(checkObject.getCode(), checkObject);
       this.toExecute[checkObject.getCode()] = true;
     }
@@ -21,11 +24,18 @@ export class CUIChecksTester extends Tester {
     await this.executeChecks();
   }
 
-  public configureSelectors(uiSelectors: QWCUI_Selectors): void {
-    this.mapping = generateMappings(uiSelectors);
-  }
-  public setSettings(settings: { [key: string]: string | number | boolean }): void {
+  public configure(settings: { [key: string]: string | number | boolean },uiSelectors: QWCUI_Selectors,rules?: RuleTest[]): void {
+    let rulesSelectors = {};
     this.settings = settings;
+    if (rules){
+      rulesSelectors = rules.reduce<{ [key: string]: string }>((acc, rule) => {
+        this.rules[rule.code] = rule;
+        acc[rule.code] = rule.selector;
+        return acc;
+      }, {});
+    }
+    const selectors = { ...uiSelectors as any, ...rulesSelectors };
+    this.mapping = generateMappings(selectors);
   }
 
   private async executeChecks(): Promise<void> {

@@ -4,16 +4,18 @@ import type { QWElement } from '@qualweb/qw-element';
 import type { Assertion, Level, Principle, TestResult, Test } from '@qualweb/core/evaluation';
 import { Guideline, Verdict } from '@qualweb/core/evaluation';
 import checks from './checks.json';
+import { RuleTest } from './types';
 
 abstract class Check extends Guideline {
   protected readonly check: Assertion;
   protected readonly translator: ModuleTranslator;
   protected readonly settings: { [key: string]: string | number | boolean };
-  constructor(translator: ModuleTranslator, settings: { [key: string]: string | number | boolean }) {
+  protected readonly testResult:RuleTest|undefined;
+  constructor(translator: ModuleTranslator, settings: { [key: string]: string | number | boolean },test?:RuleTest) {
     super();
     this.translator = translator;
     const check = checks[new.target.name as keyof typeof checks] as unknown as Assertion;
-
+    this.testResult = test;
     this.settings = settings;
     check.metadata.passed = 0;
     check.metadata.warning = 0;
@@ -21,7 +23,6 @@ abstract class Check extends Guideline {
     check.metadata.inapplicable = 0;
     check.metadata.outcome = Verdict.INAPPLICABLE;
     check.results = new Array<TestResult>();
-
     this.check = check;
     this.translator.translateAssertion(this.check);
   }
@@ -53,7 +54,8 @@ abstract class Check extends Guideline {
 
   protected addTestResult(test: Test): void {
     if (!test.description || test.description.trim() === '') {
-      test.description = this.translate(test.resultCode);
+      test.description =  this.check.description;
+      //test.description = this.translate(test.resultCode);
     }
 
     this.check.results.push(test);
