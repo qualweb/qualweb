@@ -12,23 +12,16 @@ class QW_CUI_C5 extends Check {
   @ElementHasNonEmptyAttribute('qw-cui-question')
   async execute(element?: QWElement): Promise<void> {
     const test = new Test();
-    // strategy, run the test on all message elements check language with languageDetect tool, check if are in language of the locale page
-
+  
     if (element === undefined) {
       test.verdict = Verdict.INAPPLICABLE;
       test.resultCode = 'I1';
     } else {
-      test.verdict = Verdict.PASSED;
-      test.resultCode = 'P1';
-      test.addElement(element);
-      this.addTestResult(test);
-
       // get attribute qw-cui-question from element
-
       const questionNumber = element.getElementAttribute('qw-cui-question');
 
-      const answerElements = document.querySelectorAll(`[qw-cui-response="${questionNumber}"]`);
-
+      const answerElements = document.querySelectorAll(`[qw-cui-response='${questionNumber}']`);
+    
       if (answerElements.length === 0) {
         test.verdict = Verdict.INAPPLICABLE;
         test.resultCode = 'I1';
@@ -37,13 +30,13 @@ class QW_CUI_C5 extends Check {
       }
 
       let textQuestion = element.getElementText();
-      textQuestion = textQuestion.replace(/[\n\t]/g, '').trim();
+      textQuestion = textQuestion.replace(/[\n\t]/g, '').trim().normalize("NFC");;
       let langQuestion: string = detectLanguage(textQuestion);
 
       for (const answerElement of answerElements) {
         let elementAnswer = new QWElement(answerElement);
         let textAnswer = elementAnswer.getElementText();
-        textAnswer = textAnswer.replace(/[\n\t]/g, '').trim();
+        textAnswer = textAnswer.replace(/[\n\t]/g, '').trim().normalize("NFC");
         let langAnswer: string = detectLanguage(textAnswer);
 
         if (langQuestion !== langAnswer) {
