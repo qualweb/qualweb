@@ -25,7 +25,8 @@
     "format": "prettier src/**/*.ts --write",
     "clean": "rimraf dist",
     "build": "tsc --build tsconfig.prod.json && webpack",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "postinstall": "node fix-syllable-pt.js"
   },
   "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/cui-checks",
   "repository": {
@@ -70,12 +71,10 @@
     "date-fns": "^4.1.0",
     "hyphen": "^1.10.6",
     "install": "^0.13.0",
-    "langchain": "^0.3.15",
     "level": "^9.0.0",
     "locale-currency": "^0.0.4",
     "luxon": "^3.6.1",
     "npm": "^11.1.0",
-    "ollama": "^0.5.13",
     "syllable": "^5.0.1",
     "syllable-pt": "^1.0.4",
     "tinyld": "^1.3.4"
