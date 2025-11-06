@@ -108,9 +108,9 @@
     }
   },
   "QW_CUI_C8": {
-    "name": "Comprehensive Service and Assistance Capabilities in Chatbot",
+    "name": "Availability of Chatbot Help Commands",
     "code": "QW-CUI-C8",
-    "description": ".",
+    "description": "This test checks whether the chatbot offers a clear way for users to request information about its purpose and available functions.",
     "metadata": {
       "target": {
         "element": "div"
@@ -123,9 +123,9 @@
     }
   },
   "QW_CUI_C9": {
-    "name": "Privacy Terms and Policies Disclosure by the Assistant",
+    "name": "Privacy Terms and Policy Disclosure in Chatbot",
     "code": "QW-CUI-C9",
-    "description": ".",
+    "description": "This test checks whether the chatbot provides clear information about how user data is collected, stored, or used when asked about privacy.",
     "metadata": {
       "target": {
         "element": "div"
@@ -138,9 +138,9 @@
     }
   },
   "QW_CUI_C10": {
-    "name": "Human Agent Escalation Capability in Chatbot",
+    "name": "Human Assistance Availability in Chatbot",
     "code": "QW-CUI-C10",
-    "description": ".",
+    "description": "This test checks whether the chatbot provides a clear option to reach a human representative when users request human assistance or when automated support is insufficient.",
     "metadata": {
       "target": {
         "element": "div"
