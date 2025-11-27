@@ -94,10 +94,12 @@ page.on("request", (request) => {
   }
 });
  ;
+ /*
 page.on('console', msg => {
   //msg.type() === 'error' && console.error(`PAGE ERROR: ${msg.text()}`);
-    console.log(`PAGE LOG: ${msg.text()}`);
+   // console.log(`PAGE LOG: ${msg.text()}`);
   });
+  */
 await page.goto(FAKE_ORIGIN);
 
         await page.addScriptTag({

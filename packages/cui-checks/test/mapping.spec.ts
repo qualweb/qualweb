@@ -36,7 +36,7 @@ describe('Mapping from selectors in core', () => {
 
     const cuiCheckInstance = new CUIChecksRunner({selectors:cuiSelectors}, {},"",rules);
     let mappingGenerated = (cuiCheckInstance as any).tester.mapping || {};
-     console.log(mappingGenerated);
+
     Object.entries(mapping).forEach(([key, _]) => {
       if(key in cuiSelectors){
       expect(mappingGenerated[cuiSelectors.QW_CC_WINDOW + ' ' + cuiSelectors[key as keyof QWCUI_Selectors] ]).to.exist;

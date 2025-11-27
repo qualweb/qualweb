@@ -96,13 +96,11 @@ describe('detectLanguage', () => {
         it('Test for portuguese', () => {
             let portugueseText = "25 de julho de 2025.";
             let detectedLanguage = detectLanguage(portugueseText); 
-            console.log(detectedLanguage);
             expect(detectedLanguage).to.equal('pt');
         });
         it('Test for date portuguese', () => {
             let portugueseText = "julho";
             let detectedLanguage = detectLanguage(portugueseText); 
-            console.log(detectedLanguage);
             expect(detectedLanguage).to.equal('pt');
         });
 

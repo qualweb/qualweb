@@ -44,14 +44,6 @@ describe('parsing date', () => {
             expect(Object.values(answer7!).some(Boolean)).to.be.true;
 })
 
-  it('should parse date in string with multiples',() => {
-                 const testInput7 = `A data exata para a inauguração das iluminações natalinas em Portugal não é mencionada, mas geralmente os mercados e eventos começam no final de novembro ou início de dezembro; as iluminações variam por cidade, ocorrendo na maioria entre 1 e 15 de dezembro, sendo que Lisboa acende a 25 de novembro, o Porto a 15 de novembro e Coimbra a 1 de dezembro, embora as datas possam variar e seja recomendável confirmar junto das fontes locais.`;
-         let locale7 = detectLocaleFromDateString(testInput7, 'pt-PT');
-         for(let date of Object.entries(locale7 || [])){
-           console.log(date);
-         }
 
-
-  });
 });
 

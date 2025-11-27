@@ -271,7 +271,7 @@ describe('Readability Functions', () => {
                 resultGrade: "Alta legibilidade",
                 result: 5
             } as IReadibiltyScores;
-            console.log(metrics);
+
             expect(metrics.resultGrade).to.equal(expectedMetrics.resultGrade);
             //expect(metrics.result).to.be.closeTo(expectedMetrics.result, 2);
         });
@@ -283,7 +283,7 @@ describe('Readability Functions', () => {
                 resultGrade: "Baixa legibilidade",
                 result: 22
             } as IReadibiltyScores;
-            console.log(metrics);
+   
             expect(metrics.resultGrade).to.equal(expectedMetrics.resultGrade);
             expect(metrics.result).to.be.closeTo(expectedMetrics.result, 4);
         });
