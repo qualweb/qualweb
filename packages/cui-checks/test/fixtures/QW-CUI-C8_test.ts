@@ -6,7 +6,7 @@ export default [
 			  	<meta charset="UTF-8">
 			  </head>
 			  <body>
-			  	<div qw-cui-privacy-terms></div>
+			  	<div qw-cui-services-list></div>
 			  </body>
 			  </html >`,
 	  selectors: {
@@ -20,11 +20,11 @@ export default [
 
 			{
 			code: "QW-CUI-C8",
-			selector: '[qw-cui-privacy-terms]',
+			selector: '[qw-cui-services-list]',
 			result: 'passed'
 		},
 					{
-			code: "QW-CUI-C10",
+			code: "QW-CUI-C9",
 			selector: '[qw-cui]',
 			result: 'failed'
 		}
@@ -39,7 +39,7 @@ export default [
 			  	<meta charset="UTF-8">
 			  </head>
 			  <body>
-			  	<div qw-cui-privacy-terms></div>
+			  	<div qw-cui-services-list></div>
 			  </body>
 			  </html >`,
 	  selectors: {
@@ -53,11 +53,11 @@ export default [
 
 			{
 			code: "QW-CUI-C8",
-			selector: '[qw-cui-privacy-terms]',
+			selector: '[qw-cui-services-list]',
 			result: 'failed'
 		},
 					{
-			code: "QW-CUI-C10",
+			code: "QW-CUI-C9",
 			selector: '[qw-cui]',
 			result: 'passed'
 		}
@@ -71,7 +71,7 @@ export default [
 			  	<meta charset="UTF-8">
 			  </head>
 			  <body>
-			  	<div qw-cui-privacy-terms></div>
+			  	<div qw-cui-services-list></div>
 			  </body>
 			  </html>`,
 	  selectors: {
@@ -85,11 +85,11 @@ export default [
 
 			{
 			code: "QW-CUI-C8",
-			selector: '[qw-cui-privacy-terms]',
+			selector: '[qw-cui-services-list]',
 			result: 'warning'
 		},
 					{
-			code: "QW-CUI-C10",
+			code: "QW-CUI-C9",
 			selector: '[qw-cui]',
 			result: 'passed'
 		}
@@ -117,11 +117,11 @@ export default [
 
 			{
 			code: "QW-CUI-C8",
-			selector: '[qw-cui-privacy-terms]',
+			selector: '[qw-cui-services-list]',
 			result: 'inapplicable'
 		},
 					{
-			code: "QW-CUI-C10",
+			code: "QW-CUI-C9",
 			selector: '[qw-cui]',
 			result: 'passed'
 		}

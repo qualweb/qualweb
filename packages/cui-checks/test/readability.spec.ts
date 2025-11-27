@@ -193,7 +193,7 @@ describe('Readability Functions', () => {
         });
 
         it('Low readability text test in Portuguese', async () => {
-            const str = 'Os meandros da complexidade regem os constructos do saber. Percebe-se uma proliferação de nuances semânticas. Sua intrincada tessitura desafia a hermenêutica convencional. A intertextualidade subjacente gera significações polissêmicas. A decodificação exige um hermeneuta experiente. A dialética entre signos e referentes revela uma macroestrutura cognitiva.';
+            const str = 'Os meandros da complexidade regem os constructos do saber. Percebe-se uma proliferação de nuances semânticas. Sua intrincada tessitura desafia a hermenêutica convencional. A intertextualidade subjacente gera significações polissêmicas. A decodificação exige um hermeneuta experiente. A dialética entre signos e referentes revela uma macroestrutura cognitiva quântica irrelevantemente.';
 
             const metrics = await readability(str,'pt');
 

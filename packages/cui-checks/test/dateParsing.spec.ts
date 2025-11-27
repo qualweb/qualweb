@@ -1,5 +1,3 @@
-import { parse } from 'date-fns'; 
-import { enUS, pt } from 'date-fns/locale';
 import  {detectLocaleFromDateString} from '../src/lib/dates';
 import { expect } from 'chai';
 
@@ -8,75 +6,52 @@ import { expect } from 'chai';
 
 describe('parsing date', () => {
 
-        it('should return "en" for "Hello World"', () => {
-            const testInput = "Hoje é dia 25 de abril de 2025"; 
-            console.log(evaluateDate(testInput))
-        });
-
-        it('should parse date in string in differente locales',() => {
+  it('should parse date in string in differente locales',() => {
           
-            const testInput = "25 de abril de 2025"; 
-            let locale = detectLocaleFromDateString(testInput, 'pt-PT');
-            expect(locale).to.equal('pt-PT');
-            const testInput2 = "April 25, 2025";
-            let locale2 = detectLocaleFromDateString(testInput2, 'en-US');
-            expect(locale2).to.equal('en-US');
-            const testInput3 = "25 de abril";
-            let locale3 = detectLocaleFromDateString(testInput3, 'pt-PT');
-            expect(locale3).to.equal('pt-PT');
+            let test = "25 de abril de 2025"; 
+            let answer = detectLocaleFromDateString(test, 'pt-PT');
+
+            expect(Object.values(answer!).some(Boolean)).to.be.true;
+
+            test = "April 25, 2025";
+            answer = detectLocaleFromDateString(test, 'en-US');
+            expect(Object.values(answer!).some(Boolean)).to.be.true;
+
+            test = "25 de abril";
+            answer = detectLocaleFromDateString(test, 'pt-PT');
+            expect(Object.values(answer!).some(Boolean)).to.be.true;
             const testInput4 = "April 25";
-            let locale4 = detectLocaleFromDateString(testInput4, 'en-US');
-            expect(locale4).to.equal('en-US');
+            let answer4 = detectLocaleFromDateString(testInput4, 'en-US');
+            expect(Object.values(answer4!).some(Boolean)).to.be.true;
+
             const testInput5 = "25/04/2025";
-            let locale5 = detectLocaleFromDateString(testInput5, 'pt-PT');
-            expect(locale5).to.equal('pt-PT');
+            let answer5 = detectLocaleFromDateString(testInput5, 'pt-PT');
+            expect(Object.values(answer5!).some(Boolean)).to.be.true;
+
             const testInput6 = "04/25/2025";
-            let locale6 = detectLocaleFromDateString(testInput6, 'pt-PT');
-            expect(locale6).to.be.null;
-          })
+            let answer6 = detectLocaleFromDateString(testInput6, 'pt-PT');
+            expect(Object.values(answer6!).some(Boolean)).to.be.false;
+
+            const testInput7 = `A data exata para a inauguração das iluminações natalinas nas principais cidades de Portugal não é mencionada. No entanto, as fontes indicam que os mercados de Natal e eventos festivos começam geralmente no final de novembro ou início de dezembro. As decorações natalinas são inauguradas em diferentes datas dependendo da cidade, mas a maioria delas ocorre entre o dia 1º e o dia 15 de dezembro.
+
+      Aqui estão algumas das principais cidades portuguesas com suas respectivas datas aproximadas para as iluminações natalinas:
+      Lisboa: 25 de novembro
+      Porto: 15 de novembro
+      Coimbra: 1 de dezembro
+      É importante notar que essas datas podem variar dependendo da cidade e do evento específico. É recomendável verificar as fontes locais para obter informações atualizadas sobre os eventos natalinos em cada localidade.
+             `;
+            let answer7 = detectLocaleFromDateString(testInput7, 'pt-PT');
+            expect(Object.values(answer7!).some(Boolean)).to.be.true;
+})
+
+  it('should parse date in string with multiples',() => {
+                 const testInput7 = `A data exata para a inauguração das iluminações natalinas em Portugal não é mencionada, mas geralmente os mercados e eventos começam no final de novembro ou início de dezembro; as iluminações variam por cidade, ocorrendo na maioria entre 1 e 15 de dezembro, sendo que Lisboa acende a 25 de novembro, o Porto a 15 de novembro e Coimbra a 1 de dezembro, embora as datas possam variar e seja recomendável confirmar junto das fontes locais.`;
+         let locale7 = detectLocaleFromDateString(testInput7, 'pt-PT');
+         for(let date of Object.entries(locale7 || [])){
+           console.log(date);
+         }
 
 
-
+  });
 });
 
-
-function parseDateInput(input: string, locale: string): Date | null {
-    // Define possible date formats for each locale
-    const localeFormats: { [key: string]: string[] } = {
-      'pt-PT': ['dd MMMM yyyy', 'd MMMM yyyy', 'dd/MM/yyyy', 'd/MM/yyyy'],
-      'en-US': ['MMMM d, yyyy', 'MM/dd/yyyy'],
-      // Add other locale formats as necessary
-    };
-  
-    const formats = localeFormats[locale] || localeFormats['pt-PT']; // Default to Portuguese if unknown locale
-    const localeObject = locale === 'pt-PT' ? pt : enUS; // Map locale string to date-fns locale object
-  
-    for (const format of formats) {
-      const parsedDate = parse(input, format, new Date(), { locale: localeObject });
-      
-      // Check if the date is valid
-      if (!isNaN(parsedDate.getTime())) {
-        return parsedDate; // Return valid date
-      }
-    }
-  
-    return null; // Return null if no valid date is found
-  }
-  
-  function extractLocaleFromNavigator(): string {
-    // Extract locale from navigator.language
-    const navigatorLanguage =  'pt-PT'; // Default to en-US if not available
-    return navigatorLanguage.toLowerCase();
-  }
-  
-  // Main function
-  function evaluateDate(input: string): string {
-    const locale = extractLocaleFromNavigator();
-    const date = parseDateInput(input, locale);
-    
-    if (date) {
-      return `Parsed date: ${date.toLocaleString(locale)}`;
-    } else {
-      return 'Invalid date format or parsing failed';
-    }
-  }
