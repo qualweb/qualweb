@@ -73,7 +73,7 @@ export async function countComplexWordsPT(phrases: string[]): Promise<number> {
     const words = extractWords(phrase);
     for (const word of words) {
       if (isNotComplexHeuristicPT(word)) continue;
-      if (commonWordsSet.has(word.toLowerCase())) {
+      if (!commonWordsSet.has(word.toLowerCase())) {
         complexWords++;
       }
     }
@@ -190,16 +190,16 @@ const readabilityFormulas: Record<string, (counters: ITextCounters) => number> =
   pt: (counters: ITextCounters) => {
     //  let fleschReadingEaseScore =  parseFloat((226 - 1.04 * (counters.words / counters.phrases) - 72 * (counters.syllables / counters.words)).toFixed(1));
     // let indexGulpeaseScore = parseFloat((89 + (300 * counters.phrases - 10 * counters.letters) / counters.words).toFixed(1));
-    let fleschKincaidGradeLevel = parseFloat(
+    let fleschKincaidGradeLevel = Number.parseFloat(
       (0.36 * (counters.words / counters.phrases) + 10.4 * (counters.syllables / counters.words) - 18).toFixed(1)
     );
-    let gunningFogIndexScore = parseFloat(
+    let gunningFogIndexScore = Number.parseFloat(
       (0.49 * (counters.words / counters.phrases) + 19 * (counters.complexWords / counters.words)).toFixed(1)
     );
-    let automatedReadabilityIndex = parseFloat(
+    let automatedReadabilityIndex = Number.parseFloat(
       (4.6 * (counters.letters / counters.words) + 0.44 * (counters.words / counters.phrases) - 20).toFixed(1)
     );
-    let colemanLiauIndexScore = parseFloat(
+    let colemanLiauIndexScore = Number.parseFloat(
       (5.4 * (counters.letters / counters.words) - 21 * (counters.phrases / counters.words) - 14).toFixed(1)
     );
 
@@ -210,16 +210,16 @@ const readabilityFormulas: Record<string, (counters: ITextCounters) => number> =
 
   en: (counters: ITextCounters) => {
     //   let fleschEaseScore = parseFloat((206.835 - 1.015 * (counters.words / counters.phrases) - 84.6 * (counters.syllables / counters.words)).toFixed(1));
-    let fleschKincaidGradeLevel = parseFloat(
+    let fleschKincaidGradeLevel = Number.parseFloat(
       (0.39 * (counters.words / counters.phrases) + 11.8 * (counters.syllables / counters.words) - 15.59).toFixed(1)
     );
-    let gunningFogIndexScore = parseFloat(
+    let gunningFogIndexScore = Number.parseFloat(
       (0.4 * (counters.words / counters.phrases) + 100 * (counters.complexWords / counters.words)).toFixed(1)
     );
-    let automatedReadabilityIndex = parseFloat(
+    let automatedReadabilityIndex = Number.parseFloat(
       (4.71 * (counters.letters / counters.words) + 0.5 * (counters.words / counters.phrases) - 21.43).toFixed(1)
     );
-    let colemanLiauIndexScore = parseFloat(
+    let colemanLiauIndexScore = Number.parseFloat(
       (
         0.0588 * (counters.letters / counters.words) -
         0.296 * ((counters.phrases * 100) / counters.words) -
