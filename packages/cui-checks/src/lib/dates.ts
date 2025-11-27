@@ -1,45 +1,67 @@
 import { DateTime } from 'luxon';
 
+import utf8 from 'utf8';
+
 // TypeChecks
 type DateFormat = Record<Locale, string[]>;
+// Supported locales
 type Locale =
   | 'pt-PT'
-  | 'pt-BR'
-  | 'en-US'
-  | 'fr-FR'
-  | 'es-ES'
-  | 'de-DE'
-  | 'it-IT'
-  | 'ja-JP'
-  | 'zh-CN'
-  | 'ko-KR'
-  | 'ru-RU';
+  | 'en-US';
 
 // Date formats for different locales
 const localeFormats: DateFormat = {
-  'pt-PT': ["d 'de' MMMM 'de' yyyy", "d 'de' MMMM", "MMMM 'de' yyyy", 'dd/MM/yyyy', 'd/MM/yyyy'],
-  'pt-BR': ["d 'de' MMMM 'de' yyyy", "d 'de' MMMM", "MMMM 'de' yyyy", 'dd/MM/yyyy', 'd/M/yy'],
-  'en-US': ['MMMM d, yyyy', 'MMMM d', 'MM/dd/yyyy', 'M/d/yy', 'MMM d, yy'],
-  'fr-FR': ['d MMMM yyyy', 'd MMMM', 'MMMM yyyy', 'dd/MM/yyyy', 'd/M/yy'],
-  'es-ES': ["d 'de' MMMM 'de' yyyy", "d 'de' MMMM", "MMMM 'de' yyyy", 'dd/MM/yyyy', 'd/M/yy'],
-  'de-DE': ['d. MMMM yyyy', 'd. MMMM', 'MMMM yyyy', 'dd.MM.yyyy', 'd.M.yy'],
-  'it-IT': ['d MMMM yyyy', 'd MMMM', 'MMMM yyyy', 'dd/MM/yyyy', 'd/M/yy'],
-  'ja-JP': ['yyyy年M月d日', 'yyyy年M月d日', 'yyyy年M月', 'yy/MM/dd', 'y/M/d'],
-  'zh-CN': ['yyyy年M月d日', 'yyyy年M月d日', 'yyyy年M月', 'yy/MM/dd', 'y/M/d', 'yyyy/MM/dd'],
-  'ko-KR': ['yyyy년 M월 d일', 'yyyy년 M월 d일', 'yyyy년 M월', 'yy.MM.dd', 'y.M.d'],
-  'ru-RU': ["d MMMM yyyy 'г.'", 'd MMMM', "MMMM yyyy 'г.'", 'dd.MM.yyyy', 'd.M.yy']
+  'pt-PT': ["d 'de' MMMM 'de' yyyy", "d 'de' MMMM", "MMMM 'de' yyyy", 'dd/MM/yyyy', 'd/MM/yyyy',
+    "d 'de' LLL 'de' yyyy",    
+"dd 'de' LLL 'de' yyyy",
+"d 'de' LLL",
+"dd 'de' LLL",
+"LLL 'de' yyyy" 
+  ],
+    'en-US': [ "d 'of' MMMM yyyy",
+    "d 'of' MMMM",
+    "d 'of' LLL yyyy",
+    "d 'of' LLL",
+    // Without "of"
+    "d MMMM yyyy",
+    "d MMMM",
+    "d LLL yyyy",
+    "d LLL",
+      // Traditional formats
+    "MMMM d',' yyyy",
+    'MMMM d',
+    'MM/dd/yyyy',
+    'M/d/yy',
+    "MMM d',' yy",
+    'd LLL yyyy',
+    'dd LLL yyyy',
+    'd LLL',
+    'LLL yyyy'
+  ],
 };
-
+function normalizeOrdinalDate(dateStr: string): string {
+  // Remove "the" prefix
+  let cleaned = dateStr.replace(/\bthe\s+/gi, '');
+  
+  // Remove ordinal suffixes: 1st -> 1, 2nd -> 2
+  cleaned = cleaned.replace(/\b(\d{1,2})(st|nd|rd|th)\b/gi, '$1');
+  
+  return cleaned.trim();
+}
 export function detectLocaleFromDateString(text: string, systemLocale: string):Record<string,boolean> | null{
   if (!(systemLocale in localeFormats)) {
     throw new Error(`Locale ${systemLocale} not supported`);
   }
   let dates:string[] = getDatesFromText(text);
+  if(systemLocale === 'en-US'){
+    dates = dates.map(date => normalizeOrdinalDate(date));
+  }
 
   if(dates.length === 0) return null;
   
   const dateResult:Record<string,boolean> = Object.fromEntries(dates.map((date) => ([date.trim(),false])));
   for(const  [date, _ ] of Object.entries(dateResult)){
+    console.log(`Validating date "${date}" for locale ${systemLocale}`);
 
     const locale = systemLocale;
     const format = localeFormats[systemLocale as keyof typeof localeFormats];
@@ -57,59 +79,64 @@ export function detectLocaleFromDateString(text: string, systemLocale: string):R
 }
 
 
-function getMonthNamesForLocales(
-  locales: string[],
-  format: 'long' | 'short' = 'long'
-): string[] {
-  const monthNames = new Set<string>();
+function buildMultiLangDateRegex() {
 
-  locales.forEach(locale => {
-    const formatter = new Intl.DateTimeFormat(locale, { month: format });
-    for (let i = 0; i < 12; i++) {
-      let month = formatter.format(new Date(2020, i, 1));
-      month = month.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      monthNames.add(month.toLowerCase().replace('.', ''));
-    }
-  });
+  const allMonthsPattern = "(" +
+    "janeiro|jan|fevereiro|fev|março|mar|abril|abr|maio|mai|junho|jun|julho|jul|agosto|ago|setembro|set|outubro|out|novembro|nov|dezembro|dez|" +
+    "january|jan|february|feb|march|mar|april|apr|may|jun|july|jul|august|aug|september|sep|october|oct|november|nov|december|dec|" +
+    "janvier|janv|février|févr|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre|" +
+    "enero|ene|febrero|feb|marzo|may|junio|jun|julio|jul|septiembre|sep|octubre|oct|noviembre|nov|diciembre|dic|" +
+    "januar|jan|februar|feb|märz|mär|april|mai|juni|jun|juli|jul|august|aug|september|sep|oktober|okt|dezember|dez" +
+  ")";
 
-  return Array.from(monthNames);
+  const ordinal = "(1st|2nd|3rd|[4-9]th|1[0-9]th|2[0-9]th|3[0-1]th|21st|22nd|23rd|31st)";
+  const day = "\\d{1,2}";
+
+  return new RegExp(
+    // 1. English ordinals: "1st of January 2023" or "1st January 2023"
+    `\\b${ordinal}\\b\\s+(?:\\bof\\b\\s+)?${allMonthsPattern}\\b(?:\\s+\\bof\\b)?\\s+\\d{4}\\b|` +
+
+    // 2. Ordinals without year: "1st of January" or "1st January"
+    `\\b${ordinal}\\b\\s+(?:of\\s+)?${allMonthsPattern}\\b|` +
+
+    // 3.  Day + Month + Year: "1 de março de 2021"
+    `\\b${day}\\b\\s+(?:de\\s+|of\\s+|von\\s+)?${allMonthsPattern}\\s+(?:de\\s+|of\\s+|von\\s+)?\\d{4}\\b|` +
+
+    // 4. Day + Month (without year): "15 de março"
+    `\\b${day}\\b\\s+(?:de\\s+|of\\s+|von\\s+)?${allMonthsPattern}\\b|` +
+
+    // 5. Month + Year (without day): "dezembro de 2025"
+    `\\b${allMonthsPattern}\\s+(?:de\\s+|of\\s+|von\\s+)?\\d{4}\\b|` +
+
+    // 6. Month + Day + Year (English format): "March 15, 2023"
+    `\\b${allMonthsPattern}\\s+${day}(?:,?\\s*\\d{4})?\\b`,
+    "giu"
+  );
 }
 
 
-function buildMultiLangDateRegex(locales = ['pt-PT', 'en-US', 'fr-FR', 'es-ES', 'de-DE']) {
-  // Obtem todos os nomes dos meses (long + short) numa lista única
-  const months = getMonthNamesForLocales(locales, 'long').concat(getMonthNamesForLocales(locales, 'short'));
+function getDatesFromText(text: string): string[] {
+
+    console.log('Original text:', text);
+  // Try to normalize encoding
+  let textFixedEncoding: string;
+  try {
+
+    textFixedEncoding = utf8.decode(text);
+  } catch {
+    // Fallback:  native Unicode normalization
+    textFixedEncoding = text.normalize('NFC');
+  }
+  console.log('Fixed encoding text:', textFixedEncoding);
   
-  // Criar padrão regex para meses separados por |
-  const monthsPattern = months.map(m => m.replace('.', '')).join('|'); 
 
-  // Formatos de data para cada idioma
-  const datePatterns = {
-    'pt-PT':  `\\b(?:` +
-  `(\\d{1,2})(\\s*(de)\\s*)(${monthsPattern})(\\s*(de)\\s*)(\\d{4})?` +
-  `|` +
-  `(${monthsPattern})(\\s*(de)\\s*)(\\d{4})` +
-`)\\b`,
-    'en-US': `\\b(${monthsPattern})\\s*(\\d{1,2})(,?\\s*)(\\d{4})?\\b|(\\d{1,2})(th)?(\\s*(of)?\\s*)(${monthsPattern})(\\s*(of)?\\s*)(\\d{4})?\\b`,
-    'fr-FR': `\\b(\\d{1,2})\\s*(de)?\\s*(${monthsPattern})(\\s*(de)?\\s*)(\\d{4})?\\b`,
-    'es-ES': `\\b(\\d{1,2})(\\s*(de)?\\s*)(${monthsPattern})(\\s*(de)?\\s*)(\\d{4})?\\b`,
-    'de-DE': `\\b(\\d{1,2})(\\s*(von)?\\s*)(${monthsPattern})(\\s*(von)?\\s*)(\\d{4})?\\b`
-  };
-
-  const combinedPattern = Object.values(datePatterns).join('|');
-  return new RegExp(combinedPattern, 'igu');
-}
-
-
-
-
-function getDatesFromText(text:string):string[] {
-  const dateRegex = buildMultiLangDateRegex(['pt-PT', 'en-US', 'fr-FR', 'es-ES', 'de-DE']);
+  
+  const dateRegex = buildMultiLangDateRegex();
   const numericDateRegex = /\b(\d{1,2})([\/\-.])(\d{1,2})\2(\d{4}|\d{2})\b/g;
 
-  const textDates = [...text.matchAll(dateRegex)].map(m => m[0]);
-  const numericDates = [...text.matchAll(numericDateRegex)].map(m => m[0]);
 
+  const textDates = [...textFixedEncoding.matchAll(dateRegex)].map(m => m[0]);
+  const numericDates = [...textFixedEncoding.matchAll(numericDateRegex)].map(m => m[0]);
+  
   return [...textDates, ...numericDates];
 }
-

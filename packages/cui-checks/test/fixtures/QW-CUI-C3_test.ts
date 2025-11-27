@@ -1,4 +1,31 @@
 export default [
+     {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+            <div class="client-message">
+                <p>Qual é a data de nascimento de Albert Einstein?</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p>Albert Einstein nasceu em 1 de março de 1879. Copied</p>
+            </div>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'pt-PT',
+    outcome: 'passed'
+  },
   {
       code:`<!DOCTYPE html>
 <html>
@@ -145,6 +172,171 @@ export default [
             <div class="chatbot-response">
                 <p>Olá! Bem-vindo ao nosso assistente de viagens. Como posso ajudar-te hoje?</p>
             </div>
+            <div class="client-message">
+                <p>Qual a próxima viagem em promoção?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p> Feriado nacional: 25 dezembro </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'pt-PT',
+    outcome: 'failed'
+  },   {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+            <div class="chatbot-response">
+                <p>Olá! Bem-vindo ao nosso assistente de viagens. Como posso ajudar-te hoje?</p>
+            </div>
+            <div class="client-message">
+                <p>Qual a próxima viagem em promoção?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p> Feriado nacional: dezembro de 2025 </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'pt-PT',
+    outcome: 'passed'
+  }, 
+    {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+            <div class="chatbot-response">
+                <p>Olá! Bem-vindo ao nosso assistente de viagens. Como posso ajudar-te hoje?</p>
+            </div>
+            <div class="client-message">
+                <p>Qual a próxima viagem em promoção?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p> Feriado nacional: 16 de dezembro </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'pt-PT',
+    outcome: 'passed'
+  }, {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+            <div class="chatbot-response">
+                <p>Olá! Bem-vindo ao nosso assistente de viagens. Como posso ajudar-te hoje?</p>
+            </div>
+            <div class="client-message">
+                    <p>Qual a próxima viagem em promoção?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p>hellothe date is  1st of January 2023 </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'en-US',
+    outcome: 'passed'
+  },
+    {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+
+            <div class="client-message">
+                <p>What is next holiday date?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p>  Next holiday is March 25, 2023 </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'en-US',
+    outcome: 'passed'
+  },  
+      {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
+
+            <div class="client-message">
+                <p>What is next holiday date?.</p>
+            </div>
+             <div class="chatbot-response" qw-cui-date>
+                <p>  Next holiday is 15th March </p>
+        </div>
+        <input class="chatbot-input" type="text" placeholder="Digite sua mensagem...">
+    </div>
+</body>
+</html>`,
+    selectors: {
+      QW_CC_WINDOW: 'body',
+      QW_CC_DIALOG: 'div[class="chatbot-dialog"]',
+      QW_CC_MESSAGES: 'div[class="chatbot-response"]',
+      QW_CC_MIC: 'null',
+      QW_CC_INPUT: 'input',
+    },
+	locale: 'en-US',
+    outcome: 'passed'
+  },  
+     {
+      code:`<!DOCTYPE html>
+<html>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-dialog">
             <div class="client-message">
                 <p>Qual a próxima viagem em promoção?.</p>
             </div>
