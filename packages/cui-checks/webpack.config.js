@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -27,7 +28,7 @@ module.exports = {
     },
   },
 optimization: {
-  minimize: true,
+  minimize: false,
   usedExports: true,
   minimizer: [
     new TerserPlugin({
@@ -46,7 +47,18 @@ optimization: {
     })
   ]
 },
-  plugins: [
+  plugins: [ 
+
+     new CopyPlugin({
+      patterns: [
+        { from: 'src/lib/common-words-pt.txt', to: 'common-words-pt.txt' },
+      ]
+    })
+
+
+
+
+
   
   ],
   target: 'web'
