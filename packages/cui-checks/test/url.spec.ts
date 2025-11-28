@@ -56,7 +56,7 @@ describe('url.spec.js', function () {
       return cui.test({}).getReport();
     });
 
-    console.log(report);
+   
     expect(report);
   });
 });

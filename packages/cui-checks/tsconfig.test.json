@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": ["ESNext", "DOM"],
+    "types": ["mocha", "node"],
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "src/types/**/*.d.ts"
+    
+  ],
+"typeRoots": [
+  "./node_modules/@types",
+  "./types"
+]          ,
+
+}

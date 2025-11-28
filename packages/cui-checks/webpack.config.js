@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -11,21 +12,54 @@ module.exports = {
       type: 'this'
     }
   },
-  optimization: {
-    minimize: true,
-    usedExports: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            keep_classnames: true
-          },
-          mangle: {
-            keep_classnames: true
-          }
-        }
-      })
-    ]
+     devtool: false, 
+    resolve: {
+      alias: {
+     "@microsoft/recognizers-text-number-with-unit": path.resolve(
+        __dirname,
+        "../../node_modules/@microsoft/recognizers-text-number-with-unit/dist/recognizers-text-number-with-unit.es5.js"
+      ),
+    },
+    fallback: {
+    os: false,
+    child_process: false,
+    path:false,
+    fs: false,
+    },
   },
+optimization: {
+  minimize: false,
+  usedExports: true,
+  minimizer: [
+    new TerserPlugin({
+      terserOptions: {
+        compress: {
+          keep_classnames: true,
+          drop_console: true,
+          drop_debugger: true,
+        },
+        mangle: {
+          keep_classnames: true,
+        },
+      },
+      extractComments: false,
+      
+    })
+  ]
+},
+  plugins: [ 
+
+     new CopyPlugin({
+      patterns: [
+        { from: 'src/lib/common-words-pt.txt', to: 'common-words-pt.txt' },
+      ]
+    })
+
+
+
+
+
+  
+  ],
   target: 'web'
 }
