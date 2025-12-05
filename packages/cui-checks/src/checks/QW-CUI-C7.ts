@@ -24,10 +24,13 @@ class QW_CUI_C7 extends Check {
           test.verdict = Verdict.PASSED;
           test.resultCode = 'C1';
           test.addElement(element);
-        } else {
+        } else if (result === false) {
           test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
           test.addElement(element);
+        } else {
+          test.verdict = Verdict.INAPPLICABLE;
+          test.resultCode = 'I2';
         }
         }
   
