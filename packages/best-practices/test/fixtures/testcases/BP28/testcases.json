@@ -6,5 +6,9 @@
   {
     "path": "passed1.html",
     "outcome": "passed"
+  },
+  {
+    "path": "failed2.html",
+    "outcome": "failed"
   }
 ]

@@ -40,10 +40,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.8.2",
+    "@qualweb/core": "^0.8.3",
     "@qualweb/locale": "0.2.2",
     "@qualweb/qw-page": "0.3.2",
-    "@qualweb/util": "0.6.2",
+    "@qualweb/util": "0.6.3",
     "@tsconfig/recommended": "^1.0.3",
     "@types/hyphen": "^1.6.7",
     "@types/intl": "^1.2.2",

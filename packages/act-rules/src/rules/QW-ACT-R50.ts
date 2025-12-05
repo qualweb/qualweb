@@ -41,6 +41,9 @@ class QW_ACT_R50 extends AtomicRule {
     while (rootElement && rootElement.getElementTagName() !== 'body') {
       rootElement = rootElement.getElementParent()!;
     }
+    if (!rootElement) {
+      return false;
+    }
     const buttons = rootElement.getElements('button');
     for (const button of buttons || []) {
       if (button && window.DomUtils.isElementVisible(button) && window.AccessibilityUtils.isElementInAT(button)) {
