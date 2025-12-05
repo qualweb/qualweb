@@ -1,5 +1,15 @@
 # @qualweb/cui-checks
 
+## 0.3.0
+
+### Minor Changes
+
+- 850181b: Checks (C1 to C10)
+
+### Patch Changes
+
+- 3390129: Cui checks C4 and C7 fix
+
 ## 0.2.2
 
 ### Patch Changes
