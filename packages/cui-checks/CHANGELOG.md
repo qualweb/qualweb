@@ -1,5 +1,11 @@
 # @qualweb/cui-checks
 
+## 0.3.1
+
+### Patch Changes
+
+- 3137d77: Package.json update for issue with postinstall in production
+
 ## 0.3.0
 
 ### Minor Changes
