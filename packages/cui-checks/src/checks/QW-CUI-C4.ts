@@ -19,6 +19,13 @@ class QW_CUI_C4 extends Check {
       let language = locale.split('-')[0];
 
       let textContent = element.getElementText();
+
+      if (textContent.trim() === '') {
+        console.log('no text content');
+        test.verdict = Verdict.INAPPLICABLE;
+        test.resultCode = 'I2';
+        return;
+      }
       // remover siglas
       textContent = textContent.replace(/([A-Z]{2,})/g, '');
 

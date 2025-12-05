@@ -34,11 +34,21 @@ export function recognizeUnitByLocale(locale: string,text:string): boolean | nul
 
   // get Information about currency from INTL
   let results = recognizeDimension(text, cultureMapping[language] as string);
-
-  if (results.length === 0) {
-    return false; // Return null if no dimension is recognized
+  console.log('Recognized dimensions:', JSON.stringify(results));
+  if (results.length  >0) {
+    return true; // Return null if no dimension is recognized
   }
-  return true;
+  // does it belong to another culture?
+  for (const lang in cultureMapping) {
+    if (lang !== language) {
+      results = recognizeDimension(text, cultureMapping[lang] as string);
+      if (results.length > 0) {
+        return false; // Return false if a dimension is recognized but does not match the locale
+      }
+    }
+  }
+  
+  return null; // Return null if no dimension is recognized
   
 }
 
