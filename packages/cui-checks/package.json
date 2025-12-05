@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cui-checks",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Accessibility tests for conversational user interfaces",
   "files": [
     "dist/*"
