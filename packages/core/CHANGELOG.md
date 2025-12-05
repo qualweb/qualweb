@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.5
+
+### Patch Changes
+
+- 850181b: Checks (C1 to C10)
+
 ## 0.8.4
 
 ### Patch Changes

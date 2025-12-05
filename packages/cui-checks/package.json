@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/cui-checks",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Accessibility tests for conversational user interfaces",
   "files": [
     "dist/*"
@@ -40,7 +40,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/core": "^0.8.4",
+    "@qualweb/core": "^0.8.5",
     "@qualweb/locale": "0.2.2",
     "@qualweb/qw-page": "0.3.2",
     "@qualweb/util": "0.6.4",
