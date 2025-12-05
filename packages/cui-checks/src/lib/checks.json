@@ -1,25 +1,156 @@
 {
   "QW_CUI_C1": {
-    "name": "Testing check",
+    "name": "Voice Input Availability",
     "code": "QW-CUI-C1",
-    "description": "This is a test.",
+    "description": "This test checks whether the chatbot includes a voice input option, such as a microphone button.",
     "metadata": {
       "target": {
-        "element": "title"
+        "element": "button"
+      },
+     "success-criteria": [
+
+      ],
+
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C2": {
+    "name": "Clarity of Chatbot Responses",
+    "code": "QW-CUI-C2",
+    "description": "This test checks whether the chatbot's responses are written in clear and simple language.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+       "success-criteria": [
+      
+      ],
+   
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C3": {
+    "name": "Localized Date Format in Chatbot Responses",
+    "code": "QW-CUI-C3",
+    "description": "This test checks whether the chatbot displays dates using the user's local format.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+    "success-criteria": [    
+      ],
+
+      "url": ""
+   
+    }
+  },
+  "QW_CUI_C4": {
+    "name": "Chatbot Response Language Consistency",
+    "code": "QW-CUI-C4",
+    "description": "This test checks whether the chatbot replies in the same language as the website.",
+    "metadata": {
+      "target": {
+        "element": "div"
       },
       "success-criteria": [
-        {
-          "name": "2.4.2",
-          "level": "A",
-          "principle": "Operable",
-          "url": "https://www.w3.org/WAI/WCAG21/Understanding/page-titled",
-		      "url_tr": "https://www.w3.org/TR/WCAG21/#page-titled"
-        }
+
       ],
-      "related": ["G88", "H25"],
-      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/2779a5/",
-      "type": ["ACTRule", "TestCase"],
-      "a11yReq": ["WCAG21:title"]
+
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C5": {
+    "name": "Chatbot Response Matches User Language",
+    "code": "QW-CUI-C5",
+    "description": "This test checks whether the chatbot replies in the same language used by the user.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+  
+      ],
+      "url": ""
     }
   }
+  , 
+  "QW_CUI_C6": {
+    "name": "Localized Currency Format in Chatbot Responses",
+    "code": "QW-CUI-C6",
+    "description": "This test checks whether the chatbot displays currency values using the user's local format.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+   "QW_CUI_C7": {
+    "name": "Localized Units of Measurement in Chatbot Responses",
+    "code": "QW-CUI-C7",
+    "description": "This test checks whether the chatbot displays units of measurement according to the user's local format.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C8": {
+    "name": "Availability of Chatbot Help Commands",
+    "code": "QW-CUI-C8",
+    "description": "This test checks whether the chatbot offers a clear way for users to request information about its purpose and available functions.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C9": {
+    "name": "Privacy Terms and Policy Disclosure in Chatbot",
+    "code": "QW-CUI-C9",
+    "description": "This test checks whether the chatbot provides clear information about how user data is collected, stored, or used when asked about privacy.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  },
+  "QW_CUI_C10": {
+    "name": "Human Assistance Availability in Chatbot",
+    "code": "QW-CUI-C10",
+    "description": "This test checks whether the chatbot provides a clear option to reach a human representative when users request human assistance or when automated support is insufficient.",
+    "metadata": {
+      "target": {
+        "element": "div"
+      },
+     "success-criteria": [
+    
+      ],
+      "url": ""
+
+    }
+  }
+  
 }
