@@ -26,7 +26,7 @@
     "clean": "rimraf dist",
     "build": "tsc --build tsconfig.prod.json && webpack",
     "prepublishOnly": "npm run build",
-    "postinstall": "node fix-syllable-pt.js"
+    "postinstall": "node -e \"const fs=require('fs'); if(fs.existsSync('./fix-syllable-pt.js')) require('./fix-syllable-pt.js')\""
   },
   "homepage": "https://github.com/qualweb/qualweb/blob/main/packages/cui-checks",
   "repository": {
