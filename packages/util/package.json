@@ -8,19 +8,19 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/__webpack/util.bundle.js",
+      "default": "./dist/__webpack/util.bundle.js",
       "types": "./dist/index.d.ts"
     },
     "./applicability": {
-      "require": "./dist/applicability/applicability.js",
+      "default": "./dist/applicability/applicability.js",
       "types": "./dist/applicability/applicability.d.ts"
     },
     "./accessibilityUtils": {
-      "require": "./dist/accessibilityUtils/accessibilityUtils.js",
+      "default": "./dist/accessibilityUtils/accessibilityUtils.js",
       "types": "./dist/accessibilityUtils/accessibilityUtils.d.ts"
     },
     "./domUtils": {
-      "require": "./dist/domUtils/domUtils.js",
+      "default": "./dist/domUtils/domUtils.js",
       "types": "./dist/domUtils/domUtils.d.ts"
     }
   },

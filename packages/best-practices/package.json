@@ -7,11 +7,11 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/__webpack/bp.bundle.js",
+      "default": "./dist/__webpack/bp.bundle.js",
       "types": "./dist/index.d.ts"
     },
     "./lib/*": {
-      "require": "./dist/lib/*"
+      "default": "./dist/lib/*"
     }
   },
   "scripts": {
