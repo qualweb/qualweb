@@ -70,12 +70,14 @@ jobs:
         if: github.ref_name == 'develop'
         id: check_changesets
         run: |
-          if [ -n "$(ls -A .changeset/*.md 2>/dev/null | grep -v README)" ]; then
+          # Count non-README changeset files
+          changeset_count=$(find .changeset -name "*.md" ! -name "README.md" 2>/dev/null | wc -l)
+          if [ "$changeset_count" -gt 0 ]; then
             echo "has_changesets=true" >> $GITHUB_OUTPUT
-            echo "Found changesets - will publish snapshot"
+            echo "✓ Found $changeset_count changeset(s) - will publish snapshot"
           else
             echo "has_changesets=false" >> $GITHUB_OUTPUT
-            echo "No changesets found - skipping snapshot publish"
+            echo "⊘ No changesets found - skipping snapshot publish"
           fi
 
       - name: Create snapshot release

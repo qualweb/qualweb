@@ -83,7 +83,7 @@ for (const packagePath of packages) {
     // Debug: Check if OIDC env vars are present
     console.log(`   OIDC available: ${process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'YES' : 'NO'}`);
 
-    execSync(`npm publish --provenance --access public ${dryRun}`, {
+    execSync(`npm publish --provenance --access public --ignore-scripts ${dryRun}`, {
       stdio: 'inherit',
       cwd: packagePath,
       env: process.env // Explicitly pass environment variables
