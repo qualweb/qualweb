@@ -7,7 +7,7 @@ runs:
 
       uses: actions/setup-node@v3.8.1
       with:
-        node-version: "19"
+        node-version: "20"
 
     # The steps that have been commented out are specific for caching the PNPM
     # store (central dependency cache) between builds. It has been kept in case
