@@ -39,10 +39,15 @@ jobs:
         uses: ./.github/actions/install_and_cache_dependencies
 
       - name: Upgrade npm for Trusted Publishing
-        run: npm install -g npm@latest
+        run: |
+          npm install -g npm@11.6.0
+          echo "npm version: $(npm --version)"
+          echo "node version: $(node --version)"
 
       - name: Unset NODE_AUTH_TOKEN to enable OIDC
-        run: echo "NODE_AUTH_TOKEN=" >> $GITHUB_ENV
+        run: |
+          echo "NODE_AUTH_TOKEN=" >> $GITHUB_ENV
+          echo "Cleared NODE_AUTH_TOKEN for OIDC authentication"
 
       - name: Build
         run: npm -ws run build
@@ -64,4 +69,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx changeset version --snapshot develop
-          npx changeset publish --tag develop --no-git-tag
+          npx changeset publish --tag develop --no-git-tag --provenance
