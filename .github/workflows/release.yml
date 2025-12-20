@@ -66,17 +66,20 @@ jobs:
           # Note: npm run release uses scripts/publish-with-oidc.js which properly handles OIDC authentication
 
       # Snapshot releases don't need the changeset action to put together PRs.
-      - name: Debug OIDC token availability
+      - name: Check for changesets
         if: github.ref_name == 'develop'
+        id: check_changesets
         run: |
-          echo "Checking OIDC token availability..."
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:-(not set)}"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+(set)}"
-          npm config get registry
-          npm config list
+          if [ -n "$(ls -A .changeset/*.md 2>/dev/null | grep -v README)" ]; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+            echo "Found changesets - will publish snapshot"
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No changesets found - skipping snapshot publish"
+          fi
 
       - name: Create snapshot release
-        if: github.ref_name == 'develop'
+        if: github.ref_name == 'develop' && steps.check_changesets.outputs.has_changesets == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
