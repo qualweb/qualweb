@@ -78,4 +78,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx changeset version --snapshot develop
-          npx changeset publish --tag develop --no-git-tag --provenance
+
+          # Publish packages manually with explicit provenance flag
+          for package in packages/*/package.json; do
+            dir=$(dirname "$package")
+            name=$(node -p "require('./$package').name")
+            version=$(node -p "require('./$package').version")
+
+            echo "Publishing $name@$version..."
+            cd "$dir"
+
+            # Only publish if package has changed
+            if npm view "$name@$version" version 2>/dev/null; then
+              echo "  Skipping $name@$version (already published)"
+            else
+              npm publish --tag develop --provenance --access public
+            fi
+
+            cd - > /dev/null
+          done
