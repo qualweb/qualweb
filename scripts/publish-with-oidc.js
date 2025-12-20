@@ -6,10 +6,28 @@
  */
 
 const { execSync } = require('child_process');
-const { readdirSync, existsSync, readFileSync } = require('fs');
+const { readdirSync, existsSync, readFileSync, unlinkSync } = require('fs');
 const { join } = require('path');
 
 const packagesDir = join(__dirname, '..', 'packages');
+
+// Remove any .npmrc files that might interfere with OIDC
+// changesets/action creates these for token-based auth
+const npmrcPaths = [
+  join(__dirname, '..', '.npmrc'),
+  join(require('os').homedir(), '.npmrc')
+];
+
+for (const npmrcPath of npmrcPaths) {
+  if (existsSync(npmrcPath)) {
+    console.log(`🗑️  Removing ${npmrcPath} to enable OIDC authentication...`);
+    try {
+      unlinkSync(npmrcPath);
+    } catch (error) {
+      console.warn(`   Warning: Could not remove ${npmrcPath}`);
+    }
+  }
+}
 
 // Get all package directories
 const packages = readdirSync(packagesDir, { withFileTypes: true })
@@ -62,9 +80,13 @@ for (const packagePath of packages) {
     // Use --dry-run in CI to test without actually publishing
     const dryRun = process.env.DRY_RUN === 'true' ? '--dry-run' : '';
 
+    // Debug: Check if OIDC env vars are present
+    console.log(`   OIDC available: ${process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'YES' : 'NO'}`);
+
     execSync(`npm publish --provenance --access public ${dryRun}`, {
       stdio: 'inherit',
-      cwd: packagePath
+      cwd: packagePath,
+      env: process.env // Explicitly pass environment variables
     });
     console.log(`   ✓ Published successfully${dryRun ? ' (dry run)' : ''}\n`);
     publishedCount++;
