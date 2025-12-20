@@ -14,24 +14,40 @@ on:
       - main
       - develop
 
-permissions: write-all
+permissions:
+  contents: write
+  id-token: write # Required for npm Trusted Publishing with OIDC
 
 jobs:
   # Run unit tests by calling the workflow in all_unit_tests.yml
   all_unit_tests:
     name: Unit tests
     uses: ./.github/workflows/all_unit_tests.yml
-  
+
   release:
     name: Release
     runs-on: ubuntu-latest
     # needs: all_unit_tests # Release step will ONLY run if unit tests complete.
+    permissions:
+      contents: write
+      id-token: write # Required for npm Trusted Publishing with OIDC
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup (cache, dependencies)
         uses: ./.github/actions/install_and_cache_dependencies
+
+      - name: Upgrade npm for Trusted Publishing
+        run: |
+          npm install -g npm@11.6.0
+          echo "npm version: $(npm --version)"
+          echo "node version: $(node --version)"
+
+      - name: Unset NODE_AUTH_TOKEN to enable OIDC
+        run: |
+          echo "NODE_AUTH_TOKEN=" >> $GITHUB_ENV
+          echo "Cleared NODE_AUTH_TOKEN for OIDC authentication"
 
       - name: Build
         run: npm -ws run build
@@ -42,18 +58,43 @@ jobs:
         if: github.ref_name == 'main'
         uses: changesets/action@v1
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           publish: npm run release
+          # Note: npm run release uses scripts/publish-with-oidc.js which properly handles OIDC authentication
 
       # Snapshot releases don't need the changeset action to put together PRs.
+      - name: Debug OIDC token availability
+        if: github.ref_name == 'develop'
+        run: |
+          echo "Checking OIDC token availability..."
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:-(not set)}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+(set)}"
+          npm config get registry
+          npm config list
+
       - name: Create snapshot release
         if: github.ref_name == 'develop'
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
           npx changeset version --snapshot develop
-          npx changeset publish --tag develop --no-git-tag
+
+          # Publish packages manually with explicit provenance flag
+          for package in packages/*/package.json; do
+            dir=$(dirname "$package")
+            name=$(node -p "require('./$package').name")
+            version=$(node -p "require('./$package').version")
+
+            echo "Publishing $name@$version..."
+            cd "$dir"
+
+            # Only publish if package has changed
+            if npm view "$name@$version" version 2>/dev/null; then
+              echo "  Skipping $name@$version (already published)"
+            else
+              npm publish --tag develop --provenance --access public
+            fi
+
+            cd - > /dev/null
+          done
