@@ -93,6 +93,7 @@ const nameFromContentElements = [
   'bdi',
   'bdo',
   'br',
+  'caption',
   'cite',
   'code',
   'dfn',
@@ -119,6 +120,7 @@ const nameFromContentElements = [
 ];
 const nameFromContentRoles = [
   'button',
+  'caption',
   'cell',
   'checkbox',
   'columnheader',
