@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write # Required for changesets to create Version Packages PR
   id-token: write # Required for npm Trusted Publishing with OIDC
 
 jobs:
@@ -30,6 +31,7 @@ jobs:
     # needs: all_unit_tests # Release step will ONLY run if unit tests complete.
     permissions:
       contents: write
+      pull-requests: write # Required for changesets to create Version Packages PR
       id-token: write # Required for npm Trusted Publishing with OIDC
     steps:
       - name: Checkout
