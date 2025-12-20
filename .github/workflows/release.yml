@@ -38,6 +38,9 @@ jobs:
       - name: Setup (cache, dependencies)
         uses: ./.github/actions/install_and_cache_dependencies
 
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@latest
+
       - name: Build
         run: npm -ws run build
 
