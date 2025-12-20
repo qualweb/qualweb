@@ -56,14 +56,25 @@ jobs:
 
       # For stable branch, use changeset action to maintain a PR and finally
       # publish when appropriate.
-      - name: Create release (or Pull Request)
+      - name: Create release PR or detect publish readiness
         if: github.ref_name == 'main'
+        id: changesets
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          publish: npm run release
-          # Note: npm run release uses scripts/publish-with-oidc.js which properly handles OIDC authentication
+          # Don't use changesets to publish - it creates .npmrc files that break OIDC
+          # Instead, we'll detect when it's ready to publish and do it ourselves
+          publish: echo "Skipping changesets publish - will use custom OIDC script"
+
+      - name: Publish with OIDC
+        if: github.ref_name == 'main' && steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          # Remove .npmrc that changesets/action created
+          rm -f ~/.npmrc .npmrc
+
+          # Run our custom publish script that properly handles OIDC
+          npm run release
 
       # Snapshot releases don't need the changeset action to put together PRs.
       - name: Check for changesets
