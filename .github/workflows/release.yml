@@ -63,6 +63,15 @@ jobs:
           publish: npm run release
 
       # Snapshot releases don't need the changeset action to put together PRs.
+      - name: Debug OIDC token availability
+        if: github.ref_name == 'develop'
+        run: |
+          echo "Checking OIDC token availability..."
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:-(not set)}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+(set)}"
+          npm config get registry
+          npm config list
+
       - name: Create snapshot release
         if: github.ref_name == 'develop'
         env:
