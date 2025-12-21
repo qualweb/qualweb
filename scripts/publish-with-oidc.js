@@ -13,10 +13,7 @@ const packagesDir = join(__dirname, '..', 'packages');
 
 // Remove any .npmrc files that might interfere with OIDC
 // changesets/action creates these for token-based auth
-const npmrcPaths = [
-  join(__dirname, '..', '.npmrc'),
-  join(require('os').homedir(), '.npmrc')
-];
+const npmrcPaths = [join(__dirname, '..', '.npmrc'), join(require('os').homedir(), '.npmrc')];
 
 for (const npmrcPath of npmrcPaths) {
   if (existsSync(npmrcPath)) {
@@ -35,8 +32,8 @@ console.log(`✓ .npmrc files removed - npm will use OIDC for authentication\n`)
 
 // Get all package directories
 const packages = readdirSync(packagesDir, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => join(packagesDir, dirent.name));
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => join(packagesDir, dirent.name));
 
 console.log('🦋 Publishing packages with OIDC authentication...\n');
 
@@ -86,6 +83,11 @@ for (const packagePath of packages) {
 
     // Debug: Check if OIDC env vars are present
     console.log(`   OIDC available: ${process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'YES' : 'NO'}`);
+
+    console.log('   Registry:', execSync('npm config get registry', { cwd: packagePath }).toString().trim());
+    console.log('   npmrc in cwd exists:', existsSync(join(packagePath, '.npmrc')));
+    console.log('   HOME npmrc exists:', existsSync(join(require('os').homedir(), '.npmrc')));
+    console.log('   NODE_AUTH_TOKEN set:', !!process.env.NODE_AUTH_TOKEN);
 
     // When using trusted publishing with OIDC, provenance is automatic
     // Don't use --provenance flag as it may interfere with OIDC auth
