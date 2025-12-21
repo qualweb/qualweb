@@ -46,10 +46,10 @@ jobs:
           echo "npm version: $(npm --version)"
           echo "node version: $(node --version)"
 
-      - name: Unset NODE_AUTH_TOKEN to enable OIDC
+      - name: Ensure NODE_AUTH_TOKEN is not set
         run: |
-          echo "NODE_AUTH_TOKEN=" >> $GITHUB_ENV
-          echo "Cleared NODE_AUTH_TOKEN for OIDC authentication"
+          # Don't set NODE_AUTH_TOKEN at all - OIDC authentication will be used instead
+          echo "Verified NODE_AUTH_TOKEN is not set for OIDC authentication"
 
       - name: Build
         run: npm -ws run build
@@ -66,6 +66,13 @@ jobs:
           # Don't use changesets to publish - it creates .npmrc files that break OIDC
           # Instead, we'll detect when it's ready to publish and do it ourselves
           publish: echo "Skipping changesets publish - will use custom OIDC script"
+
+      - name: Debug changesets outputs
+        if: github.ref_name == 'main'
+        run: |
+          echo "hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}"
+          echo "published: ${{ steps.changesets.outputs.published }}"
+          echo "publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}"
 
       - name: Publish with OIDC
         if: github.ref_name == 'main' && steps.changesets.outputs.hasChangesets == 'false'

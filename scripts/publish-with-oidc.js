@@ -87,15 +87,21 @@ for (const packagePath of packages) {
     // in publish-with-oidc.js, before npm publish
     console.log('   Registry:', process.env.npm_config_registry || 'default');
     console.log('   cwd:', packagePath);
-    console.log('   NODE_AUTH_TOKEN set:', !!process.env.NODE_AUTH_TOKEN);
+    console.log('   NODE_AUTH_TOKEN:', process.env.NODE_AUTH_TOKEN ? `set (length: ${process.env.NODE_AUTH_TOKEN.length})` : 'not set');
+    console.log('   CI:', process.env.CI);
+    console.log('   ACTIONS_ID_TOKEN_REQUEST_URL:', process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'present' : 'missing');
+    console.log('   ACTIONS_ID_TOKEN_REQUEST_TOKEN:', process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN ? 'present' : 'missing');
 
-    // When using trusted publishing with OIDC, provenance is automatic
-    // Don't use --provenance flag as it may interfere with OIDC auth
-    // npm will automatically use OIDC when ACTIONS_ID_TOKEN_REQUEST_URL is present
-    execSync(`npm publish --access public --ignore-scripts ${dryRun}`, {
+    // Use --provenance to enable OIDC authentication
+    // This requires npm 9.5.0+ and ACTIONS_ID_TOKEN_REQUEST_URL to be present
+    execSync(`npm publish --provenance --access public --ignore-scripts ${dryRun}`, {
       stdio: 'inherit',
       cwd: packagePath,
-      env: process.env
+      env: {
+        ...process.env,
+        // Ensure NODE_AUTH_TOKEN is not set
+        NODE_AUTH_TOKEN: undefined
+      }
     });
     console.log(`   ✓ Published successfully${dryRun ? ' (dry run)' : ''}\n`);
     publishedCount++;
