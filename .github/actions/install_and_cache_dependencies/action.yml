@@ -5,9 +5,10 @@ runs:
   steps:
     - name: Setup Node.js
 
-      uses: actions/setup-node@v3.8.1
+      uses: actions/setup-node@v4
       with:
         node-version: "20"
+        registry-url: https://registry.npmjs.org
 
     # The steps that have been commented out are specific for caching the PNPM
     # store (central dependency cache) between builds. It has been kept in case
