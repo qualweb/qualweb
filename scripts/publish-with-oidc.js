@@ -26,9 +26,16 @@ for (const npmrcPath of npmrcPaths) {
   }
 }
 
+// CRITICAL: Unset NODE_AUTH_TOKEN from the current process environment
+// This must be done BEFORE running any npm commands
+if (process.env.NODE_AUTH_TOKEN) {
+  console.log(`🗑️  Removing NODE_AUTH_TOKEN (length: ${process.env.NODE_AUTH_TOKEN.length}) from environment...`);
+  delete process.env.NODE_AUTH_TOKEN;
+}
+
 // Don't create .npmrc - let npm use OIDC directly without any config files
 // The presence of ACTIONS_ID_TOKEN_REQUEST_URL should be enough for npm to use OIDC
-console.log(`✓ .npmrc files removed - npm will use OIDC for authentication\n`);
+console.log(`✓ .npmrc files removed and NODE_AUTH_TOKEN unset - npm will use OIDC for authentication\n`);
 
 // Get all package directories
 const packages = readdirSync(packagesDir, { withFileTypes: true })
@@ -92,16 +99,11 @@ for (const packagePath of packages) {
     console.log('   ACTIONS_ID_TOKEN_REQUEST_URL:', process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'present' : 'missing');
     console.log('   ACTIONS_ID_TOKEN_REQUEST_TOKEN:', process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN ? 'present' : 'missing');
 
-    // Use --provenance to enable OIDC authentication
-    // This requires npm 9.5.0+ and ACTIONS_ID_TOKEN_REQUEST_URL to be present
-    execSync(`npm publish --provenance --access public --ignore-scripts ${dryRun}`, {
+    // npm will automatically use OIDC when ACTIONS_ID_TOKEN_REQUEST_URL is present
+    // NODE_AUTH_TOKEN was already deleted from process.env at the start of this script
+    execSync(`npm publish --access public --ignore-scripts ${dryRun}`, {
       stdio: 'inherit',
-      cwd: packagePath,
-      env: {
-        ...process.env,
-        // Ensure NODE_AUTH_TOKEN is not set
-        NODE_AUTH_TOKEN: undefined
-      }
+      cwd: packagePath
     });
     console.log(`   ✓ Published successfully${dryRun ? ' (dry run)' : ''}\n`);
     publishedCount++;
