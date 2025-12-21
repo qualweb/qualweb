@@ -162,4 +162,20 @@ describe('ANameTest', function () {
     expect(result).to.be.true;
   });
 
+  it('Calculates accessible name from hidden label', async function () {
+    const html = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <body>
+        <p>
+          <label for="name2" hidden>Nome</label>
+          <input type="text" id="name2">
+        </p>
+      </body>
+      </html>
+    `;
+
+    const result = await testAccessibleName(html, 'name2', 'Nome');
+    expect(result).to.be.true;
+  });
 });
