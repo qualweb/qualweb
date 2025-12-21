@@ -29,6 +29,10 @@ for (const npmrcPath of npmrcPaths) {
   }
 }
 
+// Don't create .npmrc - let npm use OIDC directly without any config files
+// The presence of ACTIONS_ID_TOKEN_REQUEST_URL should be enough for npm to use OIDC
+console.log(`✓ .npmrc files removed - npm will use OIDC for authentication\n`);
+
 // Get all package directories
 const packages = readdirSync(packagesDir, { withFileTypes: true })
   .filter(dirent => dirent.isDirectory())
@@ -83,10 +87,13 @@ for (const packagePath of packages) {
     // Debug: Check if OIDC env vars are present
     console.log(`   OIDC available: ${process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'YES' : 'NO'}`);
 
-    execSync(`npm publish --provenance --access public --ignore-scripts ${dryRun}`, {
+    // When using trusted publishing with OIDC, provenance is automatic
+    // Don't use --provenance flag as it may interfere with OIDC auth
+    // npm will automatically use OIDC when ACTIONS_ID_TOKEN_REQUEST_URL is present
+    execSync(`npm publish --access public --ignore-scripts ${dryRun}`, {
       stdio: 'inherit',
       cwd: packagePath,
-      env: process.env // Explicitly pass environment variables
+      env: process.env
     });
     console.log(`   ✓ Published successfully${dryRun ? ' (dry run)' : ''}\n`);
     publishedCount++;
