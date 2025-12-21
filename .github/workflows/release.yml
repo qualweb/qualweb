@@ -54,18 +54,19 @@ jobs:
       - name: Build
         run: npm -ws run build
 
-      # For stable branch, use changeset action to maintain a PR and finally
-      # publish when appropriate.
-      - name: Create release PR or detect publish readiness
+      # For stable branch, use changeset action to create and maintain Version Packages PR
+      # When there are changesets: creates PR with version bumps
+      # When PR is merged (no changesets left): we publish below
+      - name: Create release PR or detect merge
         if: github.ref_name == 'main'
         id: changesets
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # Don't use changesets to publish - it creates .npmrc files that break OIDC
-          # Instead, we'll detect when it's ready to publish and do it ourselves
-          publish: echo "Skipping changesets publish - will use custom OIDC script"
+          # Creates "Version Packages" PR when changesets exist
+          # Does not publish - we handle that separately with OIDC
+          publish: echo "Not publishing - will use OIDC publish step below"
 
       - name: Debug changesets outputs
         if: github.ref_name == 'main'
@@ -75,10 +76,8 @@ jobs:
           echo "publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}"
 
       - name: Publish with OIDC
+        # Only publish when Version Packages PR has been merged (no changesets left)
         if: github.ref_name == 'main' && steps.changesets.outputs.hasChangesets == 'false'
-        env:
-          # Tell npm we're in CI and should use OIDC
-          CI: true
         run: |
           # Remove .npmrc that changesets/action created
           rm -f ~/.npmrc .npmrc
@@ -88,8 +87,36 @@ jobs:
           echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:+present}"
           echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+present}"
 
-          # Run our custom publish script that properly handles OIDC
-          npm run release
+          # Publish packages directly (same approach as develop releases)
+          for package in packages/*/package.json; do
+            dir=$(dirname "$package")
+            name=$(node -p "require('./$package').name")
+            version=$(node -p "require('./$package').version")
+            is_private=$(node -p "require('./$package').private || false")
+
+            echo ""
+            echo "📦 Processing $name@$version..."
+
+            # Skip private packages
+            if [ "$is_private" = "true" ]; then
+              echo "  ⊘ Skipping (private package)"
+              continue
+            fi
+
+            # Only publish if package version doesn't exist
+            if npm view "$name@$version" version 2>/dev/null; then
+              echo "  ✓ Already published"
+            else
+              echo "  Publishing to npm..."
+              cd "$dir"
+              npm publish --access public
+              echo "  ✓ Published successfully"
+              cd - > /dev/null
+            fi
+          done
+
+          echo ""
+          echo "✅ All packages published successfully!"
 
       # Snapshot releases don't need the changeset action to put together PRs.
       - name: Check for changesets

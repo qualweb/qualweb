@@ -13,16 +13,24 @@ const packagesDir = join(__dirname, '..', 'packages');
 
 // Remove any .npmrc files that might interfere with OIDC
 // changesets/action creates these for token-based auth
-const npmrcPaths = [join(__dirname, '..', '.npmrc'), join(require('os').homedir(), '.npmrc')];
+const npmrcPaths = [
+  join(__dirname, '..', '.npmrc'),
+  join(require('os').homedir(), '.npmrc'),
+  '/etc/npmrc',
+  join(require('os').homedir(), '.config', 'npmrc')
+];
 
+console.log('🔍 Checking for .npmrc files...');
 for (const npmrcPath of npmrcPaths) {
   if (existsSync(npmrcPath)) {
     console.log(`🗑️  Removing ${npmrcPath} to enable OIDC authentication...`);
     try {
       unlinkSync(npmrcPath);
     } catch (error) {
-      console.warn(`   Warning: Could not remove ${npmrcPath}`);
+      console.warn(`   Warning: Could not remove ${npmrcPath}: ${error.message}`);
     }
+  } else {
+    console.log(`   ✓ ${npmrcPath} does not exist`);
   }
 }
 
