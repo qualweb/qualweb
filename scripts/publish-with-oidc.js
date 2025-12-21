@@ -84,9 +84,9 @@ for (const packagePath of packages) {
     // Debug: Check if OIDC env vars are present
     console.log(`   OIDC available: ${process.env.ACTIONS_ID_TOKEN_REQUEST_URL ? 'YES' : 'NO'}`);
 
-    console.log('   Registry:', execSync('npm config get registry', { cwd: packagePath }).toString().trim());
-    console.log('   npmrc in cwd exists:', existsSync(join(packagePath, '.npmrc')));
-    console.log('   HOME npmrc exists:', existsSync(join(require('os').homedir(), '.npmrc')));
+    // in publish-with-oidc.js, before npm publish
+    console.log('   Registry:', process.env.npm_config_registry || 'default');
+    console.log('   cwd:', packagePath);
     console.log('   NODE_AUTH_TOKEN set:', !!process.env.NODE_AUTH_TOKEN);
 
     // When using trusted publishing with OIDC, provenance is automatic
