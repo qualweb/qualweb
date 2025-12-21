@@ -41,120 +41,70 @@ jobs:
         uses: ./.github/actions/install_and_cache_dependencies
 
       - name: Upgrade npm for Trusted Publishing
-        run: |
-          npm install -g npm@11.6.0
-          echo "npm version: $(npm --version)"
-          echo "node version: $(node --version)"
-
-      - name: Ensure NODE_AUTH_TOKEN is not set
-        run: |
-          # Don't set NODE_AUTH_TOKEN at all - OIDC authentication will be used instead
-          echo "Verified NODE_AUTH_TOKEN is not set for OIDC authentication"
+        run: npm install -g npm@11.6.0
 
       - name: Build
         run: npm -ws run build
 
-      # For stable branch, use changeset action to create and maintain Version Packages PR
-      # When there are changesets: creates PR with version bumps
-      # When PR is merged (no changesets left): we publish below
-      - name: Create release PR or detect merge
+      - name: Create release PR or publish
         if: github.ref_name == 'main'
         id: changesets
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # Creates "Version Packages" PR when changesets exist
-          # Does not publish - we handle that separately with OIDC
-          publish: echo "Not publishing - will use OIDC publish step below"
+          publish: echo "Skipping changesets publish - using OIDC below"
 
-      - name: Debug changesets outputs
-        if: github.ref_name == 'main'
-        run: |
-          echo "hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}"
-          echo "published: ${{ steps.changesets.outputs.published }}"
-          echo "publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}"
-
-      - name: Publish with OIDC
-        # Only publish when Version Packages PR has been merged (no changesets left)
+      - name: Publish to npm
         if: github.ref_name == 'main' && steps.changesets.outputs.hasChangesets == 'false'
         run: |
-          # Remove .npmrc that changesets/action created
           rm -f ~/.npmrc .npmrc
 
-          # Verify OIDC environment variables are available
-          echo "Checking OIDC environment..."
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${ACTIONS_ID_TOKEN_REQUEST_URL:+present}"
-          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:+present}"
-
-          # Publish packages directly (same approach as develop releases)
           for package in packages/*/package.json; do
             dir=$(dirname "$package")
             name=$(node -p "require('./$package').name")
             version=$(node -p "require('./$package').version")
             is_private=$(node -p "require('./$package').private || false")
 
-            echo ""
-            echo "📦 Processing $name@$version..."
-
-            # Skip private packages
             if [ "$is_private" = "true" ]; then
-              echo "  ⊘ Skipping (private package)"
               continue
             fi
 
-            # Only publish if package version doesn't exist
             if npm view "$name@$version" version 2>/dev/null; then
-              echo "  ✓ Already published"
+              echo "✓ $name@$version already published"
             else
-              echo "  Publishing to npm..."
+              echo "Publishing $name@$version..."
               cd "$dir"
               npm publish --access public
-              echo "  ✓ Published successfully"
               cd - > /dev/null
             fi
           done
 
-          echo ""
-          echo "✅ All packages published successfully!"
-
-      # Snapshot releases don't need the changeset action to put together PRs.
       - name: Check for changesets
         if: github.ref_name == 'develop'
         id: check_changesets
         run: |
-          # Count non-README changeset files
           changeset_count=$(find .changeset -name "*.md" ! -name "README.md" 2>/dev/null | wc -l)
           if [ "$changeset_count" -gt 0 ]; then
             echo "has_changesets=true" >> $GITHUB_OUTPUT
-            echo "✓ Found $changeset_count changeset(s) - will publish snapshot"
           else
             echo "has_changesets=false" >> $GITHUB_OUTPUT
-            echo "⊘ No changesets found - skipping snapshot publish"
           fi
 
-      - name: Create snapshot release
+      - name: Publish snapshot release
         if: github.ref_name == 'develop' && steps.check_changesets.outputs.has_changesets == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx changeset version --snapshot develop
 
-          # Publish packages - provenance is automatic with OIDC
           for package in packages/*/package.json; do
             dir=$(dirname "$package")
             name=$(node -p "require('./$package').name")
             version=$(node -p "require('./$package').version")
 
-            echo "Publishing $name@$version..."
             cd "$dir"
-
-            # Only publish if package has changed
-            if npm view "$name@$version" version 2>/dev/null; then
-              echo "  Skipping $name@$version (already published)"
-            else
+            if ! npm view "$name@$version" version 2>/dev/null; then
+              echo "Publishing $name@$version..."
               npm publish --tag develop --access public
             fi
-
             cd - > /dev/null
           done

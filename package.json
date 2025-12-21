@@ -7,10 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/qualweb/qualweb.git"
   },
-  "scripts": {
-    "release": "npm -ws run build && node scripts/publish-with-oidc.js && git push --follow-tags",
-    "release-snapshot": "npm run build && npx changeset version --snapshot next && npx changeset publish --tag next"
-  },
+  "scripts": {},
   "keywords": [
     "qualweb",
     "accessibility",
