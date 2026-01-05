@@ -1,7 +1,6 @@
 import type { QWElement } from '@qualweb/qw-element';
 import {
   ElementExists,
-  ElementHasText,
   ElementIsHTMLElement,
   ElementIsNot,
   ElementIsVisible
@@ -10,47 +9,46 @@ import { Test, Verdict } from '@qualweb/core/evaluation';
 import { AtomicRule } from '../lib/AtomicRule.object';
 import Color from 'colorjs.io';
 
+interface RGBColor {
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+}
+
 class QW_ACT_R37 extends AtomicRule {
   @ElementExists
   @ElementIsHTMLElement
   @ElementIsNot(['html', 'head', 'body', 'script', 'style', 'meta'])
   @ElementIsVisible
-  @ElementHasText
   execute(element: QWElement): void {
     const visible = window.DomUtils.isElementVisible(element);
-    if (!visible) {
+    if (!visible) return;
+
+    const nodeName = element.getElementTagName();
+    const isInputField = ['input', 'select', 'textarea'].includes(nodeName);
+    const elementText = element.getElementOwnText().trim();
+    const placeholder = element.getElementAttribute('placeholder')?.trim();
+
+    if (elementText === '' && !isInputField && !placeholder) {
       return;
     }
 
-    const hasTextNode = element.hasTextNode();
-    const elementText = element.getElementOwnText();
-    if (!hasTextNode && elementText.trim() === '') {
-      return;
-    }
-
-    const isHTML = element.isElementHTMLElement();
-    if (!isHTML) {
-      return;
-    }
+    if (!element.isElementHTMLElement()) return;
 
     const disabledWidgets = window.disabledWidgets;
     const elementSelectors = element.getElementSelector();
-
     for (const disableWidget of disabledWidgets || []) {
-      const selectors = window.AccessibilityUtils.getAccessibleNameSelector(disableWidget);
-      if (disableWidget && selectors && selectors.includes(elementSelectors)) {
-        return;
-      }
-      if (disableWidget.getElementSelector() === elementSelectors) {
-        return;
-      }
-      // check if the element is a child of any of the disabledWidgets
+      const selectorsResult: any = window.AccessibilityUtils.getAccessibleNameSelector(disableWidget);
+      const selectors = typeof selectorsResult === 'string' ? [selectorsResult] : selectorsResult;
+      
+      if (disableWidget && selectors && selectors.includes(elementSelectors)) return;
+      if (disableWidget.getElementSelector() === elementSelectors) return;
+      
       const children = disableWidget.getElementChildren();
       if (children) {
         for (const child of children) {
-          if (child.getElementSelector() === elementSelectors) {
-            return;
-          }
+          if (child.getElementSelector() === elementSelectors) return;
         }
       }
     }
@@ -59,34 +57,29 @@ class QW_ACT_R37 extends AtomicRule {
     if (role === 'group') {
       const disable = element.getElementAttribute('disabled') !== null;
       const ariaDisable = element.getElementAttribute('aria-disabled') !== null;
-      if (disable || ariaDisable) {
-        return;
-      }
+      if (disable || ariaDisable) return;
     }
 
     const test = new Test();
 
     const fgColor = element.getElementStyleProperty('color', null);
     let bgColor = this.getBackground(element);
-    const opacity = parseFloat(element.getElementStyleProperty('opacity', null));
+    const opacity = parseFloat(element.getElementStyleProperty('opacity', null) || '1');
     const fontSize = element.getElementStyleProperty('font-size', null);
     const fontWeight = element.getElementStyleProperty('font-weight', null);
     const fontFamily = element.getElementStyleProperty('font-family', null);
     const fontStyle = element.getElementStyleProperty('font-style', null);
     const textShadow = element.getElementStyleProperty('text-shadow', null);
 
-    if (textShadow.trim() !== 'none') {
-      const properties = textShadow.trim().split(' ');
-      if (properties.length === 6) {
-        //const textShadowColor = properties[0] + ' ' + properties[1] + ' ' + properties[2];
-        const vs = parseInt(properties[3], 0);
-        const hs = parseInt(properties[4], 0);
-        const blur = parseInt(properties[5], 0);
-        const validateTextShadow = vs === 0 && hs === 0 && blur > 0 && blur <= 15;
-        if (validateTextShadow) {
+    if (textShadow && textShadow.trim() !== 'none' && textShadow.trim() !== '') {
+      const pixelValues = textShadow.match(/(-?\d+px)/g);
+      if (pixelValues && pixelValues.length >= 3) {
+        const hs = Math.abs(parseInt(pixelValues[0].replace('px', ''), 10));
+        const vs = Math.abs(parseInt(pixelValues[1].replace('px', ''), 10));
+        const blur = parseInt(pixelValues[2].replace('px', ''), 10);
+        if (blur > 0 || hs > 1 || vs > 1) {
           test.verdict = Verdict.WARNING;
           test.resultCode = 'W1';
-
           test.addElement(element);
           this.addTestResult(test);
           return;
@@ -97,149 +90,63 @@ class QW_ACT_R37 extends AtomicRule {
     if (this.isImage(bgColor)) {
       test.verdict = Verdict.WARNING;
       test.resultCode = 'W2';
-
       test.addElement(element);
       this.addTestResult(test);
       return;
     }
 
-    //TODO check char to char
-    //TODO check if there is more colors
-    //TODO account for margin and padding
-
-    // const elementText = window.DomUtils.getTrimmedText(element);
-
     const regexGradient = /((\w-?)*gradient.*)/gm;
     let regexGradientMatches = bgColor.match(regexGradient);
     if (regexGradientMatches) {
-      if (this.isHumanLanguage(elementText)) {
-        const parsedGradientString = regexGradientMatches[0];
-        this.evaluateGradient(
-          test,
-          element,
-          parsedGradientString,
-          fgColor,
-          opacity,
-          fontSize,
-          fontWeight,
-          fontStyle,
-          fontFamily,
-          elementText
-        );
+      if (this.isHumanLanguage(elementText || placeholder || "")) {
+        this.evaluateGradient(test, element, regexGradientMatches[0], fgColor, opacity, fontSize, fontWeight, fontStyle, fontFamily, elementText || placeholder || "");
       } else {
         test.verdict = Verdict.PASSED;
         test.resultCode = 'P2';
-
         test.addElement(element);
         this.addTestResult(test);
       }
-    } else {
-      let parsedBG = this.parseRGBString(bgColor, opacity);
-      let elementAux = element;
-      let opacityAUX;
+      return;
+    }
 
-      while (
-        parsedBG === undefined ||
-        (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)
-      ) {
-        const parent = elementAux.getElementParent();
-        if (parent) {
-          bgColor = this.getBackground(parent);
-          if (this.isImage(bgColor)) {
-            test.verdict = Verdict.WARNING;
-            test.resultCode = 'W2';
+    let parsedBG: RGBColor | undefined = this.parseRGBString(bgColor);
+    if (parsedBG) parsedBG.alpha *= opacity;
 
-            test.addElement(element);
-            this.addTestResult(test);
-            return;
-          } else {
-            //helps visualize
-            regexGradientMatches = bgColor.match(regexGradient);
-            if (regexGradientMatches) {
-              const parsedGradientString = regexGradientMatches[0];
-              if (
-                this.evaluateGradient(
-                  test,
-                  element,
-                  parsedGradientString,
-                  fgColor,
-                  opacity,
-                  fontSize,
-                  fontWeight,
-                  fontStyle,
-                  fontFamily,
-                  elementText
-                )
-              ) {
-                return;
-              }
-            } else {
-              opacityAUX = parseFloat(parent.getElementStyleProperty('opacity', null));
-              parsedBG = this.parseRGBString(parent.getElementStyleProperty('background', null), opacityAUX);
-              elementAux = parent;
-            }
-          }
-        } else {
-          break;
-        }
-      }
+    let elementAux = element;
+    while (!parsedBG || (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)) {
+      const parent = elementAux.getElementParent();
+      if (!parent) break;
+      const parentOpacity = parseFloat(parent.getElementStyleProperty('opacity', null) || '1');
+      parsedBG = this.parseRGBString(this.getBackground(parent));
+      if (parsedBG) parsedBG.alpha *= parentOpacity;
+      elementAux = parent;
+    }
 
-      // if we cant find a bg color, we assume that is white (default bg page color)
-      if (
-        parsedBG === undefined ||
-        (parsedBG.red === 0 && parsedBG.green === 0 && parsedBG.blue === 0 && parsedBG.alpha === 0)
-      ) {
-        parsedBG = { red: 255, green: 255, blue: 255, alpha: 1 };
-      }
+    if (!parsedBG || parsedBG.alpha === 0) {
+      parsedBG = { red: 255, green: 255, blue: 255, alpha: 1 };
+    }
 
-      let secondElement = elementAux;
-      if (parsedBG.alpha !== 1) {
-        // check if there is a solid color in the background and mix the colors
-        let secondOpacity = opacityAUX;
-        let parsedSecondBG = parsedBG;
-        while (parsedSecondBG && parsedSecondBG.alpha !== 1) {
-          const parent = secondElement.getElementParent();
-          if (!parent) {
-            break;
-          } else {
-            secondOpacity = parseFloat(parent.getElementStyleProperty('opacity', null));
-            parsedSecondBG = this.parseRGBString(parent.getElementStyleProperty('background', null), secondOpacity);
-            secondElement = parent;
-          }
-        }
-        if (parsedSecondBG && parsedSecondBG.alpha === 1) {
-          const outputRed = Math.round(parsedBG.red * parsedBG.alpha + parsedSecondBG.red * (1.0 - parsedBG.alpha));
-          const outputGreen = Math.round(
-            parsedBG.green * parsedBG.alpha + parsedSecondBG.green * (1.0 - parsedBG.alpha)
-          );
-          const outputBlue = Math.round(parsedBG.blue * parsedBG.alpha + parsedSecondBG.blue * (1.0 - parsedBG.alpha));
-          parsedBG = { red: outputRed, green: outputGreen, blue: outputBlue, alpha: 1 };
-        }
-      }
+    if (parsedBG.alpha < 1) {
+      parsedBG = this.flattenColors(parsedBG, { red: 255, green: 255, blue: 255, alpha: 1 });
+    }
 
-      const parsedFG = this.parseRGBString(fgColor, opacity);
-
+    const parsedFG = this.parseRGBString(fgColor);
+    if (parsedFG) {
+      parsedFG.alpha *= opacity;
+      
       if (!this.equals(parsedBG, parsedFG)) {
-        if (this.isHumanLanguage(elementText)) {
+        const textToVerify = elementText || placeholder || "";
+        if (this.isHumanLanguage(textToVerify)) {
           const contrastRatio = this.getContrast(parsedBG, parsedFG);
           const isValid = this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
-          if (isValid) {
-            test.verdict = Verdict.PASSED;
-            test.resultCode = 'P1';
-
-            test.addElement(element);
-            this.addTestResult(test);
-          } else {
-            test.verdict = Verdict.FAILED;
-            test.resultCode = 'F1';
-
-            test.addElement(element);
-            this.addTestResult(test);
-          }
+          
+          test.verdict = isValid ? Verdict.PASSED : Verdict.FAILED;
+          test.resultCode = isValid ? 'P1' : 'F1';
+          test.addElement(element);
+          this.addTestResult(test);
         } else {
           test.verdict = Verdict.PASSED;
           test.resultCode = 'P2';
-
           test.addElement(element);
           this.addTestResult(test);
         }
@@ -247,243 +154,132 @@ class QW_ACT_R37 extends AtomicRule {
     }
   }
 
-  getBackground(element: QWElement): string {
-    const backgroundImage = element.getElementStyleProperty('background-image', null);
-    if (backgroundImage === 'none') {
-      let bg = element.getElementStyleProperty('background', null);
-      if (bg === '') {
-        bg = element.getElementStyleProperty('background-color', null);
-      }
-
-      return bg;
-    } else {
-      return backgroundImage;
-    }
+  private isHumanLanguage(text: string): boolean {
+    return window.DomUtils.isHumanLanguage(text);
   }
 
-  isImage(color: string): boolean {
-    return (
-      color.toLowerCase().includes('.jpeg') ||
-      color.toLowerCase().includes('.jpg') ||
-      color.toLowerCase().includes('.png') ||
-      color.toLowerCase().includes('.svg')
-    );
-  }
-
-  evaluateGradient(
-    test: Test,
-    element: QWElement,
-    parsedGradientString: any,
-    fgColor: any,
-    opacity: number,
-    fontSize: string,
-    fontWeight: string,
-    fontStyle: string,
-    fontFamily: string,
-    elementText: string
-  ): boolean {
+  private evaluateGradient(test: Test, element: QWElement, parsedGradientString: string, fgColor: string, opacity: number, fontSize: string, fontWeight: string, fontStyle: string, fontFamily: string, elementText: string): boolean {
     if (parsedGradientString.startsWith('linear-gradient')) {
-      const gradientDirection = this.getGradientDirection(parsedGradientString);
-      if (gradientDirection === 'to do') {
-        const colors = this.parseGradientString(parsedGradientString, opacity);
-        let isValid = true;
-        let contrastRatio;
-        const textSize = this.getTextSize(
-          fontFamily.toLowerCase().replace(/['"]+/g, ''),
-          parseInt(fontSize.replace('px', '')),
-          this.isBold(fontWeight),
-          fontStyle.toLowerCase().includes('italic'),
-          elementText
-        );
-        if (textSize !== -1) {
-          const elementWidth = element.getElementStyleProperty('width', null);
-          const lastCharRatio = textSize / parseInt(elementWidth.replace('px', ''));
-          const lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
-          contrastRatio = this.getContrast(colors[0], this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
-          contrastRatio = this.getContrast(lastCharBgColor, this.parseRGBString(fgColor, opacity));
-          isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
-        } else {
-          for (const color of colors) {
-            contrastRatio = this.getContrast(color, this.parseRGBString(fgColor, opacity));
-            isValid = isValid && this.hasValidContrastRatio(contrastRatio, fontSize, this.isBold(fontWeight));
-          }
-        }
-        if (isValid) {
-          test.verdict = Verdict.PASSED;
-          test.resultCode = 'P3';
-        } else {
-          test.verdict = Verdict.FAILED;
-          test.resultCode = 'F2';
-        }
-      } else if (gradientDirection === 'to left' || gradientDirection === 'to right') {
-        //TODO
-        test.verdict = Verdict.WARNING;
-        test.resultCode = 'W3';
+      const colors = this.parseGradientString(parsedGradientString);
+      let isValid = true;
+      const parsedFG = this.parseRGBString(fgColor);
+      if (!parsedFG) return false;
+      parsedFG.alpha *= opacity;
+
+      const textSize = this.getTextSize(fontFamily.toLowerCase().replace(/['"]+/g, ''), parseInt(fontSize.replace('px', '')), this.isBold(fontWeight), fontStyle.toLowerCase().includes('italic'), elementText);
+      if (textSize !== -1) {
+        const elementWidth = element.getElementStyleProperty('width', null);
+        const lastCharRatio = textSize / parseInt(elementWidth.replace('px', ''));
+        const lastCharBgColor = this.getColorInGradient(colors[0], colors[colors.length - 1], lastCharRatio);
+        isValid = isValid && this.hasValidContrastRatio(this.getContrast(colors[0], parsedFG), fontSize, this.isBold(fontWeight));
+        isValid = isValid && this.hasValidContrastRatio(this.getContrast(lastCharBgColor, parsedFG), fontSize, this.isBold(fontWeight));
       } else {
-        test.verdict = Verdict.WARNING;
-        test.resultCode = 'W3';
+        for (const color of colors) {
+          isValid = isValid && this.hasValidContrastRatio(this.getContrast(color, parsedFG), fontSize, this.isBold(fontWeight));
+        }
       }
+      test.verdict = isValid ? Verdict.PASSED : Verdict.FAILED;
+      test.resultCode = isValid ? 'P3' : 'F2';
     } else {
+      test.verdict = Verdict.WARNING;
       test.resultCode = 'W3';
     }
-
     test.addElement(element);
     this.addTestResult(test);
     return true;
   }
 
-  isHumanLanguage(text: string): boolean {
-    return window.DomUtils.isHumanLanguage(text);
-  }
-
-  equals(color1: any, color2: any): boolean {
-    return (
-      color1.red === color2.red &&
-      color1.green === color2.green &&
-      color1.blue === color2.blue &&
-      color1.alpha === color2.alpha
-    );
-  }
-
-  getGradientDirection(gradient: string): string | undefined {
-    const direction = gradient.replace('linear-gradient(', '').split(',')[0];
-    if (direction) {
-      if (direction === '90deg') return 'to right';
-      if (direction === '-90deg') return 'to left';
-
-      return direction;
-    }
-
-    return undefined;
-  }
-
-  parseGradientString(gradient: string, opacity: number): any {
+  private parseGradientString(gradient: string): RGBColor[] {
     const regex = /rgb(a?)\((\d+), (\d+), (\d+)+(, +(\d)+)?\)/gm;
     const colorsMatch = gradient.match(regex);
-    const colors: any = [];
+    const colors: RGBColor[] = [];
     for (const stringColor of colorsMatch || []) {
-      colors.push(this.parseRGBString(stringColor, opacity));
+      const parsed = this.parseRGBString(stringColor);
+      if (parsed) colors.push(parsed);
     }
-
     return colors;
   }
 
-  parseRGBString(colorString: string, opacity: number): any {
-    const rgbRegex = /^rgb\((\d+), (\d+), (\d+)\)/;
-    const rgbaRegex = /^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/;
-    const oklchRegex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?)\)/;
-    const oklch2Regex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?) \/ (\d*(\.\d+)?)\)/;
-
-    // IE can pass transparent as value instead of rgba
-    if (colorString === 'transparent') {
-      return { red: 0, green: 0, blue: 0, alpha: 0 };
-    }
-
-    let match = colorString.match(rgbRegex);
-    if (match) {
-      return {
-        red: parseInt(match[1], 10),
-        green: parseInt(match[2], 10),
-        blue: parseInt(match[3], 10),
-        alpha: opacity
-      };
-    }
-
-    match = colorString.match(rgbaRegex);
-    if (match) {
-      return {
-        red: parseInt(match[1], 10),
-        green: parseInt(match[2], 10),
-        blue: parseInt(match[3], 10),
-        alpha: Math.round(parseFloat(match[4]) * 100) / 100
-      };
-    }
-
-    match = colorString.match(oklch2Regex);
-    if (match) {
-      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
-      const rgba = oklchColor.to("srgb");
-      return {
-        red: rgba.srgb.red,
-        green: rgba.srgb.green,
-        blue: rgba.srgb.blue,
-        alpha: parseFloat(match[4])
-      };
-    }
-
-    match = colorString.match(oklchRegex);
-    if (match) {
-      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
-      const rgba = oklchColor.to("srgb");
-      return {
-        red: rgba.srgb.red,
-        green: rgba.srgb.green,
-        blue: rgba.srgb.blue,
-        alpha: rgba.alpha
-      };
-    }
-
+  private getColorInGradient(fromColor: RGBColor, toColor: RGBColor, ratio: number): RGBColor {
+    return {
+      red: fromColor.red + (toColor.red - fromColor.red) * ratio,
+      green: fromColor.green + (toColor.green - fromColor.green) * ratio,
+      blue: fromColor.blue + (toColor.blue - fromColor.blue) * ratio,
+      alpha: 1
+    };
   }
 
-  getRelativeLuminance(red: number, green: number, blue: number): number {
-    const rSRGB = red / 255;
-    const gSRGB = green / 255;
-    const bSRGB = blue / 255;
-
-    const r = rSRGB <= 0.03928 ? rSRGB / 12.92 : Math.pow((rSRGB + 0.055) / 1.055, 2.4);
-    const g = gSRGB <= 0.03928 ? gSRGB / 12.92 : Math.pow((gSRGB + 0.055) / 1.055, 2.4);
-    const b = bSRGB <= 0.03928 ? bSRGB / 12.92 : Math.pow((bSRGB + 0.055) / 1.055, 2.4);
-
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  private getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number {
+    return window.DomUtils.getTextSize(font, fontSize, bold, italic, text);
   }
 
-  flattenColors(fgColor: any, bgColor: any): any {
-    const fgAlpha = fgColor['alpha'];
-    const red = (1 - fgAlpha) * bgColor['red'] + fgAlpha * fgColor['red'];
-    const green = (1 - fgAlpha) * bgColor['green'] + fgAlpha * fgColor['green'];
-    const blue = (1 - fgAlpha) * bgColor['blue'] + fgAlpha * fgColor['blue'];
-    const alpha = fgColor['alpha'] + bgColor['alpha'] * (1 - fgColor['alpha']);
+  private getBackground(element: QWElement): string {
+    const bgImg = element.getElementStyleProperty('background-image', null);
+    if (bgImg && bgImg !== 'none' && bgImg !== '') return bgImg;
+    const bgColor = element.getElementStyleProperty('background-color', null);
+    return (bgColor && bgColor !== '' && bgColor !== 'transparent') ? bgColor : element.getElementStyleProperty('background', null);
+  }
 
-    return { red: red, green: green, blue: blue, alpha: alpha };
+  private isImage(s: string): boolean {
+    const lower = s.toLowerCase();
+    return lower.includes('.jpg') || lower.includes('.png') || lower.includes('.svg') || lower.includes('url(');
+  }
+
+  private parseRGBString(colorString: string): RGBColor | undefined {
+    if (!colorString || colorString === 'transparent' || colorString === 'none') return { red: 0, green: 0, blue: 0, alpha: 0 };
+    const rgb = colorString.match(/^rgb\((\d+), (\d+), (\d+)\)/);
+    if (rgb) return { red: parseInt(rgb[1]), green: parseInt(rgb[2]), blue: parseInt(rgb[3]), alpha: 1.0 };
+    const rgba = colorString.match(/^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/);
+    if (rgba) return { red: parseInt(rgba[1]), green: parseInt(rgba[2]), blue: parseInt(rgba[3]), alpha: Math.round(parseFloat(rgba[4]) * 100) / 100 };
+    try {
+      const color = new Color(colorString);
+      const srgb = color.to('srgb');
+      return { 
+        red: Math.round(srgb.coords[0] * 255), 
+        green: Math.round(srgb.coords[1] * 255), 
+        blue: Math.round(srgb.coords[2] * 255), 
+        alpha: color.alpha ?? 1 
+      };
+    } catch (e) { return undefined; }
+  }
+
+  private flattenColors(fg: RGBColor, bg: RGBColor): RGBColor {
+    const alpha = fg.alpha;
+    return {
+      red: Math.round((1 - alpha) * bg.red + alpha * fg.red),
+      green: Math.round((1 - alpha) * bg.green + alpha * fg.green),
+      blue: Math.round((1 - alpha) * bg.blue + alpha * fg.blue),
+      alpha: fg.alpha + bg.alpha * (1 - fg.alpha)
+    };
+  }
+
+  private getContrast(bg: RGBColor, fg: RGBColor): number {
+    const finalFG = fg.alpha < 1 ? this.flattenColors(fg, bg) : fg;
+    const L1 = this.getLuminance(bg);
+    const L2 = this.getLuminance(finalFG);
+    return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
+  }
+
+  private getLuminance(c: RGBColor): number {
+    const a = [c.red, c.green, c.blue].map(v => {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+  }
+
+  private hasValidContrastRatio(contrast: number, fontSize: string, isBold: boolean): boolean {
+    const size = parseFloat(fontSize);
+    const threshold = (isBold && size >= 18.66) || size >= 24 ? 3 : 4.5;
+    return (contrast + 0.02) >= threshold;
   }
 
   private isBold(fontWeight: string): boolean {
     return !!fontWeight && ['bold', 'bolder', '700', '800', '900'].includes(fontWeight);
   }
 
-  getContrast(bgColor: any, fgColor: any): number {
-    if (fgColor.alpha < 1) {
-      fgColor = this.flattenColors(fgColor, bgColor);
-    }
-
-    const bL = this.getRelativeLuminance(bgColor['red'], bgColor['green'], bgColor['blue']);
-    const fL = this.getRelativeLuminance(fgColor['red'], fgColor['green'], fgColor['blue']);
-
-    return (Math.max(fL, bL) + 0.05) / (Math.min(fL, bL) + 0.05);
-  }
-
-  hasValidContrastRatio(contrast: number, fontSize: string, isBold: boolean): boolean {
-    /*const isSmallFont =
-          (isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 14) ||
-          (!isBold && Math.ceil(parseInt(fontSize) * 96) / 72 < 18);*/
-
-    const isSmallFont = (isBold && parseFloat(fontSize) < 18.6667) || (!isBold && parseFloat(fontSize) < 24);
-    const expectedContrastRatio = isSmallFont ? 4.5 : 3;
-
-    return contrast >= expectedContrastRatio;
-  }
-
-  getTextSize(font: string, fontSize: number, bold: boolean, italic: boolean, text: string): number {
-    return window.DomUtils.getTextSize(font, fontSize, bold, italic, text);
-  }
-
-  getColorInGradient(fromColor: any, toColor: any, ratio: number): any {
-    const red = fromColor['red'] + (toColor['red'] - fromColor['red']) * ratio;
-    const green = fromColor['green'] + (toColor['green'] - fromColor['green']) * ratio;
-    const blue = fromColor['blue'] + (toColor['blue'] - fromColor['blue']) * ratio;
-
-    return { red: red, green: green, blue: blue, alpha: 1 };
+  private equals(c1: RGBColor, c2: RGBColor): boolean {
+    return c1.red === c2.red && c1.green === c2.green && c1.blue === c2.blue && c1.alpha === c2.alpha;
   }
 }
 
