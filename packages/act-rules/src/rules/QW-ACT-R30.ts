@@ -12,9 +12,9 @@ class QW_ACT_R30 extends AtomicRule {
     const test = new Test();
 
     const accessibleName = window.AccessibilityUtils.getAccessibleName(element);
-    const elementText = window.DomUtils.getTrimmedText(element);
+    const elementText = window.DomUtils.getVisibleText(element);
     const isIconValue = this.isIcon(elementText, accessibleName, element);
-
+    
     if (accessibleName === undefined) {
       test.verdict = Verdict.FAILED;
       test.resultCode = 'F1';
