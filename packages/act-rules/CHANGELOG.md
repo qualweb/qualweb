@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.6
+
+### Patch Changes
+
+- 0a48bed: Suggestion: Enhancements to QW-ACT-R37
+
 ## 0.7.5
 
 ### Patch Changes
