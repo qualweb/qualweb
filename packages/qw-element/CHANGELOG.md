@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3
+
+### Patch Changes
+
+- fd854b3: fix: handle undefined values safely in getElementProperty
+
 ## 0.3.2
 
 ### Patch Changes
