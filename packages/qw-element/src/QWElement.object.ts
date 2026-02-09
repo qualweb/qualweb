@@ -387,7 +387,7 @@ export class QWElement {
 
   public getElementProperty(property: string): string {
     const propertyValue = this.element[property as keyof typeof this.element];
-    return propertyValue === null ? '' : propertyValue.toString();
+    return propertyValue?.toString() ?? '';
   }
 
   public getElementSelector(): string {
