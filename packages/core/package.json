@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -91,8 +91,8 @@
   "dependencies": {
     "@qualweb/crawler": "0.4.2",
     "@qualweb/locale": "0.2.2",
-    "@qualweb/qw-element": "0.3.2",
-    "@qualweb/qw-page": "0.3.2",
+    "@qualweb/qw-element": "0.3.3",
+    "@qualweb/qw-page": "0.3.3",
     "@qualweb/util": "0.6.5",
     "axios": "^1.7.2",
     "colors": "1.4.0",
