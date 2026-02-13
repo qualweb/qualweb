@@ -7,14 +7,14 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/__webpack/wcag.bundle.js",
+      "default": "./dist/__webpack/wcag.bundle.js",
       "types": "./dist/index.d.ts"
     },
     "./lib/*": {
-      "require": "./dist/lib/*"
+      "default": "./dist/lib/*"
     },
     "./WcagTechniquesModule": {
-      "require": "./dist/WcagTechniquesModule.js",
+      "default": "./dist/WcagTechniquesModule.js",
       "types": "./dist/WcagTechniquesModule.d.ts"
     }
   },
