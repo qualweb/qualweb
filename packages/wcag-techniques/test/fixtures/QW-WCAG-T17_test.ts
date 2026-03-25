@@ -378,6 +378,65 @@ export default [
     `,
     outcome: 'passed', 
   },
+  { 
+    code: ` <html lang="pt-PT"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Relação Input label não reconhecida no AccessMonitor</title>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1278.0" data-gr-ext-installed="">
+
+<h1>Relação input label não reconhecida pelo AccessMonitor</h1>
+
+<p>Antes do <a href="#">Teste</a></p>
+
+<div class="agora-input-search-wrapper flex flex-col">
+	<div class="input-label-wrapper flex items-end mb-8 justify-between">
+		<label for="_r_1r_" class="input-search-label">Pesquisa livre</label>
+	</div>
+	<div class="input-wrapper flex relative items-center rounded-4 bg-white z-[1]">
+		<input placeholder="Insira o nome ou identificador do atributo" id="_r_1r_" class="agora-input-search bg-transparent" aria-invalid="false" type="search" value="">
+		<div class="search-icon bg-transparent">
+			<div>
+
+				<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon icon-m fill-[var(--color-primary-600)] icon-search-default !block" role="img">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6177 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.078 18.0319 16.6177L21.7071 20.2929C22.0976 20.6834 22.0976 21.3166 21.7071 21.7071C21.3166 22.0977 20.6834 22.0977 20.2929 21.7071L16.6177 18.0319ZM4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 12.886 17.2541 14.5978 16.0413 15.8565C16.0071 15.8828 15.9742 15.9116 15.9429 15.9429C15.9116 15.9742 15.8827 16.0071 15.8564 16.0413C14.5977 17.2542 12.886 18 11 18C7.13401 18 4 14.866 4 11Z"></path>
+				</svg>
+
+				<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon icon-m fill-[var(--color-primary-600)] icon-search-hover !hidden" role="img">
+					<path d="M2 11C2 6.02944 6.02944 2 11 2C15.9706 2 20 6.02944 20 11C20 13.125 19.2635 15.078 18.0319 16.6177L21.7071 20.2929C22.0977 20.6834 22.0977 21.3166 21.7071 21.7071C21.3166 22.0977 20.6834 22.0977 20.2929 21.7071L16.6177 18.0319C15.078 19.2635 13.125 20 11 20C6.02944 20 2 15.9706 2 11Z"></path>
+				</svg>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<p>Depois do <a href="#">Teste</a></p>
+
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>`,
+    outcome: 'passed',
+  },
+  {
+    code: `
+    <label>
+<img src="search-icon.png" alt="Search">
+<input type="text">
+</label>
+
+ `,
+ outcome: 'passed',
+  },
+  {
+    code: ` <label>
+<svg role="img" aria-label="Search" viewBox="0 0 24 24">
+<!-- paths -->
+</svg>
+<input type="text">
+</label>`,
+outcome: 'passed',
+  }
 
 
 ];

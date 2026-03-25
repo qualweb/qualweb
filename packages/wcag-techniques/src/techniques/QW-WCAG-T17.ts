@@ -31,14 +31,25 @@ class QW_WCAG_T17 extends Technique {
     }
 
     const textNodes = label.getDescendantTextNodes(); 
+    
+
     if (!textNodes || textNodes.length === 0) {
+      const children = label.getElement('svg[alt], svg[aria-label], img[alt], img[aria-label], img[role],svg[role]');
+      if (children != null) {
+        test.verdict = Verdict.PASSED;
+        test.resultCode = 'P1';
+        return this.addResult(test, element);
+      }else{
       test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
       return this.addResult(test, element);
+      }
     }
+
 
     const textNode = textNodes.find(node => node.isVisible());
     if (!textNode) {
+      
       test.verdict = Verdict.FAILED;
       test.resultCode = 'F2';
       return this.addResult(test, element);
