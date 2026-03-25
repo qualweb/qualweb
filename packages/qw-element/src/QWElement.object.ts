@@ -1,5 +1,11 @@
+import { QWTextNode } from './QWTextNode.object';
 import type { CSSProperties, CSSProperty, MediaProperties, MediaProperty, PseudoSelectorProperty } from './types';
 
+export interface QWVisualDirection {
+  primary: 'up' | 'down' | 'left' | 'right' | 'overlap' | 'hidden' | 'none';
+  deltaX: number;
+  deltaY: number; 
+}
 export class QWElement {
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, CSSProperties>;
@@ -251,6 +257,90 @@ export class QWElement {
     return this.convertElementToQWElement(element);
   }
 
+  public getClosestAncestor(tag: keyof HTMLElementTagNameMap,maxDepth?: number): QWElement | null {
+    let parent = this.getElementParent();
+    let currentDepth = 0;
+    const targetTag = tag.toLowerCase();
+
+    while (parent) {
+      
+      if (maxDepth !== undefined && currentDepth >= maxDepth) {
+        break; 
+      }
+      const currentTag = parent.getElementTagName().toLowerCase();
+
+      if (currentTag === 'html' || currentTag === 'body') {
+        break;
+      }
+
+      if (currentTag === targetTag) {
+        return parent;
+      }
+   
+      parent = parent.getElementParent();
+      currentDepth++;
+    }
+
+    return null;
+  }
+
+
+  public isBefore(otherElement: QWElement): boolean {
+    return !!(this.element.compareDocumentPosition(otherElement.element) & Node.DOCUMENT_POSITION_FOLLOWING);
+  }
+  
+  public getElementsBetween(other: QWElement, excludeTags: string[] = []): string[] {
+    const isBefore = this.isBefore(other);
+    const start = isBefore ? this.element : other.element;
+    const end = isBefore ? other.element : this.element;
+    
+    const excludes = new Set(excludeTags.map(t => t.toLowerCase()));
+    const result: string[] = [];
+    let container = this.findCommonAncestor(other);
+
+    if (!container) return result;
+
+    const walker = document.createTreeWalker(
+      container.element, 
+      NodeFilter.SHOW_ELEMENT
+    );
+
+    walker.currentNode = start;
+    let next = walker.nextNode();
+
+    while (next && next !== end) {
+      const tagName = next.nodeName.toLowerCase();
+      if (!excludes.has(tagName)) {
+        result.push(tagName);
+      }
+      next = walker.nextNode();
+  }
+
+  return result;
+  }
+
+  public findCommonAncestor(otherElement: QWElement): QWElement | null {
+    const ancestors = new Set<Element>();
+
+    let current: Element | null = this.element;
+    
+    while (current) {
+      ancestors.add(current);
+      current = current.parentElement;
+    }
+
+    let other: Element | null = otherElement.element;
+    while (other) {
+      if (ancestors.has(other)) {
+        return new QWElement(other, this.elementsCSSRules);
+      }
+      other = other.parentElement;
+    }
+
+    return null;
+  }
+  
+  
   private convertElementToQWElement(element: Element | null): QWElement | null {
     if (element) {
       this.addCSSRulesPropertyToElement(element);
@@ -462,27 +552,6 @@ export class QWElement {
       return this.element.textContent ?? '';
     }
 
-    /*let children;
-    if (this.element.shadowRoot) {
-      children = this.element.shadowRoot.childNodes;
-    } else {
-      children = this.element.childNodes;
-    }
-
-    let result = '';
-    let textContent: string | null;
-    children.forEach((child: ChildNode) => {
-      textContent = child.textContent;
-      if (child.nodeType === 3 && !!textContent && textContent?.trim() !== '') {
-        result = result + textContent.trim();
-      }
-    });
-
-    if (!result) {
-      result = '';
-    }
-
-    return result;*/
   }
 
   public getElementOwnText(): string {
@@ -625,6 +694,39 @@ export class QWElement {
     return hasTextNode;
   }
 
+public getChildrenTextNodes(): Array<QWTextNode> | null {
+  const textNodes: Array<QWTextNode> = [];
+
+  if (this.element.childNodes) {
+    this.element.childNodes.forEach((child: ChildNode) => {
+      if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+        textNodes.push(new QWTextNode(child));
+      }
+    });
+  }
+
+  return textNodes.length > 0 ? textNodes : null;
+}
+public getDescendantTextNodes(element: Node = this.element): Array<QWTextNode> | null {
+  let textNodes: Array<QWTextNode> = [];
+
+  if (!element.childNodes) return null;
+
+  element.childNodes.forEach((child: ChildNode) => {
+    if (child.nodeType === 3 && child.textContent?.trim() !== '') {
+      textNodes.push(new QWTextNode(child));
+    } 
+    else if (child.nodeType === 1) {
+      const subNodes = this.getDescendantTextNodes(child);
+      if (subNodes) {
+        textNodes = [...textNodes, ...subNodes];
+      }
+    }
+  });
+
+  return textNodes.length > 0 ? textNodes : null;
+}
+
   private noParentScrolled(offset: number): boolean {
     let element = this.element.parentElement;
     while (element && element.nodeName.toLowerCase() !== 'html') {
@@ -657,6 +759,76 @@ export class QWElement {
   public getBoundingBox(): DOMRect {
     return this.element.getBoundingClientRect();
   }
+  
+public visualOrientationTo(elementB: QWElement | QWTextNode): QWVisualDirection {
+  const rectA = this.getBoundingBox();
+  const rectB = elementB.getBoundingBox(); 
+  if (!rectA || !rectB) return { primary: 'none', deltaX: 0, deltaY: 0 };
+
+  const pageHeight = Math.max(
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight,
+    document.documentElement.clientHeight
+  );
+
+  const cartesianA = {
+    left: rectA.left,
+    right: rectA.right,
+    top: pageHeight - rectA.top,
+    bottom: pageHeight - rectA.bottom
+  };
+
+  const cartesianB = {
+    left: rectB.left,
+    right: rectB.right,
+    top: pageHeight - rectB.top,
+    bottom: pageHeight - rectB.bottom
+  };
+
+  const EPSILON = 1.1;
+
+  const intersectX = Math.max(cartesianA.left, cartesianB.left) < Math.min(cartesianA.right, cartesianB.right);
+  const intersectY = Math.max(cartesianA.bottom, cartesianB.bottom) < Math.min(cartesianA.top, cartesianB.top);
+
+  if (intersectX && intersectY) return { primary: 'overlap', deltaX: 0, deltaY: 0 };
+
+  
+  if (intersectY) {
+    if (cartesianB.left >= cartesianA.right - EPSILON) {
+      return { primary: 'right', deltaX: Math.max(0, cartesianB.left - cartesianA.right), deltaY: 0 };
+    }
+    if (cartesianB.right <= cartesianA.left + EPSILON) {
+      return { primary: 'left', deltaX: Math.max(0, cartesianA.left - cartesianB.right), deltaY: 0 };
+    }
+  }
+
+  if (intersectX) {
+    if (cartesianB.bottom >= cartesianA.top - EPSILON) {
+      return { primary: 'up', deltaX: 0, deltaY: Math.max(0, cartesianB.bottom - cartesianA.top) };
+    }
+    if (cartesianB.top <= cartesianA.bottom + EPSILON) {
+      return { primary: 'down', deltaX: 0, deltaY: Math.max(0, cartesianA.bottom - cartesianB.top) };
+    }
+  }
+
+  const isAdjacentX = Math.abs(cartesianB.bottom - cartesianA.top) < EPSILON || 
+                      Math.abs(cartesianB.top - cartesianA.bottom) < EPSILON;
+  
+  const isAdjacentY = Math.abs(cartesianB.right - cartesianA.left) < EPSILON || 
+                      Math.abs(cartesianB.left - cartesianA.right) < EPSILON;
+
+  if (isAdjacentY) {
+    if (cartesianB.left >= cartesianA.right - EPSILON) return { primary: 'right', deltaX: 0, deltaY: 0 };
+    if (cartesianB.right <= cartesianA.left + EPSILON) return { primary: 'left', deltaX: 0, deltaY: 0 };
+  }
+
+  if (isAdjacentX) {
+    if (cartesianB.bottom >= cartesianA.top - EPSILON) return { primary: 'up', deltaX: 0, deltaY: 0 };
+    if (cartesianB.top <= cartesianA.bottom + EPSILON) return { primary: 'down', deltaX: 0, deltaY: 0 };
+  }
+
+  return { primary: 'none', deltaX: 0, deltaY: 0 };
+}
 
   public getShadowElement(selector: string): QWElement | null {
     const shadowRoot = this.element.shadowRoot;
@@ -666,6 +838,7 @@ export class QWElement {
     }
     return this.convertElementToQWElement(element);
   }
+ 
 
   public getShadowElements(selector: string): Array<QWElement> {
     const shadowRoot = this.element.shadowRoot;
