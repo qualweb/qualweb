@@ -1,0 +1,57 @@
+<html>
+<head>
+  <style>
+    .is-hidden { display: none !important; }
+    .is-collapsed { height: 0; overflow: hidden; }
+    .is-off-screen { position: absolute; left: -9999px; }
+    .wrapper { padding: 20px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <div class="is-hidden" id="level-1">
+    <section id="level-2">
+      <div id="level-3" style="display: block;">
+        <header id="level-4">
+          <h1>H1 Impostor #1: Herança de Display</h1>
+        </header>
+      </div>
+    </section>
+  </div>
+
+  <div class="is-collapsed">
+    <article>
+      <div class="inner-content">
+        <h1>H1 Impostor #2: Geometria Nula</h1>
+      </div>
+    </article>
+  </div>
+
+  <div aria-hidden="true">
+    <div>
+      <span>
+        <h1>H1 Impostor #3: Aria-Hidden Ancestral</h1>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <main>
+      <section>
+        <div class="content-box">
+          <h1>H1 Válido: Título Real da Aplicação</h1>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="is-off-screen">
+    <nav>
+      <ul>
+        <li><h1>H1 Impostor #4: Navegação Invisível</h1></li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
+</html>
