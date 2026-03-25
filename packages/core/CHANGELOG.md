@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.8
+
+### Patch Changes
+
+- Updated dependencies [d0bcc74]
+  - @qualweb/qw-element@0.3.4
+  - @qualweb/qw-page@0.3.4
+
 ## 0.8.7
 
 ### Patch Changes

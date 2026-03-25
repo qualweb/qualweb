@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4
+
+### Patch Changes
+
+- d0bcc74: feat: implement QWTextNode & spatial utilities; fix WCAG T17, T3, BP28
+
 ## 0.3.3
 
 ### Patch Changes
