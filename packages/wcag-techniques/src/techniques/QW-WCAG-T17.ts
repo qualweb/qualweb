@@ -2,6 +2,7 @@ import { QWElement } from '@qualweb/qw-element';
 import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
 import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
+import { QWTextNode } from '@qualweb/qw-element/dist/QWTextNode.object';
 
 const TEXT_POSITION:Record<string, string[]> = {
   'radio': ['right'],
@@ -30,39 +31,75 @@ class QW_WCAG_T17 extends Technique {
       }
     }
 
-    const textNodes = label.getDescendantTextNodes(); 
+    const textNodes = label.getDescendantTextNodes();
+    const validTextNodes = this.getValidTextNode(textNodes);
     
+    if (!validTextNodes || validTextNodes.length === 0) {
+      const children = label.getElements('svg, img');
+      const validChildren = children.filter(child => {
+        return allowed.includes(element.visualOrientationTo(child).primary);
+      });
+      const accessibleChildren = this.getAccessibleImages(validChildren);
 
-    if (!textNodes || textNodes.length === 0) {
-      const children = label.getElement('svg[alt], svg[aria-label], img[alt], img[aria-label], img[role],svg[role]');
-      if (children != null) {
-        test.verdict = Verdict.PASSED;
-        test.resultCode = 'P1';
-        return this.addResult(test, element);
-      }else{
-      test.verdict = Verdict.FAILED;
-      test.resultCode = 'F2';
+      test.verdict = accessibleChildren.length > 0 ? Verdict.PASSED : Verdict.FAILED;
+      test.resultCode = accessibleChildren.length > 0 ? 'P2' : 'F2';
       return this.addResult(test, element);
-      }
     }
 
-
-    const textNode = textNodes.find(node => node.isVisible());
+    const textNode = validTextNodes.find(node => node.isVisible());
     if (!textNode) {
       
       test.verdict = Verdict.FAILED;
-      test.resultCode = 'F2';
+      test.resultCode = 'F1';
       return this.addResult(test, element);
     }
 
     const orientation = element.visualOrientationTo(textNode);
-    const position = orientation.primary;
-
+    const position = orientation.primary;    
     const isCorrect = allowed.includes(position);
 
     test.verdict = isCorrect ? Verdict.PASSED : Verdict.FAILED;
     test.resultCode = isCorrect ? 'P1' : 'F1';
     this.addResult(test, element);
+  }
+
+  private getValidTextNode(textNodes: QWTextNode[] | null) {
+    return textNodes?.filter(node => {
+      const parent = node.getParentElement();
+      if (!parent) return false;
+
+      const tagName = parent.getElementTagName().toLowerCase();
+
+      const blacklist = ['svg', 'script', 'style', 'template', 'noscript'];
+      if (blacklist.includes(tagName)) {
+        return false;
+      }
+
+      if (parent.getClosestAncestor('svg' as any)) {
+        return false;
+      }
+      return true;
+    });
+  }
+
+private getAccessibleImages(elements: QWElement[]): QWElement[] {
+    if (!elements || elements.length === 0) return [];
+    return elements.filter(el => {
+      const tagName = el.getElementTagName().toLowerCase();
+      const attrs = el.getElementAttributes();
+      const hasValue = (v: string | undefined) => !!v?.trim();
+
+      if (hasValue(attrs["aria-label"]) || hasValue(attrs["aria-labelledby"])) return true;
+
+      if (tagName === 'img') return hasValue(attrs["alt"]) || hasValue(attrs["title"]);
+
+      if (tagName === 'svg') {
+        const titleText = el.getElement('title')?.getElementText()?.trim();
+
+        return !!titleText;
+      }
+      return false;
+    });
   }
 
   private addResult(test: Test, element: QWElement): void {

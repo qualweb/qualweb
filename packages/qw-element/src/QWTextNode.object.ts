@@ -1,3 +1,5 @@
+import { QWElement } from "./QWElement.object";
+
 export class QWTextNode {
   private readonly node: Node;
 
