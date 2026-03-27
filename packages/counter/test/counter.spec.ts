@@ -1,6 +1,11 @@
 import { expect } from 'chai';
-import { resolve } from 'path';
+import { createRequire } from 'module';
+import { dirname, resolve } from 'path';
 import puppeteer, { Browser, Page } from 'puppeteer';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 describe('QualWeb counter', async () => {
   let browser: Browser;
@@ -20,20 +25,21 @@ describe('QualWeb counter', async () => {
 
   it('Testing qualweb counter module', async function() {
     this.timeout(60 * 1000);
-
+   
+    const injectAndMark = async (modulePath: string) => {
+    await page.addScriptTag({ path: require.resolve(modulePath) });
+    await page.evaluate(() => {
+      const scripts = document.querySelectorAll('script');
+      scripts[scripts.length - 1].setAttribute('qw-ignore', '');
+    });
+  };
     await page.goto(`file://${resolve(__dirname, 'fixtures/loremipsum.html')}`);
 
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/qw-page')
-    });
+   await injectAndMark('@qualweb/qw-page');
+   await injectAndMark('@qualweb/util');
+    await injectAndMark('../dist/counter.bundle.js');
 
-    await page.addScriptTag({
-      path: require.resolve('@qualweb/util')
-    });
-
-    await page.addScriptTag({
-      path: require.resolve('../dist/counter.bundle.js')
-    });
+ 
 
     const report = await page.evaluate(() => {
       // @ts-expect-error: the function will be available within the context (injected bundle).
@@ -48,7 +54,9 @@ describe('QualWeb counter', async () => {
 
     expect(report.data.tags.html).to.equal(1);
     expect(report.data.tags.head).to.equal(1);
-    expect(report.data.tags.script).to.equal(3);
     expect(report.data.tags.body).to.equal(1);
+
+    const totalTags = Object.values(report.data.tags).reduce((acc, value) => Number(acc) + Number(value), 0);
+    expect(totalTags).to.equal(38);
   });
 });

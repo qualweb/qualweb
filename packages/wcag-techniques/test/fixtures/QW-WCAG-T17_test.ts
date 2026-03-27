@@ -436,7 +436,79 @@ export default [
 <input type="text">
 </label>`,
 outcome: 'passed',
+  },
+  {
+    code: `
+      <style>
+        .flex-rev { display: flex; flex-direction: row-reverse; width: fit-content; }
+      </style>
+      <label class="flex-rev">
+        <svg role="img" aria-label="Search" viewBox="0 0 24 24"><title>Search</title></svg>
+        <input type="text">
+      </label>`,
+    outcome: 'failed'
+  },
+  {
+    code: `
+      <style>
+        .grid-layout { display: grid; grid-template-columns: 100px 1fr; width: 200px; }
+        .grid-layout svg { grid-column: 1; }
+        .grid-label input { grid-column: 2; }
+      </style>
+      <label class="grid-layout">
+        <input type="text">
+        <svg role="img" aria-label="Search" viewBox="0 0 24 24"><title>Search</title></svg>
+      </label>`,
+    outcome: 'failed'
+  },
+  {
+    code: `
+      <style>
+        .right-aligned { display: flex; justify-content: flex-end; }
+        .order-last { order: 2; }
+        .order-first { order: 1; }
+      </style>
+      <label class="right-aligned">
+        <input type="checkbox" class="order-first">
+        <img src="icon.png" alt="Aceitar Termos" class="order-last">
+      </label>`,
+    outcome: 'passed'
+  },
+  {
+    code: `
+      <style>
+        .abs-container { position: relative; padding-left: 40px; }
+        .abs-svg { position: absolute; left: 0; top: 0; }
+      </style>
+      <label class="abs-container">
+        <input type="radio">
+        <svg class="abs-svg" role="img" aria-label="Opção A" viewBox="0 0 24 24"><title>A</title></svg>
+      </label>`,
+    outcome: 'failed'
+  },
+  {
+    code: `
+           <style>
+        .stacked { display: flex; flex-direction: column; }
+        svg { width: 30px; height: 30px; background: #121212; } 
+      </style>
+      <label class="stacked">
+        <svg role="img" aria-label="User" viewBox="0 0 24 24"><title>User</title></svg>
+        <input type="text">
+      </label>`,
+    outcome: 'passed'
+  },
+  {
+    code: `
+      <style>
+        .stacked-rev { display: flex; flex-direction: column-reverse; }
+      </style>
+      <label class="stacked-rev">
+        <input type="checkbox">
+        <svg role="img" aria-label="Check" viewBox="0 0 24 24"><title>Check</title></svg>
+      </label>`,
+    outcome: 'failed'
   }
-
-
-];
+  
+  
+]

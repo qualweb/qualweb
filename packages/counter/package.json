@@ -9,7 +9,7 @@
   "types": "prebuild/index.d.ts",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha test/counter.spec.ts",
+    "test": "mocha -r ts-node/register test/counter.spec.ts",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "clean": "rimraf dist",
