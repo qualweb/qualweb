@@ -34,21 +34,29 @@ public getBoundingBox(): DOMRect | null {
     return false;
   }
 
-  const parent = this.node.parentElement;
+  const parent = this.getParentElement();
   if (!parent) return false;
 
-  const style = window.getComputedStyle(parent);
+  const display = parent.getElementStyleProperty('display', null);
+  const visibility = parent.getElementStyleProperty('visibility', null);
+  const opacity = parent.getElementStyleProperty('opacity', null);
+  if (!display || !visibility || !opacity) return false;
 
   return (
-    style.display !== 'none' &&
-    style.visibility !== 'hidden' &&
-    style.opacity !== '0' &&
+    display !== 'none' &&
+    visibility !== 'hidden' &&
+    opacity !== '0' &&
     this.getText() !== '' 
   );
 }
 
   public getText(): string {
     return this.node.textContent?.trim() || '';
+  }
+
+  public getParentElement(): QWElement | null {
+    const parent = this.node.parentElement;
+    return parent ? new QWElement(parent) : null;
   }
 
 }
