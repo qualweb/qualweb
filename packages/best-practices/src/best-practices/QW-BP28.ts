@@ -39,21 +39,19 @@ class QW_BP28 extends BestPractice {
       return true;
     });
     const count = accessibleH1s.length;
-    if (count === 1) {
+    if (count <= 1 ) {
       verdict = Verdict.PASSED;
       resultCode = 'P1';
-    } else if (count === 0) {
+      
+    } else if (count > 1) {
       verdict = Verdict.FAILED;
       resultCode = 'F1';
-      const test = new Test();
-      test.verdict = verdict;
-      test.resultCode = resultCode;
-      this.addTestResult(test);
     } else {
       verdict = Verdict.FAILED;
       resultCode = 'F2';
-    } 
-    accessibleH1s.forEach((element) => {
+    }
+
+    candidates.forEach((element) => {
       const test = new Test();
       test.verdict = verdict;
       test.resultCode = resultCode;

@@ -11,22 +11,27 @@ function executeCounter(): CounterReport {
 
   const elementList = window.qwPage.getElements('*');
 
-  for (const element of elementList ?? []) {
-    const role = window.AccessibilityUtils.getElementRole(element);
+  if (!elementList || elementList.length === 0) {
+    return report;
+  }
+
+  for (const element of elementList) {
     const tag = element.getElementTagName();
 
-    if (role) {
-      if (report.data.roles[role] === undefined) {
-        report.data.roles[role] = 0;
+    const ignore = element.elementHasAttribute('qw-ignore');
+
+    if (ignore) {
+      continue;
+    }
+
+    report.data.tags[tag] = (report.data.tags[tag] || 0) + 1;
+    if (!['script', 'meta', 'link', 'style', 'head'].includes(tag)) {
+      const role = window.AccessibilityUtils.getElementRole(element);
+
+      if (role) {
+        report.data.roles[role] = (report.data.roles[role] || 0) + 1;
       }
-
-      report.data.roles[role]++;
     }
-
-    if (report.data.tags[tag] === undefined) {
-      report.data.tags[tag] = 0;
-    }
-    report.data.tags[tag]++;
   }
 
   return report;
