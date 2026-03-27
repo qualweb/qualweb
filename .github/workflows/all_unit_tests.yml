@@ -23,7 +23,27 @@ jobs:
       # Build all packages.
       - name: Build
         run: npm -ws run build
+      - name: Inject Puppeteer Config
+        run: |
+          cat <<EOF > .puppeteerrc.cjs
+          /**
+           * @type {import("puppeteer").Configuration}
+           */
+          module.exports = {
+            launch: {
+              args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--no-zygote'
+              ],
+              headless: 'new'
+            }
+          };
+          EOF
 
-      # Run unit tests in all workspaces.
       - name: "All unit tests"
         run: npm -ws test
+        env:
+          CI: true
+          PUPPETEER_ARGS: "--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --no-zygote"
