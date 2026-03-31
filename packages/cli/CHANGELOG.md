@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.17
+
+### Patch Changes
+
+- Updated dependencies [0a2a666]
+- Updated dependencies [9a9fa98]
+  - @qualweb/best-practices@0.7.9
+  - @qualweb/wcag-techniques@0.4.4
+  - @qualweb/counter@0.3.3
+  - @qualweb/core@0.8.9
+  - @qualweb/earl-reporter@0.5.9
+
 ## 0.7.16
 
 ### Patch Changes

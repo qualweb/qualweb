@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.5
+
+### Patch Changes
+
+- 0a2a666: Enhance WCAG T17 and BP28 checks and improve counter logic in CI workflow, also improved counter module.
+- 9a9fa98: Fix QWTextNode export and update import path
+
 ## 0.3.4
 
 ### Patch Changes

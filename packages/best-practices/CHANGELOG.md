@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.9
+
+### Patch Changes
+
+- 0a2a666: Enhance WCAG T17 and BP28 checks and improve counter logic in CI workflow, also improved counter module.
+
 ## 0.7.8
 
 ### Patch Changes
