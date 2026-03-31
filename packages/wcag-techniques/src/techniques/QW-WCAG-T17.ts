@@ -2,7 +2,7 @@ import { QWElement } from '@qualweb/qw-element';
 import { ElementExists, ElementIsVisible } from '@qualweb/util/applicability';
 import { Test, Verdict } from '@qualweb/core/evaluation';
 import { Technique } from '../lib/Technique.object';
-import { QWTextNode } from '@qualweb/qw-element/dist/QWTextNode.object';
+import { QWTextNode } from '@qualweb/qw-element';
 
 const TEXT_POSITION:Record<string, string[]> = {
   'radio': ['right'],
