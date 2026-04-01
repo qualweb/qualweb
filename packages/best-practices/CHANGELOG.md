@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.10
+
+### Patch Changes
+
+- a022d44: Add overlap handling for inputs radio and checkbots WCAGT17 and update H1 verdict logic IN BP28
+
 ## 0.7.9
 
 ### Patch Changes

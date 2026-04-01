@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/wcag-techniques",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Implementation of the WCAG 2.1 techniques",
   "files": [
     "dist/*"
