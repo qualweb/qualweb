@@ -55,6 +55,11 @@ class QW_WCAG_T17 extends Technique {
     }
 
     const orientation = element.visualOrientationTo(textNode);
+    if (orientation.primary === 'overlap' && (type === 'checkbox' || type === 'radio')) {
+      test.verdict = Verdict.WARNING;
+      test.resultCode = 'W1';
+      return this.addResult(test, element);
+    }
     const position = orientation.primary;    
     const isCorrect = allowed.includes(position);
 

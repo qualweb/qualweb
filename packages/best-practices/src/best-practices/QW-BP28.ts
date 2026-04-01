@@ -39,7 +39,7 @@ class QW_BP28 extends BestPractice {
       return true;
     });
     const count = accessibleH1s.length;
-    if (count <= 1 ) {
+    if (count === 1 ) {
       verdict = Verdict.PASSED;
       resultCode = 'P1';
       
@@ -47,8 +47,10 @@ class QW_BP28 extends BestPractice {
       verdict = Verdict.FAILED;
       resultCode = 'F1';
     } else {
-      verdict = Verdict.FAILED;
-      resultCode = 'F2';
+      const test = new Test();
+      test.verdict = Verdict.FAILED;
+      test.resultCode = 'F2';
+      return this.addTestResult(test);
     }
 
     candidates.forEach((element) => {
