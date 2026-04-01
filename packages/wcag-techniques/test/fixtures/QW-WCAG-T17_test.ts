@@ -508,6 +508,107 @@ outcome: 'passed',
         <svg role="img" aria-label="Check" viewBox="0 0 24 24"><title>Check</title></svg>
       </label>`,
     outcome: 'failed'
+  },{
+    code: `<style>
+  .overlap-group {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Define o tamanho da área de interação */
+    height: 40px;
+  }
+
+  .overlap-group input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0.5; 
+    z-index: 2;   
+  }
+
+  .overlap-group .label-content {
+    position: relative;
+    z-index: 1;  
+    pointer-events: none;
+  }
+</style>
+
+<div class="overlap-group">
+  <input id="confirmar" type="checkbox" aria-label="Confirmar">
+  <label class="label-content" for="confirmar">OK</label>
+</div>`,
+    outcome: 'warning'
+  },
+  {
+    code: `<style>
+  .overlap-group {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Define o tamanho da área de interação */
+    height: 40px;
+  }
+
+  .overlap-group input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0.5; 
+    z-index: 2;   
+  }
+
+  .overlap-group .label-content {
+    position: relative;
+    z-index: 1;  
+    pointer-events: none;
+  }
+</style>
+
+<div class="overlap-group">
+  <input id="confirmar" type="radio" aria-label="Confirmar">
+  <label class="label-content" for="confirmar">OK</label>
+</div>`,
+    outcome: 'warning'
+  },
+  {
+    code: `<style>
+  .overlap-group {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Define o tamanho da área de interação */
+    height: 40px;
+  }
+
+  .overlap-group input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0.5; 
+    z-index: 2;   
+  }
+
+  .overlap-group .label-content {
+    position: relative;
+    z-index: 1;  
+    pointer-events: none;
+  }
+</style>
+
+<div class="overlap-group">
+  <input id="name" type="text" aria-label="Confirmar">
+  <label class="label-content" for="name">Name</label>
+</div>`,
+    outcome: 'failed'
   }
   
   
