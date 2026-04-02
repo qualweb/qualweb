@@ -45,11 +45,11 @@ class QW_BP28 extends BestPractice {
       
     } else if (count > 1) {
       verdict = Verdict.FAILED;
-      resultCode = 'F1';
+      resultCode = 'F2';
     } else {
       const test = new Test();
       test.verdict = Verdict.FAILED;
-      test.resultCode = 'F2';
+      test.resultCode = 'F1';
       return this.addTestResult(test);
     }
 
