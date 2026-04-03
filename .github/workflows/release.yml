@@ -43,6 +43,9 @@ jobs:
       - name: Upgrade npm for Trusted Publishing
         run: npm install -g npm@11.6.0
 
+      - name: Clean stale nested workspace dependencies
+        run: find packages -path "*/node_modules/@qualweb" -type d -exec rm -rf {} + 2>/dev/null || true
+
       - name: Build
         run: npm -ws run build
 
