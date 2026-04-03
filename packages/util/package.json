@@ -56,7 +56,7 @@
   "author": "João Vicente",
   "license": "ISC",
   "devDependencies": {
-    "@qualweb/qw-page": "^0.3.2",
+    "@qualweb/qw-page": "^0.3.5",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
