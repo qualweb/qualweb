@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.5.9
+
+### Patch Changes
+
+- @qualweb/core@0.8.9
+
+## 0.5.8
+
+### Patch Changes
+
+- @qualweb/core@0.8.8
+
+## 0.5.7
+
+### Patch Changes
+
+- @qualweb/core@0.8.7
+
+## 0.5.6
+
+### Patch Changes
+
+- @qualweb/core@0.8.6
+
+## 0.5.5
+
+### Patch Changes
+
+- Updated dependencies [850181b]
+  - @qualweb/core@0.8.5
+
+## 0.5.4
+
+### Patch Changes
+
+- @qualweb/core@0.8.4
+
 ## 0.5.3
 
 ### Patch Changes

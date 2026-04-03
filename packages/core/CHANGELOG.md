@@ -1,5 +1,50 @@
 # Changelog
 
+## 0.8.9
+
+### Patch Changes
+
+- Updated dependencies [0a2a666]
+- Updated dependencies [9a9fa98]
+  - @qualweb/qw-element@0.3.5
+  - @qualweb/qw-page@0.3.5
+
+## 0.8.8
+
+### Patch Changes
+
+- Updated dependencies [d0bcc74]
+  - @qualweb/qw-element@0.3.4
+  - @qualweb/qw-page@0.3.4
+
+## 0.8.7
+
+### Patch Changes
+
+- Updated dependencies [fd854b3]
+  - @qualweb/qw-element@0.3.3
+  - @qualweb/qw-page@0.3.3
+
+## 0.8.6
+
+### Patch Changes
+
+- Updated dependencies [e54926e]
+  - @qualweb/util@0.6.5
+
+## 0.8.5
+
+### Patch Changes
+
+- 850181b: Checks (C1 to C10)
+
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependencies [411d717]
+  - @qualweb/util@0.6.4
+
 ## 0.8.3
 
 ### Patch Changes

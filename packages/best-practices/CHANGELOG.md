@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.7.10
+
+### Patch Changes
+
+- a022d44: Add overlap handling for inputs radio and checkbots WCAGT17 and update H1 verdict logic IN BP28
+
+## 0.7.9
+
+### Patch Changes
+
+- 0a2a666: Enhance WCAG T17 and BP28 checks and improve counter logic in CI workflow, also improved counter module.
+
+## 0.7.8
+
+### Patch Changes
+
+- d0bcc74: feat: implement QWTextNode & spatial utilities; fix WCAG T17, T3, BP28
+
+## 0.7.7
+
+### Patch Changes
+
+- eaa3821: Remove strong from list of elements for BP-10
+
 ## 0.7.6
 
 ### Patch Changes

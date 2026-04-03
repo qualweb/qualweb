@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.5
+
+### Patch Changes
+
+- e54926e: Fix accessible name computation for tables when using caption
+
+## 0.6.4
+
+### Patch Changes
+
+- 411d717: Update util dependency
+
 ## 0.6.3
 
 ### Patch Changes

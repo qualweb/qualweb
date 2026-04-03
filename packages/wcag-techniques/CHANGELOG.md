@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.4.5
+
+### Patch Changes
+
+- a022d44: Add overlap handling for inputs radio and checkbots WCAGT17 and update H1 verdict logic IN BP28
+
+## 0.4.4
+
+### Patch Changes
+
+- 0a2a666: Enhance WCAG T17 and BP28 checks and improve counter logic in CI workflow, also improved counter module.
+- 9a9fa98: Fix QWTextNode export and update import path
+
+## 0.4.3
+
+### Patch Changes
+
+- d0bcc74: feat: implement QWTextNode & spatial utilities; fix WCAG T17, T3, BP28
+
 ## 0.4.2
 
 ### Patch Changes
