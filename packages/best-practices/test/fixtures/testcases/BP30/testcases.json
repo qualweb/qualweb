@@ -1,0 +1,23 @@
+[
+  {
+    "path": "failed1.html",
+    "outcome": "failed"
+  },
+  {
+    "path": "passed1.html",
+    "outcome": "passed"
+  },
+  {
+    "path": "failed2.html",
+    "outcome": "failed"
+  },
+  {
+    "path": "passed2.html",
+    "outcome": "passed"
+  },
+  {
+    "path": "passed3.html",
+    "outcome": "passed"
+  }
+
+]
