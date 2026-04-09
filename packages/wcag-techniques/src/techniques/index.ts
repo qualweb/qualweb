@@ -26,7 +26,6 @@ export * from './QW-WCAG-T31';
 export * from './QW-WCAG-T32';
 export * from './QW-WCAG-T33';
 export * from './QW-WCAG-T34';
-export * from './QW-WCAG-T35';
 export * from './QW-WCAG-T4';
 export * from './QW-WCAG-T5';
 export * from './QW-WCAG-T6';
