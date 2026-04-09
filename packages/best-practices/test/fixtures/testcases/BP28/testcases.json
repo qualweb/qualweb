@@ -18,9 +18,5 @@
   {
     "path": "passed3.html",
     "outcome": "passed"
-  },
-  {
-    "path": "passed4.html",
-    "outcome": "passed"
   }
 ]
