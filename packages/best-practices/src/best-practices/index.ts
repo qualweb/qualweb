@@ -24,3 +24,4 @@ export * from './QW-BP6';
 export * from './QW-BP7';
 export * from './QW-BP8';
 export * from './QW-BP9';
+export * from './QW-BP30';
