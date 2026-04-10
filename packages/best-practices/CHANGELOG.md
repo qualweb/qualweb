@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.12
+
+### Patch Changes
+
+- e0b93ca: Enhance accessibility checks and remove obsolete techniques
+
 ## 0.7.11
 
 ### Patch Changes

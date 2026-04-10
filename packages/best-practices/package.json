@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/best-practices",
-  "version": "0.7.11",
+  "version": "0.7.12",
   "description": "QualWeb best practices",
   "files": [
     "dist/*"
