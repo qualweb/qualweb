@@ -1,9 +1,9 @@
 import type { QWElement } from '@qualweb/qw-element';
 import { ElementExists } from '@qualweb/util/applicability';
 import { Test, Verdict } from '@qualweb/core/evaluation';
-import { Technique } from '../lib/Technique.object';
+import { BestPractice } from '../lib/BestPractice.object';
 
-class QW_WCAG_T35 extends Technique {
+class QW_BP30 extends BestPractice {
   private readonly idMap = new Map<string, boolean>();
 
   @ElementExists
@@ -15,8 +15,8 @@ class QW_WCAG_T35 extends Technique {
     if (id && !this.idMap.get(id)) {
       try {
         const elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
-
-        if (elementsWithSameId.length > 1) {
+        const visibleElementsWithSameId = elementsWithSameId.filter(el => (window.AccessibilityUtils.isElementInAT(el)));
+        if (visibleElementsWithSameId.length > 1) {
           test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
         } else {
@@ -24,7 +24,7 @@ class QW_WCAG_T35 extends Technique {
           test.resultCode = 'P1';
         }
 
-        test.addElements(elementsWithSameId);
+        test.addElements(visibleElementsWithSameId);
         this.addTestResult(test);
       } finally {
         this.idMap.set(id, true);
@@ -33,4 +33,4 @@ class QW_WCAG_T35 extends Technique {
   }
 }
 
-export { QW_WCAG_T35 };
+export { QW_BP30 };
