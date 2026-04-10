@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.20
+
+### Patch Changes
+
+- Updated dependencies [e0b93ca]
+  - @qualweb/best-practices@0.7.12
+  - @qualweb/wcag-techniques@0.4.7
+
 ## 0.7.19
 
 ### Patch Changes
