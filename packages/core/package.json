@@ -9,23 +9,28 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
     },
     "./evaluation": {
       "types": "./dist/lib/evaluation/index.d.ts",
-      "require": "./dist/lib/evaluation/index.js"
+      "require": "./dist/lib/evaluation/index.js",
+      "import": "./dist/lib/evaluation/index.js"
     },
     "./evaluation/*": {
       "types": "./dist/lib/evaluation/*.d.ts",
-      "require": "./dist/lib/evaluation/*.js"
+      "require": "./dist/lib/evaluation/*.js",
+      "import": "./dist/lib/evaluation/*.js"
     },
     "./lib": {
       "types": "./dist/lib/index.d.ts",
-      "require": "./dist/lib/index.js"
+      "require": "./dist/lib/index.js",
+      "import": "./dist/lib/index.js"
     },
     "./locale": {
       "types": "./dist/lib/i18n/index.d.ts",
-      "require": "./dist/lib/i18n/index.js"
+      "require": "./dist/lib/i18n/index.js",
+      "import": "./dist/lib/i18n/index.js"
     }
   },
   "scripts": {
