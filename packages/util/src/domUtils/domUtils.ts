@@ -15,6 +15,7 @@ import getTrimmedTextFunction from './getTrimmedText';
 import objectElementIsNonTextFunction from './objectElementIsNonText';
 import isHumanLanguageFunction from './isHumanLanguage';
 import getTextSizeFunction from './getTextSize';
+import getVisibleTextFunction from './getVisibleText';
 
 import { Cache, FullMethodCache } from '../cache';
 
@@ -80,6 +81,10 @@ class DomUtils {
   @Cache('DomUtils.getTrimmedText')
   public static getTrimmedText(element: QWElement): string {
     return getTrimmedTextFunction(element);
+  }
+  @Cache('DomUtils.getVisibleText')
+  public static getVisibleText(element: QWElement): string {
+    return getVisibleTextFunction(element);
   }
 }
 
