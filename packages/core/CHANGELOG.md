@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.11
+
+### Patch Changes
+
+- Updated dependencies [c4d73ac]
+  - @qualweb/util@0.7.0
+
 ## 0.8.10
 
 ### Patch Changes
