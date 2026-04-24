@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0
+
+### Minor Changes
+
+- c4d73ac: adds getVisibleText function for use in ACT-R30. Compared to the getTrimmedText function this wanders down the tree and looks recursively for a visible element. Whereas the getTrimmedText function merely get's the text of the apparent element.
+
 ## 0.6.6
 
 ### Patch Changes
