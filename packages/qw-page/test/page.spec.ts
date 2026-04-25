@@ -1,6 +1,13 @@
 import puppeteer from 'puppeteer';
 import { expect } from 'chai';
-import type { QWPage } from '../src';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { createRequire } from 'module';
+import type { QWPage } from '../src/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
 declare global {
   interface Window {
