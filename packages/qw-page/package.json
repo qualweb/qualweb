@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "@qualweb/qw-page",
   "version": "0.3.6",
   "description": "Utilities module for qualweb",
@@ -10,7 +9,7 @@
   "types": "./prebuild/index.d.ts",
   "scripts": {
     "tsc": "tsc",
-    "test": "mocha --require ts-node/register --tsconfig ./tsconfig.json",
+    "test": "mocha",
     "lint": "eslint .",
     "format": "prettier src/**/*.ts --write",
     "clean": "rimraf dist",
