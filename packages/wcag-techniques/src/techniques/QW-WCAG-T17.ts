@@ -36,7 +36,7 @@ class QW_WCAG_T17 extends Technique {
     
     if (!validTextNodes || validTextNodes.length === 0) {
       const children = label.getElements('svg, img');
-      const validChildren = children.filter(child => {
+      const validChildren = children.filter((child: QWElement) => {
         return allowed.includes(element.visualOrientationTo(child).primary);
       });
       const accessibleChildren = this.getAccessibleImages(validChildren);

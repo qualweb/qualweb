@@ -1,5 +1,6 @@
 import type { ModuleTranslator } from '@qualweb/core/locale';
 import type { TestingData, HTMLValidationReport } from '@qualweb/core/evaluation';
+import type { QWElement } from '@qualweb/qw-element';
 import { Tester } from '@qualweb/core/evaluation';
 import mapping from './mapping';
 import * as techniques from '../techniques';
@@ -36,7 +37,7 @@ export class WCAGTechniquesTester extends Tester {
     if (techniqueObject) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => techniqueObject.execute?.(element));
+        elements.forEach((element: QWElement) => techniqueObject.execute?.(element));
       } else {
         techniqueObject.execute?.();
       }

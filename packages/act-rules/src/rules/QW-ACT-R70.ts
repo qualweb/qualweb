@@ -11,7 +11,7 @@ class QW_ACT_R70 extends AtomicRule {
     const test = new Test();
 
     const elementList = window.qwPage.getElements('*', undefined);
-    const childrenInSequentialFocusList = elementList.filter((elem) => {
+    const childrenInSequentialFocusList = elementList.filter((elem: QWElement) => {
       return (
         window.AccessibilityUtils.isPartOfSequentialFocusNavigation(elem) && window.DomUtils.isElementVisible(elem)
       );

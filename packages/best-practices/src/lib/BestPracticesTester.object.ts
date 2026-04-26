@@ -1,4 +1,5 @@
 import type { ModuleTranslator } from '@qualweb/core/locale';
+import type { QWElement } from '@qualweb/qw-element';
 import { Tester } from '@qualweb/core/evaluation';
 import mapping from './mapping';
 import * as bestPractices from '../best-practices';
@@ -28,7 +29,7 @@ export class BestPracticesTester extends Tester {
     if (bestPracticeObject) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => bestPracticeObject.execute?.(element));
+        elements.forEach((element: QWElement) => bestPracticeObject.execute?.(element));
       } else {
         bestPracticeObject.execute?.();
       }

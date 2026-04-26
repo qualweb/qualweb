@@ -49,7 +49,7 @@ export class ACTRulesTester extends Tester {
     if (ruleToExecute) {
       const elements = window.qwPage.getElements(selector);
       if (elements.length > 0) {
-        elements.forEach((element) => ruleToExecute?.execute?.(element));
+        elements.forEach((element: QWElement) => ruleToExecute?.execute?.(element));
       } else {
         ruleToExecute?.execute?.();
       }
@@ -124,7 +124,7 @@ export class ACTRulesTester extends Tester {
       const r40 = this.assertions.get('QW-ACT-R40');
       if (r40) {
         const elements = window.qwPage.getElements('body *');
-        elements.forEach((element) => r40?.execute?.(element));
+        elements.forEach((element: QWElement) => r40?.execute?.(element));
         this.report.addAssertionResult(r40);
       }
     }

@@ -15,7 +15,7 @@ class QW_BP30 extends BestPractice {
     if (id && !this.idMap.get(id)) {
       try {
         const elementsWithSameId = window.qwPage.getElements(`[id="${id}"]`, element);
-        const visibleElementsWithSameId = elementsWithSameId.filter(el => (window.AccessibilityUtils.isElementInAT(el)));
+        const visibleElementsWithSameId = elementsWithSameId.filter((el: QWElement) => (window.AccessibilityUtils.isElementInAT(el)));
         if (visibleElementsWithSameId.length > 1) {
           test.verdict = Verdict.FAILED;
           test.resultCode = 'F1';
