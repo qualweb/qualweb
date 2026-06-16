@@ -47,7 +47,7 @@ export class ACTRulesTester extends Tester {
   private executeRule(rule: string, selector: string): void {
     const ruleToExecute = this.assertions.get(rule);
     if (ruleToExecute) {
-      const elements = window.qwPage.getElements(selector);
+      const elements: QWElement[] = window.qwPage.getElements(selector);
       if (elements.length > 0) {
         elements.forEach((element) => ruleToExecute?.execute?.(element));
       } else {
@@ -79,7 +79,7 @@ export class ACTRulesTester extends Tester {
       for (const atomicRule of atomicRules ?? []) {
         atomicRulesReport.push(this.report.getAssertions(atomicRule));
       }
-      const elements = window.qwPage.getElements(selector);
+      const elements: QWElement[] = window.qwPage.getElements(selector);
       if (elements.length > 0) {
         for (const elem of elements || []) {
           if (implementation === 'conjunction') {
@@ -123,7 +123,7 @@ export class ACTRulesTester extends Tester {
     if (this.toExecute['QW-ACT-R40']) {
       const r40 = this.assertions.get('QW-ACT-R40');
       if (r40) {
-        const elements = window.qwPage.getElements('body *');
+        const elements: QWElement[] = window.qwPage.getElements('body *');
         elements.forEach((element) => r40?.execute?.(element));
         this.report.addAssertionResult(r40);
       }

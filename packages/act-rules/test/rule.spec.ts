@@ -47,40 +47,7 @@ const mapping: Record<string, string> = {
   'QW-ACT-R35': 'ffd0e9',
   'QW-ACT-R36': 'a25f45',
   'QW-ACT-R37': 'afw4f7',
-  'QW-ACT-R38': 'bc4a75',
-  'QW-ACT-R39': 'd0f69e',
-  'QW-ACT-R40': '59br37',
-  'QW-ACT-R41': '36b590',
-  'QW-ACT-R42': '8fc3b6',
-  'QW-ACT-R43': '0ssw9k',
-  'QW-ACT-R44': 'fd3a94',
-  'QW-ACT-R48': '46ca7f',
-  'QW-ACT-R49': 'aaa1bf',
-  'QW-ACT-R50': '4c31df',
-  'QW-ACT-R51': 'fd26cf',
-  'QW-ACT-R53': 'ee13b5',
-  'QW-ACT-R54': 'd7ba54',
-  'QW-ACT-R55': '1ea59c',
-  'QW-ACT-R56': 'ab4d13',
-  'QW-ACT-R58': '2eb176',
-  'QW-ACT-R59': 'afb423',
-  'QW-ACT-R60': 'f51b46',
-  'QW-ACT-R61': '1a02b0',
-  'QW-ACT-R62': 'oj04fd',
-  'QW-ACT-R63': 'b40fd1',
-  'QW-ACT-R64': '047fe0',
-  'QW-ACT-R65': '307n5z',
-  'QW-ACT-R66': 'm6b1q3',
-  'QW-ACT-R67': '24afc2',
-  'QW-ACT-R68': '78fd32',
-  'QW-ACT-R69': '9e45ec',
-  'QW-ACT-R70': 'akn7bn',
-  'QW-ACT-R71': 'bisz58',
-  'QW-ACT-R73': '3e12e1',
-  'QW-ACT-R74': 'ye5d6e',
-  'QW-ACT-R75': 'cf77f2',
-  'QW-ACT-R76': '09o5cg',
-  'QW-ACT-R77': 'in6db8'
+  
 };
 
 /**
@@ -149,10 +116,20 @@ describe('ACT rules', () => {
 
           // Script injection doesn't work on non-HTML pages. Instead, we insert
           // some empty HTML stuff and let the rule take over from there.
-          if (test.url.endsWith('html'))
-            await page.goto(test.url, { waitUntil: 'networkidle2' });
-          else
+          //
+          // For HTML pages, use the already-fetched source rather than
+          // navigating Chromium to the W3C URL. Browser navigation can be served
+          // an anti-bot verification page, while node-fetch receives the actual
+          // testcase HTML.
+          if (test.url.endsWith('html')) {
+            const sourceHtmlWithBase = sourceHtml.replace(
+              /<head([^>]*)>/i,
+              `<head$1><base href="${test.url}">`
+            );
+            await page.setContent(sourceHtmlWithBase, { waitUntil: 'networkidle2' });
+          } else {
             await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
+          }
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 
