@@ -17,7 +17,7 @@
   "author": "Carlos Duarte <caduarte@campus.ul.pt>",
   "contributors": [
     "Antonio Estriga <antonio.estriga@gmail.com>",
-    "João Afonso Vicente <joao.vicente@edu.ulisboa.pt>",
+    "Jo\u00e3o Afonso Vicente <joao.vicente@edu.ulisboa.pt>",
     "Johannes L. Borresen <jlb@inqludeit.dk>"
   ],
   "license": "ISC",
@@ -32,6 +32,7 @@
     "packages/locale",
     "packages/crawler",
     "packages/core",
+    "packages/playwright-driver",
     "packages/act-rules",
     "packages/best-practices",
     "packages/wcag-techniques",
