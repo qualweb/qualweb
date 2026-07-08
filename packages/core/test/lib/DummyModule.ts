@@ -14,7 +14,7 @@ import { QualwebPage } from '../../src/lib';
  * a Promise. Given (arg1: string, arg2: number) => Promise<boolean>, it
  * will return (arg1: string, arg2: number) => boolean.
  */
-type ResolvedFunction<T> = T extends (...args: infer A) => Promise<infer R> ? (...args: A) => R : T;
+type ResolvedFunction<T> = T extends (...args: infer A) => Promise<infer R> ? (...args: A) => R | Promise<R> : T;
 
 /**
  * Dummy module used in core tests. It doesn't run anything in the browser, and

@@ -194,8 +194,9 @@ class Crawler {
     let urls = new Array<string>();
     let relativePathsToTest = new Array<string>();
 
+    let page = null;
     try {
-      const page = await this.browser.newPage();
+      page = await this.browser.newPage();
       if (this.viewport) {
         await page.setViewport(this.viewport);
       }
@@ -317,9 +318,13 @@ class Crawler {
         this.isDomain
       );
 
-      //await page.close();
     } catch (err) {
       console.error(err);
+    } finally {
+      // Without this, a long crawl accumulates one open tab per fetched
+      // page until the browser starts refusing new pages and urls are
+      // silently dropped.
+      await page?.close().catch(() => undefined);
     }
 
     return [[], [...relativePathsToTest, ...this.normalizeAndSort(urls)]];
@@ -329,8 +334,9 @@ class Crawler {
     const newUrlsToValidate = new Array<string>();
     await Promise.all(
       urls.map(async (url) => {
+        let page = null;
         try {
-          const page = await this.browser.newPage();
+          page = await this.browser.newPage();
 
           if (this.viewport) {
             await page.setViewport(this.viewport);
@@ -360,9 +366,10 @@ class Crawler {
           if (newUrl !== null) {
             newUrlsToValidate.push(newUrl);
           }
-          await page.close();
         } catch (err) {
           console.error(err);
+        } finally {
+          await page?.close().catch(() => undefined);
         }
       })
     );
