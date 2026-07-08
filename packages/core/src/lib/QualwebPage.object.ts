@@ -1,7 +1,7 @@
 import axios from 'axios';
-import type { Page, HTTPResponse, Viewport, Awaitable, InnerParams } from 'puppeteer';
 import type { HTMLValidationReport, TestingData } from '../lib/evaluation';
 import type { QualwebOptions } from './QualwebOptions';
+import type { DriverPage, DriverResponse, DriverViewport, EvaluateFunction } from './driver/types';
 import { PageOptions } from './PageOptions';
 import { PluginManager } from './PluginManager.object';
 import {
@@ -13,15 +13,13 @@ import {
   DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT,
 } from './constants';
 
-type EvaluateFunc<T extends unknown[]> = (...params: InnerParams<T>) => Awaitable<unknown>;
-
 export class QualwebPage {
   private readonly pluginManager: PluginManager;
-  public readonly page: Page;
+  public readonly page: DriverPage;
   private readonly url?: string;
   private readonly html?: string;
 
-  constructor(pluginManager: PluginManager, page: Page, url?: string, html?: string) {
+  constructor(pluginManager: PluginManager, page: DriverPage, url?: string, html?: string) {
     if (!url && !html) {
       throw new Error('Neither a url nor html content was provided.');
     }
@@ -43,8 +41,8 @@ export class QualwebPage {
     return this.page.title();
   }
 
-  public async getNumberOfHTMLElements(): Promise<number> {
-    return (await this.page.$$('*')).length;
+  public getNumberOfHTMLElements(): Promise<number> {
+    return this.page.countElements('*');
   }
 
   public getOuterHTML(): Promise<string> {
@@ -52,7 +50,7 @@ export class QualwebPage {
   }
 
   public getUserAgent(): Promise<string> {
-    return this.page.browser().userAgent();
+    return this.page.getBrowserUserAgent();
   }
 
   public async getTestingData(options: QualwebOptions): Promise<TestingData> {
@@ -90,7 +88,7 @@ export class QualwebPage {
       testingData.sourceHtml = await this.page.content();
     }
 
-    testingData.newTabWasOpen = await this.extraTabOpened();
+    testingData.newTabWasOpen = await this.page.closeExtraTabs();
 
     await this.pluginManager.executeAfterPageLoad(this.page);
 
@@ -121,15 +119,15 @@ export class QualwebPage {
     });
   }
 
-  public evaluate<Params extends unknown[], Func extends EvaluateFunc<Params> = EvaluateFunc<Params>>(
+  public evaluate<Params extends unknown[], Func extends EvaluateFunction<Params> = EvaluateFunction<Params>>(
     pageFunction: Func | string,
     ...args: Params
   ): Promise<Awaited<ReturnType<Func>>> {
-    return this.page.evaluate<Params, Func>(pageFunction, ...args);
+    return this.page.evaluate(pageFunction, ...args);
   }
 
-  private async navigateToPage(options: QualwebOptions): Promise<HTTPResponse | null> {
-    this.page.on('dialog', (dialog) => dialog.dismiss());
+  private navigateToPage(options: QualwebOptions): Promise<DriverResponse | null> {
+    this.page.dismissDialogs();
 
     return this.page.goto(this.url ?? '', {
       timeout: options.timeout ?? 240 * 1000,
@@ -137,7 +135,7 @@ export class QualwebPage {
     });
   }
 
-  public getViewport(): Viewport | null {
+  public getViewport(): DriverViewport | null {
     return this.page.viewport();
   }
 
@@ -163,8 +161,8 @@ export class QualwebPage {
     }
   }
 
-  private createViewportObject(options: PageOptions): Viewport {
-    const viewport: Viewport = {
+  private createViewportObject(options: PageOptions): DriverViewport {
+    const viewport: DriverViewport = {
       width: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_WIDTH : DEFAULT_DESKTOP_PAGE_VIEWPORT_WIDTH,
       height: options.mobile ? DEFAULT_MOBILE_PAGE_VIEWPORT_HEIGHT : DEFAULT_DESKTOP_PAGE_VIEWPORT_HEIGHT
     };
@@ -181,27 +179,6 @@ export class QualwebPage {
     viewport.hasTouch = !!options.mobile;
 
     return viewport;
-  }
-
-  private async extraTabOpened(): Promise<boolean> {
-    const tabs = await this.page.browser().pages();
-
-    let extraTabOpened = false;
-
-    for (const tab of tabs ?? []) {
-      const target = tab.target();
-      const opener = target.opener();
-
-      if (opener) {
-        const openerPage = await opener.page();
-        if (openerPage && openerPage.url() === this.page.url()) {
-          extraTabOpened = true;
-          await tab.close();
-        }
-      }
-    }
-
-    return extraTabOpened;
   }
 
   private async getSourceHtml(options?: PageOptions): Promise<string> {

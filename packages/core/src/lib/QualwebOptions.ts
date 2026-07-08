@@ -2,13 +2,20 @@ import { CrawlOptions } from '@qualweb/crawler';
 import { LogOptions } from './LogOptions';
 import { PageOptions } from './PageOptions';
 import { TranslationOptions } from '@qualweb/locale';
-import { PuppeteerLifeCycleEvent } from 'puppeteer';
+import { LoadEvent } from './driver/types';
 import { ExecutableModuleContext } from './evaluation';
 
 // Re-export the lifecycle event type we use. Allows clients to rely more
 // directly on @qualweb/core instead of pulling this from a potentially
 // incompatible version of puppeteer.
-export { PuppeteerLifeCycleEvent };
+export { LoadEvent };
+
+/**
+ * @deprecated Use {@link LoadEvent} instead. Kept as an alias for backwards
+ * compatibility; the literal values are identical to Puppeteer's own
+ * PuppeteerLifeCycleEvent type.
+ */
+export type PuppeteerLifeCycleEvent = LoadEvent;
 
 export type QualwebOptions = {
   /**
@@ -60,7 +67,7 @@ export type QualwebOptions = {
    * Override the default life cycle event that signals QualWeb to start
    * evaluating. Defaults to 'load'.
    */
-  waitUntil?: PuppeteerLifeCycleEvent | PuppeteerLifeCycleEvent[];
+  waitUntil?: LoadEvent | LoadEvent[];
 
   /**
    * Override the viewport used by Puppeteer.

@@ -1,20 +1,19 @@
 import logUpdate from 'log-update';
-import { Browser, BrowserContext, Viewport } from 'puppeteer';
 import type { CrawlOptions } from './CrawlOptions';
-import type { PuppeteerLifeCycleEvent as LoadEvent } from 'puppeteer';
+import type { CrawlerViewport, LoadEvent, PageSource } from './types';
 
 class Crawler {
-  private readonly browser: Browser | BrowserContext;
-  private readonly viewport?: Viewport;
+  private readonly browser: PageSource;
+  private readonly viewport?: CrawlerViewport;
   private readonly startingUrl: string;
   private readonly isDomain: boolean;
   private readonly waitUntil: LoadEvent | Array<LoadEvent>;
   private urls: Array<string>;
 
   constructor(
-    browser: Browser | BrowserContext,
+    browser: PageSource,
     startingUrl: string,
-    viewport?: Viewport,
+    viewport?: CrawlerViewport,
     waitUntil?: LoadEvent | LoadEvent[]
   ) {
     this.browser = browser;
