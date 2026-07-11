@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.1
+
+### Patch Changes
+
+- 226ea14: Refactor QW-ACT-R37 (text contrast), fix bugs, and unblock the build
+
 ## 0.8.0
 
 ### Minor Changes
