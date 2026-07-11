@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.13
+
+### Patch Changes
+
+- Updated dependencies [8df044c]
+  - @qualweb/crawler@0.4.3
+
 ## 0.8.12
 
 ### Patch Changes
