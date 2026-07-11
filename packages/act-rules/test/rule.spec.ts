@@ -149,10 +149,20 @@ describe('ACT rules', () => {
 
           // Script injection doesn't work on non-HTML pages. Instead, we insert
           // some empty HTML stuff and let the rule take over from there.
-          if (test.url.endsWith('html'))
-            await page.goto(test.url, { waitUntil: 'networkidle2' });
-          else
+          //
+          // For HTML pages, use the already-fetched source rather than
+          // navigating Chromium to the W3C URL. Browser navigation can be served
+          // an anti-bot verification page, while node-fetch receives the actual
+          // testcase HTML.
+          if (test.url.endsWith('html')) {
+            const sourceHtmlWithBase = sourceHtml.replace(
+              /<head([^>]*)>/i,
+              `<head$1><base href="${test.url}">`
+            );
+            await page.setContent(sourceHtmlWithBase, { waitUntil: 'networkidle2' });
+          } else {
             await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
+          }
 
           // Inject @qualweb/act-rules and its dependencies into the page.
 
