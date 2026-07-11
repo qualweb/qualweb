@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "@qualweb/qw-page",
   "version": "0.3.6",
   "description": "Utilities module for qualweb",
