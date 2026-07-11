@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.8.12
+
+### Patch Changes
+
+- 51261b9: Fix trim ReDoS vulnerability by upgrading franc-min to ^6.2.0
+  - Upgrades franc-min from ^5.0.0 to ^6.2.0 in @qualweb/util, removing the vulnerable trim <0.0.3 transitive dependency chain (GHSA-w5p7-h5w8-2hfq)
+  - Adds root-level overrides.trim as a fallback to ensure trim >=0.0.3 across the monorepo
+  - Adds 'import' conditions to @qualweb/core exports map to fix ERR_PACKAGE_PATH_NOT_EXPORTED in ESM test contexts
+  - Fixes \_\_dirname and require.resolve usage in @qualweb/qw-page tests for ESM compatibility
+  - Adds "type": "module" to @qualweb/qw-page package.json
+  - Renames .mocharc.js → .mocharc.cjs in qw-page, crawler, and counter packages
+
+- Updated dependencies [51261b9]
+- Updated dependencies [226ea14]
+  - @qualweb/qw-page@0.3.7
+  - @qualweb/util@0.7.1
+
 ## 0.8.11
 
 ### Patch Changes
