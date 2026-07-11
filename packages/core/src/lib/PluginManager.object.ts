@@ -1,5 +1,5 @@
 import type { QualwebPlugin } from '.';
-import type { Page } from 'puppeteer';
+import type { DriverPage } from './driver/types';
 
 export class PluginManager {
   /**
@@ -22,12 +22,12 @@ export class PluginManager {
    * If any exceptions occur during the execution of a plugin, it should bubble up past the
    * call to Qualweb.evaluate() so the user can handle it on their own.
    *
-   * @param {Page} page - Puppeteer page
+   * @param {DriverPage} page - Driver page
    * @param {string} url - URL currently being evaluated. Note that the page's
    * URL is probably "about:blank" at this point, since we haven't navigated to
    * the URL yet.
    */
-  public async executeBeforePageLoad(page: Page, url?: string): Promise<void> {
+  public async executeBeforePageLoad(page: DriverPage, url?: string): Promise<void> {
     this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, url || 'customHtml'));
   }
 
@@ -35,9 +35,9 @@ export class PluginManager {
    * Execute afterPageLoad on all plugins in order.
    * Same assumptions for exceptions apply as they did for beforePageLoad.
    *
-   * @param {Page} page - Puppeteer page
+   * @param {DriverPage} page - Driver page
    */
-  public async executeAfterPageLoad(page: Page): Promise<void> {
+  public async executeAfterPageLoad(page: DriverPage): Promise<void> {
     this.plugins.forEach(async (plugin) => await plugin.afterPageLoad?.(page, page.url() || 'customHtml'));
   }
 }

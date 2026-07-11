@@ -1,4 +1,5 @@
 export * from './ClusterOptions';
+export * from './driver';
 export * from './constants';
 export * from './ErrorManager.object';
 export * from './EvaluationManager.object';

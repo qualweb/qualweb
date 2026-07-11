@@ -1,6 +1,12 @@
-import { Page } from 'puppeteer';
+import type { DriverPage } from './driver/types';
 
-export type PageCallback = (page: Page, url: string) => Promise<void> | void;
+/**
+ * Callback signature for {@link QualwebPlugin} hooks. Receives the
+ * driver-agnostic {@link DriverPage}; plugins that need functionality
+ * specific to the underlying automation library can reach it through
+ * {@link DriverPage.nativePage}.
+ */
+export type PageCallback = (page: DriverPage, url: string) => Promise<void> | void;
 
 /**
  * Basic interface for a Qualweb plugin. Plugins are useful when you need to

@@ -1,6 +1,6 @@
 import path from 'path';
 import { writeFile, unlink } from 'fs';
-import type { Cluster } from 'puppeteer-cluster';
+import type { DriverPool } from './driver/types';
 import type { LogOptions } from './LogOptions';
 
 export class ErrorManager {
@@ -15,8 +15,8 @@ export class ErrorManager {
     this.writeErrorToFile('Evaluation errors', `${formattedDate}\n-----------`);
   }
 
-  public handle(cluster?: Cluster): void {
-    cluster?.on('taskerror', (err, data) => {
+  public handle(pool?: DriverPool): void {
+    pool?.onTaskError((err, data) => {
       this.error = true;
       this.writeErrorToFile(data.url, `${err.message}\n-----------`);
     });
@@ -28,7 +28,7 @@ export class ErrorManager {
    * @param {string} url - Url that failed to evaluate.
    * @param {string} message - Error message of the evaluation.
    */
-  private writeErrorToFile(url: string, message: string): void {
+  private writeErrorToFile(url: string | undefined, message: string): void {
     if (this.logOptions?.file) {
       const _path = path.resolve(process.cwd(), this.fileName);
       const data = url + ' : ' + message + '\n';

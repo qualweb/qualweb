@@ -1,14 +1,9 @@
-import type { Page, LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions, Viewport } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
-import { Cluster } from 'puppeteer-cluster';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import AdBlocker from 'puppeteer-extra-plugin-adblocker';
+import type { Page } from 'puppeteer';
 import { readFile } from 'fs';
 import 'colors';
 import type {
   QualwebReport,
 } from './lib/evaluation/QualwebReport';
-import { PuppeteerLifeCycleEvent as LoadEvent } from 'puppeteer';
 import { Crawler, CrawlOptions } from '@qualweb/crawler';
 import {
   EvaluationManager,
@@ -20,6 +15,9 @@ import {
   PuppeteerPlugins,
   ClusterOptions,
 } from './lib';
+import type { Driver, DriverPool, DriverViewport, LoadEvent } from './lib/driver/types';
+import { PuppeteerDriver, PuppeteerLaunchOptions } from './lib/driver/puppeteer/PuppeteerDriver';
+import { PuppeteerDriverPage } from './lib/driver/puppeteer/PuppeteerDriverPage';
 
 /**
  * QualWeb engine - Performs web accessibility evaluations using several modules:
@@ -29,9 +27,14 @@ import {
  */
 export class QualWeb {
   /**
-   * Chromium browser cluster.
+   * Browser automation driver. Defaults to Puppeteer.
    */
-  private cluster?: Cluster;
+  private readonly driver: Driver;
+
+  /**
+   * Browser pool used for evaluations.
+   */
+  private pool?: DriverPool;
 
   /**
    * Array of plugins added with QualWeb.use().
@@ -39,37 +42,32 @@ export class QualWeb {
   private readonly pluginManager = new PluginManager();
 
   /**
-   * Initializes puppeteer with given plugins.
+   * Initializes the browser automation driver.
    *
-   * @param {PuppeteerPlugins} plugins - Plugins for puppeteer - supported: AdBlocker and Stealth.
+   * @param {PuppeteerPlugins} plugins - Plugins for the default Puppeteer
+   * driver - supported: AdBlocker and Stealth. Ignored when a custom driver
+   * is given.
+   * @param {Driver} driver - Custom browser automation driver. Defaults to
+   * the Puppeteer driver.
    */
-  constructor(plugins?: PuppeteerPlugins) {
-    if (plugins?.stealth) {
-      puppeteer.use(StealthPlugin());
-    }
-    if (plugins?.adBlock) {
-      puppeteer.use(AdBlocker({ blockTrackersAndAnnoyances: true }));
-    }
+  constructor(plugins?: PuppeteerPlugins, driver?: Driver) {
+    this.driver = driver ?? new PuppeteerDriver({ plugins });
   }
 
   /**
-   * Starts chromium browser cluster.
+   * Starts the browser (pool) used for evaluations.
    *
-   * @param {ClusterOptions} clusterOptions - Options for cluster initialization.
-   * @param {LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions} puppeteerOptions - check https://github.com/puppeteer/puppeteer/blob/v9.1.1/docs/api.md#puppeteerlaunchoptions.
+   * @param {ClusterOptions} clusterOptions - Options for pool initialization.
+   * @param {PuppeteerLaunchOptions} puppeteerOptions - Launch options for the
+   * default Puppeteer driver - check https://pptr.dev/api/puppeteer.launchoptions.
+   * Custom drivers receive their launch options at construction time instead
+   * and may ignore this parameter.
    */
   public async start(
     clusterOptions?: ClusterOptions,
-    puppeteerOptions?: LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions
+    puppeteerOptions?: PuppeteerLaunchOptions
   ): Promise<void> {
-    this.cluster = await Cluster.launch({
-      concurrency: Cluster.CONCURRENCY_CONTEXT,
-      maxConcurrency: clusterOptions?.maxConcurrency ?? 1,
-      puppeteerOptions,
-      puppeteer: puppeteer,
-      timeout: clusterOptions?.timeout ?? 60 * 1000,
-      monitor: clusterOptions?.monitor ?? false
-    });
+    this.pool = await this.driver.launchPool(clusterOptions, puppeteerOptions);
   }
 
   /**
@@ -85,10 +83,10 @@ export class QualWeb {
   }
 
   /**
-   * Closes chromium browser cluster.
+   * Closes the browser (pool).
    */
   public async stop(): Promise<void> {
-    await this.cluster?.close();
+    await this.pool?.close();
   }
 
   /**
@@ -106,7 +104,7 @@ export class QualWeb {
     }
 
     const errorManager = new ErrorManager(options.log);
-    errorManager.handle(this.cluster);
+    errorManager.handle(this.pool);
 
     const reports: Record<string, QualwebReport> = {};
 
@@ -117,7 +115,7 @@ export class QualWeb {
       this.addHtmlCodeToEvaluate(options.html);
     }
 
-    await this.cluster?.idle();
+    await this.pool?.idle();
 
     errorManager.showErrorsIfAny();
 
@@ -125,7 +123,7 @@ export class QualWeb {
   }
 
   private async handlePageEvaluations(reports: Record<string, QualwebReport>, options: QualwebOptions): Promise<void> {
-    await this.cluster?.task(async ({ page, data: { url, html } }) => {
+    await this.pool?.task(async (page, { url, html }) => {
       const qwPage = new QualwebPage(this.pluginManager, page, url, html);
       const evaluationManager = new EvaluationManager(qwPage);
       reports[url ?? 'customHtml'] = await evaluationManager.evaluate(options);
@@ -133,11 +131,11 @@ export class QualWeb {
   }
 
   private addUrlsToEvaluate(urls: string[]): void {
-    urls.forEach((url) => this.cluster?.queue({ url }));
+    urls.forEach((url) => this.pool?.queue({ url }));
   }
 
   private addHtmlCodeToEvaluate(html?: string): void {
-    this.cluster?.queue({ html });
+    this.pool?.queue({ html });
   }
 
   /**
@@ -145,25 +143,23 @@ export class QualWeb {
    *
    * @param {string} domain - Domain to crawl.
    * @param {CrawlOptions} options - Options for crawling process.
-   * @Param {Viewport} viewport - Set the viewport of the webpages.
+   * @Param {DriverViewport} viewport - Set the viewport of the webpages.
    * @param {LoadEvent | LoadEvent[]} waitUntil - Wait for dom events before starting the crawling process.
    * @returns List of decoded urls.
    */
   public async crawl(
     domain: string,
     options?: CrawlOptions,
-    viewport?: Viewport,
+    viewport?: DriverViewport,
     waitUntil?: LoadEvent | LoadEvent[]
   ): Promise<string[]> {
-    const browser = await puppeteer.launch();
-    const incognito = await browser.createBrowserContext();
-    const crawler = new Crawler(incognito, domain, viewport, waitUntil);
+    const context = await this.driver.launchContext();
+    const crawler = new Crawler(context, domain, viewport, waitUntil);
     await crawler.crawl(options);
 
     const results = crawler.getResults();
 
-    await incognito.close();
-    await browser.close();
+    await context.close();
 
     return results;
   }
@@ -228,7 +224,7 @@ export class QualWeb {
    * @returns Qualweb Page
    */
   public static createPage(page: Page): QualwebPage {
-    return new QualwebPage(new PluginManager(), page);
+    return new QualwebPage(new PluginManager(), new PuppeteerDriverPage(page));
   }
 }
 
