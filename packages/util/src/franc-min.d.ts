@@ -18,5 +18,5 @@ declare module 'franc-min' {
     minLength?: number;
   };
 
-  export default function detect(value?: string | undefined, options?: Options | undefined): any | undefined;
+  export function franc(value?: string | undefined, options?: Options | undefined): any | undefined;
 }

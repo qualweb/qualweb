@@ -6,6 +6,10 @@ function getTextSize(font: string, fontSize: number, bold: boolean, italic: bool
     font = 'times new roman';
   } else if (font === 'sans-serif') {
     font = 'arial';
+  } else if (font === 'times') {
+    // Chromium reports the default serif font as "Times", which
+    // string-pixel-width doesn't know but treats as Times New Roman.
+    font = 'times new roman';
   }
   try {
     //@ts-ignore

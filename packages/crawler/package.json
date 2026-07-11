@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/crawler",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Webpage crawler for qualweb",
   "main": "dist/index.js",
   "files": [
