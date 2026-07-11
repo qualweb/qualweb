@@ -23,6 +23,9 @@ jobs:
       # Build all packages.
       - name: Build
         run: npm -ws run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
       - name: Inject Puppeteer Config
         run: |
           cat <<EOF > .puppeteerrc.cjs

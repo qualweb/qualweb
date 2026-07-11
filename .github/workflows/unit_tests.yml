@@ -89,6 +89,14 @@ jobs:
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')
         run: npm run -w @qualweb/locale test
 
+      - name: Install Playwright browsers
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/playwright-driver')
+        run: npx playwright install --with-deps chromium
+
+      - name: "@qualweb/playwright-driver"
+        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/playwright-driver')
+        run: npm run -w @qualweb/playwright-driver test
+
       - name: "@qualweb/qw-element"
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-element')
         run: npm run -w @qualweb/qw-element test
