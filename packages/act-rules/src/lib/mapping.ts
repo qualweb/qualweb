@@ -10,7 +10,7 @@ export default {
   meta: ['QW-ACT-R4', 'QW-ACT-R71'],
   svg: ['QW-ACT-R21'],
   'body *[lang]': ['QW-ACT-R22'],
-  '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"]':
+  '[role="row"],[role="list"],[role="menu"],[role="menubar"],[role="listbox"],[role="grid"],[role="rowgroup"],[role="table"],[role="treegrid"],[role="tablist"],ul,ol,menu,table,tr,thead,tbody,tfoot,datalist':
     ['QW-ACT-R38'],
   body: ['QW-ACT-R62', 'QW-ACT-R9', 'QW-ACT-R10', 'QW-ACT-R25', 'QW-ACT-R27', 'QW-ACT-R28', 'QW-ACT-R34', 'QW-ACT-R44'],
   'input, select, textarea, [role]': ['QW-ACT-R16', 'QW-ACT-R41'],
