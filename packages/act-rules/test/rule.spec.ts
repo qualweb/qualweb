@@ -150,16 +150,77 @@ describe('ACT rules', () => {
           // Script injection doesn't work on non-HTML pages. Instead, we insert
           // some empty HTML stuff and let the rule take over from there.
           //
-          // For HTML pages, use the already-fetched source rather than
-          // navigating Chromium to the W3C URL. Browser navigation can be served
-          // an anti-bot verification page, while node-fetch receives the actual
-          // testcase HTML.
+          // For HTML pages, navigate Chromium to the real testcase URL but
+          // intercept requests. The top-level document is fulfilled with the
+          // already node-fetched source (browser navigation can be served an
+          // anti-bot verification page, while node-fetch receives the actual
+          // testcase HTML). Loading at the real origin means relative asset URLs
+          // resolve naturally and same-origin media is not blocked. Other
+          // requests to the W3C host are proxied through node-fetch as well,
+          // because Cloudflare serves headless Chromium a 403 for media assets
+          // that node-fetch retrieves fine. Media-related rules (e.g. QW-ACT-R49,
+          // QW-ACT-R50) read runtime properties such as `duration` and decoded
+          // audio bytes, which are only populated once the media actually loads.
           if (test.url.endsWith('html')) {
-            const sourceHtmlWithBase = sourceHtml.replace(
-              /<head([^>]*)>/i,
-              `<head$1><base href="${test.url}">`
-            );
-            await page.setContent(sourceHtmlWithBase, { waitUntil: 'networkidle2' });
+            await page.setRequestInterception(true);
+            let mainDocumentServed = false;
+            page.on('request', async (request) => {
+              try {
+                if (
+                  !mainDocumentServed &&
+                  request.isNavigationRequest() &&
+                  request.frame() === page.mainFrame()
+                ) {
+                  mainDocumentServed = true;
+                  return await request.respond({
+                    status: 200,
+                    contentType: 'text/html; charset=utf-8',
+                    body: sourceHtml
+                  });
+                }
+
+                if (/^https?:\/\/[^/]*\bw3\.org\//.test(request.url())) {
+                  const assetResponse = await fetch(request.url());
+                  return await request.respond({
+                    status: assetResponse.status,
+                    contentType: assetResponse.headers.get('content-type') ?? undefined,
+                    body: await assetResponse.buffer()
+                  });
+                }
+
+                return await request.continue();
+              } catch {
+                try {
+                  await request.continue();
+                } catch {
+                  // Request was already handled or the page is closing.
+                }
+              }
+            });
+
+            await page.goto(test.url, { waitUntil: 'networkidle2' });
+
+            // Give any media elements a chance to load their metadata (and decode
+            // enough audio for detection) before the rule reads their properties.
+            // NOTE: this evaluated function must not use async/await - it is
+            // serialised into the browser, where the transpiler's `__awaiter`
+            // helper is undefined. Return a Promise instead.
+            await page.evaluate(() => {
+              const mediaElements = Array.from(document.querySelectorAll('video, audio'));
+              return Promise.all(
+                mediaElements.map(
+                  (element) =>
+                    new Promise<void>((resolve) => {
+                      if ((element as HTMLMediaElement).readyState >= 1) {
+                        resolve();
+                        return;
+                      }
+                      element.addEventListener('loadedmetadata', () => resolve(), { once: true });
+                      setTimeout(() => resolve(), 5000);
+                    })
+                )
+              );
+            });
           } else {
             await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
           }
