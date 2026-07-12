@@ -15,13 +15,16 @@ class QW_ACT_R38 extends AtomicRule {
     const rolesJSON = window.AccessibilityUtils.roles;
     const test = new Test();
 
-    const explicitRole = element.getElementAttribute('role');
-    const implicitRole = window.AccessibilityUtils.getImplicitRole(element, ''); //fixme
+    // The rule applies to any element (implicit or explicit role) whose
+    // semantic role defines required owned elements, unless it has an inclusive
+    // ancestor with aria-busy="true".
+    const role = window.AccessibilityUtils.getElementRole(element);
+    const requiredOwnedElements = role ? rolesJSON[role]?.['requiredOwnedElements'] : undefined;
     const ariaBusy = this.isElementADescendantOfAriaBusy(element) || element.getElementAttribute('aria-busy');
 
-    if (explicitRole !== null && explicitRole !== implicitRole && explicitRole !== 'combobox' && !ariaBusy) {
+    if (requiredOwnedElements && requiredOwnedElements.length > 0 && !ariaBusy) {
       const result = this.checkOwnedElementsRole(
-        rolesJSON[explicitRole]['requiredOwnedElements'],
+        requiredOwnedElements,
         window.AccessibilityUtils.getOwnedElements(element)
       );
 

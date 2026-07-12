@@ -820,7 +820,7 @@
     "name": "ARIA required owned elements",
     "code": "QW-ACT-R38",
     "mapping": "bc4a75",
-    "description": "This rule checks that an element with an explicit semantic role has at least one of its required owned elements.",
+    "description": "This rule checks that an element with a semantic role that has required owned elements owns at least one of those required owned elements.",
     "metadata": {
       "target": {
         "element": "*",
