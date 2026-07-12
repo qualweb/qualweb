@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2
+
+### Patch Changes
+
+- e137d44: Fix ACT rule test-case failures (R16, R38, R44)
+
 ## 0.8.1
 
 ### Patch Changes
