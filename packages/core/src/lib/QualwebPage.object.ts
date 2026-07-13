@@ -92,7 +92,7 @@ export class QualwebPage {
 
     await this.pluginManager.executeAfterPageLoad(this.page);
 
-    this.addNecessaryScripts();
+    await this.addNecessaryScripts();
 
     return testingData;
   }
