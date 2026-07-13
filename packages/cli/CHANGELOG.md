@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.27
+
+### Patch Changes
+
+- Updated dependencies [4f0f786]
+  - @qualweb/core@0.9.2
+  - @qualweb/earl-reporter@0.5.16
+
 ## 0.7.26
 
 ### Patch Changes
