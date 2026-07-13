@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.2
+
+### Patch Changes
+
+- 4f0f786: Await script injection in QualwebPage.getTestingData
+
 ## 0.9.1
 
 ### Patch Changes
