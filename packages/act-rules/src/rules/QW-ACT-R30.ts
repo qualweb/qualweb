@@ -44,12 +44,12 @@ class QW_ACT_R30 extends AtomicRule {
       .toLowerCase()
       .trim()
       .replace(/\r?\n|\r|[^\w\s-]+/g, '')
-      .replace(/s+/g, ' ');
+      .replace(/\s+/g, ' ');
     elementText = elementText
       .toLowerCase()
       .trim()
       .replace(/\r?\n|\r|[^\w\s-]+/g, '')
-      .replace(/s+/g, ' ');
+      .replace(/\s+/g, ' ');
     return accessibleName.includes(elementText);
   }
 }
