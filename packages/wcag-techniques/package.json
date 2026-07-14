@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "require": "./dist/__webpack/wcag.bundle.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/__webpack/wcag.bundle.js"
     },
     "./lib/*": {
       "require": "./dist/lib/*"

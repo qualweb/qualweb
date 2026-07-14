@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "require": "./dist/locale.bundle.js",
-      "types": "./prebuild/index.d.ts"
+      "types": "./prebuild/index.d.ts",
+      "default": "./dist/locale.bundle.js"
     }
   },
   "scripts": {
