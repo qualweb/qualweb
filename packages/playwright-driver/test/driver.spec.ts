@@ -139,6 +139,44 @@ describe('PlaywrightDriver', function () {
     expect(widthAfter).to.equal(widthBefore);
   });
 
+  it('Should keep the loaded document across mid-evaluation viewport/user-agent changes', async function () {
+    // Regression test: when evaluate() is called WITHOUT a viewport option,
+    // QualwebPage.setViewport re-sends the default user agent during
+    // mid-evaluation resizes (the ACT rules special-case pass). Recreating
+    // the context there destroys the loaded document and every injected
+    // script - the resize must keep the live page.
+    let markerAfterResize: number | undefined;
+    let titleAfterResize = '';
+    let widthDuring = 0;
+
+    const dummyModule = new DummyModule(undefined, async (page: QualwebPage) => {
+      await page.evaluate(() => {
+        (window as unknown as { qualwebStateMarker: number }).qualwebStateMarker = 42;
+      });
+
+      // Mirrors ACTRulesModule.runModule's special-case pass, which goes
+      // through QualwebPage.setViewport and therefore also setUserAgent.
+      await page.setViewport({ resolution: { width: 640, height: 512 } });
+
+      widthDuring = await page.evaluate(() => window.innerWidth) as number;
+      markerAfterResize = await page.evaluate(
+        () => (window as unknown as { qualwebStateMarker?: number }).qualwebStateMarker
+      ) as number | undefined;
+      titleAfterResize = await page.evaluate(() => document.title) as string;
+
+      return DummyModule.emptyReport();
+    });
+
+    const qualweb = makeQualweb();
+    await qualweb.start();
+    await qualweb.evaluate({ url: host, modules: [dummyModule] });
+    await qualweb.stop();
+
+    expect(widthDuring).to.equal(640);
+    expect(markerAfterResize).to.equal(42);
+    expect(titleAfterResize).to.equal('Fixture root');
+  });
+
   it('Should map Puppeteer-style waitUntil values', async function () {
     const qualweb = makeQualweb();
     await qualweb.start();
