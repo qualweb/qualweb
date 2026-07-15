@@ -6,6 +6,7 @@ export type RoleInfo = {
   supportedAria: string | string[];
   implicitValueRoles: string[][];
   requiredOwnedElements?: string[];
+  allowedOwnedElements?: string[];
   prohibitedAria?: string[];
 };
 
@@ -223,7 +224,7 @@ export const roles: Roles = {
   caption: {
     baseConcept: '',
     attribute: '',
-    requiredContextRole: ['figure', 'grid', 'table', 'tablegrid'],
+    requiredContextRole: ['figure', 'grid', 'table', 'treegrid'],
     requiredAria: '',
     supportedAria: [
       'aria-atomic',
@@ -818,7 +819,8 @@ export const roles: Roles = {
       'aria-rowcount'
     ],
     implicitValueRoles: [['', '']],
-    requiredOwnedElements: ['row', 'rowgroup', 'row']
+    requiredOwnedElements: ['row', 'rowgroup'],
+    allowedOwnedElements: ['caption']
   },
   gridcell: {
     baseConcept: ['td'],
@@ -2401,7 +2403,8 @@ export const roles: Roles = {
       'aria-roledescription'
     ],
     implicitValueRoles: [['', '']],
-    requiredOwnedElements: ['row', 'rowgroup']
+    requiredOwnedElements: ['row', 'rowgroup'],
+    allowedOwnedElements: ['caption']
   },
   tablist: {
     baseConcept: '',
@@ -2705,7 +2708,8 @@ export const roles: Roles = {
       'aria-rowcount'
     ],
     implicitValueRoles: [['', '']],
-    requiredOwnedElements: ['row', 'rowgroup']
+    requiredOwnedElements: ['row', 'rowgroup'],
+    allowedOwnedElements: ['caption']
   },
   treeitem: {
     baseConcept: '',
