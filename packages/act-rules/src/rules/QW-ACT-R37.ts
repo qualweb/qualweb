@@ -78,6 +78,14 @@ class QW_ACT_R37 extends AtomicRule {
       return;
     }
 
+    // Fully transparent text (color alpha × opacity === 0) is not visible —
+    // per the ACT definition of visibility, making it fully transparent
+    // changes no rendered pixels — so the rule is inapplicable. This is the
+    // common screen-reader-only technique from issue #262. Checked after the
+    // text-shadow warning because a shadow can still render such text legible.
+    const parsedFG = this.parseRGBString(fgColor);
+    if (parsedFG && parsedFG.alpha * opacity === 0) return;
+
     // Image background → cannot be evaluated automatically.
     if (this.isImage(bgColor)) {
       this.emit(test, element, Verdict.WARNING, 'W2');
@@ -104,7 +112,6 @@ class QW_ACT_R37 extends AtomicRule {
     }
     const parsedBG = background.color;
 
-    const parsedFG = this.parseRGBString(fgColor);
     // NOTE: if the foreground colour can't be parsed, no result is emitted —
     // kept as-is to avoid inventing a result code without a matching i18n entry.
     if (!parsedFG) return;
