@@ -7,7 +7,13 @@ import Koa from 'koa';
  * - `/child` - a linked page
  * - `/dialog` - a page that fires alert() on load
  * - `/popup` - a page that window.open()s a second tab on load
+ * - `/act-parity` - a page with deliberate, deterministic ACT rule passes and
+ *   failures, used by the cross-driver parity test
  */
+// 1x1 red PNG, inlined so image requests never depend on the network.
+const TINY_PNG =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+
 export function createFixtureServer(): Koa {
   const app = new Koa();
 
@@ -51,6 +57,31 @@ export function createFixtureServer(): Koa {
             <body>
               <h1>Popup</h1>
               <script>window.open('/child');</script>
+            </body>
+          </html>`;
+        break;
+      case '/act-parity':
+        ctx.body = `<!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <title>ACT parity fixture</title>
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <style>
+                .low-contrast { color: #cccccc; background-color: #ffffff; }
+                .high-contrast { color: #000000; background-color: #ffffff; }
+              </style>
+            </head>
+            <body>
+              <h1>Parity fixture</h1>
+              <h2></h2>
+              <img src="${TINY_PNG}" alt="A red dot">
+              <img src="${TINY_PNG}">
+              <button></button>
+              <button>Submit</button>
+              <a href="/child">child page</a>
+              <a href="/child"></a>
+              <p class="low-contrast">This text has deliberately poor contrast.</p>
+              <p class="high-contrast">This text has deliberately good contrast.</p>
             </body>
           </html>`;
         break;

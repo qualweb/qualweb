@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "require": "./dist/__webpack/bp.bundle.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/__webpack/bp.bundle.js"
     },
     "./lib/*": {
       "require": "./dist/lib/*"
