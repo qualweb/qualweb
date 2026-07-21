@@ -20,11 +20,13 @@ class QW_ACT_R38 extends AtomicRule {
     // ancestor with aria-busy="true".
     const role = window.AccessibilityUtils.getElementRole(element);
     const requiredOwnedElements = role ? rolesJSON[role]?.['requiredOwnedElements'] : undefined;
+    const allowedOwnedElements = role ? rolesJSON[role]?.['allowedOwnedElements'] : undefined;
     const ariaBusy = this.isElementADescendantOfAriaBusy(element) || element.getElementAttribute('aria-busy');
 
     if (requiredOwnedElements && requiredOwnedElements.length > 0 && !ariaBusy) {
       const result = this.checkOwnedElementsRole(
         requiredOwnedElements,
+        allowedOwnedElements,
         window.AccessibilityUtils.getOwnedElements(element)
       );
 
@@ -41,7 +43,11 @@ class QW_ACT_R38 extends AtomicRule {
     }
   }
 
-  private checkOwnedElementsRole(ownedRoles: string[] | undefined, elements: QWElement[]): boolean {
+  private checkOwnedElementsRole(
+    ownedRoles: string[] | undefined,
+    allowedRoles: string[] | undefined,
+    elements: QWElement[]
+  ): boolean {
     if (ownedRoles?.length === 0) return true;
     const rolesJSON = window.AccessibilityUtils.roles;
     let onlyOwnedRoles = true;
@@ -55,20 +61,30 @@ class QW_ACT_R38 extends AtomicRule {
       if (!role || role === 'none') {
         break;
       }
-      //console.log({ ownedRoles, role });
+      if (allowedRoles?.includes(role)) {
+        // Allowed accessibility child roles (e.g. `caption` in `table`, `grid`
+        // or `treegrid`) may be owned but don't count towards the required
+        // owned elements.
+        i++;
+        continue;
+      }
       if (role.includes('group')) {
         const roles = rolesJSON[role]['requiredOwnedElements'];
         if (roles) {
-          roles.push(...(ownedRoles ?? []));
           hasOwnedRole =
             ownedRoles?.includes(role) &&
-            this.checkOwnedElementsRole(roles, window.AccessibilityUtils.getOwnedElements(currentElement));
+            this.checkOwnedElementsRole(
+              [...roles, ...(ownedRoles ?? [])],
+              rolesJSON[role]['allowedOwnedElements'],
+              window.AccessibilityUtils.getOwnedElements(currentElement)
+            );
         }
       } else {
         hasOwnedRole =
           ownedRoles?.includes(role) &&
           this.checkOwnedElementsRole(
             rolesJSON[role]['requiredOwnedElements'],
+            rolesJSON[role]['allowedOwnedElements'],
             window.AccessibilityUtils.getOwnedElements(currentElement)
           );
       }
