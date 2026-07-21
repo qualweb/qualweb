@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.28
+
+### Patch Changes
+
+- Updated dependencies [1f46f55]
+  - @qualweb/act-rules@0.8.4
+  - @qualweb/wcag-techniques@0.4.8
+  - @qualweb/best-practices@0.7.13
+  - @qualweb/core@0.9.3
+  - @qualweb/earl-reporter@0.5.17
+
 ## 0.7.27
 
 ### Patch Changes
