@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/core",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "QualWeb evaluator core engine",
   "main": "dist/index.js",
   "files": [
@@ -98,7 +98,7 @@
     "@qualweb/locale": "0.2.3",
     "@qualweb/qw-element": "0.3.6",
     "@qualweb/qw-page": "0.3.7",
-    "@qualweb/util": "0.7.3",
+    "@qualweb/util": "0.7.4",
     "axios": "^1.7.2",
     "colors": "1.4.0",
     "puppeteer": "^22.12.1",
