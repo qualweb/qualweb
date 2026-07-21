@@ -23,11 +23,15 @@ const DEFAULT_VIEWPORT: Required<Omit<DriverViewport, 'deviceScaleFactor'>> & { 
  * Several per-page concepts in Puppeteer (CSP bypass, user agent, the
  * isMobile/hasTouch viewport flags) are context-creation options in
  * Playwright. This class owns a dedicated {@link BrowserContext} per page
- * and transparently recreates it when one of those settings changes.
- * Recreation discards any loaded document, so those settings must be
- * changed *before* navigation - which is the only order QualWeb itself
- * uses (setBypassCSP and setViewport/setUserAgent both happen before
- * goto/setContent in QualwebPage.getTestingData).
+ * and transparently recreates it when one of those settings changes -
+ * but only while no document is loaded. Recreation discards the loaded
+ * document and every injected script, so once goto()/setContent() has run,
+ * such changes keep the live page and only take effect on a later context.
+ * This matters in practice: when no viewport option is passed to
+ * evaluate(), QualwebPage.setViewport re-sends the default user agent
+ * during the ACT rules module's mid-evaluation special-case viewport pass,
+ * and recreating the context there would destroy the in-page evaluation
+ * state (window.act and the injected bundles).
  */
 export class PlaywrightDriverPage implements DriverPage {
   private context: BrowserContext;
@@ -36,6 +40,7 @@ export class PlaywrightDriverPage implements DriverPage {
   private userAgent?: string;
   private bypassCSP = true;
   private dismissingDialogs = false;
+  private hasDocument = false;
 
   private constructor(
     private readonly browser: Browser,
@@ -123,6 +128,7 @@ export class PlaywrightDriverPage implements DriverPage {
       timeout: options?.timeout,
       waitUntil: mapLoadEvent(options?.waitUntil)
     });
+    this.hasDocument = true;
   }
 
   public content(): Promise<string> {
@@ -139,10 +145,12 @@ export class PlaywrightDriverPage implements DriverPage {
   }
 
   public async goto(url: string, options?: NavigationOptions): Promise<DriverResponse | null> {
-    return this.page.goto(url, {
+    const response = await this.page.goto(url, {
       timeout: options?.timeout,
       waitUntil: mapLoadEvent(options?.waitUntil)
     });
+    this.hasDocument = true;
+    return response;
   }
 
   public viewport(): DriverViewport | null {
@@ -164,11 +172,14 @@ export class PlaywrightDriverPage implements DriverPage {
       hasTouch: !!viewport.hasTouch
     };
 
-    if (flagsChanged) {
+    if (flagsChanged && !this.hasDocument) {
       // isMobile/hasTouch/deviceScaleFactor are context-creation options in
       // Playwright and cannot be changed on a live page.
       await this.recreateContext();
     } else {
+      // With a document loaded, recreation would destroy the page and any
+      // injected scripts, so apply what a live page supports (the
+      // dimensions) and keep the flags for a later context.
       await this.page.setViewportSize({ width: viewport.width, height: viewport.height });
     }
   }
@@ -176,8 +187,12 @@ export class PlaywrightDriverPage implements DriverPage {
   public async setUserAgent(userAgent: string): Promise<void> {
     if (userAgent !== (this.userAgent ?? this.browserUserAgent)) {
       this.userAgent = userAgent;
-      // The user agent is a context-creation option in Playwright.
-      await this.recreateContext();
+      // The user agent is a context-creation option in Playwright. With a
+      // document loaded, keep the live page (see the class doc); the new
+      // user agent applies if the context is ever recreated.
+      if (!this.hasDocument) {
+        await this.recreateContext();
+      }
     }
   }
 
@@ -235,6 +250,7 @@ export class PlaywrightDriverPage implements DriverPage {
 
     this.context = await this.browser.newContext(options);
     this.page = await this.context.newPage();
+    this.hasDocument = false;
 
     if (this.dismissingDialogs) {
       this.registerDialogHandler();
