@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3
+
+### Patch Changes
+
+- Updated dependencies [1f46f55]
+  - @qualweb/locale@0.2.3
+  - @qualweb/util@0.7.3
+
 ## 0.9.2
 
 ### Patch Changes

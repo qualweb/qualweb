@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+### Patch Changes
+
+- 1f46f55: Add a `default` condition to the `exports` map so the packages resolve from ES modules. Previously only a `require` condition was defined, so any `import` of these packages (including Node's own `require(esm)`/type-stripping paths on Node >= 22) failed with `ERR_PACKAGE_PATH_NOT_EXPORTED`. Note that the bundles remain CommonJS: named exports are not statically analyzable, so ESM consumers reach them through the default export (`import pkg from '@qualweb/act-rules'; pkg.ACTRules`).
+
 ## 0.2.2
 
 ### Patch Changes
@@ -34,7 +40,6 @@
   Additionally, several packages are no longer in use. If you are using any of
   the following packages in your project, remove them when you update to the new
   version of `@qualweb/core` to avoid any issues:
-
   - `@qualweb/types`
   - `@qualweb/dom`
   - `@qualweb/evaluation`
@@ -75,7 +80,6 @@
   First, install the modules you use as additional dependencies in your project.
   For this example, adding `@qualweb/act-rules` next to `@qualweb/core` in your
   package.json file. The other modules you might be using are:
-
   - `@qualweb/wcag-techniques`
   - `@qualweb/counter`
   - `@qualweb/best-practices`

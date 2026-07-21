@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/playwright-driver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Playwright browser-automation driver for the QualWeb accessibility evaluator",
   "main": "dist/index.js",
   "files": [
@@ -38,14 +38,14 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@qualweb/core": "^0.9.0",
+    "@qualweb/core": "^0.9.3",
     "playwright": ">=1.40.0"
   },
   "devDependencies": {
     "@koa/router": "^12.0.1",
-    "@qualweb/act-rules": "0.8.3",
-    "@qualweb/core": "^0.9.0",
-    "@qualweb/locale": "0.2.2",
+    "@qualweb/act-rules": "0.8.4",
+    "@qualweb/core": "^0.9.3",
+    "@qualweb/locale": "0.2.3",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.16",
     "@types/koa": "^2.14.0",
