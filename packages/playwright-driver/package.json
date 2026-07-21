@@ -38,13 +38,13 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@qualweb/core": "^0.9.3",
+    "@qualweb/core": "^0.9.4",
     "playwright": ">=1.40.0"
   },
   "devDependencies": {
     "@koa/router": "^12.0.1",
-    "@qualweb/act-rules": "0.8.4",
-    "@qualweb/core": "^0.9.3",
+    "@qualweb/act-rules": "0.8.5",
+    "@qualweb/core": "^0.9.4",
     "@qualweb/locale": "0.2.3",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.16",
