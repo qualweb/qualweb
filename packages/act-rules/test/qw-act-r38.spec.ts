@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { launchBrowser } from './util';
-import { LocaleFetcher } from '@qualweb/locale';
 import { Browser } from 'puppeteer';
 
 /**
@@ -39,26 +38,23 @@ describe('QW-ACT-R38 allowed owned elements (issue #254)', function () {
       });
 
       await page.addScriptTag({
+        path: require.resolve('@qualweb/locale')
+      });
+
+      await page.addScriptTag({
         path: require.resolve('../dist/__webpack/act.bundle.js')
       });
 
-      return await page.evaluate(
-        (locale, sourceCode) => {
-          // @ts-expect-error: ACTRulesRunner will be defined within the puppeteer execution context.
-          window.act = new ACTRulesRunner(
-            { include: ['QW-ACT-R33', 'QW-ACT-R38'] },
-            { translate: locale, fallback: locale }
-          );
-          // @ts-expect-error: window.act has been defined earlier.
-          window.act.configure({ include: ['QW-ACT-R33', 'QW-ACT-R38'] });
-          // @ts-expect-error: window.act has been defined earlier.
-          window.act.test({ sourceHtml: sourceCode });
-          // @ts-expect-error: window.act has been defined earlier.
-          return window.act.getReport();
-        },
-        LocaleFetcher.get('en'),
-        sourceCode
-      );
+      return await page.evaluate((sourceCode) => {
+        // @ts-expect-error: ACTRulesRunner will be defined within the puppeteer execution context.
+        window.act = new ACTRulesRunner({ include: ['QW-ACT-R33', 'QW-ACT-R38'] }, 'en');
+        // @ts-expect-error: window.act has been defined earlier.
+        window.act.configure();
+        // @ts-expect-error: window.act has been defined earlier.
+        window.act.test({ sourceHtml: sourceCode });
+        // @ts-expect-error: window.act has been defined earlier.
+        return window.act.getReport();
+      }, sourceCode);
     } finally {
       await incognito.close();
     }
