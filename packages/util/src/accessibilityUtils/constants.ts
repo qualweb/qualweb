@@ -53,27 +53,155 @@ const widgetElements = [
   'li',
   'option'
 ];
+
+// Concrete roles whose WAI-ARIA taxonomy includes `widget`. This is a semantic
+// role list, not a list of elements that merely support `aria-disabled`.
+// In particular, separator and tabpanel are not widget subclasses.
 const widgetRoles = [
   'button',
   'checkbox',
+  'columnheader',
+  'combobox',
+  'doc-backlink',
+  'doc-biblioref',
+  'doc-glossref',
+  'doc-noteref',
+  'grid',
   'gridcell',
   'link',
+  'listbox',
+  'menu',
+  'menubar',
   'menuitem',
   'menuitemcheckbox',
   'menuitemradio',
   'option',
   'progressbar',
   'radio',
+  'radiogroup',
+  'row',
+  'rowheader',
   'scrollbar',
   'searchbox',
-  'separator',
   'slider',
   'spinbutton',
   'switch',
   'tab',
-  'tabpanel',
+  'tablist',
   'textbox',
+  'tree',
+  'treegrid',
   'treeitem'
+];
+
+// Concrete WAI-ARIA roles whose superclass chain includes `group` or `widget`.
+// R37 uses this broader list because ACT excludes text inside disabled groups
+// as well as disabled widgets. Extension roles are included where their own
+// specifications inherit from one of those core roles.
+const groupOrWidgetRoles = [
+  'group',
+  'button',
+  'checkbox',
+  'columnheader',
+  'combobox',
+  'doc-backlink',
+  'doc-biblioref',
+  'doc-glossref',
+  'doc-noteref',
+  'graphics-object',
+  'grid',
+  'gridcell',
+  'link',
+  'listbox',
+  'menu',
+  'menubar',
+  'menuitem',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'option',
+  'progressbar',
+  'radio',
+  'radiogroup',
+  'row',
+  'rowheader',
+  'scrollbar',
+  'searchbox',
+  'slider',
+  'spinbutton',
+  'switch',
+  'tab',
+  'tablist',
+  'textbox',
+  'toolbar',
+  'tree',
+  'treegrid',
+  'treeitem'
+];
+
+// Abstract roles cannot be used as explicit semantic roles. Keeping this list
+// separate lets role-token fallback skip them without changing the existing
+// role metadata representation.
+const abstractRoles = [
+  'command',
+  'composite',
+  'input',
+  'landmark',
+  'range',
+  'roletype',
+  'section',
+  'sectionhead',
+  'select',
+  'structure',
+  'widget',
+  'window'
+];
+
+// Concrete roles defined by the DPUB-ARIA and Graphics-ARIA modules. They are
+// valid role tokens even though the legacy core role metadata does not contain
+// entries for them.
+const extensionRoles = [
+  'doc-abstract',
+  'doc-acknowledgments',
+  'doc-afterword',
+  'doc-appendix',
+  'doc-backlink',
+  'doc-biblioentry',
+  'doc-bibliography',
+  'doc-biblioref',
+  'doc-chapter',
+  'doc-colophon',
+  'doc-conclusion',
+  'doc-cover',
+  'doc-credit',
+  'doc-credits',
+  'doc-dedication',
+  'doc-endnote',
+  'doc-endnotes',
+  'doc-epigraph',
+  'doc-epilogue',
+  'doc-errata',
+  'doc-example',
+  'doc-footnote',
+  'doc-foreword',
+  'doc-glossary',
+  'doc-glossref',
+  'doc-index',
+  'doc-introduction',
+  'doc-noteref',
+  'doc-notice',
+  'doc-pagebreak',
+  'doc-pagelist',
+  'doc-part',
+  'doc-preface',
+  'doc-prologue',
+  'doc-pullquote',
+  'doc-qna',
+  'doc-subtitle',
+  'doc-tip',
+  'doc-toc',
+  'graphics-document',
+  'graphics-object',
+  'graphics-symbol'
 ];
 const nameFromContentElements = [
   'button',
@@ -242,6 +370,9 @@ export {
   controlRoles,
   widgetElements,
   widgetRoles,
+  groupOrWidgetRoles,
+  abstractRoles,
+  extensionRoles,
   nameFromContentElements,
   nameFromContentRoles
 };

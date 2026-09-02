@@ -362,6 +362,8 @@ export const nn: Locale = {
         W1: 'Element har tekst-skygge som må bli verifisert manuelt.',
         W2: 'Element har bilde som bakgrunn.',
         W3: 'Element har ein gradient som ikkje kan bli verifisert automatisk.',
+        W4: 'Stilane for plasshaldar-teksten kunne ikkje fastsetjast automatisk.',
+        W5: 'Elementet bruker ein tekstgjengivingseffekt som må verifiserast manuelt.',
         F1: 'Element har målt kontrast under minstekravet.',
         F2: 'Element har ein gradient med målt kontrast under minstekravet.'
       }
