@@ -609,7 +609,38 @@ outcome: 'passed',
   <label class="label-content" for="name">Name</label>
 </div>`,
     outcome: 'failed'
+  },
+  {
+    // Button/submit/reset/image inputs are excluded from the applicability.
+    // None of these has an associated label, so before the exclusion they
+    // would have failed; now the technique is inapplicable.
+    code: `
+      <html>
+        <body>
+          <form>
+            <input type="button" value="Click me">
+            <input type="submit" value="Send">
+            <input type="reset" value="Reset">
+            <input type="image" src="submit.png" alt="Submit">
+          </form>
+        </body>
+      </html>`,
+    outcome: 'inapplicable'
+  },
+  {
+    // An excluded (unlabelled submit) input next to a correctly labelled text
+    // input must not drag the overall outcome to failed: only the text input
+    // is applicable, and it passes.
+    code: `
+      <html>
+        <body>
+          <form>
+            <label for="name">Name</label>
+            <input id="name" type="text">
+            <input type="submit" value="Send">
+          </form>
+        </body>
+      </html>`,
+    outcome: 'passed'
   }
-  
-  
 ]
