@@ -187,6 +187,8 @@ class QW_ACT_R76 extends AtomicRule {
       }
 
       const parsedFG = this.parseRGBString(fgColor, opacity);
+      // A foreground colour that cannot be parsed cannot be evaluated.
+      if (parsedFG === undefined) return;
 
       if (!this.equals(parsedBG, parsedFG)) {
         if (this.isHumanLanguage(elementText)) {
@@ -339,60 +341,50 @@ class QW_ACT_R76 extends AtomicRule {
   }
 
   parseRGBString(colorString: string, opacity: number): any {
-    const rgbRegex = /^rgb\((\d+), (\d+), (\d+)\)/;
-    const rgbaRegex = /^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/;
-    const oklchRegex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?)\)/;
-    const oklch2Regex = /^oklch\((\d*(\.\d+)?) (\d*(\.\d+)?) (\d*(\.\d+)?) \/ (\d*(\.\d+)?)\)/;
-
     // IE can pass transparent as value instead of rgba
-    if (colorString === 'transparent') {
+    if (!colorString || colorString === 'transparent' || colorString === 'none') {
       return { red: 0, green: 0, blue: 0, alpha: 0 };
     }
 
-    let match = colorString.match(rgbRegex);
-    if (match) {
+    const rgb = colorString.match(/^rgb\((\d+), (\d+), (\d+)\)/);
+    if (rgb) {
       return {
-        red: parseInt(match[1], 10),
-        green: parseInt(match[2], 10),
-        blue: parseInt(match[3], 10),
+        red: parseInt(rgb[1], 10),
+        green: parseInt(rgb[2], 10),
+        blue: parseInt(rgb[3], 10),
         alpha: opacity
       };
     }
 
-    match = colorString.match(rgbaRegex);
-    if (match) {
+    const rgba = colorString.match(/^rgba\((\d+), (\d+), (\d+), (\d*(\.\d+)?)\)/);
+    if (rgba) {
       return {
-        red: parseInt(match[1], 10),
-        green: parseInt(match[2], 10),
-        blue: parseInt(match[3], 10),
-        alpha: Math.round(parseFloat(match[4]) * 100) / 100
+        red: parseInt(rgba[1], 10),
+        green: parseInt(rgba[2], 10),
+        blue: parseInt(rgba[3], 10),
+        alpha: Math.round(parseFloat(rgba[4]) * 100) / 100
       };
     }
 
-    match = colorString.match(oklch2Regex);
-    if (match) {
-      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
-      const rgba = oklchColor.to("srgb");
+    // Every other format a browser serializes computed colours in — oklch(),
+    // lab(), oklab(), color(srgb …), and the results of color-mix() — on the
+    // same 0–255 scale as above, as QW-ACT-R37 does. Previously only oklch()
+    // was converted, on a 0–1 scale, and anything else returned undefined.
+    try {
+      const srgb = new Color(colorString).to('srgb');
+      const channel = (value: number) => Math.round(Math.min(1, Math.max(0, value ?? 0)) * 255);
+      const alpha = srgb.alpha ?? 1;
       return {
-        red: rgba.srgb.red,
-        green: rgba.srgb.green,
-        blue: rgba.srgb.blue,
-        alpha: parseFloat(match[4])
+        red: channel(srgb.coords[0]),
+        green: channel(srgb.coords[1]),
+        blue: channel(srgb.coords[2]),
+        // Like the rgb()/rgba() branches: a colour's own alpha if it has one,
+        // otherwise the element's opacity.
+        alpha: alpha < 1 ? Math.round(alpha * 100) / 100 : opacity
       };
+    } catch {
+      return undefined;
     }
-
-    match = colorString.match(oklchRegex);
-    if (match) {
-      const oklchColor = new Color("oklch", [parseFloat(match[1]),parseFloat(match[2]),parseFloat(match[3])]);
-      const rgba = oklchColor.to("srgb");
-      return {
-        red: rgba.srgb.red,
-        green: rgba.srgb.green,
-        blue: rgba.srgb.blue,
-        alpha: rgba.alpha
-      };
-    }
-
   }
 
   getRelativeLuminance(red: number, green: number, blue: number): number {
