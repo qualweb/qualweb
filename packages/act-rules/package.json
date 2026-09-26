@@ -1,6 +1,6 @@
 {
   "name": "@qualweb/act-rules",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "ACT rules module for qualweb web accessibility evaluator",
   "files": [
     "dist/*"
