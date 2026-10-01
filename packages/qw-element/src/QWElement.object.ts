@@ -6,6 +6,20 @@ export interface QWVisualDirection {
   deltaX: number;
   deltaY: number; 
 }
+
+/** Authored pseudo-element declarations resolved through the browser cascade. */
+export interface QWPseudoStyleResolution {
+  /** Requested CSS properties keyed by their original property names. */
+  properties: Record<string, string>;
+  /** True when at least one relevant stylesheet could not be read via CSSOM. */
+  hasInaccessibleStyles: boolean;
+}
+
+/** Mutable state shared while recursively walking a stylesheet tree. */
+interface PseudoStyleProbeState {
+  hasInaccessibleStyles: boolean;
+}
+
 export class QWElement {
   private readonly element: Element;
   private readonly elementsCSSRules?: Map<Element, CSSProperties>;
@@ -539,6 +553,416 @@ export class QWElement {
   public getElementStyleProperty(property: string, pseudoStyle: string | null): string {
     const styles = getComputedStyle(this.element, pseudoStyle);
     return styles.getPropertyValue(property);
+  }
+
+  /**
+   * Returns authored style values for a pseudo-element after the browser has
+   * resolved selector specificity, cascade layers, media queries and custom
+   * properties.
+   *
+   * Chromium currently returns the originating element's style from
+   * getComputedStyle(element, '::placeholder'). To avoid that false result we
+   * mirror matching pseudo-element declarations to temporary custom properties
+   * on the originating element and let the browser resolve their cascade.
+   * The temporary stylesheet is always removed before this method returns.
+   *
+   * @param properties - CSS properties to resolve, for example `color` and `opacity`.
+   * @param pseudoStyle - Pseudo-element selector to inspect, currently including placeholder aliases.
+   * @returns Resolved authored values and whether inaccessible styles could affect them.
+   */
+  public getElementPseudoStyleProperties(properties: string[], pseudoStyle: string): QWPseudoStyleResolution {
+    const result: Record<string, string> = {};
+    for (const property of properties) result[property] = '';
+
+    const pseudoAliases = this.getPseudoStyleAliases(pseudoStyle);
+    if (pseudoAliases.length === 0) return { properties: result, hasInaccessibleStyles: false };
+
+    const root = this.element.getRootNode() as Document | ShadowRoot;
+    const probePrefix = '--qualweb-pseudo-style-probe-';
+    const state: PseudoStyleProbeState = { hasInaccessibleStyles: false };
+    const probeRules = this.createPseudoStyleProbeRules(
+      this.getRootStyleSheets(root),
+      pseudoAliases,
+      properties,
+      probePrefix,
+      state
+    );
+    if (probeRules === '') return { properties: result, hasInaccessibleStyles: state.hasInaccessibleStyles };
+
+    const ownerDocument = this.element.ownerDocument;
+    const style = ownerDocument.createElement('style');
+    style.setAttribute('data-qualweb-pseudo-style-probe', pseudoStyle);
+    style.textContent = probeRules;
+
+    try {
+      if (root.nodeType === Node.DOCUMENT_NODE) {
+        const documentRoot = root as Document;
+        (documentRoot.head ?? documentRoot.documentElement).appendChild(style);
+      } else {
+        (root as ShadowRoot).appendChild(style);
+      }
+
+      const computed = ownerDocument.defaultView?.getComputedStyle(this.element);
+      if (!computed) return { properties: result, hasInaccessibleStyles: state.hasInaccessibleStyles };
+      for (const property of properties) {
+        result[property] = computed.getPropertyValue(probePrefix + property).trim();
+      }
+      return { properties: result, hasInaccessibleStyles: state.hasInaccessibleStyles };
+    } finally {
+      style.remove();
+    }
+  }
+
+  /**
+   * Return standard and legacy selector spellings for the requested pseudo-element.
+   *
+   * @param pseudoStyle - Canonical pseudo-element selector requested by the caller.
+   * @returns Supported selector aliases, or an empty list for an invalid selector.
+   */
+  private getPseudoStyleAliases(pseudoStyle: string): string[] {
+    if (pseudoStyle.toLowerCase() === '::placeholder') {
+      return [
+        '::placeholder',
+        '::-webkit-input-placeholder',
+        '::-moz-placeholder',
+        ':-moz-placeholder',
+        ':-ms-input-placeholder'
+      ];
+    }
+    return pseudoStyle.startsWith(':') ? [pseudoStyle] : [];
+  }
+
+  /**
+   * Collect active stylesheets from the element's document or shadow root.
+   *
+   * @param root - Root node containing the element whose pseudo-style is being resolved.
+   * @returns Active stylesheets in their cascade order.
+   */
+  private getRootStyleSheets(root: Document | ShadowRoot): CSSStyleSheet[] {
+    return root.nodeType === Node.DOCUMENT_NODE
+      ? this.getDocumentStyleSheets(root as Document)
+      : this.getShadowRootStyleSheets(root as ShadowRoot);
+  }
+
+  /**
+   * Collect active linked, inline and adopted stylesheets from a document.
+   *
+   * @param documentRoot - Document whose stylesheets should be inspected.
+   * @returns Active document stylesheets followed by active adopted stylesheets.
+   */
+  private getDocumentStyleSheets(documentRoot: Document): CSSStyleSheet[] {
+    const styleSheets: CSSStyleSheet[] = [];
+    for (let index = 0; index < documentRoot.styleSheets.length; index++) {
+      const sheet = documentRoot.styleSheets.item(index);
+      if (sheet && this.isStyleSheetActive(sheet, documentRoot.defaultView)) styleSheets.push(sheet);
+    }
+    styleSheets.push(
+      ...(documentRoot.adoptedStyleSheets ?? []).filter((sheet) =>
+        this.isStyleSheetActive(sheet, documentRoot.defaultView)
+      )
+    );
+    return styleSheets;
+  }
+
+  /**
+   * Collect active local and adopted stylesheets from an open shadow root.
+   *
+   * @param shadowRoot - Open shadow root whose local cascade should be inspected.
+   * @returns Active local stylesheets followed by active adopted stylesheets.
+   */
+  private getShadowRootStyleSheets(shadowRoot: ShadowRoot): CSSStyleSheet[] {
+    const view = shadowRoot.ownerDocument.defaultView;
+    const styleSheets = Array.from(shadowRoot.querySelectorAll('style, link[rel="stylesheet"]'))
+      .map((node) => (node as HTMLStyleElement | HTMLLinkElement).sheet)
+      .filter((sheet): sheet is CSSStyleSheet => sheet !== null && this.isStyleSheetActive(sheet, view));
+    styleSheets.push(
+      ...(shadowRoot.adoptedStyleSheets ?? []).filter((sheet) => this.isStyleSheetActive(sheet, view))
+    );
+    return styleSheets;
+  }
+
+  /**
+   * Return whether a stylesheet is enabled and its top-level media query matches.
+   *
+   * @param styleSheet - Stylesheet whose disabled and media state should be checked.
+   * @param view - Window used to evaluate the stylesheet's media query.
+   * @returns True when the stylesheet participates in the current cascade.
+   */
+  private isStyleSheetActive(styleSheet: CSSStyleSheet, view: Window | null): boolean {
+    if (styleSheet.disabled) return false;
+    const media = styleSheet.media.mediaText.trim();
+    return media === '' || view === null || view.matchMedia(media).matches;
+  }
+
+  /**
+   * Convert all readable stylesheets into probe rules for the requested properties.
+   * Inaccessible sheets are recorded so callers cannot return a definitive result.
+   *
+   * @param styleSheets - Active stylesheets to inspect in cascade order.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @param state - Shared traversal state used to record inaccessible stylesheets.
+   * @returns Generated probe CSS from every readable stylesheet.
+   */
+  private createPseudoStyleProbeRules(
+    styleSheets: CSSStyleSheet[],
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string,
+    state: PseudoStyleProbeState
+  ): string {
+    let result = '';
+    for (const sheet of styleSheets) {
+      try {
+        result += this.createPseudoStyleProbeRuleList(sheet.cssRules, pseudoAliases, properties, probePrefix, state);
+      } catch {
+        // Cross-origin stylesheets cannot be inspected through CSSOM. The
+        // caller must avoid returning a definitive contrast result.
+        state.hasInaccessibleStyles = true;
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Recursively convert a CSS rule list while preserving its source order.
+   *
+   * @param rules - CSS rules to traverse.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @param state - Shared traversal state used to record inaccessible stylesheets.
+   * @returns Generated probe CSS for the supplied rule list.
+   */
+  private createPseudoStyleProbeRuleList(
+    rules: CSSRuleList,
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string,
+    state: PseudoStyleProbeState
+  ): string {
+    let result = '';
+
+    for (let index = 0; index < rules.length; index++) {
+      const rule = rules.item(index);
+      if (!rule) continue;
+      result += this.createPseudoStyleProbeRule(rule, pseudoAliases, properties, probePrefix, state);
+    }
+
+    return result;
+  }
+
+  /**
+   * Dispatch one CSS rule to style, import or grouping-rule conversion.
+   *
+   * @param rule - CSS rule to convert.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @param state - Shared traversal state used to record inaccessible stylesheets.
+   * @returns Generated probe CSS, or an empty string when the rule is irrelevant.
+   */
+  private createPseudoStyleProbeRule(
+    rule: CSSRule,
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string,
+    state: PseudoStyleProbeState
+  ): string {
+    if ('selectorText' in rule && 'style' in rule) {
+      const styleRule = rule as CSSStyleRule;
+      let result = this.createPseudoStyleProbeStyleRule(styleRule, pseudoAliases, properties, probePrefix);
+      const nestedRules = (styleRule as CSSStyleRule & { cssRules?: CSSRuleList }).cssRules;
+      if (nestedRules?.length) {
+        // Native CSS nesting must retain its parent selector context after the
+        // nested pseudo-element selector has been converted into a probe.
+        const nested = this.createPseudoStyleProbeRuleList(
+          nestedRules,
+          pseudoAliases,
+          properties,
+          probePrefix,
+          state
+        );
+        if (nested !== '') {
+          const parentSelectors = this.splitSelectorList(styleRule.selectorText).map((selector) =>
+            this.removePseudoStyle(selector, pseudoAliases)
+          );
+          result += `${parentSelectors.join(', ')} { ${nested} }\n`;
+        }
+      }
+      return result;
+    }
+    if ('href' in rule && 'styleSheet' in rule) {
+      return this.createPseudoStyleProbeImportRule(
+        rule as CSSImportRule,
+        pseudoAliases,
+        properties,
+        probePrefix,
+        state
+      );
+    }
+    return this.createPseudoStyleProbeGroupingRule(rule, pseudoAliases, properties, probePrefix, state);
+  }
+
+  /**
+   * Replace pseudo-element declarations with custom-property declarations on
+   * the originating selector, leaving specificity and source order unchanged.
+   *
+   * @param styleRule - Authored style rule that may target the pseudo-element.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @returns Converted style rule, or an empty string when nothing relevant was declared.
+   */
+  private createPseudoStyleProbeStyleRule(
+    styleRule: CSSStyleRule,
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string
+  ): string {
+    const selectors = this.splitSelectorList(styleRule.selectorText)
+      .filter((selector) => pseudoAliases.some((pseudo) => selector.toLowerCase().includes(pseudo)))
+      .map((selector) => this.removePseudoStyle(selector, pseudoAliases));
+    if (selectors.length === 0) return '';
+
+    const declarations = properties
+      .map((property) => this.createPseudoStyleProbeDeclaration(styleRule.style, property, probePrefix))
+      .filter((declaration) => declaration !== '');
+    return declarations.length > 0 ? `${selectors.join(', ')} { ${declarations.join(' ')} }\n` : '';
+  }
+
+  /**
+   * Convert one authored declaration to a probe property, preserving `!important`.
+   *
+   * @param style - Authored declaration block containing the source property.
+   * @param property - CSS property to copy.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @returns One custom-property declaration, or an empty string when absent.
+   */
+  private createPseudoStyleProbeDeclaration(style: CSSStyleDeclaration, property: string, probePrefix: string): string {
+    const value = style.getPropertyValue(property);
+    if (value === '') return '';
+    const priority = style.getPropertyPriority(property);
+    return `${probePrefix}${property}: ${value}${priority ? ' !important' : ''};`;
+  }
+
+  /**
+   * Convert an imported stylesheet and retain any media condition on the import.
+   *
+   * @param importRule - Import rule whose child stylesheet should be traversed.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @param state - Shared traversal state used to record inaccessible imports.
+   * @returns Converted imported rules wrapped in their media condition when present.
+   */
+  private createPseudoStyleProbeImportRule(
+    importRule: CSSImportRule,
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string,
+    state: PseudoStyleProbeState
+  ): string {
+    if (!importRule.styleSheet) return '';
+    try {
+      const imported = this.createPseudoStyleProbeRuleList(
+        importRule.styleSheet.cssRules,
+        pseudoAliases,
+        properties,
+        probePrefix,
+        state
+      );
+      if (imported === '' || importRule.media.length === 0) return imported;
+      return `@media ${importRule.media.mediaText} { ${imported} }\n`;
+    } catch {
+      // Cross-origin imports are inaccessible for the same reason as a
+      // cross-origin top-level stylesheet.
+      state.hasInaccessibleStyles = true;
+      return '';
+    }
+  }
+
+  /**
+   * Convert nested rules inside media, supports, layer and other grouping rules
+   * while preserving the original grouping prelude.
+   *
+   * @param rule - Grouping rule whose nested rules should be traversed.
+   * @param pseudoAliases - Pseudo-element selector spellings that should match.
+   * @param properties - CSS properties that should be copied into probe declarations.
+   * @param probePrefix - Custom-property prefix used to isolate probe values.
+   * @param state - Shared traversal state used to record inaccessible stylesheets.
+   * @returns Converted grouping rule, or an empty string when it contributes nothing.
+   */
+  private createPseudoStyleProbeGroupingRule(
+    rule: CSSRule,
+    pseudoAliases: string[],
+    properties: string[],
+    probePrefix: string,
+    state: PseudoStyleProbeState
+  ): string {
+    const groupingRule = rule as CSSRule & { cssRules?: CSSRuleList };
+    if (!groupingRule.cssRules) return '';
+    const nested = this.createPseudoStyleProbeRuleList(
+      groupingRule.cssRules,
+      pseudoAliases,
+      properties,
+      probePrefix,
+      state
+    );
+    const openingBrace = rule.cssText.indexOf('{');
+    return nested !== '' && openingBrace !== -1 ? `${rule.cssText.slice(0, openingBrace).trim()} { ${nested} }\n` : '';
+  }
+
+  /**
+   * Split a selector list on top-level commas, not commas inside functions or attributes.
+   *
+   * @param selectorList - Raw selector list from a CSS style rule.
+   * @returns Individual selectors in their original order.
+   */
+  private splitSelectorList(selectorList: string): string[] {
+    const selectors: string[] = [];
+    let current = '';
+    let depth = 0;
+
+    for (const character of selectorList) {
+      if (character === '(' || character === '[') depth++;
+      else if (character === ')' || character === ']') depth = Math.max(0, depth - 1);
+
+      if (character === ',' && depth === 0) {
+        if (current.trim() !== '') selectors.push(current.trim());
+        current = '';
+      } else {
+        current += character;
+      }
+    }
+    if (current.trim() !== '') selectors.push(current.trim());
+    return selectors;
+  }
+
+  /**
+   * Remove the requested pseudo-element token while retaining its originating selector.
+   *
+   * @param selector - Selector containing a supported pseudo-element spelling.
+   * @param pseudoAliases - Pseudo-element spellings that should be removed.
+   * @returns Selector targeting the originating element instead of its pseudo-element.
+   */
+  private removePseudoStyle(selector: string, pseudoAliases: string[]): string {
+    let result = selector;
+    for (const pseudo of pseudoAliases) {
+      result = result.replace(new RegExp(this.escapeRegExp(pseudo), 'gi'), '');
+    }
+    return result;
+  }
+
+  /**
+   * Escape a literal selector fragment before constructing a regular expression.
+   *
+   * @param value - Literal selector fragment.
+   * @returns Regular-expression-safe representation of the fragment.
+   */
+  private escapeRegExp(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   public getElementTagName(): string {
