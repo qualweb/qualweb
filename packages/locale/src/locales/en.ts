@@ -360,6 +360,7 @@ export const en: Locale = {
         W1: 'Element has text-shadow that needs manual verification.',
         W2: 'Element has an image on background.',
         W3: "Element has an gradient that we can't verify.",
+        W5: 'Element uses a text paint effect that needs manual verification.',
         F1: 'Element has contrast ratio lower than minimum.',
         F2: 'Element has gradient with contrast ratio lower than minimum.'
       }
