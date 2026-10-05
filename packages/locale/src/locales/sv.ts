@@ -365,6 +365,8 @@ export const sv: Locale = {
         W1: 'Elementets text har skuggning som kräver manuell granskning.',
         W2: 'Bakom elementet finns en bild.',
         W3: 'Elementet har en gradientfärg som vi inte kan verifiera.',
+        W4: 'Platshållartextens stilar kunde inte fastställas automatiskt.',
+        W5: 'Elementet använder en textåtergivningseffekt som kräver manuell granskning.',
         F1: 'Elementets kontrast uppfyller inte minimikraven.',
         F2: 'Elementets kontrast mot bakgrundens gradientfärg uppfyller inte minimikraven.'
       }
