@@ -368,6 +368,7 @@ export const fi: Locale = {
         W1: 'Elementillä on tekstin varjostus, joka vaatii manuaalista tarkistusta.',
         W2: 'Elementin taustalla on kuva.',
         W3: 'Elementillä taustalla on liukuväri, jota emme pysty todentamaan.',
+        W5: 'Elementti käyttää tekstin maalaustehostetta, joka vaatii manuaalista tarkistusta.',
         F1: 'Elementin kontrasti ei täytä vähimmäisvaatimuksia.',
         F2: 'Elementin kontrasti taustan liukuvärin kanssa ei täytä vähimmäisvaatimuksia.'
       }
