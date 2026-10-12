@@ -78,7 +78,7 @@ export const en: Locale = {
       results: {
         I1: 'No test targets found.',
         P1: 'The `links` with the same accessible name have equal content.',
-        F1: 'The `links` with the same accessible name have different content. Verify is the content is equivalent.'
+        F1: 'The `links` with the same accessible name have different content. Verify if the content is equivalent.'
       }
     },
     'QW-ACT-R10': {
@@ -343,7 +343,7 @@ export const en: Locale = {
         'This rule checks that the headers attribute on a cell refer to other cells in the same table element with a semantic role of columnheader or rowheader.',
       results: {
         I1: 'No test targets found.',
-        P1: 'All headers attributes refer to a cell with a semantic role of columnheader of rowheader within the same table.',
+        P1: 'All headers attributes refer to a cell with a semantic role of columnheader or rowheader within the same table.',
         F1: 'The headers attribute `{attr}` refers to an ID that does not exist within the same table.',
         F2: 'The headers attribute `{attr}` refers to an element inside the same table which does not have a role of rowheader or columnheader.'
       }
@@ -359,7 +359,7 @@ export const en: Locale = {
         P3: 'Element has gradient with contrast ratio higher than minimum.',
         W1: 'Element has text-shadow that needs manual verification.',
         W2: 'Element has an image on background.',
-        W3: "Element has an gradient that we can't verify.",
+        W3: "Element has a gradient that we can't verify.",
         F1: 'Element has contrast ratio lower than minimum.',
         F2: 'Element has gradient with contrast ratio lower than minimum.'
       }
@@ -426,7 +426,7 @@ export const en: Locale = {
       results: {
         I1: 'No test targets found.',
         P1: 'The `links` with the same accessible name have equal content.',
-        W1: 'The `links` with the same accessible name have different content. Verify is the content is equivalent.'
+        W1: 'The `links` with the same accessible name have different content. Verify if the content is equivalent.'
       }
     },
     'QW-ACT-R48': {
@@ -718,7 +718,7 @@ export const en: Locale = {
         P3: 'Element has gradient with contrast ratio higher than minimum.',
         W1: 'Element has text-shadow that needs manual verification.',
         W2: 'Element has an image on background.',
-        W3: "Element has an gradient that we can't verify.",
+        W3: "Element has a gradient that we can't verify.",
         F1: 'Element has contrast ratio lower than minimum.',
         F2: 'Element has gradient with contrast ratio lower than minimum.'
       }
@@ -1045,7 +1045,7 @@ export const en: Locale = {
         'CSS defines the blink value for the text-decoration property. When used, it causes any text in elements with this property to blink at a predetermined rate. This cannot be interrupted by the user, nor can it be disabled as a user agent preference. The blinking continues as long as the page is displayed. Therefore, content that uses text-decoration:blink fails the Success Criterion because blinking can continue for more than three seconds.',
       results: {
         I1: 'No test targets found.',
-        F1: 'This test target has a `text-decoration` property with the value `blink.'
+        F1: 'This test target has a `text-decoration` property with the value `blink`.'
       }
     },
     'QW-WCAG-T31': {
@@ -1264,7 +1264,7 @@ export const en: Locale = {
       results: {
         I1: 'No test targets found.',
         P1: 'There is one contentinfo landmark',
-        F1: 'There are multiple banner landmarks'
+        F1: 'There are multiple contentinfo landmarks'
       }
     },
     'QW-BP22': {
@@ -1282,7 +1282,7 @@ export const en: Locale = {
       results: {
         I1: 'No test targets found.',
         P1: 'Listitem is used semantically',
-        F1: 'Listitem is not used semantically not used semantically'
+        F1: 'Listitem is not used semantically'
       }
     },
     'QW-BP24': {
@@ -1305,12 +1305,12 @@ export const en: Locale = {
       }
     },
     'QW-BP26': {
-      name: 'Landmark complementary is top level',
+      name: 'Landmark contentinfo is top level',
       description: 'Ensures the contentinfo landmark is at top level',
       results: {
         I1: 'No test targets found.',
-        P1: 'The complementary landmark is at top level.',
-        F1: 'The complementary landmark is not at top level.'
+        P1: 'The contentinfo landmark is at top level.',
+        F1: 'The contentinfo landmark is not at top level.'
       }
     },
     'QW-BP27': {
