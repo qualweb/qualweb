@@ -10,7 +10,8 @@
   "scripts": {
     "lint:all": "npm run lint --workspaces --if-present",
     "build:all": "npm run build --workspaces --if-present",
-    "test:all": "npm test --workspaces --if-present",
+    "test:dependencies": "node --test test/dependencies.test.cjs",
+    "test:all": "npm run test:dependencies && npm test --workspaces --if-present",
     "ci:check": "npm run lint:all && npm run build:all && npm run test:all"
   },
   "keywords": [
@@ -37,6 +38,7 @@
     "packages/locale",
     "packages/crawler",
     "packages/core",
+    "packages/puppeteer-driver",
     "packages/playwright-driver",
     "packages/act-rules",
     "packages/best-practices",
@@ -59,5 +61,8 @@
   },
   "overrides": {
     "trim": ">=0.0.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

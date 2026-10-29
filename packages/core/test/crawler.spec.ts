@@ -40,7 +40,7 @@ describe('Core input method: crawler', function () {
   it('Should evaluate all urls', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: true, stealth: false });
 
     const urls = await qualweb.crawl(mockHttpServerHost, {
       maxUrls: 1000,
@@ -57,7 +57,7 @@ describe('Core input method: crawler', function () {
     };
 
     await qualweb.start(
-      { maxConcurrency: 5, monitor: true },
+      { maxConcurrency: 5, monitor: false },
       { args: ['--no-sandbox', '--ignore-certificate-errors'] }
     );
     const reports = await qualweb.evaluate(options);

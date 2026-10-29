@@ -1,4 +1,5 @@
 name: Install dependencies
+description: Install project dependencies and Playwright Chromium.
 author: Johannes L. Borresen
 runs:
   using: composite
@@ -7,7 +8,7 @@ runs:
 
       uses: actions/setup-node@v4
       with:
-        node-version: "20"
+        node-version: "22"
         registry-url: https://registry.npmjs.org
 
     # The steps that have been commented out are specific for caching the PNPM
@@ -37,3 +38,11 @@ runs:
     - name: Install dependencies
       shell: bash
       run: npm i
+      env:
+        PUPPETEER_SKIP_DOWNLOAD: "true"
+
+    - name: Install Chromium for default and opt-in driver tests
+      shell: bash
+      run: |
+        npx --no-install playwright install --with-deps chromium
+        echo "PUPPETEER_EXECUTABLE_PATH=$(node -p 'require("playwright").chromium.executablePath()')" >> "$GITHUB_ENV"

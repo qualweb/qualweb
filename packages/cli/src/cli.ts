@@ -8,7 +8,7 @@ import { addWcagTechniqueOptionsToCommand } from './lib/options/wcagTechniques';
 import { addOutputOptions } from './lib/options/output';
 import { addInputOptionsToCommand } from './lib/options/input';
 import { addViewportOptions } from './lib/options/viewport';
-import { addPuppeteerOptions } from './lib/options/puppeteer';
+import { addBrowserOptions } from './lib/options/browser';
 
 import { ListActRulesCommand } from './lib/commands/listActRules';
 import { ListWcagTechniquesCommand } from './lib/commands/listWcagTechniques';
@@ -36,8 +36,7 @@ async function main(): Promise<void> {
   // Viewport options modify the browser viewport when evaluating.
   addViewportOptions(program);
 
-  // Puppeteer options to modify browser behavior.
-  addPuppeteerOptions(program);
+  addBrowserOptions(program);
 
   // Output options. Do we write to stdout or a file, and which format?
   addOutputOptions(program);
@@ -62,4 +61,7 @@ async function main(): Promise<void> {
   await program.parseAsync();
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
+});

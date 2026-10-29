@@ -4,4 +4,5 @@ export * from './lib/i18n';
 
 export { QualwebOptions, LoadEvent, PuppeteerLifeCycleEvent } from './lib/QualwebOptions';
 export * from './lib/driver';
+export { BrowserFeatures, PuppeteerPlugins } from './lib/PuppeteerPlugins';
 export { CounterReport } from './lib/evaluation/CounterReport';

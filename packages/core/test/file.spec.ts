@@ -17,7 +17,7 @@ describe('Core input method: file', function () {
     };
 
     await qualweb.start(
-      { maxConcurrency: 8, monitor: true },
+      { maxConcurrency: 8, monitor: false },
       { args: ['--no-sandbox', '--ignore-certificate-errors'] }
     );
     const reports = await qualweb.evaluate(options);

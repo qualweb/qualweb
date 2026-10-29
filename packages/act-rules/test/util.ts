@@ -1,11 +1,11 @@
-import puppeteer, { PuppeteerLaunchOptions } from 'puppeteer';
+import puppeteer, { LaunchOptions } from 'puppeteer';
 
-const defaultOptions: PuppeteerLaunchOptions = {
+const defaultOptions: LaunchOptions = {
   devtools: false,
   headless: true,
 };
 
-export async function launchBrowser(launchOptions: PuppeteerLaunchOptions = {}) {
+export async function launchBrowser(launchOptions: LaunchOptions = {}) {
   // Overwrite default options with the ones provided, if any.
   const options = { ...defaultOptions, ...launchOptions };
 

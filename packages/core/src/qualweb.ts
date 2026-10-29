@@ -1,4 +1,4 @@
-import type { Page } from 'puppeteer';
+import type { LaunchOptions } from 'playwright';
 import { readFile } from 'fs';
 import 'colors';
 import type {
@@ -12,12 +12,11 @@ import {
   ErrorManager,
   QualwebOptions,
   QualwebPlugin,
-  PuppeteerPlugins,
+  BrowserFeatures,
   ClusterOptions,
 } from './lib';
-import type { Driver, DriverPool, DriverViewport, LoadEvent } from './lib/driver/types';
-import { PuppeteerDriver, PuppeteerLaunchOptions } from './lib/driver/puppeteer/PuppeteerDriver';
-import { PuppeteerDriverPage } from './lib/driver/puppeteer/PuppeteerDriverPage';
+import type { Driver, DriverPage, DriverPool, DriverViewport, LoadEvent } from './lib/driver/types';
+import { PlaywrightDriver } from './lib/driver/playwright/PlaywrightDriver';
 
 /**
  * QualWeb engine - Performs web accessibility evaluations using several modules:
@@ -27,7 +26,7 @@ import { PuppeteerDriverPage } from './lib/driver/puppeteer/PuppeteerDriverPage'
  */
 export class QualWeb {
   /**
-   * Browser automation driver. Defaults to Puppeteer.
+   * Browser automation driver. Defaults to Playwright Chromium.
    */
   private readonly driver: Driver;
 
@@ -44,30 +43,35 @@ export class QualWeb {
   /**
    * Initializes the browser automation driver.
    *
-   * @param {PuppeteerPlugins} plugins - Plugins for the default Puppeteer
-   * driver - supported: AdBlocker and Stealth. Ignored when a custom driver
-   * is given.
+   * @param {BrowserFeatures} plugins - Default browser features. Stealth is
+   * no longer supported. Pass a custom driver for driver-specific features.
    * @param {Driver} driver - Custom browser automation driver. Defaults to
-   * the Puppeteer driver.
+   * the Playwright driver.
    */
-  constructor(plugins?: PuppeteerPlugins, driver?: Driver) {
-    this.driver = driver ?? new PuppeteerDriver({ plugins });
+  constructor(plugins?: BrowserFeatures, driver?: Driver) {
+    if (plugins?.stealth) {
+      throw new Error('The abandoned stealth plugin is no longer supported. Use an explicitly configured custom driver.');
+    }
+    if (driver && plugins?.adBlock) {
+      throw new Error('Configure ad blocking on the custom driver instead of passing adBlock to QualWeb.');
+    }
+    this.driver = driver ?? new PlaywrightDriver({ adBlock: plugins?.adBlock });
   }
 
   /**
    * Starts the browser (pool) used for evaluations.
    *
    * @param {ClusterOptions} clusterOptions - Options for pool initialization.
-   * @param {PuppeteerLaunchOptions} puppeteerOptions - Launch options for the
-   * default Puppeteer driver - check https://pptr.dev/api/puppeteer.launchoptions.
+   * @param {LaunchOptions} browserOptions - Playwright launch options for the
+   * default driver. Legacy Puppeteer options belong on its driver constructor.
    * Custom drivers receive their launch options at construction time instead
    * and may ignore this parameter.
    */
   public async start(
     clusterOptions?: ClusterOptions,
-    puppeteerOptions?: PuppeteerLaunchOptions
+    browserOptions?: LaunchOptions
   ): Promise<void> {
-    this.pool = await this.driver.launchPool(clusterOptions, puppeteerOptions);
+    this.pool = await this.driver.launchPool(clusterOptions, browserOptions);
   }
 
   /**
@@ -154,14 +158,13 @@ export class QualWeb {
     waitUntil?: LoadEvent | LoadEvent[]
   ): Promise<string[]> {
     const context = await this.driver.launchContext();
-    const crawler = new Crawler(context, domain, viewport, waitUntil);
-    await crawler.crawl(options);
-
-    const results = crawler.getResults();
-
-    await context.close();
-
-    return results;
+    try {
+      const crawler = new Crawler(context, domain, viewport, waitUntil);
+      await crawler.crawl(options);
+      return crawler.getResults();
+    } finally {
+      await context.close();
+    }
   }
 
   /**
@@ -217,14 +220,14 @@ export class QualWeb {
   }
 
   /**
-   * Converts a Puppeteer page to a QualwebPage
+   * Converts a driver page to a QualwebPage
    * (Only used for testing purposes)
    *
-   * @param {Page} page - Puppeteer page to convert
+   * @param {DriverPage} page - Browser-specific adapter implementing DriverPage
    * @returns Qualweb Page
    */
-  public static createPage(page: Page): QualwebPage {
-    return new QualwebPage(new PluginManager(), new PuppeteerDriverPage(page));
+  public static createPage(page: DriverPage): QualwebPage {
+    return new QualwebPage(new PluginManager(), page);
   }
 }
 

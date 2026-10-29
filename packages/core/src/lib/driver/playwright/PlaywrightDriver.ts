@@ -1,12 +1,13 @@
 import { chromium, firefox, webkit } from 'playwright';
-import type { Browser, LaunchOptions } from 'playwright';
+import type { Browser, LaunchOptions, Page } from 'playwright';
+import { PlaywrightBlocker } from '@ghostery/adblocker-playwright';
+import type { ClusterOptions } from '../../ClusterOptions';
 import type {
-  ClusterOptions,
   Driver,
   DriverContext,
   DriverContextPage,
   DriverPool,
-} from '@qualweb/core/lib';
+} from '../types';
 import { PlaywrightDriverPool } from './PlaywrightDriverPool';
 import { mapLoadEvent } from './lifecycle';
 
@@ -19,28 +20,16 @@ export type PlaywrightDriverOptions = {
   browser?: PlaywrightBrowserName;
 
   /**
-   * Playwright launch options. Unlike the default Puppeteer driver - which
-   * receives Puppeteer launch options through `QualWeb.start()` for
-   * backwards compatibility - the Playwright driver takes its launch options
-   * here, at construction time. Any second argument passed to
-   * `QualWeb.start()` is ignored by this driver.
+   * Playwright launch options. Options passed to QualWeb.start() take precedence.
    */
   launchOptions?: LaunchOptions;
 
   /**
-   * Alternative browser launcher. Anything with a Playwright-compatible
-   * `launch()` - most usefully one of playwright-extra's wrapped browsers,
-   * which is how stealth/adblock plugin parity with the Puppeteer driver
-   * is achieved:
-   *
-   * ```ts
-   * import { chromium } from 'playwright-extra';
-   * import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-   * chromium.use(StealthPlugin());
-   * const driver = new PlaywrightDriver({ launcher: chromium });
-   * ```
+   * Alternative browser launcher with Playwright's launch contract.
    */
   launcher?: { launch(options?: LaunchOptions): Promise<Browser> };
+  adBlock?: boolean;
+  blocker?: PlaywrightBlocker;
 };
 
 /**
@@ -54,20 +43,44 @@ export type PlaywrightDriverOptions = {
  * ```
  */
 export class PlaywrightDriver implements Driver {
+  private blocker?: Promise<PlaywrightBlocker>;
+
   constructor(private readonly options?: PlaywrightDriverOptions) {}
 
-  public async launchPool(clusterOptions?: ClusterOptions): Promise<DriverPool> {
-    const browser = await this.launchBrowser();
-    return new PlaywrightDriverPool(browser, clusterOptions);
+  public async launchPool(clusterOptions?: ClusterOptions, browserOptions?: unknown): Promise<DriverPool> {
+    if (clusterOptions?.monitor) {
+      throw new Error('Playwright does not support the Puppeteer cluster monitor option.');
+    }
+    const setupPage = await this.pageSetup();
+    const browser = await this.launchBrowser(browserOptions);
+    try {
+      return new PlaywrightDriverPool(browser, clusterOptions, setupPage);
+    } catch (error) {
+      await browser.close();
+      throw error;
+    }
   }
 
   public async launchContext(): Promise<DriverContext> {
+    const setupPage = await this.pageSetup();
     const browser = await this.launchBrowser();
-    const context = await browser.newContext();
+    let context;
+    try {
+      context = await browser.newContext();
+    } catch (error) {
+      await browser.close();
+      throw error;
+    }
 
     return {
       newPage: async (): Promise<DriverContextPage> => {
         const page = await context.newPage();
+        try {
+          await setupPage?.(page);
+        } catch (error) {
+          await page.close();
+          throw error;
+        }
 
         return {
           setViewport: async (viewport): Promise<void> => {
@@ -100,18 +113,38 @@ export class PlaywrightDriver implements Driver {
         };
       },
       close: async (): Promise<void> => {
-        await context.close();
-        await browser.close();
+        try {
+          await context.close();
+        } finally {
+          await browser.close();
+        }
       }
     };
   }
 
-  private launchBrowser(): Promise<Browser> {
+  private async pageSetup(): Promise<((page: Page) => Promise<void>) | undefined> {
+    if (!this.options?.adBlock && !this.options?.blocker) {
+      return undefined;
+    }
+    this.blocker ??= this.options.blocker
+      ? Promise.resolve(this.options.blocker)
+      : PlaywrightBlocker.fromPrebuiltFull(fetch);
+    const blocker = await this.blocker;
+    return async (page): Promise<void> => {
+      await blocker.enableBlockingInPage(page);
+    };
+  }
+
+  private launchBrowser(browserOptions?: unknown): Promise<Browser> {
+    if (browserOptions !== undefined && (typeof browserOptions !== 'object' || browserOptions === null || Array.isArray(browserOptions))) {
+      throw new TypeError('Browser launch options must be an object.');
+    }
+    const options: LaunchOptions = { ...this.options?.launchOptions, ...browserOptions };
     if (this.options?.launcher) {
-      return this.options.launcher.launch(this.options?.launchOptions);
+      return this.options.launcher.launch(options);
     }
 
     const browserType = { chromium, firefox, webkit }[this.options?.browser ?? 'chromium'];
-    return browserType.launch(this.options?.launchOptions);
+    return browserType.launch(options);
   }
 }

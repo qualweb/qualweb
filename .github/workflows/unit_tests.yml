@@ -28,6 +28,9 @@ jobs:
       - name: Setup (cache, dependencies)
         uses: ./.github/actions/install_and_cache_dependencies
 
+      - name: Dependency regression tests
+        run: npm run test:dependencies
+
       # Retrieve files that have changed in this branch compared to the base
       # branch (the base branch should be "main" when pulling from "develop" and
       # "develop" when pulling from feature branches)
@@ -89,13 +92,22 @@ jobs:
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/locale')
         run: npm run -w @qualweb/locale test
 
-      - name: Install Playwright browsers
-        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/playwright-driver')
-        run: npx playwright install --with-deps chromium
-
       - name: "@qualweb/playwright-driver"
-        if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/playwright-driver')
+        if: >-
+          always() && (
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/playwright-driver') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/core') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/puppeteer-driver') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/act-rules') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/wcag-techniques') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/best-practices') ||
+            contains(env.AFFECTED_WORKSPACES, '@qualweb/counter')
+          )
         run: npm run -w @qualweb/playwright-driver test
+
+      - name: "@qualweb/puppeteer-driver"
+        if: always() && (contains(env.AFFECTED_WORKSPACES, '@qualweb/puppeteer-driver') || contains(env.AFFECTED_WORKSPACES, '@qualweb/core'))
+        run: npm run -w @qualweb/puppeteer-driver test
 
       - name: "@qualweb/qw-element"
         if: always() && contains(env.AFFECTED_WORKSPACES, '@qualweb/qw-element')

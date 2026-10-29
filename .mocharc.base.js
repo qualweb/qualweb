@@ -12,6 +12,9 @@ module.exports = {
   // Default spec for files to test.
   "spec": "test/**/*.spec.ts",
 
+  // Keep Node 22's native TS loader from bypassing ts-node and CommonJS fixtures.
+  "node-option": ["no-experimental-strip-types"],
+
   // Use ts-node to compile .spec.ts files on the fly and run them.
   "require": [
     "ts-node/register",

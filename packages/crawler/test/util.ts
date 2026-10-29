@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
 import puppeteer from 'puppeteer';
-import type { Browser, BrowserContext, Page, PuppeteerLaunchOptions } from 'puppeteer';
+import type { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
 
 import Koa from 'koa';
 import Router from '@koa/router';
@@ -29,7 +29,7 @@ type PuppeteerProxy = {
  * @returns A proxy object that will be populated with a usable browser,
  * incognito context, and page object when a unit test runs.
  */
-export function usePuppeteer(launchOptions: PuppeteerLaunchOptions = {}): PuppeteerProxy {
+export function usePuppeteer(launchOptions: LaunchOptions = {}): PuppeteerProxy {
   const proxy: Partial<PuppeteerProxy> = {
     browser: undefined,
     browserContext: undefined,

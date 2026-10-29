@@ -222,7 +222,8 @@ describe('ACT rules', () => {
               );
             });
           } else {
-            await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'networkidle2' });
+            await page.setContent('<!DOCTYPE html><html nonHTMLPage=true><body>Empty</body></html>', { waitUntil: 'load' });
+            await page.waitForNetworkIdle({ concurrency: 2 });
           }
 
           // Inject @qualweb/act-rules and its dependencies into the page.

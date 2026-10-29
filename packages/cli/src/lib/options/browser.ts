@@ -1,16 +1,16 @@
-import { PuppeteerLifeCycleEvent } from '@qualweb/core';
+import { LoadEvent } from '@qualweb/core';
 import { Command, InvalidOptionArgumentError, Option } from 'commander';
 
-export type PuppeteerOptions = {
-  waitUntil?: PuppeteerLifeCycleEvent,
+export type BrowserOptions = {
+  waitUntil?: LoadEvent,
   maxParallelEvaluations?: number,
   timeout?: number,
 };
 
-export function addPuppeteerOptions(command: Command): Command {
+export function addBrowserOptions(command: Command): Command {
   command.addOption(
-    new Option('--wait-until', 'Puppeteer lifecycle event to wait for before starting evaluation')
-      .choices(<PuppeteerLifeCycleEvent[]>['load', 'domcontentloaded', 'networkidle0', 'networkidle2'])
+    new Option('--wait-until <event>', 'Lifecycle event to wait for before starting evaluation (networkidle aliases map to Playwright networkidle)')
+      .choices(['load', 'domcontentloaded', 'networkidle0', 'networkidle2'])
   );
 
   command.option(
@@ -28,7 +28,7 @@ export function addPuppeteerOptions(command: Command): Command {
   );
 
   command.option(
-    '--timeout',
+    '--timeout <number>',
     'Maximum time to wait for the evaluation to finish or try to connect to URL.',
     (value) => {
       const parsed = Number.parseInt(value);

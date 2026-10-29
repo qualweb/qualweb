@@ -2,7 +2,7 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
-    "module": "Node16",
+    "module": "NodeNext",
     "resolveJsonModule": true,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     "rootDir": "." /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
@@ -20,7 +20,7 @@
     "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
 
     /* Module Resolution Options */
-    "moduleResolution": "Node16",
+    "moduleResolution": "NodeNext",
 
     "types": ["node", "mocha"] /* Type declaration files to be included in compilation. */,
 

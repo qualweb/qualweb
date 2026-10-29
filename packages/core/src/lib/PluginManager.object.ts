@@ -28,7 +28,9 @@ export class PluginManager {
    * the URL yet.
    */
   public async executeBeforePageLoad(page: DriverPage, url?: string): Promise<void> {
-    this.plugins.forEach(async (plugin) => await plugin.beforePageLoad?.(page, url || 'customHtml'));
+    for (const plugin of this.plugins) {
+      await plugin.beforePageLoad?.(page, url || 'customHtml');
+    }
   }
 
   /**
@@ -38,6 +40,8 @@ export class PluginManager {
    * @param {DriverPage} page - Driver page
    */
   public async executeAfterPageLoad(page: DriverPage): Promise<void> {
-    this.plugins.forEach(async (plugin) => await plugin.afterPageLoad?.(page, page.url() || 'customHtml'));
+    for (const plugin of this.plugins) {
+      await plugin.afterPageLoad?.(page, page.url() || 'customHtml');
+    }
   }
 }

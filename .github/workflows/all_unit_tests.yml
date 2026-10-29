@@ -20,30 +20,12 @@ jobs:
       - name: Setup (cache, dependencies)
         uses: ./.github/actions/install_and_cache_dependencies
 
+      - name: Dependency regression tests
+        run: npm run test:dependencies
+
       # Build all packages.
       - name: Build
         run: npm -ws run build
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-      - name: Inject Puppeteer Config
-        run: |
-          cat <<EOF > .puppeteerrc.cjs
-          /**
-           * @type {import("puppeteer").Configuration}
-           */
-          module.exports = {
-            launch: {
-              args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--no-zygote'
-              ],
-              headless: 'new'
-            }
-          };
-          EOF
 
       - name: "All unit tests"
         run: npm -ws test

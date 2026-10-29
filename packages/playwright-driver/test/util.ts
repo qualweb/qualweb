@@ -76,6 +76,7 @@ export function createFixtureServer(): Koa {
               <h2></h2>
               <img src="${TINY_PNG}" alt="A red dot">
               <img src="${TINY_PNG}">
+              <img src="${TINY_PNG}" alt="${'A'.repeat(101)}">
               <button></button>
               <button>Submit</button>
               <a href="/child">child page</a>

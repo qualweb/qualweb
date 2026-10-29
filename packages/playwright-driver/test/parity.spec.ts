@@ -4,6 +4,9 @@ import { QualWeb } from '@qualweb/core';
 import type { QualwebReport, EvaluationReport } from '@qualweb/core/evaluation';
 import * as actRulesInterop from '@qualweb/act-rules';
 import { PlaywrightDriver } from '../src';
+import { PuppeteerDriver } from '@qualweb/puppeteer-driver';
+import type { Driver } from '@qualweb/core';
+import { chromium } from 'playwright';
 import { createFixtureServer, listen } from './util';
 
 // The act-rules package is a CommonJS webpack bundle whose named exports
@@ -16,8 +19,8 @@ const { ACTRules } = (actRulesInterop as { default?: typeof actRulesInterop }).d
 
 /**
  * Cross-driver parity: runs the real ACT rules module (in-page bundles and
- * all) against the same fixture page under the default Puppeteer driver and
- * under the Playwright driver, then compares the reports rule by rule.
+ * all) against the same fixture page under the optional Puppeteer driver and
+ * the default Playwright implementation, then compares reports rule by rule.
  *
  * The fixture page (`/act-parity`) contains deliberate, deterministic passes
  * and failures so the comparison is meaningful - a page where every rule is
@@ -32,7 +35,7 @@ describe('Cross-driver parity (ACT rules)', function () {
   let puppeteerAct: EvaluationReport;
   let playwrightAct: EvaluationReport;
 
-  async function evaluateWith(driver: PlaywrightDriver | undefined, url: string): Promise<QualwebReport> {
+  async function evaluateWith(driver: Driver, url: string): Promise<QualwebReport> {
     const qualweb = new QualWeb(undefined, driver);
     await qualweb.start();
     try {
@@ -55,7 +58,9 @@ describe('Cross-driver parity (ACT rules)', function () {
     server = fixtureServer;
     const url = `${host}/act-parity`;
 
-    const puppeteerReport = await evaluateWith(undefined, url);
+    const puppeteerReport = await evaluateWith(new PuppeteerDriver({
+      launchOptions: { executablePath: chromium.executablePath(), headless: true },
+    }), url);
     const playwrightReport = await evaluateWith(new PlaywrightDriver(), url);
 
     expect(puppeteerReport?.modules['act-rules'], 'puppeteer act-rules report').to.not.be.undefined;

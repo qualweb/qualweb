@@ -1,5 +1,6 @@
-import type { Browser } from 'playwright';
-import type { ClusterOptions, DriverPage, DriverPool, EvaluationJobData } from '@qualweb/core/lib';
+import type { Browser, BrowserContext, Page } from 'playwright';
+import type { ClusterOptions } from '../../ClusterOptions';
+import type { DriverPage, DriverPool, EvaluationJobData } from '../types';
 import { PlaywrightDriverPage } from './PlaywrightDriverPage';
 
 /**
@@ -14,8 +15,10 @@ export class PlaywrightDriverPool implements DriverPool {
   private readonly errorHandlers: Array<(error: Error, data: EvaluationJobData) => void> = [];
   private readonly pending: EvaluationJobData[] = [];
   private readonly idleResolvers: Array<() => void> = [];
+  private readonly cancellations = new Set<() => void>();
   private active = 0;
   private closed = false;
+  private closePromise?: Promise<void>;
 
   private readonly maxConcurrency: number;
   private readonly timeout: number;
@@ -24,11 +27,16 @@ export class PlaywrightDriverPool implements DriverPool {
 
   constructor(
     private readonly browser: Browser,
-    clusterOptions?: ClusterOptions
+    clusterOptions?: ClusterOptions,
+    private readonly setupPage?: (page: Page) => Promise<void>
   ) {
     this.maxConcurrency = clusterOptions?.maxConcurrency ?? 1;
     // Same default as puppeteer-cluster's job timeout in the Puppeteer driver.
     this.timeout = clusterOptions?.timeout ?? 60 * 1000;
+    if (!Number.isInteger(this.maxConcurrency) || this.maxConcurrency < 1 ||
+        !Number.isFinite(this.timeout) || this.timeout <= 0) {
+      throw new RangeError('Concurrency must be a positive integer and timeout must be positive.');
+    }
   }
 
   public async task(handler: (page: DriverPage, data: EvaluationJobData) => Promise<void>): Promise<void> {
@@ -37,7 +45,7 @@ export class PlaywrightDriverPool implements DriverPool {
 
   public queue(data: EvaluationJobData): void {
     if (this.closed) {
-      return;
+      throw new Error('Cannot queue evaluations on a closed browser pool.');
     }
     this.pending.push(data);
     this.pump();
@@ -50,10 +58,19 @@ export class PlaywrightDriverPool implements DriverPool {
     return new Promise((resolve) => this.idleResolvers.push(resolve));
   }
 
-  public async close(): Promise<void> {
-    this.closed = true;
-    this.pending.length = 0;
-    await this.browser.close();
+  public close(): Promise<void> {
+    if (!this.closePromise) {
+      this.closed = true;
+      this.pending.length = 0;
+      for (const cancel of this.cancellations) {
+        cancel();
+      }
+      this.closePromise = (async () => {
+        await this.browser.close();
+        await this.idle();
+      })();
+    }
+    return this.closePromise;
   }
 
   public onTaskError(handler: (error: Error, data: EvaluationJobData) => void): void {
@@ -74,35 +91,78 @@ export class PlaywrightDriverPool implements DriverPool {
 
   private async runJob(data: EvaluationJobData): Promise<void> {
     let page: PlaywrightDriverPage | undefined;
-    try {
-      if (!this.handler) {
+    let initializingContext: BrowserContext | undefined;
+    let finished = false;
+    const handler = this.handler;
+    const execute = async (): Promise<void> => {
+      if (!handler) {
         throw new Error('No task handler was registered on the pool.');
       }
-      page = await PlaywrightDriverPage.create(this.browser, await this.getBrowserUserAgent());
-      await this.withTimeout(this.handler(page, data));
-    } catch (error) {
-      const wrapped = error instanceof Error ? error : new Error(String(error));
-      for (const handler of this.errorHandlers) {
-        handler(wrapped, data);
+      const userAgent = await this.getBrowserUserAgent();
+      if (finished) return;
+      page = await PlaywrightDriverPage.create(this.browser, userAgent, async (native) => {
+        initializingContext = native.context();
+        if (finished) {
+          throw new Error('Evaluation job has already ended.');
+        }
+        await this.setupPage?.(native);
+      });
+      if (finished) {
+        await page.dispose();
+        return;
       }
+      await handler(page, data);
+    };
+    try {
+      await this.withTimeout(execute());
+    } catch (error) {
+      this.reportTaskError(error, data);
     } finally {
-      await page?.dispose().catch(() => undefined);
+      finished = true;
+      try {
+        try {
+          await page?.dispose();
+        } finally {
+          await initializingContext?.close();
+        }
+      } catch (error) {
+        this.reportTaskError(error, data);
+      }
+    }
+  }
+
+  private reportTaskError(error: unknown, data: EvaluationJobData): void {
+    if (this.closed) return;
+    const wrapped = error instanceof Error ? error : new Error(String(error));
+    for (const handler of this.errorHandlers) {
+      handler(wrapped, data);
     }
   }
 
   private withTimeout<T>(promise: Promise<T>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
+      const cancel = (): void => {
+        clearTimeout(timer);
+        this.cancellations.delete(cancel);
+        reject(new Error('Browser pool closed.'));
+      };
       const timer = setTimeout(
-        () => reject(new Error(`Timeout hit: ${this.timeout}`)),
+        () => {
+          this.cancellations.delete(cancel);
+          reject(new Error(`Timeout hit: ${this.timeout}`));
+        },
         this.timeout
       );
+      this.cancellations.add(cancel);
       promise.then(
         (value) => {
           clearTimeout(timer);
+          this.cancellations.delete(cancel);
           resolve(value);
         },
         (error) => {
           clearTimeout(timer);
+          this.cancellations.delete(cancel);
           reject(error);
         }
       );

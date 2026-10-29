@@ -181,9 +181,9 @@ export interface DriverContext {
 }
 
 /**
- * A browser automation driver. QualWeb ships with a Puppeteer implementation
- * ({@link PuppeteerDriver}) and uses it by default; alternative
- * implementations (e.g. Playwright) can be passed to the QualWeb constructor.
+ * A browser automation driver. QualWeb ships with a Playwright implementation
+ * ({@link PlaywrightDriver}) and uses it by default; alternative
+ * implementations can be passed to the QualWeb constructor.
  */
 export interface Driver {
   /**
@@ -191,8 +191,8 @@ export interface Driver {
    *
    * @param clusterOptions - Concurrency/timeout/monitor options.
    * @param browserOptions - Driver-specific browser launch options. The
-   * default Puppeteer driver accepts Puppeteer launch options here (kept for
-   * backwards compatibility with `QualWeb.start()`); other drivers should
+   * default Playwright driver accepts Playwright launch options here;
+   * custom drivers can instead
    * receive their launch options at construction time and may ignore this.
    */
   launchPool(clusterOptions?: ClusterOptions, browserOptions?: unknown): Promise<DriverPool>;

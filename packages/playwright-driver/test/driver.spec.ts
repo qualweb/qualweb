@@ -3,6 +3,8 @@ import { Server } from 'http';
 import { QualWeb } from '@qualweb/core';
 import type { QualwebPage } from '@qualweb/core/lib';
 import { PlaywrightDriver } from '../src';
+import { PlaywrightBlocker } from '@ghostery/adblocker-playwright';
+import type { Page } from 'playwright';
 import DummyModule from './lib/DummyModule';
 import { createFixtureServer, listen } from './util';
 
@@ -21,8 +23,98 @@ describe('PlaywrightDriver', function () {
   });
 
   function makeQualweb(driver?: PlaywrightDriver): QualWeb {
-    return new QualWeb(undefined, driver ?? new PlaywrightDriver());
+    return new QualWeb(undefined, driver);
   }
+
+  it('Should reject removed stealth and unsupported monitor options explicitly', async () => {
+    expect(() => new QualWeb({ stealth: true })).to.throw('stealth');
+    let failure: unknown;
+    try {
+      await new QualWeb().start({ monitor: true });
+    } catch (error) {
+      failure = error;
+    }
+    expect(failure).to.be.instanceOf(Error);
+    expect((failure as Error).message).to.contain('monitor');
+  });
+
+  it('Should await plugin hooks and surface rejected hooks', async () => {
+    const qualweb = makeQualweb();
+    const calls: number[] = [];
+    qualweb.use({
+      beforePageLoad: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 25));
+        calls.push(1);
+      },
+    });
+    qualweb.use({
+      beforePageLoad: async () => {
+        expect(calls).to.deep.equal([1]);
+        calls.push(2);
+      },
+      afterPageLoad: async () => {
+        throw new Error('Rejected hook');
+      },
+    });
+    await qualweb.start();
+    try {
+      const reports = await qualweb.evaluate({
+        url: host,
+        modules: [],
+        log: { console: false },
+      });
+      expect(calls).to.deep.equal([1, 2]);
+      expect(reports[host]).to.be.undefined;
+    } finally {
+      await qualweb.stop();
+    }
+  });
+
+  it('Should block requests on initial, recreated, and crawler pages without remote filter downloads', async () => {
+    const driver = new PlaywrightDriver({
+      blocker: PlaywrightBlocker.parse('/advert.js$script,xmlhttprequest'),
+    });
+    const pool = await driver.launchPool();
+    const failures: Error[] = [];
+    let checks = 0;
+    pool.onTaskError((error) => failures.push(error));
+    await pool.task(async (page) => {
+      for (const mobile of [false, true]) {
+        if (mobile) {
+          await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
+          await page.setUserAgent('QualWeb blocking regression');
+        }
+        const native = page.nativePage as Page;
+        const failed = native.waitForEvent('requestfailed');
+        await native.setContent(`<script src="${host}/advert.js"></script>`);
+        expect((await failed).url()).to.equal(`${host}/advert.js`);
+        checks++;
+      }
+    });
+    try {
+      pool.queue({});
+      await pool.idle();
+      expect(failures).to.deep.equal([]);
+      expect(checks).to.equal(2);
+    } finally {
+      await pool.close();
+    }
+    const context = await driver.launchContext();
+    try {
+      const page = await context.newPage();
+      await page.goto(host);
+      expect(await page.evaluate(async () => {
+        try {
+          await fetch('/advert.js');
+          return false;
+        } catch {
+          return true;
+        }
+      })).to.equal(true);
+    } finally {
+      await context.close();
+    }
+  });
 
   it('Should evaluate a url', async function () {
     const qualweb = makeQualweb();

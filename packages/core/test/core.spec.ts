@@ -5,7 +5,7 @@ describe('Core', function () {
   it('Should evaluate one url', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: true, stealth: false });
 
     await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors', '--no-sandbox'] });
     const url = 'https://ciencias.ulisboa.pt';

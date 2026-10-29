@@ -1,0 +1,37 @@
+{
+  "name": "@qualweb/puppeteer-driver",
+  "version": "0.1.0",
+  "description": "Opt-in Puppeteer backend for QualWeb",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "license": "ISC",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.prod.json",
+    "test": "mocha",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@qualweb/core": "^0.9.5"
+  },
+  "dependencies": {
+    "puppeteer": "^25.16.0",
+    "puppeteer-cluster": "^0.25.0"
+  },
+  "devDependencies": {
+    "@qualweb/core": "0.9.5",
+    "@tsconfig/recommended": "^1.0.3",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^22.0.0",
+    "chai": "4.5.0",
+    "mocha": "^10.2.0",
+    "playwright": "^1.64.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

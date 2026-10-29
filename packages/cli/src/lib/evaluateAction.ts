@@ -5,7 +5,7 @@ import { ActRuleOptions } from './options/actRules';
 import { BestPracticesOptions } from './options/bestPractices';
 import { InputOptions } from './options/input';
 import { OutputOptions } from './options/output';
-import { PuppeteerOptions } from './options/puppeteer';
+import { BrowserOptions } from './options/browser';
 import { ViewportOptions } from './options/viewport';
 import { WcagTechniqueOptions } from './options/wcagTechniques';
 import { ModuleOptionsEnum } from './types';
@@ -27,7 +27,7 @@ type ParsedCommandOptions = { module: ModuleOptionsEnum[] }
   & InputOptions
   & OutputOptions
   & ViewportOptions
-  & PuppeteerOptions
+  & BrowserOptions
   & ActRuleOptions
   & WcagTechniqueOptions
   & BestPracticesOptions
@@ -189,9 +189,9 @@ class QualwebOptionsBuilder {
   }
 
   /**
-   * Transfers Puppeteer options to the QualwebOptions object.
+   * Transfers browser options to the QualwebOptions object.
    */
-  protected validatePuppeteerOptions(): void {
+  protected validateBrowserOptions(): void {
     this.qualwebOptions.maxParallelEvaluations = this.opts.maxParallelEvaluations;
     this.qualwebOptions.waitUntil = this.opts.waitUntil;
     this.qualwebOptions.timeout = this.opts.timeout;
@@ -216,7 +216,7 @@ class QualwebOptionsBuilder {
   public parse(): void {
     // Process simple options.
     this.validateViewportOptions();
-    this.validatePuppeteerOptions();
+    this.validateBrowserOptions();
     this.validateInputOptions();
 
     // Process options that require a validation check. If any of these return
@@ -280,9 +280,12 @@ export async function EvaluateAction(this: Command): Promise<void> {
 
   await qw.start();
 
-  const reports = await qw.evaluate(qwOptions);
-
-  await qw.stop();
+  let reports;
+  try {
+    reports = await qw.evaluate(qwOptions);
+  } finally {
+    await qw.stop();
+  }
 
   // Return data to user.
 

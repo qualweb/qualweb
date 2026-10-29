@@ -18,7 +18,12 @@ As a base example, here's how to install core and the ACT rules module. The proc
 
 ```shell
   $ npm i --save @qualweb/core @qualweb/act-rules
+  $ npx playwright install chromium
 ```
+
+Requires Node.js 20 or newer. Playwright Chromium is the default browser.
+See the [migration guide](../../README.md#intentional-migration-differences) for
+intentional breaking changes and the separate optional Puppeteer backend.
 
 ## How to run
 
@@ -27,13 +32,9 @@ import { QualWeb } from '@qualweb/core';
 import { ACTRules } from '@qualweb/act-rules';
 
 async function main() {
-  // First, initialize QualWeb. In this step, you can also enable the use of
-  // some Puppeteer plugins that may help in the evaluation process.
+  // Optionally enable ads, tracking, and annoyances blocking.
   const qualweb = new QualWeb({
-    // Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-adblocker
     adBlock: true, // Default value = false
-    // Check https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth
-    stealth: true // Default value = false
   });
 
   // Also create an instance of the evaluation module(s) you want to run.
@@ -41,7 +42,7 @@ async function main() {
     // See @qualweb/act-rules for options.
   });
 
-  // Then, start the QualWeb core proper. This starts puppeteer and makes core
+  // Then, start the QualWeb core proper. This starts Playwright and makes core
   // ready to run evaluations.
 
   await qualweb.start(
@@ -50,8 +51,6 @@ async function main() {
       maxConcurrency: 5,
       // Timeout for reaching remote URLs. Default = 30 seconds.
       timeout: 60 * 1000,
-      // Displays diagnost information in stdout/terminal. Default = false
-      monitor: true,
     },
     {
       // Disable headless mode (i.e. show a browser window) for evaluations.
@@ -63,7 +62,7 @@ async function main() {
   const urlToEvaluate = 'https://www.w3.org/WAI/standards-guidelines/act/rules/';
 
   // QualWeb stores resulting reports in a POJO, keyed by the URL.
-  const reports = qualweb.evaluate({
+  const reports = await qualweb.evaluate({
     url: urlToEvaluate,
     // Set the modules to be run here. Each module will be run once for each URL
     // that QualWeb visits. In this example, just `urlToEvaluate`.
@@ -76,7 +75,7 @@ async function main() {
 
   console.debug(urlReport.metadata);
 
-  // Remember to stop QualWeb once you're done. This closes the Puppeteer
+  // Remember to stop QualWeb once you're done. This closes the Playwright
   // instance.
   await qualweb.stop();
 }
@@ -356,7 +355,7 @@ Sometimes, some webpages fail to evaluate, or the evaluation may take a really l
 - The URL is correct, and it uses http or https, or www, or both;
 - The webpage exists;
 - If using https, that the certificate is valid;
-  - If you really want to evaluate the page with an invalid certificate, add "--ignore-certificate-errors" to the `args` in qualweb puppeteer launch options.
+  - If you really want to evaluate the page with an invalid certificate, add "--ignore-certificate-errors" to the `args` in QualWeb's Chromium launch options.
 - The webpage is not password protected. Consider adding a small plugin to set authorization cookies as an option.
 - The webpage is an [HTML Document](https://dom.spec.whatwg.org/#concept-document).
 

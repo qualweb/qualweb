@@ -5,7 +5,7 @@ import type {
   DriverViewport,
   EvaluateFunction,
   NavigationOptions,
-} from '@qualweb/core';
+} from '../types';
 import { mapLoadEvent } from './lifecycle';
 
 const DEFAULT_VIEWPORT: Required<Omit<DriverViewport, 'deviceScaleFactor'>> & { deviceScaleFactor: number } = {
@@ -46,20 +46,31 @@ export class PlaywrightDriverPage implements DriverPage {
     private readonly browser: Browser,
     context: BrowserContext,
     page: Page,
-    private readonly browserUserAgent: string
+    private readonly browserUserAgent: string,
+    private readonly setupPage?: (page: Page) => Promise<void>
   ) {
     this.context = context;
     this.page = page;
     this.viewportState = { ...DEFAULT_VIEWPORT };
   }
 
-  public static async create(browser: Browser, browserUserAgent: string): Promise<PlaywrightDriverPage> {
+  public static async create(
+    browser: Browser,
+    browserUserAgent: string,
+    setupPage?: (page: Page) => Promise<void>
+  ): Promise<PlaywrightDriverPage> {
     const context = await browser.newContext({
       bypassCSP: true,
       viewport: { width: DEFAULT_VIEWPORT.width, height: DEFAULT_VIEWPORT.height }
     });
-    const page = await context.newPage();
-    return new PlaywrightDriverPage(browser, context, page, browserUserAgent);
+    try {
+      const page = await context.newPage();
+      await setupPage?.(page);
+      return new PlaywrightDriverPage(browser, context, page, browserUserAgent, setupPage);
+    } catch (error) {
+      await context.close();
+      throw error;
+    }
   }
 
   /**
@@ -248,8 +259,17 @@ export class PlaywrightDriverPage implements DriverPage {
       options.deviceScaleFactor = this.viewportState.deviceScaleFactor;
     }
 
-    this.context = await this.browser.newContext(options);
-    this.page = await this.context.newPage();
+    const context = await this.browser.newContext(options);
+    let page: Page;
+    try {
+      page = await context.newPage();
+      await this.setupPage?.(page);
+    } catch (error) {
+      await context.close();
+      throw error;
+    }
+    this.context = context;
+    this.page = page;
     this.hasDocument = false;
 
     if (this.dismissingDialogs) {

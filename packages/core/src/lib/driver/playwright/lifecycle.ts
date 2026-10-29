@@ -1,4 +1,4 @@
-import type { LoadEvent } from '@qualweb/core';
+import type { LoadEvent } from '../types';
 
 /**
  * Playwright's own life cycle event union.

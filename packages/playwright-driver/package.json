@@ -35,17 +35,21 @@
   "author": "Jeff Witt",
   "license": "ISC",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "@qualweb/core": "^0.9.4",
-    "playwright": ">=1.40.0"
+    "@qualweb/core": "^0.9.5",
+    "playwright": ">=1.64.1"
   },
   "devDependencies": {
+    "@ghostery/adblocker-playwright": "^2.20.3",
     "@koa/router": "^12.0.1",
     "@qualweb/act-rules": "0.8.6",
+    "@qualweb/best-practices": "0.7.13",
+    "@qualweb/counter": "0.3.5",
     "@qualweb/core": "^0.9.4",
     "@qualweb/locale": "0.2.3",
+    "@qualweb/wcag-techniques": "0.4.9",
     "@tsconfig/recommended": "^1.0.3",
     "@types/chai": "^4.3.16",
     "@types/koa": "^2.14.0",
@@ -55,10 +59,11 @@
     "chai": "4.5.0",
     "koa": "^2.15.0",
     "mocha": "^10.2.0",
-    "playwright": "^1.61.1",
+    "playwright": "^1.64.1",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "@qualweb/puppeteer-driver": "0.1.0"
   }
 }

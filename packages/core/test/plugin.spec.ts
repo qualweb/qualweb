@@ -1,7 +1,7 @@
 import { QualWeb, QualwebOptions } from '../src';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
-import { Cookie, Page } from 'puppeteer';
+import { Cookie, Page } from 'playwright';
 
 describe('Plugins', function () {
   // All tests seem to be somewhat time sensitive. 10 seconds *should* be enough
@@ -215,13 +215,15 @@ describe('Plugins', function () {
 
     qualweb.use({
       beforePageLoad: async (page) => {
-        // Cookie management is driver-specific, so reach through the
-        // escape hatch to the underlying Puppeteer page.
-        await (page.nativePage as Page).setCookie(testCookie);
+        await (page.nativePage as Page).context().addCookies([{
+          name: testCookie.name,
+          value: testCookie.value,
+          url: testCookie.url,
+        }]);
       },
       afterPageLoad: async (page) => {
         // Retrieve the cookies for our test URL.
-        cookies = await (page.nativePage as Page).cookies(testCookie.url);
+        cookies = await (page.nativePage as Page).context().cookies(testCookie.url);
       },
     });
 

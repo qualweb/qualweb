@@ -4,7 +4,7 @@
     /* Basic Options */
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
-    "module": "Node16",
+    "module": "NodeNext",
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
@@ -28,7 +28,7 @@
     "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
 
     /* Module Resolution Options */
-    "moduleResolution": "Node16",
+    "moduleResolution": "NodeNext",
 
     "types": ["node", "mocha"] /* Type declaration files to be included in compilation. */,
   },

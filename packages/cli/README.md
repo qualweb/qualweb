@@ -1,5 +1,11 @@
 # QualWeb CLI
 
+Requires Node.js 20 or newer. Evaluations use Playwright Chromium by default.
+After installing the CLI, run `npx playwright install chromium` before the first
+evaluation (on Linux CI, use `--with-deps`). The CLI does not install Puppeteer
+or the abandoned stealth/adblock plugins. See the
+[migration guide](../../README.md#intentional-migration-differences).
+
 QualWeb command line interface. It allows you to perform accessibility evaluations from the terminal. It uses the [@qualweb/core](https://github.com/qualweb/core) that contains 3 evaluation modules:
 
 - [@qualweb/act-rules](https://github.com/qualweb/act-rules)

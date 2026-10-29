@@ -34,7 +34,7 @@ describe('Log', function () {
   it('Should log to file', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: true, stealth: false });
 
     await qualweb.start(undefined, { headless: true, args: ['--ignore-certificate-errors'] });
 
@@ -56,9 +56,9 @@ describe('Log', function () {
   it('Should log to console', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: true, stealth: false });
 
-    await qualweb.start({ monitor: true }, {
+    await qualweb.start({ monitor: false }, {
       headless: true,
       args: ['--ignore-certificate-errors'],
     });
@@ -81,9 +81,9 @@ describe('Log', function () {
   it('Should log to console 2', async function () {
     this.timeout(0);
 
-    const qualweb = new QualWeb({ adBlock: true, stealth: true });
+    const qualweb = new QualWeb({ adBlock: true, stealth: false });
 
-    await qualweb.start({ monitor: true }, {
+    await qualweb.start({ monitor: false }, {
       headless: true,
       args: ['--ignore-certificate-errors'],
     });

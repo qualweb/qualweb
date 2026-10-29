@@ -1,20 +1,17 @@
-import type { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
+import type { LaunchOptions } from 'puppeteer';
+import puppeteer from 'puppeteer';
 import { Cluster } from 'puppeteer-cluster';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import AdBlocker from 'puppeteer-extra-plugin-adblocker';
-import type { ClusterOptions } from '../../ClusterOptions';
-import type { PuppeteerPlugins } from '../../PuppeteerPlugins';
+import type { ClusterOptions } from '@qualweb/core/lib';
 import type {
   Driver,
   DriverContext,
   DriverContextPage,
   DriverPool,
   EvaluationJobData,
-} from '../types';
+} from '@qualweb/core';
 import { PuppeteerDriverPage } from './PuppeteerDriverPage';
 
-export type PuppeteerLaunchOptions = LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions;
+export type PuppeteerLaunchOptions = LaunchOptions;
 
 /**
  * {@link DriverPool} implementation backed by puppeteer-cluster.
@@ -46,28 +43,18 @@ class PuppeteerDriverPool implements DriverPool {
 }
 
 /**
- * The default QualWeb {@link Driver}, backed by Puppeteer (via
- * puppeteer-extra) and puppeteer-cluster.
+ * Opt-in QualWeb driver backed by maintained Puppeteer and puppeteer-cluster.
  */
 export class PuppeteerDriver implements Driver {
   /**
-   * @param options.plugins - puppeteer-extra plugins to enable (stealth and/or adblock).
    * @param options.launchOptions - Puppeteer launch options. Options passed to
    * `QualWeb.start()` take precedence over these.
    */
   constructor(
     private readonly options?: {
-      plugins?: PuppeteerPlugins;
       launchOptions?: PuppeteerLaunchOptions;
     }
-  ) {
-    if (options?.plugins?.stealth) {
-      puppeteer.use(StealthPlugin());
-    }
-    if (options?.plugins?.adBlock) {
-      puppeteer.use(AdBlocker({ blockTrackersAndAnnoyances: true }));
-    }
-  }
+  ) {}
 
   public async launchPool(clusterOptions?: ClusterOptions, browserOptions?: unknown): Promise<DriverPool> {
     const cluster = await Cluster.launch({

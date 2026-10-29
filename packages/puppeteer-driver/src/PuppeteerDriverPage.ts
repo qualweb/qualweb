@@ -5,7 +5,7 @@ import type {
   DriverViewport,
   EvaluateFunction,
   NavigationOptions,
-} from '../types';
+} from '@qualweb/core';
 
 /**
  * {@link DriverPage} implementation backed by a Puppeteer {@link Page}.
@@ -50,7 +50,20 @@ export class PuppeteerDriverPage implements DriverPage {
   }
 
   public async setContent(html: string, options?: NavigationOptions): Promise<void> {
-    await this.page.setContent(html, options);
+    const events = options?.waitUntil === undefined
+      ? ['load' as const]
+      : Array.isArray(options.waitUntil) ? options.waitUntil : [options.waitUntil];
+    const networkIdle = events.includes('networkidle0') || events.includes('networkidle2');
+    await this.page.setContent(html, {
+      timeout: options?.timeout,
+      waitUntil: events.filter((event) => event === 'load' || event === 'domcontentloaded'),
+    });
+    if (networkIdle) {
+      await this.page.waitForNetworkIdle({
+        timeout: options?.timeout,
+        concurrency: events.includes('networkidle0') ? 0 : 2,
+      });
+    }
   }
 
   public content(): Promise<string> {

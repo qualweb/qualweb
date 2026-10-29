@@ -70,7 +70,7 @@ export type QualwebOptions = {
   waitUntil?: LoadEvent | LoadEvent[];
 
   /**
-   * Override the viewport used by Puppeteer.
+   * Override the browser viewport.
    */
   viewport?: PageOptions;
 
