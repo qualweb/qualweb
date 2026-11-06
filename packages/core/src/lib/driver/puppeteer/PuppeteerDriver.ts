@@ -1,101 +1,47 @@
-import type { LaunchOptions, BrowserLaunchArgumentOptions, BrowserConnectOptions } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
-import { Cluster } from 'puppeteer-cluster';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import AdBlocker from 'puppeteer-extra-plugin-adblocker';
 import type { ClusterOptions } from '../../ClusterOptions';
-import type { PuppeteerPlugins } from '../../PuppeteerPlugins';
-import type {
-  Driver,
-  DriverContext,
-  DriverContextPage,
-  DriverPool,
-  EvaluationJobData,
-} from '../types';
-import { PuppeteerDriverPage } from './PuppeteerDriverPage';
+import type { Driver, DriverContext, DriverPool } from '../types';
+import { createDriverContext } from './browser/createDriverContext';
+import { registerPlugins } from './browser/registerPlugins';
+import { resolveChrome } from './browser/resolveChrome';
+import type { PuppeteerDriverOptions, PuppeteerLaunchOptions } from './PuppeteerDriverOptions';
+import { createPoolStrategy } from './strategy/createPoolStrategy';
+import type { PoolStrategy } from './strategy/PoolStrategy';
 
-export type PuppeteerLaunchOptions = LaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions;
+export type { PuppeteerDriverOptions, PuppeteerLaunchOptions } from './PuppeteerDriverOptions';
 
 /**
- * {@link DriverPool} implementation backed by puppeteer-cluster.
- */
-class PuppeteerDriverPool implements DriverPool {
-  constructor(private readonly cluster: Cluster) {}
-
-  public async task(handler: (page: PuppeteerDriverPage, data: EvaluationJobData) => Promise<void>): Promise<void> {
-    await this.cluster.task(async ({ page, data }) => {
-      await handler(new PuppeteerDriverPage(page), data ?? {});
-    });
-  }
-
-  public queue(data: EvaluationJobData): void {
-    this.cluster.queue(data);
-  }
-
-  public idle(): Promise<void> {
-    return this.cluster.idle();
-  }
-
-  public close(): Promise<void> {
-    return this.cluster.close();
-  }
-
-  public onTaskError(handler: (error: Error, data: EvaluationJobData) => void): void {
-    this.cluster.on('taskerror', handler);
-  }
-}
-
-/**
- * The default QualWeb {@link Driver}, backed by Puppeteer (via
- * puppeteer-extra) and puppeteer-cluster.
+ * The default QualWeb {@link Driver}, backed by Puppeteer via puppeteer-extra.
+ * 
+ * Pool behavior is determined by the {@link PoolStrategy} selected through the
+ * `useCluster` flag. Chrome instances (local or remote) are configured via
+ * launch options or `chromeUrl`.
+ *
+ * @example
+ * ```typescript
+ * const driver = new PuppeteerDriver({
+ *   useCluster: true,
+ *   launchOptions: { browserWSEndpoint: 'ws://browserless:3000' },
+ * });
+ * ```
  */
 export class PuppeteerDriver implements Driver {
-  /**
-   * @param options.plugins - puppeteer-extra plugins to enable (stealth and/or adblock).
-   * @param options.launchOptions - Puppeteer launch options. Options passed to
-   * `QualWeb.start()` take precedence over these.
-   */
-  constructor(
-    private readonly options?: {
-      plugins?: PuppeteerPlugins;
-      launchOptions?: PuppeteerLaunchOptions;
-    }
-  ) {
-    if (options?.plugins?.stealth) {
-      puppeteer.use(StealthPlugin());
-    }
-    if (options?.plugins?.adBlock) {
-      puppeteer.use(AdBlocker({ blockTrackersAndAnnoyances: true }));
-    }
+  private readonly poolStrategy: PoolStrategy;
+
+  constructor(private readonly options?: PuppeteerDriverOptions) {
+    registerPlugins(options?.plugins);
+    this.poolStrategy = createPoolStrategy(options?.useCluster);
   }
 
-  public async launchPool(clusterOptions?: ClusterOptions, browserOptions?: unknown): Promise<DriverPool> {
-    const cluster = await Cluster.launch({
-      concurrency: Cluster.CONCURRENCY_CONTEXT,
+  public launchPool(clusterOptions?: ClusterOptions, browserOptions?: unknown): Promise<DriverPool> {
+    return this.poolStrategy.launch({
+      chrome: resolveChrome(this.options, browserOptions as PuppeteerLaunchOptions | undefined),
       maxConcurrency: clusterOptions?.maxConcurrency ?? 1,
-      puppeteerOptions: (browserOptions as PuppeteerLaunchOptions) ?? this.options?.launchOptions,
-      puppeteer: puppeteer,
       timeout: clusterOptions?.timeout ?? 60 * 1000,
-      monitor: clusterOptions?.monitor ?? false
+      monitor: clusterOptions?.monitor ?? false,
     });
-
-    return new PuppeteerDriverPool(cluster);
   }
 
-  public async launchContext(): Promise<DriverContext> {
-    const browser = await puppeteer.launch(this.options?.launchOptions);
-    const incognito = await browser.createBrowserContext();
-
-    return {
-      newPage: async (): Promise<DriverContextPage> => {
-        // Puppeteer's Page satisfies DriverContextPage structurally; the cast
-        // bridges the handle-aware evaluate() generics only.
-        return (await incognito.newPage()) as unknown as DriverContextPage;
-      },
-      close: async (): Promise<void> => {
-        await incognito.close();
-        await browser.close();
-      }
-    };
+  public launchContext(): Promise<DriverContext> {
+    return createDriverContext(resolveChrome(this.options));
   }
 }

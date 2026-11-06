@@ -50,9 +50,9 @@ export class PuppeteerDriverPage implements DriverPage {
   }
 
   public async setContent(html: string, options?: NavigationOptions): Promise<void> {
-    await this.page.setContent(html, options);
+    await this.page.setContent(html, options as Parameters<Page['setContent']>[1]);
   }
-
+  
   public content(): Promise<string> {
     return this.page.content();
   }
