@@ -161,6 +161,7 @@ describe('Plugins', function () {
   });
 
   it('Should pass target URLs to a plugin', async function () {
+    this.timeout(60000);
     const targetUrls: string[] = [
       'https://ciencias.ulisboa.pt',
       'https://www.github.com',
