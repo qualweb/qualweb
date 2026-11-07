@@ -101,7 +101,9 @@
     "@qualweb/util": "0.7.2",
     "axios": "^1.7.2",
     "colors": "1.4.0",
-    "puppeteer": "^22.12.1",
+    "fingerprint-generator": "^2.1.88",
+    "fingerprint-injector": "^2.1.88",
+    "puppeteer": "^24.43.1",
     "puppeteer-cluster": "^0.24.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-adblocker": "^2.13.6",
@@ -120,5 +122,10 @@
     "ts-node": "^10.9.2",
     "typedoc": "^0.26.10",
     "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "trim": ">=0.0.3",
+    "puppeteer": "^24.43.1",
+    "puppeteer-core": "^24.43.1"
   }
 }
